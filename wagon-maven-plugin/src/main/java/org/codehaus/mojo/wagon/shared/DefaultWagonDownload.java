@@ -68,7 +68,8 @@ public class DefaultWagonDownload implements WagonDownload {
     }
 
     @Override
-    public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger) throws WagonException {
+    public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting)
+            throws WagonException {
         List<String> fileList = getFileList(wagon, remoteFileSet, logger);
 
         String url = wagon.getRepository().getUrl();
@@ -82,6 +83,10 @@ public class DefaultWagonDownload implements WagonDownload {
         for (String remoteFile : fileList) {
 
             File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
+
+            if (skipExisting && destination.exists()) {
+                logger.info("Skipping " + url + remoteFile + ". File " + destination + " already exists");
+            }
 
             if (!StringUtils.isBlank(remoteFileSet.getDirectory())) {
                 remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;

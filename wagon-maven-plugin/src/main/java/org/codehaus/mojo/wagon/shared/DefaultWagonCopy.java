@@ -57,14 +57,6 @@ public class DefaultWagonCopy implements WagonCopy {
     private WagonUpload uploader;
 
     @Override
-    public void copyToLocal(Wagon wagon, WagonFileSet wagonFileSet, Log logger) throws WagonException {
-        if (wagonFileSet == null) {
-            wagonFileSet = new WagonFileSet();
-        }
-        downloader.download(wagon, wagonFileSet, logger);
-    }
-
-    @Override
     public void copy(Wagon src, WagonFileSet wagonFileSet, Wagon target, boolean optimize, Log logger)
             throws WagonException, IOException {
         if (wagonFileSet == null) {
@@ -81,7 +73,7 @@ public class DefaultWagonCopy implements WagonCopy {
         }
 
         try {
-            downloader.download(src, wagonFileSet, logger);
+            downloader.download(src, wagonFileSet, logger, false);
 
             FileSet localFileSet = new FileSet();
             localFileSet.setDirectory(wagonFileSet.getDownloadDirectory().getAbsolutePath());

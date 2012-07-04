@@ -84,7 +84,7 @@ public class DefaultMavenRepoMerger implements MavenRepoMerger {
         srcFileSet.setExcludes(excludes);
 
         try {
-            downloader.download(src, srcFileSet, logger);
+            downloader.download(src, srcFileSet, logger, false);
 
             // merge metadata
             DirectoryScanner scanner = new DirectoryScanner();

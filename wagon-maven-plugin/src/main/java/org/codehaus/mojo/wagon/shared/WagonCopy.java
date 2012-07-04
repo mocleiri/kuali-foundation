@@ -28,11 +28,6 @@ public interface WagonCopy {
     String ROLE = WagonCopy.class.getName();
 
     /**
-     * Transfer files from a Maven repository to the local file system
-     */
-    void copyToLocal(Wagon wagon, WagonFileSet fileset, Log logger) throws WagonException;
-
-    /**
      * Transfer files between 2 Wagon URLs. If download directory is not given in the fileset a temporary one will be
      * created.
      *

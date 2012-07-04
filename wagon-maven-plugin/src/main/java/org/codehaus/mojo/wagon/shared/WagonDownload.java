@@ -62,7 +62,8 @@ public interface WagonDownload {
      * @param logger
      * @throws WagonException
      */
-    public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger) throws WagonException;
+    public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger, boolean skipExisting)
+            throws WagonException;
 
     /**
      *
