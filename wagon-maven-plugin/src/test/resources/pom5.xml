@@ -44,7 +44,7 @@
           <configuration>
             <url>s3://maven.kuali.org/external</url>
             <serverId>kuali.release</serverId>
-            <includes>org/kuali/ole/**</includes>
+            <includes>org/kuali/**</includes>
             <toDir>${user.home}/.m2/repo-copy</toDir>
             <skipExisting>true</skipExisting>
           </configuration>
