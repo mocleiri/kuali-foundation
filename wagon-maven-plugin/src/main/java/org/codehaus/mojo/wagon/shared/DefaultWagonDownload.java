@@ -32,7 +32,6 @@ package org.codehaus.mojo.wagon.shared;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -50,7 +49,7 @@ public class DefaultWagonDownload implements WagonDownload {
 
     @Override
     public List<String> getFileList(Wagon wagon, WagonFileSet fileSet, Log logger) throws WagonException {
-        logger.info("Scanning remote file system: " + wagon.getRepository().getUrl());
+        logger.info("Scanning repository - " + wagon.getRepository().getUrl());
 
         WagonDirectoryScanner dirScan = new WagonDirectoryScanner();
         dirScan.setLogger(logger);
@@ -70,17 +69,17 @@ public class DefaultWagonDownload implements WagonDownload {
 
     @Override
     public void download(Wagon wagon, WagonFileSet remoteFileSet, Log logger) throws WagonException {
-        List<?> fileList = this.getFileList(wagon, remoteFileSet, logger);
+        List<String> fileList = getFileList(wagon, remoteFileSet, logger);
 
-        String url = wagon.getRepository().getUrl() + "/";
+        String url = wagon.getRepository().getUrl();
+        url = url.endsWith("/") ? url : url + "/";
 
         if (fileList.size() == 0) {
             logger.info("Nothing to download.");
             return;
         }
 
-        for (Iterator<?> iterator = fileList.iterator(); iterator.hasNext();) {
-            String remoteFile = (String) iterator.next();
+        for (String remoteFile : fileList) {
 
             File destination = new File(remoteFileSet.getDownloadDirectory() + "/" + remoteFile);
 
@@ -88,7 +87,7 @@ public class DefaultWagonDownload implements WagonDownload {
                 remoteFile = remoteFileSet.getDirectory() + "/" + remoteFile;
             }
 
-            logger.info("Downloading " + url + remoteFile + " to " + destination + " ...");
+            logger.info("Downloading " + url + remoteFile + " to " + destination);
             try {
                 FileUtils.touch(destination);
             } catch (IOException e) {
