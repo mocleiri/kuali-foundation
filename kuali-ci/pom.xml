@@ -216,7 +216,7 @@
                     <url>s3://maven.kuali.org/release</url>
                     <serverId>kuali.release</serverId>
                     <includes>org/kuali/rice/*/2.1.0/**</includes>
-                    <excludes>**/1.0.3-BX/**</excludes>
+                    <excludes>**/1.0.3-BX/**,**/rice-dist*/**</excludes>
                     <skipExisting>true</skipExisting>
                     <toDir>/var/lib/jenkins/m2/repository</toDir>
                   </configuration>
