@@ -226,7 +226,7 @@
     <profile>
       <id>update</id>
       <properties>
-        <wagon.excludes>**/maven-metadata.xml,**/1.0.3-BX/**,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</wagon.excludes>
+        <wagon.excludes>**/maven-metadata.xml,**/rice-dist*/**,**/*-javadoc.*,**/*.asc*,**/*.sha1*,**/*.md5*</wagon.excludes>
         <wagon.toDir>/var/lib/jenkins/m2/repository</wagon.toDir>
       </properties>
       <build>
