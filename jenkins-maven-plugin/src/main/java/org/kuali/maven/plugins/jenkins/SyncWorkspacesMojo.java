@@ -270,6 +270,7 @@ public class SyncWorkspacesMojo extends AbstractMojo {
         List<Job> syncJobs = getSyncJobs(jobs, trackedJobs);
         int skipped = jobs.size() - syncJobs.size();
         getLog().info("Skipping " + skipped + " jobs");
+        getLog().info("Synchronizing " + syncJobs.size() + " jobs");
         execute(syncJobs);
     }
 
