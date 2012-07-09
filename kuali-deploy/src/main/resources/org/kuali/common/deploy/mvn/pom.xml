@@ -120,7 +120,7 @@
                   <arg>initialize</arg>
                   <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
-                <poms>${poms.reset.gav}</poms>
+                <poms>${poms.reset}</poms>
               </configuration>
             </execution>
             <execution>
