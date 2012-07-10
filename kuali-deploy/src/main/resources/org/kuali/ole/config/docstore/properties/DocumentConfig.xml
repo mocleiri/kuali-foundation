@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentConfig>
+	<documentCategory id="work" name="Work">
+		<documentType id="bibliographic" name="Bibliographic">
+			<documentFormat id="all" name="ALL">
+				<field id="Title_search" name="Title" type="text" />
+				<field id="Author_search" name="Author" type="text" />
+				<field id="Subject_search" name="Subject" type="text" />
+				<field id="Description_search" name="Description" type="text" />
+				<field id="PublicationDate_search" name="Date of Publication" type="text" />
+				<field id="Format_search" name="Format" type="text" />
+				<field id="Language_search" name="Language" type="text" />
+				<field id="Publisher_search" name="Publisher" type="text" />
+				<field id="common_identifier_search" name="ISBN/ISSN" type="text" />
+			</documentFormat>
+			<documentFormat id="marc" name="MARC">
+				<field id="ISBN_display" name="ISBN" type="text">
+					<mapping type="custom">
+						<include>020-a;z</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISBN_search" name="ISBN" type="text">
+					<mapping type="custom">
+						<include>020-a;z</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISSN_display" name="ISSN" type="text">
+					<mapping type="custom">
+						<include>022-a;z</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISSN_search" name="ISSN" type="text">
+					<mapping type="custom">
+						<include>022-a;z</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_display" name="Author/Creator" type="text">
+					<mapping type="custom">
+						<include>100-a,110-a,111-a,700-a,710-a,711-a,800-a,810-a,811-a,400-a,410-a,411-a</include>
+						<exclude>100-6,110-6,111-t,700-t,710-t,711-t,800-t,810-t,811-t,400-t,410-t,411-t</exclude>
+					</mapping>
+				</field>
+				<field id="Author_search" name="Author/Creator" type="text">
+					<mapping type="custom">
+						<include>100,110,111,700,710,711,800,810,811,400,410,411</include>
+						<exclude>100-6,110-6,111-t,700-t,710-t,711-t,800-t,810-t,811-t,400-t,410-t,411-t</exclude>
+					</mapping>
+				</field>
+				<field id="Author_facet" name="Author/Creator" type="text">
+					<mapping type="custom">
+						<include>100-a,110-a,111-a,700-a,710-a,711-a,800-a,810-a,811-a,400-a,410-a,411-a</include>
+						<exclude>100-6,110-6,111-t,700-t,710-t,711-t,800-t,810-t,811-t,400-t,410-t,411-t</exclude>
+					</mapping>
+				</field>
+				<field id="Author_sort" name="Author/Creator" type="text">
+					<mapping type="custom">
+						<include>100-a,110-a,111-a,700-a,710-a,711-a,800-a,810-a,811-a,400-a,410-a,411-a</include>
+						<exclude>100-6,110-6,111-t,700-t,710-t,711-t,800-t,810-t,811-t,400-t,410-t,411-t</exclude>
+					</mapping>
+				</field>
+				<field id="Title_display" name="Title" type="text">
+					<mapping type="custom">
+						<include>245-a;b</include>
+						<exclude>245-c,245-6</exclude>
+					</mapping>
+				</field>
+				<field id="Title_search" name="Title" type="text">
+					<mapping type="custom">
+						<include>245,130,240,246,247,440,490,730,740,773,774,780,785,830,840</include>
+						<exclude>
+							245-c,245-6,245-c,245-6,130-c,130-6,240-c,240-6,246-c,246-6,247-c,247-6,440-c,440-6,490-c,490-6,730-c,730-6,740-c,740-6,773-c,773-6,774-c,774-6,780-c,780-6,785-c,785-6,830-c,830-6,840-c,840-6
+						</exclude>
+					</mapping>
+				</field>
+				<field id="Title_sort" name="Title" type="text">
+					<mapping type="custom">
+						<include>245-a;b</include>
+						<exclude>245-c,245-6</exclude>
+					</mapping>
+				</field>
+				<field id="SystemControlNumber" name="Title" type="text">
+					<mapping type="custom">
+						<include>035-a</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Publisher_display" name="Publisher" type="text">
+					<mapping type="custom">
+						<include>260-a;b;c</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Publisher_search" name="Publisher" type="text">
+					<mapping type="custom">
+						<include>260-b</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_display" name="Subject" type="text">
+					<mapping type="custom">
+						<include>600-a,610-a,611-a,630-a,650-a,651-a,653-a,69*-a</include>
+						<exclude>600-6,610-6,611-6,630-6,650-6,651-6,653-6,69*-6</exclude>
+					</mapping>
+				</field>
+				<field id="Subject_search" name="Subject" type="text">
+					<mapping type="custom">
+						<include>600,610,611,630,650,651,653,69*</include>
+						<exclude>600-6,610-6,611-6,630-6,650-6,651-6,653-6,69*-6</exclude>
+					</mapping>
+				</field>
+				<field id="Subject_facet" name="Subject" type="text">
+					<mapping type="custom">
+						<include>600-a,610-a,611-a,630-a,650-a,651-a,653-a,69*-a</include>
+						<exclude>600-6,610-6,611-6,630-6,650-6,651-6,653-6,69*-6</exclude>
+					</mapping>
+				</field>
+				<field id="PublicationPlace_display" name="Place of Publication" type="text">
+					<mapping type="custom">
+						<include>260-a</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationPlace_search" name="Place of Publication" type="text">
+					<mapping type="custom">
+						<include>260-a</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Edition_display" name="Edition" type="text">
+					<mapping type="custom">
+						<include>250-a;b</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_display" name="Format" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_search" name="Format" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_facet" name="Format" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FormGenre_display" name="Form/Genre" type="text">
+					<mapping type="custom">
+						<include>655-a;v</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FormGenre_search" name="Form/Genre" type="text">
+					<mapping type="custom">
+						<include>655-a;v</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Genre_facet" name="Form/Genre" type="text">
+					<mapping type="custom">
+						<include>655-a;v</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_display" name="Language" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_search" name="Language" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_facet" name="Language" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Description_display" name="Description" type="text">
+					<mapping type="custom">
+						<include>505-a</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Description_search" name="Description" type="text">
+					<mapping type="custom">
+						<include>505-a</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Location_display" name="Location" type="text">
+					<mapping type="custom">
+						<include>856-u</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Location_search" name="Location" type="text">
+					<mapping type="custom">
+						<include>856-u</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Barcode_display" name="Barcode" type="text">
+					<mapping type="custom">
+						<include>999-i</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Barcode_search" name="Barcode" type="text">
+					<mapping type="custom">
+						<include>999-i</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_display" name="Date of Publication" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_search" name="Date of Publication" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_facet" name="Date of Publication" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_sort" name="Date of Publication" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+			<documentFormat id="dublin" name="Dublin Core">
+				<field id="Author_display" name="Author" type="text">
+					<mapping type="custom">
+						<!-- <include>//dcvalue[@element='contributor' and @qualifier='author']</include> -->
+						<include>contributor;author</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_search" name="Author" type="text">
+					<mapping type="custom">
+						<include>contributor;author</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_facet" name="Author" type="text">
+					<mapping type="custom">
+						<include>contributor;author</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_sort" name="Author" type="text">
+					<mapping type="custom">
+						<include>contributor;author</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Description_display" name="Description" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Description_search" name="Description" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_display" name="Language" type="text">
+					<mapping type="custom">
+						<include>language;iso</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_search" name="Language" type="text">
+					<mapping type="custom">
+						<include>language;iso</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_facet" name="Language" type="text">
+					<mapping type="custom">
+						<include>language;iso</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_display" name="Subject" type="text">
+					<mapping type="custom">
+						<include>subject</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_search" name="Subject" type="text">
+					<mapping type="custom">
+						<include>subject</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_facet" name="Subject" type="text">
+					<mapping type="custom">
+						<include>subject</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_display" name="Title" type="text">
+					<mapping type="custom">
+						<include>title</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_search" name="Title" type="text">
+					<mapping type="custom">
+						<include>title</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_sort" name="Title" type="text">
+					<mapping type="custom">
+						<include>title</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_display" name="Type" type="text">
+					<mapping type="custom">
+						<include>type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_search" name="Type" type="text">
+					<mapping type="custom">
+						<include>type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Genre_facet" name="Type" type="text">
+					<mapping type="custom">
+						<include>type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_display" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>date;issued</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_search" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>date;issued</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_facet" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>date;issued</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_sort" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>date;issued</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Publisher_display" name="Publisher" type="text">
+					<mapping type="custom">
+						<include>publisher</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Publisher_search" name="Publisher" type="text">
+					<mapping type="custom">
+						<include>publisher</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Identifier_display" name="ISBN/ISSN" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Identifier_search" name="ISBN/ISSN" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_display" name="Format" type="text">
+					<mapping type="custom">
+						<include>format;mimetype</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_search" name="Format" type="text">
+					<mapping type="custom">
+						<include>format;mimetype</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_facet" name="Format" type="text">
+					<mapping type="custom">
+						<include>format;mimetype</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+			<documentFormat id="dublinunq" name="Dublin Unqualified">
+				<field id="Author_display" name="Author" type="text">
+					<mapping type="custom">
+						<!-- <include>//dc:creator</include> -->
+						<include>dc:creator</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_search" name="Author" type="text">
+					<mapping type="custom">
+						<include>dc:creator</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_facet" name="Author" type="text">
+					<mapping type="custom">
+						<include>dc:creator</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Author_sort" name="Author" type="text">
+					<mapping type="custom">
+						<include>dc:creator</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Description_display" name="Description" type="text">
+					<mapping type="custom">
+						<include>dc:description</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Description_search" name="Description" type="text">
+					<mapping type="custom">
+						<include>dc:description</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_display" name="Language" type="text">
+					<mapping type="custom">
+						<include>dc:language</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_search" name="Language" type="text">
+					<mapping type="custom">
+						<include>dc:language</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Language_facet" name="Language" type="text">
+					<mapping type="custom">
+						<include>dc:language</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_display" name="Subject" type="text">
+					<mapping type="custom">
+						<include>dc:subject</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_search" name="Subject" type="text">
+					<mapping type="custom">
+						<include>dc:subject</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Subject_facet" name="Subject" type="text">
+					<mapping type="custom">
+						<include>dc:subject</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_display" name="Title" type="text">
+					<mapping type="custom">
+						<include>dc:title</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_search" name="Title" type="text">
+					<mapping type="custom">
+						<include>dc:title</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_sort" name="Title" type="text">
+					<mapping type="custom">
+						<include>dc:title</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_display" name="Type" type="text">
+					<mapping type="custom">
+						<include>dc:type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_search" name="Type" type="text">
+					<mapping type="custom">
+						<include>dc:type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Genre_facet" name="Type" type="text">
+					<mapping type="custom">
+						<include>dc:type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_display" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>dc:date</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_search" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>dc:date</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_facet" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>dc:date</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicationDate_sort" name="Publication Date" type="text">
+					<mapping type="custom">
+						<include>dc:date</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Publisher_display" name="Publisher" type="text">
+					<mapping type="custom">
+						<include>dc:publisher</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Publisher_search" name="Publisher" type="text">
+					<mapping type="custom">
+						<include>dc:publisher</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISBN_display" name="ISBN" type="text">
+					<mapping type="custom">
+						<include>dc:identifier</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISBN_search" name="ISBN" type="text">
+					<mapping type="custom">
+						<include>dc:identifier</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISSN_display" name="ISSN" type="text">
+					<mapping type="custom">
+						<include>dc:identifier</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ISSN_search" name="ISSN" type="text">
+					<mapping type="custom">
+						<include>dc:identifier</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Identifier_display" name="ISBN/ISSN" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Identifier_search" name="ISBN/ISSN" type="text">
+					<mapping type="custom">
+						<include />
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_display" name="Format" type="text">
+					<mapping type="custom">
+						<include>dc:format</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_search" name="Format" type="text">
+					<mapping type="custom">
+						<include>dc:format</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Format_facet" name="Format" type="text">
+					<mapping type="custom">
+						<include>dc:format</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Coverage_display" name="Coverage" type="text">
+					<mapping type="custom">
+						<include>dc:coverage</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Coverage_search" name="Coverage" type="text">
+					<mapping type="custom">
+						<include>dc:coverage</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Relation_display" name="Relation" type="text">
+					<mapping type="custom">
+						<include>dc:relation</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Relation_search" name="Relation" type="text">
+					<mapping type="custom">
+						<include>dc:relation</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+		</documentType>
+		<documentType id="license" name="License">
+			<documentFormat id="all" name="ALL">
+			</documentFormat>
+			<documentFormat id="onixpl" name="ONIXPL">
+				<field id="Title_display" name="Title" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/licenseDetail/description/value</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Title_search" name="Title" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/licenseDetail/description/value</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ContractNumber_display" name="Contract Number" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/licenseDetail/licenseIdentifier/IDValue/value</include>
+					</mapping>
+				</field>
+				<field id="ContractNumber_search" name="Contract Number" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/licenseDetail/licenseIdentifier/IDValue/value</include>
+					</mapping>
+				</field>
+				<field id="Licensee_display" name="Licensee" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/definitions/agentDefinition[@agentLabel/value='Licensee']/agentName/name/value</include>
+					</mapping>
+				</field>
+				<field id="Licensee_search" name="Licensee" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/definitions/agentDefinition[@agentLabel/value='Licensee']/agentName/name/value</include>
+					</mapping>
+				</field>
+				<field id="Licensor_display" name="Licensor" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/definitions/agentDefinition[@agentLabel/value='Publisher'|'Licensor']/agentName/name/value</include>
+					</mapping>
+				</field>
+				<field id="Licensor_search" name="Licensor" type="text">
+					<mapping type="xpath">
+						<include>/publicationsLicenseExpression/definitions/agentDefinition[@agentLabel/value='Publisher'|'Licensor']/agentName/name/value</include>
+					</mapping>
+				</field>
+				<field id="Status_display" name="Status" type="text">
+					<mapping type="xpath">
+						<include>/request/requestDocuments/ingestDocument/additionalAttributes/status</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Status_search" name="Status" type="text">
+					<mapping type="xpath">
+						<include>/request/requestDocuments/ingestDocument/additionalAttributes/status</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Method_display" name="Method" type="text">
+					<mapping type="xpath">
+						<include>/request/requestDocuments/ingestDocument/additionalAttributes/method</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Method_search" name="Method" type="text">
+					<mapping type="xpath">
+						<include>/request/requestDocuments/ingestDocument/additionalAttributes/method</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_display" name="Type" type="text">
+					<mapping type="xpath">
+						<include>/request/requestDocuments/ingestDocument/additionalAttributes/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_search" name="Type" type="text">
+					<mapping type="xpath">
+						<include>/request/requestDocuments/ingestDocument/additionalAttributes/type</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+			<documentFormat id="pdf" name="PDF">
+				<field id="Type_display" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_search" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Name_display" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/name</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Name_search" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/name</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FileName_display" name="File Name" type="text">
+					<mapping type="xpath">
+						<include>/fileName</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FileName_search" name="File Name" type="text">
+					<mapping type="xpath">
+						<include>/fileName</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="DateUploaded_display" name="Date Uploaded" type="text">
+					<mapping type="xpath">
+						<include>/dateUploaded</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="DateUploaded_search" name="Date Uploaded" type="text">
+					<mapping type="xpath">
+						<include>/dateUploaded</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Owner_display" name="Owner" type="text">
+					<mapping type="xpath">
+						<include>/owner</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Owner_search" name="Owner" type="text">
+					<mapping type="xpath">
+						<include>/owner</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Notes_display" name="Notes" type="text">
+					<mapping type="xpath">
+						<include>/notes</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Notes_search" name="Notes" type="text">
+					<mapping type="xpath">
+						<include>/notes</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+			<documentFormat id="doc" name="DOC">
+				<field id="Type_display" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_search" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Name_display" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/name</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Name_search" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/name</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FileName_display" name="File Name" type="text">
+					<mapping type="xpath">
+						<include>/fileName</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FileName_search" name="File Name" type="text">
+					<mapping type="xpath">
+						<include>/fileName</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="DateUploaded_display" name="Date Uploaded" type="text">
+					<mapping type="xpath">
+						<include>/dateUploaded</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="DateUploaded_search" name="Date Uploaded" type="text">
+					<mapping type="xpath">
+						<include>/dateUploaded</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Owner_display" name="Owner" type="text">
+					<mapping type="xpath">
+						<include>/owner</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Owner_search" name="Owner" type="text">
+					<mapping type="xpath">
+						<include>/owner</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Notes_display" name="Notes" type="text">
+					<mapping type="xpath">
+						<include>/notes</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Notes_search" name="Notes" type="text">
+					<mapping type="xpath">
+						<include>/notes</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+			<documentFormat id="xslt" name="XSLT">
+				<field id="Type_display" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Type_search" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/type</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Name_display" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/name</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Name_search" name="Name" type="text">
+					<mapping type="xpath">
+						<include>/name</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FileName_display" name="File Name" type="text">
+					<mapping type="xpath">
+						<include>/fileName</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="FileName_search" name="File Name" type="text">
+					<mapping type="xpath">
+						<include>/fileName</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="DateUploaded_display" name="Date Uploaded" type="text">
+					<mapping type="xpath">
+						<include>/dateUploaded</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="DateUploaded_search" name="Date Uploaded" type="text">
+					<mapping type="xpath">
+						<include>/dateUploaded</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Owner_display" name="Owner" type="text">
+					<mapping type="xpath">
+						<include>/owner</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Owner_search" name="Owner" type="text">
+					<mapping type="xpath">
+						<include>/owner</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Notes_display" name="Notes" type="text">
+					<mapping type="xpath">
+						<include>/notes</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Notes_search" name="Notes" type="text">
+					<mapping type="xpath">
+						<include>/notes</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+		</documentType>
+		<documentType id="instance" name="Instance">
+			<documentFormat id="oleml" name="OLEML">
+				<field id="Source_display" name="Source" type="text">
+					<mapping type="xpath">
+						<include>/formerResourceIdentifiers/source</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Source_search" name="Source" type="text">
+					<mapping type="xpath">
+						<include>/formerResourceIdentifiers/source</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+		</documentType>
+		<documentType id="holdings" name="Instance Holding">
+			<documentFormat id="oleml" name="OLEML">
+				<field id="RecordType_display" name="Record Type" type="text">
+					<mapping type="xpath">
+						<include>/recordType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="RecordType_search" name="Record Type" type="text">
+					<mapping type="xpath">
+						<include>/recordType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="EncodingLevel_display" name="Encoding Level" type="text">
+					<mapping type="xpath">
+						<include>/encodingLevel</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="EncodingLevel_search" name="Encoding Level" type="text">
+					<mapping type="xpath">
+						<include>/encodingLevel</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ReceiptStatus_display" name="Receipt Status" type="text">
+					<mapping type="xpath">
+						<include>/receiptStatus</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ReceiptStatus_search" name="Receipt Status" type="text">
+					<mapping type="xpath">
+						<include>/receiptStatus</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="AcquisitionMethod_display" name="Acquisition Method" type="text">
+					<mapping type="xpath">
+						<include>/acquisitionMethod</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="AcquisitionMethod_search" name="Acquisition Method" type="text">
+					<mapping type="xpath">
+						<include>/acquisitionMethod</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ExpectedAcquisitionEndDate_display" name="Expected Acquisition EndDate" type="text">
+					<mapping type="xpath">
+						<include>/expectedAcquisitionEndDate</include>
+					</mapping>
+				</field>
+				<field id="GeneralRetentionPolicy_display" name="General Retention Policy" type="text">
+					<mapping type="xpath">
+						<include>/generalRetentionPolicy</include>
+					</mapping>
+				</field>
+				<field id="PolicyType_display" name="Policy Type" type="text">
+					<mapping type="xpath">
+						<include>/specificRetentionPolicy/policyType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PolicyType_search" name="Policy Type" type="text">
+					<mapping type="xpath">
+						<include>/specificRetentionPolicy/policyType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="NumberOfUnits_display" name="Policy Type" type="text">
+					<mapping type="xpath">
+						<include>/specificRetentionPolicy/numberOfUnits</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="NumberOfUnits_search" name="Policy Type" type="text">
+					<mapping type="xpath">
+						<include>/specificRetentionPolicy/numberOfUnits</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="UnitType_display" name="Unit Type" type="text">
+					<mapping type="xpath">
+						<include>/specificRetentionPolicy/unitType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="UnitType_search" name="Unit Type" type="text">
+					<mapping type="xpath">
+						<include>/specificRetentionPolicy/unitType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Completeness_display" name="Completeness" type="text">
+					<mapping type="xpath">
+						<include>/completeness</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Completeness_search" name="Completeness" type="text">
+					<mapping type="xpath">
+						<include>/completeness</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="CopiesReported_display" name="Copies Reported" type="text">
+					<mapping type="xpath">
+						<include>/copiesReported</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="CopiesReported_search" name="Copies Reported" type="text">
+					<mapping type="xpath">
+						<include>/copiesReported</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LendingPolicy_display" name="Lending Policy" type="text">
+					<mapping type="xpath">
+						<include>/lendingPolicy</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LendingPolicy_search" name="Lending Policy" type="text">
+					<mapping type="xpath">
+						<include>/lendingPolicy</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ReproductionPolicy_display" name="Reproduction Policy" type="text">
+					<mapping type="xpath">
+						<include>/reproductionPolicy</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ReproductionPolicy_search" name="Reproduction Policy" type="text">
+					<mapping type="xpath">
+						<include>/reproductionPolicy</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="SeparateOrCompositeReport_display" name="Separate Or Composite Report" type="text">
+					<mapping type="xpath">
+						<include>/separateOrCompositeReport</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="SeparateOrCompositeReport_search" name="Separate Or Composite Report" type="text">
+					<mapping type="xpath">
+						<include>/separateOrCompositeReport</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+		</documentType>
+		<documentType id="item" name="Instance Item">
+			<documentFormat id="oleml" name="OLEML">
+				<field id="ItemIdentifier_display" name="Item Identifier" type="text">
+					<mapping type="xpath">
+						<include>/itemIdentifier</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ItemIdentifier_search" name="Item Identifier" type="text">
+					<mapping type="xpath">
+						<include>/itemIdentifier</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Barcode_display" name="Barcode" type="text">
+					<mapping type="xpath">
+						<include>/accessInformation/barcode</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Barcode_search" name="Barcode" type="text">
+					<mapping type="xpath">
+						<include>/accessInformation/barcode</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ItemType_display" name="Item Type" type="text">
+					<mapping type="xpath">
+						<include>/itemType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ItemType_search" name="Item Type" type="text">
+					<mapping type="xpath">
+						<include>/itemType</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LocationStatus_display" name="Location Status" type="text">
+					<mapping type="xpath">
+						<include>/location/locationStatus</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LocationStatus_search" name="Location Status" type="text">
+					<mapping type="xpath">
+						<include>/location/locationStatus</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ShelvingScheme_display" name="Shelving Scheme" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/shelvingScheme</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ShelvingScheme_search" name="Shelving Scheme" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/shelvingScheme</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ShelvingOrder_display" name="Shelving Scheme" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/shelvingOrder</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ShelvingOrder_search" name="Shelving Scheme" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/shelvingOrder</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ClassificationPart_display" name="Classification Part" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/classificationPart</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ClassificationPart_search" name="Classification Part" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/classificationPart</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ClassificationView_display" name="Classification View" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/classificationView</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="ClassificationView_search" name="Classification View" type="text">
+					<mapping type="xpath">
+						<include>/location/classification/classificationView</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="NonPublicNotes_display" name="NonPublic Notes" type="text">
+					<mapping type="xpath">
+						<include>/location/nonPublicNote</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="NonPublicNotes_search" name="NonPublic Notes" type="text">
+					<mapping type="xpath">
+						<include>/location/nonPublicNote</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicNote_display" name="Public Note" type="text">
+					<mapping type="xpath">
+						<include>/location/publicNote</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="PublicNote_search" name="Public Note" type="text">
+					<mapping type="xpath">
+						<include>/location/publicNote</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LocationLevel_display" name="Location Level" type="text">
+					<mapping type="xpath">
+						<include>/location/locationLevel/levelName/value</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LocationLevel_search" name="Location Level" type="text">
+					<mapping type="xpath">
+						<include>/location/locationLevel/levelName/value</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LocationName_display" name="Location Name" type="text">
+					<mapping type="xpath">
+						<include>/location/locationLevel/locationName/value</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="LocationName_search" name="Location Name" type="text">
+					<mapping type="xpath">
+						<include>/location/locationLevel/locationName/value</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Address_display" name="Address" type="text">
+					<mapping type="xpath">
+						<include>/location/address</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="Address_search" name="Address" type="text">
+					<mapping type="xpath">
+						<include>/location/address</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="CopyNumber_display" name="Copy Number" type="text">
+					<mapping type="xpath">
+						<include>/location/copyNumber</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="CopyNumber_search" name="Copy Number" type="text">
+					<mapping type="xpath">
+						<include>/location/copyNumber</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="VolumeNumber_display" name="Volume Number" type="text">
+					<mapping type="xpath">
+						<include>/volumeNumber</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="VolumeNumber_search" name="Volume Number" type="text">
+					<mapping type="xpath">
+						<include>/volumeNumber</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="CopyNumberLabel_display" name="Copy Number Label" type="text">
+					<mapping type="xpath">
+						<include>/copyNumberLabel</include>
+						<exclude />
+					</mapping>
+				</field>
+				<field id="CopyNumberLabel_search" name="Copy Number Label" type="text">
+					<mapping type="xpath">
+						<include>/copyNumberLabel</include>
+						<exclude />
+					</mapping>
+				</field>
+			</documentFormat>
+		</documentType>
+	</documentCategory>
+	<documentCategory id="security" name="Security">
+	</documentCategory>
+</documentConfig>
