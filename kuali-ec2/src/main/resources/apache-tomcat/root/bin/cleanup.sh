@@ -48,6 +48,5 @@ rm -rf $WORK
 rm -rf $CONF
 
 mkdir -p $LOGS1
-mkdir -p $LOGS2
 cp $ENV2 $ENV1
 cp $TAIL2 $TAIL1
