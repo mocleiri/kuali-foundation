@@ -32,18 +32,22 @@ TAIL2=$CATALINA_BASE/conf/tail.jsp
 cp $ENV1 $ENV2
 cp $TAIL1 $TAIL2
 
-LOGS=$CATALINA_BASE/logs
+LOGS1=$CATALINA_BASE/logs 
+LOGS2=/home/tomcat/logs
 WORK=$CATALINA_BASE/work
 CONF=$CATALINA_BASE/conf/Catalina/localhost
 
-echo Removing $LOGS
+echo Removing $LOGS1
+echo Removing $LOGS2
 echo Removing $WORK
 echo Removing $CONF
 
-rm -rf $LOGS
+rm -rf $LOGS1
+rm -rf $LOGS2
 rm -rf $WORK
 rm -rf $CONF
 
-mkdir $LOGS
+mkdir -p $LOGS1
+mkdir -p $LOGS2
 cp $ENV2 $ENV1
 cp $TAIL2 $TAIL1
