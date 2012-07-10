@@ -5,7 +5,7 @@
 <Repository>
   <DataSources>
     <DataSource name="ole_ds">
-      <param name="driver" value="oracle.jdbc.driver.OracleDriver" />
+      <param name="driver" value="${impex.driver}" />
       <param name="url" value="${impex.url}" />
       <param name="user" value="${impex.username}" />
       <param name="password" value="${impex.password}" />
