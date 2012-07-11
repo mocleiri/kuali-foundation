@@ -25,10 +25,10 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>olefs-resetdb</artifactId>
+  <artifactId>kuali-resetdb</artifactId>
   <version>${project.version}</version>
-  <name>OLE Financial System DB Reset</name>
-  <description>This pom contains plugin executions for dropping/creating the OLE Financial System database</description>
+  <name>Kuali DB Reset</name>
+  <description>This pom contains plugin executions for dropping/creating a database</description>
   <build>
     <pluginManagement>
       <plugins>
