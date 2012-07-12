@@ -71,7 +71,9 @@ public class KualiTorqueJDBCTransformTask extends Task {
     private XMLSerializer xmlSerializer;
 
 	private String tableNameRegex = ".*";
-	private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
+    private String tableNameExcludeRegex = "";
+    private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
+    private Pattern tableNameExcludeRegexPattern = StringUtils.isBlank(tableNameExcludeRegex)?null:Pattern.compile(tableNameExcludeRegex);
     
     public String getDbSchema()
     {
@@ -197,6 +199,11 @@ public class KualiTorqueJDBCTransformTask extends Task {
 						log( "Skipping table: " + curTable);
 						continue;
 					}
+                    if ( StringUtils.isNotBlank(tableNameExcludeRegex) && 
+                            tableNameExcludeRegexPattern.matcher( curTable ).matches() ) {
+                        log( "Skipping table: " + curTable);
+                        continue;
+                    }
 					log( "Processing table: " + curTable );
 	
 					Element table = doc.createElement( "table" );

@@ -333,6 +333,7 @@ Note: Due to java native library classloader issues, the export routine (and pos
 								dbUser="${export.torque.database.user}" 
 								outputFile="${torque.schema.absolute.dir}/schema.xml" 
 								tableNameRegex="${export.table.name.filter}"
+								tableNameExcludeRegex="${export.table.name.exclude.filter}"		
 								/>
 		<copy file="database.dtd" todir="${torque.schema.dir}" />
 	</target>
