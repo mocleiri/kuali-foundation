@@ -236,6 +236,12 @@
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>wagon-maven-plugin</artifactId>
               <version>1.0.3</version>
+              <configuration>
+                <serverId>kuali.release</serverId>
+                <excludes>${wagon.excludes}</excludes>
+                <skipExisting>true</skipExisting>
+                <toDir>${wagon.toDir}</toDir>
+              </configuration>
               <executions>
                 <execution>
                   <id>release</id>
@@ -245,11 +251,7 @@
                   </goals>
                   <configuration>
                     <url>s3://maven.kuali.org/release</url>
-                    <serverId>kuali.release</serverId>
                     <includes>org/kuali/rice/**</includes>
-                    <excludes>${wagon.excludes}</excludes>
-                    <skipExisting>true</skipExisting>
-                    <toDir>${wagon.toDir}</toDir>
                   </configuration>
                 </execution>
                 <execution>
@@ -260,11 +262,7 @@
                   </goals>
                   <configuration>
                     <url>s3://maven.kuali.org/external</url>
-                    <serverId>kuali.release</serverId>
                     <includes>org/kuali/**</includes>
-                    <excludes>${wagon.excludes}</excludes>
-                    <skipExisting>true</skipExisting>
-                    <toDir>${wagon.toDir}</toDir>
                   </configuration>
                 </execution>
               </executions>
