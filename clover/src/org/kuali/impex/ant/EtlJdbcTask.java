@@ -16,7 +16,9 @@ public class EtlJdbcTask extends JDBCTask {
 	private String dumpDir = "dump";
 	private boolean includeDebugDumps = false;
 	private String tableNameRegex = ".*";
+    private String tableNameExcludeRegex = "";
 	private Pattern tableNameRegexPattern = Pattern.compile(tableNameRegex);
+    private Pattern tableNameExcludeRegexPattern = null;
 
 	public File getExportBaseDir() {
 		return exportBaseDir;
@@ -84,4 +86,15 @@ public class EtlJdbcTask extends JDBCTask {
 		return tableNameRegexPattern;
 	}
 
+    public String getTableNameExcludeRegex() {
+        return tableNameExcludeRegex;
+    }
+    public void setTableNameExcludeRegex(String tableNameExcludeRegex) {
+        this.tableNameExcludeRegex = tableNameExcludeRegex;
+        tableNameExcludeRegexPattern = Pattern.compile(tableNameExcludeRegex);
+    }
+    public Pattern getTableNameExcludeRegexPattern() {
+        return tableNameExcludeRegexPattern;
+    }
+	
 }

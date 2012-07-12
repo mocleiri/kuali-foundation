@@ -51,6 +51,11 @@ public class CreateTableFormatsAndGraphsTask extends EtlJdbcTask {
 					log( "Skipping table: " + tableName);
 					continue;
 				}
+                if ( getTableNameExcludeRegexPattern() != null && 
+                        getTableNameExcludeRegexPattern().matcher( tableName ).matches() ) {
+                    log( "Skipping table: " + tableName);
+                    continue;
+                }
 				// filter out oracle control tables
 				// and sequences when implemented as tables (as in MySQL)
 				if ( !ETLHelper.isValidTableType(tableName) ) {
