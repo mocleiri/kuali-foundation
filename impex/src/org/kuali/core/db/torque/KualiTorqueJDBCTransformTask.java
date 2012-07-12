@@ -592,4 +592,15 @@ public class KualiTorqueJDBCTransformTask extends Task {
 		this.tableNameRegex = tableNameRegex;
 		tableNameRegexPattern = Pattern.compile(tableNameRegex);
 	}
+
+    public String getTableNameExcludeRegex() {
+        return tableNameExcludeRegex;
+    }
+    public void setTableNameExcludeRegex(String tableNameExcludeRegex) {
+        this.tableNameExcludeRegex = tableNameExcludeRegex;
+        tableNameExcludeRegexPattern = Pattern.compile(tableNameExcludeRegex);
+    }
+    public Pattern getTableNameExcludeRegexPattern() {
+        return tableNameExcludeRegexPattern;
+    }
 }

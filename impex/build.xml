@@ -790,6 +790,7 @@ ${where-clauses}
     		schemaname="${export.torque.database.schema}"
     		exportbasedir="${torque.schema.dir}"
 			tableNameRegex="${export.table.name.filter}"
+			tableNameExcludeRegex="${export.table.name.exclude.filter}"		
     		createIfTableEmpty="false"
     		classpathref="torque-classpath"
             truncateTable="true"
