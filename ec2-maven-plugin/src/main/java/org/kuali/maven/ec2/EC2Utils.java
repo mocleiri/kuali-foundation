@@ -290,7 +290,6 @@ public class EC2Utils {
         request.setFilters(Collections.singletonList(filter));
         DescribeSnapshotsResult result = client.describeSnapshots(request);
         return result.getSnapshots();
-
     }
 
     public Snapshot createSnapshot(String volumeId, String description, WaitControl wc) {
