@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
-import com.amazonaws.services.ec2.model.DescribeImagesRequest;
-import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
@@ -66,11 +64,7 @@ public class EC2UtilsTest {
     public void testDescribeImages() {
         try {
             EC2Utils ec2Utils = getEC2Utils();
-            AmazonEC2Client client = getEC2Client();
-            DescribeImagesRequest request = new DescribeImagesRequest();
-            request.setOwners(Collections.singletonList("self"));
-            DescribeImagesResult result = client.describeImages(request);
-            List<Image> images = result.getImages();
+            List<Image> images = ec2Utils.getEC2ImagesOwnedByMe();
             Collections.sort(images, new ImageComparator());
             List<SlaveTag> slaveTags = new ArrayList<SlaveTag>();
             String key = "Name";

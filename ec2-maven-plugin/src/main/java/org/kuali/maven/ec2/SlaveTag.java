@@ -51,8 +51,8 @@ public class SlaveTag implements Comparable<SlaveTag> {
         return snapshotId;
     }
 
-    public void setSnapshotId(String snapshot) {
-        this.snapshotId = snapshot;
+    public void setSnapshotId(String snapshotId) {
+        this.snapshotId = snapshotId;
     }
 
     public String getKey() {

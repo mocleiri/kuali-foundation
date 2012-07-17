@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
@@ -28,6 +29,7 @@ import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
+import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
@@ -77,8 +79,18 @@ public class EC2Utils {
         return false;
     }
 
+    public String getSnapshotId(Image image) {
+        List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
+        for (BlockDeviceMapping mapping : mappings) {
+            EbsBlockDevice ebd = mapping.getEbs();
+            ebd.getSnapshotId();
+        }
+        return null;
+    }
+
     public SlaveTag getSlaveTag(Image image, Tag tag) {
         String[] tokens = StringUtils.splitByWholeSeparator(tag.getValue(), " - ");
+        String snapshotId = getSnapshotId(image);
 
         SlaveTag slaveTag = new SlaveTag();
         slaveTag.setImageId(image.getImageId());
@@ -86,6 +98,7 @@ public class EC2Utils {
         slaveTag.setLabel(tokens[0]);
         slaveTag.setDate(tokens[1]);
         slaveTag.setSequence(new Integer(tokens[2]));
+        slaveTag.setSnapshotId(snapshotId);
         return slaveTag;
     }
 
