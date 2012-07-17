@@ -272,13 +272,13 @@ public class EC2Utils {
         return result.getImages();
     }
 
-    public void deleteSnapshotBySnapshotId(String snapshotId) {
+    public void deleteSnapshot(String snapshotId) {
         DeleteSnapshotRequest request = new DeleteSnapshotRequest();
         request.setSnapshotId(snapshotId);
         client.deleteSnapshot(request);
     }
 
-    public void deRegisterImageByImageId(String ImageId) {
+    public void deRegisterImage(String ImageId) {
         DeregisterImageRequest request = new DeregisterImageRequest();
         request.setImageId(ImageId);
         client.deregisterImage(request);
