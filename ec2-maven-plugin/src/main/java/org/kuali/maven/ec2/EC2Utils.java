@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.maven.ec2.state.ImageStateRetriever;
 import org.kuali.maven.ec2.state.InstanceStateRetriever;
 import org.kuali.maven.ec2.state.SnapshotStateRetriever;
@@ -15,14 +16,12 @@ import org.slf4j.LoggerFactory;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.dynamodb.model.DeleteItemResult;
 import com.amazonaws.services.ec2.AmazonEC2Client;
-
 import com.amazonaws.services.ec2.model.CreateSnapshotRequest;
 import com.amazonaws.services.ec2.model.CreateSnapshotResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
-import com.amazonaws.services.ec2.model.DescribeImageAttributeRequest;
-import com.amazonaws.services.ec2.model.DescribeImageAttributeResult;
+import com.amazonaws.services.ec2.model.DeleteSnapshotRequest;
+import com.amazonaws.services.ec2.model.DeregisterImageRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
@@ -31,7 +30,6 @@ import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest;
 import com.amazonaws.services.ec2.model.DescribeSnapshotsResult;
 import com.amazonaws.services.ec2.model.Filter;
 import com.amazonaws.services.ec2.model.Image;
-import com.amazonaws.services.ec2.model.ImageAttribute;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
 import com.amazonaws.services.ec2.model.RegisterImageResult;
@@ -41,15 +39,12 @@ import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Snapshot;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
-import com.amazonaws.services.ec2.model.DeleteSnapshotRequest;
-import com.amazonaws.services.ec2.model.DeregisterImageRequest;
 
 public class EC2Utils {
 
     private static final Logger logger = LoggerFactory.getLogger(EC2Utils.class);
 
     AmazonEC2Client client;
-
 
     private EC2Utils(AWSCredentials credentials) {
         this.client = new AmazonEC2Client(credentials);
@@ -64,7 +59,6 @@ public class EC2Utils {
         return new EC2Utils(credentials);
     }
 
-
     public static EC2Utils getImage(String accessKey, String secretKey) {
         AWSCredentials credentials = getCredentials(accessKey, secretKey);
         return getImage(credentials);
@@ -73,7 +67,41 @@ public class EC2Utils {
     public static EC2Utils getImage(AWSCredentials credentials) {
         return new EC2Utils(credentials);
     }
-    
+
+    public boolean contains(List<Tag> tags, String key, String prefix) {
+        for (Tag tag : tags) {
+            if (matches(tag, key, prefix)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public SlaveTag getSlaveTag(Image image, Tag tag) {
+        String[] tokens = StringUtils.splitByWholeSeparator(tag.getValue(), " - ");
+
+        SlaveTag slaveTag = new SlaveTag();
+        slaveTag.setImageId(image.getImageId());
+        slaveTag.setKey(tag.getKey());
+        slaveTag.setLabel(tokens[0]);
+        slaveTag.setDate(tokens[1]);
+        slaveTag.setSequence(new Integer(tokens[2]));
+        return slaveTag;
+    }
+
+    public boolean matches(Tag tag, String key, String prefix) {
+        return key.equals(tag.getKey()) && tag.getValue().startsWith(prefix);
+    }
+
+    public Tag getTag(List<Tag> tags, String key, String prefix) {
+        for (Tag tag : tags) {
+            if (matches(tag, key, prefix)) {
+                return tag;
+            }
+        }
+        return null;
+    }
+
     public Image getImage(String imageId) {
         DescribeImagesRequest request = new DescribeImagesRequest();
         request.setImageIds(Collections.singletonList(imageId));
@@ -85,7 +113,7 @@ public class EC2Utils {
         if (images.size() > 1) {
             throw new IllegalStateException("Found " + images.size() + " matching '" + imageId + "'");
         }
-       
+
         return images.get(0);
     }
 
@@ -152,7 +180,7 @@ public class EC2Utils {
     }
 
     protected Filter getFilterFromTag(String tag, String value) {
-    	System.out.println("tag: " + tag + " value: " + value);
+        System.out.println("tag: " + tag + " value: " + value);
         Filter filter = new Filter();
         filter.setName("tag:" + tag);
         filter.setValues(Collections.singletonList(value));
@@ -168,7 +196,7 @@ public class EC2Utils {
 
     protected int validate(List<Instance> instances, Tag tag, boolean failIfNotFound) {
         int size = instances.size();
-        System.out.println("size "+ size);
+        System.out.println("size " + size);
         String msg = tag.getKey() + "=" + tag.getValue() + " matched " + size + " instances";
         if (size == 1) {
             return size;
@@ -187,7 +215,7 @@ public class EC2Utils {
 
     protected int validate1(List<Image> images, Tag tag, boolean failIfNotFound) {
         int size = images.size();
-        System.out.println("size "+ size);
+        System.out.println("size " + size);
         String msg = tag.getKey() + "=" + tag.getValue() + " matched " + size + " images";
         if (size == 1) {
             return size;
@@ -203,6 +231,7 @@ public class EC2Utils {
         }
         return size;
     }
+
     public Instance findInstanceFromTag(Tag tag, boolean failIfNotFound) {
         DescribeInstancesRequest request = getDescribeInstancesRequest(tag);
         System.out.println("request: " + request);
@@ -228,45 +257,43 @@ public class EC2Utils {
         return getAllInstances(result.getReservations());
     }
 
-
-	public List<Image> getEC2Images(List<String> imageIds) {
-		DescribeImagesRequest request = new DescribeImagesRequest();
+    public List<Image> getEC2Images(List<String> imageIds) {
+        DescribeImagesRequest request = new DescribeImagesRequest();
         request.setImageIds(imageIds);
         DescribeImagesResult result = client.describeImages(request);
         return result.getImages();
     }
-	
-	public List<Image> getEC2ImagesOwnedByMe() {
-		DescribeImagesRequest request = new DescribeImagesRequest();
+
+    public List<Image> getEC2ImagesOwnedByMe() {
+        DescribeImagesRequest request = new DescribeImagesRequest();
         request.withOwners("self");
         DescribeImagesResult result = client.describeImages(request);
-  
+
         return result.getImages();
     }
-	
-	  //public DeleteSnapshotRequest 
-	public void  DeleteEC2SnapshotbySnapshotID(String snapshotId){
-		DeleteSnapshotRequest request = new DeleteSnapshotRequest();
-		request.setSnapshotId(snapshotId);
-	   client.deleteSnapshot(request);
-	}
-	   
-	public void DeRegisterImagebyImageId(String ImageId) {
-		DeregisterImageRequest request = new DeregisterImageRequest();
-		request.setImageId(ImageId);
-		client.deregisterImage(request);
-	}
-	
-	public List<Snapshot> getEC2SnapshotsbyTag(Tag tag) {
-		DescribeSnapshotsRequest request = new DescribeSnapshotsRequest();
-		Filter filter = getFilterFromTag(tag.getKey(), tag.getValue());
-		request.setFilters(Collections.singletonList(filter));
-		DescribeSnapshotsResult result = client.describeSnapshots(request);
-		return result.getSnapshots();
 
-	}
+    // public DeleteSnapshotRequest
+    public void DeleteEC2SnapshotbySnapshotID(String snapshotId) {
+        DeleteSnapshotRequest request = new DeleteSnapshotRequest();
+        request.setSnapshotId(snapshotId);
+        client.deleteSnapshot(request);
+    }
 
-	
+    public void DeRegisterImagebyImageId(String ImageId) {
+        DeregisterImageRequest request = new DeregisterImageRequest();
+        request.setImageId(ImageId);
+        client.deregisterImage(request);
+    }
+
+    public List<Snapshot> getEC2SnapshotsbyTag(Tag tag) {
+        DescribeSnapshotsRequest request = new DescribeSnapshotsRequest();
+        Filter filter = getFilterFromTag(tag.getKey(), tag.getValue());
+        request.setFilters(Collections.singletonList(filter));
+        DescribeSnapshotsResult result = client.describeSnapshots(request);
+        return result.getSnapshots();
+
+    }
+
     public Snapshot createSnapshot(String volumeId, String description, WaitControl wc) {
         CreateSnapshotRequest request = new CreateSnapshotRequest(volumeId, description);
         CreateSnapshotResult result = client.createSnapshot(request);
@@ -283,12 +310,12 @@ public class EC2Utils {
 
     public void tag(String id, String name, String value) {
         tag(id, new Tag(name, value));
-        System.out.println("tag-1: " + "id: "+ id+ " name: " + name + " value:" + value );
+        System.out.println("tag-1: " + "id: " + id + " name: " + name + " value:" + value);
     }
 
     public void tag(String id, Tag tag) {
         tag(id, Collections.singletonList(tag));
-        System.out.println("tag-2: " + "id: "+ id+ " tag: " + Collections.singletonList(tag) );
+        System.out.println("tag-2: " + "id: " + id + " tag: " + Collections.singletonList(tag));
     }
 
     /**
@@ -304,7 +331,7 @@ public class EC2Utils {
         request.setResources(Collections.singletonList(id));
         request.setTags(tags);
         client.createTags(request);
-        System.out.println("tag-3: " + "id: "+ id+  " tags.size:" + tags.size() );
+        System.out.println("tag-3: " + "id: " + id + " tags.size:" + tags.size());
         logger.info("Tagged '" + id + "' with " + tags.size() + " tags");
     }
 
@@ -336,7 +363,7 @@ public class EC2Utils {
         }
         return "";
     }
-    
+
     public void waitForState(StateRetriever retriever, WaitControl wc) {
         long now = System.currentTimeMillis();
         long timeout = now + wc.getTimeout() * 1000;
@@ -376,7 +403,6 @@ public class EC2Utils {
         return instances;
     }
 
-    
     public Snapshot getSnapshot(String snapshotId) {
         DescribeSnapshotsRequest request = new DescribeSnapshotsRequest();
         request.setSnapshotIds(Collections.singletonList(snapshotId));

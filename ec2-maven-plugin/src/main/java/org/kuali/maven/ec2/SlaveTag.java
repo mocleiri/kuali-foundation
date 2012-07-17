@@ -1,62 +1,65 @@
 package org.kuali.maven.ec2;
-import com.amazonaws.services.ec2.model.Tag;
-
 
 public class SlaveTag implements Comparable<SlaveTag> {
-	String label;
-	String date;
-	int sequence;
-	String imageId;
-	Tag tag;
-	String snapshot;
+    String key;
+    String label;
+    String date;
+    int sequence;
+    String imageId;
+    String snapshotId;
 
-	public int compareTo(SlaveTag other) {
-		Integer one = this.getSequence();
-		Integer two = other.getSequence();
-		return one.compareTo(two);
-	}
+    @Override
+    public int compareTo(SlaveTag other) {
+        Integer one = this.getSequence();
+        Integer two = other.getSequence();
+        return one.compareTo(two);
+    }
 
-	public String getLabel() {
-		return label;
-	}
-	
-	public Tag getTag() {
-		return tag;
-	}
-	public void setTag(Tag tag) {
-		this.tag = tag;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	public String getDate() {
-		return date;
-	}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public int getSequence() {
-		return sequence;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
+    public int getSequence() {
+        return sequence;
+    }
 
-	public String getImageId() {
-		return imageId;
-	}
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
 
-	public void setImageId(String imageId) {
-		this.imageId = imageId;
-	}
-	public String getSnapshot() {
-		return snapshot;
-	}
-	public void setSnapshot(String snapshot) {
-		this.snapshot = snapshot;
-	}
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getSnapshotId() {
+        return snapshotId;
+    }
+
+    public void setSnapshotId(String snapshot) {
+        this.snapshotId = snapshot;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
