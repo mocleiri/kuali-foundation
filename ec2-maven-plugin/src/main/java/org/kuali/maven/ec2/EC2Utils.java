@@ -104,8 +104,8 @@ public class EC2Utils {
         logger.info("Deleting " + delete.size() + " slave images");
         for (SlaveTag st : delete) {
             logger.info("Deleting " + st.getSequence() + " - " + st.getImageId() + " - " + st.getSnapshotId());
-            // deRegisterImage(st.getImageId());
-            // deleteSnapshot(st.getSnapshotId());
+            deRegisterImage(st.getImageId());
+            deleteSnapshot(st.getSnapshotId());
         }
     }
 
