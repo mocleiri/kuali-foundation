@@ -1,8 +1,6 @@
 package org.kuali.maven.ec2;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
@@ -10,10 +8,8 @@ import org.junit.Test;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
-import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.RegisterImageRequest;
 import com.amazonaws.services.ec2.model.RegisterImageResult;
-import com.amazonaws.services.ec2.model.Tag;
 
 public class EC2UtilsTest {
 
@@ -64,22 +60,11 @@ public class EC2UtilsTest {
     public void testDescribeImages() {
         try {
             EC2Utils ec2Utils = getEC2Utils();
-            List<Image> images = ec2Utils.getEC2ImagesOwnedByMe();
-            Collections.sort(images, new ImageComparator());
-            List<SlaveTag> slaveTags = new ArrayList<SlaveTag>();
             String key = "Name";
             String prefix = "CI Slave";
-            for (Image image : images) {
-                if (ec2Utils.contains(image.getTags(), key, prefix)) {
-                    Tag tag = ec2Utils.getTag(image.getTags(), key, prefix);
-                    SlaveTag slaveTag = ec2Utils.getSlaveTag(image, tag);
-                    slaveTags.add(slaveTag);
-                }
-            }
-            Collections.sort(slaveTags);
-            for (SlaveTag slaveTag : slaveTags) {
-                System.out.println(slaveTag.getImageId() + " " + slaveTag.getDate() + " " + slaveTag.getSequence());
-            }
+            String device = "/dev/sda1";
+            int min = 14;
+            ec2Utils.cleanupSlaveImages(key, prefix, device, min);
         } catch (Throwable e) {
             e.printStackTrace();
         }

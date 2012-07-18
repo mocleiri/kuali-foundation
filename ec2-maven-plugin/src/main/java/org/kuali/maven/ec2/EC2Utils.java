@@ -70,7 +70,46 @@ public class EC2Utils {
         return new EC2Utils(credentials);
     }
 
-    public boolean contains(List<Tag> tags, String key, String prefix) {
+    public void cleanupSlaveImages(String key, String prefix, String device, int min) {
+        // Just in case
+        if (min < 1) {
+            min = 1;
+        }
+        List<Image> images = getEC2ImagesOwnedByMe();
+        Collections.sort(images, new ImageComparator());
+        List<SlaveTag> slaveTags = new ArrayList<SlaveTag>();
+        for (Image image : images) {
+            if (containsTag(image.getTags(), key, prefix)) {
+                Tag tag = getTag(image.getTags(), key, prefix);
+                SlaveTag slaveTag = getSlaveTag(image, tag, device);
+                slaveTags.add(slaveTag);
+            }
+        }
+        int size = slaveTags.size();
+        if (size <= min) {
+            logger.info("Retaining all slave images since there are only " + size + " and " + min + " must be retained");
+            return;
+        }
+        Collections.sort(slaveTags);
+        Collections.reverse(slaveTags);
+        List<SlaveTag> retain = new ArrayList<SlaveTag>();
+        for (int i = 0; i < min; i++) {
+            retain.add(slaveTags.get(i));
+        }
+        List<SlaveTag> delete = new ArrayList<SlaveTag>();
+        for (int i = min; i < slaveTags.size(); i++) {
+            delete.add(slaveTags.get(i));
+        }
+        logger.info("Retaining " + retain.size() + " slave images");
+        logger.info("Deleting " + delete.size() + " slave images");
+        for (SlaveTag st : delete) {
+            logger.info("Deleting " + st.getSequence() + " - " + st.getImageId() + " - " + st.getSnapshotId());
+            // deRegisterImage(st.getImageId());
+            // deleteSnapshot(st.getSnapshotId());
+        }
+    }
+
+    public boolean containsTag(List<Tag> tags, String key, String prefix) {
         for (Tag tag : tags) {
             if (matches(tag, key, prefix)) {
                 return true;
@@ -79,18 +118,20 @@ public class EC2Utils {
         return false;
     }
 
-    public String getSnapshotId(Image image) {
+    public String getSnapshotId(Image image, String deviceName) {
         List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
         for (BlockDeviceMapping mapping : mappings) {
-            EbsBlockDevice ebd = mapping.getEbs();
-            ebd.getSnapshotId();
+            if (deviceName.equals(mapping.getDeviceName())) {
+                EbsBlockDevice ebd = mapping.getEbs();
+                return ebd.getSnapshotId();
+            }
         }
         return null;
     }
 
-    public SlaveTag getSlaveTag(Image image, Tag tag) {
+    public SlaveTag getSlaveTag(Image image, Tag tag, String device) {
         String[] tokens = StringUtils.splitByWholeSeparator(tag.getValue(), " - ");
-        String snapshotId = getSnapshotId(image);
+        String snapshotId = getSnapshotId(image, device);
 
         SlaveTag slaveTag = new SlaveTag();
         slaveTag.setImageId(image.getImageId());
