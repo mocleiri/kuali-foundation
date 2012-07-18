@@ -5,9 +5,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 /**
  * Connect to EC2 and delete images (and their associated snapshots) that have matching tags
  * 
- * @goal cleanupslaveimages
+ * @goal cleanupimages
  */
-public class CleanupSlaveImagesMojo extends AbstractEC2Mojo {
+public class CleanupImagesMojo extends AbstractEC2Mojo {
 
     /**
      * @parameter expression="${ec2.key}" default-value="Name"
