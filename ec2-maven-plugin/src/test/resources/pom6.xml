@@ -64,16 +64,16 @@
           <version>${project.version}</version>
           <executions>
             <execution>
-              <id>cleanupimages</id>
+              <id>deregisterimages</id>
               <phase>test</phase>
               <goals>
-                <goal>cleanupimages</goal>
+                <goal>deregisterimages</goal>
               </goals>
               <configuration>
                 <key>Name</key>
                 <prefix>CI Slave</prefix>
                 <device>/dev/sda1</device>
-                <minimumToRetain>13</minimumToRetain>
+                <minimumToRetain>12</minimumToRetain>
               </configuration>
             </execution>
           </executions>
