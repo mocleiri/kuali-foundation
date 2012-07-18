@@ -199,6 +199,19 @@
                     </tags>
                   </configuration>
                 </execution>
+                <execution>
+                  <id>deregisterimages</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>deregisterimages</goal>
+                  </goals>
+                  <configuration>
+                    <key>Name</key>
+                    <prefix>CI Slave</prefix>
+                    <device>/dev/sda1</device>
+                    <minimumToRetain>3</minimumToRetain>
+                  </configuration>
+                </execution>
               </executions>
             </plugin>
           </plugins>
