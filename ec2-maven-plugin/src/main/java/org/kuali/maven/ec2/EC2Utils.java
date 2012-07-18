@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.maven.ec2.pojo.ImageComparator;
 import org.kuali.maven.ec2.state.ImageStateRetriever;
 import org.kuali.maven.ec2.state.InstanceStateRetriever;
 import org.kuali.maven.ec2.state.SnapshotStateRetriever;

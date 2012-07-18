@@ -1,4 +1,4 @@
-package org.kuali.maven.ec2;
+package org.kuali.maven.ec2.pojo;
 
 import java.util.Comparator;
 
