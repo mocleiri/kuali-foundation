@@ -11,27 +11,25 @@ import org.kuali.maven.ec2.pojo.Row;
 import org.kuali.maven.ec2.pojo.RowComparator;
 import org.kuali.maven.ec2.pojo.Table;
 
-//import com.amazonaws.services.ec2.model.GroupIdentifier;
-//import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Image;
 
 /**
  * Connect to EC2 and list image associated with this account
- *
+ * 
  * @goal describeimages
  */
 public class DescribeImagesMojo extends AbstractEC2Mojo {
 
     /**
      * The tag to display for each image.
-     *
+     * 
      * @parameter expression="${ec2.tag}" default-value="Name"
      */
     private String tag;
 
     /**
      * A list of images id's to display information about
-     *
+     * 
      * @parameter
      */
     private List<String> imagesIds;
@@ -39,7 +37,7 @@ public class DescribeImagesMojo extends AbstractEC2Mojo {
     @Override
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         List<Image> images = ec2Utils.getEC2Images(imagesIds);
-        //List<Image> images = ec2Utils.getEC2Images(tag);
+        // List<Image> images = ec2Utils.getEC2Images(tag);
         Table table = getTable(images, ec2Utils);
         getLog().info(getDisplay(table.getColumns()));
         for (Row row : table.getRows()) {
@@ -65,33 +63,26 @@ public class DescribeImagesMojo extends AbstractEC2Mojo {
         return sb.toString();
     }
 
-   /* protected String getSecurityGroupsDisplay(Image i) {
-        List<GroupIdentifier> groups = i.getSecurityGroups();
-        StringBuilder sb = new StringBuilder();
-        for (int j = 0; j < groups.size(); j++) {
-            if (j != 0) {
-                sb.append(",");
-            }
-            GroupIdentifier group = groups.get(j);
-            sb.append(group.getGroupName());
-        }
-        return sb.toString();
-    } */
+    /*
+     * protected String getSecurityGroupsDisplay(Image i) { List<GroupIdentifier> groups = i.getSecurityGroups();
+     * StringBuilder sb = new StringBuilder(); for (int j = 0; j < groups.size(); j++) { if (j != 0) { sb.append(","); }
+     * GroupIdentifier group = groups.get(j); sb.append(group.getGroupName()); } return sb.toString(); }
+     */
 
     protected List<Row> getRows(List<Image> images, EC2Utils ec2Utils) {
         List<Row> rows = new ArrayList<Row>();
         for (Image i : images) {
             Row row = new Row();
             List<String> elements = new ArrayList<String>();
-            //elements.add(ec2Utils.getTagValue(i, tag));
-            //elements.add(ec2Utils.getTagValue(i, tag));
+            // elements.add(ec2Utils.getTagValue(i, tag));
+            // elements.add(ec2Utils.getTagValue(i, tag));
             elements.add(ec2Utils.getTagValueImage(i, tag));
-            //elements.add(i.getInstanceId());
+            // elements.add(i.getInstanceId());
             elements.add(i.getImageId());
-            //elements.add(i.getPlacement().getAvailabilityZone());
+            // elements.add(i.getPlacement().getAvailabilityZone());
             elements.add(i.getImageType());
-            //elements.add(i.getState().getName());
-            //elements.add(getSecurityGroupsDisplay(i));
+            // elements.add(i.getState().getName());
+            // elements.add(getSecurityGroupsDisplay(i));
             elements.add(i.getName());
             row.setElements(elements);
             rows.add(row);
@@ -105,11 +96,11 @@ public class DescribeImagesMojo extends AbstractEC2Mojo {
         List<Column> columns = new ArrayList<Column>();
         columns.add(new Column(tag));
         columns.add(new Column("Image"));
-        //columns.add(new Column("AMI"));
-        //columns.add(new Column("Availability Zone"));
+        // columns.add(new Column("AMI"));
+        // columns.add(new Column("Availability Zone"));
         columns.add(new Column("Type"));
         columns.add(new Column("State"));
-        //columns.add(new Column("Security Groups"));
+        // columns.add(new Column("Security Groups"));
         columns.add(new Column("Key Pair"));
         setWidths(columns, rows);
         return columns;

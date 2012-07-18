@@ -17,7 +17,8 @@ public class DeregisterImagesMojo extends AbstractEC2Mojo {
     private String key;
 
     /**
-     * If the specified tag starts with the value provided here, the image will be deregistered.
+     * If the specified tag exists, and its value starts with the text provided here, the associated image will be
+     * deregistered.
      * 
      * @parameter expression="${ec2.prefix}" default-value="CI Slave"
      */
