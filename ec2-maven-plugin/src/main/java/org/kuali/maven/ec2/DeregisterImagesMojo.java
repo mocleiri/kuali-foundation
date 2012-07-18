@@ -3,11 +3,11 @@ package org.kuali.maven.ec2;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Connect to EC2 and delete images (and their associated snapshots) that have matching tags
+ * Connect to EC2, deregister images (and delete their associated snapshots) that have matching tags
  * 
- * @goal cleanupimages
+ * @goal deregisterimages
  */
-public class CleanupImagesMojo extends AbstractEC2Mojo {
+public class DeregisterImagesMojo extends AbstractEC2Mojo {
 
     /**
      * This is the name of the tag to match.
