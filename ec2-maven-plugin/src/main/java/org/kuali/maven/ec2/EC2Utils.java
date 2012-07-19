@@ -268,25 +268,6 @@ public class EC2Utils {
         return size;
     }
 
-    protected int validate1(List<Image> images, Tag tag, boolean failIfNotFound) {
-        int size = images.size();
-        System.out.println("size " + size);
-        String msg = tag.getKey() + "=" + tag.getValue() + " matched " + size + " images";
-        if (size == 1) {
-            return size;
-        }
-        if (size > 1) {
-            throw new IllegalStateException(msg);
-        }
-        // size == 0
-        if (failIfNotFound) {
-            throw new IllegalStateException(msg);
-        } else {
-            logger.info(msg);
-        }
-        return size;
-    }
-
     public Instance findInstanceFromTag(Tag tag, boolean failIfNotFound) {
         DescribeInstancesRequest request = getDescribeInstancesRequest(tag);
         System.out.println("request: " + request);
