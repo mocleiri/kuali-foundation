@@ -94,7 +94,7 @@ public class EC2Utils {
         Collections.sort(slaveTags);
         Collections.reverse(slaveTags);
         List<SlaveTag> delete = new ArrayList<SlaveTag>();
-        for (int i = min; i < slaveTags.size(); i++) {
+        for (int i = min; i < size; i++) {
             delete.add(slaveTags.get(i));
         }
         logger.info("Retaining " + min + " slave images");
