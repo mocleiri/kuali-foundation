@@ -1106,7 +1106,7 @@
         <!--
           After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag
         -->
-        <kuali.nightly.tag>builds/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${original.version.trimmed}/${project.artifactId}-${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+        <kuali.nightly.tag>builds/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${original.version.trimmed}/${project.artifactId}-${original.version.trimmed}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
         <original.version>${project.version}</original.version>
       </properties>
       <build>
