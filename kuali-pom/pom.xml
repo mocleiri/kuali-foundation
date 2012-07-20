@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -1106,7 +1106,8 @@
         <!--
           After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag
         -->
-        <kuali.nightly.tag>builds/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${project.artifactId}-${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+        <kuali.nightly.tag>builds/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${original.version.trimmed}/${project.artifactId}-${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+        <original.version>${project.version}</original.version>
       </properties>
       <build>
         <plugins>
@@ -1150,6 +1151,25 @@
                 <goals>
                   <goal>extract</goal>
                 </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>parse</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>parse-version-properties</goal>
+                </goals>
+                <configuration>
+                  <silent>false</silent>
+                  <properties>
+                    <param>original.version</param>
+                  </properties>
+                </configuration>
               </execution>
             </executions>
           </plugin>
