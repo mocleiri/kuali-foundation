@@ -231,7 +231,6 @@ public class EC2Utils {
     }
 
     protected Filter getFilterFromTag(String tag, String value) {
-        System.out.println("tag: " + tag + " value: " + value);
         Filter filter = new Filter();
         filter.setName("tag:" + tag);
         filter.setValues(Collections.singletonList(value));
@@ -247,7 +246,6 @@ public class EC2Utils {
 
     protected int validate(List<Instance> instances, Tag tag, boolean failIfNotFound) {
         int size = instances.size();
-        System.out.println("size " + size);
         String msg = tag.getKey() + "=" + tag.getValue() + " matched " + size + " instances";
         if (size == 1) {
             return size;
@@ -266,7 +264,6 @@ public class EC2Utils {
 
     public Instance findInstanceFromTag(Tag tag, boolean failIfNotFound) {
         DescribeInstancesRequest request = getDescribeInstancesRequest(tag);
-        System.out.println("request: " + request);
         DescribeInstancesResult result = client.describeInstances(request);
         List<Instance> instances = getAllInstances(result.getReservations());
         int size = validate(instances, tag, failIfNotFound);
@@ -284,7 +281,6 @@ public class EC2Utils {
     public List<Instance> getEC2Instances(List<String> instanceIds) {
         DescribeInstancesRequest request = new DescribeInstancesRequest();
         request.setInstanceIds(instanceIds);
-        System.out.print(request.getInstanceIds());
         DescribeInstancesResult result = client.describeInstances(request);
         return getAllInstances(result.getReservations());
     }
@@ -340,12 +336,10 @@ public class EC2Utils {
 
     public void tag(String id, String name, String value) {
         tag(id, new Tag(name, value));
-        System.out.println("tag-1: " + "id: " + id + " name: " + name + " value:" + value);
     }
 
     public void tag(String id, Tag tag) {
         tag(id, Collections.singletonList(tag));
-        System.out.println("tag-2: " + "id: " + id + " tag: " + Collections.singletonList(tag));
     }
 
     /**
@@ -361,7 +355,6 @@ public class EC2Utils {
         request.setResources(Collections.singletonList(id));
         request.setTags(tags);
         client.createTags(request);
-        System.out.println("tag-3: " + "id: " + id + " tags.size:" + tags.size());
         logger.info("Tagged '" + id + "' with " + tags.size() + " tags");
     }
 
