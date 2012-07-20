@@ -1103,7 +1103,6 @@
       <!-- Tag today's source tree -->
       <id>nightlytag</id>
       <properties>
-        <!-- After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag -->
         <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${project.artifactId}-${version.trimmed}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
         <version>${project.version}</version>
       </properties>
@@ -1169,6 +1168,7 @@
               </execution>
             </executions>
           </plugin>
+          <!-- After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag -->
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
             <executions>
