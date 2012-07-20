@@ -76,7 +76,7 @@ public class DescribeImagesMojo extends AbstractEC2Mojo {
             List<String> elements = new ArrayList<String>();
             // elements.add(ec2Utils.getTagValue(i, tag));
             // elements.add(ec2Utils.getTagValue(i, tag));
-            elements.add(ec2Utils.getTagValueImage(i, tag));
+            elements.add(ec2Utils.getTagValue(i, tag));
             // elements.add(i.getInstanceId());
             elements.add(i.getImageId());
             // elements.add(i.getPlacement().getAvailabilityZone());

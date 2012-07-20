@@ -368,17 +368,14 @@ public class EC2Utils {
     }
 
     public String getTagValue(Instance i, String tag) {
-        List<Tag> tags = i.getTags();
-        for (Tag t : tags) {
-            if (t.getKey().equals(tag)) {
-                return t.getValue();
-            }
-        }
-        return "";
+        return getTagValue(i.getTags(), tag);
     }
 
-    public String getTagValueImage(Image i, String tag) {
-        List<Tag> tags = i.getTags();
+    public String getTagValue(Image i, String tag) {
+        return getTagValue(i.getTags(), tag);
+    }
+
+    public String getTagValue(List<Tag> tags, String tag) {
         for (Tag t : tags) {
             if (t.getKey().equals(tag)) {
                 return t.getValue();
