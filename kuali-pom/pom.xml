@@ -1103,27 +1103,12 @@
       <!-- Tag today's source tree -->
       <id>nightlytag</id>
       <properties>
-        <!--
-          After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag
-        -->
-        <kuali.nightly.tag>builds/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}/${original.version.trimmed}/${project.artifactId}-${original.version.trimmed}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
-        <original.version>${project.version}</original.version>
+        <!-- After http://jira.codehaus.org/browse/SCM-487 is fixed, switch back to using the maven-scm-plugin instead of the maven-antrun-plugin for creating the tag -->
+        <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${project.artifactId}-${version.trimmed}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+        <version>${project.version}</version>
       </properties>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>version</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>parse-version</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>buildnumber-maven-plugin</artifactId>
@@ -1165,9 +1150,8 @@
                   <goal>parse-version-properties</goal>
                 </goals>
                 <configuration>
-                  <silent>false</silent>
                   <properties>
-                    <param>original.version</param>
+                    <param>version</param>
                   </properties>
                 </configuration>
               </execution>
