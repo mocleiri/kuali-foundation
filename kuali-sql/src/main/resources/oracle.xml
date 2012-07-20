@@ -20,13 +20,7 @@
 <properties>
   <comment>Oracle SQL</comment>
   <entry key="sql.oracle.drop">
-    BEGIN
-    EXECUTE IMMEDIATE 'DROP USER ${sql.username} CASCADE';
-    EXCEPTION WHEN OTHERS THEN
-    IF SQLCODE != ${sql.oracle.error.userDoesNotExist} THEN
-    RAISE;
-    END IF;
-    END;
+    BEGIN EXECUTE IMMEDIATE 'DROP USER ${sql.username} CASCADE'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -01918 THEN RAISE; END IF; END;
     /
   </entry>
   <entry key="sql.oracle.create">
