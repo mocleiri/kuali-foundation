@@ -1103,7 +1103,7 @@
       <!-- Tag today's source tree -->
       <id>nightlytag</id>
       <properties>
-        <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${project.artifactId}-${version.trimmed}-${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+        <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
         <version>${project.version}</version>
       </properties>
       <build>
