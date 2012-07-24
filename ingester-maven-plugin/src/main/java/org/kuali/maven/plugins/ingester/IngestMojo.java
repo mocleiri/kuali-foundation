@@ -184,7 +184,7 @@ public class IngestMojo extends AbstractMojo {
 
         String path = getPath(propsLoc);
         System.setProperty(propsKey, path);
-        getLog().debug(propsKey + "=" + path);
+        getLog().info("Setting " + propsKey + "=" + path);
 
         String jdbcVendorValue = System.getProperty("jdbc.vendor");
         if (StringUtils.isBlank(jdbcVendorValue)) {
@@ -201,7 +201,7 @@ public class IngestMojo extends AbstractMojo {
             properties.setProperty("jdbc.driver", jdbcDriver);
         }
         try {
-            getLog().info("Creating " + getPath(propsLoc));
+            getLog().info("Creating " + path);
             PropertyUtils.store(properties, propsLoc);
         } catch (IOException e) {
             throw new MojoExecutionException("Error storing properties", e);

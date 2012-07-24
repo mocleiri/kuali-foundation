@@ -25,11 +25,14 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class PropertyUtils {
+    private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
     public static void store(Properties props, File file) throws IOException {
         OutputStream out = null;
@@ -45,6 +48,7 @@ public class PropertyUtils {
         InputStream in = null;
         try {
             in = getInputStream(location);
+            logger.info("Loading " + location);
             props.load(in);
         } finally {
             IOUtils.closeQuietly(in);

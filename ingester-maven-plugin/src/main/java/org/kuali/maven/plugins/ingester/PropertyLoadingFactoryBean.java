@@ -83,6 +83,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             // Log some info
             LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + p.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
             LOG.info("Loaded " + p.size() + " properties");
+
             debug(p);
 
             // Return the necessary properties
@@ -108,7 +109,6 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
      */
     protected static Properties getIngesterProperties() throws IOException {
         String path = "classpath:" + CONFIGURATION_FILE_NAME + ".properties";
-        LOG.info("Loading " + path);
         Properties properties = new Properties();
         PropertyUtils.load(properties, path);
         return properties;
