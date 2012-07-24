@@ -17,7 +17,6 @@ package org.kuali.maven.plugins.ingester;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -36,29 +35,13 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
     private static final String CONFIGURATION_FILE_NAME = "ingester";
     private static final String ALT_CONFIG_LOCATION_PROPERTY = "ingester.config.location";
     private static final String ALT_CONFIG_LOCATION = System.getProperty(ALT_CONFIG_LOCATION_PROPERTY);
-    private static final String PROPERTY_FILE_NAMES_KEY = "property.files";
-    private static final Properties BASE_PROPERTIES = new Properties();
     private static final String KSB_REMOTING_URL_PROPERTY_NAME = "ksb.remoting.url";
     private static final String REMOTING_URL_SUFFIX = "/remoting";
-    private Properties props = new Properties();
+    private static Properties properties = null;
 
     @Override
     public Object getObject() throws Exception {
-        loadBaseProperties();
-        props.putAll(BASE_PROPERTIES);
-        loadPropertyList(props, PROPERTY_FILE_NAMES_KEY);
-        props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
-        LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + props.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
-        LOG.info("Loaded " + props.size() + " properties");
-        if (LOG.isDebugEnabled()) {
-            List<String> names = new ArrayList<String>(props.stringPropertyNames());
-            Collections.sort(names);
-            for (String name : names) {
-                String value = props.getProperty(name);
-                LOG.debug(name + "=" + value);
-            }
-        }
-        return props;
+        return getProperties();
     }
 
     @Override
@@ -71,65 +54,87 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
         return true;
     }
 
-    protected static void loadPropertyList(Properties props, String listPropertyName) throws IOException {
-        for (String propertyFileName : getBaseListProperty(listPropertyName)) {
-            LOG.info("Loading " + propertyFileName);
-            PropertyUtils.load(props, propertyFileName);
+    public synchronized static Properties getProperties() {
+        if (properties == null) {
+            properties = loadProperties();
         }
+        return properties;
     }
 
-    public static String getBaseProperty(String propertyName) {
-        loadBaseProperties();
-        return BASE_PROPERTIES.getProperty(propertyName);
-    }
-
-    protected static List<String> getBaseListProperty(String propertyName) {
-        loadBaseProperties();
-        return Arrays.asList(BASE_PROPERTIES.getProperty(propertyName).split(","));
-    }
-
-    protected static void loadBaseProperties() {
-        if (!BASE_PROPERTIES.isEmpty()) {
-            return;
-        }
+    protected static Properties loadProperties() {
         try {
-            String commonConfigDefaults = "classpath:META-INF/common-config-defaults.xml";
-            String basePropertiesPath = "classpath:" + CONFIGURATION_FILE_NAME + ".properties";
-            LOG.info("Loading " + commonConfigDefaults);
-            List<String> riceXmlConfigurations = new ArrayList<String>();
-            riceXmlConfigurations.add(commonConfigDefaults);
-            JAXBConfigImpl riceXmlConfigurer = new JAXBConfigImpl(riceXmlConfigurations);
-            BASE_PROPERTIES.putAll(riceXmlConfigurer.getProperties());
-            LOG.info("Loading " + basePropertiesPath);
-            PropertyUtils.load(BASE_PROPERTIES, basePropertiesPath);
-            loadJdbcVendorProperties();
-            loadExternalProperties();
+            // Load properties from all the necessary locations
+            Properties riceProperties = getRiceProperties();
+            Properties ingesterProperties = getIngesterProperties();
+            Properties jdbcVendorProperties = getJdbcVendorProperties();
+            Properties externalProperties = getExternalProperties();
+
+            // Add them in the correct order
+            Properties p = new Properties();
+            p.putAll(riceProperties);
+            p.putAll(ingesterProperties);
+            p.putAll(jdbcVendorProperties);
+            p.putAll(externalProperties);
+
+            // Setup the KSB remoting URL
+            String remotingUrl = p.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX;
+            p.put(KSB_REMOTING_URL_PROPERTY_NAME, remotingUrl);
+
+            // Log some info
+            LOG.info(KSB_REMOTING_URL_PROPERTY_NAME + " set to " + p.getProperty(KSB_REMOTING_URL_PROPERTY_NAME));
+            LOG.info("Loaded " + p.size() + " properties");
+            debug(p);
+
+            // Return the necessary properties
+            return p;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
     /**
-     * Load configuration external to the plugin
+     * Load properties from <code>classpath:META-INF/common-config-defaults.xml</code>
      */
-    protected static void loadJdbcVendorProperties() throws IOException {
+    protected static Properties getRiceProperties() {
+        String commonConfigDefaults = "classpath:META-INF/common-config-defaults.xml";
+        LOG.info("Loading " + commonConfigDefaults);
+        List<String> riceConfig = Collections.singletonList(commonConfigDefaults);
+        JAXBConfigImpl riceXmlConfigurer = new JAXBConfigImpl(riceConfig);
+        return riceXmlConfigurer.getProperties();
+    }
+
+    /**
+     * Load <code>ingester.properties</code>
+     */
+    protected static Properties getIngesterProperties() throws IOException {
+        String path = "classpath:" + CONFIGURATION_FILE_NAME + ".properties";
+        LOG.info("Loading " + path);
+        Properties properties = new Properties();
+        PropertyUtils.load(properties, path);
+        return properties;
+    }
+
+    /**
+     * Load database specific properties.
+     */
+    protected static Properties getJdbcVendorProperties() throws IOException {
         String value = System.getProperty("jdbc.vendor");
         if (StringUtils.isBlank(value)) {
-            return;
+            return new Properties();
         }
         String location = "classpath:ingester-" + value + ".properties";
         Properties p = new Properties();
-        loadPropertiesFromLocation(p, location);
-        BASE_PROPERTIES.putAll(p);
+        PropertyUtils.load(p, location);
+        return p;
     }
 
     /**
-     * Load configuration external to the plugin
+     * Load external properties (if any were specified)
      */
-    protected static void loadExternalProperties() throws IOException {
+    protected static Properties getExternalProperties() throws IOException {
         Properties properties = new Properties();
         if (!StringUtils.isBlank(ALT_CONFIG_LOCATION)) {
-            loadPropertiesFromLocation(properties, ALT_CONFIG_LOCATION);
+            PropertyUtils.load(properties, ALT_CONFIG_LOCATION);
         } else {
             LOG.info("${" + ALT_CONFIG_LOCATION_PROPERTY + "} is empty, skipping");
         }
@@ -139,21 +144,15 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             String resolvedValue = SystemPropertyUtils.resolvePlaceholders(value);
             properties.setProperty(key, resolvedValue);
         }
-
-        BASE_PROPERTIES.putAll(properties);
+        return properties;
     }
 
-    protected static void loadPropertiesFromLocation(Properties props, String location) throws IOException {
-        if (!PropertyUtils.exists(location)) {
-            LOG.info("Skipping '" + location + "'  Resource does not exist");
-            return;
-        } else {
-            LOG.info("Loading " + location);
+    protected static void debug(Properties p) {
+        List<String> names = new ArrayList<String>(p.stringPropertyNames());
+        Collections.sort(names);
+        for (String name : names) {
+            String value = p.getProperty(name);
+            LOG.debug(name + "=" + value);
         }
-        PropertyUtils.load(props, location);
-    }
-
-    public static void clear() {
-        BASE_PROPERTIES.clear();
     }
 }

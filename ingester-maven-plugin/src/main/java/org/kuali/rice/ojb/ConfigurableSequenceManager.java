@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.ojb;
 
+import java.util.Properties;
+
 import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.PersistenceBroker;
@@ -39,8 +41,8 @@ public class ConfigurableSequenceManager implements SequenceManager {
     }
 
     protected SequenceManager createSequenceManager(PersistenceBroker broker) {
-        String sequenceManagerClassName = PropertyLoadingFactoryBean
-                .getBaseProperty(SEQUENCE_MANAGER_CLASS_NAME_PROPERTY);
+        Properties props = PropertyLoadingFactoryBean.getProperties();
+        String sequenceManagerClassName = props.getProperty(SEQUENCE_MANAGER_CLASS_NAME_PROPERTY);
         try {
             Object sequenceManagerObject = ConstructorUtils.invokeConstructor(Class.forName(sequenceManagerClassName),
                     broker);
@@ -53,7 +55,7 @@ public class ConfigurableSequenceManager implements SequenceManager {
             String message = "Unable to configure SequenceManager specified by " + SEQUENCE_MANAGER_CLASS_NAME_PROPERTY
                     + " KualiConfigurationService property";
             LOG.fatal(message, e);
-            throw new RuntimeException(message, e);
+            throw new IllegalStateException(message, e);
         }
     }
 

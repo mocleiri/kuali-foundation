@@ -244,7 +244,6 @@ public class SpringContext {
             LOG.error("Unable to close SpringContext - unable to get a handle to a RiceConfigurer object.");
         }
         ConfigContext.destroy();
-        PropertyLoadingFactoryBean.clear();
     }
 
     public static boolean isInitialized() {

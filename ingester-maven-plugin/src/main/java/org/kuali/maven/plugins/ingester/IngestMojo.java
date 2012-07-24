@@ -31,14 +31,14 @@ import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
 
 /**
  * Ingest workflow documents into Rice
- *
+ * 
  * @goal ingest
  */
 public class IngestMojo extends AbstractMojo {
 
     /**
      * The Maven project object
-     *
+     * 
      * @parameter expression="${project}"
      * @required
      * @readonly
@@ -47,7 +47,7 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * The type of database (mysql, oracle, etc)
-     *
+     * 
      * @parameter expression="${ingester.jdbcVendor}" default-value="mysql"
      * @required
      */
@@ -55,7 +55,7 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * The jdbc connect url
-     *
+     * 
      * @parameter expression="${ingester.jdbcUrl}"
      * @required
      */
@@ -63,7 +63,7 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * The database username
-     *
+     * 
      * @parameter expression="${ingester.jdbcUsername}"
      * @required
      */
@@ -71,7 +71,7 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * The database password for the specified username
-     *
+     * 
      * @parameter expression="${ingester.jdbcPassword}"
      * @required
      */
@@ -80,14 +80,14 @@ public class IngestMojo extends AbstractMojo {
     /**
      * Jdbc driver to use. This is optional because a default driver for the specified <code>jdbcVendor</code> is
      * usually the correct one to use. If a driver is provided here, it overrides the default.
-     *
+     * 
      * @parameter expression="${ingester.jdbcDriver}"
      */
     private String jdbcDriver;
 
     /**
      * Namespace for Rice
-     *
+     * 
      * @parameter expression="${ingester.namespace}"
      * @required
      */
@@ -95,7 +95,7 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * The directory containing documents to ingest
-     *
+     * 
      * @parameter expression="${ingester.sourceDir}" default-value="${project.basedir}/src/main/resources"
      * @required
      */
@@ -104,7 +104,7 @@ public class IngestMojo extends AbstractMojo {
     /**
      * The working directory where the documents to ingest are copied. The plugin loads them from here, and transitions
      * them from the "pending" directory to either the "completed" or "problem" directories.
-     *
+     * 
      * @parameter expression="${ingester.workingDir}" default-value="${project.build.directory}/ingester"
      * @required
      */
@@ -112,14 +112,14 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * System property key the plugin uses to locate an external properties file to load
-     *
+     * 
      * @parameter expression="${ingester.propsKey}" default-value="ingester.config.location"
      */
     private String propsKey;
 
     /**
      * Location of the external properties file to load
-     *
+     * 
      * @parameter expression="${ingester.propsLoc}"
      *            default-value="${project.build.directory}/ingester/config/ingester.properties"
      */
@@ -127,14 +127,14 @@ public class IngestMojo extends AbstractMojo {
 
     /**
      * Inclusion patterns. By default &#42;&#42;/&#42;.xml is included
-     *
+     * 
      * @parameter
      */
     private String[] includes = { "**/*.xml" };
 
     /**
      * Exclusion patterns. By default, nothing is excluded.
-     *
+     * 
      * @parameter
      */
     private String[] excludes;
@@ -157,39 +157,20 @@ public class IngestMojo extends AbstractMojo {
         ingest(ds);
     }
 
-    protected String toCSV(String[] array) {
-        if (array == null || array.length == 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            if (i != 0) {
-                sb.append(",");
-            }
-            sb.append(array[i]);
-        }
-        return sb.toString();
+    protected DirectoryStructure getDirectoryStructure() {
+        DirectoryStructure ds = new DirectoryStructure();
+        ds.setPendingDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "pending"));
+        ds.setCompletedDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "completed"));
+        ds.setProblemDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "problem"));
+        return ds;
     }
 
-    protected void showConfig() throws MojoExecutionException {
+    protected void prepareFileSystem(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
         try {
-            getLog().info("Namespace - " + namespace);
-            getLog().info("Directory - " + sourceDir.getCanonicalPath());
-            getLog().info("Includes - " + toCSV(includes));
-            getLog().info("Excludes - " + toCSV(excludes));
-            getLog().info("JDBC Vendor - " + jdbcVendor);
-            getLog().info("JDBC Url - " + jdbcUrl);
-            getLog().info("JDBC Username - " + jdbcUsername);
+            mkdirs(ds);
+            copyToDir(ds.getPendingDir(), files);
         } catch (IOException e) {
-            throw new MojoExecutionException("Error showing config", e);
-        }
-    }
-
-    protected String getPath(File file) throws MojoExecutionException {
-        try {
-            return file.getCanonicalPath();
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error obtaining canonical path", e);
+            throw new MojoExecutionException("Error preparing directory structure", e);
         }
     }
 
@@ -201,7 +182,9 @@ public class IngestMojo extends AbstractMojo {
             return;
         }
 
-        System.setProperty(propsKey, getPath(propsLoc));
+        String path = getPath(propsLoc);
+        System.setProperty(propsKey, path);
+        getLog().debug(propsKey + "=" + path);
 
         String jdbcVendorValue = System.getProperty("jdbc.vendor");
         if (StringUtils.isBlank(jdbcVendorValue)) {
@@ -239,23 +222,6 @@ public class IngestMojo extends AbstractMojo {
         }
     }
 
-    protected void prepareFileSystem(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
-        try {
-            mkdirs(ds);
-            copyToDir(ds.getPendingDir(), files);
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error preparing directory structure", e);
-        }
-    }
-
-    protected DirectoryStructure getDirectoryStructure() {
-        DirectoryStructure ds = new DirectoryStructure();
-        ds.setPendingDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "pending"));
-        ds.setCompletedDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "completed"));
-        ds.setProblemDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "problem"));
-        return ds;
-    }
-
     protected void copyToDir(File dir, List<File> files) throws IOException {
         int paddingSize = (files.size() + "").length();
         int sequence = 0;
@@ -286,6 +252,42 @@ public class IngestMojo extends AbstractMojo {
         }
         Collections.sort(fileList);
         return fileList;
+    }
+
+    protected String toCSV(String[] array) {
+        if (array == null || array.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(array[i]);
+        }
+        return sb.toString();
+    }
+
+    protected void showConfig() throws MojoExecutionException {
+        try {
+            getLog().info("Namespace - " + namespace);
+            getLog().info("Directory - " + sourceDir.getCanonicalPath());
+            getLog().info("Includes - " + toCSV(includes));
+            getLog().info("Excludes - " + toCSV(excludes));
+            getLog().info("JDBC Vendor - " + jdbcVendor);
+            getLog().info("JDBC Url - " + jdbcUrl);
+            getLog().info("JDBC Username - " + jdbcUsername);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error showing config", e);
+        }
+    }
+
+    protected String getPath(File file) throws MojoExecutionException {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            throw new MojoExecutionException("Error obtaining canonical path", e);
+        }
     }
 
     public String[] getIncludes() {
