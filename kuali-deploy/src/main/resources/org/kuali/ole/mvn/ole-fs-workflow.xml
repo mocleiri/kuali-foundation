@@ -28,9 +28,7 @@
   <artifactId>ole-fs-workflow</artifactId>
   <version>${project.version}</version>
   <name>OLE Financial System Workflow</name>
-  <description>
-  This pom contains plugin executions for ingesting OLE Financial System workflow data
-  </description>
+  <description>This pom contains plugin executions for ingesting OLE Financial System workflow data</description>
   <build>
     <pluginManagement>
       <plugins>
