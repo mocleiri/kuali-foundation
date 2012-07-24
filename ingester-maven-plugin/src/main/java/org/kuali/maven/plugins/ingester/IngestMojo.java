@@ -257,11 +257,11 @@ public class IngestMojo extends AbstractMojo {
     }
 
     protected void copyToDir(File dir, List<File> files) throws IOException {
-        int size = (files.size() + "").length();
+        int paddingSize = (files.size() + "").length();
         int sequence = 0;
         for (File file : files) {
             sequence++;
-            String prefix = StringUtils.leftPad(sequence + "", size, "0");
+            String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
             String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
             FileUtils.copyFile(file, new File(filename));
         }
