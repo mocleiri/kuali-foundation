@@ -159,10 +159,10 @@ public class EC2Utils {
         DescribeImagesResult result = client.describeImages(request);
         List<Image> images = result.getImages();
         if (isEmpty(images)) {
-            throw new IllegalStateException("Unable to locate '" + imageId + "'");
+            throw new IllegalArgumentException("Unable to locate '" + imageId + "'");
         }
         if (images.size() > 1) {
-            throw new IllegalStateException("Found " + images.size() + " matching '" + imageId + "'");
+            throw new IllegalArgumentException("Found " + images.size() + " matching '" + imageId + "'");
         }
 
         return images.get(0);
