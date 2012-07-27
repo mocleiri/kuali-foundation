@@ -235,7 +235,7 @@ public class IngestMojo extends AbstractMojo {
         int sequence = 0;
         for (File file : files) {
             sequence++;
-            String prefix = StringUtils.leftPad(sequence + "", paddingSize, " ");
+            String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
             String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
             File newFile = new File(filename);
             String rp1 = getRelativePath(project.getBasedir(), newFile);
