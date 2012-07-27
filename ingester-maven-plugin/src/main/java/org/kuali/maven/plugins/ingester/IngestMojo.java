@@ -230,7 +230,7 @@ public class IngestMojo extends AbstractMojo {
             String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
             String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
             File newFile = new File(filename);
-            getLog().info("Copy " + file.getName() + " to " + newFile.getAbsolutePath());
+            getLog().info("Creating " + newFile.getAbsolutePath() + " from " + file.getName());
             FileUtils.copyFile(file, newFile);
         }
     }
