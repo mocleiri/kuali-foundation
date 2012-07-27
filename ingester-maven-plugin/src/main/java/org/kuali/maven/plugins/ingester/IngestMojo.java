@@ -238,7 +238,7 @@ public class IngestMojo extends AbstractMojo {
     }
 
     protected String getRelativePath(File dir, File file) {
-        String dirPath = dir.getAbsolutePath();
+        String dirPath = dir.getAbsolutePath() + File.pathSeparator;
         String filePath = file.getAbsolutePath();
         return StringUtils.replace(filePath, dirPath, "");
     }
