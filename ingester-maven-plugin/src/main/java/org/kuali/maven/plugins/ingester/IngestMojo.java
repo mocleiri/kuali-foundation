@@ -175,7 +175,7 @@ public class IngestMojo extends AbstractMojo {
     protected void prepareFileSystem(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
         try {
             mkdirs(ds);
-            getLog().info("Copying files " + files.size() + " files to the pending directory");
+            getLog().info("Copying " + files.size() + " files to the pending directory");
             copyToDir(ds.getPendingDir(), files);
         } catch (IOException e) {
             throw new MojoExecutionException("Error preparing directory structure", e);
