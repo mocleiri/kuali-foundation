@@ -238,9 +238,10 @@ public class IngestMojo extends AbstractMojo {
     }
 
     protected String getRelativePath(File dir, File file) {
-        String dirPath = dir.getAbsolutePath() + File.pathSeparator;
+        String dirPath = dir.getAbsolutePath();
         String filePath = file.getAbsolutePath();
-        return StringUtils.replace(filePath, dirPath, "");
+        String s = StringUtils.replace(filePath, dirPath, "");
+        return s.substring(1);
     }
 
     protected void mkdirs(DirectoryStructure ds) throws IOException {
