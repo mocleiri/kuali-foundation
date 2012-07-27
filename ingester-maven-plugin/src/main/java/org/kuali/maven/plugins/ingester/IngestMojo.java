@@ -149,6 +149,9 @@ public class IngestMojo extends AbstractMojo {
             return;
         } else {
             getLog().info("Located " + files.size() + " documents to ingest");
+            for (File file : files) {
+                getLog().info(getRelativePath(project.getBasedir(), file));
+            }
         }
 
         DirectoryStructure ds = getDirectoryStructure();
