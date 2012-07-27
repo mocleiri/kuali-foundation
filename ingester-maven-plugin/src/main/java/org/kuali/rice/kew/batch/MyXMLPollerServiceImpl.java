@@ -96,7 +96,7 @@ public class MyXMLPollerServiceImpl implements XmlPollerService {
         LOG.info("Found " + files.length + " files to ingest.");
 
         for (int i = 0; i < files.length; i++) {
-            LOG.info(i + " " + files[i].getName() + " " + fileArray[i].getName());
+            LOG.debug(i + " " + files[i].getName() + " " + fileArray[i].getName());
         }
 
         List<XmlDocCollection> collections = new ArrayList<XmlDocCollection>();
