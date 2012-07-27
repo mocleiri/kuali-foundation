@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -86,19 +85,14 @@ public class MyXMLPollerServiceImpl implements XmlPollerService {
         // this.cancel();
         // }
         LOG.debug("checking for xml data files...");
-        File[] fileArray = getXmlPendingDir().listFiles();
-        if (fileArray == null || fileArray.length == 0) {
+        File[] files = getXmlPendingDir().listFiles();
+        if (files == null || files.length == 0) {
             return;
         }
-        List<File> fileList = Arrays.asList(fileArray);
-        Collections.sort(fileList);
-        File[] files = fileList.toArray(new File[fileList.size()]);
+        // Sort them so the ordering is deterministic by file name instead of random
+        Arrays.sort(files);
 
         LOG.info("Found " + files.length + " files to ingest.");
-
-        for (int i = 0; i < files.length; i++) {
-            LOG.debug(i + " " + files[i].getName() + " " + fileArray[i].getName());
-        }
 
         List<XmlDocCollection> collections = new ArrayList<XmlDocCollection>();
         for (File file : files) {
