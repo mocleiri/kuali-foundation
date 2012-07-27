@@ -230,9 +230,17 @@ public class IngestMojo extends AbstractMojo {
             String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
             String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
             File newFile = new File(filename);
-            getLog().info("Creating " + newFile.getAbsolutePath() + " from " + file.getName());
+            String rp1 = getRelativePath(project.getBasedir(), newFile);
+            String rp2 = getRelativePath(project.getBasedir(), file);
+            getLog().info("Creating " + rp1 + " from " + rp2);
             FileUtils.copyFile(file, newFile);
         }
+    }
+
+    protected String getRelativePath(File dir, File file) {
+        String dirPath = dir.getAbsolutePath();
+        String filePath = file.getAbsolutePath();
+        return StringUtils.replace(filePath, dirPath, "");
     }
 
     protected void mkdirs(DirectoryStructure ds) throws IOException {
