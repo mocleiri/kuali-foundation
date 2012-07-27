@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.kuali.rice.kew.batch.XmlPollerServiceImpl;
+import org.kuali.rice.kew.batch.MyXMLPollerServiceImpl;
 
 /**
  * Ingest workflow documents into Rice
@@ -224,7 +224,7 @@ public class IngestMojo extends AbstractMojo {
 
     protected void ingest(DirectoryStructure ds) throws MojoExecutionException {
         SpringContextForWorkflowImporter.initializeApplicationContext();
-        XmlPollerServiceImpl parser = new XmlPollerServiceImpl();
+        MyXMLPollerServiceImpl parser = new MyXMLPollerServiceImpl();
         parser.setXmlPendingLocation(ds.getPendingDir().getAbsolutePath());
         parser.setXmlCompletedLocation(ds.getCompletedDir().getAbsolutePath());
         parser.setXmlProblemLocation(ds.getProblemDir().getAbsolutePath());
