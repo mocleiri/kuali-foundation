@@ -148,9 +148,13 @@ public class IngestMojo extends AbstractMojo {
             getLog().info("Skipping execution.  No matching files found");
             return;
         } else {
+            int paddingSize = (files.size() + "").length();
             getLog().info("Located " + files.size() + " documents to ingest");
+            int sequence = 0;
             for (File file : files) {
-                getLog().info(getRelativePath(project.getBasedir(), file));
+                sequence++;
+                String prefix = StringUtils.leftPad(sequence + "", paddingSize, " ");
+                getLog().info(prefix + " - " + getRelativePath(project.getBasedir(), file));
             }
         }
 
