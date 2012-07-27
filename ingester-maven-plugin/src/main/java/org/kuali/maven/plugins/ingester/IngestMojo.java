@@ -142,11 +142,20 @@ public class IngestMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         showConfig();
-
         List<File> files = getFiles();
+        if (!validate(files)) {
+            return;
+        }
+        DirectoryStructure ds = getDirectoryStructure();
+        prepareFileSystem(ds, files);
+        prepareProperties();
+        ingest(ds);
+    }
+
+    protected boolean validate(List<File> files) {
         if (files.size() == 0) {
             getLog().info("Skipping execution.  No matching files found");
-            return;
+            return false;
         } else {
             int paddingSize = (files.size() + "").length();
             getLog().info("Located " + files.size() + " documents to ingest");
@@ -156,12 +165,9 @@ public class IngestMojo extends AbstractMojo {
                 String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
                 getLog().info(prefix + " - " + getRelativePath(project.getBasedir(), file));
             }
+            return true;
         }
 
-        DirectoryStructure ds = getDirectoryStructure();
-        prepareFileSystem(ds, files);
-        prepareProperties();
-        ingest(ds);
     }
 
     protected DirectoryStructure getDirectoryStructure() {
