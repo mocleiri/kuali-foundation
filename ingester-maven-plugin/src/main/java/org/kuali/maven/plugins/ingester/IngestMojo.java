@@ -175,6 +175,7 @@ public class IngestMojo extends AbstractMojo {
     protected void prepareFileSystem(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
         try {
             mkdirs(ds);
+            getLog().info("Copying files " + files.size() + " files to the pending directory");
             copyToDir(ds.getPendingDir(), files);
         } catch (IOException e) {
             throw new MojoExecutionException("Error preparing directory structure", e);
@@ -238,8 +239,7 @@ public class IngestMojo extends AbstractMojo {
             String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
             File newFile = new File(filename);
             String rp1 = getRelativePath(project.getBasedir(), newFile);
-            String rp2 = getRelativePath(project.getBasedir(), file);
-            getLog().info("Creating " + rp1 + " from " + rp2);
+            getLog().info(prefix + " - " + rp1);
             FileUtils.copyFile(file, newFile);
         }
     }
