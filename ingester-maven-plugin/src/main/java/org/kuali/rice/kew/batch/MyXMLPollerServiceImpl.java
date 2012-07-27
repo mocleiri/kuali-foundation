@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 
 /**
@@ -120,7 +121,7 @@ public class MyXMLPollerServiceImpl implements XmlPollerService {
         }
 
         // Cull any resources which were already processed and whose moves failed
-        Iterator collectionsIt = collections.iterator();
+        Iterator<?> collectionsIt = collections.iterator();
         Collection<XmlDocCollection> culled = new ArrayList<XmlDocCollection>();
         while (collectionsIt.hasNext()) {
             XmlDocCollection container = (XmlDocCollection) collectionsIt.next();
@@ -143,7 +144,7 @@ public class MyXMLPollerServiceImpl implements XmlPollerService {
         File failedDir = new File(getXmlProblemDir(), DIR_FORMAT.format(LOAD_TIME));
 
         // now ingest the containers
-        Collection failed = null;
+        Collection<?> failed = null;
         try {
             failed = KEWServiceLocator.getXmlIngesterService().ingest(collections);
         } catch (Exception e) {
@@ -188,34 +189,31 @@ public class MyXMLPollerServiceImpl implements XmlPollerService {
     }
 
     private boolean inPendingMoveFailedArchive(File xmlDataFile) {
-        if (xmlDataFile == null)
+        if (xmlDataFile == null) {
             return false;
-        BufferedReader inFile = null;
+        }
         File movesFailedFile = new File(getXmlPendingDir(), PENDING_MOVE_FAILED_ARCHIVE_FILE);
-        if (!movesFailedFile.isFile())
+        if (!movesFailedFile.isFile()) {
             return false;
+        }
+        BufferedReader inFile = null;
         try {
             inFile = new BufferedReader(new FileReader(movesFailedFile));
             String line;
-
+            boolean found = false;
             while ((line = inFile.readLine()) != null) {
                 String trimmedLine = line.trim();
                 if (trimmedLine.equals(xmlDataFile.getName()) || trimmedLine.startsWith(xmlDataFile.getName() + "=")) {
-                    return true;
+                    found = true;
+                    break;
                 }
             }
+            return found;
         } catch (IOException e) {
             LOG.warn("Error reading file " + movesFailedFile);
-            // TODO try reading the pending file or stop?
         } finally {
-            if (inFile != null)
-                try {
-                    inFile.close();
-                } catch (Exception e) {
-                    LOG.warn("Error closing buffered reader for " + movesFailedFile);
-                }
+            IOUtils.closeQuietly(inFile);
         }
-
         return false;
     }
 
