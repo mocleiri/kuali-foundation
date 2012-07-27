@@ -153,7 +153,7 @@ public class IngestMojo extends AbstractMojo {
             int sequence = 0;
             for (File file : files) {
                 sequence++;
-                String prefix = StringUtils.leftPad(sequence + "", paddingSize, " ");
+                String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
                 getLog().info(prefix + " - " + getRelativePath(project.getBasedir(), file));
             }
         }
