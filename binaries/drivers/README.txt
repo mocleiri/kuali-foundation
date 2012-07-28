@@ -1,4 +1,5 @@
-ojdbc6.jar = ojdbc6_g-11.2.0.2.jar
+- Updated JDBC drivers that are in sync with Amazon RDS
+- The JDBC drivers checked into src/main/resources/drivers/*.jar are deleted before Maven packages this project
+- These JDBC drivers are copied into classes/drivers/*.jar so the Ant build scripting can find and use them
+- The reason for this, is that Oracle blows up if you try and run this tooling against an Oracle 11g database using the ojdbc6.jar checked into SVN
 
-The reason this is here is that the Ant scripting blows up when connecting to an Oracle 11g db using the old driver.
-We overlay the new jar on top of the old jar (thus replacing it) so the Ant scripting will function correctly
