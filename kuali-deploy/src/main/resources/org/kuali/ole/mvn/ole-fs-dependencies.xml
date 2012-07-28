@@ -37,6 +37,37 @@
           <version>${plugin.dependency.version}</version>
           <executions>
             <execution>
+              <id>copy</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>copy</goal>
+              </goals>
+              <configuration>
+                <artifactItems>
+                  <!-- The war file being deployed -->
+                  <artifactItem>
+                    <groupId>${deploy.groupId}</groupId>
+                    <artifactId>${deploy.artifactId}</artifactId>
+                    <classifier>webapp</classifier>
+                    <version>${deploy.version}</version>
+                    <type>war</type>
+                  </artifactItem>
+                  <!-- The JDBC driver -->
+                  <artifactItem>
+                    <groupId>${jdbc.driver.groupId}</groupId>
+                    <artifactId>${jdbc.driver.artifactId}</artifactId>
+                    <version>${jdbc.driver.version}</version>
+                  </artifactItem>
+                  <!-- The kuali-deploy.jar file -->
+                  <artifactItem>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <version>${project.version}</version>
+                  </artifactItem>
+                </artifactItems>
+              </configuration>
+            </execution>
+            <execution>
               <id>unpack</id>
               <phase>initialize</phase>
               <goals>
@@ -44,6 +75,13 @@
               </goals>
               <configuration>
                 <artifactItems>
+                  <!-- The kuali-deploy.jar file -->
+                  <artifactItem>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <version>${project.version}</version>
+                    <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
+                  </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.db.impex</groupId>
                     <artifactId>${impex.tool.artifactId}</artifactId>
@@ -53,7 +91,7 @@
                   <artifactItem>
                     <groupId>org.kuali.rice</groupId>
                     <artifactId>rice-impex-clover</artifactId>
-                    <version>${rice.impex.version}</version>
+                    <version>1.0.3</version>
                     <outputDirectory>${rice.impex.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
