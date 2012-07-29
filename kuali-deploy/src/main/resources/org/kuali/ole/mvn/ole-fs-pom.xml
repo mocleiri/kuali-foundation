@@ -160,6 +160,23 @@
                 </poms>
               </configuration>
             </execution>
+            <execution>
+              <id>start</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>mvn</goal>
+              </goals>
+              <configuration>
+                <args>
+                  <arg>initialize</arg>
+                  <arg>-Ddeploy.ant.target=start</arg>
+                </args>
+                <poms>
+                  <param>classpath:org/kuali/common/deploy/mvn/ant.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/http.xml</param>
+                </poms>
+              </configuration>
+            </execution>
           </executions>
           <dependencies>
             <dependency>
