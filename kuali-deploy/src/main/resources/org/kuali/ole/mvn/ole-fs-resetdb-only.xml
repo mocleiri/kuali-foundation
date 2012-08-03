@@ -118,7 +118,6 @@
               <configuration>
                 <args>
                   <arg>initialize</arg>
-                  <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
