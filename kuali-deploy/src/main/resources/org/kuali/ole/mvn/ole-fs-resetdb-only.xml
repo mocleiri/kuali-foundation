@@ -121,7 +121,7 @@
                   <arg>-Ddeploy.ant.target=deploy</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/ole/mvn/ole-fs-dependencies.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>
                 </poms>
