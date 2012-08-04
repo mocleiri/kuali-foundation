@@ -87,11 +87,11 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         // Add project properties
         properties.putAll(project.getProperties());
         if (includeEnvironmentVariables) {
-            // Add environment variables, overriding any properties with the same key
+            // Add environment variables, overriding any existing properties with the same key
             properties.putAll(getEnvironmentVariables());
         }
         if (includeSystemProperties) {
-            // Add system properties, overriding any properties with the same key
+            // Add system properties, overriding any existing properties with the same key
             properties.putAll(System.getProperties());
         }
 
