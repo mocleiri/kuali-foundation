@@ -28,6 +28,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Writes project properties to a file.
@@ -71,7 +72,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        validateOutputFile();
         Properties properties = new Properties();
         properties.putAll(project.getProperties());
 
@@ -115,14 +115,9 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     }
 
     protected void echoPropertiesMode(File file, Properties properties) throws MojoExecutionException {
-        // DSTAMP=20120304
-        // TODAY=March 4 2012
-        // TSTAMP=1651
         SimpleDateFormat dstamp = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat today = new SimpleDateFormat("MMMM d yyyy");
         SimpleDateFormat tstamp = new SimpleDateFormat("HHmm");
-        List<String> names = new ArrayList<String>(properties.stringPropertyNames());
-        Collections.sort(names);
         Date now = new Date();
         StringBuilder sb = new StringBuilder();
         sb.append("#Ant properties\n");
@@ -130,21 +125,35 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         sb.append("DSTAMP=" + dstamp.format(now) + "\n");
         sb.append("TODAY=" + today.format(now) + "\n");
         sb.append("TSTAMP=" + tstamp.format(now) + "\n");
+        writeProperties(file, sb.toString(), properties);
+    }
+
+    protected void writeProperties(File file, String comment, Properties properties) throws MojoExecutionException {
+        List<String> names = new ArrayList<String>(properties.stringPropertyNames());
+        Collections.sort(names);
+        StringBuilder sb = new StringBuilder();
+        if (!StringUtils.isBlank(comment)) {
+            sb.append(comment);
+        }
         for (String name : names) {
-            String value = properties.getProperty(name);
-            value = value.replace("\n", "\\n");
-            value = value.replace("\r", "\\r");
-            value = value.replace("\t", "\\t");
-            value = value.replace(":", "\\:");
-            value = value.replace("#", "\\#");
-            value = value.replace("=", "\\=");
+            String value = escape(properties.getProperty(name));
             sb.append(name + "=" + value + "\n");
         }
         try {
-            FileUtils.writeByteArrayToFile(file, sb.toString().getBytes());
+            FileUtils.writeStringToFile(file, sb.toString());
         } catch (IOException e) {
             throw new MojoExecutionException("Error creating properties file", e);
         }
+    }
+
+    protected String escape(String s) {
+        s = s.replace("\n", "\\n");
+        s = s.replace("\r", "\\r");
+        s = s.replace("\t", "\\t");
+        s = s.replace(":", "\\:");
+        s = s.replace("#", "\\#");
+        return s.replace("=", "\\=");
+
     }
 
     public boolean isAntEchoPropertiesMode() {

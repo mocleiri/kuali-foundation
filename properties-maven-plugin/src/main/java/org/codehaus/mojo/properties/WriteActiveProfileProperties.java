@@ -32,7 +32,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class WriteActiveProfileProperties extends AbstractWritePropertiesMojo {
     @Override
     public void execute() throws MojoExecutionException {
-        validateOutputFile();
         List<?> list = project.getActiveProfiles();
         if (getLog().isInfoEnabled()) {
             getLog().debug(list.size() + " profile(s) active");

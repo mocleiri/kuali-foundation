@@ -16,11 +16,12 @@
 package org.codehaus.mojo.properties;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -40,40 +41,21 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 
     /**
      * The properties file that will be used when writing properties.
-     *
+     * 
      * @parameter
      * @required
      */
     protected File outputFile;
 
     protected void writeProperties(Properties properties, File file) throws MojoExecutionException {
-        FileOutputStream fos = null;
+        OutputStream out = null;
         try {
-            fos = new FileOutputStream(file);
-            properties.store(fos, "Properties");
-        } catch (FileNotFoundException e) {
-            getLog().error("Could not create FileOutputStream: " + fos);
-            throw new MojoExecutionException(e.getMessage(), e);
+            out = FileUtils.openOutputStream(outputFile);
+            properties.store(out, "Properties");
         } catch (IOException e) {
-            getLog().error("Error writing properties: " + fos);
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
-
-        try {
-            fos.close();
-        } catch (IOException e) {
-            getLog().error("Error closing FileOutputStream: " + fos);
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
-    }
-
-    protected void validateOutputFile() throws MojoExecutionException {
-        if (outputFile.isDirectory()) {
-            throw new MojoExecutionException("outputFile must be a file and not a directory");
-        }
-        // ensure path exists
-        if (outputFile.getParentFile() != null) {
-            outputFile.getParentFile().mkdirs();
+            throw new MojoExecutionException("Error creating properties file", e);
+        } finally {
+            IOUtils.closeQuietly(out);
         }
     }
 }
