@@ -57,11 +57,11 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     private boolean includeSystemProperties;
 
     /**
-     * Comma separated set of properties to omit from writing to the properties file
+     * Comma separated set of properties to exclude from writing to the properties file
      * 
-     * @parameter expression="${properties.omit}"
+     * @parameter expression="${properties.exclude}"
      */
-    private String omit;
+    private String exclude;
 
     /**
      * Comma separated set of properties to write to the properties file. If provided, only the properties matching
@@ -76,7 +76,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         Properties properties = new Properties();
         properties.putAll(project.getProperties());
         properties.putAll(System.getProperties());
-        trim(properties, omit, include);
+        trim(properties, exclude, include);
         getLog().info("Creating " + outputFile);
         if (antEchoPropertiesMode) {
             echoPropertiesMode(outputFile, properties);
