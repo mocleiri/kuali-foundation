@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -30,7 +31,7 @@ import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * Writes project properties to a file.
- *
+ * 
  * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
  * @version $Id: WriteProjectProperties.java 9747 2009-05-20 13:27:44Z mark $
  * @goal write-project-properties
@@ -41,24 +42,32 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
      * &lt;echoproperties&gt; task. The properties will be sorted by name with the ':', '#', '=', CR, LF, and TAB
      * characters escaped with a backslash
-     *
+     * 
      * @parameter default-value="false" expression="${properties.antEchoPropertiesMode}"
      */
     private boolean antEchoPropertiesMode;
 
     /**
      * If true, the plugin will include system properties when writing the properties file
-     *
+     * 
      * @parameter default-value="false" expression="${properties.includeSystemProperties}"
      */
     private boolean includeSystemProperties;
 
     /**
      * Comma separated set of properties to omit from writing to the properties file
-     *
+     * 
      * @parameter expression="${properties.omit}"
      */
     private String omit;
+
+    /**
+     * Comma separated set of properties to write to the properties file. If provided, only the properties matching
+     * those supplied here will be written to the properties file.
+     * 
+     * @parameter expression="${properties.include}"
+     */
+    private String include;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -81,7 +90,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
             }
         }
 
-        remove(properties, omit);
+        remove(properties, omit, include);
 
         getLog().info("Creating " + outputFile);
         if (antEchoPropertiesMode) {
@@ -91,12 +100,18 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected void remove(Properties properties, String csv) {
-        List<String> keys = ReadPropertiesMojo.getListFromCSV(csv);
-        for (String key : keys) {
+    protected void remove(Properties properties, String omitCSV, String includeCSV) {
+        List<String> omitKeys = ReadPropertiesMojo.getListFromCSV(omitCSV);
+        for (String key : omitKeys) {
             properties.remove(key);
         }
-
+        List<String> includeKeys = ReadPropertiesMojo.getListFromCSV(includeCSV);
+        Set<String> keys = properties.stringPropertyNames();
+        for (String key : keys) {
+            if (!includeKeys.contains(key)) {
+                properties.remove(key);
+            }
+        }
     }
 
     protected void echoPropertiesMode(File file, Properties properties) throws MojoExecutionException {
