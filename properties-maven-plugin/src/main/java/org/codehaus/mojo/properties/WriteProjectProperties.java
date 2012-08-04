@@ -122,7 +122,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
         for (String name : names) {
             String value = properties.getProperty(name);
-            String escapedValue = escape(value);
+            String escapedValue = escape(value, ESCAPE_CHARS);
             sb.append(name + "=" + escapedValue + "\n");
         }
         try {
@@ -132,8 +132,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected String escape(String s) {
-        for (String c : ESCAPE_CHARS) {
+    protected String escape(String s, String[] escapeChars) {
+        for (String c : escapeChars) {
             s = s.replace(c, "\\" + c);
         }
         return s;
