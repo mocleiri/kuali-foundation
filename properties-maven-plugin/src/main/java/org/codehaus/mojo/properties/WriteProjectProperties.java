@@ -43,14 +43,16 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     /**
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
-     * &lt;echoproperties&gt; task. This mode adds 3 custom properties at the top of the file, DSTAMP, TODAY, and TSTAMP
+     * <code>echoproperties</code> task. This mode adds 3 custom properties at the top of the file, DSTAMP, TODAY, and
+     * TSTAMP
      * 
      * @parameter default-value="false" expression="${properties.antEchoPropertiesMode}"
      */
     private boolean antEchoPropertiesMode;
 
     /**
-     * If true, the plugin will include system properties when writing the properties file
+     * If true, the plugin will include system properties when writing the properties file. System properties override
+     * both environment variables and project properties.
      * 
      * @parameter default-value="false" expression="${properties.includeSystemProperties}"
      */
@@ -58,14 +60,14 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     /**
      * If true, the plugin will include environment variables when writing the properties file. Environment variables
-     * are prefixed with "env".
+     * are prefixed with "env". Environment variables override project properties.
      * 
      * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
      */
     private boolean includeEnvironmentVariables;
 
     /**
-     * Comma separated set of properties to exclude from writing to the properties file
+     * Comma separated set of properties to exclude when writing the properties file
      * 
      * @parameter expression="${properties.exclude}"
      */
