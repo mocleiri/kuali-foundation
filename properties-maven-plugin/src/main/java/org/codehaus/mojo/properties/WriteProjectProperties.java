@@ -32,14 +32,24 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Writes project properties to a file.
+ * Write project properties to a file.
  * 
- * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
- * @version $Id: WriteProjectProperties.java 9747 2009-05-20 13:27:44Z mark $
+ * @author Jeff Caddel
+ * 
  * @goal write-project-properties
  */
 public class WriteProjectProperties extends AbstractWritePropertiesMojo {
-    private static final String[] ESCAPE_CHARS = { "\n", "\r", "\t", ":", "#", "=" };
+    private static final String CR = "\r";
+    private static final String LF = "\n";
+    private static final String TAB = "\t";
+
+    /**
+     * Comma separated list of characters to escape when writing property values. cr=carriage return, lf=linefeed,
+     * tab=tab. All other values are taken literally.
+     * 
+     * @parameter default-value="cr,lf,tab,:,#,=" expression="${properties.escapeChars}"
+     */
+    private String escapeChars;
 
     /**
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
@@ -153,6 +163,28 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         return sb.toString();
     }
 
+    protected List<String> getEscapeChars(String escapeChars) {
+        List<String> tokens = ReadPropertiesMojo.getListFromCSV(escapeChars);
+        List<String> realTokens = new ArrayList<String>();
+        for (String token : tokens) {
+            String realToken = getRealToken(token);
+            realTokens.add(realToken);
+        }
+        return realTokens;
+    }
+
+    protected String getRealToken(String token) {
+        if (token.equalsIgnoreCase("CR")) {
+            return CR;
+        } else if (token.equalsIgnoreCase("LF")) {
+            return LF;
+        } else if (token.equalsIgnoreCase("TAB")) {
+            return TAB;
+        } else {
+            return token;
+        }
+    }
+
     protected void writeProperties(File file, String comment, Properties properties) throws MojoExecutionException {
         List<String> names = new ArrayList<String>(properties.stringPropertyNames());
         Collections.sort(names);
@@ -160,9 +192,10 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         if (!StringUtils.isBlank(comment)) {
             sb.append(comment);
         }
+        List<String> tokens = getEscapeChars(escapeChars);
         for (String name : names) {
             String value = properties.getProperty(name);
-            String escapedValue = escape(value, ESCAPE_CHARS);
+            String escapedValue = escape(value, tokens);
             sb.append(name + "=" + escapedValue + "\n");
         }
         try {
@@ -172,7 +205,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected String escape(String s, String[] escapeChars) {
+    protected String escape(String s, List<String> escapeChars) {
         for (String escapeChar : escapeChars) {
             s = s.replace(escapeChar, "\\" + escapeChar);
         }
