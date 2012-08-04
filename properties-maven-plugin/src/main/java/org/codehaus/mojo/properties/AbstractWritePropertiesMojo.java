@@ -40,9 +40,10 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
     protected MavenProject project;
 
     /**
-     * The properties file that will be used when writing properties.
+     * The file that properties will be written to
      * 
-     * @parameter
+     * @parameter expression="${properties.outputFile}"
+     *            default-value="${project.build.directory}/properties/project.properties";
      * @required
      */
     protected File outputFile;
