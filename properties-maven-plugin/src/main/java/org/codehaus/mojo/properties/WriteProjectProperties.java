@@ -87,21 +87,25 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         // Add project properties
         properties.putAll(project.getProperties());
         if (includeEnvironmentVariables) {
-            // Add environment variables, overriding any project properties with the same key
+            // Add environment variables, overriding any properties with the same key
             properties.putAll(getEnvironmentVariables());
         }
         if (includeSystemProperties) {
-            // Add system properties, overriding any project properties with the same key
+            // Add system properties, overriding any properties with the same key
             properties.putAll(System.getProperties());
         }
+
         // Remove properties as appropriate
         trim(properties, exclude, include);
-        getLog().info("Creating " + outputFile);
+
+        String comment = null;
         if (antEchoPropertiesMode) {
-            echoPropertiesMode(outputFile, properties);
-        } else {
-            writeProperties(outputFile, null, properties);
+            comment = getAntHeader();
+            properties.remove("DSTAMP");
+            properties.remove("TODAY");
+            properties.remove("TSTAMP");
         }
+        writeProperties(outputFile, comment, properties);
     }
 
     protected Properties getEnvironmentVariables() {
@@ -133,7 +137,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected void echoPropertiesMode(File file, Properties properties) throws MojoExecutionException {
+    protected String getAntHeader() throws MojoExecutionException {
         SimpleDateFormat dstamp = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat today = new SimpleDateFormat("MMMM d yyyy");
         SimpleDateFormat tstamp = new SimpleDateFormat("HHmm");
@@ -144,10 +148,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         sb.append("DSTAMP=" + dstamp.format(now) + "\n");
         sb.append("TODAY=" + today.format(now) + "\n");
         sb.append("TSTAMP=" + tstamp.format(now) + "\n");
-        properties.remove("DSTAMP");
-        properties.remove("TODAY");
-        properties.remove("TSTAMP");
-        writeProperties(file, sb.toString(), properties);
+        return sb.toString();
     }
 
     protected void writeProperties(File file, String comment, Properties properties) throws MojoExecutionException {
