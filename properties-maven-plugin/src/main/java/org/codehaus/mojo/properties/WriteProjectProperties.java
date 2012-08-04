@@ -38,6 +38,7 @@ import org.codehaus.plexus.util.StringUtils;
  * @goal write-project-properties
  */
 public class WriteProjectProperties extends AbstractWritePropertiesMojo {
+    private static final String[] ESCAPE_CHARS = { "\n", "\r", "\t", ":", "#", "=" };
 
     /**
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
@@ -74,29 +75,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         Properties properties = new Properties();
         properties.putAll(project.getProperties());
-
-        Properties systemProperties = System.getProperties();
-
-        // Make sure system properties override Maven project properties
-        for (String key : systemProperties.stringPropertyNames()) {
-            String mavenValue = properties.getProperty(key);
-            String systemValue = systemProperties.getProperty(key);
-            // If we are including system properties, always put the system property
-            if (includeSystemProperties) {
-                properties.put(key, systemValue);
-            } else if (mavenValue != null) {
-                // Otherwise only update our properties object if the System property overrides a Maven project property
-                properties.put(key, systemValue);
-            }
-        }
-
+        properties.putAll(System.getProperties());
         remove(properties, omit, include);
-
         getLog().info("Creating " + outputFile);
         if (antEchoPropertiesMode) {
             echoPropertiesMode(outputFile, properties);
         } else {
-            writeProperties(properties, outputFile);
+            writeProperties(outputFile, null, properties);
         }
     }
 
@@ -136,8 +121,9 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
             sb.append(comment);
         }
         for (String name : names) {
-            String value = escape(properties.getProperty(name));
-            sb.append(name + "=" + value + "\n");
+            String value = properties.getProperty(name);
+            String escapedValue = escape(value);
+            sb.append(name + "=" + escapedValue + "\n");
         }
         try {
             FileUtils.writeStringToFile(file, sb.toString());
@@ -147,12 +133,10 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     }
 
     protected String escape(String s) {
-        s = s.replace("\n", "\\n");
-        s = s.replace("\r", "\\r");
-        s = s.replace("\t", "\\t");
-        s = s.replace(":", "\\:");
-        s = s.replace("#", "\\#");
-        return s.replace("=", "\\=");
+        for (String c : ESCAPE_CHARS) {
+            s = s.replace(c, "\\" + c);
+        }
+        return s;
 
     }
 
