@@ -98,7 +98,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         // Remove properties as appropriate
         trim(properties, exclude, include);
 
-        String comment = null;
+        String comment = "# " + new Date() + "\n";
         if (antEchoPropertiesMode) {
             comment = getAntHeader();
             properties.remove("DSTAMP");
@@ -143,8 +143,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         SimpleDateFormat tstamp = new SimpleDateFormat("HHmm");
         Date now = new Date();
         StringBuilder sb = new StringBuilder();
-        sb.append("#Ant properties\n");
-        sb.append("#" + now + "\n");
+        sb.append("# Ant properties\n");
+        sb.append("# " + now + "\n");
         sb.append("DSTAMP=" + dstamp.format(now) + "\n");
         sb.append("TODAY=" + today.format(now) + "\n");
         sb.append("TSTAMP=" + tstamp.format(now) + "\n");
