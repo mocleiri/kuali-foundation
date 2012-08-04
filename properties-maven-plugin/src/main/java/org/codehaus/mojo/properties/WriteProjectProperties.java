@@ -105,6 +105,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
             properties.remove("TODAY");
             properties.remove("TSTAMP");
         }
+
+        getLog().info("Creating " + outputFile);
         writeProperties(outputFile, comment, properties);
     }
 
