@@ -76,7 +76,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         Properties properties = new Properties();
         properties.putAll(project.getProperties());
         properties.putAll(System.getProperties());
-        remove(properties, omit, include);
+        trim(properties, omit, include);
         getLog().info("Creating " + outputFile);
         if (antEchoPropertiesMode) {
             echoPropertiesMode(outputFile, properties);
@@ -85,10 +85,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected void remove(Properties properties, String omitCSV, String includeCSV) {
+    protected void trim(Properties properties, String omitCSV, String includeCSV) {
         List<String> omitKeys = ReadPropertiesMojo.getListFromCSV(omitCSV);
         for (String key : omitKeys) {
             properties.remove(key);
+        }
+        if (StringUtils.isBlank(includeCSV)) {
+            return;
         }
         List<String> includeKeys = ReadPropertiesMojo.getListFromCSV(includeCSV);
         Set<String> keys = properties.stringPropertyNames();
@@ -110,6 +113,9 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         sb.append("DSTAMP=" + dstamp.format(now) + "\n");
         sb.append("TODAY=" + today.format(now) + "\n");
         sb.append("TSTAMP=" + tstamp.format(now) + "\n");
+        properties.remove("DSTAMP");
+        properties.remove("TODAY");
+        properties.remove("TSTAMP");
         writeProperties(file, sb.toString(), properties);
     }
 
