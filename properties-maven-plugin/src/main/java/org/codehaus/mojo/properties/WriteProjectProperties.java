@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -42,19 +43,21 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     private static final String CR = "\r";
     private static final String LF = "\n";
     private static final String TAB = "\t";
+    private static final String[] ANT_ESCAPE_CHARS = { CR, LF, TAB, ":", "#", "=" };
 
     /**
      * Comma separated list of characters to escape when writing property values. cr=carriage return, lf=linefeed,
-     * tab=tab. All other values are taken literally.
+     * tab=tab. Any other values are taken literally.
      * 
-     * @parameter default-value="cr,lf,tab,:,#,=" expression="${properties.escapeChars}"
+     * @parameter default-value="cr,lf,tab" expression="${properties.escapeChars}"
      */
     private String escapeChars;
 
     /**
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
      * <code>echoproperties</code> task. This mode adds 3 custom properties at the top of the file, DSTAMP, TODAY, and
-     * TSTAMP
+     * TSTAMP. In this mode <code>escapeChars</code> is ignored and the 6 characters Ant escapes are used instead
+     * <code>CR</code>,<code>LF</code>,<code>TAB</code>,<code>:</code>,<code>#</code>,<code>=</code>
      * 
      * @parameter default-value="false" expression="${properties.antEchoPropertiesMode}"
      */
@@ -109,7 +112,9 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         trim(properties, exclude, include);
 
         String comment = "# " + new Date() + "\n";
+        List<String> escapeTokens = getEscapeChars(escapeChars);
         if (antEchoPropertiesMode) {
+            escapeTokens = Arrays.asList(ANT_ESCAPE_CHARS);
             comment = getAntHeader();
             properties.remove("DSTAMP");
             properties.remove("TODAY");
@@ -117,7 +122,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
 
         getLog().info("Creating " + outputFile);
-        writeProperties(outputFile, comment, properties);
+        writeProperties(outputFile, comment, properties, escapeTokens);
     }
 
     protected Properties getEnvironmentVariables() {
@@ -185,17 +190,17 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected void writeProperties(File file, String comment, Properties properties) throws MojoExecutionException {
+    protected void writeProperties(File file, String comment, Properties properties, List<String> escapeTokens)
+            throws MojoExecutionException {
         List<String> names = new ArrayList<String>(properties.stringPropertyNames());
         Collections.sort(names);
         StringBuilder sb = new StringBuilder();
         if (!StringUtils.isBlank(comment)) {
             sb.append(comment);
         }
-        List<String> tokens = getEscapeChars(escapeChars);
         for (String name : names) {
             String value = properties.getProperty(name);
-            String escapedValue = escape(value, tokens);
+            String escapedValue = escape(value, escapeTokens);
             sb.append(name + "=" + escapedValue + "\n");
         }
         try {
