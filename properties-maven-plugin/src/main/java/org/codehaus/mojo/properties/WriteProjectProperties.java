@@ -140,8 +140,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     }
 
     protected String escape(String s, String[] escapeChars) {
-        for (String c : escapeChars) {
-            s = s.replace(c, "\\" + c);
+        for (String escapeChar : escapeChars) {
+            s = s.replace(escapeChar, "\\" + escapeChar);
         }
         return s;
 
