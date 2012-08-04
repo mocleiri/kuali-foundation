@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -42,8 +43,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     /**
      * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
-     * &lt;echoproperties&gt; task. The properties will be sorted by name with the ':', '#', '=', CR, LF, and TAB
-     * characters escaped with a backslash
+     * &lt;echoproperties&gt; task. This mode adds 3 custom properties at the top of the file, DSTAMP, TODAY, and TSTAMP
      * 
      * @parameter default-value="false" expression="${properties.antEchoPropertiesMode}"
      */
@@ -55,6 +55,14 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
      * @parameter default-value="false" expression="${properties.includeSystemProperties}"
      */
     private boolean includeSystemProperties;
+
+    /**
+     * If true, the plugin will include environment variables when writing the properties file. Environment variables
+     * are prefixed with "env".
+     * 
+     * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
+     */
+    private boolean includeEnvironmentVariables;
 
     /**
      * Comma separated set of properties to exclude from writing to the properties file
@@ -74,8 +82,17 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Properties properties = new Properties();
+        // Add project properties
         properties.putAll(project.getProperties());
-        properties.putAll(System.getProperties());
+        if (includeEnvironmentVariables) {
+            // Add environment variables, overriding any project properties with the same key
+            properties.putAll(getEnvironmentVariables());
+        }
+        if (includeSystemProperties) {
+            // Add system properties, overriding any project properties with the same key
+            properties.putAll(System.getProperties());
+        }
+        // Remove properties as appropriate
         trim(properties, exclude, include);
         getLog().info("Creating " + outputFile);
         if (antEchoPropertiesMode) {
@@ -83,6 +100,18 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         } else {
             writeProperties(outputFile, null, properties);
         }
+    }
+
+    protected Properties getEnvironmentVariables() {
+        String prefix = "env";
+        Map<String, String> map = System.getenv();
+        Properties props = new Properties();
+        for (String key : map.keySet()) {
+            String newKey = prefix + "." + key;
+            String value = map.get(key);
+            props.setProperty(newKey, value);
+        }
+        return props;
     }
 
     protected void trim(Properties properties, String omitCSV, String includeCSV) {
