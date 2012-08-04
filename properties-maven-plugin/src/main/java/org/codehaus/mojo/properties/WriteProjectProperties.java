@@ -132,6 +132,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
             sb.append(name + "=" + escapedValue + "\n");
         }
         try {
+            getLog().info("Creating " + file);
             FileUtils.writeStringToFile(file, sb.toString());
         } catch (IOException e) {
             throw new MojoExecutionException("Error creating properties file", e);
