@@ -168,7 +168,7 @@
     <plugin.license.version>1.9.0</plugin.license.version>
     <plugin.nexus.version>1.9.2.4</plugin.nexus.version>
     <plugin.project-info-reports.version>2.4</plugin.project-info-reports.version>
-    <plugin.properties.version>1.2.0</plugin.properties.version>
+    <plugin.properties.version>1.3.0</plugin.properties.version>
     <plugin.release.version>2.2.1</plugin.release.version>
     <plugin.resources.version>2.5</plugin.resources.version>
     <plugin.scm.version>1.6</plugin.scm.version>
