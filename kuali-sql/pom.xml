@@ -27,13 +27,13 @@
   <description>General purpose library of SQL statements useful for Kuali projects</description>
   <groupId>org.kuali.db.sql</groupId>
   <artifactId>kuali-sql</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.2.0</version>
   <url>http://${kuali.site.hostname}/db/sql/${project.artifactId}/${project.version}</url>
   <inceptionYear>2010</inceptionYear>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-sql</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-sql</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/pom/trunk/kuali-sql</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-sql-1.2.0</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/kuali-sql-1.2.0</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/pom/tags/kuali-sql-1.2.0</url>
   </scm>
   <developers>
     <developer>
