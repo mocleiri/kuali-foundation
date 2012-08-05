@@ -24,22 +24,10 @@
     /
   </entry>
   <entry key="sql.oracle.create">
-    CREATE USER ${sql.username}
-    IDENTIFIED BY ${sql.password}
-    DEFAULT TABLESPACE ${sql.oracle.defaultTablespace}
-    TEMPORARY TABLESPACE ${sql.oracle.temporaryTablespace}
-    QUOTA ${sql.oracle.quota} ON ${sql.oracle.defaultTablespace}
+    CREATE USER ${sql.username} IDENTIFIED BY ${sql.password} DEFAULT TABLESPACE ${oracle.defaultTablespace} TEMPORARY TABLESPACE ${oracle.temporaryTablespace} QUOTA ${oracle.quota} ON ${oracle.defaultTablespace}
     /
 
-    GRANT CREATE PROCEDURE
-    , CREATE SEQUENCE
-    , CREATE SESSION
-    , CREATE SYNONYM
-    , CREATE TABLE
-    , CREATE TRIGGER
-    , CREATE TYPE
-    , CREATE VIEW
-    TO ${sql.username}
+    GRANT CREATE PROCEDURE, CREATE SEQUENCE, CREATE SESSION, CREATE SYNONYM, CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE VIEW TO ${sql.username}
     /
   </entry>
   <entry key="sql.oracle.validate">
