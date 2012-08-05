@@ -71,6 +71,9 @@
     <antcall target="chowndir">
       <param name="remote.dir" value="${remote.config.dir}" />
     </antcall>
+    <antcall target="chowndir">
+      <param name="remote.dir" value="${tomcat.home}" />
+    </antcall>
   </target>
 
   <property name="config.home" value="/home/${tomcat.instance}/kuali/main/${deploy.environment}" />
