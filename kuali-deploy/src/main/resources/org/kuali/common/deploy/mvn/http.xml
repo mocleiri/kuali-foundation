@@ -45,6 +45,7 @@
               </goals>
               <configuration>
                 <timeout>${http.timeout}</timeout>
+                <requestTimeout>${http.requestTimeout}</requestTimeout>
                 <url>${public.url}</url>
               </configuration>
             </execution>
