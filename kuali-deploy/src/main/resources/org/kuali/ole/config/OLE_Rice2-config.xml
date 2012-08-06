@@ -28,18 +28,18 @@
   <param name="datasource.username">${impex.username}</param>
   <param name="datasource.password">${impex.password}</param>
   <param name="datasource.url">${impex.url}</param>
-  <param name="encryption.key">foobarbaz123456789</param>
-  <param name="keystore.file">/home/tomcat/.ssh/rice.keystore</param>
-  <param name="keystore.alias">rice</param>
-  <param name="keystore.password">r1c3pw</param>
+  <param name="encryption.key">${encryption.key.default}</param>
+  <param name="keystore.file">${keystore.file.default}</param>
+  <param name="keystore.alias">${keystore.alias.default}</param>
+  <param name="keystore.password">${keystore.password.default}</param>
   <param name="travel.externalizable.images.url">${externalizable.images.url}</param>
 
   <!-- Email Settings -->
-  <param name="mail.debug">false</param>
-  <param name="mail.smtp.host">email-smtp.us-east-1.amazonaws.com</param>
-  <param name="mail.smtp.port">465</param>
-  <param name="mail.smtp.ssl.enable">true</param>
-  <param name="mail.smtp.auth">true</param>
-  <param name="mail.smtp.username">AKIAJJUBCVBNS3N2K5WA</param>
+  <param name="mail.debug">${rice.ses.debug}</param>
+  <param name="mail.smtp.host">${rice.ses.host}</param>
+  <param name="mail.smtp.port">${rice.ses.port}</param>
+  <param name="mail.smtp.ssl.enable">${rice.ses.ssl.enable}</param>
+  <param name="mail.smtp.auth">${rice.ses.auth}</param>
+  <param name="mail.smtp.username">${rice.ses.username}</param>
   <param name="mail.smtp.password">${rice.ses.password}</param>
 </config>
