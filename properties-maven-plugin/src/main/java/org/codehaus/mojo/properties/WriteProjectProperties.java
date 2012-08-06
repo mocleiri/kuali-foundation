@@ -154,7 +154,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected String getAntHeader() throws MojoExecutionException {
+    protected String getAntHeader() {
         SimpleDateFormat dstamp = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat today = new SimpleDateFormat("MMMM d yyyy");
         SimpleDateFormat tstamp = new SimpleDateFormat("HHmm");
