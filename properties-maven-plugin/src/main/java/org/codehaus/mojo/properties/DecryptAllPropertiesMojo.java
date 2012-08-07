@@ -43,16 +43,14 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * If true, the plugin will include system properties when writing the properties file. System properties override
-     * both environment variables and project properties.
+     * If true, the plugin will include system properties when decrypting properties
      * 
      * @parameter default-value="false" expression="${properties.includeSystemProperties}"
      */
     private boolean includeSystemProperties;
 
     /**
-     * If true, the plugin will include environment variables when writing the properties file. Environment variables
-     * are prefixed with "env". Environment variables override project properties.
+     * If true, the plugin will include environment variables when decrypting properties.
      * 
      * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
      */
@@ -173,5 +171,21 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 
     public MavenProject getProject() {
         return project;
+    }
+
+    public boolean isIncludeSystemProperties() {
+        return includeSystemProperties;
+    }
+
+    public void setIncludeSystemProperties(boolean includeSystemProperties) {
+        this.includeSystemProperties = includeSystemProperties;
+    }
+
+    public boolean isIncludeEnvironmentVariables() {
+        return includeEnvironmentVariables;
+    }
+
+    public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
+        this.includeEnvironmentVariables = includeEnvironmentVariables;
     }
 }

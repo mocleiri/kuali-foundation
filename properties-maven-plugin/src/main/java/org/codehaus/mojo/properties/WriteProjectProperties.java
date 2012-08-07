@@ -233,4 +233,36 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
     public void setIncludeSystemProperties(boolean includeSystemProperties) {
         this.includeSystemProperties = includeSystemProperties;
     }
+
+    public String getEscapeChars() {
+        return escapeChars;
+    }
+
+    public void setEscapeChars(String escapeChars) {
+        this.escapeChars = escapeChars;
+    }
+
+    public boolean isIncludeEnvironmentVariables() {
+        return includeEnvironmentVariables;
+    }
+
+    public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
+        this.includeEnvironmentVariables = includeEnvironmentVariables;
+    }
+
+    public String getExclude() {
+        return exclude;
+    }
+
+    public void setExclude(String exclude) {
+        this.exclude = exclude;
+    }
+
+    public String getInclude() {
+        return include;
+    }
+
+    public void setInclude(String include) {
+        this.include = include;
+    }
 }
