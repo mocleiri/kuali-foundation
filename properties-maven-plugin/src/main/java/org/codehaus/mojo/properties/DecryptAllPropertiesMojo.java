@@ -30,7 +30,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
  * Inspect project and system properties for any keys ending with <code>endsWith</code>. Any matching properties are
  * assumed to be encrypted. They are decrypted and stored as project properties minus the <code>endsWith</code> suffix.
  * For example, the value for the property "dba.password.encrypted" will be decrypted and stored as "dba.password"
- *
+ * 
  * @goal decryptall
  */
 public class DecryptAllPropertiesMojo extends AbstractMojo {
@@ -43,8 +43,24 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * If true, the plugin will include system properties when writing the properties file. System properties override
+     * both environment variables and project properties.
+     * 
+     * @parameter default-value="false" expression="${properties.includeSystemProperties}"
+     */
+    private boolean includeSystemProperties;
+
+    /**
+     * If true, the plugin will include environment variables when writing the properties file. Environment variables
+     * are prefixed with "env". Environment variables override project properties.
+     * 
+     * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
+     */
+    private boolean includeEnvironmentVariables;
+
+    /**
      * If true, the plugin will emit no logging information
-     *
+     * 
      * @parameter expression="${properties.quiet}" default-value="false"
      * @required
      */
@@ -52,7 +68,7 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 
     /**
      * The pattern for matching properties in need of decryption
-     *
+     * 
      * @parameter expression="${properties.endsWith}" default-value=".encrypted"
      * @required
      */
@@ -60,7 +76,7 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 
     /**
      * If true the plain text decrypted values are displayed to the console.
-     *
+     * 
      * @parameter expression="${properties.show}" default-value="false"
      * @required
      */
@@ -68,7 +84,7 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 
     /**
      * The password for decrypting property values. This same password must have been used to encrypt them.
-     *
+     * 
      * @parameter expression="${properties.password}"
      * @required
      */
@@ -78,7 +94,14 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         BasicTextEncryptor encryptor = new BasicTextEncryptor();
         encryptor.setPassword(password);
-        Properties props = project.getProperties();
+        Properties props = new Properties();
+        props.putAll(project.getProperties());
+        if (includeEnvironmentVariables) {
+            props.putAll(WriteProjectProperties.getEnvironmentVariables());
+        }
+        if (includeSystemProperties) {
+            props.putAll(System.getProperties());
+        }
         List<String> keys = new ArrayList<String>(props.stringPropertyNames());
         Collections.sort(keys);
         for (String key : keys) {
@@ -94,7 +117,7 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
             String newValue = encryptor.decrypt(value);
             int length = endsWith.length();
             String newKey = key.substring(0, key.length() - length);
-            props.setProperty(newKey, newValue);
+            project.getProperties().setProperty(newKey, newValue);
             if (quiet) {
                 continue;
             }

@@ -125,7 +125,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         writeProperties(outputFile, comment, properties, escapeTokens);
     }
 
-    protected Properties getEnvironmentVariables() {
+    protected static Properties getEnvironmentVariables() {
         String prefix = "env";
         Map<String, String> map = System.getenv();
         Properties props = new Properties();
