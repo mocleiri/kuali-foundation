@@ -70,6 +70,7 @@ public class UpdateScmMojo extends AbstractMojo {
             return;
         }
         try {
+            getLog().info("Updating " + pom);
             String content = FileUtils.readFileToString(pom);
             content = handleConnection(content, "connection", pomUrl, actualUrl);
             content = handleConnection(content, "developerConnection", pomUrl, actualUrl);
