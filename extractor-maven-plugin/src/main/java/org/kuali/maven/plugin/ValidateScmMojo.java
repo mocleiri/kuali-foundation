@@ -74,7 +74,7 @@ public class ValidateScmMojo extends AbstractMojo {
         }
         if (pomUrl.equals(actualUrl)) {
             if (!silent) {
-                getLog().info("Validated SCM URL [" + pomUrl + "]");
+                getLog().info("SCM URL is valid [" + pomUrl + "]");
             }
         } else {
             throw new MojoExecutionException("SCM url mismatch.  POM=[" + pomUrl + "] Actual=[" + actualUrl + "]");
