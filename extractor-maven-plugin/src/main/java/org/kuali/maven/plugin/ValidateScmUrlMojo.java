@@ -55,11 +55,10 @@ public class ValidateScmUrlMojo extends AbstractMojo {
             throw new MojoExecutionException("Unable to extract the scm url from the pom");
         }
         if (StringUtils.isBlank(actualUrl)) {
-            throw new MojoExecutionException("Unable to extract the actual scm url from the project property '"
-                    + scmUrlProperty + "'");
+            throw new MojoExecutionException("The project property '" + scmUrlProperty + "' is blank");
         }
         if (pomUrl.equals(actualUrl)) {
-            getLog().info("scm url validation successful. " + pomUrl);
+            getLog().info("SCM URL validation successful. " + pomUrl);
         } else {
             throw new MojoExecutionException("SCM url mismatch.  URL in the pom is " + pomUrl + " Actual URL is "
                     + actualUrl);
