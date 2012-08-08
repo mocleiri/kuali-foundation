@@ -23,10 +23,10 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
 
 /**
- * @goal validatesvnurl
+ * @goal validatescmurl
  * @aggregator
  */
-public class ValidateSvnUrlMojo extends AbstractMojo {
+public class ValidateScmUrlMojo extends AbstractMojo {
     Extractor extractor = new Extractor();
 
     /**
@@ -40,28 +40,28 @@ public class ValidateSvnUrlMojo extends AbstractMojo {
 
     /**
      * 
-     * @parameter expression="${extractor.svnUrlProperty}" default-value="svn.url"
+     * @parameter expression="${extractor.svnUrlProperty}" default-value="scm.url"
      * @required
      * @readonly
      */
-    private String svnUrlProperty;
+    private String scmUrlProperty;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Extractor e = new Extractor();
         String pomUrl = e.getScmUrl(project.getScm());
-        String actualUrl = project.getProperties().getProperty(svnUrlProperty);
+        String actualUrl = project.getProperties().getProperty(scmUrlProperty);
         if (StringUtils.isBlank(pomUrl)) {
-            throw new MojoExecutionException("Unable to extract the SVN url from the pom");
+            throw new MojoExecutionException("Unable to extract the scm url from the pom");
         }
         if (StringUtils.isBlank(actualUrl)) {
-            throw new MojoExecutionException("Unable to extract the actual SVN url from the project property '"
-                    + svnUrlProperty + "'");
+            throw new MojoExecutionException("Unable to extract the actual scm url from the project property '"
+                    + scmUrlProperty + "'");
         }
         if (pomUrl.equals(actualUrl)) {
-            getLog().info("SVN url validation successful. " + pomUrl);
+            getLog().info("scm url validation successful. " + pomUrl);
         } else {
-            throw new MojoExecutionException("SVN url mismatch.  URL in the pom is " + pomUrl + " Actual URL is "
+            throw new MojoExecutionException("SCM url mismatch.  URL in the pom is " + pomUrl + " Actual URL is "
                     + actualUrl);
         }
     }
@@ -70,11 +70,11 @@ public class ValidateSvnUrlMojo extends AbstractMojo {
         return project;
     }
 
-    public String getSvnUrlProperty() {
-        return svnUrlProperty;
+    public String getScmUrlProperty() {
+        return scmUrlProperty;
     }
 
-    public void setSvnUrlProperty(String svnUrlProperty) {
-        this.svnUrlProperty = svnUrlProperty;
+    public void setScmUrlProperty(String svnUrlProperty) {
+        this.scmUrlProperty = svnUrlProperty;
     }
 }
