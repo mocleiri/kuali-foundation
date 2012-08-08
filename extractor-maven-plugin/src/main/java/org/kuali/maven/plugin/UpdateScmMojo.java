@@ -27,6 +27,9 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
 /**
+ * Update the SCM section of a Maven pom so the URL's match the correct SCM URL. The correct SCM URL to use must be
+ * provided to the plugin as a property.
+ * 
  * @goal updatescm
  */
 public class UpdateScmMojo extends AbstractMojo {
@@ -41,6 +44,8 @@ public class UpdateScmMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * The property containing the correct SCM URL. This can be a project property, system property, or environment
+     * variable.
      * 
      * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
      * @required
@@ -49,6 +54,7 @@ public class UpdateScmMojo extends AbstractMojo {
     private String scmUrlProperty;
 
     /**
+     * The location of the Maven pom to update.
      * 
      * @parameter expression="${extractor.pom}" default-value="${project.basedir}/pom.xml"
      * @required

@@ -22,6 +22,9 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
 /**
+ * Validate that the URL provided in the <code>scm</code> section of the pom matches up with a property that contains
+ * the correct SCM URL.
+ * 
  * @goal validatescm
  */
 public class ValidateScmMojo extends AbstractMojo {
@@ -36,6 +39,9 @@ public class ValidateScmMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * Property containing the correct SCM URL. This can be a project property, system property, or environment
+     * variable.
+     * 
      * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
      * @required
      * @readonly
@@ -43,6 +49,8 @@ public class ValidateScmMojo extends AbstractMojo {
     private String scmUrlProperty;
 
     /**
+     * If true, the plugin will operate silently without generating any logging output
+     * 
      * @parameter expression="${extractor.silent}" default-value="false"
      * @required
      */
