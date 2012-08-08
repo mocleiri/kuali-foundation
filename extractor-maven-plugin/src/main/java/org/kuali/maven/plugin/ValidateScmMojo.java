@@ -15,18 +15,20 @@
  */
 package org.kuali.maven.plugin;
 
+import java.util.Properties;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.maven.common.Extractor;
+import org.kuali.maven.common.PropertiesUtils;
 
 /**
- * @goal validatescmurl
- * @aggregator
+ * @goal validatescm
  */
-public class ValidateScmUrlMojo extends AbstractMojo {
+public class ValidateScmMojo extends AbstractMojo {
     Extractor extractor = new Extractor();
 
     /**
@@ -46,11 +48,25 @@ public class ValidateScmUrlMojo extends AbstractMojo {
      */
     private String scmUrlProperty;
 
+    /**
+     * 
+     * @parameter expression="${extractor.silent}" default-value="false"
+     * @required
+     */
+    private boolean silent;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Extractor e = new Extractor();
-        String pomUrl = e.getScmUrl(project.getScm());
-        String actualUrl = project.getProperties().getProperty(scmUrlProperty);
+        PropertiesUtils utils = new PropertiesUtils();
+        Extractor extractor = new Extractor();
+        String pomUrl = extractor.getScmUrl(project.getScm());
+        Properties mavenProperties = utils.getMavenProperties(project);
+        String actualUrl = mavenProperties.getProperty(scmUrlProperty);
+        String resolvedUrl = utils.getResolvedValue(actualUrl, mavenProperties);
+        validate(pomUrl, resolvedUrl);
+    }
+
+    protected void validate(String pomUrl, String actualUrl) throws MojoExecutionException {
         if (StringUtils.isBlank(pomUrl)) {
             throw new MojoExecutionException("Unable to extract the scm url from the pom");
         }
@@ -58,10 +74,11 @@ public class ValidateScmUrlMojo extends AbstractMojo {
             throw new MojoExecutionException("The project property '" + scmUrlProperty + "' is blank");
         }
         if (pomUrl.equals(actualUrl)) {
-            getLog().info("SCM URL validation successful. " + pomUrl);
+            if (!silent) {
+                getLog().info("Validated SCM URL [" + pomUrl + "]");
+            }
         } else {
-            throw new MojoExecutionException("SCM url mismatch.  URL in the pom is " + pomUrl + " Actual URL is "
-                    + actualUrl);
+            throw new MojoExecutionException("SCM url mismatch.  POM=[" + pomUrl + "] Actual=[" + actualUrl + "]");
         }
     }
 
