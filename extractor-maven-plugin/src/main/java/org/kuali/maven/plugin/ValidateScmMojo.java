@@ -60,9 +60,9 @@ public class ValidateScmMojo extends AbstractMojo {
         Extractor extractor = new Extractor();
         String pomUrl = extractor.getScmUrl(project.getScm());
         Properties mavenProperties = utils.getMavenProperties(project);
-        String actualUrl = mavenProperties.getProperty(scmUrlProperty);
-        String resolvedUrl = utils.getResolvedValue(actualUrl, mavenProperties);
-        validate(pomUrl, resolvedUrl);
+        String rawUrl = mavenProperties.getProperty(scmUrlProperty);
+        String actualUrl = utils.getResolvedValue(rawUrl, mavenProperties);
+        validate(pomUrl, actualUrl);
     }
 
     protected void validate(String pomUrl, String actualUrl) throws MojoExecutionException {
