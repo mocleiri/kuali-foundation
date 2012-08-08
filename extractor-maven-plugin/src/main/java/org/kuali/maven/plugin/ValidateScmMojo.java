@@ -29,7 +29,6 @@ import org.kuali.maven.common.PropertiesUtils;
  * @goal validatescm
  */
 public class ValidateScmMojo extends AbstractMojo {
-    Extractor extractor = new Extractor();
 
     /**
      * The Maven project this plugin runs in.
