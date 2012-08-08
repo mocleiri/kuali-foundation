@@ -49,7 +49,6 @@ public class UpdateScmMojo extends AbstractMojo {
      * 
      * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
      * @required
-     * @readonly
      */
     private String scmUrlProperty;
 

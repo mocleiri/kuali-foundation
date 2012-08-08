@@ -44,7 +44,6 @@ public class ValidateScmMojo extends AbstractMojo {
      * 
      * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
      * @required
-     * @readonly
      */
     private String scmUrlProperty;
 
