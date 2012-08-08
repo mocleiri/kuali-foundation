@@ -22,9 +22,9 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
 /**
- * @goal validatescm
+ * @goal updatescm
  */
-public class ValidateScmMojo extends AbstractMojo {
+public class UpdateScmMojo extends AbstractMojo {
 
     /**
      * The Maven project this plugin runs in.
@@ -36,6 +36,7 @@ public class ValidateScmMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
+     * 
      * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
      * @required
      * @readonly
@@ -43,6 +44,7 @@ public class ValidateScmMojo extends AbstractMojo {
     private String scmUrlProperty;
 
     /**
+     * 
      * @parameter expression="${extractor.silent}" default-value="false"
      * @required
      */
