@@ -15,6 +15,11 @@
  */
 package org.kuali.maven.plugin;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -50,14 +55,24 @@ public class UpdateScmMojo extends AbstractMojo {
      */
     private boolean silent;
 
+    /**
+     * 
+     * @parameter expression="${extractor.pom}" default-value="${project.basedir}/pom.xml"
+     * @required
+     */
+    private File pom;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Extractor extractor = new Extractor();
         String pomUrl = extractor.getScmUrl(project.getScm());
         String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
-        extractor.validateUrls(pomUrl, actualUrl);
-        if (!silent) {
-            getLog().info("SCM URL is valid [" + pomUrl + "]");
+        try {
+            String content = FileUtils.readFileToString(pom);
+            String scmContent = StringUtils.substringBetween("<scm>", "</scm>");
+            getLog().info(scmContent);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Unexpected IO exception", e);
         }
     }
 
