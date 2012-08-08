@@ -50,13 +50,6 @@ public class UpdateScmMojo extends AbstractMojo {
 
     /**
      * 
-     * @parameter expression="${extractor.silent}" default-value="false"
-     * @required
-     */
-    private boolean silent;
-
-    /**
-     * 
      * @parameter expression="${extractor.pom}" default-value="${project.basedir}/pom.xml"
      * @required
      */
@@ -67,13 +60,37 @@ public class UpdateScmMojo extends AbstractMojo {
         Extractor extractor = new Extractor();
         String pomUrl = extractor.getScmUrl(project.getScm());
         String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
+        if (pomUrl.equals(actualUrl)) {
+            getLog().info("pom url matches actual url.  Nothing to do!");
+            return;
+        }
         try {
             String content = FileUtils.readFileToString(pom);
-            String scmContent = StringUtils.substringBetween("<scm>", "</scm>");
-            getLog().info(scmContent);
+            content = handleConnection(content, "connection", pomUrl, actualUrl);
+            content = handleConnection(content, "developerConnection", pomUrl, actualUrl);
+            content = handleConnection(content, "url", pomUrl, actualUrl);
+            FileUtils.writeStringToFile(pom, content);
         } catch (IOException e) {
             throw new MojoExecutionException("Unexpected IO exception", e);
         }
+    }
+
+    protected String handleConnection(String content, String tag, String pomUrl, String newUrl) {
+        String scm = StringUtils.substringBetween(content, "<scm>", "</scm>");
+        getLog().debug("scm=" + scm);
+        String open = "<" + tag + ">";
+        String close = "</" + tag + ">";
+        String oldScm = open + StringUtils.substringBetween(scm, open, close) + close;
+        getLog().debug("oldScm=" + oldScm);
+        getLog().debug("pomUrl=        " + pomUrl);
+        int pos = oldScm.indexOf(pomUrl);
+        if (pos == -1) {
+            throw new IllegalStateException("Existing SCM information doesn't contain " + pomUrl);
+        }
+        String newScm = oldScm.replace(pomUrl, newUrl);
+        getLog().debug("Old=[" + oldScm + "]");
+        getLog().info("Update - " + newScm);
+        return content.replace(oldScm, newScm);
     }
 
     public MavenProject getProject() {
