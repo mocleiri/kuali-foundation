@@ -22,9 +22,9 @@ import org.apache.maven.project.MavenProject;
 
 /**
  * Extracts information contained in a pom and exposes it as project properties
- *
+ * 
  * eg major version, scm type, scm url
- *
+ * 
  */
 public class Extractor {
 
@@ -93,7 +93,7 @@ public class Extractor {
 
     public String getScmUrl(Scm scm) {
         String devCon = scm.getDeveloperConnection();
-        String con = scm.getDeveloperConnection();
+        String con = scm.getConnection();
         String scmUrl = StringUtils.isEmpty(devCon) ? con : devCon;
         if (StringUtils.isEmpty(scmUrl)) {
             return null;
