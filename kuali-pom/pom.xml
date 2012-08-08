@@ -590,14 +590,15 @@
     </plugins>
   </build>
   <profiles>
-    <!-- Step 1: mvn clean install -Psonar -->
+    <!-- Step 1: mvn clean install -DskipTests -->
     <!-- Step 2: mvn initialize sonar:sonar -Psonar -->
     <profile>
       <id>sonar</id>
       <properties>
         <!-- Don't fail the build if a unit test fails, just record the failure -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
-        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
+        <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
         <sonar.surefire.reportsPath>${surefire.reportsDirectory}</sonar.surefire.reportsPath>
         <sonar.branch>unknown</sonar.branch>
         <sonar.host>sonar.kuali.org</sonar.host>
