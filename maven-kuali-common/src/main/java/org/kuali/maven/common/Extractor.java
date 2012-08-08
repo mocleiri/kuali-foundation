@@ -15,9 +15,12 @@
  */
 package org.kuali.maven.common;
 
+import java.util.Properties;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.model.Scm;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 /**
@@ -27,6 +30,7 @@ import org.apache.maven.project.MavenProject;
  * 
  */
 public class Extractor {
+    PropertiesUtils utils = new PropertiesUtils();
 
     public void handleSVNBranch(AbstractMojo mojo, MavenProject project, String property) {
         String scmType = getScmType(project.getScm());
@@ -61,7 +65,6 @@ public class Extractor {
     }
 
     public void handleMajorVersion(AbstractMojo mojo, MavenProject project, String property) {
-
         String majorVersion = getMajorVersion(project.getVersion());
         if (!StringUtils.isEmpty(majorVersion)) {
             project.getProperties().setProperty(property, majorVersion);
@@ -89,6 +92,19 @@ public class Extractor {
         } else {
             mojo.getLog().info("scm type could not be determined");
         }
+    }
+
+    public String getActualUrl(MavenProject project, String property) throws MojoExecutionException {
+        Properties props = utils.getMavenProperties(project);
+        String rawUrl = props.getProperty(property);
+        if (StringUtils.isBlank(rawUrl)) {
+            throw new MojoExecutionException("The project property '" + property + "' is blank");
+        }
+        String resolvedValue = utils.getResolvedValue(rawUrl, props);
+        if (StringUtils.isBlank(resolvedValue)) {
+            throw new MojoExecutionException("Resolved value for '" + property + "' is blank");
+        }
+        return resolvedValue;
     }
 
     public String getScmUrl(Scm scm) {
@@ -152,6 +168,18 @@ public class Extractor {
             return s;
         } else {
             return s.substring(0, pos);
+        }
+    }
+
+    public void validateUrls(String url, String actualUrl) {
+        if (StringUtils.isBlank(url)) {
+            throw new IllegalArgumentException("url cannot be blank");
+        }
+        if (StringUtils.isBlank(actualUrl)) {
+            throw new IllegalArgumentException("actualUrl cannot be blank");
+        }
+        if (!url.equals(actualUrl)) {
+            throw new IllegalArgumentException("URL's don't match. url=[" + url + "] actual=[" + actualUrl);
         }
     }
 
