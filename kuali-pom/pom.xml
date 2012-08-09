@@ -136,6 +136,8 @@
 
     <!-- Used by both the surefire plugin and the sonar plugin -->
     <surefire.reportsDirectory>${project.build.directory}/surefire-reports</surefire.reportsDirectory>
+
+    <!-- Used by both the "kuali-release" and "updatescm" profiles -->
     <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
 
     <!-- Wagon versions -->
