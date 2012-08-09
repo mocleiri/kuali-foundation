@@ -55,14 +55,27 @@ public class ValidateScmMojo extends AbstractMojo {
      */
     private boolean silent;
 
+    /**
+     * If true, the plugin will skip executing
+     * 
+     * @parameter expression="${extractor.skip}" default-value="false"
+     * @required
+     */
+    private boolean skip;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if (skip) {
+            getLog().info("Skipping execution");
+            return;
+        }
         Extractor extractor = new Extractor();
         String pomUrl = extractor.getScmUrl(project.getScm());
         String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
         extractor.validateUrls(pomUrl, actualUrl);
         if (!silent) {
-            getLog().info("SCM URL is valid [" + pomUrl + "]");
+            getLog().info("The scm url declared in the pom matches the real scm url");
+            getLog().info("[" + pomUrl + "]");
         }
     }
 
@@ -76,5 +89,21 @@ public class ValidateScmMojo extends AbstractMojo {
 
     public void setScmUrlProperty(String svnUrlProperty) {
         this.scmUrlProperty = svnUrlProperty;
+    }
+
+    public boolean isSilent() {
+        return silent;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
+    }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
     }
 }
