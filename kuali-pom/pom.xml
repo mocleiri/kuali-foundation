@@ -139,6 +139,7 @@
 
     <!-- Used by both the "kuali-release" and "updatescm" profiles -->
     <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
+    <extractor.validatescm.skip>false</extractor.validatescm.skip>
 
     <!-- Wagon versions -->
     <wagon.s3.version>1.1.14</wagon.s3.version>
@@ -158,7 +159,7 @@
     <plugin.deploy.version>2.7</plugin.deploy.version>
     <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
-    <plugin.extractor.version>1.1.8</plugin.extractor.version>
+    <plugin.extractor.version>1.1.9</plugin.extractor.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.http.version>1.0.5</plugin.http.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
@@ -1037,6 +1038,7 @@
                 <configuration>
                   <silent>true</silent>
                   <scmUrlProperty>kuali.scm.url</scmUrlProperty>
+                  <skip>${extractor.validatescm.skip}</skip>
                 </configuration>
               </execution>
             </executions>
