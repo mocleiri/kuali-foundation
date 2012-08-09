@@ -190,8 +190,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         }
     }
 
-    protected void writeProperties(File file, String comment, Properties properties, List<String> escapeTokens)
-            throws MojoExecutionException {
+    protected String getContent(String comment, Properties properties, List<String> escapeTokens) {
         List<String> names = new ArrayList<String>(properties.stringPropertyNames());
         Collections.sort(names);
         StringBuilder sb = new StringBuilder();
@@ -203,8 +202,14 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
             String escapedValue = escape(value, escapeTokens);
             sb.append(name + "=" + escapedValue + "\n");
         }
+        return sb.toString();
+    }
+
+    protected void writeProperties(File file, String comment, Properties properties, List<String> escapeTokens)
+            throws MojoExecutionException {
         try {
-            FileUtils.writeStringToFile(file, sb.toString());
+            String content = getContent(comment, properties, escapeTokens);
+            FileUtils.writeStringToFile(file, content);
         } catch (IOException e) {
             throw new MojoExecutionException("Error creating properties file", e);
         }
@@ -212,10 +217,20 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     protected String escape(String s, List<String> escapeChars) {
         for (String escapeChar : escapeChars) {
-            s = s.replace(escapeChar, "\\" + escapeChar);
+            s = s.replace(escapeChar, getReplacementToken(escapeChar));
         }
         return s;
+    }
 
+    protected String getReplacementToken(String escapeChar) {
+        if (escapeChar.equals(CR)) {
+            return "\\r";
+        } else if (escapeChar.equals(LF)) {
+            return "\\n";
+        } else if (escapeChar.equals(TAB)) {
+            return "\\t";
+        } else
+            return "\\" + escapeChar;
     }
 
     public boolean isAntEchoPropertiesMode() {
