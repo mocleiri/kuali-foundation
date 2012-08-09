@@ -139,7 +139,6 @@
 
     <!-- Used by both the "kuali-release" and "updatescm" profiles -->
     <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
-    <extractor.validatescm.skip>false</extractor.validatescm.skip>
 
     <!-- Wagon versions -->
     <wagon.s3.version>1.1.14</wagon.s3.version>
@@ -878,6 +877,9 @@
     </profile>
     <profile>
       <id>kuali-release</id>
+      <properties>
+        <extractor.validatescm.skip>false</extractor.validatescm.skip>
+      </properties>
       <build>
         <plugins>
           <plugin>
