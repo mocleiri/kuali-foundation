@@ -137,8 +137,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         return props;
     }
 
-    protected void trim(Properties properties, String omitCSV, String includeCSV) {
-        List<String> omitKeys = ReadPropertiesMojo.getListFromCSV(omitCSV);
+    protected void trim(Properties properties, String excludeCSV, String includeCSV) {
+        List<String> omitKeys = ReadPropertiesMojo.getListFromCSV(excludeCSV);
         for (String key : omitKeys) {
             properties.remove(key);
         }
@@ -196,8 +196,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         StringBuilder sb = new StringBuilder();
         if (!StringUtils.isBlank(comment)) {
             sb.append(comment);
-        } else {
-            sb.append("#" + new Date());
         }
         for (String name : names) {
             String value = properties.getProperty(name);
