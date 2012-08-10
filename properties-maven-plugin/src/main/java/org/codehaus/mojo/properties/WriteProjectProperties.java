@@ -196,6 +196,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         StringBuilder sb = new StringBuilder();
         if (!StringUtils.isBlank(comment)) {
             sb.append(comment);
+        } else {
+            sb.append("#" + new Date());
         }
         for (String name : names) {
             String value = properties.getProperty(name);
