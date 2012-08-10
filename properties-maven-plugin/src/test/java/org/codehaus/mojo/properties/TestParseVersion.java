@@ -15,42 +15,9 @@
  */
 package org.codehaus.mojo.properties;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Properties;
-
 import org.junit.Test;
 
 public class TestParseVersion {
-
-    // @Test
-    public void test1() {
-        try {
-            WriteProjectProperties wpp = new WriteProjectProperties();
-            wpp.setEscapeChars("cr,lf,tab");
-            String filename = "/Users/jeffcaddel/sts/3.0.0.M3/workspace/properties-maven-plugin/src/test/resources/3.properties";
-            File file = new File(filename);
-            InputStream in = new FileInputStream(file);
-            Properties props = new Properties();
-            props.load(in);
-            String setenv1 = props.getProperty("env.content");
-            List<String> escapeTokens = wpp.getEscapeChars(wpp.getEscapeChars());
-            String content = wpp.getContent(null, props, escapeTokens);
-            String filename2 = "/Users/jeffcaddel/sts/3.0.0.M3/workspace/properties-maven-plugin/src/test/resources/4.properties";
-            File file2 = new File(filename2);
-            wpp.writeProperties(file2, null, props, escapeTokens);
-            InputStream in2 = new FileInputStream(file2);
-            Properties props2 = new Properties();
-            props2.load(in);
-            String setenv2 = props.getProperty("env.content");
-            System.out.println(setenv1.length() + " " + setenv2.length());
-            System.out.println(props2.size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
     public void test() {
