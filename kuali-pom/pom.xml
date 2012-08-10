@@ -137,7 +137,7 @@
     <!-- Used by both the surefire plugin and the sonar plugin -->
     <surefire.reportsDirectory>${project.build.directory}/surefire-reports</surefire.reportsDirectory>
 
-    <!-- Used by both the "kuali-release" and "updatescm" profiles -->
+    <!-- Used by both the "validatescm" and "updatescm" profiles -->
     <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
 
     <!-- Wagon versions -->
@@ -840,6 +840,42 @@
       </build>
     </profile>
     <profile>
+      <id>validatescm</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
+            <artifactId>maven-svn-revision-number-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>svn</id>
+                <goals>
+                  <goal>revision</goal>
+                </goals>
+                <phase>validate</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>extractor-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>scm</id>
+                <goals>
+                  <goal>validatescm</goal>
+                </goals>
+                <phase>validate</phase>
+                <configuration>
+                  <scmUrlProperty>kuali.scm.url</scmUrlProperty>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>updatescm</id>
       <build>
         <plugins>
@@ -877,9 +913,6 @@
     </profile>
     <profile>
       <id>kuali-release</id>
-      <properties>
-        <extractor.validatescm.skip>false</extractor.validatescm.skip>
-      </properties>
       <build>
         <plugins>
           <plugin>
@@ -1024,24 +1057,6 @@
                   <goal>revision</goal>
                 </goals>
                 <phase>validate</phase>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>extractor-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>scm</id>
-                <goals>
-                  <goal>validatescm</goal>
-                </goals>
-                <phase>validate</phase>
-                <configuration>
-                  <silent>true</silent>
-                  <scmUrlProperty>kuali.scm.url</scmUrlProperty>
-                  <skip>${extractor.validatescm.skip}</skip>
-                </configuration>
               </execution>
             </executions>
           </plugin>
