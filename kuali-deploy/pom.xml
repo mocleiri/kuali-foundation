@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
@@ -53,6 +53,20 @@
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>ant-maven-plugin</artifactId>
             <executions>
+              <!--
+                This execution invokes Ant in order to perform some custom filtering.
+                All the poms in this project have filtering applied to the following 6 GAV related properties:
+
+                parent.groupId
+                parent.artifactId
+                parent.version
+                project.groupId
+                project.artifactId
+                project.version
+
+                The custom filtering ensures that all of the poms inherit from the same parent pom as this project. It also
+                ensures that any references those poms make to the kuali-deploy.jar file are automatically kept up to date.
+              -->
               <execution>
                 <id>run</id>
                 <phase>process-resources</phase>
@@ -71,3 +85,4 @@
     </profile>
   </profiles>
 </project>
+              
