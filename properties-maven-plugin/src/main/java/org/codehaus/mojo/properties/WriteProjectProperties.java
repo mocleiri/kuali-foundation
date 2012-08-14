@@ -31,6 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.StringUtils;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Write project properties to a file.
@@ -94,6 +95,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
      */
     private String include;
 
+    /**
+     * If true placeholders are resolved before writing properties to the file
+     * 
+     * @parameter expression="${properties.resolvePlaceholders}"
+     */
+    private boolean resolvePlaceholders;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Properties properties = new Properties();
@@ -111,6 +119,10 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
         // Remove properties as appropriate
         trim(properties, exclude, include);
 
+        if (resolvePlaceholders) {
+            properties = getResolvedProperties(properties);
+        }
+
         String comment = "# " + new Date() + "\n";
         List<String> escapeTokens = getEscapeChars(escapeChars);
         if (antEchoPropertiesMode) {
@@ -123,6 +135,20 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
         getLog().info("Creating " + outputFile);
         writeProperties(outputFile, comment, properties, escapeTokens);
+    }
+
+    protected Properties getResolvedProperties(Properties props) {
+        PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper("${", "}");
+        List<String> keys = new ArrayList<String>(props.stringPropertyNames());
+        Collections.sort(keys);
+        Properties newProps = new Properties();
+        for (String key : keys) {
+            String originalValue = props.getProperty(key);
+            String resolvedValue = pph.replacePlaceholders(originalValue, props);
+            newProps.setProperty(key, resolvedValue);
+        }
+        return newProps;
+
     }
 
     protected static Properties getEnvironmentVariables() {
@@ -279,5 +305,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
     public void setInclude(String include) {
         this.include = include;
+    }
+
+    public boolean isResolvePlaceholders() {
+        return resolvePlaceholders;
+    }
+
+    public void setResolvePlaceholders(boolean resolvePlaceholders) {
+        this.resolvePlaceholders = resolvePlaceholders;
     }
 }
