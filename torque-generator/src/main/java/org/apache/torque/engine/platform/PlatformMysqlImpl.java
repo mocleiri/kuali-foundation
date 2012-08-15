@@ -58,6 +58,7 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 		setSchemaDomainMapping(new Domain(SchemaType.LONGVARBINARY, "LONGBLOB"));
 		setSchemaDomainMapping(new Domain(SchemaType.BLOB, "LONGBLOB"));
 		setSchemaDomainMapping(new Domain(SchemaType.CLOB, "LONGTEXT"));
+		setSchemaDomainMapping(new Domain(SchemaType.TIMESTAMP, "DATETIME"));
 	}
 
 	/**
