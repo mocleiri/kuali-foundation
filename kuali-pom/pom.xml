@@ -116,7 +116,6 @@
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
     <kuali-cm.version>1.2.1</kuali-cm.version>
-    <kuali-deploy.version>1.2.0</kuali-deploy.version>
     <kuali-ec2.version>1.0.2</kuali-ec2.version>
 
     <!-- Properties for controlling repo settings -->
@@ -934,13 +933,6 @@
                 </configuration>
               </execution>
             </executions>
-            <dependencies>
-              <dependency>
-                <groupId>org.kuali.common</groupId>
-                <artifactId>kuali-deploy</artifactId>
-                <version>${kuali-deploy.version}</version>
-              </dependency>
-            </dependencies>
           </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
