@@ -52,7 +52,6 @@
                     <type>war</type>
                   </artifactItem>
                   <!-- The JDBC driver -->
-                  <!-- Don't actually need this, but the Ant script expects for now -->
                   <artifactItem>
                     <groupId>${jdbc.driver.groupId}</groupId>
                     <artifactId>${jdbc.driver.artifactId}</artifactId>
@@ -82,15 +81,25 @@
                     <artifactId>${project.artifactId}</artifactId>
                     <version>${project.version}</version>
                   </artifactItem>
-                  <!-- The .war file being deployed -->
-                  <artifactItem>
-                    <outputDirectory>${project.build.directory}/dependency/${deploy.artifactId}</outputDirectory>
-                    <groupId>${deploy.groupId}</groupId>
-                    <artifactId>${deploy.artifactId}</artifactId>
-                    <version>${deploy.version}</version>
-                    <type>war</type>
-                  </artifactItem>
                 </artifactItems>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>${plugin.antrun.version}</version>
+          <executions>
+            <execution>
+              <id>ant</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <target name="create-directory">
+                  <mkdir dir="${project.build.directory}/home/tomcat/.kuali/ole" />
+                </target>
               </configuration>
             </execution>
           </executions>
@@ -100,6 +109,9 @@
     <plugins>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
