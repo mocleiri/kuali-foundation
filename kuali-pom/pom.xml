@@ -115,7 +115,7 @@
     <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
-    <kuali-cm.version>1.2.3</kuali-cm.version>
+    <kuali-cm.version>1.2.4-SNAPSHOT</kuali-cm.version>
     <kuali-ec2.version>1.0.2</kuali-ec2.version>
 
     <!-- Properties for controlling repo settings -->
@@ -285,11 +285,12 @@
               <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
               <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license|CDDL + GPLv2 with classpath exception</licenseMerge>
               <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
-              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>lGM
               <licenseMerge>GNU Lesser General Public License - Version 2.1|GNU Lesser General Public License Version 2.1|LGPL 2.1|LGPL, version 2.1</licenseMerge>
               <licenseMerge>GNU Lesser General Public License - Version 3|GNU Lesser General Public License v3.0|GNU Lesser General Public License - Version 3.0</licenseMerge>
               <licenseMerge>GNU General Public License - Version 2|The GNU General Public License, Version 2</licenseMerge>
               <licenseMerge>Mozilla Public License - Version 1.1|Mozilla Public License version 1.1|MPL 1.1</licenseMerge>
+              <licenseMerge>MIT License|The MIT License</licenseMerge>
               <licenseMerge>GNU General Public License - Version 2 / CPE|GPL2 w/ CPE|GPLv2+CE</licenseMerge>
               <licenseMerge>Public Domain|Public domain, Sun Microsoystems</licenseMerge>
             </licenseMerges>
