@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.kuali.pom</groupId>
-  <version>1.5.7-SNAPSHOT</version>
+  <version>1.5.7-build-999</version>
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
