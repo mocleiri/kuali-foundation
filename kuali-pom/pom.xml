@@ -285,7 +285,8 @@
               <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
               <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license|CDDL + GPLv2 with classpath exception</licenseMerge>
               <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
-              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>lGM
+              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>
+              lGM
               <licenseMerge>GNU Lesser General Public License - Version 2.1|GNU Lesser General Public License Version 2.1|LGPL 2.1|LGPL, version 2.1</licenseMerge>
               <licenseMerge>GNU Lesser General Public License - Version 3|GNU Lesser General Public License v3.0|GNU Lesser General Public License - Version 3.0</licenseMerge>
               <licenseMerge>GNU General Public License - Version 2|The GNU General Public License, Version 2</licenseMerge>
@@ -1266,6 +1267,12 @@
                     <exec executable="${mvn.binary}" failonerror="true" dir="${project.build.directory}/checkout">
                       <arg value="versions:set" />
                       <arg value="-DnewVersion=${nightly.version}" />
+                      <arg value="-N" />
+                    </exec>
+                    <echo>${mvn.binary} process-resources -Pupdatescm -N</echo>
+                    <exec executable="${mvn.binary}" failonerror="true" dir="${project.build.directory}/checkout">
+                      <arg value="process-resources" />
+                      <arg value="-Pupdatescm" />
                       <arg value="-N" />
                     </exec>
                     <echo>svn commit -m "${svn.commit.message}"</echo>
