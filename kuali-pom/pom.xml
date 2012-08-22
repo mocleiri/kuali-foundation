@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -1165,6 +1165,12 @@
       <properties>
         <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
         <version>${project.version}</version>
+        <nightly.version>${version.trimmed}-build-${env.BUILD_NUMBER}</nightly.version>
+        <svn.from>${extractor.scmUrl}@${svn.revision}</svn.from>
+        <svn.to>${extractor.svnTagBase}/${kuali.nightly.tag}</svn.to>
+        <svn.copy.message>Automated nightly build tag</svn.copy.message>
+        <svn.commit.message>Set version to ${nightly.version}</svn.commit.message>
+        <mvn.binary>${maven.home}/bin/mvn</mvn.binary>
       </properties>
       <build>
         <plugins>
@@ -1240,17 +1246,33 @@
                 </goals>
                 <configuration>
                   <target>
-                    <property name="svn.from" value="${extractor.scmUrl}@${svn.revision}" />
-                    <property name="svn.to" value="${extractor.svnTagBase}/${kuali.nightly.tag}" />
-                    <property name="svn.message" value="Automated nightly build tag" />
-                    <echo>svn copy ${svn.from} ${svn.to} --parents -m '${svn.message}'</echo>
+                    <echo>svn copy ${svn.from} ${svn.to} --parents -m '${svn.copy.message}'</echo>
                     <exec executable="svn" failonerror="true">
                       <arg value="copy" />
                       <arg value="${svn.from}" />
                       <arg value="${svn.to}" />
                       <arg value="--parents" />
                       <arg value="-m" />
-                      <arg value="${svn.message}" />
+                      <arg value="${svn.copy.message}" />
+                    </exec>
+                    <echo>svn checkout ${svn.to} ${project.build.directory}/checkout</echo>
+                    <exec executable="svn" failonerror="true">
+                      <arg value="checkout" />
+                      <arg value="${svn.to}" />
+                      <arg value="${project.build.directory}/checkout" />
+                    </exec>
+                    <echo>cd ${project.build.directory}/checkout</echo>
+                    <echo>${mvn.binary} versions:set -DnewVersion=${nightly.version} -N</echo>
+                    <exec executable="${mvn.binary}" failonerror="true" dir="${project.build.directory}/checkout">
+                      <arg value="versions:set" />
+                      <arg value="-DnewVersion=${nightly.version}" />
+                      <arg value="-N" />
+                    </exec>
+                    <echo>svn commit -m "${svn.commit.message}"</echo>
+                    <exec executable="svn" failonerror="true" dir="${project.build.directory}/checkout">
+                      <arg value="commit" />
+                      <arg value="-m" />
+                      <arg value="${svn.commit.message}" />
                     </exec>
                   </target>
                 </configuration>
