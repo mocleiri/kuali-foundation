@@ -107,6 +107,17 @@ public class Extractor {
         return resolvedValue;
     }
 
+    public Scm getTrimmedScm(Scm scm) {
+        String trimmedDeveloperConnection = getTrimmedScmUrl(scm.getDeveloperConnection());
+        String trimmedConnection = getTrimmedScmUrl(scm.getConnection());
+        String trimmedUrl = scm.getUrl().trim();
+        Scm trimmedScm = new Scm();
+        trimmedScm.setDeveloperConnection(trimmedDeveloperConnection);
+        trimmedScm.setConnection(trimmedConnection);
+        trimmedScm.setUrl(trimmedUrl);
+        return trimmedScm;
+    }
+
     public String getScmUrl(Scm scm) {
         String devCon = scm.getDeveloperConnection();
         String con = scm.getConnection();
@@ -114,9 +125,13 @@ public class Extractor {
         if (StringUtils.isEmpty(scmUrl)) {
             return null;
         }
-        String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(scmUrl, ":");
+        return getTrimmedScmUrl(scmUrl);
+    }
+
+    protected String getTrimmedScmUrl(String url) {
+        String[] tokens = StringUtils.splitByWholeSeparatorPreserveAllTokens(url.trim(), ":");
         if (tokens == null || tokens.length < 3) {
-            return null;
+            throw new IllegalArgumentException("Unable to trim url " + url);
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 2; i < tokens.length; i++) {
@@ -169,6 +184,12 @@ public class Extractor {
         } else {
             return s.substring(0, pos);
         }
+    }
+
+    public void validateTrimmedScm(Scm scm, String actualUrl) {
+        validateUrls(scm.getDeveloperConnection(), actualUrl);
+        validateUrls(scm.getConnection(), actualUrl);
+        validateUrls(scm.getUrl(), actualUrl);
     }
 
     public void validateUrls(String url, String actualUrl) {
