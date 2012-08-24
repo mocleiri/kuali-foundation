@@ -77,8 +77,11 @@ public class ValidateScmMojo extends AbstractMojo {
         String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
         extractor.validateTrimmedScm(trimmedScm, actualUrl);
         if (!silent) {
-            getLog().info("The scm url's declared in the pom match the real scm url");
-            getLog().info("[" + actualUrl + "]");
+            getLog().info("The scm url's declared in the pom match the actual scm url");
+            getLog().info("   Actual - " + actualUrl);
+            getLog().info("      URL - " + project.getScm().getUrl());
+            getLog().info("Developer - " + project.getScm().getDeveloperConnection());
+            getLog().info("  Regular - " + project.getScm().getConnection());
         }
     }
 
