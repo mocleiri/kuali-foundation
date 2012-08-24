@@ -15,6 +15,7 @@
  */
 package org.kuali.maven.plugin;
 
+import org.apache.maven.model.Scm;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -22,8 +23,8 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
 /**
- * Validate that the URL provided in the <code>scm</code> section of the pom matches up with a property that contains
- * the correct SCM URL.
+ * Validate that the URL provided in the <code>scm</code> section of the pom
+ * matches up with a property that contains the correct SCM URL.
  * 
  * @goal validatescm
  */
@@ -39,16 +40,18 @@ public class ValidateScmMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * Property containing the correct SCM URL. This can be a project property, system property, or environment
-     * variable.
+     * Property containing the correct SCM URL. This can be a project property,
+     * system property, or environment variable.
      * 
-     * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
+     * @parameter expression="${extractor.scmUrlProperty}"
+     *            default-value="scm.url"
      * @required
      */
     private String scmUrlProperty;
 
     /**
-     * If true, the plugin will operate silently without generating any logging output
+     * If true, the plugin will operate silently without generating any logging
+     * output
      * 
      * @parameter expression="${extractor.silent}" default-value="false"
      * @required
@@ -70,12 +73,12 @@ public class ValidateScmMojo extends AbstractMojo {
             return;
         }
         Extractor extractor = new Extractor();
-        String pomUrl = extractor.getScmUrl(project.getScm());
+        Scm trimmedScm = extractor.getTrimmedScm(project.getScm());
         String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
-        extractor.validateUrls(pomUrl, actualUrl);
+        extractor.validateTrimmedScm(trimmedScm, actualUrl);
         if (!silent) {
-            getLog().info("The scm url declared in the pom matches the real scm url");
-            getLog().info("[" + pomUrl + "]");
+            getLog().info("The scm url's declared in the pom match the real scm url");
+            getLog().info("[" + actualUrl + "]");
         }
     }
 
