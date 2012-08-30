@@ -152,14 +152,15 @@
     <plugin.bom.version>1.0.3</plugin.bom.version>
     <plugin.build-helper.version>1.7</plugin.build-helper.version>
     <plugin.buildnumber.version>1.0</plugin.buildnumber.version>
+    <plugin.changes.version>2.7.1</plugin.changes.version>
     <plugin.clean.version>2.4.1</plugin.clean.version>
     <plugin.cloudfront.version>1.1.4</plugin.cloudfront.version>
     <plugin.compiler.version>2.5.1</plugin.compiler.version>
     <plugin.crypto.version>1.0.0</plugin.crypto.version>
-    <plugin.dependency.version>2.4</plugin.dependency.version>
+    <plugin.dependency.version>2.5.1</plugin.dependency.version>
     <plugin.deploy.version>2.7</plugin.deploy.version>
     <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
-    <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
+    <plugin.enforcer.version>1.1.1</plugin.enforcer.version>
     <plugin.extractor.version>1.1.10</plugin.extractor.version>
     <plugin.failsafe.version>${plugin.surefire.version}</plugin.failsafe.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
@@ -265,46 +266,6 @@
           <version>${plugin.buildnumber.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>jenkins-maven-plugin</artifactId>
-          <version>${plugin.jenkins.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.kuali.maven.plugins</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>${plugin.klicense.version}</version>
-          <configuration>
-            <artifactLicenseMapping>classpath:org/kuali/common/cm/license/THIRD-PARTY.properties</artifactLicenseMapping>
-            <useMissingFile>true</useMissingFile>
-            <groupByLicense>true</groupByLicense>
-            <deployMissingFile>false</deployMissingFile>
-            <licenseMerges>
-              <licenseMerge>Apache Software License - Version 2.0|Apache License V2.0|Apache Public License 2.0|Apache License 2.0|ASF 2.0|Apache License Version 2.0|Apache 2|Apache 2.0|Apache License|Apache License Version 2.0|Apache License, Version 2.0|The Apache Software License, Version 2.0|provided without support or warranty</licenseMerge>
-              <licenseMerge>BSD License|BSD|BSD style|BSD-style License|The BSD License|BSD-style license</licenseMerge>
-              <licenseMerge>Common Public License - Version 1.0|CPL|Common Public License Version 1.0</licenseMerge>
-              <licenseMerge>Eclipse Public License - Version 1.0|Eclipse Public License - v 1.0|Eclipse Public License v1.0|Eclipse Public License, Version 1.0</licenseMerge>
-              <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
-              <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license|CDDL + GPLv2 with classpath exception</licenseMerge>
-              <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
-              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>
-              <licenseMerge>GNU Lesser General Public License - Version 2.1|GNU Lesser General Public License Version 2.1|LGPL 2.1|LGPL, version 2.1</licenseMerge>
-              <licenseMerge>GNU Lesser General Public License - Version 3|GNU Lesser General Public License v3.0|GNU Lesser General Public License - Version 3.0</licenseMerge>
-              <licenseMerge>GNU General Public License - Version 2|The GNU General Public License, Version 2</licenseMerge>
-              <licenseMerge>Mozilla Public License - Version 1.1|Mozilla Public License version 1.1|MPL 1.1</licenseMerge>
-              <licenseMerge>MIT License|The MIT License</licenseMerge>
-              <licenseMerge>GNU General Public License - Version 2 / CPE|GPL2 w/ CPE|GPLv2+CE</licenseMerge>
-              <licenseMerge>Public Domain|Public domain, Sun Microsoystems</licenseMerge>
-            </licenseMerges>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>org.kuali.common</groupId>
-              <artifactId>kuali-cm</artifactId>
-              <version>${kuali-cm.version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
           <artifactId>maven-antrun-plugin</artifactId>
           <version>${plugin.antrun.version}</version>
         </plugin>
@@ -315,6 +276,10 @@
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>${plugin.clean.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-changes-plugin</artifactId>
+          <version>${plugin.changes.version}</version>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -418,6 +383,11 @@
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>jenkins-maven-plugin</artifactId>
+          <version>${plugin.jenkins.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>maven-ksite-plugin</artifactId>
           <version>${plugin.ksite.version}</version>
           <configuration>
@@ -435,6 +405,41 @@
               <param>${kuali.pom.3}</param>
             </orgPomGavs>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>${plugin.klicense.version}</version>
+          <configuration>
+            <artifactLicenseMapping>classpath:org/kuali/common/cm/license/THIRD-PARTY.properties</artifactLicenseMapping>
+            <useMissingFile>true</useMissingFile>
+            <groupByLicense>true</groupByLicense>
+            <deployMissingFile>false</deployMissingFile>
+            <licenseMerges>
+              <licenseMerge>Apache Software License - Version 2.0|Apache License V2.0|Apache Public License 2.0|Apache License 2.0|ASF 2.0|Apache License Version 2.0|Apache 2|Apache 2.0|Apache License|Apache License Version 2.0|Apache License, Version 2.0|The Apache Software License, Version 2.0|provided without support or warranty</licenseMerge>
+              <licenseMerge>BSD License|BSD|BSD style|BSD-style License|The BSD License|BSD-style license</licenseMerge>
+              <licenseMerge>Common Public License - Version 1.0|CPL|Common Public License Version 1.0</licenseMerge>
+              <licenseMerge>Eclipse Public License - Version 1.0|Eclipse Public License - v 1.0|Eclipse Public License v1.0|Eclipse Public License, Version 1.0</licenseMerge>
+              <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
+              <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license|CDDL + GPLv2 with classpath exception</licenseMerge>
+              <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License - Version 2.1|GNU Lesser General Public License Version 2.1|LGPL 2.1|LGPL, version 2.1</licenseMerge>
+              <licenseMerge>GNU Lesser General Public License - Version 3|GNU Lesser General Public License v3.0|GNU Lesser General Public License - Version 3.0</licenseMerge>
+              <licenseMerge>GNU General Public License - Version 2|The GNU General Public License, Version 2</licenseMerge>
+              <licenseMerge>Mozilla Public License - Version 1.1|Mozilla Public License version 1.1|MPL 1.1</licenseMerge>
+              <licenseMerge>MIT License|The MIT License</licenseMerge>
+              <licenseMerge>GNU General Public License - Version 2 / CPE|GPL2 w/ CPE|GPLv2+CE</licenseMerge>
+              <licenseMerge>Public Domain|Public domain, Sun Microsoystems</licenseMerge>
+            </licenseMerges>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.kuali.common</groupId>
+              <artifactId>kuali-cm</artifactId>
+              <version>${kuali-cm.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>com.mycila.maven-license-plugin</groupId>
