@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.kuali.pom</groupId>
-  <version>1.6.6-SNAPSHOT</version>
+  <version>1.7.0-SNAPSHOT</version>
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
@@ -1173,9 +1173,9 @@
       <!-- Tag today's source tree -->
       <id>nightlytag</id>
       <properties>
-        <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${kuali.build.day}-build-${env.BUILD_NUMBER}</kuali.nightly.tag>
+        <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${kuali.build.day}-r${svn.revision}</kuali.nightly.tag>
         <version>${project.version}</version>
-        <nightly.version>${version.trimmed}-build-${env.BUILD_NUMBER}</nightly.version>
+        <nightly.version>${version.trimmed}-r${svn.revision}</nightly.version>
         <svn.from>${extractor.scmUrl}@${svn.revision}</svn.from>
         <svn.to>${extractor.svnTagBase}/${kuali.nightly.tag}</svn.to>
         <svn.copy.message>Automated nightly build tag</svn.copy.message>
