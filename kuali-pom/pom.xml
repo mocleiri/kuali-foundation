@@ -164,7 +164,7 @@
     <plugin.failsafe.version>${plugin.surefire.version}</plugin.failsafe.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.http.version>1.0.5</plugin.http.version>
-    <plugin.impex.version>1.0.30</plugin.impex.version>
+    <plugin.impex.version>1.0.31</plugin.impex.version>
     <plugin.install.version>2.3.1</plugin.install.version>
     <plugin.jar.version>2.4</plugin.jar.version>
     <plugin.javadoc.version>2.8</plugin.javadoc.version>
