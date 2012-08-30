@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -154,13 +154,14 @@
     <plugin.buildnumber.version>1.0</plugin.buildnumber.version>
     <plugin.clean.version>2.4.1</plugin.clean.version>
     <plugin.cloudfront.version>1.1.4</plugin.cloudfront.version>
-    <plugin.compiler.version>2.3.2</plugin.compiler.version>
+    <plugin.compiler.version>2.5.1</plugin.compiler.version>
     <plugin.crypto.version>1.0.0</plugin.crypto.version>
     <plugin.dependency.version>2.4</plugin.dependency.version>
     <plugin.deploy.version>2.7</plugin.deploy.version>
     <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
     <plugin.enforcer.version>1.0.1</plugin.enforcer.version>
     <plugin.extractor.version>1.1.10</plugin.extractor.version>
+    <plugin.failsafe.version>${plugin.surefire.version}</plugin.failsafe.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.http.version>1.0.5</plugin.http.version>
     <plugin.impex.version>1.0.30</plugin.impex.version>
@@ -182,7 +183,7 @@
     <plugin.sonar.version>2.0</plugin.sonar.version>
     <plugin.source.version>2.1.2</plugin.source.version>
     <plugin.sql.version>1.0.12</plugin.sql.version>
-    <plugin.surefire.version>2.10</plugin.surefire.version>
+    <plugin.surefire.version>2.12.3</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.7</plugin.svn-revision-number.version>
     <plugin.versions.version>1.3.1</plugin.versions.version>
     <plugin.war.version>2.2</plugin.war.version>
@@ -286,7 +287,6 @@
               <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license|CDDL + GPLv2 with classpath exception</licenseMerge>
               <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
               <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>
-              lGM
               <licenseMerge>GNU Lesser General Public License - Version 2.1|GNU Lesser General Public License Version 2.1|LGPL 2.1|LGPL, version 2.1</licenseMerge>
               <licenseMerge>GNU Lesser General Public License - Version 3|GNU Lesser General Public License v3.0|GNU Lesser General Public License - Version 3.0</licenseMerge>
               <licenseMerge>GNU General Public License - Version 2|The GNU General Public License, Version 2</licenseMerge>
@@ -365,6 +365,10 @@
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>extractor-maven-plugin</artifactId>
           <version>${plugin.extractor.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${plugin.failsafe.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
