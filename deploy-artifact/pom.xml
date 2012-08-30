@@ -146,7 +146,7 @@
     <profile>
       <id>s3private</id>
       <properties>
-        <repo.id>kuali.private</repo.id>
+        <repo.id>kuali.external</repo.id>
         <repo.url>s3://maven.kuali.org/private</repo.url>
       </properties>
       <build>
