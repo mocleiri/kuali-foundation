@@ -144,6 +144,38 @@
       </build>
     </profile>
     <profile>
+      <id>s3private</id>
+      <properties>
+        <repo.id>kuali.private</repo.id>
+        <repo.url>s3://maven.kuali.org/private</repo.url>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>deploy-file</id>
+                <phase>${dp.phase}</phase>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+                <configuration>
+                  <repositoryId>${repo.id}</repositoryId>
+                  <url>${repo.url}</url>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>private</id>
       <build>
         <plugins>
