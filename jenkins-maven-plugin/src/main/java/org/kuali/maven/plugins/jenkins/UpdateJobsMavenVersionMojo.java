@@ -41,7 +41,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			for (String rtoken : rtokens) {
 				getLog().info(rtoken);
 			}
-			updateContent(configFiles, rtokens);
+			// updateContent(configFiles, rtokens);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -64,32 +64,34 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		return s;
 	}
 
+	protected void addTokens(String[] tokens, Map<String, Integer> map) {
+		if (tokens == null) {
+			return;
+		}
+		for (String token : tokens) {
+			if (token == null) {
+				continue;
+			}
+			Integer count = map.get(token);
+			if (count == null) {
+				count = new Integer(1);
+			} else {
+				count++;
+			}
+			map.put(token, count);
+		}
+	}
+
 	protected List<String> getReplacementTokens(List<File> files) throws IOException {
 		String open = "<mavenName>";
 		String close = "</mavenName>";
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for (File file : files) {
 			String s = FileUtils.readFileToString(file);
-			int pos = s.indexOf(open + "Default" + close);
-			if (pos != -1) {
-				getLog().info(file.getAbsolutePath());
-			}
 			String[] tokens = StringUtils.substringsBetween(s, open, close);
-			if (tokens == null) {
-				continue;
-			}
-			for (String token : tokens) {
-				if (token == null) {
-					continue;
-				}
-				Integer count = map.get(token);
-				if (count == null) {
-					count = new Integer(1);
-				} else {
-					count++;
-				}
-				map.put(token, count);
-			}
+			addTokens(tokens, map);
+			tokens = StringUtils.substringsBetween(s, "<jdk>", "</jdk>");
+			addTokens(tokens, map);
 		}
 		List<String> rtokens = new ArrayList<String>();
 		Set<String> keys = map.keySet();
