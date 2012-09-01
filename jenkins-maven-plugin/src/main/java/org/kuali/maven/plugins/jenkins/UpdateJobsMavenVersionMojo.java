@@ -52,7 +52,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		for (File file : files) {
 			String oldContent = FileUtils.readFileToString(file);
 			String newContent = getReplacementContent(oldContent, rtokens, replacement);
-			if (oldContent.equals(newContent)) {
+			if (!oldContent.equals(newContent)) {
 				getLog().info("Updating " + file);
 			}
 		}
