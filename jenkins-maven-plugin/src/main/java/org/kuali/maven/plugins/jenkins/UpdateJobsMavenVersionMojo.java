@@ -37,12 +37,13 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		try {
 			List<File> configFiles = getConfigFiles();
 			getLog().info("Located " + configFiles.size() + " job config files");
-			List<String> jdkTokens = getJdkReplacementTokens(configFiles);
-			List<String> mvnTokens = getMvnReplacementTokens(configFiles);
-			getLog().info("Updating Maven Config");
-			updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>", ".bak.mvn");
-			getLog().info("Updating JDK Config");
-			updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>", ".bak.jdk");
+			List<String> mvn303Tokens = getMvn303ReplacementTokens(configFiles);
+			// List<String> jdkTokens = getJdkReplacementTokens(configFiles);
+			// List<String> mvnTokens = getMvnReplacementTokens(configFiles);
+			// getLog().info("Updating Maven Config");
+			// updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>", ".bak.mvn");
+			// getLog().info("Updating JDK Config");
+			// updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>", ".bak.jdk");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -86,6 +87,18 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			}
 			map.put(s, count);
 		}
+	}
+
+	protected List<String> getMvn303ReplacementTokens(List<File> files) throws IOException {
+		for (File file : files) {
+			String s = FileUtils.readFileToString(file);
+			int pos = s.indexOf("Maven-3.0.3");
+			if (pos != -1) {
+				getLog().info(file + "");
+			}
+		}
+		List<String> rtokens = new ArrayList<String>();
+		return rtokens;
 	}
 
 	protected List<String> getJdkReplacementTokens(List<File> files) throws IOException {
