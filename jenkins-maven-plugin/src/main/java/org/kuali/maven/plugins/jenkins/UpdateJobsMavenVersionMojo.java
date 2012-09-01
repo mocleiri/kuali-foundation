@@ -58,7 +58,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			getLog().info("Updating " + file);
 			File bak = new File(file.getAbsolutePath() + extension);
 			FileUtils.copyFile(file, bak);
-			// FileUtils.writeStringToFile(file, newContent);
+			FileUtils.writeStringToFile(file, newContent);
 			break;
 		}
 	}
