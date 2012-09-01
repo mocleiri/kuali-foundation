@@ -119,6 +119,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		Set<String> keys = map.keySet();
 		for (String key : keys) {
 			String rtoken = key;
+			getLog().info(key + "=" + map.get(key));
 			rtokens.add(rtoken);
 		}
 		return rtokens;
