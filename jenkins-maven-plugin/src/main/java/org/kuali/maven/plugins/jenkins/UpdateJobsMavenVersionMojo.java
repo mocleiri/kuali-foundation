@@ -36,7 +36,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		try {
 			List<File> configFiles = getConfigFiles();
 			getLog().info("Located " + configFiles.size() + " job config files");
-			Map<String, String> map = new HashMap<String, String>();
+			Map<String, Integer> map = new HashMap<String, Integer>();
 			for (File configFile : configFiles) {
 				String s = FileUtils.readFileToString(configFile);
 				String[] tokens = StringUtils.substringsBetween(s, "<mavenName>", "</mavenName>");
@@ -47,13 +47,19 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 					if (token == null) {
 						continue;
 					}
-					map.put(token, token);
+					Integer count = map.get(token);
+					if (count == null) {
+						count = new Integer(1);
+					} else {
+						count++;
+					}
+					map.put(token, count);
 				}
 			}
 			getLog().info(map.size() + "");
 			Set<String> keys = map.keySet();
 			for (String key : keys) {
-				getLog().info("[" + key + "]");
+				getLog().info("[" + key + "]=" + map.get(key));
 			}
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
