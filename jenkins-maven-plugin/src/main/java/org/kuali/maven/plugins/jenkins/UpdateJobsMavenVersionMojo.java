@@ -39,31 +39,26 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			getLog().info("Located " + configFiles.size() + " job config files");
 			List<String> jdkTokens = getJdkReplacementTokens(configFiles);
 			List<String> mvnTokens = getMvnReplacementTokens(configFiles);
-			for (String rtoken : jdkTokens) {
-				// getLog().info(rtoken);
-			}
-			for (String rtoken : mvnTokens) {
-				// getLog().info(rtoken);
-			}
-			// updateContent(configFiles, rtokens);
+			updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>");
+			updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	protected void updateContent(List<File> files, List<String> rtokens) throws IOException {
+	protected void updateContent(List<File> files, List<String> rtokens, String replacement) throws IOException {
 		for (File file : files) {
 			String oldContent = FileUtils.readFileToString(file);
-			String newContent = getReplacementContent(oldContent, rtokens);
+			String newContent = getReplacementContent(oldContent, rtokens, replacement);
 			if (oldContent.equals(newContent)) {
 				getLog().info("Updating " + file);
 			}
 		}
 	}
 
-	protected String getReplacementContent(String s, List<String> rtokens) {
+	protected String getReplacementContent(String s, List<String> rtokens, String replacement) {
 		for (String rtoken : rtokens) {
-			s = s.replace(rtoken, "<mavenName>MAVEN3</mavenName>");
+			s = s.replace(rtoken, replacement);
 		}
 		return s;
 	}
