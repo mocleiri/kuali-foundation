@@ -29,18 +29,23 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
-			File directory = new File("/var/lib/jenkins/jobs");
-			File[] files = directory.listFiles();
-			List<File> list = new ArrayList<File>();
-			for (File file : files) {
-				File config = new File(file.getAbsolutePath() + "/config.xml");
-				if (config.exists()) {
-					list.add(config);
-				}
-			}
-			getLog().info("Located " + list.size() + " files");
+			List<File> configFiles = getConfigFiles();
+			getLog().info("Located " + configFiles.size() + " job config files");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	protected List<File> getConfigFiles() {
+		File directory = new File("/var/lib/jenkins/jobs");
+		File[] files = directory.listFiles();
+		List<File> list = new ArrayList<File>();
+		for (File file : files) {
+			File config = new File(file.getAbsolutePath() + "/config.xml");
+			if (config.exists()) {
+				list.add(config);
+			}
+		}
+		return list;
 	}
 }
