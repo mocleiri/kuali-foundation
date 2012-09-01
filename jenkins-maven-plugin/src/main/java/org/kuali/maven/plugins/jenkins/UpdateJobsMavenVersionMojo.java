@@ -84,11 +84,11 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 	}
 
 	protected List<String> getReplacementTokens(List<File> files) throws IOException {
-		String open = "<mavenName>";
-		String close = "</mavenName>";
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for (File file : files) {
 			String s = FileUtils.readFileToString(file);
+			String open = "<mavenName>";
+			String close = "</mavenName>";
 			String[] tokens = StringUtils.substringsBetween(s, open, close);
 			addTokens(tokens, map, open, close);
 			open = "<jdk>";
