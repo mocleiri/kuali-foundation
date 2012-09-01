@@ -39,6 +39,10 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			for (File configFile : configFiles) {
 				String s = FileUtils.readFileToString(configFile);
+				int pos = s.indexOf("<mavenName>Default</mavenName");
+				if (pos != -1) {
+					getLog().info(configFile.getAbsolutePath());
+				}
 				String[] tokens = StringUtils.substringsBetween(s, "<mavenName>", "</mavenName>");
 				if (tokens == null) {
 					continue;
