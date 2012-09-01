@@ -64,7 +64,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		return s;
 	}
 
-	protected void addTokens(String[] tokens, Map<String, Integer> map) {
+	protected void addTokens(String[] tokens, Map<String, Integer> map, String open, String close) {
 		if (tokens == null) {
 			return;
 		}
@@ -72,13 +72,14 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			if (token == null) {
 				continue;
 			}
-			Integer count = map.get(token);
+			String s = open + token + close;
+			Integer count = map.get(s);
 			if (count == null) {
 				count = new Integer(1);
 			} else {
 				count++;
 			}
-			map.put(token, count);
+			map.put(s, count);
 		}
 	}
 
@@ -89,9 +90,11 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		for (File file : files) {
 			String s = FileUtils.readFileToString(file);
 			String[] tokens = StringUtils.substringsBetween(s, open, close);
-			addTokens(tokens, map);
-			tokens = StringUtils.substringsBetween(s, "<jdk>", "</jdk>");
-			addTokens(tokens, map);
+			addTokens(tokens, map, open, close);
+			open = "<jdk>";
+			close = "</jdk>";
+			tokens = StringUtils.substringsBetween(s, open, close);
+			addTokens(tokens, map, open, close);
 		}
 		List<String> rtokens = new ArrayList<String>();
 		Set<String> keys = map.keySet();
