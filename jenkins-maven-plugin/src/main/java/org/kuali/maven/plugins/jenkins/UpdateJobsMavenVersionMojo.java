@@ -17,8 +17,12 @@ package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -31,6 +35,15 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		try {
 			List<File> configFiles = getConfigFiles();
 			getLog().info("Located " + configFiles.size() + " job config files");
+			Map<String, String> map = new HashMap<String, String>();
+			for (File configFile : configFiles) {
+				String s = FileUtils.readFileToString(configFile);
+				String[] tokens = StringUtils.substringsBetween(s, "<mavenName>", "</mavenName>");
+				for (String token : tokens) {
+					map.put(token, token);
+				}
+			}
+			getLog().info(map.size() + "");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
