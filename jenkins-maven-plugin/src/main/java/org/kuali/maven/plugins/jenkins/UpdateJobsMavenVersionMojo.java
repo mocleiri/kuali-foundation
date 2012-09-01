@@ -39,7 +39,13 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			for (File configFile : configFiles) {
 				String s = FileUtils.readFileToString(configFile);
 				String[] tokens = StringUtils.substringsBetween(s, "<mavenName>", "</mavenName>");
+				if (tokens == null) {
+					continue;
+				}
 				for (String token : tokens) {
+					if (token == null) {
+						continue;
+					}
 					map.put(token, token);
 				}
 			}
