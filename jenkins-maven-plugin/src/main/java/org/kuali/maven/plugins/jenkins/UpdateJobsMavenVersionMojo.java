@@ -39,7 +39,9 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			getLog().info("Located " + configFiles.size() + " job config files");
 			List<String> jdkTokens = getJdkReplacementTokens(configFiles);
 			List<String> mvnTokens = getMvnReplacementTokens(configFiles);
+			getLog().info("Updating Maven Config");
 			updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>");
+			getLog().info("Updating JDK Config");
 			updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
