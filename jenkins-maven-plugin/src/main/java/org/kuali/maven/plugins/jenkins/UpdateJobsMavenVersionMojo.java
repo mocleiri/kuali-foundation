@@ -40,21 +40,26 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			List<String> jdkTokens = getJdkReplacementTokens(configFiles);
 			List<String> mvnTokens = getMvnReplacementTokens(configFiles);
 			getLog().info("Updating Maven Config");
-			updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>");
+			updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>", ".bak.mvn");
 			getLog().info("Updating JDK Config");
-			updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>");
+			updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>", ".bak.jdk");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	protected void updateContent(List<File> files, List<String> rtokens, String replacement) throws IOException {
+	protected void updateContent(List<File> files, List<String> rtokens, String replacement, String extension) throws IOException {
 		for (File file : files) {
 			String oldContent = FileUtils.readFileToString(file);
 			String newContent = getReplacementContent(oldContent, rtokens, replacement);
-			if (!oldContent.equals(newContent)) {
-				getLog().info("Updating " + file);
+			if (oldContent.equals(newContent)) {
+				continue;
 			}
+			getLog().info("Updating " + file);
+			File bak = new File(file.getAbsolutePath() + extension);
+			FileUtils.copyFile(file, bak);
+			// FileUtils.writeStringToFile(file, newContent);
+			break;
 		}
 	}
 
