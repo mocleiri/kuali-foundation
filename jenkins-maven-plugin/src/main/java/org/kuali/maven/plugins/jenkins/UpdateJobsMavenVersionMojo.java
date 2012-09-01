@@ -99,7 +99,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		List<String> rtokens = new ArrayList<String>();
 		Set<String> keys = map.keySet();
 		for (String key : keys) {
-			String rtoken = open + key + close;
+			String rtoken = key;
 			rtokens.add(rtoken);
 		}
 		return rtokens;
