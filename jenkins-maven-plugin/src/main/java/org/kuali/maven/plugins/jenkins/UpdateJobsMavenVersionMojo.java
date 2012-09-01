@@ -41,9 +41,27 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			for (String rtoken : rtokens) {
 				getLog().info(rtoken);
 			}
+			updateContent(configFiles, rtokens);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	protected void updateContent(List<File> files, List<String> rtokens) throws IOException {
+		for (File file : files) {
+			String oldContent = FileUtils.readFileToString(file);
+			String newContent = getReplacementContent(oldContent, rtokens);
+			if (oldContent.equals(newContent)) {
+				getLog().info("Updating " + file);
+			}
+		}
+	}
+
+	protected String getReplacementContent(String s, List<String> rtokens) {
+		for (String rtoken : rtokens) {
+			s = s.replace(rtoken, "<mavenName>MAVEN3</mavenName>");
+		}
+		return s;
 	}
 
 	protected List<String> getReplacementTokens(List<File> files) throws IOException {
