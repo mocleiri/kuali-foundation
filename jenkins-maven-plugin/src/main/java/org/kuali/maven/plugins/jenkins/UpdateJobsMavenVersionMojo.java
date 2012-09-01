@@ -37,8 +37,12 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		try {
 			List<File> configFiles = getConfigFiles();
 			getLog().info("Located " + configFiles.size() + " job config files");
-			List<String> rtokens = getReplacementTokens(configFiles);
-			for (String rtoken : rtokens) {
+			List<String> jdkTokens = getJdkReplacementTokens(configFiles);
+			List<String> mvnTokens = getMvnReplacementTokens(configFiles);
+			for (String rtoken : jdkTokens) {
+				getLog().info(rtoken);
+			}
+			for (String rtoken : mvnTokens) {
 				getLog().info(rtoken);
 			}
 			// updateContent(configFiles, rtokens);
@@ -83,17 +87,31 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		}
 	}
 
-	protected List<String> getReplacementTokens(List<File> files) throws IOException {
+	protected List<String> getJdkReplacementTokens(List<File> files) throws IOException {
+		String open = "<jdk>";
+		String close = "</jdk>";
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for (File file : files) {
 			String s = FileUtils.readFileToString(file);
-			String open = "<mavenName>";
-			String close = "</mavenName>";
 			String[] tokens = StringUtils.substringsBetween(s, open, close);
 			addTokens(tokens, map, open, close);
-			open = "<jdk>";
-			close = "</jdk>";
-			tokens = StringUtils.substringsBetween(s, open, close);
+		}
+		List<String> rtokens = new ArrayList<String>();
+		Set<String> keys = map.keySet();
+		for (String key : keys) {
+			String rtoken = key;
+			rtokens.add(rtoken);
+		}
+		return rtokens;
+	}
+
+	protected List<String> getMvnReplacementTokens(List<File> files) throws IOException {
+		String open = "<mavenName>";
+		String close = "</mavenName>";
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		for (File file : files) {
+			String s = FileUtils.readFileToString(file);
+			String[] tokens = StringUtils.substringsBetween(s, open, close);
 			addTokens(tokens, map, open, close);
 		}
 		List<String> rtokens = new ArrayList<String>();
