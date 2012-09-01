@@ -13,9 +13,6 @@ if [ -z "${JOB_TO_COPY}" ]; then
   JOB_TO_COPY=$JOB_NAME
 fi
 
-M2_HOME="/var/lib/jenkins/tools/Maven-3.0.3"
-MVN=$M2_HOME/bin/mvn
-
 cd /root/kuali-ec2/src/main/resources/jenkins/slave
 
 #
@@ -24,4 +21,4 @@ cd /root/kuali-ec2/src/main/resources/jenkins/slave
 # and the sync-to-master script has successfully completed
 #
 
-$MVN -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -Djenkins.excludeTarget=false -Djenkins.ignoreCodes=23
+mvn -Psync-from-master jenkins:syncworkspace -Djenkins.job=$JOB_TO_COPY -Djenkins.excludeTarget=false -Djenkins.ignoreCodes=23
