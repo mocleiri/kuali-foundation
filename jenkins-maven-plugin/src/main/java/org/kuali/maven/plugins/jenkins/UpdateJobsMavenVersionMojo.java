@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -50,6 +51,10 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 				}
 			}
 			getLog().info(map.size() + "");
+			Set<String> keys = map.keySet();
+			for (String key : keys) {
+				getLog().info("[" + key + "]");
+			}
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
