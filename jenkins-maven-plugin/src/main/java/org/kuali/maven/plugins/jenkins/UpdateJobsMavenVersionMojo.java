@@ -40,10 +40,10 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 			List<String> jdkTokens = getJdkReplacementTokens(configFiles);
 			List<String> mvnTokens = getMvnReplacementTokens(configFiles);
 			for (String rtoken : jdkTokens) {
-				getLog().info(rtoken);
+				// getLog().info(rtoken);
 			}
 			for (String rtoken : mvnTokens) {
-				getLog().info(rtoken);
+				// getLog().info(rtoken);
 			}
 			// updateContent(configFiles, rtokens);
 		} catch (Exception e) {
@@ -100,6 +100,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		Set<String> keys = map.keySet();
 		for (String key : keys) {
 			String rtoken = key;
+			getLog().info(key + "=" + map.get(key));
 			rtokens.add(rtoken);
 		}
 		return rtokens;
