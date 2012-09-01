@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,38 +37,49 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		try {
 			List<File> configFiles = getConfigFiles();
 			getLog().info("Located " + configFiles.size() + " job config files");
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			for (File configFile : configFiles) {
-				String s = FileUtils.readFileToString(configFile);
-				int pos = s.indexOf("<mavenName>Default</mavenName");
-				if (pos != -1) {
-					getLog().info(configFile.getAbsolutePath());
-				}
-				String[] tokens = StringUtils.substringsBetween(s, "<mavenName>", "</mavenName>");
-				if (tokens == null) {
-					continue;
-				}
-				for (String token : tokens) {
-					if (token == null) {
-						continue;
-					}
-					Integer count = map.get(token);
-					if (count == null) {
-						count = new Integer(1);
-					} else {
-						count++;
-					}
-					map.put(token, count);
-				}
-			}
-			getLog().info(map.size() + "");
-			Set<String> keys = map.keySet();
-			for (String key : keys) {
-				getLog().info("[" + key + "]=" + map.get(key));
+			List<String> rtokens = getReplacementTokens(configFiles);
+			for (String rtoken : rtokens) {
+				getLog().info(rtoken);
 			}
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	protected List<String> getReplacementTokens(List<File> files) throws IOException {
+		String open = "<mavenName>";
+		String close = "</mavenName>";
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		for (File file : files) {
+			String s = FileUtils.readFileToString(file);
+			int pos = s.indexOf(open + "Default" + close);
+			if (pos != -1) {
+				getLog().info(file.getAbsolutePath());
+			}
+			String[] tokens = StringUtils.substringsBetween(s, open, close);
+			if (tokens == null) {
+				continue;
+			}
+			for (String token : tokens) {
+				if (token == null) {
+					continue;
+				}
+				Integer count = map.get(token);
+				if (count == null) {
+					count = new Integer(1);
+				} else {
+					count++;
+				}
+				map.put(token, count);
+			}
+		}
+		List<String> rtokens = new ArrayList<String>();
+		Set<String> keys = map.keySet();
+		for (String key : keys) {
+			String rtoken = open + key + close;
+			rtokens.add(rtoken);
+		}
+		return rtokens;
 	}
 
 	protected List<File> getConfigFiles() {
