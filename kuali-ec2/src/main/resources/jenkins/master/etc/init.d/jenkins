@@ -35,7 +35,7 @@ case "$1" in
   restartclean)
     echo "Stopping Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
-    su - jenkins --command '/usr/local/tomcat/bin/tomcat clean'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat cleanup'
     ulimit -n $MAXFILES
     echo "Starting Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
