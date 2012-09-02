@@ -13,10 +13,12 @@
 # Description:       Controls the jenkins continuous integration engine.
 ### END INIT INFO
 
+MAXFILES=8192
+
 case "$1" in
   start)
     echo "Starting Jenkins - $(date)"
-    ulimit -n 8192
+    ulimit -n $MAXFILES
     su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
     ;;
   stop)
@@ -26,7 +28,7 @@ case "$1" in
   restart)
     echo "Stopping Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
-    ulimit -n 8192
+    ulimit -n $MAXFILES
     echo "Starting Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
     ;;
