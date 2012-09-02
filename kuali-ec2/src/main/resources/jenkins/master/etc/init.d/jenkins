@@ -32,8 +32,16 @@ case "$1" in
     echo "Starting Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
     ;;
+  restartclean)
+    echo "Stopping Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat clean'
+    ulimit -n $MAXFILES
+    echo "Starting Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
+    ;;
   *)
-    echo "Usage: jenkins {start|stop|restart}" >&2
+    echo "Usage: jenkins {start|stop|restart|restartclean}" >&2
     exit 3
     ;;
 esac
