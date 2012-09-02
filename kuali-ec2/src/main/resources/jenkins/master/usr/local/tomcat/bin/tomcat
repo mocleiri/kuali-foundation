@@ -35,7 +35,7 @@ case "$1" in
     $CATALINA_HOME/bin/cleanup.sh
     ;;
   *)
-    echo "Usage: $SCRIPTNAME {start|stop|cleanup}" >&2
+    echo "Usage: tomcat {start|stop|cleanup}" >&2
     exit 3
     ;;
 esac
