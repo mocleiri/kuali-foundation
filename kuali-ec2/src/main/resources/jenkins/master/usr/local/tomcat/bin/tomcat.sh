@@ -22,19 +22,16 @@ CATALINA_PID=$CATALINA_BASE/logs/catalina.pid
 CATALINA_OPTS="-Xmx2g -XX:MaxPermSize=256m"
 JENKINS_HOME=/var/lib/jenkins
 
-export JAVA_HOME CATALINA_HOME CATALINA_BASE CATALINA_OPTS JENKINS_HOME
+export JAVA_HOME CATALINA_HOME CATALINA_BASE CATALINA_OPTS JENKINS_HOME CATALINA_PID
 
 case "$1" in
   start)
-    echo "Starting Tomcat - $(date)"
     $CATALINA_HOME/bin/startup.sh
     ;;
   stop)
-    echo "Stopping Tomcat - $(date)"
     $CATALINA_HOME/bin/forced-shutdown.sh
     ;;
   cleanup)
-    echo "Cleaning Tomcat - $(date)"
     $CATALINA_HOME/bin/cleanup.sh
     ;;
   *)
