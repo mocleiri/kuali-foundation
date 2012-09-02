@@ -17,17 +17,17 @@ case "$1" in
   start)
     echo "Starting Jenkins - $(date)"
     ulimit -n 8192
-    su - jenkins - c '/usr/local/tomcat/bin/tomcat start'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
     ;;
   stop)
     echo "Stopping Jenkins - $(date)"
-    su - jenkins - c '/usr/local/tomcat/bin/tomcat stop'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
     ;;
   restart)
     echo "Restarting Jenkins - $(date)"
-    su - jenkins - c '/usr/local/tomcat/bin/tomcat stop'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
     ulimit -n 8192
-    su - jenkins - c '/usr/local/tomcat/bin/tomcat start'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
     ;;
   *)
     echo "Usage: jenkins {start|stop|restart}" >&2
