@@ -24,9 +24,10 @@ case "$1" in
     su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
     ;;
   restart)
-    echo "Restarting Jenkins - $(date)"
+    echo "Stopping Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
     ulimit -n 8192
+    echo "Starting Jenkins - $(date)"
     su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
     ;;
   *)
