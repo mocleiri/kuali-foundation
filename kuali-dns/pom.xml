@@ -67,7 +67,10 @@
   </build>
   <profiles>
     <profile>
-      <id>nodot</id>
+      <id>arec</id>
+      <properties>
+        <dnsme.recordType>A</dnsme.recordType>
+      </properties>
       <build>
         <pluginManagement>
           <plugins>

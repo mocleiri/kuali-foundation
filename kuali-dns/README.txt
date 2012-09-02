@@ -7,5 +7,5 @@ mvn dnsme:addrecord -Ddnsme.recordName=nexus1 -Ddnsme.recordValue=ec2-107-20-15-
 
 To add an "A" record that maps to an IP number
 
-mvn -Pnodot dnsme:addrecord -Ddnsme.recordName=dev.ole -Ddnsme.recordValue=128.18.23.119 -Ddnsme.recordType=A
+mvn -Parec dnsme:addrecord -Ddnsme.recordName=dev.ole -Ddnsme.recordValue=128.18.23.119
 
