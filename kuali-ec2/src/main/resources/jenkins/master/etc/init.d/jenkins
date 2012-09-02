@@ -1,16 +1,16 @@
 #!/bin/bash
 # /etc/init.d/jenkins
-# debian-compatible jenkins init script.
+# debian-compatible jenkins startup script.
 # Jeff Caddel <jcaddel@kuali.org>
 #
 ### BEGIN INIT INFO
-# Provides:          jenkins 
+# Provides:          jenkins
 # Required-Start:    $remote_fs $syslog $network
 # Required-Stop:     $remote_fs $syslog $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Perform Jenkins startup/shutdown/restart tasks 
-# Description:       Perform Jenkins startup/shutdown/restart tasks  
+# Short-Description: Start jenkins at boot time
+# Description:       Controls the jenkins continuous integration engine.
 ### END INIT INFO
 
 case "$1" in
@@ -30,3 +30,20 @@ case "$1" in
 esac
 
 exit 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
