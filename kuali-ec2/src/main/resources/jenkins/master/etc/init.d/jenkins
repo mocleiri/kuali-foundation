@@ -19,18 +19,18 @@ case "$1" in
   start)
     echo "Starting Jenkins - $(date)"
     ulimit -n $MAXFILES
-    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start' >> /tmp/jenkins.txt 2>&1
     ;;
   stop)
     echo "Stopping Jenkins - $(date)"
-    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop' >> /tmp/jenkins.txt 2>&1
     ;;
   restart)
     echo "Stopping Jenkins - $(date)"
-    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop' >> /tmp/jenkins.txt 2>&1
     ulimit -n $MAXFILES
     echo "Starting Jenkins - $(date)"
-    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start' >> /tmp/jenkins.txt 2>&1
     ;;
   *)
     echo "Usage: jenkins {start|stop|restart}" >&2
