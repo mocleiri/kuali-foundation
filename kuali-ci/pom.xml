@@ -63,7 +63,7 @@
         <jenkins.ignoreJobs>update-ci-configuration,restart-jenkins</jenkins.ignoreJobs>
         <jenkins.configFile>/var/lib/jenkins/config.xml</jenkins.configFile>
         <jenkins.newAmi>${ec2.image.id}</jenkins.newAmi>
-        <ws.server.volumeId>vol-792f7517</ws.server.volumeId>
+        <ws.server.volumeId>vol-c565e7be</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
       </properties>
