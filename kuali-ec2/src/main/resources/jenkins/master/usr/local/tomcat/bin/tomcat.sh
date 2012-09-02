@@ -19,7 +19,7 @@ JAVA_HOME=/var/lib/jenkins/tools/jdk7
 CATALINA_HOME=/usr/local/tomcat
 CATALINA_BASE=$CATALINA_HOME
 CATALINA_PID=$CATALINA_BASE/logs/catalina.pid
-CATALINA_OPTS="-Xmx2g -XX:MaxPermSize=256m"
+CATALINA_OPTS="-Xmx2g -XX:MaxPermSize=256m -Duser.timezone=America/New_York"
 JENKINS_HOME=/var/lib/jenkins
 
 export JAVA_HOME CATALINA_HOME CATALINA_BASE CATALINA_OPTS JENKINS_HOME CATALINA_PID
