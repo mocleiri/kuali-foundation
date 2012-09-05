@@ -1,0 +1,15 @@
+/* CSS Document */
+
+.thischanged
+{
+	color:#F00;
+}
+
+.changedfieldsnote
+{
+	font-size:10px;
+	color:#F00;
+	padding:2px;
+	background-color:#FFC;
+	border:1px solid #000;
+}
