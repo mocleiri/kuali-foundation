@@ -5,7 +5,7 @@ import java.io.File;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
 public class Rice211Filter implements IOFileFilter {
-	String token = "2.1.1.";
+	String token = "-2.1.1";
 
 	@Override
 	public boolean accept(File file) {
