@@ -18,7 +18,14 @@ public class Rice211Filter implements IOFileFilter {
 	}
 
 	protected boolean accept(String name) {
-		return name.indexOf(token) != -1;
+		if (name.contains("2.1.1-rc1")) {
+			return false;
+		}
+		if (name.contains("2.1.1")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
