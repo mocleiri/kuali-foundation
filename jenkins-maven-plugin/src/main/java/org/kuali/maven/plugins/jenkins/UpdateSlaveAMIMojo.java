@@ -25,65 +25,68 @@ import org.kuali.maven.common.ResourceUtils;
 
 /**
  * Update the slave AMI being used by the Jenkins EC2 plugin
- *
+ * 
  * @goal updateslaveami
  */
 public class UpdateSlaveAMIMojo extends AbstractMojo {
-    ResourceUtils utils = new ResourceUtils();
+	ResourceUtils utils = new ResourceUtils();
 
-    /**
-     * The location of the Jenkins config file
-     *
-     * @parameter expression="${jenkins.configFile}" default-value="/var/lib/jenkins/config.xml"
-     * @required
-     */
-    private File configFile;
+	/**
+	 * The location of the Jenkins config file
+	 * 
+	 * @parameter expression="${jenkins.configFile}" default-value="/var/lib/jenkins/config.xml"
+	 * @required
+	 */
+	private File configFile;
 
-    /**
-     * The AMI the Jenkins EC2 plugin should use when launching slaves
-     *
-     * @parameter expression="${jenkins.newAmi}"
-     * @required
-     */
-    private String newAmi;
+	/**
+	 * The AMI the Jenkins EC2 plugin should use when launching slaves
+	 * 
+	 * @parameter expression="${jenkins.newAmi}"
+	 * @required
+	 */
+	private String newAmi;
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        try {
-            String oldContent = utils.read(configFile.getAbsolutePath());
-            String open = "<hudson.plugins.ec2.SlaveTemplate>";
-            String close = "</hudson.plugins.ec2.SlaveTemplate>";
-            String slaveTemplate = StringUtils.substringBetween(oldContent, open, close);
-            String oldAmi = StringUtils.substringBetween(slaveTemplate, "<ami>", "</ami>");
-            String oldText = "<ami>" + oldAmi + "</ami>";
-            String newText = "<ami>" + newAmi + "</ami>";
-            String newContent = oldContent.replace(oldText, newText);
-            File bak = new File(configFile.getAbsolutePath() + ".bak");
-            getLog().info("Old AMI: " + oldAmi);
-            getLog().info("New AMI: " + newAmi);
-            getLog().info("Backing up original to " + bak.getAbsolutePath());
-            getLog().info("Rewriting " + configFile.getAbsolutePath());
-            FileUtils.write(bak, oldContent);
-            FileUtils.write(configFile, newContent);
-        } catch (Exception e) {
-            throw new MojoExecutionException("Unexpected error", e);
-        }
-    }
+	@Override
+	public void execute() throws MojoExecutionException {
+		try {
+			String oldContent = utils.read(configFile.getAbsolutePath());
+			String open = "<hudson.plugins.ec2.SlaveTemplate>";
+			String close = "</hudson.plugins.ec2.SlaveTemplate>";
+			String slaveTemplate = StringUtils.substringBetween(oldContent, open, close);
+			String oldAmi = StringUtils.substringBetween(slaveTemplate, "<ami>", "</ami>");
+			String oldText = "<ami>" + oldAmi + "</ami>";
+			String newText = "<ami>" + newAmi + "</ami>";
+			String newContent = oldContent.replace(oldText, newText);
+			File bakFile = new File(configFile.getAbsolutePath() + ".bak");
+			File newFile = new File(configFile.getAbsolutePath() + ".new");
+			getLog().info("Old AMI: " + oldAmi);
+			getLog().info("New AMI: " + newAmi);
+			getLog().info("Backing up original to " + bakFile.getAbsolutePath());
+			getLog().info("Rewriting " + configFile.getAbsolutePath());
+			getLog().info("New file " + newFile.getAbsolutePath());
+			FileUtils.write(bakFile, oldContent);
+			FileUtils.write(newFile, newContent);
+			FileUtils.write(configFile, newContent);
+		} catch (Exception e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
+	}
 
-    public File getConfigFile() {
-        return configFile;
-    }
+	public File getConfigFile() {
+		return configFile;
+	}
 
-    public void setConfigFile(File configFile) {
-        this.configFile = configFile;
-    }
+	public void setConfigFile(File configFile) {
+		this.configFile = configFile;
+	}
 
-    public String getNewAmi() {
-        return newAmi;
-    }
+	public String getNewAmi() {
+		return newAmi;
+	}
 
-    public void setNewAmi(String newAmi) {
-        this.newAmi = newAmi;
-    }
+	public void setNewAmi(String newAmi) {
+		this.newAmi = newAmi;
+	}
 
 }
