@@ -40,6 +40,13 @@ public class ScanForRice211Mojo extends AbstractMojo {
 			List<File> list = new ArrayList<File>(c);
 			Collections.sort(list);
 			getLog().info(list.size() + "");
+			long size = 0;
+			for (File file : list) {
+				getLog().info(file.getAbsolutePath());
+				size += file.length();
+			}
+			long mb = 1024 * 1024;
+			getLog().info("size=" + (size / mb) + "mb");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
