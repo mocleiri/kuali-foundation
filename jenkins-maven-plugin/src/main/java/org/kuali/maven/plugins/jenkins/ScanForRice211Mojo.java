@@ -34,7 +34,7 @@ public class ScanForRice211Mojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
-			File dir = new File("/var/lib/jenkins/.m2/repository/org/kuali/rice");
+			File dir = new File("/var/lib/jenkins/m2/repository/org/kuali/rice");
 			IOFileFilter filter = new Rice211Filter();
 			Collection<File> c = FileUtils.listFiles(dir, filter, TrueFileFilter.INSTANCE);
 			List<File> list = new ArrayList<File>(c);
