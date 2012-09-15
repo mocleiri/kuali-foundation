@@ -71,17 +71,6 @@
                 </locations>
               </configuration>
             </execution>
-            <execution>
-              <id>decrypt</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>decryptall</goal>
-              </goals>
-              <configuration>
-                <quiet>true</quiet>
-                <password>${kuali.enc.password}</password>
-              </configuration>
-            </execution>
           </executions>
         </plugin>
         <plugin>
@@ -130,7 +119,7 @@
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/resources.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>
                 </poms>
               </configuration>
