@@ -197,7 +197,7 @@
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <url>http://http://ec2-184-72-82-8.compute-1.amazonaws.com/content/repositories/hosted-private</url>
+                  <url>http://ec2-184-72-82-8.compute-1.amazonaws.com/content/repositories/hosted-private</url>
                 </configuration>
               </execution>
             </executions>
