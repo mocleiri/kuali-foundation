@@ -35,6 +35,24 @@
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
   <target name="copy" depends="copyjdbc,copyconfig,copysetenv,copywar" />
 
+  <target name="copyappdynamics">
+    <condition property="copyappdynamics.property">
+      <and>
+        <isset property="local.appdynamics.file" />
+        <isset property="remote.appdynamics.file" />
+        <isset property="remote.appdynamics.dir" />
+      </and>
+    </condition>
+    <fail unless="copyappdynamics.property">Missing local.appdynamics.file, remote.appdynamics.file, or remote.appdynamics.dir</fail>
+    <antcall target="mkdir">
+      <param name="remote.dir" value="${remote.appdynamics.dir}" />
+    </antcall>
+    <antcall target="copyfile">
+      <param name="local.file" value="${local.appdynamics.file}" />
+      <param name="remote.file" value="${remote.appdynamics.file}" />
+    </antcall>
+  </target>
+
   <target name="copysetenv">
     <condition property="copysetenv.property">
       <and>
