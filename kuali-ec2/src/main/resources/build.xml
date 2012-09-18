@@ -197,10 +197,10 @@
     <!-- Remove previous installation of this version (if any) -->
     <delete dir="${appdynamics.dir}" />
 
-    <!-- Inflate the zip into /usr/local/apache-tomcat-[version] -->
+    <!-- Inflate the zip into /usr/local/server-agent-[version] -->
     <unzip src="${appdynamics.zip}" dest="${appdynamics.dir}" />
 
-    <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
+    <!-- Symlink /usr/local/server-agent to the versioned App Dynamics directory -->
     <symlink link="${appdynamics.symlink}" resource="${appdynamics.dir}" />
 
     <exec executable="chown">
