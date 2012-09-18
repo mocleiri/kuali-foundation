@@ -33,7 +33,7 @@
   <target name="restart" depends="stop,clean,start" />
   <target name="waronly" depends="stop,clean,copywar,start" />
   <target name="configonly" depends="stop,clean,copy-appconfig,copy-envconfig,start" />
-  <target name="copy" depends="copyjdbc,copyconfig,copysetenv,copywar" />
+  <target name="copy" depends="copyjdbc,copyconfig,copysetenv,copyappdynamics,copywar" />
 
   <target name="copyappdynamics">
     <condition property="copyappdynamics.property">
