@@ -198,7 +198,7 @@
     <delete dir="${appdynamics.dir}" />
 
     <!-- Inflate the zip into /usr/local/apache-tomcat-[version] -->
-    <unzip src="${appdynamics.zip}" dest="/usr/local" />
+    <unzip src="${appdynamics.zip}" dest="${appdynamics.dir}" />
 
     <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
     <symlink link="${appdynamics.symlink}" resource="${appdynamics.dir}" />
