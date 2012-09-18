@@ -209,6 +209,12 @@
       <arg value="${appdynamics.symlink}" />
     </exec>
 
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="tomcat:tomcat" />
+      <arg value="${appdynamics.dir}" />
+    </exec>
+
   </target>
 
   <target name="deletejenkinsconfig" depends="jenkinsinit">
