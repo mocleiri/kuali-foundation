@@ -187,11 +187,11 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
             <configuration>
-              <repositoryId>nexus.private</repositoryId>
+              <repositoryId>kuali.private</repositoryId>
             </configuration>
             <executions>
               <execution>
-                <id>nexus-private</id>
+                <id>kuali-private</id>
                 <phase>${dp.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
