@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project name="Tomcat Instance Manager">
@@ -188,6 +188,27 @@
 
     <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
     <symlink link="/usr/local/tomcat" resource="${tomcat.dir}" />
+  </target>
+
+  <target name="installappdynamics">
+    <!-- Remove the symbolic link to whatever version was being used before (if any) -->
+    <symlink action="delete" link="${appdynamics.symlink}" />
+
+    <!-- Remove previous installation of this version (if any) -->
+    <delete dir="${appdynamics.dir}" />
+
+    <!-- Inflate the zip into /usr/local/apache-tomcat-[version] -->
+    <unzip src="${appdynamics.zip}" dest="/usr/local" />
+
+    <!-- Final step is to symlink /usr/local/tomcat to the versioned tomcat directory -->
+    <symlink link="${appdynamics.symlink}" resource="${appdynamics.dir}" />
+
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="${tomcat.user}:tomcat" />
+      <arg value="${appdynamics.symlink}" />
+    </exec>
+
   </target>
 
   <target name="deletejenkinsconfig" depends="jenkinsinit">
