@@ -205,7 +205,7 @@
 
     <exec executable="chown">
       <arg value="-R" />
-      <arg value="${tomcat.user}:tomcat" />
+      <arg value="tomcat:tomcat" />
       <arg value="${appdynamics.symlink}" />
     </exec>
 
