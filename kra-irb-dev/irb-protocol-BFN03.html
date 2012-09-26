@@ -31,7 +31,7 @@ function unloadMessage() {
 	$(".thischanged").each(function() {
 		x++;
 	});
-	return "You have entered new data on this page (changed fields: " + x + "). If you navigate away from this page without first saving your data, the changes will be lost.";
+	return "You have changed data on at least one add row without adding the record. If you navigate away from this page without first adding your data, the information will be lost.";
 }
 
 // count all changed fields
@@ -43,12 +43,29 @@ function count_allchanged()
 	});
 	if(x>0)
 	{
-		//alert("You have entered new data on this page (changed fields: " + x + "). If you navigate away from this page without first saving your data, the changes will be lost.");
 		setConfirmUnload(true);
 	}
 	else
 	{
-		//alert("none changed");
+		setConfirmUnload(false);
+	}
+}
+
+// save button
+function savebutton()
+{
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		alert("You have changed data on at least one add row without adding the record. If you navigate away from this page without first adding your data, the information will be lost.");
+		setConfirmUnload(true);
+	}
+	else
+	{
+		alert("This would save changes were this not a lowly mock.");
 		setConfirmUnload(false);
 	}
 }
@@ -63,10 +80,10 @@ function count_participanttypes()
 	if(x>0)
 	{
 		//$("#changedfields_participanttypes").html("Unsaved: " + x);
-		//$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
+		$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
+		$("#changedfields_participanttypes2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		//$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
 		//$("#changedfields_participanttypes2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
-		$("#changedfields_participanttypes").html("<img src='../images/exclamation.png' title='data changed but not added' alt='changed' style='width:16px; height:16px; vertical-align:text-top;' />");
-		$("#changedfields_participanttypes2").html("<img src='../images/exclamation.png' title='data changed but not added' alt='changed' style='width:16px; height:16px; vertical-align:text-top;' />");
 		$("#changedfields_participanttypes").show();
 		$("#changedfields_participanttypes2").show();
 	}
@@ -91,8 +108,8 @@ function count_organizations()
 		//$("#changed_organizations").html("Unsaved: " + x);
 		//$("#changed_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
 		//$("#changed_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
-		$("#changedfields_organizations").html("<img src='../images/exclamation.png' title='data changed but not added' alt='changed' style='width:16px; height:16px; vertical-align:text-top;' />");
-		$("#changedfields_organizations2").html("<img src='../images/exclamation.png' title='data changed but not added' alt='changed' style='width:16px; height:16px; vertical-align:text-top;' />");
+		$("#changedfields_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		$("#changedfields_organizations2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
 		$("#changedfields_organizations").show();
 		$("#changedfields_organizations2").show();
 	}
@@ -1206,7 +1223,7 @@ function count_organizations()
 				$(document).ready(function() {
 		
 					$('#globalsave').click(function() {
-						count_allchanged();
+						savebutton();
 					});
 					
 				});
