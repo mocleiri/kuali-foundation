@@ -18,8 +18,8 @@
 Commands for EC2 medium instances
 ---------------------------------
 
-mcp -Ptomcat,6,medium
-mcp -Ptomcat,7,medium
+mcp -Ptomcat,6,medium -Djdk.version=jdk6/jdk7
+mcp -Ptomcat,7,medium -Djdk.version=jdk6/jdk7
 
 
 --------------------------------
