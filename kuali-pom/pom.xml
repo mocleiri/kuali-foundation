@@ -1160,6 +1160,9 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>externals-maven-plugin</artifactId>
+            <configuration>
+              <commitMessage>Automated Maven pom formatting</commitMessage>
+            </configuration>
             <executions>
               <execution>
                 <id>format</id>
