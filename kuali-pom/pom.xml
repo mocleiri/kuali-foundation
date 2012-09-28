@@ -1,24 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright 2004-2012 The Kuali Foundation
-
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.opensource.org/licenses/ecl2.php
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>org.kuali.pom</groupId>
   <version>1.7.9-SNAPSHOT</version>
   <artifactId>kuali-pom</artifactId>
@@ -63,31 +44,24 @@
   <properties>
     <ci.host>ci.fn.kuali.org</ci.host>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
     <!-- Declared as properties so they can be shared between the compiler and javadoc plugins -->
     <kuali.compile.source>1.6</kuali.compile.source>
     <kuali.compile.target>1.6</kuali.compile.target>
-
     <!-- Don't create -tests.jar for POM's and other modules that don't actually have test code -->
     <kuali.testjar.skipIfEmpty>true</kuali.testjar.skipIfEmpty>
-
     <!-- This profile provides quality control for official Kuali artifacts (GPG signature, attached sources, javadocs etc.) -->
     <kuali.release.profiles>kuali-release</kuali.release.profiles>
     <!-- This is "false" because their profile forks the maven process when attaching sources, we want "jar-no-fork" -->
     <kuali.release.use.maven.profile>false</kuali.release.use.maven.profile>
     <kuali.release.goals>deploy site-deploy</kuali.release.goals>
     <kuali.release.prepare.goals>clean verify</kuali.release.prepare.goals>
-
     <!-- Used by the GPG plugin during a release -->
     <kuali.gpg.passphrase.encrypted>2rRGp7BREsY4QxTwlTSX3NRdtqZTP5fR</kuali.gpg.passphrase.encrypted>
-
     <kuali.svn.prefix>svn</kuali.svn.prefix>
     <kuali.svn.depth>empty</kuali.svn.depth>
     <kuali.svn.verbose>false</kuali.svn.verbose>
-
     <!-- This is used in the licenses section as well as the jar/war plugins -->
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
-
     <!-- These properties are used when generating/deploying the maven generated site -->
     <kuali.groupId>org.kuali</kuali.groupId>
     <kuali.pom.1>org.kuali.pom:kuali-pom</kuali.pom.1>
@@ -97,7 +71,6 @@
     <kuali.site.hostname>site.kuali.org</kuali.site.hostname>
     <kuali.site.server.id>kuali.site</kuali.site.server.id>
     <kuali.site.descriptor.phase>package</kuali.site.descriptor.phase>
-
     <!--
       Setting this to true causes Maven to try and contact any url's listed for every dependency in the project(s).
       Typically, quite a few of these urls are out of date, which makes the request eventually time out. This causes basic
@@ -105,19 +78,16 @@
     -->
     <dependency.locations.enabled>false</dependency.locations.enabled>
     <dependency.details.enabled>false</dependency.details.enabled>
-
     <!-- These are the Kuali repository settings for an official release -->
     <kuali.repo.release.id>kuali.release</kuali.repo.release.id>
     <kuali.repo.release.name>Kuali Release Repository</kuali.repo.release.name>
     <kuali.repo.release.url>s3://maven.kuali.org/release</kuali.repo.release.url>
-
     <!-- These are the Kuali repository settings for snapshot builds -->
     <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
     <kuali-cm.version>1.2.6</kuali-cm.version>
     <kuali-ec2.version>1.0.5</kuali-ec2.version>
-
     <!-- Properties for controlling repo settings -->
     <kuali.releases>true</kuali.releases>
     <kuali.snapshots>true</kuali.snapshots>
@@ -126,25 +96,19 @@
     <kuali.repo.snapshots>${kuali.snapshots}</kuali.repo.snapshots>
     <kuali.plugin.releases>${kuali.releases}</kuali.plugin.releases>
     <kuali.plugin.snapshots>${kuali.snapshots}</kuali.plugin.snapshots>
-
     <kuali.testjar.phase>package</kuali.testjar.phase>
     <kuali.gpg.phase>install</kuali.gpg.phase>
     <kuali.cloudfront.phase>site-deploy</kuali.cloudfront.phase>
-
     <ksite.phase>pre-site</ksite.phase>
     <ksite.publishBase>s3://${kuali.site.bucket}</ksite.publishBase>
     <ksite.publicBase>http://${kuali.site.hostname}</ksite.publicBase>
     <ksite.downloadBase>http://shrub.appspot.com/maven.kuali.org</ksite.downloadBase>
-
     <!-- Used by both the surefire plugin and the sonar plugin -->
     <surefire.reportsDirectory>${project.build.directory}/surefire-reports</surefire.reportsDirectory>
-
     <!-- Used by both the "scm" and "updatescm" profiles -->
     <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
-
     <!-- Wagon versions -->
     <wagon.s3.version>1.1.14</wagon.s3.version>
-
     <!-- Plugin versions (ordered alphabetically) -->
     <plugin.ant.version>1.0.10</plugin.ant.version>
     <plugin.antrun.version>1.7</plugin.antrun.version>
@@ -161,6 +125,7 @@
     <plugin.deploy.version>2.7</plugin.deploy.version>
     <plugin.dnsme.version>1.0.5</plugin.dnsme.version>
     <plugin.enforcer.version>1.1.1</plugin.enforcer.version>
+    <plugin.externals.version>1.0.0</plugin.externals.version>
     <plugin.extractor.version>1.1.10</plugin.extractor.version>
     <plugin.failsafe.version>${plugin.surefire.version}</plugin.failsafe.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
@@ -325,6 +290,11 @@
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>${plugin.enforcer.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>externals-maven-plugin</artifactId>
+          <version>${plugin.externals.version}</version>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -825,7 +795,6 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>sonatype-oss-release</id>
       <properties>
@@ -835,11 +804,9 @@
         <kuali.nexus.sonatype.automatic>true</kuali.nexus.sonatype.automatic>
         <kuali.nexus.sonatype.promote.auto.select.override>true</kuali.nexus.sonatype.promote.auto.select.override>
         <kuali.nexus.sonatype.release.repository.id>releases</kuali.nexus.sonatype.release.repository.id>
-
         <kuali.repo.release.id>sonatype-nexus-staging</kuali.repo.release.id>
         <kuali.repo.release.name>Sonatype Nexus Release Repository</kuali.repo.release.name>
         <kuali.repo.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2</kuali.repo.release.url>
-
         <!-- These are for reference only. Not currently publishing snapshots to Sonatype's Nexus instance
           <kuali.repo.snapshot.id>sonatype-nexus-snapshots</kuali.repo.snapshot.id>
           <kuali.repo.snapshot.name>Sonatype Nexus Snapshots</kuali.repo.snapshot.name>
@@ -1186,6 +1153,34 @@
       </properties>
     </profile>
     <profile>
+      <!-- Format and commit Maven poms -->
+      <id>formatpoms</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>externals-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>format</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>formatpoms</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>commit</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>commit</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <!-- Tag today's source tree -->
       <id>nightlytag</id>
       <properties>
@@ -1289,19 +1284,19 @@
                     </exec>
                     <echo>cd ${project.build.directory}/checkout</echo>
                     <echo>${mvn.binary} versions:set -DnewVersion=${nightly.version} -N</echo>
-                    <exec executable="${mvn.binary}" failonerror="true" dir="${project.build.directory}/checkout">
+                    <exec dir="${project.build.directory}/checkout" executable="${mvn.binary}" failonerror="true">
                       <arg value="versions:set" />
                       <arg value="-DnewVersion=${nightly.version}" />
                       <arg value="-N" />
                     </exec>
                     <echo>${mvn.binary} process-resources -Pupdatescm -N</echo>
-                    <exec executable="${mvn.binary}" failonerror="true" dir="${project.build.directory}/checkout">
+                    <exec dir="${project.build.directory}/checkout" executable="${mvn.binary}" failonerror="true">
                       <arg value="process-resources" />
                       <arg value="-Pupdatescm" />
                       <arg value="-N" />
                     </exec>
                     <echo>svn commit -m "${svn.commit.message}"</echo>
-                    <exec executable="svn" failonerror="true" dir="${project.build.directory}/checkout">
+                    <exec dir="${project.build.directory}/checkout" executable="svn" failonerror="true">
                       <arg value="commit" />
                       <arg value="-m" />
                       <arg value="${svn.commit.message}" />

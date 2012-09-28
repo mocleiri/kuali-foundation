@@ -1,21 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright 2004-2012 The Kuali Foundation
-
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.opensource.org/licenses/ecl2.php
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -40,13 +22,10 @@
     <checkstyle.config.location>org/kuali/cm/checkstyle/kuali-sun.xml</checkstyle.config.location>
     <checkstyle.enable.rules.summary>true</checkstyle.enable.rules.summary>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
-
     <!-- Controls deployment of Kuali applications -->
     <kuali-deploy.version>1.2.3</kuali-deploy.version>
-
     <!-- Explicitly set build timestamp. The maven-resource-plugin is not filtering values correctly without this -->
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
-
     <!-- Default Clover config -->
     <kuali.clover.phase>none</kuali.clover.phase>
     <kuali.clover.history.dir>${user.home}/.clover/history/${project.groupId}/${project.artifactId}/${project.version}</kuali.clover.history.dir>
@@ -55,14 +34,11 @@
     <kuali.clover.exclude.pattern.1>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.clover.exclude.pattern.1>
     <kuali.clover.exclude.pattern.2>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.clover.exclude.pattern.2>
     <kuali.clover.exclude.pattern.3>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.clover.exclude.pattern.3>
-
     <!-- Default Cobertura config -->
     <kuali.cobertura.instrumentation.ignore>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.cobertura.instrumentation.ignore>
     <kuali.cobertura.instrumentation.exclude>DO_NOT_MATCH_ANYTHING_PATTERN</kuali.cobertura.instrumentation.exclude>
-
     <!-- The jxr, pmd, and taglist plugins all have an aggregate option -->
     <kuali.reporting.aggregate>true</kuali.reporting.aggregate>
-
     <!-- Default JavaDoc config -->
     <kuali.javadoc.quiet>true</kuali.javadoc.quiet>
     <kuali.javadoc.show>protected</kuali.javadoc.show>
@@ -75,7 +51,6 @@
     <kuali.javadoc.report.2>test-javadoc</kuali.javadoc.report.2>
     <!-- Once the heap issue with aggregate and test-aggregate is worked out, set this to false -->
     <kuali.javadoc.aggregate>${kuali.reporting.aggregate}</kuali.javadoc.aggregate>
-
     <!-- Placeholders for javadoc link locations. Override these in child poms as needed -->
     <kuali.javadoc.link.1>http://download.oracle.com/javase/6/docs/api/</kuali.javadoc.link.1>
     <kuali.javadoc.link.2>${kuali.javadoc.link.1}</kuali.javadoc.link.2>
@@ -87,7 +62,6 @@
     <kuali.javadoc.link.8>${kuali.javadoc.link.1}</kuali.javadoc.link.8>
     <kuali.javadoc.link.9>${kuali.javadoc.link.1}</kuali.javadoc.link.9>
     <kuali.javadoc.link.10>${kuali.javadoc.link.1}</kuali.javadoc.link.10>
-
     <!-- List these individually so they can be turned off and on via property manipulation -->
     <kuali.report.1>cim</kuali.report.1>
     <kuali.report.2>dependencies</kuali.report.2>
@@ -104,7 +78,6 @@
     <kuali.report.13>project-team</kuali.report.13>
     <kuali.report.14>scm</kuali.report.14>
     <kuali.report.15>summary</kuali.report.15>
-
     <!-- Turn these off by default. Use the "reports" profile to turn them back on -->
     <pmd.skip>true</pmd.skip>
     <cpd.skip>true</cpd.skip>
@@ -112,7 +85,6 @@
     <checkstyle.skip>true</checkstyle.skip>
     <kuali.cobertura.skip>true</kuali.cobertura.skip>
     <kuali.clover.phase>none</kuali.clover.phase>
-
     <!-- Plugin versions (ordered alphabetically) -->
     <plugin.cobertura.version>2.4</plugin.cobertura.version>
     <plugin.checkstyle.version>2.8</plugin.checkstyle.version>
@@ -320,7 +292,6 @@
       </build>
     </profile>
   </profiles>
-
   <build>
     <pluginManagement>
       <plugins>
