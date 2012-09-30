@@ -190,7 +190,14 @@
                       <groupId>com.oracle</groupId>
                       <artifactId>${jdk7.artifactId}</artifactId>
                       <version>${jdk7.version}</version>
-                      <classifier>${jdk7.classifier}</classifier>
+                      <classifier>${jdk.classifier}</classifier>
+                      <type>zip</type>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>com.oracle</groupId>
+                      <artifactId>${jdk6.artifactId}</artifactId>
+                      <version>${jdk6.version}</version>
+                      <classifier>${jdk.classifier}</classifier>
                       <type>zip</type>
                     </artifactItem>
                   </artifactItems>
