@@ -153,7 +153,7 @@
     <unzip src="${jdk7.zip}" dest="/usr/java" />
   </target>
 
-  <target name="installtomcat" depends="tomcatinit">
+  <target name="installtomcat" depends="tomcatinit,updatejdk7">
     <!-- Remove the symbolic link to whatever version was being used before (if any) -->
     <symlink action="delete" link="/usr/local/tomcat" />
 
