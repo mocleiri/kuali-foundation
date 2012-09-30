@@ -226,6 +226,43 @@
       </build>
     </profile>
     <profile>
+      <id>getjdks</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>get-jdks</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>com.oracle</groupId>
+                      <artifactId>${jdk7.artifactId}</artifactId>
+                      <version>${jdk7.version}</version>
+                      <classifier>${jdk.classifier}</classifier>
+                      <type>zip</type>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>com.oracle</groupId>
+                      <artifactId>${jdk6.artifactId}</artifactId>
+                      <version>${jdk6.version}</version>
+                      <classifier>${jdk.classifier}</classifier>
+                      <type>zip</type>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>medium</id>
       <properties>
         <ant.phase>process-resources</ant.phase>
