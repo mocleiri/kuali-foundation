@@ -19,7 +19,7 @@ JAVA_HOME=/var/lib/jenkins/tools/jdk7
 CATALINA_HOME=/usr/local/tomcat
 CATALINA_BASE=$CATALINA_HOME
 CATALINA_PID=$CATALINA_BASE/logs/catalina.pid
-CATALINA_OPTS="-Xmx2g -XX:MaxPermSize=256m -Duser.timezone=GMT-4"
+CATALINA_OPTS="-Xmx2g -XX:MaxPermSize=256m -Duser.timezone=US/Eastern"
 CATALINA_OPTS="$CATALINA_OPTS -verbose:gc"
 CATALINA_OPTS="$CATALINA_OPTS -XX:+PrintGCDetails"
 CATALINA_OPTS="$CATALINA_OPTS -XX:+PrintGCDateStamps"
