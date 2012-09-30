@@ -37,7 +37,7 @@ public class UpdateJobsMavenVersionMojo extends AbstractMojo {
 		try {
 			List<File> configFiles = getConfigFiles();
 			getLog().info("Located " + configFiles.size() + " job config files");
-			List<String> mvn303Tokens = getMvn303ReplacementTokens(configFiles);
+			// List<String> mvn303Tokens = getMvn303ReplacementTokens(configFiles);
 			// List<String> jdkTokens = getJdkReplacementTokens(configFiles);
 			// List<String> mvnTokens = getMvnReplacementTokens(configFiles);
 			// getLog().info("Updating Maven Config");
