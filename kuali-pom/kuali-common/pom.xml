@@ -40,7 +40,7 @@
         <checkstyle.enable.rules.summary>true</checkstyle.enable.rules.summary>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
         <!-- Controls deployment of Kuali applications -->
-        <kuali-deploy.version>1.2.3</kuali-deploy.version>
+        <kuali-deploy.version>1.2.4</kuali-deploy.version>
         <!-- Explicitly set build timestamp. The maven-resource-plugin is not filtering values correctly without this -->
         <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
         <!-- Default Clover config -->
