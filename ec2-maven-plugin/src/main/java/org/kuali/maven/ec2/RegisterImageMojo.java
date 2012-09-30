@@ -57,7 +57,7 @@ public class RegisterImageMojo extends AbstractEC2Mojo {
     public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
         WaitControl wc = new WaitControl(wait, waitTimeout, state);
         wc.setSleep(1000);
-        wc.setInitialPause(50);
+        wc.setInitialPause(3000);
         // For some reason, Maven's automatic bean setting logic chokes on RegisterImageRequest.setBlockDeviceMappings()
         // That is the only reason for a separate blockDeviceMappings member variable
         // If the Maven issue gets sorted out, remove the blockDeviceMappings member variable and
