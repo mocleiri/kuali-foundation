@@ -234,7 +234,7 @@
                 <goal>wait</goal>
               </goals>
               <configuration>
-                <timeout>${http.timeout}</timeout>
+                <timeout>1200</timeout>
                 <url>http://${ec2.instance.dns}/tomcat/logs/env.jsp</url>
               </configuration>
             </execution>
