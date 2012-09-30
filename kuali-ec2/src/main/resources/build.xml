@@ -149,6 +149,7 @@
 
   <target name="updatejdk7">
     <symlink action="delete" link="/usr/java/jdk7" />
+    <delete dir="${jdk7.dir}" />
     <unzip src="${jdk7.zip}" dest="/usr/java" />
     <chmod dir="${jdk7.dir}/bin" perm="755" includes="*" />
     <chmod dir="${jdk7.dir}/jre/bin" perm="755" includes="*" />
