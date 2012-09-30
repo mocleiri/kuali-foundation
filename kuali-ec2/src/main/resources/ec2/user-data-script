@@ -15,6 +15,7 @@
 # ie you add/update/remove plugin executions or alter the Ant scripting,
 # no further action is required.  The changes will be automatically
 # picked up and executed the next time an environment is spun up
+#
 
 set -xe
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
