@@ -57,7 +57,7 @@
     <jdk7.artifactId>jdk7</jdk7.artifactId>
     <jdk7.version>1.7.0-u07</jdk7.version>
     <jdk7.classifier>linux-x64</jdk7.classifier>
-    <jdk7.type>zip</jdk7.type>
+    <jdk7.zip>target/dependency/${jdk7.artifactId}-${jdk7.version}-${jdk7.classifier}.zip</jdk7.zip>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
