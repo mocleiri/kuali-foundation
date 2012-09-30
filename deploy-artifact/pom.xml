@@ -186,7 +186,7 @@
             <artifactId>maven-deploy-plugin</artifactId>
             <executions>
               <execution>
-                <id>kuali-private</id>
+                <id>deploy</id>
                 <phase>${dp.phase}</phase>
                 <goals>
                   <goal>deploy-file</goal>
