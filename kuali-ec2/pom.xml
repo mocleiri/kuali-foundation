@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -54,6 +54,10 @@
     <plugin.dependency.version>2.4</plugin.dependency.version>
 
     <environment>ec2</environment>
+    <jdk7.artifactId>jdk7</jdk7.artifactId>
+    <jdk7.version>1.7.0-u07</jdk7.version>
+    <jdk7.classifier>linux-x64</jdk7.classifier>
+    <jdk7.type>zip</jdk7.type>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
@@ -169,6 +173,24 @@
           <plugin>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
+              <execution>
+                <id>get-jdk7</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>com.oracle</groupId>
+                      <artifactId>${jdk7.artifactId}</artifactId>
+                      <version>${jdk7.version}</version>
+                      <classifier>${jdk7.classifier}</classifier>
+                      <type>zip</type>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
               <execution>
                 <id>get-tomcat</id>
                 <phase>initialize</phase>
