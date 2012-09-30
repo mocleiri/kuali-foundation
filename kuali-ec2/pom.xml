@@ -179,7 +179,7 @@
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
               <execution>
-                <id>get-jdk7</id>
+                <id>get-jdks</id>
                 <phase>initialize</phase>
                 <goals>
                   <goal>copy</goal>
