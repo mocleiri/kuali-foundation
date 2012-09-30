@@ -156,7 +156,16 @@
     <symlink link="/usr/java/jdk7" resource="${jdk7.dir}" />
   </target>
 
-  <target name="installtomcat" depends="tomcatinit,updatejdk7">
+  <target name="updatejdk6">
+    <symlink action="delete" link="/usr/java/jdk6" />
+    <delete dir="${jdk6.dir}" />
+    <unzip src="${jdk6.zip}" dest="/usr/java" />
+    <chmod dir="${jdk6.dir}/bin" perm="755" includes="*" />
+    <chmod dir="${jdk6.dir}/jre/bin" perm="755" includes="*" />
+    <symlink link="/usr/java/jdk6" resource="${jdk6.dir}" />
+  </target>
+
+  <target name="installtomcat" depends="tomcatinit,updatejdk6,updatejdk7">
     <!-- Remove the symbolic link to whatever version was being used before (if any) -->
     <symlink action="delete" link="/usr/local/tomcat" />
 
