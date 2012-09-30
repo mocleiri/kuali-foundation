@@ -148,9 +148,9 @@
   </target>
 
   <target name="updatejdk7">
-    <!-- Remove the symbolic link to whatever version was being used before (if any) -->
     <symlink action="delete" link="/usr/java/jdk7" />
     <unzip src="${jdk7.zip}" dest="/usr/java" />
+    <symlink link="/usr/java/jdk7" resource="${jdk7.dir}" />
   </target>
 
   <target name="installtomcat" depends="tomcatinit,updatejdk7">
