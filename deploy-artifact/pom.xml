@@ -180,11 +180,9 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
             <executions>
               <execution>
@@ -194,7 +192,7 @@
                   <goal>deploy-file</goal>
                 </goals>
                 <configuration>
-                  <url>http://ec2-184-72-82-8.compute-1.amazonaws.com/content/repositories/hosted-private/</url>
+                  <url>http://nexus.kuali.org/content/repositories/hosted-private/</url>
                   <repositoryId>kuali.private</repositoryId>
                 </configuration>
               </execution>
