@@ -61,7 +61,7 @@
         <image.kernelId>aki-825ea7eb</image.kernelId>
         <!-- The createsnapshot execution generates the new snapshot id and stores it in the property ec2.snapshot.id -->
         <image.ebs.snapshotId>${ec2.snapshot.id}</image.ebs.snapshotId>
-        <image.ebs.volumeSize>128</image.ebs.volumeSize>
+        <image.ebs.volumeSize>256</image.ebs.volumeSize>
         <image.ebs.deleteOnTermination>true</image.ebs.deleteOnTermination>
         <jenkins.verbose>false</jenkins.verbose>
         <jenkins.stats>true</jenkins.stats>
