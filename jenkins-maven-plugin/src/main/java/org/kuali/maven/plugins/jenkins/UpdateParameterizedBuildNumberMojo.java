@@ -77,6 +77,9 @@ public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 
 	protected int getBuildNumber() {
 		String s = System.getenv("BUILD_NUMBER");
+		if (StringUtils.isBlank(s)) {
+			throw new IllegalArgumentException("env.BUILD_NUMBER cannot be blank");
+		}
 		return new Integer(s);
 	}
 
@@ -87,7 +90,7 @@ public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 			getLog().info("Updating " + configFile.getAbsolutePath());
 			File bak = new File(configFile.getAbsolutePath() + ".bak");
 			FileUtils.copyFile(configFile, bak);
-			// FileUtils.writeStringToFile(configFile, newContent);
+			FileUtils.writeStringToFile(configFile, newContent);
 		}
 	}
 
