@@ -34,7 +34,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 
 	/**
-	 * The name of the parameter required by the jenkins job
+	 * The name of the build parameter that holds the build number
 	 * 
 	 * @parameter expression="${jenkins.parameterName}" default-value="NUMBER"
 	 * @required
