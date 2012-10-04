@@ -26,6 +26,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
+ * Update the default value for jobs that take a parameterized build number so it matches the build number of the currently executing job
+ * 
  * @goal updateparameterizedbuildnumber
  */
 public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
