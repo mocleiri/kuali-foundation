@@ -26,7 +26,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Update the default value for jobs that take a parameterized build number so it matches the build number of the currently executing job
+ * Update the default value of the parameterized build number for the indicated jobs so it matches the build number of the currently executing job. Note that this updates the
+ * config.xml on the local file system and will have no affect until Jenkins is restarted or configuration is reloaded from disk.
  * 
  * @goal updateparameterizedbuildnumber
  */
