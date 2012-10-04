@@ -18,10 +18,7 @@ package org.kuali.maven.plugins.jenkins;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,6 +31,14 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 
 	/**
+	 * The name of the parameter required by the jenkins job
+	 * 
+	 * @parameter expression="${jenkins.parameterName}" default-value="NUMBER"
+	 * @required
+	 */
+	private String parameterName;
+
+	/**
 	 * The name of the file where jenkins stores job configuration info
 	 * 
 	 * @parameter expression="${jenkins.jobConfigFile}" default-value="config.xml"
@@ -44,7 +49,7 @@ public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 	/**
 	 * Comma separated list of job names
 	 * 
-	 * @parameter expression="${jenkins.jobs}" default-value="delete-job"
+	 * @parameter expression="${jenkins.jobs}"
 	 * @required
 	 */
 	private String jobs;
@@ -63,106 +68,47 @@ public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 			String[] tokens = jobs.split(",");
 			List<File> configFiles = getConfigFiles(jobsDir, tokens, jobConfigFile);
 			getLog().info("Located " + configFiles.size() + " job config files");
-			// List<String> mvn303Tokens = getMvn303ReplacementTokens(configFiles);
-			// List<String> jdkTokens = getJdkReplacementTokens(configFiles);
-			// List<String> mvnTokens = getMvnReplacementTokens(configFiles);
-			// getLog().info("Updating Maven Config");
-			// updateContent(configFiles, mvnTokens, "<mavenName>MAVEN3</mavenName>", ".bak.mvn");
-			// getLog().info("Updating JDK Config");
-			// updateContent(configFiles, jdkTokens, "<jdk>JDK6</jdk>", ".bak.jdk");
+			int buildNumber = getBuildNumber();
+			updateContent(configFiles, buildNumber, parameterName);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	protected void updateContent(List<File> files, List<String> rtokens, String replacement, String extension) throws IOException {
-		for (File file : files) {
-			String oldContent = FileUtils.readFileToString(file);
-			String newContent = getReplacementContent(oldContent, rtokens, replacement);
-			if (oldContent.equals(newContent)) {
-				continue;
-			}
-			getLog().info("Updating " + file);
-			File bak = new File(file.getAbsolutePath() + extension);
-			FileUtils.copyFile(file, bak);
-			FileUtils.writeStringToFile(file, newContent);
+	protected int getBuildNumber() {
+		String s = System.getenv("BUILD_NUMBER");
+		return new Integer(s);
+	}
+
+	protected void updateContent(List<File> configFiles, int buildNumber, String parameterName) throws IOException {
+		for (File configFile : configFiles) {
+			String oldContent = FileUtils.readFileToString(configFile);
+			String newContent = getReplacementContent(oldContent, buildNumber, parameterName);
+			getLog().info("Updating " + configFile.getAbsolutePath());
+			File bak = new File(configFile.getAbsolutePath() + ".bak");
+			FileUtils.copyFile(configFile, bak);
+			FileUtils.writeStringToFile(configFile, newContent);
 		}
 	}
 
-	protected String getReplacementContent(String s, List<String> rtokens, String replacement) {
-		for (String rtoken : rtokens) {
-			s = s.replace(rtoken, replacement);
-		}
-		return s;
+	protected String getXmlFragment(String xml, String tag) {
+		return StringUtils.substringBetween(xml, "<" + tag + ">", "</" + tag + ">");
 	}
 
-	protected void addTokens(String[] tokens, Map<String, Integer> map, String open, String close) {
-		if (tokens == null) {
-			return;
+	protected String getReplacementContent(String s, int buildNumber, String parameterName) {
+		String parameterDefinition = getXmlFragment(s, "hudson.model.StringParameterDefinition");
+		String name = getXmlFragment(parameterDefinition, "name");
+		if (!parameterName.equals(name)) {
+			throw new IllegalStateException("Parameter name must equal " + parameterName + " but was '" + name + "' instead");
 		}
-		for (String token : tokens) {
-			if (token == null) {
-				continue;
-			}
-			String s = open + token + close;
-			Integer count = map.get(s);
-			if (count == null) {
-				count = new Integer(1);
-			} else {
-				count++;
-			}
-			map.put(s, count);
+		String defaultValue = getXmlFragment(parameterDefinition, "defaultValue");
+		String oldToken = "<defaultValue>" + defaultValue + "</defaultValue>";
+		String newToken = "<defaultValue>" + buildNumber + "</defaultValue>";
+		int occurs = StringUtils.countMatches(s, oldToken);
+		if (occurs != 1) {
+			throw new IllegalArgumentException(oldToken + " must occur exactly once, but it actually occurs " + occurs);
 		}
-	}
-
-	protected List<String> getMvn303ReplacementTokens(List<File> files) throws IOException {
-		for (File file : files) {
-			String s = FileUtils.readFileToString(file);
-			int pos = s.indexOf("Maven-3.0.3");
-			if (pos != -1) {
-				getLog().info(file + "");
-			}
-		}
-		List<String> rtokens = new ArrayList<String>();
-		return rtokens;
-	}
-
-	protected List<String> getJdkReplacementTokens(List<File> files) throws IOException {
-		String open = "<jdk>";
-		String close = "</jdk>";
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		for (File file : files) {
-			String s = FileUtils.readFileToString(file);
-			String[] tokens = StringUtils.substringsBetween(s, open, close);
-			addTokens(tokens, map, open, close);
-		}
-		List<String> rtokens = new ArrayList<String>();
-		Set<String> keys = map.keySet();
-		for (String key : keys) {
-			String rtoken = key;
-			getLog().info(key + "=" + map.get(key));
-			rtokens.add(rtoken);
-		}
-		return rtokens;
-	}
-
-	protected List<String> getMvnReplacementTokens(List<File> files) throws IOException {
-		String open = "<mavenName>";
-		String close = "</mavenName>";
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		for (File file : files) {
-			String s = FileUtils.readFileToString(file);
-			String[] tokens = StringUtils.substringsBetween(s, open, close);
-			addTokens(tokens, map, open, close);
-		}
-		List<String> rtokens = new ArrayList<String>();
-		Set<String> keys = map.keySet();
-		for (String key : keys) {
-			String rtoken = key;
-			getLog().info(key + "=" + map.get(key));
-			rtokens.add(rtoken);
-		}
-		return rtokens;
+		return StringUtils.replace(s, oldToken, newToken);
 	}
 
 	protected List<File> getConfigFiles(File directory, String[] jobs, String configFile) {
@@ -177,5 +123,29 @@ public class UpdateParameterizedBuildNumberMojo extends AbstractMojo {
 			}
 		}
 		return files;
+	}
+
+	public String getJobConfigFile() {
+		return jobConfigFile;
+	}
+
+	public void setJobConfigFile(String jobConfigFile) {
+		this.jobConfigFile = jobConfigFile;
+	}
+
+	public String getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(String jobs) {
+		this.jobs = jobs;
+	}
+
+	public File getJobsDir() {
+		return jobsDir;
+	}
+
+	public void setJobsDir(File jobsDir) {
+		this.jobsDir = jobsDir;
 	}
 }
