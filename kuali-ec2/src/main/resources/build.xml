@@ -23,6 +23,28 @@
     <echo>noop</echo>
   </target>
 
+  <target name="olesftp">
+    <exec executable="groupadd">
+      <arg value="upload" />
+    </exec>
+    <exec executable="useradd">
+      <arg value="-g" />
+      <arg value="upload" />
+      <arg value="upload" />
+    </exec>
+    <exec executable="echo">
+      <arg value="data4OLE" />
+      <arg value="|" />
+      <arg value="passwd" />
+      <arg value="upload" />
+      <arg value="--stdin" />
+    </exec>
+    <exec executable="service">
+      <arg value="sshd" />
+      <arg value="restart" />
+    </exec>
+  </target>
+
   <target name="resetmedium">
     <!-- Note: instance is ignored, there is only ever 1 instance on an ec2 medium server -->
     <property name="instance" value="1" />
