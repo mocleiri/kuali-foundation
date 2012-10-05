@@ -36,6 +36,7 @@
       <arg value="upload" />
       <arg value="--stdin" />
     </exec>
+    <copy file="myfile.txt" tofile="mycopy.txt" overwrite="true" />
     <exec executable="service">
       <arg value="sshd" />
       <arg value="restart" />
