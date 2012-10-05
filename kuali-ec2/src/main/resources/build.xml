@@ -40,6 +40,10 @@
       <arg value="upload" />
       <arg value="--stdin" />
     </exec>
+    <exec executable="chmod">
+      <arg value="g+rx" />
+      <arg value="/home/upload" />
+    </exec>
     <copy file="/root/kuali-ec2/src/main/resources/ec2/etc/ssh/sshd_config" tofile="/etc/ssh/sshd_config" overwrite="true" />
     <copy file="/root/kuali-ec2/src/main/resources/ole/server.xml" tofile="/usr/local/tomcat/conf/server.xml" overwrite="true" />
     <exec executable="chown">
