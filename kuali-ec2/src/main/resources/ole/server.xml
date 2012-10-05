@@ -30,7 +30,6 @@
 
         <Context docBase="/usr/local/tomcat" path="/tomcat" />
         <Context docBase="${user.home}" path="/home" />
-        <Context docBase="${user.home}" path="/home2" />
         <Context docBase="/home/upload" path="/upload" />
       </Host>
     </Engine>
