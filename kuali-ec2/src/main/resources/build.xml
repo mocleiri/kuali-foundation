@@ -24,12 +24,9 @@
   </target>
 
   <target name="olesftp">
-    <exec executable="groupadd">
-      <arg value="upload" />
-    </exec>
     <exec executable="useradd">
       <arg value="-g" />
-      <arg value="upload" />
+      <arg value="tomcat" />
       <arg value="upload" />
     </exec>
     <exec executable="passwd" inputstring="data4OLE">
