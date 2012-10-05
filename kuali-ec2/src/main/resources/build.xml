@@ -24,6 +24,9 @@
   </target>
 
   <target name="olesftp">
+    <exec executable="userdel">
+      <arg value="upload" />
+    </exec>
     <exec executable="useradd">
       <arg value="-g" />
       <arg value="tomcat" />
