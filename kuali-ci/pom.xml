@@ -61,14 +61,14 @@
         <image.kernelId>aki-825ea7eb</image.kernelId>
         <!-- The createsnapshot execution generates the new snapshot id and stores it in the property ec2.snapshot.id -->
         <image.ebs.snapshotId>${ec2.snapshot.id}</image.ebs.snapshotId>
-        <image.ebs.volumeSize>128</image.ebs.volumeSize>
+        <image.ebs.volumeSize>256</image.ebs.volumeSize>
         <image.ebs.deleteOnTermination>true</image.ebs.deleteOnTermination>
         <jenkins.verbose>false</jenkins.verbose>
         <jenkins.stats>true</jenkins.stats>
         <jenkins.ignoreJobs>update-ci-configuration,restart-jenkins</jenkins.ignoreJobs>
         <jenkins.configFile>/var/lib/jenkins/config.xml</jenkins.configFile>
         <jenkins.newAmi>${ec2.image.id}</jenkins.newAmi>
-        <ws.server.volumeId>vol-ad0624d7</ws.server.volumeId>
+        <ws.server.volumeId>vol-f014608a</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
       </properties>
