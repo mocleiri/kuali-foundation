@@ -61,6 +61,7 @@
         <image.kernelId>aki-825ea7eb</image.kernelId>
         <!-- The createsnapshot execution generates the new snapshot id and stores it in the property ec2.snapshot.id -->
         <image.ebs.snapshotId>${ec2.snapshot.id}</image.ebs.snapshotId>
+        <!-- This needs to match the size of the root volume on the ws.rice server -->
         <image.ebs.volumeSize>256</image.ebs.volumeSize>
         <image.ebs.deleteOnTermination>true</image.ebs.deleteOnTermination>
         <jenkins.verbose>false</jenkins.verbose>
@@ -68,6 +69,7 @@
         <jenkins.ignoreJobs>update-ci-configuration,restart-jenkins</jenkins.ignoreJobs>
         <jenkins.configFile>/var/lib/jenkins/config.xml</jenkins.configFile>
         <jenkins.newAmi>${ec2.image.id}</jenkins.newAmi>
+        <!-- This needs to match the volume id for the root volume on the ws.rice server -->
         <ws.server.volumeId>vol-f014608a</ws.server.volumeId>
         <ws.snapshot.description>${image.description}</ws.snapshot.description>
         <ws.snapshot.tag.name>${image.tag.name}</ws.snapshot.tag.name>
