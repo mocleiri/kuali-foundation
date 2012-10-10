@@ -51,7 +51,7 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
     protected void writeProperties(Properties properties, File file) throws MojoExecutionException {
         OutputStream out = null;
         try {
-            out = FileUtils.openOutputStream(outputFile);
+            out = FileUtils.openOutputStream(file);
             properties.store(out, "Properties");
         } catch (IOException e) {
             throw new MojoExecutionException("Error creating properties file", e);
