@@ -116,9 +116,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-personnel.html');return document.MM_returnValue" value="Personnel">
         </span></dt>
-      <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-permissions.html');return document.MM_returnValue" value="Permissions">
-        </span></dt>
+      
       <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-questionnaire.html');return document.MM_returnValue" value="Questionnaire">
         </span></dt>
@@ -126,13 +124,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-customdata.html');return document.MM_returnValue" value="Custom Data">
         </span></dt>
       <dt><span class="tabright">
-        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-notes.html');return document.MM_returnValue" value="Attachments &amp; Notes ">
-        </span></dt>
-      <dt><span class="tabright">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-specialreview.html');return document.MM_returnValue" value="Special Review">
         </span></dt>
-      <dt class="licurrent" ><span class="tabright tabcurrent">
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-permissions.html');return document.MM_returnValue" value="Permissions">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-notes.html');return document.MM_returnValue" value="Notes &amp; Attachments">
+        </span></dt>
+      <dt class="licurrent"><span class="tabright tabcurrent">
         <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocolactions.html');return document.MM_returnValue" value="Protocol Actions">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','#');return document.MM_returnValue" value="Online Review">
+        </span></dt>
+      <dt ><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','irb-protocolactions.html');return document.MM_returnValue" value="Medusa">
         </span></dt>
     </dl>
   </div>
@@ -167,11 +174,99 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <div class="h2-container"><span class="subhead-left">
               <h2>Available Actions</h2>
               </span><span class="subhead-right"><span class="subhead"><a href="#"><img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            
             <!-- Submit for Review -->
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead" style="width:50px;"><a href="#" id="A201sd" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201sd"></a></td>
-                <td class="tab-subhead">Submit for Review</td>
+                <td class="tab-subhead">
+                Submit for Review
+                <img id="control_comment01" src="../images/comment.png" alt="new comments" title="new comments" style="border:none; width:22px; height:16px; float:right; cursor:pointer;" />
+                <script>
+					$(document).ready(function () {
+						$("#control_comment01").toggle(
+							function () {
+								$("#div_comment01").slideDown(400);
+							  }, 
+							  function () {
+								$("#div_comment01").slideUp(400);
+							  }
+						);
+					});
+				</script>
+                <div id="div_comment01" style="display:none;">
+                    <div style="border:1px solid #666; background-color:#F6B293; font-weight:normal; float:right; width:750px; padding:10px; margin-right:-20px; margin-top:5px;">
+                    	
+                        <div class="h2-container" style="background-color:#8C8C8C;">
+                        	<span class="subhead-left">
+                          		<h2><span class="tabtable1-left">Review Comments</span></h2>
+                          	</span>
+                        </div>
+                        <table align=center cellpadding=0 cellspacing=0>
+                            <tr>
+                                <th>&nbsp;
+                                    
+                                </th>
+                                <th>
+                                    Standard Comment
+                                </th>
+                                <th>
+                                    Comment
+                                </th>
+                                <th>
+                                    Last Updated By
+                                </th>
+                                <th>
+                                    Created By
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="infoline">
+                                    add:
+                                </th>
+                                <td class="infoline">
+                                    [select][lookup]
+                                </td>
+                                <td class="infoline">
+                                    [textarea]
+                                </td>
+                                <td class="infoline">&nbsp;</td>
+                              <td class="infoline">
+                                    &nbsp;
+                                </td>
+                                <td class="infoline">
+                                    <div align=center><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    1
+                                </th>
+                                <td>
+                                    n/a
+                                </td>
+                          <td>
+                                    [filled textarea]
+                                </td>
+                                <td>
+                                    xxx
+                                </td>
+                                <td>
+                                    xxx
+                                </td>
+                                <td>
+                                    [up][down]
+                                    <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                </div>
+                </td>
               </tr>
             </table>
             <div id="G201sd" style="display: none;">
@@ -596,6 +691,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               </table>
             </div>
+            
             <!-- Submit for Review  (Alternate Configuration)-->
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
@@ -729,11 +825,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 </tr>
               </table>
             </div>
+            
             <!-- Withdraw Protocol -->
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
                 <td class="tab-subhead" style="width:50px;"><a href="#" id="A201e" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 align=absmiddle id="F201e"></a></td>
-                <td class="tab-subhead">Withdraw Protocol</td>
+                <td class="tab-subhead">
+                	Withdraw Protocol
+                    <img id="control_comment02" src="../images/comment-old.png" alt="comments" title="comments" style="border:none; width:22px; height:16px; float:right; cursor:pointer;" />
+                </td>
               </tr>
             </table>
             <div id="G201e" style="display: none; padding-left:56px">

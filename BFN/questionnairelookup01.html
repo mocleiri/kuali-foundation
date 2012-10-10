@@ -166,7 +166,8 @@
                 </span>
             </td>
             <td align="right" valign="bottom">
-            	<input src="../images/tinybutton-createnew.gif" onclick="javascript: alert('This would create something new.'); return false" style="border:none; vertical-align:bottom;" alt="create new" title="create new" type="image" />
+            	<img class="various1" href="#inline1" src="../images/tinybutton-importnew.gif" style="border:none; vertical-align:bottom; width:70px; height:15px; cursor:pointer;" alt="import new" title="import new questionnaire" />
+                <input src="../images/tinybutton-createnew.gif" onclick="javascript: alert('This would create something new.'); return false" style="border:none; vertical-align:bottom;" alt="create new" title="create new" type="image" />
                 <a href="#" style="text-decoration:underline;">Main</a>
             </td>
         </tr>
@@ -288,29 +289,26 @@
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
             
-            <a id="various1" href="#inline1" title="Import XML Content" style="text-decoration:underline;">import</a>
+            <a class="various1" href="#inline1" title="Import XML Content" style="text-decoration:underline;" title="import and replace this questionnaire">replace</a>
             <script type="text/javascript">
                 $(document).ready(function() {
                     
-                    $("#various1").fancybox({
+                    $(".various1").fancybox({
                         'titlePosition'		: 'inside',
                         'transitionIn'		: 'none',
                         'transitionOut'		: 'none',
-                        'autoScale'			: false,
-                        'titleShow'			: false,
-						'autoDimensions' 	: false,
-						'width'				: 800,
-						'height'			: 600
+                        'autoScale'			: true,
+                        'titleShow'			: false
                     });
                 });
             </script>
             <div style="display: none;">
                 <div id="inline1" style="overflow:auto;">
                     
-                    <table style="margin:auto; width:100%; border:1px solid #999; border-collapse:collapse;">
+                    <table style="margin:auto; width:800px; border:1px solid #999; border-collapse:collapse; margin-bottom:10px;">
                         <tr>
                             <th style="width:137px; text-align:center; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#666666;" colspan="2">
-                                Import XML Content
+                                Import Questionnaire
                             </th>
                         </tr>
                         <tbody id="nohoverblue">
@@ -324,11 +322,12 @@
                                     <option>Replace Questionnaire</option>
                                 </select>
                                 <input type="file" />
-                                <img id="control_previewoutline" src="../images/tinybutton-importfile.gif" style="width:67px; height:15px; border:none; cursor:pointer; vertical-align:middle;" title="import" />
+                                <img id="control_previewoutline" src="../images/tinybutton-preview.gif" style="width:60px; height:15px; border:none; cursor:pointer; vertical-align:middle;" title="preview" />
                                 <script type="text/javascript" language="javascript">
 									$(document).ready(function() {
 										// original value or changed?
 										$('#control_previewoutline').click(function() {
+											$('#div_previewoutnote').slideUp(200);
 											$('#div_previewoutline').slideDown(600);
 										});
 									});
@@ -336,11 +335,15 @@
                             </td>
                         </tr>
                         <tr>
-                        	<th style="text-align:right; vertical-align:top; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#E6E6E6; width:85px;" rowspan="2">
+                        	<th style="text-align:right; vertical-align:top; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#E6E6E6; width:85px;">
                                 Preview:
                             </th>
                             <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
-                            	<div style="display:block;">
+                            	<div style="height:400px;">
+                                <div id="div_previewoutnote">
+                                	<span style="color:#666; font-style:italic;">Select your XML file above and click the 'preview' button.</span>
+                                </div>
+                                <div style="display:block;">
                             	<ul id="div_previewoutline" style="display:none;">
                                     
                                     <li class="closed">
@@ -440,18 +443,15 @@
                                 
                                 </ul>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td style="border:1px solid #999; border-collapse:collapse; padding:3px; text-align:left;">
-                            	<img onclick="$.fancybox.close();"  title="Cancel XML Import" src="../images/tinybutton-cancelimport.gif" style="width:80px; height:15px; border:none; cursor:pointer;" title="import" />
-                                <img onclick="javascript: alert('Were this not a mock, this would verify an appropriate file has been selected and do the described import..'); return false" title="Import XML Content" src="../images/tinybutton-import.gif" style="width:46px; height:15px; border:none; cursor:pointer;" title="import" />
+                                </div>
                             </td>
                         </tr>
                     </table>
                     
-                    
-                    
+                    <div style="text-align:center;">
+                    <img onclick="$.fancybox.close();"  title="Cancel XML Import" src="../images/buttonsmall_cancelimport.gif" style="width:105px; height:18px; border:none; cursor:pointer;" title="import" />
+                    <img onclick="javascript: alert('Were this not a mock, this would verify an appropriate file has been selected and do the described import..'); return false" title="Import XML Content" src="../images/buttonsmall_import.gif" style="width:62px; height:18px; border:none; cursor:pointer;" title="import" />
+                    </div>
                     
                 </div>
             </div>
@@ -492,7 +492,7 @@
             <a href="#" style="text-decoration:underline;">delete</a>
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
-            <a href="#" style="text-decoration:underline;">import</a>
+            <a href="#" style="text-decoration:underline;" title="import and replace this questionnaire">replace</a>
             <a href="#" id="export02" style="text-decoration:underline;">export</a>
             <script type="text/javascript" language="javascript">
 				$(document).ready(function() {
@@ -530,7 +530,7 @@
             <a href="#" style="text-decoration:underline;">delete</a>
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
-            <a href="#" style="text-decoration:underline;">import</a>
+            <a href="#" style="text-decoration:underline;" title="import and replace this questionnaire">replace</a>
             <a href="#" id="export03" style="text-decoration:underline;">export</a>
             <script type="text/javascript" language="javascript">
 				$(document).ready(function() {
