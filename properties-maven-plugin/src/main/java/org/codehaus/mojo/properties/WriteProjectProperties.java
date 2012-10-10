@@ -15,19 +15,13 @@
  */
 package org.codehaus.mojo.properties;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.StringUtils;
@@ -101,9 +95,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties = getResolvedProperties(properties);
 		}
 
-		String comment = "# " + new Date() + "\n";
 		getLog().info("Creating " + outputFile);
-		writeProperties(outputFile, comment, properties);
+		writeProperties(outputFile, properties);
 	}
 
 	protected Properties getResolvedProperties(Properties props) {
@@ -149,19 +142,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		}
 	}
 
-	protected void writeProperties(File file, String comment, Properties properties) throws MojoExecutionException {
-		SortedProperties sp = new SortedProperties();
-		sp.putAll(properties);
-		OutputStream out = null;
-		try {
-			out = FileUtils.openOutputStream(file);
-			sp.store(out, comment);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Error creating properties file", e);
-		} finally {
-			IOUtils.closeQuietly(out);
-		}
-	}
 
 	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;

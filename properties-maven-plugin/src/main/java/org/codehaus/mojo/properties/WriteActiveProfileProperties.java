@@ -24,27 +24,27 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Writes properties of all active profiles to a file.
- *
+ * 
  * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
  * @version $Id: WriteActiveProfileProperties.java 8861 2009-01-21 15:35:38Z pgier $
  * @goal write-active-profile-properties
  */
 public class WriteActiveProfileProperties extends AbstractWritePropertiesMojo {
-    @Override
-    public void execute() throws MojoExecutionException {
-        List<?> list = project.getActiveProfiles();
-        if (getLog().isInfoEnabled()) {
-            getLog().debug(list.size() + " profile(s) active");
-        }
-        Properties properties = new Properties();
-        for (Iterator<?> iter = list.iterator(); iter.hasNext();) {
-            Profile profile = (Profile) iter.next();
-            if (profile.getProperties() != null) {
-                properties.putAll(profile.getProperties());
-            }
-        }
+	@Override
+	public void execute() throws MojoExecutionException {
+		List<?> list = project.getActiveProfiles();
+		if (getLog().isInfoEnabled()) {
+			getLog().debug(list.size() + " profile(s) active");
+		}
+		Properties properties = new Properties();
+		for (Iterator<?> iter = list.iterator(); iter.hasNext();) {
+			Profile profile = (Profile) iter.next();
+			if (profile.getProperties() != null) {
+				properties.putAll(profile.getProperties());
+			}
+		}
 
-        getLog().info("Creating " + outputFile);
-        writeProperties(properties, outputFile);
-    }
+		getLog().info("Creating " + outputFile);
+		writeProperties(outputFile, properties);
+	}
 }

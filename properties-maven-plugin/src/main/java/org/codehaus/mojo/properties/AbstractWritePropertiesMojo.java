@@ -32,31 +32,32 @@ import org.apache.maven.project.MavenProject;
  */
 public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 
-    /**
-     * @parameter default-value="${project}"
-     * @required
-     * @readonly
-     */
-    protected MavenProject project;
+	/**
+	 * @parameter default-value="${project}"
+	 * @required
+	 * @readonly
+	 */
+	protected MavenProject project;
 
-    /**
-     * The file that properties will be written to
-     * 
-     * @parameter expression="${properties.outputFile}"
-     *            default-value="${project.build.directory}/properties/project.properties";
-     * @required
-     */
-    protected File outputFile;
+	/**
+	 * The file that properties will be written to
+	 * 
+	 * @parameter expression="${properties.outputFile}" default-value="${project.build.directory}/properties/project.properties";
+	 * @required
+	 */
+	protected File outputFile;
 
-    protected void writeProperties(Properties properties, File file) throws MojoExecutionException {
-        OutputStream out = null;
-        try {
-            out = FileUtils.openOutputStream(file);
-            properties.store(out, "Properties");
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error creating properties file", e);
-        } finally {
-            IOUtils.closeQuietly(out);
-        }
-    }
+	protected void writeProperties(File file, Properties properties) throws MojoExecutionException {
+		SortedProperties sp = new SortedProperties();
+		sp.putAll(properties);
+		OutputStream out = null;
+		try {
+			out = FileUtils.openOutputStream(file);
+			sp.store(out, null);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Error creating properties file", e);
+		} finally {
+			IOUtils.closeQuietly(out);
+		}
+	}
 }
