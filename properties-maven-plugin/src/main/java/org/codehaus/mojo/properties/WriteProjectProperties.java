@@ -17,9 +17,8 @@ package org.codehaus.mojo.properties;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +27,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.StringUtils;
@@ -41,29 +41,6 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * @goal write-project-properties
  */
 public class WriteProjectProperties extends AbstractWritePropertiesMojo {
-	private static final String CR = "\r";
-	private static final String LF = "\n";
-	private static final String TAB = "\t";
-	private static final String BACKSLASH = "\\";
-	private static final String[] ANT_ESCAPE_CHARS = { CR, LF, TAB, BACKSLASH, ":", "#", "=" };
-
-	/**
-	 * Comma separated list of characters to escape when writing property values. cr=carriage return, lf=linefeed, tab=tab. Any other values
-	 * are taken literally.
-	 * 
-	 * @parameter default-value="cr,lf,tab,backslash,:,#,=" expression="${properties.escapeChars}"
-	 */
-	private String escapeChars;
-
-	/**
-	 * If true, the plugin will create the properties file formatted the same way Ant formats properties files using the
-	 * <code>echoproperties</code> task. This mode adds 3 custom properties at the top of the file, DSTAMP, TODAY, and TSTAMP. In this mode
-	 * <code>escapeChars</code> is ignored and the 6 characters Ant escapes are used instead <code>CR</code>,<code>LF</code>,
-	 * <code>TAB</code>,<code>:</code>,<code>#</code>,<code>=</code>
-	 * 
-	 * @parameter default-value="false" expression="${properties.antEchoPropertiesMode}"
-	 */
-	private boolean antEchoPropertiesMode;
 
 	/**
 	 * If true, the plugin will include system properties when writing the properties file. System properties override both environment
@@ -125,17 +102,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		}
 
 		String comment = "# " + new Date() + "\n";
-		List<String> escapeTokens = getEscapeChars(escapeChars);
-		if (antEchoPropertiesMode) {
-			escapeTokens = Arrays.asList(ANT_ESCAPE_CHARS);
-			comment = getAntHeader();
-			properties.remove("DSTAMP");
-			properties.remove("TODAY");
-			properties.remove("TSTAMP");
-		}
-
 		getLog().info("Creating " + outputFile);
-		writeProperties(outputFile, comment, properties, escapeTokens);
+		writeProperties(outputFile, comment, properties);
 	}
 
 	protected Properties getResolvedProperties(Properties props) {
@@ -181,93 +149,18 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		}
 	}
 
-	protected String getAntHeader() {
-		SimpleDateFormat dstamp = new SimpleDateFormat("yyyyMMdd");
-		SimpleDateFormat today = new SimpleDateFormat("MMMM d yyyy");
-		SimpleDateFormat tstamp = new SimpleDateFormat("HHmm");
-		Date now = new Date();
-		StringBuilder sb = new StringBuilder();
-		sb.append("# Ant properties\n");
-		sb.append("# " + now + "\n");
-		sb.append("DSTAMP=" + dstamp.format(now) + "\n");
-		sb.append("TODAY=" + today.format(now) + "\n");
-		sb.append("TSTAMP=" + tstamp.format(now) + "\n");
-		return sb.toString();
-	}
-
-	protected List<String> getEscapeChars(String escapeChars) {
-		List<String> tokens = ReadPropertiesMojo.getListFromCSV(escapeChars);
-		List<String> realTokens = new ArrayList<String>();
-		for (String token : tokens) {
-			String realToken = getRealToken(token);
-			realTokens.add(realToken);
-		}
-		return realTokens;
-	}
-
-	protected String getRealToken(String token) {
-		if (token.equalsIgnoreCase("CR")) {
-			return CR;
-		} else if (token.equalsIgnoreCase("LF")) {
-			return LF;
-		} else if (token.equalsIgnoreCase("TAB")) {
-			return TAB;
-		} else if (token.equalsIgnoreCase("BACKSLASH")) {
-			return BACKSLASH;
-		} else {
-			return token;
-		}
-	}
-
-	protected String getContent(String comment, Properties properties, List<String> escapeTokens) {
-		List<String> names = new ArrayList<String>(properties.stringPropertyNames());
-		Collections.sort(names);
-		StringBuilder sb = new StringBuilder();
-		if (!StringUtils.isBlank(comment)) {
-			sb.append(comment);
-		}
-		for (String name : names) {
-			String value = properties.getProperty(name);
-			String escapedValue = escape(value, escapeTokens);
-			sb.append(name + "=" + escapedValue + "\n");
-		}
-		return sb.toString();
-	}
-
-	protected void writeProperties(File file, String comment, Properties properties, List<String> escapeTokens) throws MojoExecutionException {
+	protected void writeProperties(File file, String comment, Properties properties) throws MojoExecutionException {
+		SortedProperties sp = new SortedProperties();
+		sp.putAll(properties);
+		OutputStream out = null;
 		try {
-			String content = getContent(comment, properties, escapeTokens);
-			FileUtils.writeStringToFile(file, content);
+			out = FileUtils.openOutputStream(file);
+			sp.store(out, comment);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Error creating properties file", e);
+		} finally {
+			IOUtils.closeQuietly(out);
 		}
-	}
-
-	protected String escape(String s, List<String> escapeChars) {
-		for (String escapeChar : escapeChars) {
-			String replacementToken = getReplacementToken(escapeChar);
-			s = s.replace(escapeChar, replacementToken);
-		}
-		return s;
-	}
-
-	protected String getReplacementToken(String escapeChar) {
-		if (escapeChar.equals(CR)) {
-			return "\\r";
-		} else if (escapeChar.equals(LF)) {
-			return "\\n";
-		} else if (escapeChar.equals(TAB)) {
-			return "\\t";
-		} else
-			return "\\" + escapeChar;
-	}
-
-	public boolean isAntEchoPropertiesMode() {
-		return antEchoPropertiesMode;
-	}
-
-	public void setAntEchoPropertiesMode(boolean antEchoPropertiesMode) {
-		this.antEchoPropertiesMode = antEchoPropertiesMode;
 	}
 
 	public boolean isIncludeSystemProperties() {
@@ -276,14 +169,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
 	public void setIncludeSystemProperties(boolean includeSystemProperties) {
 		this.includeSystemProperties = includeSystemProperties;
-	}
-
-	public String getEscapeChars() {
-		return escapeChars;
-	}
-
-	public void setEscapeChars(String escapeChars) {
-		this.escapeChars = escapeChars;
 	}
 
 	public boolean isIncludeEnvironmentVariables() {

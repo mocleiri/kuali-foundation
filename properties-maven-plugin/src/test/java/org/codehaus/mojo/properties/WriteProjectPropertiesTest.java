@@ -17,7 +17,6 @@ package org.codehaus.mojo.properties;
 
 import java.io.File;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -29,16 +28,15 @@ public class WriteProjectPropertiesTest {
 	public void test() {
 		try {
 			WriteProjectProperties mojo = new WriteProjectProperties();
-			List<String> escapeTokens = mojo.getEscapeChars("cr,lf,tab,backslash,:,#,=");
-			File outputFile = new File("/Users/jeffcaddel/props.properties");
-			String comment = "comment";
+			File outputFile = new File("/Users/jeffcaddel/jbc.properties");
 
 			Properties properties = new Properties();
 			properties.setProperty("filename", "C:\\temp\\mvn.txt :   #   =");
-			mojo.writeProperties(outputFile, comment, properties, escapeTokens);
-			File props2 = new File("/Users/jeffcaddel/props2.properties");
+			properties.putAll(System.getProperties());
+			mojo.writeProperties(outputFile, null, properties);
+			File props2 = new File("/Users/jeffcaddel/jvm.properties");
 			OutputStream out = FileUtils.openOutputStream(props2);
-			properties.store(out, comment);
+			properties.store(out, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
