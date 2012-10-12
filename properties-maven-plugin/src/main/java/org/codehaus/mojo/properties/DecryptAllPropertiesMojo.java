@@ -27,165 +27,155 @@ import org.apache.maven.project.MavenProject;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
- * Inspect project and system properties for any keys ending with <code>endsWith</code>. Any matching properties are
- * assumed to be encrypted. They are decrypted and stored as project properties minus the <code>endsWith</code> suffix.
- * For example, the value for the property "dba.password.encrypted" will be decrypted and stored as "dba.password"
+ * Inspect project and system properties for any keys ending with <code>endsWith</code>. Any matching properties are assumed to be
+ * encrypted. They are decrypted and stored as project properties minus the <code>endsWith</code> suffix. For example, the value for the
+ * property "dba.password.encrypted" will be decrypted and stored as "dba.password"
  * 
  * @goal decryptall
  */
 public class DecryptAllPropertiesMojo extends AbstractMojo {
 
-    /**
-     * @parameter default-value="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * @parameter default-value="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
 
-    /**
-     * If true, the plugin will include system properties when decrypting properties
-     * 
-     * @parameter default-value="false" expression="${properties.includeSystemProperties}"
-     */
-    private boolean includeSystemProperties;
+	/**
+	 * If true, the plugin will include system properties when decrypting properties
+	 * 
+	 * @parameter default-value="false" expression="${properties.includeSystemProperties}"
+	 */
+	private boolean includeSystemProperties;
 
-    /**
-     * If true, the plugin will include environment variables when decrypting properties.
-     * 
-     * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
-     */
-    private boolean includeEnvironmentVariables;
+	/**
+	 * If true, the plugin will include environment variables when decrypting properties.
+	 * 
+	 * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
+	 */
+	private boolean includeEnvironmentVariables;
 
-    /**
-     * If true, the plugin will emit no logging information
-     * 
-     * @parameter expression="${properties.quiet}" default-value="false"
-     * @required
-     */
-    private boolean quiet;
+	/**
+	 * If true, the plugin will emit no logging information
+	 * 
+	 * @parameter expression="${properties.quiet}" default-value="false"
+	 * @required
+	 */
+	private boolean quiet;
 
-    /**
-     * The pattern for matching properties in need of decryption
-     * 
-     * @parameter expression="${properties.endsWith}" default-value=".encrypted"
-     * @required
-     */
-    private String endsWith;
+	/**
+	 * The pattern for matching properties in need of decryption
+	 * 
+	 * @parameter expression="${properties.endsWith}" default-value=".encrypted"
+	 * @required
+	 */
+	private String endsWith;
 
-    /**
-     * If true the plain text decrypted values are displayed to the console.
-     * 
-     * @parameter expression="${properties.show}" default-value="false"
-     * @required
-     */
-    private boolean show;
+	/**
+	 * If true the plain text decrypted values are displayed to the console.
+	 * 
+	 * @parameter expression="${properties.show}" default-value="false"
+	 * @required
+	 */
+	private boolean show;
 
-    /**
-     * The password for decrypting property values. This same password must have been used to encrypt them.
-     * 
-     * @parameter expression="${properties.password}"
-     * @required
-     */
-    private String password;
+	/**
+	 * The password for decrypting property values. This same password must have been used to encrypt them.
+	 * 
+	 * @parameter expression="${properties.password}"
+	 * @required
+	 */
+	private String password;
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
-        encryptor.setPassword(password);
-        Properties props = new Properties();
-        props.putAll(project.getProperties());
-        if (includeEnvironmentVariables) {
-            props.putAll(WriteProjectProperties.getEnvironmentVariables());
-        }
-        if (includeSystemProperties) {
-            props.putAll(System.getProperties());
-        }
-        List<String> keys = new ArrayList<String>(props.stringPropertyNames());
-        Collections.sort(keys);
-        for (String key : keys) {
-            boolean decrypt = key.endsWith(endsWith);
-            if (!decrypt) {
-                continue;
-            }
-            String value = getProperty(key);
-            if (StringUtils.isBlank(value) && !quiet) {
-                getLog().info("Skipping blank property " + key);
-                continue;
-            }
-            String newValue = encryptor.decrypt(value);
-            int length = endsWith.length();
-            String newKey = key.substring(0, key.length() - length);
-            project.getProperties().setProperty(newKey, newValue);
-            if (quiet) {
-                continue;
-            }
-            if (show) {
-                getLog().info("Setting " + newKey + "=" + newValue + " - " + value);
-            } else {
-                getLog().info("Setting " + newKey);
-            }
-        }
-    }
+	@Override
+	public void execute() throws MojoExecutionException {
+		BasicTextEncryptor encryptor = new BasicTextEncryptor();
+		encryptor.setPassword(password);
+		Properties props = new Properties();
+		props.putAll(project.getProperties());
+		if (includeEnvironmentVariables) {
+			props.putAll(WriteProjectProperties.getEnvironmentVariables());
+		}
+		if (includeSystemProperties) {
+			props.putAll(System.getProperties());
+		}
+		List<String> keys = new ArrayList<String>(props.stringPropertyNames());
+		Collections.sort(keys);
+		for (String key : keys) {
+			boolean decrypt = key.endsWith(endsWith);
+			if (!decrypt) {
+				continue;
+			}
+			String value = props.getProperty(key);
+			if (StringUtils.isBlank(value) && !quiet) {
+				getLog().info("Skipping blank property " + key);
+				continue;
+			}
+			String newValue = encryptor.decrypt(value);
+			int length = endsWith.length();
+			String newKey = key.substring(0, key.length() - length);
+			project.getProperties().setProperty(newKey, newValue);
+			if (quiet) {
+				continue;
+			}
+			if (show) {
+				getLog().info("Setting " + newKey + "=" + newValue + " - " + value);
+			} else {
+				getLog().info("Setting " + newKey);
+			}
+		}
+	}
 
-    protected String getProperty(String key) {
-        String sys = System.getProperty(key);
-        String proj = project.getProperties().getProperty(key);
-        if (!StringUtils.isBlank(sys)) {
-            return sys;
-        } else {
-            return proj;
-        }
-    }
+	public boolean isQuiet() {
+		return quiet;
+	}
 
-    public boolean isQuiet() {
-        return quiet;
-    }
+	public void setQuiet(boolean quiet) {
+		this.quiet = quiet;
+	}
 
-    public void setQuiet(boolean quiet) {
-        this.quiet = quiet;
-    }
+	public String getEndsWith() {
+		return endsWith;
+	}
 
-    public String getEndsWith() {
-        return endsWith;
-    }
+	public void setEndsWith(String endsWith) {
+		this.endsWith = endsWith;
+	}
 
-    public void setEndsWith(String endsWith) {
-        this.endsWith = endsWith;
-    }
+	public boolean isShow() {
+		return show;
+	}
 
-    public boolean isShow() {
-        return show;
-    }
+	public void setShow(boolean show) {
+		this.show = show;
+	}
 
-    public void setShow(boolean show) {
-        this.show = show;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public MavenProject getProject() {
+		return project;
+	}
 
-    public MavenProject getProject() {
-        return project;
-    }
+	public boolean isIncludeSystemProperties() {
+		return includeSystemProperties;
+	}
 
-    public boolean isIncludeSystemProperties() {
-        return includeSystemProperties;
-    }
+	public void setIncludeSystemProperties(boolean includeSystemProperties) {
+		this.includeSystemProperties = includeSystemProperties;
+	}
 
-    public void setIncludeSystemProperties(boolean includeSystemProperties) {
-        this.includeSystemProperties = includeSystemProperties;
-    }
+	public boolean isIncludeEnvironmentVariables() {
+		return includeEnvironmentVariables;
+	}
 
-    public boolean isIncludeEnvironmentVariables() {
-        return includeEnvironmentVariables;
-    }
-
-    public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
-        this.includeEnvironmentVariables = includeEnvironmentVariables;
-    }
+	public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
+		this.includeEnvironmentVariables = includeEnvironmentVariables;
+	}
 }

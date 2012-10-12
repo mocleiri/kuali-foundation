@@ -20,6 +20,10 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
+/**
+ * Override the keys() method so it returns keys in sorted order. One effect of this is the store() method will write properties to the file
+ * system in sorted order.
+ */
 public class SortedProperties extends Properties {
 
 	/**

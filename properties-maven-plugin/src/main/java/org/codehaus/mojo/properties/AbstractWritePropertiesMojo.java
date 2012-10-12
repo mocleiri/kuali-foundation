@@ -53,7 +53,7 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(file);
-			sp.store(out, null);
+			sp.store(out, "Created by the properties-maven-plugin");
 		} catch (IOException e) {
 			throw new MojoExecutionException("Error creating properties file", e);
 		} finally {
