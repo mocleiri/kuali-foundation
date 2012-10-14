@@ -112,11 +112,11 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
 
 	@Override
 	public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
+		EC2Utils.sleep(3000);
 		RunInstancesRequest request = getRunSingleEC2InstanceRequest();
 		Instance i = ec2Utils.getSingleEC2Instance(request);
 		ec2Utils.createTags(i, tags);
 		WaitControl wc = new WaitControl(wait, waitTimeout, state);
-		wc.setInitialPause(3000);
 		Properties props = project.getProperties();
 		Instance running = ec2Utils.wait(i, wc, props);
 		props.setProperty("ec2.instance.id", running.getInstanceId());
