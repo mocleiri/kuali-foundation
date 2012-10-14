@@ -17,7 +17,7 @@ public class TagMojo extends AbstractEC2Mojo {
     /**
      * The id of the resource to tag. Set this to <code>NONE</code> to skip tagging any resources
      *
-     * @parameter expression="${ec2.instanceId}"
+     * @parameter expression="${ec2.resourceId}"
      * @required
      */
     private String resourceId;
