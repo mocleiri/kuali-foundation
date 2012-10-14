@@ -102,7 +102,7 @@
               <id>launch</id>
               <phase>initialize</phase>
               <goals>
-                <goal>launch</goal>
+                <goal>launchinstance</goal>
               </goals>
             </execution>
           </executions>
