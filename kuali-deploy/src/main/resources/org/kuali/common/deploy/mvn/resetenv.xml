@@ -89,7 +89,7 @@
                 <goal>tag</goal>
               </goals>
               <configuration>
-                <instanceId>${ec2.instance.id}</instanceId>
+                <resourceId>${ec2.instance.id}</resourceId>
                 <tags>
                   <tag>
                     <key>Name</key>
