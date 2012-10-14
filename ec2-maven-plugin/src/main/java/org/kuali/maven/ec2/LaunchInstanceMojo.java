@@ -110,9 +110,17 @@ public class LaunchInstanceMojo extends AbstractEC2Mojo {
 	 */
 	private String state;
 
+	/**
+	 * Wait for this amount of time before attempting to run an instance. Amazon needs about 1/2 a second to sort itself out internally or
+	 * the run request will fail
+	 * 
+	 * @parameter expression="${ec2.initialPause}" default-value="3000"
+	 */
+	private int initialPause;
+
 	@Override
 	public void execute(EC2Utils ec2Utils) throws MojoExecutionException {
-		EC2Utils.sleep(3000);
+		EC2Utils.sleep(initialPause);
 		RunInstancesRequest request = getRunSingleEC2InstanceRequest();
 		Instance i = ec2Utils.getSingleEC2Instance(request);
 		ec2Utils.createTags(i, tags);
