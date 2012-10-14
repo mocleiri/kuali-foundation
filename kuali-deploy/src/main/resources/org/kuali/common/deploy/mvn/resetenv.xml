@@ -86,7 +86,7 @@
               <id>tag</id>
               <phase>initialize</phase>
               <goals>
-                <goal>taginstance</goal>
+                <goal>tag</goal>
               </goals>
               <configuration>
                 <instanceId>${ec2.instance.id}</instanceId>
