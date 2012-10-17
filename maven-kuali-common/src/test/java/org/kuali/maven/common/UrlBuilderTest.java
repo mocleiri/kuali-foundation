@@ -37,7 +37,7 @@ public class UrlBuilderTest {
 		String url2 = builder.getPublicUrl(riceModule, context);
 		String expected2 = "http://site.kuali.org/rice/latest/rice-core/";
 		String url3 = builder.getDownloadUrl(riceModule, context);
-		String expected3 = "http://site.kuali.org/rice/latest/rice-core/";
+		String expected3 = "http://s3browse.springsource.com/browse/maven.kuali.org/snapshot/org/kuali/rice/rice-core/2.0.0-b2-SNAPSHOT/";
 		Assert.assertEquals(expected1, url1);
 		Assert.assertEquals(expected2, url2);
 		Assert.assertEquals(expected3, url3);
