@@ -33,252 +33,283 @@ import org.kuali.maven.common.UrlBuilder;
  * @phase pre-site
  */
 public class KualiSiteMojo extends AbstractMojo implements SiteContext {
-    UrlBuilder builder = new UrlBuilder();
+	UrlBuilder builder = new UrlBuilder();
 
-    /**
-     * The path into the bucket when downloading a snapshot version
-     *
-     * @parameter expression="${ksite.downloadSnapshotPath}" default-value="snapshot"
-     */
-    private String downloadSnapshotPath;
+	/**
+	 * If true, the web site gets published using the value of <code>latestToken</code> in place of the Maven version
+	 *
+	 * @parameter expression="${ksite.latest}" default-value="false"
+	 */
+	private boolean latest;
 
-    /**
-     * The path into the bucket when downloading a release version
-     *
-     * @parameter expression="${ksite.downloadReleasePath}" default-value="release"
-     */
-    private String downloadReleasePath;
+	/**
+	 * If <code>latest</code> is true, the web site gets published using this token in place of the Maven version
+	 *
+	 * @parameter expression="${ksite.latestToken}" default-value="latest"
+	 */
+	private String latestToken;
 
-    /**
-     * The path into the bucket for artifacts not produced by kuali
-     *
-     * @parameter expression="${ksite.downloadExternalPath}" default-value="external"
-     */
-    private String downloadExternalPath;
+	/**
+	 * The path into the bucket when downloading a snapshot version
+	 *
+	 * @parameter expression="${ksite.downloadSnapshotPath}" default-value="snapshot"
+	 */
+	private String downloadSnapshotPath;
 
-    /**
-     * The base url for publishing Maven web sites
-     *
-     * @parameter expression="${ksite.publishBase}" default-value="s3://site.origin.kuali.org"
-     */
-    private String publishBase;
+	/**
+	 * The path into the bucket when downloading a release version
+	 *
+	 * @parameter expression="${ksite.downloadReleasePath}" default-value="release"
+	 */
+	private String downloadReleasePath;
 
-    /**
-     * The base url for public access to the Maven web sites
-     *
-     * @parameter expression="${ksite.publicBase}" default-value="http://site.kuali.org"
-     */
-    private String publicBase;
+	/**
+	 * The path into the bucket for artifacts not produced by kuali
+	 *
+	 * @parameter expression="${ksite.downloadExternalPath}" default-value="external"
+	 */
+	private String downloadExternalPath;
 
-    /**
-     * The prefix for the location that artifacts can be downloaded from
-     *
-     * @parameter expression="${ksite.downloadBase}"
-     *            default-value="http://s3browse.springsource.com/browse/maven.kuali.org/"
-     */
-    private String downloadBase;
+	/**
+	 * The base url for publishing Maven web sites
+	 *
+	 * @parameter expression="${ksite.publishBase}" default-value="s3://site.origin.kuali.org"
+	 */
+	private String publishBase;
 
-    /**
-     * The groupId for the Kuali organization
-     *
-     * @parameter expression="${ksite.organizationGroupId}" default-value="org.kuali"
-     */
-    private String organizationGroupId;
+	/**
+	 * The base url for public access to the Maven web sites
+	 *
+	 * @parameter expression="${ksite.publicBase}" default-value="http://site.kuali.org"
+	 */
+	private String publicBase;
 
-    /**
-     * If the version number contains this string it is assumed to be a SNAPSHOT artifact
-     *
-     * @parameter expression="${ksite.snapshotSnippet}" default-value="SNAPSHOT"
-     */
-    private String snapshotSnippet;
+	/**
+	 * The prefix for the location that artifacts can be downloaded from
+	 *
+	 * @parameter expression="${ksite.downloadBase}" default-value="http://s3browse.springsource.com/browse/maven.kuali.org/"
+	 */
+	private String downloadBase;
 
-    /**
-     * The Maven project this plugin runs in.
-     *
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * The groupId for the Kuali organization
+	 *
+	 * @parameter expression="${ksite.organizationGroupId}" default-value="org.kuali"
+	 */
+	private String organizationGroupId;
 
-    /**
-     * GAV strings representing organizational poms eg "org.kuali.pom:kuali" and "org.kuali.pom:kuali-common". The
-     * build/publication process defines top level Kuali projects as those that have one of these POM's for a parent.
-     * Version is ignored, only groupId and artifactId are relevant.
-     *
-     * @parameter
-     */
-    private List<String> orgPomGavs;
+	/**
+	 * If the version number contains this string it is assumed to be a SNAPSHOT artifact
+	 *
+	 * @parameter expression="${ksite.snapshotSnippet}" default-value="SNAPSHOT"
+	 */
+	private String snapshotSnippet;
 
-    @Override
-    public List<MavenProject> getOrgPoms() {
-        return builder.getMavenProjects(orgPomGavs);
-    }
+	/**
+	 * The Maven project this plugin runs in.
+	 *
+	 * @parameter expression="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
 
-    @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+	/**
+	 * GAV strings representing organizational poms eg "org.kuali.pom:kuali" and "org.kuali.pom:kuali-common". The build/publication process
+	 * defines top level Kuali projects as those that have one of these POM's for a parent. Version is ignored, only groupId and artifactId
+	 * are relevant.
+	 *
+	 * @parameter
+	 */
+	private List<String> orgPomGavs;
 
-        // Generate our urls
-        String publicUrl = builder.getPublicUrl(getProject(), this);
-        String downloadUrl = builder.getDownloadUrl(getProject(), this);
-        String publishUrl = builder.getPublishUrl(getProject(), this);
+	@Override
+	public List<MavenProject> getOrgPoms() {
+		return builder.getMavenProjects(orgPomGavs);
+	}
 
-        // Get a reference to the relevant model objects
-        MavenProject project = getProject();
-        DistributionManagement dm = project.getDistributionManagement();
-        Site site = dm.getSite();
+	@Override
+	public void execute() throws MojoExecutionException, MojoFailureException {
 
-        // Update the model with our generated urls as needed
-        handlePublicUrl(publicUrl, project);
-        handlePublishUrl(publishUrl, site);
-        handleDownloadUrl(downloadUrl, dm);
+		// Generate our urls
+		String publicUrl = builder.getPublicUrl(getProject(), this);
+		String downloadUrl = builder.getDownloadUrl(getProject(), this);
+		String publishUrl = builder.getPublishUrl(getProject(), this);
 
-    }
+		// Get a reference to the relevant model objects
+		MavenProject project = getProject();
+		DistributionManagement dm = project.getDistributionManagement();
+		Site site = dm.getSite();
 
-    protected void warn(String pomString, String calculatedString, String propertyDescription) {
-        getLog().warn("****************************************");
-        getLog().warn(propertyDescription + " mismatch");
-        getLog().warn("  Supplied Value: " + pomString);
-        getLog().warn("Calculated value: " + calculatedString);
-        getLog().warn("****************************************");
-    }
+		// Update the model with our generated urls as needed
+		handlePublicUrl(publicUrl, project);
+		handlePublishUrl(publishUrl, site);
+		handleDownloadUrl(downloadUrl, dm);
 
-    protected void handleDownloadUrl(String downloadUrl, DistributionManagement dm) {
-        if (builder.isUnresolved(dm.getDownloadUrl())) {
-            getLog().info("Setting download url to " + downloadUrl);
-            dm.setDownloadUrl(downloadUrl);
-            return;
-        }
-        if (!builder.isUrlMatch(downloadUrl, dm.getDownloadUrl())) {
-            warn(dm.getDownloadUrl(), downloadUrl, "Download url");
-        }
-        getLog().info("Using download url from the POM " + dm.getDownloadUrl());
-    }
+	}
 
-    protected void handlePublishUrl(String publishUrl, Site site) {
-        if (builder.isUnresolved(site.getUrl())) {
-            getLog().info("Setting site publication url to " + publishUrl);
-            site.setUrl(publishUrl);
-            return;
-        }
-        if (!builder.isUrlMatch(publishUrl, site.getUrl())) {
-            warn(site.getUrl(), publishUrl, "Site publication url");
-        }
-        getLog().info("Using site publication url - " + site.getUrl());
-    }
+	protected void warn(String pomString, String calculatedString, String propertyDescription) {
+		getLog().warn("****************************************");
+		getLog().warn(propertyDescription + " mismatch");
+		getLog().warn("  Supplied Value: " + pomString);
+		getLog().warn("Calculated value: " + calculatedString);
+		getLog().warn("****************************************");
+	}
 
-    protected void handlePublicUrl(String publicUrl, MavenProject project) {
-        if (builder.isUnresolved(project.getUrl())) {
-            getLog().info("Setting public url to " + publicUrl);
-            project.setUrl(publicUrl);
-            return;
-        }
-        if (!builder.isUrlMatch(publicUrl, project.getUrl())) {
-            warn(project.getUrl(), publicUrl, "Public url");
-        }
-        getLog().info("Using public url from the POM " + project.getUrl());
-    }
+	protected void handleDownloadUrl(String downloadUrl, DistributionManagement dm) {
+		if (builder.isUnresolved(dm.getDownloadUrl())) {
+			getLog().info("Setting download url to " + downloadUrl);
+			dm.setDownloadUrl(downloadUrl);
+			return;
+		}
+		if (!builder.isUrlMatch(downloadUrl, dm.getDownloadUrl())) {
+			warn(dm.getDownloadUrl(), downloadUrl, "Download url");
+		}
+		getLog().info("Using download url from the POM " + dm.getDownloadUrl());
+	}
 
-    /**
-     * @return the project
-     */
-    public MavenProject getProject() {
-        return project;
-    }
+	protected void handlePublishUrl(String publishUrl, Site site) {
+		if (builder.isUnresolved(site.getUrl())) {
+			getLog().info("Setting site publication url to " + publishUrl);
+			site.setUrl(publishUrl);
+			return;
+		}
+		if (!builder.isUrlMatch(publishUrl, site.getUrl())) {
+			warn(site.getUrl(), publishUrl, "Site publication url");
+		}
+		getLog().info("Using site publication url - " + site.getUrl());
+	}
 
-    /**
-     * @param project
-     *            the project to set
-     */
-    public void setProject(final MavenProject project) {
-        this.project = project;
-    }
+	protected void handlePublicUrl(String publicUrl, MavenProject project) {
+		if (builder.isUnresolved(project.getUrl())) {
+			getLog().info("Setting public url to " + publicUrl);
+			project.setUrl(publicUrl);
+			return;
+		}
+		if (!builder.isUrlMatch(publicUrl, project.getUrl())) {
+			warn(project.getUrl(), publicUrl, "Public url");
+		}
+		getLog().info("Using public url from the POM " + project.getUrl());
+	}
 
-    /**
-     * @return the parentGroupId
-     */
-    @Override
-    public String getOrganizationGroupId() {
-        return organizationGroupId;
-    }
+	/**
+	 * @return the project
+	 */
+	public MavenProject getProject() {
+		return project;
+	}
 
-    /**
-     * @param parentGroupId
-     *            the parentGroupId to set
-     */
-    public void setOrganizationGroupId(final String parentGroupId) {
-        this.organizationGroupId = parentGroupId;
-    }
+	/**
+	 * @param project
+	 *            the project to set
+	 */
+	public void setProject(final MavenProject project) {
+		this.project = project;
+	}
 
-    @Override
-    public String getDownloadSnapshotPath() {
-        return downloadSnapshotPath;
-    }
+	/**
+	 * @return the parentGroupId
+	 */
+	@Override
+	public String getOrganizationGroupId() {
+		return organizationGroupId;
+	}
 
-    public void setDownloadSnapshotPath(String downloadSnapshotPath) {
-        this.downloadSnapshotPath = downloadSnapshotPath;
-    }
+	/**
+	 * @param parentGroupId
+	 *            the parentGroupId to set
+	 */
+	public void setOrganizationGroupId(final String parentGroupId) {
+		this.organizationGroupId = parentGroupId;
+	}
 
-    @Override
-    public String getDownloadReleasePath() {
-        return downloadReleasePath;
-    }
+	@Override
+	public String getDownloadSnapshotPath() {
+		return downloadSnapshotPath;
+	}
 
-    public void setDownloadReleasePath(String downloadReleasePath) {
-        this.downloadReleasePath = downloadReleasePath;
-    }
+	public void setDownloadSnapshotPath(String downloadSnapshotPath) {
+		this.downloadSnapshotPath = downloadSnapshotPath;
+	}
 
-    @Override
-    public String getDownloadExternalPath() {
-        return downloadExternalPath;
-    }
+	@Override
+	public String getDownloadReleasePath() {
+		return downloadReleasePath;
+	}
 
-    public void setDownloadExternalPath(String downloadExternalPath) {
-        this.downloadExternalPath = downloadExternalPath;
-    }
+	public void setDownloadReleasePath(String downloadReleasePath) {
+		this.downloadReleasePath = downloadReleasePath;
+	}
 
-    @Override
-    public String getDownloadBase() {
-        return downloadBase;
-    }
+	@Override
+	public String getDownloadExternalPath() {
+		return downloadExternalPath;
+	}
 
-    public void setDownloadBase(String downloadBase) {
-        this.downloadBase = downloadBase;
-    }
+	public void setDownloadExternalPath(String downloadExternalPath) {
+		this.downloadExternalPath = downloadExternalPath;
+	}
 
-    public List<String> getOrgPomGavs() {
-        return orgPomGavs;
-    }
+	@Override
+	public String getDownloadBase() {
+		return downloadBase;
+	}
 
-    public void setOrgPomGavs(List<String> orgPomGavs) {
-        this.orgPomGavs = orgPomGavs;
-    }
+	public void setDownloadBase(String downloadBase) {
+		this.downloadBase = downloadBase;
+	}
 
-    @Override
-    public String getSnapshotSnippet() {
-        return snapshotSnippet;
-    }
+	public List<String> getOrgPomGavs() {
+		return orgPomGavs;
+	}
 
-    public void setSnapshotSnippet(String snapshotSnippet) {
-        this.snapshotSnippet = snapshotSnippet;
-    }
+	public void setOrgPomGavs(List<String> orgPomGavs) {
+		this.orgPomGavs = orgPomGavs;
+	}
 
-    @Override
-    public String getPublishBase() {
-        return publishBase;
-    }
+	@Override
+	public String getSnapshotSnippet() {
+		return snapshotSnippet;
+	}
 
-    public void setPublishBase(String publishBase) {
-        this.publishBase = publishBase;
-    }
+	public void setSnapshotSnippet(String snapshotSnippet) {
+		this.snapshotSnippet = snapshotSnippet;
+	}
 
-    @Override
-    public String getPublicBase() {
-        return publicBase;
-    }
+	@Override
+	public String getPublishBase() {
+		return publishBase;
+	}
 
-    public void setPublicBase(String publicBase) {
-        this.publicBase = publicBase;
-    }
+	public void setPublishBase(String publishBase) {
+		this.publishBase = publishBase;
+	}
+
+	@Override
+	public String getPublicBase() {
+		return publicBase;
+	}
+
+	public void setPublicBase(String publicBase) {
+		this.publicBase = publicBase;
+	}
+
+	@Override
+    public boolean isLatest() {
+		return latest;
+	}
+
+	public void setLatest(boolean latest) {
+		this.latest = latest;
+	}
+
+	@Override
+    public String getLatestToken() {
+		return latestToken;
+	}
+
+	public void setLatestToken(String latestToken) {
+		this.latestToken = latestToken;
+	}
 
 }
