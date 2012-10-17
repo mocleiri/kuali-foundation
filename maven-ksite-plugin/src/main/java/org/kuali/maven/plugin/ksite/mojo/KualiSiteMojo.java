@@ -186,10 +186,13 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 			project.setUrl(publicUrl);
 			return;
 		}
-		if (!builder.isUrlMatch(publicUrl, project.getUrl())) {
+		if (!builder.determineMatch(publicUrl, project.getUrl(), this, project)) {
 			warn(project.getUrl(), publicUrl, "Public url");
+			getLog().info("Using public url from the POM " + project.getUrl());
+		} else {
+			project.setUrl(publicUrl);
+			getLog().info("Using public url " + project.getUrl());
 		}
-		getLog().info("Using public url from the POM " + project.getUrl());
 	}
 
 	/**
@@ -295,7 +298,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 	}
 
 	@Override
-    public boolean isLatest() {
+	public boolean isLatest() {
 		return latest;
 	}
 
@@ -304,7 +307,7 @@ public class KualiSiteMojo extends AbstractMojo implements SiteContext {
 	}
 
 	@Override
-    public String getLatestToken() {
+	public String getLatestToken() {
 		return latestToken;
 	}
 
