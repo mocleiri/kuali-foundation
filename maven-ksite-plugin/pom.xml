@@ -38,7 +38,7 @@
     <dependency>
       <groupId>org.kuali.maven.common</groupId>
       <artifactId>maven-kuali-common</artifactId>
-      <version>1.3.0-SNAPSHOT</version>
+      <version>1.3.0</version>
     </dependency>
   </dependencies>
   <scm>
