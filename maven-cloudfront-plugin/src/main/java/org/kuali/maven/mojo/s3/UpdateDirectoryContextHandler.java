@@ -26,45 +26,44 @@ import org.slf4j.LoggerFactory;
 import com.amazonaws.AmazonServiceException;
 
 public class UpdateDirectoryContextHandler implements ElementHandler<UpdateDirectoryContext> {
-    private final Logger logger = LoggerFactory.getLogger(ListObjectsContextHandler.class);
+	private final Logger logger = LoggerFactory.getLogger(ListObjectsContextHandler.class);
 
-    UpdateOriginBucketMojo mojo;
+	UpdateOriginBucketMojo mojo;
 
-    public UpdateDirectoryContextHandler() {
-        this(null);
-    }
+	public UpdateDirectoryContextHandler() {
+		this(null);
+	}
 
-    public UpdateDirectoryContextHandler(UpdateOriginBucketMojo mojo) {
-        super();
-        this.mojo = mojo;
-    }
+	public UpdateDirectoryContextHandler(UpdateOriginBucketMojo mojo) {
+		super();
+		this.mojo = mojo;
+	}
 
-    @Override
-    public void handleElement(ListIteratorContext<UpdateDirectoryContext> context, int index,
-            UpdateDirectoryContext element) {
-        logger.debug("[Thread:" + lpad(context.getId()) + ", Element:" + lpad(index) + "] " + element.getCopyToKey());
+	@Override
+	public void handleElement(ListIteratorContext<UpdateDirectoryContext> context, int index, UpdateDirectoryContext element) {
+		logger.debug("[Thread:" + lpad(context.getId()) + ", Element:" + lpad(index) + "] " + element.getCopyToKey());
 
-        try {
-            S3PrefixContext prefixContext = element.getContext();
-            if (prefixContext.isRoot()) {
-                mojo.updateRoot(element);
-            } else {
-                mojo.updateDirectory(element);
-            }
-        } catch (IOException e) {
-            throw new AmazonServiceException("Unexpected error:", e);
-        }
-    }
+		try {
+			S3PrefixContext prefixContext = element.getContext();
+			if (prefixContext.isRoot()) {
+				mojo.updateRoot(element);
+			} else {
+				mojo.updateDirectory(element);
+			}
+		} catch (IOException e) {
+			throw new AmazonServiceException("Unexpected error:", e);
+		}
+	}
 
-    protected String lpad(int i) {
-        return StringUtils.leftPad(i + "", 3, " ");
-    }
+	protected String lpad(int i) {
+		return StringUtils.leftPad(i + "", 3, " ");
+	}
 
-    public UpdateOriginBucketMojo getMojo() {
-        return mojo;
-    }
+	public UpdateOriginBucketMojo getMojo() {
+		return mojo;
+	}
 
-    public void setMojo(UpdateOriginBucketMojo mojo) {
-        this.mojo = mojo;
-    }
+	public void setMojo(UpdateOriginBucketMojo mojo) {
+		this.mojo = mojo;
+	}
 }
