@@ -411,16 +411,36 @@ public class UrlBuilder {
 	}
 
 	/**
+	 *
+	 */
+	public boolean determineMatch(String generatedUrl, String mavenUrl, SiteContext context, MavenProject project) {
+		boolean urlMatch = isUrlMatch(generatedUrl, mavenUrl);
+		if (urlMatch) {
+			return true;
+		}
+		if (!context.isLatest()) {
+			return false;
+		}
+		String version = project.getVersion();
+		if (!mavenUrl.contains(project.getVersion())) {
+			logger.warn("Maven url does not contain the maven version number");
+			return false;
+		}
+		String newMavenUrl = mavenUrl.replace(version, context.getLatestToken());
+		return isUrlMatch(generatedUrl, newMavenUrl);
+	}
+
+	/**
 	 * Return true if the 2 urls are exactly the same or if the only thing different about them is a trailing slash
 	 */
-	public boolean isUrlMatch(String url1, String url2) {
-		if (url1.equals(url2)) {
+	public boolean isUrlMatch(String generatedUrl, String mavenUrl) {
+		if (generatedUrl.equals(mavenUrl)) {
 			return true;
 		}
-		if ((url1 + "/").equals(url2)) {
+		if ((generatedUrl + "/").equals(mavenUrl)) {
 			return true;
 		}
-		if (url1.equals(url2 + "/")) {
+		if (generatedUrl.equals(mavenUrl + "/")) {
 			return true;
 		}
 		return false;
