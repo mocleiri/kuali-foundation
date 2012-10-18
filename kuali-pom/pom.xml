@@ -22,10 +22,7 @@
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
-  <description>
-    Kuali is a growing community of universities, colleges, and commercial firms partnering 
-    to build and sustain open-source software for higher education, by higher education.
-  </description>
+  <description>The Kuali Foundation is the umbrella organization that helps manage the Kuali software community.</description>
   <modules>
     <module>kuali-common</module>
   </modules>
