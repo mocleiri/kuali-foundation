@@ -18,7 +18,7 @@
 -->
 <project>
   <bannerLeft>
-    <name><![CDATA[<table id="bannerTable" border="0"><tr><td width="385" id="bannerTableLeft"><a style="float:right" href="http://www.kuali.org"><img height="49" width="200" src="./images/kuali/kuali-logo-rgb-shadow.png"/></a></td><td id="bannerTableRight" align="right"><a style="float:left;" href="http://www.kuali.org"><img src="./images/kuali/kuali-tagline.png"/></a></td></tr></table>]]></name>
+    <name><![CDATA[<table id="bannerTable" border="0"><tr><td width="385" id="bannerTableLeft"><a style="float:right" href="http://www.kuali.org"><img height="49" width="200" src="./images/kuali/kuali-logo-rgb-shadow.png"/></a></td><td width="150">&nbsp;</td><td id="bannerTableRight" align="right"><a style="float:left;" href="http://www.kuali.org"><img src="./images/kuali/kuali-tagline.png"/></a></td></tr></table>]]></name>
   </bannerLeft>
   <skin>
     <groupId>org.kuali.maven.skins</groupId>
