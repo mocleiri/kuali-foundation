@@ -18,7 +18,7 @@
 -->
 <project>
   <bannerLeft>
-    <name><![CDATA[<table id="bannerTable" border="0"><tr><td id="bannerTableLeft"><a href="http://www.kuali.org"><img height="49" width="200" src="./images/kuali/kuali-logo-rgb-shadow.png"/></a></td><td id="bannerTableRight" align="right"><a style="float:right;" href="http://www.kuali.org"><img src="./images/kuali/kuali-tagline.png"/></a></td></tr></table>]]></name>
+    <name><![CDATA[<table id="bannerTable" border="0"><tr><td width="385" id="bannerTableLeft"><a style="float:right" href="http://www.kuali.org"><img height="49" width="200" src="./images/kuali/kuali-logo-rgb-shadow.png"/></a></td><td id="bannerTableRight" align="right"><a style="float:left;" href="http://www.kuali.org"><img src="./images/kuali/kuali-tagline.png"/></a></td></tr></table>]]></name>
   </bannerLeft>
   <skin>
     <groupId>org.kuali.maven.skins</groupId>
@@ -27,6 +27,7 @@
   </skin>
   <publishDate format="yyyy-MM-dd" position="right" />
   <version position="right" />
+
   <poweredBy>
     <!--
       Note: the "img" attribute doesn't work with 3.0 or 3.0-beta-3 because of MSITE-600
@@ -38,7 +39,7 @@
       edit site.vm in the maven-kuali-skin project to re-enable project specific
       logos
     -->
-    <logo name="The Kuali Foundation &amp;reg" href="http://www.kuali.org/" />
+    <logo name="Kuali Foundation &amp;reg" href="http://www.kuali.org/" />
   </poweredBy>
   <body>
     <head>
