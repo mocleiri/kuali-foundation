@@ -114,6 +114,7 @@
     <kuali.gpg.phase>install</kuali.gpg.phase>
     <kuali.cloudfront.phase>site-deploy</kuali.cloudfront.phase>
 
+    <!-- If true, the site gets built using /latest/ in the url -->
     <kuali.site.latest>false</kuali.site.latest>
     <kuali.site.latestToken>latest</kuali.site.latestToken>
 
