@@ -16,9 +16,9 @@ public class ListBucketsMojo extends AbstractS3Mojo {
 
 	@Override
 	protected void execute(AmazonS3Client client) {
-		getLog().info("----------------------------------------------------");
+		getLog().info(SEPARATOR);
 		getLog().info("Listing buckets for Access Key: " + getAccessKey());
-		getLog().info("----------------------------------------------------");
+		getLog().info(SEPARATOR);
 		List<Bucket> buckets = client.listBuckets();
 		Collections.sort(buckets, new BucketComparator());
 		List<String> columns = getColumns();

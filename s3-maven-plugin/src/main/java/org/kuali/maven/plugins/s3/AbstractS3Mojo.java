@@ -8,6 +8,8 @@ import org.kuali.common.aws.s3.S3Utils;
 import com.amazonaws.services.s3.AmazonS3Client;
 
 public abstract class AbstractS3Mojo extends AbstractMojo {
+	public static final String SEPARATOR = "------------------------------------------------------------------------";
+
 	S3Utils s3Utils = S3Utils.getInstance();
 
 	/**

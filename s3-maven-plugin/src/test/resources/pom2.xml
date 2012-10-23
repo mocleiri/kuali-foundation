@@ -71,6 +71,9 @@
               <goals>
                 <goal>summarizebuckets</goal>
               </goals>
+              <configuration>
+                <include>downloads.kuali.org,backup.kuali.org</include>
+              </configuration>
             </execution>
           </executions>
         </plugin>
