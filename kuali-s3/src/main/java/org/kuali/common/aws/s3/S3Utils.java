@@ -250,7 +250,9 @@ public class S3Utils {
 
 	public List<BucketSummary> getBucketSummaries(AmazonS3Client client, List<Bucket> buckets) {
 		List<BucketSummary> summaries = new ArrayList<BucketSummary>();
+		int count = 1;
 		for (Bucket bucket : buckets) {
+			log.info(count + " - " + bucket.getName());
 			BucketSummary summary = getBucketSummary(client, bucket);
 			summaries.add(summary);
 		}
