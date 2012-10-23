@@ -38,7 +38,6 @@ public class SummarizeBucketsMojo extends AbstractS3Mojo {
 		getLog().info(SEPARATOR);
 		List<String> columns = getColumns();
 		List<Bucket> buckets = getBuckets(client, include, exclude);
-		getLog().info("Located " + buckets.size() + " buckets to summarize");
 		List<String[]> rows = getRows(client, buckets);
 		String s = s3Utils.toString(columns, rows);
 		getLog().info("\n\n" + s);
@@ -48,13 +47,19 @@ public class SummarizeBucketsMojo extends AbstractS3Mojo {
 		List<String> includes = s3Utils.toList(include);
 		List<String> excludes = s3Utils.toList(exclude);
 		List<Bucket> buckets = client.listBuckets();
+		int originalSize = buckets.size();
+		getLog().info("Located " + buckets.size() + " total buckets");
 		Iterator<Bucket> itr = buckets.iterator();
 		while (itr.hasNext()) {
 			Bucket bucket = itr.next();
 			String bucketName = bucket.getName();
 			if (!include(bucketName, includes, excludes)) {
+				getLog().info("Excluding '" + bucket.getName() + "'");
 				itr.remove();
 			}
+		}
+		if (originalSize != buckets.size()) {
+			getLog().info("Summarizing " + buckets.size() + " buckets");
 		}
 		Collections.sort(buckets, new BucketComparator());
 		return buckets;
