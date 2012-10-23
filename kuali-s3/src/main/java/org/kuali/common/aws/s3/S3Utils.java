@@ -473,7 +473,7 @@ public class S3Utils {
 			}
 		}
 		if (originalSize != buckets.size()) {
-			log.info("Returning " + buckets.size() + " buckets");
+			log.info("Trimmed bucket list contains " + buckets.size() + " buckets");
 		}
 		Collections.sort(buckets, new BucketComparator());
 		return buckets;
