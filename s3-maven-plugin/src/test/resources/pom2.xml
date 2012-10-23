@@ -73,6 +73,7 @@
               </goals>
               <configuration>
                 <exclude>site.origin.kuali.org,maven.kuali.org,collab.kuali.org,private.cm.kuali.org,test.kuali.org</exclude>
+                <csvFile>${user.home}/.aws/s3/summary.csv</csvFile>
               </configuration>
             </execution>
           </executions>
