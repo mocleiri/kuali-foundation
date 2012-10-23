@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.kuali.common.aws.s3.BucketSummary;
+import org.kuali.common.aws.s3.BucketPrefixSummary;
 import org.kuali.common.aws.s3.SimpleFormatter;
 
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -78,14 +78,14 @@ public class SummarizeBucketsMojo extends AbstractS3Mojo {
 		int count = 1;
 		for (Bucket bucket : buckets) {
 			getLog().info(count + " - " + bucket.getName());
-			BucketSummary summary = s3Utils.summarize(client, bucket.getName());
+			BucketPrefixSummary summary = s3Utils.summarize(client, bucket.getName());
 			rows.add(getRow(bucket, summary));
 			count++;
 		}
 		return rows;
 	}
 
-	protected String[] getRow(Bucket bucket, BucketSummary summary) {
+	protected String[] getRow(Bucket bucket, BucketPrefixSummary summary) {
 		String[] row = new String[3];
 		row[0] = bucket.getName();
 		row[1] = formatter.getCount(summary.getCount());
