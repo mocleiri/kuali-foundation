@@ -50,7 +50,7 @@ public class SummarizeBucketsMojo extends AbstractS3Mojo {
 		List<String> includes = s3Utils.toList(include);
 		List<String> excludes = s3Utils.toList(exclude);
 		AccountSummary summary = s3Utils.getAccountSummary(accessKey, secretKey, includes, excludes);
-		getLog().info("\n" + s3Utils.toString(summary));
+		getLog().info("\n\n" + s3Utils.toString(summary));
 		if (writeCsv) {
 			if (csvFile.exists()) {
 				getLog().info("Appending to " + csvFile.getAbsolutePath());
@@ -58,7 +58,8 @@ public class SummarizeBucketsMojo extends AbstractS3Mojo {
 				getLog().info("Creating " + csvFile.getAbsolutePath());
 			}
 			boolean printColumnHeaders = !csvFile.exists();
-			s3Utils.write(csvFile, s3Utils.toCSV(summary, printColumnHeaders), true);
+			String csv = s3Utils.toCSV(summary, printColumnHeaders);
+			s3Utils.write(csvFile, csv, true);
 		}
 	}
 
