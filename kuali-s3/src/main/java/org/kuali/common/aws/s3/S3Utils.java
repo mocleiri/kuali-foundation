@@ -255,6 +255,7 @@ public class S3Utils {
 			log.info(count + " - " + bucket.getName());
 			BucketSummary summary = getBucketSummary(client, bucket);
 			summaries.add(summary);
+			count++;
 		}
 		return summaries;
 	}
@@ -472,7 +473,7 @@ public class S3Utils {
 			}
 		}
 		if (originalSize != buckets.size()) {
-			log.info("Handling " + buckets.size() + " buckets");
+			log.info("Returning " + buckets.size() + " buckets");
 		}
 		Collections.sort(buckets, new BucketComparator());
 		return buckets;
