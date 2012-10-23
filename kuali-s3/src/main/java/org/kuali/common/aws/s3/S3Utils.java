@@ -30,6 +30,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
@@ -62,6 +64,15 @@ public class S3Utils {
 
 	protected S3Utils() {
 		super();
+	}
+
+	public AWSCredentials getCredentials(String accessKey, String secretKey) {
+		return new BasicAWSCredentials(accessKey, secretKey);
+	}
+
+	public AmazonS3Client getClient(String accessKey, String secretKey) {
+		AWSCredentials credentials = getCredentials(accessKey, secretKey);
+		return new AmazonS3Client(credentials);
 	}
 
 	/**
