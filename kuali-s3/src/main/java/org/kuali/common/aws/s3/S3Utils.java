@@ -147,7 +147,7 @@ public class S3Utils {
 	public DefaultMutableTreeNode buildTree(List<String> prefixes, String delimiter) {
 		Map<String, DefaultMutableTreeNode> map = new HashMap<String, DefaultMutableTreeNode>();
 		for (String prefix : prefixes) {
-			BucketSummary summary = new BucketSummary(prefix);
+			BucketPrefixSummary summary = new BucketPrefixSummary(prefix);
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(summary);
 			if (prefix != null) {
 				String parentKey = getParentPrefix(prefix, delimiter);
@@ -187,17 +187,17 @@ public class S3Utils {
 	public void summarize(AmazonS3Client client, String bucketName, DefaultMutableTreeNode node) {
 		List<DefaultMutableTreeNode> leaves = getLeaves(node);
 		for (DefaultMutableTreeNode leaf : leaves) {
-			BucketSummary summary = (BucketSummary) leaf.getUserObject();
+			BucketPrefixSummary summary = (BucketPrefixSummary) leaf.getUserObject();
 			summarize(client, bucketName, summary);
 		}
 		fillInSummaries(node);
 	}
 
-	public List<BucketSummary> getBucketSummaryLeafs(DefaultMutableTreeNode node) {
+	public List<BucketPrefixSummary> getBucketSummaryLeafs(DefaultMutableTreeNode node) {
 		List<DefaultMutableTreeNode> leaves = getLeaves(node);
-		List<BucketSummary> summaries = new ArrayList<BucketSummary>();
+		List<BucketPrefixSummary> summaries = new ArrayList<BucketPrefixSummary>();
 		for (DefaultMutableTreeNode leaf : leaves) {
-			BucketSummary summary = (BucketSummary) leaf.getUserObject();
+			BucketPrefixSummary summary = (BucketPrefixSummary) leaf.getUserObject();
 			summaries.add(summary);
 		}
 		Collections.sort(summaries);
@@ -205,11 +205,11 @@ public class S3Utils {
 	}
 
 	public void fillInSummaries(DefaultMutableTreeNode node) {
-		BucketSummary summary = (BucketSummary) node.getUserObject();
+		BucketPrefixSummary summary = (BucketPrefixSummary) node.getUserObject();
 		List<DefaultMutableTreeNode> children = getChildren(node);
 		for (DefaultMutableTreeNode child : children) {
 			fillInSummaries(child);
-			BucketSummary childSummary = (BucketSummary) child.getUserObject();
+			BucketPrefixSummary childSummary = (BucketPrefixSummary) child.getUserObject();
 			long count = childSummary.getCount();
 			long size = childSummary.getSize();
 			summary.setCount(summary.getCount() + count);
@@ -227,8 +227,8 @@ public class S3Utils {
 		return children;
 	}
 
-	public BucketSummary summarize(AmazonS3Client client, String bucketName) {
-		BucketSummary summary = new BucketSummary();
+	public BucketPrefixSummary summarize(AmazonS3Client client, String bucketName) {
+		BucketPrefixSummary summary = new BucketPrefixSummary();
 		ListObjectsRequest request = getListObjectsRequest(bucketName);
 		ObjectListing current = client.listObjects(request);
 		summarize(summary, current.getObjectSummaries());
@@ -240,7 +240,7 @@ public class S3Utils {
 		return summary;
 	}
 
-	public BucketSummary summarize(AmazonS3Client client, String bucketName, BucketSummary summary) {
+	public BucketPrefixSummary summarize(AmazonS3Client client, String bucketName, BucketPrefixSummary summary) {
 		ListObjectsRequest request = getListObjectsRequest(bucketName, summary.getPrefix());
 		ObjectListing current = client.listObjects(request);
 		summarize(summary, current.getObjectSummaries());
@@ -252,7 +252,7 @@ public class S3Utils {
 		return summary;
 	}
 
-	public void summarize(BucketSummary summary, List<S3ObjectSummary> summaries) {
+	public void summarize(BucketPrefixSummary summary, List<S3ObjectSummary> summaries) {
 		for (S3ObjectSummary element : summaries) {
 			summary.setSize(summary.getSize() + element.getSize());
 			summary.setCount(summary.getCount() + 1);
@@ -276,16 +276,16 @@ public class S3Utils {
 		return toString(node, size, null);
 	}
 
-	public String toString(DefaultMutableTreeNode node, Comparator<BucketSummary> comparator) {
+	public String toString(DefaultMutableTreeNode node, Comparator<BucketPrefixSummary> comparator) {
 		return toString(node, null, comparator);
 	}
 
-	public List<BucketSummary> getBucketSummaryList(DefaultMutableTreeNode node, Comparator<BucketSummary> comparator) {
-		List<BucketSummary> list = new ArrayList<BucketSummary>();
+	public List<BucketPrefixSummary> getBucketSummaryList(DefaultMutableTreeNode node, Comparator<BucketPrefixSummary> comparator) {
+		List<BucketPrefixSummary> list = new ArrayList<BucketPrefixSummary>();
 		Enumeration<?> e = node.breadthFirstEnumeration();
 		while (e.hasMoreElements()) {
 			DefaultMutableTreeNode element = (DefaultMutableTreeNode) e.nextElement();
-			BucketSummary summary = (BucketSummary) element.getUserObject();
+			BucketPrefixSummary summary = (BucketPrefixSummary) element.getUserObject();
 			list.add(summary);
 		}
 		if (comparator == null) {
@@ -296,9 +296,9 @@ public class S3Utils {
 		return list;
 	}
 
-	public List<BucketDisplay> getBucketDisplayList(List<BucketSummary> summaries, Size size) {
+	public List<BucketDisplay> getBucketDisplayList(List<BucketPrefixSummary> summaries, Size size) {
 		List<BucketDisplay> list = new ArrayList<BucketDisplay>();
-		for (BucketSummary summary : summaries) {
+		for (BucketPrefixSummary summary : summaries) {
 			BucketDisplay display = new BucketDisplay();
 			display.setPrefix(summary.getPrefix() == null ? "/" : summary.getPrefix());
 			display.setCount(summary.getCount());
@@ -308,9 +308,9 @@ public class S3Utils {
 		return list;
 	}
 
-	public List<S3PrefixContext> getS3PrefixContexts(AmazonS3Client client, String bucketName, List<BucketSummary> summaries) {
+	public List<S3PrefixContext> getS3PrefixContexts(AmazonS3Client client, String bucketName, List<BucketPrefixSummary> summaries) {
 		List<S3PrefixContext> contexts = new ArrayList<S3PrefixContext>();
-		for (BucketSummary summary : summaries) {
+		for (BucketPrefixSummary summary : summaries) {
 			S3PrefixContext context = new S3PrefixContext();
 			context.setClient(client);
 			context.setBucketName(bucketName);
@@ -320,8 +320,8 @@ public class S3Utils {
 		return contexts;
 	}
 
-	public String toString(DefaultMutableTreeNode node, Size size, Comparator<BucketSummary> comparator) {
-		List<BucketSummary> bucketSummaryList = getBucketSummaryList(node, comparator);
+	public String toString(DefaultMutableTreeNode node, Size size, Comparator<BucketPrefixSummary> comparator) {
+		List<BucketPrefixSummary> bucketSummaryList = getBucketSummaryList(node, comparator);
 		List<BucketDisplay> list = getBucketDisplayList(bucketSummaryList, size);
 		int maxPrefixLength = PREFIX.length();
 		int maxCountLength = COUNT.length();

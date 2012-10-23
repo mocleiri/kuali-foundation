@@ -17,12 +17,13 @@ package org.kuali.common.aws.s3;
 
 import java.util.Comparator;
 
-public class BucketSizeComparator implements Comparator<BucketSummary> {
 
-	public int compare(BucketSummary one, BucketSummary two) {
-		if (one.getSize() < two.getSize()) {
+public class BucketPrefixCountComparator implements Comparator<BucketPrefixSummary> {
+
+	public int compare(BucketPrefixSummary one, BucketPrefixSummary two) {
+		if (one.getCount() < two.getCount()) {
 			return -1;
-		} else if (one.getSize() == two.getSize()) {
+		} else if (one.getCount() == two.getCount()) {
 			return 0;
 		} else {
 			return 1;

@@ -15,13 +15,13 @@
  */
 package org.kuali.common.aws.s3;
 
-public class BucketSummary implements Comparable<BucketSummary> {
+public class BucketPrefixSummary implements Comparable<BucketPrefixSummary> {
 
 	String prefix;
 	long count;
 	long size;
 
-	public int compareTo(BucketSummary other) {
+	public int compareTo(BucketPrefixSummary other) {
 		String prefix1 = getPrefix();
 		String prefix2 = other.getPrefix();
 		if (prefix1 == null) {
@@ -31,11 +31,11 @@ public class BucketSummary implements Comparable<BucketSummary> {
 		}
 	}
 
-	public BucketSummary() {
+	public BucketPrefixSummary() {
 		this(null);
 	}
 
-	public BucketSummary(String prefix) {
+	public BucketPrefixSummary(String prefix) {
 		super();
 		this.prefix = prefix;
 	}

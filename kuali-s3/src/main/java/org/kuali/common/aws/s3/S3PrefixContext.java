@@ -20,7 +20,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 public class S3PrefixContext {
 	AmazonS3Client client;
 	String bucketName;
-	BucketSummary summary;
+	BucketPrefixSummary summary;
 
 	public AmazonS3Client getClient() {
 		return client;
@@ -38,11 +38,11 @@ public class S3PrefixContext {
 		this.bucketName = bucketName;
 	}
 
-	public BucketSummary getSummary() {
+	public BucketPrefixSummary getSummary() {
 		return summary;
 	}
 
-	public void setSummary(BucketSummary summary) {
+	public void setSummary(BucketPrefixSummary summary) {
 		this.summary = summary;
 	}
 

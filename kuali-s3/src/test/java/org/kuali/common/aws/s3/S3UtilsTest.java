@@ -21,8 +21,8 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.kuali.common.aws.s3.BucketSummary;
-import org.kuali.common.aws.s3.BucketSummaryHandler;
+import org.kuali.common.aws.s3.BucketPrefixSummary;
+import org.kuali.common.aws.s3.BucketPrefixSummaryHandler;
 import org.kuali.common.aws.s3.S3PrefixContext;
 import org.kuali.common.aws.s3.S3Utils;
 import org.kuali.common.aws.s3.SimpleFormatter;
@@ -108,7 +108,7 @@ public class S3UtilsTest {
 			// log.info("Total Time: " + sf.getTime(elapsed2));
 			// log.info("Count: " + summary.getCount());
 			// log.info("Size: " + sf.getSize(summary.getSize()));
-			List<BucketSummary> summaries = utils.getBucketSummaryLeafs(node);
+			List<BucketPrefixSummary> summaries = utils.getBucketSummaryLeafs(node);
 			Collections.shuffle(summaries);
 			List<S3PrefixContext> contexts = utils.getS3PrefixContexts(client, bucket, summaries);
 
@@ -117,7 +117,7 @@ public class S3UtilsTest {
 			listener.setPercentageIncrement(1);
 			ThreadHandlerContext<S3PrefixContext> thc = new ThreadHandlerContext<S3PrefixContext>();
 			thc.setList(contexts);
-			thc.setHandler(new BucketSummaryHandler());
+			thc.setHandler(new BucketPrefixSummaryHandler());
 			thc.setMax(50);
 			thc.setMin(10);
 			thc.setDivisor(1);
@@ -130,7 +130,7 @@ public class S3UtilsTest {
 			long iterationCount = stats.getIterationCount();
 			log.info("Elapsed: " + sf.getTime(millis));
 			log.info("Iteration Count: " + iterationCount);
-			BucketSummary summary = (BucketSummary) node.getUserObject();
+			BucketPrefixSummary summary = (BucketPrefixSummary) node.getUserObject();
 			utils.fillInSummaries(node);
 			log.info("Total Bucket Size: " + sf.getSize(summary.getSize()));
 			log.info("Total Object Count: " + summary.getCount());
