@@ -15,7 +15,7 @@ public class ListBucketsMojo extends AbstractS3Mojo {
 		getLog().info("Listing buckets for Access Key: " + getAccessKey());
 		List<Bucket> buckets = client.listBuckets();
 		for (Bucket bucket : buckets) {
-			getLog().info(bucket.getName() + " " + bucket.getCreationDate() + " " + bucket.getOwner());
+			getLog().info(bucket.getName() + " " + bucket.getCreationDate() + " " + bucket.getOwner().getDisplayName());
 		}
 	}
 

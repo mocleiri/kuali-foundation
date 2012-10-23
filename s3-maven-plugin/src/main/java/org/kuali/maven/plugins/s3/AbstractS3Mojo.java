@@ -19,7 +19,7 @@ public abstract class AbstractS3Mojo extends AbstractMojo {
 	MavenProject project;
 
 	/**
-	 * The AWS Access Key Id for an account on EC2
+	 * The AWS Access Key Id for an account on S3
 	 *
 	 * @parameter expression="${s3.accessKey}"
 	 * @required
@@ -27,7 +27,7 @@ public abstract class AbstractS3Mojo extends AbstractMojo {
 	String accessKey;
 
 	/**
-	 * The AWS Secret Access Key for an account on EC2
+	 * The AWS Secret Access Key for an account on S3
 	 *
 	 * @parameter expression="${s3.secretKey}"
 	 * @required
