@@ -11,6 +11,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 
 /**
+ * Print the list of buckets owned by the provided access key to the console.
+ *
  * @goal listbuckets
  */
 public class ListBucketsMojo extends AbstractS3Mojo {
