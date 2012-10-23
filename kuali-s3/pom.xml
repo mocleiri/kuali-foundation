@@ -13,6 +13,7 @@
   <description>Utilities for working with Amazon S3</description>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
+    <aws.version>1.3.22</aws.version>
   </properties>
   <developers>
     <developer>
@@ -31,8 +32,24 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>${aws.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
   </dependencies>
