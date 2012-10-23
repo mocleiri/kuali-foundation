@@ -51,8 +51,14 @@
   <dependencies>
     <dependency>
       <groupId>com.amazonaws</groupId>
-      <artifactId>aws-sdk</artifactId>
+      <artifactId>aws-java-sdk</artifactId>
       <version>${aws.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>
