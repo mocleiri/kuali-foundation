@@ -72,7 +72,7 @@
                 <goal>summarizebuckets</goal>
               </goals>
               <configuration>
-                <exclude>site.origin.kuali.org,maven.kuali.org</exclude>
+                <exclude>site.origin.kuali.org,maven.kuali.org,collab.kuali.org,private.cm.kuali.org,test.kuali.org</exclude>
               </configuration>
             </execution>
           </executions>
