@@ -49,7 +49,7 @@ import com.amazonaws.services.s3.transfer.Upload;
 public class S3Utils {
 	private static final Logger log = LoggerFactory.getLogger(S3Utils.class);
 	// Use multi part upload for files larger than 100 megabytes
-	private static final long MULTI_PART_UPLOAD_THRESHOLD = Size.MB.getValue() * 100;
+	public static final long MULTI_PART_UPLOAD_THRESHOLD = Size.MB.getValue() * 100;
 	private static final String PREFIX = "prefix";
 	private static final String COUNT = "count";
 	private static final String SIZE = "size";
