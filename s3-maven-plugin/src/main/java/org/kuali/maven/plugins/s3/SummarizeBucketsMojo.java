@@ -36,7 +36,7 @@ public class SummarizeBucketsMojo extends AbstractS3Mojo {
 	boolean writeCsv;
 
 	/**
-	 * The file to where the CSV summary is written. If this file already exists, it is appended to.
+	 * The file where the CSV summary is written. If the file already exists, it is appended to.
 	 *
 	 * @parameter expression="${s3.csvFile}" default-value="${project.build.directory}/s3/summary.csv"
 	 */
