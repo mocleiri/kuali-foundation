@@ -36,6 +36,7 @@ public class SimpleFormatter {
 	NumberFormat sizeFormatter = NumberFormat.getInstance();
 	NumberFormat timeFormatter = NumberFormat.getInstance();
 	NumberFormat rateFormatter = NumberFormat.getInstance();
+	NumberFormat countFormatter = NumberFormat.getInstance();
 
 	public SimpleFormatter() {
 		super();
@@ -51,6 +52,9 @@ public class SimpleFormatter {
 		rateFormatter.setGroupingUsed(false);
 		rateFormatter.setMaximumFractionDigits(3);
 		rateFormatter.setMinimumFractionDigits(3);
+		countFormatter.setGroupingUsed(true);
+		countFormatter.setMaximumFractionDigits(0);
+		countFormatter.setMinimumFractionDigits(0);
 	}
 
 	/**
@@ -63,6 +67,13 @@ public class SimpleFormatter {
 		Size bandwidthLevel = getSizeEnum(bytesPerSecond);
 		double transferRate = bytesPerSecond / bandwidthLevel.getValue();
 		return rateFormatter.format(transferRate) + " " + bandwidthLevel.getRateLabel();
+	}
+
+	/**
+	 * Return a formatted <code>count</code>
+	 */
+	public String getCount(long count) {
+		return countFormatter.format(count);
 	}
 
 	/**

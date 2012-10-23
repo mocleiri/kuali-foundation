@@ -236,7 +236,7 @@ public class S3Utils {
 			current = client.listNextBatchOfObjects(current);
 			summarize(summary, current.getObjectSummaries());
 		}
-		log.debug("Completed summary for prefix '{}'", summary.getPrefix());
+		log.debug("Completed summary for '{}'", bucketName);
 		return summary;
 	}
 
@@ -355,6 +355,23 @@ public class S3Utils {
 			}
 		}
 		return columnLengths;
+	}
+
+	public List<String> toList(String csv) {
+		if (StringUtils.isBlank(csv)) {
+			return new ArrayList<String>();
+		} else {
+			String[] tokens = StringUtils.split(csv, ",");
+			return toList(tokens);
+		}
+	}
+
+	public List<String> toList(String[] tokens) {
+		List<String> list = new ArrayList<String>();
+		for (String token : tokens) {
+			list.add(token);
+		}
+		return list;
 	}
 
 	public String toString(List<String> columns, List<String[]> rows) {
