@@ -368,13 +368,14 @@ public class S3Utils {
 			sb.append(lpad(name, columnLengths[i]));
 		}
 		sb.append("\n");
-		for (String[] row : rows) {
-			for (int i = 0; i < row.length; i++) {
-				if (i != 0) {
+		for (int i = 0; i < rows.size(); i++) {
+			String[] row = rows.get(i);
+			for (int j = 0; j < row.length; j++) {
+				if (j != 0) {
 					sb.append("  ");
 				}
-				int columnLength = columnLengths[i];
-				sb.append(lpad(row[i], columnLength));
+				int columnLength = columnLengths[j];
+				sb.append(lpad(row[j], columnLength));
 			}
 			sb.append("\n");
 		}
