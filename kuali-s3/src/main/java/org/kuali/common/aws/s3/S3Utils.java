@@ -344,6 +344,43 @@ public class S3Utils {
 		return sb.toString();
 	}
 
+	public int[] getColumnLengths(List<String> columns, List<String[]> rows) {
+		int[] columnLengths = new int[columns.size()];
+		for (int i = 0; i < columnLengths.length; i++) {
+			columnLengths[i] = columns.get(i).length();
+		}
+		for (String[] row : rows) {
+			for (int i = 0; i < columns.size(); i++) {
+				columnLengths[i] = Math.max(columnLengths[i], row[i].length());
+			}
+		}
+		return columnLengths;
+	}
+
+	public String toString(List<String> columns, List<String[]> rows) {
+		int[] columnLengths = getColumnLengths(columns, rows);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < columnLengths.length; i++) {
+			if (i != 0) {
+				sb.append("  ");
+			}
+			String name = columns.get(i);
+			sb.append(lpad(name, columnLengths[i]));
+		}
+		sb.append("\n");
+		for (String[] row : rows) {
+			for (int i = 0; i < row.length; i++) {
+				if (i != 0) {
+					sb.append("  ");
+				}
+				int columnLength = columnLengths[i];
+				sb.append(lpad(row[i], columnLength));
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
 	public String lpad(String s, int size) {
 		return StringUtils.leftPad(s, size, " ");
 	}
