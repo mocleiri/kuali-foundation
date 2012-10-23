@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -227,6 +229,20 @@ public class S3Utils {
 		return children;
 	}
 
+	public AccountSummary summarize(AccountSummaryContext context) {
+		AmazonS3Client client = getClient(context.getAccessKey(), context.getSecretKey());
+		return new AccountSummary();
+	}
+
+	public AccountSummary summarize(String accessKey, String secretKey, List<String> includes, List<String> excludes) {
+		AccountSummaryContext context = new AccountSummaryContext();
+		context.setAccessKey(accessKey);
+		context.setSecretKey(secretKey);
+		context.setIncludes(includes);
+		context.setExcludes(excludes);
+		return summarize(context);
+	}
+
 	public BucketPrefixSummary summarize(AmazonS3Client client, String bucketName) {
 		BucketPrefixSummary summary = new BucketPrefixSummary();
 		ListObjectsRequest request = getListObjectsRequest(bucketName);
@@ -397,6 +413,34 @@ public class S3Utils {
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+
+	public List<Bucket> getBuckets(AmazonS3Client client, List<String> includes, List<String> excludes) {
+		List<Bucket> buckets = client.listBuckets();
+		int originalSize = buckets.size();
+		log.info("Located " + buckets.size() + " total buckets");
+		Iterator<Bucket> itr = buckets.iterator();
+		while (itr.hasNext()) {
+			Bucket bucket = itr.next();
+			String bucketName = bucket.getName();
+			if (!include(bucketName, includes, excludes)) {
+				log.info("Excluding '" + bucket.getName() + "'");
+				itr.remove();
+			}
+		}
+		if (originalSize != buckets.size()) {
+			log.info("Summarizing " + buckets.size() + " buckets");
+		}
+		Collections.sort(buckets, new BucketComparator());
+		return buckets;
+	}
+
+	public boolean include(String bucketName, List<String> includes, List<String> excludes) {
+		if (excludes.contains(bucketName)) {
+			return false;
+		} else {
+			return includes.size() == 0 || includes.contains(bucketName);
+		}
 	}
 
 	public String lpad(String s, int size) {
