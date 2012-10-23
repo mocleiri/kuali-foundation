@@ -15,8 +15,11 @@
  */
 package org.kuali.common.aws.s3;
 
+import com.amazonaws.services.s3.model.Bucket;
+
 public class BucketPrefixSummary implements Comparable<BucketPrefixSummary> {
 
+	Bucket bucket;
 	String prefix;
 	long count;
 	long size;
@@ -62,6 +65,14 @@ public class BucketPrefixSummary implements Comparable<BucketPrefixSummary> {
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public Bucket getBucket() {
+		return bucket;
+	}
+
+	public void setBucket(Bucket bucket) {
+		this.bucket = bucket;
 	}
 
 }
