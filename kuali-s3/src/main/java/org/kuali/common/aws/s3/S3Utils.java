@@ -239,6 +239,7 @@ public class S3Utils {
 		AccountSummary summary = new AccountSummary();
 		summary.setAccessKey(context.getAccessKey());
 		summary.setBucketSummaries(summaries);
+		updateAccountSummary(summary);
 		return summary;
 	}
 
@@ -255,8 +256,10 @@ public class S3Utils {
 		List<BucketSummary> summaries = new ArrayList<BucketSummary>();
 		int count = 1;
 		for (Bucket bucket : buckets) {
-			log.info(count + " - " + bucket.getName());
+			long start = System.currentTimeMillis();
+			System.out.print("[INFO] " + count + " - " + bucket.getName() + " - ");
 			BucketSummary summary = getBucketSummary(client, bucket);
+			System.out.println(formatter.getTime(System.currentTimeMillis() - start));
 			summaries.add(summary);
 			count++;
 		}
@@ -431,9 +434,22 @@ public class S3Utils {
 		return list;
 	}
 
+	public void updateAccountSummary(AccountSummary summary) {
+		long size = 0;
+		long files = 0;
+		for (BucketSummary bucketSummary : summary.getBucketSummaries()) {
+			size = size + bucketSummary.getSize();
+			files = files + bucketSummary.getCount();
+		}
+		summary.setSize(size);
+		summary.setCount(files);
+	}
+
 	public String toString(AccountSummary summary) {
 		List<String> columns = getBucketSummaryColumns();
 		List<String[]> rows = getRows(summary.getBucketSummaries());
+		rows.add(new String[] { "", "", "" });
+		rows.add(new String[] { "Totals", formatter.getCount(summary.getCount()), formatter.getSize(summary.getSize()) });
 		return toString(columns, rows);
 	}
 
