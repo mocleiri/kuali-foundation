@@ -18,7 +18,7 @@ package org.kuali.common.aws.s3;
 import java.text.NumberFormat;
 
 /**
- * Format time, bytes, and transfer rate into human friendly form
+ * Format time, bytes, counts, and transfer rate into human friendly form
  *
  * @author Jeff Caddel
  * @since May 27, 2010 6:46:17 PM
@@ -77,7 +77,8 @@ public class SimpleFormatter {
 	}
 
 	/**
-	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, years, decades, or centuries as appropriate
+	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, years, decades, or centuries as appropriate. Note that years,
+	 * decades, and centuries are approximations since the logic always assumes there are exactly 365 days per year.
 	 */
 	public String getTime(long millis) {
 		if (millis < SECOND) {
