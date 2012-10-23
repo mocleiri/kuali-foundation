@@ -335,14 +335,14 @@
               <artifactId>s3-maven-plugin</artifactId>
               <version>${plugin.s3.version}</version>
               <configuration>
-                <excludes></excludes>
+                <exclude>site.origin.kuali.org,maven.kuali.org,collab.kuali.org,private.cm.kuali.org,test.kuali.org</exclude>
               </configuration>
               <executions>
                 <execution>
-                  <id>listbuckets</id>
+                  <id>summarizebuckets</id>
                   <phase>validate</phase>
                   <goals>
-                    <goal>listbuckets</goal>
+                    <goal>summarizebuckets</goal>
                   </goals>
                 </execution>
               </executions>
