@@ -229,18 +229,46 @@ public class S3Utils {
 		return children;
 	}
 
-	public AccountSummary summarize(AccountSummaryContext context) {
+	public AccountSummary getAccountSummary(AccountSummaryContext context) {
 		AmazonS3Client client = getClient(context.getAccessKey(), context.getSecretKey());
-		return new AccountSummary();
+		List<Bucket> buckets = getBuckets(client, context.getIncludes(), context.getExcludes());
+		List<BucketSummary> summaries = getBucketSummaries(client, buckets);
+		AccountSummary summary = new AccountSummary();
+		summary.setAccessKey(context.getAccessKey());
+		summary.setBucketSummaries(summaries);
+		return summary;
 	}
 
-	public AccountSummary summarize(String accessKey, String secretKey, List<String> includes, List<String> excludes) {
+	public AccountSummary getAccountSummary(String accessKey, String secretKey, List<String> includes, List<String> excludes) {
 		AccountSummaryContext context = new AccountSummaryContext();
 		context.setAccessKey(accessKey);
 		context.setSecretKey(secretKey);
 		context.setIncludes(includes);
 		context.setExcludes(excludes);
-		return summarize(context);
+		return getAccountSummary(context);
+	}
+
+	public List<BucketSummary> getBucketSummaries(AmazonS3Client client, List<Bucket> buckets) {
+		List<BucketSummary> summaries = new ArrayList<BucketSummary>();
+		for (Bucket bucket : buckets) {
+			BucketSummary summary = getBucketSummary(client, bucket);
+			summaries.add(summary);
+		}
+		return summaries;
+	}
+
+	public BucketSummary getBucketSummary(AmazonS3Client client, Bucket bucket) {
+		BucketSummary summary = new BucketSummary();
+		summary.setBucket(bucket);
+		ListObjectsRequest request = getListObjectsRequest(bucket.getName());
+		ObjectListing current = client.listObjects(request);
+		updateBucketSummary(summary, current.getObjectSummaries());
+		while (current.isTruncated()) {
+			current = client.listNextBatchOfObjects(current);
+			updateBucketSummary(summary, current.getObjectSummaries());
+		}
+		log.debug("Completed summary for '{}'", bucket.getName());
+		return summary;
 	}
 
 	public BucketPrefixSummary summarize(AmazonS3Client client, String bucketName) {
@@ -266,6 +294,13 @@ public class S3Utils {
 		}
 		log.debug("Completed summary for prefix '{}'", summary.getPrefix());
 		return summary;
+	}
+
+	public void updateBucketSummary(BucketSummary summary, List<S3ObjectSummary> summaries) {
+		for (S3ObjectSummary element : summaries) {
+			summary.setSize(summary.getSize() + element.getSize());
+			summary.setCount(summary.getCount() + 1);
+		}
 	}
 
 	public void summarize(BucketPrefixSummary summary, List<S3ObjectSummary> summaries) {
@@ -390,6 +425,12 @@ public class S3Utils {
 		return list;
 	}
 
+	public String toString(AccountSummary summary) {
+		List<String> columns = getBucketSummaryColumns();
+		List<String[]> rows = getRows(summary.getBucketSummaries());
+		return toString(columns, rows);
+	}
+
 	public String toString(List<String> columns, List<String[]> rows) {
 		int[] columnLengths = getColumnLengths(columns, rows);
 		StringBuilder sb = new StringBuilder();
@@ -429,7 +470,7 @@ public class S3Utils {
 			}
 		}
 		if (originalSize != buckets.size()) {
-			log.info("Summarizing " + buckets.size() + " buckets");
+			log.info("Handling " + buckets.size() + " buckets");
 		}
 		Collections.sort(buckets, new BucketComparator());
 		return buckets;
@@ -450,4 +491,29 @@ public class S3Utils {
 	public String rpad(String s, int size) {
 		return StringUtils.rightPad(s, size, " ");
 	}
+
+	public List<String> getBucketSummaryColumns() {
+		List<String> columns = new ArrayList<String>();
+		columns.add("Bucket");
+		columns.add("Files");
+		columns.add("Size");
+		return columns;
+	}
+
+	public List<String[]> getRows(List<BucketSummary> summaries) {
+		List<String[]> rows = new ArrayList<String[]>();
+		for (BucketSummary summary : summaries) {
+			rows.add(getRow(summary));
+		}
+		return rows;
+	}
+
+	protected String[] getRow(BucketSummary summary) {
+		String[] row = new String[3];
+		row[0] = summary.getBucket().getName();
+		row[1] = formatter.getCount(summary.getCount());
+		row[2] = formatter.getSize(summary.getSize());
+		return row;
+	}
+
 }
