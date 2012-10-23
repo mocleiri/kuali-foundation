@@ -79,8 +79,8 @@ public class S3Utils {
 
 	/**
 	 * Upload a single file to Amazon S3. If the file is larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code> a multi-part upload is used.
-	 * This splits the file into multiple smaller chunks with each chunk being uploaded in a different thread. Once all the threads have
-	 * completed the file is reassembled on Amazon's side as a single file again.
+	 * Multi-part uploads split the file into several smaller chunks with each chunk being uploaded in a different thread. Once all the
+	 * threads have completed the file is automatically reassembled on S3 as a single file.
 	 */
 	public void upload(File file, PutObjectRequest request, AmazonS3Client client, TransferManager manager) {
 		// Store the file on S3
@@ -96,11 +96,11 @@ public class S3Utils {
 
 	/**
 	 * Use this method to reliably upload large files and wait until they are fully uploaded before continuing. Behind the scenes this is
-	 * accomplished by splitting the file up into manageable chunks and using separate threads to upload each chunk. You should consider
-	 * using multi-part uploads on files larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code>. When this method returns, all threads have
-	 * finished and the file has been reassembled on S3. The benefit to this method is that if any one thread fails, only the portion of the
-	 * file that particular thread was handling will have to be re-uploaded (instead of the entire file). A reasonable number of automatic
-	 * retries occurs if an upload thread fails.
+	 * accomplished by splitting the file up into manageable chunks and using separate threads to upload each chunk. Consider using
+	 * multi-part uploads on files larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code>. When this method returns, all threads have finished
+	 * and the file has been reassembled on S3. The benefit to this method is that if any one thread fails, only the portion of the file
+	 * that particular thread was handling will have to be re-uploaded (instead of the entire file). A reasonable number of automatic
+	 * retries occurs if an individual upload thread fails before this method throws <code>AmazonS3Exception</code>
 	 */
 	public void blockingMultiPartUpload(PutObjectRequest request, TransferManager manager) {
 		// Use multi-part upload for large files
