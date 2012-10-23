@@ -16,9 +16,11 @@
 package org.kuali.common.aws.s3;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +29,7 @@ import java.util.Map;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -434,6 +437,41 @@ public class S3Utils {
 		return toString(columns, rows);
 	}
 
+	public String toCSV(AccountSummary summary) {
+		return toCSV(summary, true);
+	}
+
+	public String toCSV(AccountSummary summary, boolean printColumnHeaders) {
+		List<String> columns = getAccountSummaryCSVColumns();
+		List<String[]> rows = getAccountSummaryCSVRows(summary.getBucketSummaries(), new Date());
+		return toCSV(columns, rows, printColumnHeaders);
+	}
+
+	public String toCSV(List<String> columns, List<String[]> rows, boolean printColumnHeaders) {
+		StringBuilder sb = new StringBuilder();
+		if (printColumnHeaders) {
+			for (int i = 0; i < columns.size(); i++) {
+				if (i != 0) {
+					sb.append(",");
+				}
+				String column = columns.get(i);
+				sb.append(column);
+			}
+			sb.append("\n");
+		}
+		for (int i = 0; i < rows.size(); i++) {
+			String[] row = rows.get(i);
+			for (int j = 0; j < row.length; j++) {
+				if (j != 0) {
+					sb.append(",");
+				}
+				sb.append(row[j]);
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
 	public String toString(List<String> columns, List<String[]> rows) {
 		int[] columnLengths = getColumnLengths(columns, rows);
 		StringBuilder sb = new StringBuilder();
@@ -517,6 +555,41 @@ public class S3Utils {
 		row[1] = formatter.getCount(summary.getCount());
 		row[2] = formatter.getSize(summary.getSize());
 		return row;
+	}
+
+	public List<String> getAccountSummaryCSVColumns() {
+		List<String> columns = new ArrayList<String>();
+		columns.add("bucket");
+		columns.add("files");
+		columns.add("bytes");
+		columns.add("date");
+		return columns;
+	}
+
+	protected List<String[]> getAccountSummaryCSVRows(List<BucketSummary> summaries, Date date) {
+		List<String[]> rows = new ArrayList<String[]>();
+		for (BucketSummary summary : summaries) {
+			String[] row = getAccountSummaryCSVRow(summary, date);
+			rows.add(row);
+		}
+		return rows;
+	}
+
+	protected String[] getAccountSummaryCSVRow(BucketSummary summary, Date date) {
+		String[] row = new String[4];
+		row[0] = summary.getBucket().getName();
+		row[1] = summary.getCount() + "";
+		row[2] = summary.getSize() + "";
+		row[3] = formatter.getDate(date);
+		return row;
+	}
+
+	public void write(File file, String data, boolean append) {
+		try {
+			FileUtils.write(file, data, append);
+		} catch (IOException e) {
+			throw new AmazonS3Exception("Error writing to file", e);
+		}
 	}
 
 }

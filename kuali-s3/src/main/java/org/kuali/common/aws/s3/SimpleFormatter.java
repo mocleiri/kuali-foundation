@@ -16,6 +16,8 @@
 package org.kuali.common.aws.s3;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Format time, bytes, counts, and transfer rate into human friendly form
@@ -31,12 +33,14 @@ public class SimpleFormatter {
 	private static final double YEAR = 365 * DAY;
 	private static final double DECADE = 10 * YEAR;
 	private static final double CENTURY = 10 * DECADE;
+	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SZ";
 
 	NumberFormat largeSizeFormatter = NumberFormat.getInstance();
 	NumberFormat sizeFormatter = NumberFormat.getInstance();
 	NumberFormat timeFormatter = NumberFormat.getInstance();
 	NumberFormat rateFormatter = NumberFormat.getInstance();
 	NumberFormat countFormatter = NumberFormat.getInstance();
+	SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
 
 	public SimpleFormatter() {
 		super();
@@ -55,6 +59,20 @@ public class SimpleFormatter {
 		countFormatter.setGroupingUsed(true);
 		countFormatter.setMaximumFractionDigits(0);
 		countFormatter.setMinimumFractionDigits(0);
+	}
+
+	/**
+	 * Return a formatted date
+	 */
+	public String getDate(long millis) {
+		return getDate(new Date(millis));
+	}
+
+	/**
+	 * Return a formatted date
+	 */
+	public String getDate(Date date) {
+		return dateFormatter.format(date);
 	}
 
 	/**
