@@ -24,7 +24,7 @@ public class ListBucketsMojo extends AbstractS3Mojo {
 		List<String> columns = getColumns();
 		List<String[]> rows = getRows(buckets);
 		String s = s3Utils.toString(columns, rows);
-		getLog().info("\n" + s);
+		getLog().info("\n\n" + s);
 	}
 
 	protected List<String[]> getRows(List<Bucket> buckets) {
