@@ -24,6 +24,15 @@ public class BucketPrefixSummary implements Comparable<BucketPrefixSummary> {
 	long count;
 	long size;
 
+	public BucketPrefixSummary() {
+		this(null);
+	}
+
+	public BucketPrefixSummary(String prefix) {
+		super();
+		this.prefix = prefix;
+	}
+
 	public int compareTo(BucketPrefixSummary other) {
 		String prefix1 = getPrefix();
 		String prefix2 = other.getPrefix();
@@ -32,15 +41,6 @@ public class BucketPrefixSummary implements Comparable<BucketPrefixSummary> {
 		} else {
 			return prefix1.compareTo(prefix2);
 		}
-	}
-
-	public BucketPrefixSummary() {
-		this(null);
-	}
-
-	public BucketPrefixSummary(String prefix) {
-		super();
-		this.prefix = prefix;
 	}
 
 	public long getCount() {
