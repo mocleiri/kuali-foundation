@@ -386,6 +386,9 @@
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>s3-maven-plugin</artifactId>
           </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+          </plugin>
         </plugins>
       </build>
     </profile>
