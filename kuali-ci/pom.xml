@@ -363,7 +363,7 @@
                   </goals>
                   <configuration>
                     <target>
-                      <echo>svn commit -m "${s3.summary.commit.message} ${s3.summary.csv}"</echo>
+                      <echo>svn commit -m "${s3.summary.commit.message}" ${s3.summary.csv}</echo>
                       <exec dir="${project.basedir}" executable="svn" failonerror="true">
                         <arg value="commit" />
                         <arg value="-m" />
