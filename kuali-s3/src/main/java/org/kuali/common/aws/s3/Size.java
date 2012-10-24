@@ -21,9 +21,9 @@ public enum Size {
 	KB(1024, "k", "KB/s"), //
 	MB(1024 * Size.KB.getValue(), "m", "MB/s"), //
 	GB(1024 * Size.MB.getValue(), "g", "GB/s"), //
-	TB(1024 * Size.GB.getValue(), "terabytes", "terabytes/s"), //
-	PB(1024 * Size.TB.getValue(), "petabytes", "petabyte/s"), //
-	EB(1024 * Size.PB.getValue(), "exabytes", "exabytes/s");
+	TB(1024 * Size.GB.getValue(), "t", "TB/s"), //
+	PB(1024 * Size.TB.getValue(), "p", "PB/s"), //
+	EB(1024 * Size.PB.getValue(), "e", "EB/s");
 
 	private long value;
 	private String sizeLabel;
