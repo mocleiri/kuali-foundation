@@ -339,7 +339,6 @@
               <artifactId>s3-maven-plugin</artifactId>
               <version>${plugin.s3.version}</version>
               <configuration>
-                <exclude>site.origin.kuali.org,maven.kuali.org,collab.kuali.org,private.cm.kuali.org,test.kuali.org</exclude>
                 <csvFile>${s3.summary.csv}</csvFile>
               </configuration>
               <executions>
