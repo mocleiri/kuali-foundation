@@ -300,6 +300,10 @@
     </profile>
     <profile>
       <id>s3</id>
+      <properties>
+        <s3.summary.csv>${project.basedir}/src/main/resources/aws-s3-summary.csv</s3.summary.csv>
+        <s3.summary.commit.message>Automated S3 summary statistics</s3.summary.commit.message>
+      </properties>
       <build>
         <pluginManagement>
           <plugins>
@@ -336,7 +340,7 @@
               <version>${plugin.s3.version}</version>
               <configuration>
                 <exclude>site.origin.kuali.org,maven.kuali.org,collab.kuali.org,private.cm.kuali.org,test.kuali.org</exclude>
-                <csvFile>${project.basedir}/src/main/resources/aws-s3-summary.csv</csvFile>
+                <csvFile>${s3.summary.csv}</csvFile>
               </configuration>
               <executions>
                 <execution>
@@ -345,6 +349,29 @@
                   <goals>
                     <goal>summarizebuckets</goal>
                   </goals>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>commit</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                  <configuration>
+                    <target>
+                      <echo>svn commit -m "${s3.summary.commit.message} ${s3.summary.csv}"</echo>
+                      <exec dir="${project.basedir}" executable="svn" failonerror="true">
+                        <arg value="commit" />
+                        <arg value="-m" />
+                        <arg value="${s3.summary.commit.message}" />
+                        <arg value="${s3.summary.csv}" />
+                      </exec>
+                    </target>
+                  </configuration>
                 </execution>
               </executions>
             </plugin>
