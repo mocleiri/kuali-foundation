@@ -97,7 +97,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		trim(properties, exclude, include);
 
 		getLog().info("Creating " + outputFile);
-		writeProperties(outputFile, properties);
+		writeProperties(this.outputFile, properties, this.outputStyle);
 	}
 
 	protected Properties getResolvedProperties(Properties props) {
@@ -142,7 +142,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			}
 		}
 	}
-
 
 	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;

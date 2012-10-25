@@ -18,6 +18,9 @@ package org.codehaus.mojo.properties;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -37,27 +40,65 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	protected MavenProject project;
+	MavenProject project;
 
 	/**
 	 * The file that properties will be written to
-	 * 
+	 *
 	 * @parameter expression="${properties.outputFile}" default-value="${project.build.directory}/properties/project.properties";
 	 * @required
 	 */
-	protected File outputFile;
+	File outputFile;
 
-	protected void writeProperties(File file, Properties properties) throws MojoExecutionException {
-		SortedProperties sp = new SortedProperties();
-		sp.putAll(properties);
+	/**
+	 * Either <code>NORMAL</code> or <code>ENVIRONMENT_VARIABLE</code>. When set to <code>ENVIRONMENT_VARIABLE</code> the keys in the
+	 * properties file will all be upper case with periods replaced by underscores.
+	 *
+	 * @parameter expression="${properties.outputStyle}" default-value="NORMAL";
+	 * @required
+	 */
+	OutputStyle outputStyle;
+
+	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle) throws MojoExecutionException {
+		Properties formatted = getProperties(properties, outputStyle);
+		Properties sorted = getSortedProperties(formatted);
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(file);
-			sp.store(out, "Created by the properties-maven-plugin");
+			sorted.store(out, "Created by the properties-maven-plugin");
 		} catch (IOException e) {
 			throw new MojoExecutionException("Error creating properties file", e);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
+
+	protected SortedProperties getSortedProperties(Properties properties) {
+		SortedProperties sp = new SortedProperties();
+		sp.putAll(properties);
+		return sp;
+	}
+
+	protected Properties getProperties(Properties properties, OutputStyle style) {
+		switch (style) {
+		case NORMAL:
+			return properties;
+		case ENVIRONMENT_VARIABLE:
+			return getEnvironmentVariableProperties(properties);
+		default:
+			throw new IllegalArgumentException(outputStyle + " is unknown");
+		}
+	}
+
+	protected Properties getEnvironmentVariableProperties(Properties properties) {
+		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
+		Collections.sort(keys);
+		Properties newProperties = new Properties();
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String newKey = key.toUpperCase().replace(".", "_");
+			newProperties.setProperty(newKey, value);
+		}
+		return newProperties;
 	}
 }
