@@ -45,6 +45,6 @@ public class WriteActiveProfileProperties extends AbstractWritePropertiesMojo {
 		}
 
 		getLog().info("Creating " + outputFile);
-		writeProperties(this.outputFile, properties, this.outputStyle);
+		writeProperties(this.outputFile, properties, this.outputStyle, this.prefix);
 	}
 }

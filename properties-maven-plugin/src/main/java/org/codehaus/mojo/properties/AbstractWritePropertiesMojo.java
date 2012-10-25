@@ -28,6 +28,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
@@ -54,13 +55,21 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 	 * Either <code>NORMAL</code> or <code>ENVIRONMENT_VARIABLE</code>. When set to <code>ENVIRONMENT_VARIABLE</code> the keys in the
 	 * properties file will all be upper case with periods replaced by underscores.
 	 *
-	 * @parameter expression="${properties.outputStyle}" default-value="NORMAL";
+	 * @parameter expression="${properties.outputStyle}" default-value="NORMAL"
 	 * @required
 	 */
 	OutputStyle outputStyle;
 
-	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle) throws MojoExecutionException {
-		Properties formatted = getProperties(properties, outputStyle);
+	/**
+	 * If supplied property keys are prefixed with this value before being stored.
+	 *
+	 * @parameter expression="${properties.prefix}"
+	 */
+	String prefix;
+
+	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle, String prefix) throws MojoExecutionException {
+		Properties prefixed = getPrefixedProperties(properties, prefix);
+		Properties formatted = getFormattedProperties(prefixed, outputStyle);
 		Properties sorted = getSortedProperties(formatted);
 		OutputStream out = null;
 		try {
@@ -79,7 +88,7 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 		return sp;
 	}
 
-	protected Properties getProperties(Properties properties, OutputStyle style) {
+	protected Properties getFormattedProperties(Properties properties, OutputStyle style) {
 		switch (style) {
 		case NORMAL:
 			return properties;
@@ -88,6 +97,21 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 		default:
 			throw new IllegalArgumentException(outputStyle + " is unknown");
 		}
+	}
+
+	protected Properties getPrefixedProperties(Properties properties, String prefix) {
+		if (StringUtils.isBlank(prefix)) {
+			return properties;
+		}
+		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
+		Collections.sort(keys);
+		Properties newProperties = new Properties();
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String newKey = prefix + "." + key;
+			newProperties.setProperty(newKey, value);
+		}
+		return newProperties;
 	}
 
 	protected Properties getEnvironmentVariableProperties(Properties properties) {

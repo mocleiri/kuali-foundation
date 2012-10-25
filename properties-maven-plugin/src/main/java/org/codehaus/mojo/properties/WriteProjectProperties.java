@@ -97,7 +97,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		trim(properties, exclude, include);
 
 		getLog().info("Creating " + outputFile);
-		writeProperties(this.outputFile, properties, this.outputStyle);
+		writeProperties(this.outputFile, properties, this.outputStyle, this.prefix);
 	}
 
 	protected Properties getResolvedProperties(Properties props) {

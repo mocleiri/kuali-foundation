@@ -34,7 +34,7 @@ public class WriteProjectPropertiesTest {
 			properties.setProperty("filename", "C:\\temp\\mvn.txt :   #   =");
 			properties.putAll(System.getenv());
 			properties.putAll(WriteProjectProperties.getEnvironmentVariables());
-			mojo.writeProperties(outputFile, properties, OutputStyle.ENVIRONMENT_VARIABLE);
+			mojo.writeProperties(outputFile, properties, OutputStyle.ENVIRONMENT_VARIABLE, "nightlytag");
 			File props2 = new File("/Users/jeffcaddel/jvm.properties");
 			OutputStream out = FileUtils.openOutputStream(props2);
 			properties.store(out, null);
