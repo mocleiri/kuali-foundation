@@ -41,6 +41,28 @@
       <plugins>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>maven-sysprops-plugin</artifactId>
+          <version>1.0.0</version>
+          <executions>
+            <execution>
+              <id>set</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>set</goal>
+              </goals>
+              <configuration>
+                <systemProperties>
+                  <property>
+                    <name>java.security.egd</name>
+                    <value>file:///dev/urandom</value>
+                  </property>
+                </systemProperties>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
           <executions>
