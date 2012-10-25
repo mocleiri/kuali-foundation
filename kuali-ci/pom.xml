@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.7.1</version>
+    <version>2.0.5</version>
   </parent>
   <name>Kuali CI</name>
   <groupId>org.kuali.common</groupId>
@@ -340,6 +340,7 @@
               <version>${plugin.s3.version}</version>
               <configuration>
                 <csvFile>${s3.summary.csv}</csvFile>
+                <include>site.origin.kuali.org,maven.kuali.org</include>
               </configuration>
               <executions>
                 <execution>
