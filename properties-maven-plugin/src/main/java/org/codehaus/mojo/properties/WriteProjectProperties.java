@@ -20,11 +20,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.util.StringUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -127,19 +125,23 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	}
 
 	protected void trim(Properties properties, String excludeCSV, String includeCSV) {
-		List<String> omitKeys = ReadPropertiesMojo.getListFromCSV(excludeCSV);
-		for (String key : omitKeys) {
-			properties.remove(key);
-		}
-		if (StringUtils.isBlank(includeCSV)) {
-			return;
-		}
-		List<String> includeKeys = ReadPropertiesMojo.getListFromCSV(includeCSV);
-		Set<String> keys = properties.stringPropertyNames();
+		List<String> excludes = ReadPropertiesMojo.getListFromCSV(excludeCSV);
+		List<String> includes = ReadPropertiesMojo.getListFromCSV(includeCSV);
+		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
+		Collections.sort(keys);
 		for (String key : keys) {
-			if (!includeKeys.contains(key)) {
+			boolean include = include(key, includes, excludes);
+			if (!include) {
 				properties.remove(key);
 			}
+		}
+	}
+
+	public boolean include(String value, List<String> includes, List<String> excludes) {
+		if (excludes.contains(value)) {
+			return false;
+		} else {
+			return includes.size() == 0 || includes.contains(value);
 		}
 	}
 
