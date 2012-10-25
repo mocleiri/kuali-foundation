@@ -120,6 +120,10 @@
     <plugins>
       <plugin>
         <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>maven-sysprops-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
         <artifactId>properties-maven-plugin</artifactId>
       </plugin>
       <plugin>
