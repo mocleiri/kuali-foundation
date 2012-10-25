@@ -1275,7 +1275,7 @@
                   <goal>write-project-properties</goal>
                 </goals>
                 <configuration>
-                  <include>nightly.version</include>
+                  <include>NIGHTLY_VERSION</include>
                   <outputFile>${project.build.directory}/properties/version.properties</outputFile>
                   <resolvePlaceholders>true</resolvePlaceholders>
                 </configuration>
