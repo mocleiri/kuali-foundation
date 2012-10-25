@@ -1213,6 +1213,7 @@
         <kuali.nightly.tag>builds/${project.artifactId}-${version.major}.${version.minor}/${version.trimmed}/${kuali.build.day}-r${svn.revision}</kuali.nightly.tag>
         <version>${project.version}</version>
         <nightly.version>${version.trimmed}-r${svn.revision}</nightly.version>
+        <NIGHTLY_VERSION>${nightly.version}</NIGHTLY_VERSION>
         <svn.from>${extractor.scmUrl}@${svn.revision}</svn.from>
         <svn.to>${extractor.svnTagBase}/${kuali.nightly.tag}</svn.to>
         <svn.copy.message>Automated nightly build tag</svn.copy.message>
