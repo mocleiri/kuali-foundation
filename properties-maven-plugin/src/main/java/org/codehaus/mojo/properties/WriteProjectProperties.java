@@ -29,9 +29,9 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Write project properties to a file.
- * 
+ *
  * @author Jeff Caddel
- * 
+ *
  * @goal write-project-properties
  */
 public class WriteProjectProperties extends AbstractWritePropertiesMojo {
@@ -39,7 +39,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	/**
 	 * If true, the plugin will include system properties when writing the properties file. System properties override both environment
 	 * variables and project properties.
-	 * 
+	 *
 	 * @parameter default-value="false" expression="${properties.includeSystemProperties}"
 	 */
 	private boolean includeSystemProperties;
@@ -47,14 +47,14 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	/**
 	 * If true, the plugin will include environment variables when writing the properties file. Environment variables are prefixed with
 	 * "env". Environment variables override project properties.
-	 * 
+	 *
 	 * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
 	 */
 	private boolean includeEnvironmentVariables;
 
 	/**
 	 * Comma separated set of properties to exclude when writing the properties file
-	 * 
+	 *
 	 * @parameter expression="${properties.exclude}"
 	 */
 	private String exclude;
@@ -62,14 +62,14 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	/**
 	 * Comma separated set of properties to write to the properties file. If provided, only the properties matching those supplied here will
 	 * be written to the properties file.
-	 * 
+	 *
 	 * @parameter expression="${properties.include}"
 	 */
 	private String include;
 
 	/**
 	 * If true placeholders are resolved before writing properties to the file
-	 * 
+	 *
 	 * @parameter expression="${properties.resolvePlaceholders}"
 	 */
 	private boolean resolvePlaceholders;
@@ -88,12 +88,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties.putAll(System.getProperties());
 		}
 
-		// Remove properties as appropriate
-		trim(properties, exclude, include);
-
+		// Resolve placeholders
 		if (resolvePlaceholders) {
 			properties = getResolvedProperties(properties);
 		}
+
+		// Remove properties as appropriate
+		trim(properties, exclude, include);
 
 		getLog().info("Creating " + outputFile);
 		writeProperties(outputFile, properties);
