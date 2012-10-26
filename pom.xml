@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.0.26</version>
+    <version>2.0.5</version>
   </parent>
   <groupId>org.kuali.db.ojb</groupId>
   <artifactId>db-ojb</artifactId>
@@ -227,6 +227,35 @@
             <param>ra.xml</param>
           </excludes>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>clean</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>clean</phase>
+            <configuration>
+              <target>
+                <ant antfile="build.xml" target="clean" />
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jar</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <target>
+                <ant antfile="build.xml" target="jar" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
