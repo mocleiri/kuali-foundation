@@ -240,7 +240,7 @@ function count_organizations()
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container" align="center" id="G262" style="display: block;">
+          <div class="tab-container" align="center" id="G262" style="display:none;">
             <div class="tab-container-error"> </div>
             <div class="h2-container">
               <h2>Document Overview</h2>
@@ -278,7 +278,7 @@ function count_organizations()
           </table>
           
           <!-- TAB -->
-          <div class="tab-container" align="center" id="G787" style="display: block;">
+          <div class="tab-container" align="center" id="G787" style="display:none;">
             <div class="h2-container"><span class="subhead-left">
               <h2>Required Fields for Saving Document</h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
@@ -794,11 +794,158 @@ function count_organizations()
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container" align=center id="G126" style="display: none;">
+          <div class="tab-container" align=center id="G126" style="display:block;">
             
-            <div class="h2-container"><span class="subhead-left">
-              <h2><span class="tabtable1-left">Organizations</span></h2>
-              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px;">
+                	
+                    <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
+                    
+                    <div title="Comments" id="control_comment00" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
+                    	2
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#control_comment00").toggle(
+                                function () {
+                                    $("#div_comment00").slideDown(400);
+                                  }, 
+                                  function () {
+                                    $("#div_comment00").slideUp(400);
+                                  }
+                            );
+                        });
+                    </script>
+                    
+                    Organizations
+                </div>
+                <div id="div_comment00" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding:15px;">
+                	
+                    
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" cellspacing="0">
+                    	<tr>
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#8C8C8C; font-weight:bold;" colspan="6">
+                            	Review Comments
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none;">&nbsp;
+                            	
+                            </th>
+                            <th style="text-align:center;">
+                            	Comment
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Last Updated By
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Created By
+                            </th>
+                            <th style="text-align:center; width:100px;">
+                            	Actions
+                            </th>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; width:50px; text-align:center;">
+                            	add:
+                            </th>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                        	Standard Comment:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            <select style="width:100%;">
+                                                <option value="0">select</option>
+                                                <option value="1" selected="selected">label one</option>
+                                                <option value="2">label two</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	<img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	1
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam accumsan orci sed commodo. Cras mattis malesuada cursus... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                
+                            </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td style="text-align:center;">
+                            	<!--<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />-->
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	2
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Nulla pharetra nisi ut urna ullamcorper eget blandit metus feugiat. Suspendisse non libero purus, non fringilla eros. Donec... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                
+                            </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </div>
           
             	<table align=center cellpadding=0 cellspacing=0 summary="">
                     <tr>
@@ -941,7 +1088,7 @@ function count_organizations()
           </table>
           
           
-          <div class="tab-container" align="center" id="G03" style="display: none;">
+          <div class="tab-container" align="center" id="G03" style="display:block;">
           
             
               
@@ -949,14 +1096,15 @@ function count_organizations()
                 	
                     <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
                     
-                    <div id="control_comment01" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-orange.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
-                    	2
+                    <div title="Changes to Comments" id="control_comment01" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-orange.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
+                    	3
                     </div>
                     <script>
                         $(document).ready(function () {
                             $("#control_comment01").toggle(
                                 function () {
                                     $("#div_comment01").slideDown(400);
+                                    $("#control_comment01").css("background-image","url('../images/comment14-gray.png')");
                                   }, 
                                   function () {
                                     $("#div_comment01").slideUp(400);
@@ -967,71 +1115,158 @@ function count_organizations()
                     
                     Funding Sources
                 </div>
-                <div id="div_comment01" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:15px;">
+                <div id="div_comment01" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding:15px;">
                 	
-                    <div class="h2-container" style="background-color:#8C8C8C;">
-                        <span class="subhead-left">
-                            <h2><span class="tabtable1-left">Review Comments</span></h2>
-                        </span>
-                    </div>
-                    <table align=center cellpadding=0 cellspacing=0>
-                        <tr>
-                            <th>&nbsp;
-                                
-                            </th>
-                            <th>
-                                Standard Comment
-                            </th>
-                            <th>
-                                Comment
-                            </th>
-                            <th>
-                                Last Updated By
-                            </th>
-                            <th>
-                                Created By
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="infoline">
-                                add:
-                            </th>
-                            <td class="infoline">
-                                [select][lookup]
-                            </td>
-                            <td class="infoline">
-                                [textarea]
-                            </td>
-                            <td class="infoline">&nbsp;</td>
-                          <td class="infoline">&nbsp;
-                                
-                            </td>
-                            <td class="infoline">
-                                <div align=center><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></div>
+                    
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" cellspacing="0">
+                    	<tr>
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#8C8C8C; font-weight:bold;" colspan="6">
+                            	Review Comments
                             </td>
                         </tr>
-                        <tr>
-                            <th>
-                                1
+                    	<tr>
+                        	<th style="border-left:none;">&nbsp;
+                            	
+                            </th>
+                            <th style="text-align:center;">
+                            	Comment
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Last Updated By
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Created By
+                            </th>
+                            <th style="text-align:center; width:100px;">
+                            	Actions
+                            </th>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; width:50px; text-align:center;">
+                            	add:
+                            </th>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                        	Standard Comment:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            <select style="width:100%;">
+                                                <option value="0">select</option>
+                                                <option value="1" selected="selected">label one</option>
+                                                <option value="2">label two</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	<img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	1
                             </th>
                             <td>
-                                n/a
-                            </td>
-                      <td>
-                                [filled textarea]
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam accumsan orci sed commodo. Cras mattis malesuada cursus... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                
                             </td>
                             <td>
-                                xxx
+                            	Reveiwerson, Joseph </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td style="text-align:center;">
+                            	<!--<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />-->
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	2
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3">Sed vel dictum eros. Morbi nec lacus ac odio feugiat suscipit non quis urna. Curabitur egestas leo arcu. Etiam sed lacus tellus... </textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </td>
                             <td>
-                                xxx
+                            	Ewer, Reeve
                             </td>
                             <td>
-                                [up][down]
-                                <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                            	Ewer, Reeve</td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	3
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Nulla pharetra nisi ut urna ullamcorper eget blandit metus feugiat. Suspendisse non libero purus, non fringilla eros. Donec... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                
+                            </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
                             </td>
                         </tr>
                     </table>
@@ -1169,10 +1404,104 @@ function count_organizations()
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          <div class="tab-container" align="center" id="G90" style="display: none;">
-            <div class="h2-container">
-              <h2><span class="subhead-left">Participant Types</span></h2>
-              <span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+          <div class="tab-container" align="center" id="G90" style="display:block;">
+          
+           		<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px;">
+                	
+                    <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
+                    
+                    <div title="Comments" id="control_comment02" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
+                    	0
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#control_comment02").toggle(
+                                function () {
+                                    $("#div_comment02").slideDown(400);
+                                  }, 
+                                  function () {
+                                    $("#div_comment02").slideUp(400);
+                                  }
+                            );
+                        });
+                    </script>
+                    
+                    Participant Types
+                </div>
+                <div id="div_comment02" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding:15px;">
+                	
+                    
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" cellspacing="0">
+                    	<tr>
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#8C8C8C; font-weight:bold;" colspan="6">
+                            	Review Comments
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none;">&nbsp;
+                            	
+                            </th>
+                            <th style="text-align:center;">
+                            	Comment
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Last Updated By
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Created By
+                            </th>
+                            <th style="text-align:center; width:100px;">
+                            	Actions
+                            </th>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; width:50px; text-align:center;">
+                            	add:
+                            </th>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                        	Standard Comment:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            <select style="width:100%;">
+                                                <option value="0">select</option>
+                                                <option value="1" selected="selected">label one</option>
+                                                <option value="2">label two</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	<img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </div>
+              
+              
             <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
               <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
                 <tr align="center" valign="top">
@@ -1295,6 +1624,7 @@ function count_organizations()
                 </tr>
               </tbody>
             </table>
+            
           </div>
           
           
