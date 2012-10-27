@@ -36,248 +36,248 @@ import org.slf4j.LoggerFactory;
  * Invoke the 'mvn' executable
  */
 public class MvnExecutor {
-    private static final Logger log = LoggerFactory.getLogger(MvnExecutor.class);
-    ResourceUtils resourceUtils = new ResourceUtils();
-    PropertiesUtils propertiesUtils = new PropertiesUtils();
+	private static final Logger log = LoggerFactory.getLogger(MvnExecutor.class);
+	ResourceUtils resourceUtils = new ResourceUtils();
+	PropertiesUtils propertiesUtils = new PropertiesUtils();
 
-    public void execute(MvnContext context) throws Exception {
-        List<String> allPoms = getAllPoms(context);
-        if (allPoms.size() == 0) {
-            executePom(context);
-        } else {
-            for (String pom : allPoms) {
-                context.setPom(pom);
-                executePom(context);
-            }
-        }
-    }
+	public void execute(MvnContext context) throws Exception {
+		List<String> allPoms = getAllPoms(context);
+		if (allPoms.size() == 0) {
+			executePom(context);
+		} else {
+			for (String pom : allPoms) {
+				context.setPom(pom);
+				executePom(context);
+			}
+		}
+	}
 
-    public List<String> getAllPoms(MvnContext context) {
-        List<String> allPoms = new ArrayList<String>();
-        if (!StringUtils.isBlank(context.getPom())) {
-            allPoms.add(context.getPom());
-        }
-        if (context.getPoms() != null) {
-            for (String pom : context.getPoms()) {
-                if (!StringUtils.isBlank(pom)) {
-                    allPoms.add(pom);
-                }
-            }
-        }
-        return allPoms;
-    }
+	public List<String> getAllPoms(MvnContext context) {
+		List<String> allPoms = new ArrayList<String>();
+		if (!StringUtils.isBlank(context.getPom())) {
+			allPoms.add(context.getPom());
+		}
+		if (context.getPoms() != null) {
+			for (String pom : context.getPoms()) {
+				if (!StringUtils.isBlank(pom)) {
+					allPoms.add(pom);
+				}
+			}
+		}
+		return allPoms;
+	}
 
-    protected void executePom(MvnContext context) throws Exception {
-        File tempPom = null;
-        try {
-            StreamConsumer stdout = new DefaultConsumer();
-            StreamConsumer stderr = new DefaultConsumer();
-            Commandline cl = getCommandLine(context);
-            showConfig(context, cl);
-            tempPom = prepareFileSystem(context, cl);
-            if (!context.isSilent() && !context.isQuiet()) {
-                log.info(cl.toString());
-            }
-            int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
-            validateExitValue(context, exitValue);
-        } finally {
-            if (context.isDeleteTempPom()) {
-                deleteQuietly(tempPom);
-            }
-        }
-    }
+	protected void executePom(MvnContext context) throws Exception {
+		File tempPom = null;
+		try {
+			StreamConsumer stdout = new DefaultConsumer();
+			StreamConsumer stderr = new DefaultConsumer();
+			Commandline cl = getCommandLine(context);
+			showConfig(context, cl);
+			tempPom = prepareFileSystem(context, cl);
+			if (!context.isSilent() && !context.isQuiet()) {
+				log.info(cl.toString());
+			}
+			int exitValue = CommandLineUtils.executeCommandLine(cl, stdout, stderr);
+			validateExitValue(context, exitValue);
+		} finally {
+			if (context.isDeleteTempPom()) {
+				deleteQuietly(tempPom);
+			}
+		}
+	}
 
-    protected String toEmpty(String s) {
-        if (StringUtils.isBlank(s)) {
-            return "";
-        } else {
-            return s;
-        }
-    }
+	protected String toEmpty(String s) {
+		if (StringUtils.isBlank(s)) {
+			return "";
+		} else {
+			return s;
+		}
+	}
 
-    protected boolean isEmpty(Collection<?> c) {
-        return c == null || c.size() == 0;
-    }
+	protected boolean isEmpty(Collection<?> c) {
+		return c == null || c.size() == 0;
+	}
 
-    protected String getMavenArgs(Commandline cl) {
-        StringBuilder sb = new StringBuilder();
-        String[] args = cl.getArguments();
-        for (int i = 0; i < args.length; i++) {
-            String arg = args[i];
-            if (i != 0) {
-                sb.append(" ");
-            }
-            sb.append(arg);
-        }
-        return sb.toString();
-    }
+	protected String getMavenArgs(Commandline cl) {
+		StringBuilder sb = new StringBuilder();
+		String[] args = cl.getArguments();
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (i != 0) {
+				sb.append(" ");
+			}
+			sb.append(arg);
+		}
+		return sb.toString();
+	}
 
-    protected void showConfig(MvnContext context, Commandline cl) {
-        if (!context.isSilent()) {
-            log.info("Maven POM - " + toEmpty(context.getPom()));
-        }
-        String args = getMavenArgs(cl);
-        if (!context.isSilent()) {
-            log.info("Maven Args - " + args);
-        }
-        if (isAddMavenOpts(context)) {
-            if (!context.isSilent() && !context.isQuiet()) {
-                log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
-            }
-        }
-    }
+	protected void showConfig(MvnContext context, Commandline cl) {
+		if (!context.isSilent()) {
+			log.info("Maven POM - " + toEmpty(context.getPom()));
+		}
+		String args = getMavenArgs(cl);
+		if (!context.isSilent()) {
+			log.info("Maven Args - " + args);
+		}
+		if (isAddMavenOpts(context)) {
+			if (!context.isSilent() && !context.isQuiet()) {
+				log.info(MvnContext.MAVEN_OPTS + '=' + System.getenv(MvnContext.MAVEN_OPTS));
+			}
+		}
+	}
 
-    protected String getMvnExecutable(String executable) {
-        if (!StringUtils.isBlank(executable)) {
-            return executable;
-        }
-        String mavenHome = System.getProperty("maven.home");
-        if (StringUtils.isBlank(mavenHome)) {
-            log.info("${maven.home} not set.  Using default executable '" + getActualExecutable() + "'");
-            return getActualExecutable();
-        } else {
-            return mavenHome + File.separator + "bin" + File.separatorChar + getActualExecutable();
-        }
-    }
+	protected String getMvnExecutable(String executable) {
+		if (!StringUtils.isBlank(executable)) {
+			return executable;
+		}
+		String mavenHome = System.getProperty("maven.home");
+		if (StringUtils.isBlank(mavenHome)) {
+			log.info("${maven.home} not set.  Using default executable '" + getActualExecutable() + "'");
+			return getActualExecutable();
+		} else {
+			return mavenHome + File.separator + "bin" + File.separatorChar + getActualExecutable();
+		}
+	}
 
-    protected String getActualExecutable() {
-        if (!Os.isFamily(Os.FAMILY_WINDOWS)) {
-            return "mvn";
-        } else {
-            return "mvn.bat";
-        }
-    }
+	protected String getActualExecutable() {
+		if (!Os.isFamily(Os.FAMILY_WINDOWS)) {
+			return "mvn";
+		} else {
+			return "mvn.bat";
+		}
+	}
 
-    protected Commandline getCommandLine(MvnContext context) throws Exception {
-        Commandline cl = new Commandline();
-        cl.setExecutable(getMvnExecutable(context.getExecutable()));
-        cl.setWorkingDirectory(context.getBasedir());
-        if (context.isAddEnvironment()) {
-            cl.addSystemEnvironment();
-        }
-        addMavenOpts(context, cl);
-        addArgs(cl, context.getArgs());
-        addProperties(context, cl, context.getProperties());
-        return cl;
-    }
+	protected Commandline getCommandLine(MvnContext context) throws Exception {
+		Commandline cl = new Commandline();
+		cl.setExecutable(getMvnExecutable(context.getExecutable()));
+		cl.setWorkingDirectory(context.getBasedir());
+		if (context.isAddEnvironment()) {
+			cl.addSystemEnvironment();
+		}
+		addMavenOpts(context, cl);
+		addArgs(cl, context.getArgs());
+		addProperties(context, cl, context.getProperties());
+		return cl;
+	}
 
-    protected boolean isAddMavenOpts(MvnContext context) {
-        String mavenOpts = System.getenv(MvnContext.MAVEN_OPTS);
-        return context.isAddMavenOpts() && !StringUtils.isBlank(mavenOpts);
-    }
+	protected boolean isAddMavenOpts(MvnContext context) {
+		String mavenOpts = System.getenv(MvnContext.MAVEN_OPTS);
+		return context.isAddMavenOpts() && !StringUtils.isBlank(mavenOpts);
+	}
 
-    protected void addMavenOpts(MvnContext context, Commandline cl) {
-        if (isAddMavenOpts(context)) {
-            String mavenOpts = System.getenv(MvnContext.MAVEN_OPTS);
-            cl.addEnvironment(MvnContext.MAVEN_OPTS, mavenOpts);
-        }
-    }
+	protected void addMavenOpts(MvnContext context, Commandline cl) {
+		if (isAddMavenOpts(context)) {
+			String mavenOpts = System.getenv(MvnContext.MAVEN_OPTS);
+			cl.addEnvironment(MvnContext.MAVEN_OPTS, mavenOpts);
+		}
+	}
 
-    protected File prepareFileSystem(MvnContext context, Commandline cl) throws IOException {
-        FileUtils.forceMkdir(context.getWorkingDir());
-        if (StringUtils.isBlank(context.getPom())) {
-            return null;
-        }
-        String s = resourceUtils.read(context.getPom());
-        if (context.isFilterPom()) {
-            Properties props = getAllProperties(context.getProjectProperties());
-            Properties filterProps = getFilterProperties(props, context);
-            log.info("Filtering POM using " + filterProps.size() + " properties");
-            s = propertiesUtils.getResolvedValue(s, filterProps);
-        }
-        File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
-        resourceUtils.write(file, s);
-        cl.createArg().setValue("-f");
-        if (!context.getBasedir().equals(context.getWorkingDir())) {
-            File tempPom = new File(context.getBasedir(), file.getName());
-            FileUtils.copyFile(file, tempPom);
-            cl.createArg().setValue(tempPom.getName());
-            return tempPom;
-        } else {
-            cl.createArg().setValue(file.getName());
-            return null;
-        }
-    }
+	protected File prepareFileSystem(MvnContext context, Commandline cl) throws IOException {
+		FileUtils.forceMkdir(context.getWorkingDir());
+		if (StringUtils.isBlank(context.getPom())) {
+			return null;
+		}
+		String pom = resourceUtils.read(context.getPom());
+		if (context.isFilterPom()) {
+			Properties props = getAllProperties(context.getProjectProperties());
+			Properties filterProps = getFilterProperties(props, context);
+			log.info("Filtering POM using " + filterProps.size() + " properties");
+			pom = propertiesUtils.getResolvedValue(pom, filterProps);
+		}
+		File file = File.createTempFile("pom.", ".xml", context.getWorkingDir());
+		resourceUtils.write(file, pom);
+		cl.createArg().setValue("-f");
+		if (!context.getBasedir().equals(context.getWorkingDir())) {
+			File tempPom = new File(context.getBasedir(), file.getName());
+			FileUtils.copyFile(file, tempPom);
+			cl.createArg().setValue(tempPom.getName());
+			return tempPom;
+		} else {
+			cl.createArg().setValue(file.getName());
+			return null;
+		}
+	}
 
-    protected Properties getFilterProperties(Properties properties, MvnContext context) {
-        if (isEmpty(context.getFilterProperties())) {
-            return properties;
-        }
-        Properties newProperties = new Properties();
-        for (String key : context.getFilterProperties()) {
-            String value = properties.getProperty(key);
-            if (!StringUtils.isBlank(value)) {
-                newProperties.setProperty(key, value);
-            }
-        }
-        return newProperties;
+	protected Properties getFilterProperties(Properties properties, MvnContext context) {
+		if (isEmpty(context.getFilterProperties())) {
+			return properties;
+		}
+		Properties newProperties = new Properties();
+		for (String key : context.getFilterProperties()) {
+			String value = properties.getProperty(key);
+			if (!StringUtils.isBlank(value)) {
+				newProperties.setProperty(key, value);
+			}
+		}
+		return newProperties;
 
-    }
+	}
 
-    protected Properties getAllProperties(Properties projectProperties) {
-        Properties props = new Properties();
-        // Load project properties first
-        props.putAll(projectProperties);
-        // Environment properties are all prefixed with "env"
-        props.putAll(propertiesUtils.getEnvironmentProperties());
-        // System properties override everything
-        props.putAll(System.getProperties());
-        return props;
+	protected Properties getAllProperties(Properties projectProperties) {
+		Properties props = new Properties();
+		// Load project properties first
+		props.putAll(projectProperties);
+		// Environment properties are all prefixed with "env"
+		props.putAll(propertiesUtils.getEnvironmentProperties());
+		// System properties override everything
+		props.putAll(System.getProperties());
+		return props;
 
-    }
+	}
 
-    protected void addArgs(Commandline cl, List<String> args) {
-        if (args == null || args.size() == 0) {
-            return;
-        }
-        for (String arg : args) {
-            cl.createArg().setValue(arg);
-        }
-    }
+	protected void addArgs(Commandline cl, List<String> args) {
+		if (args == null || args.size() == 0) {
+			return;
+		}
+		for (String arg : args) {
+			cl.createArg().setValue(arg);
+		}
+	}
 
-    protected void addProperties(MvnContext context, Commandline cl, List<String> properties) {
-        if (properties == null || properties.size() == 0) {
-            return;
-        }
-        for (String key : properties) {
-            String value = getProperty(context, key);
-            addProperty(cl, key, value);
-        }
-    }
+	protected void addProperties(MvnContext context, Commandline cl, List<String> properties) {
+		if (properties == null || properties.size() == 0) {
+			return;
+		}
+		for (String key : properties) {
+			String value = getProperty(context, key);
+			addProperty(cl, key, value);
+		}
+	}
 
-    protected String getProperty(MvnContext context, String key) {
-        String sys = System.getProperty(key);
-        if (!StringUtils.isBlank(sys)) {
-            return sys;
-        } else {
-            return context.getProjectProperties().getProperty(key);
-        }
-    }
+	protected String getProperty(MvnContext context, String key) {
+		String sys = System.getProperty(key);
+		if (!StringUtils.isBlank(sys)) {
+			return sys;
+		} else {
+			return context.getProjectProperties().getProperty(key);
+		}
+	}
 
-    protected void addProperty(Commandline cl, String key, String value) {
-        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
-            return;
-        }
-        cl.createArg().setValue("-D" + key + "=" + value);
-    }
+	protected void addProperty(Commandline cl, String key, String value) {
+		if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
+			return;
+		}
+		cl.createArg().setValue("-D" + key + "=" + value);
+	}
 
-    protected boolean isFail(MvnContext context, int exitValue) {
-        return exitValue != 0 && context.isFailOnError();
-    }
+	protected boolean isFail(MvnContext context, int exitValue) {
+		return exitValue != 0 && context.isFailOnError();
+	}
 
-    protected void validateExitValue(MvnContext context, int exitValue) throws RuntimeException {
-        if (isFail(context, exitValue)) {
-            throw new RuntimeException("Non-zero exit value");
-        }
-    }
+	protected void validateExitValue(MvnContext context, int exitValue) throws RuntimeException {
+		if (isFail(context, exitValue)) {
+			throw new RuntimeException("Non-zero exit value");
+		}
+	}
 
-    protected void deleteQuietly(File file) {
-        if (file == null) {
-            return;
-        }
-        if (!file.delete()) {
-            log.info("Unable to delete " + file);
-        }
-    }
+	protected void deleteQuietly(File file) {
+		if (file == null) {
+			return;
+		}
+		if (!file.delete()) {
+			log.info("Unable to delete " + file);
+		}
+	}
 
 }
