@@ -73,13 +73,21 @@
   <entry key="jenkins.job.cron.at.midnight">@midnight</entry>
   <entry key="jenkins.job.cron.at.annually">@annually</entry>
 
+  <entry key="jenkins.job.builders">${jenkins.job.builders.shell}</entry>
+
   <entry key="jenkins.job.builders.shell"><![CDATA[
     <hudson.tasks.Shell>
       <command>${jenkins.job.builders.shell.command}</command>
     </hudson.tasks.Shell>
   ]]></entry>
 
+  <!-- shell script for publishing a Maven project -->
+  <entry key="jenkins.job.builders.shell.command.publish"><![CDATA[mvn clean deploy site-deploy -Pkuali-release -e
+  ]]></entry>
+
+  <!-- shell script for releasing a Maven project -->
   <entry key="jenkins.job.builders.shell.command.release"><![CDATA[mvn release:prepare release:perform -B -e
+cd target/checkout
 mvn deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e  
 mvn site-deploy -Pkuali-release -Dkuali.site.latest=true
   ]]></entry>

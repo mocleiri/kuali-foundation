@@ -19,7 +19,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>Properties specific to releasing a Kuali project</comment>
-  <entry key="jenkins.job.builders">${jenkins.job.builders.shell}</entry>
   <entry key="jenkins.job.builders.shell.command">${jenkins.job.builders.shell.command.release}</entry>
   <entry key="jenkins.job.type">release</entry>
   <entry key="jenkins.job.description.brief"><![CDATA[      
