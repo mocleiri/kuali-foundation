@@ -82,7 +82,7 @@
   ]]></entry>
 
   <!-- shell script for verifying ECL 2.0 license header compliance on a Maven project -->
-  <entry key="jenkins.job.builders.shell.command.unit"><![CDATA[mvn clean install -Plicense -N -DskipTests
+  <entry key="jenkins.job.builders.shell.command.license"><![CDATA[mvn clean install -Plicense -N -DskipTests
   ]]></entry>
 
   <!-- shell script for unit testing a Maven project -->
