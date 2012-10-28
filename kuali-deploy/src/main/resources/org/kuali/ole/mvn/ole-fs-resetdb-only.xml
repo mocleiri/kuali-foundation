@@ -47,6 +47,7 @@
           <artifactId>properties-maven-plugin</artifactId>
           <version>${plugin.properties.version}</version>
           <executions>
+            <!-- Generate original.properties so we can validate all the properties required by the db reset process are in place -->
             <execution>
               <id>write</id>
               <phase>validate</phase>
@@ -58,6 +59,7 @@
                 <outputFile>${properties.original}</outputFile>
               </configuration>
             </execution>
+            <!-- This execution is tied to the initialize phase so it executes AFTER the mvn-maven-plugin -->
             <execution>
               <id>read</id>
               <phase>initialize</phase>
