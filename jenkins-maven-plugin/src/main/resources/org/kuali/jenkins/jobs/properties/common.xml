@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2011-2012 The Kuali Foundation
+  Copyright 2011-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
@@ -64,6 +64,25 @@
   <entry key="jenkins.job.cron.midnight">0 0 * * *</entry>
   <!-- 7am UTC is midnight in Arizona -->
   <entry key="jenkins.job.cron.7am">0 7 * * *</entry>
+
+  <entry key="jenkins.job.cron.at.hourly">@hourly</entry>
+  <entry key="jenkins.job.cron.at.daily">@daily</entry>
+  <entry key="jenkins.job.cron.at.weekly">@weekly</entry>
+  <entry key="jenkins.job.cron.at.monthly">@monthly</entry>
+  <entry key="jenkins.job.cron.at.yearly">@yearly</entry>
+  <entry key="jenkins.job.cron.at.midnight">@midnight</entry>
+  <entry key="jenkins.job.cron.at.annually">@annually</entry>
+
+  <entry key="jenkins.job.builders.shell"><![CDATA[
+    <hudson.tasks.Shell>
+      <command>${jenkins.job.builders.shell.command}</command>
+    </hudson.tasks.Shell>
+  ]]></entry>
+
+  <entry key="jenkins.job.builders.shell.command.release"><![CDATA[mvn release:prepare release:perform -B -e
+mvn deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e  
+mvn site-deploy -Pkuali-release -Dkuali.site.latest=true
+  ]]></entry>
 
   <entry key="jenkins.job.trigger.scm"><![CDATA[
     <hudson.triggers.SCMTrigger>
