@@ -14,6 +14,7 @@
   <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
+    <jenkins.excludeVersion>true</jenkins.excludeVersion>
   </properties>
   <dependencyManagement>
     <dependencies>
