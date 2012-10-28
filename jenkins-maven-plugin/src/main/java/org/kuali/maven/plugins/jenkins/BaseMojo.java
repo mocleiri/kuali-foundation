@@ -96,7 +96,16 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean failOnError;
 
 	/**
-	 * A <code>List</code> of <code>Style</code> that map named styles to an xml template for each style
+	 * Optional <code>List</code> of custom <code>Style</code> xml templates. This can be supplied to the pom configuration as
+	 *
+	 * <pre>
+	 * &lt;<styles>&gt;
+	 *   &lt;<style>&gt;
+	 *     &lt;<name>&gt;my-custom-style-template&lt;</name>&gt;
+	 *     &lt;<template>&gt;classpath:org/foo/bar/my-custom-style-template.xml&lt;</template>&gt;
+	 *   &lt;</style>&gt;
+	 * &lt;</styles>&gt;
+	 * </pre>
 	 *
 	 * @parameter expression="${jenkins.styles}"
 	 * @required
