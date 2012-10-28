@@ -72,6 +72,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	 */
 	private boolean resolvePlaceholders;
 
+	/**
+	 * If true, include/exclude is used to trim the properties list before resolving placeholders
+	 *
+	 * @parameter expression="${properties.trimBeforeResolve}" default-value="true"
+	 */
+	private boolean trimBeforeResolve;
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Properties properties = new Properties();
@@ -86,6 +93,12 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties.putAll(System.getProperties());
 		}
 
+		if (trimBeforeResolve) {
+			// Remove properties as appropriate
+			trim(properties, exclude, include);
+
+		}
+
 		// Resolve placeholders
 		if (resolvePlaceholders) {
 			properties = getResolvedProperties(properties);
@@ -95,6 +108,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		trim(properties, exclude, include);
 
 		getLog().info("Creating " + outputFile);
+
+		// Save the properties to a file
 		writeProperties(this.outputFile, properties, this.outputStyle, this.prefix);
 	}
 
@@ -183,5 +198,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
 	public void setResolvePlaceholders(boolean resolvePlaceholders) {
 		this.resolvePlaceholders = resolvePlaceholders;
+	}
+
+	public boolean isTrimBeforeResolve() {
+		return trimBeforeResolve;
+	}
+
+	public void setTrimBeforeResolve(boolean trimBeforeResolve) {
+		this.trimBeforeResolve = trimBeforeResolve;
 	}
 }
