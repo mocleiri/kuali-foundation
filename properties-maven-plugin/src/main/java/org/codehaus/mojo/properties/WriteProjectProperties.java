@@ -75,14 +75,17 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Properties properties = new Properties();
+
 		// Add project properties
 		properties.putAll(project.getProperties());
+
+		// Add environment variables, overriding any existing properties with the same key
 		if (includeEnvironmentVariables) {
-			// Add environment variables, overriding any existing properties with the same key
 			properties.putAll(getEnvironmentVariables());
 		}
+
+		// Add system properties, overriding any existing properties with the same key
 		if (includeSystemProperties) {
-			// Add system properties, overriding any existing properties with the same key
 			properties.putAll(System.getProperties());
 		}
 
