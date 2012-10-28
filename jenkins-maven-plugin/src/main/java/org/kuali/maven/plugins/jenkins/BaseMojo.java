@@ -71,8 +71,8 @@ public abstract class BaseMojo extends AbstractMojo {
 	private File workingDir;
 
 	/**
-	 * If set to true, the build will fail the first time Jenkins CLI encounters an issue. When false, mojo's that issue multiple CLI
-	 * requests, will proceed through their list of requests and then fail at the end if an issue was encountered along the way.
+	 * If true, the build will fail the first time Jenkins CLI encounters an issue. When false, mojo's that issue multiple CLI requests,
+	 * will proceed through their list of requests and then fail at the end if an issue was encountered along the way.
 	 *
 	 * @parameter expression="${jenkins.stopOnError}" default-value="false"
 	 * @required
@@ -80,7 +80,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean stopOnError;
 
 	/**
-	 * If true the version of the Maven project is dropped from the job name
+	 * If true, the version of the Maven project is dropped from the job name
 	 *
 	 * @parameter expression="${jenkins.excludeVersion}" default-value="false"
 	 * @required
@@ -132,7 +132,7 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	/**
 	 * Comma separated list of known job types. When specifying a job name these can be used as shorthand for the fully qualified job name.
-	 * eg "publish" gets expanded to "jenkins-maven-plugin-1.1-publish". To turn off expansion set 'jobTypes' to the empty string, null, or
+	 * eg "publish" gets expanded to "jenkins-maven-plugin-publish". To turn off expansion set 'jobTypes' to the empty string, null, or
 	 * 'NONE'
 	 *
 	 * @parameter expression="${jenkins.jobTypes}" default-value="publish,unit,license,release"
