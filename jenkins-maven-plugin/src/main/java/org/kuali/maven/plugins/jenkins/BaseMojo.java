@@ -112,7 +112,8 @@ public abstract class BaseMojo extends AbstractMojo {
 	private List<Style> styles;
 
 	/**
-	 * The style of Jenkins job. Default styles are <code>maven</code> and <code>freestyle</code>
+	 * The style of Jenkins job. Default styles are <code>maven</code> and <code>freestyle</code>. This parameter must match one of the
+	 * default styles or one of the optional custom styles supplied to the plugin configuration.
 	 *
 	 * @parameter expression="${jenkins.style}" default-value="freestyle"
 	 * @required
