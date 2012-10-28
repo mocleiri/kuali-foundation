@@ -26,7 +26,7 @@
   <entry key="jenkins.job.description.brief"><![CDATA[ 
       <div id="jenkins-job-brief">
           <li id="jenkins-job-brief-title">Unit tests</li>
-          <li>Execute "${jenkins.job.goals}" on the project</li>
+          <li>Execute "${jenkins.job.builders.shell.command.unit}" on the project</li>
       </div>
     ]]></entry>
 </properties>
