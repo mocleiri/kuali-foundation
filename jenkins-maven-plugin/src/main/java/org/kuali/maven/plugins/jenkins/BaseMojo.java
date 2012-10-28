@@ -80,6 +80,14 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean stopOnError;
 
 	/**
+	 * If true the version of the Maven project is dropped from the job name
+	 *
+	 * @parameter expression="${jenkins.excludeVersion}" default-value="false"
+	 * @required
+	 */
+	private boolean excludeVersion;
+
+	/**
 	 * If set to true, the Maven build will fail if Jenkins CLI returns a non-zero exit value, otherwise the Maven build will continue
 	 *
 	 * @parameter expression="${jenkins.failOnError}" default-value="true"
@@ -255,6 +263,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	public void setStyle(String style) {
 		this.style = style;
+	}
+
+	public boolean isExcludeVersion() {
+		return excludeVersion;
+	}
+
+	public void setExcludeVersion(boolean includeVersion) {
+		this.excludeVersion = includeVersion;
 	}
 
 }

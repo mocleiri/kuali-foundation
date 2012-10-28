@@ -640,7 +640,7 @@ public class JenkinsHelper {
 			String relativePath = getRelativePath(mojo, filename);
 			mojo.getLog().info("Generating: " + relativePath);
 			Properties properties = getProperties(mojo, type, mojo.getTimestampFormat());
-			showProperties(properties);
+			// showProperties(properties);
 			String template = getTemplate(mojo.getStyles(), mojo.getStyle());
 			String xml = resourceUtils.read(template);
 			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
@@ -678,8 +678,10 @@ public class JenkinsHelper {
 			StringBuilder sb = new StringBuilder();
 			sb.append(mojo.getProject().getArtifactId());
 			sb.append(DASH);
-			sb.append(mojo.getMajorVersion());
-			sb.append(DASH);
+			if (!mojo.isExcludeVersion()) {
+				sb.append(mojo.getMajorVersion());
+				sb.append(DASH);
+			}
 			sb.append(name);
 			return sb.toString();
 		} else {
