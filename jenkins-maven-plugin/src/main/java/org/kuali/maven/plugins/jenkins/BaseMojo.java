@@ -108,7 +108,6 @@ public abstract class BaseMojo extends AbstractMojo {
 	 * </pre>
 	 *
 	 * @parameter expression="${jenkins.styles}"
-	 * @required
 	 */
 	private List<Style> styles;
 
