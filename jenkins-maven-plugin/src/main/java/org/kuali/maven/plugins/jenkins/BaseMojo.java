@@ -88,7 +88,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean excludeVersion;
 
 	/**
-	 * If set to true, the Maven build will fail if Jenkins CLI returns a non-zero exit value, otherwise the Maven build will continue
+	 * If true, the Maven build will fail if Jenkins CLI returns a non-zero exit value, otherwise the Maven build will continue
 	 *
 	 * @parameter expression="${jenkins.failOnError}" default-value="true"
 	 * @required
@@ -114,8 +114,8 @@ public abstract class BaseMojo extends AbstractMojo {
 	private List<Style> styles;
 
 	/**
-	 * The style of Jenkins job. Default styles are <code>maven</code> and <code>freestyle</code>. This parameter must match one of the
-	 * default styles or one of the optional custom styles supplied to the plugin configuration.
+	 * The style of Jenkins job. Default styles are <code>freestyle</code> and <code>maven</code>. This parameter must be one of the default
+	 * styles or match the name of a custom style supplied to the plugin
 	 *
 	 * @parameter expression="${jenkins.style}" default-value="freestyle"
 	 * @required
