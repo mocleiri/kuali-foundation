@@ -101,8 +101,8 @@ public abstract class BaseMojo extends AbstractMojo {
 	 * <pre>
 	 * &lt;<styles>&gt;
 	 *   &lt;<style>&gt;
-	 *     &lt;<name>&gt;my-custom-style-template&lt;</name>&gt;
-	 *     &lt;<template>&gt;classpath:org/foo/bar/my-custom-style-template.xml&lt;</template>&gt;
+	 *     &lt;<name>&gt;my-custom-style&lt;</name>&gt;
+	 *     &lt;<template>&gt;classpath:org/foo/bar/my-custom-style.xml&lt;</template>&gt;
 	 *   &lt;</style>&gt;
 	 * &lt;</styles>&gt;
 	 * </pre>
