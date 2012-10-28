@@ -19,7 +19,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>Properties for unit testing a project</comment>
-  <entry key="jenkins.job.goals">clean install</entry>
+  <entry key="jenkins.job.builders.shell.command">${jenkins.job.builders.shell.command.unit}</entry>
   <entry key="jenkins.job.type">unit</entry>
   <entry key="jenkins.job.triggers"><![CDATA[${jenkins.job.trigger.scm}]]></entry>
   <entry key="jenkins.job.trigger.scm.spec">${jenkins.job.cron.everyMinute}</entry>

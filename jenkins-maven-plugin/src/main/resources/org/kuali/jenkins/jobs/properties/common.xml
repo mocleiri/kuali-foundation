@@ -81,6 +81,14 @@
     </hudson.tasks.Shell>
   ]]></entry>
 
+  <!-- shell script for verifying ECL 2.0 license header compliance on a Maven project -->
+  <entry key="jenkins.job.builders.shell.command.unit"><![CDATA[mvn clean install -Plicense -N -DskipTests
+  ]]></entry>
+
+  <!-- shell script for unit testing a Maven project -->
+  <entry key="jenkins.job.builders.shell.command.unit"><![CDATA[mvn clean install
+  ]]></entry>
+
   <!-- shell script for publishing a Maven project -->
   <entry key="jenkins.job.builders.shell.command.publish"><![CDATA[mvn clean deploy site-deploy -Pkuali-release -e
   ]]></entry>
