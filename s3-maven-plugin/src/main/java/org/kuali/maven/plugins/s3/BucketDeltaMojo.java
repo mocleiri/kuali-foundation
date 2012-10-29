@@ -16,11 +16,14 @@
 package org.kuali.maven.plugins.s3;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.kuali.common.aws.s3.BucketSummaryLine;
 import org.kuali.common.aws.s3.CSVUtils;
+import org.kuali.common.aws.s3.SimpleFormatter;
+import org.kuali.common.aws.s3.pojo.BucketSummaryLine;
+import org.kuali.common.aws.s3.pojo.BucketSummaryLineComparator;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 
@@ -32,6 +35,7 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 public class BucketDeltaMojo extends AbstractMojo {
 
 	CSVUtils csvUtils = CSVUtils.getInstance();
+	SimpleFormatter formatter = new SimpleFormatter();
 
 	/**
 	 * The file where the CSV summary is written. If the file already exists, it is appended to.
@@ -45,8 +49,9 @@ public class BucketDeltaMojo extends AbstractMojo {
 		try {
 			List<String> lines = csvUtils.getLines(csvFile);
 			List<BucketSummaryLine> summaryLines = csvUtils.getBucketSummaryLines(lines);
+			Collections.sort(summaryLines, new BucketSummaryLineComparator());
 			for (BucketSummaryLine summaryLine : summaryLines) {
-				getLog().info(summaryLine.getBucket());
+				getLog().info(summaryLine.getBucket() + " " + formatter.getDate(summaryLine.getDate()));
 			}
 		} catch (Exception e) {
 			throw new AmazonS3Exception("Unexpected error", e);

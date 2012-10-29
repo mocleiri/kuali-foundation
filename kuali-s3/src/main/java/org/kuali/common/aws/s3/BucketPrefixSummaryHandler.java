@@ -15,6 +15,8 @@
  */
 package org.kuali.common.aws.s3;
 
+import org.kuali.common.aws.s3.pojo.BucketPrefixSummary;
+import org.kuali.common.aws.s3.pojo.S3PrefixContext;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 

@@ -13,30 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.aws.s3;
+package org.kuali.common.aws.s3.pojo;
 
-import com.amazonaws.services.s3.model.Bucket;
+import java.util.List;
 
-public class BucketSummary {
+public class AccountSummary {
 
-	Bucket bucket;
-	long count;
+	String accessKey;
+	List<BucketSummary> bucketSummaries;
 	long size;
+	long count;
 
-	public Bucket getBucket() {
-		return bucket;
+	public String getAccessKey() {
+		return accessKey;
 	}
 
-	public void setBucket(Bucket bucket) {
-		this.bucket = bucket;
+	public void setAccessKey(String accessKey) {
+		this.accessKey = accessKey;
 	}
 
-	public long getCount() {
-		return count;
+	public List<BucketSummary> getBucketSummaries() {
+		return bucketSummaries;
 	}
 
-	public void setCount(long count) {
-		this.count = count;
+	public void setBucketSummaries(List<BucketSummary> bucketSummaries) {
+		this.bucketSummaries = bucketSummaries;
 	}
 
 	public long getSize() {
@@ -45,6 +46,14 @@ public class BucketSummary {
 
 	public void setSize(long size) {
 		this.size = size;
+	}
+
+	public long getCount() {
+		return count;
+	}
+
+	public void setCount(long count) {
+		this.count = count;
 	}
 
 }

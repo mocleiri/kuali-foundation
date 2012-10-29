@@ -21,12 +21,12 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.kuali.common.aws.s3.BucketPrefixSummary;
 import org.kuali.common.aws.s3.BucketPrefixSummaryHandler;
-import org.kuali.common.aws.s3.S3PrefixContext;
 import org.kuali.common.aws.s3.S3Utils;
 import org.kuali.common.aws.s3.SimpleFormatter;
 import org.kuali.common.aws.s3.Size;
+import org.kuali.common.aws.s3.pojo.BucketPrefixSummary;
+import org.kuali.common.aws.s3.pojo.S3PrefixContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;

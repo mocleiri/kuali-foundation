@@ -18,7 +18,7 @@ package org.kuali.maven.plugins.s3;
 import java.io.File;
 import java.util.List;
 
-import org.kuali.common.aws.s3.AccountSummary;
+import org.kuali.common.aws.s3.pojo.AccountSummary;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 

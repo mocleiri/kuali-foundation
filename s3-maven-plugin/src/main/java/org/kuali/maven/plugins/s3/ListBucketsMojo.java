@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.aws.s3.BucketComparator;
+import org.kuali.common.aws.s3.pojo.BucketComparator;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;

@@ -1,4 +1,4 @@
-package org.kuali.common.aws.s3;
+package org.kuali.common.aws.s3.pojo;
 
 import java.util.Date;
 

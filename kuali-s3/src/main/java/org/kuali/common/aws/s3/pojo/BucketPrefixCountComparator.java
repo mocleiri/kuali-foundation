@@ -13,38 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.aws.s3;
+package org.kuali.common.aws.s3.pojo;
 
-import com.amazonaws.services.s3.AmazonS3Client;
+import java.util.Comparator;
 
-public class S3PrefixContext {
 
-	AmazonS3Client client;
-	String bucketName;
-	BucketPrefixSummary summary;
+public class BucketPrefixCountComparator implements Comparator<BucketPrefixSummary> {
 
-	public AmazonS3Client getClient() {
-		return client;
-	}
-
-	public void setClient(AmazonS3Client client) {
-		this.client = client;
-	}
-
-	public String getBucketName() {
-		return bucketName;
-	}
-
-	public void setBucketName(String bucketName) {
-		this.bucketName = bucketName;
-	}
-
-	public BucketPrefixSummary getSummary() {
-		return summary;
-	}
-
-	public void setSummary(BucketPrefixSummary summary) {
-		this.summary = summary;
+	public int compare(BucketPrefixSummary one, BucketPrefixSummary two) {
+		if (one.getCount() < two.getCount()) {
+			return -1;
+		} else if (one.getCount() == two.getCount()) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 
 }
