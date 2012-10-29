@@ -138,16 +138,16 @@ public class SimpleFormatter {
 	}
 
 	/**
-	 * Given a number of bytes return bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, or exabytes as appropriate.
+	 * Given a number of bytes return a string formatted into the unit of measure indicated
 	 */
-	public String getSize(long bytes, Size size) {
-		size = (size == null) ? getSizeEnum(bytes) : size;
+	public String getSize(long bytes, Size unitOfMeasure) {
+		unitOfMeasure = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
 		StringBuilder sb = new StringBuilder();
-		sb.append(getFormattedSize(bytes, size));
-		if (size.equals(Size.BYTE)) {
+		sb.append(getFormattedSize(bytes, unitOfMeasure));
+		if (unitOfMeasure.equals(Size.BYTE)) {
 			sb.append(" ");
 		}
-		sb.append(size.getSizeLabel());
+		sb.append(unitOfMeasure.getSizeLabel());
 		return sb.toString();
 	}
 
