@@ -118,11 +118,11 @@ public class SimpleFormatter {
 		} else if (millis < HOUR) {
 			return timeFormatter.format(millis / MINUTE) + "m";
 		} else if (millis < DAY) {
-			return timeFormatter.format(millis / HOUR) + " hours";
+			return timeFormatter.format(millis / HOUR) + "h";
 		} else if (millis < YEAR) {
-			return timeFormatter.format(millis / DAY) + " days";
+			return timeFormatter.format(millis / DAY) + "d";
 		} else if (millis < DECADE) {
-			return timeFormatter.format(millis / YEAR) + " years";
+			return timeFormatter.format(millis / YEAR) + "y";
 		} else if (millis < CENTURY) {
 			return timeFormatter.format(millis / DECADE) + " decades";
 		} else {
