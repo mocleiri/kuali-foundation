@@ -40,12 +40,12 @@ public class CSVUtils {
 			String[] tokens = line.split(",");
 			String bucket = tokens[0];
 			Long files = new Long(tokens[1]);
-			Long size = new Long(tokens[2]);
+			Long bytes = new Long(tokens[2]);
 			Date date = formatter.parseDate(tokens[3]);
 			BucketSummaryLine bsl = new BucketSummaryLine();
 			bsl.setBucket(bucket);
 			bsl.setFiles(files);
-			bsl.setBytes(size);
+			bsl.setBytes(bytes);
 			bsl.setDate(date);
 			summaryLines.add(bsl);
 		}
