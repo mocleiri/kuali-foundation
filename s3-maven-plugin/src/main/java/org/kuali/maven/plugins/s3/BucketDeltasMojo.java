@@ -18,8 +18,7 @@ package org.kuali.maven.plugins.s3;
 import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.kuali.common.aws.s3.CSVUtils;
-import org.kuali.common.aws.s3.SimpleFormatter;
+import org.kuali.common.aws.s3.DeltaUtils;
 import org.kuali.common.aws.s3.pojo.AccountDeltaSummary;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
@@ -29,8 +28,7 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
  */
 public class BucketDeltasMojo extends AbstractMojo {
 
-	CSVUtils csvUtils = CSVUtils.getInstance();
-	SimpleFormatter formatter = new SimpleFormatter();
+	DeltaUtils deltaUtils = DeltaUtils.getInstance();
 
 	/**
 	 * The file where the CSV summary is written. If the file already exists, it is appended to.
@@ -42,8 +40,8 @@ public class BucketDeltasMojo extends AbstractMojo {
 	@Override
 	public void execute() {
 		try {
-			AccountDeltaSummary ads = csvUtils.getAccountDeltaSummary(csvFile);
-			String s = csvUtils.toString(ads);
+			AccountDeltaSummary ads = deltaUtils.getAccountDeltaSummary(csvFile);
+			String s = deltaUtils.toString(ads);
 			getLog().info(s);
 		} catch (Exception e) {
 			throw new AmazonS3Exception("Unexpected error", e);

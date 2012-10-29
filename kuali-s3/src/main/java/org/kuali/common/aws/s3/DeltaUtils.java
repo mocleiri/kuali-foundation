@@ -2,6 +2,7 @@ package org.kuali.common.aws.s3;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -16,19 +17,20 @@ import org.kuali.common.aws.s3.pojo.BucketDeltaSummary;
 import org.kuali.common.aws.s3.pojo.BucketSummaryLine;
 import org.kuali.common.aws.s3.pojo.BucketSummaryLineComparator;
 
-public class CSVUtils {
+public class DeltaUtils {
 	SimpleFormatter formatter = new SimpleFormatter();
+	SimpleDateFormat shortDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-	private static CSVUtils instance;
+	private static DeltaUtils instance;
 
-	public static synchronized CSVUtils getInstance() {
+	public static synchronized DeltaUtils getInstance() {
 		if (instance == null) {
-			instance = new CSVUtils();
+			instance = new DeltaUtils();
 		}
 		return instance;
 	}
 
-	protected CSVUtils() {
+	protected DeltaUtils() {
 		super();
 	}
 
@@ -57,7 +59,11 @@ public class CSVUtils {
 		for (BucketDeltaSummary bds : summary.getBucketDeltaSummaries()) {
 			sb.append(bds.getBucket() + "\n");
 			for (BucketDeltaLine bdl : bds.getDeltaLines()) {
-				sb.append(bdl.getFileDelta() + " " + bdl.getByteDelta() + "\n");
+				String files = formatter.getCount(bdl.getFileDelta());
+				String size = formatter.getSize(bdl.getByteDelta());
+				String start = shortDateFormatter.format(bdl.getStartDate());
+				String end = shortDateFormatter.format(bdl.getEndDate());
+				sb.append(files + " " + size + " " + start + " " + end + "\n");
 			}
 		}
 		return sb.toString();

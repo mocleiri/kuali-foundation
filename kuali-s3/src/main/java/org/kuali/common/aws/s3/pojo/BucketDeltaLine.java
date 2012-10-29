@@ -9,6 +9,7 @@ public class BucketDeltaLine {
 	long byteDelta;
 	Date startDate;
 	Date endDate;
+	long interval;
 
 	public String getBucket() {
 		return bucket;
@@ -48,5 +49,13 @@ public class BucketDeltaLine {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public long getInterval() {
+		return interval;
+	}
+
+	public void setInterval(long interval) {
+		this.interval = interval;
 	}
 }
