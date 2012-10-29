@@ -18,6 +18,7 @@ package org.kuali.common.aws.s3;
 import com.amazonaws.services.s3.AmazonS3Client;
 
 public class S3PrefixContext {
+
 	AmazonS3Client client;
 	String bucketName;
 	BucketPrefixSummary summary;
