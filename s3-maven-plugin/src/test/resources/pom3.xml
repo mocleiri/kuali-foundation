@@ -38,10 +38,10 @@
           <version>${project.version}</version>
           <executions>
             <execution>
-              <id>bucketdelta</id>
+              <id>bucketdeltas</id>
               <phase>test</phase>
               <goals>
-                <goal>bucketdelta</goal>
+                <goal>bucketdeltas</goal>
               </goals>
               <configuration>
                 <csvFile>/Users/jeffcaddel/ws/kuali-ci/src/main/resources/aws-s3-summary.csv</csvFile>
