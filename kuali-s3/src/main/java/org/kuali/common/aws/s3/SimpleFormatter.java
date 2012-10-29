@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Format time, bytes, counts, and transfer rate into human friendly form
+ * Format time, bytes, counts, dates, and transfer rates into human friendly form
  *
  * @author Jeff Caddel
  * @since May 27, 2010 6:46:17 PM
