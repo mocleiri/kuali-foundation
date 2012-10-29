@@ -3,8 +3,11 @@ package org.kuali.common.aws.s3;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
 
@@ -58,6 +61,46 @@ public class CSVUtils {
 			summaryLines.add(bsl);
 		}
 		return summaryLines;
+	}
+
+	public List<String> getBucketNames(List<BucketSummaryLine> summaryLines) {
+		Map<String, String> map = new TreeMap<String, String>();
+		for (BucketSummaryLine bsl : summaryLines) {
+			map.put(bsl.getBucket(), bsl.getBucket());
+		}
+		return new ArrayList<String>(map.keySet());
+
+	}
+
+	public List<BucketDeltaLine> getBucketDeltaLines(String bucket, List<BucketSummaryLine> summaryLines) {
+		List<BucketSummaryLine> matchingLines = getMatchingSummaryLines(bucket, summaryLines);
+		List<BucketDeltaLine> bdls = new ArrayList<BucketDeltaLine>();
+		for (int i = 0; i < matchingLines.size() - 1; i++) {
+			BucketSummaryLine current = matchingLines.get(i);
+			BucketSummaryLine next = matchingLines.get(i + 1);
+			long fileDelta = next.getFiles() - current.getFiles();
+			long byteDelta = next.getBytes() - current.getBytes();
+			Date startDate = current.getDate();
+			Date endDate = next.getDate();
+			BucketDeltaLine bdl = new BucketDeltaLine();
+			bdl.setFileDelta(fileDelta);
+			bdl.setByteDelta(byteDelta);
+			bdl.setStartDate(startDate);
+			bdl.setEndDate(endDate);
+			bdls.add(bdl);
+		}
+		return bdls;
+	}
+
+	public List<BucketSummaryLine> getMatchingSummaryLines(String bucket, List<BucketSummaryLine> summaryLines) {
+		Collections.sort(summaryLines, new BucketSummaryLineComparator());
+		List<BucketSummaryLine> matchingLines = new ArrayList<BucketSummaryLine>();
+		for (BucketSummaryLine bsl : summaryLines) {
+			if (bsl.getBucket().equals(bucket)) {
+				matchingLines.add(bsl);
+			}
+		}
+		return matchingLines;
 	}
 
 }
