@@ -4,16 +4,7 @@ import java.util.List;
 
 public class AccountDeltaSummary {
 
-	String accessKey;
 	List<BucketDeltaSummary> bucketDeltaSummaries;
-
-	public String getAccessKey() {
-		return accessKey;
-	}
-
-	public void setAccessKey(String accessKey) {
-		this.accessKey = accessKey;
-	}
 
 	public List<BucketDeltaSummary> getBucketDeltaSummaries() {
 		return bucketDeltaSummaries;
