@@ -42,8 +42,9 @@ public class DeltaUtils {
 		List<BucketDeltaSummary> bucketDeltaSummaries = new ArrayList<BucketDeltaSummary>();
 
 		for (String bucket : buckets) {
-			BucketDeltaSummary bds = new BucketDeltaSummary();
-			List<BucketDeltaLine> deltaLines = getBucketDeltaLines(bucket, summaryLines);
+			List<BucketSummaryLine> matchingLines = getMatchingSummaryLines(bucket, summaryLines);
+			BucketDeltaSummary bds = getBucketDeltaSummary(matchingLines);
+			List<BucketDeltaLine> deltaLines = getBucketDeltaLines(matchingLines);
 			bds.setBucket(bucket);
 			bds.setDeltaLines(deltaLines);
 			bucketDeltaSummaries.add(bds);
@@ -52,6 +53,30 @@ public class DeltaUtils {
 		AccountDeltaSummary ads = new AccountDeltaSummary();
 		ads.setBucketDeltaSummaries(bucketDeltaSummaries);
 		return ads;
+	}
+
+	public BucketDeltaSummary getBucketDeltaSummary(List<BucketSummaryLine> summaryLines) {
+		// If we don't have at least 2 lines we can't calculate any delta's
+		if (summaryLines.size() < 2) {
+			return new BucketDeltaSummary();
+		}
+
+		BucketSummaryLine first = summaryLines.get(0);
+		BucketSummaryLine last = summaryLines.get(summaryLines.size() - 1);
+
+		Date startDate = first.getDate();
+		Date endDate = last.getDate();
+		long interval = endDate.getTime() - startDate.getTime();
+		long fileDelta = last.getFiles() - first.getFiles();
+		long byteDelta = last.getBytes() - first.getBytes();
+
+		BucketDeltaSummary deltaSummary = new BucketDeltaSummary();
+		deltaSummary.setByteDelta(byteDelta);
+		deltaSummary.setInterval(interval);
+		deltaSummary.setStartDate(startDate);
+		deltaSummary.setEndDate(endDate);
+		deltaSummary.setFileDelta(fileDelta);
+		return deltaSummary;
 	}
 
 	public String toString(AccountDeltaSummary summary) {
@@ -128,12 +153,11 @@ public class DeltaUtils {
 
 	}
 
-	public List<BucketDeltaLine> getBucketDeltaLines(String bucket, List<BucketSummaryLine> summaryLines) {
-		List<BucketSummaryLine> matchingLines = getMatchingSummaryLines(bucket, summaryLines);
+	public List<BucketDeltaLine> getBucketDeltaLines(List<BucketSummaryLine> summaryLines) {
 		List<BucketDeltaLine> bdls = new ArrayList<BucketDeltaLine>();
-		for (int i = 0; i < matchingLines.size() - 1; i++) {
-			BucketSummaryLine current = matchingLines.get(i);
-			BucketSummaryLine next = matchingLines.get(i + 1);
+		for (int i = 0; i < summaryLines.size() - 1; i++) {
+			BucketSummaryLine current = summaryLines.get(i);
+			BucketSummaryLine next = summaryLines.get(i + 1);
 			long fileDelta = next.getFiles() - current.getFiles();
 			long byteDelta = next.getBytes() - current.getBytes();
 			Date startDate = current.getDate();
