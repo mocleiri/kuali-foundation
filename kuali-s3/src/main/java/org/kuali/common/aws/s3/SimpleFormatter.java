@@ -27,13 +27,13 @@ import java.util.Date;
  * @since May 27, 2010 6:46:17 PM
  */
 public class SimpleFormatter {
-	private static final double SECOND = 1000;
-	private static final double MINUTE = 60 * SECOND;
-	private static final double HOUR = 60 * MINUTE;
-	private static final double DAY = 24 * HOUR;
-	private static final double YEAR = 365 * DAY;
-	private static final double DECADE = 10 * YEAR;
-	private static final double CENTURY = 10 * DECADE;
+	public static final double SECOND = 1000;
+	public static final double MINUTE = 60 * SECOND;
+	public static final double HOUR = 60 * MINUTE;
+	public static final double DAY = 24 * HOUR;
+	public static final double YEAR = 365 * DAY;
+	public static final double DECADE = 10 * YEAR;
+	public static final double CENTURY = 10 * DECADE;
 	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
 	NumberFormat largeSizeFormatter = NumberFormat.getInstance();

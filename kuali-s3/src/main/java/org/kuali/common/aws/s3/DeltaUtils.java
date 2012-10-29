@@ -88,7 +88,11 @@ public class DeltaUtils {
 			String start = shortDateFormatter.format(bds.getStartDate());
 			String end = shortDateFormatter.format(bds.getEndDate());
 			String interval = formatter.getTime(bds.getInterval());
-			rows.add(new String[] { "", files, bytes, start, end, interval });
+			rows.add(new String[] { "", "", "", "", "", "" });
+			rows.add(new String[] { "totals", files, bytes, start, end, interval });
+			rows.add(getPerDayRow(bds));
+			rows.add(new String[] { "", "", "", "", "", "" });
+			rows.add(new String[] { "", "", "", "", "", "" });
 		}
 		List<String> columns = new ArrayList<String>();
 		columns.add("bucket");
@@ -98,6 +102,16 @@ public class DeltaUtils {
 		columns.add("end");
 		columns.add("interval");
 		return S3Utils.getInstance().toString(columns, rows);
+	}
+
+	protected String[] getPerDayRow(BucketDeltaSummary bds) {
+		String perDay = "per day";
+		double days = bds.getInterval() / SimpleFormatter.DAY;
+		String files = formatter.getCount((long) (bds.getFileDelta() / days));
+		long byteDelta = bds.getByteDelta();
+		long bytesPerDay = (long) (byteDelta / days);
+		String bytes = formatter.getSize(bytesPerDay);
+		return new String[] { perDay, files, bytes, "", "", "" };
 	}
 
 	public List<String[]> getRows(String bucket, List<BucketDeltaLine> deltaLines) {
