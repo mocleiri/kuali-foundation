@@ -10,7 +10,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
+import org.kuali.common.aws.s3.pojo.AccountDeltaSummary;
 import org.kuali.common.aws.s3.pojo.BucketDeltaLine;
+import org.kuali.common.aws.s3.pojo.BucketDeltaSummary;
 import org.kuali.common.aws.s3.pojo.BucketSummaryLine;
 import org.kuali.common.aws.s3.pojo.BucketSummaryLineComparator;
 
@@ -28,6 +30,37 @@ public class CSVUtils {
 
 	protected CSVUtils() {
 		super();
+	}
+
+	public AccountDeltaSummary getAccountDeltaSummary(File csv) {
+
+		List<String> lines = getLines(csv);
+		List<BucketSummaryLine> summaryLines = getBucketSummaryLines(lines);
+		List<String> buckets = getBucketNames(summaryLines);
+		List<BucketDeltaSummary> bucketDeltaSummaries = new ArrayList<BucketDeltaSummary>();
+
+		for (String bucket : buckets) {
+			BucketDeltaSummary bds = new BucketDeltaSummary();
+			List<BucketDeltaLine> deltaLines = getBucketDeltaLines(bucket, summaryLines);
+			bds.setBucket(bucket);
+			bds.setDeltaLines(deltaLines);
+			bucketDeltaSummaries.add(bds);
+		}
+
+		AccountDeltaSummary ads = new AccountDeltaSummary();
+		ads.setBucketDeltaSummaries(bucketDeltaSummaries);
+		return ads;
+	}
+
+	public String toString(AccountDeltaSummary summary) {
+		StringBuilder sb = new StringBuilder();
+		for (BucketDeltaSummary bds : summary.getBucketDeltaSummaries()) {
+			sb.append(bds.getBucket() + "\n");
+			for (BucketDeltaLine bdl : bds.getDeltaLines()) {
+				sb.append(bdl.getFileDelta() + " " + bdl.getByteDelta() + "\n");
+			}
+		}
+		return sb.toString();
 	}
 
 	public List<String> getLines(File file) {
