@@ -28,7 +28,15 @@ public class CSVUtils {
 		try {
 			return FileUtils.readLines(file);
 		} catch (IOException e) {
-			throw new IllegalStateException("Can't read lines from " + file.getAbsolutePath(), e);
+			throw new IllegalStateException("Can't read lines from " + getCanonicalPath(file), e);
+		}
+	}
+
+	public String getCanonicalPath(File file) {
+		try {
+			return file.getCanonicalPath();
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unable to determine canonical path for " + file, e);
 		}
 	}
 

@@ -34,7 +34,7 @@ public class SimpleFormatter {
 	private static final double YEAR = 365 * DAY;
 	private static final double DECADE = 10 * YEAR;
 	private static final double CENTURY = 10 * DECADE;
-	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SZ";
+	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
 	NumberFormat largeSizeFormatter = NumberFormat.getInstance();
 	NumberFormat sizeFormatter = NumberFormat.getInstance();
