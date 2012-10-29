@@ -16,23 +16,18 @@
 package org.kuali.maven.plugins.s3;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.kuali.common.aws.s3.CSVUtils;
 import org.kuali.common.aws.s3.SimpleFormatter;
-import org.kuali.common.aws.s3.pojo.BucketSummaryLine;
-import org.kuali.common.aws.s3.pojo.BucketSummaryLineComparator;
+import org.kuali.common.aws.s3.pojo.AccountDeltaSummary;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 
 /**
- * Generate summary information for any S3 buckets "owned" by the provided <code>accessKey</code>
- *
- * @goal bucketdelta
+ * @goal bucketdeltas
  */
-public class BucketDeltaMojo extends AbstractMojo {
+public class BucketDeltasMojo extends AbstractMojo {
 
 	CSVUtils csvUtils = CSVUtils.getInstance();
 	SimpleFormatter formatter = new SimpleFormatter();
@@ -47,12 +42,9 @@ public class BucketDeltaMojo extends AbstractMojo {
 	@Override
 	public void execute() {
 		try {
-			List<String> lines = csvUtils.getLines(csvFile);
-			List<BucketSummaryLine> summaryLines = csvUtils.getBucketSummaryLines(lines);
-			Collections.sort(summaryLines, new BucketSummaryLineComparator());
-			for (BucketSummaryLine summaryLine : summaryLines) {
-				getLog().info(summaryLine.getBucket() + " " + formatter.getDate(summaryLine.getDate()));
-			}
+			AccountDeltaSummary ads = csvUtils.getAccountDeltaSummary(csvFile);
+			String s = csvUtils.toString(ads);
+			getLog().info(s);
 		} catch (Exception e) {
 			throw new AmazonS3Exception("Unexpected error", e);
 		}
