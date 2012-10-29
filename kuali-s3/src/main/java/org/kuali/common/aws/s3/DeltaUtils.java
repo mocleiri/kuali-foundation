@@ -55,18 +55,32 @@ public class DeltaUtils {
 	}
 
 	public String toString(AccountDeltaSummary summary) {
-		StringBuilder sb = new StringBuilder();
+		List<String[]> rows = new ArrayList<String[]>();
 		for (BucketDeltaSummary bds : summary.getBucketDeltaSummaries()) {
-			sb.append(bds.getBucket() + "\n");
-			for (BucketDeltaLine bdl : bds.getDeltaLines()) {
-				String files = formatter.getCount(bdl.getFileDelta());
-				String size = formatter.getSize(bdl.getByteDelta());
-				String start = shortDateFormatter.format(bdl.getStartDate());
-				String end = shortDateFormatter.format(bdl.getEndDate());
-				sb.append(files + " " + size + " " + start + " " + end + "\n");
-			}
+			rows.addAll(getRows(bds.getBucket(), bds.getDeltaLines()));
 		}
-		return sb.toString();
+		List<String> columns = new ArrayList<String>();
+		columns.add("bucket");
+		columns.add("files");
+		columns.add("size");
+		columns.add("start");
+		columns.add("end");
+		columns.add("interval");
+		return S3Utils.getInstance().toString(columns, rows);
+	}
+
+	public List<String[]> getRows(String bucket, List<BucketDeltaLine> deltaLines) {
+		List<String[]> rows = new ArrayList<String[]>();
+		for (BucketDeltaLine deltaLine : deltaLines) {
+			String files = formatter.getCount(deltaLine.getFileDelta());
+			String size = formatter.getSize(deltaLine.getByteDelta());
+			String start = shortDateFormatter.format(deltaLine.getStartDate());
+			String end = shortDateFormatter.format(deltaLine.getEndDate());
+			String interval = formatter.getTime(deltaLine.getInterval());
+			String[] row = new String[] { bucket, files, size, start, end, interval };
+			rows.add(row);
+		}
+		return rows;
 	}
 
 	public List<String> getLines(File file) {
@@ -124,11 +138,13 @@ public class DeltaUtils {
 			long byteDelta = next.getBytes() - current.getBytes();
 			Date startDate = current.getDate();
 			Date endDate = next.getDate();
+			long interval = endDate.getTime() - startDate.getTime();
 			BucketDeltaLine bdl = new BucketDeltaLine();
 			bdl.setFileDelta(fileDelta);
 			bdl.setByteDelta(byteDelta);
 			bdl.setStartDate(startDate);
 			bdl.setEndDate(endDate);
+			bdl.setInterval(interval);
 			bdls.add(bdl);
 		}
 		return bdls;
