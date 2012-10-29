@@ -83,6 +83,12 @@ public class DeltaUtils {
 		List<String[]> rows = new ArrayList<String[]>();
 		for (BucketDeltaSummary bds : summary.getBucketDeltaSummaries()) {
 			rows.addAll(getRows(bds.getBucket(), bds.getDeltaLines()));
+			String files = formatter.getCount(bds.getFileDelta());
+			String bytes = formatter.getSize(bds.getByteDelta());
+			String start = shortDateFormatter.format(bds.getStartDate());
+			String end = shortDateFormatter.format(bds.getEndDate());
+			String interval = formatter.getTime(bds.getInterval());
+			rows.add(new String[] { "", files, bytes, start, end, interval });
 		}
 		List<String> columns = new ArrayList<String>();
 		columns.add("bucket");
