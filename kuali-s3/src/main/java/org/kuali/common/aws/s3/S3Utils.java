@@ -103,7 +103,7 @@ public class S3Utils {
 	 * multi-part uploads on files larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code>. When this method returns, all threads have finished
 	 * and the file has been reassembled on S3. The benefit to this method is that if any one thread fails, only the portion of the file
 	 * that particular thread was handling will have to be re-uploaded (instead of the entire file). A reasonable number of automatic
-	 * retries occurs if an individual upload thread fails before this method throws <code>AmazonS3Exception</code>
+	 * retries occurs if an individual upload thread fails. If the file upload fails this method throws <code>AmazonS3Exception</code>
 	 */
 	public void blockingMultiPartUpload(PutObjectRequest request, TransferManager manager) {
 		// Use multi-part upload for large files
@@ -448,8 +448,16 @@ public class S3Utils {
 	public String toString(AccountSummary summary) {
 		List<String> columns = getBucketSummaryColumns();
 		List<String[]> rows = getRows(summary.getBucketSummaries());
+
+		// Add a blank row for spacing
 		rows.add(new String[] { "", "", "" });
-		rows.add(new String[] { "Totals", formatter.getCount(summary.getCount()), formatter.getSize(summary.getSize()) });
+
+		// Add a row showing total count and size
+		String count = formatter.getCount(summary.getCount());
+		String size = formatter.getSize(summary.getSize());
+		rows.add(new String[] { "Totals", count, size });
+
+		// Convert the rows to a string and return
 		return toString(columns, rows);
 	}
 
