@@ -42,7 +42,7 @@ public class BucketDeltasMojo extends AbstractMojo {
 		try {
 			AccountDeltaSummary ads = deltaUtils.getAccountDeltaSummary(csvFile);
 			String s = deltaUtils.toString(ads);
-			getLog().info("\n" + s);
+			getLog().info("\n\n" + s);
 		} catch (Exception e) {
 			throw new AmazonS3Exception("Unexpected error", e);
 		}
