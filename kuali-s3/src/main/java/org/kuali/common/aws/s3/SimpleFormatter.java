@@ -16,6 +16,7 @@
 package org.kuali.common.aws.s3;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -59,6 +60,17 @@ public class SimpleFormatter {
 		countFormatter.setGroupingUsed(true);
 		countFormatter.setMaximumFractionDigits(0);
 		countFormatter.setMinimumFractionDigits(0);
+	}
+
+	/**
+	 * Parse a date from the string
+	 */
+	public Date parseDate(String date) {
+		try {
+			return dateFormatter.parse(date);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Can't parse " + date, e);
+		}
 	}
 
 	/**
