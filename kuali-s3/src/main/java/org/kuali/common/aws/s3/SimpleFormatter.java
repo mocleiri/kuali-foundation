@@ -60,10 +60,11 @@ public class SimpleFormatter {
 		countFormatter.setGroupingUsed(true);
 		countFormatter.setMaximumFractionDigits(0);
 		countFormatter.setMinimumFractionDigits(0);
+		dateFormatter.setLenient(false);
 	}
 
 	/**
-	 * Parse a date from the string
+	 * Parse a date from the string. The string must be in the same format as what is returned by the getDate() methods
 	 */
 	public Date parseDate(String date) {
 		try {
