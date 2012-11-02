@@ -33,7 +33,12 @@
   <param name="keystore.alias">${keystore.alias.default}</param>
   <param name="keystore.password">${keystore.password.default}</param>
   <param name="travel.externalizable.images.url">${externalizable.images.url}</param>
-
+  
+  <param name="data.xml.root.location">${user.home}/kuali/main/dev/olerice2/workflow</param>
+  <param name="data.xml.pending.location">${data.xml.root.location}/pending</param>
+  <param name="data.xml.loaded.location">${data.xml.root.location}/loaded</param>
+  <param name="data.xml.problem.location">${data.xml.root.location}/problem</param>
+  
   <!-- Email Settings -->
   <param name="mail.debug">${rice.ses.debug}</param>
   <param name="mail.smtp.host">${rice.ses.host}</param>
