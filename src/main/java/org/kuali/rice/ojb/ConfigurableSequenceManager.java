@@ -26,7 +26,7 @@ import org.apache.ojb.broker.metadata.FieldDescriptor;
 import org.apache.ojb.broker.util.sequence.SequenceManager;
 import org.apache.ojb.broker.util.sequence.SequenceManagerException;
 import org.kuali.maven.plugins.ingester.PropertyLoadingFactoryBean;
-import org.kuali.rice.core.config.ConfigurationException;
+import org.kuali.rice.core.api.config.ConfigurationException;
 
 /**
  * Overriding corresponding Rice implementation

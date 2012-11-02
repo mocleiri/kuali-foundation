@@ -18,22 +18,28 @@ package org.kuali.maven.plugins.ingester;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.config.ConfigContext;
-import org.kuali.rice.core.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.core.resourceloader.RiceResourceLoaderFactory;
-import org.kuali.rice.core.util.RiceConstants;
-import org.kuali.rice.kns.util.spring.ClassPathXmlApplicationContext;
+import org.directwebremoting.spring.SpringCreator;
+//import org.kuali.rice.core.api.config.ConfigContext;
+import org.kuali.rice.core.api.*;
+import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+//import org.kuali.rice.core.api.resourceloader.RiceResourceLoaderFactory;
+import org.kuali.rice.core.api.util.RiceConstants;
+import org.kuali.rice.core.framework.resourceloader.RiceResourceLoaderFactory;
+import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import uk.ltd.getahead.dwr.create.SpringCreator;
+//import uk.ltd.getahead.dwr.create.SpringCreator;
 
 public class SpringContext {
     protected static final Logger LOG = Logger.getLogger(SpringContext.class);
@@ -227,15 +233,15 @@ public class SpringContext {
 
     protected static void close() throws Exception {
         if (applicationContext == null) {
-            applicationContext = RiceResourceLoaderFactory.getSpringResourceLoader().getContext();
+            //applicationContext = RiceResourceLoaderFactory.getSpringResourceLoaders().iterator()APPLICATION_CONTEXT_DEFINITION.
         }
         DisposableBean riceConfigurer = null;
         try {
             riceConfigurer = (DisposableBean) applicationContext.getBean("rice");
         } catch (Exception ex) {
             LOG.debug("Unable to get 'rice' bean - attempting to get from the Rice ConfigContext", ex);
-            riceConfigurer = (DisposableBean) ConfigContext
-                    .getObjectFromConfigHierarchy(RiceConstants.RICE_CONFIGURER_CONFIG_NAME);
+          //  riceConfigurer = (DisposableBean) ConfigContext
+          //          .getObjectFromConfigHierarchy(RiceConstants.RICE_CONFIGURER_CONFIG_NAME);
         }
         applicationContext = null;
         if (riceConfigurer != null) {
@@ -275,7 +281,11 @@ public class SpringContext {
         // use the base config file to bootstrap the real application context started by Rice
         new ClassPathXmlApplicationContext(riceInitializationSpringFile);
         // pull the Rice application context into here for further use and efficiency
-        applicationContext = RiceResourceLoaderFactory.getSpringResourceLoader().getContext();
+        Iterator<SpringResourceLoader> i = RiceResourceLoaderFactory.getSpringResourceLoaders().iterator();
+        while(i.hasNext()) {
+        	SpringResourceLoader loader = i.next();
+        	applicationContext = loader.getContext();
+        }
         LOG.info("Completed Spring context initialization");
 
         SpringCreator.setOverrideBeanFactory(applicationContext.getBeanFactory());

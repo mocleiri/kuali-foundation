@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.config.JAXBConfigImpl;
+import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;

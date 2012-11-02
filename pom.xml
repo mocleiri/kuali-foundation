@@ -38,6 +38,25 @@
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
     <mvn.version>3.0.4</mvn.version>
+    <rice.version>2.1.0</rice.version>
+    <rice.database>mysql</rice.database>
+    <!-- jdbc properties -->
+    <ingester.jdbcUsername>ricedev</ingester.jdbcUsername>
+    <ingester.jdbcPassword>ricedev</ingester.jdbcPassword>
+    <ingester.jdbcUrl>jdbc:mysql://localhost:3306/ricedev</ingester.jdbcUrl>
+    <ingester.namespace>KEW</ingester.namespace>
+    <!-- oracle database properties -->
+    <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
+    <oracle.jdbc.version>10.2.0.3.0</oracle.jdbc.version>
+    <oracle.jdbc.artifactId>ojdbc14</oracle.jdbc.artifactId>
+    <!-- mysql database properties -->
+    <mysql.jdbc.groupId>mysql</mysql.jdbc.groupId>
+    <mysql.jdbc.version>5.1.18</mysql.jdbc.version>
+    <mysql.jdbc.artifactId>mysql-connector-java</mysql.jdbc.artifactId>
+    <!-- database dependencies -->
+    <jdbc.groupId>${mysql.jdbc.groupId}</jdbc.groupId>
+    <jdbc.artifactId>${mysql.jdbc.artifactId}</jdbc.artifactId>
+    <jdbc.version>${mysql.jdbc.version}</jdbc.version>
   </properties>
   <developers>
     <developer>
@@ -49,9 +68,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/ingester-maven-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/sandbox/ingester-maven-plugin-mz</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/sandbox/ingester-maven-plugin-mz</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/sandbox/ingester-maven-plugin-mz</url>
   </scm>
   <build>
     <testResources>
@@ -72,6 +91,11 @@
     </testResources>
   </build>
   <dependencies>
+    <dependency>
+      <groupId>${mysql.jdbc.groupId}</groupId>
+      <artifactId>${mysql.jdbc.artifactId}</artifactId>
+      <version>${mysql.jdbc.version}</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -102,19 +126,13 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-api</artifactId>
-      <version>1.0.3.3</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
+      <artifactId>rice-core-api</artifactId>
+      <version>${rice.version}</version>  
     </dependency>
     <dependency>
       <groupId>org.kuali.rice</groupId>
       <artifactId>rice-impl</artifactId>
-      <version>1.0.3.3</version>
+      <version>${rice.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>

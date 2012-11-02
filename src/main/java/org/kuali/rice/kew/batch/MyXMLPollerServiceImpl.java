@@ -31,6 +31,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.impex.xml.DirectoryXmlDocCollection;
+import org.kuali.rice.core.api.impex.xml.FileXmlDocCollection;
+import org.kuali.rice.core.api.impex.xml.XmlDocCollection;
+import org.kuali.rice.core.api.impex.xml.ZipXmlDocCollection;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 
 /**
@@ -139,7 +144,7 @@ public class MyXMLPollerServiceImpl implements XmlPollerService {
         // now ingest the containers
         Collection<?> failed = null;
         try {
-            failed = KEWServiceLocator.getXmlIngesterService().ingest(collections);
+            failed = CoreApiServiceLocator.getXmlIngesterService().ingest(collections);
         } catch (Exception e) {
             LOG.error("Error ingesting data", e);
             // throw new RuntimeException(e);
