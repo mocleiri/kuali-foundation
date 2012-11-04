@@ -36,6 +36,13 @@
     Generate SQL for Oracle + MySQL into ${project.build.directory}/impex/sql
   </description>
   <properties>
+    <!--
+      This pom requires 3 properties:
+      1 - impex.basedir
+      2 - impex.schema.name
+      3 - plugin.impex.version
+    -->
+
     <impex.oracle.phase>process-resources</impex.oracle.phase>
     <impex.mysql.phase>process-resources</impex.mysql.phase>
     <!-- Once H2 support is ready, default this to "process-resources" -->
