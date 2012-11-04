@@ -194,8 +194,8 @@ public class MvnMojo extends AbstractMojo implements MvnContext {
 	}
 
 	/**
-	 * Return <code>true<code> only if packaging equals <code>pom</code> or <code>skip</code> equals <code>true</code>. If
-	 * <code>forceMojoExecution</code> equals <code>true</code> never return <code>true</code> regardless of the other settings.
+	 * Return <code>true<code> only if packaging equals <code>pom</code> or <code>skip</code> equals <code>true</code> AND
+	 * <code>forceMojoExecution</code> is <code>false</code>.
 	 */
 	protected boolean isSkip() {
 		if (forceMojoExecution) {
