@@ -35,16 +35,18 @@
     Generate SQL for Oracle + MySQL into ${project.build.directory}/impex/sql
   </description>
   <properties>
-    <impex.ant.dir>${project.basedir}/src/main/resources</impex.ant.dir>
+    <impex.oracle.phase>process-resources</impex.oracle.phase>
+    <impex.mysql.phase>process-resources</impex.mysql.phase>
+    <!-- Once H2 support is ready, default this to "process-resources" -->
+    <impex.h2.phase>none</impex.h2.phase>
+    <impex.ant.dir>${impex.basedir}/src/main/resources</impex.ant.dir>
     <impex.ant.schema>${impex.ant.dir}/schema.xml</impex.ant.schema>
-    <impex.mvn.dir>${project.build.directory}/impex</impex.mvn.dir>
+    <impex.mvn.dir>${impex.basedir}/target/impex</impex.mvn.dir>
     <impex.mvn.xml>${impex.mvn.dir}/xml</impex.mvn.xml>
     <impex.mvn.sql>${impex.mvn.dir}/sql</impex.mvn.sql>
     <impex.mvn.schema>${impex.mvn.dir}/${impex.schema.name}.xml</impex.mvn.schema>
     <impex.mvn.dtd>${impex.mvn.dir}/${impex.schema.name}.dtd</impex.mvn.dtd>
-    <impex.oracle.phase>initialize</impex.oracle.phase>
-    <impex.mysql.phase>initialize</impex.mysql.phase>
-    <impex.h2.phase>none</impex.h2.phase>
+    <impex.context.path>${impex.basedir}/target/reports/context.datadtd.properties</impex.context.path>
   </properties>
   <build>
     <pluginManagement>
@@ -63,14 +65,14 @@
             <antCompatibilityMode>false</antCompatibilityMode>
             <schemaXMLFile>${impex.mvn.schema}</schemaXMLFile>
             <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
-            <schemaDir>${impex.mvn.xml}</schemaDir>
+            <schemaDir>${impex.mvn.dir}</schemaDir>
             <dataDTD>${impex.mvn.dtd}</dataDTD>
             <dataXMLDir>${impex.mvn.xml}</dataXMLDir>
           </configuration>
           <executions>
             <execution>
               <id>prepare</id>
-              <phase>initialize</phase>
+              <phase>process-resources</phase>
               <goals>
                 <goal>morphschema</goal>
                 <goal>morphdata</goal>
@@ -78,6 +80,8 @@
               </goals>
               <configuration>
                 <outputDir>${impex.mvn.dir}</outputDir>
+                <contextPropertiesPath>${impex.context.path}</contextPropertiesPath>
+                <reportFile>../reports/report.${impex.schema.name}.datadtd.generation</reportFile>
               </configuration>
             </execution>
             <execution>
