@@ -31,297 +31,346 @@ import org.kuali.maven.common.MvnExecutor;
  * @goal mvn
  */
 public class MvnMojo extends AbstractMojo implements MvnContext {
-    MvnExecutor executor = new MvnExecutor();
+	MvnExecutor executor = new MvnExecutor();
 
-    @Override
-    public Properties getProjectProperties() {
-        return project.getProperties();
-    }
+	@Override
+	public Properties getProjectProperties() {
+		return project.getProperties();
+	}
 
-    /**
-     * The Maven project object
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * The Maven project object
+	 *
+	 * @parameter expression="${project}"
+	 * @readonly
+	 */
+	private MavenProject project;
 
-    /**
-     * The working directory where the plugin makes a local copy of the pom (if a pom is supplied)
-     *
-     * @parameter expression="${mvn.workingDir}" default-value="${project.build.directory}/mvn"
-     * @required
-     */
-    private File workingDir;
+	/**
+	 * The working directory where the plugin makes a local copy of the pom (if a pom is supplied)
+	 *
+	 * @parameter expression="${mvn.workingDir}" default-value="${project.build.directory}/mvn"
+	 * @required
+	 */
+	private File workingDir;
 
-    /**
-     * The base directory for the new mvn invocation.
-     *
-     * @parameter expression="${mvn.basedir}" default-value="${project.build.directory}/mvn"
-     *
-     * @required
-     */
-    private File basedir;
+	/**
+	 * The base directory for the new mvn invocation.
+	 *
+	 * @parameter expression="${mvn.basedir}" default-value="${project.build.directory}/mvn"
+	 *
+	 * @required
+	 */
+	private File basedir;
 
-    /**
-     * The Maven executable. By default, the executable to use is located via the ${maven.home} system property. This
-     * causes the new mvn invocation to mirror the one that is currently executing (same version, etc). You can override
-     * this behavior by supplying your own executable
-     *
-     * @parameter expression="${mvn.executable}"
-     */
-    private String executable;
+	/**
+	 * The Maven executable. By default, the executable to use is located via the ${maven.home} system property. This causes the new mvn
+	 * invocation to mirror the one that is currently executing (same version, etc). You can override this behavior by supplying your own
+	 * executable
+	 *
+	 * @parameter expression="${mvn.executable}"
+	 */
+	private String executable;
 
-    /**
-     * The pom to supply to the new mvn invocation. This can be a file or any url Spring resource loading can understand
-     *
-     * eg classpath:pom.xml
-     *
-     * @parameter expression="${mvn.pom}"
-     */
-    private String pom;
+	/**
+	 * The pom to supply to the new mvn invocation. This can be a file or any url Spring resource loading can understand
+	 *
+	 * eg classpath:pom.xml
+	 *
+	 * @parameter expression="${mvn.pom}"
+	 */
+	private String pom;
 
-    /**
-     * POM's to invoke. If supplied, a new Maven invocation is generated using the same args for each pom
-     *
-     * @parameter
-     */
-    private List<String> poms;
+	/**
+	 * POM's to invoke. If supplied, a new Maven invocation is generated using the same args for each pom
+	 *
+	 * @parameter
+	 */
+	private List<String> poms;
 
-    /**
-     * If true, the pom will be filtered using properties from the current project before being invoked
-     *
-     * @parameter expression="${mvn.filterPom}" default-value="false"
-     */
-    private boolean filterPom;
+	/**
+	 * If true, the pom will be filtered using properties from the current project before being invoked
+	 *
+	 * @parameter expression="${mvn.filterPom}" default-value="false"
+	 */
+	private boolean filterPom;
 
-    /**
-     * If supplied, only the listed properties will be used when filtering the pom
-     *
-     * @parameter
-     */
-    private List<String> filterProperties;
+	/**
+	 * If supplied, only the listed properties will be used when filtering the pom
+	 *
+	 * @parameter
+	 */
+	private List<String> filterProperties;
 
-    /**
-     * Arguments to supply to the new mvn invocation eg "clean install"
-     *
-     * @parameter
-     * @required
-     */
-    private List<String> args;
+	/**
+	 * Arguments to supply to the new mvn invocation eg "clean install"
+	 *
+	 * @parameter
+	 * @required
+	 */
+	private List<String> args;
 
-    /**
-     * List of properties from the current project to propagate to the new mvn invocation
-     *
-     * @parameter
-     */
-    private List<String> properties;
+	/**
+	 * List of properties from the current project to propagate to the new mvn invocation
+	 *
+	 * @parameter
+	 */
+	private List<String> properties;
 
-    /**
-     * If true, the current environment is passed to the new mvn invocation
-     *
-     * @parameter expression="${mvn.addEnvironment}" default-value="false"
-     */
-    private boolean addEnvironment;
+	/**
+	 * If true, the current environment is passed to the new mvn invocation
+	 *
+	 * @parameter expression="${mvn.addEnvironment}" default-value="false"
+	 */
+	private boolean addEnvironment;
 
-    /**
-     * If true, the environment variable MAVEN_OPTS (if set) is passed to the new mvn invocation
-     *
-     * @parameter expression="${mvn.addMavenOpts}" default-value="true"
-     */
-    private boolean addMavenOpts;
+	/**
+	 * If true, the environment variable MAVEN_OPTS (if set) is passed to the new mvn invocation
+	 *
+	 * @parameter expression="${mvn.addMavenOpts}" default-value="true"
+	 */
+	private boolean addMavenOpts;
 
-    /**
-     * If true, the original Maven build will fail if the new mvn invocation returns a non-zero exit value, otherwise
-     * the original Maven build will continue
-     *
-     * @parameter expression="${mvn.failOnError}" default-value="true"
-     * @required
-     */
-    private boolean failOnError;
+	/**
+	 * If true, the original Maven build will fail if the new mvn invocation returns a non-zero exit value, otherwise the original Maven
+	 * build will continue
+	 *
+	 * @parameter expression="${mvn.failOnError}" default-value="true"
+	 * @required
+	 */
+	private boolean failOnError;
 
-    /**
-     * If true, any temp pom copied to <code>basedir</code> will be deleted when the plugin execution is complete
-     *
-     * @parameter expression="${mvn.deleteTempPom}" default-value="true"
-     * @required
-     */
-    private boolean deleteTempPom;
+	/**
+	 * If true, any temp pom copied to <code>basedir</code> will be deleted when the plugin execution is complete
+	 *
+	 * @parameter expression="${mvn.deleteTempPom}" default-value="true"
+	 * @required
+	 */
+	private boolean deleteTempPom;
 
-    /**
-     * If true, logging output is reduced to a minimum
-     *
-     * @parameter expression="${mvn.quiet}" default-value="true"
-     * @required
-     */
-    private boolean quiet;
+	/**
+	 * If true, logging output is reduced to a minimum
+	 *
+	 * @parameter expression="${mvn.quiet}" default-value="true"
+	 * @required
+	 */
+	private boolean quiet;
 
-    /**
-     * If true, no logging output is generated.
-     *
-     * @parameter expression="${mvn.silent}" default-value="false"
-     * @required
-     */
-    private boolean silent;
+	/**
+	 * If true, no logging output is generated.
+	 *
+	 * @parameter expression="${mvn.silent}" default-value="false"
+	 * @required
+	 */
+	private boolean silent;
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        try {
-            executor.execute(this);
-        } catch (Exception e) {
-            throw new MojoExecutionException("Error invoking mvn", e);
-        }
-    }
+	/**
+	 * If true, always execute the mojo, even if packaging is <code>pom</code>. <code>forceMojoExecution</code> overrides <code>skip</code>
+	 *
+	 * @parameter expression="${mvn.forceMojoExecution}" default-value="false"
+	 * @required
+	 */
+	private boolean forceMojoExecution;
 
-    @Override
-    public File getWorkingDir() {
-        return workingDir;
-    }
+	/**
+	 * If true, skip executing the mojo
+	 *
+	 * @parameter expression="${mvn.skip}" default-value="false"
+	 * @required
+	 */
+	private boolean skip;
 
-    @Override
-    public void setWorkingDir(File workingDir) {
-        this.workingDir = workingDir;
-    }
+	@Override
+	public void execute() throws MojoExecutionException {
+		if (isSkip()) {
+			getLog().info("Skipping execution");
+			return;
+		}
+		try {
+			executor.execute(this);
+		} catch (Exception e) {
+			throw new MojoExecutionException("Error invoking mvn", e);
+		}
+	}
 
-    @Override
-    public boolean isFailOnError() {
-        return failOnError;
-    }
+	/**
+	 * Return <code>true<code> only if packaging equals <code>pom</code> or <code>skip</code> equals <code>true</code>. If
+	 * <code>forceMojoExecution</code> equals <code>true</code> never return <code>true</code> regardless of the other settings.
+	 */
+	protected boolean isSkip() {
+		if (forceMojoExecution) {
+			return false;
+		}
+		if (skip) {
+			return true;
+		} else {
+			return project.getPackaging().toLowerCase().equals("pom");
+		}
+	}
 
-    @Override
-    public void setFailOnError(boolean failOnError) {
-        this.failOnError = failOnError;
-    }
+	@Override
+	public File getWorkingDir() {
+		return workingDir;
+	}
 
-    public MavenProject getProject() {
-        return project;
-    }
+	@Override
+	public void setWorkingDir(File workingDir) {
+		this.workingDir = workingDir;
+	}
 
-    @Override
-    public String getPom() {
-        return pom;
-    }
+	@Override
+	public boolean isFailOnError() {
+		return failOnError;
+	}
 
-    @Override
-    public void setPom(String pom) {
-        this.pom = pom;
-    }
+	@Override
+	public void setFailOnError(boolean failOnError) {
+		this.failOnError = failOnError;
+	}
 
-    @Override
-    public List<String> getArgs() {
-        return args;
-    }
+	public MavenProject getProject() {
+		return project;
+	}
 
-    @Override
-    public void setArgs(List<String> args) {
-        this.args = args;
-    }
+	@Override
+	public String getPom() {
+		return pom;
+	}
 
-    @Override
-    public String getExecutable() {
-        return executable;
-    }
+	@Override
+	public void setPom(String pom) {
+		this.pom = pom;
+	}
 
-    @Override
-    public void setExecutable(String executable) {
-        this.executable = executable;
-    }
+	@Override
+	public List<String> getArgs() {
+		return args;
+	}
 
-    @Override
-    public boolean isAddEnvironment() {
-        return addEnvironment;
-    }
+	@Override
+	public void setArgs(List<String> args) {
+		this.args = args;
+	}
 
-    @Override
-    public void setAddEnvironment(boolean addSystemEnvironment) {
-        this.addEnvironment = addSystemEnvironment;
-    }
+	@Override
+	public String getExecutable() {
+		return executable;
+	}
 
-    @Override
-    public List<String> getProperties() {
-        return properties;
-    }
+	@Override
+	public void setExecutable(String executable) {
+		this.executable = executable;
+	}
 
-    @Override
-    public void setProperties(List<String> properties) {
-        this.properties = properties;
-    }
+	@Override
+	public boolean isAddEnvironment() {
+		return addEnvironment;
+	}
 
-    @Override
-    public boolean isFilterPom() {
-        return filterPom;
-    }
+	@Override
+	public void setAddEnvironment(boolean addSystemEnvironment) {
+		this.addEnvironment = addSystemEnvironment;
+	}
 
-    @Override
-    public void setFilterPom(boolean filter) {
-        this.filterPom = filter;
-    }
+	@Override
+	public List<String> getProperties() {
+		return properties;
+	}
 
-    @Override
-    public boolean isAddMavenOpts() {
-        return addMavenOpts;
-    }
+	@Override
+	public void setProperties(List<String> properties) {
+		this.properties = properties;
+	}
 
-    @Override
-    public void setAddMavenOpts(boolean addMavenOpts) {
-        this.addMavenOpts = addMavenOpts;
-    }
+	@Override
+	public boolean isFilterPom() {
+		return filterPom;
+	}
 
-    @Override
-    public File getBasedir() {
-        return basedir;
-    }
+	@Override
+	public void setFilterPom(boolean filter) {
+		this.filterPom = filter;
+	}
 
-    @Override
-    public void setBasedir(File basedir) {
-        this.basedir = basedir;
-    }
+	@Override
+	public boolean isAddMavenOpts() {
+		return addMavenOpts;
+	}
 
-    @Override
-    public boolean isDeleteTempPom() {
-        return deleteTempPom;
-    }
+	@Override
+	public void setAddMavenOpts(boolean addMavenOpts) {
+		this.addMavenOpts = addMavenOpts;
+	}
 
-    public void setDeleteTempPom(boolean deleteTempPom) {
-        this.deleteTempPom = deleteTempPom;
-    }
+	@Override
+	public File getBasedir() {
+		return basedir;
+	}
 
-    @Override
-    public List<String> getPoms() {
-        return poms;
-    }
+	@Override
+	public void setBasedir(File basedir) {
+		this.basedir = basedir;
+	}
 
-    @Override
-    public void setPoms(List<String> poms) {
-        this.poms = poms;
-    }
+	@Override
+	public boolean isDeleteTempPom() {
+		return deleteTempPom;
+	}
 
-    @Override
-    public boolean isQuiet() {
-        return quiet;
-    }
+	public void setDeleteTempPom(boolean deleteTempPom) {
+		this.deleteTempPom = deleteTempPom;
+	}
 
-    @Override
-    public void setQuiet(boolean quiet) {
-        this.quiet = quiet;
-    }
+	@Override
+	public List<String> getPoms() {
+		return poms;
+	}
 
-    @Override
-    public boolean isSilent() {
-        return silent;
-    }
+	@Override
+	public void setPoms(List<String> poms) {
+		this.poms = poms;
+	}
 
-    @Override
-    public void setSilent(boolean silent) {
-        this.silent = silent;
-    }
+	@Override
+	public boolean isQuiet() {
+		return quiet;
+	}
 
-    public List<String> getFilterProperties() {
-        return filterProperties;
-    }
+	@Override
+	public void setQuiet(boolean quiet) {
+		this.quiet = quiet;
+	}
 
-    public void setFilterProperties(List<String> filterProperties) {
-        this.filterProperties = filterProperties;
-    }
+	@Override
+	public boolean isSilent() {
+		return silent;
+	}
+
+	@Override
+	public void setSilent(boolean silent) {
+		this.silent = silent;
+	}
+
+	@Override
+	public List<String> getFilterProperties() {
+		return filterProperties;
+	}
+
+	@Override
+	public void setFilterProperties(List<String> filterProperties) {
+		this.filterProperties = filterProperties;
+	}
+
+	public boolean isForceMojoExecution() {
+		return forceMojoExecution;
+	}
+
+	public void setForceMojoExecution(boolean forceMojoExecution) {
+		this.forceMojoExecution = forceMojoExecution;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 
 }
