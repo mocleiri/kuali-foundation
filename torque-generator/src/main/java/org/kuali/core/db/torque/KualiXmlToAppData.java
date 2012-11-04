@@ -65,7 +65,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Creates a new instance for the specified database type.
-	 * 
+	 *
 	 * @param databaseType
 	 *            The type of database for the application.
 	 */
@@ -76,7 +76,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Creates a new instance for the specified database type.
-	 * 
+	 *
 	 * @param databaseType
 	 *            The type of database for the application.
 	 * @param defaultPackage
@@ -103,11 +103,12 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Parses a XML input file and returns a newly created and populated Database structure.
-	 * 
+	 *
 	 * @param xmlFile
 	 *            The input file to parse.
 	 * @return Database populated by <code>xmlFile</code>.
 	 */
+	@Override
 	public KualiDatabase parseResource(String location) throws EngineException {
 		try {
 			// in case I am missing something, make it obvious
@@ -152,7 +153,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * EntityResolver implementation. Called by the XML parser
-	 * 
+	 *
 	 * @param publicId
 	 *            The public identifier of the external entity
 	 * @param systemId
@@ -160,6 +161,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 	 * @return an InputSource for the database.dtd file
 	 * @see DTDResolver#resolveEntity(String, String)
 	 */
+	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
 		try {
 			return new ImpexDTDResolver().resolveEntity(publicId, systemId);
@@ -170,7 +172,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Handles opening elements of the xml file.
-	 * 
+	 *
 	 * @param uri
 	 * @param localName
 	 *            The local name (without prefix), or the empty string if Namespace processing is not being performed.
@@ -179,6 +181,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 	 * @param attributes
 	 *            The specified or defaulted attributes
 	 */
+	@Override
 	public void startElement(String uri, String localName, String rawName, Attributes attributes) throws SAXException {
 		try {
 			if (rawName.equals("database")) {
@@ -250,13 +253,14 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Handles closing elements of the xml file.
-	 * 
+	 *
 	 * @param uri
 	 * @param localName
 	 *            The local name (without prefix), or the empty string if Namespace processing is not being performed.
 	 * @param rawName
 	 *            The qualified name (with prefix), or the empty string if qualified names are not available.
 	 */
+	@Override
 	public void endElement(String uri, String localName, String rawName) throws SAXException {
 		if (log.isDebugEnabled()) {
 			log.debug("endElement(" + uri + ", " + localName + ", " + rawName + ") called");
@@ -307,20 +311,20 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Handles exception which occur when the xml file is parsed
-	 * 
+	 *
 	 * @param e
 	 *            the exception which occured while parsing
 	 * @throws SAXException
 	 *             always
 	 */
+	@Override
 	public void error(SAXParseException e) throws SAXException {
 		log.error("Sax parser threw an Exception", e);
 		throw new SAXException("Error while parsing " + currentXmlFile + " at line " + e.getLineNumber() + " column " + e.getColumnNumber() + " : " + e.getMessage());
 	}
 
 	/**
-	 * When parsing multiple files that use nested <external-schema> tags we need to use a stack to remember some
-	 * values.
+	 * When parsing multiple files that use nested <external-schema> tags we need to use a stack to remember some values.
 	 */
 	private static class ParseStackElement {
 		private boolean isExternalSchema;
@@ -329,7 +333,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 		private boolean firstPass;
 
 		/**
-		 * 
+		 *
 		 * @param parser
 		 */
 		public ParseStackElement(KualiXmlToAppData parser) {
@@ -345,7 +349,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 		/**
 		 * Removes the top element from the stack and activates the stored state
-		 * 
+		 *
 		 * @param parser
 		 */
 		public static void popState(KualiXmlToAppData parser) {
@@ -362,7 +366,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 		/**
 		 * Stores the current state on the top of the stack.
-		 * 
+		 *
 		 * @param parser
 		 */
 		public static void pushState(KualiXmlToAppData parser) {
