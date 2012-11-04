@@ -27,7 +27,7 @@
   <groupId>${project.groupId}</groupId>
   <artifactId>kuali-impex-with-sql</artifactId>
   <version>${project.version}</version>
-  <name>Kuali Generate Maven Impex</name>
+  <name>Kuali Impex with SQL</name>
   <description>
     Convert Ant Impex XML files into Maven Impex XML files
     Put the Maven Impex data XML files into ${project.build.directory}/impex/xml
