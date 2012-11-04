@@ -25,7 +25,7 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>kuali-generate-mvn-impex</artifactId>
+  <artifactId>kuali-impex-with-sql</artifactId>
   <version>${project.version}</version>
   <name>Kuali Generate Maven Impex</name>
   <description>
