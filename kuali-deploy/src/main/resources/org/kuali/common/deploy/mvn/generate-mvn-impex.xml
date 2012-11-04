@@ -30,8 +30,9 @@
   <name>Kuali Generate Maven Impex</name>
   <description>
     Convert Ant Impex XML files into Maven Impex XML files
-    Put the Maven Impex XML files into ${project.build.directory}/impex
-    Generate ${project.build.directory}/impex/${impex.schema.name}.dtd
+    Put the Maven Impex data XML files into ${project.build.directory}/impex/xml
+    Generate Maven Impex schema XML at ${project.build.directory}/impex/${impex.schema.name}.xml
+    Generate a DTD into ${project.build.directory}/impex/${impex.schema.name}.dtd
     Generate SQL for Oracle + MySQL into ${project.build.directory}/impex/sql
   </description>
   <properties>
