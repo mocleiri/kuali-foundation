@@ -11,6 +11,7 @@ import java.util.Vector;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.torque.engine.EngineException;
@@ -137,7 +138,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 				is.setSystemId(location);
 				parser.parse(is, this);
 			} finally {
-				in.close();
+				IOUtils.closeQuietly(in);
 			}
 		} catch (SAXParseException e) {
 			throw new EngineException("Sax error on line " + e.getLineNumber() + " column " + e.getColumnNumber() + " : " + e.getMessage(), e);
