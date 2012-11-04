@@ -66,7 +66,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Creates a new instance for the specified database type.
-	 *
+	 * 
 	 * @param databaseType
 	 *            The type of database for the application.
 	 */
@@ -77,7 +77,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Creates a new instance for the specified database type.
-	 *
+	 * 
 	 * @param databaseType
 	 *            The type of database for the application.
 	 * @param defaultPackage
@@ -104,7 +104,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Parses a XML input file and returns a newly created and populated Database structure.
-	 *
+	 * 
 	 * @param xmlFile
 	 *            The input file to parse.
 	 * @return Database populated by <code>xmlFile</code>.
@@ -154,7 +154,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * EntityResolver implementation. Called by the XML parser
-	 *
+	 * 
 	 * @param publicId
 	 *            The public identifier of the external entity
 	 * @param systemId
@@ -173,7 +173,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Handles opening elements of the xml file.
-	 *
+	 * 
 	 * @param uri
 	 * @param localName
 	 *            The local name (without prefix), or the empty string if Namespace processing is not being performed.
@@ -254,7 +254,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Handles closing elements of the xml file.
-	 *
+	 * 
 	 * @param uri
 	 * @param localName
 	 *            The local name (without prefix), or the empty string if Namespace processing is not being performed.
@@ -312,7 +312,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 	/**
 	 * Handles exception which occur when the xml file is parsed
-	 *
+	 * 
 	 * @param e
 	 *            the exception which occured while parsing
 	 * @throws SAXException
@@ -334,7 +334,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 		private boolean firstPass;
 
 		/**
-		 *
+		 * 
 		 * @param parser
 		 */
 		public ParseStackElement(KualiXmlToAppData parser) {
@@ -350,7 +350,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 		/**
 		 * Removes the top element from the stack and activates the stored state
-		 *
+		 * 
 		 * @param parser
 		 */
 		public static void popState(KualiXmlToAppData parser) {
@@ -367,7 +367,7 @@ public class KualiXmlToAppData extends DefaultHandler implements DatabaseParser 
 
 		/**
 		 * Stores the current state on the top of the stack.
-		 *
+		 * 
 		 * @param parser
 		 */
 		public static void pushState(KualiXmlToAppData parser) {
