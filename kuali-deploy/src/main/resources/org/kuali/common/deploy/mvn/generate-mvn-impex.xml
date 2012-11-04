@@ -48,6 +48,7 @@
     <impex.mvn.schema>${impex.mvn.dir}/${impex.schema.name}.xml</impex.mvn.schema>
     <impex.mvn.dtd>${impex.mvn.dir}/${impex.schema.name}.dtd</impex.mvn.dtd>
     <impex.context.path>${impex.basedir}/target/reports/context.datadtd.properties</impex.context.path>
+    <impex.report.file>../reports/report.${impex.schema.name}.datadtd.generation</impex.report.file>
   </properties>
   <build>
     <pluginManagement>
@@ -82,7 +83,7 @@
               <configuration>
                 <outputDir>${impex.mvn.dir}</outputDir>
                 <contextPropertiesPath>${impex.context.path}</contextPropertiesPath>
-                <reportFile>../reports/report.${impex.schema.name}.datadtd.generation</reportFile>
+                <reportFile>${impex.report.file}</reportFile>
               </configuration>
             </execution>
             <execution>
