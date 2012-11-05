@@ -42,7 +42,7 @@ import org.kuali.rice.core.api.config.property.Config;
 
 public class SpringContext {
     protected static final Logger LOG = Logger.getLogger(SpringContext.class);
-    protected static final String BOOTSTRAP_CONTEXT_DEFINITION = "classpath:spring-beans.xml";
+    protected static final String BOOTSTRAP_CONTEXT_DEFINITION = "classpath:spring-rice-startup.xml";
     protected static final String APPLICATION_CONTEXT_DEFINITION = "classpath:spring-rice-configurer.xml";
     protected static final String APPLICATION_CONFIG_LOCATION = "classpath:spring-rice-config.xml";
     
