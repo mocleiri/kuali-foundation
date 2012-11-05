@@ -23,33 +23,30 @@
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="rice" class="org.kuali.rice.core.config.RiceConfigurer">
-    <property name="dataSource" ref="dataSource" />
+  <bean class="org.kuali.rice.core.util.ApplicationThreadLocalCleaner" lazy-init="false"/>
+
+ <bean id="coreConfigurer" class="org.kuali.rice.core.impl.config.module.CoreConfigurer">
+    <property name="dataSource" ref="serverDatasource" />
     <property name="nonTransactionalDataSource" ref="nonTransactionalDataSource" />
-    <property name="serverDataSource" ref="serverDatasource" />
-    <property name="transactionManager" ref="jotm" />
-    <property name="userTransaction" ref="jotm" />
-    <property name="serviceNamespace" value="${app.namespace}" />
-    <property name="environment" value="${build.environment}" />
-    <property name="properties" ref="properties" />
-    <property name="ksbConfigurer">
-      <bean class="org.kuali.rice.ksb.messaging.config.KSBConfigurer" p:serviceServletUrl="${ksb.remoting.url}" p:webModuleConfigurationFiles="${rice.ksb.struts.config.files}" />
-    </property>
-    <property name="kewConfigurer">
-      <bean class="org.kuali.rice.kew.config.KEWConfigurer" p:runMode="${kew.mode}" p:webModuleConfigurationFiles="${rice.kew.struts.config.files}" />
-    </property>
-    <property name="knsConfigurer">
-      <bean class="org.kuali.rice.kns.config.KNSConfigurer" p:loadDataDictionary="true" p:validateDataDictionary="true" p:webModuleConfigurationFiles="${rice.kns.struts.config.files}" />
-    </property>
-    <property name="kimConfigurer">
-      <bean class="org.kuali.rice.kim.config.KIMConfigurer" p:runMode="${kim.mode}" p:webModuleConfigurationFiles="${rice.kim.struts.config.files}" />
-    </property>
-    <property name="kenConfigurer">
-      <bean class="org.kuali.rice.ken.config.KENConfigurer" />
-    </property>
-    <property name="kcbConfigurer">
-      <bean class="org.kuali.rice.kcb.config.KCBConfigurer" />
-    </property>
+    <property name="transactionManager" ref="transactionManagerXAPool" />
+    <property name="userTransaction" ref="jtaUserTransaction" />
   </bean>
+
+  <bean id="ksbConfigurer" class="org.kuali.rice.ksb.messaging.config.KSBConfigurer"/>
+
+  <bean id="kradConfigurer" class="org.kuali.rice.krad.config.KRADConfigurer"/>
+
+  <bean id="coreServiceConfigurer" class="org.kuali.rice.coreservice.impl.config.CoreServiceConfigurer"/>
+
+  <bean id="kimConfigurer" class="org.kuali.rice.kim.config.KIMConfigurer"/>
+
+  <bean id="kewConfigurer" class="org.kuali.rice.kew.config.KEWConfigurer"/>
+
+  <bean id="kenConfigurer" class="org.kuali.rice.ken.impl.config.KENConfigurer"/>
+
+
+  <bean id="krmsConfigurer" class="org.kuali.rice.krms.config.KRMSConfigurer"/>
+
+  <bean id="locationConfigurer" class="org.kuali.rice.location.impl.config.LocationConfigurer"/>
 
 </beans>
