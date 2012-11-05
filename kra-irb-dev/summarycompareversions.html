@@ -39,45 +39,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=675,height=700');");
 	}
 	// --></script>
+    
 <!-- jQuery Library -->
 <script type="text/javascript" src="../scripts/jquery.js"></script>
-<!-- jQuery Document Ready -->
-<script type="text/javascript">
-		$(document).ready(function(){
-		
-		<!-- checklistcontrol -->
-			$("#checklistcontrol").change(
-				function()
-				{
-					pickchecklist();
-				}
-			);
-		
-		<!-- pickchecklist -->
-			pickchecklist();
-			function pickchecklist()
-			{
-				
-				<!-- Expidited -->
-					if (document.protocolactionsform.checklistcontrol.selectedIndex == 2)
-					{
-						$("#checklistexemptdiv").slideUp(300, function() { $("#checklistexpediteddiv").slideDown(600); });
-					}
-				<!-- Exempt -->
-					else if (document.protocolactionsform.checklistcontrol.selectedIndex == 3)
-					{
-						$("#checklistexpediteddiv").slideUp(300, function() { $("#checklistexemptdiv").slideDown(600); });
-					}
-				<!-- Default -->
-					else
-					{
-						$("#checklistexpediteddiv").slideUp(300);
-						$("#checklistexemptdiv").slideUp(300);
-					}
-					
-			}	
-					
-		});</script>
+
+
 </head>
 <body>
 <form name="protocolactionsform" method=post>
@@ -319,6 +285,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <tr>
                     <th style="text-align:right;">Changed</th>
                     <td>
+                    	
                     	<table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="width:65px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
@@ -446,26 +413,203 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <!-- Attachments -->
                 <table cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">Attachments <img src="../images/gointo.png" alt="go to panel" title="go to panel" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" /></td>
+                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">
+                    	<img id="control_tbody01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none;">
+                        Attachments (5) <img src="../images/gointo.png" alt="go to panel" title="go to panel" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" />
+                        <script>
+							$(document).ready(function () {
+								
+								$("#control_tbody01").toggle(
+									function()
+									{
+										$("#tbody02").slideUp(200);
+										$("#control_tbody01").attr("src","../images/tinybutton-show.gif");
+									},
+									function()
+									{
+										$("#tbody02").slideDown(400);
+										$("#control_tbody01").attr("src","../images/tinybutton-hide.gif");
+									}
+									
+								);
+								
+							});
+						</script>
+                    </td>
                   </tr>
+                  <tbody id="tbody02">
                   <tr>
                     <td style="width:12%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Action</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 3: Some Descriptive Text (previous)</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 4: Some Informative Text (current)</td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Deleted</th>
+                    <th style="text-align:right;">Changed</th>
                     <td>
-                    	Informed Consent Document
+                    	
+                        
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Document:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    Informed Consent Document
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    File:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    InfConsent.pdf
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modifier:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    IRB Admin
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Created Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modified Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Description:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    Some description.
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                     <td>
                     	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Document:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    Informed Consent Document
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    File:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    InfConsent.pdf
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modifier:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    IRB Admin
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Created Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modified Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/30/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Description:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Modification of description.
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                   </tr>
                   <tr>
                     <th style="text-align:right;">Deleted</th>
                     <td>
-                    	HIPAA Research Authorization Form
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Document:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    HIPAA Research Authorization Form
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    File:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    hippa_Auth.pdf
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modifier:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    IRB Admin
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Created Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modified Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Description:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    Some description.
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                     <td>
                     	
@@ -477,7 +621,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	
                     </td>
                     <td style="color:#F00;">
-                    	Informed Consent Document
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Document:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Protocol Narrative
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    File:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    narrative123.pdf
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modifier:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    IRB Admin
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Created Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modified Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Description:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Some description.
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                   </tr>
                   <tr>
@@ -486,7 +681,58 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	
                     </td>
                     <td style="color:#F00;">
-                    	Protocol Narrative
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Document:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Personnel: HUNTLEY, KEISHA Y, Biography
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    File:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Huntley_Bio.pdf
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modifier:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    IRB Admin
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Created Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modified Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Description:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Some description.
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                   </tr>
                   <tr>
@@ -495,18 +741,61 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     	
                     </td>
                     <td style="color:#F00;">
-                    	Personnel: HUNTLEY, KEISHA Y, Biography
-                    </td>
-                  </tr>
-                  <tr>
-                    <th style="text-align:right;">Added</th>
-                    <td>
                     	
-                    </td>
-                    <td style="color:#F00;">
-                    	Personnel: HUNTLEY, KEISHA Y, Other
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Document:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Personnel: HUNTLEY, KEISHA Y, Other
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    File:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    KeishaHuntley.pdf
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modifier:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    IRB Admin
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Created Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Last Modified Date:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    10/26/2012 11:17 AM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Description:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    Some description.
+                                </td>
+                            </tr>
+                        </table>
+                        
                     </td>
                   </tr>
+                  </tbody>
                 </table>
                 
                 <!-- Questionnaire -->
@@ -520,12 +809,252 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 4: Some Informative Text (current)</td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">???</th>
+                    <th style="text-align:right;">New</th>
                     <td>
-                    	???
+                    	
                     </td>
                     <td>
-                    	???
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Title:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    My First Questionnaire
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Meta Datapoint 1:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    xxx
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Meta Datapoint 2:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    yyy
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="text-align:right;">Removed</th>
+                    <td>
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Title:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    My Third Questionnaire
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="text-align:right;" rowspan="3">Updated</th>
+                    <td>
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Title:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    My Second Questionnaire
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Meta Datapoint 2:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    zzz
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td>
+                    	
+                        <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Title:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    My Second Questionnaire
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Meta Datapoint 2:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    aaa
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                  </tr>
+                  <tr>
+                  	<td>
+                    	<ul style="max-height:150px; overflow:auto;">
+                            <li>
+                                Confirm live vertebrates will be used in this protocol?
+                                <ul>
+                                    <li>
+                                        [Yes] Will you be using whole dead animals which are regulated by USDA?
+                                        <ul>
+                                            <li>
+                                                [Yes] Which of the following describes the types of animal use proposed in this protocol?
+                                                
+                                                <ul>
+                                                    <li class="closed">
+                                                        [Research] What type of research?
+                                                        
+                                                        <ul>
+                                                            <li>
+                                                                [basic] Tell me more about your "basic" research.
+                                                            </li>
+                                                            <li>
+                                                                [advanced] Tell me more about your "advanced" research.
+                                                            </li>
+                                                            <li>
+                                                                Have you ever done this type of research before?
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                    </li>
+                                                    
+                                                    <li>
+                                                        [Other] Explain the type of animal use proposed in this protocol.
+                                                        
+                                                        <ul>
+                                                            <li>
+                                                                <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                                                [Endangered Species] Have the proper local authorities been notified.
+                                                            </li>
+                                                            <li>
+                                                                [Endangered Species] Explain the protections being used to ensure survivability of the animals.
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                            </li>
+                                        </ul>
+                                        
+                                    </li>
+                                </ul>
+                                
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                    	<ul style="max-height:150px; overflow:auto;">
+                            <li>
+                                Confirm live vertebrates will be used in this protocol?
+                                <ul>
+                                    <li>
+                                        [Yes] Will you be using whole dead animals which are regulated by USDA?
+                                        <ul>
+                                            <li>
+                                                [Yes] Which of the following describes the types of <span style="color:#F00; text-decoration:line-through;">animal</span> <span style="color:#F00;">vertabrates</span> use proposed in this protocol?
+                                                
+                                                <ul>
+                                                    <li class="closed">
+                                                        [Research] What type of research?
+                                                        
+                                                        <ul>
+                                                            <li>
+                                                                [basic] Tell me more about your "basic" research.
+                                                            </li>
+                                                            <li>
+                                                                [advanced] Tell me more about your "advanced" research.
+                                                            </li>
+                                                            <li>
+                                                                Have you ever done this type of research before?
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                    </li>
+                                                    
+                                                    <li>
+                                                        [Other] Explain the type of animal use proposed in this protocol.
+                                                        
+                                                        <ul>
+                                                            <li>
+                                                                <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                                                [Endangered Species] Have the proper local authorities been notified.
+                                                            </li>
+                                                            <li>
+                                                                [Endangered Species] Explain the protections being used to ensure survivability of the animals.
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                            </li>
+                                        </ul>
+                                        
+                                    </li>
+                                </ul>
+                                
+                            </li>
+                        </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                  	<td>
+                    	<ul style="max-height:150px; overflow:auto;">
+                            <li>
+                                What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                
+                                <ul>
+                                    <li>
+                                        [>12] What is the location?
+                                    </li>
+                                    <li>
+                                        [>12] What is the scientific justification?
+                                    </li>
+                                </ul>
+                                
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                    	<ul style="max-height:150px; overflow:auto;">
+                            <li>
+                                What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                
+                                <ul>
+                                    <li>
+                                        [>12] What is the location?
+                                    </li>
+                                    <li>
+                                        [>12] What is the scientific justification?
+                                    </li>
+                                </ul>
+                                
+                            </li>
+                        </ul>
                     </td>
                   </tr>
                 </table>

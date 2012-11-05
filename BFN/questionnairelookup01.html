@@ -167,6 +167,169 @@
             </td>
             <td align="right" valign="bottom">
             	<img class="various1" href="#inline1" src="../images/tinybutton-importnew.gif" style="border:none; vertical-align:bottom; width:70px; height:15px; cursor:pointer;" alt="import new" title="import new questionnaire" />
+                
+                <script type="text/javascript">
+					$(document).ready(function() {
+						
+						$(".various1").fancybox({
+							'titlePosition'		: 'inside',
+							'transitionIn'		: 'none',
+							'transitionOut'		: 'none',
+							'autoScale'			: true,
+							'titleShow'			: false
+						});
+					});
+				</script>
+				<div style="display: none;">
+					<div id="inline1" style="overflow:auto;">
+						
+						<table style="margin:auto; width:800px; border:1px solid #999; border-collapse:collapse; margin-bottom:10px;">
+							<tr>
+								<th style="width:137px; text-align:center; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#666666;" colspan="2">
+									Import New Questionnaire
+								</th>
+							</tr>
+							<tbody id="nohoverblue">
+							<tr>
+								<th style="text-align:right; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#E6E6E6; width:85px;">
+									File:
+								</th>
+								<td>
+									<input type="file" style="margin:3px;" />
+									<img id="control_previewoutline" src="../images/tinybutton-preview.gif" style="width:60px; height:15px; border:none; cursor:pointer; vertical-align:middle;" title="preview" />
+									<script type="text/javascript" language="javascript">
+										$(document).ready(function() {
+											// original value or changed?
+											$('#control_previewoutline').click(function() {
+												$('#div_previewoutnote').slideUp(200);
+												$('#div_previewoutline').slideDown(600);
+											});
+										});
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align:right; vertical-align:top; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#E6E6E6; width:85px;">
+									Preview:
+								</th>
+								<td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
+									<div style="height:400px;">
+									<div id="div_previewoutnote">
+										<span style="color:#666; font-style:italic;">Select your XML file above and click the 'preview' button.</span>
+									</div>
+									<div style="display:block;">
+									<ul id="div_previewoutline" style="display:none;">
+										
+										<li class="closed">
+											<div>
+											<!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+											<a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
+												
+											</div>
+											
+											<ul>
+												<li class="closed">
+													
+													<div>
+													<a id="listcontrol02" style="margin-left:2px;">[Yes] Will you be using whole dead animals which are regulated by USDA?</a>
+														
+													</div>
+													
+													<ul>
+														<li class="closed">
+															[Yes] Which of the following describes the types of animal use proposed in this protocol?
+															
+															<ul>
+																<li class="closed">
+																	[Research] What type of research?
+																	
+																	<ul>
+																		<li>
+																			[basic] Tell me more about your "basic" research.
+																		</li>
+																		<li>
+																			[advanced] Tell me more about your "advanced" research.
+																		</li>
+																		<li>
+																			Have you ever done this type of research before?
+																		</li>
+																	</ul>
+																	
+																</li>
+																
+																<li>
+																	[Other] Explain the type of animal use proposed in this protocol.
+																	
+																	<ul>
+																		<li>
+																			<!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+																			[Endangered Species] Have the proper local authorities been notified.
+																		</li>
+																		<li>
+																			[Endangered Species] Explain the protections being used to ensure survivability of the animals.
+																		</li>
+																	</ul>
+																	
+																</li>
+															</ul>
+															
+														</li>
+													</ul>
+													
+												</li>
+											   
+												
+											</ul>
+											
+										</li>
+										<li class="closed">
+											What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+											
+											<ul>
+												<li>
+													[>12] What is the location?
+												</li>
+												<li>
+													[>12] What is the scientific justification?
+												</li>
+											</ul>
+											
+										</li>
+										<li class="closed">
+											<!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+											Will all handelers of live animals be vetted Cornell employees?
+											
+											
+											
+										</li>
+										<li class="closed">
+											Is there a proceedure in place to insure local animal control compliance?
+											
+											
+											
+										</li>
+										<li class="closed">
+											What concerns have been raised by local institutions?
+											
+										   
+											
+										</li>
+									
+									</ul>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						
+						<div style="text-align:center;">
+						<img onclick="$.fancybox.close();"  title="Cancel XML Import" src="../images/buttonsmall_cancelimport.gif" style="width:105px; height:18px; border:none; cursor:pointer;" title="import" />
+						<img onclick="javascript: alert('Were this not a mock, this would verify an appropriate file has been selected and do the described import..'); return false" title="Import XML Content" src="../images/buttonsmall_import.gif" style="width:62px; height:18px; border:none; cursor:pointer;" title="import" />
+						</div>
+						
+					</div>
+				</div>
+                
                 <input src="../images/tinybutton-createnew.gif" onclick="javascript: alert('This would create something new.'); return false" style="border:none; vertical-align:bottom;" alt="create new" title="create new" type="image" />
                 <a href="#" style="text-decoration:underline;">Main</a>
             </td>
@@ -289,11 +452,11 @@
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
             
-            <a class="various1" href="#inline1" title="Import XML Content" style="text-decoration:underline;" title="import and replace this questionnaire">import</a>
+            <a class="various1p" href="#inline1p" style="text-decoration:underline;" title="import and replace this questionnaire">import</a>
             <script type="text/javascript">
                 $(document).ready(function() {
                     
-                    $(".various1").fancybox({
+                    $(".various1p").fancybox({
                         'titlePosition'		: 'inside',
                         'transitionIn'		: 'none',
                         'transitionOut'		: 'none',
@@ -303,28 +466,31 @@
                 });
             </script>
             <div style="display: none;">
-                <div id="inline1" style="overflow:auto;">
+                <div id="inline1p" style="overflow:auto;">
                     
-                    <table style="margin:auto; width:800px; border:1px solid #999; border-collapse:collapse; margin-bottom:10px;">
+                    <table style="margin:auto; width:900px; border:1px solid #999; border-collapse:collapse; margin-bottom:10px;">
                         <tr>
-                            <th style="width:137px; text-align:center; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#666666;" colspan="2">
-                                Import Questionnaire
+                            <th style="width:137px; text-align:center; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#666666;" colspan="3">
+                                Import and Replace Questionnaire
                             </th>
                         </tr>
                         <tbody id="nohoverblue">
                         <tr>
                         	<th style="text-align:right; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#E6E6E6; width:85px;">
-                                File:
+                                
                             </th>
-                            <td>
-                                <input type="file" style="margin:3px;" />
-                                <img id="control_previewoutline" src="../images/tinybutton-preview.gif" style="width:60px; height:15px; border:none; cursor:pointer; vertical-align:middle;" title="preview" />
+                            <td style="border-right:1px solid #999; border-collapse:collapse; text-align:center; width:400px;">
+                                <strong>Existing's Date Modified: September 23, 2011</strong>
+                            </td>
+                            <td style="text-align:center; width:400px;">
+                                <strong>Replace with:</strong> <input type="file" style="margin:3px;" />
+                                <img id="control_previewoutline1" src="../images/tinybutton-preview.gif" style="width:60px; height:15px; border:none; cursor:pointer; vertical-align:middle;" title="preview" />
                                 <script type="text/javascript" language="javascript">
 									$(document).ready(function() {
 										// original value or changed?
-										$('#control_previewoutline').click(function() {
-											$('#div_previewoutnote').slideUp(200);
-											$('#div_previewoutline').slideDown(600);
+										$('#control_previewoutline1').click(function() {
+											$('#div_previewoutnote1').slideUp(200);
+											$('#div_previewoutline1').slideDown(600);
 										});
 									});
 								</script>
@@ -335,110 +501,216 @@
                                 Preview:
                             </th>
                             <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
-                            	<div style="height:400px;">
-                                <div id="div_previewoutnote">
-                                	<span style="color:#666; font-style:italic;">Select your XML file above and click the 'preview' button.</span>
-                                </div>
-                                <div style="display:block;">
-                            	<ul id="div_previewoutline" style="display:none;">
+                            	<div style="height:400px; overflow:auto;">
+                                    <div style="display:block; padding:5px;">
                                     
-                                    <li class="closed">
-                                        <div>
-                                        <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
-                                        <a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
-                                            
-                                        </div>
+                                    <ul>
                                         
-                                        <ul>
-                                            <li class="closed">
+                                        <li class="closed">
+                                            <div>
+                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                            <a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
                                                 
-                                                <div>
-                                                <a id="listcontrol02" style="margin-left:2px;">[Yes] Will you be using whole dead animals which are regulated by USDA?</a>
+                                            </div>
+                                            
+                                            <ul>
+                                                <li class="closed">
                                                     
-                                                </div>
-                                                
-                                                <ul>
-                                                    <li class="closed">
-                                                        [Yes] Which of the following describes the types of animal use proposed in this protocol?
+                                                    <div>
+                                                    <a id="listcontrol02" style="margin-left:2px;">[Yes] Will you be using whole dead animals which are regulated by USDA?</a>
                                                         
-                                                        <ul>
-                                                            <li class="closed">
-                                                                [Research] What type of research?
-                                                                
-                                                                <ul>
-                                                                    <li>
-                                                                        [basic] Tell me more about your "basic" research.
-                                                                    </li>
-                                                                    <li>
-                                                                        [advanced] Tell me more about your "advanced" research.
-                                                                    </li>
-                                                                    <li>
-                                                                        Have you ever done this type of research before?
-                                                                    </li>
-                                                                </ul>
-                                                                
-                                                            </li>
+                                                    </div>
+                                                    
+                                                    <ul>
+                                                        <li class="closed">
+                                                            [Yes] Which of the following describes the types of animal use proposed in this protocol?
                                                             
-                                                            <li>
-                                                                [Other] Explain the type of animal use proposed in this protocol.
+                                                            <ul>
+                                                                <li class="closed">
+                                                                    [Research] What type of research?
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            [basic] Tell me more about your "basic" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            [advanced] Tell me more about your "advanced" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            Have you ever done this type of research before?
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
                                                                 
-                                                                <ul>
-                                                                    <li>
-                                                                        <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
-                                                                        [Endangered Species] Have the proper local authorities been notified.
-                                                                    </li>
-                                                                    <li>
-                                                                        [Endangered Species] Explain the protections being used to ensure survivability of the animals.
-                                                                    </li>
-                                                                </ul>
-                                                                
-                                                            </li>
-                                                        </ul>
-                                                        
-                                                    </li>
-                                                </ul>
+                                                                <li>
+                                                                    [Other] Explain the type of animal use proposed in this protocol.
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                                                            [Endangered Species] Have the proper local authorities been notified.
+                                                                        </li>
+                                                                        <li>
+                                                                            [Endangered Species] Explain the protections being used to ensure survivability of the animals.
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                            </ul>
+                                                            
+                                                        </li>
+                                                    </ul>
+                                                    
+                                                </li>
+                                               
                                                 
-                                            </li>
+                                            </ul>
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                            
+                                            <ul>
+                                                <li>
+                                                    [>12] What is the location?
+                                                </li>
+                                                <li>
+                                                    [>12] What is the scientific justification?
+                                                </li>
+                                            </ul>
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                            Will all handelers of live animals be vetted Cornell employees?
+                                            
+                                            
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            Is there a proceedure in place to insure local animal control compliance?
+                                            
+                                            
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            What concerns have been raised by local institutions?
+                                            
                                            
                                             
-                                        </ul>
-                                        
-                                    </li>
-                                    <li class="closed">
-                                        What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
-                                        
-                                        <ul>
-                                            <li>
-                                                [>12] What is the location?
-                                            </li>
-                                            <li>
-                                                [>12] What is the scientific justification?
-                                            </li>
-                                        </ul>
-                                        
-                                    </li>
-                                    <li class="closed">
-                                        <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
-                                        Will all handelers of live animals be vetted Cornell employees?
-                                        
-                                        
-                                        
-                                    </li>
-                                    <li class="closed">
-                                        Is there a proceedure in place to insure local animal control compliance?
-                                        
-                                        
-                                        
-                                    </li>
-                                    <li class="closed">
-                                        What concerns have been raised by local institutions?
-                                        
-                                       
-                                        
-                                    </li>
-                                
-                                </ul>
+                                        </li>
+                                    
+                                    </ul>
+                                    
+                                    </div>
                                 </div>
+                            </td>
+                            <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
+                            	<div style="height:400px; overflow:auto">
+                                    <div id="div_previewoutnote1">
+                                        <span style="color:#666; font-style:italic;">Select your XML file above and click the 'preview' button.</span>
+                                    </div>
+                                    <div style="display:block;">
+                                    <ul id="div_previewoutline1" style="display:none;">
+                                        
+                                        <li class="closed">
+                                            <div>
+                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                            <a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
+                                                
+                                            </div>
+                                            
+                                            <ul>
+                                                <li class="closed">
+                                                    
+                                                    <div>
+                                                    <a id="listcontrol02" style="margin-left:2px;">[Yes] Will you be using whole dead animals which are regulated by USDA?</a>
+                                                        
+                                                    </div>
+                                                    
+                                                    <ul>
+                                                        <li class="closed">
+                                                            [Yes] Which of the following describes the types of animal use proposed in this protocol?
+                                                            
+                                                            <ul>
+                                                                <li class="closed">
+                                                                    [Research] What type of research?
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            [basic] Tell me more about your "basic" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            [advanced] Tell me more about your "advanced" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            Have you ever done this type of research before?
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                                
+                                                                <li>
+                                                                    [Other] Explain the type of animal use proposed in this protocol.
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                                                            [Endangered Species] Have the proper local authorities been notified.
+                                                                        </li>
+                                                                        <li>
+                                                                            [Endangered Species] Explain the protections being used to ensure survivability of the animals.
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                            </ul>
+                                                            
+                                                        </li>
+                                                    </ul>
+                                                    
+                                                </li>
+                                               
+                                                
+                                            </ul>
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                            
+                                            <ul>
+                                                <li>
+                                                    [>12] What is the location?
+                                                </li>
+                                                <li>
+                                                    [>12] What is the scientific justification?
+                                                </li>
+                                            </ul>
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                            Will all handelers of live animals be vetted Cornell employees?
+                                            
+                                            
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            Is there a proceedure in place to insure local animal control compliance?
+                                            
+                                            
+                                            
+                                        </li>
+                                        <li class="closed">
+                                            What concerns have been raised by local institutions?
+                                            
+                                           
+                                            
+                                        </li>
+                                    
+                                    </ul>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -451,15 +723,151 @@
                     
                 </div>
             </div>
-            <a href="#" id="export01" style="text-decoration:underline;">export</a>
-            <script type="text/javascript" language="javascript">
+            
+            
+            <a class="various1h" href="#inline1h" style="text-decoration:underline;" title="export questionnaire">export</a>
+            
+            <script type="text/javascript">
 				$(document).ready(function() {
-					// original value or changed?
-					$('#export01').click(function() {
-						alert("This would open a save file dialog.");
+					
+					$(".various1h").fancybox({
+						'titlePosition'		: 'inside',
+						'transitionIn'		: 'none',
+						'transitionOut'		: 'none',
+						'autoScale'			: true,
+						'titleShow'			: false
 					});
 				});
 			</script>
+			<div style="display: none;">
+				<div id="inline1h" style="overflow:auto;">
+					
+					<table style="margin:auto; width:800px; border:1px solid #999; border-collapse:collapse; margin-bottom:10px;">
+						<tr>
+							<th style="width:137px; text-align:center; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#666666;" colspan="2">
+								Export Questionnaire
+							</th>
+						</tr>
+						<tbody id="nohoverblue">
+						<tr>
+							<th style="text-align:right; vertical-align:top; border:1px solid #999; border-collapse:collapse; padding:3px; background-color:#E6E6E6; width:85px;">
+								Preview:
+							</th>
+							<td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
+								<div style="height:400px;">
+								<div style="display:block;">
+								<ul id="div_previewoutline" style="display:block;">
+									
+									<li class="closed">
+										<div>
+										<!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+										<a id="listcontrol01" style="margin-left:2px;">Confirm live vertebrates will be used in this protocol?</a>
+											
+										</div>
+										
+										<ul>
+											<li class="closed">
+												
+												<div>
+												<a id="listcontrol02" style="margin-left:2px;">[Yes] Will you be using whole dead animals which are regulated by USDA?</a>
+													
+												</div>
+												
+												<ul>
+													<li class="closed">
+														[Yes] Which of the following describes the types of animal use proposed in this protocol?
+														
+														<ul>
+															<li class="closed">
+																[Research] What type of research?
+																
+																<ul>
+																	<li>
+																		[basic] Tell me more about your "basic" research.
+																	</li>
+																	<li>
+																		[advanced] Tell me more about your "advanced" research.
+																	</li>
+																	<li>
+																		Have you ever done this type of research before?
+																	</li>
+																</ul>
+																
+															</li>
+															
+															<li>
+																[Other] Explain the type of animal use proposed in this protocol.
+																
+																<ul>
+																	<li>
+																		<!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+																		[Endangered Species] Have the proper local authorities been notified.
+																	</li>
+																	<li>
+																		[Endangered Species] Explain the protections being used to ensure survivability of the animals.
+																	</li>
+																</ul>
+																
+															</li>
+														</ul>
+														
+													</li>
+												</ul>
+												
+											</li>
+										   
+											
+										</ul>
+										
+									</li>
+									<li class="closed">
+										What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+										
+										<ul>
+											<li>
+												[>12] What is the location?
+											</li>
+											<li>
+												[>12] What is the scientific justification?
+											</li>
+										</ul>
+										
+									</li>
+									<li class="closed">
+										<!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+										Will all handelers of live animals be vetted Cornell employees?
+										
+										
+										
+									</li>
+									<li class="closed">
+										Is there a proceedure in place to insure local animal control compliance?
+										
+										
+										
+									</li>
+									<li class="closed">
+										What concerns have been raised by local institutions?
+										
+									   
+										
+									</li>
+								
+								</ul>
+								</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					
+					<div style="text-align:center;">
+					<img onclick="$.fancybox.close();"  title="Cancel XML Import" src="../images/buttonsmall_cancelexport.gif" style="width:105px; height:18px; border:none; cursor:pointer;" title="cancel export" />
+					<img onclick="javascript: alert('Were this not a mock, this would open a save as dialog.'); return false" title="Export XML Content" src="../images/buttonsmall_export.gif" style="width:62px; height:18px; border:none; cursor:pointer;" title="export" />
+					</div>
+					
+				</div>
+			</div>
+            
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
             1133
@@ -488,13 +896,13 @@
             <a href="#" style="text-decoration:underline;">delete</a>
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
-            <a href="#" style="text-decoration:underline;" title="import and replace this questionnaire">import</a>
-            <a href="#" id="export02" style="text-decoration:underline;">export</a>
+            <a href="#" class="seefirstrow" style="text-decoration:underline;" title="import and replace this questionnaire">import</a>
+            <a href="#" class="seefirstrow" style="text-decoration:underline;">export</a>
             <script type="text/javascript" language="javascript">
 				$(document).ready(function() {
 					// original value or changed?
-					$('#export02').click(function() {
-						alert("This would open a save file dialog.");
+					$('.seefirstrow').click(function() {
+						alert("This functionality is only mocked in the first row.");
 					});
 				});
 			</script>
@@ -526,16 +934,8 @@
             <a href="#" style="text-decoration:underline;">delete</a>
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
-            <a href="#" style="text-decoration:underline;" title="import and replace this questionnaire">import</a>
-            <a href="#" id="export03" style="text-decoration:underline;">export</a>
-            <script type="text/javascript" language="javascript">
-				$(document).ready(function() {
-					// original value or changed?
-					$('#export03').click(function() {
-						alert("This would open a save file dialog.");
-					});
-				});
-			</script>
+            <a href="#" class="seefirstrow" style="text-decoration:underline;" title="import and replace this questionnaire">import</a>
+            <a href="#" class="seefirstrow" style="text-decoration:underline;">export</a>
         </td>
         <td style="border:1px solid #999; border-collapse:collapse; padding:3px;">
             5269
