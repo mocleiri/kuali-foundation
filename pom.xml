@@ -141,6 +141,11 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.kuali.rice</groupId>
+      <artifactId>rice-krms-impl</artifactId>
+      <version>${rice.version}</version>
+    </dependency>    
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
