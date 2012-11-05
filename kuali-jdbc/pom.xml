@@ -44,4 +44,11 @@
       <email>jcaddel@kuali.org</email>
     </developer>
   </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-sql</artifactId>
+      <version>1.3.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 </project>
