@@ -1,0 +1,28 @@
+<config>
+
+  <param name="application.id">kew</param>
+  <!-- add all the common defaults -->
+  <param name="config.location">classpath:META-INF/common-config-defaults.xml</param>
+
+  <param name="rice.struts.message.resources">org.kuali.rice.krad.ApplicationResources,org.kuali.rice.kew.ApplicationResources,org.kuali.rice.ksb.ApplicationResources,org.kuali.rice.kim.ApplicationResources,KR-Test-ApplicationResources</param>
+
+  <param name="rice.kr.set.soap.services.as.default">false</param>
+  <param name="rice.kcb.set.soap.services.as.default">false</param>
+  <param name="rice.ken.set.soap.services.as.default">false</param>
+  <param name="rice.kew.set.soap.services.as.default">false</param>
+  <param name="rice.kim.set.soap.services.as.default">false</param>
+  <param name="rice.ksb.set.soap.services.as.default">false</param>
+
+  <param name="rice.krad.componentPublishing.enabled">false</param>
+
+  <param name="location.mode">LOCAL</param>
+  <param name="coreservice.mode">LOCAL</param>
+  <param name="ken.mode">LOCAL</param>
+  <param name="kim.mode">LOCAL</param>
+  <param name="kew.mode">LOCAL</param>
+  <param name="ksb.mode">LOCAL</param>
+  <param name="krms.mode">LOCAL</param>
+
+  <param name="wsdl.test.previous.version">2.1.0</param>
+  <param name="wsdl.test.previous.url">http://maven.kuali.org.s3.amazonaws.com/release/org/kuali/rice/</param>
+</config>
