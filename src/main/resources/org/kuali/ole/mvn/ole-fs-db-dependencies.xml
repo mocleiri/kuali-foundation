@@ -68,38 +68,35 @@
                     <outputDirectory>${project.build.directory}/dependency/${project.artifactId}</outputDirectory>
                   </artifactItem>
                   <artifactItem>
-                    <groupId>org.kuali.db.impex</groupId>
-                    <artifactId>${impex.tool.artifactId}</artifactId>
-                    <version>${impex.tool.version}</version>
-                    <outputDirectory>${impex.tool.unpack.dir}</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
                     <groupId>org.kuali.rice</groupId>
-                    <artifactId>rice-impex-clover</artifactId>
-                    <version>1.0.3</version>
+                    <artifactId>rice-impex-server-bootstrap</artifactId>
+                    <version>2.1.2</version>
+                    <classifier>sql</classifier>
                     <outputDirectory>${rice.impex.unpack.dir}</outputDirectory>
                   </artifactItem>
-                  <artifactItem>
+                  <!--
+                    <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-fs</artifactId>
                     <classifier>impex</classifier>
                     <version>${deploy.version}</version>
                     <outputDirectory>${impex.unpack.dir}</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
+                    </artifactItem>
+                    <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-fs</artifactId>
                     <classifier>liquibase</classifier>
                     <version>${deploy.version}</version>
                     <outputDirectory>${liquibase.unpack.dir}</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
+                    </artifactItem>
+                    <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-fs</artifactId>
                     <classifier>workflow</classifier>
                     <version>${deploy.version}</version>
                     <outputDirectory>${workflow.unpack.dir}</outputDirectory>
-                  </artifactItem>
+                    </artifactItem>
+                  -->
                 </artifactItems>
               </configuration>
             </execution>
