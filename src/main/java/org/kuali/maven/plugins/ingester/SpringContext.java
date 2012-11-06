@@ -52,7 +52,6 @@ public class SpringContext {
     protected static final String BOOTSTRAP_CONTEXT_DEFINITION = "classpath:spring-rice-startup.xml";
     protected static final String APPLICATION_CONTEXT_DEFINITION = "classpath:spring-rice-configurer.xml";
     protected static final String APPLICATION_CONFIG_LOCATION = "classpath:spring-rice-config.xml";
-    protected static final String INGESTER_PROP_KEY = "ingester.config.location";
     
     protected static SpringResourceLoader springResourceLoader;
     
@@ -206,26 +205,11 @@ public class SpringContext {
     }
     
     protected static Config getPluginBaseConfiguration() throws Exception {
-    	Properties baseProperties = loadBaseProperties(System.getProperty(INGESTER_PROP_KEY));
+    	Properties baseProperties = PropertyLoadingFactoryBean.loadProperties();
         Config config = new JAXBConfigImpl(APPLICATION_CONFIG_LOCATION, baseProperties);
         config.parseConfig();
         LOG.info(config.toString());
         return config;
-    }
-    
-    protected static Properties loadBaseProperties(String propertiesFile) {
-    	Properties baseProperties = new Properties();
-    	InputStream in = null;
-    	try {
-        	in = new FileInputStream(propertiesFile);
-        	baseProperties.load(in);
-			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	baseProperties.putAll(System.getProperties());
-    	return baseProperties;
     }
     
 }

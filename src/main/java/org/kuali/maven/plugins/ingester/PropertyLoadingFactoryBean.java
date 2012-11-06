@@ -68,13 +68,15 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             Properties ingesterProperties = getIngesterProperties();
             Properties jdbcVendorProperties = getJdbcVendorProperties();
             Properties externalProperties = getExternalProperties();
-
+            Properties systemProperties = System.getProperties();
+            
             // Add them in the correct order
             Properties p = new Properties();
             p.putAll(riceProperties);
             p.putAll(ingesterProperties);
             p.putAll(jdbcVendorProperties);
             p.putAll(externalProperties);
+            p.putAll(systemProperties);
 
             // Setup the KSB remoting URL
             String remotingUrl = p.getProperty(APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX;
@@ -123,6 +125,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean {
             return new Properties();
         }
         String location = "classpath:ingester-" + value + ".properties";
+        LOG.info("Loading " + location);
         Properties p = new Properties();
         PropertyUtils.load(p, location);
         return p;
