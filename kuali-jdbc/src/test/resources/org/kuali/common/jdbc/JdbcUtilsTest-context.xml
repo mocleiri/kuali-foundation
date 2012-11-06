@@ -12,8 +12,13 @@
     <property name="password" value="${jdbc.password}" />
   </bean>
 
+  <bean id="sqlGenerator" class="org.kuali.common.jdbc.SqlGenerator">
+    <property name="delimiter" value="${sql.delimiter}" />
+  </bean>
+
   <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dataSource" />
+    <property name="generator" ref="sqlGenerator" />
   </bean>
 
   <context:property-placeholder location="classpath:jdbc.properties" />
