@@ -120,8 +120,8 @@
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
-                  <param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>
+                  <!--<param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param>-->
+                  <!--<param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>-->
                 </poms>
               </configuration>
             </execution>
