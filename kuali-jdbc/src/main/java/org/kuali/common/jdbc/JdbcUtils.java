@@ -15,7 +15,6 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 public class JdbcUtils {
 	final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
-	String encoding;
 	DataSource dataSource;
 	SqlGenerator generator;
 
@@ -28,7 +27,7 @@ public class JdbcUtils {
 	}
 
 	public List<Boolean> readAndExecute(String location) {
-		List<String> sql = generator.generateSQL(location);
+		List<String> sql = generator.getSql(location);
 		return execute(sql);
 	}
 
@@ -85,14 +84,6 @@ public class JdbcUtils {
 		} catch (SQLException e) {
 			throw new JdbcException(e);
 		}
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
 	}
 
 	public SqlGenerator getGenerator() {

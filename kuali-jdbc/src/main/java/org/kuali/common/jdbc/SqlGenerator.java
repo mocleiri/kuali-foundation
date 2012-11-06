@@ -17,7 +17,7 @@ public class SqlGenerator {
 	String delimiter = DEFAULT_DELIMITER;
 	String lineSeparator = DEFAULT_LINE_SEPARATOR;
 
-	public List<String> generateSQL(String location) {
+	public List<String> getSql(String location) {
 		try {
 			List<String> lines = ResourceUtils.getLines(location, encoding);
 			List<String> sql = new ArrayList<String>();

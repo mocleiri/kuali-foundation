@@ -1,5 +1,7 @@
 package org.kuali.common.jdbc;
 
+import java.util.Properties;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +21,17 @@ public class JdbcUtilsTest {
 
 	@Test
 	public void test() {
-		logger.info("Hello World");
-		Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
-		Assert.assertNotNull("dataSource is null.", jdbcUtils.getDataSource());
-		boolean executed = jdbcUtils.execute("SELECT 1");
-		Assert.assertTrue(executed);
+		try {
+			logger.info("Hello World");
+			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
+			Assert.assertNotNull("dataSource is null.", jdbcUtils.getDataSource());
+			Properties props = ResourceUtils.getProperties("classpath:mysql.xml");
+			String sql = props.getProperty("sql.mysql.validate");
+			boolean executed = jdbcUtils.execute(sql);
+			Assert.assertTrue(executed);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
