@@ -19,9 +19,7 @@
     <property name="password" value="${jdbc.dba.password}" />
   </bean>
 
-  <bean id="sqlReader" class="org.kuali.common.jdbc.SqlReader">
-    <property name="delimiter" value="${sql.delimiter}" />
-  </bean>
+  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
 
   <bean id="dbaJdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dbaDataSource" />

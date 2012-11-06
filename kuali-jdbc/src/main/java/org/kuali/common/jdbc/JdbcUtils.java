@@ -28,6 +28,7 @@ public class JdbcUtils {
 	}
 
 	public void readAndExecute(String location) {
+		logger.info("Executing SQL - {}", location);
 		BufferedReader reader = ResourceUtils.getBufferedReader(location);
 		execute(reader);
 	}
@@ -47,11 +48,10 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.readSql(reader);
 			while (!StringUtils.isBlank(sql)) {
-				logger.info(count + " - Executing '" + flatten(sql) + "'");
+				logger.info("{} - Executing '{}'", count++, flatten(sql));
 				if (!statement.execute(sql)) {
 					throw new JdbcException("Unable to execute - '" + flatten(sql) + "'");
 				}
-				count++;
 				sql = sqlReader.readSql(reader);
 			}
 			conn.commit();
@@ -63,6 +63,9 @@ public class JdbcUtils {
 		}
 	}
 
+	/**
+	 * Replace any carriage returns or linefeeds with CR and LF
+	 */
 	public static final String flatten(String sql) {
 		return sql.replace("\r", " ").replace("\n", " ");
 	}
