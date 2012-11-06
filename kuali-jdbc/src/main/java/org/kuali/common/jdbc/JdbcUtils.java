@@ -3,7 +3,7 @@ package org.kuali.common.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -26,38 +26,33 @@ public class JdbcUtils {
 		this.dataSource = dataSource;
 	}
 
-	public List<Boolean> readAndExecute(String location) {
+	public void readAndExecute(String location) {
 		List<String> sql = generator.getSql(location);
-		return execute(sql);
+		execute(sql);
 	}
 
-	public boolean execute(String sql) {
-		Connection conn = null;
-		Statement statement = null;
-		try {
-			conn = DataSourceUtils.doGetConnection(dataSource);
-			statement = conn.createStatement();
-			return statement.execute(sql);
-		} catch (SQLException e) {
-			throw new JdbcException(e);
-		} finally {
-			closeQuietly(conn, statement);
+	public void execute(String sql) {
+		execute(Collections.singletonList(sql));
+	}
+
+	public void execute(Statement statement, String unparsedSql) throws SQLException {
+		List<String> parsedSql = generator.parseSql(unparsedSql);
+		for (String s : parsedSql) {
+			statement.execute(s);
 		}
 	}
 
-	public List<Boolean> execute(List<String> sql) {
+	public void execute(List<String> sql) {
 		Connection conn = null;
 		Statement statement = null;
 		try {
 			conn = DataSourceUtils.doGetConnection(dataSource);
 			conn.setAutoCommit(false);
-			List<Boolean> executed = new ArrayList<Boolean>();
+			statement = conn.createStatement();
 			for (String s : sql) {
-				statement = conn.createStatement();
-				executed.add(statement.execute(s));
+				execute(statement, s);
 			}
 			conn.commit();
-			return executed;
 		} catch (SQLException e) {
 			throw new JdbcException(e);
 		} finally {
