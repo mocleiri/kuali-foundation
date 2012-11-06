@@ -101,8 +101,8 @@ public class JdbcUtils {
 		return sqlReader;
 	}
 
-	public void setSqlReader(DefaultSqlReader generator) {
-		this.sqlReader = generator;
+	public void setSqlReader(SqlReader sqlReader) {
+		this.sqlReader = sqlReader;
 	}
 
 }
