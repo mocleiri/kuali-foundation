@@ -40,6 +40,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <mysql.version>5.1.20</mysql.version>
+    <io.version>2.4</io.version>
   </properties>
   <developers>
     <developer>
@@ -55,6 +56,11 @@
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-sql</artifactId>
       <version>1.3.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${io.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
