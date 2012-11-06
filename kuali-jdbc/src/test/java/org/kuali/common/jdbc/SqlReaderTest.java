@@ -16,7 +16,7 @@ public class SqlReaderTest {
 	public void simpleTest() {
 		try {
 			SqlReader sqlReader = new DefaultSqlReader();
-			String sql = "SELECT 1\n/\nSELECT 1\n/\nSELECT 1\n/";
+			String sql = "SELECT 1\r/\nSELECT 1\n/\nSELECT 1\r\n/";
 			BufferedReader reader = ResourceUtils.getBufferedStringReader(sql);
 			String s = sqlReader.readSql(reader);
 			while (s != null) {
@@ -32,6 +32,9 @@ public class SqlReaderTest {
 	public void isBlankTest() {
 		Assert.assertTrue(StringUtils.isBlank(" "));
 		Assert.assertTrue(StringUtils.isBlank(System.getProperty("line.separator")));
+		Assert.assertTrue(StringUtils.isBlank("\n"));
+		Assert.assertTrue(StringUtils.isBlank("\r"));
+		Assert.assertTrue(StringUtils.isBlank("\r\n"));
 	}
 
 }
