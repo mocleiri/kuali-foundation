@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="locations">
-      <list>
-        <value>classpath:${db.vendor}.properties</value>
-      </list>
-    </property>
+  <context:property-placeholder location="jdbc.properties,${db.vendor}.properties,${db.vendor}.xml" />
+
+  <bean id="reset" class="org.kuali.common.jdbc.JdbcUtils">
+    <property name="drop" value="${jdbc.driverClassName}" />
+    <property name="create" value="${jdbc.url}" />
+    <property name="validate" value="${jdbc.username}" />
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -27,7 +29,9 @@
     <property name="password" value="${jdbc.dba.password}" />
   </bean>
 
-  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
+  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader">
+    <property name="delimiter" value="${sql.delimiter}" />
+  </bean>
 
   <bean id="dbaJdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dbaDataSource" />
