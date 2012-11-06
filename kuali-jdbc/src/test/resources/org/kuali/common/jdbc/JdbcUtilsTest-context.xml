@@ -23,12 +23,12 @@
 
   <bean id="dbaJdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dbaDataSource" />
-    <property name="generator" ref="sqlReader" />
+    <property name="sqlReader" ref="sqlReader" />
   </bean>
 
   <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dataSource" />
-    <property name="generator" ref="sqlReader" />
+    <property name=""sqlReader"" ref="sqlReader" />
   </bean>
 
   <context:property-placeholder location="classpath:jdbc.properties" />
