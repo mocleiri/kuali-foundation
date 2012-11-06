@@ -79,7 +79,7 @@ public class JdbcUtils {
 		}
 	}
 
-	public void closeQuietly(Connection conn) {
+	protected void closeQuietly(Connection conn) {
 		try {
 			DataSourceUtils.doReleaseConnection(conn, dataSource);
 		} catch (SQLException e) {
