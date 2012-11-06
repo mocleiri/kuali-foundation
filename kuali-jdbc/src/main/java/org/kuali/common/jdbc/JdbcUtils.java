@@ -30,7 +30,7 @@ public class JdbcUtils {
 		} catch (SQLException e) {
 			throw new JdbcException(e);
 		} finally {
-			closeQuietly(conn);
+			closeQuietly(conn, ps);
 		}
 	}
 
