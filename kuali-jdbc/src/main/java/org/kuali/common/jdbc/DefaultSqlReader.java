@@ -17,7 +17,7 @@ public class DefaultSqlReader implements SqlReader {
 	String lineSeparator = DEFAULT_LINE_SEPARATOR;
 
 	@Override
-    public String readSql(BufferedReader reader) throws IOException {
+	public String readSql(BufferedReader reader) throws IOException {
 		String line = reader.readLine();
 		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		StringBuilder sb = new StringBuilder();
@@ -26,7 +26,12 @@ public class DefaultSqlReader implements SqlReader {
 			line = reader.readLine();
 			trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		}
-		return sb.toString();
+		String s = sb.toString();
+		if (StringUtils.isBlank(s)) {
+			return null;
+		} else {
+			return s;
+		}
 	}
 
 	public String getDelimiter() {
