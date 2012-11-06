@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,6 +20,16 @@ public class HelloWorldTest {
 	@Test
 	public void test() {
 		logger.info("Hello World");
+		Assert.assertNotNull("helloWorld is null.", helloWorld);
+		String msg = helloWorld.getMessage();
+
+		Assert.assertNotNull("Message is null.", msg);
+
+		String expectedMessage = "Hello World";
+
+		Assert.assertEquals("Message should be '" + expectedMessage + "'.", expectedMessage, msg);
+
+		logger.info("Success!!!! message='{}'", msg);
 	}
 
 }
