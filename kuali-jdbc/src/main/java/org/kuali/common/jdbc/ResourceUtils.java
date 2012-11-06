@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,4 +58,19 @@ public class ResourceUtils {
 			IOUtils.closeQuietly(in);
 		}
 	}
+
+	public static final List<String> parseLines(String s) throws IOException {
+		return parseLines(s, null);
+	}
+
+	public static final List<String> parseLines(String s, String encoding) throws IOException {
+		InputStream in = null;
+		try {
+			in = new ByteArrayInputStream(s.getBytes());
+			return IOUtils.readLines(in, encoding);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 }

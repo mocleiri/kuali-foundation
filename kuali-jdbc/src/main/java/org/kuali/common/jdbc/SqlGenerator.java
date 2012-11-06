@@ -20,19 +20,32 @@ public class SqlGenerator {
 	public List<String> getSql(String location) {
 		try {
 			List<String> lines = ResourceUtils.getLines(location, encoding);
-			List<String> sql = new ArrayList<String>();
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < lines.size(); i++) {
-				String line = lines.get(i);
-				String trimmed = line.trim();
-				if (delimiter.equals(trimmed)) {
-					sql.add(sb.toString());
-					sb = new StringBuilder();
-				} else {
-					sb.append(line + lineSeparator);
-				}
+			return getSql(lines);
+		} catch (IOException e) {
+			throw new JdbcException(e);
+		}
+	}
+
+	protected List<String> getSql(List<String> lines) {
+		List<String> sql = new ArrayList<String>();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			String trimmed = line.trim();
+			if (delimiter.equals(trimmed)) {
+				sql.add(sb.toString());
+				sb = new StringBuilder();
+			} else {
+				sb.append(line + lineSeparator);
 			}
-			return sql;
+		}
+		return sql;
+	}
+
+	public List<String> parseSql(String sql) {
+		try {
+			List<String> lines = ResourceUtils.parseLines(sql, encoding);
+			return getSql(lines);
 		} catch (IOException e) {
 			throw new JdbcException(e);
 		}
