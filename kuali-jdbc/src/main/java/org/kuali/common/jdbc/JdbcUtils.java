@@ -71,6 +71,9 @@ public class JdbcUtils {
 	}
 
 	protected void closeQuietly(Statement statement) {
+		if (statement == null) {
+			return;
+		}
 		try {
 			statement.close();
 		} catch (SQLException e) {
@@ -79,6 +82,9 @@ public class JdbcUtils {
 	}
 
 	protected void closeQuietly(Connection conn) {
+		if (conn == null) {
+			return;
+		}
 		try {
 			DataSourceUtils.doReleaseConnection(conn, dataSource);
 		} catch (SQLException e) {
