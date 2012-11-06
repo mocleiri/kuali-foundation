@@ -1,5 +1,8 @@
 package org.kuali.common.jdbc;
 
+import javax.sql.DataSource;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,6 +22,10 @@ public class JdbcUtilsTest {
 	@Test
 	public void test() {
 		logger.info("Hello World");
+		Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
+		DataSource dataSource = jdbcUtils.getDataSource();
+		Assert.assertNotNull("dataSource is null.", dataSource);
+		logger.info("Success!!!! dataSource='{}'", dataSource);
 	}
 
 }
