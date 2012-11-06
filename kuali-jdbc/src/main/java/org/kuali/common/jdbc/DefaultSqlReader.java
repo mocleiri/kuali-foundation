@@ -29,6 +29,10 @@ public class DefaultSqlReader implements SqlReader {
 		String s = sb.toString();
 		if (StringUtils.isBlank(s)) {
 			return null;
+		} else if (s.endsWith(lineSeparator)) {
+			int beginIndex = 0;
+			int endIndex = s.length() - lineSeparator.length();
+			return s.substring(beginIndex, endIndex);
 		} else {
 			return s;
 		}
