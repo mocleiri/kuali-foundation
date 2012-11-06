@@ -50,9 +50,7 @@ public class ExportMojo extends AbstractMojo {
 
 	
     private static final Logger LOG = Logger.getLogger(ExportMojo.class);
-    private static final File TMP_DIR = FileUtils.getTempDirectory();
-    private static final File BASE_DIR = new File(TMP_DIR, "repository");
-    private static final File BASE_DOC_TYPE_DIR = new File(BASE_DIR, "docType");
+
 	
     /**
      * The Maven project object
@@ -160,12 +158,7 @@ public class ExportMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         showConfig();
-        List<File> files = getFiles();
-        if (!validate(files)) {
-            return;
-        }
-        DirectoryStructure ds = getDirectoryStructure();
-        prepareFileSystem(ds, files);
+        prepareFileSystem();
         prepareProperties();
         try {
 			exportKewDocumentTypeRepository();
@@ -176,41 +169,20 @@ public class ExportMojo extends AbstractMojo {
 		}
     }
 
-    protected boolean validate(List<File> files) {
-        if (files.size() == 0) {
-            getLog().info("Skipping execution.  No matching files found");
-            return false;
-        } else {
-            int paddingSize = (files.size() + "").length();
-            getLog().info("Located " + files.size() + " documents to ingest");
-            int sequence = 0;
-            for (File file : files) {
-                sequence++;
-                String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
-                getLog().debug(prefix + " - " + getRelativePath(project.getBasedir(), file));
-            }
-            return true;
-        }
+	protected void prepareFileSystem() throws MojoExecutionException {
+		try {
+			if (getBaseDir().exists()) {
+				FileUtils.cleanDirectory(getBaseDir());
+			} else {
+				FileUtils.forceMkdir(getBaseDir());
+			}
+			FileUtils.forceMkdir(getDocTypeDir());
 
-    }
-
-    protected DirectoryStructure getDirectoryStructure() {
-        DirectoryStructure ds = new DirectoryStructure();
-        ds.setPendingDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "pending"));
-        ds.setCompletedDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "completed"));
-        ds.setProblemDir(new File(workingDir.getAbsolutePath() + File.separatorChar + "problem"));
-        return ds;
-    }
-
-    protected void prepareFileSystem(DirectoryStructure ds, List<File> files) throws MojoExecutionException {
-        try {
-            mkdirs(ds);
-            getLog().info("Copying " + files.size() + " files to the pending directory");
-            copyToDir(ds.getPendingDir(), files);
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error preparing directory structure", e);
-        }
-    }
+		} catch (IOException e) {
+			throw new MojoExecutionException(
+					"Error preparing directory structure", e);
+		}
+	}
 
     protected void prepareProperties() throws MojoExecutionException {
         String value = System.getProperty(propsKey);
@@ -246,34 +218,6 @@ public class ExportMojo extends AbstractMojo {
         }
     }
 
-    protected void ingest(DirectoryStructure ds) throws MojoExecutionException {
-        SpringContextForWorkflowImporter.initializeApplicationContext();
-        MyXMLPollerServiceImpl parser = new MyXMLPollerServiceImpl();
-        parser.setXmlPendingLocation(ds.getPendingDir().getAbsolutePath());
-        parser.setXmlCompletedLocation(ds.getCompletedDir().getAbsolutePath());
-        parser.setXmlProblemLocation(ds.getProblemDir().getAbsolutePath());
-        parser.run();
-        try {
-            SpringContextForWorkflowImporter.close();
-        } catch (Exception e) {
-            throw new MojoExecutionException("Error closing spring context", e);
-        }
-    }
-
-    protected void copyToDir(File dir, List<File> files) throws IOException {
-        int paddingSize = (files.size() + "").length();
-        int sequence = 0;
-        for (File file : files) {
-            sequence++;
-            String prefix = StringUtils.leftPad(sequence + "", paddingSize, "0");
-            String filename = dir.getAbsolutePath() + File.separatorChar + prefix + "-" + file.getName();
-            File newFile = new File(filename);
-            String rp1 = getRelativePath(project.getBasedir(), newFile);
-            getLog().info(prefix + " - " + rp1);
-            FileUtils.copyFile(file, newFile);
-        }
-    }
-
     protected String getRelativePath(File dir, File file) {
         String dirPath = dir.getAbsolutePath();
         String filePath = file.getAbsolutePath();
@@ -281,47 +225,13 @@ public class ExportMojo extends AbstractMojo {
         return s.substring(1);
     }
 
-    protected void mkdirs(DirectoryStructure ds) throws IOException {
-        FileUtils.forceMkdir(ds.getPendingDir());
-        FileUtils.forceMkdir(ds.getCompletedDir());
-        FileUtils.forceMkdir(ds.getProblemDir());
-    }
 
-    /**
-     * Return the list of files to ingest
-     */
-    protected List<File> getFiles() {
-        SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes, false);
-        String[] filenames = scanner.getSelectedFiles();
-        List<File> fileList = new ArrayList<File>();
-        for (String filename : filenames) {
-            File file = new File(sourceDir, filename);
-            fileList.add(file);
-        }
-        Collections.sort(fileList);
-        return fileList;
-    }
 
-    protected String toCSV(String[] array) {
-        if (array == null || array.length == 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            if (i != 0) {
-                sb.append(",");
-            }
-            sb.append(array[i]);
-        }
-        return sb.toString();
-    }
 
     protected void showConfig() throws MojoExecutionException {
         try {
             getLog().info("Namespace - " + namespace);
             getLog().info("Directory - " + sourceDir.getCanonicalPath());
-            getLog().info("Includes - " + toCSV(includes));
-            getLog().info("Excludes - " + toCSV(excludes));
             getLog().info("JDBC Vendor - " + jdbcVendor);
             getLog().info("JDBC Url - " + jdbcUrl);
             getLog().info("JDBC Username - " + jdbcUsername);
@@ -363,7 +273,15 @@ public class ExportMojo extends AbstractMojo {
     }
 
     public File getWorkingDir() {
-        return workingDir;
+        return workingDir != null ? workingDir : FileUtils.getTempDirectory();
+    }
+    
+    public File getBaseDir() {
+    	return new File(getWorkingDir(), "repository");
+    }
+    
+    public File getDocTypeDir() {
+    	return new File(getBaseDir(), "docType");
     }
 
     public void setWorkingDir(File outputDir) {
@@ -441,9 +359,9 @@ public class ExportMojo extends AbstractMojo {
             LOG.info("Loading " +  existingDocType.getName() + " (" +  existingDocType.getDocumentId());
             
             // Setup directory path and temp file
-            File currentDir = BASE_DOC_TYPE_DIR;
+            File currentDir = getDocTypeDir();
             if(getPath(existingDocType) != "") {
-                currentDir =  new File(BASE_DOC_TYPE_DIR, getPath(existingDocType));
+                currentDir =  new File(getDocTypeDir(), getPath(existingDocType));
                 FileUtils.forceMkdir(currentDir);
             }
             File docTypeXmlFile = new File(currentDir, existingDocType.getName() + ".xml");
@@ -468,15 +386,6 @@ public class ExportMojo extends AbstractMojo {
         writeDocTypeConfigXmlFile(paramMap);
     }
 
-    private void setupBaseDir() throws IOException {
-        if(BASE_DIR.exists()) {
-        FileUtils.cleanDirectory(BASE_DIR);
-        } else {
-            FileUtils.forceMkdir(BASE_DIR);
-        }
-        FileUtils.forceMkdir(BASE_DOC_TYPE_DIR);
-    }
-
     private String getPath(DocumentType documentType) {
       String path = "";
       DocumentType currentDocumentType = documentType;
@@ -488,7 +397,7 @@ public class ExportMojo extends AbstractMojo {
     }
     
     private void writeDocTypeConfigXmlFile(HashMap<String, String> map) throws IOException {
-        File configXmlFile = new File(BASE_DIR, "docType-config.xml");
+        File configXmlFile = new File(getBaseDir(), "docType-config.xml");
         FileWriter writer = new FileWriter(configXmlFile);
         writer.write("<config>\n");
         for(String key: new TreeSet<String>(map.keySet()) ) {
