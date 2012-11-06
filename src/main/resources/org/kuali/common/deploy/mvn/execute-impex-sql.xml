@@ -20,7 +20,7 @@
   <artifactId>impex-sql-executor</artifactId>
   <version>${project.version}</version>
   <name>Impex SQL Executor</name>
-  <description>This pom contains executions to execute sql generated from an impex dataset</description>
+  <description>This pom executes sql generated from an Impex XML dataset</description>
   <build>
     <pluginManagement>
       <plugins>
