@@ -17,7 +17,7 @@ public class JdbcUtils {
 	final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
 	DataSource dataSource;
-	SqlGenerator generator;
+	SqlReader sqlReader;
 
 	public DataSource getDataSource() {
 		return dataSource;
@@ -40,13 +40,19 @@ public class JdbcUtils {
 	public void execute(BufferedReader reader) {
 		Connection conn = null;
 		Statement statement = null;
+		int count = 1;
 		try {
 			conn = DataSourceUtils.doGetConnection(dataSource);
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			String sql = generator.getSql(reader);
+			String sql = sqlReader.readSql(reader);
 			while (!StringUtils.isBlank(sql)) {
-				statement.execute(sql);
+				logger.info(count + " - Executing '" + flatten(sql) + "'");
+				if (!statement.execute(sql)) {
+					throw new JdbcException("Unable to execute - '" + flatten(sql) + "'");
+				}
+				count++;
+				sql = sqlReader.readSql(reader);
 			}
 			conn.commit();
 		} catch (Exception e) {
@@ -55,6 +61,10 @@ public class JdbcUtils {
 			IOUtils.closeQuietly(reader);
 			closeQuietly(conn, statement);
 		}
+	}
+
+	public static final String flatten(String sql) {
+		return sql.replace("\r", "CR").replace("\n", "LF");
 	}
 
 	protected void closeQuietly(Connection conn, Statement statement) {
@@ -84,12 +94,12 @@ public class JdbcUtils {
 		}
 	}
 
-	public SqlGenerator getGenerator() {
-		return generator;
+	public SqlReader getSqlReader() {
+		return sqlReader;
 	}
 
-	public void setGenerator(SqlGenerator generator) {
-		this.generator = generator;
+	public void setSqlReader(SqlReader generator) {
+		this.sqlReader = generator;
 	}
 
 }

@@ -19,7 +19,7 @@
     <property name="password" value="${jdbc.dba.password}" />
   </bean>
 
-  <bean id="sqlGenerator" class="org.kuali.common.jdbc.SqlGenerator">
+  <bean id="sqlReader" class="org.kuali.common.jdbc.SqlReader">
     <property name="delimiter" value="${sql.delimiter}" />
   </bean>
 
