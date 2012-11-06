@@ -15,22 +15,29 @@
  */
 package org.kuali.maven.plugins.ingester;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.apache.avalon.framework.configuration.ConfigurationUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 //import org.kuali.rice.core.api.config.ConfigContext;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 //import org.kuali.rice.core.api.resourceloader.RiceResourceLoaderFactory;
+import org.kuali.rice.core.framework.config.property.SimpleConfig;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.rice.core.impl.config.property.JAXBConfigImpl;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -45,6 +52,7 @@ public class SpringContext {
     protected static final String BOOTSTRAP_CONTEXT_DEFINITION = "classpath:spring-rice-startup.xml";
     protected static final String APPLICATION_CONTEXT_DEFINITION = "classpath:spring-rice-configurer.xml";
     protected static final String APPLICATION_CONFIG_LOCATION = "classpath:spring-rice-config.xml";
+    protected static final String INGESTER_PROP_KEY = "ingester.config.location";
     
     protected static SpringResourceLoader springResourceLoader;
     
@@ -198,9 +206,26 @@ public class SpringContext {
     }
     
     protected static Config getPluginBaseConfiguration() throws Exception {
-        Config config = new JAXBConfigImpl(APPLICATION_CONFIG_LOCATION, System.getProperties());
+    	Properties baseProperties = loadBaseProperties(System.getProperty(INGESTER_PROP_KEY));
+        Config config = new JAXBConfigImpl(APPLICATION_CONFIG_LOCATION, baseProperties);
         config.parseConfig();
+        LOG.info(config.toString());
         return config;
+    }
+    
+    protected static Properties loadBaseProperties(String propertiesFile) {
+    	Properties baseProperties = new Properties();
+    	InputStream in = null;
+    	try {
+        	in = new FileInputStream(propertiesFile);
+        	baseProperties.load(in);
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	baseProperties.putAll(System.getProperties());
+    	return baseProperties;
     }
     
 }
