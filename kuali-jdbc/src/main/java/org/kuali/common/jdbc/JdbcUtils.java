@@ -1,13 +1,14 @@
 package org.kuali.common.jdbc;
 
+import java.io.BufferedReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collections;
-import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -27,36 +28,32 @@ public class JdbcUtils {
 	}
 
 	public void readAndExecute(String location) {
-		List<String> sql = generator.getSql(location);
-		execute(sql);
+		BufferedReader reader = ResourceUtils.getBufferedReader(location);
+		execute(reader);
 	}
 
 	public void execute(String sql) {
-		execute(Collections.singletonList(sql));
+		BufferedReader reader = ResourceUtils.getBufferedStringReader(sql);
+		execute(reader);
 	}
 
-	public void execute(List<String> sql) {
+	public void execute(BufferedReader reader) {
 		Connection conn = null;
 		Statement statement = null;
 		try {
 			conn = DataSourceUtils.doGetConnection(dataSource);
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			for (String s : sql) {
-				execute(statement, s);
+			String sql = generator.getSql(reader);
+			while (!StringUtils.isBlank(sql)) {
+				statement.execute(sql);
 			}
 			conn.commit();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
+			IOUtils.closeQuietly(reader);
 			closeQuietly(conn, statement);
-		}
-	}
-
-	protected void execute(Statement statement, String unparsedSql) throws SQLException {
-		List<String> parsedSql = generator.parseSql(unparsedSql);
-		for (String s : parsedSql) {
-			statement.execute(s);
 		}
 	}
 

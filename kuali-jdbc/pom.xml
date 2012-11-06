@@ -41,6 +41,7 @@
     <slf4j.version>1.6.4</slf4j.version>
     <mysql.version>5.1.20</mysql.version>
     <io.version>2.4</io.version>
+    <lang.version>2.6</lang.version>
   </properties>
   <developers>
     <developer>
@@ -61,6 +62,11 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>${io.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${lang.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
