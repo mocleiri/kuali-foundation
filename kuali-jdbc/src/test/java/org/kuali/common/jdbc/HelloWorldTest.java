@@ -22,13 +22,9 @@ public class HelloWorldTest {
 		logger.info("Hello World");
 		Assert.assertNotNull("helloWorld is null.", helloWorld);
 		String msg = helloWorld.getMessage();
-
 		Assert.assertNotNull("Message is null.", msg);
-
 		String expectedMessage = "Hello World";
-
 		Assert.assertEquals("Message should be '" + expectedMessage + "'.", expectedMessage, msg);
-
 		logger.info("Success!!!! message='{}'", msg);
 	}
 
