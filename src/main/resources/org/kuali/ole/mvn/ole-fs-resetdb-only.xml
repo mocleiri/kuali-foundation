@@ -120,43 +120,45 @@
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
-                  <!--<param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param>-->
-                  <!--<param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>-->
+                  <!--<param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param> -->
+                  <!--<param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param> -->
                 </poms>
               </configuration>
             </execution>
-            <execution>
+            <!--
+              <execution>
               <id>clover</id>
               <phase>initialize</phase>
               <goals>
-                <goal>mvn</goal>
+              <goal>mvn</goal>
               </goals>
               <configuration>
-                <quiet>false</quiet>
-                <basedir>${project.build.directory}/dependency/impex-cloveretl-ce/impex</basedir>
-                <args>
-                  <arg>initialize</arg>
-                </args>
-                <poms>
-                  <param>classpath:org/kuali/ole/mvn/ole-fs-impex.xml</param>
-                </poms>
+              <quiet>false</quiet>
+              <basedir>${project.build.directory}/dependency/impex-cloveretl-ce/impex</basedir>
+              <args>
+              <arg>initialize</arg>
+              </args>
+              <poms>
+              <param>classpath:org/kuali/ole/mvn/ole-fs-impex.xml</param>
+              </poms>
               </configuration>
-            </execution>
-            <execution>
+              </execution>
+              <execution>
               <id>workflow</id>
               <phase>initialize</phase>
               <goals>
-                <goal>mvn</goal>
+              <goal>mvn</goal>
               </goals>
               <configuration>
-                <args>
-                  <arg>initialize</arg>
-                </args>
-                <poms>
-                  <param>classpath:org/kuali/ole/mvn/ole-fs-workflow.xml</param>
-                </poms>
+              <args>
+              <arg>initialize</arg>
+              </args>
+              <poms>
+              <param>classpath:org/kuali/ole/mvn/ole-fs-workflow.xml</param>
+              </poms>
               </configuration>
-            </execution>
+              </execution>
+            -->
           </executions>
           <dependencies>
             <dependency>
