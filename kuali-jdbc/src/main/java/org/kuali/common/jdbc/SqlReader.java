@@ -12,7 +12,7 @@ public class SqlReader {
 
 	private static final String DEFAULT_DELIMITER = "/";
 	private static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
-	private static final String DEFAULT_ENCODING = System.getProperty("UTF-8");
+	private static final String DEFAULT_ENCODING = "UTF-8";
 
 	String encoding = DEFAULT_ENCODING;
 	String delimiter = DEFAULT_DELIMITER;
