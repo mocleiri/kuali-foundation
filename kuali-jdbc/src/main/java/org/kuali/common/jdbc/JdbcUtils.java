@@ -95,4 +95,12 @@ public class JdbcUtils {
 		this.encoding = encoding;
 	}
 
+	public SqlGenerator getGenerator() {
+		return generator;
+	}
+
+	public void setGenerator(SqlGenerator generator) {
+		this.generator = generator;
+	}
+
 }
