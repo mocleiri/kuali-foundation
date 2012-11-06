@@ -23,7 +23,7 @@ public class JdbcUtilsTest {
 	public void test() {
 		try {
 			logger.info("Hello World");
-			Assert.assertNotNull("jdbcUtils is null.", dbaJdbcUtils);
+			Assert.assertNotNull("dbaJdbcUtils is null.", dbaJdbcUtils);
 			Assert.assertNotNull("dataSource is null.", dbaJdbcUtils.getDataSource());
 			Properties props = ResourceUtils.getProperties("classpath:mysql.xml");
 			String sql = props.getProperty("sql.mysql.validate");

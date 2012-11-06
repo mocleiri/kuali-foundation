@@ -35,13 +35,6 @@ public class JdbcUtils {
 		execute(Collections.singletonList(sql));
 	}
 
-	public void execute(Statement statement, String unparsedSql) throws SQLException {
-		List<String> parsedSql = generator.parseSql(unparsedSql);
-		for (String s : parsedSql) {
-			statement.execute(s);
-		}
-	}
-
 	public void execute(List<String> sql) {
 		Connection conn = null;
 		Statement statement = null;
@@ -57,6 +50,13 @@ public class JdbcUtils {
 			throw new JdbcException(e);
 		} finally {
 			closeQuietly(conn, statement);
+		}
+	}
+
+	protected void execute(Statement statement, String unparsedSql) throws SQLException {
+		List<String> parsedSql = generator.parseSql(unparsedSql);
+		for (String s : parsedSql) {
+			statement.execute(s);
 		}
 	}
 
