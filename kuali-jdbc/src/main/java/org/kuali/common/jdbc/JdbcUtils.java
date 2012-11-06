@@ -64,7 +64,7 @@ public class JdbcUtils {
 	}
 
 	public static final String flatten(String sql) {
-		return sql.replace("\r", "CR").replace("\n", "LF");
+		return sql.replace("\r", " ").replace("\n", " ");
 	}
 
 	protected void closeQuietly(Connection conn, Statement statement) {
