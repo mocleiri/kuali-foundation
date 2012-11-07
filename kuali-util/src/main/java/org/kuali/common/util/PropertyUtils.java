@@ -47,6 +47,7 @@ public class PropertyUtils {
 		for (String key : keys) {
 			boolean include = include(key, includeList, excludeList);
 			if (!include) {
+				logger.info("Removing [{}]", key);
 				properties.remove(key);
 			}
 		}
