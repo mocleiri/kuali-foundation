@@ -39,6 +39,18 @@ public class PropertyUtils {
 		store(properties, file, encoding, null, style, true, null);
 	}
 
+	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
+		PropertyStorageContext context = new PropertyStorageContext();
+		context.setProperties(properties);
+		context.setFile(file);
+		context.setEncoding(encoding);
+		context.setPrefix(prefix);
+		context.setStyle(style);
+		context.setSort(sort);
+		context.setComment(comment);
+		store(context);
+	}
+
 	public static final void store(PropertyStorageContext context) {
 		Properties prefixed = getPrefixedProperties(context.getProperties(), context.getPrefix());
 		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
@@ -71,18 +83,6 @@ public class PropertyUtils {
 			IOUtils.closeQuietly(writer);
 			IOUtils.closeQuietly(out);
 		}
-	}
-
-	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
-		PropertyStorageContext context = new PropertyStorageContext();
-		context.setProperties(properties);
-		context.setFile(file);
-		context.setEncoding(encoding);
-		context.setPrefix(prefix);
-		context.setStyle(style);
-		context.setSort(sort);
-		context.setComment(comment);
-		store(context);
 	}
 
 	/**
