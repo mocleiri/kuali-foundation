@@ -24,17 +24,6 @@ public class PropertyUtils {
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
 
-	public static final Properties getFormattedProperties(Properties properties, PropertyStorageStyle style) {
-		switch (style) {
-		case NORMAL:
-			return properties;
-		case ENVIRONMENT_VARIABLE:
-			return getPropertiesAsEnvironmentVariables(properties);
-		default:
-			throw new IllegalArgumentException(style + " is unknown");
-		}
-	}
-
 	public static final void store(Properties properties, File file) {
 		store(properties, file, null);
 	}
@@ -43,8 +32,11 @@ public class PropertyUtils {
 		store(properties, file, encoding, null, PropertyStorageStyle.NORMAL, true, null);
 	}
 
+	public static final void store(Properties properties, File file, String encoding, PropertyStorageStyle style) {
+		store(properties, file, encoding, null, style, true, null);
+	}
+
 	public static final void store(PropertyStorageContext context) {
-		boolean xml = isXml(context.getFile().getAbsolutePath());
 		Properties prefixed = getPrefixedProperties(context.getProperties(), context.getPrefix());
 		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
 		Properties finalProperties = (context.isSort()) ? getSortedProperties(formatted) : formatted;
@@ -52,10 +44,14 @@ public class PropertyUtils {
 		Writer writer = null;
 		try {
 			out = FileUtils.openOutputStream(context.getFile());
+			String path = context.getFile().getCanonicalPath();
+			boolean xml = isXml(path);
 			if (xml) {
+				logger.info("Storing XML properties - [{}] encoding={}", path, context.getEncoding());
 				finalProperties.storeToXML(out, context.getComment(), context.getEncoding());
 			} else {
 				writer = ResourceUtils.getWriter(out, context.getEncoding());
+				logger.info("Storing properties - [{}] encoding={}", path, context.getEncoding());
 				finalProperties.store(writer, context.getComment());
 			}
 		} catch (IOException e) {
@@ -81,7 +77,7 @@ public class PropertyUtils {
 	/**
 	 * Return a properties object containing the original properties plus the properties returned by <code>getEnvAsProperties()</code> and
 	 * <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from <code>original</code>
-	 * and <code>System.getProperties()</code> overrides everything
+	 * and properties from <code>System.getProperties()</code> override everything.
 	 */
 	public static final Properties getOverriddenProperties(Properties original) {
 		Properties properties = new Properties();
@@ -168,6 +164,17 @@ public class PropertyUtils {
 			newProperties.setProperty(newKey, value);
 		}
 		return newProperties;
+	}
+
+	public static final Properties getFormattedProperties(Properties properties, PropertyStorageStyle style) {
+		switch (style) {
+		case NORMAL:
+			return properties;
+		case ENVIRONMENT_VARIABLE:
+			return getPropertiesAsEnvironmentVariables(properties);
+		default:
+			throw new IllegalArgumentException(style + " is unknown");
+		}
 	}
 
 }
