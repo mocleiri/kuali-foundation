@@ -50,8 +50,8 @@ public class PropertyUtils {
 	public static final Properties getProperties(List<String> locations) {
 		Properties props = new Properties();
 		for (String location : locations) {
-			Properties allProperties = getOverriddenProperties(props);
-			String resolvedLocation = getResolvedValue(location, allProperties);
+			Properties overriddenProperties = getOverriddenProperties(props);
+			String resolvedLocation = getResolvedValue(location, overriddenProperties);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
