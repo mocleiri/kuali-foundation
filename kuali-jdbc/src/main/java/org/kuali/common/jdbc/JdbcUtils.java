@@ -47,7 +47,7 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.getSqlStatement(reader);
 			while (sql != null) {
-				logger.info("{} - Executing [{}]", ++count, flatten(sql));
+				logger.info("{} - [{}]", ++count, flatten(sql));
 				statement.execute(sql);
 				sql = sqlReader.getSqlStatement(reader);
 			}
