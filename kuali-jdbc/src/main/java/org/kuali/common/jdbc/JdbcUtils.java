@@ -47,7 +47,7 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.getSqlStatement(reader);
 			while (sql != null) {
-				logger.debug("{} - [{}]", ++count, flatten(sql));
+				logger.info("{} - [{}]", ++count, flatten(sql));
 				statement.execute(sql);
 				sql = sqlReader.getSqlStatement(reader);
 			}
@@ -65,7 +65,7 @@ public class JdbcUtils {
 	 * Replace any carriage returns or linefeeds with a space
 	 */
 	public static final String flatten(String sql) {
-		return sql.replace("\r", "${cr}").replace("\n", "${lf}");
+		return sql.replace("\r", " ").replace("\n", " ");
 	}
 
 	protected void closeQuietly(Connection conn, Statement statement) {

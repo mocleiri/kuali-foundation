@@ -12,10 +12,13 @@ public class DefaultSqlReader implements SqlReader {
 
 	private static final String DEFAULT_DELIMITER = "/";
 	private static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
+	private static final String DEFAULT_COMMENT_TOKEN = "#";
 
 	String delimiter = DEFAULT_DELIMITER;
 	String lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = true;
+	boolean ignoreComments = true;
+	String commentToken = DEFAULT_COMMENT_TOKEN;
 
 	@Override
 	public String getSqlStatement(BufferedReader reader) throws IOException {
@@ -23,7 +26,9 @@ public class DefaultSqlReader implements SqlReader {
 		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		StringBuilder sb = new StringBuilder();
 		while (line != null && !delimiter.equals(trimmed)) {
-			sb.append(line + lineSeparator);
+			if (!ignore(line)) {
+				sb.append(line + lineSeparator);
+			}
 			line = reader.readLine();
 			trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		}
@@ -37,6 +42,13 @@ public class DefaultSqlReader implements SqlReader {
 		} else {
 			return s;
 		}
+	}
+
+	protected boolean ignore(String line) {
+		if (!ignoreComments) {
+			return false;
+		}
+		return line.trim().startsWith(commentToken);
 	}
 
 	public String getDelimiter() {
@@ -61,5 +73,21 @@ public class DefaultSqlReader implements SqlReader {
 
 	public void setTrim(boolean trim) {
 		this.trim = trim;
+	}
+
+	public boolean isIgnoreComments() {
+		return ignoreComments;
+	}
+
+	public void setIgnoreComments(boolean ignoreComments) {
+		this.ignoreComments = ignoreComments;
+	}
+
+	public String getCommentToken() {
+		return commentToken;
+	}
+
+	public void setCommentToken(String commentToken) {
+		this.commentToken = commentToken;
 	}
 }
