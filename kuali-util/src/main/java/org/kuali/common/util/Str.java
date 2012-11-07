@@ -14,11 +14,7 @@ public class Str {
 		}
 	}
 
-	public static final String toEmpty(Object o) {
-		if (o == null) {
-			return EMPTY_STRING;
-		}
-		String s = o.toString();
+	public static final String toEmpty(String s) {
 		if (StringUtils.isBlank(s)) {
 			return EMPTY_STRING;
 		} else {
