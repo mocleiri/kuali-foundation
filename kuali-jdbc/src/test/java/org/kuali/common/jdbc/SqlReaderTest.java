@@ -2,9 +2,8 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ResourceUtils;
 import org.slf4j.Logger;
