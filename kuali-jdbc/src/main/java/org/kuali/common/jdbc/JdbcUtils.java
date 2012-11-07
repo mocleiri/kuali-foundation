@@ -27,13 +27,13 @@ public class JdbcUtils {
 		this.dataSource = dataSource;
 	}
 
-	public int execute(String location) {
+	public int executeSQL(String location) {
 		logger.info("Executing - {}", location);
 		BufferedReader reader = sqlReader.getBufferedReader(location);
 		return execute(reader);
 	}
 
-	public int executeSQL(String sql) {
+	public int executeString(String sql) {
 		BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
 		return execute(reader);
 	}
