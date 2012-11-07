@@ -19,12 +19,17 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getProperties(String location, String encoding) {
+		Properties properties = new Properties();
+		boolean isXml = location.endsWith(XML_EXTENSION);
+		load(properties, isXml, location, encoding);
+		return properties;
+	}
+
+	public static final void load(Properties properties, boolean isXml, String location, String encoding) {
 		InputStream in = null;
 		Reader reader = null;
 		try {
-			Properties properties = new Properties();
-			boolean xml = location.toLowerCase().endsWith(XML_EXTENSION);
-			if (xml) {
+			if (isXml) {
 				in = ResourceUtils.getInputStream(location);
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
@@ -33,13 +38,11 @@ public class PropertyUtils {
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
-			return properties;
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(reader);
 		}
-
 	}
 }
