@@ -38,6 +38,11 @@ public class DefaultSqlReader implements SqlReader {
 		return getReturnValue(sb);
 	}
 
+	@Override
+	public BufferedReader getBufferedReader(String location) {
+		return ResourceUtils.getBufferedReader(location, encoding);
+	}
+
 	protected String getReturnValue(StringBuilder sb) {
 		String s = (trim) ? sb.toString().trim() : sb.toString();
 		if (StringUtils.isBlank(s)) {
@@ -49,11 +54,6 @@ public class DefaultSqlReader implements SqlReader {
 		} else {
 			return s;
 		}
-	}
-
-	@Override
-	public BufferedReader getBufferedReader(String location) {
-		return ResourceUtils.getBufferedReader(location, encoding);
 	}
 
 	protected String readLine(BufferedReader reader) {
