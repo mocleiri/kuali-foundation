@@ -46,11 +46,11 @@ public class ResourceUtils {
 		return getBufferedReader(in, encoding);
 	}
 
-	public static final BufferedReader getBufferedStringReader(String s) {
-		return getBufferedStringReader(s, null);
+	public static final BufferedReader getBufferedReaderFromString(String s) {
+		return getBufferedReaderFromString(s, null);
 	}
 
-	public static final BufferedReader getBufferedStringReader(String s, String encoding) {
+	public static final BufferedReader getBufferedReaderFromString(String s, String encoding) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
 		return getBufferedReader(in, encoding);
 	}

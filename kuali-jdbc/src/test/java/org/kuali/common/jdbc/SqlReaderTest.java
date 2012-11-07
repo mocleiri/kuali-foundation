@@ -17,7 +17,7 @@ public class SqlReaderTest {
 		try {
 			SqlReader sqlReader = new DefaultSqlReader();
 			String sql = "SELECT 1\r/\nSELECT 1\n/\nSELECT 1\r\n/";
-			BufferedReader reader = ResourceUtils.getBufferedStringReader(sql);
+			BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
 			String s = sqlReader.getSqlStatement(reader);
 			while (s != null) {
 				logger.info("'" + JdbcUtils.flatten(s) + "'");

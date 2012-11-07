@@ -27,13 +27,13 @@ public class JdbcUtils {
 	}
 
 	public int readAndExecute(String location) {
-		logger.info("Executing SQL - {}", location);
+		logger.info("Executing - {}", location);
 		BufferedReader reader = ResourceUtils.getBufferedReader(location);
 		return execute(reader);
 	}
 
 	public int execute(String sql) {
-		BufferedReader reader = ResourceUtils.getBufferedStringReader(sql);
+		BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
 		return execute(reader);
 	}
 
@@ -47,7 +47,7 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.getSqlStatement(reader);
 			while (sql != null) {
-				logger.info("{} - [{}]", ++count, flatten(sql));
+				logger.debug("{} - [{}]", ++count, flatten(sql));
 				statement.execute(sql);
 				sql = sqlReader.getSqlStatement(reader);
 			}
