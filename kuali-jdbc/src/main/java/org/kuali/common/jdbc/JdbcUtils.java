@@ -18,6 +18,7 @@ public class JdbcUtils {
 
 	DataSource dataSource;
 	SqlReader sqlReader;
+
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -26,18 +27,18 @@ public class JdbcUtils {
 		this.dataSource = dataSource;
 	}
 
-	public void readAndExecute(String location) {
+	public int readAndExecute(String location) {
 		logger.info("Executing SQL - {}", location);
 		BufferedReader reader = ResourceUtils.getBufferedReader(location);
-		execute(reader);
+		return execute(reader);
 	}
 
-	public void execute(String sql) {
+	public int execute(String sql) {
 		BufferedReader reader = ResourceUtils.getBufferedStringReader(sql);
-		execute(reader);
+		return execute(reader);
 	}
 
-	public void execute(BufferedReader reader) {
+	public int execute(BufferedReader reader) {
 		Connection conn = null;
 		Statement statement = null;
 		int count = 1;
@@ -47,11 +48,12 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.readSql(reader);
 			while (!StringUtils.isBlank(sql)) {
-				logger.info("{} - Executing '{}'", count++, flatten(sql));
+				logger.debug("{} - Executing '{}'", count++, flatten(sql));
 				statement.execute(sql);
 				sql = sqlReader.readSql(reader);
 			}
 			conn.commit();
+			return count;
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
