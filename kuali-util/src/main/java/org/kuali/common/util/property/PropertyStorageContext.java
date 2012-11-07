@@ -1,13 +1,10 @@
 package org.kuali.common.util.property;
 
 import java.io.File;
-import java.util.Properties;
 
 public class PropertyStorageContext {
 
-	// The properties to store
-	Properties properties;
-	// The file to store them to
+	// The file to store properties to
 	File file;
 	// The encoding to use when storing them (null means use JVM's default encoding)
 	String encoding;
@@ -19,14 +16,6 @@ public class PropertyStorageContext {
 	String comment;
 	// If set to ENVIRONMENT_VARIABLE properties are stored in a format environment variables are usually declared as
 	PropertyStorageStyle style;
-
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
 
 	public File getFile() {
 		return file;

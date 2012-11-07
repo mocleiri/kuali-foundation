@@ -74,24 +74,23 @@ public class PropertyUtils {
 
 	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
 		PropertyStorageContext context = new PropertyStorageContext();
-		context.setProperties(properties);
 		context.setFile(file);
 		context.setEncoding(encoding);
 		context.setPrefix(prefix);
 		context.setStyle(style);
 		context.setSort(sort);
 		context.setComment(comment);
-		store(context);
-	}
-
-	public static final void store(PropertyStorageContext context) {
-		Properties prefixed = getPrefixedProperties(context.getProperties(), context.getPrefix());
-		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
-		Properties finalProperties = (context.isSort()) ? getSortedProperties(formatted) : formatted;
-		store(context, finalProperties);
+		store(context, properties);
 	}
 
 	public static final void store(PropertyStorageContext context, Properties properties) {
+		Properties prefixed = getPrefixedProperties(properties, context.getPrefix());
+		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
+		Properties finalProperties = (context.isSort()) ? getSortedProperties(formatted) : formatted;
+		storeProperties(context, finalProperties);
+	}
+
+	protected static final void storeProperties(PropertyStorageContext context, Properties properties) {
 		OutputStream out = null;
 		Writer writer = null;
 		try {
