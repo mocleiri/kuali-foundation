@@ -34,7 +34,7 @@ public class PropertyUtils {
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties, encoding='{}' - [{}]", Str.toEmpty(encoding), location);
+				logger.info("Loading properties - [{}] encoding={}", location, encoding);
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
