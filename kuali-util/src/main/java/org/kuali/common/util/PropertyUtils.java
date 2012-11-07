@@ -28,6 +28,9 @@ public class PropertyUtils {
 		return properties;
 	}
 
+	/**
+	 * Return environment variables as properties prefixed with <code>env</code>
+	 */
 	public static Properties getEnvAsProperties() {
 		Map<String, String> map = System.getenv();
 		Properties props = new Properties();
