@@ -27,7 +27,7 @@ public class DefaultSqlReader implements SqlReader {
 		StringBuilder sb = new StringBuilder();
 		while (line != null && !delimiter.equals(trimmed)) {
 			if (!ignore(line)) {
-				sb.append(line + lineSeparator);
+				sb.append(line + lineSeparator.getValue());
 			}
 			line = reader.readLine();
 			trimmed = StringUtils.isBlank(line) ? null : line.trim();
