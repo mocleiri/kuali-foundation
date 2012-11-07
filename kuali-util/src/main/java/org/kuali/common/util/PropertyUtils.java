@@ -40,6 +40,26 @@ public class PropertyUtils {
 	private static final String DEFAULT_PREFIX = "${";
 	private static final String DEFAULT_SUFFIX = "}";
 
+	public static final void trim(Properties properties, String includes, String excludes) {
+		List<String> includeList = CollectionUtils.getListFromCSV(includes);
+		List<String> excludeList = CollectionUtils.getListFromCSV(excludes);
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			boolean include = include(key, includeList, excludeList);
+			if (!include) {
+				properties.remove(key);
+			}
+		}
+	}
+
+	public static final boolean include(String value, List<String> includes, List<String> excludes) {
+		if (excludes.contains(value)) {
+			return false;
+		} else {
+			return includes.size() == 0 || includes.contains(value);
+		}
+	}
+
 	public static final List<String> getSortedKeys(Properties properties) {
 		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
 		Collections.sort(keys);

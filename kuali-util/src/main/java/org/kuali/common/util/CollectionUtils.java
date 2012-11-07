@@ -13,6 +13,10 @@ public class CollectionUtils {
 		return c == null || c.size() == 0;
 	}
 
+	public static final List<String> getListFromCSV(String csv) {
+		return getList(null, csv);
+	}
+
 	public static final List<String> getList(List<String> list, String csv) {
 		List<String> newList = new ArrayList<String>();
 		if (!isEmpty(list)) {
