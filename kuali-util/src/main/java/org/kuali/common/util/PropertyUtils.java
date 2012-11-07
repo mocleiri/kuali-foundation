@@ -16,6 +16,18 @@ public class PropertyUtils {
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
 
+	/**
+	 * <code>System.getenv()</code> overrides properties from <code>original</code> and <code>System.getProperties()</code> overrides
+	 * everything
+	 */
+	public Properties getOverriddenProperties(Properties original) {
+		Properties properties = new Properties();
+		properties.putAll(original);
+		properties.putAll(getEnvAsProperties());
+		properties.putAll(System.getProperties());
+		return properties;
+	}
+
 	public static Properties getEnvAsProperties() {
 		Map<String, String> map = System.getenv();
 		Properties props = new Properties();
