@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 public class DefaultSqlReader implements SqlReader {
 	final Logger logger = LoggerFactory.getLogger(DefaultSqlReader.class);
 
-	private static final String DEFAULT_DELIMITER = "/";
-	private static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
-	private static final String DEFAULT_COMMENT_TOKEN = "#";
+	public static final String DEFAULT_DELIMITER = "/";
+	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
+	public static final String DEFAULT_COMMENT_TOKEN = "#";
 
 	String delimiter = DEFAULT_DELIMITER;
-	String lineSeparator = DEFAULT_LINE_SEPARATOR;
+	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = true;
 	boolean ignoreComments = true;
 	String commentToken = DEFAULT_COMMENT_TOKEN;
@@ -35,9 +35,9 @@ public class DefaultSqlReader implements SqlReader {
 		String s = (trim) ? sb.toString().trim() : sb.toString();
 		if (StringUtils.isBlank(s)) {
 			return null;
-		} else if (s.endsWith(lineSeparator)) {
+		} else if (s.endsWith(lineSeparator.getValue())) {
 			int beginIndex = 0;
-			int endIndex = s.length() - lineSeparator.length();
+			int endIndex = s.length() - lineSeparator.getValue().length();
 			return s.substring(beginIndex, endIndex);
 		} else {
 			return s;
@@ -54,14 +54,6 @@ public class DefaultSqlReader implements SqlReader {
 
 	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
-	}
-
-	public String getLineSeparator() {
-		return lineSeparator;
-	}
-
-	public void setLineSeparator(String lineSeparator) {
-		this.lineSeparator = lineSeparator;
 	}
 
 	public boolean isTrim() {
@@ -86,5 +78,13 @@ public class DefaultSqlReader implements SqlReader {
 
 	public void setCommentToken(String commentToken) {
 		this.commentToken = commentToken;
+	}
+
+	public LineSeparator getLineSeparator() {
+		return lineSeparator;
+	}
+
+	public void setLineSeparator(LineSeparator lineSeparator) {
+		this.lineSeparator = lineSeparator;
 	}
 }
