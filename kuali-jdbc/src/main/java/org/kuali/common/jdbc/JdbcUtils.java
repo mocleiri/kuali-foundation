@@ -37,7 +37,7 @@ public class JdbcUtils {
 		return execute(reader);
 	}
 
-	public int execute(BufferedReader reader) {
+	protected int execute(BufferedReader reader) {
 		Connection conn = null;
 		Statement statement = null;
 		int count = 0;
