@@ -1,9 +1,8 @@
-package org.kuali.common.util.property;
+package org.kuali.common.util;
 
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.PropertyUtils;
 import org.springframework.beans.factory.FactoryBean;
 
 public class PropertyFactoryBean implements FactoryBean<Properties> {
