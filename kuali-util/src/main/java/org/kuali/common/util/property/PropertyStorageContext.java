@@ -14,7 +14,7 @@ public class PropertyStorageContext {
 	String prefix;
 	// If not null, include this as a comment in the properties file
 	String comment;
-	// If set to ENVIRONMENT_VARIABLE properties are stored in a format environment variables are usually declared as
+	// If set to ENVIRONMENT_VARIABLE, properties are stored in the format environment variables are usually declared as
 	PropertyStorageStyle style;
 
 	public File getFile() {
