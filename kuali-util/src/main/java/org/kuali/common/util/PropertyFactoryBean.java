@@ -17,7 +17,15 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 
 	@Override
 	public Properties getObject() throws Exception {
-		return PropertyUtils.getProperties(locations, encoding);
+		Properties properties = PropertyUtils.getProperties(locations, encoding);
+		if (includeEnvironmentVariables) {
+			properties.putAll(PropertyUtils.getEnvAsProperties());
+		}
+		if (includeSystemProperties) {
+			properties.putAll(PropertyUtils.getEnvAsProperties());
+		}
+		PropertyUtils.trim(properties, include, exclude);
+		return properties;
 	}
 
 	@Override

@@ -14,18 +14,10 @@ public class CollectionUtils {
 	}
 
 	public static final List<String> getListFromCSV(String csv) {
-		return getList(null, csv);
-	}
-
-	public static final List<String> getList(List<String> list, String csv) {
-		List<String> newList = new ArrayList<String>();
-		if (!isEmpty(list)) {
-			newList.addAll(list);
-		}
+		List<String> list = new ArrayList<String>();
 		if (!StringUtils.isBlank(csv)) {
-			newList.addAll(Arrays.asList(Str.splitAndTrimCSV(csv)));
+			list.addAll(Arrays.asList(Str.splitAndTrimCSV(csv)));
 		}
-		return newList;
+		return list;
 	}
-
 }
