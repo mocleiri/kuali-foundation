@@ -6,24 +6,42 @@ public class Str {
 
 	private static final String EMPTY_STRING = "";
 	private static final String COMMA = ",";
+
+	/**
+	 * Split comma separated values into tokens
+	 */
+	public static String[] splitCSV(String csv, boolean trim) {
+		return split(csv, COMMA, trim);
+	}
+
 	/**
 	 * Split comma separated values into tokens, trimming as we go
 	 */
 	public static String[] splitAndTrimCSV(String csv) {
-		return splitAndTrim(csv, COMMA);
+		return splitCSV(csv, true);
 	}
 
 	/**
-	 * Split the string trimming as we go
+	 * Split the string into tokens, trimming as we go
 	 */
-	public static String[] splitAndTrim(String s, String separator) {
+	public static String[] splitAndTrim(String s, String separator, boolean trim) {
+		return splitAndTrim(s, separator, true);
+	}
+
+	/**
+	 * Split the string into tokens
+	 */
+	public static String[] split(String s, String separator, boolean trim) {
 		String[] tokens = StringUtils.split(s, separator);
 		for (String token : tokens) {
-			token = token.trim();
+			token = trim ? token.trim() : token;
 		}
 		return tokens;
 	}
 
+	/**
+	 * If the string is blank, return default value, otherwise return the original string
+	 */
 	public static final String toDefault(String s, String defaultValue) {
 		if (StringUtils.isBlank(s)) {
 			return defaultValue;
@@ -32,6 +50,9 @@ public class Str {
 		}
 	}
 
+	/**
+	 * If the string is blank, return the empty string otherwise return the original string.
+	 */
 	public static final String toEmpty(String s) {
 		if (StringUtils.isBlank(s)) {
 			return EMPTY_STRING;
