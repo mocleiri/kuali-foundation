@@ -1,7 +1,5 @@
 package org.kuali.common.jdbc;
 
-import java.util.Properties;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,14 +17,16 @@ public class JdbcUtilsTest {
 	@Autowired
 	private JdbcUtils jdbcUtils = null;
 
+	@Autowired
+	private Reset reset = null;
+
 	@Test
 	public void test() {
 		try {
-			logger.info("Hello World");
+			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
 			Assert.assertNotNull("dataSource is null.", jdbcUtils.getDataSource());
-			Properties props = ResourceUtils.getProperties("classpath:mysql.xml");
-			String validate = props.getProperty("sql.mysql.validate");
+			String validate = reset.getValidate();
 			// String drop = props.getProperty("sql.mysql.drop");
 			// String create = props.getProperty("sql.mysql.create");
 			jdbcUtils.execute(validate);
