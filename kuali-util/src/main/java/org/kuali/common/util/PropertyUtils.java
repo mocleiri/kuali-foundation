@@ -48,11 +48,16 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getProperties(List<String> locations) {
-		Properties properties = new Properties();
+		Properties props = new Properties();
 		for (String location : locations) {
-			properties.putAll(getProperties(location));
+			Properties allProperties = getOverriddenProperties(props);
+			String resolvedLocation = getResolvedValue(location, allProperties);
+			if (!location.equals(resolvedLocation)) {
+				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
+			}
+			props.putAll(getProperties(resolvedLocation));
 		}
-		return properties;
+		return props;
 	}
 
 	public static final void store(Properties properties, File file) {
