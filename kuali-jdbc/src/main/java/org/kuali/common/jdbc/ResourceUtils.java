@@ -62,8 +62,8 @@ public class ResourceUtils {
 			} else {
 				return new BufferedReader(new InputStreamReader(in, encoding));
 			}
-		} catch (Exception e) {
-			throw new IllegalStateException("Cannot open BufferedReader", e);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
 		}
 	}
 
@@ -76,8 +76,8 @@ public class ResourceUtils {
 			ResourceLoader loader = new DefaultResourceLoader();
 			Resource resource = loader.getResource(location);
 			return resource.getInputStream();
-		} catch (Exception e) {
-			throw new IllegalStateException("Cannot open InputStream", e);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
 		}
 	}
 }
