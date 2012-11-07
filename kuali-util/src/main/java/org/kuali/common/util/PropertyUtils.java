@@ -148,7 +148,7 @@ public class PropertyUtils {
 		}
 	}
 
-	protected static final SortedProperties getSortedProperties(Properties properties) {
+	private static final SortedProperties getSortedProperties(Properties properties) {
 		SortedProperties sp = new PropertyUtils().new SortedProperties();
 		sp.putAll(properties);
 		return sp;
@@ -188,7 +188,11 @@ public class PropertyUtils {
 		}
 	}
 
-	protected class SortedProperties extends Properties {
+	/**
+	 * This is private since it does not honor the full contract for <code>Properties</code>. <code>PropertyUtils</code> uses it in order to
+	 * store properties in sorted order.
+	 */
+	private class SortedProperties extends Properties {
 
 		private static final long serialVersionUID = 1330825236411537386L;
 

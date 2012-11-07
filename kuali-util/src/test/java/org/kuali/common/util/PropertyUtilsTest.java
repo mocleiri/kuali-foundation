@@ -9,12 +9,27 @@ import org.junit.Test;
 public class PropertyUtilsTest {
 	String location = "classpath:org/kuali/common/util/simple.properties";
 	String xmlLocation = "classpath:org/kuali/common/util/simple.xml";
+	String encoding = "UTF-8";
+
+	@Test
+	public void storeUTF8XMLPropertiesTest() {
+		try {
+			File temp = File.createTempFile("temporary.", ".xml");
+			temp.deleteOnExit();
+			Properties props = PropertyUtils.getProperties(xmlLocation);
+			String foo = props.getProperty("foo");
+			Assert.assertEquals("bar", foo);
+			PropertyUtils.store(props, temp, encoding);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void storeXMLPropertiesTest() {
 		try {
 			File temp = File.createTempFile("temporary.", ".xml");
-			// temp.deleteOnExit();
+			temp.deleteOnExit();
 			Properties props = PropertyUtils.getProperties(xmlLocation);
 			String foo = props.getProperty("foo");
 			Assert.assertEquals("bar", foo);
@@ -25,10 +40,24 @@ public class PropertyUtilsTest {
 	}
 
 	@Test
+	public void storeUTF8PropertiesTest() {
+		try {
+			File temp = File.createTempFile("temporary.", ".properties");
+			temp.deleteOnExit();
+			Properties props = PropertyUtils.getProperties(xmlLocation);
+			String foo = props.getProperty("foo");
+			Assert.assertEquals("bar", foo);
+			PropertyUtils.store(props, temp, encoding);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void storePropertiesTest() {
 		try {
 			File temp = File.createTempFile("temporary.", ".properties");
-			// temp.deleteOnExit();
+			temp.deleteOnExit();
 			Properties props = PropertyUtils.getProperties(xmlLocation);
 			String foo = props.getProperty("foo");
 			Assert.assertEquals("bar", foo);
