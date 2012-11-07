@@ -1,4 +1,4 @@
-package org.kuali.common.util.property;
+package org.kuali.common.util;
 
 import java.util.List;
 import java.util.Properties;
