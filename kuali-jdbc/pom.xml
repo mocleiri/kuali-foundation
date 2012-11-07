@@ -40,6 +40,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <mysql.version>5.1.20</mysql.version>
+    <oracle.version>11.2.0.2</oracle.version>
     <io.version>2.4</io.version>
     <lang.version>2.6</lang.version>
   </properties>
@@ -78,6 +79,12 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6_g</artifactId>
+      <version>${oracle.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
