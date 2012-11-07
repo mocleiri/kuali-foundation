@@ -18,10 +18,10 @@ public class SqlReaderTest {
 			SqlReader sqlReader = new DefaultSqlReader();
 			String sql = "SELECT 1\r/\nSELECT 1\n/\nSELECT 1\r\n/";
 			BufferedReader reader = ResourceUtils.getBufferedStringReader(sql);
-			String s = sqlReader.readSql(reader);
+			String s = sqlReader.getSqlStatement(reader);
 			while (s != null) {
 				logger.info("'" + JdbcUtils.flatten(s) + "'");
-				s = sqlReader.readSql(reader);
+				s = sqlReader.getSqlStatement(reader);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

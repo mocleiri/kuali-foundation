@@ -17,7 +17,7 @@ public class DefaultSqlReader implements SqlReader {
 	String lineSeparator = DEFAULT_LINE_SEPARATOR;
 
 	@Override
-	public String readSql(BufferedReader reader) throws IOException {
+	public String getSqlStatement(BufferedReader reader) throws IOException {
 		String line = reader.readLine();
 		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		StringBuilder sb = new StringBuilder();

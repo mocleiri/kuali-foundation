@@ -8,7 +8,6 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -46,11 +45,11 @@ public class JdbcUtils {
 			conn = DataSourceUtils.doGetConnection(dataSource);
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			String sql = sqlReader.readSql(reader);
-			while (!StringUtils.isBlank(sql)) {
-				logger.debug("{} - Executing [{}]", ++count, flatten(sql));
+			String sql = sqlReader.getSqlStatement(reader);
+			while (sql != null) {
+				logger.info("{} - Executing [{}]", ++count, flatten(sql));
 				statement.execute(sql);
-				sql = sqlReader.readSql(reader);
+				sql = sqlReader.getSqlStatement(reader);
 			}
 			conn.commit();
 			return count;

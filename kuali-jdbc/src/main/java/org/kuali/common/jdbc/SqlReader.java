@@ -5,6 +5,6 @@ import java.io.IOException;
 
 public interface SqlReader {
 
-	String readSql(BufferedReader reader) throws IOException;
+	String getSqlStatement(BufferedReader reader) throws IOException;
 
 }
