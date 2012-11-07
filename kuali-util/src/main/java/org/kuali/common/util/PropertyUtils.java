@@ -79,10 +79,11 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * <code>System.getenv()</code> overrides properties from <code>original</code> and <code>System.getProperties()</code> overrides
-	 * everything
+	 * Return a properties object containing the original properties plus the properties returned by <code>getEnvAsProperties()</code> and
+	 * <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from <code>original</code>
+	 * and <code>System.getProperties()</code> overrides everything
 	 */
-	public Properties getOverriddenProperties(Properties original) {
+	public static final Properties getOverriddenProperties(Properties original) {
 		Properties properties = new Properties();
 		properties.putAll(original);
 		properties.putAll(getEnvAsProperties());
