@@ -9,6 +9,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class PropertyFactoryBean implements FactoryBean<Properties> {
 
 	List<String> locations;
+	String encoding;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -31,6 +32,14 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
