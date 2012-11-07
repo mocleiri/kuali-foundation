@@ -29,7 +29,7 @@ public class PropertyUtils {
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties, enc:'{}' - [{}]", encoding, location);
+				logger.info("Loading properties, enc:'{}' - [{}]", Str.toEmpty(encoding), location);
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
