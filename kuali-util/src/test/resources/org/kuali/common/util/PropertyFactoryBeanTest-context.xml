@@ -10,8 +10,8 @@
   <bean id="properties" class="org.kuali.common.util.PropertyFactoryBean" p:encoding="UTF-8">
     <property name="locations">
       <list>
-        <value>classpath:org/kuali/common/util/property/car.properties</value>
-        <value>classpath:org/kuali/common/util/property/${car.brand}.properties</value>
+        <value>classpath:org/kuali/common/util/car.properties</value>
+        <value>classpath:org/kuali/common/util/${car.brand}.properties</value>
       </list>
     </property>
   </bean>
