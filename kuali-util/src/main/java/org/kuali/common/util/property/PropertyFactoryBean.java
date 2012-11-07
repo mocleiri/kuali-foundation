@@ -13,7 +13,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 
 	@Override
 	public Properties getObject() throws Exception {
-		return PropertyUtils.getProperties(locations);
+		return PropertyUtils.getProperties(locations, encoding);
 	}
 
 	@Override
