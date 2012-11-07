@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:property-placeholder location="jdbc.properties,${db.vendor}.properties,${db.vendor}.xml" />
+  <context:property-placeholder location="jdbc.properties,${db.vendor}.properties,${db.vendor}.xml,sql.properties" />
 
   <bean id="reset" class="org.kuali.common.jdbc.Reset">
     <property name="drop" value="${sql.${db.vendor}.drop}" />
