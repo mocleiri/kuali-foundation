@@ -196,11 +196,17 @@ public class PropertyUtils {
 
 		private static final long serialVersionUID = 1330825236411537386L;
 
+		/**
+		 * <code>Properties.storeToXML()</code> uses <code>keySet()</code>
+		 */
 		@Override
 		public Set<Object> keySet() {
 			return Collections.unmodifiableSet(new TreeSet<Object>(super.keySet()));
 		}
 
+		/**
+		 * <code>Properties.store()</code> uses <code>keys()</code>
+		 */
 		@Override
 		public synchronized Enumeration<Object> keys() {
 			return Collections.enumeration(new TreeSet<Object>(super.keySet()));
