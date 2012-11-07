@@ -150,8 +150,7 @@ public class PropertyUtils {
 
 	public static final Properties getProperties(String location, String encoding) {
 		Properties properties = new Properties();
-		boolean xml = isXml(location);
-		load(properties, xml, location, encoding);
+		load(properties, location, encoding);
 		return properties;
 	}
 
@@ -159,10 +158,11 @@ public class PropertyUtils {
 		return location.endsWith(XML_EXTENSION);
 	}
 
-	public static final void load(Properties properties, boolean xml, String location, String encoding) {
+	public static final void load(Properties properties, String location, String encoding) {
 		InputStream in = null;
 		Reader reader = null;
 		try {
+			boolean xml = isXml(location);
 			if (xml) {
 				in = ResourceUtils.getInputStream(location);
 				logger.info("Loading XML properties - [{}]", location);
