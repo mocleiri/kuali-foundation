@@ -49,9 +49,6 @@ public class JdbcUtils {
 			String sql = sqlReader.readSql(reader);
 			while (!StringUtils.isBlank(sql)) {
 				logger.info("{} - Executing '{}'", count++, flatten(sql));
-				if (!statement.execute(sql)) {
-					throw new JdbcException("Unable to execute - '" + flatten(sql) + "'");
-				}
 				sql = sqlReader.readSql(reader);
 			}
 			conn.commit();

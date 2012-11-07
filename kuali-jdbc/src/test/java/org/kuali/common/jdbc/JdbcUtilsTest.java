@@ -18,6 +18,9 @@ public class JdbcUtilsTest {
 	private JdbcUtils jdbcUtils = null;
 
 	@Autowired
+	private JdbcUtils dba = null;
+
+	@Autowired
 	private Reset reset = null;
 
 	@Test
@@ -25,10 +28,11 @@ public class JdbcUtilsTest {
 		try {
 			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
-			Assert.assertNotNull("dataSource is null.", jdbcUtils.getDataSource());
+			Assert.assertNotNull("dba is null.", dba);
+			dba.execute(reset.getValidate());
+			dba.execute(reset.getDrop());
+			dba.execute(reset.getCreate());
 			jdbcUtils.execute(reset.getValidate());
-			jdbcUtils.execute(reset.getDrop());
-			jdbcUtils.execute(reset.getCreate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

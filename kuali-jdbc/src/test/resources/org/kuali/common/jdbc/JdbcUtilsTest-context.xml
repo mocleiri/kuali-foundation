@@ -14,14 +14,14 @@
     <property name="validate" value="${sql.${db.vendor}.validate}" />
   </bean>
 
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.url}" />
     <property name="username" value="${jdbc.username}" />
     <property name="password" value="${jdbc.password}" />
   </bean>
 
-  <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="dbaDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.dba.url}" />
     <property name="username" value="${jdbc.dba.username}" />
@@ -33,12 +33,13 @@
   </bean>
 
   <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
-    <property name="dataSource" ref="dataSource" />
+    <property name="dataSource" ref="ds" />
     <property name="sqlReader" ref="sqlReader" />
   </bean>
 
   <bean id="dba" class="org.kuali.common.jdbc.JdbcUtils">
-    <property name="dataSource" ref="dbaDataSource" />
+    <property name="dataSource" ref="dbaDS" />
     <property name="sqlReader" ref="sqlReader" />
   </bean>
 
+</beans>
