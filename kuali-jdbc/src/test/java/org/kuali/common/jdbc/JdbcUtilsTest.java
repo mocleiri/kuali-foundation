@@ -29,10 +29,14 @@ public class JdbcUtilsTest {
 			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
 			Assert.assertNotNull("dba is null.", dba);
-			dba.execute(reset.getValidate());
-			dba.execute(reset.getDrop());
-			dba.execute(reset.getCreate());
-			jdbcUtils.execute(reset.getValidate());
+			logger.info("Validating DBA credentials");
+			logger.info("Executed " + dba.execute(reset.getValidate()) + " SQL statements");
+			logger.info("Drop database");
+			logger.info("Executed " + dba.execute(reset.getDrop()) + " SQL statements");
+			logger.info("Create database");
+			logger.info("Executed " + dba.execute(reset.getCreate()) + " SQL statements");
+			logger.info("Validating database credentials");
+			logger.info("Executed " + jdbcUtils.execute(reset.getValidate()) + " SQL statements");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
