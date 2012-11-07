@@ -24,12 +24,16 @@ public class PropertyFactoryBeanTest {
 	@Autowired
 	private PropertyPlaceholderConfigurer configurer = null;
 
+	@Autowired
+	private String brand = null;
+
 	@Test
 	public void test() {
 		try {
 			logger.info("Hello World");
 			Assert.assertNotNull("properties is null.", properties);
 			Assert.assertNotNull("configurer is null.", configurer);
+			logger.info("brand=" + brand);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
