@@ -32,16 +32,16 @@ public class JdbcUtilsTest {
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
 			Assert.assertNotNull("dba is null.", dba);
 			logger.info("Validating DBA credentials");
-			logger.info("Executed " + dba.executeString(reset.getValidate()) + " SQL statements");
+			// logger.info("Executed " + dba.executeString(reset.getValidate()) + " SQL statements");
 			logger.info("Drop database");
-			logger.info("Executed " + dba.executeString(reset.getDrop()) + " SQL statements");
+			// logger.info("Executed " + dba.executeString(reset.getDrop()) + " SQL statements");
 			logger.info("Create database");
-			logger.info("Executed " + dba.executeString(reset.getCreate()) + " SQL statements");
+			// logger.info("Executed " + dba.executeString(reset.getCreate()) + " SQL statements");
 			logger.info("Validating database credentials");
-			logger.info("Executed " + jdbcUtils.executeString(reset.getValidate()) + " SQL statements");
+			// logger.info("Executed " + jdbcUtils.executeString(reset.getValidate()) + " SQL statements");
 			logger.info("Creating schema");
-			logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master.sql") + " SQL statements");
-			logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master-constraints.sql") + " SQL statements");
+			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master.sql") + " SQL statements");
+			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master-constraints.sql") + " SQL statements");
 			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();

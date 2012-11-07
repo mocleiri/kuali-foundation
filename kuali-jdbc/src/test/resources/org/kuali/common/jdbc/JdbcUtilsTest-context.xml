@@ -8,6 +8,14 @@
 
   <context:property-placeholder location="jdbc.properties,${db.vendor}.properties,${db.vendor}.xml,sql.properties" />
 
+  <bean id="properties" class="org.kuali.common.util.property.PropertyFactoryBean">
+    <property name="locations">
+      <list>
+        <value>jdbc.properties</value>
+      </list>
+    </property>
+  </bean>
+
   <bean id="reset" class="org.kuali.common.jdbc.Reset">
     <property name="drop" value="${sql.${db.vendor}.drop}" />
     <property name="create" value="${sql.${db.vendor}.create}" />
