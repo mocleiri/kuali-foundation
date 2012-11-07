@@ -17,19 +17,19 @@ public class JdbcUtilsTest {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtilsTest.class);
 
 	@Autowired
-	private JdbcUtils dbaJdbcUtils = null;
+	private JdbcUtils jdbcUtils = null;
 
 	@Test
 	public void test() {
 		try {
 			logger.info("Hello World");
-			Assert.assertNotNull("dbaJdbcUtils is null.", dbaJdbcUtils);
-			Assert.assertNotNull("dataSource is null.", dbaJdbcUtils.getDataSource());
+			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
+			Assert.assertNotNull("dataSource is null.", jdbcUtils.getDataSource());
 			Properties props = ResourceUtils.getProperties("classpath:mysql.xml");
 			String validate = props.getProperty("sql.mysql.validate");
 			// String drop = props.getProperty("sql.mysql.drop");
 			// String create = props.getProperty("sql.mysql.create");
-			dbaJdbcUtils.execute(validate);
+			jdbcUtils.execute(validate);
 			// dbaJdbcUtils.execute(drop);
 			// dbaJdbcUtils.execute(create);
 		} catch (Exception e) {
