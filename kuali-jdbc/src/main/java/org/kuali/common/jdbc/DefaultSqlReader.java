@@ -13,25 +13,31 @@ public class DefaultSqlReader implements SqlReader {
 	public static final String DEFAULT_DELIMITER = "/";
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
 	public static final String DEFAULT_COMMENT_TOKEN = "#";
+	public static final String DEFAULT_ENCODING = "UTF-8";
 
 	String delimiter = DEFAULT_DELIMITER;
 	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = true;
 	boolean ignoreComments = true;
 	String commentToken = DEFAULT_COMMENT_TOKEN;
+	String encoding = DEFAULT_ENCODING;
 
 	@Override
-	public String getSqlStatement(BufferedReader reader) throws IOException {
-		String line = reader.readLine();
+	public String getSqlStatement(BufferedReader reader) {
+		String line = readLine(reader);
 		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		StringBuilder sb = new StringBuilder();
 		while (line != null && !delimiter.equals(trimmed)) {
 			if (!ignore(line)) {
 				sb.append(line + lineSeparator.getValue());
 			}
-			line = reader.readLine();
+			line = readLine(reader);
 			trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		}
+		return getReturnValue(sb);
+	}
+
+	protected String getReturnValue(StringBuilder sb) {
 		String s = (trim) ? sb.toString().trim() : sb.toString();
 		if (StringUtils.isBlank(s)) {
 			return null;
@@ -41,6 +47,19 @@ public class DefaultSqlReader implements SqlReader {
 			return s.substring(beginIndex, endIndex);
 		} else {
 			return s;
+		}
+	}
+
+	@Override
+	public BufferedReader getBufferedReader(String location) {
+		return ResourceUtils.getBufferedReader(location, encoding);
+	}
+
+	protected String readLine(BufferedReader reader) {
+		try {
+			return reader.readLine();
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 
@@ -87,4 +106,5 @@ public class DefaultSqlReader implements SqlReader {
 	public void setLineSeparator(LineSeparator lineSeparator) {
 		this.lineSeparator = lineSeparator;
 	}
+
 }

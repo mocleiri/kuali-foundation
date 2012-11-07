@@ -28,7 +28,7 @@ public class JdbcUtils {
 
 	public int readAndExecute(String location) {
 		logger.info("Executing - {}", location);
-		BufferedReader reader = ResourceUtils.getBufferedReader(location);
+		BufferedReader reader = sqlReader.getBufferedReader(location);
 		return execute(reader);
 	}
 
