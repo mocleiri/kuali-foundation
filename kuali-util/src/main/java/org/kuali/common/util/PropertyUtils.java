@@ -12,6 +12,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStorageStyle;
 import org.kuali.common.util.property.SortedProperties;
 import org.slf4j.Logger;
@@ -42,27 +43,39 @@ public class PropertyUtils {
 		store(properties, file, encoding, null, PropertyStorageStyle.NORMAL, true, null);
 	}
 
-	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
-		boolean xml = isXml(file.getAbsolutePath());
-		Properties prefixed = getPrefixedProperties(properties, prefix);
-		Properties formatted = getFormattedProperties(prefixed, style);
-		Properties finalProperties = (sort) ? getSortedProperties(formatted) : formatted;
+	public static final void store(PropertyStorageContext context) {
+		boolean xml = isXml(context.getFile().getAbsolutePath());
+		Properties prefixed = getPrefixedProperties(context.getProperties(), context.getPrefix());
+		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
+		Properties finalProperties = (context.isSort()) ? getSortedProperties(formatted) : formatted;
 		OutputStream out = null;
 		Writer writer = null;
 		try {
-			out = FileUtils.openOutputStream(file);
+			out = FileUtils.openOutputStream(context.getFile());
 			if (xml) {
-				finalProperties.storeToXML(out, comment, encoding);
+				finalProperties.storeToXML(out, context.getComment(), context.getEncoding());
 			} else {
-				writer = ResourceUtils.getWriter(out, encoding);
-				finalProperties.store(writer, comment);
+				writer = ResourceUtils.getWriter(out, context.getEncoding());
+				finalProperties.store(writer, context.getComment());
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
-			IOUtils.closeQuietly(out);
 			IOUtils.closeQuietly(writer);
+			IOUtils.closeQuietly(out);
 		}
+	}
+
+	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
+		PropertyStorageContext context = new PropertyStorageContext();
+		context.setProperties(properties);
+		context.setFile(file);
+		context.setEncoding(encoding);
+		context.setPrefix(prefix);
+		context.setStyle(style);
+		context.setSort(sort);
+		context.setComment(comment);
+		store(context);
 	}
 
 	/**
