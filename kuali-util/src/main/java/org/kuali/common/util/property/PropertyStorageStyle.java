@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.property;
 
 public enum PropertyStorageStyle {
 	NORMAL, ENVIRONMENT_VARIABLE;

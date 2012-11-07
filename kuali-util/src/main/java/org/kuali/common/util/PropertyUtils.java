@@ -1,16 +1,19 @@
 package org.kuali.common.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.Writer;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.property.PropertyStorageStyle;
+import org.kuali.common.util.property.SortedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +22,48 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
+
+	public static final Properties getFormattedProperties(Properties properties, PropertyStorageStyle style) {
+		switch (style) {
+		case NORMAL:
+			return properties;
+		case ENVIRONMENT_VARIABLE:
+			return getPropertiesAsEnvironmentVariables(properties);
+		default:
+			throw new IllegalArgumentException(style + " is unknown");
+		}
+	}
+
+	public static final void store(Properties properties, File file) {
+		store(properties, file, null);
+	}
+
+	public static final void store(Properties properties, File file, String encoding) {
+		store(properties, file, encoding, null, PropertyStorageStyle.NORMAL, true, null);
+	}
+
+	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
+		boolean xml = isXml(file.getAbsolutePath());
+		Properties prefixed = getPrefixedProperties(properties, prefix);
+		Properties formatted = getFormattedProperties(prefixed, style);
+		Properties finalProperties = (sort) ? getSortedProperties(formatted) : formatted;
+		OutputStream out = null;
+		Writer writer = null;
+		try {
+			out = FileUtils.openOutputStream(file);
+			if (xml) {
+				finalProperties.storeToXML(out, comment, encoding);
+			} else {
+				writer = ResourceUtils.getWriter(out, encoding);
+				finalProperties.store(writer, comment);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(out);
+			IOUtils.closeQuietly(writer);
+		}
+	}
 
 	/**
 	 * <code>System.getenv()</code> overrides properties from <code>original</code> and <code>System.getProperties()</code> overrides
@@ -92,10 +137,8 @@ public class PropertyUtils {
 		if (StringUtils.isBlank(prefix)) {
 			return properties;
 		}
-		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
-		Collections.sort(keys);
 		Properties newProperties = new Properties();
-		for (String key : keys) {
+		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);
 			String newKey = prefix + "." + key;
 			newProperties.setProperty(newKey, value);

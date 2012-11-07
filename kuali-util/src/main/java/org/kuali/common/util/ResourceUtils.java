@@ -1,12 +1,16 @@
 package org.kuali.common.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -31,6 +35,18 @@ public class ResourceUtils {
 	public static final BufferedReader getBufferedReaderFromString(String s, String encoding) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
 		return getBufferedReader(in, encoding);
+	}
+
+	public static final Writer getWriter(OutputStream out, String encoding) {
+		try {
+			if (StringUtils.isBlank(encoding)) {
+				return new BufferedWriter(new OutputStreamWriter(out));
+			} else {
+				return new BufferedWriter(new OutputStreamWriter(out, encoding));
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
 	}
 
 	public static final BufferedReader getBufferedReader(InputStream in, String encoding) {
