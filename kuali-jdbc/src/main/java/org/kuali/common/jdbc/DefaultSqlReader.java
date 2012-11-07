@@ -107,4 +107,12 @@ public class DefaultSqlReader implements SqlReader {
 		this.lineSeparator = lineSeparator;
 	}
 
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
 }
