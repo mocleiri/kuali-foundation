@@ -26,7 +26,6 @@ public class PropertyFactoryBeanTest {
 	@Test
 	public void test() {
 		try {
-			logger.info("Hello World");
 			Assert.assertNotNull("properties is null.", properties);
 			logger.info("brand=" + brand);
 		} catch (Exception e) {
