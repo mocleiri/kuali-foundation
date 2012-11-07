@@ -3,6 +3,7 @@ package org.kuali.common.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
@@ -13,6 +14,18 @@ public class PropertyUtils {
 	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
 	private static final String XML_EXTENSION = ".xml";
+	private static final String ENV_PREFIX = "env";
+
+	public static Properties getEnvAsProperties() {
+		Map<String, String> map = System.getenv();
+		Properties props = new Properties();
+		for (String key : map.keySet()) {
+			String newKey = ENV_PREFIX + "." + key;
+			String value = map.get(key);
+			props.setProperty(newKey, value);
+		}
+		return props;
+	}
 
 	public static final Properties getProperties(String location) {
 		return getProperties(location, null);
