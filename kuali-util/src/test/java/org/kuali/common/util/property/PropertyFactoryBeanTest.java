@@ -1,13 +1,12 @@
 package org.kuali.common.util.property;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,7 @@ public class PropertyFactoryBeanTest {
 	public void test() {
 		try {
 			Assert.assertNotNull("properties is null.", properties);
-			List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
-			Collections.sort(keys);
+			List<String> keys = PropertyUtils.getSortedKeys(properties);
 			for (String key : keys) {
 				String value = properties.getProperty(key);
 				logger.info(key + "=" + value);

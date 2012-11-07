@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -38,6 +39,13 @@ public class PropertyUtils {
 
 	private static final String DEFAULT_PREFIX = "${";
 	private static final String DEFAULT_SUFFIX = "}";
+
+	public static final List<String> getSortedKeys(Properties properties) {
+		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
+		Collections.sort(keys);
+		return keys;
+
+	}
 
 	public static final String getResolvedValue(String value, Properties properties) {
 		return getResolvedValue(value, properties, DEFAULT_PREFIX, DEFAULT_SUFFIX);
