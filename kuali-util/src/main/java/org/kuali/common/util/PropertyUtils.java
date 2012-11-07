@@ -21,7 +21,13 @@ import org.kuali.common.util.property.PropertyStorageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
+ * any url Spring resource loading can understand. By default, <code>Properties</code> are stored in sorted order. For both storing and
+ * loading, locations ending in <code>.xml</code> are automatically handled using <code>storeToXML()</code> and <code>loadFromXML()</code>.
+ */
 public class PropertyUtils {
+
 	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
 	private static final String XML_EXTENSION = ".xml";
