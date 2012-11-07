@@ -24,6 +24,11 @@ public class DefaultSqlReader implements SqlReader {
 	String encoding = DEFAULT_ENCODING;
 
 	@Override
+	public BufferedReader getBufferedReader(String location) {
+		return ResourceUtils.getBufferedReader(location, encoding);
+	}
+
+	@Override
 	public String getSqlStatement(BufferedReader reader) {
 		String line = readLine(reader);
 		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
@@ -36,11 +41,6 @@ public class DefaultSqlReader implements SqlReader {
 			trimmed = StringUtils.isBlank(line) ? null : line.trim();
 		}
 		return getReturnValue(sb);
-	}
-
-	@Override
-	public BufferedReader getBufferedReader(String location) {
-		return ResourceUtils.getBufferedReader(location, encoding);
 	}
 
 	protected String getReturnValue(StringBuilder sb) {
