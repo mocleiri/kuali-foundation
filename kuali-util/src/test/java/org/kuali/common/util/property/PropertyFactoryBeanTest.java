@@ -1,5 +1,8 @@
 package org.kuali.common.util.property;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
@@ -20,15 +23,17 @@ public class PropertyFactoryBeanTest {
 	@Autowired
 	private Properties properties = null;
 
-	@Autowired
-	private String brand = null;
-
 	@Test
 	public void test() {
 		try {
 			Assert.assertNotNull("properties is null.", properties);
-			logger.info("brand=" + brand);
-		} catch (Exception e) {
+			List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
+			Collections.sort(keys);
+			for (String key : keys) {
+				String value = properties.getProperty(key);
+				logger.info(key + "=" + value);
+			}
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}

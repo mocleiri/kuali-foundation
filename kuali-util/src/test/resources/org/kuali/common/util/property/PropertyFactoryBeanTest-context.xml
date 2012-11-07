@@ -20,8 +20,4 @@
     <property name="properties" ref="properties" />
   </bean>
 
-  <bean id="brand" class="java.lang.String">
-    <constructor-arg value="${brand}" />
-  </bean>
-
 </beans>
