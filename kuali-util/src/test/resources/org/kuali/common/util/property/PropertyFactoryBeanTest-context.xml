@@ -10,7 +10,7 @@
   <bean id="properties" class="org.kuali.common.util.property.PropertyFactoryBean">
     <property name="locations">
       <list>
-        <value>classpath:jdbc.properties</value>
+        <value>classpath:org/kuali/common/util/simple.properties</value>
       </list>
     </property>
   </bean>
