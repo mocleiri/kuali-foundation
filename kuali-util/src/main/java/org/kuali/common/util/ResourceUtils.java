@@ -45,11 +45,25 @@ public class ResourceUtils {
 		}
 	}
 
+	public static final boolean isFile(String location) {
+		File file = new File(location);
+		return file.exists();
+	}
+
+	public static final boolean exists(String location) {
+		if (isFile(location)) {
+			return true;
+		} else {
+			ResourceLoader loader = new DefaultResourceLoader();
+			Resource resource = loader.getResource(location);
+			return resource.exists();
+		}
+	}
+
 	public static final InputStream getInputStream(String location) {
 		try {
-			File file = new File(location);
-			if (file.exists()) {
-				return new FileInputStream(file);
+			if (isFile(location)) {
+				return new FileInputStream(location);
 			}
 			ResourceLoader loader = new DefaultResourceLoader();
 			Resource resource = loader.getResource(location);
