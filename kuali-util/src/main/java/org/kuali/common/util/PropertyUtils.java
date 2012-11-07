@@ -40,6 +40,10 @@ public class PropertyUtils {
 		Properties prefixed = getPrefixedProperties(context.getProperties(), context.getPrefix());
 		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
 		Properties finalProperties = (context.isSort()) ? getSortedProperties(formatted) : formatted;
+		store(context, finalProperties);
+	}
+
+	public static final void store(PropertyStorageContext context, Properties properties) {
 		OutputStream out = null;
 		Writer writer = null;
 		try {
@@ -48,11 +52,15 @@ public class PropertyUtils {
 			boolean xml = isXml(path);
 			if (xml) {
 				logger.info("Storing XML properties - [{}] encoding={}", path, context.getEncoding());
-				finalProperties.storeToXML(out, context.getComment(), context.getEncoding());
+				if (StringUtils.isBlank(context.getEncoding())) {
+					properties.storeToXML(out, context.getComment());
+				} else {
+					properties.storeToXML(out, context.getComment(), context.getEncoding());
+				}
 			} else {
 				writer = ResourceUtils.getWriter(out, context.getEncoding());
 				logger.info("Storing properties - [{}] encoding={}", path, context.getEncoding());
-				finalProperties.store(writer, context.getComment());
+				properties.store(writer, context.getComment());
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
