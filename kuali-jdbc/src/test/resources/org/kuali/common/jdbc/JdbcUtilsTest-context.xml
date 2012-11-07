@@ -35,11 +35,17 @@
   <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="ds" />
     <property name="sqlReader" ref="sqlReader" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="url" value="${jdbc.url}" />
   </bean>
 
   <bean id="dba" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dbaDS" />
     <property name="sqlReader" ref="sqlReader" />
+    <property name="username" value="${jdbc.dba.username}" />
+    <property name="password" value="${jdbc.dba.password}" />
+    <property name="url" value="${jdbc.dba.url}" />
   </bean>
 
 </beans>

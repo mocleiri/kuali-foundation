@@ -29,7 +29,6 @@ public class JdbcUtilsTest {
 			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
 			Assert.assertNotNull("dba is null.", dba);
-			logger.info(dba.getDataSource().getConnection().getMetaData().getUserName());
 			dba.execute(reset.getValidate());
 			dba.execute(reset.getDrop());
 			dba.execute(reset.getCreate());

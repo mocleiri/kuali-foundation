@@ -18,7 +18,6 @@ public class JdbcUtils {
 
 	DataSource dataSource;
 	SqlReader sqlReader;
-
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -49,6 +48,7 @@ public class JdbcUtils {
 			String sql = sqlReader.readSql(reader);
 			while (!StringUtils.isBlank(sql)) {
 				logger.info("{} - Executing '{}'", count++, flatten(sql));
+				statement.execute(sql);
 				sql = sqlReader.readSql(reader);
 			}
 			conn.commit();
