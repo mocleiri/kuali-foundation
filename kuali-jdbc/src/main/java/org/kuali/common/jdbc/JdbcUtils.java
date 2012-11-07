@@ -8,6 +8,7 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.util.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;

@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.kuali.common.util.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,7 @@ public class SqlReaderTest {
 			BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
 			String s = sqlReader.getSqlStatement(reader);
 			while (s != null) {
-				logger.info("'" + JdbcUtils.flatten(s) + "'");
+				logger.info("[" + JdbcUtils.flatten(s) + "]");
 				s = sqlReader.getSqlStatement(reader);
 			}
 		} catch (Exception e) {
@@ -32,9 +33,9 @@ public class SqlReaderTest {
 	public void isBlankTest() {
 		Assert.assertTrue(StringUtils.isBlank(" "));
 		Assert.assertTrue(StringUtils.isBlank(System.getProperty("line.separator")));
-		Assert.assertTrue(StringUtils.isBlank("\n"));
-		Assert.assertTrue(StringUtils.isBlank("\r"));
-		Assert.assertTrue(StringUtils.isBlank("\r\n"));
+		for (LineSeparator ls : LineSeparator.values()) {
+			Assert.assertTrue(StringUtils.isBlank(ls.getValue()));
+		}
 	}
 
 }
