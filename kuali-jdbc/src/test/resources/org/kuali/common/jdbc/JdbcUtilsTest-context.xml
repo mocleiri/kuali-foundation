@@ -30,6 +30,7 @@
 
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader">
     <property name="delimiter" value="${sql.delimiter}" />
+    <property name="trim" value="${sql.trim}" />
   </bean>
 
   <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">

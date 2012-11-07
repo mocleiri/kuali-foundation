@@ -26,6 +26,7 @@ public class JdbcUtilsTest {
 	@Test
 	public void test() {
 		try {
+			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
 			Assert.assertNotNull("dba is null.", dba);
@@ -37,6 +38,10 @@ public class JdbcUtilsTest {
 			logger.info("Executed " + dba.execute(reset.getCreate()) + " SQL statements");
 			logger.info("Validating database credentials");
 			logger.info("Executed " + jdbcUtils.execute(reset.getValidate()) + " SQL statements");
+			logger.info("Creating schema");
+			logger.info("Executed " + jdbcUtils.readAndExecute("classpath:sql/mysql/rice-impex-master.sql") + " SQL statements");
+			logger.info("Executed " + jdbcUtils.readAndExecute("classpath:sql/mysql/rice-impex-master-constraints.sql") + " SQL statements");
+			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

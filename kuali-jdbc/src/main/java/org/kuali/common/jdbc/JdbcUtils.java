@@ -65,7 +65,7 @@ public class JdbcUtils {
 	 * Replace any carriage returns or linefeeds with a space
 	 */
 	public static final String flatten(String sql) {
-		return sql.replace("\r", " ").replace("\n", " ");
+		return sql.replace("\r", "${cr}").replace("\n", "${lf}");
 	}
 
 	protected void closeQuietly(Connection conn, Statement statement) {
