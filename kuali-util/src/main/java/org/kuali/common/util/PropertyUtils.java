@@ -49,6 +49,10 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getProperties(List<String> locations) {
+		return getProperties(locations, null);
+	}
+
+	public static final Properties getProperties(List<String> locations, String encoding) {
 		Properties props = new Properties();
 		for (String location : locations) {
 			Properties overriddenProperties = getOverriddenProperties(props);
@@ -56,7 +60,7 @@ public class PropertyUtils {
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
-			props.putAll(getProperties(resolvedLocation));
+			props.putAll(getProperties(resolvedLocation, encoding));
 		}
 		return props;
 	}
