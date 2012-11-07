@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
@@ -64,7 +63,7 @@ public class ResourceUtils {
 				return new BufferedReader(new InputStreamReader(in, encoding));
 			}
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Cannot open BufferedReader", e);
+			throw new IllegalStateException("Cannot open BufferedReader", e);
 		}
 	}
 
@@ -78,36 +77,7 @@ public class ResourceUtils {
 			Resource resource = loader.getResource(location);
 			return resource.getInputStream();
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Cannot open InputStream", e);
+			throw new IllegalStateException("Cannot open InputStream", e);
 		}
 	}
-
-	public static final List<String> readLines(String location) throws IOException {
-		return readLines(location, null);
-	}
-
-	public static final List<String> readLines(String location, String encoding) throws IOException {
-		InputStream in = null;
-		try {
-			in = getInputStream(location);
-			return IOUtils.readLines(in, encoding);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
-	public static final List<String> parseLines(String s) throws IOException {
-		return parseLines(s, null);
-	}
-
-	public static final List<String> parseLines(String s, String encoding) throws IOException {
-		InputStream in = null;
-		try {
-			in = new ByteArrayInputStream(s.getBytes());
-			return IOUtils.readLines(in, encoding);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
 }
