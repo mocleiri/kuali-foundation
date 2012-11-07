@@ -20,4 +20,7 @@
 <properties>
   <comment>XML Properties</comment>
   <entry key="foo">bar</entry>
+  <entry key="a">1</entry>
+  <entry key="b">2</entry>
+  <entry key="c">3</entry>
 </properties>
