@@ -9,6 +9,11 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 
 	List<String> locations;
 	String encoding;
+	String include;
+	String exclude;
+	boolean includeEnvironmentVariables;
+	boolean includeSystemProperties;
+	boolean resolvePlaceholders;
 
 	@Override
 	public Properties getObject() throws Exception {
