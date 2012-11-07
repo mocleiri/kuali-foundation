@@ -41,14 +41,14 @@ public class JdbcUtils {
 	public int execute(BufferedReader reader) {
 		Connection conn = null;
 		Statement statement = null;
-		int count = 1;
+		int count = 0;
 		try {
 			conn = DataSourceUtils.doGetConnection(dataSource);
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
 			String sql = sqlReader.readSql(reader);
 			while (!StringUtils.isBlank(sql)) {
-				logger.debug("{} - Executing '{}'", count++, flatten(sql));
+				logger.debug("{} - Executing [{}]", ++count, flatten(sql));
 				statement.execute(sql);
 				sql = sqlReader.readSql(reader);
 			}
