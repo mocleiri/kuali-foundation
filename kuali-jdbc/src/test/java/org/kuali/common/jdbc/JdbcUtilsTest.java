@@ -26,12 +26,9 @@ public class JdbcUtilsTest {
 			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
 			Assert.assertNotNull("dataSource is null.", jdbcUtils.getDataSource());
-			String validate = reset.getValidate();
-			// String drop = props.getProperty("sql.mysql.drop");
-			// String create = props.getProperty("sql.mysql.create");
-			jdbcUtils.execute(validate);
-			// dbaJdbcUtils.execute(drop);
-			// dbaJdbcUtils.execute(create);
+			jdbcUtils.execute(reset.getValidate());
+			jdbcUtils.execute(reset.getDrop());
+			jdbcUtils.execute(reset.getCreate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
