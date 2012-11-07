@@ -6,8 +6,11 @@ import java.io.Reader;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PropertyUtils {
+	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
 	private static final String XML_EXTENSION = ".xml";
 
@@ -23,8 +26,10 @@ public class PropertyUtils {
 			boolean xml = location.toLowerCase().endsWith(XML_EXTENSION);
 			if (xml) {
 				in = ResourceUtils.getInputStream(location);
+				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
+				logger.info("Loading properties, enc:'{}' - [{}]", encoding, location);
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
