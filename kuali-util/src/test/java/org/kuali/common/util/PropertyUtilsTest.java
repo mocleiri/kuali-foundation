@@ -21,7 +21,7 @@ public class PropertyUtilsTest {
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp, encoding);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class PropertyUtilsTest {
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
 	}
 
@@ -49,7 +49,7 @@ public class PropertyUtilsTest {
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp, encoding);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class PropertyUtilsTest {
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail(e.getMessage());
 		}
 	}
 
