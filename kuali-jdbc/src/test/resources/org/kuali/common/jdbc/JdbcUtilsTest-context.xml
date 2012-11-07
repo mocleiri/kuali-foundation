@@ -16,6 +16,13 @@
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+  </bean>
+
+  <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.dba.url}" />
     <property name="username" value="${jdbc.dba.username}" />
     <property name="password" value="${jdbc.dba.password}" />
@@ -30,4 +37,8 @@
     <property name="sqlReader" ref="sqlReader" />
   </bean>
 
-</beans>
+  <bean id="dba" class="org.kuali.common.jdbc.JdbcUtils">
+    <property name="dataSource" ref="dbaDataSource" />
+    <property name="sqlReader" ref="sqlReader" />
+  </bean>
+
