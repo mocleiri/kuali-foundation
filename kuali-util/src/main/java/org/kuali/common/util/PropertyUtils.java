@@ -6,15 +6,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStorageStyle;
-import org.kuali.common.util.property.SortedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -145,8 +148,8 @@ public class PropertyUtils {
 		}
 	}
 
-	public static final SortedProperties getSortedProperties(Properties properties) {
-		SortedProperties sp = new SortedProperties();
+	protected static final SortedProperties getSortedProperties(Properties properties) {
+		SortedProperties sp = new PropertyUtils().new SortedProperties();
 		sp.putAll(properties);
 		return sp;
 	}
@@ -183,6 +186,22 @@ public class PropertyUtils {
 		default:
 			throw new IllegalArgumentException(style + " is unknown");
 		}
+	}
+
+	protected class SortedProperties extends Properties {
+
+		private static final long serialVersionUID = 1330825236411537386L;
+
+		@Override
+		public Set<Object> keySet() {
+			return Collections.unmodifiableSet(new TreeSet<Object>(super.keySet()));
+		}
+
+		@Override
+		public synchronized Enumeration<Object> keys() {
+			return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+		}
+
 	}
 
 }
