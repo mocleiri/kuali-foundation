@@ -189,8 +189,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * This is private since it does not honor the full contract for <code>Properties</code>. <code>PropertyUtils</code> uses it in order to
-	 * store properties in sorted order.
+	 * This is private since it does not honor the full contract for <code>Properties</code>. <code>PropertyUtils</code> uses it internally
+	 * to store properties in sorted order.
 	 */
 	private class SortedProperties extends Properties {
 
