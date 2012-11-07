@@ -23,15 +23,21 @@
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+ <!-- see RiceSpringBeans.xml -->
+    
   <bean class="org.kuali.rice.core.util.ApplicationThreadLocalCleaner" lazy-init="false"/>
 
+ <!-- see RiceServiceRegistrySpringBeans.xml -->
+
  <bean id="coreConfigurer" class="org.kuali.rice.core.impl.config.module.CoreConfigurer">
-    <property name="dataSource" ref="serverDatasource" />
-    <property name="nonTransactionalDataSource" ref="nonTransactionalDataSource" />
+    <property name="dataSource" ref="riceDataSource" />
+    <property name="nonTransactionalDataSource" ref="riceNonTransactionalDataSource" />
     <property name="transactionManager" ref="transactionManagerXAPool" />
     <property name="userTransaction" ref="jtaUserTransaction" />
   </bean>
 
+  <!-- see RiceServiceSpringBeans.xml -->
+ 
   <bean id="ksbConfigurer" class="org.kuali.rice.ksb.messaging.config.KSBConfigurer"/>
 
   <bean id="kradConfigurer" class="org.kuali.rice.krad.config.KRADConfigurer"/>
@@ -43,7 +49,6 @@
   <bean id="kewConfigurer" class="org.kuali.rice.kew.config.KEWConfigurer"/>
 
   <bean id="kenConfigurer" class="org.kuali.rice.ken.impl.config.KENConfigurer"/>
-
 
   <bean id="krmsConfigurer" class="org.kuali.rice.krms.config.KRMSConfigurer"/>
 
