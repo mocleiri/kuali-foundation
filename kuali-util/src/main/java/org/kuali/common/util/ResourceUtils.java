@@ -29,12 +29,8 @@ public class ResourceUtils {
 	}
 
 	public static final BufferedReader getBufferedReaderFromString(String s) {
-		return getBufferedReaderFromString(s, null);
-	}
-
-	public static final BufferedReader getBufferedReaderFromString(String s, String encoding) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
-		return getBufferedReader(in, encoding);
+		return getBufferedReader(in, null);
 	}
 
 	public static final Writer getWriter(OutputStream out, String encoding) {
