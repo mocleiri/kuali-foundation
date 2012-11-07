@@ -19,6 +19,7 @@ public class JdbcUtils {
 
 	DataSource dataSource;
 	SqlReader sqlReader;
+	boolean autoCommit;
 
 	public DataSource getDataSource() {
 		return dataSource;
@@ -45,7 +46,7 @@ public class JdbcUtils {
 		int count = 0;
 		try {
 			conn = DataSourceUtils.doGetConnection(dataSource);
-			conn.setAutoCommit(false);
+			conn.setAutoCommit(autoCommit);
 			statement = conn.createStatement();
 			String sql = sqlReader.getSqlStatement(reader);
 			while (sql != null) {
@@ -103,6 +104,14 @@ public class JdbcUtils {
 
 	public void setSqlReader(SqlReader sqlReader) {
 		this.sqlReader = sqlReader;
+	}
+
+	public boolean isAutoCommit() {
+		return autoCommit;
+	}
+
+	public void setAutoCommit(boolean autoCommit) {
+		this.autoCommit = autoCommit;
 	}
 
 }
