@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class JdbcUtilsTest {
+
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtilsTest.class);
 
 	@Autowired
