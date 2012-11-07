@@ -45,10 +45,7 @@ public class DefaultSqlReader implements SqlReader {
 	}
 
 	protected boolean ignore(String line) {
-		if (!ignoreComments) {
-			return false;
-		}
-		return line.trim().startsWith(commentToken);
+		return ignoreComments && line.trim().startsWith(commentToken);
 	}
 
 	public String getDelimiter() {
