@@ -6,6 +6,14 @@ public class Str {
 
 	public static final String EMPTY_STRING = "";
 
+	public static final String toDefault(String s, String defaultValue) {
+		if (StringUtils.isBlank(s)) {
+			return defaultValue;
+		} else {
+			return s;
+		}
+	}
+
 	public static final String toEmpty(Object o) {
 		if (o == null) {
 			return EMPTY_STRING;
