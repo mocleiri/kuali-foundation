@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -20,6 +21,7 @@ import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStorageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
@@ -32,6 +34,26 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
+
+	private static final String DEFAULT_PREFIX = "${";
+	private static final String DEFAULT_SUFFIX = "}";
+
+	public static final String getResolvedValue(String value, Properties properties) {
+		return getResolvedValue(value, properties, DEFAULT_PREFIX, DEFAULT_SUFFIX);
+	}
+
+	public static final String getResolvedValue(String value, Properties properties, String prefix, String suffix) {
+		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(prefix, suffix);
+		return helper.replacePlaceholders(value, properties);
+	}
+
+	public static final Properties getProperties(List<String> locations) {
+		Properties properties = new Properties();
+		for (String location : locations) {
+			properties.putAll(getProperties(location));
+		}
+		return properties;
+	}
 
 	public static final void store(Properties properties, File file) {
 		store(properties, file, null);
