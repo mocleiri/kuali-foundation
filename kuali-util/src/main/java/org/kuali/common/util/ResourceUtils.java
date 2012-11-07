@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
