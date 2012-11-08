@@ -12,9 +12,11 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
 	boolean ignoreMissingLocations;
+	String placeHolderPrefix;
+	String placeHolderSuffix;
 
 	@Override
-    public List<String> getLocations() {
+	public List<String> getLocations() {
 		return locations;
 	}
 
@@ -23,7 +25,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -32,7 +34,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public String getInclude() {
+	public String getInclude() {
 		return include;
 	}
 
@@ -41,7 +43,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public String getExclude() {
+	public String getExclude() {
 		return exclude;
 	}
 
@@ -50,7 +52,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public boolean isIncludeEnvironmentVariables() {
+	public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -59,7 +61,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public boolean isIncludeSystemProperties() {
+	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -68,7 +70,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public boolean isResolvePlaceholders() {
+	public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -77,12 +79,30 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public boolean isIgnoreMissingLocations() {
+	public boolean isIgnoreMissingLocations() {
 		return ignoreMissingLocations;
 	}
 
 	public void setIgnoreMissingLocations(boolean ignoreMissingLocations) {
 		this.ignoreMissingLocations = ignoreMissingLocations;
+	}
+
+	@Override
+    public String getPlaceHolderPrefix() {
+		return placeHolderPrefix;
+	}
+
+	public void setPlaceHolderPrefix(String placeHolderPrefix) {
+		this.placeHolderPrefix = placeHolderPrefix;
+	}
+
+	@Override
+    public String getPlaceHolderSuffix() {
+		return placeHolderSuffix;
+	}
+
+	public void setPlaceHolderSuffix(String placeHolderSuffix) {
+		this.placeHolderSuffix = placeHolderSuffix;
 	}
 
 }

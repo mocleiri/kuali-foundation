@@ -194,11 +194,13 @@ public class PropertyUtils {
 		return props;
 	}
 
-	public static final Properties getProperties(PropertyLoadingContext context) {
+	public static final Properties load(PropertyLoadingContext context) {
+		String prefix = context.getPlaceHolderPrefix();
+		String suffix = context.getPlaceHolderSuffix();
 		Properties props = new Properties();
 		for (String location : context.getLocations()) {
 			Properties overriddenProperties = getOverriddenProperties(props);
-			String resolvedLocation = getResolvedValue(location, overriddenProperties);
+			String resolvedLocation = getResolvedValue(location, overriddenProperties, prefix, suffix);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
@@ -210,6 +212,33 @@ public class PropertyUtils {
 				props.putAll(getProperties(resolvedLocation, context.getEncoding()));
 			}
 		}
+		return props;
+	}
+
+	public static final Properties getProperties(PropertyLoadingContext context) {
+
+		// Load properties in from the specified locations
+		Properties props = load(context);
+
+		// Add in environment variables?
+		if (context.isIncludeEnvironmentVariables()) {
+			props.putAll(PropertyUtils.getEnvAsProperties());
+		}
+
+		// Add in system properties?
+		if (context.isIncludeSystemProperties()) {
+			props.putAll(System.getProperties());
+		}
+
+		// Resolve placeholders?
+		if (context.isResolvePlaceholders()) {
+			props = getResolvedProperties(props, context.getPlaceHolderPrefix(), context.getPlaceHolderSuffix());
+		}
+
+		// Trim out unwanted properties
+		PropertyUtils.trim(props, context.getInclude(), context.getExclude());
+
+		// Return the properties we have left
 		return props;
 	}
 

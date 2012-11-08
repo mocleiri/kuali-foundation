@@ -20,4 +20,8 @@ public interface PropertyLoadingContext {
 
 	boolean isIgnoreMissingLocations();
 
+	String getPlaceHolderPrefix();
+
+	String getPlaceHolderSuffix();
+
 }
