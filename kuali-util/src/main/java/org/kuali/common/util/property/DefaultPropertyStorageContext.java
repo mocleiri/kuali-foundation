@@ -13,8 +13,6 @@ public class DefaultPropertyStorageContext extends DefaultPropertyHandlingContex
 	// If not null, include this as a comment in the properties file
 	String comment;
 
-	boolean encrypt;
-
 	@Override
 	public File getFile() {
 		return file;
@@ -41,14 +39,4 @@ public class DefaultPropertyStorageContext extends DefaultPropertyHandlingContex
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
-	@Override
-    public boolean isEncrypt() {
-		return encrypt;
-	}
-
-	public void setEncrypt(boolean encrypt) {
-		this.encrypt = encrypt;
-	}
-
 }

@@ -15,6 +15,8 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyEncryptor encryptor;
+	boolean encrypt;
+	boolean decrypt;
 
 	@Override
 	public String getEncoding() {
@@ -113,6 +115,24 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 
 	public void setEncryptor(PropertyEncryptor encryptor) {
 		this.encryptor = encryptor;
+	}
+
+	@Override
+    public boolean isEncrypt() {
+		return encrypt;
+	}
+
+	public void setEncrypt(boolean encrypt) {
+		this.encrypt = encrypt;
+	}
+
+	@Override
+    public boolean isDecrypt() {
+		return decrypt;
+	}
+
+	public void setDecrypt(boolean decrypt) {
+		this.decrypt = decrypt;
 	}
 
 }

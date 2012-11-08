@@ -24,4 +24,8 @@ public interface PropertyHandlingContext {
 
 	PropertyEncryptor getEncryptor();
 
+	boolean isEncrypt();
+
+	boolean isDecrypt();
+
 }

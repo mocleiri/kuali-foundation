@@ -10,5 +10,4 @@ public interface PropertyStorageContext extends PropertyHandlingContext {
 
 	String getComment();
 
-	boolean isEncrypt();
 }
