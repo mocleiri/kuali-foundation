@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.ResourceUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -53,7 +54,7 @@ public class JdbcUtils {
 			while (sql != null) {
 				count++;
 				if (showSql) {
-					logger.info("{} - [{}]", count, flatten(sql));
+					logger.info("{} - [{}]", count, Str.flatten(sql));
 				}
 				statement.execute(sql);
 				sql = sqlReader.getSqlStatement(reader);
@@ -66,13 +67,6 @@ public class JdbcUtils {
 			IOUtils.closeQuietly(reader);
 			closeQuietly(conn, statement);
 		}
-	}
-
-	/**
-	 * Replace any carriage returns or linefeeds with a space
-	 */
-	public static final String flatten(String sql) {
-		return sql.replace("\r", " ").replace("\n", " ");
 	}
 
 	protected void closeQuietly(Connection conn, Statement statement) {

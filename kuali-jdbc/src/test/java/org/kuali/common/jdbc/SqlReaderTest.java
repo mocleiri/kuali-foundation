@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ResourceUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,7 @@ public class SqlReaderTest {
 			BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
 			String s = sqlReader.getSqlStatement(reader);
 			while (s != null) {
-				logger.info("[" + JdbcUtils.flatten(s) + "]");
+				logger.info("[" + Str.flatten(s) + "]");
 				s = sqlReader.getSqlStatement(reader);
 			}
 		} catch (Exception e) {
