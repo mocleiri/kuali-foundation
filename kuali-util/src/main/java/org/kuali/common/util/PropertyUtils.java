@@ -18,6 +18,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.property.DefaultPropertyLoadingContext;
 import org.kuali.common.util.property.PropertyLoadingContext;
 import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStorageStyle;
@@ -103,16 +104,10 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getProperties(List<String> locations, String encoding) {
-		Properties props = new Properties();
-		for (String location : locations) {
-			Properties overriddenProperties = getOverriddenProperties(props);
-			String resolvedLocation = getResolvedValue(location, overriddenProperties);
-			if (!location.equals(resolvedLocation)) {
-				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
-			}
-			props.putAll(getProperties(resolvedLocation, encoding));
-		}
-		return props;
+		DefaultPropertyLoadingContext context = new DefaultPropertyLoadingContext();
+		context.setLocations(locations);
+		context.setEncoding(encoding);
+		return getProperties(context);
 	}
 
 	public static final void store(Properties properties, File file) {
@@ -200,7 +195,22 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getProperties(PropertyLoadingContext context) {
-		return null;
+		Properties props = new Properties();
+		for (String location : context.getLocations()) {
+			Properties overriddenProperties = getOverriddenProperties(props);
+			String resolvedLocation = getResolvedValue(location, overriddenProperties);
+			if (!location.equals(resolvedLocation)) {
+				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
+			}
+			boolean missing = !ResourceUtils.exists(resolvedLocation);
+			if (missing && context.isIgnoreMissingLocations()) {
+				logger.info("Skipping non-existent location - [{}]", resolvedLocation);
+				continue;
+			} else {
+				props.putAll(getProperties(resolvedLocation, context.getEncoding()));
+			}
+		}
+		return props;
 	}
 
 	public static final Properties getProperties(String location) {
