@@ -19,7 +19,7 @@ public class DefaultSqlReader implements SqlReader {
 	String delimiter = DEFAULT_DELIMITER;
 	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = true;
-	boolean ignoreComments = true;
+	boolean ignoreComments;
 	String commentToken = DEFAULT_COMMENT_TOKEN;
 	String encoding = DEFAULT_ENCODING;
 
