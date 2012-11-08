@@ -50,7 +50,7 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.getSqlStatement(reader);
 			while (sql != null) {
-				logger.info("{} - [{}]", ++count, flatten(sql));
+				logger.debug("{} - [{}]", ++count, flatten(sql));
 				statement.execute(sql);
 				sql = sqlReader.getSqlStatement(reader);
 			}

@@ -13,7 +13,6 @@
         <value>classpath:${db.vendor}.properties</value>
         <value>classpath:${db.vendor}.xml</value>
         <value>classpath:sql.properties</value>
-        <value>classpath:impex.properties</value>
       </list>
     </property>
   </bean>
