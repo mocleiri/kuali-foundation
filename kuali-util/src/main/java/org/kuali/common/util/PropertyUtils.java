@@ -238,7 +238,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Keep this private since <code>SortedProperties</code> does not fully honor the contract for <code>Properties</code>
+	 * This is private because <code>SortedProperties</code> does not fully honor the contract for <code>Properties</code>
 	 */
 	private static final SortedProperties getSortedProperties(Properties properties) {
 		SortedProperties sp = new PropertyUtils().new SortedProperties();
