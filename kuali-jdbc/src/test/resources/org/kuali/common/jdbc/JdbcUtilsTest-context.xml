@@ -36,7 +36,6 @@
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader">
     <property name="delimiter" value="${sql.delimiter}" />
     <property name="trim" value="${sql.trim}" />
-    <property name="commentToken" value="${sql.comment}" />
     <property name="lineSeparator" value="${sql.line.separator}" />
     <property name="encoding" value="${sql.encoding}" />
   </bean>
