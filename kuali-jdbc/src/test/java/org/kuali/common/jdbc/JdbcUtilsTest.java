@@ -48,7 +48,7 @@ public class JdbcUtilsTest {
 			logger.info("Create database");
 			logger.info("Executed " + dba.executeString(properties.getProperty("impex.dba.create")) + " SQL statements");
 			logger.info("Validating database credentials");
-			// logger.info("Executed " + jdbcUtils.executeString(reset.getValidate()) + " SQL statements");
+			logger.info("Executed " + jdbcUtils.executeString(properties.getProperty("impex.validate")) + " SQL statements");
 			logger.info("Creating schema");
 			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master.sql") + " SQL statements");
 			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master-constraints.sql") + " SQL statements");
