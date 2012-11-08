@@ -14,6 +14,8 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	boolean ignoreMissingLocations;
 	String placeHolderPrefix;
 	String placeHolderSuffix;
+	String prefix;
+	PropertyStyle style;
 
 	@Override
 	public List<String> getLocations() {
@@ -88,7 +90,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public String getPlaceHolderPrefix() {
+	public String getPlaceHolderPrefix() {
 		return placeHolderPrefix;
 	}
 
@@ -97,12 +99,30 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public String getPlaceHolderSuffix() {
+	public String getPlaceHolderSuffix() {
 		return placeHolderSuffix;
 	}
 
 	public void setPlaceHolderSuffix(String placeHolderSuffix) {
 		this.placeHolderSuffix = placeHolderSuffix;
+	}
+
+	@Override
+    public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	@Override
+    public PropertyStyle getStyle() {
+		return style;
+	}
+
+	public void setStyle(PropertyStyle style) {
+		this.style = style;
 	}
 
 }

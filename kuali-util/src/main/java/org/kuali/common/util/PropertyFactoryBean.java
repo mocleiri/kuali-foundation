@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.property.PropertyLoadingContext;
+import org.kuali.common.util.property.PropertyStyle;
 import org.springframework.beans.factory.FactoryBean;
 
 public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoadingContext {
@@ -18,6 +19,8 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	boolean ignoreMissingLocations;
 	String placeHolderPrefix;
 	String placeHolderSuffix;
+	String prefix;
+	PropertyStyle style;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -122,6 +125,24 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 
 	public void setPlaceHolderSuffix(String placeHolderSuffix) {
 		this.placeHolderSuffix = placeHolderSuffix;
+	}
+
+	@Override
+    public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	@Override
+    public PropertyStyle getStyle() {
+		return style;
+	}
+
+	public void setStyle(PropertyStyle style) {
+		this.style = style;
 	}
 
 }
