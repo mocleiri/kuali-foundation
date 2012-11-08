@@ -9,10 +9,10 @@
   <bean id="properties" class="org.kuali.common.util.PropertyFactoryBean" p:encoding="UTF-8" p:resolvePlaceholders="true">
     <property name="locations">
       <list>
-        <value>classpath:jdbc.properties</value>
-        <value>classpath:${db.vendor}.properties</value>
-        <value>classpath:${db.vendor}.xml</value>
-        <value>classpath:sql.properties</value>
+        <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+        <value>classpath:org/kuali/common/jdbc/${db.vendor}.properties</value>
+        <value>classpath:org/kuali/common/sql/sql.properties</value>
+        <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
       </list>
     </property>
   </bean>
