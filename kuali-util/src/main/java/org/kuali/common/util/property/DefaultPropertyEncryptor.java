@@ -9,7 +9,6 @@ import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 
 public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
@@ -18,7 +17,6 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 	private static final String DEFAULT_ENCRYPTED_PROPERTY_SUFFIX = ".encrypted";
 
 	String encryptedSuffix = DEFAULT_ENCRYPTED_PROPERTY_SUFFIX;
-	List<String> propertiesToEncrypt;
 
 	String password;
 	boolean quiet;
@@ -39,19 +37,19 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 			int endIndex = key.length() - encryptedSuffix.length();
 			String newKey = key.substring(beginIndex, endIndex);
 			setProperty(properties, newKey, decryptedValue);
+			if (!quiet) {
+				logger.info("Setting property [{}]", newKey);
+			}
 		}
 	}
 
 	@Override
 	public void encrypt(Properties properties) {
-		if (CollectionUtils.isEmpty(propertiesToEncrypt)) {
-			logger.info("Nothing to encrypt");
-			return;
-		}
 		Assert.notNull("Password is null", password);
 		BasicTextEncryptor encryptor = new BasicTextEncryptor();
 		encryptor.setPassword(password);
-		for (String key : propertiesToEncrypt) {
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);
 			String encryptedValue = encryptor.encrypt(decryptedValue);
 			String newKey = key + encryptedSuffix;
@@ -63,9 +61,6 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 		String existingValue = properties.getProperty(key);
 		if (!StringUtils.isBlank(existingValue)) {
 			logger.warn("Overwriting existing value for property [{}]", key);
-		}
-		if (!quiet) {
-			logger.info("Setting property " + key);
 		}
 		properties.setProperty(key, value);
 	}
