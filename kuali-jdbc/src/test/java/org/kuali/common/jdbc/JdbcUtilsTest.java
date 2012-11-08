@@ -21,9 +21,6 @@ public class JdbcUtilsTest {
 	@Autowired
 	private JdbcUtils dba = null;
 
-	@Autowired
-	private Reset reset = null;
-
 	@Test
 	public void test() {
 		try {
