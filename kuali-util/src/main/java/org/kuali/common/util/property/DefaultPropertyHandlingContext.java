@@ -107,7 +107,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public PropertyEncryptor getEncryptor() {
+	public PropertyEncryptor getEncryptor() {
 		return encryptor;
 	}
 
