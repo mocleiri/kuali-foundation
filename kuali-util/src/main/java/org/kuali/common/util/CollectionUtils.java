@@ -13,7 +13,7 @@ public class CollectionUtils {
 		return c == null || c.size() == 0;
 	}
 
-	public static final List<String> getListFromCSV(String csv) {
+	public static final List<String> getTrimmedListFromCSV(String csv) {
 		List<String> list = new ArrayList<String>();
 		if (!StringUtils.isBlank(csv)) {
 			list.addAll(Arrays.asList(Str.splitAndTrimCSV(csv)));
