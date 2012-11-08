@@ -40,6 +40,10 @@ public class PropertyUtils {
 	private static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	private static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 
+	public static final Properties getResolvedProperties(Properties props) {
+		return getResolvedProperties(props, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
+	}
+
 	public static final Properties getResolvedProperties(Properties props, String placeHolderPrefix, String placeHolderSuffix) {
 		PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
 		List<String> keys = getSortedKeys(props);
@@ -53,10 +57,6 @@ public class PropertyUtils {
 			newProps.setProperty(key, resolvedValue);
 		}
 		return newProps;
-	}
-
-	public static final Properties getResolvedProperties(Properties props) {
-		return getResolvedProperties(props, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
 	}
 
 	public static final void trim(Properties properties, String includes, String excludes) {
