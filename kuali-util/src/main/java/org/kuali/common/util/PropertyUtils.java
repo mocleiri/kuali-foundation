@@ -68,9 +68,13 @@ public class PropertyUtils {
 	public static final void trim(Properties properties, String includes, String excludes) {
 		List<String> includeList = CollectionUtils.getTrimmedListFromCSV(includes);
 		List<String> excludeList = CollectionUtils.getTrimmedListFromCSV(excludes);
+		trim(properties, includeList, excludeList);
+	}
+
+	public static final void trim(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
 		for (String key : keys) {
-			boolean include = include(key, includeList, excludeList);
+			boolean include = include(key, includes, excludes);
 			if (!include) {
 				logger.info("Removing property [{}]", key);
 				properties.remove(key);
