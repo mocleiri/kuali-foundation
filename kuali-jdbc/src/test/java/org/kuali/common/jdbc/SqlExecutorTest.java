@@ -13,15 +13,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class JdbcUtilsTest {
+public class SqlExecutorTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(JdbcUtilsTest.class);
-
-	@Autowired
-	private JdbcUtils jdbcUtils = null;
+	private static final Logger logger = LoggerFactory.getLogger(SqlExecutorTest.class);
 
 	@Autowired
-	private JdbcUtils dba = null;
+	private SqlExecutor sqlExecutor = null;
+
+	@Autowired
+	private SqlExecutor dba = null;
 
 	@Autowired
 	private Properties properties = null;
@@ -31,7 +31,7 @@ public class JdbcUtilsTest {
 		try {
 			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
-			Assert.assertNotNull("jdbcUtils is null.", jdbcUtils);
+			Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
 			Assert.assertNotNull("dba is null.", dba);
 			String dbaUser = properties.getProperty("jdbc.dba.username");
 			String dbaUrl = properties.getProperty("jdbc.dba.url");
@@ -45,14 +45,14 @@ public class JdbcUtilsTest {
 			String user = properties.getProperty("jdbc.username");
 			String url = properties.getProperty("jdbc.url");
 			logger.info("Validating database credentials for [{}] on [{}]", user, url);
-			logger.info("Executed " + jdbcUtils.executeString(properties.getProperty("sql.validate")) + " SQL statements");
+			logger.info("Executed " + sqlExecutor.executeString(properties.getProperty("sql.validate")) + " SQL statements");
 			String schema = properties.getProperty("sql.source.schema");
 			String schemaLocation = properties.getProperty("sql.schema");
 			String schemaConstraintsLocation = properties.getProperty("sql.schema.constraints");
 			logger.info("Executing SQL for [{}] on database [{}] at [" + url + "]", schema, db);
-			logger.info("Executed " + jdbcUtils.executeSQL(schemaLocation) + " SQL statements");
+			logger.info("Executed " + sqlExecutor.executeSQL(schemaLocation) + " SQL statements");
 			logger.info("Adding schema constraints for [{}] on database [{}] at [" + url + "]", schema, db);
-			logger.info("Executed " + jdbcUtils.executeSQL(schemaConstraintsLocation) + " SQL statements");
+			logger.info("Executed " + sqlExecutor.executeSQL(schemaConstraintsLocation) + " SQL statements");
 			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();

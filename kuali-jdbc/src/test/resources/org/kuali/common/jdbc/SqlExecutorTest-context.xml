@@ -40,12 +40,12 @@
     <property name="encoding" value="${sql.encoding}" />
   </bean>
 
-  <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
+  <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="ds" />
     <property name="sqlReader" ref="sqlReader" />
   </bean>
 
-  <bean id="dba" class="org.kuali.common.jdbc.JdbcUtils">
+  <bean id="dba" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dbaDS" />
     <property name="sqlReader" ref="sqlReader" />
     <property name="showSql" value="true" />
