@@ -44,7 +44,6 @@ public class PropertyUtils {
 
 	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
-	public static final String DEFAULT_ENCRYPTED_PROPERTY_SUFFIX = ".encrypted";
 
 	public static final Properties getResolvedProperties(Properties props) {
 		return getResolvedProperties(props, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);

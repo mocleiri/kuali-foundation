@@ -41,6 +41,7 @@
     <slf4j.version>1.6.4</slf4j.version>
     <io.version>2.4</io.version>
     <lang.version>2.6</lang.version>
+    <jasypt.version>1.9.0</jasypt.version>
   </properties>
   <developers>
     <developer>
@@ -96,6 +97,11 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt</artifactId>
+      <version>${jasypt.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

@@ -8,8 +8,4 @@ public interface PropertyLoadingContext extends PropertyHandlingContext {
 
 	boolean isIgnoreMissingLocations();
 
-	boolean isDecrypt();
-
-	PropertyMatcher getEncryptedPropertyMatcher();
-
 }
