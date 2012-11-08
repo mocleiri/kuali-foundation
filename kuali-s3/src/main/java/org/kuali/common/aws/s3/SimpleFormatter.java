@@ -112,19 +112,20 @@ public class SimpleFormatter {
 	 * decades, and centuries are approximations since the logic always assumes there are exactly 365 days per year.
 	 */
 	public String getTime(long millis) {
-		if (millis < SECOND) {
+		long abs = Math.abs(millis);
+		if (abs < SECOND) {
 			return millis + "ms";
-		} else if (millis < MINUTE) {
+		} else if (abs < MINUTE) {
 			return timeFormatter.format(millis / SECOND) + "s";
-		} else if (millis < HOUR) {
+		} else if (abs < HOUR) {
 			return timeFormatter.format(millis / MINUTE) + "m";
-		} else if (millis < DAY) {
+		} else if (abs < DAY) {
 			return timeFormatter.format(millis / HOUR) + "h";
-		} else if (millis < YEAR) {
+		} else if (abs < YEAR) {
 			return timeFormatter.format(millis / DAY) + "d";
-		} else if (millis < DECADE) {
+		} else if (abs < DECADE) {
 			return timeFormatter.format(millis / YEAR) + "y";
-		} else if (millis < CENTURY) {
+		} else if (abs < CENTURY) {
 			return timeFormatter.format(millis / DECADE) + " decades";
 		} else {
 			return timeFormatter.format(millis / CENTURY) + " centuries";
@@ -166,6 +167,7 @@ public class SimpleFormatter {
 	}
 
 	public Size getSizeEnum(double bytes) {
+		bytes = Math.abs(bytes);
 		if (bytes < Size.KB.getValue()) {
 			return Size.BYTE;
 		} else if (bytes < Size.MB.getValue()) {
