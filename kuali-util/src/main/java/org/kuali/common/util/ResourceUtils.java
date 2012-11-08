@@ -21,6 +21,11 @@ import org.springframework.core.io.ResourceLoader;
 
 public class ResourceUtils {
 
+	public static final List<String> readLinesFromString(String s) {
+		InputStream in = new ByteArrayInputStream(s.getBytes());
+		return readLines(in, null);
+	}
+
 	public static final String toString(String location) {
 		return toString(location, null);
 	}
@@ -45,6 +50,16 @@ public class ResourceUtils {
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
+			return IOUtils.readLines(in, encoding);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	public static final List<String> readLines(InputStream in, String encoding) {
+		try {
 			return IOUtils.readLines(in, encoding);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
