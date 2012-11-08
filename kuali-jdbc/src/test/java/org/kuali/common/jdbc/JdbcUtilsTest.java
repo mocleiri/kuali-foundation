@@ -42,11 +42,11 @@ public class JdbcUtilsTest {
 				logger.info(key + "=" + Str.flatten(value));
 			}
 			logger.info("Validating DBA credentials");
-			// logger.info("Executed " + dba.executeString(reset.getValidate()) + " SQL statements");
+			logger.info("Executed " + dba.executeString(properties.getProperty("impex.validate")) + " SQL statements");
 			logger.info("Drop database");
-			// logger.info("Executed " + dba.executeString(reset.getDrop()) + " SQL statements");
+			logger.info("Executed " + dba.executeString(properties.getProperty("impex.dba.drop")) + " SQL statements");
 			logger.info("Create database");
-			// logger.info("Executed " + dba.executeString(reset.getCreate()) + " SQL statements");
+			logger.info("Executed " + dba.executeString(properties.getProperty("impex.dba.create")) + " SQL statements");
 			logger.info("Validating database credentials");
 			// logger.info("Executed " + jdbcUtils.executeString(reset.getValidate()) + " SQL statements");
 			logger.info("Creating schema");
