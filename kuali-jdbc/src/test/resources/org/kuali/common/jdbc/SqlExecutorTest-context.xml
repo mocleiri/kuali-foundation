@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="properties" class="org.kuali.common.util.PropertyFactoryBean" p:encoding="UTF-8" p:resolvePlaceholders="true">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="UTF-8" p:resolvePlaceholders="true">
     <property name="locations">
       <list>
         <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
@@ -18,6 +18,8 @@
   </bean>
 
   <context:property-placeholder properties-ref="properties" />
+
+  <bean id="tables" class="org.kuali.common.util.spring.ToStringFactoryBean" p:encoding="UTF-8" p:location="${sql.tables.list}" />
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -43,12 +45,13 @@
   <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dataSource" />
     <property name="sqlReader" ref="sqlReader" />
+    <property name="showSql" value="true" />
   </bean>
 
   <bean id="dbaSqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dbaDataSource" />
     <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="false" />
+    <property name="showSql" value="true" />
   </bean>
 
 </beans>

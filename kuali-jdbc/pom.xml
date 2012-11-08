@@ -100,7 +100,7 @@
     <dependency>
       <groupId>org.kuali.rice</groupId>
       <artifactId>rice-impex-master</artifactId>
-      <version>2.2.0-M5-r35607</version>
+      <version>2.2.0-r35682</version>
       <classifier>sql</classifier>
       <scope>test</scope>
     </dependency>
