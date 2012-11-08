@@ -17,10 +17,10 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
 	boolean ignoreMissingLocations;
-	String placeHolderPrefix;
-	String placeHolderSuffix;
+	String placeHolderPrefix = PropertyUtils.DEFAULT_PLACEHOLDER_PREFIX;
+	String placeHolderSuffix = PropertyUtils.DEFAULT_PLACEHOLDER_SUFFIX;
 	String prefix;
-	PropertyStyle style;
+	PropertyStyle style = PropertyStyle.NORMAL;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -128,7 +128,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 
@@ -137,7 +137,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public PropertyStyle getStyle() {
+	public PropertyStyle getStyle() {
 		return style;
 	}
 
