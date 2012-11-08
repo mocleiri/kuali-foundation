@@ -48,9 +48,11 @@ public class JdbcUtilsTest {
 			logger.info("Executed " + jdbcUtils.executeString(properties.getProperty("sql.validate")) + " SQL statements");
 			String schema = properties.getProperty("sql.source.schema");
 			String schemaLocation = properties.getProperty("sql.schema");
+			String schemaConstraintsLocation = properties.getProperty("sql.schema.constraints");
 			logger.info("Executing SQL for schema [{}] on database [{}] at [" + url + "]", schema, db);
-			// logger.info("Executed " + jdbcUtils.executeSQL(schemaLocation) + " SQL statements");
-			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master-constraints.sql") + " SQL statements");
+			logger.info("Executed " + jdbcUtils.executeSQL(schemaLocation) + " SQL statements");
+			logger.info("Adding schema constraints for [{}] on database [{}] at [" + url + "]", schema, db);
+			logger.info("Executed " + jdbcUtils.executeSQL(schemaConstraintsLocation) + " SQL statements");
 			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();
