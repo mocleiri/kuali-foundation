@@ -170,7 +170,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a properties object containing the properties passed in plus any properties returned by <code>getEnvAsProperties()</code> and
+	 * Return a properties object containing the properties passed in, plus any properties returned by <code>getEnvAsProperties()</code> and
 	 * <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from <code>original</code>
 	 * and properties from <code>System.getProperties()</code> override everything.
 	 */
