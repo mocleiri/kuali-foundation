@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
+import org.kuali.common.util.property.PropertyHandlingContext;
 import org.kuali.common.util.property.PropertyLoadingContext;
 import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStyle;
@@ -134,10 +135,9 @@ public class PropertyUtils {
 	}
 
 	public static final void store(PropertyStorageContext context, Properties properties) {
-		Properties prefixed = getPrefixedProperties(properties, context.getPrefix());
-		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
-		Properties finalProperties = (context.isSort()) ? getSortedProperties(formatted) : formatted;
-		storeProperties(context, finalProperties);
+		Properties finalProperties = getProperties(context, properties);
+		Properties sortedProperties = (context.isSort()) ? getSortedProperties(finalProperties) : finalProperties;
+		storeProperties(context, sortedProperties);
 	}
 
 	public static final void storeProperties(PropertyStorageContext context, Properties properties) {
@@ -216,9 +216,12 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getProperties(PropertyLoadingContext context) {
-
 		// Load properties in from the specified locations
 		Properties props = load(context);
+		return getProperties(context, props);
+	}
+
+	public static final Properties getProperties(PropertyHandlingContext context, Properties props) {
 
 		// Add in environment variables?
 		if (context.isIncludeEnvironmentVariables()) {
@@ -236,10 +239,16 @@ public class PropertyUtils {
 		}
 
 		// Trim out unwanted properties
-		PropertyUtils.trim(props, context.getInclude(), context.getExclude());
+		trim(props, context.getInclude(), context.getExclude());
+
+		// Add in a prefix if asked to do so
+		Properties prefixed = getPrefixedProperties(props, context.getPrefix());
+
+		// Format the property keys according to the style they've asked for
+		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
 
 		// Return the properties we have left
-		return props;
+		return formatted;
 	}
 
 	public static final Properties getProperties(String location) {
