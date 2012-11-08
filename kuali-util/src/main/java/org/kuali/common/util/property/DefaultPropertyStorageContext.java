@@ -8,7 +8,7 @@ public class DefaultPropertyStorageContext extends DefaultPropertyHandlingContex
 	File file;
 
 	// If true, sort the properties by key when storing
-	boolean sort;
+	boolean sort = true;
 
 	// If not null, include this as a comment in the properties file
 	String comment;
