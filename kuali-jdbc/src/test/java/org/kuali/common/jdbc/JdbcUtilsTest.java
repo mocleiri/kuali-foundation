@@ -1,5 +1,7 @@
 package org.kuali.common.jdbc;
 
+import java.util.Properties;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,9 @@ public class JdbcUtilsTest {
 
 	@Autowired
 	private JdbcUtils dba = null;
+
+	@Autowired
+	private Properties properties = null;
 
 	@Test
 	public void test() {
