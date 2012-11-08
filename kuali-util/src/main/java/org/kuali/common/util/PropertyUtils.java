@@ -39,8 +39,8 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT = "DEFAULT";
 
-	private static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
-	private static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
+	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
+	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 
 	public static final Properties getResolvedProperties(Properties props) {
 		return getResolvedProperties(props, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);

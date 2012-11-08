@@ -2,6 +2,8 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
+import org.kuali.common.util.PropertyUtils;
+
 public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 
 	List<String> locations;
@@ -12,10 +14,10 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
 	boolean ignoreMissingLocations;
-	String placeHolderPrefix;
-	String placeHolderSuffix;
+	String placeHolderPrefix = PropertyUtils.DEFAULT_PLACEHOLDER_PREFIX;
+	String placeHolderSuffix = PropertyUtils.DEFAULT_PLACEHOLDER_SUFFIX;
 	String prefix;
-	PropertyStyle style;
+	PropertyStyle style = PropertyStyle.NORMAL;
 
 	@Override
 	public List<String> getLocations() {
@@ -108,7 +110,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 
@@ -117,7 +119,7 @@ public class DefaultPropertyLoadingContext implements PropertyLoadingContext {
 	}
 
 	@Override
-    public PropertyStyle getStyle() {
+	public PropertyStyle getStyle() {
 		return style;
 	}
 
