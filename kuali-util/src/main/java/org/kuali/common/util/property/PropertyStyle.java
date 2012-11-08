@@ -15,6 +15,6 @@
  */
 package org.kuali.common.util.property;
 
-public enum PropertyStorageStyle {
+public enum PropertyStyle {
 	NORMAL, ENVIRONMENT_VARIABLE;
 }

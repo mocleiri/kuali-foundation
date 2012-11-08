@@ -21,30 +21,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 
 	@Override
 	public Properties getObject() throws Exception {
-
-		// Load properties from the locations they specified (in the order they specified)
-		Properties properties = PropertyUtils.getProperties(locations, encoding);
-
-		// Add in environment variables?
-		if (includeEnvironmentVariables) {
-			properties.putAll(PropertyUtils.getEnvAsProperties());
-		}
-
-		// Add in system properties?
-		if (includeSystemProperties) {
-			properties.putAll(System.getProperties());
-		}
-
-		// Resolve placeholders?
-		if (resolvePlaceholders) {
-			properties = PropertyUtils.getResolvedProperties(properties);
-		}
-
-		// Trim out unwanted properties
-		PropertyUtils.trim(properties, include, exclude);
-
-		// Return the properties we have left
-		return properties;
+		return PropertyUtils.getProperties(this);
 	}
 
 	@Override
@@ -58,7 +35,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public List<String> getLocations() {
+	public List<String> getLocations() {
 		return locations;
 	}
 
@@ -67,7 +44,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -76,7 +53,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public String getInclude() {
+	public String getInclude() {
 		return include;
 	}
 
@@ -85,7 +62,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public String getExclude() {
+	public String getExclude() {
 		return exclude;
 	}
 
@@ -94,7 +71,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public boolean isIncludeEnvironmentVariables() {
+	public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -103,7 +80,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public boolean isIncludeSystemProperties() {
+	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -112,7 +89,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public boolean isResolvePlaceholders() {
+	public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -121,7 +98,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public boolean isIgnoreMissingLocations() {
+	public boolean isIgnoreMissingLocations() {
 		return ignoreMissingLocations;
 	}
 
@@ -130,7 +107,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public String getPlaceHolderPrefix() {
+	public String getPlaceHolderPrefix() {
 		return placeHolderPrefix;
 	}
 
@@ -139,7 +116,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoa
 	}
 
 	@Override
-    public String getPlaceHolderSuffix() {
+	public String getPlaceHolderSuffix() {
 		return placeHolderSuffix;
 	}
 

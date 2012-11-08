@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
 import org.kuali.common.util.property.PropertyLoadingContext;
 import org.kuali.common.util.property.PropertyStorageContext;
-import org.kuali.common.util.property.PropertyStorageStyle;
+import org.kuali.common.util.property.PropertyStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -115,14 +115,14 @@ public class PropertyUtils {
 	}
 
 	public static final void store(Properties properties, File file, String encoding) {
-		store(properties, file, encoding, null, PropertyStorageStyle.NORMAL, true, null);
+		store(properties, file, encoding, null, PropertyStyle.NORMAL, true, null);
 	}
 
-	public static final void store(Properties properties, File file, String encoding, PropertyStorageStyle style) {
+	public static final void store(Properties properties, File file, String encoding, PropertyStyle style) {
 		store(properties, file, encoding, null, style, true, null);
 	}
 
-	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStorageStyle style, boolean sort, String comment) {
+	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStyle style, boolean sort, String comment) {
 		PropertyStorageContext context = new PropertyStorageContext();
 		context.setFile(file);
 		context.setEncoding(encoding);
@@ -308,7 +308,7 @@ public class PropertyUtils {
 		return newProperties;
 	}
 
-	public static final Properties getFormattedProperties(Properties properties, PropertyStorageStyle style) {
+	public static final Properties getFormattedProperties(Properties properties, PropertyStyle style) {
 		switch (style) {
 		case NORMAL:
 			return properties;
