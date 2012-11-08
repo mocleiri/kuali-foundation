@@ -135,7 +135,7 @@ public class PropertyUtils {
 	}
 
 	public static final void store(PropertyStorageContext context, Properties properties) {
-		Properties finalProperties = getProperties(context, properties);
+		Properties finalProperties = handleProperties(context, properties);
 		Properties sortedProperties = (context.isSort()) ? getSortedProperties(finalProperties) : finalProperties;
 		storeProperties(context, sortedProperties);
 	}
@@ -209,7 +209,7 @@ public class PropertyUtils {
 				logger.info("Skipping non-existent location - [{}]", resolvedLocation);
 				continue;
 			} else {
-				props.putAll(getProperties(resolvedLocation, context.getEncoding()));
+				props.putAll(load(resolvedLocation, context.getEncoding()));
 			}
 		}
 		return props;
@@ -218,10 +218,10 @@ public class PropertyUtils {
 	public static final Properties getProperties(PropertyLoadingContext context) {
 		// Load properties in from the specified locations
 		Properties props = load(context);
-		return getProperties(context, props);
+		return handleProperties(context, props);
 	}
 
-	public static final Properties getProperties(PropertyHandlingContext context, Properties props) {
+	public static final Properties handleProperties(PropertyHandlingContext context, Properties props) {
 
 		// Add in environment variables?
 		if (context.isIncludeEnvironmentVariables()) {
@@ -261,6 +261,12 @@ public class PropertyUtils {
 
 	public static final boolean isXml(String location) {
 		return location.endsWith(XML_EXTENSION);
+	}
+
+	public static final Properties load(String location, String encoding) {
+		Properties properties = new Properties();
+		load(properties, location, encoding);
+		return properties;
 	}
 
 	public static final void load(Properties properties, String location, String encoding) {
