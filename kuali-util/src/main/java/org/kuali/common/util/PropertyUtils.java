@@ -56,7 +56,7 @@ public class PropertyUtils {
 			String originalValue = props.getProperty(key);
 			String resolvedValue = pph.replacePlaceholders(originalValue, all);
 			if (!resolvedValue.equals(originalValue)) {
-				logger.info("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
 			}
 			newProps.setProperty(key, resolvedValue);
 		}
