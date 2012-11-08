@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:property-placeholder location="jdbc.properties,${db.vendor}.properties,${db.vendor}.xml,sql.properties" />
-
-  <bean id="properties" class="org.kuali.common.util.property.PropertyFactoryBean">
+  <bean id="properties" class="org.kuali.common.util.PropertyFactoryBean" p:encoding="UTF-8">
     <property name="locations">
       <list>
-        <value>jdbc.properties</value>
+        <value>classpath:jdbc.properties</value>
+        <value>classpath:${db.vendor}.properties</value>
+        <value>classpath:${db.vendor}.xml</value>
+        <value>classpath:sql.properties</value>
       </list>
     </property>
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="properties" ref="properties" />
   </bean>
 
   <bean id="reset" class="org.kuali.common.jdbc.Reset">
