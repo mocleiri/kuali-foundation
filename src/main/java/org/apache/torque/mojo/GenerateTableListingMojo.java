@@ -27,29 +27,40 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
+ * Examine the directory that SQL files were generated to and produce a file that contains a listing of any tables that contained data at
+ * the point in time the export was run.
+ *
  * @goal generatetablelisting
  */
 public class GenerateTableListingMojo extends BaseMojo {
 
 	/**
+	 * The extension for SQL files
+	 *
 	 * @parameter expression="${impex.extension}" default-value="sql"
 	 * @required
 	 */
 	private String extension;
 
 	/**
+	 * The database vendor being targeted
+	 *
 	 * @parameter expression="${impex.targetDatabase}"
 	 * @required
 	 */
 	private String targetDatabase;
 
 	/**
+	 * The directory where SQL is being generated - <code>targetDatabase</code> is automatically appended to this value
+	 *
 	 * @parameter expression="${impex.baseSqlDir}" default-value="${project.build.directory}/impex/sql"
 	 * @required
 	 */
 	private File baseSqlDir;
 
 	/**
+	 * The artifactId (aka "schema") for this set of impex data
+	 *
 	 * @parameter expression="${impex.artifactId}" default-value="${project.artifactId}"
 	 * @required
 	 */
