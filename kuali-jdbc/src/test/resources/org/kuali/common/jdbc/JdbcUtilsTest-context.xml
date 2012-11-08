@@ -17,9 +17,7 @@
     </property>
   </bean>
 
-  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="properties" ref="properties" />
-  </bean>
+  <context:property-placeholder properties-ref="properties" />
 
   <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
