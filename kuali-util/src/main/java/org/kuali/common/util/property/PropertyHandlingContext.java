@@ -22,4 +22,6 @@ public interface PropertyHandlingContext {
 
 	PropertyStyle getStyle();
 
+	PropertyEncryptor getEncryptor();
+
 }

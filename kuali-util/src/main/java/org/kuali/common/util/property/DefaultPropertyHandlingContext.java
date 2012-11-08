@@ -14,9 +14,10 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	String placeHolderSuffix = PropertyUtils.DEFAULT_PLACEHOLDER_SUFFIX;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
+	PropertyEncryptor encryptor;
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -25,7 +26,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public String getInclude() {
+	public String getInclude() {
 		return include;
 	}
 
@@ -34,7 +35,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public String getExclude() {
+	public String getExclude() {
 		return exclude;
 	}
 
@@ -43,7 +44,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public boolean isIncludeEnvironmentVariables() {
+	public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -52,7 +53,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public boolean isIncludeSystemProperties() {
+	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -61,7 +62,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public boolean isResolvePlaceholders() {
+	public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -70,7 +71,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public String getPlaceHolderPrefix() {
+	public String getPlaceHolderPrefix() {
 		return placeHolderPrefix;
 	}
 
@@ -79,7 +80,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public String getPlaceHolderSuffix() {
+	public String getPlaceHolderSuffix() {
 		return placeHolderSuffix;
 	}
 
@@ -88,7 +89,7 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 
@@ -97,12 +98,21 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	}
 
 	@Override
-    public PropertyStyle getStyle() {
+	public PropertyStyle getStyle() {
 		return style;
 	}
 
 	public void setStyle(PropertyStyle style) {
 		this.style = style;
+	}
+
+	@Override
+    public PropertyEncryptor getEncryptor() {
+		return encryptor;
+	}
+
+	public void setEncryptor(PropertyEncryptor encryptor) {
+		this.encryptor = encryptor;
 	}
 
 }
