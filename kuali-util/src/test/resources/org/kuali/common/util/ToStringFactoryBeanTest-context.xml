@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="lines" class="org.kuali.common.util.ReadLinesFactoryBean" p:encoding="UTF-8">
+  <bean id="lines" class="org.kuali.common.util.ToStringFactoryBean" p:encoding="UTF-8">
     <property name="location" value="classpath:org/kuali/common/util/simple.properties" />
   </bean>
 
