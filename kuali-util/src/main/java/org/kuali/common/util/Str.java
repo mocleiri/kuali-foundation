@@ -4,11 +4,11 @@ import org.apache.commons.lang.StringUtils;
 
 public class Str {
 
-	private static final String EMPTY_STRING = "";
-	private static final String COMMA = ",";
-	private static final String SPACE = " ";
-	private static final String CR = "\r";
-	private static final String LF = "\n";
+	public static final String EMPTY_STRING = "";
+	public static final String COMMA = ",";
+	public static final String SPACE = " ";
+	public static final String CR = "\r";
+	public static final String LF = "\n";
 
 	/**
 	 * Split comma separated values into tokens
