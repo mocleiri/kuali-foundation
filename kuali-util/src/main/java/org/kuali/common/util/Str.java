@@ -6,6 +6,9 @@ public class Str {
 
 	private static final String EMPTY_STRING = "";
 	private static final String COMMA = ",";
+	private static final String SPACE = " ";
+	private static final String CR = "\r";
+	private static final String LF = "\n";
 
 	/**
 	 * Split comma separated values into tokens
@@ -58,6 +61,24 @@ public class Str {
 			return EMPTY_STRING;
 		} else {
 			return s;
+		}
+	}
+
+	/**
+	 * Replace all carriage returns and linefeeds with spaces
+	 */
+	public static final String flatten(String s) {
+		return flatten(s, SPACE, SPACE);
+	}
+
+	/**
+	 * Replace any carriage returns with <code>cr</code> and replace any linefeeds with <code>lf</code>.
+	 */
+	public static final String flatten(String s, String cr, String lf) {
+		if (s == null) {
+			return null;
+		} else {
+			return s.replace(CR, cr).replace(LF, lf);
 		}
 	}
 

@@ -37,8 +37,27 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT = "DEFAULT";
 
-	private static final String DEFAULT_PREFIX = "${";
-	private static final String DEFAULT_SUFFIX = "}";
+	private static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
+	private static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
+
+	public static final Properties getResolvedProperties(Properties props, String placeHolderPrefix, String placeHolderSuffix) {
+		PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
+		List<String> keys = getSortedKeys(props);
+		Properties newProps = new Properties();
+		for (String key : keys) {
+			String originalValue = props.getProperty(key);
+			String resolvedValue = pph.replacePlaceholders(originalValue, props);
+			if (!resolvedValue.equals(originalValue)) {
+				logger.info("Resolved property '" + key + "' [{}]->[{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+			}
+			newProps.setProperty(key, resolvedValue);
+		}
+		return newProps;
+	}
+
+	public static final Properties getResolvedProperties(Properties props) {
+		return getResolvedProperties(props, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
+	}
 
 	public static final void trim(Properties properties, String includes, String excludes) {
 		List<String> includeList = CollectionUtils.getListFromCSV(includes);
@@ -69,11 +88,11 @@ public class PropertyUtils {
 	}
 
 	public static final String getResolvedValue(String value, Properties properties) {
-		return getResolvedValue(value, properties, DEFAULT_PREFIX, DEFAULT_SUFFIX);
+		return getResolvedValue(value, properties, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
 	}
 
-	public static final String getResolvedValue(String value, Properties properties, String prefix, String suffix) {
-		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(prefix, suffix);
+	public static final String getResolvedValue(String value, Properties properties, String placeHolderPrefix, String placeHolderSuffix) {
+		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
 		return helper.replacePlaceholders(value, properties);
 	}
 
