@@ -60,7 +60,7 @@ public class SqlExecutorTest {
 			logger.info("Executing SQL for [{}] on database [{}] at [" + url + "]", schema, db);
 			logger.info("Executed " + sqlExecutor.executeSQL(schemaLocation) + " SQL statements");
 			for (String location : locations) {
-				logger.info("Executed " + sqlExecutor.executeSQL(location) + " SQL statements");
+				sqlExecutor.executeSQL(location);
 			}
 			logger.info("Adding schema constraints for [{}] on database [{}] at [" + url + "]", schema, db);
 			logger.info("Executed " + sqlExecutor.executeSQL(schemaConstraintsLocation) + " SQL statements");

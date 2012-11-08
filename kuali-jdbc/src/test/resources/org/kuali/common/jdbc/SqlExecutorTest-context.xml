@@ -45,13 +45,13 @@
   <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dataSource" />
     <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="true" />
+    <property name="showSql" value="false" />
   </bean>
 
   <bean id="dbaSqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dbaDataSource" />
     <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="true" />
+    <property name="showSql" value="false" />
   </bean>
 
 </beans>
