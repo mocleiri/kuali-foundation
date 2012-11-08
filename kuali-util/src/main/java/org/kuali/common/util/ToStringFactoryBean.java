@@ -1,25 +1,22 @@
 package org.kuali.common.util;
 
-import java.util.List;
-
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
-public class ReadLinesFactoryBean implements FactoryBean<List<String>> {
+public class ToStringFactoryBean implements FactoryBean<String> {
 
 	String location;
 	String encoding;
 
 	@Override
-	public List<String> getObject() throws Exception {
+	public String getObject() throws Exception {
 		Assert.notNull("Location is null", location);
-		return ResourceUtils.readLines(location, encoding);
+		return ResourceUtils.toString(location, encoding);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public Class<List> getObjectType() {
-		return List.class;
+	public Class<String> getObjectType() {
+		return String.class;
 	}
 
 	@Override

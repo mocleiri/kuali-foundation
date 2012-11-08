@@ -21,6 +21,22 @@ import org.springframework.core.io.ResourceLoader;
 
 public class ResourceUtils {
 
+	public static final String toString(String location) {
+		return toString(location, null);
+	}
+
+	public static final String toString(String location, String encoding) {
+		InputStream in = null;
+		try {
+			in = getInputStream(location);
+			return IOUtils.toString(in, encoding);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 	public static final List<String> readLines(String location) {
 		return readLines(location, null);
 	}
