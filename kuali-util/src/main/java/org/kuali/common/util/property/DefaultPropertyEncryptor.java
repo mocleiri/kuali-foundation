@@ -37,15 +37,19 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 			int beginIndex = 0;
 			int endIndex = key.length() - encryptedSuffix.length();
 			String newKey = key.substring(beginIndex, endIndex);
-			String existingValue = properties.getProperty(newKey);
-			if (!StringUtils.isBlank(existingValue)) {
-				logger.warn("Overwriting existing value for property [{}]", newKey);
-			}
-			if (!quiet) {
-				logger.info("Setting property " + newKey);
-			}
-			properties.setProperty(newKey, decryptedValue);
+			setProperty(properties, newKey, decryptedValue);
 		}
+	}
+
+	protected void setProperty(Properties properties, String key, String value) {
+		String existingValue = properties.getProperty(key);
+		if (!StringUtils.isBlank(existingValue)) {
+			logger.warn("Overwriting existing value for property [{}]", key);
+		}
+		if (!quiet) {
+			logger.info("Setting property " + key);
+		}
+		properties.setProperty(key, value);
 	}
 
 	@Override
@@ -57,11 +61,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 			String decryptedValue = properties.getProperty(key);
 			String encryptedValue = encryptor.encrypt(decryptedValue);
 			String newKey = key + encryptedSuffix;
-			String existingValue = properties.getProperty(newKey);
-			if (!StringUtils.isBlank(existingValue)) {
-				logger.warn("Overwriting existing value for property [{}]", newKey);
-			}
-			properties.setProperty(newKey, encryptedValue);
+			setProperty(properties, newKey, encryptedValue);
 		}
 	}
 
