@@ -251,11 +251,8 @@ public class PropertyUtils {
 		// Add in a prefix if asked to do so
 		Properties prefixed = getPrefixedProperties(props, context.getPrefix());
 
-		// Format the property keys according to the style they've asked for
-		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
-
-		// Return the properties we located
-		return formatted;
+		// Format the property keys according to the style they've asked for and return
+		return getFormattedProperties(prefixed, context.getStyle());
 	}
 
 	public static final Properties getProperties(String location) {
