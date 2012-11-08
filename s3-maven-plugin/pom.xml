@@ -25,7 +25,7 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>s3-maven-plugin</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>S3 Maven Plugin</name>
   <description>Provide a way for Maven to interact with Amazon S3</description>
@@ -45,9 +45,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/tags/s3-maven-plugin-1.0.2</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/tags/s3-maven-plugin-1.0.2</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/tags/s3-maven-plugin-1.0.2</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/s3-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/s3-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/s3-maven-plugin</url>
   </scm>
   <dependencies>
     <dependency>
