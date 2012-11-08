@@ -45,14 +45,15 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getResolvedProperties(Properties props, String placeHolderPrefix, String placeHolderSuffix) {
+		Properties all = getOverriddenProperties(props);
 		PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
 		List<String> keys = getSortedKeys(props);
 		Properties newProps = new Properties();
 		for (String key : keys) {
 			String originalValue = props.getProperty(key);
-			String resolvedValue = pph.replacePlaceholders(originalValue, props);
+			String resolvedValue = pph.replacePlaceholders(originalValue, all);
 			if (!resolvedValue.equals(originalValue)) {
-				logger.info("Resolved property '" + key + "' [{}]->[{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+				logger.info("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
 			}
 			newProps.setProperty(key, resolvedValue);
 		}

@@ -17,14 +17,29 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 
 	@Override
 	public Properties getObject() throws Exception {
+
+		// Load properties from the locations they specified (in the order they specified)
 		Properties properties = PropertyUtils.getProperties(locations, encoding);
+
+		// Add in environment variables?
 		if (includeEnvironmentVariables) {
 			properties.putAll(PropertyUtils.getEnvAsProperties());
 		}
+
+		// Add in system properties?
 		if (includeSystemProperties) {
 			properties.putAll(System.getProperties());
 		}
+
+		// Resolve placeholders?
+		if (resolvePlaceholders) {
+			properties = PropertyUtils.getResolvedProperties(properties);
+		}
+
+		// Trim out unwanted properties
 		PropertyUtils.trim(properties, include, exclude);
+
+		// Return the properties we have left
 		return properties;
 	}
 
