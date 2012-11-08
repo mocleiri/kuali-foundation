@@ -79,10 +79,10 @@ public class PropertyUtils {
 	}
 
 	public static final boolean include(String value, List<String> includes, List<String> excludes) {
-		if (excludes.contains(value)) {
+		if (!CollectionUtils.isEmpty(excludes) && excludes.contains(value)) {
 			return false;
 		} else {
-			return includes.size() == 0 || includes.contains(value);
+			return CollectionUtils.isEmpty(includes) || includes.contains(value);
 		}
 	}
 
