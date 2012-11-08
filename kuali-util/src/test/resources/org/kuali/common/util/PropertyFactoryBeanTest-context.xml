@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="properties" class="org.kuali.common.util.PropertyFactoryBean" p:encoding="UTF-8">
+  <bean id="properties" class="org.kuali.common.util.PropertyFactoryBean" p:encoding="UTF-8" p:include="car.brand,brand.name">
     <property name="locations">
       <list>
         <value>classpath:org/kuali/common/util/car.properties</value>

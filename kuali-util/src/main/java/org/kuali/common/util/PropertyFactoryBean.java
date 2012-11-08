@@ -54,4 +54,44 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.encoding = encoding;
 	}
 
+	public String getInclude() {
+		return include;
+	}
+
+	public void setInclude(String include) {
+		this.include = include;
+	}
+
+	public String getExclude() {
+		return exclude;
+	}
+
+	public void setExclude(String exclude) {
+		this.exclude = exclude;
+	}
+
+	public boolean isIncludeEnvironmentVariables() {
+		return includeEnvironmentVariables;
+	}
+
+	public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
+		this.includeEnvironmentVariables = includeEnvironmentVariables;
+	}
+
+	public boolean isIncludeSystemProperties() {
+		return includeSystemProperties;
+	}
+
+	public void setIncludeSystemProperties(boolean includeSystemProperties) {
+		this.includeSystemProperties = includeSystemProperties;
+	}
+
+	public boolean isResolvePlaceholders() {
+		return resolvePlaceholders;
+	}
+
+	public void setResolvePlaceholders(boolean resolvePlaceholders) {
+		this.resolvePlaceholders = resolvePlaceholders;
+	}
+
 }
