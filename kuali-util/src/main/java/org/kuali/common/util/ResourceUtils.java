@@ -21,11 +21,6 @@ import org.springframework.core.io.ResourceLoader;
 
 public class ResourceUtils {
 
-	public static final List<String> readLinesFromString(String s) {
-		InputStream in = new ByteArrayInputStream(s.getBytes());
-		return readLines(in, null);
-	}
-
 	public static final String toString(String location) {
 		return toString(location, null);
 	}
@@ -40,6 +35,11 @@ public class ResourceUtils {
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
+	}
+
+	public static final List<String> readLinesFromString(String s) {
+		InputStream in = new ByteArrayInputStream(s.getBytes());
+		return readLines(in, null);
 	}
 
 	public static final List<String> readLines(String location) {
