@@ -2,70 +2,22 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
-public class PropertyLoadingContext {
+public interface PropertyLoadingContext {
 
-	List<String> locations;
-	String encoding;
-	String include;
-	String exclude;
-	boolean includeEnvironmentVariables;
-	boolean includeSystemProperties;
-	boolean resolvePlaceholders;
+	List<String> getLocations();
 
-	public List<String> getLocations() {
-		return locations;
-	}
+	String getEncoding();
 
-	public void setLocations(List<String> locations) {
-		this.locations = locations;
-	}
+	String getInclude();
 
-	public String getEncoding() {
-		return encoding;
-	}
+	String getExclude();
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
+	boolean isIncludeEnvironmentVariables();
 
-	public String getInclude() {
-		return include;
-	}
+	boolean isIncludeSystemProperties();
 
-	public void setInclude(String include) {
-		this.include = include;
-	}
+	boolean isResolvePlaceholders();
 
-	public String getExclude() {
-		return exclude;
-	}
-
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
-	}
-
-	public boolean isIncludeEnvironmentVariables() {
-		return includeEnvironmentVariables;
-	}
-
-	public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
-		this.includeEnvironmentVariables = includeEnvironmentVariables;
-	}
-
-	public boolean isIncludeSystemProperties() {
-		return includeSystemProperties;
-	}
-
-	public void setIncludeSystemProperties(boolean includeSystemProperties) {
-		this.includeSystemProperties = includeSystemProperties;
-	}
-
-	public boolean isResolvePlaceholders() {
-		return resolvePlaceholders;
-	}
-
-	public void setResolvePlaceholders(boolean resolvePlaceholders) {
-		this.resolvePlaceholders = resolvePlaceholders;
-	}
+	boolean isIgnoreMissingLocations();
 
 }

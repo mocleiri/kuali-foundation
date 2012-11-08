@@ -3,9 +3,10 @@ package org.kuali.common.util;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.property.PropertyLoadingContext;
 import org.springframework.beans.factory.FactoryBean;
 
-public class PropertyFactoryBean implements FactoryBean<Properties> {
+public class PropertyFactoryBean implements FactoryBean<Properties>, PropertyLoadingContext {
 
 	List<String> locations;
 	String encoding;
@@ -14,6 +15,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 	boolean includeEnvironmentVariables;
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
+	boolean ignoreMissingLocations;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -53,6 +55,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		return true;
 	}
 
+	@Override
 	public List<String> getLocations() {
 		return locations;
 	}
@@ -61,6 +64,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.locations = locations;
 	}
 
+	@Override
 	public String getEncoding() {
 		return encoding;
 	}
@@ -69,6 +73,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.encoding = encoding;
 	}
 
+	@Override
 	public String getInclude() {
 		return include;
 	}
@@ -77,6 +82,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.include = include;
 	}
 
+	@Override
 	public String getExclude() {
 		return exclude;
 	}
@@ -85,6 +91,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.exclude = exclude;
 	}
 
+	@Override
 	public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
@@ -93,6 +100,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.includeEnvironmentVariables = includeEnvironmentVariables;
 	}
 
+	@Override
 	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
@@ -101,12 +109,22 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 		this.includeSystemProperties = includeSystemProperties;
 	}
 
+	@Override
 	public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
 	public void setResolvePlaceholders(boolean resolvePlaceholders) {
 		this.resolvePlaceholders = resolvePlaceholders;
+	}
+
+	@Override
+    public boolean isIgnoreMissingLocations() {
+		return ignoreMissingLocations;
+	}
+
+	public void setIgnoreMissingLocations(boolean ignoreMissingLocations) {
+		this.ignoreMissingLocations = ignoreMissingLocations;
 	}
 
 }
