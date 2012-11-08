@@ -19,6 +19,6 @@ public class PropertyFactoryBean extends DefaultPropertyLoadingContext implement
 
 	@Override
 	public boolean isSingleton() {
-		return true;
+		return false;
 	}
 }

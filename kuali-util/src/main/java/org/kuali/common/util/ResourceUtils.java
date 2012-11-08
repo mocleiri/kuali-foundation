@@ -11,13 +11,31 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class ResourceUtils {
+
+	public static final List<String> readLines(String location) {
+		return readLines(location, null);
+	}
+
+	public static final List<String> readLines(String location, String encoding) {
+		InputStream in = null;
+		try {
+			in = getInputStream(location);
+			return IOUtils.readLines(in, encoding);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
 
 	public static final BufferedReader getBufferedReader(String location) {
 		return getBufferedReader(location, null);
