@@ -30,8 +30,9 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
- * any url Spring resource loading can understand. For storing and loading, locations ending in <code>.xml</code> are automatically handled
- * using <code>storeToXML()</code> and <code>loadFromXML()</code>. <code>Properties</code> are stored in sorted order by default.
+ * any url Spring resource loading can understand. When storing and loading, locations ending in <code>.xml</code> are automatically handled
+ * using <code>storeToXML()</code> and <code>loadFromXML()</code>, respectively. <code>Properties</code> are stored in sorted order by
+ * default.
  */
 public class PropertyUtils {
 
