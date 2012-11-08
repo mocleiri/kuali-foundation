@@ -18,6 +18,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.property.PropertyLoadingContext;
 import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStorageStyle;
 import org.slf4j.Logger;
@@ -26,8 +27,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
- * any url Spring resource loading can understand. By default, <code>Properties</code> are stored in sorted order. For both storing and
- * loading, locations ending in <code>.xml</code> are automatically handled using <code>storeToXML()</code> and <code>loadFromXML()</code>.
+ * any url Spring resource loading can understand. For both storing and loading, locations ending in <code>.xml</code> are automatically
+ * handled using <code>storeToXML()</code> and <code>loadFromXML()</code>. <code>Properties</code> are stored in sorted order by default.
  */
 public class PropertyUtils {
 
@@ -144,7 +145,7 @@ public class PropertyUtils {
 		storeProperties(context, finalProperties);
 	}
 
-	protected static final void storeProperties(PropertyStorageContext context, Properties properties) {
+	public static final void storeProperties(PropertyStorageContext context, Properties properties) {
 		OutputStream out = null;
 		Writer writer = null;
 		try {
@@ -198,14 +199,16 @@ public class PropertyUtils {
 		return props;
 	}
 
+	public static final Properties getProperties(PropertyLoadingContext context) {
+		return null;
+	}
+
 	public static final Properties getProperties(String location) {
 		return getProperties(location, null);
 	}
 
 	public static final Properties getProperties(String location, String encoding) {
-		Properties properties = new Properties();
-		load(properties, location, encoding);
-		return properties;
+		return getProperties(Collections.singletonList(location), encoding);
 	}
 
 	public static final boolean isXml(String location) {
