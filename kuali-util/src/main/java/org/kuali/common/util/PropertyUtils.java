@@ -19,9 +19,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
+import org.kuali.common.util.property.DefaultPropertyStorageContext;
 import org.kuali.common.util.property.PropertyHandlingContext;
 import org.kuali.common.util.property.PropertyLoadingContext;
-import org.kuali.common.util.property.DefaultPropertyStorageContext;
+import org.kuali.common.util.property.PropertyStorageContext;
 import org.kuali.common.util.property.PropertyStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
- * any url Spring resource loading can understand. For both storing and loading, locations ending in <code>.xml</code> are automatically
- * handled using <code>storeToXML()</code> and <code>loadFromXML()</code>. <code>Properties</code> are stored in sorted order by default.
+ * any url Spring resource loading can understand. For storing and loading, locations ending in <code>.xml</code> are automatically handled
+ * using <code>storeToXML()</code> and <code>loadFromXML()</code>. <code>Properties</code> are stored in sorted order by default.
  */
 public class PropertyUtils {
 
@@ -48,13 +49,13 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getResolvedProperties(Properties props, String placeHolderPrefix, String placeHolderSuffix) {
-		Properties all = getGlobalProperties(props);
+		Properties global = getGlobalProperties(props);
 		PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
 		List<String> keys = getSortedKeys(props);
 		Properties newProps = new Properties();
 		for (String key : keys) {
 			String originalValue = props.getProperty(key);
-			String resolvedValue = pph.replacePlaceholders(originalValue, all);
+			String resolvedValue = pph.replacePlaceholders(originalValue, global);
 			if (!resolvedValue.equals(originalValue)) {
 				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
 			}
@@ -134,13 +135,13 @@ public class PropertyUtils {
 		store(context, properties);
 	}
 
-	public static final void store(DefaultPropertyStorageContext context, Properties properties) {
+	public static final void store(PropertyStorageContext context, Properties properties) {
 		Properties finalProperties = getProperties(context, properties);
 		Properties sortedProperties = context.isSort() ? getSortedProperties(finalProperties) : finalProperties;
 		storeProperties(context, sortedProperties);
 	}
 
-	public static final void storeProperties(DefaultPropertyStorageContext context, Properties properties) {
+	public static final void storeProperties(PropertyStorageContext context, Properties properties) {
 		OutputStream out = null;
 		Writer writer = null;
 		try {
@@ -168,7 +169,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a properties object containing the original properties plus the properties returned by <code>getEnvAsProperties()</code> and
+	 * Return a properties object containing the properties passed in plus any properties returned by <code>getEnvAsProperties()</code> and
 	 * <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from <code>original</code>
 	 * and properties from <code>System.getProperties()</code> override everything.
 	 */
@@ -199,8 +200,8 @@ public class PropertyUtils {
 		String suffix = context.getPlaceHolderSuffix();
 		Properties props = new Properties();
 		for (String location : context.getLocations()) {
-			Properties overriddenProperties = getGlobalProperties(props);
-			String resolvedLocation = getResolvedValue(location, overriddenProperties, prefix, suffix);
+			Properties global = getGlobalProperties(props);
+			String resolvedLocation = getResolvedValue(location, global, prefix, suffix);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
