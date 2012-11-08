@@ -2,12 +2,14 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
+import org.kuali.common.util.PropertyUtils;
+
 public class DefaultPropertyLoadingContext extends DefaultPropertyHandlingContext implements PropertyLoadingContext {
 
 	List<String> locations;
 	boolean ignoreMissingLocations;
 	boolean decrypt;
-	PropertyMatcher encryptedPropertyMatcher = new EndsWithPropertyMatcher();
+	PropertyMatcher encryptedPropertyMatcher = new EndsWithPropertyMatcher(PropertyUtils.DEFAULT_ENCRYPTED_PROPERTY_SUFFIX);
 
 	@Override
 	public List<String> getLocations() {
@@ -28,7 +30,7 @@ public class DefaultPropertyLoadingContext extends DefaultPropertyHandlingContex
 	}
 
 	@Override
-    public boolean isDecrypt() {
+	public boolean isDecrypt() {
 		return decrypt;
 	}
 
@@ -37,7 +39,7 @@ public class DefaultPropertyLoadingContext extends DefaultPropertyHandlingContex
 	}
 
 	@Override
-    public PropertyMatcher getEncryptedPropertyMatcher() {
+	public PropertyMatcher getEncryptedPropertyMatcher() {
 		return encryptedPropertyMatcher;
 	}
 
