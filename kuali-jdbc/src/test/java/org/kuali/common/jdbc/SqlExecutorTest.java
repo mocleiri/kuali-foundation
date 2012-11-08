@@ -37,7 +37,6 @@ public class SqlExecutorTest {
 		try {
 			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
-			logger.info("tables.length()=" + tables.length());
 			String base = properties.getProperty("sql.location.base");
 			Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
 			Assert.assertNotNull("dbaSqlExecutor is null.", dbaSqlExecutor);
