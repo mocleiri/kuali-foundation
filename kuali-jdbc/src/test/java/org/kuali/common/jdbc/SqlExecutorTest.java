@@ -21,7 +21,7 @@ public class SqlExecutorTest {
 	private SqlExecutor sqlExecutor = null;
 
 	@Autowired
-	private SqlExecutor dba = null;
+	private SqlExecutor dbaSqlExecutor = null;
 
 	@Autowired
 	private Properties properties = null;
@@ -32,16 +32,16 @@ public class SqlExecutorTest {
 			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
 			Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
-			Assert.assertNotNull("dba is null.", dba);
+			Assert.assertNotNull("dbaSqlExecutor is null.", dbaSqlExecutor);
 			String dbaUser = properties.getProperty("jdbc.dba.username");
 			String dbaUrl = properties.getProperty("jdbc.dba.url");
 			String db = properties.getProperty("sql.database");
 			logger.info("Validating database credentials for user '{}' on [{}]", dbaUser, dbaUrl);
-			logger.info("Executed " + dba.executeString(properties.getProperty("sql.validate")) + " SQL statements");
+			logger.info("Executed " + dbaSqlExecutor.executeString(properties.getProperty("sql.validate")) + " SQL statements");
 			logger.info("Dropping database [{}] on [{}]", db, dbaUrl);
-			logger.info("Executed " + dba.executeString(properties.getProperty("sql.dba.drop")) + " SQL statements");
+			logger.info("Executed " + dbaSqlExecutor.executeString(properties.getProperty("sql.dba.drop")) + " SQL statements");
 			logger.info("Creating database [{}] on [{}]", db, dbaUrl);
-			logger.info("Executed " + dba.executeString(properties.getProperty("sql.dba.create")) + " SQL statements");
+			logger.info("Executed " + dbaSqlExecutor.executeString(properties.getProperty("sql.dba.create")) + " SQL statements");
 			String user = properties.getProperty("jdbc.username");
 			String url = properties.getProperty("jdbc.url");
 			logger.info("Validating database credentials for user '{}' on [{}]", user, url);
