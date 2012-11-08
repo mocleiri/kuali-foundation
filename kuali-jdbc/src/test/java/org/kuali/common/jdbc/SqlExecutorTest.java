@@ -36,7 +36,7 @@ public class SqlExecutorTest {
 			String dbaUser = properties.getProperty("jdbc.dba.username");
 			String dbaUrl = properties.getProperty("jdbc.dba.url");
 			String db = properties.getProperty("sql.database");
-			logger.info("Validating database credentials for [{}] on [{}]", dbaUser, dbaUrl);
+			logger.info("Validating database credentials for user '{}' on [{}]", dbaUser, dbaUrl);
 			logger.info("Executed " + dba.executeString(properties.getProperty("sql.validate")) + " SQL statements");
 			logger.info("Dropping database [{}] on [{}]", db, dbaUrl);
 			logger.info("Executed " + dba.executeString(properties.getProperty("sql.dba.drop")) + " SQL statements");
@@ -44,7 +44,7 @@ public class SqlExecutorTest {
 			logger.info("Executed " + dba.executeString(properties.getProperty("sql.dba.create")) + " SQL statements");
 			String user = properties.getProperty("jdbc.username");
 			String url = properties.getProperty("jdbc.url");
-			logger.info("Validating database credentials for [{}] on [{}]", user, url);
+			logger.info("Validating database credentials for user '{}' on [{}]", user, url);
 			logger.info("Executed " + sqlExecutor.executeString(properties.getProperty("sql.validate")) + " SQL statements");
 			String schema = properties.getProperty("sql.source.schema");
 			String schemaLocation = properties.getProperty("sql.schema");

@@ -48,7 +48,7 @@
   <bean id="dba" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dbaDS" />
     <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="true" />
+    <property name="showSql" value="false" />
   </bean>
 
 </beans>
