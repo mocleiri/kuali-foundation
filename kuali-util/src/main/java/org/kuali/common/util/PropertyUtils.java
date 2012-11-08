@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
 import org.kuali.common.util.property.PropertyHandlingContext;
 import org.kuali.common.util.property.PropertyLoadingContext;
-import org.kuali.common.util.property.PropertyStorageContext;
+import org.kuali.common.util.property.DefaultPropertyStorageContext;
 import org.kuali.common.util.property.PropertyStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +124,7 @@ public class PropertyUtils {
 	}
 
 	public static final void store(Properties properties, File file, String encoding, String prefix, PropertyStyle style, boolean sort, String comment) {
-		PropertyStorageContext context = new PropertyStorageContext();
+		DefaultPropertyStorageContext context = new DefaultPropertyStorageContext();
 		context.setFile(file);
 		context.setEncoding(encoding);
 		context.setPrefix(prefix);
@@ -134,13 +134,13 @@ public class PropertyUtils {
 		store(context, properties);
 	}
 
-	public static final void store(PropertyStorageContext context, Properties properties) {
+	public static final void store(DefaultPropertyStorageContext context, Properties properties) {
 		Properties finalProperties = getProperties(context, properties);
 		Properties sortedProperties = context.isSort() ? getSortedProperties(finalProperties) : finalProperties;
 		storeProperties(context, sortedProperties);
 	}
 
-	public static final void storeProperties(PropertyStorageContext context, Properties properties) {
+	public static final void storeProperties(DefaultPropertyStorageContext context, Properties properties) {
 		OutputStream out = null;
 		Writer writer = null;
 		try {
