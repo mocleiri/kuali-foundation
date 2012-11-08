@@ -220,6 +220,7 @@ public class PropertyUtils {
 	public static final Properties getProperties(PropertyLoadingContext context) {
 		// Load properties in from the specified locations
 		Properties props = load(context);
+		// Process the properties according to the options provided in the context
 		return getProperties(context, props);
 	}
 
