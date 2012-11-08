@@ -8,5 +8,7 @@ public interface PropertyStorageContext extends PropertyHandlingContext {
 
 	boolean isSort();
 
-	public String getComment();
+	String getComment();
+
+	boolean isEncrypt();
 }

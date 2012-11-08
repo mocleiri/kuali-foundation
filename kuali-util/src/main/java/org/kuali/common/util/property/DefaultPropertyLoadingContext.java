@@ -6,6 +6,7 @@ public class DefaultPropertyLoadingContext extends DefaultPropertyHandlingContex
 
 	List<String> locations;
 	boolean ignoreMissingLocations;
+	boolean decrypt;
 
 	@Override
 	public List<String> getLocations() {
@@ -23,6 +24,15 @@ public class DefaultPropertyLoadingContext extends DefaultPropertyHandlingContex
 
 	public void setIgnoreMissingLocations(boolean ignoreMissingLocations) {
 		this.ignoreMissingLocations = ignoreMissingLocations;
+	}
+
+	@Override
+    public boolean isDecrypt() {
+		return decrypt;
+	}
+
+	public void setDecrypt(boolean decrypt) {
+		this.decrypt = decrypt;
 	}
 
 }
