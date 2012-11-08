@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.0.7</version>
+    <version>2.0.9</version>
   </parent>
   <name>Kuali CI</name>
   <groupId>org.kuali.common</groupId>
@@ -48,9 +48,25 @@
     <plugin.jenkins.version>1.1.18</plugin.jenkins.version>
     <plugin.ec2.version>1.1.3</plugin.ec2.version>
     <plugin.wagon.version>1.0.3</plugin.wagon.version>
-    <plugin.s3.version>1.0.1</plugin.s3.version>
+    <plugin.s3.version>1.0.2</plugin.s3.version>
     <kuali-deploy.version>1.2.9</kuali-deploy.version>
+    <s3.summary.csv>${project.basedir}/src/main/resources/aws-s3-summary.csv</s3.summary.csv>
   </properties>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.kuali.maven.plugins</groupId>
+          <artifactId>s3-maven-plugin</artifactId>
+          <version>${plugin.s3.version}</version>
+          <configuration>
+            <csvFile>${s3.summary.csv}</csvFile>
+            <include>site.origin.kuali.org,maven.kuali.org</include>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
   <profiles>
     <profile>
       <id>sync</id>
@@ -301,7 +317,6 @@
     <profile>
       <id>s3</id>
       <properties>
-        <s3.summary.csv>${project.basedir}/src/main/resources/aws-s3-summary.csv</s3.summary.csv>
         <s3.summary.commit.message>Automated S3 summary statistics</s3.summary.commit.message>
         <s3.summary.phase>validate</s3.summary.phase>
         <s3.delta.phase>process-resources</s3.delta.phase>
@@ -341,11 +356,6 @@
             <plugin>
               <groupId>org.kuali.maven.plugins</groupId>
               <artifactId>s3-maven-plugin</artifactId>
-              <version>${plugin.s3.version}</version>
-              <configuration>
-                <csvFile>${s3.summary.csv}</csvFile>
-                <include>site.origin.kuali.org,maven.kuali.org</include>
-              </configuration>
               <executions>
                 <execution>
                   <id>summarizebuckets</id>
