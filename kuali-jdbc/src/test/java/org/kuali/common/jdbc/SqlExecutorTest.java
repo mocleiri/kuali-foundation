@@ -58,13 +58,13 @@ public class SqlExecutorTest {
 			String schemaConstraintsLocation = properties.getProperty("sql.schema.constraints");
 			List<String> locations = getTableLocations(base, tables);
 			logger.info("Executing SQL for [{}] on database [{}] at [" + url + "]", schema, db);
-			logger.info("Executed " + sqlExecutor.executeSQL(schemaLocation) + " SQL statements");
+			int count = sqlExecutor.executeSQL(schemaLocation);
 			for (String location : locations) {
-				sqlExecutor.executeSQL(location);
+				count += sqlExecutor.executeSQL(location);
 			}
-			logger.info("Adding schema constraints for [{}] on database [{}] at [" + url + "]", schema, db);
-			logger.info("Executed " + sqlExecutor.executeSQL(schemaConstraintsLocation) + " SQL statements");
-			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
+			count += sqlExecutor.executeSQL(schemaConstraintsLocation);
+			logger.info("Executed {} SQL statements", count);
+			logger.info("Elapsed: {}", (System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
