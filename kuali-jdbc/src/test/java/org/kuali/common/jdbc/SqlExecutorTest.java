@@ -47,12 +47,12 @@ public class SqlExecutorTest {
 			logger.info("Validating database credentials for user '{}' on [{}]", user, url);
 			logger.info("Executed " + sqlExecutor.executeString(properties.getProperty("sql.validate")) + " SQL statements");
 			String schema = properties.getProperty("sql.source.schema");
-			String schemaLocation = properties.getProperty("sql.schema");
-			String schemaConstraintsLocation = properties.getProperty("sql.schema.constraints");
+			// String schemaLocation = properties.getProperty("sql.schema");
+			// String schemaConstraintsLocation = properties.getProperty("sql.schema.constraints");
 			logger.info("Executing SQL for [{}] on database [{}] at [" + url + "]", schema, db);
-			logger.info("Executed " + sqlExecutor.executeSQL(schemaLocation) + " SQL statements");
+			// logger.info("Executed " + sqlExecutor.executeSQL(schemaLocation) + " SQL statements");
 			logger.info("Adding schema constraints for [{}] on database [{}] at [" + url + "]", schema, db);
-			logger.info("Executed " + sqlExecutor.executeSQL(schemaConstraintsLocation) + " SQL statements");
+			// logger.info("Executed " + sqlExecutor.executeSQL(schemaConstraintsLocation) + " SQL statements");
 			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();
