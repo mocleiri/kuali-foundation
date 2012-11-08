@@ -35,6 +35,15 @@
     <property name="password" value="${jdbc.dba.password}" />
   </bean>
 
+  <bean id="dbaSqlReader" class="org.kuali.common.jdbc.DefaultSqlReader">
+    <property name="delimiter" value="${sql.delimiter}" />
+    <property name="trim" value="${sql.trim}" />
+    <property name="commentToken" value="${sql.comment}" />
+    <property name="lineSeparator" value="${sql.line.separator}" />
+    <property name="encoding" value="${sql.encoding}" />
+    <property name="ignoreComments" value="${sql.dba.ignoreComments}" />
+  </bean>
+
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader">
     <property name="delimiter" value="${sql.delimiter}" />
     <property name="trim" value="${sql.trim}" />
@@ -51,7 +60,7 @@
 
   <bean id="dba" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="dbaDS" />
-    <property name="sqlReader" ref="sqlReader" />
+    <property name="sqlReader" ref="dbaSqlReader" />
   </bean>
 
 </beans>
