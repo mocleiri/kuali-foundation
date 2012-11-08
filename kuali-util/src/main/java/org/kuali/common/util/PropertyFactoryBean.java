@@ -22,7 +22,7 @@ public class PropertyFactoryBean implements FactoryBean<Properties> {
 			properties.putAll(PropertyUtils.getEnvAsProperties());
 		}
 		if (includeSystemProperties) {
-			properties.putAll(PropertyUtils.getEnvAsProperties());
+			properties.putAll(System.getProperties());
 		}
 		PropertyUtils.trim(properties, include, exclude);
 		return properties;
