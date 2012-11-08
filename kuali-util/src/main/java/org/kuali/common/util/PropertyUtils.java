@@ -249,7 +249,7 @@ public class PropertyUtils {
 		// Format the property keys according to the style they've asked for
 		Properties formatted = getFormattedProperties(prefixed, context.getStyle());
 
-		// Return the properties we have left
+		// Return the properties we located
 		return formatted;
 	}
 
