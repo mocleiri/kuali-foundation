@@ -27,8 +27,8 @@ public class Str {
 	/**
 	 * Split the string into tokens, trimming as we go
 	 */
-	public static String[] splitAndTrim(String s, String separator, boolean trim) {
-		return splitAndTrim(s, separator, true);
+	public static String[] splitAndTrim(String s, String separator) {
+		return split(s, separator, true);
 	}
 
 	/**
