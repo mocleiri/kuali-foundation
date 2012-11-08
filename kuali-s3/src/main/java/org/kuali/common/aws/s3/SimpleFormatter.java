@@ -70,7 +70,7 @@ public class SimpleFormatter {
 		try {
 			return dateFormatter.parse(date);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Can't parse " + date, e);
+			throw new IllegalArgumentException("Can't parse [" + date + "]", e);
 		}
 	}
 
