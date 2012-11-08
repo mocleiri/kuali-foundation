@@ -46,6 +46,7 @@
   <bean id="jdbcUtils" class="org.kuali.common.jdbc.JdbcUtils">
     <property name="dataSource" ref="ds" />
     <property name="sqlReader" ref="sqlReader" />
+    <property name="showSql" value="true" />
   </bean>
 
   <bean id="dba" class="org.kuali.common.jdbc.JdbcUtils">

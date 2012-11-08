@@ -46,8 +46,10 @@ public class JdbcUtilsTest {
 			String url = properties.getProperty("jdbc.url");
 			logger.info("Validating database credentials for [{}] on [{}]", user, url);
 			logger.info("Executed " + jdbcUtils.executeString(properties.getProperty("sql.validate")) + " SQL statements");
-			// logger.info("Creating schema");
-			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master.sql") + " SQL statements");
+			String schema = properties.getProperty("sql.source.schema");
+			String schemaLocation = properties.getProperty("sql.schema");
+			logger.info("Creating schema [{}] in database [{}]", schema, db);
+			logger.info("Executed " + jdbcUtils.executeSQL(schemaLocation) + " SQL statements");
 			// logger.info("Executed " + jdbcUtils.executeSQL("classpath:sql/mysql/rice-impex-master-constraints.sql") + " SQL statements");
 			logger.info("Elapsed: " + (System.currentTimeMillis() - start));
 		} catch (Exception e) {

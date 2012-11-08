@@ -20,6 +20,7 @@ public class JdbcUtils {
 	DataSource dataSource;
 	SqlReader sqlReader;
 	boolean autoCommit;
+	boolean showSql;
 
 	public DataSource getDataSource() {
 		return dataSource;
@@ -50,7 +51,10 @@ public class JdbcUtils {
 			statement = conn.createStatement();
 			String sql = sqlReader.getSqlStatement(reader);
 			while (sql != null) {
-				logger.debug("{} - [{}]", ++count, flatten(sql));
+				count++;
+				if (showSql) {
+					logger.info("{} - [{}]", count, flatten(sql));
+				}
 				statement.execute(sql);
 				sql = sqlReader.getSqlStatement(reader);
 			}
@@ -112,6 +116,14 @@ public class JdbcUtils {
 
 	public void setAutoCommit(boolean autoCommit) {
 		this.autoCommit = autoCommit;
+	}
+
+	public boolean isShowSql() {
+		return showSql;
+	}
+
+	public void setShowSql(boolean showSql) {
+		this.showSql = showSql;
 	}
 
 }
