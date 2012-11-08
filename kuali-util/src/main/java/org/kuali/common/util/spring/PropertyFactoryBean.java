@@ -1,7 +1,8 @@
-package org.kuali.common.util;
+package org.kuali.common.util.spring;
 
 import java.util.Properties;
 
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
 import org.springframework.beans.factory.FactoryBean;
 

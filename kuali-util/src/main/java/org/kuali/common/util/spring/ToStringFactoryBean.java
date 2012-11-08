@@ -1,5 +1,6 @@
-package org.kuali.common.util;
+package org.kuali.common.util.spring;
 
+import org.kuali.common.util.ResourceUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
