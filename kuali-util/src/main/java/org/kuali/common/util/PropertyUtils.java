@@ -174,6 +174,14 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Return the properties from <code>getEnvAsProperties()</code> and <code>System.getProperties()</code>. Properties from
+	 * <code>System.getProperties()</code> override properties from <code>getEnvAsProperties</code> if there are duplicates.
+	 */
+	public static final Properties getGlobalProperties() {
+		return getGlobalProperties(new Properties());
+	}
+
+	/**
 	 * Return a properties object containing the properties passed in, plus any properties returned by <code>getEnvAsProperties()</code> and
 	 * <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from <code>original</code>
 	 * and properties from <code>System.getProperties()</code> override everything.
