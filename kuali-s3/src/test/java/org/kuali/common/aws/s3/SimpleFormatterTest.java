@@ -23,6 +23,17 @@ public class SimpleFormatterTest {
 	SimpleFormatter formatter = new SimpleFormatter();
 
 	@Test
+	public void testNegativeNumbers() {
+		try {
+			int negative = Integer.MIN_VALUE;
+			System.out.println(formatter.getTime(negative));
+			System.out.println(formatter.getSize(negative));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void testDateFormatting() {
 		try {
 			Date now = new Date();
