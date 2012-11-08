@@ -13,11 +13,12 @@ public class ReadLinesFactoryBean implements FactoryBean<List<String>> {
 	@Override
 	public List<String> getObject() throws Exception {
 		Assert.notNull("Location is null", location);
-		return ResourceUtils.readLines(location);
+		return ResourceUtils.readLines(location, encoding);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
-	public Class<?> getObjectType() {
+	public Class<List> getObjectType() {
 		return List.class;
 	}
 
