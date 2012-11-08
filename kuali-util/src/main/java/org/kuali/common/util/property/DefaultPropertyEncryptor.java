@@ -20,6 +20,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 	List<String> propertiesToEncrypt;
 
 	String password;
+	boolean quiet;
 
 	@Override
 	public void decrypt(Properties properties) {
@@ -39,6 +40,9 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 			String existingValue = properties.getProperty(newKey);
 			if (!StringUtils.isBlank(existingValue)) {
 				logger.warn("Overwriting existing value for property [{}]", newKey);
+			}
+			if (!quiet) {
+				logger.info("Setting property " + newKey);
 			}
 			properties.setProperty(newKey, decryptedValue);
 		}
