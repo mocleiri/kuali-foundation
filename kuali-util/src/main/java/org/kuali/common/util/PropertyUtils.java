@@ -48,7 +48,7 @@ public class PropertyUtils {
 	}
 
 	public static final Properties getResolvedProperties(Properties props, String placeHolderPrefix, String placeHolderSuffix) {
-		Properties all = getOverriddenProperties(props);
+		Properties all = getGlobalProperties(props);
 		PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
 		List<String> keys = getSortedKeys(props);
 		Properties newProps = new Properties();
@@ -135,8 +135,8 @@ public class PropertyUtils {
 	}
 
 	public static final void store(PropertyStorageContext context, Properties properties) {
-		Properties finalProperties = handleProperties(context, properties);
-		Properties sortedProperties = (context.isSort()) ? getSortedProperties(finalProperties) : finalProperties;
+		Properties finalProperties = getProperties(context, properties);
+		Properties sortedProperties = context.isSort() ? getSortedProperties(finalProperties) : finalProperties;
 		storeProperties(context, sortedProperties);
 	}
 
@@ -172,7 +172,7 @@ public class PropertyUtils {
 	 * <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from <code>original</code>
 	 * and properties from <code>System.getProperties()</code> override everything.
 	 */
-	public static final Properties getOverriddenProperties(Properties original) {
+	public static final Properties getGlobalProperties(Properties original) {
 		Properties properties = new Properties();
 		properties.putAll(original);
 		properties.putAll(getEnvAsProperties());
@@ -199,7 +199,7 @@ public class PropertyUtils {
 		String suffix = context.getPlaceHolderSuffix();
 		Properties props = new Properties();
 		for (String location : context.getLocations()) {
-			Properties overriddenProperties = getOverriddenProperties(props);
+			Properties overriddenProperties = getGlobalProperties(props);
 			String resolvedLocation = getResolvedValue(location, overriddenProperties, prefix, suffix);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
@@ -218,10 +218,10 @@ public class PropertyUtils {
 	public static final Properties getProperties(PropertyLoadingContext context) {
 		// Load properties in from the specified locations
 		Properties props = load(context);
-		return handleProperties(context, props);
+		return getProperties(context, props);
 	}
 
-	public static final Properties handleProperties(PropertyHandlingContext context, Properties props) {
+	public static final Properties getProperties(PropertyHandlingContext context, Properties props) {
 
 		// Add in environment variables?
 		if (context.isIncludeEnvironmentVariables()) {
