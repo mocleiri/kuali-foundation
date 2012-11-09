@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 
 	@Override
 	protected List<String> getDecryptKeys(Properties properties) {
-		List<String> keys = super.getDecryptKeys(properties);
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		List<String> encryptedKeys = new ArrayList<String>();
 		for (String key : keys) {
 			if (!key.endsWith(encryptedSuffix)) {
@@ -36,9 +37,8 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 		String newKey = key.substring(beginIndex, endIndex);
 		String originalValue = properties.getProperty(newKey);
 		if (!StringUtils.isBlank(originalValue)) {
-			logger.warn("Overwriting existing property value '{}'", newKey);
-		}
-		if (!quiet) {
+			logger.warn("Overwriting existing property [{}]", newKey);
+		} else if (!quiet) {
 			logger.info("Setting property [{}]", newKey);
 		}
 		properties.setProperty(newKey, decryptedValue);
