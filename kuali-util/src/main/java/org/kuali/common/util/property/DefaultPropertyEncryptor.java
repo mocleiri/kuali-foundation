@@ -3,74 +3,60 @@ package org.kuali.common.util.property;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
-import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyEncryptor.class);
 
-	private static final String DEFAULT_ENCRYPTED_PROPERTY_SUFFIX = ".encrypted";
-
-	String encryptedSuffix = DEFAULT_ENCRYPTED_PROPERTY_SUFFIX;
-
-	String password;
-	boolean quiet;
+	TextEncryptor encryptor;
 
 	@Override
 	public void decrypt(Properties properties) {
-		BasicTextEncryptor encryptor = getBasicTextEncryptor();
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		List<String> keys = getEncryptKeys(properties);
 		for (String key : keys) {
-			if (!key.endsWith(encryptedSuffix)) {
-				continue;
-			}
 			String encryptedValue = properties.getProperty(key);
+			logger.debug("Decrypting [{}={}]", key, encryptedValue);
 			String decryptedValue = encryptor.decrypt(encryptedValue);
-			int beginIndex = 0;
-			int endIndex = key.length() - encryptedSuffix.length();
-			String newKey = key.substring(beginIndex, endIndex);
-			String existingValue = properties.getProperty(key);
-			if (!StringUtils.isBlank(existingValue)) {
-				logger.warn("Overwriting existing value for property [{}]", key);
-			} else if (!quiet) {
-				logger.info("Setting property [{}]", newKey);
-			}
-			properties.setProperty(newKey, decryptedValue);
+			setDecryptedProperty(properties, key, decryptedValue);
 		}
-	}
-
-	protected BasicTextEncryptor getBasicTextEncryptor() {
-		Assert.notNull("password is null", password);
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(password);
-		return encryptor;
 	}
 
 	@Override
 	public void encrypt(Properties properties) {
-		BasicTextEncryptor encryptor = getBasicTextEncryptor();
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		List<String> keys = getDecryptKeys(properties);
 		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);
+			logger.debug("Decrypting [{}={}]", key, decryptedValue);
 			String encryptedValue = encryptor.encrypt(decryptedValue);
-			properties.setProperty(key, encryptedValue);
+			setEncryptedProperty(properties, key, encryptedValue);
 		}
 	}
 
-	protected void setProperty(Properties properties, String key, String value) {
+	protected void setEncryptedProperty(Properties properties, String key, String encryptedValue) {
+		properties.setProperty(key, encryptedValue);
 	}
 
-	public String getPassword() {
-		return password;
+	protected void setDecryptedProperty(Properties properties, String key, String decryptedValue) {
+		properties.setProperty(key, decryptedValue);
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	protected List<String> getEncryptKeys(Properties properties) {
+		return PropertyUtils.getSortedKeys(properties);
 	}
 
+	protected List<String> getDecryptKeys(Properties properties) {
+		return PropertyUtils.getSortedKeys(properties);
+	}
+
+	public TextEncryptor getEncryptor() {
+		return encryptor;
+	}
+
+	public void setEncryptor(TextEncryptor encryptor) {
+		this.encryptor = encryptor;
+	}
 }
