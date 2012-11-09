@@ -203,47 +203,98 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               	<!-- General -->
                 <table cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">General <img src="../images/gointo.png" alt="go to panel" title="go to panel" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" /></td>
+                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">
+                    	<img id="control_tbody00" src="../images/tinybutton-hide.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none;">
+                        General <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" />
+                        <script>
+							$(document).ready(function () {
+								
+								$("#control_tbody00").toggle(
+									function()
+									{
+										$("#tbody00").slideUp(200);
+										$("#control_tbody00").attr("src","../images/tinybutton-show.gif");
+									},
+									function()
+									{
+										$("#tbody00").slideDown(400);
+										$("#control_tbody00").attr("src","../images/tinybutton-hide.gif");
+										$("#tbody00 tr").css("display","table");
+										$("#tbody00 tr").css("width","100%");
+									}
+									
+								);
+								
+							});
+						</script>
+                    </td>
                   </tr>
+                  <tbody id="tbody00" style="display:table; width:100%;">
                   <tr>
                     <th style="width:12%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Field Name</th>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 3: Some Descriptive Text (previous)</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 4: Some Informative Text (current)</td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Approval Date:</th>
-                    <td>09/23/2008</td>
-                    <td><span style="color:#FF0000;">09/25/2008</span></td>
+                    <th style="width:12%; text-align:right;">Approval Date:</th>
+                    <td style="width:44%;">09/23/2008</td>
+                    <td style="width:44%;"><span style="color:#FF0000;">09/25/2008</span></td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Type:</th>
-                    <td>Standard</td>
-                    <td><span style="color:#FF0000;">Unusual</span></td>
+                    <th style="width:12%; text-align:right;">Type:</th>
+                    <td style="width:44%;">Standard</td>
+                    <td style="width:44%;"><span style="color:#FF0000;">Unusual</span></td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Title:</th>
-                    <td>My title to make provision for the use of parts of bodies of deceased starfish for therapeutic purposes and for purposes of cosmic education and research.</td>
-                    <td>My <span style="color:#FF0000;">cool</span> title to make provision for the use of <span style="color:#FF0000; text-decoration:line-through;">parts of bodies of</span> deceased starfish for therapeutic purposes and for purposes of cosmic education and research.</td>
+                    <th style="width:12%; text-align:right;">Title:</th>
+                    <td style="width:44%;">My title to make provision for the use of parts of bodies of deceased starfish for therapeutic purposes and for purposes of cosmic education and research.</td>
+                    <td style="width:44%;">My <span style="color:#FF0000;">cool</span> title to make provision for the use of <span style="color:#FF0000; text-decoration:line-through;">parts of bodies of</span> deceased starfish for therapeutic purposes and for purposes of cosmic education and research.</td>
                   </tr>
+                  </tbody>
                 </table>
                 
                 <!-- Personnel -->
                 <table cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">Personnel <img src="../images/gointo.png" alt="go to panel" title="go to panel" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" /></td>
+                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">
+                    	<img id="control_tbody01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none;">
+                        Personnel (3) <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" />
+                        <script>
+							$(document).ready(function () {
+								
+								$("#control_tbody01").toggle(
+									function()
+									{
+										$("#tbody01").slideUp(200);
+										$("#control_tbody01").attr("src","../images/tinybutton-show.gif");
+									},
+									function()
+									{
+										$("#tbody01").slideDown(400);
+										$("#control_tbody01").attr("src","../images/tinybutton-hide.gif");
+										$("#tbody01 tr").css("display","table");
+										$("#tbody01 tr").css("width","100%");
+									}
+									
+								);
+								
+							});
+						</script>
+                    </td>
                   </tr>
+                  <tbody id="tbody01" style="display:table; width:100%;">
                   <tr>
                     <td style="width:12%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Action</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 3: Some Descriptive Text (previous)</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 4: Some Informative Text (current)</td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Deleted</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Deleted</th>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:65px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Name:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -251,7 +302,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Role:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -259,7 +310,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Affiliation:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -267,7 +318,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Unit(s):
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -278,17 +329,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                         
                     </td>
-                    <td>
+                    <td style="width:44%;">
                     	
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Changed</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Changed</th>
+                    <td style="width:44%;">
                     	
                     	<table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:65px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Name:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -296,7 +347,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Role:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -304,7 +355,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Affiliation:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -312,7 +363,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Unit(s):
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -323,11 +374,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                         
                     </td>
-                    <td>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:65px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Name:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -335,7 +386,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Role:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -343,7 +394,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Affiliation:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -351,7 +402,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Unit(s):
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -364,15 +415,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Added</th>
-                    <td style="color:#666;">
+                    <th style="width:12%; text-align:right;">Added</th>
+                    <td style="width:44%; color:#666;">
                     	
                     </td>
-                    <td>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:65px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Name:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -380,7 +431,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Role:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -388,7 +439,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Affiliation:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -396,7 +447,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:75px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Unit(s):
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -408,27 +459,30 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         
                     </td>
                   </tr>
+                  </tbody>
                 </table>
                 
                 <!-- Attachments -->
                 <table cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">
-                    	<img id="control_tbody01" src="../images/tinybutton-hide.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none;">
-                        Attachments (5) <img src="../images/gointo.png" alt="go to panel" title="go to panel" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" />
+                    	<img id="control_tbody02" src="../images/tinybutton-hide.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none;">
+                        Attachments (5) <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" />
                         <script>
 							$(document).ready(function () {
 								
-								$("#control_tbody01").toggle(
+								$("#control_tbody02").toggle(
 									function()
 									{
 										$("#tbody02").slideUp(200);
-										$("#control_tbody01").attr("src","../images/tinybutton-show.gif");
+										$("#control_tbody02").attr("src","../images/tinybutton-show.gif");
 									},
 									function()
 									{
 										$("#tbody02").slideDown(400);
-										$("#control_tbody01").attr("src","../images/tinybutton-hide.gif");
+										$("#control_tbody02").attr("src","../images/tinybutton-hide.gif");
+										$("#tbody02 tr").css("display","table");
+										$("#tbody02 tr").css("width","100%");
 									}
 									
 								);
@@ -437,28 +491,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						</script>
                     </td>
                   </tr>
-                  <tbody id="tbody02">
+                  <tbody id="tbody02" style="display:table; width:100%;">
                   <tr>
                     <td style="width:12%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Action</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 3: Some Descriptive Text (previous)</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 4: Some Informative Text (current)</td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Changed</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Changed</th>
+                    <td style="width:44%;">
                     	
                         
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Document:
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Attachment Type:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
                                     Informed Consent Document
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     File:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -466,7 +520,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modifier:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -474,7 +528,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Created Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -482,7 +536,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modified Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -490,7 +544,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Description:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -500,19 +554,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                         
                     </td>
-                    <td>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Document:
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Attachment Type:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
                                     Informed Consent Document
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     File:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -520,7 +574,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modifier:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -528,7 +582,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Created Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -536,7 +590,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modified Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -544,7 +598,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Description:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -556,20 +610,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Deleted</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Deleted</th>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Document:
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Attachment Type:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
                                     HIPAA Research Authorization Form
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     File:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -577,7 +631,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modifier:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -585,7 +639,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Created Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -593,7 +647,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modified Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -601,7 +655,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Description:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
@@ -611,28 +665,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                         
                     </td>
-                    <td>
+                    <td style="width:44%;">
                     	
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Added</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Added</th>
+                    <td style="width:44%;">
                     	
                     </td>
-                    <td style="color:#F00;">
+                    <td style="width:44%; color:#F00;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Document:
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Attachment Type:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
                                     Protocol Narrative
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     File:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -640,7 +694,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modifier:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -648,7 +702,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Created Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -656,7 +710,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modified Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -664,7 +718,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Description:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -676,23 +730,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Added</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Added</th>
+                    <td style="width:44%;">
                     	
                     </td>
-                    <td style="color:#F00;">
+                    <td style="width:44%; color:#F00;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Document:
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Attachment Type:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
                                     Personnel: HUNTLEY, KEISHA Y, Biography
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     File:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -700,7 +754,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modifier:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -708,7 +762,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Created Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -716,7 +770,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modified Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -724,7 +778,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Description:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -736,23 +790,23 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Added</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Added</th>
+                    <td style="width:44%;">
                     	
                     </td>
-                    <td style="color:#F00;">
+                    <td style="width:44%; color:#F00;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Document:
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Attachment Type:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
                                     Personnel: HUNTLEY, KEISHA Y, Other
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     File:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -760,7 +814,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modifier:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -768,7 +822,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Created Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -776,7 +830,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Last Modified Date:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -784,7 +838,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                <td style="width:115px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
                                     Description:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
@@ -801,19 +855,44 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <!-- Questionnaire -->
                 <table cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">Questionnaire <img src="../images/gointo.png" alt="go to panel" title="go to panel" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" /></td>
+                    <td style="background-color:#C3C3C3; font-weight:bold;" colspan="3">
+                    	<img id="control_tbody03" src="../images/tinybutton-hide.gif" alt="show/hide this panel" style="width:45px; height:15px; border:none;">
+                        Questionnaire (3) <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to the appropriate related view.'); return false;" />
+                        <script>
+							$(document).ready(function () {
+								
+								$("#control_tbody03").toggle(
+									function()
+									{
+										$("#tbody03").slideUp(200);
+										$("#control_tbody03").attr("src","../images/tinybutton-show.gif");
+									},
+									function()
+									{
+										$("#tbody03").slideDown(400);
+										$("#control_tbody03").attr("src","../images/tinybutton-hide.gif");
+										$("#tbody03 tr").css("display","table");
+										$("#tbody03 tr").css("width","100%");
+									}
+									
+								);
+								
+							});
+						</script>
+                    </td>
                   </tr>
+                  <tbody id="tbody03" style="display:table; width:100%;">
                   <tr>
                     <td style="width:12%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Action</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 3: Some Descriptive Text (previous)</td>
                     <td style="width:44%; font-weight:bold; text-align:center; color:#333333;" class="infoline fineprint">Version 4: Some Informative Text (current)</td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">New</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">New</th>
+                    <td style="width:44%;">
                     	
                     </td>
-                    <td>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
@@ -825,19 +904,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Meta Datapoint 1:
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Protocol Version:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
-                                    xxx
+                                    1
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Meta Datapoint 2:
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Answer Version:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
-                                    yyy
+                                    1
                                 </td>
                             </tr>
                         </table>
@@ -845,8 +924,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;">Removed</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Removed</th>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
@@ -860,13 +939,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                         </table>
                         
                     </td>
-                    <td>
+                    <td style="width:44%;">
                         
                     </td>
                   </tr>
                   <tr>
-                    <th style="text-align:right;" rowspan="3">Updated</th>
-                    <td>
+                    <th style="width:12%; text-align:right;">Updated</th>
+                    <td style="width:44%;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
@@ -878,17 +957,106 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Meta Datapoint 2:
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Questionnaire Version:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none;">
-                                    zzz
+                                    4
+                                </td>
+                            </tr>
+                            <!--<tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Answer Version:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    1
+                                </td>
+                            </tr>-->
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Question:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    <ul style="max-height:150px; overflow:auto; margin-top:0px; border:1px solid #999; background-color:#F3F3F3;">
+                                        <li>
+                                            Confirm live vertebrates will be used in this protocol?
+                                            <ul>
+                                                <li>
+                                                    <span class="myanswer">[Yes]</span> Will you be using whole dead animals which are regulated by USDA?
+                                                    <ul>
+                                                        <li>
+                                                            <span class="myanswer">[Yes]</span> Which of the following describes the types of animal use proposed in this protocol?
+                                                            
+                                                            <ul>
+                                                                <li class="closed">
+                                                                    <span class="myanswer">[Research]</span> What type of research?
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            [basic] Tell me more about your "basic" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            <span class="myanswer">[advanced]</span> Tell me more about your "advanced" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            Have you ever done this type of research before?
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                                
+                                                                <li>
+                                                                    <span class="myanswer">[Other]</span> Explain the type of animal use proposed in this protocol.
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                                                            <span class="myanswer">[Endangered Species]</span> Have the proper local authorities been notified.
+                                                                        </li>
+                                                                        <li>
+                                                                            [Endangered Species] Explain the protections being used to ensure survivability of the animals.
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                            </ul>
+                                                            
+                                                        </li>
+                                                    </ul>
+                                                    
+                                                </li>
+                                            </ul>
+                                            
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Question:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    <ul style="max-height:150px; overflow:auto; margin-top:0px; border:1px solid #999; background-color:#F3F3F3;">
+                                        <li>
+                                            What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                            
+                                            <ul>
+                                                <li>
+                                                    <span class="myanswer">[>12]</span> What is the location?
+                                                </li>
+                                                <li>
+                                                    <span class="myanswer">[>12]</span> What is the scientific justification?
+                                                </li>
+                                            </ul>
+                                            
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                         </table>
                         
                     </td>
-                    <td>
+                    <td style="width:44%; vertical-align:top;">
                     	
                         <table style="border:none; background:none;" cellpadding="0" cellspacing="0">
                             <tr>
@@ -900,163 +1068,107 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
-                                    Meta Datapoint 2:
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Questionnaire Version:
                                 </td>
                                 <td style="border:none; vertical-align:top; background:none; color:#F00;">
-                                    aaa
+                                    5
+                                </td>
+                            </tr>
+                            <!--<tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Answer Version:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none; color:#F00;">
+                                    2
+                                </td>
+                            </tr>-->
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Question:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    <ul style="max-height:150px; overflow:auto; margin-top:0px; border:1px solid #999; background-color:#F3F3F3;">
+                                        <li>
+                                            Confirm live vertebrates will be used in this protocol?
+                                            <ul>
+                                                <li>
+                                                    <span class="myanswer">[Yes]</span> Will you be using whole dead animals which are regulated by USDA?
+                                                    <ul>
+                                                        <li>
+                                                            <span class="myanswer">[Yes]</span> Which of the following describes the types of <span style="color:#F00; text-decoration:line-through;">animal</span> <span style="color:#F00;">vertabrates</span> use proposed in this protocol?
+                                                            
+                                                            <ul>
+                                                                <li class="closed">
+                                                                    <span class="myanswer">[Research]</span> What type of research?
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            [basic] Tell me more about your "basic" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            <span class="myanswer">[advanced]</span> Tell me more about your "advanced" research.
+                                                                        </li>
+                                                                        <li>
+                                                                            Have you ever done this type of research before?
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                                
+                                                                <li>
+                                                                    <span class="myanswer">[Other]</span> Explain the type of animal use proposed in this protocol.
+                                                                    
+                                                                    <ul>
+                                                                        <li>
+                                                                            <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
+                                                                            <span class="myanswer">[Endangered Species]</span> Have the proper local authorities been notified.
+                                                                        </li>
+                                                                        <li>
+                                                                            [Endangered Species] Explain the protections being used to ensure survivability of the animals.
+                                                                        </li>
+                                                                    </ul>
+                                                                    
+                                                                </li>
+                                                            </ul>
+                                                            
+                                                        </li>
+                                                    </ul>
+                                                    
+                                                </li>
+                                            </ul>
+                                            
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100px; border:none; background:none; text-align:right; vertical-align:top; font-weight:bold;" class="fineprint">
+                                    Question:
+                                </td>
+                                <td style="border:none; vertical-align:top; background:none;">
+                                    <ul style="max-height:150px; overflow:auto; margin-top:0px; border:1px solid #999; background-color:#F3F3F3;">
+                                        <li>
+                                            What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
+                                            
+                                            <ul>
+                                                <li>
+                                                    <span class="myanswerchanged">[>12]</span> What is the location?
+                                                </li>
+                                                <li>
+                                                    <span class="myanswer">[>12]</span> What is the scientific justification?
+                                                </li>
+                                            </ul>
+                                            
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                         </table>
                         
                     </td>
                   </tr>
-                  <tr>
-                  	<td>
-                    	<ul style="max-height:150px; overflow:auto;">
-                            <li>
-                                Confirm live vertebrates will be used in this protocol?
-                                <ul>
-                                    <li>
-                                        [Yes] Will you be using whole dead animals which are regulated by USDA?
-                                        <ul>
-                                            <li>
-                                                [Yes] Which of the following describes the types of animal use proposed in this protocol?
-                                                
-                                                <ul>
-                                                    <li class="closed">
-                                                        [Research] What type of research?
-                                                        
-                                                        <ul>
-                                                            <li>
-                                                                [basic] Tell me more about your "basic" research.
-                                                            </li>
-                                                            <li>
-                                                                [advanced] Tell me more about your "advanced" research.
-                                                            </li>
-                                                            <li>
-                                                                Have you ever done this type of research before?
-                                                            </li>
-                                                        </ul>
-                                                        
-                                                    </li>
-                                                    
-                                                    <li>
-                                                        [Other] Explain the type of animal use proposed in this protocol.
-                                                        
-                                                        <ul>
-                                                            <li>
-                                                                <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
-                                                                [Endangered Species] Have the proper local authorities been notified.
-                                                            </li>
-                                                            <li>
-                                                                [Endangered Species] Explain the protections being used to ensure survivability of the animals.
-                                                            </li>
-                                                        </ul>
-                                                        
-                                                    </li>
-                                                </ul>
-                                                
-                                            </li>
-                                        </ul>
-                                        
-                                    </li>
-                                </ul>
-                                
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                    	<ul style="max-height:150px; overflow:auto;">
-                            <li>
-                                Confirm live vertebrates will be used in this protocol?
-                                <ul>
-                                    <li>
-                                        [Yes] Will you be using whole dead animals which are regulated by USDA?
-                                        <ul>
-                                            <li>
-                                                [Yes] Which of the following describes the types of <span style="color:#F00; text-decoration:line-through;">animal</span> <span style="color:#F00;">vertabrates</span> use proposed in this protocol?
-                                                
-                                                <ul>
-                                                    <li class="closed">
-                                                        [Research] What type of research?
-                                                        
-                                                        <ul>
-                                                            <li>
-                                                                [basic] Tell me more about your "basic" research.
-                                                            </li>
-                                                            <li>
-                                                                [advanced] Tell me more about your "advanced" research.
-                                                            </li>
-                                                            <li>
-                                                                Have you ever done this type of research before?
-                                                            </li>
-                                                        </ul>
-                                                        
-                                                    </li>
-                                                    
-                                                    <li>
-                                                        [Other] Explain the type of animal use proposed in this protocol.
-                                                        
-                                                        <ul>
-                                                            <li>
-                                                                <!--&nbsp;<img src="../images/newpage.png" width="16" height="16" style="border:none;" title="Page Start">-->
-                                                                [Endangered Species] Have the proper local authorities been notified.
-                                                            </li>
-                                                            <li>
-                                                                [Endangered Species] Explain the protections being used to ensure survivability of the animals.
-                                                            </li>
-                                                        </ul>
-                                                        
-                                                    </li>
-                                                </ul>
-                                                
-                                            </li>
-                                        </ul>
-                                        
-                                    </li>
-                                </ul>
-                                
-                            </li>
-                        </ul>
-                    </td>
-                  </tr>
-                  <tr>
-                  	<td>
-                    	<ul style="max-height:150px; overflow:auto;">
-                            <li>
-                                What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
-                                
-                                <ul>
-                                    <li>
-                                        [>12] What is the location?
-                                    </li>
-                                    <li>
-                                        [>12] What is the scientific justification?
-                                    </li>
-                                </ul>
-                                
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                    	<ul style="max-height:150px; overflow:auto;">
-                            <li>
-                                What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?
-                                
-                                <ul>
-                                    <li>
-                                        [>12] What is the location?
-                                    </li>
-                                    <li>
-                                        [>12] What is the scientific justification?
-                                    </li>
-                                </ul>
-                                
-                            </li>
-                        </ul>
-                    </td>
-                  </tr>
+                  </tbody>
                 </table>
                 
               </div>

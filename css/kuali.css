@@ -277,6 +277,9 @@ table.grid {
 	border-right-color: #999999;
 	width: 98%;
 }
+#workarea table.fixtablewidth {
+	width: 100%;
+}
 #workarea caption {
 	font-weight: bold;
 	color: #FFFFFF;
@@ -876,3 +879,17 @@ td.infolineblue {
 .comparea {
 	color:#666666;
 }
+
+.myanswer
+{
+	background-color:#DFDFDF;
+	font-weight:bold;
+}
+
+.myanswerchanged
+{
+	background-color:#FFC;
+	font-weight:bold;
+	color:#F00;
+}
+
