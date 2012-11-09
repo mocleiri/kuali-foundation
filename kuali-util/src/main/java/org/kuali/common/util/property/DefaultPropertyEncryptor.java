@@ -23,9 +23,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
 	@Override
 	public void decrypt(Properties properties) {
-		Assert.notNull("Password is null", password);
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(password);
+		BasicTextEncryptor encryptor = getBasicTextEncryptor();
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			if (!key.endsWith(encryptedSuffix)) {
@@ -36,33 +34,35 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 			int beginIndex = 0;
 			int endIndex = key.length() - encryptedSuffix.length();
 			String newKey = key.substring(beginIndex, endIndex);
-			setProperty(properties, newKey, decryptedValue);
-			if (!quiet) {
+			String existingValue = properties.getProperty(key);
+			if (!StringUtils.isBlank(existingValue)) {
+				logger.warn("Overwriting existing value for property [{}]", key);
+			} else if (!quiet) {
 				logger.info("Setting property [{}]", newKey);
 			}
+			properties.setProperty(newKey, decryptedValue);
 		}
+	}
+
+	protected BasicTextEncryptor getBasicTextEncryptor() {
+		Assert.notNull("password is null", password);
+		BasicTextEncryptor encryptor = new BasicTextEncryptor();
+		encryptor.setPassword(password);
+		return encryptor;
 	}
 
 	@Override
 	public void encrypt(Properties properties) {
-		Assert.notNull("Password is null", password);
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(password);
+		BasicTextEncryptor encryptor = getBasicTextEncryptor();
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);
 			String encryptedValue = encryptor.encrypt(decryptedValue);
-			String newKey = key + encryptedSuffix;
-			setProperty(properties, newKey, encryptedValue);
+			properties.setProperty(key, encryptedValue);
 		}
 	}
 
 	protected void setProperty(Properties properties, String key, String value) {
-		String existingValue = properties.getProperty(key);
-		if (!StringUtils.isBlank(existingValue)) {
-			logger.warn("Overwriting existing value for property [{}]", key);
-		}
-		properties.setProperty(key, value);
 	}
 
 	public String getPassword() {
