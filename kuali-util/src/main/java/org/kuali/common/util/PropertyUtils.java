@@ -253,14 +253,6 @@ public class PropertyUtils {
 			props = getResolvedProperties(props, context.getPlaceHolderPrefix(), context.getPlaceHolderSuffix());
 		}
 
-		if (context.isDecrypt()) {
-			context.getEncryptor().decrypt(props);
-		}
-
-		if (context.isEncrypt()) {
-			context.getEncryptor().encrypt(props);
-		}
-
 		// Trim out unwanted properties
 		trim(props, context.getInclude(), context.getExclude());
 

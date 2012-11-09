@@ -14,9 +14,6 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	String placeHolderSuffix = PropertyUtils.DEFAULT_PLACEHOLDER_SUFFIX;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
-	PropertyEncryptor encryptor;
-	boolean encrypt;
-	boolean decrypt;
 
 	@Override
 	public String getEncoding() {
@@ -106,33 +103,6 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 
 	public void setStyle(PropertyStyle style) {
 		this.style = style;
-	}
-
-	@Override
-	public PropertyEncryptor getEncryptor() {
-		return encryptor;
-	}
-
-	public void setEncryptor(PropertyEncryptor encryptor) {
-		this.encryptor = encryptor;
-	}
-
-	@Override
-    public boolean isEncrypt() {
-		return encrypt;
-	}
-
-	public void setEncrypt(boolean encrypt) {
-		this.encrypt = encrypt;
-	}
-
-	@Override
-    public boolean isDecrypt() {
-		return decrypt;
-	}
-
-	public void setDecrypt(boolean decrypt) {
-		this.decrypt = decrypt;
 	}
 
 }
