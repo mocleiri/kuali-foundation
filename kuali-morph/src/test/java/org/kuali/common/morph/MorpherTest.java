@@ -1,6 +1,8 @@
 package org.kuali.common.morph;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
@@ -33,6 +35,11 @@ public class MorpherTest {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<Table> getTables(List<File> files) {
+		List<Table> tables = new ArrayList<Table>();
+		return tables;
 	}
 
 }
