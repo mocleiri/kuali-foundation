@@ -1,6 +1,6 @@
 package org.kuali.common.util.property;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,13 +20,13 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 	@Override
 	protected List<String> getDecryptKeys(Properties properties) {
 		List<String> keys = super.getDecryptKeys(properties);
-		Iterator<String> itr = keys.iterator();
+		List<String> encryptedKeys = new ArrayList<String>();
 		for (String key : keys) {
 			if (!key.endsWith(encryptedSuffix)) {
-				itr.remove();
+				encryptedKeys.add(key);
 			}
 		}
-		return keys;
+		return encryptedKeys;
 	}
 
 	@Override
@@ -50,6 +50,14 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 
 	public void setEncryptedSuffix(String encryptedSuffix) {
 		this.encryptedSuffix = encryptedSuffix;
+	}
+
+	public boolean isQuiet() {
+		return quiet;
+	}
+
+	public void setQuiet(boolean quiet) {
+		this.quiet = quiet;
 	}
 
 }
