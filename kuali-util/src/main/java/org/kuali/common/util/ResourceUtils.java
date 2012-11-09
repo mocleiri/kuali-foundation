@@ -34,18 +34,18 @@ public class ResourceUtils {
 	public static final boolean delete(String location, boolean quietly) {
 		if (!quietly) {
 			Assert.isTrue(exists(location), location + " does not exist");
-			Assert.isTrue(isFile(location), location + " is not an existing file");
+			Assert.isTrue(isFile(location), location + " exists, but is not a file");
 		}
 		File file = new File(location);
 		boolean deleted = file.delete();
-		boolean throwException = !deleted && !quietly;
-		if (throwException) {
+		if (deleted) {
+			return true;
+		} else if (quietly) {
+			logger.warn("Could not delete [{}]", location);
+			return false;
+		} else {
 			throw new IllegalStateException("Could not delete " + location);
 		}
-		if (!deleted) {
-			logger.warn("Could not delete [{}]", location);
-		}
-		return deleted;
 	}
 
 	public static final String toString(ToStringContext context) {
