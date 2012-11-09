@@ -1,0 +1,23 @@
+<project>
+	  <build>
+	    <plugins>
+	      <plugin>
+	        <artifactId>${project.artifactId}</artifactId>
+        <configuration>
+          <namespace>OLE</namespace>
+          <jdbcUrl>jdbc:mysql://localhost/OLELOCAL</jdbcUrl>
+          <jdbcUsername>OLELOCAL</jdbcUsername>
+          <jdbcPassword>OLELOCAL</jdbcPassword>
+          <jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.19</version>
+          </dependency>
+        </dependencies>
+		</plugin>
+	</plugins>
+	</build>
+</project>
