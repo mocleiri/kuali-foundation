@@ -33,7 +33,8 @@ public class ResourceUtils {
 
 	public static final boolean delete(String location, boolean quietly) {
 		if (!quietly) {
-			validateDeleteability(location);
+			Assert.isTrue(exists(location), location + " does not exist");
+			Assert.isTrue(isFile(location), location + " is not an existing file");
 		}
 		File file = new File(location);
 		boolean deleted = file.delete();
@@ -48,20 +49,12 @@ public class ResourceUtils {
 	}
 
 	public static final String toString(ToStringContext context) {
-		Assert.notNull("location is null", context.getLocation());
+		Assert.notNull(context.getLocation());
 		String s = ResourceUtils.toString(context.getLocation(), context.getEncoding());
 		if (context.isDelete()) {
 			ResourceUtils.delete(context.getLocation(), context.isDeleteQuietly());
 		}
 		return context.isTrim() ? s.trim() : s;
-	}
-
-	protected static final void validateDeleteability(String location) {
-		if (!exists(location)) {
-			throw new IllegalStateException(location + " does not exist");
-		} else if (!isFile(location)) {
-			throw new IllegalStateException(location + " is not a file");
-		}
 	}
 
 	public static final String toString(String location) {
