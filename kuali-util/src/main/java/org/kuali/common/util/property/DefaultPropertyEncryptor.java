@@ -16,7 +16,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
 	@Override
 	public void decrypt(Properties properties) {
-		List<String> keys = getEncryptKeys(properties);
+		List<String> keys = getDecryptKeys(properties);
 		for (String key : keys) {
 			String encryptedValue = properties.getProperty(key);
 			logger.debug("Decrypting [{}={}]", key, encryptedValue);
@@ -27,7 +27,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
 	@Override
 	public void encrypt(Properties properties) {
-		List<String> keys = getDecryptKeys(properties);
+		List<String> keys = getEncryptKeys(properties);
 		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);
 			logger.debug("Decrypting [{}={}]", key, decryptedValue);
