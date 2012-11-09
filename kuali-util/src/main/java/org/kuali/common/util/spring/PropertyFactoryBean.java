@@ -8,9 +8,14 @@ import org.springframework.beans.factory.FactoryBean;
 
 public class PropertyFactoryBean extends DefaultPropertyLoadingContext implements FactoryBean<Properties> {
 
+	private Properties factoryBeanProperties;
+
 	@Override
-	public Properties getObject() throws Exception {
-		return PropertyUtils.getProperties(this);
+	public synchronized Properties getObject() throws Exception {
+		if (factoryBeanProperties == null) {
+			factoryBeanProperties = PropertyUtils.getProperties(this);
+		}
+		return factoryBeanProperties;
 	}
 
 	@Override
@@ -20,6 +25,6 @@ public class PropertyFactoryBean extends DefaultPropertyLoadingContext implement
 
 	@Override
 	public boolean isSingleton() {
-		return false;
+		return true;
 	}
 }
