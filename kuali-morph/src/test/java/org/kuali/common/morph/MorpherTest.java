@@ -1,12 +1,11 @@
 package org.kuali.common.morph;
 
-import java.util.List;
+import java.io.File;
 import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +24,11 @@ public class MorpherTest {
 	public void test() {
 		try {
 			Assert.assertNotNull("properties is null.", properties);
-			List<String> keys = PropertyUtils.getSortedKeys(properties);
-			for (String key : keys) {
-				String value = properties.getProperty(key);
-				logger.info(key + "=" + value);
+			File dir = new File(properties.getProperty("clover.data.dir"));
+			logger.info(dir.exists() + "");
+			File[] files = dir.listFiles();
+			for (File file : files) {
+				logger.info(file.getCanonicalPath());
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
