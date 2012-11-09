@@ -30,55 +30,73 @@ import org.apache.torque.mojo.morph.SchemaMorpher;
  */
 public class MorphSchemaMojo extends AbstractMorphSingleMojo {
 
-    /**
-     * The XML file describing the database schema (Maven style)
-     *
-     * @parameter expression="${newSchemaXMLFile}" default-value=
-     *            "${project.build.directory}/generated-impex/${project.artifactId}.xml"
-     * @required
-     */
-    private File newSchemaXMLFile;
+	/**
+	 * The XML file describing the database schema (Maven style)
+	 *
+	 * @parameter expression="${impex.antSchemaName}" default-value= "kfs"
+	 * @required
+	 */
+	private String antSchemaName;
 
-    /**
-     * The XML file describing the database schema (Ant style)
-     *
-     * @parameter expression="${oldSchemaXMLFile}" default-value="${basedir}/src/main/impex/schema.xml"
-     * @required
-     */
-    private File oldSchemaXMLFile;
+	/**
+	 * The XML file describing the database schema (Maven style)
+	 *
+	 * @parameter expression="${newSchemaXMLFile}" default-value= "${project.build.directory}/generated-impex/${project.artifactId}.xml"
+	 * @required
+	 */
+	private File newSchemaXMLFile;
 
-    @Override
-    protected void beforeExecution() {
-        setNewFile(newSchemaXMLFile);
-        setOldFile(oldSchemaXMLFile);
-    }
+	/**
+	 * The XML file describing the database schema (Ant style)
+	 *
+	 * @parameter expression="${oldSchemaXMLFile}" default-value="${basedir}/src/main/impex/schema.xml"
+	 * @required
+	 */
+	private File oldSchemaXMLFile;
 
-    @Override
-    protected void executeMojo() throws MojoExecutionException {
-        getLog().info("------------------------------------------------------------------------");
-        getLog().info("Converting schema XML file");
-        getLog().info("------------------------------------------------------------------------");
-        super.executeMojo();
-    }
+	@Override
+	protected void beforeExecution() {
+		setNewFile(newSchemaXMLFile);
+		setOldFile(oldSchemaXMLFile);
+	}
 
-    @Override
-    protected Morpher getMorpher(final MorphRequest request, final String artifactId) {
-        return new SchemaMorpher(request, artifactId);
-    }
+	@Override
+	protected void executeMojo() throws MojoExecutionException {
+		getLog().info("------------------------------------------------------------------------");
+		getLog().info("Converting schema XML file");
+		getLog().info("------------------------------------------------------------------------");
+		super.executeMojo();
+	}
 
-    public File getNewSchemaXMLFile() {
-        return newSchemaXMLFile;
-    }
+	@Override
+	protected Morpher getMorpher(final MorphRequest request, final String artifactId) {
+		SchemaMorpher morpher = new SchemaMorpher(request, artifactId);
+		morpher.setAntSchemaName(antSchemaName);
+		morpher.setAntSchemaToken("name=\"" + antSchemaName + "\"");
+		return morpher;
+	}
 
-    public void setNewSchemaXMLFile(final File newSchemaXMLFile) {
-        this.newSchemaXMLFile = newSchemaXMLFile;
-    }
+	public File getNewSchemaXMLFile() {
+		return newSchemaXMLFile;
+	}
 
-    public File getOldSchemaXMLFile() {
-        return oldSchemaXMLFile;
-    }
+	public void setNewSchemaXMLFile(final File newSchemaXMLFile) {
+		this.newSchemaXMLFile = newSchemaXMLFile;
+	}
 
-    public void setOldSchemaXMLFile(final File oldSchemaXMLFile) {
-        this.oldSchemaXMLFile = oldSchemaXMLFile;
-    }
+	public File getOldSchemaXMLFile() {
+		return oldSchemaXMLFile;
+	}
+
+	public void setOldSchemaXMLFile(final File oldSchemaXMLFile) {
+		this.oldSchemaXMLFile = oldSchemaXMLFile;
+	}
+
+	public String getAntSchemaName() {
+		return antSchemaName;
+	}
+
+	public void setAntSchemaName(String antSchemaName) {
+		this.antSchemaName = antSchemaName;
+	}
 }
