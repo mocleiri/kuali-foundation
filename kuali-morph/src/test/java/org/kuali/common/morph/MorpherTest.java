@@ -1,4 +1,4 @@
-package org.kuali.common.util;
+package org.kuali.common.morph;
 
 import java.util.List;
 import java.util.Properties;

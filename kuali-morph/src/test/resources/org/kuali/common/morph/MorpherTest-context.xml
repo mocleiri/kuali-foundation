@@ -7,11 +7,10 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:singleton="true" p:encoding="${project.build.sourceEncoding}" p:exclude="car.color">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:singleton="true">
     <property name="locations">
       <list>
-        <value>classpath:org/kuali/common/util/car.properties</value>
-        <value>classpath:org/kuali/common/util/${car.brand}.properties</value>
+        <value>classpath:org/kuali/common/morph/morph.properties</value>
       </list>
     </property>
   </bean>
