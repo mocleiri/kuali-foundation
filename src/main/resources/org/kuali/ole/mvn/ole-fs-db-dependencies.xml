@@ -78,6 +78,7 @@
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-impex</artifactId>
                     <version>${deploy.version}</version>
+                    <classifier>sql</classifier>
                     <outputDirectory>${impex.unpack.dir}</outputDirectory>
                   </artifactItem>
                   <!--
