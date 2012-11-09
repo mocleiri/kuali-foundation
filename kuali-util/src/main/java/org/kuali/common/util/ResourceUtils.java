@@ -15,11 +15,42 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class ResourceUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
+
+	public static final boolean deleteQuietly(String location) {
+		return delete(location, true);
+	}
+
+	public static final boolean delete(String location, boolean quiet) {
+		if (!quiet) {
+			validateDeleteability(location);
+		}
+		File file = new File(location);
+		boolean deleted = file.delete();
+		boolean throwException = !deleted && !quiet;
+		if (throwException) {
+			throw new IllegalStateException("Could not delete " + location);
+		} else {
+			logger.warn("Could not delete [{}]", location);
+			return deleted;
+		}
+	}
+
+	protected static final void validateDeleteability(String location) {
+		if (!exists(location)) {
+			throw new IllegalStateException(location + " does not exist");
+		} else if (!isFile(location)) {
+			throw new IllegalStateException(location + " is not a file");
+		}
+	}
 
 	public static final String toString(String location) {
 		return toString(location, null);
