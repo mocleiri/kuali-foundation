@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:singleton="true">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:singleton="true" p:resolvePlaceholders="true">
     <property name="locations">
       <list>
         <value>classpath:org/kuali/common/morph/morph.properties</value>

@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class MorpherTest {
-
 	private static final Logger logger = LoggerFactory.getLogger(MorpherTest.class);
 
 	@Autowired
