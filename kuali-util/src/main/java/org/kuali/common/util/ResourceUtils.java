@@ -15,11 +15,13 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.spring.ToStringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.Assert;
 
 public class ResourceUtils {
 
@@ -29,19 +31,29 @@ public class ResourceUtils {
 		return delete(location, true);
 	}
 
-	public static final boolean delete(String location, boolean quiet) {
-		if (!quiet) {
+	public static final boolean delete(String location, boolean quietly) {
+		if (!quietly) {
 			validateDeleteability(location);
 		}
 		File file = new File(location);
 		boolean deleted = file.delete();
-		boolean throwException = !deleted && !quiet;
+		boolean throwException = !deleted && !quietly;
 		if (throwException) {
 			throw new IllegalStateException("Could not delete " + location);
-		} else {
-			logger.warn("Could not delete [{}]", location);
-			return deleted;
 		}
+		if (!deleted) {
+			logger.warn("Could not delete [{}]", location);
+		}
+		return deleted;
+	}
+
+	public static final String toString(ToStringContext context) {
+		Assert.notNull("location is null", context.getLocation());
+		String s = ResourceUtils.toString(context.getLocation(), context.getEncoding());
+		if (context.isDelete()) {
+			ResourceUtils.delete(context.getLocation(), context.isDeleteQuietly());
+		}
+		return context.isTrim() ? s.trim() : s;
 	}
 
 	protected static final void validateDeleteability(String location) {
