@@ -22,7 +22,6 @@ public class ToStringFactoryBeanTest {
 	@Test
 	public void test() {
 		try {
-			logger.info("Testing " + ToStringFactoryBean.class);
 			Assert.assertNotNull("password is null.", password);
 			logger.info(Str.flatten(password, "CR", "LF"));
 		} catch (Throwable e) {
