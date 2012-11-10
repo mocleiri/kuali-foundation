@@ -74,8 +74,8 @@ public class SqlExecutorTest {
 			schemaProps.putAll(PropertyUtils.getProperties("classpath:org/kuali/common/jdbc/schema.properties"));
 			schemaProps.setProperty("sql.schema", schema);
 			schemaProps = PropertyUtils.getResolvedProperties(schemaProps);
-			String schemaLocation = schemaProps.getProperty("sql.schema");
-			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.constraints");
+			String schemaLocation = schemaProps.getProperty("sql.schema.location");
+			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.constraints.location");
 			schemaLocs.add(schemaLocation);
 			constraintLocs.add(schemaConstraintsLocation);
 		}
