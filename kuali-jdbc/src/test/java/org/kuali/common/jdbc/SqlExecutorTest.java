@@ -75,7 +75,7 @@ public class SqlExecutorTest {
 			schemaProps.setProperty("sql.schema", schema);
 			schemaProps = PropertyUtils.getResolvedProperties(schemaProps);
 			String schemaLocation = schemaProps.getProperty("sql.schema.location");
-			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.constraints.location");
+			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.location.constraints");
 			schemaLocs.add(schemaLocation);
 			constraintLocs.add(schemaConstraintsLocation);
 		}
