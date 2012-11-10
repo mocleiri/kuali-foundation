@@ -208,9 +208,9 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		File dataDir = new File(sourceDir + "/data");
 		File[] files = dataDir.listFiles();
 		if (files == null) {
-			getLog().info("Located 0 Clover ETL files");
+			getLog().info("Converting 0 Clover ETL data files");
 		} else {
-			getLog().info("Located " + files.length + " Clover ETL files");
+			getLog().info("Converting " + files.length + " Clover ETL data files");
 			Arrays.sort(files);
 			for (File file : files) {
 				convertFile(file);
