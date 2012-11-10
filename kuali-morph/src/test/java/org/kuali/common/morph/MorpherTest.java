@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class MorpherTest {
 	@Test
 	public void test() {
 		try {
+			String outputDir = properties.getProperty("output.dir");
 			long start = System.currentTimeMillis();
 			Assert.assertNotNull("properties is null.", properties);
 			File dir = new File(properties.getProperty("clover.data.dir"));
@@ -39,6 +41,10 @@ public class MorpherTest {
 			for (Table table : tables) {
 				logger.info(table.getName() + " columns:" + table.getColumns().size() + " rows:" + table.getRows().size());
 				rows += table.getRows().size();
+				String xml = getXml(table);
+				File xmlFile = new File(outputDir + "/" + table.getName() + ".xml");
+				logger.info(xmlFile.getAbsolutePath());
+				FileUtils.writeStringToFile(xmlFile, xml);
 			}
 			logger.info("Total Rows: " + rows);
 			long elapsed = System.currentTimeMillis() - start;
@@ -48,8 +54,37 @@ public class MorpherTest {
 		}
 	}
 
+	protected String getXml(Table table) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+		sb.append("<!DOCTYPE dataset SYSTEM \"data.dtd\">\n");
+		sb.append("<dataset>\n");
+		List<String[]> rows = table.getRows();
+		List<String> columns = table.getColumns();
+		for (int i = 0; i < rows.size(); i++) {
+			int lineLength = 5 + table.getName().length();
+			sb.append("    <" + table.getName());
+			String[] row = rows.get(i);
+			for (int j = 0; j < columns.size(); j++) {
+				String column = columns.get(j);
+				String value = row[j];
+				if (!StringUtils.isBlank(value)) {
+					lineLength = lineLength + 1 + column.length() + 1 + 1 + value.length() + 1;
+					if (lineLength == -1) {
+						sb.append("\n        ");
+						lineLength = 0;
+					}
+					sb.append(" " + column.toUpperCase() + "=" + '"' + value + '"');
+				}
+			}
+			sb.append(" />\n");
+		}
+		sb.append("</dataset>\n");
+		return sb.toString();
+	}
+
 	protected String escape(String s) {
-		return s.replace(">", "&gt;").replace("<", "&lt;").replace("\"", "&quot;");
+		return s.replace("<", "&lt;").replace("\"", "&quot;").replace("\n", "&#xa;").replace("\r", "&#xd;");
 	}
 
 	protected List<Table> getTables(List<File> files) {
@@ -61,28 +96,26 @@ public class MorpherTest {
 		return tables;
 	}
 
+	protected int appendLines(List<String> lines, int index, StringBuilder sb) {
+		String line = lines.get(index);
+		while (!line.endsWith("|")) {
+			sb.append(line + "\n");
+			index++;
+		}
+		return index;
+	}
+
 	protected Table getTable(File file) {
 		try {
 			String filename = file.getName().toUpperCase();
 			int pos = filename.indexOf(".");
 			String tablename = filename.substring(0, pos);
 
-			List<String> lines = FileUtils.readLines(file);
-			String line1 = lines.get(0);
-			String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(line1, "|");
+			String content = FileUtils.readFileToString(file);
+			String headerLine = content.substring(0, content.indexOf("\n"));
+			String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(headerLine, "|");
 
-			List<String[]> rows = new ArrayList<String[]>();
-			for (int i = 1; i < lines.size(); i++) {
-				String line = lines.get(i);
-				String[] row = StringUtils.splitByWholeSeparatorPreserveAllTokens(line, "|");
-				if (row.length > columns.length) {
-					throw new IllegalStateException("Column count doesn't match. [" + file.getAbsolutePath() + ",row " + i + "] columns=" + columns.length + " row=" + row.length);
-				}
-				for (int j = 0; j < row.length; j++) {
-					row[j] = escape(row[j]);
-				}
-				rows.add(row);
-			}
+			List<String[]> rows = getRows(content, columns, file);
 
 			Table table = new Table();
 			table.setName(tablename);
@@ -92,5 +125,26 @@ public class MorpherTest {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	protected List<String[]> getRows(String content, String[] columns, File file) {
+		List<String> lines = ResourceUtils.readLinesFromString(content);
+		List<String[]> rows = new ArrayList<String[]>();
+		for (int i = 1; i < lines.size(); i++) {
+			String line = lines.get(i);
+			while (!line.endsWith("|")) {
+				i = i + 1;
+				line = line + "\n" + lines.get(i);
+			}
+			String[] row = StringUtils.splitByWholeSeparatorPreserveAllTokens(line, "|");
+			if (row.length != columns.length) {
+				throw new IllegalStateException("Column count doesn't match. [" + file.getAbsolutePath() + ",row " + i + "] columns=" + columns.length + " row=" + row.length);
+			}
+			for (int j = 0; j < row.length; j++) {
+				row[j] = escape(row[j]);
+			}
+			rows.add(row);
+		}
+		return rows;
 	}
 }
