@@ -36,6 +36,18 @@ import org.apache.torque.util.CloverETLTable;
 public class ConvertCloverETLMojo extends BaseMojo {
 
 	/**
+	 * @parameter expression="${impex.sourceDatabaseDTDFile}" default-value="${project.basedir}/src/main/resources/database.dtd"
+	 * @required
+	 */
+	File sourceDatabaseDTDFile;
+
+	/**
+	 * @parameter expression="${impex.sourceSchemaFile}" default-value="${project.basedir}/src/main/resources/schema.xml"
+	 * @required
+	 */
+	File sourceSchemaFile;
+
+	/**
 	 * @parameter expression="${impex.sourceDirectory}" default-value="${project.basedir}/src/main/resources/data"
 	 * @required
 	 */
@@ -55,10 +67,26 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
+		getLog().info("Examining " + sourceDir.getAbsolutePath());
 		File[] files = sourceDir.listFiles();
+		if (files == null) {
+			getLog().info("Located 0 Clover ETL files");
+		} else {
+			getLog().info("Located " + files.length + " Clover ETL files");
+		}
 		Arrays.sort(files);
 		for (File file : files) {
 			convertFile(file);
+		}
+		try {
+			File newSchemaFile = new File(outputDir + "/schema.xml");
+			getLog().info("Creating " + newSchemaFile);
+			FileUtils.copyFile(sourceSchemaFile, newSchemaFile);
+			File newDatabaseDTDFile = new File(outputDir + "/database.dtd");
+			getLog().info("Creating " + newDatabaseDTDFile);
+			FileUtils.copyFile(sourceDatabaseDTDFile, newDatabaseDTDFile);
+		} catch (IOException e) {
+			throw new MojoExecutionException("Unexpected IO error", e);
 		}
 	}
 
@@ -67,7 +95,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			CloverETLTable table = getTable(file);
 			String xml = getXml(table);
 			File outputFile = new File(outputDir + "/" + table.getName() + ".xml");
-			getLog().info("Creating " + outputFile.getAbsolutePath());
+			getLog().info("Creating " + outputFile);
 			FileUtils.writeStringToFile(outputFile, xml);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -154,5 +182,45 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		}
 		sb.append("</dataset>\n");
 		return sb.toString();
+	}
+
+	public File getSourceSchemaFile() {
+		return sourceSchemaFile;
+	}
+
+	public void setSourceSchemaFile(File sourceSchemaFile) {
+		this.sourceSchemaFile = sourceSchemaFile;
+	}
+
+	public File getSourceDir() {
+		return sourceDir;
+	}
+
+	public void setSourceDir(File sourceDir) {
+		this.sourceDir = sourceDir;
+	}
+
+	public File getOutputDir() {
+		return outputDir;
+	}
+
+	public void setOutputDir(File outputDir) {
+		this.outputDir = outputDir;
+	}
+
+	public String getDelimiter() {
+		return delimiter;
+	}
+
+	public void setDelimiter(String delimiter) {
+		this.delimiter = delimiter;
+	}
+
+	public File getSourceDatabaseDTDFile() {
+		return sourceDatabaseDTDFile;
+	}
+
+	public void setSourceDatabaseDTDFile(File sourceDatabaseDTDFile) {
+		this.sourceDatabaseDTDFile = sourceDatabaseDTDFile;
 	}
 }

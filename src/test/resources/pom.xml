@@ -46,13 +46,29 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>convert</id>
+            <id>kfs</id>
             <phase>test</phase>
             <goals>
               <goal>convertcloveretl</goal>
             </goals>
             <configuration>
-              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development</sourceDir>
+              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development/data</sourceDir>
+              <sourceSchemaFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development/schema.xml</sourceSchemaFile>
+              <sourceDTDFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development/database.dtd</sourceDTDFile>
+              <outputDir>${project.build.directory}/impex/kfs</outputDir>
+            </configuration>
+          </execution>
+          <execution>
+            <id>rice</id>
+            <phase>test</phase>
+            <goals>
+              <goal>convertcloveretl</goal>
+            </goals>
+            <configuration>
+              <sourceSchemaFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice/schema.xml</sourceSchemaFile>
+              <sourceDTDFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice/database.dtd</sourceDTDFile>
+              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice/data</sourceDir>
+              <outputDir>${project.build.directory}/impex/rice</outputDir>
             </configuration>
           </execution>
         </executions>
