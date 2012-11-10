@@ -36,7 +36,7 @@ public class MorpherTest {
 			Arrays.sort(files);
 			List<Table> tables = getTables(Arrays.asList(files));
 			for (Table table : tables) {
-				logger.info(table.getName());
+				logger.info(table.getName() + " columns:" + table.getColumns().size() + " rows:" + table.getRows().size());
 			}
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info("Elapsed: " + elapsed);
