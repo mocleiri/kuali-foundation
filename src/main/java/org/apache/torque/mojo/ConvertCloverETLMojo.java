@@ -81,6 +81,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	protected void handleSchema() {
 		try {
+			handleDataDTD();
 			File newSchemaFile = new File(outputDir + "/" + schemaFilename);
 			File oldSchemaFile = new File(sourceDir + "/" + schemaFilename);
 			getLog().info("Creating " + newSchemaFile);
@@ -89,7 +90,6 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			File oldDatabaseDTDFile = new File(sourceDir + "/" + databaseDTDFilename);
 			getLog().info("Creating " + newDatabaseDTDFile);
 			FileUtils.copyFile(oldDatabaseDTDFile, newDatabaseDTDFile);
-			handleDataDTD();
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
@@ -111,7 +111,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		File schemaFile = new File(sourceDir + "/" + schemaFilename);
 		String contents = FileUtils.readFileToString(schemaFile);
 		String[] tables = getTables(contents);
-		getLog().info("Located " + tables.length + " schema tables");
+		getLog().info("Converting " + tables.length + " schema tables");
 		List<CloverETLTable> realTables = new ArrayList<CloverETLTable>();
 		for (String table : tables) {
 			CloverETLTable realTable = getDataDTDTable(table);
