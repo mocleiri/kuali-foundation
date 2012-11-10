@@ -67,6 +67,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			CloverETLTable table = getTable(file);
 			String xml = getXml(table);
 			File outputFile = new File(outputDir + "/" + table.getName() + ".xml");
+			getLog().info("Creating " + outputFile.getAbsolutePath());
 			FileUtils.writeStringToFile(outputFile, xml);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -115,11 +116,11 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		List<String[]> rows = new ArrayList<String[]>();
 		for (int i = 1; i < lines.size(); i++) {
 			String line = lines.get(i);
-			while (!line.endsWith("|")) {
+			while (!line.endsWith(delimiter)) {
 				i = i + 1;
 				line = line + "\n" + lines.get(i);
 			}
-			String[] row = StringUtils.splitByWholeSeparatorPreserveAllTokens(line, "|");
+			String[] row = StringUtils.splitByWholeSeparatorPreserveAllTokens(line, delimiter);
 			if (row.length != columns.length) {
 				throw new IllegalStateException("Column count doesn't match. [" + file.getAbsolutePath() + ",row " + i + "] columns=" + columns.length + " row=" + row.length);
 			}
