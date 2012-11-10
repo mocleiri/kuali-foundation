@@ -53,12 +53,23 @@
     </developer>
   </developers>
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <forkMode>never</forkMode>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
           <include>**/*-context.xml</include>
+          <include>**/*.properties</include>
         </includes>
       </testResource>
       <testResource>
@@ -66,6 +77,7 @@
         <filtering>false</filtering>
         <excludes>
           <exclude>**/*-context.xml</exclude>
+          <exclude>**/*.properties</exclude>
         </excludes>
       </testResource>
     </testResources>
