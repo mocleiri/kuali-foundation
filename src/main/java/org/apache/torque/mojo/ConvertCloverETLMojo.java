@@ -59,7 +59,6 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		getLog().info("Examining " + sourceDir.getAbsolutePath());
 		handleSchema();
 		handleData();
-		handleDataDTD();
 	}
 
 	protected void handleSchema() {
@@ -72,6 +71,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			File oldDatabaseDTDFile = new File(sourceDir + "/database.dtd");
 			getLog().info("Creating " + newDatabaseDTDFile);
 			FileUtils.copyFile(oldDatabaseDTDFile, newDatabaseDTDFile);
+			handleDataDTD();
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
@@ -89,24 +89,20 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	}
 
-	protected void handleDataDTD() {
-		try {
-			File schemaFile = new File(sourceDir + "/schema.xml");
-			String contents = FileUtils.readFileToString(schemaFile);
-			String[] tables = getTables(contents);
-			getLog().info("Located " + tables.length + " schema tables");
-			List<CloverETLTable> realTables = new ArrayList<CloverETLTable>();
-			for (String table : tables) {
-				CloverETLTable realTable = getDataDTDTable(table);
-				realTables.add(realTable);
-			}
-			String content = getDataDTDContent(realTables);
-			File dataDTDFile = new File(outputDir + "/data.dtd");
-			getLog().info("Creating " + dataDTDFile);
-			FileUtils.writeStringToFile(dataDTDFile, content);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+	protected void handleDataDTD() throws IOException {
+		File schemaFile = new File(sourceDir + "/schema.xml");
+		String contents = FileUtils.readFileToString(schemaFile);
+		String[] tables = getTables(contents);
+		getLog().info("Located " + tables.length + " schema tables");
+		List<CloverETLTable> realTables = new ArrayList<CloverETLTable>();
+		for (String table : tables) {
+			CloverETLTable realTable = getDataDTDTable(table);
+			realTables.add(realTable);
 		}
+		String content = getDataDTDContent(realTables);
+		File dataDTDFile = new File(outputDir + "/data.dtd");
+		getLog().info("Creating " + dataDTDFile);
+		FileUtils.writeStringToFile(dataDTDFile, content);
 	}
 
 	protected String getDataDTDContent(List<CloverETLTable> tables) {
