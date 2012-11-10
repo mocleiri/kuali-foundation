@@ -54,6 +54,24 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	 */
 	String delimiter;
 
+	/**
+	 * @parameter expression="${impex.schemaFilename}" default-value="schema.xml"
+	 * @required
+	 */
+	String schemaFilename;
+
+	/**
+	 * @parameter expression="${impex.databaseDTDFilename}" default-value="database.dtd"
+	 * @required
+	 */
+	String databaseDTDFilename;
+
+	/**
+	 * @parameter expression="${impex.dataDTDFilename}" default-value="data.dtd"
+	 * @required
+	 */
+	String dataDTDFilename;
+
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		getLog().info("Examining " + sourceDir.getAbsolutePath());
@@ -63,12 +81,12 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	protected void handleSchema() {
 		try {
-			File newSchemaFile = new File(outputDir + "/schema.xml");
-			File oldSchemaFile = new File(sourceDir + "/schema.xml");
+			File newSchemaFile = new File(outputDir + "/" + schemaFilename);
+			File oldSchemaFile = new File(sourceDir + "/" + schemaFilename);
 			getLog().info("Creating " + newSchemaFile);
 			FileUtils.copyFile(oldSchemaFile, newSchemaFile);
-			File newDatabaseDTDFile = new File(outputDir + "/database.dtd");
-			File oldDatabaseDTDFile = new File(sourceDir + "/database.dtd");
+			File newDatabaseDTDFile = new File(outputDir + "/" + databaseDTDFilename);
+			File oldDatabaseDTDFile = new File(sourceDir + "/" + databaseDTDFilename);
 			getLog().info("Creating " + newDatabaseDTDFile);
 			FileUtils.copyFile(oldDatabaseDTDFile, newDatabaseDTDFile);
 			handleDataDTD();
@@ -90,7 +108,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	}
 
 	protected void handleDataDTD() throws IOException {
-		File schemaFile = new File(sourceDir + "/schema.xml");
+		File schemaFile = new File(sourceDir + "/" + schemaFilename);
 		String contents = FileUtils.readFileToString(schemaFile);
 		String[] tables = getTables(contents);
 		getLog().info("Located " + tables.length + " schema tables");
@@ -100,7 +118,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			realTables.add(realTable);
 		}
 		String content = getDataDTDContent(realTables);
-		File dataDTDFile = new File(outputDir + "/data.dtd");
+		File dataDTDFile = new File(outputDir + "/" + dataDTDFilename);
 		getLog().info("Creating " + dataDTDFile);
 		FileUtils.writeStringToFile(dataDTDFile, content);
 	}
