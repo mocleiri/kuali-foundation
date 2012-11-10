@@ -57,8 +57,8 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		getLog().info("Examining " + sourceDir.getAbsolutePath());
-		// handleSchema();
-		// handleData();
+		handleSchema();
+		handleData();
 		handleDataDTD();
 	}
 
@@ -77,29 +77,95 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		}
 	}
 
+	protected String[] parseAll(String s, String open, String close) {
+		String[] tokens = StringUtils.substringsBetween(s, open, close);
+		if (tokens == null) {
+			return null;
+		}
+		for (int i = 0; i < tokens.length; i++) {
+			tokens[i] = open + tokens[i] + close;
+		}
+		return tokens;
+
+	}
+
 	protected void handleDataDTD() {
 		try {
 			File schemaFile = new File(sourceDir + "/schema.xml");
 			String contents = FileUtils.readFileToString(schemaFile);
-			List<String> tables = getTables(contents);
-			getLog().info("Located " + tables.size() + " schema tables");
+			String[] tables = getTables(contents);
+			getLog().info("Located " + tables.length + " schema tables");
 			List<CloverETLTable> realTables = new ArrayList<CloverETLTable>();
 			for (String table : tables) {
 				CloverETLTable realTable = getDataDTDTable(table);
 				realTables.add(realTable);
-				getLog().info(realTable.getName() + " " + realTable.getColumns().size());
 			}
+			String content = getDataDTDContent(realTables);
+			File dataDTDFile = new File(outputDir + "/data.dtd");
+			getLog().info("Creating " + dataDTDFile);
+			FileUtils.writeStringToFile(dataDTDFile, content);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
 	}
 
+	protected String getDataDTDContent(List<CloverETLTable> tables) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getProlog(tables));
+		for (CloverETLTable table : tables) {
+			sb.append(getTableDTDContent(table));
+		}
+		return sb.toString();
+	}
+
+	protected String getTableDTDContent(CloverETLTable table) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<!ELEMENT " + table.getName() + " EMPTY>\n");
+		sb.append("<!ATTLIST " + table.getName() + "\n");
+		sb.append(getColumnDTDContent(table.getEtlColumns()));
+		sb.append(">\n");
+		return sb.toString();
+	}
+
+	protected String getColumnDTDContent(List<CloverETLColumn> columns) {
+		StringBuilder sb = new StringBuilder();
+		for (CloverETLColumn column : columns) {
+			sb.append("    ");
+			sb.append(column.getName());
+			sb.append(" ");
+			sb.append("CDATA");
+			sb.append(" ");
+			sb.append(column.isRequired() ? "#IMPLIED" : "#REQUIRED");
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+	protected String getProlog(List<CloverETLTable> tables) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<!ELEMENT dataset (\n");
+		for (int i = 0; i < tables.size(); i++) {
+			CloverETLTable table = tables.get(i);
+			sb.append("    " + table.getName());
+			if (i < tables.size() - 1) {
+				sb.append("|\n");
+			} else {
+				sb.append(")*>\n");
+			}
+		}
+		return sb.toString();
+	}
+
 	protected CloverETLTable getDataDTDTable(String s) {
 		String tablename = StringUtils.substringBetween(s, "<table name=\"", "\"");
-		List<String> columns = parseAll(s, "<column name=\"", ">");
+		String[] columns = parseAll(s, "<column ", "/>");
 		List<CloverETLColumn> realColumns = new ArrayList<CloverETLColumn>();
 		for (String column : columns) {
-			realColumns.add(getCloverETLColumn(column));
+			try {
+				realColumns.add(getCloverETLColumn(column));
+			} catch (Exception e) {
+				throw new IllegalStateException("funky table [" + s + "]");
+			}
 		}
 
 		CloverETLTable table = new CloverETLTable();
@@ -110,6 +176,11 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	protected CloverETLColumn getCloverETLColumn(String s) {
 		String columnName = StringUtils.substringBetween(s, "name=\"", "\"");
+		if (columnName == null) {
+			System.out.println("uhoh");
+			System.out.println("\n\n[" + s + "]\n\n");
+			throw new IllegalStateException("funky column");
+		}
 		boolean required = s.contains("required=\"true\"");
 		CloverETLColumn cec = new CloverETLColumn();
 		cec.setName(columnName);
@@ -117,22 +188,10 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		return cec;
 	}
 
-	protected List<String> getTables(String contents) {
+	protected String[] getTables(String contents) {
 		String begin = "<table name=\"";
 		String close = "</table>";
 		return parseAll(contents, begin, close);
-	}
-
-	protected List<String> parseAll(String s, String begin, String close) {
-		int pos = s.indexOf(close);
-		List<String> strings = new ArrayList<String>();
-		while (pos != -1) {
-			String string = parse(s, begin, close);
-			strings.add(string);
-			s = s.substring(pos + close.length());
-			pos = s.indexOf(close);
-		}
-		return strings;
 	}
 
 	protected String parse(String s, String begin, String close) {
