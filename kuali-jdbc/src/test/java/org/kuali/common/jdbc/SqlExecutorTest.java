@@ -51,7 +51,7 @@ public class SqlExecutorTest {
 			String url = properties.getProperty("jdbc.url");
 			logger.info("Validating credentials for user '{}' on [{}]", user, url);
 			sqlExecutor.executeString(properties.getProperty("sql.validate"));
-			String csv = properties.getProperty("sql.source.schemas");
+			String csv = properties.getProperty("sql.schemas");
 			String[] schemas = Str.splitAndTrimCSV(csv);
 			List<String> schemaLocs = getSchemaLocations(schemas);
 			int count = 0;
@@ -72,7 +72,7 @@ public class SqlExecutorTest {
 			Properties schemaProps = new Properties();
 			schemaProps.putAll(properties);
 			schemaProps.putAll(PropertyUtils.getProperties("classpath:org/kuali/common/jdbc/schema.properties"));
-			schemaProps.setProperty("sql.source.schema", schema);
+			schemaProps.setProperty("sql.schema", schema);
 			schemaProps = PropertyUtils.getResolvedProperties(schemaProps);
 			String schemaLocation = schemaProps.getProperty("sql.schema");
 			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.constraints");
