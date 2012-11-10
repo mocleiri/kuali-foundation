@@ -82,9 +82,23 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			String contents = FileUtils.readFileToString(schemaFile);
 			List<String> tables = getTables(contents);
 			getLog().info("Located " + tables.size() + " schema tables");
+			List<CloverETLTable> realTables = new ArrayList<CloverETLTable>();
+			for (String table : tables) {
+				CloverETLTable realTable = getDataDTDTable(table);
+				realTables.add(realTable);
+				getLog().info(realTable.getName());
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
+	}
+
+	protected CloverETLTable getDataDTDTable(String s) {
+		String tablename = StringUtils.substringBetween(s, "<table name=\"", "\"");
+
+		CloverETLTable table = new CloverETLTable();
+		table.setName(tablename);
+		return table;
 	}
 
 	protected List<String> getTables(String contents) {
