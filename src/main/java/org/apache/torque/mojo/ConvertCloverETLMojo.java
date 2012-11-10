@@ -84,11 +84,11 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			handleDataDTD();
 			File newSchemaFile = new File(outputDir + "/" + schemaFilename);
 			File oldSchemaFile = new File(sourceDir + "/" + schemaFilename);
-			getLog().info("Creating " + newSchemaFile);
+			getLog().info("Creating " + newSchemaFile.getCanonicalPath());
 			FileUtils.copyFile(oldSchemaFile, newSchemaFile);
 			File newDatabaseDTDFile = new File(outputDir + "/" + databaseDTDFilename);
 			File oldDatabaseDTDFile = new File(sourceDir + "/" + databaseDTDFilename);
-			getLog().info("Creating " + newDatabaseDTDFile);
+			getLog().info("Creating " + newDatabaseDTDFile.getCanonicalPath());
 			FileUtils.copyFile(oldDatabaseDTDFile, newDatabaseDTDFile);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -111,7 +111,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		File schemaFile = new File(sourceDir + "/" + schemaFilename);
 		String contents = FileUtils.readFileToString(schemaFile);
 		String[] tables = getTables(contents);
-		getLog().info("Converting " + tables.length + " schema tables");
+		getLog().info("Located " + tables.length + " schema tables");
 		List<CloverETLTable> realTables = new ArrayList<CloverETLTable>();
 		for (String table : tables) {
 			CloverETLTable realTable = getDataDTDTable(table);
@@ -119,7 +119,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		}
 		String content = getDataDTDContent(realTables);
 		File dataDTDFile = new File(outputDir + "/" + dataDTDFilename);
-		getLog().info("Creating " + dataDTDFile);
+		getLog().info("Creating " + dataDTDFile.getCanonicalPath());
 		FileUtils.writeStringToFile(dataDTDFile, content);
 	}
 
@@ -175,11 +175,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		String[] columns = parseAll(s, "<column ", "/>");
 		List<CloverETLColumn> realColumns = new ArrayList<CloverETLColumn>();
 		for (String column : columns) {
-			try {
-				realColumns.add(getCloverETLColumn(column));
-			} catch (Exception e) {
-				throw new IllegalStateException("funky table [" + s + "]");
-			}
+			realColumns.add(getCloverETLColumn(column));
 		}
 
 		CloverETLTable table = new CloverETLTable();
@@ -190,11 +186,6 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	protected CloverETLColumn getCloverETLColumn(String s) {
 		String columnName = StringUtils.substringBetween(s, "name=\"", "\"");
-		if (columnName == null) {
-			System.out.println("uhoh");
-			System.out.println("\n\n[" + s + "]\n\n");
-			throw new IllegalStateException("funky column");
-		}
 		boolean required = s.contains("required=\"true\"");
 		CloverETLColumn cec = new CloverETLColumn();
 		cec.setName(columnName);
@@ -232,7 +223,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			CloverETLTable table = getTable(file);
 			String xml = getXml(table);
 			File outputFile = new File(outputDir + "/" + table.getName() + ".xml");
-			getLog().info("Creating " + outputFile);
+			getLog().info("Creating " + outputFile.getCanonicalPath());
 			FileUtils.writeStringToFile(outputFile, xml);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
