@@ -35,14 +35,21 @@ public class MorpherTest {
 			File[] files = dir.listFiles();
 			Arrays.sort(files);
 			List<Table> tables = getTables(Arrays.asList(files));
+			int rows = 0;
 			for (Table table : tables) {
 				logger.info(table.getName() + " columns:" + table.getColumns().size() + " rows:" + table.getRows().size());
+				rows += table.getRows().size();
 			}
+			logger.info("Total Rows: " + rows);
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info("Elapsed: " + elapsed);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String escape(String s) {
+		return s.replace(">", "&gt;").replace("<", "&lt;").replace("\"", "&quot;");
 	}
 
 	protected List<Table> getTables(List<File> files) {
@@ -70,6 +77,9 @@ public class MorpherTest {
 				String[] row = StringUtils.splitByWholeSeparatorPreserveAllTokens(line, "|");
 				if (row.length > columns.length) {
 					throw new IllegalStateException("Column count doesn't match. [" + file.getAbsolutePath() + ",row " + i + "] columns=" + columns.length + " row=" + row.length);
+				}
+				for (int j = 0; j < row.length; j++) {
+					row[j] = escape(row[j]);
 				}
 				rows.add(row);
 			}
