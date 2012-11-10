@@ -48,10 +48,10 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	File outputDir;
 
 	/**
-	 * @parameter expression="${impex.cloverETLDelimiter}" default-value="|"
+	 * @parameter expression="${impex.delimiter}" default-value="|"
 	 * @required
 	 */
-	String cloverETLDelimiter;
+	String delimiter;
 
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
@@ -81,7 +81,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 			String content = FileUtils.readFileToString(file);
 			String headerLine = content.substring(0, content.indexOf("\n"));
-			String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(headerLine, cloverETLDelimiter);
+			String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(headerLine, delimiter);
 
 			for (int i = 0; i < columns.length; i++) {
 				columns[i] = columns[i].toUpperCase();
