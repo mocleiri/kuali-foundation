@@ -43,6 +43,7 @@
     <property name="lineSeparator" value="${sql.line.separator}" />
     <property name="encoding" value="${sql.encoding}" />
     <property name="ignoreComments" value="${sql.comment.ignore}" />
+    <property name="commentToken" value="${sql.comment.token}" />
   </bean>
 
   <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
