@@ -56,17 +56,11 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		getLog().info("Examining " + sourceDir.getAbsolutePath());
-		File dataDir = new File(sourceDir + "/data");
-		File[] files = dataDir.listFiles();
-		if (files == null) {
-			getLog().info("Located 0 Clover ETL files");
-		} else {
-			getLog().info("Located " + files.length + " Clover ETL files");
-			Arrays.sort(files);
-			for (File file : files) {
-				convertFile(file);
-			}
-		}
+		handleSchema();
+		handleData();
+	}
+
+	protected void handleSchema() {
 		try {
 			File newSchemaFile = new File(outputDir + "/schema.xml");
 			File oldSchemaFile = new File(sourceDir + "/schema.xml");
@@ -77,7 +71,21 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			getLog().info("Creating " + newDatabaseDTDFile);
 			FileUtils.copyFile(oldDatabaseDTDFile, newDatabaseDTDFile);
 		} catch (IOException e) {
-			throw new MojoExecutionException("Unexpected IO error", e);
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
+	}
+
+	protected void handleData() {
+		File dataDir = new File(sourceDir + "/data");
+		File[] files = dataDir.listFiles();
+		if (files == null) {
+			getLog().info("Located 0 Clover ETL files");
+		} else {
+			getLog().info("Located " + files.length + " Clover ETL files");
+			Arrays.sort(files);
+			for (File file : files) {
+				convertFile(file);
+			}
 		}
 	}
 
