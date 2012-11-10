@@ -36,19 +36,7 @@ import org.apache.torque.util.CloverETLTable;
 public class ConvertCloverETLMojo extends BaseMojo {
 
 	/**
-	 * @parameter expression="${impex.sourceDatabaseDTDFile}" default-value="${project.basedir}/src/main/resources/database.dtd"
-	 * @required
-	 */
-	File sourceDatabaseDTDFile;
-
-	/**
-	 * @parameter expression="${impex.sourceSchemaFile}" default-value="${project.basedir}/src/main/resources/schema.xml"
-	 * @required
-	 */
-	File sourceSchemaFile;
-
-	/**
-	 * @parameter expression="${impex.sourceDirectory}" default-value="${project.basedir}/src/main/resources/data"
+	 * @parameter expression="${impex.sourceDirectory}" default-value="${project.basedir}/src/main/resources"
 	 * @required
 	 */
 	File sourceDir;
@@ -68,7 +56,8 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		getLog().info("Examining " + sourceDir.getAbsolutePath());
-		File[] files = sourceDir.listFiles();
+		File dataDir = new File(sourceDir + "/data");
+		File[] files = dataDir.listFiles();
 		if (files == null) {
 			getLog().info("Located 0 Clover ETL files");
 		} else {
@@ -80,11 +69,13 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		}
 		try {
 			File newSchemaFile = new File(outputDir + "/schema.xml");
+			File oldSchemaFile = new File(sourceDir + "/schema.xml");
 			getLog().info("Creating " + newSchemaFile);
-			FileUtils.copyFile(sourceSchemaFile, newSchemaFile);
+			FileUtils.copyFile(oldSchemaFile, newSchemaFile);
 			File newDatabaseDTDFile = new File(outputDir + "/database.dtd");
+			File oldDatabaseDTDFile = new File(sourceDir + "/database.dtd");
 			getLog().info("Creating " + newDatabaseDTDFile);
-			FileUtils.copyFile(sourceDatabaseDTDFile, newDatabaseDTDFile);
+			FileUtils.copyFile(oldDatabaseDTDFile, newDatabaseDTDFile);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected IO error", e);
 		}
@@ -184,14 +175,6 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		return sb.toString();
 	}
 
-	public File getSourceSchemaFile() {
-		return sourceSchemaFile;
-	}
-
-	public void setSourceSchemaFile(File sourceSchemaFile) {
-		this.sourceSchemaFile = sourceSchemaFile;
-	}
-
 	public File getSourceDir() {
 		return sourceDir;
 	}
@@ -214,13 +197,5 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
-	}
-
-	public File getSourceDatabaseDTDFile() {
-		return sourceDatabaseDTDFile;
-	}
-
-	public void setSourceDatabaseDTDFile(File sourceDatabaseDTDFile) {
-		this.sourceDatabaseDTDFile = sourceDatabaseDTDFile;
 	}
 }
