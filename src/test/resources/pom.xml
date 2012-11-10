@@ -52,9 +52,7 @@
               <goal>convertcloveretl</goal>
             </goals>
             <configuration>
-              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development/data</sourceDir>
-              <sourceSchemaFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development/schema.xml</sourceSchemaFile>
-              <sourceDatabaseDTDFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development/database.dtd</sourceDatabaseDTDFile>
+              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/development</sourceDir>
               <outputDir>${project.build.directory}/impex/ole</outputDir>
             </configuration>
           </execution>
@@ -65,9 +63,7 @@
               <goal>convertcloveretl</goal>
             </goals>
             <configuration>
-              <sourceSchemaFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice/schema.xml</sourceSchemaFile>
-              <sourceDatabaseDTDFile>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice/database.dtd</sourceDatabaseDTDFile>
-              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice/data</sourceDir>
+              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole/work/db/ole-db/rice</sourceDir>
               <outputDir>${project.build.directory}/impex/rice</outputDir>
             </configuration>
           </execution>

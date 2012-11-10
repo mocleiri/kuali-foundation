@@ -62,10 +62,10 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			getLog().info("Located 0 Clover ETL files");
 		} else {
 			getLog().info("Located " + files.length + " Clover ETL files");
-		}
-		Arrays.sort(files);
-		for (File file : files) {
-			convertFile(file);
+			Arrays.sort(files);
+			for (File file : files) {
+				convertFile(file);
+			}
 		}
 		try {
 			File newSchemaFile = new File(outputDir + "/schema.xml");
