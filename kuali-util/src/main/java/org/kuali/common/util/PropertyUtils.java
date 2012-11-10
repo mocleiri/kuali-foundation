@@ -40,7 +40,7 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
-	private static final String DEFAULT = "DEFAULT";
+	private static final String PLATFORM_DEFAULT = "PLATFORM_DEFAULT";
 
 	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
@@ -154,7 +154,7 @@ public class PropertyUtils {
 			String path = context.getFile().getCanonicalPath();
 			boolean xml = isXml(path);
 			if (xml) {
-				logger.info("Storing XML properties - [{}] encoding={}", path, Str.toDefault(context.getEncoding(), DEFAULT));
+				logger.info("Storing XML properties - [{}] encoding={}", path, Str.toDefault(context.getEncoding(), PLATFORM_DEFAULT));
 				if (StringUtils.isBlank(context.getEncoding())) {
 					properties.storeToXML(out, context.getComment());
 				} else {
@@ -162,7 +162,7 @@ public class PropertyUtils {
 				}
 			} else {
 				writer = ResourceUtils.getWriter(out, context.getEncoding());
-				logger.info("Storing properties - [{}] encoding={}", path, Str.toDefault(context.getEncoding(), DEFAULT));
+				logger.info("Storing properties - [{}] encoding={}", path, Str.toDefault(context.getEncoding(), PLATFORM_DEFAULT));
 				properties.store(writer, context.getComment());
 			}
 		} catch (IOException e) {
@@ -291,7 +291,7 @@ public class PropertyUtils {
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties - [{}] encoding={}", location, Str.toDefault(encoding, DEFAULT));
+				logger.info("Loading properties - [{}] encoding={}", location, Str.toDefault(encoding, PLATFORM_DEFAULT));
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
