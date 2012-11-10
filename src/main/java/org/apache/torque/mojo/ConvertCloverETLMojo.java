@@ -28,6 +28,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.torque.util.CloverETLColumn;
 import org.apache.torque.util.CloverETLTable;
 
 /**
@@ -86,7 +87,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			for (String table : tables) {
 				CloverETLTable realTable = getDataDTDTable(table);
 				realTables.add(realTable);
-				getLog().info(realTable.getName());
+				getLog().info(realTable.getName() + " " + realTable.getColumns().size());
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -95,10 +96,25 @@ public class ConvertCloverETLMojo extends BaseMojo {
 
 	protected CloverETLTable getDataDTDTable(String s) {
 		String tablename = StringUtils.substringBetween(s, "<table name=\"", "\"");
+		List<String> columns = parseAll(s, "<column name=\"", ">");
+		List<CloverETLColumn> realColumns = new ArrayList<CloverETLColumn>();
+		for (String column : columns) {
+			realColumns.add(getCloverETLColumn(column));
+		}
 
 		CloverETLTable table = new CloverETLTable();
 		table.setName(tablename);
+		table.setEtlColumns(realColumns);
 		return table;
+	}
+
+	protected CloverETLColumn getCloverETLColumn(String s) {
+		String columnName = StringUtils.substringBetween(s, "name=\"", "\"");
+		boolean required = s.contains("required=\"true\"");
+		CloverETLColumn cec = new CloverETLColumn();
+		cec.setName(columnName);
+		cec.setRequired(required);
+		return cec;
 	}
 
 	protected List<String> getTables(String contents) {
