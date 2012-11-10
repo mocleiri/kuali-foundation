@@ -56,8 +56,9 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		getLog().info("Examining " + sourceDir.getAbsolutePath());
-		handleSchema();
-		handleData();
+		// handleSchema();
+		// handleData();
+		handleDataDTD();
 	}
 
 	protected void handleSchema() {
@@ -73,6 +74,40 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
+	}
+
+	protected void handleDataDTD() {
+		try {
+			File schemaFile = new File(sourceDir + "/schema.xml");
+			String contents = FileUtils.readFileToString(schemaFile);
+			List<String> tables = getTables(contents);
+			getLog().info("Located " + tables.size() + " schema tables");
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
+	}
+
+	protected List<String> getTables(String contents) {
+		String begin = "<table name=\"";
+		String close = "</table>";
+		return parseAll(contents, begin, close);
+	}
+
+	protected List<String> parseAll(String s, String begin, String close) {
+		int pos = s.indexOf(close);
+		List<String> strings = new ArrayList<String>();
+		while (pos != -1) {
+			String string = parse(s, begin, close);
+			strings.add(string);
+			s = s.substring(pos + close.length());
+			pos = s.indexOf(close);
+		}
+		return strings;
+	}
+
+	protected String parse(String s, String begin, String close) {
+		String between = StringUtils.substringBetween(s, begin, close);
+		return begin + between + close;
 	}
 
 	protected void handleData() {
