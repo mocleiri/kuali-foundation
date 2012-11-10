@@ -69,11 +69,11 @@ public class SqlExecutor {
 		}
 	}
 
-	protected void executeSQL(Statement statement, String sql) {
+	protected void executeSQL(Statement statement, String sql) throws SQLException {
 		try {
 			statement.execute(sql);
 		} catch (SQLException e) {
-			throw new JdbcException("Unexpected error executing SQL - [" + Str.flatten(sql) + "]", e);
+			throw new SQLException("Unexpected error executing SQL - [" + Str.flatten(sql) + "]", e);
 		}
 	}
 
