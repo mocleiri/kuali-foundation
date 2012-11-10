@@ -74,30 +74,26 @@ public class ConvertCloverETLMojo extends BaseMojo {
 		}
 	}
 
-	protected CloverETLTable getTable(File file) {
-		try {
-			String filename = file.getName().toUpperCase();
-			int pos = filename.indexOf(".");
-			String tablename = filename.substring(0, pos);
+	protected CloverETLTable getTable(File file) throws IOException {
+		String filename = file.getName().toUpperCase();
+		int pos = filename.indexOf(".");
+		String tablename = filename.substring(0, pos);
 
-			String content = FileUtils.readFileToString(file);
-			String headerLine = content.substring(0, content.indexOf("\n"));
-			String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(headerLine, delimiter);
+		String content = FileUtils.readFileToString(file);
+		String headerLine = content.substring(0, content.indexOf("\n"));
+		String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(headerLine, delimiter);
 
-			for (int i = 0; i < columns.length; i++) {
-				columns[i] = columns[i].toUpperCase();
-			}
-
-			List<String[]> rows = getRows(content, columns, file);
-
-			CloverETLTable table = new CloverETLTable();
-			table.setName(tablename);
-			table.setColumns(Arrays.asList(columns));
-			table.setRows(rows);
-			return table;
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
+		for (int i = 0; i < columns.length; i++) {
+			columns[i] = columns[i].toUpperCase();
 		}
+
+		List<String[]> rows = getRows(content, columns, file);
+
+		CloverETLTable table = new CloverETLTable();
+		table.setName(tablename);
+		table.setColumns(Arrays.asList(columns));
+		table.setRows(rows);
+		return table;
 	}
 
 	@SuppressWarnings("unchecked")
