@@ -11,6 +11,13 @@ public class Str {
 	public static final String LF = "\n";
 
 	/**
+	 * Surround the string with double quotes
+	 */
+	public static String quote(String s) {
+		return '"' + s + '"';
+	}
+
+	/**
 	 * Split comma separated values into tokens
 	 */
 	public static String[] splitCSV(String csv, boolean trim) {
