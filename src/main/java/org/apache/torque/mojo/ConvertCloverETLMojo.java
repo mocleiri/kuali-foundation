@@ -344,4 +344,28 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
 	}
+
+	public String getSchemaFilename() {
+		return schemaFilename;
+	}
+
+	public void setSchemaFilename(String schemaFilename) {
+		this.schemaFilename = schemaFilename;
+	}
+
+	public String getDatabaseDTDFilename() {
+		return databaseDTDFilename;
+	}
+
+	public void setDatabaseDTDFilename(String databaseDTDFilename) {
+		this.databaseDTDFilename = databaseDTDFilename;
+	}
+
+	public String getDataDTDFilename() {
+		return dataDTDFilename;
+	}
+
+	public void setDataDTDFilename(String dataDTDFilename) {
+		this.dataDTDFilename = dataDTDFilename;
+	}
 }
