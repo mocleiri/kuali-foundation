@@ -105,10 +105,44 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.kuali.ole</groupId>
+      <artifactId>ole-impex-master</artifactId>
+      <version>0.8.0-n-SNAPSHOT</version>
+      <classifier>sql</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.ole</groupId>
+      <artifactId>ole-impex-rice</artifactId>
+      <version>0.8.0-n-SNAPSHOT</version>
+      <classifier>sql</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*-context.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/*-context.xml</exclude>
+          <exclude>**/*.properties</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+  </build>
 </project>

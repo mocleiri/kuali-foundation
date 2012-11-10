@@ -56,7 +56,7 @@ public class SqlExecutor {
 				if (showSql) {
 					logger.info("{} - [{}]", count, Str.flatten(sql));
 				}
-				statement.execute(sql);
+				executeSQL(statement, sql);
 				sql = sqlReader.getSqlStatement(reader);
 			}
 			conn.commit();
@@ -66,6 +66,14 @@ public class SqlExecutor {
 		} finally {
 			IOUtils.closeQuietly(reader);
 			closeQuietly(conn, statement);
+		}
+	}
+
+	protected void executeSQL(Statement statement, String sql) {
+		try {
+			statement.execute(sql);
+		} catch (SQLException e) {
+			throw new JdbcException("Unexpected error executing SQL - [" + Str.flatten(sql) + "]", e);
 		}
 	}
 

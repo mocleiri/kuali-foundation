@@ -19,7 +19,9 @@
 
   <context:property-placeholder properties-ref="properties" />
 
-  <bean id="tables" class="org.kuali.common.util.spring.ToStringFactoryBean" p:encoding="UTF-8" p:location="${sql.tables.list}" />
+  <!--
+    <bean id="tables" class="org.kuali.common.util.spring.ToStringFactoryBean" p:encoding="UTF-8" p:location="${sql.tables.list}" />
+  -->
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -40,18 +42,19 @@
     <property name="trim" value="${sql.trim}" />
     <property name="lineSeparator" value="${sql.line.separator}" />
     <property name="encoding" value="${sql.encoding}" />
+    <property name="ignoreComments" value="${sql.comment.ignore}" />
   </bean>
 
   <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dataSource" />
     <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="false" />
+    <property name="showSql" value="true" />
   </bean>
 
   <bean id="dbaSqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
     <property name="dataSource" ref="dbaDataSource" />
     <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="false" />
+    <property name="showSql" value="true" />
   </bean>
 
 </beans>
