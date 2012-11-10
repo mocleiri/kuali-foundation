@@ -83,6 +83,10 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			String headerLine = content.substring(0, content.indexOf("\n"));
 			String[] columns = StringUtils.splitByWholeSeparatorPreserveAllTokens(headerLine, cloverETLDelimiter);
 
+			for (int i = 0; i < columns.length; i++) {
+				columns[i] = columns[i].toUpperCase();
+			}
+
 			List<String[]> rows = getRows(content, columns, file);
 
 			CloverETLTable table = new CloverETLTable();
@@ -145,7 +149,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 				String column = columns.get(j);
 				String value = row[j];
 				if (!StringUtils.isBlank(value)) {
-					sb.append(" " + column.toUpperCase() + "=" + '"' + value + '"');
+					sb.append(" " + column + "=" + '"' + value + '"');
 				}
 			}
 			sb.append(" />\n");
