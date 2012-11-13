@@ -285,7 +285,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	}
 
 	protected String escape(String s) {
-		return s.replace("<", "&lt;").replace("\"", "&quot;").replace("\n", "&#xa;").replace("\r", "&#xd;");
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace("\"", "&quot;").replace("\n", "&#xa;").replace("\r", "&#xd;");
 	}
 
 	protected String getXml(CloverETLTable table) {
