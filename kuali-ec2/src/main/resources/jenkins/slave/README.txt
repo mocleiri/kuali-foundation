@@ -15,6 +15,12 @@
 ====
 
 #
+# sambal-setup is a run-once type script
+# it was used to setup build slaves to run Kyle's functional 
+# automation testing code
+#
+
+#
 #
 # WARNING: READ THIS BEFORE EDITING ANYTHING IN THIS DIRECTORY
 #
