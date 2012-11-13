@@ -94,10 +94,8 @@ gem install watir-webdriver
 gem install headless
 gem install rspec
 apt-get --yes install git-core 
-cd 
-mkdir sambal_automation
-cd sambal_automation
-git clone git://github.com/rSmart/sambal.git
+
+git clone git://github.com/rSmart/sambal.git /usr/local/sambal
 
 
 
