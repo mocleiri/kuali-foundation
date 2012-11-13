@@ -95,7 +95,7 @@ gem install headless
 gem install rspec
 apt-get --yes install git-core 
 
-git clone git://github.com/rSmart/sambal.git /usr/local/sambal
+#git clone git://github.com/rSmart/sambal.git /usr/local/sambal
 
 
 
