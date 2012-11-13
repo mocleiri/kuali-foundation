@@ -136,9 +136,9 @@
                 <filterPom>false</filterPom>
                 <args>
                   <arg>initialize</arg>
-                  <arg>-Dimpex.sql.schema=${project.build.directory}/impex/sql/${db.vendor}/ole-impex.sql</arg>
+                  <arg>-Dimpex.sql.schema=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master.sql</arg>
                   <arg>-Dimpex.schema.name=ole-impex</arg>
-                  <arg>-Dimpex.sql.constraints=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-constraints.sql</arg>
+                  <arg>-Dimpex.sql.constraints=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master-constraints.sql</arg>
                   <arg>-Dimpex.sql.basedir=${project.build.directory}/impex/sql/${db.vendor}</arg>
                 </args>
                 <poms>
