@@ -23,6 +23,9 @@ import org.junit.Test;
 
 public class ExportMojoTest extends AbstractMojoTestCase {
 
+	private static String TEST_CASE = "export-basic-test";
+	private static String GOAL_NAME = "export";
+	
 	@Before
 	protected void setUp() throws Exception {
         // required for mojo lookups to work
@@ -31,7 +34,8 @@ public class ExportMojoTest extends AbstractMojoTestCase {
 
 	@Test
 	public void testMojoGoal() throws Exception {
-		File testPom = new File( getBasedir(), "src/test/resources/unit/export-basic-test/plugin-config.xml" );
-		ExportMojo mojo = (ExportMojo) lookupMojo ( "export", testPom );
+		File testPom = new File( getBasedir(), "src/test/resources/unit/" + TEST_CASE + "/plugin-config.xml" );
+		ExportMojo mojo = (ExportMojo) lookupMojo ( GOAL_NAME, testPom );
+		// mojo.execute(); // requires db
 	}
 }

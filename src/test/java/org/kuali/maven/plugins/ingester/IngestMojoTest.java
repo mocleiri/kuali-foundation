@@ -9,6 +9,9 @@ import org.junit.Test;
 
 public class IngestMojoTest extends AbstractMojoTestCase {
 
+	private static String TEST_CASE = "ingest-basic-test";
+	private static String GOAL_NAME = "ingest";
+	
 	@Before
 	protected void setUp() throws Exception {
         // required for mojo lookups to work
@@ -17,8 +20,16 @@ public class IngestMojoTest extends AbstractMojoTestCase {
 
 	@Test
 	public void testMojoGoal() throws Exception {
-		File testPom = new File( getBasedir(), "src/test/resources/unit/ingest-basic-test/plugin-config.xml" );
-		IngestMojo mojo = (IngestMojo) lookupMojo ( "ingest", testPom );
+		File testPom = new File( getBasedir(), "src/test/resources/unit/" + TEST_CASE +"/plugin-config.xml" );
+		IngestMojo mojo = (IngestMojo) lookupMojo ( GOAL_NAME, testPom );
 	}
+	
+	@Test
+	public void testMojoGoalExecute() throws Exception {
+		File testPom = new File( getBasedir(), "src/test/resources/unit/" + TEST_CASE +"/plugin-config.xml" );
+		IngestMojo mojo = (IngestMojo) lookupMojo ( GOAL_NAME, testPom );
+		// mojo.execute(); // requires db
+	}
+	
 	
 }
