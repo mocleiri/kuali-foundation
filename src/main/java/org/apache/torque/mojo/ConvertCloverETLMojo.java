@@ -71,7 +71,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	String schemaFilename;
 
 	/**
-	 * The location of the <code>database.dtd</code> file
+	 * The name of the file containing the DTD for database schemas
 	 *
 	 * @parameter expression="${impex.databaseDTDFilename}" default-value="database.dtd"
 	 * @required
@@ -79,7 +79,7 @@ public class ConvertCloverETLMojo extends BaseMojo {
 	String databaseDTDFilename;
 
 	/**
-	 * The location where the <code>data.dtd</code> file for this schema will be generated.
+	 * The name of the file containing the DTD for this database schema
 	 *
 	 * @parameter expression="${impex.dataDTDFilename}" default-value="data.dtd"
 	 * @required
