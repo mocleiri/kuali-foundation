@@ -16,17 +16,24 @@
 package org.codehaus.mojo.sql;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.Test;
+import org.springframework.core.io.Resource;
 
 /**
  * Unit test for simple SqlExecMojo.
  */
-public class SqlExecMojoTest extends AbstractMojoTestCase {
-	private SqlExecMojo mojo;
+public class SqlExecMojoTest {
+	private SqlExecMojo mojo = new SqlExecMojo();
 
+	@Test
 	public void test() throws MojoExecutionException {
-		mojo.setResourceListingLocation("classpath:");
-
+		try {
+			mojo.setResourceListingLocation("classpath:locations.listing");
+			Resource[] resources = mojo.getResources(null, mojo.getResourceListingLocation());
+			System.out.println(resources.length);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

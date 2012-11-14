@@ -729,7 +729,11 @@ public class SqlExecMojo extends AbstractMojo {
 		InputStream in = null;
 		try {
 			in = resource.getInputStream();
-			return IOUtils.readLines(in, encoding);
+			if (StringUtils.isBlank(encoding)) {
+				return IOUtils.readLines(in);
+			} else {
+				return IOUtils.readLines(in, encoding);
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
