@@ -722,6 +722,8 @@ public class SqlExecMojo extends AbstractMojo {
 			return IOUtils.readLines(in, encoding);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
