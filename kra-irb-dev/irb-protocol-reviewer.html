@@ -797,11 +797,11 @@ function count_organizations()
           </table>
           <div class="tab-container" align=center id="G126" style="display:block;">
             
-            <div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px;">
+            <div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px; position:relative;">
                 	
                     <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
                     
-                    <div title="Comments" id="control_comment00" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
+                    <div title="Comments" id="control_comment00" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#666; font-weight:100; font-size:9px;">
                     	2
                     </div>
                     <script>
@@ -809,26 +809,26 @@ function count_organizations()
                             $("#control_comment00").toggle(
                                 function () {
                                     $("#div_comment00").slideDown(400);
-									/*$("#grayout").show(0);*/
+									$("#commentarrow00").slideDown(400);
                                   }, 
                                   function () {
                                     $("#div_comment00").slideUp(400);
-									/*$("#grayout").hide(0);*/
+									$("#commentarrow00").slideUp(400);
                                   }
                             );
                         });
                     </script>
                     
                     Organizations
+                    <img src="../images/commentarrow.png" alt="comment" id="commentarrow00" style="position:absolute; right:23px; bottom:2px; margin-bottom:-10px; width:13px; height:13px; border:none; z-index:99; display:none;" />
                 </div>
                 <div id="div_comment00" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding-left:30px; padding-bottom:30px; padding-right:5px; padding-top:5px;">
                 	
-                    <div style="padding:0px; border:2px solid #F00;">
+                    <div style="padding:0px; border:2px solid #F00; max-height:300px; overflow:auto;">
                     <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" class="fixtablewidth" cellspacing="0">
                     	<tr>
-                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#8C8C8C; font-weight:bold;" colspan="6">
-                            	Review Comments
-                                <img src="../images/commentarrow.png" alt="comment" style="float:right; width:13px; height:13px; border:none; margin-right:12px; margin-top:-16px; z-index:99;" />
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#b0b0b0; font-weight:bold;" colspan="6">
+                            	Review Comments <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to Online Review.'); return false;" />
                             </td>
                         </tr>
                         <tbody >
@@ -908,6 +908,27 @@ function count_organizations()
                                         </td>
                                     </tr>
                                 </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        Some cleaver excuse why it can not be done and will require more money.
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
                             <td>
@@ -935,7 +956,28 @@ function count_organizations()
                                             <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
                                         </td>
                                     </tr>
-                                </table> 
+                                </table>
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
                             <td>
@@ -1093,17 +1135,13 @@ function count_organizations()
               <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          
-          
           <div class="tab-container" align="center" id="G03" style="display:block;">
-          
-            
               
-              	<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px;">
+              	<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px; position:relative;">
                 	
                     <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
                     
-                    <div title="Changes to Comments" id="control_comment01" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-orange.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
+                    <div title="Changes to Comments" id="control_comment01" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-orange.png'); margin-right:3px; text-align:center; color:#333; font-weight:bold; font-size:9px;">
                     	3
                     </div>
                     <script>
@@ -1112,23 +1150,29 @@ function count_organizations()
                                 function () {
                                     $("#div_comment01").slideDown(400);
                                     $("#control_comment01").css("background-image","url('../images/comment14-gray.png')");
+									$("#control_comment01").css("font-weight","100");
+									$("#control_comment01").css("color","#666");
+									$("#commentarrow01").slideDown(400);
                                   }, 
                                   function () {
                                     $("#div_comment01").slideUp(400);
+									$("#commentarrow01").slideUp(400);
                                   }
                             );
                         });
                     </script>
                     
                     Funding Sources
+                    <img src="../images/commentarrow.png" alt="comment" id="commentarrow01" style="position:absolute; right:23px; bottom:2px; margin-bottom:-10px; width:13px; height:13px; border:none; z-index:99; display:none;" />
                 </div>
-                <div id="div_comment01" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding:15px;">
+                <div id="div_comment01" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding-left:30px; padding-bottom:30px; padding-right:5px; padding-top:5px;">
                 	
-                    
-                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" cellspacing="0">
+                    <div style="padding:0px; border:2px solid #F00; max-height:300px; overflow:auto;">
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" class="fixtablewidth" cellspacing="0">
                     	<tr>
-                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#8C8C8C; font-weight:bold;" colspan="6">
-                            	Review Comments
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#b0b0b0; font-weight:bold;" colspan="6">
+                            	Review Comments <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to Online Review.'); return false;" />
+                                <img src="../images/commentarrow.png" alt="comment" style="float:right; width:13px; height:13px; border:none; margin-right:12px; margin-top:-16px; z-index:99;" />
                             </td>
                         </tr>
                     	<tr>
@@ -1207,6 +1251,27 @@ function count_organizations()
                                         </td>
                                     </tr>
                                 </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
                             <td>
@@ -1235,6 +1300,27 @@ function count_organizations()
                                         </td>
                                     </tr>
                                 </table>
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
                             <td>
@@ -1257,13 +1343,132 @@ function count_organizations()
                             	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border:none; background:none;">
-                                            Nulla pharetra nisi ut urna ullamcorper eget blandit metus feugiat. Suspendisse non libero purus, non fringilla eros. Donec... 
+                                            Another comment.  
                                         </td>
                                         <td style="border:none; background:none; width:26px; vertical-align:bottom;">
                                             <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
                                         </td>
                                     </tr>
                                 </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	4
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Yet another comment. 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	5
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Something inappropriate that makes me blush.  
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
                             <td>
@@ -1277,6 +1482,7 @@ function count_organizations()
                             </td>
                         </tr>
                     </table>
+                    </div>
                     
                 </div>
             
@@ -1413,35 +1619,39 @@ function count_organizations()
           </table>
           <div class="tab-container" align="center" id="G90" style="display:block;">
           
-           		<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px;">
+           		<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px; position:relative;">
                 	
                     <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
                     
-                    <div title="Comments" id="control_comment02" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#333; font-weight:100; font-size:9px;">
-                    	0
+                    <div title="Comments" id="control_comment02" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#666; font-weight:100; font-size:9px;">
+                    	+
                     </div>
                     <script>
                         $(document).ready(function () {
                             $("#control_comment02").toggle(
                                 function () {
                                     $("#div_comment02").slideDown(400);
+									$("#commentarrow02").slideDown(400);
                                   }, 
                                   function () {
                                     $("#div_comment02").slideUp(400);
+									$("#commentarrow02").slideUp(400);
                                   }
                             );
                         });
                     </script>
                     
                     Participant Types
+                    <img src="../images/commentarrow.png" alt="comment" id="commentarrow02" style="position:absolute; right:23px; bottom:2px; margin-bottom:-10px; width:13px; height:13px; border:none; z-index:99; display:none;" />
                 </div>
-                <div id="div_comment02" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding:15px;">
+                <div id="div_comment02" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding-left:30px; padding-bottom:30px; padding-right:5px; padding-top:5px;">
                 	
-                    
-                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" cellspacing="0">
+                    <div style="padding:0px; border:2px solid #F00; max-height:300px; overflow:auto;">
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" class="fixtablewidth" cellspacing="0">
                     	<tr>
-                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#8C8C8C; font-weight:bold;" colspan="6">
-                            	Review Comments
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#b0b0b0; font-weight:bold;" colspan="6">
+                            	Review Comments <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to Online Review.'); return false;" />
+                                <img src="../images/commentarrow.png" alt="comment" style="float:right; width:13px; height:13px; border:none; margin-right:12px; margin-top:-16px; z-index:99;" />
                             </td>
                         </tr>
                     	<tr>
@@ -1505,6 +1715,7 @@ function count_organizations()
                             </td>
                         </tr>
                     </table>
+                    </div>
                     
                 </div>
               

@@ -72,6 +72,18 @@
 						$("a.panelcontrol03").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
 					}
 				);
+			<!-- panelcontent034 -->
+				$("#panelcontent034").hide();
+				$("a.panelcontrol034").toggle(
+					function()
+					{
+						$("#panelcontent034").slideDown(500);
+						$("a.panelcontrol034").html("<img src='../images/tinybutton-hide.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					},function(){
+						$("#panelcontent034").slideUp(500);
+						$("a.panelcontrol034").html("<img src='../images/tinybutton-show.gif' alt='show/hide sub-panel' width='45' height='15' border='0' align='absmiddle'>");
+					}
+				);
 			<!-- panelcontent04 -->
 				$("#panelcontent04").hide();
 				$("a.panelcontrol04").toggle(
@@ -465,6 +477,130 @@
 						$("#listcontent25").slideToggle(300);
 					}
 				);
+				
+				
+				
+			<!-- test questionnaire -->	
+			// More/Less Information...
+				$(".Qmoreinfocontrol").parent().next().hide(0);
+				$(".Qmoreinfocontrol").toggle(
+					function()
+					{
+						$(this).parent().next().slideDown(400);
+						$(this).html("Less Information...");
+					},function(){
+						$(this).parent().next().slideUp(400);
+						$(this).html("More Information...");
+					}
+				);
+				
+				<!-- reticulate -->
+					$(".reticulate").click(
+						function()
+						{
+							buildquestionset();
+						}
+					);
+					$(".evaluatereticulate").keyup(
+						function()
+						{
+							buildquestionset();
+						}
+					);
+				
+				<!-- buildquestionset -->
+					buildquestionset();
+					function buildquestionset()
+					{
+						
+						<!-- QID002 Will you be using whole dead animals which are regulated by USDA? -->
+							if(document.questionnaireform.AID001[0].checked == true)
+							{
+								$("#QID002").slideDown(600);
+							}
+							else
+							{
+								$("#QID002").slideUp(600);
+							}
+						
+						<!-- QID003 Which of the following describes the types of animal use proposed in this protocol? (check all that apply) -->
+							if(	document.questionnaireform.AID001[0].checked == true &&
+								document.questionnaireform.AID002[0].checked == true)
+							{
+								$("#QID003").slideDown(600);
+							}
+							else
+							{
+								$("#QID003").slideUp(600);
+							}
+						
+						<!-- QID004 What type of research? -->
+							if(	document.questionnaireform.AID001[0].checked == true &&
+								document.questionnaireform.AID002[0].checked == true &&
+								document.questionnaireform.AID003_0.checked)
+							{
+								$("#QID004").slideDown(600);
+							}
+							else
+							{
+								$("#QID004").slideUp(600);
+							}
+								
+						<!-- QID005 Explain the type of animal use proposed in this protocol. -->	
+							if(	document.questionnaireform.AID001[0].checked == true &&
+								document.questionnaireform.AID002[0].checked == true &&
+								document.questionnaireform.AID003_6.checked)
+							{
+								$("#QID005").slideDown(600);
+							}
+							else
+							{
+								$("#QID005").slideUp(600);
+							}
+							
+						<!-- QID006 Tell me more about your "basic" research. -->
+							if(	document.questionnaireform.AID001[0].checked == true &&
+								document.questionnaireform.AID002[0].checked == true &&
+								document.questionnaireform.AID003_0.checked &&
+								document.questionnaireform.AID004[0].checked == true)
+							{
+								$("#QID007").slideUp(200, function() { $("#QID006").slideDown(400); });
+							}
+							else
+							{
+								$("#QID006").slideUp(300);
+							}
+							
+						<!-- QID007 Tell me more about your "basic" research. -->
+							if(	document.questionnaireform.AID001[0].checked == true &&
+								document.questionnaireform.AID002[0].checked == true &&
+								document.questionnaireform.AID003_0.checked &&
+								document.questionnaireform.AID004[1].checked == true)
+							{
+								$("#QID006").slideUp(200, function() { $("#QID007").slideDown(400); });
+							}
+							else
+							{
+								$("#QID007").slideUp(300);
+							}
+							
+						<!-- QID028 What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility? -->
+							if(	document.questionnaireform.AID001[0].checked == true &&
+								parseInt(document.questionnaireform.AID028.value) > 12)
+							{
+								$("#QID009").slideDown(600);
+								$("#QID010").slideDown(600);
+							}
+							else
+							{
+								$("#QID009").slideUp(600);
+								$("#QID010").slideUp(600);
+							}
+							
+					}
+				
+				
+				
 		});
 	</script>
     
@@ -2165,6 +2301,240 @@
                                 </td>
                             </tr>
                         </table>
+                    </div>
+                
+                <!-- Test Questionnaire -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:solid 1px #E4E3E4;">
+                        <thead>
+                            <tr>
+                                <th class="elementhead_left">
+                                    <a href="#" class="panelcontrol034"><img id="panelcontrolimage034" src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" /></a>
+                                    Test Questionnaire
+                                </th>
+                                <th class="elementhead_right">
+                                    <img src="../images/my_cp_inf.gif" style="width:15px; height:14px; border:none; cursor:pointer;" title="help" />
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div id="panelcontent034">
+                    	
+                        <table class="content_table">  
+                       <tr>
+                            <td class="content_questionnaire">
+               
+                                <div class="Qdiv" id="QID001">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.0.0</span>-->
+                                        <span class="Qquestion">Confirm live vertebrates will be used in this protocol?</span>
+                                        
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID001]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID001" value="0" checked="checked" />yes
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID001" value="1" />no
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID002">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.0.0</span>-->
+                                        <span class="Qquestion">Will you be using whole dead animals which are regulated by USDA?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID002]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID002" value="0" checked="checked" />yes
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID002" value="1" />no
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID003">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.0</span>-->
+                                        <span class="Qquestion">Which of the following describes the types of animal use proposed in this protocol? (check all that apply)</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID003]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_0" checked="checked" />Research (choose type)<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_1" />Vet College Teaching<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_2" />Other Teaching, Training or Demonstration<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_3" />Breeding<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_4" />Food Source<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_5" />Observation<br />
+                                            <input type="checkbox" class="reticulate" style="border:none;" name="AID003_6" />Other (specify)
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID004">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">What type of research?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID004]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID004" value="0" checked="checked" />basic
+                                            <input type="radio" class="reticulate" style="border:none;" name="AID004" value="1" />advanced
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID006">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1.1</span>-->
+                                        <span class="Qquestion">Tell me more about your "basic" research.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID006]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID006" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID006x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID007">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1.1</span>-->
+                                        <span class="Qquestion">Tell me more about your "advanced" research.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID007]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID007" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID007x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID005">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">Explain the type of animal use proposed in this protocol.</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID005" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID005x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID028">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">What is the maximum number of hours that a live animal will be housed outside of an approved Cornell facility?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID028]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" class="evaluatereticulate" id="AID028" name="AID028" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID010">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">What is the location?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <input type="text" id="AID010" name="AID010" size="3" value="0" />
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="Qdiv" id="QID009">
+                                    <div class="Qquestiondiv">
+                                        <span class="Qmoreinfocontrol">More Information...</span>
+                                        <!--<span class="Qnumber">1.1.1</span>-->
+                                        <span class="Qquestion">What is the scientific justification?</span>
+                                    </div>
+                                    <div class="Qmoreinfodiv">
+                                        <span class="Qmoreinfo">Here is stuff about the question including explanation, policies, and regulations. [QID: QID005]</span>
+                                    </div>
+                                    <div class="Qresponsediv">
+                                        <span class="Qresponse">
+                                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none;">
+                                                        <textarea name="AID009" style="width:100%; text-align:left;" rows="2"></textarea>
+                                                    </td>
+                                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                                        <input name="AID009x" src="../images/pencil_add.png" onclick="javascript: alert('If this were not a mock, this would open a larger edit window.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                
+                				
+                                
+                            </td>
+                        </tr>
+                    </table>
+                        
                     </div>
                 
                 <!-- Questionnaire Use -->
