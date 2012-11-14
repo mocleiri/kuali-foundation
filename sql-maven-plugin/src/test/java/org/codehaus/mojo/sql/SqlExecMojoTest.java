@@ -31,6 +31,9 @@ public class SqlExecMojoTest {
 			mojo.setResourceListingLocation("classpath:locations.listing");
 			Resource[] resources = mojo.getResources(null, mojo.getResourceListingLocation());
 			System.out.println(resources.length);
+			for (Resource resource : resources) {
+				System.out.println(resource.getDescription());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
