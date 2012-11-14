@@ -33,7 +33,7 @@
               <goals>
                 <goal>update</goal>
               </goals>
-              <phase>process-resources</phase>
+              <phase>${liquibase.phase}</phase>
               <configuration>
                 <changeLogFile>${liquibase.source.dir}/01_bootstrap_krns_data.xml</changeLogFile>
               </configuration>
@@ -43,7 +43,7 @@
               <goals>
                 <goal>update</goal>
               </goals>
-              <phase>process-resources</phase>
+              <phase>${liquibase.phase}</phase>
               <configuration>
                 <changeLogFile>${liquibase.source.dir}/02_bootstrap_krim_entity_data.xml</changeLogFile>
               </configuration>
@@ -53,7 +53,7 @@
               <goals>
                 <goal>update</goal>
               </goals>
-              <phase>process-resources</phase>
+              <phase>${liquibase.phase}</phase>
               <configuration>
                 <changeLogFile>${liquibase.source.dir}/03_bootstrap_krim_role_perm_data.xml</changeLogFile>
               </configuration>
@@ -63,7 +63,7 @@
               <goals>
                 <goal>update</goal>
               </goals>
-              <phase>process-resources</phase>
+              <phase>${liquibase.phase}</phase>
               <configuration>
                 <changeLogFile>${liquibase.source.dir}/04_demo_krns_data.xml</changeLogFile>
               </configuration>
@@ -73,7 +73,7 @@
               <goals>
                 <goal>update</goal>
               </goals>
-              <phase>process-resources</phase>
+              <phase>${liquibase.phase}</phase>
               <configuration>
                 <changeLogFile>${liquibase.source.dir}/05_demo_krim_entity_data.xml</changeLogFile>
               </configuration>
@@ -83,7 +83,7 @@
               <goals>
                 <goal>update</goal>
               </goals>
-              <phase>process-resources</phase>
+              <phase>${liquibase.phase}</phase>
               <configuration>
                 <changeLogFile>${liquibase.source.dir}/06_demo_krim_role_perm_data.xml</changeLogFile>
               </configuration>
@@ -104,7 +104,7 @@
           <executions>
             <execution>
               <id>echo</id>
-              <phase>initialize</phase>
+              <phase>${liquibase.phase}</phase>
               <goals>
                 <goal>echo</goal>
               </goals>
