@@ -32,7 +32,7 @@
               </goals>
               <phase>process-resources</phase>
               <configuration>
-                <changeLogFile>${liquibase.unpack.dir}/01_bootstrap_krns_data.xml</changeLogFile>
+                <changeLogFile>${liquibase.source.dir}/01_bootstrap_krns_data.xml</changeLogFile>
               </configuration>
             </execution>
             <execution>
@@ -42,7 +42,7 @@
               </goals>
               <phase>process-resources</phase>
               <configuration>
-                <changeLogFile>${liquibase.unpack.dir}/02_bootstrap_krim_entity_data.xml</changeLogFile>
+                <changeLogFile>${liquibase.source.dir}/02_bootstrap_krim_entity_data.xml</changeLogFile>
               </configuration>
             </execution>
             <execution>
@@ -52,7 +52,7 @@
               </goals>
               <phase>process-resources</phase>
               <configuration>
-                <changeLogFile>${liquibase.unpack.dir}/03_bootstrap_krim_role_perm_data.xml</changeLogFile>
+                <changeLogFile>${liquibase.source.dir}/03_bootstrap_krim_role_perm_data.xml</changeLogFile>
               </configuration>
             </execution>
             <execution>
@@ -62,7 +62,7 @@
               </goals>
               <phase>process-resources</phase>
               <configuration>
-                <changeLogFile>${liquibase.unpack.dir}/04_demo_krns_data.xml</changeLogFile>
+                <changeLogFile>${liquibase.source.dir}/04_demo_krns_data.xml</changeLogFile>
               </configuration>
             </execution>
             <execution>
@@ -72,7 +72,7 @@
               </goals>
               <phase>process-resources</phase>
               <configuration>
-                <changeLogFile>${liquibase.unpack.dir}/05_demo_krim_entity_data.xml</changeLogFile>
+                <changeLogFile>${liquibase.source.dir}/05_demo_krim_entity_data.xml</changeLogFile>
               </configuration>
             </execution>
             <execution>
@@ -82,7 +82,7 @@
               </goals>
               <phase>process-resources</phase>
               <configuration>
-                <changeLogFile>${liquibase.unpack.dir}/06_demo_krim_role_perm_data.xml</changeLogFile>
+                <changeLogFile>${liquibase.source.dir}/06_demo_krim_role_perm_data.xml</changeLogFile>
               </configuration>
             </execution>
           </executions>

@@ -158,6 +158,38 @@
                 </properties>
               </configuration>
             </execution>
+            <execution>
+              <id>ole-liquibase</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>mvn</goal>
+              </goals>
+              <configuration>
+                <filterPom>false</filterPom>
+                <args>
+                  <arg>initialize</arg>
+                  <arg>-Dimpex.sql.schema=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master.sql</arg>
+                  <arg>-Dimpex.schema.name=ole-impex</arg>
+                  <arg>-Dimpex.sql.basedir=${project.build.directory}/impex/sql/${db.vendor}</arg>
+                </args>
+                <poms>
+                  <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
+                </poms>
+                <properties>
+                  <property>plugin.sql.version</property>
+                  <property>impex.username</property>
+                  <property>impex.dba.username</property>
+                  <property>impex.password</property>
+                  <property>impex.url</property>
+                  <property>impex.driver</property>
+                  <property>impex.delimiter</property>
+                  <property>impex.delimitertype</property>
+                  <property>jdbc.driver.groupId</property>
+                  <property>jdbc.driver.artifactId</property>
+                  <property>jdbc.driver.version</property>
+                </properties>
+              </configuration>
+            </execution>
             <!--
               <execution>
               <id>clover</id>
