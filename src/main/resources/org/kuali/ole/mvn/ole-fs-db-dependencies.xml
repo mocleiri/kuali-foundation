@@ -81,14 +81,13 @@
                     <classifier>sql</classifier>
                     <outputDirectory>${impex.unpack.dir}</outputDirectory>
                   </artifactItem>
-                  <!--
-                    <artifactItem>
+                  <artifactItem>
                     <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-fs</artifactId>
-                    <classifier>liquibase</classifier>
+                    <artifactId>ole-liquibase</artifactId>
                     <version>${deploy.version}</version>
                     <outputDirectory>${liquibase.unpack.dir}</outputDirectory>
-                    </artifactItem>
+                  </artifactItem>
+                  <!--
                     <artifactItem>
                     <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-fs</artifactId>

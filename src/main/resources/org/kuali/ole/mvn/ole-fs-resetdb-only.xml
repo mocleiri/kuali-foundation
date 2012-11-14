@@ -122,7 +122,7 @@
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/execute-impex-sql.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
                 </poms>
               </configuration>
             </execution>
@@ -138,11 +138,10 @@
                   <arg>initialize</arg>
                   <arg>-Dimpex.sql.schema=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master.sql</arg>
                   <arg>-Dimpex.schema.name=ole-impex</arg>
-                  <arg>-Dimpex.sql.constraints=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master-constraints.sql</arg>
                   <arg>-Dimpex.sql.basedir=${project.build.directory}/impex/sql/${db.vendor}</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/common/deploy/mvn/execute-impex-sql.xml</param>
+                  <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
                 </poms>
                 <properties>
                   <property>plugin.sql.version</property>
