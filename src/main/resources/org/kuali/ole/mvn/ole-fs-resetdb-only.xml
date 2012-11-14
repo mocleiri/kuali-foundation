@@ -172,6 +172,7 @@
                   <arg>initialize</arg>
                   <arg>-Dliquibase.source.dir=${liquibase.unpack.dir}</arg>
                   <arg>-Dplugin.liquibase.version=2.0.5</arg>
+                  <arg>-e</arg>
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-liquibase.xml</param>
