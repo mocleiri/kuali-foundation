@@ -707,12 +707,22 @@ public class SqlExecMojo extends AbstractMojo {
 		}
 		List<String> locs = readLines(resource);
 		if (locations == null) {
+			locs = trim(locs);
 			return getResources(locs.toArray(new String[locs.size()]));
 		}
 		for (String location : locations) {
 			locs.add(location);
 		}
+		locs = trim(locs);
 		return getResources(locs.toArray(new String[locs.size()]));
+	}
+
+	protected List<String> trim(List<String> lines) {
+		List<String> trimmed = new ArrayList<String>();
+		for (String line : lines) {
+			trimmed.add(StringUtils.trim(line));
+		}
+		return trimmed;
 	}
 
 	protected List<String> readLines(Resource resource) {
