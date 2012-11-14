@@ -118,7 +118,6 @@
           <configuration>
             <echos>
               <echo>JDBC URL: ${impex.url}</echo>
-              <echo> DBA URL: ${impex.url}</echo>
               <echo>Username: ${impex.username}</echo>
               <echo>JDBC Driver: ${impex.driver}</echo>
             </echos>
