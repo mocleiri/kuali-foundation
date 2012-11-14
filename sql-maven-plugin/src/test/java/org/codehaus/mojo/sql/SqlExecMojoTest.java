@@ -26,10 +26,25 @@ public class SqlExecMojoTest {
 	private SqlExecMojo mojo = new SqlExecMojo();
 
 	@Test
-	public void test() throws MojoExecutionException {
+	public void test1() throws MojoExecutionException {
 		try {
 			mojo.setResourceListingLocation("classpath:locations.listing");
 			Resource[] resources = mojo.getResources(null, mojo.getResourceListingLocation());
+			System.out.println(resources.length);
+			for (Resource resource : resources) {
+				System.out.println(resource.getDescription());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test2() throws MojoExecutionException {
+		try {
+			mojo.setResourceListingLocation("classpath:locations.listing");
+			String[] locations = new String[] { "classpath:a.properties" };
+			Resource[] resources = mojo.getResources(locations, mojo.getResourceListingLocation());
 			System.out.println(resources.length);
 			for (Resource resource : resources) {
 				System.out.println(resource.getDescription());
