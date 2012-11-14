@@ -76,14 +76,23 @@ public class GenerateTableListingMojo extends BaseMojo {
 		List<File> files = getFileListing(databaseSQLDir);
 		getLog().info("Located " + files.size() + " " + extension + " files");
 		List<String> tableNames = getTableNames(files);
+		List<String> locations = getLocations(tableNames);
 		getLog().info("Located " + tableNames.size() + " tables");
 		File outputFile = new File(databaseSQLDir, artifactId + "-tables.txt");
 		try {
 			getLog().info("Generating " + outputFile);
-			FileUtils.writeLines(outputFile, tableNames);
+			FileUtils.writeLines(outputFile, locations);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected IO error", e);
 		}
+	}
+
+	protected List<String> getLocations(List<String> tableNames) {
+		List<String> locations = new ArrayList<String>();
+		for (String tableName : tableNames) {
+			locations.add("classpath:sql/" + targetDatabase + "/" + tableName + ".sql");
+		}
+		return locations;
 	}
 
 	@SuppressWarnings("unchecked")
