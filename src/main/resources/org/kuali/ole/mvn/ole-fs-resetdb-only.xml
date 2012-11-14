@@ -122,13 +122,15 @@
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-resources.xml</param>
                   <param>classpath:org/kuali/common/deploy/mvn/resetdb.xml</param>
-                  <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
+                  <!--
+                    <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
+                  -->
                 </poms>
               </configuration>
             </execution>
             <execution>
               <id>ole-impex</id>
-              <phase>initialize</phase>
+              <phase>none</phase>
               <goals>
                 <goal>mvn</goal>
               </goals>
@@ -168,22 +170,17 @@
                 <filterPom>false</filterPom>
                 <args>
                   <arg>initialize</arg>
-                  <arg>-Dimpex.sql.schema=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master.sql</arg>
-                  <arg>-Dimpex.schema.name=ole-impex</arg>
-                  <arg>-Dimpex.sql.basedir=${project.build.directory}/impex/sql/${db.vendor}</arg>
+                  <arg>-Dliquibase.source.dir=${liquibase.unpack.dir}</arg>
+                  <arg>-Dplugin.liquibase.version=2.0.5</arg>
                 </args>
                 <poms>
-                  <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
+                  <param>classpath:org/kuali/ole/mvn/ole-fs-liquibase.xml</param>
                 </poms>
                 <properties>
-                  <property>plugin.sql.version</property>
                   <property>impex.username</property>
-                  <property>impex.dba.username</property>
                   <property>impex.password</property>
                   <property>impex.url</property>
                   <property>impex.driver</property>
-                  <property>impex.delimiter</property>
-                  <property>impex.delimitertype</property>
                   <property>jdbc.driver.groupId</property>
                   <property>jdbc.driver.artifactId</property>
                   <property>jdbc.driver.version</property>

@@ -11,6 +11,9 @@
   <version>${project.version}</version>
   <name>OLE Financial System Liquibase</name>
   <description>Execute liquibase change sets</description>
+  <properties>
+    <liquibase.phase>initialize</liquibase.phase>
+  </properties>
   <build>
     <pluginManagement>
       <plugins>
@@ -128,6 +131,5 @@
         <artifactId>liquibase-maven-plugin</artifactId>
       </plugin>
     </plugins>
-  </resources>
   </build>
 </project>
