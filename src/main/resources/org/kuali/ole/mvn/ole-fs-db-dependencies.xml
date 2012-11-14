@@ -83,12 +83,6 @@
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-liquibase</artifactId>
-                    <version>${deploy.version}</version>
-                    <outputDirectory>${liquibase.unpack.dir}</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-workflow</artifactId>
                     <version>${deploy.version}</version>
                     <outputDirectory>${workflow.unpack.dir}</outputDirectory>
