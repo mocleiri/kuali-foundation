@@ -52,9 +52,9 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
-                <srcFiles>
-                  <param>${impex.sql.schema}</param>
-                </srcFiles>
+                <resourceLocations>
+                  <resourceLocation>${impex.sql.schema}</resourceLocation>
+                </resourceLocations>
               </configuration>
             </execution>
             <execution>
@@ -65,15 +65,7 @@
               </goals>
               <configuration>
                 <orderFile>ASCENDING</orderFile>
-                <fileset>
-                  <basedir>${impex.sql.basedir}</basedir>
-                  <includes>
-                    <include>*.sql</include>
-                  </includes>
-                  <excludes>
-                    <exclude>${impex.schema.name}*.sql</exclude>
-                  </excludes>
-                </fileset>
+                <resourceListingLocation>${impex.sql.data.list}</resourceListingLocation>
               </configuration>
             </execution>
           </executions>

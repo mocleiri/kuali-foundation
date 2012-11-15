@@ -69,20 +69,6 @@
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-impex-rice</artifactId>
-                    <version>${deploy.version}</version>
-                    <classifier>sql</classifier>
-                    <outputDirectory>${rice.impex.unpack.dir}</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.kuali.ole</groupId>
-                    <artifactId>ole-impex-master</artifactId>
-                    <version>${deploy.version}</version>
-                    <classifier>sql</classifier>
-                    <outputDirectory>${impex.unpack.dir}</outputDirectory>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.kuali.ole</groupId>
                     <artifactId>ole-workflow</artifactId>
                     <version>${deploy.version}</version>
                     <outputDirectory>${workflow.unpack.dir}</outputDirectory>
