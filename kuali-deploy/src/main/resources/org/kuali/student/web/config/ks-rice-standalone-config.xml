@@ -1,6 +1,6 @@
 <config>
   <param name="application.url">${public.url}</param>
-  <param name="lum.application.url">${ks-with-rice-embedded.url}</param>
+  <param name="lum.application.url">${ks.app.url}</param>
   <param name="app.context.name" />
   <param name="datasource.url">${impex.url}</param>
   <param name="datasource.username">${impex.username}</param>
@@ -13,8 +13,8 @@
   <param name="datasource.connectionProperties">implicitCachingEnabled=true;maxStatements=100</param>
   <param name="datasource.pool.poolPreparedStatements">true</param>
   <param name="datasource.pool.maxOpenPreparedStatements">500</param>
-  <param name="ks.core.datasource.username">${ks-with-rice-embedded.username}</param>
-  <param name="ks.core.datasource.password">${ks-with-rice-embedded.password]}</param>
+  <param name="ks.core.datasource.username">${ks.app.impex.username}</param>
+  <param name="ks.core.datasource.password">${ks.app.impex.password]}</param>
   <param name="ks.core.datasource.minSize">15</param>
   <param name="ks.core.datasource.maxSize">200</param>
   <param name="ks.core.datasource.maxWait">600000</param>
