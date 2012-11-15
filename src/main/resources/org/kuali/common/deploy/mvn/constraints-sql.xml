@@ -43,6 +43,12 @@
               <artifactId>${jdbc.driver.artifactId}</artifactId>
               <version>${jdbc.driver.version}</version>
             </dependency>
+            <dependency>
+              <groupId>${impex.sql.groupId}</groupId>
+              <artifactId>${impex.schema.name}</artifactId>
+              <version>${impex.sql.version}</version>
+              <classifier>${impex.sql.classifier}</classifier>
+            </dependency>
           </dependencies>
           <executions>
             <execution>
@@ -52,9 +58,9 @@
                 <goal>execute</goal>
               </goals>
               <configuration>
-                <srcFiles>
-                  <param>${impex.sql.constraints}</param>
-                </srcFiles>
+                <resourceLocations>
+                  <resourceLocation>${impex.sql.constraints}</resourceLocation>
+                </resourceLocations>
               </configuration>
             </execution>
           </executions>

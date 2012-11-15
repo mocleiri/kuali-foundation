@@ -44,19 +44,34 @@
     <mvn pom="classpath:org/kuali/common/deploy/mvn/resetdb.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
       <arg value="initialize" />
     </mvn>
-    <antcall target="ole-impex-rice" />
-    <antcall target="ole-impex-master" />
+    <antcall target="ole-impex-rice-schema-and-data" />
+    <antcall target="ole-impex-master-schema-and-data" />
+    <antcall target="ole-impex-rice-constraints" />
+    <antcall target="ole-impex-master-constraints" />
   </target>
-  <target name="ole-impex-master">
+  <target name="ole-impex-master-schema-and-data">
     <property name="impex.schema.name" value="ole-impex-master" />
     <antcall target="schema-and-data" />
   </target>
-  <target name="ole-impex-rice">
+  <target name="ole-impex-rice-schema-and-data">
     <property name="impex.schema.name" value="ole-impex-rice" />
     <antcall target="schema-and-data" />
   </target>
+  <target name="ole-impex-rice-constraints">
+    <property name="impex.schema.name" value="ole-impex-rice" />
+    <antcall target="constraints" />
+  </target>
+  <target name="ole-impex-master-constraints">
+    <property name="impex.schema.name" value="ole-impex-master" />
+    <antcall target="constraints" />
+  </target>
   <target name="schema-and-data">
     <mvn pom="classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
+      <arg value="initialize" />
+    </mvn>
+  </target>
+  <target name="constraints">
+    <mvn pom="classpath:org/kuali/common/deploy/mvn/constraints-sql.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
       <arg value="initialize" />
     </mvn>
   </target>
