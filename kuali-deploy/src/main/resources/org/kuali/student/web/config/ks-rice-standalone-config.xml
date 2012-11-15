@@ -1,0 +1,29 @@
+<config>
+  <param name="application.url">${public.url}</param>
+  <param name="lum.application.url">${ks-with-rice-embedded.url}</param>
+  <param name="app.context.name" />
+  <param name="datasource.ojb.platform">Oracle9i</param>
+  <param name="datasource.url">${impex.url}</param>
+  <param name="datasource.username">${impex.username}</param>
+  <param name="datasource.password">${impex.password}</param>
+  <param name="datasource.driver.name">oracle.jdbc.driver.OracleDriver</param>
+  <param name="datasource.pool.minSize">15</param>
+  <param name="datasource.pool.maxSize">200</param>
+  <param name="datasource.pool.maxWait">600000</param>
+  <param name="datasource.pool.validationQuery">select 1 from dual</param>
+  <param name="datasource.connectionProperties">implicitCachingEnabled=true;maxStatements=100</param>
+  <param name="datasource.pool.poolPreparedStatements">true</param>
+  <param name="datasource.pool.maxOpenPreparedStatements">500</param>
+  <param name="ks.core.datasource.username">${impex.2.username}</param>
+  <param name="ks.core.datasource.password">${impex.2.password}</param>
+  <param name="ks.core.datasource.minSize">15</param>
+  <param name="ks.core.datasource.maxSize">200</param>
+  <param name="ks.core.datasource.maxWait">600000</param>
+  <param name="ks.core.datasource.maxOpenPreparedStatements">500</param>
+  <param name="keystore.file">/home/tomcat/.ssh/rice.keystore</param>
+  <param name="keystore.alias">rice</param>
+  <param name="keystore.password">r1c3pw</param>
+  <param name="log4j.settings.path">classpath:META-INF/log4j.properties</param>
+  <param name="kim.cache.permission.max.size">3000</param>
+  <param name="kim.cache.permission.max.age.seconds">90</param>
+</config>
