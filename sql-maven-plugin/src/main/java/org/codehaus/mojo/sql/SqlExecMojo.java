@@ -785,6 +785,12 @@ public class SqlExecMojo extends AbstractMojo {
 		request.setFiltering(enableFiltering);
 		for (int i = 0; i < resources.length; i++) {
 			Resource resource = resources[i];
+
+			if (!enableFiltering) {
+				createTransaction().setResource(resource);
+				continue;
+			}
+
 			String filename = resource.getFilename();
 			String basename = FileUtils.basename(filename);
 			String extension = FileUtils.extension(filename);
@@ -1232,9 +1238,19 @@ public class SqlExecMojo extends AbstractMojo {
 	 * the same JDBC connection and commit operation in between.
 	 */
 	private class Transaction implements Comparable<Transaction> {
+
+		private Resource resource = null;
+
 		private File tSrcFile = null;
 
 		private String tSqlCommand = "";
+
+		/**
+        *
+        */
+		public void setResource(Resource resource) {
+			this.resource = resource;
+		}
 
 		/**
          *
@@ -1274,7 +1290,25 @@ public class SqlExecMojo extends AbstractMojo {
 				try {
 					runStatements(reader, out);
 				} finally {
-					reader.close();
+					IOUtils.closeQuietly(reader);
+				}
+			}
+
+			if (resource != null) {
+				getLog().info("Executing: " + resource.getURL());
+
+				Reader reader = null;
+
+				if (StringUtils.isEmpty(encoding)) {
+					reader = new InputStreamReader(resource.getInputStream());
+				} else {
+					reader = new InputStreamReader(resource.getInputStream(), encoding);
+				}
+
+				try {
+					runStatements(reader, out);
+				} finally {
+					IOUtils.closeQuietly(reader);
 				}
 			}
 		}
