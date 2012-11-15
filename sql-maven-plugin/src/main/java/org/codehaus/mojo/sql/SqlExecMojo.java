@@ -1297,7 +1297,7 @@ public class SqlExecMojo extends AbstractMojo {
 			}
 
 			if (tSrcFile != null) {
-				getLog().info("Executing file: " + tSrcFile.getAbsolutePath());
+				getLog().info("Executing file - " + tSrcFile.getAbsolutePath());
 
 				Reader reader = null;
 
@@ -1315,7 +1315,7 @@ public class SqlExecMojo extends AbstractMojo {
 			}
 
 			if (resource != null) {
-				getLog().info("Executing: " + resource.getLocation());
+				getLog().info("Executing - " + resource.getLocation());
 
 				Reader reader = null;
 
