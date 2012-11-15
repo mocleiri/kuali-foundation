@@ -1,0 +1,63 @@
+<!--
+
+  Copyright 2005-2012 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project name="db">
+  <taskdef name="mvn" classname="org.kuali.maven.common.MvnTask" />
+  <target name="db">
+    <property name="mvn.quiet" value="false" />
+    <loadproperties srcFile="${properties.original}" />
+    <mvn pom="classpath:org/kuali/common/deploy/mvn/enforcer.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
+      <arg value="initialize" />
+    </mvn>
+    <mvn pom="classpath:org/kuali/common/deploy/mvn/properties.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
+      <arg value="initialize" />
+      <arg value="-Dproperties.includeSystemProperties=true" />
+      <arg value="-Dproperties.includeEnvironmentVariables=true" />
+      <property key="deploy.groupId" />
+      <property key="deploy.artifactId" />
+      <property key="deploy.version" />
+      <property key="deploy.env" />
+      <property key="impex.dba.username" />
+      <property key="impex.dba.password" />
+      <property key="impex.username" />
+      <property key="impex.password" />
+      <property key="impex.url" />
+      <property key="impex.dba.url" />
+      <property key="db.vendor" />
+      <property key="db.instance" />
+    </mvn>
+    <loadproperties srcFile="${properties.all}" />
+    <mvn pom="classpath:org/kuali/common/deploy/mvn/resetdb.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
+      <arg value="initialize" />
+    </mvn>
+    <antcall target="ole-impex-rice" />
+    <antcall target="ole-impex-master" />
+  </target>
+  <target name="ole-impex-master">
+    <property name="impex.schema.name" value="ole-impex-master" />
+    <antcall target="schema-and-data" />
+  </target>
+  <target name="ole-impex-rice">
+    <property name="impex.schema.name" value="ole-impex-rice" />
+    <antcall target="schema-and-data" />
+  </target>
+  <target name="schema-and-data">
+    <mvn pom="classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
+      <arg value="initialize" />
+    </mvn>
+  </target>
+</project>

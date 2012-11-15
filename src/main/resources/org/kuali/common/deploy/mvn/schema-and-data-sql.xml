@@ -45,7 +45,7 @@
             </dependency>
             <dependency>
               <groupId>${impex.sql.groupId}</groupId>
-              <artifactId>${impex.sql.artifactId}</artifactId>
+              <artifactId>${impex.schema.name}</artifactId>
               <version>${impex.sql.version}</version>
               <classifier>${impex.sql.classifier}</classifier>
             </dependency>
@@ -71,7 +71,7 @@
               </goals>
               <configuration>
                 <orderFile>ASCENDING</orderFile>
-                <resourceListingLocation>${impex.sql.data.list}</resourceListingLocation>
+                <resourceListingLocation>${impex.sql.tables}</resourceListingLocation>
               </configuration>
             </execution>
           </executions>
