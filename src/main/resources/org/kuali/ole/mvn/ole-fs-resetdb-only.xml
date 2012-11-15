@@ -118,7 +118,6 @@
                 <args>
                   <arg>initialize</arg>
                   <arg>-e</arg>
-                  <arg>-Dplugin.sql.version=1.0.13</arg>
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
@@ -135,18 +134,19 @@
                 <goal>mvn</goal>
               </goals>
               <configuration>
-                <filterPom>false</filterPom>
                 <args>
                   <arg>initialize</arg>
-                  <arg>-Dimpex.sql.schema=${project.build.directory}/impex/sql/${db.vendor}/ole-impex-master.sql</arg>
-                  <arg>-Dimpex.schema.name=ole-impex</arg>
-                  <arg>-Dimpex.sql.basedir=${project.build.directory}/impex/sql/${db.vendor}</arg>
+                  <arg>-Dimpex.sql.schema=classpath:sql/${db.vendor}/ole-impex-master.sql</arg>
+                  <arg>-Dimpex.sql.constraints=classpath:sql/${db.vendor}/ole-impex-master-constraints.sql</arg>
+                  <arg>-Dimpex.sql.data.list=classpath:sql/${db.vendor}/ole-impex-master-tables.txt</arg>
+                  <arg>-Dimpex.sql.groupId=org.kuali.ole</arg>
+                  <arg>-Dimpex.sql.artifactId=ole-impex-master</arg>
+                  <arg>-Dimpex.sql.version=${deploy.version}</arg>
                 </args>
                 <poms>
                   <param>classpath:org/kuali/common/deploy/mvn/schema-and-data-sql.xml</param>
                 </poms>
                 <properties>
-                  <property>plugin.sql.version</property>
                   <property>impex.username</property>
                   <property>impex.dba.username</property>
                   <property>impex.password</property>
