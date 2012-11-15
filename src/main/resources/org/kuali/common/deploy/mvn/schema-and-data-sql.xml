@@ -17,17 +17,17 @@
     <version>${parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
-  <artifactId>impex-sql-executor</artifactId>
+  <artifactId>impex-schema-and-data-sql</artifactId>
   <version>${project.version}</version>
-  <name>Impex SQL Executor</name>
-  <description>This pom executes sql generated from an Impex XML dataset</description>
+  <name>Impex Schema and Data SQL</name>
+  <description>This pom executes the schema and data sql generated from an Impex XML dataset</description>
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
-          <version>1.0.13</version>
+          <version>${plugin.sql.version}</version>
           <configuration>
             <username>${impex.username}</username>
             <password>${impex.password}</password>
