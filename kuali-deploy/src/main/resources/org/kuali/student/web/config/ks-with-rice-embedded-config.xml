@@ -4,8 +4,8 @@
   <param name="app.context.name" />
   <param name="datasource.ojb.platform">Oracle9i</param>
   <param name="datasource.url">${impex.url}</param>
-  <param name="datasource.username">${impex.username}</param>
-  <param name="datasource.password">${impex.password}</param>
+  <param name="datasource.username">${ks-rice-standalone.username}</param>
+  <param name="datasource.password">${ks-rice-standalone.password}</param>
   <param name="datasource.driver.name">${impex.driver}</param>
   <param name="datasource.pool.minSize">15</param>
   <param name="datasource.pool.maxSize">200</param>
