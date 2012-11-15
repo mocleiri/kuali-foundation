@@ -46,6 +46,9 @@
     </mvn>
     <antcall target="ole-impex-rice-schema-and-data" />
     <antcall target="ole-impex-master-schema-and-data" />
+    <mvn pom="classpath:org/kuali/ole/mvn/ole-fs-liquibase.xml" filterPom="true" quiet="${mvn.quiet}" silent="false">
+      <arg value="initialize" />
+    </mvn>
     <antcall target="ole-impex-rice-constraints" />
     <antcall target="ole-impex-master-constraints" />
   </target>
