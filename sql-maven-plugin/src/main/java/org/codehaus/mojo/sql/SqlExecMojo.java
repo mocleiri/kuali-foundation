@@ -392,7 +392,7 @@ public class SqlExecMojo extends AbstractMojo {
 	/**
 	 * SQL transactions to perform
 	 */
-	private Vector<Transaction> transactions = new Vector<Transaction>();
+	protected Vector<Transaction> transactions = new Vector<Transaction>();
 
 	/**
 	 * @component role="org.apache.maven.shared.filtering.MavenFileFilter"
@@ -774,7 +774,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 *
 	 * @throws MojoExecutionException
 	 */
-	private void addResourcesToTransactions() throws MojoExecutionException {
+	protected void addResourcesToTransactions() throws MojoExecutionException {
 		String[] locations = getResourceLocations();
 		Resource[] resources = getResources(locations, resourceListingLocation);
 
@@ -1237,13 +1237,13 @@ public class SqlExecMojo extends AbstractMojo {
 	 * Contains the definition of a new transaction element. Transactions allow several files or blocks of statements to be executed using
 	 * the same JDBC connection and commit operation in between.
 	 */
-	private class Transaction implements Comparable<Transaction> {
+	protected class Transaction implements Comparable<Transaction> {
 
-		private Resource resource = null;
+		protected Resource resource = null;
 
-		private File tSrcFile = null;
+		protected File tSrcFile = null;
 
-		private String tSqlCommand = "";
+		protected String tSqlCommand = "";
 
 		/**
         *

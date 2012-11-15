@@ -15,8 +15,11 @@
  */
 package org.codehaus.mojo.sql;
 
+import java.util.Vector;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.Test;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 /**
@@ -54,4 +57,21 @@ public class SqlExecMojoTest {
 		}
 	}
 
+	@Test
+	public void test3() throws MojoExecutionException {
+		try {
+			mojo.setResourceListingLocation("classpath:locations.listing");
+			mojo.addResourcesToTransactions();
+			Vector<SqlExecMojo.Transaction> transactions = mojo.transactions;
+			System.out.println(transactions.size());
+			for (SqlExecMojo.Transaction transaction : transactions) {
+				System.out.println(transaction.resource.getURI());
+			}
+			DefaultResourceLoader loader = new DefaultResourceLoader();
+			Resource resource = loader.getResource(mojo.getResourceListingLocation());
+			System.out.println(resource.getURI());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
