@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.ResultSet;
@@ -45,6 +46,7 @@ import java.util.Vector;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -55,8 +57,6 @@ import org.apache.maven.shared.filtering.MavenFileFilter;
 import org.apache.maven.shared.filtering.MavenFileFilterRequest;
 import org.apache.maven.shared.filtering.MavenFilteringException;
 import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.IOUtil;
-import org.codehaus.plexus.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -696,18 +696,20 @@ public class SqlExecMojo extends AbstractMojo {
 		}
 	}
 
-	protected Resource[] getResources(String[] locations, String resourceListingLocation) throws MojoExecutionException {
+	protected SqlResource[] getResources(String[] locations, String resourceListingLocation) throws MojoExecutionException {
 		ResourceLoader loader = new DefaultResourceLoader();
 		if (StringUtils.isBlank(resourceListingLocation)) {
 			return getResources(locations);
 		}
 		Resource resource = loader.getResource(resourceListingLocation);
 		if (!resource.exists()) {
-			throw new MojoExecutionException("Resource " + resourceListingLocation + " was not found");
+			throw new MojoExecutionException("Resource [" + resourceListingLocation + "] was not found");
 		}
+		getLog().info("Examining [" + getURL(resource) + "]");
 		List<String> locs = readLines(resource);
 		if (locations == null) {
 			locs = trim(locs);
+			getLog().info("Found " + locs.size() + " locations");
 			return getResources(locs.toArray(new String[locs.size()]));
 		}
 		for (String location : locations) {
@@ -715,6 +717,14 @@ public class SqlExecMojo extends AbstractMojo {
 		}
 		locs = trim(locs);
 		return getResources(locs.toArray(new String[locs.size()]));
+	}
+
+	protected URL getURL(Resource resource) {
+		try {
+			return resource.getURL();
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
 	}
 
 	protected List<String> trim(List<String> lines) {
@@ -741,12 +751,12 @@ public class SqlExecMojo extends AbstractMojo {
 		}
 	}
 
-	protected Resource[] getResources(String[] locations) throws MojoExecutionException {
+	protected SqlResource[] getResources(String[] locations) throws MojoExecutionException {
 		ResourceLoader loader = new DefaultResourceLoader();
 		if (locations == null || locations.length == 0) {
-			return new Resource[] {};
+			return new SqlResource[] {};
 		}
-		List<Resource> resources = new ArrayList<Resource>();
+		List<SqlResource> resources = new ArrayList<SqlResource>();
 		for (int i = 0; i < locations.length; i++) {
 			String location = locations[i];
 			// Skip it if the location is empty
@@ -758,15 +768,25 @@ public class SqlExecMojo extends AbstractMojo {
 				// The location was not empty, but we couldn't find it
 				throw new MojoExecutionException("Resource " + location + " was not found");
 			}
-			resources.add(resource);
+			SqlResource sqlResource = new SqlResource();
+			sqlResource.setLocation(location);
+			sqlResource.setResource(resource);
+			resources.add(sqlResource);
 		}
-		return resources.toArray(new Resource[resources.size()]);
+		return resources.toArray(new SqlResource[resources.size()]);
 	}
 
 	protected void copy(Resource resource, File file) throws IOException {
-		InputStream in = resource.getInputStream();
-		OutputStream out = new FileOutputStream(file);
-		IOUtils.copyLarge(in, out);
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = resource.getInputStream();
+			out = new FileOutputStream(file);
+			IOUtils.copyLarge(in, out);
+		} finally {
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
+		}
 	}
 
 	/**
@@ -776,7 +796,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 */
 	protected void addResourcesToTransactions() throws MojoExecutionException {
 		String[] locations = getResourceLocations();
-		Resource[] resources = getResources(locations, resourceListingLocation);
+		SqlResource[] resources = getResources(locations, resourceListingLocation);
 
 		MavenFileFilterRequest request = new MavenFileFilterRequest();
 		request.setEncoding(encoding);
@@ -784,14 +804,14 @@ public class SqlExecMojo extends AbstractMojo {
 		request.setMavenProject(project);
 		request.setFiltering(enableFiltering);
 		for (int i = 0; i < resources.length; i++) {
-			Resource resource = resources[i];
+			SqlResource resource = resources[i];
 
 			if (!enableFiltering) {
 				createTransaction().setResource(resource);
 				continue;
 			}
 
-			String filename = resource.getFilename();
+			String filename = resource.getResource().getFilename();
 			String basename = FileUtils.basename(filename);
 			String extension = FileUtils.extension(filename);
 			if (!extension.startsWith(".")) {
@@ -803,9 +823,9 @@ public class SqlExecMojo extends AbstractMojo {
 			}
 
 			try {
-				copy(resource, sourceFile);
+				copy(resource.getResource(), sourceFile);
 			} catch (IOException e) {
-				throw new MojoExecutionException("Error copying resource " + resource + " to a local temporary file", e);
+				throw new MojoExecutionException("Error copying resource " + resource.getResource() + " to a local temporary file", e);
 			}
 
 			if (!enableFiltering) {
@@ -1029,7 +1049,7 @@ public class SqlExecMojo extends AbstractMojo {
 		if (enableBlockMode) {
 			// no need to parse the content, ship it directly to jdbc in one sql
 			// statement
-			line = IOUtil.toString(reader);
+			line = IOUtils.toString(reader);
 			execSQL(line, out);
 			return;
 		}
@@ -1239,7 +1259,7 @@ public class SqlExecMojo extends AbstractMojo {
 	 */
 	protected class Transaction implements Comparable<Transaction> {
 
-		protected Resource resource = null;
+		protected SqlResource resource = null;
 
 		protected File tSrcFile = null;
 
@@ -1248,7 +1268,7 @@ public class SqlExecMojo extends AbstractMojo {
 		/**
         *
         */
-		public void setResource(Resource resource) {
+		public void setResource(SqlResource resource) {
 			this.resource = resource;
 		}
 
@@ -1295,14 +1315,14 @@ public class SqlExecMojo extends AbstractMojo {
 			}
 
 			if (resource != null) {
-				getLog().info("Executing: " + resource.getURL());
+				getLog().info("Executing: " + resource.getLocation());
 
 				Reader reader = null;
 
 				if (StringUtils.isEmpty(encoding)) {
-					reader = new InputStreamReader(resource.getInputStream());
+					reader = new InputStreamReader(resource.getResource().getInputStream());
 				} else {
-					reader = new InputStreamReader(resource.getInputStream(), encoding);
+					reader = new InputStreamReader(resource.getResource().getInputStream(), encoding);
 				}
 
 				try {

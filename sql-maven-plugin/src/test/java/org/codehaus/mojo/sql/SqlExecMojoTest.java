@@ -32,10 +32,10 @@ public class SqlExecMojoTest {
 	public void test1() throws MojoExecutionException {
 		try {
 			mojo.setResourceListingLocation("classpath:locations.listing");
-			Resource[] resources = mojo.getResources(null, mojo.getResourceListingLocation());
+			SqlResource[] resources = mojo.getResources(null, mojo.getResourceListingLocation());
 			System.out.println(resources.length);
-			for (Resource resource : resources) {
-				System.out.println(resource.getDescription());
+			for (SqlResource resource : resources) {
+				System.out.println(resource.getResource().getDescription());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,10 +47,10 @@ public class SqlExecMojoTest {
 		try {
 			mojo.setResourceListingLocation("classpath:locations.listing");
 			String[] locations = new String[] { "classpath:a.properties" };
-			Resource[] resources = mojo.getResources(locations, mojo.getResourceListingLocation());
+			SqlResource[] resources = mojo.getResources(locations, mojo.getResourceListingLocation());
 			System.out.println(resources.length);
-			for (Resource resource : resources) {
-				System.out.println(resource.getDescription());
+			for (SqlResource resource : resources) {
+				System.out.println(resource.getResource().getDescription());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class SqlExecMojoTest {
 			Vector<SqlExecMojo.Transaction> transactions = mojo.transactions;
 			System.out.println(transactions.size());
 			for (SqlExecMojo.Transaction transaction : transactions) {
-				System.out.println(transaction.resource.getURI());
+				System.out.println("[" + transaction.resource.location + "] [" + transaction.resource.getResource().getURI() + "]");
 			}
 			DefaultResourceLoader loader = new DefaultResourceLoader();
 			Resource resource = loader.getResource(mojo.getResourceListingLocation());
