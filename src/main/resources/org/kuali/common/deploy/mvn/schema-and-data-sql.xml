@@ -27,7 +27,7 @@
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
           <artifactId>sql-maven-plugin</artifactId>
-          <version>${plugin.sql.version}</version>
+          <version>1.0.13</version>
           <configuration>
             <username>${impex.username}</username>
             <password>${impex.password}</password>
@@ -42,6 +42,12 @@
               <groupId>${jdbc.driver.groupId}</groupId>
               <artifactId>${jdbc.driver.artifactId}</artifactId>
               <version>${jdbc.driver.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>${impex.sql.groupId}</groupId>
+              <artifactId>${impex.sql.artifactId}</artifactId>
+              <version>${impex.sql.version}</version>
+              <classifier>${impex.sql.classifier}</classifier>
             </dependency>
           </dependencies>
           <executions>
@@ -69,13 +75,6 @@
               </configuration>
             </execution>
           </executions>
-          <dependencies>
-            <dependency>
-              <groupId>${impex.sql.groupId}</groupId>
-              <artifactId>${impex.sql.artifactid}</artifactId>
-              <version>${impex.sql.version}</version>
-            </dependency>
-          </dependencies>
         </plugin>
         <plugin>
           <groupId>com.soebes.maven.plugins</groupId>

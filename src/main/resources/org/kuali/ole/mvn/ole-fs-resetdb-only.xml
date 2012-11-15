@@ -117,6 +117,8 @@
               <configuration>
                 <args>
                   <arg>initialize</arg>
+                  <arg>-e</arg>
+                  <arg>-Dplugin.sql.version=1.0.13</arg>
                 </args>
                 <poms>
                   <param>classpath:org/kuali/ole/mvn/ole-fs-db-dependencies.xml</param>
