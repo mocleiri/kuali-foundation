@@ -69,6 +69,13 @@
               </configuration>
             </execution>
           </executions>
+          <dependencies>
+            <dependency>
+              <groupId>${impex.sql.groupId}</groupId>
+              <artifactId>${impex.sql.artifactid}</artifactId>
+              <version>${impex.sql.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>com.soebes.maven.plugins</groupId>
