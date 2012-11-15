@@ -1315,7 +1315,8 @@ public class SqlExecMojo extends AbstractMojo {
 			}
 
 			if (resource != null) {
-				getLog().info("Executing - " + resource.getLocation());
+				getLog().info("Executing - [" + resource.getLocation() + "]");
+				getLog().debug("Location - [" + getURL(resource.getResource()) + "]");
 
 				Reader reader = null;
 
