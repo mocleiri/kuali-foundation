@@ -33,6 +33,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @goal generatetablelisting
  */
 public class GenerateTableListingMojo extends BaseMojo {
+	private static final String FS = File.separator;
 
 	/**
 	 * The extension for SQL files
@@ -78,9 +79,10 @@ public class GenerateTableListingMojo extends BaseMojo {
 		List<String> tableNames = getTableNames(files);
 		List<String> locations = getLocations(tableNames);
 		getLog().info("Located " + tableNames.size() + " tables");
-		File outputFile = new File(databaseSQLDir, artifactId + "-tables.txt");
 		try {
-			getLog().info("Generating " + outputFile);
+			String outputFilename = databaseSQLDir.getAbsolutePath() + FS + ".." + FS + ".." + FS + "META-INF" + FS + targetDatabase + FS + artifactId + ".tables";
+			File outputFile = new File(outputFilename);
+			getLog().info("Generating " + outputFile.getCanonicalPath());
 			FileUtils.writeLines(outputFile, locations);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected IO error", e);
