@@ -1,7 +1,11 @@
+This project is a copy of the source code from http://ant.apache.org/antlibs/props as of 11/16/2012.
+
+It's only purpose is to add nested property expansion support to Ant build scripts
+
 To build this project you must successfully run a combination 
 of both Maven and Ant commands in the order specified
 
-# Remove any Maven residuals
+# Remove Maven's /target directory
 mvn clean
 # Use Ant to create the binary
 ant clean antlib
