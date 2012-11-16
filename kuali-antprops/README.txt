@@ -16,3 +16,12 @@ To run this all in one command:
 
 mvn clean; ant clean antlib javadoc; mvn install
 
+
+To release the project:
+
+mvn release:prepare release:perform -B
+cd target/checkout
+mvn clean; ant clean antlib javadoc; mvn deploy -Pkuali-release
+mvn deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -e
+
+
