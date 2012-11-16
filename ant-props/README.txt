@@ -7,3 +7,7 @@ mvn clean
 ant clean antlib
 # Create a jar from the build/classes directory Ant created
 mvn install
+
+To run this all in one command:
+
+mvn clean; ant clean antlib; mvn install
