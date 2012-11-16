@@ -44,5 +44,39 @@
         <filtering>false</filtering>
       </resource>
     </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>javadoc</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <classesDirectory>${project.basedir}/build/javadoc</classesDirectory>
+                <classifier>javadoc</classifier>
+              </configuration>
+            </execution>
+            <execution>
+              <id>sources</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <classesDirectory>${project.basedir}/src/main</classesDirectory>
+                <classifier>sources</classifier>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
 </project>

@@ -14,5 +14,5 @@ mvn install
 
 To run this all in one command:
 
-mvn clean; ant clean antlib; mvn install
+mvn clean; ant clean antlib javadoc; mvn install
 
