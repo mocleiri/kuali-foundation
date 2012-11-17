@@ -53,9 +53,6 @@ public class ResourceUtils {
 	 * <code>location</code> is not an existing file.<br>
 	 *
 	 * <code>SecurityException</code> is thrown if <code>SecurityManager</code> prevents the file from being deleted.
-	 *
-	 * <code>IllegalStateException</code> is thrown when <code>location</code> is an existing file but <code>file.delete()</code> returns
-	 * false.
 	 */
 	public static final boolean delete(String location, boolean quietly) {
 		if (quietly) {
@@ -68,14 +65,7 @@ public class ResourceUtils {
 			// Location must be an existing file
 			Assert.isTrue(isFile(location), location + " exists, but is not a file");
 			// Try and delete the file (might throw SecurityException)
-			boolean deleted = new File(location).delete();
-			// Delete was successful
-			if (deleted) {
-				return true;
-			} else {
-				//
-				throw new IllegalStateException("Could not delete " + location);
-			}
+			return new File(location).delete();
 		}
 	}
 
