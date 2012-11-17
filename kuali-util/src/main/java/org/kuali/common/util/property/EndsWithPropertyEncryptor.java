@@ -41,7 +41,7 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			logger.debug("Encrypting [{}={}]", key, value);
+			logger.debug("Encrypting [{}]", key);
 			String encryptedValue = encryptor.encrypt(value);
 			String newKey = key + encryptedSuffix;
 			properties.setProperty(newKey, encryptedValue);
