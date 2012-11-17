@@ -5,11 +5,34 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 public class PropertyUtilsTest {
+	private static final Logger logger = LoggerFactory.getLogger(PropertyUtilsTest.class);
+
+	@Autowired
+	private String buildDir = null;
+
 	String location = "classpath:org/kuali/common/util/simple.properties";
 	String xmlLocation = "classpath:org/kuali/common/util/simple.xml";
 	String encoding = "UTF-8";
+
+	@Test
+	public void testBuildDir() {
+		logger.info(buildDir);
+		logger.info(buildDir);
+		logger.info(buildDir);
+		logger.info(buildDir);
+		logger.info(buildDir);
+		logger.info(buildDir);
+	}
 
 	@Test
 	public void storeUTF8XMLPropertiesTest() {
