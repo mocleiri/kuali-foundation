@@ -70,13 +70,6 @@ public class DefaultPropertyService implements PropertyService {
 		return getProperties(context, properties);
 	}
 
-	protected Properties getProperties(PropertyLoadContext context) {
-		// Load properties in from the specified locations
-		Properties props = load(context);
-		// Process the properties according to the options provided in the context
-		return getProperties(context, props);
-	}
-
 	protected Properties getProperties(PropertyContext context, Properties props) {
 
 		// Add in environment variables?
