@@ -2,7 +2,7 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
-import org.kuali.common.util.service.PropertyService;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
 
@@ -12,13 +12,13 @@ public class DefaultPropertyContext implements PropertyContext {
 	boolean includeEnvironmentVariables;
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
-	String placeHolderPrefix = PropertyService.DEFAULT_PLACEHOLDER_PREFIX;
-	String placeHolderSuffix = PropertyService.DEFAULT_PLACEHOLDER_SUFFIX;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
+	PropertyEncryptor encryptor;
+	PropertyPlaceholderHelper helper;
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -27,7 +27,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public List<String> getIncludes() {
+	public List<String> getIncludes() {
 		return includes;
 	}
 
@@ -36,7 +36,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public List<String> getExcludes() {
+	public List<String> getExcludes() {
 		return excludes;
 	}
 
@@ -45,7 +45,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public boolean isIncludeEnvironmentVariables() {
+	public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -54,7 +54,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public boolean isIncludeSystemProperties() {
+	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -63,7 +63,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public boolean isResolvePlaceholders() {
+	public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -72,25 +72,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public String getPlaceHolderPrefix() {
-		return placeHolderPrefix;
-	}
-
-	public void setPlaceHolderPrefix(String placeHolderPrefix) {
-		this.placeHolderPrefix = placeHolderPrefix;
-	}
-
-	@Override
-    public String getPlaceHolderSuffix() {
-		return placeHolderSuffix;
-	}
-
-	public void setPlaceHolderSuffix(String placeHolderSuffix) {
-		this.placeHolderSuffix = placeHolderSuffix;
-	}
-
-	@Override
-    public String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 
@@ -99,12 +81,30 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyStyle getStyle() {
+	public PropertyStyle getStyle() {
 		return style;
 	}
 
 	public void setStyle(PropertyStyle style) {
 		this.style = style;
+	}
+
+	@Override
+	public PropertyEncryptor getEncryptor() {
+		return encryptor;
+	}
+
+	public void setEncryptor(PropertyEncryptor encryptor) {
+		this.encryptor = encryptor;
+	}
+
+	@Override
+    public PropertyPlaceholderHelper getHelper() {
+		return helper;
+	}
+
+	public void setHelper(PropertyPlaceholderHelper helper) {
+		this.helper = helper;
 	}
 
 }

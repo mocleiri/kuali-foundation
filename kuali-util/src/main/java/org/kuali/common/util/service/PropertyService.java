@@ -26,10 +26,6 @@ public class PropertyService {
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
 
-	public Properties getResolvedProperties(Properties props) {
-		return getResolvedProperties(props, DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
-	}
-
 	public Properties getFormattedProperties(Properties properties, PropertyStyle style) {
 		switch (style) {
 		case NORMAL:
@@ -41,14 +37,13 @@ public class PropertyService {
 		}
 	}
 
-	public Properties getResolvedProperties(Properties props, String placeHolderPrefix, String placeHolderSuffix) {
+	public Properties getResolvedProperties(Properties props, PropertyPlaceholderHelper helper) {
 		Properties global = PropertyUtils.getGlobalProperties(props);
-		PropertyPlaceholderHelper pph = new PropertyPlaceholderHelper(placeHolderPrefix, placeHolderSuffix);
 		List<String> keys = PropertyUtils.getSortedKeys(props);
 		Properties newProps = new Properties();
 		for (String key : keys) {
 			String originalValue = props.getProperty(key);
-			String resolvedValue = pph.replacePlaceholders(originalValue, global);
+			String resolvedValue = helper.replacePlaceholders(originalValue, global);
 			if (!resolvedValue.equals(originalValue)) {
 				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
 			}
@@ -97,12 +92,10 @@ public class PropertyService {
 	}
 
 	public Properties load(PropertyLoadContext context) {
-		String prefix = context.getPlaceHolderPrefix();
-		String suffix = context.getPlaceHolderSuffix();
 		Properties props = new Properties();
 		for (String location : context.getLocations()) {
 			Properties global = PropertyUtils.getGlobalProperties(props);
-			String resolvedLocation = getResolvedValue(location, global, prefix, suffix);
+			String resolvedLocation = context.getHelper().replacePlaceholders(location, global);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
@@ -138,7 +131,7 @@ public class PropertyService {
 
 		// Resolve placeholders?
 		if (context.isResolvePlaceholders()) {
-			props = getResolvedProperties(props, context.getPlaceHolderPrefix(), context.getPlaceHolderSuffix());
+			props = getResolvedProperties(props, context.getHelper());
 		}
 
 		// Trim out unwanted properties

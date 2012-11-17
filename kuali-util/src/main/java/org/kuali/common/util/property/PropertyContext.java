@@ -2,6 +2,8 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
+import org.springframework.util.PropertyPlaceholderHelper;
+
 public interface PropertyContext {
 
 	String getEncoding();
@@ -16,12 +18,12 @@ public interface PropertyContext {
 
 	boolean isResolvePlaceholders();
 
-	String getPlaceHolderPrefix();
-
-	String getPlaceHolderSuffix();
-
 	String getPrefix();
 
 	PropertyStyle getStyle();
+
+	PropertyEncryptor getEncryptor();
+
+	PropertyPlaceholderHelper getHelper();
 
 }
