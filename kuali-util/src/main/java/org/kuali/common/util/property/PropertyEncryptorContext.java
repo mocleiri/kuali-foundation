@@ -4,7 +4,7 @@ import org.kuali.common.util.EncryptionStrength;
 
 public class PropertyEncryptorContext {
 
-	EncryptionStrength strength;
+	EncryptionStrength strength = EncryptionStrength.BASIC;
 	String password;
 
 	public EncryptionStrength getStrength() {
