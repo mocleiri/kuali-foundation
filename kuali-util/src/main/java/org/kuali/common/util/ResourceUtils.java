@@ -34,8 +34,7 @@ public class ResourceUtils {
 	}
 
 	/**
-	 * Unconditionally attempt to delete <code>location</code> without throwing an exception. The return value indicates success or failure
-	 * of the deletion attempt.
+	 * Null safe method to unconditionally attempt to delete <code>location</code> without throwing an exception.
 	 */
 	public static final boolean deleteQuietly(String location) {
 		return delete(location, true);
