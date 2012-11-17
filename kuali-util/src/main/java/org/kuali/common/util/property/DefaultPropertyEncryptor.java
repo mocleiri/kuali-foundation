@@ -15,7 +15,6 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyEncryptor.class);
 
 	TextEncryptor encryptor;
-	PropertyEncryptorContext context;
 
 	@Override
 	public void decrypt(Properties properties) {
@@ -41,13 +40,8 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 		}
 	}
 
-	public PropertyEncryptorContext getContext() {
-		return context;
-	}
-
 	@Override
 	public void setContext(PropertyEncryptorContext context) {
-		this.context = context;
 		this.encryptor = EncUtils.getTextEncryptor(context.getStrength(), context.getPassword());
 	}
 }
