@@ -15,7 +15,6 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 	private static final String DEFAULT_ENCRYPTED_PROPERTY_SUFFIX = ".encrypted";
 
 	String encryptedSuffix = DEFAULT_ENCRYPTED_PROPERTY_SUFFIX;
-
 	boolean removeUnencrypted = true;
 	boolean removeEncrypted = true;
 
