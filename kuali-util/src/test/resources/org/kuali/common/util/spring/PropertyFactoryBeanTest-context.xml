@@ -12,7 +12,7 @@
     <constructor-arg value="}" />
   </bean>
 
-  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${kuali.enc.password}" />
+  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${password.encrypted}" />
   <bean id="propertyEncryptor" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="encryptor" />
   <bean id="service" class="org.kuali.common.util.service.PropertyService" />
 
