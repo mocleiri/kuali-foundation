@@ -3,6 +3,7 @@ package org.kuali.common.util.spring;
 import java.util.Properties;
 
 import org.kuali.common.util.property.DefaultPropertyLoadContext;
+import org.kuali.common.util.service.DefaultPropertyService;
 import org.kuali.common.util.service.PropertyService;
 import org.springframework.beans.factory.FactoryBean;
 
@@ -10,7 +11,7 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 
 	protected static Properties properties;
 	boolean singleton = true;
-	PropertyService service;
+	PropertyService service = new DefaultPropertyService();
 
 	@Override
 	public Properties getObject() throws Exception {

@@ -19,7 +19,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyEncMode encryptionMode = PropertyEncMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
-	PropertyEncryptor encryptor;
+	PropertyEncryptor encryptor = new EndsWithPropertyEncryptor();
 
 	@Override
 	public String getEncoding() {
