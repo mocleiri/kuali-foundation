@@ -29,14 +29,20 @@ public class DefaultPropertyService implements PropertyService {
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
-			boolean missing = !ResourceUtils.exists(resolvedLocation);
-			if (missing && context.isIgnoreMissingLocations()) {
-				logger.info("Ignoring non-existent location - [{}]", resolvedLocation);
-				continue;
+			if (!ResourceUtils.exists(resolvedLocation)) {
+				handleMissing(context, resolvedLocation);
 			}
 			properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
 		}
 		return getProperties(context, properties);
+	}
+
+	protected void handleMissing(PropertyLoadContext context, String resolvedLocation) {
+		if (context.isIgnoreMissingLocations()) {
+			logger.info("Ignoring non-existent location - [{}]", resolvedLocation);
+		} else {
+			throw new IllegalArgumentException("Could not locate [" + resolvedLocation + "]");
+		}
 	}
 
 	@Override
