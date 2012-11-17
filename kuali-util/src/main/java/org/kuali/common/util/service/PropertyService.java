@@ -8,8 +8,8 @@ import java.util.Properties;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ResourceUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.property.DefaultPropertyLoadingContext;
-import org.kuali.common.util.property.DefaultPropertyStorageContext;
+import org.kuali.common.util.property.DefaultPropertyLoadContext;
+import org.kuali.common.util.property.DefaultPropertyStoreContext;
 import org.kuali.common.util.property.PropertyContext;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
@@ -70,7 +70,7 @@ public class PropertyService {
 	}
 
 	public Properties getProperties(List<String> locations, String encoding) {
-		DefaultPropertyLoadingContext context = new DefaultPropertyLoadingContext();
+		DefaultPropertyLoadContext context = new DefaultPropertyLoadContext();
 		context.setLocations(locations);
 		context.setEncoding(encoding);
 		return getProperties(context);
@@ -81,7 +81,7 @@ public class PropertyService {
 	}
 
 	public void store(Properties properties, File file, String encoding, String prefix, PropertyStyle style, String comment) {
-		DefaultPropertyStorageContext context = new DefaultPropertyStorageContext();
+		DefaultPropertyStoreContext context = new DefaultPropertyStoreContext();
 		context.setFile(file);
 		context.setEncoding(encoding);
 		context.setPrefix(prefix);

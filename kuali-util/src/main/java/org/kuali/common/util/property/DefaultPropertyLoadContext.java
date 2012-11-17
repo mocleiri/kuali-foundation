@@ -2,7 +2,7 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
-public class DefaultPropertyLoadingContext extends DefaultPropertyContext implements PropertyLoadContext {
+public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
 	List<String> locations;
 	boolean ignoreMissingLocations;
