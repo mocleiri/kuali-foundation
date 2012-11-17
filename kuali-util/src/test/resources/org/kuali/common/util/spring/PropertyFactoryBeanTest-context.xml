@@ -13,7 +13,6 @@
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
     <property name="service" ref="service" />
     <property name="encryptionMode" value="DECRYPT" />
-    <property name="encryptionStrength" value="BASIC" />
     <property name="encryptionPassword" value="${enc.password}" />
     <property name="encryptor" ref="encryptor" />
     <property name="locations">
