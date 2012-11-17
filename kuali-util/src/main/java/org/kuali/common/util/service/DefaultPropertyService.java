@@ -77,7 +77,7 @@ public class DefaultPropertyService implements PropertyService {
 		return getProperties(context, props);
 	}
 
-	public Properties getProperties(PropertyContext context, Properties props) {
+	protected Properties getProperties(PropertyContext context, Properties props) {
 
 		// Add in environment variables?
 		if (context.isIncludeEnvironmentVariables()) {
