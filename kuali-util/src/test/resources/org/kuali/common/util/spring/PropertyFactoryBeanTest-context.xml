@@ -9,7 +9,7 @@
 
   <bean id="service" class="org.kuali.common.util.service.PropertyService" />
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:exclude="car.color">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}">
     <property name="service" ref="service" />
     <property name="locations">
       <list>
