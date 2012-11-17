@@ -270,15 +270,15 @@
     <target name="main-opt" depends="prepare, preprocess"
             description="Same as main, but with debugging off and optimizations on.">
         <javac nowarn="true" srcdir="${build.src}" destdir="${build.dest}" excludes="${excludes}"
-               debug="off" deprecation="off" optimize="on">
+               debug="on" deprecation="on" optimize="on">
             <classpath refid="compilation-classpath"/>
         </javac>
         <javac nowarn="true" srcdir="${build.srctest}" destdir="${build.desttest}" excludes="${excludes}"
-               debug="off" deprecation="off" optimize="on">
+               debug="on" deprecation="on" optimize="on">
             <classpath refid="compilation-classpath"/>
         </javac>
         <javac nowarn="true" srcdir="${build.srctools}" destdir="${build.desttools}" excludes="${excludes}"
-               debug="off" deprecation="off" optimize="on">
+               debug="on" deprecation="on" optimize="on">
             <classpath refid="compilation-classpath"/>
         </javac>
 		<javac nowarn="true" srcdir="${build.srcjca}" destdir="${build.destjca}" excludes="${excludes}"
