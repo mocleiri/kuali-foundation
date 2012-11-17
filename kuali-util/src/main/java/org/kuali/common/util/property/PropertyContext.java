@@ -1,12 +1,14 @@
 package org.kuali.common.util.property;
 
+import java.util.List;
+
 public interface PropertyContext {
 
 	String getEncoding();
 
-	String getInclude();
+	List<String> getIncludes();
 
-	String getExclude();
+	List<String> getExcludes();
 
 	boolean isIncludeEnvironmentVariables();
 

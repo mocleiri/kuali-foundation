@@ -2,7 +2,7 @@ package org.kuali.common.util.property;
 
 import java.io.File;
 
-public class DefaultPropertyStorageContext extends DefaultPropertyHandlingContext implements PropertyStoreContext {
+public class DefaultPropertyStorageContext extends DefaultPropertyContext implements PropertyStoreContext {
 
 	// The file to store properties to
 	File file;

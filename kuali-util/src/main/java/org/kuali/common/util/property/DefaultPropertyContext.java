@@ -1,12 +1,14 @@
 package org.kuali.common.util.property;
 
+import java.util.List;
+
 import org.kuali.common.util.service.PropertyService;
 
-public class DefaultPropertyHandlingContext implements PropertyContext {
+public class DefaultPropertyContext implements PropertyContext {
 
 	String encoding;
-	String include;
-	String exclude;
+	List<String> includes;
+	List<String> excludes;
 	boolean includeEnvironmentVariables;
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
@@ -16,7 +18,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	PropertyStyle style = PropertyStyle.NORMAL;
 
 	@Override
-	public String getEncoding() {
+    public String getEncoding() {
 		return encoding;
 	}
 
@@ -25,25 +27,25 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public String getInclude() {
-		return include;
+    public List<String> getIncludes() {
+		return includes;
 	}
 
-	public void setInclude(String include) {
-		this.include = include;
-	}
-
-	@Override
-	public String getExclude() {
-		return exclude;
-	}
-
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
 	}
 
 	@Override
-	public boolean isIncludeEnvironmentVariables() {
+    public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
+
+	@Override
+    public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -52,7 +54,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isIncludeSystemProperties() {
+    public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -61,7 +63,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isResolvePlaceholders() {
+    public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -70,7 +72,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public String getPlaceHolderPrefix() {
+    public String getPlaceHolderPrefix() {
 		return placeHolderPrefix;
 	}
 
@@ -79,7 +81,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public String getPlaceHolderSuffix() {
+    public String getPlaceHolderSuffix() {
 		return placeHolderSuffix;
 	}
 
@@ -88,7 +90,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public String getPrefix() {
+    public String getPrefix() {
 		return prefix;
 	}
 
@@ -97,7 +99,7 @@ public class DefaultPropertyHandlingContext implements PropertyContext {
 	}
 
 	@Override
-	public PropertyStyle getStyle() {
+    public PropertyStyle getStyle() {
 		return style;
 	}
 
