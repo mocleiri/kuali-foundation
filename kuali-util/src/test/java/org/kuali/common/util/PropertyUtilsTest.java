@@ -16,7 +16,7 @@ public class PropertyUtilsTest {
 		try {
 			File temp = File.createTempFile("temporary.", ".xml");
 			temp.deleteOnExit();
-			Properties props = PropertyUtils.getProperties(xmlLocation);
+			Properties props = PropertyUtils.load(xmlLocation);
 			String foo = props.getProperty("foo");
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp, encoding);
@@ -30,7 +30,7 @@ public class PropertyUtilsTest {
 		try {
 			File temp = File.createTempFile("temporary.", ".xml");
 			temp.deleteOnExit();
-			Properties props = PropertyUtils.getProperties(xmlLocation);
+			Properties props = PropertyUtils.load(xmlLocation);
 			String foo = props.getProperty("foo");
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp);
@@ -44,7 +44,7 @@ public class PropertyUtilsTest {
 		try {
 			File temp = File.createTempFile("temporary.", ".properties");
 			temp.deleteOnExit();
-			Properties props = PropertyUtils.getProperties(xmlLocation);
+			Properties props = PropertyUtils.load(xmlLocation);
 			String foo = props.getProperty("foo");
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp, encoding);
@@ -58,7 +58,7 @@ public class PropertyUtilsTest {
 		try {
 			File temp = File.createTempFile("temporary.", ".properties");
 			temp.deleteOnExit();
-			Properties props = PropertyUtils.getProperties(xmlLocation);
+			Properties props = PropertyUtils.load(xmlLocation);
 			String foo = props.getProperty("foo");
 			Assert.assertEquals("bar", foo);
 			PropertyUtils.store(props, temp);
@@ -69,21 +69,21 @@ public class PropertyUtilsTest {
 
 	@Test
 	public void getXMLPropertiesTest() {
-		Properties props = PropertyUtils.getProperties(xmlLocation);
+		Properties props = PropertyUtils.load(xmlLocation);
 		String foo = props.getProperty("foo");
 		Assert.assertEquals("bar", foo);
 	}
 
 	@Test
 	public void getPropertiesTest() {
-		Properties props = PropertyUtils.getProperties(location);
+		Properties props = PropertyUtils.load(location);
 		String foo = props.getProperty("foo");
 		Assert.assertEquals("bar", foo);
 	}
 
 	@Test
 	public void getPropertiesUTF8Test() {
-		Properties props = PropertyUtils.getProperties(location, "UTF-8");
+		Properties props = PropertyUtils.load(location, "UTF-8");
 		String foo = props.getProperty("foo");
 		Assert.assertEquals("bar", foo);
 	}

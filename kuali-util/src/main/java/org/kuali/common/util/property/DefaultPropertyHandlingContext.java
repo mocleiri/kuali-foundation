@@ -1,6 +1,6 @@
 package org.kuali.common.util.property;
 
-import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.service.PropertyService;
 
 public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 
@@ -10,8 +10,8 @@ public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
 	boolean includeEnvironmentVariables;
 	boolean includeSystemProperties;
 	boolean resolvePlaceholders;
-	String placeHolderPrefix = PropertyUtils.DEFAULT_PLACEHOLDER_PREFIX;
-	String placeHolderSuffix = PropertyUtils.DEFAULT_PLACEHOLDER_SUFFIX;
+	String placeHolderPrefix = PropertyService.DEFAULT_PLACEHOLDER_PREFIX;
+	String placeHolderSuffix = PropertyService.DEFAULT_PLACEHOLDER_SUFFIX;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 

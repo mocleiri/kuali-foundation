@@ -2,29 +2,30 @@ package org.kuali.common.util.spring;
 
 import java.util.Properties;
 
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
+import org.kuali.common.util.service.PropertyService;
 import org.springframework.beans.factory.FactoryBean;
 
 public class PropertyFactoryBean extends DefaultPropertyLoadingContext implements FactoryBean<Properties> {
 
-	protected static Properties factoryBeanProperties;
-	boolean singleton;
+	protected static Properties properties;
+	boolean singleton = true;
+	PropertyService service;
 
 	@Override
 	public Properties getObject() throws Exception {
 		if (isSingleton()) {
 			return getInstance();
 		} else {
-			return PropertyUtils.getProperties(this);
+			return service.getProperties(this);
 		}
 	}
 
 	protected synchronized Properties getInstance() {
-		if (factoryBeanProperties == null) {
-			factoryBeanProperties = PropertyUtils.getProperties(this);
+		if (properties == null) {
+			properties = service.getProperties(this);
 		}
-		return factoryBeanProperties;
+		return properties;
 	}
 
 	@Override
@@ -39,5 +40,13 @@ public class PropertyFactoryBean extends DefaultPropertyLoadingContext implement
 
 	public void setSingleton(boolean singleton) {
 		this.singleton = singleton;
+	}
+
+	public PropertyService getService() {
+		return service;
+	}
+
+	public void setService(PropertyService service) {
+		this.service = service;
 	}
 }

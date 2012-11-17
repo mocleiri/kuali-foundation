@@ -6,8 +6,6 @@ public interface PropertyStorageContext extends PropertyHandlingContext {
 
 	File getFile();
 
-	boolean isSort();
-
 	String getComment();
 
 }

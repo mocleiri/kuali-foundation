@@ -7,9 +7,6 @@ public class DefaultPropertyStorageContext extends DefaultPropertyHandlingContex
 	// The file to store properties to
 	File file;
 
-	// If true, sort the properties by key when storing
-	boolean sort = true;
-
 	// If not null, include this as a comment in the properties file
 	String comment;
 
@@ -20,15 +17,6 @@ public class DefaultPropertyStorageContext extends DefaultPropertyHandlingContex
 
 	public void setFile(File file) {
 		this.file = file;
-	}
-
-	@Override
-	public boolean isSort() {
-		return sort;
-	}
-
-	public void setSort(boolean sort) {
-		this.sort = sort;
 	}
 
 	@Override

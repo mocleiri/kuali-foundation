@@ -40,7 +40,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <io.version>2.4</io.version>
-    <lang.version>2.6</lang.version>
+    <lang.version>3.1</lang.version>
     <jasypt.version>1.9.0</jasypt.version>
   </properties>
   <developers>
@@ -77,8 +77,8 @@
       <version>${io.version}</version>
     </dependency>
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
       <version>${lang.version}</version>
     </dependency>
     <dependency>
