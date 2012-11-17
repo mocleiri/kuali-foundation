@@ -8,7 +8,7 @@
 
 
   <bean id="service" class="org.kuali.common.util.service.PropertyService" />
-  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="password" />
+  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${kuali.enc.password}" />
   <bean id="propertyEncryptor" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="encryptor" />
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}">
@@ -18,6 +18,7 @@
         <value>classpath:maven.properties</value>
         <value>classpath:org/kuali/common/util/car.properties</value>
         <value>classpath:org/kuali/common/util/${car.brand}.properties</value>
+        <value>classpath:org/kuali/common/util/secure.properties</value>
       </list>
     </property>
   </bean>
