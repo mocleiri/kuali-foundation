@@ -7,10 +7,10 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="propertyService" class="org.kuali.common.util.service.PropertyService" />
+  <bean id="service" class="org.kuali.common.util.service.PropertyService" />
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:exclude="car.color">
-    <property name="service" ref="propertyService" />
+    <property name="service" ref="service" />
     <property name="locations">
       <list>
         <value>classpath:org/kuali/common/util/car.properties</value>
