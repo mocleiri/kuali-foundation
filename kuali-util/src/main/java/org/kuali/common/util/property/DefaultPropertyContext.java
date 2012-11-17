@@ -14,12 +14,11 @@ public class DefaultPropertyContext implements PropertyContext {
 	boolean resolvePlaceholders;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
-	PropertyEncryptor encryptor;
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
-	PropertyEncMode encryptionMode = PropertyEncMode.NONE;
+	PropertyEncContext encContext;
 
 	@Override
-	public String getEncoding() {
+    public String getEncoding() {
 		return encoding;
 	}
 
@@ -28,7 +27,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public List<String> getIncludes() {
+    public List<String> getIncludes() {
 		return includes;
 	}
 
@@ -37,7 +36,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public List<String> getExcludes() {
+    public List<String> getExcludes() {
 		return excludes;
 	}
 
@@ -46,7 +45,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isIncludeEnvironmentVariables() {
+    public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -55,7 +54,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isIncludeSystemProperties() {
+    public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -64,7 +63,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isResolvePlaceholders() {
+    public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -73,7 +72,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public String getPrefix() {
+    public String getPrefix() {
 		return prefix;
 	}
 
@@ -82,7 +81,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public PropertyStyle getStyle() {
+    public PropertyStyle getStyle() {
 		return style;
 	}
 
@@ -91,16 +90,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public PropertyEncryptor getEncryptor() {
-		return encryptor;
-	}
-
-	public void setEncryptor(PropertyEncryptor encryptor) {
-		this.encryptor = encryptor;
-	}
-
-	@Override
-	public PropertyPlaceholderHelper getHelper() {
+    public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -109,12 +99,11 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyEncMode getEncryptionMode() {
-		return encryptionMode;
+    public PropertyEncContext getEncContext() {
+		return encContext;
 	}
 
-	public void setEncryptionMode(PropertyEncMode encryptionMode) {
-		this.encryptionMode = encryptionMode;
+	public void setEncContext(PropertyEncContext encContext) {
+		this.encContext = encContext;
 	}
-
 }

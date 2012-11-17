@@ -22,9 +22,7 @@ public interface PropertyContext {
 
 	PropertyStyle getStyle();
 
-	PropertyEncryptor getEncryptor();
-
-	PropertyEncMode getEncryptionMode();
+	PropertyEncContext getEncContext();
 
 	PropertyPlaceholderHelper getHelper();
 
