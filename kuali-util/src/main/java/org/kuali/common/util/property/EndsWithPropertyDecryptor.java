@@ -16,32 +16,47 @@ public class EndsWithPropertyDecryptor extends DefaultPropertyEncryptor {
 	private static final String DEFAULT_ENCRYPTED_PROPERTY_SUFFIX = ".encrypted";
 
 	String encryptedSuffix = DEFAULT_ENCRYPTED_PROPERTY_SUFFIX;
-	boolean quiet;
 
 	@Override
-	protected List<String> getDecryptKeys(Properties properties) {
+	public void decrypt(Properties properties) {
+		int suffixLength = encryptedSuffix.length();
+		List<String> encryptedKeys = getEncryptedKeys(properties);
+		for (String encryptedKey : encryptedKeys) {
+			String encryptedValue = properties.getProperty(encryptedKey);
+			logger.debug("Decrypting [{}={}]", encryptedKey, encryptedValue);
+			String decryptedValue = encryptor.decrypt(encryptedValue);
+			String newKey = encryptedKey.substring(0, encryptedKey.length() - suffixLength);
+			properties.setProperty(newKey, decryptedValue);
+			properties.remove(encryptedKey);
+		}
+	}
+
+	@Override
+	public void encrypt(Properties properties) {
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			logger.debug("Encrypting [{}={}]", key, value);
+			String encryptedValue = encryptor.encrypt(value);
+			String newKey = key + encryptedSuffix;
+			properties.setProperty(newKey, encryptedValue);
+			properties.remove(key);
+		}
+	}
+
+	protected List<String> getEncryptedKeys(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		List<String> encryptedKeys = new ArrayList<String>();
 		for (String key : keys) {
-			if (!key.endsWith(encryptedSuffix)) {
+			if (isEncrypted(key)) {
 				encryptedKeys.add(key);
 			}
 		}
 		return encryptedKeys;
 	}
 
-	@Override
-	protected void setDecryptedProperty(Properties properties, String key, String decryptedValue) {
-		int beginIndex = 0;
-		int endIndex = key.length() - encryptedSuffix.length();
-		String newKey = key.substring(beginIndex, endIndex);
-		String originalValue = properties.getProperty(newKey);
-		if (!StringUtils.isBlank(originalValue)) {
-			logger.warn("Overwriting existing property [{}]", newKey);
-		} else if (!quiet) {
-			logger.info("Setting property [{}]", newKey);
-		}
-		properties.setProperty(newKey, decryptedValue);
+	protected boolean isEncrypted(String key) {
+		return StringUtils.endsWith(key, encryptedSuffix);
 	}
 
 	public String getEncryptedSuffix() {
@@ -50,14 +65,6 @@ public class EndsWithPropertyDecryptor extends DefaultPropertyEncryptor {
 
 	public void setEncryptedSuffix(String encryptedSuffix) {
 		this.encryptedSuffix = encryptedSuffix;
-	}
-
-	public boolean isQuiet() {
-		return quiet;
-	}
-
-	public void setQuiet(boolean quiet) {
-		this.quiet = quiet;
 	}
 
 }
