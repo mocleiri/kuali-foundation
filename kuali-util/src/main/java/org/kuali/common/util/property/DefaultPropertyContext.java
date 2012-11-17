@@ -15,7 +15,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyEncryptor encryptor;
-	PropertyPlaceholderHelper helper;
+	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
 
 	@Override
 	public String getEncoding() {
@@ -99,7 +99,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyPlaceholderHelper getHelper() {
+	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
