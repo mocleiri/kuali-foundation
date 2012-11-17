@@ -86,6 +86,10 @@ public class DefaultPropertyService implements PropertyService {
 			props = getResolvedProperties(props, context.getHelper());
 		}
 
+		System.out.println(context.getEncryptionPassword());
+		System.out.println(context.getEncryptionPassword());
+		System.out.println(context.getEncryptionPassword());
+
 		// Trim out unwanted properties
 		PropertyUtils.trim(props, context.getIncludes(), context.getExcludes());
 

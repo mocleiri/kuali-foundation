@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class EndsWithPropertyDecryptor extends DefaultPropertyEncryptor {
+public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 
-	private static final Logger logger = LoggerFactory.getLogger(EndsWithPropertyDecryptor.class);
+	private static final Logger logger = LoggerFactory.getLogger(EndsWithPropertyEncryptor.class);
 
 	private static final String DEFAULT_ENCRYPTED_PROPERTY_SUFFIX = ".encrypted";
 
