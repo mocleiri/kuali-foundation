@@ -16,6 +16,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyEncryptor encryptor;
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
+	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 
 	@Override
 	public String getEncoding() {
@@ -105,6 +106,15 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setHelper(PropertyPlaceholderHelper helper) {
 		this.helper = helper;
+	}
+
+	@Override
+    public PropertyEncryptionMode getEncryptionMode() {
+		return encryptionMode;
+	}
+
+	public void setEncryptionMode(PropertyEncryptionMode encryptionMode) {
+		this.encryptionMode = encryptionMode;
 	}
 
 }
