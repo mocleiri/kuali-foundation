@@ -7,11 +7,19 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+  <bean id="helper" class="org.springframework.util.PropertyPlaceholderHelper">
+    <constructor-arg value="${" />
+    <constructor-arg value="}" />
+    <constructor-arg>
+      <null />
+    </constructor-arg>
+    <constructor-arg value="true" />
+  </bean>
   <bean id="service" class="org.kuali.common.util.service.PropertyService" />
   <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${kuali.enc.password}" />
   <bean id="propertyEncryptor" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="encryptor" />
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
     <property name="service" ref="service" />
     <property name="locations">
       <list>

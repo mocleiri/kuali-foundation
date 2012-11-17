@@ -143,7 +143,7 @@ public class PropertyService {
 		// Trim out unwanted properties
 		PropertyUtils.trim(props, context.getIncludes(), context.getExcludes());
 
-		// Add in a prefix if asked to do so
+		// Add a prefix if asked to do so
 		Properties prefixed = PropertyUtils.getPrefixedProperties(props, context.getPrefix());
 
 		// Format the property keys according to the style they've asked for and return
