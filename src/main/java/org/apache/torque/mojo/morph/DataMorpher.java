@@ -16,6 +16,7 @@
 package org.apache.torque.mojo.morph;
 
 import org.codehaus.plexus.util.StringUtils;
+import java.util.Properties;
 
 public class DataMorpher extends Morpher {
 	// Ant prologue
@@ -38,7 +39,7 @@ public class DataMorpher extends Morpher {
 		return "<!DOCTYPE dataset SYSTEM \"" + getArtifactId() + ".dtd\">";
 	}
 
-	protected String getMorphedContents(String contents) {
+	protected String getMorphedContents(String contents, Properties rules) {
 		contents = StringUtils.replace(contents, antPrologue, newPrologue);
 		return StringUtils.replace(contents, antDocType, getNewDocType());
 	}

@@ -18,6 +18,8 @@ package org.apache.torque.mojo.morph;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import java.util.Properties;
+import java.util.Map;
 
 public class SchemaMorpher extends Morpher {
 	private static final Log log = LogFactory.getLog(SchemaMorpher.class);
@@ -94,10 +96,17 @@ public class SchemaMorpher extends Morpher {
 	 * Morph an Ant Impex XML file into a Maven Impex Plugin XML file
 	 */
 	@Override
-	protected String getMorphedContents(String contents) {
+	protected String getMorphedContents(String contents, Properties rules) {
 		contents = StringUtils.replace(contents, antDTDString, newDTDString);
 		contents = StringUtils.replace(contents, antComment, newComment);
 		contents = StringUtils.replace(contents, antPrologue, newPrologue);
+		
+		if (rules != null) {
+			for (Map.Entry entry : rules.entrySet()) {
+				contents = StringUtils.replace(contents, (String) entry.getKey(), (String) entry.getValue());
+			}
+		}
+		
 		return StringUtils.replace(contents, "name=\"" + antSchemaName + "\">", "name=\"" + getArtifactId() + "\">");
 	}
 

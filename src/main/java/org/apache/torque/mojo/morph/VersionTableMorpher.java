@@ -18,6 +18,7 @@ package org.apache.torque.mojo.morph;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import java.util.Properties;
 
 public class VersionTableMorpher extends Morpher {
 	private static final Log log = LogFactory.getLog(VersionTableMorpher.class);
@@ -32,7 +33,7 @@ public class VersionTableMorpher extends Morpher {
 		super(morphRequest, artifactId);
 	}
 
-	protected String getMorphedContents(String contents) {
+	protected String getMorphedContents(String contents, Properties rules) {
 		log.debug("contents=" + contents);
 		String oldVersion = StringUtils.substringBetween(contents, "VERSION=\"", "\"");
 		String searchString = "VERSION=\"" + oldVersion + "\"";

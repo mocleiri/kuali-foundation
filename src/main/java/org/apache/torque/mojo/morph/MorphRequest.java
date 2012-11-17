@@ -27,16 +27,18 @@ public class MorphRequest {
 	String name;
 	String encoding;
 	InputStream inputStream;
+	InputStream rulesInputStream;
 	OutputStream outputStream;
 
 	public MorphRequest() {
-		this(null, null, null);
+		this(null, null, null, null);
 	}
 
-	public MorphRequest(String filename, InputStream inputStream, OutputStream outputStream) {
+	public MorphRequest(String filename, InputStream inputStream, InputStream rulesInputStream, OutputStream outputStream) {
 		super();
 		this.name = filename;
 		this.inputStream = inputStream;
+		this.rulesInputStream = rulesInputStream;
 		this.outputStream = outputStream;
 	}
 
@@ -46,6 +48,14 @@ public class MorphRequest {
 
 	public void setInputStream(InputStream oldData) {
 		this.inputStream = oldData;
+	}
+
+	public InputStream getRulesInputStream() {
+		return rulesInputStream;
+	}
+
+	public void setRulesInputStream(InputStream oldData) {
+		this.rulesInputStream = oldData;
 	}
 
 	public OutputStream getOutputStream() {

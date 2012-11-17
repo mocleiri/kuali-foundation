@@ -49,6 +49,15 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
     private File oldFile;
 
     /**
+     * The properties file containing morph rules.  These rules are basically regex patterns and replacement strings.
+     * There are serious limitations to this method of morphing but it is also simple and should fit the current narrow
+     * usecase.
+     *
+     * @parameter expression="${morphRulesFile}" default-value=default-value="${basedir}/src/main/impex/rules.properties"
+     */
+    private File morphRulesFile;
+
+    /**
      * Add logic to the basic skip() method for skipping based on a morph being needed
      */
     @Override
@@ -97,7 +106,7 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
             getLog().info("From: " + oldFile.getAbsolutePath());
             getLog().info("  To: " + newFile.getAbsolutePath());
             FileUtils.forceMkdir(new File(FileUtils.getPath(newFile.getAbsolutePath())));
-            MorphRequest request = new MorphRequest(oldFile.getName(), new FileInputStream(oldFile),
+            MorphRequest request = new MorphRequest(oldFile.getName(), new FileInputStream(oldFile), morphRulesFile.exists() ? new FileInputStream(morphRulesFile) : null, 
                     new FileOutputStream(newFile));
             request.setEncoding(getEncoding());
             Morpher morpher = getMorpher(request, artifactId);
@@ -130,5 +139,13 @@ public abstract class AbstractMorphSingleMojo extends BaseMojo {
 
     public void setArtifactId(String artifactId) {
         this.artifactId = artifactId;
+    }
+
+    public File getMorphRulesFile() {
+        return morphRulesFile;
+    }
+
+    public void setMorphRulesFile(final File morphRulesFile) {
+        this.morphRulesFile = morphRulesFile;
     }
 }

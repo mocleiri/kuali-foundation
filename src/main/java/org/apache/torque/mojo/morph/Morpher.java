@@ -18,6 +18,7 @@ package org.apache.torque.mojo.morph;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -41,7 +42,7 @@ public abstract class Morpher {
 
 	protected abstract boolean isMorphNeeded(String contents);
 
-	protected abstract String getMorphedContents(String contents);
+	protected abstract String getMorphedContents(String contents, Properties rules);
 
 	public void executeMorph() throws IOException {
 		// Read the "old" data into a string
@@ -49,9 +50,14 @@ public abstract class Morpher {
 		String contents = IOUtils.toString(in, morphRequest.getEncoding());
 		IOUtils.closeQuietly(in);
 
+		final Properties rules = new Properties();
+		if (morphRequest.getRulesInputStream() != null) {
+			rules.load(morphRequest.getRulesInputStream());
+		}
+		
 		// May not need to morph
 		if (isMorphNeeded(contents)) {
-			contents = getMorphedContents(contents);
+			contents = getMorphedContents(contents, rules);
 		} else {
 			log.debug("Skipping morph on " + morphRequest.getName());
 		}
