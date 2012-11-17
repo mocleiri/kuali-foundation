@@ -7,13 +7,13 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="text.enc" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${enc.password}" />
-  <bean id="props.enc" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="text.enc" />
+  <bean id="props.enc" class="org.kuali.common.util.property.DefaultPropertyEncryptor" />
+  <bean id="enc.context" class="org.kuali.common.util.property.PropertyEncContext" p:mode="ENCRYPT" p:strength="BASIC" p:encryptor-ref="props.enc" p:password="${enc.password}" />
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
     <property name="service" ref="service" />
-    <property name="encryptor" ref="props.enc" />
+    <property name="encryptionContext" ref="enc.context" />
     <property name="locations">
       <list>
         <value>classpath:maven.properties</value>

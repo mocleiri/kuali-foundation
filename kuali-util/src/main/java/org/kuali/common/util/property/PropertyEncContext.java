@@ -2,10 +2,10 @@ package org.kuali.common.util.property;
 
 public class PropertyEncContext {
 
-	String password;
-	PropertyEncMode mode;
+	PropertyEncMode mode = PropertyEncMode.NONE;
 	PropertyEncStrength strength;
 	PropertyEncryptor encryptor;
+	String password;
 
 	public String getPassword() {
 		return password;
