@@ -2,7 +2,7 @@ package org.kuali.common.util.property;
 
 import org.kuali.common.util.service.PropertyService;
 
-public class DefaultPropertyHandlingContext implements PropertyHandlingContext {
+public class DefaultPropertyHandlingContext implements PropertyContext {
 
 	String encoding;
 	String include;

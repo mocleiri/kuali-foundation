@@ -10,9 +10,9 @@ import org.kuali.common.util.ResourceUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.DefaultPropertyLoadingContext;
 import org.kuali.common.util.property.DefaultPropertyStorageContext;
-import org.kuali.common.util.property.PropertyHandlingContext;
-import org.kuali.common.util.property.PropertyLoadingContext;
-import org.kuali.common.util.property.PropertyStorageContext;
+import org.kuali.common.util.property.PropertyContext;
+import org.kuali.common.util.property.PropertyLoadContext;
+import org.kuali.common.util.property.PropertyStoreContext;
 import org.kuali.common.util.property.PropertyStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,12 +90,12 @@ public class PropertyService {
 		store(context, properties);
 	}
 
-	public void store(PropertyStorageContext context, Properties properties) {
+	public void store(PropertyStoreContext context, Properties properties) {
 		Properties finalProperties = getProperties(context, properties);
 		PropertyUtils.store(finalProperties, context.getFile(), context.getEncoding(), context.getComment());
 	}
 
-	public Properties load(PropertyLoadingContext context) {
+	public Properties load(PropertyLoadContext context) {
 		String prefix = context.getPlaceHolderPrefix();
 		String suffix = context.getPlaceHolderSuffix();
 		Properties props = new Properties();
@@ -116,14 +116,14 @@ public class PropertyService {
 		return props;
 	}
 
-	public Properties getProperties(PropertyLoadingContext context) {
+	public Properties getProperties(PropertyLoadContext context) {
 		// Load properties in from the specified locations
 		Properties props = load(context);
 		// Process the properties according to the options provided in the context
 		return getProperties(context, props);
 	}
 
-	public Properties getProperties(PropertyHandlingContext context, Properties props) {
+	public Properties getProperties(PropertyContext context, Properties props) {
 
 		// Add in environment variables?
 		if (context.isIncludeEnvironmentVariables()) {

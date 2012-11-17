@@ -1,6 +1,6 @@
 package org.kuali.common.util.property;
 
-public interface PropertyHandlingContext {
+public interface PropertyContext {
 
 	String getEncoding();
 

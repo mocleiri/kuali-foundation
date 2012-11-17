@@ -2,7 +2,7 @@ package org.kuali.common.util.property;
 
 import java.io.File;
 
-public interface PropertyStorageContext extends PropertyHandlingContext {
+public interface PropertyStoreContext extends PropertyContext {
 
 	File getFile();
 
