@@ -1,18 +1,9 @@
 package org.kuali.common.util.property;
 
-public class PropertyEncContext {
+public class PropertyEncryptorContext {
 
-	PropertyEncMode mode = PropertyEncMode.NONE;
 	PropertyEncStrength strength;
 	String password;
-
-	public PropertyEncMode getMode() {
-		return mode;
-	}
-
-	public void setMode(PropertyEncMode mode) {
-		this.mode = mode;
-	}
 
 	public PropertyEncStrength getStrength() {
 		return strength;
