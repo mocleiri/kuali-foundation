@@ -52,9 +52,9 @@ public class DefaultPropertyService implements PropertyService {
 
 	@Override
 	public Properties load(PropertyLoadContext context) {
-		Properties props = new Properties();
+		Properties properties = new Properties();
 		for (String location : context.getLocations()) {
-			Properties global = PropertyUtils.getGlobalProperties(props);
+			Properties global = PropertyUtils.getGlobalProperties(properties);
 			String resolvedLocation = context.getHelper().replacePlaceholders(location, global);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
@@ -64,13 +64,13 @@ public class DefaultPropertyService implements PropertyService {
 				logger.info("Skipping non-existent location - [{}]", resolvedLocation);
 				continue;
 			} else {
-				props.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
+				properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
 			}
 		}
-		return props;
+		return getProperties(context, properties);
 	}
 
-	public Properties getProperties(PropertyLoadContext context) {
+	protected Properties getProperties(PropertyLoadContext context) {
 		// Load properties in from the specified locations
 		Properties props = load(context);
 		// Process the properties according to the options provided in the context
