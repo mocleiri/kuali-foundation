@@ -2,6 +2,7 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
+import org.kuali.common.util.EncryptionStrength;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
@@ -15,12 +16,13 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
-	PropertyEncryptorContext encryptorContext;
 	PropertyEncMode encryptionMode;
+	EncryptionStrength encryptionStrength;
+	String encryptionPassword;
 	PropertyEncryptor encryptor;
 
 	@Override
-	public String getEncoding() {
+    public String getEncoding() {
 		return encoding;
 	}
 
@@ -29,7 +31,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public List<String> getIncludes() {
+    public List<String> getIncludes() {
 		return includes;
 	}
 
@@ -38,7 +40,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public List<String> getExcludes() {
+    public List<String> getExcludes() {
 		return excludes;
 	}
 
@@ -47,7 +49,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isIncludeEnvironmentVariables() {
+    public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -56,7 +58,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isIncludeSystemProperties() {
+    public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -65,7 +67,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public boolean isResolvePlaceholders() {
+    public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -74,7 +76,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public String getPrefix() {
+    public String getPrefix() {
 		return prefix;
 	}
 
@@ -83,7 +85,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public PropertyStyle getStyle() {
+    public PropertyStyle getStyle() {
 		return style;
 	}
 
@@ -92,7 +94,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public PropertyPlaceholderHelper getHelper() {
+    public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -101,15 +103,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyEncryptorContext getEncryptorContext() {
-		return encryptorContext;
-	}
-
-	public void setEncryptorContext(PropertyEncryptorContext encryptorContext) {
-		this.encryptorContext = encryptorContext;
-	}
-
-	public PropertyEncMode getEncryptionMode() {
+    public PropertyEncMode getEncryptionMode() {
 		return encryptionMode;
 	}
 
@@ -117,7 +111,26 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.encryptionMode = encryptionMode;
 	}
 
-	public PropertyEncryptor getEncryptor() {
+	@Override
+    public EncryptionStrength getEncryptionStrength() {
+		return encryptionStrength;
+	}
+
+	public void setEncryptionStrength(EncryptionStrength encryptionStrength) {
+		this.encryptionStrength = encryptionStrength;
+	}
+
+	@Override
+    public String getEncryptionPassword() {
+		return encryptionPassword;
+	}
+
+	public void setEncryptionPassword(String encryptionPassword) {
+		this.encryptionPassword = encryptionPassword;
+	}
+
+	@Override
+    public PropertyEncryptor getEncryptor() {
 		return encryptor;
 	}
 

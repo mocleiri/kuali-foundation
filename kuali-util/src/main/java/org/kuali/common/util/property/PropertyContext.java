@@ -2,6 +2,7 @@ package org.kuali.common.util.property;
 
 import java.util.List;
 
+import org.kuali.common.util.EncryptionStrength;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public interface PropertyContext {
@@ -22,11 +23,13 @@ public interface PropertyContext {
 
 	PropertyStyle getStyle();
 
-	PropertyEncryptorContext getEncryptorContext();
-
 	PropertyEncryptor getEncryptor();
 
 	PropertyEncMode getEncryptionMode();
+
+	EncryptionStrength getEncryptionStrength();
+
+	String getEncryptionPassword();
 
 	PropertyPlaceholderHelper getHelper();
 
