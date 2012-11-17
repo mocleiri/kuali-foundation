@@ -13,6 +13,7 @@
     <property name="service" ref="service" />
     <property name="locations">
       <list>
+        <value>classpath:maven.properties</value>
         <value>classpath:org/kuali/common/util/car.properties</value>
         <value>classpath:org/kuali/common/util/${car.brand}.properties</value>
       </list>

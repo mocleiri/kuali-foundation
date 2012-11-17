@@ -25,7 +25,7 @@ public class PropertyFactoryBeanTest {
 	@Test
 	public void test() {
 		try {
-			Assert.assertNotNull("properties is null.", properties);
+			Assert.assertNotNull("properties can't be null.", properties);
 			List<String> keys = PropertyUtils.getSortedKeys(properties);
 			for (String key : keys) {
 				String value = properties.getProperty(key);

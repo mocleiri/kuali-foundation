@@ -59,6 +59,7 @@
         <filtering>true</filtering>
         <includes>
           <include>**/*-context.xml</include>
+          <include>**/*.properties</include>
         </includes>
       </testResource>
       <testResource>
@@ -66,6 +67,7 @@
         <filtering>false</filtering>
         <excludes>
           <exclude>**/*-context.xml</exclude>
+          <exclude>**/*.properties</exclude>
         </excludes>
       </testResource>
     </testResources>
