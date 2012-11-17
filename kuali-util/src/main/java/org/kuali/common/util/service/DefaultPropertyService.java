@@ -8,27 +8,41 @@ import org.kuali.common.util.ResourceUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.PropertyContext;
 import org.kuali.common.util.property.PropertyEncMode;
-import org.kuali.common.util.property.PropertyEncryptor;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
 import org.kuali.common.util.property.PropertyStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyService implements PropertyService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyService.class);
 
-	protected Properties getFormattedProperties(Properties properties, PropertyStyle style) {
-		switch (style) {
-		case NORMAL:
-			return properties;
-		case ENVIRONMENT_VARIABLE:
-			return PropertyUtils.getPropertiesAsEnvironmentVariables(properties);
-		default:
-			throw new IllegalArgumentException(style + " is unknown");
+	@Override
+	public Properties load(PropertyLoadContext context) {
+		Properties properties = new Properties();
+		for (String location : context.getLocations()) {
+			Properties global = PropertyUtils.getGlobalProperties(properties);
+			String resolvedLocation = context.getHelper().replacePlaceholders(location, global);
+			if (!location.equals(resolvedLocation)) {
+				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
+			}
+			boolean missing = !ResourceUtils.exists(resolvedLocation);
+			if (missing && context.isIgnoreMissingLocations()) {
+				logger.info("Ignoring non-existent location - [{}]", resolvedLocation);
+				continue;
+			}
+			properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
 		}
+		return getProperties(context, properties);
+	}
+
+	@Override
+	public void store(PropertyStoreContext context, Properties properties) {
+		Properties finalProperties = getProperties(context, properties);
+		PropertyUtils.store(finalProperties, context.getFile(), context.getEncoding(), context.getComment());
 	}
 
 	protected Properties getResolvedProperties(Properties props, PropertyPlaceholderHelper helper) {
@@ -44,31 +58,6 @@ public class DefaultPropertyService implements PropertyService {
 			newProps.setProperty(key, resolvedValue);
 		}
 		return newProps;
-	}
-
-	@Override
-	public void store(PropertyStoreContext context, Properties properties) {
-		Properties finalProperties = getProperties(context, properties);
-		PropertyUtils.store(finalProperties, context.getFile(), context.getEncoding(), context.getComment());
-	}
-
-	@Override
-	public Properties load(PropertyLoadContext context) {
-		Properties properties = new Properties();
-		for (String location : context.getLocations()) {
-			Properties global = PropertyUtils.getGlobalProperties(properties);
-			String resolvedLocation = context.getHelper().replacePlaceholders(location, global);
-			if (!location.equals(resolvedLocation)) {
-				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
-			}
-			boolean missing = !ResourceUtils.exists(resolvedLocation);
-			if (missing && context.isIgnoreMissingLocations()) {
-				logger.info("Skipping non-existent location - [{}]", resolvedLocation);
-				continue;
-			}
-			properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
-		}
-		return getProperties(context, properties);
 	}
 
 	protected Properties getProperties(PropertyContext context, Properties props) {
@@ -128,20 +117,34 @@ public class DefaultPropertyService implements PropertyService {
 			return;
 		}
 
-		PropertyEncryptor encryptor = context.getEncryptor();
+		Assert.notNull(context.getEncryptor(), "PropertyEncryptor is null");
+
 		String password = getResolvedPassword(context, props);
+
 		// Give the encryptor a chance to initialize itself
-		encryptor.initialize(context.getEncryptionStrength(), password);
+		context.getEncryptor().initialize(context.getEncryptionStrength(), password);
 
 		switch (context.getEncryptionMode()) {
 		case DECRYPT:
-			encryptor.decrypt(props);
+			context.getEncryptor().decrypt(props);
 			return;
 		case ENCRYPT:
-			encryptor.encrypt(props);
+			context.getEncryptor().encrypt(props);
 			return;
 		default:
 			throw new IllegalStateException(context.getEncryptionMode() + " must be either " + PropertyEncMode.DECRYPT + " or " + PropertyEncMode.ENCRYPT);
 		}
 	}
+
+	protected Properties getFormattedProperties(Properties properties, PropertyStyle style) {
+		switch (style) {
+		case NORMAL:
+			return properties;
+		case ENVIRONMENT_VARIABLE:
+			return PropertyUtils.getPropertiesAsEnvironmentVariables(properties);
+		default:
+			throw new IllegalArgumentException(style + " is unknown");
+		}
+	}
+
 }
