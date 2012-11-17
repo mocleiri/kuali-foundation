@@ -43,4 +43,12 @@ public interface SelectStatement extends SqlStatement
      * column index is not supported.
      */
     public int getColumnIndex(FieldDescriptor fld);
+    
+    /**
+     * If "table-per-subclass"-inheritance is used for the class specified in
+     * the {@link org.apache.ojb.broker.query.Query} the name of the "real" class to
+     * instantiate for each row of the result set was hold by a pseudo column - In this
+     * case this method returns <em>true</em>.
+     */
+    public boolean isUseOjbClassColumn();
 }

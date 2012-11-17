@@ -14,7 +14,10 @@ package org.apache.ojb.broker.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import java.util.StringTokenizer;
 
+import org.apache.ojb.broker.PersistenceBrokerException;
+import org.apache.ojb.broker.accesslayer.ResultSetAndStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -129,19 +132,24 @@ public class SqlHelper
     
     /**
      * Returns the name of the class to be instantiated.
-     * @param rs the Resultset
+     * @param rsAndStmt the ResultSetAndStatement
      * @return null if the column is not available
      */
-    public static String getOjbClassName(ResultSet rs)
+    public static String getOjbClassName(ResultSetAndStatement rsAndStmt)
     {
-        try
+        String result = null;
+        if (rsAndStmt.m_sql != null && rsAndStmt.m_sql.isUseOjbClassColumn())
         {
-            return rs.getString(OJB_CLASS_COLUMN);
+            try
+            {
+                result = rsAndStmt.m_rs.getString(OJB_CLASS_COLUMN);
+            }
+            catch (SQLException e)
+            {
+                throw new PersistenceBrokerException("Cannot access " + OJB_CLASS_COLUMN, e);
+            }
         }
-        catch (SQLException e)
-        {
-            return null;
-        }
+        return result;
     }
 
 }

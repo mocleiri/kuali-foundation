@@ -381,6 +381,11 @@ public class JdbcAccessImpl implements JdbcAccess
                 {
                     return sql;
                 }
+
+                public boolean isUseOjbClassColumn()
+                {
+                    return false;
+                }
             });
         }
         catch (PersistenceBrokerException e)

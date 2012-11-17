@@ -192,7 +192,7 @@ TODO: this feature doesn't work, so remove this in future
             }
             else
             {
-                String ojbClass = SqlHelper.getOjbClassName(rs_stmt.m_rs);
+                String ojbClass = SqlHelper.getOjbClassName(rs_stmt);
                 if (ojbClass != null)
                 {
                     ClassDescriptor cld = m_cld.getRepository().getDescriptorFor(ojbClass);
@@ -214,7 +214,7 @@ TODO: this feature doesn't work, so remove this in future
      */
     public void readPkValuesFrom(ResultSetAndStatement rs_stmt, Map row)
     {
-        String ojbClass = SqlHelper.getOjbClassName(rs_stmt.m_rs);
+        String ojbClass = SqlHelper.getOjbClassName(rs_stmt);
         ClassDescriptor cld;
         
         if (ojbClass != null)

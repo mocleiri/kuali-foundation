@@ -88,4 +88,12 @@ public class SqlProcedureStatement implements SqlStatement
         sb.append(") }");
         return sb.toString();
     }
+
+    /**
+     * @see org.apache.ojb.broker.accesslayer.sql.SelectStatement#isUseOjbClassColumn()
+     */
+    public boolean isUseOjbClassColumn()
+    {
+        return false;
+    }
 }

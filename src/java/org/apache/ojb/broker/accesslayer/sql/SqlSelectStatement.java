@@ -44,6 +44,7 @@ import org.apache.ojb.broker.util.logging.Logger;
 public class SqlSelectStatement extends SqlQueryStatement implements SelectStatement
 {
     private WeakReference fieldsForSelect;
+    private boolean useOjbClassColumn;
 
     /**
      * Constructor for SqlSelectStatement.
@@ -178,6 +179,9 @@ public class SqlSelectStatement extends SqlQueryStatement implements SelectState
         }
         buf.append(" ELSE '").append(cld.getClassNameOfObject()).append("'");
         buf.append(" END AS " + SqlHelper.OJB_CLASS_COLUMN);
+
+        // signal the use of the ojbClassColumn
+        setUseOjbClassColumn(true);
     }
     
     /**
@@ -475,5 +479,18 @@ TODO: this feature doesn't work, so remove this in future
             }
         }
         return index;
+    }
+    
+    /**
+     * @see org.apache.ojb.broker.accesslayer.sql.SelectStatement#isUseOjbClassColumn()
+     */
+    public boolean isUseOjbClassColumn()
+    {
+        return useOjbClassColumn;
+    }
+
+    protected void setUseOjbClassColumn(boolean useOjbClassColumn)
+    {
+        this.useOjbClassColumn = useOjbClassColumn;
     }
 }
