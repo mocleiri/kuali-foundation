@@ -12,7 +12,7 @@
     <constructor-arg value="}" />
   </bean>
 
-  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${password.encrypted}" />
+  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${enc.password}" />
   <bean id="propertyEncryptor" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="encryptor" />
   <bean id="service" class="org.kuali.common.util.service.PropertyService" />
 
@@ -23,7 +23,7 @@
         <value>classpath:maven.properties</value>
         <value>classpath:org/kuali/common/util/car.properties</value>
         <value>classpath:org/kuali/common/util/${car.brand}.properties</value>
-        <value>classpath:org/kuali/common/util/secure.properties</value>
+        <value>classpath:org/kuali/common/util/pw.properties</value>
       </list>
     </property>
   </bean>
