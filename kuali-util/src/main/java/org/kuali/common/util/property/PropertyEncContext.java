@@ -4,16 +4,7 @@ public class PropertyEncContext {
 
 	PropertyEncMode mode = PropertyEncMode.NONE;
 	PropertyEncStrength strength;
-	PropertyEncryptor encryptor;
 	String password;
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public PropertyEncMode getMode() {
 		return mode;
@@ -31,12 +22,12 @@ public class PropertyEncContext {
 		this.strength = strength;
 	}
 
-	public PropertyEncryptor getEncryptor() {
-		return encryptor;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setEncryptor(PropertyEncryptor encryptor) {
-		this.encryptor = encryptor;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
