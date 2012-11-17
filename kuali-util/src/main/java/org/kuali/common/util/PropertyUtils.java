@@ -35,6 +35,20 @@ public class PropertyUtils {
 	private static final String PLATFORM_DEFAULT = "PLATFORM_DEFAULT";
 
 	/**
+	 * Return any keys from the <code>properties</code> passed in that end with <code>suffix</code>.
+	 */
+	public static final List<String> getEndsWithKeys(Properties properties, String suffix) {
+		List<String> matches = new ArrayList<String>();
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			if (StringUtils.endsWith(key, suffix)) {
+				matches.add(key);
+			}
+		}
+		return matches;
+	}
+
+	/**
 	 * Alter the <code>properties</code> passed in so it only contains the desired property values. <code>includes</code> and
 	 * <code>excludes</code> are comma separated lists.
 	 */

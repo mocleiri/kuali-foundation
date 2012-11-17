@@ -12,12 +12,13 @@
     <constructor-arg value="}" />
   </bean>
 
-  <bean id="encryptor" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${enc.password}" />
-  <bean id="propertyEncryptor" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="encryptor" />
-  <bean id="service" class="org.kuali.common.util.service.PropertyService" />
+  <bean id="text.enc" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${enc.password}" />
+  <bean id="props.enc" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="text.enc" />
+  <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
     <property name="service" ref="service" />
+    <property name="encryptor" ref="props.enc" />
     <property name="locations">
       <list>
         <value>classpath:maven.properties</value>

@@ -7,6 +7,7 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
@@ -16,6 +17,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
 	@Override
 	public void decrypt(Properties properties) {
+		Assert.notNull(encryptor, "encryptor is null");
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String encryptedValue = properties.getProperty(key);
@@ -27,6 +29,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 
 	@Override
 	public void encrypt(Properties properties) {
+		Assert.notNull(encryptor, "encryptor is null");
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);
