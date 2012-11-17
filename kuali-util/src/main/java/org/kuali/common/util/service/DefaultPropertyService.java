@@ -57,13 +57,13 @@ public class DefaultPropertyService implements PropertyService {
 			props.putAll(System.getProperties());
 		}
 
+		// Encrypt / decrypt as necessary
+		handleEncryption(context, props);
+
 		// Resolve placeholders?
 		if (context.isResolvePlaceholders()) {
 			props = getResolvedProperties(props, context.getHelper());
 		}
-
-		// Encrypt / decrypt as necessary
-		handleEncryption(context, props);
 
 		// Trim out unwanted properties
 		PropertyUtils.trim(props, context.getIncludes(), context.getExcludes());
