@@ -8,4 +8,6 @@ public interface PropertyEncryptor {
 
 	void decrypt(Properties properties);
 
+	void setContext(PropertyEncryptorContext context);
+
 }

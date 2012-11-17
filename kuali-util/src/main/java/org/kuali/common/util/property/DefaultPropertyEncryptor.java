@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyEncryptor.class);
 
 	TextEncryptor encryptor;
+	PropertyEncryptorContext context;
 
 	@Override
 	public void decrypt(Properties properties) {
@@ -39,11 +41,13 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 		}
 	}
 
-	public TextEncryptor getEncryptor() {
-		return encryptor;
+	public PropertyEncryptorContext getContext() {
+		return context;
 	}
 
-	public void setEncryptor(TextEncryptor encryptor) {
-		this.encryptor = encryptor;
+	@Override
+	public void setContext(PropertyEncryptorContext context) {
+		this.context = context;
+		this.encryptor = EncUtils.getTextEncryptor(context.getStrength(), context.getPassword());
 	}
 }

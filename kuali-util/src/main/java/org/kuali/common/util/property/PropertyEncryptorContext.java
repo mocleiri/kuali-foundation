@@ -1,15 +1,17 @@
 package org.kuali.common.util.property;
 
+import org.kuali.common.util.EncryptionStrength;
+
 public class PropertyEncryptorContext {
 
-	PropertyEncStrength strength;
+	EncryptionStrength strength;
 	String password;
 
-	public PropertyEncStrength getStrength() {
+	public EncryptionStrength getStrength() {
 		return strength;
 	}
 
-	public void setStrength(PropertyEncStrength strength) {
+	public void setStrength(EncryptionStrength strength) {
 		this.strength = strength;
 	}
 
