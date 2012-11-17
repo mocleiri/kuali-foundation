@@ -16,13 +16,13 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
-	PropertyEncMode encryptionMode;
-	EncryptionStrength encryptionStrength;
+	PropertyEncMode encryptionMode = PropertyEncMode.NONE;
+	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
 	PropertyEncryptor encryptor;
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -31,7 +31,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public List<String> getIncludes() {
+	public List<String> getIncludes() {
 		return includes;
 	}
 
@@ -40,7 +40,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public List<String> getExcludes() {
+	public List<String> getExcludes() {
 		return excludes;
 	}
 
@@ -49,7 +49,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public boolean isIncludeEnvironmentVariables() {
+	public boolean isIncludeEnvironmentVariables() {
 		return includeEnvironmentVariables;
 	}
 
@@ -58,7 +58,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public boolean isIncludeSystemProperties() {
+	public boolean isIncludeSystemProperties() {
 		return includeSystemProperties;
 	}
 
@@ -67,7 +67,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public boolean isResolvePlaceholders() {
+	public boolean isResolvePlaceholders() {
 		return resolvePlaceholders;
 	}
 
@@ -76,7 +76,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 
@@ -85,7 +85,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyStyle getStyle() {
+	public PropertyStyle getStyle() {
 		return style;
 	}
 
@@ -94,7 +94,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyPlaceholderHelper getHelper() {
+	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -103,7 +103,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyEncMode getEncryptionMode() {
+	public PropertyEncMode getEncryptionMode() {
 		return encryptionMode;
 	}
 
@@ -112,7 +112,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public EncryptionStrength getEncryptionStrength() {
+	public EncryptionStrength getEncryptionStrength() {
 		return encryptionStrength;
 	}
 
@@ -121,7 +121,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public String getEncryptionPassword() {
+	public String getEncryptionPassword() {
 		return encryptionPassword;
 	}
 
@@ -130,7 +130,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-    public PropertyEncryptor getEncryptor() {
+	public PropertyEncryptor getEncryptor() {
 		return encryptor;
 	}
 
