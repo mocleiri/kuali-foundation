@@ -8,14 +8,15 @@
 
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
-    <property name="encryptionMode" value="NONE" />
+    <property name="encryptionMode" value="DECRYPT" />
     <property name="encryptionPassword" value="${enc.password}" />
     <property name="locations">
       <list>
         <value>classpath:maven.properties</value>
         <value>classpath:org/kuali/common/util/car.properties</value>
-        <value>classpath:org/kuali/common/util/${car.brand}.properties</value>
+        <value>classpath:org/kuali/common/util/${car.vendor}.properties</value>
         <value>classpath:org/kuali/common/util/pw.properties</value>
+        <value>classpath:org/kuali/common/util/missing.properties</value>
       </list>
     </property>
   </bean>
