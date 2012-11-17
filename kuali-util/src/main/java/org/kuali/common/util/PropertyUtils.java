@@ -17,15 +17,14 @@ import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
  * any url Spring resource loading can understand. When storing and loading, locations ending in <code>.xml</code> are automatically handled
- * using <code>storeToXML()</code> and <code>loadFromXML()</code>, respectively. <code>Properties</code> are stored in sorted order by
- * default.
+ * using <code>storeToXML()</code> and <code>loadFromXML()</code>, respectively. <code>Properties</code> are always stored in sorted order.
  */
 public class PropertyUtils {
 
@@ -39,10 +38,10 @@ public class PropertyUtils {
 	 * Alter the <code>properties</code> passed in so it only contains the desired property values. <code>includes</code> and
 	 * <code>excludes</code> are comma separated lists.
 	 */
-	public static final void trim(Properties properties, String includes, String excludes) {
-		List<String> includeList = CollectionUtils.getTrimmedListFromCSV(includes);
-		List<String> excludeList = CollectionUtils.getTrimmedListFromCSV(excludes);
-		trim(properties, includeList, excludeList);
+	public static final void trim(Properties properties, String includesCSV, String excludesCSV) {
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
+		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludesCSV);
+		trim(properties, includes, excludes);
 	}
 
 	/**
@@ -109,7 +108,7 @@ public class PropertyUtils {
 			boolean xml = isXml(path);
 			Properties sorted = getSortedProperties(properties);
 			if (xml) {
-				logger.info("Storing XML properties - [{}] encoding={}", path, Str.toDefault(encoding, PLATFORM_DEFAULT));
+				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
 				if (StringUtils.isBlank(encoding)) {
 					sorted.storeToXML(out, comment);
 				} else {
@@ -117,7 +116,7 @@ public class PropertyUtils {
 				}
 			} else {
 				writer = ResourceUtils.getWriter(out, encoding);
-				logger.info("Storing properties - [{}] encoding={}", path, Str.toDefault(encoding, PLATFORM_DEFAULT));
+				logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
 				sorted.store(writer, comment);
 			}
 		} catch (IOException e) {
@@ -189,18 +188,18 @@ public class PropertyUtils {
 	 * Return true if location ends with <code>.xml</code> (case insensitive).
 	 */
 	public static final boolean isXml(String location) {
-		return location.toLowerCase().endsWith(XML_EXTENSION);
+		return StringUtils.endsWithIgnoreCase(location, XML_EXTENSION);
 	}
 
 	/**
-	 * Load properties from the indicated location.
+	 * Return a new <code>Properties</code> object loaded from <code>location</code>.
 	 */
 	public static final Properties load(String location) {
 		return load(location, null);
 	}
 
 	/**
-	 * Load properties from the indicated location using the indicated encoding
+	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
 	 */
 	public static final Properties load(String location, String encoding) {
 		InputStream in = null;
@@ -213,7 +212,7 @@ public class PropertyUtils {
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties - [{}] encoding={}", location, Str.toDefault(encoding, PLATFORM_DEFAULT));
+				logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
@@ -224,15 +223,6 @@ public class PropertyUtils {
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(reader);
 		}
-	}
-
-	/**
-	 * This is private because <code>SortedProperties</code> does not fully honor the contract for <code>Properties</code>
-	 */
-	private static final SortedProperties getSortedProperties(Properties properties) {
-		SortedProperties sp = new PropertyUtils().new SortedProperties();
-		sp.putAll(properties);
-		return sp;
 	}
 
 	/**
@@ -266,6 +256,15 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * This is private because <code>SortedProperties</code> does not fully honor the contract for <code>Properties</code>
+	 */
+	private static final SortedProperties getSortedProperties(Properties properties) {
+		SortedProperties sp = new PropertyUtils().new SortedProperties();
+		sp.putAll(properties);
+		return sp;
+	}
+
+	/**
 	 * This is private since it does not honor the full contract for <code>Properties</code>. <code>PropertyUtils</code> uses it internally
 	 * to store properties in sorted order.
 	 */
@@ -288,7 +287,5 @@ public class PropertyUtils {
 		public synchronized Enumeration<Object> keys() {
 			return Collections.enumeration(new TreeSet<Object>(super.keySet()));
 		}
-
 	}
-
 }

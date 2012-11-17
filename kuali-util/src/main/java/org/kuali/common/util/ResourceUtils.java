@@ -14,8 +14,10 @@ import java.io.Writer;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.spring.ToStringContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -23,23 +25,76 @@ import org.springframework.util.Assert;
 
 public class ResourceUtils {
 
+	private static final Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
+
+	/**
+	 * Attempt to delete <code>location</code>.
+	 */
+	public static final boolean delete(String location) {
+		return delete(location, false);
+	}
+
+	/**
+	 * Unconditionally attempt to delete <code>location</code> without throwing an exception. The return value indicates success or failure
+	 * of the deletion attempt.
+	 */
 	public static final boolean deleteQuietly(String location) {
 		return delete(location, true);
 	}
 
+	/**
+	 * Attempt to delete <code>location</code>. If <code>quietly</code> is false, this method either returns <code>true</code> or throws an
+	 * exception.
+	 *
+	 * If <code>quietly</code> is false:<br>
+	 *
+	 * <code>IllegalArgumentException</code> is thrown when:<br>
+	 * <code>location</code> is null.<br>
+	 * <code>location</code> does not exist.<br>
+	 * <code>location</code> is not an existing file.<br>
+	 *
+	 * <code>SecurityException</code> is thrown if <code>SecurityManager</code> prevents the file from being deleted.
+	 *
+	 * <code>IllegalStateException</code> is thrown when <code>location</code> is an existing file but <code>file.delete()</code> returns
+	 * false.
+	 */
 	public static final boolean delete(String location, boolean quietly) {
-		if (!quietly) {
-			Assert.isTrue(exists(location), location + " does not exist");
-			Assert.isTrue(isFile(location), location + " exists, but is not a file");
-		}
-		File file = new File(location);
-		boolean deleted = file.delete();
-		if (deleted) {
-			return true;
-		} else if (quietly) {
-			return false;
+		if (quietly) {
+			return deleteQuietly(new File(location));
 		} else {
-			throw new IllegalStateException("Could not delete " + location);
+			// Location can't be null
+			Assert.notNull(location, "location must not be null");
+			// Location must exist
+			Assert.isTrue(exists(location), location + " does not exist");
+			// Location must be an existing file
+			Assert.isTrue(isFile(location), location + " exists, but is not a file");
+			// Try and delete the file (might throw SecurityException)
+			boolean deleted = new File(location).delete();
+			// Delete was successful
+			if (deleted) {
+				return true;
+			} else {
+				//
+				throw new IllegalStateException("Could not delete " + location);
+			}
+		}
+	}
+
+	/**
+	 * Null safe method for attempting to unconditionally delete <code>file</code> without throwing an exception.
+	 */
+	public static final boolean deleteQuietly(File file) {
+		// Return false for null
+		if (file == null) {
+			return false;
+		}
+		try {
+			// Attempt to delete
+			return file.delete();
+		} catch (SecurityException e) {
+			// Warn, but do not throw an exception
+			logger.warn("Unable to delete [{}] {}", file.getAbsolutePath(), e.getMessage());
+			return false;
 		}
 	}
 
@@ -52,10 +107,16 @@ public class ResourceUtils {
 		return context.isTrim() ? s.trim() : s;
 	}
 
+	/**
+	 * Convert the contents of <code>location</code> into a <code>String</code> using the platform default encoding.
+	 */
 	public static final String toString(String location) {
 		return toString(location, null);
 	}
 
+	/**
+	 * Convert the contents of <code>location</code> into a <code>String</code> using the encoding indicated.
+	 */
 	public static final String toString(String location, String encoding) {
 		InputStream in = null;
 		try {
@@ -68,27 +129,37 @@ public class ResourceUtils {
 		}
 	}
 
+	/**
+	 * Get the contents of <code>s</code> as a list of <code>String</code> one entry per line
+	 */
 	public static final List<String> readLinesFromString(String s) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
 		return readLines(in, null);
 	}
 
+	/**
+	 * Get the contents of <code>location</code> as a list of <code>String</code> one entry per line using the platform default encoding
+	 */
 	public static final List<String> readLines(String location) {
 		return readLines(location, null);
 	}
 
+	/**
+	 * Get the contents of <code>location</code> as a list of <code>String</code> one entry per line using the encoding indicated.
+	 */
 	public static final List<String> readLines(String location, String encoding) {
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
-			return IOUtils.readLines(in, encoding);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+			return readLines(in, encoding);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
 	}
 
+	/**
+	 * Get the contents of <code>in</code> as a list of <code>String</code> one entry per line using the encoding indicated.
+	 */
 	public static final List<String> readLines(InputStream in, String encoding) {
 		try {
 			return IOUtils.readLines(in, encoding);
@@ -99,20 +170,33 @@ public class ResourceUtils {
 		}
 	}
 
+	/**
+	 * Return a <code>BufferedReader</code> for the location indicated using the platform default encoding.
+	 */
 	public static final BufferedReader getBufferedReader(String location) {
 		return getBufferedReader(location, null);
 	}
 
+	/**
+	 * Return a <code>BufferedReader</code> for the location indicated using the encoding indicated.
+	 */
 	public static final BufferedReader getBufferedReader(String location, String encoding) {
 		InputStream in = getInputStream(location);
 		return getBufferedReader(in, encoding);
 	}
 
+	/**
+	 * Return a <code>BufferedReader</code> that reads from <code>s</code>
+	 */
 	public static final BufferedReader getBufferedReaderFromString(String s) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
 		return getBufferedReader(in, null);
 	}
 
+	/**
+	 * Return a <code>Writer</code> that writes to <code>out</code> using the indicated encoding. <code>null</code> means use the platform's
+	 * default encoding.
+	 */
 	public static final Writer getWriter(OutputStream out, String encoding) {
 		try {
 			if (StringUtils.isBlank(encoding)) {
@@ -125,6 +209,10 @@ public class ResourceUtils {
 		}
 	}
 
+	/**
+	 * Return a <code>BufferedReader</code> that reads from <code>in</code> using the indicated encoding. <code>null</code> means use the
+	 * platform's default encoding.
+	 */
 	public static final BufferedReader getBufferedReader(InputStream in, String encoding) {
 		try {
 			if (StringUtils.isBlank(encoding)) {
@@ -137,12 +225,24 @@ public class ResourceUtils {
 		}
 	}
 
+	/**
+	 * Null safe method for determining if <code>location</code> is an existing file.
+	 */
 	public static final boolean isFile(String location) {
+		if (location == null) {
+			return false;
+		}
 		File file = new File(location);
 		return file.exists();
 	}
 
+	/**
+	 * Null safe method for determining if <code>location</code> is an existing location.
+	 */
 	public static final boolean exists(String location) {
+		if (location == null) {
+			return false;
+		}
 		if (isFile(location)) {
 			return true;
 		} else {
@@ -152,6 +252,9 @@ public class ResourceUtils {
 		}
 	}
 
+	/**
+	 * Open an <code>InputStream</code> to the indicated location.
+	 */
 	public static final InputStream getInputStream(String location) {
 		try {
 			if (isFile(location)) {

@@ -1,7 +1,10 @@
 package org.kuali.common.util;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Operations on <code>String</code> that are <code>null</code> safe
+ */
 public class Str {
 
 	public static final String EMPTY_STRING = "";
@@ -14,7 +17,7 @@ public class Str {
 	 * Surround the string with double quotes
 	 */
 	public static String quote(String s) {
-		return '"' + s + '"';
+		return s == null ? null : '"' + s + '"';
 	}
 
 	/**
@@ -32,32 +35,24 @@ public class Str {
 	}
 
 	/**
-	 * Split the string into tokens, trimming as we go
+	 * Split the string into tokens using the indicated separator, trimming as we go
 	 */
 	public static String[] splitAndTrim(String s, String separator) {
 		return split(s, separator, true);
 	}
 
 	/**
-	 * Split the string into tokens
+	 * Split the string into tokens using the indicated separator, optionally trimming the tokens
 	 */
 	public static String[] split(String s, String separator, boolean trim) {
 		String[] tokens = StringUtils.split(s, separator);
+		if (tokens == null) {
+			return null;
+		}
 		for (String token : tokens) {
-			token = trim ? token.trim() : token;
+			token = trim ? StringUtils.trim(token) : token;
 		}
 		return tokens;
-	}
-
-	/**
-	 * If the string is blank, return default value, otherwise return the original string
-	 */
-	public static final String toDefault(String s, String defaultValue) {
-		if (StringUtils.isBlank(s)) {
-			return defaultValue;
-		} else {
-			return s;
-		}
 	}
 
 	/**
@@ -77,5 +72,4 @@ public class Str {
 			return s.replace(CR, cr).replace(LF, lf);
 		}
 	}
-
 }
