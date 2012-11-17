@@ -56,7 +56,7 @@ public class ResourceUtils {
 	 */
 	public static final boolean delete(String location, boolean quietly) {
 		if (quietly) {
-			return deleteQuietly(new File(location));
+			return deleteQuietly(getFileQuietly(location));
 		} else {
 			// Location can't be null
 			Assert.notNull(location, "location must not be null");
@@ -66,6 +66,17 @@ public class ResourceUtils {
 			Assert.isTrue(isFile(location), location + " exists, but is not a file");
 			// Try and delete the file (might throw SecurityException)
 			return new File(location).delete();
+		}
+	}
+
+	/**
+	 * Null safe method for getting a handle to a <code>file</code>. If <code>location</code> is null, null is returned.
+	 */
+	public static final File getFileQuietly(String location) {
+		if (location == null) {
+			return null;
+		} else {
+			return new File(location);
 		}
 	}
 
