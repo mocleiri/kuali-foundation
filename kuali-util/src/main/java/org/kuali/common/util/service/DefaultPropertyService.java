@@ -63,9 +63,8 @@ public class DefaultPropertyService implements PropertyService {
 			if (missing && context.isIgnoreMissingLocations()) {
 				logger.info("Skipping non-existent location - [{}]", resolvedLocation);
 				continue;
-			} else {
-				properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
 			}
+			properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
 		}
 		return getProperties(context, properties);
 	}

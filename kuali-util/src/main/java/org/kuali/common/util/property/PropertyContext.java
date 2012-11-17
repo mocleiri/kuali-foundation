@@ -24,7 +24,7 @@ public interface PropertyContext {
 
 	PropertyEncryptor getEncryptor();
 
-	PropertyEncryptionMode getEncryptionMode();
+	PropertyEncMode getEncryptionMode();
 
 	PropertyPlaceholderHelper getHelper();
 
