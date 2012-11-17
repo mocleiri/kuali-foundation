@@ -7,6 +7,9 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ResourceUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.PropertyContext;
+import org.kuali.common.util.property.PropertyEncMode;
+import org.kuali.common.util.property.PropertyEncryptor;
+import org.kuali.common.util.property.PropertyEncryptorContext;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
 import org.kuali.common.util.property.PropertyStyle;
@@ -86,9 +89,7 @@ public class DefaultPropertyService implements PropertyService {
 			props = getResolvedProperties(props, context.getHelper());
 		}
 
-		System.out.println(context.getEncryptionPassword());
-		System.out.println(context.getEncryptionPassword());
-		System.out.println(context.getEncryptionPassword());
+		handleEncryption(context, props);
 
 		// Trim out unwanted properties
 		PropertyUtils.trim(props, context.getIncludes(), context.getExcludes());
@@ -100,4 +101,52 @@ public class DefaultPropertyService implements PropertyService {
 		return getFormattedProperties(prefixed, context.getStyle());
 	}
 
+	protected PropertyEncryptorContext getPropertyEncryptorContext(PropertyContext context, Properties props) {
+		PropertyEncryptorContext pec = new PropertyEncryptorContext();
+		Properties globalProperties = PropertyUtils.getGlobalProperties(props);
+		String originalPassword = pec.getPassword();
+		String resolvedPassword = context.getHelper().replacePlaceholders(originalPassword, globalProperties);
+		if (!resolvedPassword.equals(originalPassword)) {
+			logger.info("Resolved encryption password");
+			pec.setPassword(resolvedPassword);
+		}
+		pec.setPassword(context.getEncryptionPassword());
+		pec.setStrength(context.getEncryptionStrength());
+		return pec;
+	}
+
+	protected boolean isEncryptOrDecrypt(PropertyEncMode mode) {
+		switch (mode) {
+		case NONE:
+			return false;
+		case DECRYPT:
+		case ENCRYPT:
+			return true;
+		default:
+			throw new IllegalArgumentException(mode + " is unknown");
+		}
+	}
+
+	protected void handleEncryption(PropertyContext context, Properties props) {
+		PropertyEncMode mode = context.getEncryptionMode();
+		if (!isEncryptOrDecrypt(mode)) {
+			return;
+		}
+		PropertyEncryptor encryptor = context.getEncryptor();
+		PropertyEncryptorContext pec = getPropertyEncryptorContext(context, props);
+
+		// This is the "hook" that allows the PropertyEncryptor to initialize itself as needed
+		encryptor.initialize(pec);
+
+		switch (mode) {
+		case DECRYPT:
+			encryptor.decrypt(props);
+			return;
+		case ENCRYPT:
+			encryptor.encrypt(props);
+			return;
+		default:
+			throw new IllegalArgumentException(mode + " must be either " + PropertyEncMode.DECRYPT + " or " + PropertyEncMode.ENCRYPT);
+		}
+	}
 }

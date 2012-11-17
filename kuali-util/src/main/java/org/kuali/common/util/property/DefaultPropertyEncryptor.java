@@ -41,7 +41,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 	}
 
 	@Override
-	public void setContext(PropertyEncryptorContext context) {
+	public void initialize(PropertyEncryptorContext context) {
 		this.encryptor = EncUtils.getTextEncryptor(context.getStrength(), context.getPassword());
 	}
 }
