@@ -8,7 +8,7 @@
 
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
-    <property name="encryptionMode" value="DECRYPT" />
+    <property name="encryptionMode" value="NONE" />
     <property name="encryptionPassword" value="${enc.password}" />
     <property name="locations">
       <list>

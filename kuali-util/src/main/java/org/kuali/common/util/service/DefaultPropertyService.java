@@ -45,29 +45,14 @@ public class DefaultPropertyService implements PropertyService {
 		PropertyUtils.store(finalProperties, context.getFile(), context.getEncoding(), context.getComment());
 	}
 
-	protected Properties getResolvedProperties(Properties props, PropertyPlaceholderHelper helper) {
-		Properties global = PropertyUtils.getGlobalProperties(props);
-		List<String> keys = PropertyUtils.getSortedKeys(props);
-		Properties newProps = new Properties();
-		for (String key : keys) {
-			String originalValue = props.getProperty(key);
-			String resolvedValue = helper.replacePlaceholders(originalValue, global);
-			if (!resolvedValue.equals(originalValue)) {
-				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
-			}
-			newProps.setProperty(key, resolvedValue);
-		}
-		return newProps;
-	}
-
 	protected Properties getProperties(PropertyContext context, Properties props) {
 
-		// Add in environment variables?
+		// Include environment variables?
 		if (context.isIncludeEnvironmentVariables()) {
 			props.putAll(PropertyUtils.getEnvAsProperties());
 		}
 
-		// Add in system properties?
+		// Include system properties?
 		if (context.isIncludeSystemProperties()) {
 			props.putAll(System.getProperties());
 		}
@@ -88,6 +73,21 @@ public class DefaultPropertyService implements PropertyService {
 
 		// Format the property keys according to the style they've asked for and return
 		return getFormattedProperties(prefixed, context.getStyle());
+	}
+
+	protected Properties getResolvedProperties(Properties props, PropertyPlaceholderHelper helper) {
+		Properties global = PropertyUtils.getGlobalProperties(props);
+		List<String> keys = PropertyUtils.getSortedKeys(props);
+		Properties newProps = new Properties();
+		for (String key : keys) {
+			String originalValue = props.getProperty(key);
+			String resolvedValue = helper.replacePlaceholders(originalValue, global);
+			if (!resolvedValue.equals(originalValue)) {
+				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+			}
+			newProps.setProperty(key, resolvedValue);
+		}
+		return newProps;
 	}
 
 	protected String getResolvedPassword(PropertyContext context, Properties props) {
