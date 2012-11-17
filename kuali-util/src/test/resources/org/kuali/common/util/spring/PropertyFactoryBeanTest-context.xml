@@ -7,11 +7,6 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="helper" class="org.springframework.util.PropertyPlaceholderHelper">
-    <constructor-arg value="${" />
-    <constructor-arg value="}" />
-  </bean>
-
   <bean id="text.enc" class="org.jasypt.util.text.BasicTextEncryptor" p:password="${enc.password}" />
   <bean id="props.enc" class="org.kuali.common.util.property.DefaultPropertyEncryptor" p:encryptor-ref="text.enc" />
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
