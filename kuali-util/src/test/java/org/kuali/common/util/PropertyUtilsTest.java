@@ -1,8 +1,10 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,70 +26,54 @@ public class PropertyUtilsTest {
 	String xmlLocation = "classpath:org/kuali/common/util/simple.xml";
 	String encoding = "UTF-8";
 
-	@Test
-	public void testBuildDir() {
-		logger.info(buildDir);
-		logger.info(buildDir);
-		logger.info(buildDir);
-		logger.info(buildDir);
-		logger.info(buildDir);
-		logger.info(buildDir);
+	protected File getTestDir() {
+		return new File(buildDir + File.separator + "properties");
 	}
 
 	@Test
-	public void storeUTF8XMLPropertiesTest() {
-		try {
-			File temp = File.createTempFile("temporary.", ".xml");
-			temp.deleteOnExit();
-			Properties props = PropertyUtils.load(xmlLocation);
-			String foo = props.getProperty("foo");
-			Assert.assertEquals("bar", foo);
-			PropertyUtils.store(props, temp, encoding);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
+	public void testBuildDir() throws IOException {
+		Assert.assertNotNull(buildDir);
+		logger.info("Creating " + getTestDir());
+		FileUtils.forceMkdir(getTestDir());
 	}
 
 	@Test
-	public void storeXMLPropertiesTest() {
-		try {
-			File temp = File.createTempFile("temporary.", ".xml");
-			temp.deleteOnExit();
-			Properties props = PropertyUtils.load(xmlLocation);
-			String foo = props.getProperty("foo");
-			Assert.assertEquals("bar", foo);
-			PropertyUtils.store(props, temp);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
+	public void storeUTF8XMLPropertiesTest() throws IOException {
+		File temp = File.createTempFile("temporary.", ".xml", getTestDir());
+		Properties props = PropertyUtils.load(xmlLocation);
+		String foo = props.getProperty("foo");
+		Assert.assertEquals("bar", foo);
+		PropertyUtils.store(props, temp, encoding);
 	}
 
 	@Test
-	public void storeUTF8PropertiesTest() {
-		try {
-			File temp = File.createTempFile("temporary.", ".properties");
-			temp.deleteOnExit();
-			Properties props = PropertyUtils.load(xmlLocation);
-			String foo = props.getProperty("foo");
-			Assert.assertEquals("bar", foo);
-			PropertyUtils.store(props, temp, encoding);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
+	public void storeXMLPropertiesTest() throws IOException {
+		File temp = File.createTempFile("temporary.", ".xml", getTestDir());
+		temp.deleteOnExit();
+		Properties props = PropertyUtils.load(xmlLocation);
+		String foo = props.getProperty("foo");
+		Assert.assertEquals("bar", foo);
+		PropertyUtils.store(props, temp);
 	}
 
 	@Test
-	public void storePropertiesTest() {
-		try {
-			File temp = File.createTempFile("temporary.", ".properties");
-			temp.deleteOnExit();
-			Properties props = PropertyUtils.load(xmlLocation);
-			String foo = props.getProperty("foo");
-			Assert.assertEquals("bar", foo);
-			PropertyUtils.store(props, temp);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
+	public void storeUTF8PropertiesTest() throws IOException {
+		File temp = File.createTempFile("temporary.", ".properties", getTestDir());
+		temp.deleteOnExit();
+		Properties props = PropertyUtils.load(xmlLocation);
+		String foo = props.getProperty("foo");
+		Assert.assertEquals("bar", foo);
+		PropertyUtils.store(props, temp, encoding);
+	}
+
+	@Test
+	public void storePropertiesTest() throws IOException {
+		File temp = File.createTempFile("temporary.", ".properties", getTestDir());
+		temp.deleteOnExit();
+		Properties props = PropertyUtils.load(xmlLocation);
+		String foo = props.getProperty("foo");
+		Assert.assertEquals("bar", foo);
+		PropertyUtils.store(props, temp);
 	}
 
 	@Test
