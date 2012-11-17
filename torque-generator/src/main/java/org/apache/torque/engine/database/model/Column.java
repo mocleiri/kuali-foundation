@@ -951,7 +951,7 @@ public class Column {
 				// TODO: Properly SQL-escape the text.
 				resultList.add(new StringBuffer().append('\'').append(getDefaultValue()).append('\''));
 			} else {
-				resultList.add(getDefaultValue());
+				resultList.add(defaultStr);
 			}
 		}
 		if (getPlatform().createNotNullBeforeAutoincrement()) {
