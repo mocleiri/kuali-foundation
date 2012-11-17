@@ -30,7 +30,7 @@ public class DefaultPropertyEncryptor implements PropertyEncryptor {
 		List<String> keys = getEncryptKeys(properties);
 		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);
-			logger.debug("Decrypting [{}={}]", key, decryptedValue);
+			logger.debug("Encrypting [{}={}]", key, decryptedValue);
 			String encryptedValue = encryptor.encrypt(decryptedValue);
 			setEncryptedProperty(properties, key, encryptedValue);
 		}
