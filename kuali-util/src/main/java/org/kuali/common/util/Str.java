@@ -61,25 +61,14 @@ public class Str {
 	}
 
 	/**
-	 * If the string is blank, return the empty string otherwise return the original string.
-	 */
-	public static final String toEmpty(String s) {
-		if (StringUtils.isBlank(s)) {
-			return EMPTY_STRING;
-		} else {
-			return s;
-		}
-	}
-
-	/**
-	 * Replace all carriage returns and linefeeds with spaces
+	 * Replace carriage returns and linefeeds with spaces
 	 */
 	public static final String flatten(String s) {
 		return flatten(s, SPACE, SPACE);
 	}
 
 	/**
-	 * Replace any carriage returns with <code>cr</code> and replace any linefeeds with <code>lf</code>.
+	 * Replace carriage returns with <code>cr</code> and linefeeds with <code>lf</code>.
 	 */
 	public static final String flatten(String s, String cr, String lf) {
 		if (s == null) {

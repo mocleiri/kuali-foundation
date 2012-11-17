@@ -16,16 +16,12 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.spring.ToStringContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
 
 public class ResourceUtils {
-
-	private static final Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
 
 	public static final boolean deleteQuietly(String location) {
 		return delete(location, true);
@@ -41,7 +37,6 @@ public class ResourceUtils {
 		if (deleted) {
 			return true;
 		} else if (quietly) {
-			logger.warn("Could not delete [{}]", location);
 			return false;
 		} else {
 			throw new IllegalStateException("Could not delete " + location);
