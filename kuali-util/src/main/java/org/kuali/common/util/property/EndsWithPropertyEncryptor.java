@@ -16,19 +16,8 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 
 	String encryptedSuffix = DEFAULT_ENCRYPTED_PROPERTY_SUFFIX;
 
-	@Override
-	public void encrypt(Properties properties) {
-		Assert.notNull(encryptor, "encryptor is null");
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
-		for (String key : keys) {
-			String value = properties.getProperty(key);
-			logger.debug("Encrypting [{}={}]", key, value);
-			String encryptedValue = encryptor.encrypt(value);
-			String newKey = key + encryptedSuffix;
-			properties.setProperty(newKey, encryptedValue);
-			properties.remove(key);
-		}
-	}
+	boolean removeUnencrypted = true;
+	boolean removeEncrypted = true;
 
 	@Override
 	public void decrypt(Properties properties) {
@@ -41,7 +30,25 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 			String decryptedValue = encryptor.decrypt(encryptedValue);
 			String newKey = encryptedKey.substring(0, encryptedKey.length() - suffixLength);
 			properties.setProperty(newKey, decryptedValue);
-			properties.remove(encryptedKey);
+			if (removeEncrypted) {
+				properties.remove(encryptedKey);
+			}
+		}
+	}
+
+	@Override
+	public void encrypt(Properties properties) {
+		Assert.notNull(encryptor, "encryptor is null");
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			logger.debug("Encrypting [{}={}]", key, value);
+			String encryptedValue = encryptor.encrypt(value);
+			String newKey = key + encryptedSuffix;
+			properties.setProperty(newKey, encryptedValue);
+			if (removeUnencrypted) {
+				properties.remove(key);
+			}
 		}
 	}
 
@@ -51,6 +58,22 @@ public class EndsWithPropertyEncryptor extends DefaultPropertyEncryptor {
 
 	public void setEncryptedSuffix(String encryptedSuffix) {
 		this.encryptedSuffix = encryptedSuffix;
+	}
+
+	public boolean isRemoveUnencrypted() {
+		return removeUnencrypted;
+	}
+
+	public void setRemoveUnencrypted(boolean removeUnencrypted) {
+		this.removeUnencrypted = removeUnencrypted;
+	}
+
+	public boolean isRemoveEncrypted() {
+		return removeEncrypted;
+	}
+
+	public void setRemoveEncrypted(boolean removeEncrypted) {
+		this.removeEncrypted = removeEncrypted;
 	}
 
 }

@@ -31,6 +31,7 @@ public class DefaultPropertyService implements PropertyService {
 			}
 			if (!ResourceUtils.exists(resolvedLocation)) {
 				handleMissing(context, resolvedLocation);
+				continue;
 			}
 			properties.putAll(PropertyUtils.load(resolvedLocation, context.getEncoding()));
 		}
