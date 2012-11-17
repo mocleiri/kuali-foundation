@@ -117,13 +117,16 @@ public class DefaultPropertyService implements PropertyService {
 			return;
 		}
 
+		// Make sure we have a property encryptor
 		Assert.notNull(context.getEncryptor(), "PropertyEncryptor is null");
 
+		// May need to resolve the password
 		String password = getResolvedPassword(context, props);
 
 		// Give the encryptor a chance to initialize itself
 		context.getEncryptor().initialize(context.getEncryptionStrength(), password);
 
+		// Encrypt / decrypt the properties as appropriate
 		switch (context.getEncryptionMode()) {
 		case DECRYPT:
 			context.getEncryptor().decrypt(props);
