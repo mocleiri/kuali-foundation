@@ -124,6 +124,9 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	protected void resolveInternalStrings(Properties properties) {
+		if (helper == null) {
+			return;
+		}
 		String newEncoding = getResolvedString(properties, this.encoding);
 		String newPrefix = getResolvedString(properties, this.prefix);
 		String newEncryptionPassword = getResolvedString(properties, this.encryptionPassword);
