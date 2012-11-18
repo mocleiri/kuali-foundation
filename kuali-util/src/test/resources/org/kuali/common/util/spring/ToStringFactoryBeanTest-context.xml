@@ -10,6 +10,6 @@
 
 
   <bean id="service" class="org.kuali.common.util.service.ResourceService" />
-  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:trim="true" p:location="${user.home}/.ssh/kpw.txt" p:service-ref="service" />
+  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:trim="true" p:location="classpath:org/kuali/common/util/pw.txt" p:service-ref="service" />
 
 </beans>
