@@ -7,9 +7,12 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+  <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
+
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
     <property name="encryptionMode" value="DECRYPT" />
     <property name="encryptionPassword" value="${enc.password}" />
+    <property name="service" ref="service" />
     <property name="locations">
       <list>
         <value>classpath:maven.properties</value>
@@ -22,5 +25,12 @@
   </bean>
 
   <context:property-placeholder properties-ref="properties" />
+
+  <bean id="context" class="org.kuali.common.util.property.DefaultPropertyStoreContext">
+    <property name="file" value="${project.build.directory}/properties/stored.properties" />
+    <property name="comment" value="Created by Spring" />
+    <property name="encryptionMode" value="ENCRYPT" />
+    <property name="encryptionPassword" value="${enc.password}" />
+  </bean>
 
 </beans>

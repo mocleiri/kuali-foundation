@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.PropertyStoreContext;
+import org.kuali.common.util.service.PropertyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,12 @@ public class PropertyFactoryBeanTest {
 	@Autowired
 	private Properties properties = null;
 
+	@Autowired
+	private PropertyService service = null;
+
+	@Autowired
+	private PropertyStoreContext context = null;
+
 	@Test
 	public void test() {
 		try {
@@ -31,6 +39,7 @@ public class PropertyFactoryBeanTest {
 				String value = properties.getProperty(key);
 				logger.info(key + "=" + value);
 			}
+			service.store(context, properties);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

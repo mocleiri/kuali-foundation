@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -33,7 +34,7 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
-	private static final String PLATFORM_DEFAULT = "PLATFORM_DEFAULT";
+	private static final String PLATFORM_DEFAULT = Charset.defaultCharset().toString();
 
 	/**
 	 * Return any keys from the <code>properties</code> passed in that end with <code>suffix</code>.

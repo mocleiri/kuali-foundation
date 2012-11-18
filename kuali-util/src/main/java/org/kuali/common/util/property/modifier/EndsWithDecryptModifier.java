@@ -12,7 +12,7 @@ public class EndsWithDecryptModifier extends DecryptModifier {
 	public static final String DEFAULT_ENCRYPTED_SUFFIX = ".encrypted";
 
 	String suffix = DEFAULT_ENCRYPTED_SUFFIX;
-	boolean removeEncryptedProperties;
+	boolean removeEncryptedProperties = true;
 	PropertyOverwriteMode propertyOverwriteMode = PropertyOverwriteMode.INFORM;
 
 	public EndsWithDecryptModifier() {
