@@ -29,8 +29,7 @@ public class EndsWithEncryptModifier extends DecryptModifier {
 			String decryptedValue = properties.getProperty(key);
 			String encryptedValue = encryptor.encrypt(decryptedValue);
 			String newKey = key + suffix;
-			PropertyUtils.checkExistingProperty(properties, newKey, propertyOverwriteMode);
-			properties.setProperty(newKey, encryptedValue);
+			PropertyUtils.setProperty(properties, newKey, encryptedValue, propertyOverwriteMode);
 			if (removeUnencryptedProperties) {
 				properties.remove(key);
 			}

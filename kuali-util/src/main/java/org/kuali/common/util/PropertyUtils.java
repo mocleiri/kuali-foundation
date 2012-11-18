@@ -287,6 +287,14 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Check to make sure we are allowed to set the property before setting it.
+	 */
+	public static final void setProperty(Properties properties, String key, String value, PropertyOverwriteMode mode) {
+		checkExistingProperty(properties, key, mode);
+		properties.setProperty(key, value);
+	}
+
+	/**
 	 * Check <code>properties</code> to see if it has a value for <code>key</code>. If there is no existing value or <code>mode</code> is
 	 * <code>IGNORE</code>, silently return. If there is a value and <code>mode</code> is <code>ERROR</code> throw
 	 * <code>IllegalStateException</code>, otherwise log a <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code> message.
