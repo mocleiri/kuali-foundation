@@ -6,8 +6,8 @@ import java.util.Properties;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ResourceUtils;
 import org.kuali.common.util.property.PropertyLoadContext;
-import org.kuali.common.util.property.PropertyModifier;
 import org.kuali.common.util.property.PropertyStoreContext;
+import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

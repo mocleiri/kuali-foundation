@@ -1,10 +1,11 @@
-package org.kuali.common.util.property;
+package org.kuali.common.util.property.modifier;
 
 import java.util.List;
 import java.util.Properties;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.PropertyOverwriteMode;
 
 public class EndsWithDecryptModifier extends DecryptModifier {
 
