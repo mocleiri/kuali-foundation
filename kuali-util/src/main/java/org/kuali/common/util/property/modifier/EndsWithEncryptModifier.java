@@ -8,31 +8,30 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyOverwriteMode;
 
-public class EndsWithDecryptModifier extends DecryptModifier {
+public class EndsWithEncryptModifier extends DecryptModifier {
 
 	String suffix = Constants.DEFAULT_ENCRYPTED_SUFFIX;
-	boolean removeEncryptedProperties = true;
+	boolean removeUnencryptedProperties = true;
 	PropertyOverwriteMode propertyOverwriteMode = PropertyOverwriteMode.INFORM;
 
-	public EndsWithDecryptModifier() {
+	public EndsWithEncryptModifier() {
 		this(null);
 	}
 
-	public EndsWithDecryptModifier(TextEncryptor encryptor) {
+	public EndsWithEncryptModifier(TextEncryptor encryptor) {
 		super(encryptor);
 	}
 
 	@Override
 	public void modify(Properties properties) {
-		List<String> keys = PropertyUtils.getEndsWithKeys(properties, suffix);
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
-			String encryptedValue = properties.getProperty(key);
-			String decryptedValue = encryptor.decrypt(encryptedValue);
-			int endIndex = key.length() - suffix.length();
-			String newKey = key.substring(0, endIndex);
+			String decryptedValue = properties.getProperty(key);
+			String encryptedValue = encryptor.encrypt(decryptedValue);
+			String newKey = key + "." + suffix;
 			PropertyUtils.checkExistingProperty(properties, newKey, propertyOverwriteMode);
-			properties.setProperty(newKey, decryptedValue);
-			if (removeEncryptedProperties) {
+			properties.setProperty(newKey, encryptedValue);
+			if (removeUnencryptedProperties) {
 				properties.remove(key);
 			}
 		}
@@ -46,20 +45,20 @@ public class EndsWithDecryptModifier extends DecryptModifier {
 		this.suffix = suffix;
 	}
 
-	public boolean isRemoveEncryptedProperties() {
-		return removeEncryptedProperties;
-	}
-
-	public void setRemoveEncryptedProperties(boolean removeEncryptedProperties) {
-		this.removeEncryptedProperties = removeEncryptedProperties;
-	}
-
 	public PropertyOverwriteMode getPropertyOverwriteMode() {
 		return propertyOverwriteMode;
 	}
 
 	public void setPropertyOverwriteMode(PropertyOverwriteMode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
+	}
+
+	public boolean isRemoveUnencryptedProperties() {
+		return removeUnencryptedProperties;
+	}
+
+	public void setRemoveUnencryptedProperties(boolean removeUnencryptedProperties) {
+		this.removeUnencryptedProperties = removeUnencryptedProperties;
 	}
 
 }
