@@ -61,12 +61,12 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultModifiers.add(new ResolvePlaceholdersModifier(helper));
 		}
 
-		addEncModifier(defaultModifiers);
-
 		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
 		if (trim) {
 			defaultModifiers.add(new TrimModifier(includes, excludes));
 		}
+
+		addEncModifier(defaultModifiers);
 
 		if (!StringUtils.isBlank(prefix)) {
 			defaultModifiers.add(new AddPrefixModifier(prefix));

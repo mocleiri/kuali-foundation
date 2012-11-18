@@ -1,6 +1,5 @@
 package org.kuali.common.util.spring;
 
-import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
@@ -8,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.DefaultPropertyStoreContext;
-import org.kuali.common.util.property.PropertyEncryptionMode;
 import org.kuali.common.util.property.PropertyStoreContext;
 import org.kuali.common.util.service.PropertyService;
 import org.slf4j.Logger;
@@ -31,7 +28,10 @@ public class PropertyFactoryBeanTest {
 	private PropertyService service = null;
 
 	@Autowired
-	private PropertyStoreContext context = null;
+	private PropertyStoreContext encryptedStorage = null;
+
+	@Autowired
+	private PropertyStoreContext decryptedStorage = null;
 
 	@Test
 	public void test() {
@@ -42,15 +42,8 @@ public class PropertyFactoryBeanTest {
 				String value = properties.getProperty(key);
 				logger.info(key + "=" + value);
 			}
-			String password = properties.getProperty("enc.password");
-			String buildDir = properties.getProperty("project.build.directory");
-			service.store(context, properties);
-			DefaultPropertyStoreContext dpsc = new DefaultPropertyStoreContext();
-			String filename = buildDir + "/properties/decrypted.properties";
-			dpsc.setFile(new File(filename));
-			dpsc.setEncryptionMode(PropertyEncryptionMode.DECRYPT);
-			dpsc.setEncryptionPassword(password);
-			service.store(dpsc, properties);
+			service.store(encryptedStorage, properties);
+			service.store(decryptedStorage, properties);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
