@@ -61,11 +61,6 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultModifiers.add(new ResolvePlaceholdersModifier(helper));
 		}
 
-		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
-		if (trim) {
-			defaultModifiers.add(new TrimModifier(includes, excludes));
-		}
-
 		addEncModifier(defaultModifiers);
 
 		if (!StringUtils.isBlank(prefix)) {
@@ -73,6 +68,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		addStyleModifier(defaultModifiers);
+
+		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
+		if (trim) {
+			defaultModifiers.add(new TrimModifier(includes, excludes));
+		}
 
 		return defaultModifiers;
 	}

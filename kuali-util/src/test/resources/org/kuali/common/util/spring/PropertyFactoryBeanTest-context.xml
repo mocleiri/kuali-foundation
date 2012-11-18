@@ -26,16 +26,17 @@
 
   <context:property-placeholder properties-ref="properties" />
 
+  <util:list id="storageExcludes" value-type="java.lang.String">
+    <value>enc.password</value>
+    <value>enc.password.encrypted</value>
+  </util:list>
+
   <bean id="encryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
     <property name="file" value="${project.build.directory}/properties/encrypted.properties" />
     <property name="comment" value="Encrypted properties file" />
     <property name="encryptionMode" value="ENCRYPT" />
     <property name="encryptionPassword" value="${enc.password}" />
-    <property name="excludes">
-      <list>
-        <value>enc.password</value>
-      </list>
-    </property>
+    <property name="excludes" ref="storageExcludes" />
   </bean>
 
   <bean id="decryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
@@ -43,6 +44,7 @@
     <property name="comment" value="Decrypted properties file" />
     <property name="encryptionMode" value="DECRYPT" />
     <property name="encryptionPassword" value="${enc.password}" />
+    <property name="excludes" ref="storageExcludes" />
   </bean>
 
 </beans>
