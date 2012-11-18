@@ -58,14 +58,16 @@
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>maven.properties</include>
+          <include>**/*-context.xml</include>
+          <include>**/*.properties</include>
         </includes>
       </testResource>
       <testResource>
         <directory>src/test/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>maven.properties</exclude>
+          <exclude>**/*-context.xml</exclude>
+          <exclude>**/*.properties</exclude>
         </excludes>
       </testResource>
     </testResources>

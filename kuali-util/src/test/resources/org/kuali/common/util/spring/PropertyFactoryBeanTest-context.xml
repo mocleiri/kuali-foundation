@@ -26,8 +26,8 @@
 
   <context:property-placeholder properties-ref="properties" />
 
-  <bean id="context" class="org.kuali.common.util.property.DefaultPropertyStoreContext">
-    <property name="file" value="${project.build.directory}/properties/stored.properties" />
+  <bean id="context" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
+    <property name="file" value="${project.build.directory}/properties/encrypted.properties" />
     <property name="comment" value="Created by Spring" />
     <property name="encryptionMode" value="ENCRYPT" />
     <property name="encryptionPassword" value="${enc.password}" />

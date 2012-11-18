@@ -137,6 +137,7 @@ public class PropertyUtils {
 			String path = file.getCanonicalPath();
 			boolean xml = isXml(path);
 			Properties sorted = getSortedProperties(properties);
+			comment = getComment(encoding, comment);
 			if (xml) {
 				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
 				if (StringUtils.isBlank(encoding)) {
@@ -311,6 +312,25 @@ public class PropertyUtils {
 			throw new IllegalStateException("Overwrite of existing property [" + key + "] is not allowed.");
 		default:
 			throw new IllegalArgumentException(mode + " is unknown");
+		}
+	}
+
+	private static final String getDefaultComment(String encoding) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Encoding=");
+		if (StringUtils.isBlank(encoding)) {
+			sb.append(PLATFORM_DEFAULT);
+		} else {
+			sb.append(encoding);
+		}
+		return sb.toString();
+	}
+
+	private static final String getComment(String encoding, String comment) {
+		if (StringUtils.isBlank(comment)) {
+			return getDefaultComment(encoding);
+		} else {
+			return comment + "\n#" + getDefaultComment(encoding);
 		}
 	}
 
