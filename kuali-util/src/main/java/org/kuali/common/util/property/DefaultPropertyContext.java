@@ -26,8 +26,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
 
-	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
-	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
+	private static final String DEFAULT_PLACEHOLDER_PREFIX = Constants.DEFAULT_PLACEHOLDER_PREFIX;
+	private static final String DEFAULT_PLACEHOLDER_SUFFIX = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 

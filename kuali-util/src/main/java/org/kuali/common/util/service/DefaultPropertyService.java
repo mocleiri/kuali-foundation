@@ -5,11 +5,13 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ResourceUtils;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyService implements PropertyService {
 
@@ -39,10 +41,11 @@ public class DefaultPropertyService implements PropertyService {
 	}
 
 	protected Properties loadProperties(PropertyLoadContext context) {
+		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
 		Properties properties = new Properties();
 		for (String location : context.getLocations()) {
 			Properties global = PropertyUtils.getGlobalProperties(properties);
-			String resolvedLocation = context.getHelper().replacePlaceholders(location, global);
+			String resolvedLocation = helper.replacePlaceholders(location, global);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
