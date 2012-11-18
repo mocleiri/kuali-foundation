@@ -1,5 +1,5 @@
 package org.kuali.common.util.property;
 
-public enum PropertyEncMode {
+public enum PropertyEncryptionMode {
 	ENCRYPT, DECRYPT, NONE;
 }

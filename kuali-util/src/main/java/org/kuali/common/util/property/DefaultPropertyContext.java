@@ -40,7 +40,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
-	PropertyEncMode encryptionMode = PropertyEncMode.NONE;
+	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
 	List<PropertyModifier> modifiers;
@@ -225,11 +225,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.helper = helper;
 	}
 
-	public PropertyEncMode getEncryptionMode() {
+	public PropertyEncryptionMode getEncryptionMode() {
 		return encryptionMode;
 	}
 
-	public void setEncryptionMode(PropertyEncMode encryptionMode) {
+	public void setEncryptionMode(PropertyEncryptionMode encryptionMode) {
 		this.encryptionMode = encryptionMode;
 	}
 
