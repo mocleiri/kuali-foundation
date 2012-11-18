@@ -27,6 +27,7 @@ public class DefaultPropertyService implements PropertyService {
 
 	@Override
 	public void store(PropertyStoreContext context, Properties properties) {
+		context.initialize(properties);
 		modify(properties, context.getModifiers());
 		PropertyUtils.store(properties, context.getFile(), context.getEncoding(), context.getComment());
 	}
