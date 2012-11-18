@@ -5,13 +5,12 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyOverwriteMode;
 
 public class PathModifier implements PropertyModifier {
 
-	public static final String DEFAULT_PATH_SUFFIX = "path";
-
-	String suffix = DEFAULT_PATH_SUFFIX;
+	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
 	List<String> excludes;
 	PropertyOverwriteMode propertyOverwriteMode = PropertyOverwriteMode.INFORM;

@@ -287,10 +287,9 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Check <code>properties</code> to see if it has a property value for <code>key</code>. If there is no existing property under
-	 * <code>key</code>, or <code>mode</code> is <code>IGNORE</code>, silently return. If there is an existing property and
-	 * <code>mode</code> is <code>ERROR</code> throw <code>IllegalStateException</code>, otherwise log a message at the level indicated,
-	 * <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code>.
+	 * Check <code>properties</code> to see if it has a value for <code>key</code>. If there is no existing value or <code>mode</code> is
+	 * <code>IGNORE</code>, silently return. If there is a value and <code>mode</code> is <code>ERROR</code> throw
+	 * <code>IllegalStateException</code>, otherwise log a <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code> message.
 	 */
 	public static final void checkExistingProperty(Properties properties, String key, PropertyOverwriteMode mode) {
 		if (!properties.contains(key)) {
