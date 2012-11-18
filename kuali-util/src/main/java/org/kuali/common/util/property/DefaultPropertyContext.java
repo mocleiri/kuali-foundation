@@ -63,6 +63,8 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultModifiers.add(new AddPrefixModifier(prefix));
 		}
 
+		addStyleModifier(defaultModifiers);
+
 		return defaultModifiers;
 	}
 
@@ -206,7 +208,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.style = style;
 	}
 
-	@Override
 	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
