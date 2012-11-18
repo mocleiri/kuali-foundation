@@ -18,6 +18,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.PropertyOverwriteMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +86,20 @@ public class PropertyUtils {
 		} else {
 			return CollectionUtils.isEmpty(includes) || includes.contains(value);
 		}
+	}
+
+	/**
+	 * Return the property keys as a sorted list.
+	 */
+	public static final List<String> getSortedKeys(Properties properties, List<String> includes, List<String> excludes) {
+		List<String> keys = getSortedKeys(properties);
+		List<String> includedKeys = new ArrayList<String>();
+		for (String key : keys) {
+			if (include(key, includes, excludes)) {
+				includedKeys.add(key);
+			}
+		}
+		return includedKeys;
 	}
 
 	/**
@@ -302,4 +317,28 @@ public class PropertyUtils {
 			return Collections.enumeration(new TreeSet<Object>(super.keySet()));
 		}
 	}
+
+	public static final void checkExistingProperty(Properties properties, String key, PropertyOverwriteMode mode) {
+		if (!properties.contains(key)) {
+			return;
+		}
+		switch (mode) {
+		case IGNORE:
+			return;
+		case DEBUG:
+			logger.debug("Overwriting existing property [{}]", key);
+			return;
+		case INFORM:
+			logger.info("Overwriting existing property [{}]", key);
+			return;
+		case WARN:
+			logger.warn("Overwriting existing property [{}]", key);
+			return;
+		case ERROR:
+			throw new IllegalStateException("Overwrite of existing property [" + key + "] is not allowed.");
+		default:
+			throw new IllegalArgumentException(mode + " is unknown");
+		}
+	}
+
 }

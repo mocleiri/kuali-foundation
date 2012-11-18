@@ -14,35 +14,46 @@ public class Str {
 	public static final String LF = "\n";
 
 	/**
-	 * Surround the string with double quotes
+	 * Convert dots to forward slashes and trim.
+	 */
+	public static String getPath(String s) {
+		if (s == null) {
+			return null;
+		} else {
+			return StringUtils.trim(s.replace(".", "/"));
+		}
+	}
+
+	/**
+	 * Surround the string with double quotes.
 	 */
 	public static String quote(String s) {
 		return s == null ? null : '"' + s + '"';
 	}
 
 	/**
-	 * Split comma separated values into tokens
+	 * Split comma separated values into tokens.
 	 */
 	public static String[] splitCSV(String csv, boolean trim) {
 		return split(csv, COMMA, trim);
 	}
 
 	/**
-	 * Split comma separated values into tokens, trimming as we go
+	 * Split comma separated values into tokens, trimming as we go.
 	 */
 	public static String[] splitAndTrimCSV(String csv) {
 		return splitCSV(csv, true);
 	}
 
 	/**
-	 * Split the string into tokens using the indicated separator, trimming as we go
+	 * Split the string into tokens using the indicated separator, trimming as we go.
 	 */
 	public static String[] splitAndTrim(String s, String separator) {
 		return split(s, separator, true);
 	}
 
 	/**
-	 * Split the string into tokens using the indicated separator, optionally trimming the tokens
+	 * Split the string into tokens using the indicated separator, optionally trimming the tokens.
 	 */
 	public static String[] split(String s, String separator, boolean trim) {
 		String[] tokens = StringUtils.split(s, separator);
@@ -56,7 +67,7 @@ public class Str {
 	}
 
 	/**
-	 * Replace carriage returns and linefeeds with spaces
+	 * Replace carriage returns and linefeeds with spaces.
 	 */
 	public static final String flatten(String s) {
 		return flatten(s, SPACE, SPACE);
