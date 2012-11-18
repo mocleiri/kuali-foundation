@@ -1,6 +1,7 @@
 package org.kuali.common.util.property;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.property.modifier.PropertyModifier;
 
@@ -10,5 +11,6 @@ public interface PropertyContext {
 
 	List<PropertyModifier> getModifiers();
 
+	void initialize(Properties properties);
 
 }
