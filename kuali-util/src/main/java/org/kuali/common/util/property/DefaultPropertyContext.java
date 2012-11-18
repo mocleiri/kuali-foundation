@@ -12,8 +12,8 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddPrefixModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
-import org.kuali.common.util.property.modifier.EncryptModifier;
 import org.kuali.common.util.property.modifier.EndsWithDecryptModifier;
+import org.kuali.common.util.property.modifier.EndsWithEncryptModifier;
 import org.kuali.common.util.property.modifier.EnvironmentVariableModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
@@ -101,7 +101,7 @@ public class DefaultPropertyContext implements PropertyContext {
 			return;
 		case ENCRYPT:
 			TextEncryptor encryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultModifiers.add(new EncryptModifier(encryptor));
+			defaultModifiers.add(new EndsWithEncryptModifier(encryptor));
 			return;
 		case DECRYPT:
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
@@ -112,6 +112,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
+	@Override
 	public void initialize(Properties properties) {
 		Properties global = PropertyUtils.getGlobalProperties(properties);
 		resolveInternalStrings(global);
