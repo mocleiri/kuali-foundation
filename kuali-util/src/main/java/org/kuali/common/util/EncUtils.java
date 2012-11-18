@@ -9,13 +9,13 @@ public class EncUtils {
 	public static final TextEncryptor getTextEncryptor(EncryptionStrength strength, String password) {
 		switch (strength) {
 		case BASIC:
-			BasicTextEncryptor bte = new BasicTextEncryptor();
-			bte.setPassword(password);
-			return bte;
+			BasicTextEncryptor basic = new BasicTextEncryptor();
+			basic.setPassword(password);
+			return basic;
 		case STRONG:
-			StrongTextEncryptor ste = new StrongTextEncryptor();
-			ste.setPassword(password);
-			return ste;
+			StrongTextEncryptor strong = new StrongTextEncryptor();
+			strong.setPassword(password);
+			return strong;
 		default:
 			throw new IllegalArgumentException(strength + " is unknown");
 		}

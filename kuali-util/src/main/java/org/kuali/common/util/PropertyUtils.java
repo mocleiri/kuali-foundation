@@ -77,8 +77,8 @@ public class PropertyUtils {
 	 * Return true if <code>value</code> should be included, false otherwise.<br>
 	 * If <code>excludes</codes> is not empty and contains <code>value</code> return false.<br>
 	 * If <code>value</code> has not been explicitly excluded, proceed with checking the <code>includes</code> list.<br>
-	 * If <code>includes</code> is empty return true. If <code>includes</code> is not empty, return true only if <code>value</code> appears
-	 * in the list.
+	 * If <code>includes</code> is empty return true.<br>
+	 * If <code>includes</code> is not empty, return true only if <code>value</code> appears in the list.
 	 */
 	public static final boolean include(String value, List<String> includes, List<String> excludes) {
 		if (!CollectionUtils.isEmpty(excludes) && excludes.contains(value)) {
@@ -89,7 +89,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return the property keys as a sorted list.
+	 * Return property keys that should be included as a sorted list.
 	 */
 	public static final List<String> getSortedKeys(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
@@ -285,6 +285,35 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Check <code>properties</code> to see if it has a property value for <code>key</code>. If there is no existing property under
+	 * <code>key</code>, or <code>mode</code> is <code>IGNORE</code>, silently return. If there is an existing property and
+	 * <code>mode</code> is <code>ERROR</code> throw <code>IllegalStateException</code>, otherwise log a message at the level indicated,
+	 * <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code>.
+	 */
+	public static final void checkExistingProperty(Properties properties, String key, PropertyOverwriteMode mode) {
+		if (!properties.contains(key)) {
+			return;
+		}
+		switch (mode) {
+		case IGNORE:
+			return;
+		case DEBUG:
+			logger.debug("Overwriting existing property [{}]", key);
+			return;
+		case INFORM:
+			logger.info("Overwriting existing property [{}]", key);
+			return;
+		case WARN:
+			logger.warn("Overwriting existing property [{}]", key);
+			return;
+		case ERROR:
+			throw new IllegalStateException("Overwrite of existing property [" + key + "] is not allowed.");
+		default:
+			throw new IllegalArgumentException(mode + " is unknown");
+		}
+	}
+
+	/**
 	 * This is private because <code>SortedProperties</code> does not fully honor the contract for <code>Properties</code>
 	 */
 	private static final SortedProperties getSortedProperties(Properties properties) {
@@ -315,29 +344,6 @@ public class PropertyUtils {
 		@Override
 		public synchronized Enumeration<Object> keys() {
 			return Collections.enumeration(new TreeSet<Object>(super.keySet()));
-		}
-	}
-
-	public static final void checkExistingProperty(Properties properties, String key, PropertyOverwriteMode mode) {
-		if (!properties.contains(key)) {
-			return;
-		}
-		switch (mode) {
-		case IGNORE:
-			return;
-		case DEBUG:
-			logger.debug("Overwriting existing property [{}]", key);
-			return;
-		case INFORM:
-			logger.info("Overwriting existing property [{}]", key);
-			return;
-		case WARN:
-			logger.warn("Overwriting existing property [{}]", key);
-			return;
-		case ERROR:
-			throw new IllegalStateException("Overwrite of existing property [" + key + "] is not allowed.");
-		default:
-			throw new IllegalArgumentException(mode + " is unknown");
 		}
 	}
 

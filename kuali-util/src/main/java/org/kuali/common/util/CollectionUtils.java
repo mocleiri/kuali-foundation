@@ -16,7 +16,8 @@ public class CollectionUtils {
 	public static final List<String> getTrimmedListFromCSV(String csv) {
 		List<String> list = new ArrayList<String>();
 		if (!StringUtils.isBlank(csv)) {
-			list.addAll(Arrays.asList(Str.splitAndTrimCSV(csv)));
+			String[] tokens = Str.splitAndTrimCSV(csv);
+			list.addAll(Arrays.asList(tokens));
 		}
 		return list;
 	}
