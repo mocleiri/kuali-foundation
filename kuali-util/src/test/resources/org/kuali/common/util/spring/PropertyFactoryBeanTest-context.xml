@@ -31,6 +31,7 @@
     <value>classpath:maven.properties</value>
     <value>classpath:org/kuali/common/util/car.properties</value>
     <value>classpath:org/kuali/common/util/${car.vendor}.properties</value>
+    <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>classpath:org/kuali/common/util/pw.properties</value>
     <value>classpath:org/kuali/common/util/missing.properties</value>
   </util:list>
