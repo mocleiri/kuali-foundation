@@ -36,41 +36,41 @@ public class ConvertSQLMojo extends AbstractMojo {
 	private static final String FS = File.separator;
 
 	/**
-	 * @parameter expression="${sql.encoding}" default-value="${project.build.sourceEncoding}"
+	 * @parameter expression="${impex.encoding}" default-value="${project.build.sourceEncoding}"
 	 */
 	private String encoding;
 
 	/**
-	 * @parameter expression="${sql.oldDelimiter}" default-value=";"
+	 * @parameter expression="${impex.oldDelimiter}" default-value=";"
 	 * @required
 	 */
 	private String oldDelimiter;
 
 	/**
-	 * @parameter expression="${sql.newDelimiter}" default-value="/"
+	 * @parameter expression="${impex.newDelimiter}" default-value="/"
 	 * @required
 	 */
 	private String newDelimiter;
 
 	/**
-	 * @parameter expression="${sql.sourceDir}" default-value="${project.build.directory}/sql/source"
+	 * @parameter expression="${impex.sourceDir}" default-value="${project.build.directory}/sql/source"
 	 * @required
 	 */
 	private File sourceDir;
 
 	/**
-	 * @parameter expression="${sql.outputDir}" default-value="${project.build.directory}/sql/output"
+	 * @parameter expression="${impex.outputDir}" default-value="${project.build.directory}/sql/output"
 	 * @required
 	 */
 	private File outputDir;
 
 	/**
-	 * @parameter expression="${sql.includes}" default-value="*.sql"
+	 * @parameter expression="${impex.includes}" default-value="*.sql"
 	 */
 	private String includes;
 
 	/**
-	 * @parameter expression="${sql.excludes}"
+	 * @parameter expression="${impex.excludes}"
 	 */
 	private String excludes;
 
@@ -101,7 +101,7 @@ public class ConvertSQLMojo extends AbstractMojo {
 		File outputFile = new File(outputFilename);
 		@SuppressWarnings("unchecked")
 		List<String> lines = FileUtils.readLines(file, encoding);
-		getLog().info("Creating " + outputFile);
+		getLog().info("Creating " + outputFile.getCanonicalPath());
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(outputFile);
