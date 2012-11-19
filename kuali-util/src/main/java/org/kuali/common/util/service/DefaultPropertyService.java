@@ -44,10 +44,12 @@ public class DefaultPropertyService implements PropertyService {
 
 	protected Properties loadProperties(PropertyLoadContext context) {
 		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+		context.initializeForLoading();
 		Properties properties = new Properties();
 		for (String location : context.getLocations()) {
-			Properties global = PropertyUtils.getGlobalProperties(properties);
-			String resolvedLocation = helper.replacePlaceholders(location, global);
+			Properties duplicate = PropertyUtils.duplicate(properties);
+			modify(duplicate, context.getLoadModifiers());
+			String resolvedLocation = helper.replacePlaceholders(location, duplicate);
 			if (!location.equals(resolvedLocation)) {
 				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
