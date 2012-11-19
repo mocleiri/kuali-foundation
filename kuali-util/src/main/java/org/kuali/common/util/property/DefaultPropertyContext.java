@@ -27,9 +27,6 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
 
-	private static final String DEFAULT_PLACEHOLDER_PREFIX = Constants.DEFAULT_PLACEHOLDER_PREFIX;
-	private static final String DEFAULT_PLACEHOLDER_SUFFIX = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
-
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
 	String encoding;
@@ -40,7 +37,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	boolean resolvePlaceholders;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
-	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
+	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
