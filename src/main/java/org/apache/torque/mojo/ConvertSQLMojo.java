@@ -37,45 +37,64 @@ public class ConvertSQLMojo extends AbstractMojo {
 	private static final String FS = File.separator;
 
 	/**
+	 * The encoding to use when reading/writing files
+	 *
 	 * @parameter expression="${impex.encoding}" default-value="${project.build.sourceEncoding}"
 	 */
 	private String encoding;
 
 	/**
+	 * The old delimiter used to terminate a SQL statement by being present at the end of a line.
+	 *
 	 * @parameter expression="${impex.oldDelimiter}" default-value=";"
 	 * @required
 	 */
 	private String oldDelimiter;
 
 	/**
+	 * The new delimiter to put on its own line
+	 *
 	 * @parameter expression="${impex.newDelimiter}" default-value="/"
 	 * @required
 	 */
 	private String newDelimiter;
 
 	/**
+	 * Director to examine for .sql files
+	 *
 	 * @parameter expression="${impex.sourceDir}" default-value="${project.build.directory}/sql/source"
 	 * @required
 	 */
 	private File sourceDir;
 
 	/**
+	 * Directory to generate the converted files into
+	 *
 	 * @parameter expression="${impex.outputDir}" default-value="${project.build.directory}/sql/output"
 	 * @required
 	 */
 	private File outputDir;
 
 	/**
+	 * Files to include
+	 *
 	 * @parameter expression="${impex.includes}" default-value="*.sql"
 	 */
 	private String includes;
 
 	/**
+	 * Files to exclude
+	 *
 	 * @parameter expression="${impex.excludes}"
 	 */
 	private String excludes;
 
 	/**
+	 * Liquibase injects a handful of metadata at the top of each .sql file that causes "noise". All of the checksums and actual .sql may be
+	 * exactly the same as before, but the Liquibase metadata makes it appear as though the resulting .sql file has changed. By omitting the
+	 * metadata you can run the same change set multiple times and get the exact same .sql file as output. This makes it much easier to
+	 * perform validation checks on the SQL.
+	 *
 	 * @parameter expression="${impex.skipIrrelevantLiquibaseMetadataLines}" default-value="false"
 	 */
 	private boolean skipIrrelevantLiquibaseMetadataLines;

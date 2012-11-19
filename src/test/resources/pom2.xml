@@ -47,6 +47,7 @@
         <configuration>
           <artifactId>ole-liquibase-sql</artifactId>
           <metaFileSuffix>resources</metaFileSuffix>
+          <skipIrrelevantLiquibaseMetadataLines>true</skipIrrelevantLiquibaseMetadataLines>
         </configuration>
         <executions>
           <execution>

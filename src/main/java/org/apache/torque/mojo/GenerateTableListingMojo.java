@@ -68,6 +68,7 @@ public class GenerateTableListingMojo extends BaseMojo {
 	private String artifactId;
 
 	/**
+	 * The suffix to append to the end of the file stored in META-INF
 	 *
 	 * @parameter expression="${impex.metaFileSuffix}" default-value="tables"
 	 * @required
