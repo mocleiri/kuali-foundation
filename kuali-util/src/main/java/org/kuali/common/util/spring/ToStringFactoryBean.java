@@ -5,7 +5,7 @@ import org.springframework.beans.factory.FactoryBean;
 
 public class ToStringFactoryBean extends ToStringContext implements FactoryBean<String> {
 
-	ResourceService service;
+	ResourceService service = new ResourceService();
 
 	@Override
 	public String getObject() throws Exception {

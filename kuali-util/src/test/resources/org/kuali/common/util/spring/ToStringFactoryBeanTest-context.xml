@@ -6,10 +6,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:property-placeholder />
-
-
-  <bean id="service" class="org.kuali.common.util.service.ResourceService" />
-  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:trim="true" p:location="classpath:org/kuali/common/util/pw.txt" p:service-ref="service" />
+  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:trim="true" p:location="classpath:org/kuali/common/util/pw.txt" />
 
 </beans>
