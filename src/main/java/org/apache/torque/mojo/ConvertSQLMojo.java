@@ -77,7 +77,6 @@ public class ConvertSQLMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
-			getLog().info("Examining " + sourceDir.getCanonicalPath());
 			List<File> files = getFiles();
 			if (files == null || files.size() == 0) {
 				getLog().info("No files found");
@@ -127,6 +126,7 @@ public class ConvertSQLMojo extends AbstractMojo {
 
 	protected List<File> getFiles() throws IOException {
 		FileUtils.forceMkdir(sourceDir);
+		getLog().info("Examining " + sourceDir.getCanonicalPath());
 		SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes);
 		return scanner.getFiles();
 	}
