@@ -9,6 +9,10 @@
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
+  <bean id="encoding" class="java.lang.String">
+    <constructor-arg value="${project.build.sourceEncoding}" />
+  </bean>
+
   <bean id="encryptionPassword" class="java.lang.String">
     <constructor-arg value="${enc.password}" />
   </bean>
@@ -31,7 +35,7 @@
     <value>classpath:org/kuali/common/util/missing.properties</value>
   </util:list>
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding-ref="encoding" p:ignoreMissingLocations="true">
     <property name="encryptionMode" value="DECRYPT" />
     <property name="encryptionPassword" ref="encryptionPassword" />
     <property name="service" ref="service" />
@@ -41,7 +45,7 @@
 
   <context:property-placeholder properties-ref="properties" />
 
-  <bean id="encryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
+  <bean id="encryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding-ref="encoding">
     <property name="file" value="${project.build.directory}/properties/encrypted.properties" />
     <property name="comment" value="Encrypted properties file" />
     <property name="encryptionMode" value="ENCRYPT" />
@@ -49,7 +53,7 @@
     <property name="excludes" ref="storageExcludes" />
   </bean>
 
-  <bean id="normalStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
+  <bean id="normalStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding-ref="encoding">
     <property name="file" value="${project.build.directory}/properties/normal.properties" />
     <property name="comment" value="Normal properties file" />
     <property name="excludes" ref="storageExcludes" />
