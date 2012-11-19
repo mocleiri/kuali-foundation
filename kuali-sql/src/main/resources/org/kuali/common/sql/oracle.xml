@@ -37,6 +37,7 @@
     PURGE RECYCLEBIN
     /
   </entry>
+  <!-- SQL to drop/create the 2 tables Liquibase needs in order to acquire a "lock" and go about its business -->
   <entry key="sql.oracle.liquibase.drop">
     BEGIN EXECUTE IMMEDIATE 'DROP TABLE DATABASECHANGELOG'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -00942 THEN RAISE; END IF; END;
     /
