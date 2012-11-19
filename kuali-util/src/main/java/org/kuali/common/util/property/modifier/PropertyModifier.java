@@ -1,9 +1,0 @@
-package org.kuali.common.util.property.modifier;
-
-import java.util.Properties;
-
-public interface PropertyModifier {
-
-	void modify(Properties properties);
-
-}
