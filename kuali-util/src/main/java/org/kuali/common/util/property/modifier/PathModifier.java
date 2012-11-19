@@ -35,7 +35,7 @@ public class PathModifier implements PropertyModifier {
 			String oldValue = properties.getProperty(key);
 			String newValue = Str.getPath(oldValue);
 			String newKey = key + "." + suffix;
-			logger.info("Setting {}={}", newKey, newValue);
+			logger.debug("Setting {}={}", newKey, newValue);
 			PropertyUtils.setProperty(properties, newKey, newValue, propertyOverwriteMode);
 		}
 	}
