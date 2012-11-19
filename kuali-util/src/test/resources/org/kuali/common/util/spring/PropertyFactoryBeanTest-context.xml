@@ -11,6 +11,10 @@
     <constructor-arg value="UTF-8" />
   </bean>
 
+  <bean id="includeGlobalProperties" class="java.lang.Boolean">
+    <constructor-arg value="false" />
+  </bean>
+
   <bean id="encryptionPassword" class="java.lang.String">
     <constructor-arg value="${enc.password}" />
   </bean>
@@ -52,8 +56,8 @@
     <property name="locations" ref="locations" />
     <property name="pathProperties" ref="pathProperties" />
     <property name="versionProperties" ref="versionProperties" />
-    <property name="includeSystemProperties" value="true" />
-    <property name="includeEnvironmentVariables" value="true" />
+    <property name="includeSystemProperties" ref="includeGlobalProperties" />
+    <property name="includeEnvironmentVariables" ref="includeGlobalProperties" />
   </bean>
 
   <context:property-placeholder properties-ref="properties" />
