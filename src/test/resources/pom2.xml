@@ -50,10 +50,15 @@
             <phase>test</phase>
             <goals>
               <goal>convertsql</goal>
+              <goal>generatetablelisting</goal>
             </goals>
             <configuration>
               <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/target/liquibase/sql/mysql</sourceDir>
+              <baseSqlDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/ole-liquibase-sql/src/main/resources/sql</baseSqlDir>
               <outputDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/ole-liquibase-sql/src/main/resources/sql/mysql</outputDir>
+              <artifactId>ole-liquibase-sql</artifactId>
+              <targetDatabase>mysql</targetDatabase>
+              <metaFileSuffix>resources</metaFileSuffix>
             </configuration>
           </execution>
           <execution>

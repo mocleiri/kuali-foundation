@@ -67,6 +67,13 @@ public class GenerateTableListingMojo extends BaseMojo {
 	 */
 	private String artifactId;
 
+	/**
+	 *
+	 * @parameter expression="${impex.metaFileSuffix}" default-value="tables"
+	 * @required
+	 */
+	private String metaFileSuffix;
+
 	@Override
 	protected void executeMojo() throws MojoExecutionException, MojoFailureException {
 		File databaseSQLDir = new File(baseSqlDir, targetDatabase);
@@ -80,7 +87,7 @@ public class GenerateTableListingMojo extends BaseMojo {
 		List<String> locations = getLocations(tableNames);
 		getLog().info("Located " + tableNames.size() + " tables");
 		try {
-			String outputFilename = databaseSQLDir.getAbsolutePath() + FS + ".." + FS + ".." + FS + "META-INF" + FS + targetDatabase + FS + artifactId + ".tables";
+			String outputFilename = databaseSQLDir.getAbsolutePath() + FS + ".." + FS + ".." + FS + "META-INF" + FS + targetDatabase + FS + artifactId + "." + metaFileSuffix;
 			File outputFile = new File(outputFilename);
 			getLog().info("Generating " + outputFile.getCanonicalPath());
 			FileUtils.writeLines(outputFile, locations);
@@ -165,6 +172,14 @@ public class GenerateTableListingMojo extends BaseMojo {
 
 	public void setBaseSqlDir(File sqlDir) {
 		this.baseSqlDir = sqlDir;
+	}
+
+	public String getMetaFileSuffix() {
+		return metaFileSuffix;
+	}
+
+	public void setMetaFileSuffix(String metaFileSuffix) {
+		this.metaFileSuffix = metaFileSuffix;
 	}
 
 }
