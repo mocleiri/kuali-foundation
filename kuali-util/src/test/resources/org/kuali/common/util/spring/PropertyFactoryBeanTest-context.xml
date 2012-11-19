@@ -9,32 +9,33 @@
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
-    <property name="encryptionMode" value="DECRYPT" />
-    <property name="encryptionPassword" value="${enc.password}" />
-    <property name="service" ref="service" />
-    <property name="locations">
-      <list>
-        <value>classpath:maven.properties</value>
-        <value>classpath:org/kuali/common/util/car.properties</value>
-        <value>classpath:org/kuali/common/util/${car.vendor}.properties</value>
-        <value>classpath:org/kuali/common/util/pw.properties</value>
-        <value>classpath:org/kuali/common/util/missing.properties</value>
-      </list>
-    </property>
-    <property name="pathProperties">
-      <list>
-        <value>project.groupId</value>
-      </list>
-    </property>
-  </bean>
-
-  <context:property-placeholder properties-ref="properties" />
-
   <util:list id="storageExcludes" value-type="java.lang.String">
     <value>enc.password</value>
     <value>enc.password.encrypted</value>
   </util:list>
+
+  <util:list id="pathProperties" value-type="java.lang.String">
+    <value>project.groupId</value>
+    <value>deploy.groupId</value>
+  </util:list>
+
+  <util:list id="locations" value-type="java.lang.String">
+    <value>classpath:maven.properties</value>
+    <value>classpath:org/kuali/common/util/car.properties</value>
+    <value>classpath:org/kuali/common/util/${car.vendor}.properties</value>
+    <value>classpath:org/kuali/common/util/pw.properties</value>
+    <value>classpath:org/kuali/common/util/missing.properties</value>
+  </util:list>
+
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
+    <property name="encryptionMode" value="DECRYPT" />
+    <property name="encryptionPassword" value="${enc.password}" />
+    <property name="service" ref="service" />
+    <property name="locations" ref="locations" />
+    <property name="pathProperties" ref="pathProperties" />
+  </bean>
+
+  <context:property-placeholder properties-ref="properties" />
 
   <bean id="encryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
     <property name="file" value="${project.build.directory}/properties/encrypted.properties" />
