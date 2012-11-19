@@ -29,7 +29,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.torque.util.SimpleScanner;
 
 /**
- * Examine SQL files and convert the delimiter style from using a <code>;</code> at the end of the line to a <code>/</code> on it's own line
+ * Examine SQL files and convert them to always use the delimiter <code>/</code> on it's own line. Convert any lines ending with
+ * <code>;</code> to use a <code>/</code> on it's own line.
  *
  * @goal convertsql
  */
