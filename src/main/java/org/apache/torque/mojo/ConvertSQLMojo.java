@@ -60,7 +60,7 @@ public class ConvertSQLMojo extends AbstractMojo {
 	private String newDelimiter;
 
 	/**
-	 * Director to examine for .sql files
+	 * Directory to examine for .sql files
 	 *
 	 * @parameter expression="${impex.sourceDir}" default-value="${project.build.directory}/sql/source"
 	 * @required
