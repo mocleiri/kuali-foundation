@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultPropertyContext implements PropertyContext {
+public class DefaultPropertyContext implements PropertyContext, DefaultPropertyContextInterface {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
