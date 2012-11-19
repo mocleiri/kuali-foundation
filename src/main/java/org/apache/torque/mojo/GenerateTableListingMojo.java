@@ -81,13 +81,13 @@ public class GenerateTableListingMojo extends BaseMojo {
 		if (!databaseSQLDir.exists()) {
 			throw new MojoExecutionException(databaseSQLDir + " does not exist");
 		}
-		getLog().info("Examining " + databaseSQLDir);
-		List<File> files = getFileListing(databaseSQLDir);
-		getLog().info("Located " + files.size() + " " + extension + " files");
-		List<String> tableNames = getTableNames(files);
-		List<String> locations = getLocations(tableNames);
-		getLog().info("Located " + tableNames.size() + " tables");
 		try {
+			getLog().info("Examining " + databaseSQLDir.getCanonicalPath());
+			List<File> files = getFileListing(databaseSQLDir);
+			getLog().info("Located " + files.size() + " " + extension + " files");
+			List<String> tableNames = getTableNames(files);
+			List<String> locations = getLocations(tableNames);
+			getLog().info("Located " + tableNames.size() + " tables");
 			String outputFilename = databaseSQLDir.getAbsolutePath() + FS + ".." + FS + ".." + FS + "META-INF" + FS + targetDatabase + FS + artifactId + "." + metaFileSuffix;
 			File outputFile = new File(outputFilename);
 			getLog().info("Generating " + outputFile.getCanonicalPath());
