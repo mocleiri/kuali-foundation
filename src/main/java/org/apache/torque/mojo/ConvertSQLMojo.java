@@ -104,8 +104,7 @@ public class ConvertSQLMojo extends AbstractMojo {
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(outputFile);
-			for (int i = 0; i < lines.size(); i++) {
-				String line = lines.get(i);
+			for (String line : lines) {
 				String convertedLine = getConvertedLine(line);
 				out.write(convertedLine.getBytes(encoding));
 			}
