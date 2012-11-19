@@ -77,11 +77,13 @@ public class ConvertSQLMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
+			getLog().info("Examining " + sourceDir.getCanonicalPath());
 			List<File> files = getFiles();
 			if (files == null || files.size() == 0) {
 				getLog().info("No files found");
 				return;
 			}
+			getLog().info("Found " + files.size() + " SQL files to convert");
 			convert(files);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);

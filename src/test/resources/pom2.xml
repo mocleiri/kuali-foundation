@@ -46,7 +46,7 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>convertsql</id>
+            <id>mysql</id>
             <phase>test</phase>
             <goals>
               <goal>convertsql</goal>
@@ -54,6 +54,17 @@
             <configuration>
               <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/target/liquibase/sql/mysql</sourceDir>
               <outputDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/ole-liquibase-sql/src/main/resources/sql/mysql</outputDir>
+            </configuration>
+          </execution>
+          <execution>
+            <id>oracle</id>
+            <phase>test</phase>
+            <goals>
+              <goal>convertsql</goal>
+            </goals>
+            <configuration>
+              <sourceDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/target/liquibase/sql/oracle</sourceDir>
+              <outputDir>/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-db/ole-liquibase/ole-liquibase-sql/src/main/resources/sql/oracle</outputDir>
             </configuration>
           </execution>
         </executions>
