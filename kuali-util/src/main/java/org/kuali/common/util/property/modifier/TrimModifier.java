@@ -7,6 +7,9 @@ import org.kuali.common.util.PropertyUtils;
 
 public class TrimModifier implements PropertyModifier {
 
+	List<String> includes;
+	List<String> excludes;
+
 	public TrimModifier() {
 		this(null, null);
 	}
@@ -16,9 +19,6 @@ public class TrimModifier implements PropertyModifier {
 		this.includes = includes;
 		this.excludes = excludes;
 	}
-
-	List<String> includes;
-	List<String> excludes;
 
 	@Override
 	public void modify(Properties properties) {
