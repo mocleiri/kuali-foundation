@@ -125,6 +125,9 @@ public class ConvertSQLMojo extends AbstractMojo {
 		tokens.add("-- Ran at:");
 		tokens.add("-- Against:");
 		tokens.add("-- Liquibase version:");
+		tokens.add("--  Ran at:");
+		tokens.add("--  Against:");
+		tokens.add("--  Liquibase version:");
 		return tokens;
 	}
 
