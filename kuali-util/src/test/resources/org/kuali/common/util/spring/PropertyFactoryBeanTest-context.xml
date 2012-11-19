@@ -9,6 +9,10 @@
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
+  <bean id="encryptionPassword" class="java.lang.String">
+    <constructor-arg value="${enc.password}" />
+  </bean>
+
   <util:list id="storageExcludes" value-type="java.lang.String">
     <value>enc.password</value>
     <value>enc.password.encrypted</value>
@@ -29,7 +33,7 @@
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="${project.build.sourceEncoding}" p:ignoreMissingLocations="true">
     <property name="encryptionMode" value="DECRYPT" />
-    <property name="encryptionPassword" value="${enc.password}" />
+    <property name="encryptionPassword" ref="encryptionPassword" />
     <property name="service" ref="service" />
     <property name="locations" ref="locations" />
     <property name="pathProperties" ref="pathProperties" />
@@ -41,7 +45,7 @@
     <property name="file" value="${project.build.directory}/properties/encrypted.properties" />
     <property name="comment" value="Encrypted properties file" />
     <property name="encryptionMode" value="ENCRYPT" />
-    <property name="encryptionPassword" value="${enc.password}" />
+    <property name="encryptionPassword" ref="encryptionPassword" />
     <property name="excludes" ref="storageExcludes" />
   </bean>
 
