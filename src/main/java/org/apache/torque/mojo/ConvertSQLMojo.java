@@ -90,10 +90,10 @@ public class ConvertSQLMojo extends AbstractMojo {
 	private String excludes;
 
 	/**
-	 * Liquibase injects a handful of metadata at the top of each .sql file that causes "noise". All of the checksums and actual .sql may be
-	 * exactly the same as before, but the Liquibase metadata makes it appear as though the resulting .sql file has changed. By omitting the
-	 * metadata you can run the same change set multiple times and get the exact same .sql file as output. This makes it much easier to
-	 * perform validation checks on the SQL.
+	 * Liquibase injects a handful of metadata at the top of each SQL file that causes "noise". All of the checksums and actual SQL may stay
+	 * the same, but the Liquibase metadata makes it appear as though the resulting SQL file has changed. By omitting the metadata you can
+	 * run the same change set multiple times and get the exact same SQL file as output. This makes it much easier to perform validation
+	 * checks on the SQL.
 	 *
 	 * @parameter expression="${impex.skipIrrelevantLiquibaseMetadataLines}" default-value="false"
 	 */
