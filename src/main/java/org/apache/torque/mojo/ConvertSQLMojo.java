@@ -18,6 +18,7 @@ package org.apache.torque.mojo;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -74,6 +75,11 @@ public class ConvertSQLMojo extends AbstractMojo {
 	 */
 	private String excludes;
 
+	/**
+	 * @parameter expression="${impex.skipIrrelevantLiquibaseMetadataLines}" default-value="false"
+	 */
+	private boolean skipIrrelevantLiquibaseMetadataLines;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
@@ -95,6 +101,27 @@ public class ConvertSQLMojo extends AbstractMojo {
 		}
 	}
 
+	protected List<String> getLiquibaseTokens() {
+		List<String> tokens = new ArrayList<String>();
+		tokens.add("-- Ran at:");
+		tokens.add("-- Against:");
+		tokens.add("-- Liquibase version:");
+		return tokens;
+	}
+
+	protected boolean isSkipLine(String line) {
+		if (!skipIrrelevantLiquibaseMetadataLines) {
+			return false;
+		}
+		List<String> tokens = getLiquibaseTokens();
+		for (String token : tokens) {
+			if (line.startsWith(token)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected void convert(File file) throws IOException {
 		String outputFilename = outputDir + FS + file.getName();
 		File outputFile = new File(outputFilename);
@@ -105,6 +132,9 @@ public class ConvertSQLMojo extends AbstractMojo {
 		try {
 			out = FileUtils.openOutputStream(outputFile);
 			for (String line : lines) {
+				if (isSkipLine(line)) {
+					continue;
+				}
 				String convertedLine = getConvertedLine(line);
 				out.write(convertedLine.getBytes(encoding));
 			}
@@ -184,6 +214,14 @@ public class ConvertSQLMojo extends AbstractMojo {
 
 	public void setNewDelimiter(String newDelimiter) {
 		this.newDelimiter = newDelimiter;
+	}
+
+	public boolean isSkipIrrelevantLiquibaseMetadataLines() {
+		return skipIrrelevantLiquibaseMetadataLines;
+	}
+
+	public void setSkipIrrelevantLiquibaseMetadataLines(boolean skipIrrelevantLiquibaseMetadataLines) {
+		this.skipIrrelevantLiquibaseMetadataLines = skipIrrelevantLiquibaseMetadataLines;
 	}
 
 }
