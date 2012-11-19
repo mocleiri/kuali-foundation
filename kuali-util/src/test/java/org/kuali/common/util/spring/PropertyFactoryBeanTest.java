@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.PropertyStoreContext;
 import org.kuali.common.util.service.PropertyService;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class PropertyFactoryBeanTest {
 			List<String> keys = PropertyUtils.getSortedKeys(properties);
 			for (String key : keys) {
 				String value = properties.getProperty(key);
-				logger.info(key + "=" + value);
+				logger.info(key + "=" + Str.flatten(value, "CR", "LF"));
 			}
 			service.store(encryptedStorage, properties);
 			service.store(normalStorage, properties);

@@ -25,14 +25,20 @@
     <value>deploy.groupId</value>
   </util:list>
 
+  <util:list id="versionProperties" value-type="java.lang.String">
+    <value>project.version</value>
+    <value>deploy.version</value>
+  </util:list>
+
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:maven.properties</value>
     <value>classpath:org/kuali/common/util/car.properties</value>
     <value>classpath:org/kuali/common/util/${car.vendor}.properties</value>
     <value>classpath:${project.groupId.path}/common.properties</value>
-    <value>classpath:${project.groupId.path}/${project.version}.properties</value>
+    <value>classpath:${project.groupId.path}/${project.version.major}.${project.version.minor}.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
-    <value>classpath:${project.groupId.path}/${project.artifactId}-${project.version}.properties</value>
+    <value>classpath:${project.groupId.path}/${project.artifactId}-${project.version.major}.${project.version.minor}.properties</value>
+    <value>classpath:${project.groupId.path}/${project.artifactId}-${project.version.trimmed}.properties</value>
     <value>classpath:org/kuali/common/util/pw.properties</value>
     <value>classpath:org/kuali/common/util/missing.properties</value>
   </util:list>
@@ -45,6 +51,9 @@
     <property name="service" ref="service" />
     <property name="locations" ref="locations" />
     <property name="pathProperties" ref="pathProperties" />
+    <property name="versionProperties" ref="versionProperties" />
+    <property name="includeSystemProperties" value="true" />
+    <property name="includeEnvironmentVariables" value="true" />
   </bean>
 
   <context:property-placeholder properties-ref="properties" />
