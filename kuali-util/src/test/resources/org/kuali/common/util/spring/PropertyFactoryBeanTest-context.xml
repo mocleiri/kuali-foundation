@@ -22,6 +22,11 @@
         <value>classpath:org/kuali/common/util/missing.properties</value>
       </list>
     </property>
+    <property name="pathProperties">
+      <list>
+        <value>project.groupId</value>
+      </list>
+    </property>
   </bean>
 
   <context:property-placeholder properties-ref="properties" />
@@ -39,11 +44,9 @@
     <property name="excludes" ref="storageExcludes" />
   </bean>
 
-  <bean id="decryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
-    <property name="file" value="${project.build.directory}/properties/decrypted.properties" />
-    <property name="comment" value="Decrypted properties file" />
-    <property name="encryptionMode" value="DECRYPT" />
-    <property name="encryptionPassword" value="${enc.password}" />
+  <bean id="normalStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding="${project.build.sourceEncoding}">
+    <property name="file" value="${project.build.directory}/properties/normal.properties" />
+    <property name="comment" value="Normal properties file" />
     <property name="excludes" ref="storageExcludes" />
   </bean>
 

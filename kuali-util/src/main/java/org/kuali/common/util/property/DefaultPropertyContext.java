@@ -15,6 +15,7 @@ import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.EndsWithDecryptModifier;
 import org.kuali.common.util.property.modifier.EndsWithEncryptModifier;
 import org.kuali.common.util.property.modifier.EnvironmentVariableModifier;
+import org.kuali.common.util.property.modifier.PathModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.kuali.common.util.property.modifier.TrimModifier;
@@ -44,6 +45,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
 	List<PropertyModifier> modifiers;
+	List<String> pathProperties;
 
 	protected List<PropertyModifier> getDefaultModifiers() {
 		List<PropertyModifier> defaultModifiers = new ArrayList<PropertyModifier>();
@@ -59,6 +61,10 @@ public class DefaultPropertyContext implements PropertyContext {
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
 			defaultModifiers.add(new ResolvePlaceholdersModifier(helper));
+		}
+
+		if (!CollectionUtils.isEmpty(pathProperties)) {
+			defaultModifiers.add(new PathModifier(pathProperties));
 		}
 
 		addEncModifier(defaultModifiers);
@@ -128,17 +134,34 @@ public class DefaultPropertyContext implements PropertyContext {
 		if (helper == null) {
 			return;
 		}
-		String newPrefix = getResolvedString(properties, this.prefix);
-		String newEncryptionPassword = getResolvedString(properties, this.encryptionPassword);
 
+		String newPrefix = getResolvedString(properties, this.prefix);
 		if (!StringUtils.equals(newPrefix, this.prefix)) {
 			logger.info("Resolved prefix [{}]->[{}]", this.prefix, newPrefix);
 			this.prefix = newPrefix;
 		}
 
+		String newEncryptionPassword = getResolvedString(properties, this.encryptionPassword);
 		if (!StringUtils.equals(newEncryptionPassword, this.encryptionPassword)) {
 			logger.info("Resolved encryption password");
 			this.encryptionPassword = newEncryptionPassword;
+		}
+		resolveList(properties, pathProperties);
+		resolveList(properties, includes);
+		resolveList(properties, excludes);
+	}
+
+	protected void resolveList(Properties properties, List<String> list) {
+		if (list == null) {
+			return;
+		}
+		for (int i = 0; i < list.size(); i++) {
+			String original = list.get(i);
+			String resolved = helper.replacePlaceholders(original, properties);
+			if (!StringUtils.equals(original, resolved)) {
+				logger.info("Resolved [{}] -> [{}]", original, resolved);
+				list.set(i, resolved);
+			}
 		}
 	}
 
@@ -254,6 +277,14 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setModifiers(List<PropertyModifier> modifiers) {
 		this.modifiers = modifiers;
+	}
+
+	public List<String> getPathProperties() {
+		return pathProperties;
+	}
+
+	public void setPathProperties(List<String> pathProperties) {
+		this.pathProperties = pathProperties;
 	}
 
 }

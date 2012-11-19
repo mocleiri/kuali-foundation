@@ -31,7 +31,7 @@ public class PropertyFactoryBeanTest {
 	private PropertyStoreContext encryptedStorage = null;
 
 	@Autowired
-	private PropertyStoreContext decryptedStorage = null;
+	private PropertyStoreContext normalStorage = null;
 
 	@Test
 	public void test() {
@@ -43,7 +43,7 @@ public class PropertyFactoryBeanTest {
 				logger.info(key + "=" + value);
 			}
 			service.store(encryptedStorage, properties);
-			service.store(decryptedStorage, properties);
+			service.store(normalStorage, properties);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

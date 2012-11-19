@@ -7,8 +7,21 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyOverwriteMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PathModifier implements PropertyModifier {
+
+	private static final Logger logger = LoggerFactory.getLogger(PathModifier.class);
+
+	public PathModifier() {
+		this(null);
+	}
+
+	public PathModifier(List<String> includes) {
+		super();
+		this.includes = includes;
+	}
 
 	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
@@ -22,6 +35,7 @@ public class PathModifier implements PropertyModifier {
 			String oldValue = properties.getProperty(key);
 			String newValue = Str.getPath(oldValue);
 			String newKey = key + "." + suffix;
+			logger.info("Setting {}={}", newKey, newValue);
 			PropertyUtils.setProperty(properties, newKey, newValue, propertyOverwriteMode);
 		}
 	}
