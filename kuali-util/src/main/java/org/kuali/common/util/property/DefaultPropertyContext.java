@@ -143,12 +143,12 @@ public class DefaultPropertyContext implements PropertyContext {
 			logger.info("Resolved encryption password");
 			this.encryptionPassword = newEncryptionPassword;
 		}
-		resolveList(properties, pathProperties);
-		resolveList(properties, includes);
-		resolveList(properties, excludes);
+		resolveInternalList(properties, pathProperties);
+		resolveInternalList(properties, includes);
+		resolveInternalList(properties, excludes);
 	}
 
-	protected void resolveList(Properties properties, List<String> list) {
+	protected void resolveInternalList(Properties properties, List<String> list) {
 		if (list == null) {
 			return;
 		}
