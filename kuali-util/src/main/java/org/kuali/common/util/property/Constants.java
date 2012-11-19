@@ -11,5 +11,6 @@ public final class Constants {
 	public static final String DEFAULT_INCREMENTAL_VERSION_SUFFIX = "incremental";
 	public static final String DEFAULT_QUALIFIER_VERSION_SUFFIX = "qualifier";
 	public static final String DEFAULT_TRIMMED_VERSION_SUFFIX = "trimmed";
+	public static final String DEFAULT_SNAPSHOT_VERSION_SUFFIX = "snapshot";
 
 }

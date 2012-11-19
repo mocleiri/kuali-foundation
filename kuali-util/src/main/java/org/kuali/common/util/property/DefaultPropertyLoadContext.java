@@ -7,6 +7,7 @@ import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
+import org.kuali.common.util.property.modifier.VersionModifier;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
@@ -56,6 +57,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		modifiers.add(new AddSystemPropertiesModifier());
 		if (pathProperties != null) {
 			modifiers.add(new PathModifier(pathProperties));
+		}
+		if (versionProperties != null) {
+			modifiers.add(new VersionModifier(versionProperties));
 		}
 		return modifiers;
 	}

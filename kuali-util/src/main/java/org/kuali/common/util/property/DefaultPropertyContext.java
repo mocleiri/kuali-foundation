@@ -19,6 +19,7 @@ import org.kuali.common.util.property.modifier.PathModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.kuali.common.util.property.modifier.TrimModifier;
+import org.kuali.common.util.property.modifier.VersionModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -43,6 +44,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	String encryptionPassword;
 	List<PropertyModifier> modifiers;
 	List<String> pathProperties;
+	List<String> versionProperties;
 
 	protected List<PropertyModifier> getDefaultModifiers() {
 		List<PropertyModifier> defaultModifiers = new ArrayList<PropertyModifier>();
@@ -62,6 +64,10 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		if (!CollectionUtils.isEmpty(pathProperties)) {
 			defaultModifiers.add(new PathModifier(pathProperties));
+		}
+
+		if (!CollectionUtils.isEmpty(versionProperties)) {
+			defaultModifiers.add(new VersionModifier(versionProperties));
 		}
 
 		addEncModifier(defaultModifiers);
@@ -282,6 +288,14 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setPathProperties(List<String> pathProperties) {
 		this.pathProperties = pathProperties;
+	}
+
+	public List<String> getVersionProperties() {
+		return versionProperties;
+	}
+
+	public void setVersionProperties(List<String> versionProperties) {
+		this.versionProperties = versionProperties;
 	}
 
 }
