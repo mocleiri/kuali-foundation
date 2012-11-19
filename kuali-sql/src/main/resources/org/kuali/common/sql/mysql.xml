@@ -33,7 +33,7 @@
     /
   </entry>
   <entry key="sql.mysql.create">
-    CREATE DATABASE IF NOT EXISTS ${sql.database} DEFAULT CHARACTER SET '${mysql.character.set}' DEFAULT COLLATE '${mysql.collate}'
+    CREATE DATABASE IF NOT EXISTS ${sql.database} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'
     /
     CREATE USER '${sql.username}'@'%' IDENTIFIED BY '${sql.password}'
     /
@@ -61,7 +61,7 @@
     , DATEEXECUTED DATETIME NOT NULL
     , ORDEREXECUTED DECIMAL(22,0) NOT NULL
     , EXECTYPE VARCHAR(10) NOT NULL
-    , MD5SUM VARCHAR(35) 
+    , MD5SUM VARCHAR(35)
     , DESCRIPTION VARCHAR(255)
     , COMMENTS VARCHAR(255)
     , TAG VARCHAR(255)
