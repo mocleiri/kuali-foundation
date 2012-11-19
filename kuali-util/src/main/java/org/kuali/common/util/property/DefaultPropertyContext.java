@@ -128,14 +128,8 @@ public class DefaultPropertyContext implements PropertyContext {
 		if (helper == null) {
 			return;
 		}
-		String newEncoding = getResolvedString(properties, this.encoding);
 		String newPrefix = getResolvedString(properties, this.prefix);
 		String newEncryptionPassword = getResolvedString(properties, this.encryptionPassword);
-
-		if (!StringUtils.equals(newEncoding, this.encoding)) {
-			logger.info("Resolved encoding [{}]->[{}]", this.encoding, newEncoding);
-			this.encoding = newEncoding;
-		}
 
 		if (!StringUtils.equals(newPrefix, this.prefix)) {
 			logger.info("Resolved prefix [{}]->[{}]", this.prefix, newPrefix);
