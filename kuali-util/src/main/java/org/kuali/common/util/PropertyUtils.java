@@ -288,20 +288,11 @@ public class PropertyUtils {
 	/**
 	 * Check to make sure we are allowed to set the property before setting it.
 	 */
-	public static final void setProperty(Properties properties, String key, String value, Mode mode) {
-		overwriteCheck(properties, key, mode);
-		properties.setProperty(key, value);
-	}
-
-	/**
-	 * Check <code>properties</code> to see if it has a value for <code>key</code>. If there is no existing value or <code>mode</code> is
-	 * <code>IGNORE</code>, silently return. If there is a value and <code>mode</code> is <code>ERROR</code> throw
-	 * <code>IllegalStateException</code>, otherwise emit a log message as <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code>.
-	 */
-	public static final void overwriteCheck(Properties properties, String key, Mode mode) {
+	public static final void setProperty(Properties properties, String key, String value, Mode propertyOverwriteMode) {
 		if (properties.contains(key)) {
-			ModeUtils.validate(mode, "Overwriting [" + key + "]", "Overwrite of existing property [" + key + "] is not allowed.");
+			ModeUtils.validate(propertyOverwriteMode, "Overwriting [" + key + "]", "Overwrite of existing property [" + key + "] is not allowed.");
 		}
+		properties.setProperty(key, value);
 	}
 
 	private static final String getDefaultComment(String encoding) {
