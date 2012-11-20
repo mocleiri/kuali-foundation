@@ -300,7 +300,7 @@ public class PropertyUtils {
 	 */
 	public static final void overwriteCheck(Properties properties, String key, Mode mode) {
 		if (properties.contains(key)) {
-			StateUtils.checkState(mode, "Overwriting [" + key + "]", "Overwrite of existing property [" + key + "] is not allowed.");
+			ModeUtils.validate(mode, "Overwriting [" + key + "]", "Overwrite of existing property [" + key + "] is not allowed.");
 		}
 	}
 
