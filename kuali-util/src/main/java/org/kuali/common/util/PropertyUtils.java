@@ -223,6 +223,9 @@ public class PropertyUtils {
 		return getProperties(properties, mode).getProperty(key);
 	}
 
+	/**
+	 * Return modifiers that add environment variables, system properties, or both, according to the mode passed in.
+	 */
 	public static final List<PropertyModifier> getPropertyModifiers(GlobalPropertiesMode mode) {
 		List<PropertyModifier> modifiers = new ArrayList<PropertyModifier>();
 		switch (mode) {
