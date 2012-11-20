@@ -15,13 +15,11 @@ public class OverrideModifier implements PropertyModifier {
 
 	@Override
 	public void modify(Properties properties) {
-		Properties global = PropertyUtils.getProperties(globalPropertiesMode);
+		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
-			String globalValue = global.getProperty(key);
-			if (isOverride(globalValue, properties, key)) {
-				PropertyUtils.setProperty(properties, key, globalValue, propertyOverwriteMode);
-			}
+			String newValue = global.getProperty(key);
+			PropertyUtils.setProperty(properties, key, newValue, propertyOverwriteMode);
 		}
 	}
 

@@ -181,7 +181,11 @@ public class PropertyUtils {
 	}
 
 	/**
-	 *
+	 * Return a new properties object containing the properties passed in, plus any global properties as requested. If <code>mode</code> is
+	 * <code>NONE</code> the new properties are a duplicate of the properties passed in. If <code>mode</code> is <code>ENVIRONMENT</code>
+	 * the new properties contain the original properties plus any properties returned by <code>getEnvProperties()</code>. If
+	 * <code>mode</code> is <code>SYSTEM</code> the new properties contain the original properties plus <code>System.getProperties()</code>.
+	 * If <code>mode</code> is <code>BOTH</code> the new properties contain the original properties plus environment AND system properties.
 	 */
 	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties newProperties = duplicate(properties);
@@ -193,21 +197,27 @@ public class PropertyUtils {
 	}
 
 	/**
-	 *
+	 * Return a new properties object containing global properties as requested. If <code>mode</code> is <code>NONE</code> the new
+	 * properties are empty. If <code>mode</code> is <code>ENVIRONMENT</code> the new properties contain the properties returned by
+	 * <code>getEnvProperties()</code>. If <code>mode</code> is <code>SYSTEM</code> the new properties contain
+	 * <code>System.getProperties()</code>. If <code>mode</code> is <code>BOTH</code> the new properties contain
+	 * <code>getEnvProperties</code> plus <code>System.getProperties()</code> with system properties overriding environment variables in the
+	 * case of duplicate properties.
 	 */
 	public static final Properties getProperties(GlobalPropertiesMode mode) {
 		return getProperties(new Properties(), mode);
 	}
 
 	/**
-	 *
+	 * Search global properties to find a value for <code>key</code> according to the mode passed in.
 	 */
 	public static final String getProperty(String key, GlobalPropertiesMode mode) {
 		return getProperty(key, new Properties(), mode);
 	}
 
 	/**
-	 *
+	 * Search <code>properties</code> plus global properties to find a value for <code>key</code> according to the mode passed in. If the
+	 * property is present in both, the value from the global properties is returned.
 	 */
 	public static final String getProperty(String key, Properties properties, GlobalPropertiesMode mode) {
 		return getProperties(properties, mode).getProperty(key);
@@ -341,13 +351,15 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Check to make sure we are allowed to set the property before setting it.
+	 * Check for an existing property under this key and make sure we are allowed to overwrite it before doing so
 	 */
-	public static final void setProperty(Properties properties, String key, String value, Mode propertyOverwriteMode) {
-		if (properties.contains(key)) {
+	public static final void setProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
+		String oldValue = properties.getProperty(key);
+		boolean overwrite = !StringUtils.isBlank(oldValue) && !StringUtils.equals(oldValue, newValue);
+		if (overwrite) {
 			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of an existing property is not allowed.");
+			properties.setProperty(key, newValue);
 		}
-		properties.setProperty(key, value);
 	}
 
 	private static final String getDefaultComment(String encoding) {
