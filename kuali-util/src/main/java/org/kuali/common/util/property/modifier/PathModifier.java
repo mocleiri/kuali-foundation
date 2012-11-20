@@ -14,6 +14,11 @@ public class PathModifier implements PropertyModifier {
 
 	private static final Logger logger = LoggerFactory.getLogger(PathModifier.class);
 
+	String suffix = Constants.DEFAULT_PATH_SUFFIX;
+	List<String> includes;
+	List<String> excludes;
+	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+
 	public PathModifier() {
 		this(null);
 	}
@@ -22,11 +27,6 @@ public class PathModifier implements PropertyModifier {
 		super();
 		this.includes = includes;
 	}
-
-	String suffix = Constants.DEFAULT_PATH_SUFFIX;
-	List<String> includes;
-	List<String> excludes;
-	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	@Override
 	public void modify(Properties properties) {
