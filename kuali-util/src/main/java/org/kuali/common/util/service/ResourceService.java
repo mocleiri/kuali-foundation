@@ -13,7 +13,7 @@ public class ResourceService {
 		Assert.notNull(context.getLocation());
 		String s = LocationUtils.toString(context.getLocation(), context.getEncoding());
 		if (context.isDelete()) {
-			boolean deleted = LocationUtils.deleteQuietly(context.getLocation());
+			boolean deleted = LocationUtils.deleteFileQuietly(context.getLocation());
 			if (!deleted) {
 				logger.warn("{} was not deleted", context.getLocation());
 			}

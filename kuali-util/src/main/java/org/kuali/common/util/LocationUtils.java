@@ -26,7 +26,7 @@ public class LocationUtils {
 	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If <code>filename</code>
 	 * is a directory, delete it and all sub-directories.
 	 */
-	public static final boolean deleteQuietly(String filename) {
+	public static final boolean deleteFileQuietly(String filename) {
 		File file = getFileQuietly(filename);
 		return FileUtils.deleteQuietly(file);
 	}
