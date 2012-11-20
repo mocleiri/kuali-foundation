@@ -15,6 +15,7 @@ import org.kuali.common.util.property.modifier.AddPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.EndsWithDecryptModifier;
 import org.kuali.common.util.property.modifier.EndsWithEncryptModifier;
+import org.kuali.common.util.property.modifier.GlobalOverrideModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ReformatKeysAsEnvVarsModifier;
@@ -79,6 +80,10 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		addEncModifier(defaultModifiers);
+
+		if (globalPropertiesOverrideMode != null) {
+			defaultModifiers.add(new GlobalOverrideModifier(globalPropertiesOverrideMode));
+		}
 
 		if (!StringUtils.isBlank(prefix)) {
 			defaultModifiers.add(new AddPrefixModifier(prefix));
