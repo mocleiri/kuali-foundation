@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.Mode;
 
 public class EndsWithDecryptModifier extends DecryptModifier {
 

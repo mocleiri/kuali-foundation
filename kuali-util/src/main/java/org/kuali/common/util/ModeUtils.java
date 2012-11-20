@@ -1,6 +1,5 @@
 package org.kuali.common.util;
 
-import org.kuali.common.util.property.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -3,10 +3,10 @@ package org.kuali.common.util.property.modifier;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

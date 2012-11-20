@@ -1,4 +1,4 @@
-package org.kuali.common.util.property;
+package org.kuali.common.util;
 
 public enum Mode {
 	IGNORE, // Proceed silently, emit no logging messages
