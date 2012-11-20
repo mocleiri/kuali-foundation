@@ -11,12 +11,13 @@ import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddPrefixModifier;
+import org.kuali.common.util.property.modifier.AddPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.EndsWithDecryptModifier;
 import org.kuali.common.util.property.modifier.EndsWithEncryptModifier;
-import org.kuali.common.util.property.modifier.ReformatKeysAsEnvVarsModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
+import org.kuali.common.util.property.modifier.ReformatKeysAsEnvVarsModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.kuali.common.util.property.modifier.TrimModifier;
 import org.kuali.common.util.property.modifier.VersionModifier;
@@ -33,8 +34,8 @@ public class DefaultPropertyContext implements PropertyContext {
 	String encoding;
 	List<String> includes;
 	List<String> excludes;
-	boolean includeEnvironmentVariables;
-	boolean includeSystemProperties;
+	boolean addEnvironmentVariables;
+	boolean addSystemProperties;
 	boolean resolvePlaceholders;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
@@ -45,15 +46,21 @@ public class DefaultPropertyContext implements PropertyContext {
 	List<PropertyModifier> modifiers;
 	List<String> pathProperties;
 	List<String> versionProperties;
+	Properties properties;
+	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
 	protected List<PropertyModifier> getDefaultModifiers() {
 		List<PropertyModifier> defaultModifiers = new ArrayList<PropertyModifier>();
 
-		if (includeEnvironmentVariables) {
+		if (properties != null) {
+			defaultModifiers.add(new AddPropertiesModifier(properties));
+		}
+
+		if (addEnvironmentVariables) {
 			defaultModifiers.add(new AddEnvPropertiesModifier());
 		}
 
-		if (includeSystemProperties) {
+		if (addSystemProperties) {
 			defaultModifiers.add(new AddSystemPropertiesModifier());
 		}
 
@@ -201,20 +208,20 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.excludes = excludes;
 	}
 
-	public boolean isIncludeEnvironmentVariables() {
-		return includeEnvironmentVariables;
+	public boolean isAddEnvironmentVariables() {
+		return addEnvironmentVariables;
 	}
 
-	public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
-		this.includeEnvironmentVariables = includeEnvironmentVariables;
+	public void setAddEnvironmentVariables(boolean includeEnvironmentVariables) {
+		this.addEnvironmentVariables = includeEnvironmentVariables;
 	}
 
-	public boolean isIncludeSystemProperties() {
-		return includeSystemProperties;
+	public boolean isAddSystemProperties() {
+		return addSystemProperties;
 	}
 
-	public void setIncludeSystemProperties(boolean includeSystemProperties) {
-		this.includeSystemProperties = includeSystemProperties;
+	public void setAddSystemProperties(boolean includeSystemProperties) {
+		this.addSystemProperties = includeSystemProperties;
 	}
 
 	public boolean isResolvePlaceholders() {

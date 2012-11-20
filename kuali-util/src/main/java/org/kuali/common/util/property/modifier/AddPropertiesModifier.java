@@ -4,6 +4,15 @@ import java.util.Properties;
 
 public class AddPropertiesModifier implements PropertyModifier {
 
+	public AddPropertiesModifier() {
+		this(null);
+	}
+
+	public AddPropertiesModifier(Properties properties) {
+		super();
+		this.properties = properties;
+	}
+
 	Properties properties;
 
 	@Override

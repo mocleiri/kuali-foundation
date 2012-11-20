@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -13,16 +14,22 @@ public class ResolvePlaceholdersModifier implements PropertyModifier {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersModifier.class);
 
-	PropertyPlaceholderHelper helper;
-
 	public ResolvePlaceholdersModifier() {
 		this(null);
 	}
 
 	public ResolvePlaceholdersModifier(PropertyPlaceholderHelper helper) {
+		this(helper, GlobalPropertiesMode.BOTH);
+	}
+
+	public ResolvePlaceholdersModifier(PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
 		super();
 		this.helper = helper;
+		this.globalPropertiesMode = globalPropertiesMode;
 	}
+
+	PropertyPlaceholderHelper helper;
+	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
 
 	@Override
 	public void modify(Properties properties) {
@@ -32,7 +39,7 @@ public class ResolvePlaceholdersModifier implements PropertyModifier {
 	}
 
 	protected Properties getResolvedProperties(Properties props, PropertyPlaceholderHelper helper) {
-		Properties global = PropertyUtils.getGlobalProperties(props);
+		Properties global = PropertyUtils.getProperties(props, globalPropertiesMode);
 		List<String> keys = PropertyUtils.getSortedKeys(props);
 		Properties newProps = new Properties();
 		for (String key : keys) {
@@ -52,5 +59,13 @@ public class ResolvePlaceholdersModifier implements PropertyModifier {
 
 	public void setHelper(PropertyPlaceholderHelper helper) {
 		this.helper = helper;
+	}
+
+	public GlobalPropertiesMode getGlobalPropertiesMode() {
+		return globalPropertiesMode;
+	}
+
+	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
+		this.globalPropertiesMode = globalPropertiesMode;
 	}
 }
