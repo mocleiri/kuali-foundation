@@ -43,7 +43,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	@Override
-	public void initializeForLoading() {
+	public void beforeLoad() {
 		if (loadModifiers == null) {
 			loadModifiers = getDefaultLoadModifiers();
 		} else {

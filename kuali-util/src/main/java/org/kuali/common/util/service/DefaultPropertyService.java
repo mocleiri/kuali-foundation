@@ -20,7 +20,7 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public Properties load(PropertyLoadContext context) {
 		Properties properties = loadProperties(context);
-		context.initialize(properties);
+		context.beforeModify(properties);
 		modify(properties, context.getModifiers());
 		return properties;
 	}
@@ -28,7 +28,7 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public void store(PropertyStoreContext context, Properties properties) {
 		Properties duplicate = PropertyUtils.duplicate(properties);
-		context.initialize(duplicate);
+		context.beforeModify(duplicate);
 		modify(duplicate, context.getModifiers());
 		PropertyUtils.store(duplicate, context.getFile(), context.getEncoding(), context.getComment());
 	}
@@ -44,7 +44,7 @@ public class DefaultPropertyService implements PropertyService {
 
 	protected Properties loadProperties(PropertyLoadContext context) {
 		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
-		context.initializeForLoading();
+		context.beforeLoad();
 		Properties properties = new Properties();
 		for (String location : context.getLocations()) {
 			Properties duplicate = PropertyUtils.duplicate(properties);

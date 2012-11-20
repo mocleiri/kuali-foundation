@@ -11,6 +11,6 @@ public interface PropertyContext {
 
 	List<PropertyModifier> getModifiers();
 
-	void initialize(Properties properties);
+	void beforeModify(Properties properties);
 
 }
