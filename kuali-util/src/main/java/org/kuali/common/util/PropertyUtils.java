@@ -300,7 +300,11 @@ public class PropertyUtils {
 	}
 
 	private static final String getComment(String comment, String encoding) {
-		return StringUtils.defaultString(comment, comment + "\n#" + getDefaultComment(encoding));
+		if (StringUtils.isBlank(comment)) {
+			return getDefaultComment(encoding);
+		} else {
+			return comment + "\n#" + getDefaultComment(encoding);
+		}
 	}
 
 	/**
