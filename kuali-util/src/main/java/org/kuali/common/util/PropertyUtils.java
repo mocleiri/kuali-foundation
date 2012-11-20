@@ -280,7 +280,7 @@ public class PropertyUtils {
 		Properties newProperties = new Properties();
 		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);
-			String newKey = StringUtils.replace(StringUtils.upperCase(key), ".", "-");
+			String newKey = StringUtils.upperCase(StringUtils.replace(key, ".", "-"));
 			newProperties.setProperty(newKey, value);
 		}
 		return newProperties;
@@ -291,7 +291,7 @@ public class PropertyUtils {
 	 */
 	public static final void setProperty(Properties properties, String key, String value, Mode propertyOverwriteMode) {
 		if (properties.contains(key)) {
-			ModeUtils.validate(propertyOverwriteMode, "Overwriting [" + key + "]", "Overwrite of existing property [" + key + "] is not allowed.");
+			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of an existing property is not allowed.");
 		}
 		properties.setProperty(key, value);
 	}
