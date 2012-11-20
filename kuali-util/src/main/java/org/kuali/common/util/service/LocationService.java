@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class ResourceService {
-	private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
+public class LocationService {
+	private static final Logger logger = LoggerFactory.getLogger(LocationService.class);
 
 	public String toString(ToStringContext context) {
 		Assert.notNull(context.getLocation());

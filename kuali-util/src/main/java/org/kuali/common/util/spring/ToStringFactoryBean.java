@@ -1,11 +1,11 @@
 package org.kuali.common.util.spring;
 
-import org.kuali.common.util.service.ResourceService;
+import org.kuali.common.util.service.LocationService;
 import org.springframework.beans.factory.FactoryBean;
 
 public class ToStringFactoryBean extends ToStringContext implements FactoryBean<String> {
 
-	ResourceService service = new ResourceService();
+	LocationService service = new LocationService();
 
 	@Override
 	public String getObject() throws Exception {
@@ -22,11 +22,11 @@ public class ToStringFactoryBean extends ToStringContext implements FactoryBean<
 		return false;
 	}
 
-	public ResourceService getService() {
+	public LocationService getService() {
 		return service;
 	}
 
-	public void setService(ResourceService service) {
+	public void setService(LocationService service) {
 		this.service = service;
 	}
 
