@@ -365,7 +365,7 @@ public class PropertyUtils {
 		if (overwrite) {
 			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of existing property [" + key + "] is not allowed.");
 		} else if (!existingProperty) {
-			logger.info("Adding property {}=[{}]", key, Str.flatten(newValue));
+			logger.debug("Adding property {}=[{}]", key, Str.flatten(newValue));
 		}
 		properties.setProperty(key, newValue);
 	}

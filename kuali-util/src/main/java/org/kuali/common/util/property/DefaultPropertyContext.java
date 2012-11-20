@@ -129,7 +129,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public void beforeModify(Properties properties) {
+	public void initialize(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
 		List<PropertyModifier> defaultModifiers = getDefaultModifiers();
