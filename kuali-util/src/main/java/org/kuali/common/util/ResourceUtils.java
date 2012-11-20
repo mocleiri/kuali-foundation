@@ -69,7 +69,8 @@ public class ResourceUtils {
 	}
 
 	/**
-	 * Null safe method for getting a handle to a <code>file</code>. If <code>filename</code> is null, null is returned.
+	 * Null safe method for getting a <code>File</code> handle from <code>filename</code>. If <code>filename</code> is null, null is
+	 * returned.
 	 */
 	public static final File getFileQuietly(String filename) {
 		if (filename == null) {
