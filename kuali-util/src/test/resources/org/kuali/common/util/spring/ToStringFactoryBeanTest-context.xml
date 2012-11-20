@@ -6,6 +6,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:location="classpath:org/kuali/common/util/pw.txt" />
+  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:trim="true" p:location="classpath:org/kuali/common/util/pw.txt" />
 
 </beans>
