@@ -8,7 +8,7 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.ResourceUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class SqlExecutor {
 	}
 
 	public int executeString(String sql) {
-		BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
+		BufferedReader reader = LocationUtils.getBufferedReaderFromString(sql);
 		return execute(reader);
 	}
 

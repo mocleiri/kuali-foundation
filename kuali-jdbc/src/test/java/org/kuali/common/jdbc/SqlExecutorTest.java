@@ -7,9 +7,10 @@ import java.util.Properties;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.ResourceUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,9 +72,10 @@ public class SqlExecutorTest {
 		for (String schema : schemas) {
 			Properties schemaProps = new Properties();
 			schemaProps.putAll(properties);
-			schemaProps.putAll(PropertyUtils.getProperties("classpath:org/kuali/common/jdbc/schema.properties"));
+			schemaProps.putAll(PropertyUtils.load("classpath:org/kuali/common/jdbc/schema.properties"));
 			schemaProps.setProperty("sql.schema", schema);
-			schemaProps = PropertyUtils.getResolvedProperties(schemaProps);
+			ResolvePlaceholdersModifier modifier = new ResolvePlaceholdersModifier();
+			modifier.modify(schemaProps);
 			String schemaLocation = schemaProps.getProperty("sql.schema.location");
 			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.location.constraints");
 			schemaLocs.add(schemaLocation);
@@ -86,7 +88,7 @@ public class SqlExecutorTest {
 	}
 
 	protected List<String> getTableLocations(String base, String tables) {
-		List<String> lines = ResourceUtils.readLinesFromString(tables);
+		List<String> lines = LocationUtils.readLinesFromString(tables);
 		List<String> tableLocations = new ArrayList<String>();
 		for (String line : lines) {
 			String tableLocation = base + "/" + line + ".sql";

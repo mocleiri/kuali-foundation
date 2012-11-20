@@ -2,10 +2,10 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.common.util.ResourceUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class SqlReaderTest {
 		try {
 			SqlReader sqlReader = new DefaultSqlReader();
 			String sql = "SELECT 1\r/\nSELECT 1\n/\nSELECT 1\r\n/";
-			BufferedReader reader = ResourceUtils.getBufferedReaderFromString(sql);
+			BufferedReader reader = LocationUtils.getBufferedReaderFromString(sql);
 			String s = sqlReader.getSqlStatement(reader);
 			while (s != null) {
 				logger.info("[" + Str.flatten(s) + "]");

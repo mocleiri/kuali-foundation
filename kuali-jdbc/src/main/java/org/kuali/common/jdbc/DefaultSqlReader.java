@@ -3,8 +3,8 @@ package org.kuali.common.jdbc;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.common.util.ResourceUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class DefaultSqlReader implements SqlReader {
 
 	@Override
 	public BufferedReader getBufferedReader(String location) {
-		return ResourceUtils.getBufferedReader(location, encoding);
+		return LocationUtils.getBufferedReader(location, encoding);
 	}
 
 	@Override
