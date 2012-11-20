@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.ResourceUtils;
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +128,7 @@ public class MorpherTest {
 	}
 
 	protected List<String[]> getRows(String content, String[] columns, File file) {
-		List<String> lines = ResourceUtils.readLinesFromString(content);
+		List<String> lines = LocationUtils.readLinesFromString(content);
 		List<String[]> rows = new ArrayList<String[]>();
 		for (int i = 1; i < lines.size(); i++) {
 			String line = lines.get(i);
