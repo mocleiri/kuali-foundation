@@ -3,14 +3,14 @@ package org.kuali.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ModeUtils {
-	private static final Logger logger = LoggerFactory.getLogger(ModeUtils.class);
+public class StateUtils {
+	private static final Logger logger = LoggerFactory.getLogger(StateUtils.class);
 
-	public static final void checkMode(Mode mode, String msg) {
-		checkMode(mode, msg, msg);
+	public static final void checkState(Mode mode, String msg) {
+		checkState(mode, msg, msg);
 	}
 
-	public static final void checkMode(Mode mode, String logMsg, String errMsg) {
+	public static final void checkState(Mode mode, String logMsg, String errMsg) {
 		switch (mode) {
 		case IGNORE:
 			return;
