@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 public class ModeUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ModeUtils.class);
 
-	public static final void check(Mode mode, String msg) {
-		check(mode, msg, msg);
+	public static final void checkMode(Mode mode, String msg) {
+		checkMode(mode, msg, msg);
 	}
 
-	public static final void check(Mode mode, String logMsg, String errMsg) {
+	public static final void checkMode(Mode mode, String logMsg, String errMsg) {
 		switch (mode) {
 		case IGNORE:
 			return;
