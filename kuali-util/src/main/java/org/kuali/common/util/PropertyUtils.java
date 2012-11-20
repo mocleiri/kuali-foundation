@@ -19,7 +19,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.property.PropertyOverwriteMode;
+import org.kuali.common.util.property.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -289,7 +289,7 @@ public class PropertyUtils {
 	/**
 	 * Check to make sure we are allowed to set the property before setting it.
 	 */
-	public static final void setProperty(Properties properties, String key, String value, PropertyOverwriteMode mode) {
+	public static final void setProperty(Properties properties, String key, String value, Mode mode) {
 		overwriteCheck(properties, key, mode);
 		properties.setProperty(key, value);
 	}
@@ -299,26 +299,9 @@ public class PropertyUtils {
 	 * <code>IGNORE</code>, silently return. If there is a value and <code>mode</code> is <code>ERROR</code> throw
 	 * <code>IllegalStateException</code>, otherwise emit a log message as <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code>.
 	 */
-	public static final void overwriteCheck(Properties properties, String key, PropertyOverwriteMode mode) {
-		if (!properties.contains(key)) {
-			return;
-		}
-		switch (mode) {
-		case IGNORE:
-			return;
-		case DEBUG:
-			logger.debug("Overwriting [{}]", key);
-			return;
-		case INFORM:
-			logger.info("Overwriting [{}]", key);
-			return;
-		case WARN:
-			logger.warn("Overwriting [{}]", key);
-			return;
-		case ERROR:
-			throw new IllegalStateException("Overwrite of existing property [" + key + "] is not allowed.");
-		default:
-			throw new IllegalArgumentException(mode + " is unknown");
+	public static final void overwriteCheck(Properties properties, String key, Mode mode) {
+		if (properties.contains(key)) {
+			ModeUtils.check(mode, "Overwriting [" + key + "]", "Overwrite of existing property [" + key + "] is not allowed.");
 		}
 	}
 
@@ -326,12 +309,8 @@ public class PropertyUtils {
 		return "Encoding=" + StringUtils.defaultString(encoding, DEFAULT_ENCODING);
 	}
 
-	private static final String getComment(String encoding, String comment) {
-		if (StringUtils.isBlank(comment)) {
-			return getDefaultComment(encoding);
-		} else {
-			return comment + "\n#" + getDefaultComment(encoding);
-		}
+	private static final String getComment(String comment, String encoding) {
+		return StringUtils.defaultString(comment, comment + "\n#" + getDefaultComment(encoding));
 	}
 
 	/**

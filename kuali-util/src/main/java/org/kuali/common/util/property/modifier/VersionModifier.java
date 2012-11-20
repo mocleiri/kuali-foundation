@@ -7,7 +7,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Version;
 import org.kuali.common.util.VersionUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.PropertyOverwriteMode;
+import org.kuali.common.util.property.Mode;
 
 public class VersionModifier implements PropertyModifier {
 
@@ -29,7 +29,7 @@ public class VersionModifier implements PropertyModifier {
 
 	List<String> includes;
 	List<String> excludes;
-	PropertyOverwriteMode propertyOverwriteMode = PropertyOverwriteMode.INFORM;
+	Mode propertyOverwriteMode = Mode.INFORM;
 
 	@Override
 	public void modify(Properties properties) {
@@ -64,6 +64,78 @@ public class VersionModifier implements PropertyModifier {
 			String newKey = key + "." + snapshotSuffix;
 			PropertyUtils.setProperty(properties, newKey, Boolean.toString(v.isSnapshot()), propertyOverwriteMode);
 		}
+	}
+
+	public String getMajorSuffix() {
+		return majorSuffix;
+	}
+
+	public void setMajorSuffix(String majorSuffix) {
+		this.majorSuffix = majorSuffix;
+	}
+
+	public String getMinorSuffix() {
+		return minorSuffix;
+	}
+
+	public void setMinorSuffix(String minorSuffix) {
+		this.minorSuffix = minorSuffix;
+	}
+
+	public String getIncrementalSuffix() {
+		return incrementalSuffix;
+	}
+
+	public void setIncrementalSuffix(String incrementalSuffix) {
+		this.incrementalSuffix = incrementalSuffix;
+	}
+
+	public String getQualifierSuffix() {
+		return qualifierSuffix;
+	}
+
+	public void setQualifierSuffix(String qualifierSuffix) {
+		this.qualifierSuffix = qualifierSuffix;
+	}
+
+	public String getTrimmedSuffix() {
+		return trimmedSuffix;
+	}
+
+	public void setTrimmedSuffix(String trimmedSuffix) {
+		this.trimmedSuffix = trimmedSuffix;
+	}
+
+	public String getSnapshotSuffix() {
+		return snapshotSuffix;
+	}
+
+	public void setSnapshotSuffix(String snapshotSuffix) {
+		this.snapshotSuffix = snapshotSuffix;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
+
+	public Mode getPropertyOverwriteMode() {
+		return propertyOverwriteMode;
+	}
+
+	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
+		this.propertyOverwriteMode = propertyOverwriteMode;
 	}
 
 }

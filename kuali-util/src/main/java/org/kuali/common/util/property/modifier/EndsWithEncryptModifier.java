@@ -6,13 +6,13 @@ import java.util.Properties;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.PropertyOverwriteMode;
+import org.kuali.common.util.property.Mode;
 
 public class EndsWithEncryptModifier extends DecryptModifier {
 
 	String suffix = Constants.DEFAULT_ENCRYPTED_SUFFIX;
 	boolean removeUnencryptedProperties = true;
-	PropertyOverwriteMode propertyOverwriteMode = PropertyOverwriteMode.INFORM;
+	Mode propertyOverwriteMode = Mode.INFORM;
 
 	public EndsWithEncryptModifier() {
 		this(null);
@@ -44,20 +44,20 @@ public class EndsWithEncryptModifier extends DecryptModifier {
 		this.suffix = suffix;
 	}
 
-	public PropertyOverwriteMode getPropertyOverwriteMode() {
-		return propertyOverwriteMode;
-	}
-
-	public void setPropertyOverwriteMode(PropertyOverwriteMode propertyOverwriteMode) {
-		this.propertyOverwriteMode = propertyOverwriteMode;
-	}
-
 	public boolean isRemoveUnencryptedProperties() {
 		return removeUnencryptedProperties;
 	}
 
 	public void setRemoveUnencryptedProperties(boolean removeUnencryptedProperties) {
 		this.removeUnencryptedProperties = removeUnencryptedProperties;
+	}
+
+	public Mode getPropertyOverwriteMode() {
+		return propertyOverwriteMode;
+	}
+
+	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
+		this.propertyOverwriteMode = propertyOverwriteMode;
 	}
 
 }

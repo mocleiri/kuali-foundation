@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.PropertyOverwriteMode;
+import org.kuali.common.util.property.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class PathModifier implements PropertyModifier {
 	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
 	List<String> excludes;
-	PropertyOverwriteMode propertyOverwriteMode = PropertyOverwriteMode.INFORM;
+	Mode propertyOverwriteMode = Mode.INFORM;
 
 	@Override
 	public void modify(Properties properties) {
@@ -64,11 +64,12 @@ public class PathModifier implements PropertyModifier {
 		this.excludes = excludes;
 	}
 
-	public PropertyOverwriteMode getPropertyOverwriteMode() {
+	public Mode getPropertyOverwriteMode() {
 		return propertyOverwriteMode;
 	}
 
-	public void setPropertyOverwriteMode(PropertyOverwriteMode propertyOverwriteMode) {
+	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
 	}
+
 }
