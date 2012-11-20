@@ -354,15 +354,17 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Check for an existing property under this key and make sure we are allowed to overwrite it before doing so
+	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing value or the
+	 * newValue is the same as the oldValue just set the property. If there is a conflict, check <code>propertyOverwriteMode</code> to make
+	 * sure we have permission to override the value.
 	 */
 	public static final void setProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
 		boolean overwrite = !StringUtils.isBlank(oldValue) && !StringUtils.equals(oldValue, newValue);
 		if (overwrite) {
 			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of an existing property is not allowed.");
-			properties.setProperty(key, newValue);
 		}
+		properties.setProperty(key, newValue);
 	}
 
 	private static final String getDefaultComment(String encoding) {
