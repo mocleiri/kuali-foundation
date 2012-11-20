@@ -304,7 +304,7 @@ public class PropertyUtils {
 		if (StringUtils.isBlank(comment)) {
 			return getDefaultComment(encoding);
 		} else {
-			return getDefaultComment(encoding) + "\n#" + comment;
+			return comment + "\n#" + getDefaultComment(encoding);
 		}
 	}
 
