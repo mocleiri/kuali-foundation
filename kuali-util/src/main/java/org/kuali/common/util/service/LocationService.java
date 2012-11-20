@@ -1,5 +1,6 @@
 package org.kuali.common.util.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.spring.ToStringContext;
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ public class LocationService {
 				logger.warn("{} was not deleted", context.getLocation());
 			}
 		}
-		return context.isTrim() ? s.trim() : s;
+		return context.isTrim() ? StringUtils.trim(s) : s;
 	}
 
 }
