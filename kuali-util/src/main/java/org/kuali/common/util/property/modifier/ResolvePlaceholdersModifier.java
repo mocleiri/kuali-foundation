@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ public class ResolvePlaceholdersModifier implements PropertyModifier {
 	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersModifier.class);
 
 	public ResolvePlaceholdersModifier() {
-		this(null);
+		this(new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX));
 	}
 
 	public ResolvePlaceholdersModifier(PropertyPlaceholderHelper helper) {
