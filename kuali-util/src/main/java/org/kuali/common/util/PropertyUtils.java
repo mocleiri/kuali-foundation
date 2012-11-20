@@ -360,9 +360,13 @@ public class PropertyUtils {
 	 */
 	public static final void setProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
-		boolean overwrite = !StringUtils.isBlank(oldValue) && !StringUtils.equals(oldValue, newValue);
+		boolean existingProperty = !StringUtils.isBlank(oldValue);
+		boolean overwrite = existingProperty && !StringUtils.equals(oldValue, newValue);
 		if (overwrite) {
-			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of an existing property is not allowed.");
+			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of existing property [" + key + "] is not allowed.");
+		}
+		if (!existingProperty) {
+			logger.info("Setting {}=[{}]", key, Str.flatten(newValue));
 		}
 		properties.setProperty(key, newValue);
 	}
