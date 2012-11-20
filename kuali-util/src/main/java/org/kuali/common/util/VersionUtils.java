@@ -75,12 +75,4 @@ public class VersionUtils {
 		return trimmed.substring(pos);
 	}
 
-	public static final String getSeparatorChars(char[] chars) {
-		StringBuilder sb = new StringBuilder();
-		for (char delimiter : chars) {
-			sb.append(delimiter);
-		}
-		return sb.toString();
-	}
-
 }
