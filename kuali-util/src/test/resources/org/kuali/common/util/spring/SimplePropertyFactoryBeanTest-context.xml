@@ -6,6 +6,15 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="password" class="org.kuali.common.util.spring.ToStringFactoryBean" p:location="classpath:org/kuali/common/util/pw.txt" />
+
+  <util:list id="locations" value-type="java.lang.String">
+    <value>classpath:maven.properties</value>
+  </util:list>
+
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+    <property name="locations" ref="locations" />
+  </bean>
+
+  <context:property-placeholder properties-ref="properties" />
 
 </beans>
