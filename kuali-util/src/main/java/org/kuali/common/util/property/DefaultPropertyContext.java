@@ -14,7 +14,7 @@ import org.kuali.common.util.property.modifier.AddPrefixModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.EndsWithDecryptModifier;
 import org.kuali.common.util.property.modifier.EndsWithEncryptModifier;
-import org.kuali.common.util.property.modifier.EnvironmentVariableModifier;
+import org.kuali.common.util.property.modifier.ReformatKeysAsEnvironmentVariablesModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
@@ -94,7 +94,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		case NORMAL:
 			return;
 		case ENVIRONMENT_VARIABLE:
-			defaultModifiers.add(new EnvironmentVariableModifier());
+			defaultModifiers.add(new ReformatKeysAsEnvironmentVariablesModifier());
 			return;
 		default:
 			throw new IllegalArgumentException(style + " is unknown");
