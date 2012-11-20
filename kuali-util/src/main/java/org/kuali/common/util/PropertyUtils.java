@@ -34,7 +34,7 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
-	private static final String PLATFORM_DEFAULT = Charset.defaultCharset().toString();
+	private static final String DEFAULT_ENCODING = Charset.defaultCharset().toString();
 
 	/**
 	 * Return any keys from the <code>properties</code> passed in that end with <code>suffix</code>.
@@ -51,7 +51,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Alter the <code>properties</code> passed in so it only contains the desired property values. <code>includes</code> and
+	 * Alter the <code>properties</code> passed in to contain only the desired property values. <code>includes</code> and
 	 * <code>excludes</code> are comma separated lists.
 	 */
 	public static final void trim(Properties properties, String includesCSV, String excludesCSV) {
@@ -61,14 +61,14 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Alter the <code>properties</code> passed in so it only contains the desired property values.
+	 * Alter the <code>properties</code> passed in to contain only the desired property values.
 	 */
 	public static final void trim(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
 		for (String key : keys) {
 			boolean include = include(key, includes, excludes);
 			if (!include) {
-				logger.debug("Removing property [{}]", key);
+				logger.debug("Removing [{}]", key);
 				properties.remove(key);
 			}
 		}
@@ -113,7 +113,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Store the properties to the indicated file.
+	 * Store the properties to the indicated file using the platform default encoding.
 	 */
 	public static final void store(Properties properties, File file) {
 		store(properties, file, null);
@@ -139,7 +139,7 @@ public class PropertyUtils {
 			Properties sorted = getSortedProperties(properties);
 			comment = getComment(encoding, comment);
 			if (xml) {
-				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
+				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				if (StringUtils.isBlank(encoding)) {
 					sorted.storeToXML(out, comment);
 				} else {
@@ -147,7 +147,7 @@ public class PropertyUtils {
 				}
 			} else {
 				writer = ResourceUtils.getWriter(out, encoding);
-				logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
+				logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				sorted.store(writer, comment);
 			}
 		} catch (IOException e) {
@@ -160,7 +160,7 @@ public class PropertyUtils {
 
 	/**
 	 * Return a new properties object containing the properties from <code>getEnvAsProperties()</code> and
-	 * <code>System.getProperties()</code> . Properties from <code>System.getProperties()</code> override properties from
+	 * <code>System.getProperties()</code>. Properties from <code>System.getProperties()</code> override properties from
 	 * <code>getEnvAsProperties</code> if there are duplicates.
 	 */
 	public static final Properties getGlobalProperties() {
@@ -216,7 +216,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return true if location ends with <code>.xml</code> (case insensitive).
+	 * Return true if, and only if, location ends with <code>.xml</code> (case insensitive).
 	 */
 	public static final boolean isXml(String location) {
 		return StringUtils.endsWithIgnoreCase(location, XML_EXTENSION);
@@ -243,7 +243,7 @@ public class PropertyUtils {
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, PLATFORM_DEFAULT));
+				logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				reader = ResourceUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
@@ -257,8 +257,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a new properties object containing properties prefixed using the indicated prefix. If prefix is blank, the new properties
-	 * object will duplicate the properties passed in.
+	 * Return a new <code>Properties</code> object containing properties prefixed with <code>prefix</code>. If <code>prefix</code> is blank,
+	 * the new properties object duplicates the properties passed in.
 	 */
 	public static final Properties getPrefixedProperties(Properties properties, String prefix) {
 		if (StringUtils.isBlank(prefix)) {
@@ -280,7 +280,7 @@ public class PropertyUtils {
 		Properties newProperties = new Properties();
 		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);
-			String newKey = key.toUpperCase().replace(".", "_");
+			String newKey = StringUtils.replace(StringUtils.upperCase(key), ".", "-");
 			newProperties.setProperty(newKey, value);
 		}
 		return newProperties;
@@ -290,16 +290,16 @@ public class PropertyUtils {
 	 * Check to make sure we are allowed to set the property before setting it.
 	 */
 	public static final void setProperty(Properties properties, String key, String value, PropertyOverwriteMode mode) {
-		checkExistingProperty(properties, key, mode);
+		overwriteCheck(properties, key, mode);
 		properties.setProperty(key, value);
 	}
 
 	/**
 	 * Check <code>properties</code> to see if it has a value for <code>key</code>. If there is no existing value or <code>mode</code> is
 	 * <code>IGNORE</code>, silently return. If there is a value and <code>mode</code> is <code>ERROR</code> throw
-	 * <code>IllegalStateException</code>, otherwise log a <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code> message.
+	 * <code>IllegalStateException</code>, otherwise emit a log message as <code>DEBUG</code>, <code>INFO</code>, or <code>WARN</code>.
 	 */
-	public static final void checkExistingProperty(Properties properties, String key, PropertyOverwriteMode mode) {
+	public static final void overwriteCheck(Properties properties, String key, PropertyOverwriteMode mode) {
 		if (!properties.contains(key)) {
 			return;
 		}
@@ -307,13 +307,13 @@ public class PropertyUtils {
 		case IGNORE:
 			return;
 		case DEBUG:
-			logger.debug("Overwriting existing property [{}]", key);
+			logger.debug("Overwriting [{}]", key);
 			return;
 		case INFORM:
-			logger.info("Overwriting existing property [{}]", key);
+			logger.info("Overwriting [{}]", key);
 			return;
 		case WARN:
-			logger.warn("Overwriting existing property [{}]", key);
+			logger.warn("Overwriting [{}]", key);
 			return;
 		case ERROR:
 			throw new IllegalStateException("Overwrite of existing property [" + key + "] is not allowed.");
@@ -323,14 +323,7 @@ public class PropertyUtils {
 	}
 
 	private static final String getDefaultComment(String encoding) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Encoding=");
-		if (StringUtils.isBlank(encoding)) {
-			sb.append(PLATFORM_DEFAULT);
-		} else {
-			sb.append(encoding);
-		}
-		return sb.toString();
+		return "Encoding=" + StringUtils.defaultString(encoding, DEFAULT_ENCODING);
 	}
 
 	private static final String getComment(String encoding, String comment) {
