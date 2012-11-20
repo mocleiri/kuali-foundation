@@ -11,15 +11,6 @@ import org.kuali.common.util.property.Constants;
 
 public class VersionModifier implements PropertyModifier {
 
-	public VersionModifier() {
-		this(null);
-	}
-
-	public VersionModifier(List<String> includes) {
-		super();
-		this.includes = includes;
-	}
-
 	String majorSuffix = Constants.DEFAULT_MAJOR_VERSION_SUFFIX;
 	String minorSuffix = Constants.DEFAULT_MINOR_VERSION_SUFFIX;
 	String incrementalSuffix = Constants.DEFAULT_INCREMENTAL_VERSION_SUFFIX;
@@ -31,39 +22,56 @@ public class VersionModifier implements PropertyModifier {
 	List<String> excludes;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
+	public VersionModifier() {
+		this(null);
+	}
+
+	public VersionModifier(List<String> includes) {
+		super();
+		this.includes = includes;
+	}
+
 	@Override
 	public void modify(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
+		Properties versionProperties = new Properties();
 		for (String key : keys) {
 			String version = properties.getProperty(key);
 			Version v = VersionUtils.getVersion(version);
-			if (v.getMajor() != null) {
-				String newKey = key + "." + majorSuffix;
-				PropertyUtils.setProperty(properties, newKey, v.getMajor(), propertyOverwriteMode);
-			}
-			if (v.getMinor() != null) {
-				String newKey = key + "." + minorSuffix;
-				PropertyUtils.setProperty(properties, newKey, v.getMinor(), propertyOverwriteMode);
-			}
-			if (v.getMinor() != null) {
-				String newKey = key + "." + minorSuffix;
-				PropertyUtils.setProperty(properties, newKey, v.getMinor(), propertyOverwriteMode);
-			}
-			if (v.getIncremental() != null) {
-				String newKey = key + "." + incrementalSuffix;
-				PropertyUtils.setProperty(properties, newKey, v.getIncremental(), propertyOverwriteMode);
-			}
-			if (v.getQualifier() != null) {
-				String newKey = key + "." + qualifierSuffix;
-				PropertyUtils.setProperty(properties, newKey, v.getQualifier(), propertyOverwriteMode);
-			}
-			if (v.getTrimmed() != null) {
-				String newKey = key + "." + trimmedSuffix;
-				PropertyUtils.setProperty(properties, newKey, v.getTrimmed(), propertyOverwriteMode);
-			}
-			String newKey = key + "." + snapshotSuffix;
-			PropertyUtils.setProperty(properties, newKey, Boolean.toString(v.isSnapshot()), propertyOverwriteMode);
+			versionProperties.putAll(getVersionProperties(key, v));
 		}
+		List<String> versionKeys = PropertyUtils.getSortedKeys(versionProperties);
+		for (String versionKey : versionKeys) {
+			String versionValue = versionProperties.getProperty(versionKey);
+			PropertyUtils.setProperty(properties, versionKey, versionValue, propertyOverwriteMode);
+		}
+	}
+
+	protected Properties getVersionProperties(String key, Version v) {
+		Properties properties = new Properties();
+		if (v.getMajor() != null) {
+			String newKey = key + "." + majorSuffix;
+			properties.setProperty(newKey, v.getMajor());
+		}
+		if (v.getMinor() != null) {
+			String newKey = key + "." + minorSuffix;
+			properties.setProperty(newKey, v.getMinor());
+		}
+		if (v.getIncremental() != null) {
+			String newKey = key + "." + incrementalSuffix;
+			properties.setProperty(newKey, v.getIncremental());
+		}
+		if (v.getQualifier() != null) {
+			String newKey = key + "." + qualifierSuffix;
+			properties.setProperty(newKey, v.getQualifier());
+		}
+		if (v.getTrimmed() != null) {
+			String newKey = key + "." + trimmedSuffix;
+			properties.setProperty(newKey, v.getTrimmed());
+		}
+		String newKey = key + "." + snapshotSuffix;
+		properties.setProperty(newKey, Boolean.toString(v.isSnapshot()));
+		return properties;
 	}
 
 	public String getMajorSuffix() {
