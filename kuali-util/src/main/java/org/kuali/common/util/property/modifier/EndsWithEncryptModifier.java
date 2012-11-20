@@ -12,7 +12,7 @@ public class EndsWithEncryptModifier extends DecryptModifier {
 
 	String suffix = Constants.DEFAULT_ENCRYPTED_SUFFIX;
 	boolean removeUnencryptedProperties = true;
-	Mode propertyOverwriteMode = Mode.INFORM;
+	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	public EndsWithEncryptModifier() {
 		this(null);

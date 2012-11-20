@@ -6,12 +6,13 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 
 public class OverrideModifier implements PropertyModifier {
 
 	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
-	Mode propertyOverwriteMode = Mode.INFORM;
+	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	@Override
 	public void modify(Properties properties) {

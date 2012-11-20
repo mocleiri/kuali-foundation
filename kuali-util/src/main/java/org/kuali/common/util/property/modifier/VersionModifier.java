@@ -29,7 +29,7 @@ public class VersionModifier implements PropertyModifier {
 
 	List<String> includes;
 	List<String> excludes;
-	Mode propertyOverwriteMode = Mode.INFORM;
+	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	@Override
 	public void modify(Properties properties) {
