@@ -123,8 +123,15 @@ public class ResourceUtils {
 	 * Get the contents of <code>s</code> as a list of <code>String</code> one entry per line
 	 */
 	public static final List<String> readLinesFromString(String s) {
+		return readLinesFromString(s, null);
+	}
+
+	/**
+	 * Get the contents of <code>s</code> as a list of <code>String</code> one entry per line
+	 */
+	public static final List<String> readLinesFromString(String s, String encoding) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
-		return readLines(in, null);
+		return readLines(in, encoding);
 	}
 
 	/**
