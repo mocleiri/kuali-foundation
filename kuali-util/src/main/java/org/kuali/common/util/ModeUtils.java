@@ -1,5 +1,8 @@
 package org.kuali.common.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +22,7 @@ public class ModeUtils {
 	}
 
 	public static final void validate(Mode mode, String msg, Object arg1, Object arg2, String errMsg) {
-		validate(mode, msg, new Object[] { arg1, arg2 }, errMsg);
+		validate(mode, msg, getArgs(arg1, arg2), errMsg);
 	}
 
 	public static final void validate(Mode mode, String msg, Object[] args, String errMsg) {
@@ -41,6 +44,20 @@ public class ModeUtils {
 		default:
 			throw new IllegalArgumentException(mode + " is unknown");
 		}
+	}
+
+	protected static final Object[] getArgs(Object arg1, Object arg2) {
+		if (arg1 == null && arg2 == null) {
+			return null;
+		}
+		List<Object> args = new ArrayList<Object>();
+		if (arg1 != null) {
+			args.add(arg1);
+		}
+		if (arg2 != null) {
+			args.add(arg2);
+		}
+		return args.toArray(new Object[args.size()]);
 	}
 
 }
