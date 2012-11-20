@@ -10,8 +10,8 @@ import org.kuali.common.util.property.GlobalPropertiesMode;
 
 public class OverrideModifier implements PropertyModifier {
 
-	GlobalPropertiesMode globalPropertiesMode;
-	Mode propertyOverwriteMode;
+	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
+	Mode propertyOverwriteMode = Mode.INFORM;
 
 	@Override
 	public void modify(Properties properties) {
@@ -19,10 +19,18 @@ public class OverrideModifier implements PropertyModifier {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String globalValue = global.getProperty(key);
-			if (!StringUtils.isBlank(globalValue)) {
+			if (isOverride(globalValue, properties, key)) {
 				PropertyUtils.setProperty(properties, key, globalValue, propertyOverwriteMode);
 			}
 		}
+	}
+
+	protected boolean isOverride(String globalValue, Properties properties, String key) {
+		if (StringUtils.isBlank(globalValue)) {
+			return false;
+		}
+		String originalValue = properties.getProperty(key);
+		return !StringUtils.equals(globalValue, originalValue);
 	}
 
 	public GlobalPropertiesMode getGlobalPropertiesMode() {
