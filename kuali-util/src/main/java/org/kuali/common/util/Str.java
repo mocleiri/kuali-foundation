@@ -17,11 +17,7 @@ public class Str {
 	 * Convert dots to forward slashes and trim.
 	 */
 	public static String getPath(String s) {
-		if (s == null) {
-			return null;
-		} else {
-			return StringUtils.trim(s.replace(".", "/"));
-		}
+		return StringUtils.trim(StringUtils.replace(s, ".", "/"));
 	}
 
 	/**
@@ -77,10 +73,6 @@ public class Str {
 	 * Replace carriage returns with <code>cr</code> and linefeeds with <code>lf</code>.
 	 */
 	public static final String flatten(String s, String cr, String lf) {
-		if (s == null) {
-			return null;
-		} else {
-			return s.replace(CR, cr).replace(LF, lf);
-		}
+		return StringUtils.replace(StringUtils.replace(s, CR, cr), LF, lf);
 	}
 }
