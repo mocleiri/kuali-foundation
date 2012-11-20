@@ -41,7 +41,8 @@ public class ResourceUtils {
 	}
 
 	/**
-	 * Attempt to delete <code>location</code>.
+	 * Attempt to delete <code>location</code>. If <code>quietly</code> is true, this method is null safe and will always return
+	 * <code>true</code> or <code>false</code> without throwing an exception.
 	 *
 	 * If <code>quietly</code> is false:<br>
 	 *
