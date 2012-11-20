@@ -29,6 +29,11 @@ public class DefaultSqlReader implements SqlReader {
 	}
 
 	@Override
+	public BufferedReader getBufferedStringReader(String sql) {
+		return LocationUtils.getBufferedReaderFromString(sql, encoding);
+	}
+
+	@Override
 	public String getSqlStatement(BufferedReader reader) {
 		String line = readLine(reader);
 		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
