@@ -58,15 +58,15 @@ public class Str {
 	/**
 	 * Split the string into tokens using the indicated separator, trimming as we go.
 	 */
-	public static String[] splitAndTrim(String s, String separator) {
-		return split(s, separator, true);
+	public static String[] splitAndTrim(String s, String separatorChars) {
+		return split(s, separatorChars, true);
 	}
 
 	/**
-	 * Split the string into tokens using the indicated separator, optionally trimming the tokens.
+	 * Split the string into tokens using the indicated separator chars, optionally trimming the tokens.
 	 */
-	public static String[] split(String s, String separator, boolean trim) {
-		String[] tokens = StringUtils.split(s, separator);
+	public static String[] split(String s, String separatorChars, boolean trim) {
+		String[] tokens = StringUtils.split(s, separatorChars);
 		if (tokens == null) {
 			return null;
 		}
