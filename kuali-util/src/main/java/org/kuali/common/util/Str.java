@@ -14,6 +14,20 @@ public class Str {
 	public static final String LF = "\n";
 
 	/**
+	 * Convert <code>chars</code> to a <code>String</code>
+	 */
+	public static String toString(char[] chars) {
+		if (chars == null) {
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (char c : chars) {
+			sb.append(c);
+		}
+		return sb.toString();
+	}
+
+	/**
 	 * Convert dots to forward slashes and trim.
 	 */
 	public static String getPath(String s) {

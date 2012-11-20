@@ -6,6 +6,7 @@ public class VersionUtils {
 
 	public static final String MAVEN_SNAPSHOT_TOKEN = "SNAPSHOT";
 	private static final char[] DELIMITERS = new char[] { '.', '-' };
+	private static final String SEPARATOR_CHARS = Str.toString(DELIMITERS);
 
 	/**
 	 * Return true if <code>version</code> ends with <code>-SNAPSHOT</code> or <code>.SNAPSHOT</code> (case insensitive).
@@ -46,13 +47,12 @@ public class VersionUtils {
 	 * <code>incremental</code>, respectively. Anything after that is the <code>qualifier</code>
 	 */
 	public static final Version getVersion(String version) {
-		String separatorChars = getSeparatorChars();
 		boolean snapshot = isSnapshot(version);
 		String trimmed = trimSnapshot(version);
 		Version v = new Version();
 		v.setTrimmed(trimmed);
 		v.setSnapshot(snapshot);
-		String[] tokens = StringUtils.split(trimmed, separatorChars);
+		String[] tokens = StringUtils.split(trimmed, SEPARATOR_CHARS);
 		if (tokens.length > 0) {
 			v.setMajor(tokens[0]);
 		}
@@ -75,9 +75,9 @@ public class VersionUtils {
 		return trimmed.substring(pos);
 	}
 
-	protected static final String getSeparatorChars() {
+	public static final String getSeparatorChars(char[] chars) {
 		StringBuilder sb = new StringBuilder();
-		for (char delimiter : DELIMITERS) {
+		for (char delimiter : chars) {
 			sb.append(delimiter);
 		}
 		return sb.toString();
