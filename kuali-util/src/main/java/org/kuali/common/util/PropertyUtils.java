@@ -173,11 +173,23 @@ public class PropertyUtils {
 
 	/**
 	 * Return a new properties object containing the properties passed in, plus any properties returned by <code>getEnvAsProperties()</code>
-	 * and <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override properties from
-	 * <code>original</code> and properties from <code>System.getProperties()</code> override everything.
+	 * and <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override <code>properties</code> and
+	 * properties from <code>System.getProperties()</code> override everything.
 	 */
 	public static final Properties getGlobalProperties(Properties properties) {
 		return getProperties(properties, GlobalPropertiesMode.BOTH);
+	}
+
+	/**
+	 *
+	 */
+	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
+		Properties newProperties = duplicate(properties);
+		List<PropertyModifier> modifiers = getPropertyModifiers(mode);
+		for (PropertyModifier modifier : modifiers) {
+			modifier.modify(newProperties);
+		}
+		return newProperties;
 	}
 
 	/**
@@ -199,18 +211,6 @@ public class PropertyUtils {
 	 */
 	public static final String getProperty(String key, Properties properties, GlobalPropertiesMode mode) {
 		return getProperties(properties, mode).getProperty(key);
-	}
-
-	/**
-	 *
-	 */
-	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
-		Properties newProperties = duplicate(properties);
-		List<PropertyModifier> modifiers = getPropertyModifiers(mode);
-		for (PropertyModifier modifier : modifiers) {
-			modifier.modify(newProperties);
-		}
-		return newProperties;
 	}
 
 	public static final List<PropertyModifier> getPropertyModifiers(GlobalPropertiesMode mode) {

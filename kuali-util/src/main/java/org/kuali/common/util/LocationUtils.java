@@ -39,11 +39,7 @@ public class LocationUtils {
 		if (filename == null) {
 			return null;
 		} else {
-			try {
-				return new File(filename);
-			} catch (Exception ignored) {
-				return null;
-			}
+			return new File(filename);
 		}
 	}
 
@@ -191,7 +187,7 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Null safe method for determining if <code>location</code> is an existing location.
+	 * Null safe method for determining if <code>location</code> exists.
 	 */
 	public static final boolean exists(String location) {
 		if (location == null) {
