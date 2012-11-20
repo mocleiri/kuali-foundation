@@ -12,6 +12,6 @@ public interface PropertyLoadContext extends PropertyContext {
 
 	List<PropertyModifier> getLoadModifiers();
 
-	void beforeLoad();
+	void initializeLoadModifiers();
 
 }
