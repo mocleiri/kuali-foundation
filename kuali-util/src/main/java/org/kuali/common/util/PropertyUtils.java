@@ -25,7 +25,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
  * any url Spring resource loading can understand. When storing and loading, locations ending in <code>.xml</code> are automatically handled
- * using <code>storeToXML()</code> and <code>loadFromXML()</code>, respectively. <code>Properties</code> are always stored in sorted order.
+ * using <code>storeToXML()</code> and <code>loadFromXML()</code>, respectively. <code>Properties</code> are always stored in sorted order
+ * with the <code>encoding</code> indicated via a comment.
  */
 public class PropertyUtils {
 
@@ -296,14 +297,14 @@ public class PropertyUtils {
 	}
 
 	private static final String getDefaultComment(String encoding) {
-		return "Encoding=" + StringUtils.defaultString(encoding, DEFAULT_ENCODING);
+		return "encoding=" + StringUtils.defaultString(encoding, DEFAULT_ENCODING);
 	}
 
 	private static final String getComment(String comment, String encoding) {
 		if (StringUtils.isBlank(comment)) {
 			return getDefaultComment(encoding);
 		} else {
-			return comment + "\n#" + getDefaultComment(encoding);
+			return getDefaultComment(encoding) + "\n#" + comment;
 		}
 	}
 
