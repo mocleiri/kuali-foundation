@@ -43,6 +43,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
+	String encryptionPasswordProperty;
 	List<PropertyModifier> modifiers;
 	List<String> pathProperties;
 	List<String> versionProperties;
@@ -304,6 +305,30 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setVersionProperties(List<String> versionProperties) {
 		this.versionProperties = versionProperties;
+	}
+
+	public String getEncryptionPasswordProperty() {
+		return encryptionPasswordProperty;
+	}
+
+	public void setEncryptionPasswordProperty(String encryptionPasswordProperty) {
+		this.encryptionPasswordProperty = encryptionPasswordProperty;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public GlobalPropertiesMode getGlobalPropertiesOverrideMode() {
+		return globalPropertiesOverrideMode;
+	}
+
+	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
+		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
 	}
 
 }
