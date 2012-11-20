@@ -41,8 +41,7 @@ public class ResourceUtils {
 	}
 
 	/**
-	 * Attempt to delete <code>location</code>. If <code>quietly</code> is false, this method either returns <code>true</code> or throws an
-	 * exception.
+	 * Attempt to delete <code>location</code>.
 	 *
 	 * If <code>quietly</code> is false:<br>
 	 *
@@ -69,13 +68,13 @@ public class ResourceUtils {
 	}
 
 	/**
-	 * Null safe method for getting a handle to a <code>file</code>. If <code>location</code> is null, null is returned.
+	 * Null safe method for getting a handle to a <code>file</code>. If <code>filename</code> is null, null is returned.
 	 */
-	public static final File getFileQuietly(String location) {
-		if (location == null) {
+	public static final File getFileQuietly(String filename) {
+		if (filename == null) {
 			return null;
 		} else {
-			return new File(location);
+			return new File(filename);
 		}
 	}
 
