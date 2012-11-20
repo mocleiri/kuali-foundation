@@ -21,11 +21,13 @@ public class VersionUtils {
 	}
 
 	/**
-	 * Return <code>version</code> with <code>SNAPSHOT</code> removed from the end (if it is present)
+	 * Return <code>version</code> with <code>.SNAPSHOT</code> or <code>-SNAPSHOT</code> removed from the end (if present)
 	 *
 	 * <pre>
 	 * 1.0.0-SNAPSHOT returns 1.0.0
+	 * 1.0.0.SNAPSHOT returns 1.0.0
 	 * 1.0.0          returns 1.0.0
+	 * 1.0.0SNAPSHOT  returns 1.0.0SNAPSHOT
 	 * </pre>
 	 */
 	public static final String trimSnapshot(String version) {
@@ -35,14 +37,6 @@ public class VersionUtils {
 		} else {
 			return version;
 		}
-	}
-
-	protected static final String getSeparatorChars() {
-		StringBuilder sb = new StringBuilder();
-		for (char delimiter : DELIMITERS) {
-			sb.append(delimiter);
-		}
-		return sb.toString();
 	}
 
 	/**
@@ -79,6 +73,14 @@ public class VersionUtils {
 		}
 		int pos = tokens[0].length() + 1 + tokens[1].length() + 1 + tokens[2].length() + 1;
 		return trimmed.substring(pos);
+	}
+
+	protected static final String getSeparatorChars() {
+		StringBuilder sb = new StringBuilder();
+		for (char delimiter : DELIMITERS) {
+			sb.append(delimiter);
+		}
+		return sb.toString();
 	}
 
 }
