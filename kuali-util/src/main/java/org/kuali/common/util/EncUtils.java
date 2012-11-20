@@ -19,6 +19,5 @@ public class EncUtils {
 		default:
 			throw new IllegalArgumentException(strength + " is unknown");
 		}
-
 	}
 }

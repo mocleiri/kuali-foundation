@@ -130,7 +130,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	@Override
 	public void beforeModify(Properties properties) {
-		Properties global = PropertyUtils.getGlobalProperties(properties);
+		Properties global = PropertyUtils.getProperties(globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
 		List<PropertyModifier> defaultModifiers = getDefaultModifiers();
 		if (this.modifiers == null) {
@@ -157,6 +157,7 @@ public class DefaultPropertyContext implements PropertyContext {
 			this.encryptionPassword = newEncryptionPassword;
 		}
 		resolveInternalList(properties, pathProperties);
+		resolveInternalList(properties, versionProperties);
 		resolveInternalList(properties, includes);
 		resolveInternalList(properties, excludes);
 	}
