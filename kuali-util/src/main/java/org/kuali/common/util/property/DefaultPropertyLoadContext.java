@@ -3,6 +3,7 @@ package org.kuali.common.util.property;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
@@ -12,7 +13,7 @@ import org.kuali.common.util.property.modifier.VersionModifier;
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
 	List<String> locations;
-	boolean ignoreMissingLocations;
+	Mode missingLocationsMode = Mode.ERROR;
 	List<PropertyModifier> loadModifiers;
 
 	@Override
@@ -22,15 +23,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
-	}
-
-	@Override
-	public boolean isIgnoreMissingLocations() {
-		return ignoreMissingLocations;
-	}
-
-	public void setIgnoreMissingLocations(boolean ignoreMissingLocations) {
-		this.ignoreMissingLocations = ignoreMissingLocations;
 	}
 
 	@Override
@@ -62,6 +54,15 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 			modifiers.add(new VersionModifier(versionProperties));
 		}
 		return modifiers;
+	}
+
+	@Override
+	public Mode getMissingLocationsMode() {
+		return missingLocationsMode;
+	}
+
+	public void setMissingLocationsMode(Mode missingLocationsMode) {
+		this.missingLocationsMode = missingLocationsMode;
 	}
 
 }

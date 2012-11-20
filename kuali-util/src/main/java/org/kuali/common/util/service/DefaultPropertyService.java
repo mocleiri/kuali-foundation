@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyLoadContext;
@@ -57,17 +58,9 @@ public class DefaultPropertyService implements PropertyService {
 				Properties newProperties = PropertyUtils.load(resolvedLocation, context.getEncoding());
 				properties.putAll(newProperties);
 			} else {
-				handleMissing(context.isIgnoreMissingLocations(), resolvedLocation);
+				ModeUtils.validate(context.getMissingLocationsMode(), "Ignoring non-existent location - [{}]", location, "Could not locate [" + location + "]");
 			}
 		}
 		return properties;
-	}
-
-	protected void handleMissing(boolean ignoreMissing, String location) {
-		if (ignoreMissing) {
-			logger.info("Ignoring non-existent location - [{}]", location);
-		} else {
-			throw new IllegalArgumentException("Could not locate [" + location + "]");
-		}
 	}
 }

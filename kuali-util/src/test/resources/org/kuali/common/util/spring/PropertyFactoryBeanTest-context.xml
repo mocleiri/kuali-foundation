@@ -49,7 +49,7 @@
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding-ref="encoding" p:ignoreMissingLocations="true">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding-ref="encoding" p:missingLocationsMode="INFORM">
     <property name="encryptionMode" value="DECRYPT" />
     <property name="encryptionPassword" ref="encryptionPassword" />
     <property name="service" ref="service" />
