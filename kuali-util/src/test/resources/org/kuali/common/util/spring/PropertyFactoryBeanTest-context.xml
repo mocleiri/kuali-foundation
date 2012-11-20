@@ -60,7 +60,7 @@
     <property name="addEnvironmentVariables" ref="addGlobalProperties" />
   </bean>
 
-  <context:property-placeholder properties-ref="properties" />
+  <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
 
   <bean id="encryptedStorage" class="org.kuali.common.util.property.DefaultPropertyStoreContext" p:encoding-ref="encoding">
     <property name="file" value="${project.build.directory}/properties/encrypted.properties" />
