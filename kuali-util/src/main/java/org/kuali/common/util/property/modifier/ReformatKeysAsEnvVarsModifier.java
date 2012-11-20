@@ -4,11 +4,11 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class ReformatKeysAsEnvironmentVariablesModifier implements PropertyModifier {
+public class ReformatKeysAsEnvVarsModifier implements PropertyModifier {
 
 	@Override
 	public void modify(Properties properties) {
-		Properties newProperties = PropertyUtils.getPropertiesAsEnvironmentVariables(properties);
+		Properties newProperties = PropertyUtils.getPropertiesAsEnvVars(properties);
 		properties.clear();
 		properties.putAll(newProperties);
 	}
