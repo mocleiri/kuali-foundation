@@ -276,7 +276,7 @@ public class PropertyUtils {
 	/**
 	 * Return a new properties object where the keys have been converted to upper case and periods have been replaced with an underscore.
 	 */
-	public static final Properties getPropertiesAsEnvVars(Properties properties) {
+	public static final Properties reformatKeysAsEnvVars(Properties properties) {
 		Properties newProperties = new Properties();
 		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);

@@ -8,7 +8,7 @@ public class ReformatKeysAsEnvVarsModifier implements PropertyModifier {
 
 	@Override
 	public void modify(Properties properties) {
-		Properties newProperties = PropertyUtils.getPropertiesAsEnvVars(properties);
+		Properties newProperties = PropertyUtils.reformatKeysAsEnvVars(properties);
 		properties.clear();
 		properties.putAll(newProperties);
 	}
