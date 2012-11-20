@@ -7,12 +7,8 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PathModifier implements PropertyModifier {
-
-	private static final Logger logger = LoggerFactory.getLogger(PathModifier.class);
 
 	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
