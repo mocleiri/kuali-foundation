@@ -179,8 +179,15 @@ public class ResourceUtils {
 	 * Return a <code>BufferedReader</code> that reads from <code>s</code>
 	 */
 	public static final BufferedReader getBufferedReaderFromString(String s) {
+		return getBufferedReader(s, null);
+	}
+
+	/**
+	 * Return a <code>BufferedReader</code> that reads from <code>s</code>
+	 */
+	public static final BufferedReader getBufferedReaderFromString(String s, String encoding) {
 		InputStream in = new ByteArrayInputStream(s.getBytes());
-		return getBufferedReader(in, null);
+		return getBufferedReader(in, encoding);
 	}
 
 	/**
