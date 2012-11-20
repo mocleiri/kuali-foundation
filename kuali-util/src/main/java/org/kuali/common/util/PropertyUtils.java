@@ -19,6 +19,10 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
+import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
+import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -164,7 +168,7 @@ public class PropertyUtils {
 	 * <code>getEnvAsProperties</code> if there are duplicates.
 	 */
 	public static final Properties getGlobalProperties() {
-		return getGlobalProperties(new Properties());
+		return getProperties(GlobalPropertiesMode.BOTH);
 	}
 
 	/**
@@ -173,10 +177,60 @@ public class PropertyUtils {
 	 * <code>original</code> and properties from <code>System.getProperties()</code> override everything.
 	 */
 	public static final Properties getGlobalProperties(Properties properties) {
+		return getProperties(properties, GlobalPropertiesMode.BOTH);
+	}
+
+	/**
+	 *
+	 */
+	public static final Properties getProperties(GlobalPropertiesMode mode) {
+		return getProperties(new Properties(), mode);
+	}
+
+	/**
+	 *
+	 */
+	public static final String getProperty(String key, GlobalPropertiesMode mode) {
+		return getProperty(key, new Properties(), mode);
+	}
+
+	/**
+	 *
+	 */
+	public static final String getProperty(String key, Properties properties, GlobalPropertiesMode mode) {
+		return getProperties(properties, mode).getProperty(key);
+	}
+
+	/**
+	 *
+	 */
+	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties newProperties = duplicate(properties);
-		newProperties.putAll(getEnvAsProperties());
-		newProperties.putAll(System.getProperties());
+		List<PropertyModifier> modifiers = getPropertyModifiers(mode);
+		for (PropertyModifier modifier : modifiers) {
+			modifier.modify(newProperties);
+		}
 		return newProperties;
+	}
+
+	public static final List<PropertyModifier> getPropertyModifiers(GlobalPropertiesMode mode) {
+		List<PropertyModifier> modifiers = new ArrayList<PropertyModifier>();
+		switch (mode) {
+		case NONE:
+			return modifiers;
+		case ENVIRONMENT:
+			modifiers.add(new AddEnvPropertiesModifier());
+			return modifiers;
+		case SYSTEM:
+			modifiers.add(new AddSystemPropertiesModifier());
+			return modifiers;
+		case BOTH:
+			modifiers.add(new AddEnvPropertiesModifier());
+			modifiers.add(new AddSystemPropertiesModifier());
+			return modifiers;
+		default:
+			throw new IllegalStateException(mode + " is unknown");
+		}
 	}
 
 	/**
