@@ -13,59 +13,22 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.Assert;
 
-public class ResourceUtils {
-
-	private static final Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
+public class LocationUtils {
 
 	/**
-	 * Attempt to delete <code>location</code>.
+	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If <code>filename</code>
+	 * is a directory, delete it and all sub-directories.
 	 */
-	public static final boolean delete(String location) {
-		return delete(location, false);
-	}
-
-	/**
-	 * Null safe method to unconditionally attempt to delete <code>location</code> without throwing an exception.
-	 */
-	public static final boolean deleteQuietly(String location) {
-		return delete(location, true);
-	}
-
-	/**
-	 * Attempt to delete <code>location</code>. If <code>quietly</code> is true, this method is null safe and will always return
-	 * <code>true</code> or <code>false</code> without throwing an exception.
-	 *
-	 * If <code>quietly</code> is false:<br>
-	 *
-	 * <code>IllegalArgumentException</code> is thrown when:<br>
-	 * <code>location</code> is null.<br>
-	 * <code>location</code> does not exist.<br>
-	 * <code>location</code> is not an existing file.<br>
-	 *
-	 * <code>SecurityException</code> is thrown if <code>SecurityManager</code> prevents the file from being deleted.
-	 */
-	public static final boolean delete(String location, boolean quietly) {
-		if (quietly) {
-			return deleteQuietly(getFileQuietly(location));
-		} else {
-			// Location can't be null
-			Assert.notNull(location, "location must not be null");
-			// Location must exist
-			Assert.isTrue(exists(location), location + " does not exist");
-			// Location must be an existing file
-			Assert.isTrue(isFile(location), location + " exists, but is not a file");
-			// Try and delete the file (might throw SecurityException)
-			return new File(location).delete();
-		}
+	public static final boolean deleteQuietly(String filename) {
+		File file = getFileQuietly(filename);
+		return FileUtils.deleteQuietly(file);
 	}
 
 	/**
@@ -76,25 +39,11 @@ public class ResourceUtils {
 		if (filename == null) {
 			return null;
 		} else {
-			return new File(filename);
-		}
-	}
-
-	/**
-	 * Null safe method for attempting to unconditionally delete <code>file</code> without throwing an exception.
-	 */
-	public static final boolean deleteQuietly(File file) {
-		// Return false for null
-		if (file == null) {
-			return false;
-		}
-		try {
-			// Attempt to delete
-			return file.delete();
-		} catch (SecurityException e) {
-			// Warn, but do not throw an exception
-			logger.warn("Unable to delete [{}] {}", file.getAbsolutePath(), e.getMessage());
-			return false;
+			try {
+				return new File(filename);
+			} catch (Exception ignored) {
+				return null;
+			}
 		}
 	}
 

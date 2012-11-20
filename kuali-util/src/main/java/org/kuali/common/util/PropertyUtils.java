@@ -145,7 +145,7 @@ public class PropertyUtils {
 					sorted.storeToXML(out, comment, encoding);
 				}
 			} else {
-				writer = ResourceUtils.getWriter(out, encoding);
+				writer = LocationUtils.getWriter(out, encoding);
 				logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				sorted.store(writer, comment);
 			}
@@ -238,12 +238,12 @@ public class PropertyUtils {
 			Properties properties = new Properties();
 			boolean xml = isXml(location);
 			if (xml) {
-				in = ResourceUtils.getInputStream(location);
+				in = LocationUtils.getInputStream(location);
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
 				logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
-				reader = ResourceUtils.getBufferedReader(location, encoding);
+				reader = LocationUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
 			return properties;
