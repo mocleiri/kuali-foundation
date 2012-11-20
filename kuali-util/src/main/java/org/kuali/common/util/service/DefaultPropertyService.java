@@ -3,8 +3,8 @@ package org.kuali.common.util.service;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
@@ -51,7 +51,7 @@ public class DefaultPropertyService implements PropertyService {
 			modify(duplicate, context.getLoadModifiers());
 			String resolvedLocation = helper.replacePlaceholders(location, duplicate);
 			if (!location.equals(resolvedLocation)) {
-				logger.info("Resolved location [{}] -> [{}]", location, resolvedLocation);
+				logger.debug("Resolved location [{}] -> [{}]", location, resolvedLocation);
 			}
 			if (LocationUtils.exists(resolvedLocation)) {
 				Properties newProperties = PropertyUtils.load(resolvedLocation, context.getEncoding());
