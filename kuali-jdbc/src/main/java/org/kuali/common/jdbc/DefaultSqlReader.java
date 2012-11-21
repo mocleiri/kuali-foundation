@@ -16,7 +16,7 @@ public class DefaultSqlReader implements SqlReader {
 	String delimiter = DEFAULT_DELIMITER;
 	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = true;
-	boolean ignoreComments;
+	boolean ignoreComments = true;
 	List<String> commentTokens = DEFAULT_COMMENT_TOKENS;
 
 	@Override
@@ -25,7 +25,7 @@ public class DefaultSqlReader implements SqlReader {
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (isContinue(line, trimmedLine, delimiter)) {
-			if (!ignore(trimmedLine)) {
+			if (!ignore(sb, trimmedLine)) {
 				sb.append(line + lineSeparator.getValue());
 			}
 			line = reader.readLine();
@@ -57,8 +57,8 @@ public class DefaultSqlReader implements SqlReader {
 		}
 	}
 
-	protected boolean ignore(String trimmedLine) {
-		return ignoreComments && isComment(trimmedLine, commentTokens);
+	protected boolean ignore(StringBuilder sql, String trimmedLine) {
+		return ignoreComments && StringUtils.isBlank(sql.toString()) && isComment(trimmedLine, commentTokens);
 	}
 
 	protected boolean isComment(String trimmedLine, List<String> commentTokens) {

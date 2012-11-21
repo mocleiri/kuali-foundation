@@ -36,9 +36,22 @@ public class SqlServiceTest {
 	@Test
 	public void testGetLocations() {
 		List<String> sql = getSql();
-		List<SqlSource> sources = getStringSqlSources(sql);
-		service.executeSql(dba, sources);
-		// List<String> locations = getLocations();
+		List<SqlSource> dbaSql = getStringSqlSources(sql);
+		service.executeSql(dba, dbaSql);
+		List<String> locations = getLocations();
+		List<SqlSource> sources = getLocationSqlSources(locations);
+		service.executeSql(normal, sources);
+	}
+
+	protected List<SqlSource> getLocationSqlSources(List<String> locations) {
+		List<SqlSource> sources = new ArrayList<SqlSource>();
+		for (String location : locations) {
+			SqlSource source = new SqlSource();
+			source.setLocation(location);
+			source.setType(SqlSourceType.LOCATION);
+			sources.add(source);
+		}
+		return sources;
 	}
 
 	protected List<SqlSource> getStringSqlSources(List<String> sql) {
