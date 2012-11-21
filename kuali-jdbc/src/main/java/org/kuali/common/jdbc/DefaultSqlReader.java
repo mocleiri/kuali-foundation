@@ -34,8 +34,12 @@ public class DefaultSqlReader implements SqlReader {
 		return getReturnValue(sb.toString());
 	}
 
+	protected boolean isEndOfSqlStatement(String trimmedLine, String delimiter) {
+		return StringUtils.equals(trimmedLine, delimiter);
+	}
+
 	protected boolean isContinue(String line, String trimmedLine, String delimiter) {
-		return line != null && !StringUtils.equals(delimiter, trimmedLine);
+		return line != null && !isEndOfSqlStatement(trimmedLine, delimiter);
 	}
 
 	protected String getReturnValue(String sql) {
