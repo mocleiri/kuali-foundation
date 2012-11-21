@@ -50,7 +50,10 @@ public class SqlServiceTest {
 		count = service.getSqlStatementCount(normal, sources);
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Located {} SQL statements in {} millis", count, elapsed);
-		// service.executeSql(normal, sources);
+		start = System.currentTimeMillis();
+		executed = service.executeSql(normal, sources);
+		elapsed = System.currentTimeMillis() - start;
+		logger.info("Executed {} sql statements in {} millis", executed, elapsed);
 	}
 
 	protected List<SqlSource> getLocationSqlSources(List<String> locations) {

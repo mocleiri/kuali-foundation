@@ -58,7 +58,7 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	protected void show(SqlContext context, String sql, long count) {
+	protected void showSql(SqlContext context, String sql, long count) {
 		if (context.isShow()) {
 			String log = context.isFlatten() ? Str.flatten(sql) : sql;
 			logger.info("{} - SQL - [{}]", count, log);
@@ -76,7 +76,7 @@ public class DefaultSqlService implements SqlService {
 			String sql = context.getReader().getSqlStatement(in);
 			while (sql != null) {
 				count++;
-				show(context, sql, runningCount + count);
+				showSql(context, sql, runningCount + count);
 				sql = context.getReader().getSqlStatement(in);
 			}
 			return count;
@@ -157,7 +157,24 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
+	protected void logSource(SqlExecutionContext context) {
+		SqlSourceType type = context.getSource().getType();
+		switch (type) {
+		case STRING:
+			return;
+		case FILE:
+			logger.info("Executing {}", LocationUtils.getCanonicalPath(context.getSource().getFile()));
+			return;
+		case LOCATION:
+			logger.info("Executing {}", context.getSource().getLocation());
+			return;
+		default:
+			throw new IllegalArgumentException(type + " is unknown");
+		}
+	}
+
 	protected long executeSqlFromSource(SqlExecutionContext context) {
+		logSource(context);
 		int count = 0;
 		BufferedReader in = null;
 		try {
@@ -166,7 +183,7 @@ public class DefaultSqlService implements SqlService {
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				count++;
-				show(context.getJdbcContext(), sql, context.getRunningCount() + count);
+				showSql(context.getJdbcContext(), sql, context.getRunningCount() + count);
 				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);
