@@ -36,26 +36,26 @@ public class DefaultSqlReader implements SqlReader {
 	@Override
 	public String getSqlStatement(BufferedReader reader) {
 		String line = readLine(reader);
-		String trimmed = StringUtils.trim(line);
+		String trimmed = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null && !delimiter.equals(trimmed)) {
 			if (!ignore(line)) {
 				sb.append(line + lineSeparator.getValue());
 			}
 			line = readLine(reader);
-			trimmed = StringUtils.isBlank(line) ? null : line.trim();
+			trimmed = StringUtils.trimToNull(line);
 		}
 		return getReturnValue(sb);
 	}
 
 	protected String getReturnValue(StringBuilder sb) {
-		String s = (trim) ? sb.toString().trim() : sb.toString();
+		String s = (trim) ? StringUtils.trim(sb.toString()) : sb.toString();
 		if (StringUtils.isBlank(s)) {
 			return null;
-		} else if (s.endsWith(lineSeparator.getValue())) {
+		} else if (StringUtils.endsWith(s, lineSeparator.getValue())) {
 			int beginIndex = 0;
 			int endIndex = s.length() - lineSeparator.getValue().length();
-			return s.substring(beginIndex, endIndex);
+			return StringUtils.substring(s, beginIndex, endIndex);
 		} else {
 			return s;
 		}
