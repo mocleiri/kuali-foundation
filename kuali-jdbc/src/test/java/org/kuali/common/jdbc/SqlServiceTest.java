@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +23,7 @@ public class SqlServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(SqlServiceTest.class);
 
 	@Autowired
-	private DefaultSqlService sqlExecutor = null;
-
-	@Autowired
-	private DefaultSqlService dbaSqlExecutor = null;
+	private SqlService service = null;
 
 	@Autowired
 	private Properties properties = null;
@@ -38,12 +34,7 @@ public class SqlServiceTest {
 	}
 
 	public List<String> getLocations() {
-		Properties props = PropertyUtils.duplicate(properties);
-		Properties sql = PropertyUtils.load("classpath:org/kuali/ole/sql.properties", "UTF-8");
-		props.putAll(sql);
-		PropertyModifier modifier = new ResolvePlaceholdersModifier();
-		modifier.modify(props);
-		List<String> locations = getLocations(props);
+		List<String> locations = getLocations(properties);
 		for (String location : locations) {
 			Assert.assertTrue(LocationUtils.exists(location));
 		}
@@ -75,8 +66,8 @@ public class SqlServiceTest {
 		try {
 			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
-			Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
-			Assert.assertNotNull("dbaSqlExecutor is null.", dbaSqlExecutor);
+			// Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
+			// Assert.assertNotNull("dbaSqlExecutor is null.", dbaSqlExecutor);
 			String dbaUser = properties.getProperty("jdbc.dba.username");
 			String dbaUrl = properties.getProperty("jdbc.dba.url");
 			String db = properties.getProperty("sql.database");
