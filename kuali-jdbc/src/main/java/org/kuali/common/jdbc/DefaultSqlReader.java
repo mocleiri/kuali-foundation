@@ -24,12 +24,12 @@ public class DefaultSqlReader implements SqlReader {
 	String encoding = DEFAULT_ENCODING;
 
 	@Override
-	public BufferedReader getBufferedReader(String location) {
+	public BufferedReader getSqlReader(String location) {
 		return LocationUtils.getBufferedReader(location, encoding);
 	}
 
 	@Override
-	public BufferedReader getBufferedStringReader(String sql) {
+	public BufferedReader getSqlReaderFromString(String sql) {
 		return LocationUtils.getBufferedReaderFromString(sql, encoding);
 	}
 

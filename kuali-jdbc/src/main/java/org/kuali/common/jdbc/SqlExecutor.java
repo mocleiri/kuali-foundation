@@ -32,12 +32,12 @@ public class SqlExecutor {
 
 	public int executeSQL(String location) {
 		logger.info("Executing - {}", location);
-		BufferedReader reader = sqlReader.getBufferedReader(location);
+		BufferedReader reader = sqlReader.getSqlReader(location);
 		return execute(reader);
 	}
 
 	public int executeString(String sql) {
-		BufferedReader reader = sqlReader.getBufferedStringReader(sql);
+		BufferedReader reader = sqlReader.getSqlReaderFromString(sql);
 		return execute(reader);
 	}
 

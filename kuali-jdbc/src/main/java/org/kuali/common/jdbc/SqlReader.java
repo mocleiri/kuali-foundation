@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 
 public interface SqlReader {
 
-	BufferedReader getBufferedReader(String location);
+	BufferedReader getSqlReader(String location);
 
-	BufferedReader getBufferedStringReader(String sql);
+	BufferedReader getSqlReaderFromString(String sql);
 
 	String getSqlStatement(BufferedReader reader);
 
