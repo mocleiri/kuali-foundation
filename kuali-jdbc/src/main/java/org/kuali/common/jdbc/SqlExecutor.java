@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 
 public class SqlExecutor {
 
-	final Logger logger = LoggerFactory.getLogger(SqlExecutor.class);
+	private static final Logger logger = LoggerFactory.getLogger(SqlExecutor.class);
 
 	DataSource dataSource;
 	SqlReader sqlReader;
@@ -71,8 +71,8 @@ public class SqlExecutor {
 	protected void executeSQL(Statement statement, String sql) throws SQLException {
 		try {
 			statement.execute(sql);
-		} catch (SQLException e) {
-			throw new SQLException("Unexpected error executing SQL - [" + Str.flatten(sql) + "]", e);
+		} catch (SQLException ignored) {
+			; // Ignore
 		}
 	}
 
@@ -87,8 +87,8 @@ public class SqlExecutor {
 		}
 		try {
 			statement.close();
-		} catch (SQLException e) {
-			throw new JdbcException(e);
+		} catch (SQLException ignored) {
+			; // Ignore
 		}
 	}
 
@@ -98,8 +98,8 @@ public class SqlExecutor {
 		}
 		try {
 			DataSourceUtils.doReleaseConnection(conn, dataSource);
-		} catch (SQLException e) {
-			throw new JdbcException(e);
+		} catch (SQLException ignored) {
+			; // Ignore
 		}
 	}
 
