@@ -64,6 +64,10 @@ public class SqlExecutorTest {
 		logger.info(locations.size() + "");
 		for (String location : locations) {
 			logger.info(location);
+			boolean exists = LocationUtils.exists(location);
+			if (!exists) {
+				throw new IllegalStateException(location + " does not exist");
+			}
 		}
 	}
 
