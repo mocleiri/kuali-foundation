@@ -2,7 +2,7 @@ package org.kuali.common.jdbc;
 
 public interface JdbcService {
 
-	void executeSql(SqlExecutionContext context);
+	void executeSql(JdbcContext context);
 
 	long getSqlStatementCount(SqlContext context);
 

@@ -127,7 +127,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public void executeSql(SqlExecutionContext context) {
+	public void executeSql(JdbcContext context) {
 		// TODO Auto-generated method stub
 
 	}
