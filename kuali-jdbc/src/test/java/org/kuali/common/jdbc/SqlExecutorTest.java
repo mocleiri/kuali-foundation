@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.slf4j.Logger;
@@ -33,42 +31,37 @@ public class SqlExecutorTest {
 	@Autowired
 	private Properties properties = null;
 
-	@Test
-	public void test2() {
-		Properties sql = PropertyUtils.load("classpath:org/kuali/ole/sql.properties", "UTF-8");
+	public List<String> getLocations() {
 		Properties props = PropertyUtils.duplicate(properties);
+		Properties sql = PropertyUtils.load("classpath:org/kuali/ole/sql.properties", "UTF-8");
 		props.putAll(sql);
 		PropertyModifier modifier = new ResolvePlaceholdersModifier();
 		modifier.modify(props);
-		List<String> schemas = PropertyUtils.getSortedKeys(props, "schema.loc");
-		List<String> dataLocs = PropertyUtils.getSortedKeys(props, "data.meta");
-		List<String> constraints = PropertyUtils.getSortedKeys(props, "constraints.loc");
-		logger.info(schemas.size() + "");
-		logger.info(dataLocs.size() + "");
-		logger.info(constraints.size() + "");
-		List<String> locations = new ArrayList<String>();
-		logger.info(locations.size() + "");
-		for (String schema : schemas) {
-			locations.add(props.getProperty(schema));
+		List<String> locations = getLocations(props);
+		for (String location : locations) {
+			Assert.assertTrue(LocationUtils.exists(location));
 		}
-		logger.info(locations.size() + "");
+		logger.info("Located {} resources containing SQL", locations.size());
+		return locations;
+	}
+
+	protected List<String> getLocations(Properties properties) {
+		List<String> schemas = PropertyUtils.getStartsWithKeys(properties, "schema.loc");
+		List<String> dataLocs = PropertyUtils.getStartsWithKeys(properties, "data.meta");
+		List<String> constraints = PropertyUtils.getStartsWithKeys(properties, "constraints.loc");
+		List<String> locations = new ArrayList<String>();
+		for (String schema : schemas) {
+			locations.add(properties.getProperty(schema));
+		}
 		for (String dataLoc : dataLocs) {
-			String location = props.getProperty(dataLoc);
+			String location = properties.getProperty(dataLoc);
 			List<String> list = LocationUtils.readLines(location);
 			locations.addAll(list);
 		}
-		logger.info(locations.size() + "");
 		for (String constraint : constraints) {
-			locations.add(props.getProperty(constraint));
+			locations.add(properties.getProperty(constraint));
 		}
-		logger.info(locations.size() + "");
-		for (String location : locations) {
-			logger.info(location);
-			boolean exists = LocationUtils.exists(location);
-			if (!exists) {
-				throw new IllegalStateException(location + " does not exist");
-			}
-		}
+		return locations;
 	}
 
 	// @Test
@@ -92,12 +85,10 @@ public class SqlExecutorTest {
 			logger.info("Validating credentials for user '{}' on [{}]", user, url);
 			sqlExecutor.executeString(properties.getProperty("sql.validate"));
 
-			String csv = properties.getProperty("sql.schemas");
-			String[] schemas = Str.splitAndTrimCSV(csv);
-			List<String> schemaLocs = getSchemaLocations(schemas);
+			List<String> locations = getLocations();
 			int count = 0;
-			for (String schemaLoc : schemaLocs) {
-				count += sqlExecutor.executeSQL(schemaLoc);
+			for (String location : locations) {
+				count += sqlExecutor.executeSQL(location);
 			}
 			logger.info("Executed {} SQL statements", count);
 			logger.info("Elapsed: {}", (System.currentTimeMillis() - start));

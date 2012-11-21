@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +29,33 @@ public class SqlExecutor {
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
+	}
+
+	public int getSqlStatementCount(String location) {
+		logger.info("Examining - {}", location);
+		BufferedReader reader = sqlReader.getSqlReader(location);
+		return execute(reader);
+	}
+
+	public int getSqlStatementCountFromString(String sql) {
+		BufferedReader reader = sqlReader.getSqlReaderFromString(sql);
+		return execute(reader);
+	}
+
+	protected int getSqlStatementCount(BufferedReader reader) {
+		int count = 0;
+		try {
+			String sql = sqlReader.getSqlStatement(reader);
+			while (sql != null) {
+				count++;
+				sql = sqlReader.getSqlStatement(reader);
+			}
+			return count;
+		} catch (IOException e) {
+			throw new JdbcException(e);
+		} finally {
+			IOUtils.closeQuietly(reader);
+		}
 	}
 
 	public int executeSQL(String location) {

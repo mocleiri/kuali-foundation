@@ -5,11 +5,8 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultSqlReader implements SqlReader {
-	final Logger logger = LoggerFactory.getLogger(DefaultSqlReader.class);
 
 	public static final String DEFAULT_DELIMITER = "/";
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
@@ -34,15 +31,15 @@ public class DefaultSqlReader implements SqlReader {
 	}
 
 	@Override
-	public String getSqlStatement(BufferedReader reader) {
-		String line = readLine(reader);
+	public String getSqlStatement(BufferedReader reader) throws IOException {
+		String line = reader.readLine();
 		String trimmed = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null && !delimiter.equals(trimmed)) {
 			if (!ignore(line)) {
 				sb.append(line + lineSeparator.getValue());
 			}
-			line = readLine(reader);
+			line = reader.readLine();
 			trimmed = StringUtils.trimToNull(line);
 		}
 		return getReturnValue(sb);
@@ -58,14 +55,6 @@ public class DefaultSqlReader implements SqlReader {
 			return StringUtils.substring(s, beginIndex, endIndex);
 		} else {
 			return s;
-		}
-	}
-
-	protected String readLine(BufferedReader reader) {
-		try {
-			return reader.readLine();
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
 		}
 	}
 
