@@ -22,6 +22,14 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
+	public static final String getCanonicalPath(File file) {
+		try {
+			return file.getCanonicalPath();
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
+	}
+
 	/**
 	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If <code>filename</code>
 	 * is a directory, delete it and all sub-directories.
@@ -154,6 +162,18 @@ public class LocationUtils {
 			} else {
 				return new BufferedWriter(new OutputStreamWriter(out, encoding));
 			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
+	}
+
+	/**
+	 * Return a <code>BufferedReader</code> that reads from <code>file</code> using the indicated encoding. <code>null</code> means use the
+	 * platform's default encoding.
+	 */
+	public static final BufferedReader getBufferedReader(File file, String encoding) {
+		try {
+			return getBufferedReader(FileUtils.openInputStream(file), encoding);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
