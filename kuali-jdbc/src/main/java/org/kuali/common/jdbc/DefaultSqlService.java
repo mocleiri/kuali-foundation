@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -28,6 +29,33 @@ public class DefaultSqlService implements SqlService {
 			count += getSqlStatementCount(context, source, count);
 		}
 		return count;
+	}
+
+	@Override
+	public List<String> getSqlStatements(SqlContext context, List<SqlSource> sources) {
+		List<String> sql = new ArrayList<String>();
+		for (SqlSource source : sources) {
+			sql.addAll(getSqlStatements(context, source));
+		}
+		return sql;
+	}
+
+	protected List<String> getSqlStatements(SqlContext context, SqlSource source) {
+		List<String> list = new ArrayList<String>();
+		BufferedReader in = null;
+		try {
+			in = getBufferedReader(source);
+			String sql = context.getReader().getSqlStatement(in);
+			while (sql != null) {
+				list.add(sql);
+				sql = context.getReader().getSqlStatement(in);
+			}
+			return list;
+		} catch (IOException e) {
+			throw new JdbcException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
 	}
 
 	protected void show(SqlContext context, String sql, long count) {

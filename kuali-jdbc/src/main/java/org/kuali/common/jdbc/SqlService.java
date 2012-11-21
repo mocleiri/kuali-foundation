@@ -8,4 +8,6 @@ public interface SqlService {
 
 	long getSqlStatementCount(SqlContext context, List<SqlSource> sources);
 
+	List<String> getSqlStatements(SqlContext context, List<SqlSource> sources);
+
 }
