@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.modifier.PropertyModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,41 @@ public class SqlExecutorTest {
 	private Properties properties = null;
 
 	@Test
-	public void test() {
+	public void test2() {
+		Properties sql = PropertyUtils.load("classpath:org/kuali/ole/sql.properties", "UTF-8");
+		Properties props = PropertyUtils.duplicate(properties);
+		props.putAll(sql);
+		PropertyModifier modifier = new ResolvePlaceholdersModifier();
+		modifier.modify(props);
+		List<String> schemas = PropertyUtils.getSortedKeys(props, "schema.loc");
+		List<String> dataLocs = PropertyUtils.getSortedKeys(props, "data.meta");
+		List<String> constraints = PropertyUtils.getSortedKeys(props, "constraints.loc");
+		logger.info(schemas.size() + "");
+		logger.info(dataLocs.size() + "");
+		logger.info(constraints.size() + "");
+		List<String> locations = new ArrayList<String>();
+		logger.info(locations.size() + "");
+		for (String schema : schemas) {
+			locations.add(props.getProperty(schema));
+		}
+		logger.info(locations.size() + "");
+		for (String dataLoc : dataLocs) {
+			String location = props.getProperty(dataLoc);
+			List<String> list = LocationUtils.readLines(location);
+			locations.addAll(list);
+		}
+		logger.info(locations.size() + "");
+		for (String constraint : constraints) {
+			locations.add(props.getProperty(constraint));
+		}
+		logger.info(locations.size() + "");
+		for (String location : locations) {
+			logger.info(location);
+		}
+	}
+
+	// @Test
+	public void test1() {
 		try {
 			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
@@ -52,6 +87,7 @@ public class SqlExecutorTest {
 			String url = properties.getProperty("jdbc.url");
 			logger.info("Validating credentials for user '{}' on [{}]", user, url);
 			sqlExecutor.executeString(properties.getProperty("sql.validate"));
+
 			String csv = properties.getProperty("sql.schemas");
 			String[] schemas = Str.splitAndTrimCSV(csv);
 			List<String> schemaLocs = getSchemaLocations(schemas);
@@ -65,7 +101,6 @@ public class SqlExecutorTest {
 			e.printStackTrace();
 		}
 	}
-
 
 	protected List<String> getSchemaLocations(String[] schemas) {
 		List<String> schemaLocs = new ArrayList<String>();
