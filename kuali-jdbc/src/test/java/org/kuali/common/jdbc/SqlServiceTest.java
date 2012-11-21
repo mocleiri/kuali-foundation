@@ -24,10 +24,10 @@ public class SqlServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(SqlServiceTest.class);
 
 	@Autowired
-	private SqlService sqlExecutor = null;
+	private DefaultSqlService sqlExecutor = null;
 
 	@Autowired
-	private SqlService dbaSqlExecutor = null;
+	private DefaultSqlService dbaSqlExecutor = null;
 
 	@Autowired
 	private Properties properties = null;
