@@ -66,6 +66,7 @@ public class SqlExecutorTest {
 		}
 	}
 
+
 	protected List<String> getSchemaLocations(String[] schemas) {
 		List<String> schemaLocs = new ArrayList<String>();
 		List<String> constraintLocs = new ArrayList<String>();
