@@ -17,7 +17,7 @@
     </property>
   </bean>
 
-  <context:property-placeholder properties-ref="properties" />
+  <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -33,25 +33,14 @@
     <property name="password" value="${jdbc.dba.password}" />
   </bean>
 
-  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader">
-    <property name="delimiter" value="${sql.delimiter}" />
-    <property name="trim" value="${sql.trim}" />
-    <property name="lineSeparator" value="${sql.line.separator}" />
-    <property name="encoding" value="${sql.encoding}" />
-    <property name="ignoreComments" value="${sql.comment.ignore}" />
-    <property name="commentToken" value="${sql.comment.token}" />
-  </bean>
-
-  <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlService">
+  <bean id="normal" class="org.kuali.common.jdbc.JdbcContext">
     <property name="dataSource" ref="dataSource" />
-    <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="true" />
   </bean>
 
-  <bean id="dbaSqlExecutor" class="org.kuali.common.jdbc.SqlService">
+  <bean id="dba" class="org.kuali.common.jdbc.JdbcContext">
     <property name="dataSource" ref="dbaDataSource" />
-    <property name="sqlReader" ref="sqlReader" />
-    <property name="showSql" value="true" />
   </bean>
+
+  <bean id="service" class="org.kuali.common.jdbc.SqlService" />
 
 </beans>

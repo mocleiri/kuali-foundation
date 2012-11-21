@@ -81,20 +81,20 @@ public class SqlServiceTest {
 			String dbaUrl = properties.getProperty("jdbc.dba.url");
 			String db = properties.getProperty("sql.database");
 			logger.info("Validating credentials for user '{}' on [{}]", dbaUser, dbaUrl);
-			dbaSqlExecutor.executeString(properties.getProperty("sql.validate"));
+			// dbaSqlExecutor.executeString(properties.getProperty("sql.validate"));
 			logger.info("Dropping [{}] on [{}]", db, dbaUrl);
-			dbaSqlExecutor.executeString(properties.getProperty("sql.dba.drop"));
+			// dbaSqlExecutor.executeString(properties.getProperty("sql.dba.drop"));
 			logger.info("Creating [{}] on [{}]", db, dbaUrl);
-			dbaSqlExecutor.executeString(properties.getProperty("sql.dba.create"));
+			// dbaSqlExecutor.executeString(properties.getProperty("sql.dba.create"));
 			String user = properties.getProperty("jdbc.username");
 			String url = properties.getProperty("jdbc.url");
 			logger.info("Validating credentials for user '{}' on [{}]", user, url);
-			sqlExecutor.executeString(properties.getProperty("sql.validate"));
+			// sqlExecutor.executeString(properties.getProperty("sql.validate"));
 
 			List<String> locations = getLocations();
 			int count = 0;
 			for (String location : locations) {
-				count += sqlExecutor.executeSQL(location);
+				// count += sqlExecutor.executeSQL(location);
 			}
 			logger.info("Executed {} SQL statements", count);
 			logger.info("Elapsed: {}", (System.currentTimeMillis() - start));

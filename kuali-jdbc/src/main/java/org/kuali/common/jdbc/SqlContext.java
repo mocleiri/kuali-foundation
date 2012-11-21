@@ -2,7 +2,7 @@ package org.kuali.common.jdbc;
 
 public class SqlContext {
 
-	SqlReader reader;
+	SqlReader reader = new DefaultSqlReader();
 	boolean show;
 	boolean flatten = true;
 
