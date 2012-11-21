@@ -1,10 +1,12 @@
 package org.kuali.common.jdbc;
 
+import java.util.List;
+
 public class SqlContext {
 
 	SqlReader reader;
 	boolean show;
-	SqlSource source;
+	List<SqlSource> sources;
 
 	public SqlReader getReader() {
 		return reader;
@@ -22,12 +24,11 @@ public class SqlContext {
 		this.show = show;
 	}
 
-	public SqlSource getSource() {
-		return source;
+	public List<SqlSource> getSources() {
+		return sources;
 	}
 
-	public void setSource(SqlSource source) {
-		this.source = source;
+	public void setSources(List<SqlSource> sources) {
+		this.sources = sources;
 	}
-
 }

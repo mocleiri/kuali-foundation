@@ -2,13 +2,10 @@ package org.kuali.common.jdbc;
 
 import javax.sql.DataSource;
 
-public class SqlExecutionContext {
+public class SqlExecutionContext extends SqlContext {
 
 	DataSource dataSource;
-	SqlReader sqlReader;
-	boolean autoCommit;
-	boolean showSql;
-	SqlSource sqlSource;
+	CommitMode commitMode = CommitMode.PER_SOURCE;
 
 	public DataSource getDataSource() {
 		return dataSource;
@@ -18,28 +15,12 @@ public class SqlExecutionContext {
 		this.dataSource = dataSource;
 	}
 
-	public SqlReader getSqlReader() {
-		return sqlReader;
+	public CommitMode getCommitMode() {
+		return commitMode;
 	}
 
-	public void setSqlReader(SqlReader sqlReader) {
-		this.sqlReader = sqlReader;
-	}
-
-	public boolean isAutoCommit() {
-		return autoCommit;
-	}
-
-	public void setAutoCommit(boolean autoCommit) {
-		this.autoCommit = autoCommit;
-	}
-
-	public boolean isShowSql() {
-		return showSql;
-	}
-
-	public void setShowSql(boolean showSql) {
-		this.showSql = showSql;
+	public void setCommitMode(CommitMode commitMode) {
+		this.commitMode = commitMode;
 	}
 
 }

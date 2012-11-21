@@ -2,6 +2,8 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -9,27 +11,31 @@ public class DefaultSqlReader implements SqlReader {
 
 	public static final String DEFAULT_DELIMITER = "/";
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
-	public static final String DEFAULT_COMMENT_TOKEN = "#";
+	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList(new String[] { "#", "--" });
 
 	String delimiter = DEFAULT_DELIMITER;
 	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = true;
 	boolean ignoreComments;
-	String commentToken = DEFAULT_COMMENT_TOKEN;
+	List<String> commentTokens = DEFAULT_COMMENT_TOKENS;
 
 	@Override
 	public String getSqlStatement(BufferedReader reader) throws IOException {
 		String line = reader.readLine();
-		String trimmed = StringUtils.trimToNull(line);
+		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
-		while (line != null && !delimiter.equals(trimmed)) {
-			if (!ignore(line)) {
+		while (isContinue(line, trimmedLine, delimiter)) {
+			if (!ignore(trimmedLine)) {
 				sb.append(line + lineSeparator.getValue());
 			}
 			line = reader.readLine();
-			trimmed = StringUtils.trimToNull(line);
+			trimmedLine = StringUtils.trimToNull(line);
 		}
 		return getReturnValue(sb.toString());
+	}
+
+	protected boolean isContinue(String line, String trimmedLine, String delimiter) {
+		return line != null && !StringUtils.equals(delimiter, trimmedLine);
 	}
 
 	protected String getReturnValue(String sql) {
@@ -47,12 +53,17 @@ public class DefaultSqlReader implements SqlReader {
 		}
 	}
 
-	protected boolean ignore(String line) {
-		return ignoreComments && isComment(line, commentToken);
+	protected boolean ignore(String trimmedLine) {
+		return ignoreComments && isComment(trimmedLine, commentTokens);
 	}
 
-	protected boolean isComment(String line, String commentToken) {
-		return StringUtils.startsWith(StringUtils.trim(line), commentToken);
+	protected boolean isComment(String trimmedLine, List<String> commentTokens) {
+		for (String commentToken : commentTokens) {
+			if (StringUtils.startsWith(trimmedLine, commentToken)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String getDelimiter() {
@@ -77,14 +88,6 @@ public class DefaultSqlReader implements SqlReader {
 
 	public void setIgnoreComments(boolean ignoreComments) {
 		this.ignoreComments = ignoreComments;
-	}
-
-	public String getCommentToken() {
-		return commentToken;
-	}
-
-	public void setCommentToken(String commentToken) {
-		this.commentToken = commentToken;
 	}
 
 	public LineSeparator getLineSeparator() {
