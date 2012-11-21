@@ -14,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
-public class SqlExecutor {
+public class SqlService {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqlExecutor.class);
+	private static final Logger logger = LoggerFactory.getLogger(SqlService.class);
 
 	DataSource dataSource;
 	SqlReader sqlReader;

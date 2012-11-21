@@ -19,10 +19,6 @@
 
   <context:property-placeholder properties-ref="properties" />
 
-  <!--
-    <bean id="tables" class="org.kuali.common.util.spring.ToStringFactoryBean" p:encoding="UTF-8" p:location="${sql.tables.list}" />
-  -->
-
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.url}" />
@@ -46,13 +42,13 @@
     <property name="commentToken" value="${sql.comment.token}" />
   </bean>
 
-  <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
+  <bean id="sqlExecutor" class="org.kuali.common.jdbc.SqlService">
     <property name="dataSource" ref="dataSource" />
     <property name="sqlReader" ref="sqlReader" />
     <property name="showSql" value="true" />
   </bean>
 
-  <bean id="dbaSqlExecutor" class="org.kuali.common.jdbc.SqlExecutor">
+  <bean id="dbaSqlExecutor" class="org.kuali.common.jdbc.SqlService">
     <property name="dataSource" ref="dbaDataSource" />
     <property name="sqlReader" ref="sqlReader" />
     <property name="showSql" value="true" />

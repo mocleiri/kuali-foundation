@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -18,18 +19,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class SqlExecutorTest {
+public class SqlServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqlExecutorTest.class);
-
-	@Autowired
-	private SqlExecutor sqlExecutor = null;
+	private static final Logger logger = LoggerFactory.getLogger(SqlServiceTest.class);
 
 	@Autowired
-	private SqlExecutor dbaSqlExecutor = null;
+	private SqlService sqlExecutor = null;
+
+	@Autowired
+	private SqlService dbaSqlExecutor = null;
 
 	@Autowired
 	private Properties properties = null;
+
+	@Test
+	public void testGetLocations() {
+		getLocations();
+	}
 
 	public List<String> getLocations() {
 		Properties props = PropertyUtils.duplicate(properties);
