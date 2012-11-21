@@ -4,6 +4,7 @@ import java.io.File;
 
 public class SqlSource {
 
+	String encoding;
 	String string;
 	String location;
 	File file;
@@ -39,6 +40,14 @@ public class SqlSource {
 
 	public void setType(SqlSourceType type) {
 		this.type = type;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
