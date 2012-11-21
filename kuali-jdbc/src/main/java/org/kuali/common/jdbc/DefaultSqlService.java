@@ -60,8 +60,11 @@ public class DefaultSqlService implements SqlService {
 
 	protected void show(SqlContext context, String sql, long count) {
 		if (context.isShow()) {
-			String show = context.isFlatten() ? Str.flatten(sql) : sql;
-			logger.info("{} - [{}]", count, show);
+			String log = context.isFlatten() ? Str.flatten(sql) : sql;
+			logger.info("{} - Executing - [{}]", count, log);
+		} else {
+			String log = context.isFlatten() ? Str.flatten(sql) : sql;
+			logger.debug("{} - Executing - [{}]", count, log);
 		}
 	}
 

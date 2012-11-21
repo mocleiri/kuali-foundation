@@ -35,10 +35,6 @@ public class SqlServiceTest {
 
 	@Test
 	public void testGetLocations() {
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
-		for (String key : keys) {
-			// logger.info(key + "=" + Str.flatten(properties.getProperty(key), "CR", "LF"));
-		}
 		List<String> sql = getSql();
 		List<SqlSource> sources = getStringSqlSources(sql);
 		service.executeSql(dba, sources);
