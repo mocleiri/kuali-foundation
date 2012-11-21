@@ -87,8 +87,8 @@ public class DefaultSqlService implements SqlService {
 		}
 		try {
 			statement.close();
-		} catch (SQLException ignored) {
-			; // Ignore
+		} catch (SQLException e) {
+			throw new JdbcException(e);
 		}
 	}
 
@@ -98,8 +98,8 @@ public class DefaultSqlService implements SqlService {
 		}
 		try {
 			DataSourceUtils.doReleaseConnection(conn, dataSource);
-		} catch (SQLException ignored) {
-			; // Ignore
+		} catch (SQLException e) {
+			throw new JdbcException(e);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class DefaultSqlService implements SqlService {
 			for (SqlSource source : sources) {
 				SqlExecutionContext sec = getSqlExecutionContext(context, conn, statement, source, count);
 				count += executeFromSource(sec);
-				afterExecuteSqlSource(sec);
+				afterExecuteSqlFromSource(sec);
 			}
 			afterExecuteSql(context, conn);
 			return count;
@@ -123,24 +123,6 @@ public class DefaultSqlService implements SqlService {
 			throw new JdbcException(e);
 		} finally {
 			closeQuietly(context.getDataSource(), conn, statement);
-		}
-	}
-
-	protected void afterExecuteSql(JdbcContext context, Connection conn) throws SQLException {
-		if (CommitMode.PER_EXECUTION.equals(context.getCommitMode())) {
-			conn.commit();
-		}
-	}
-
-	protected void afterExecuteSqlSource(SqlExecutionContext context) throws SQLException {
-		if (CommitMode.PER_SOURCE.equals(context.getJdbcContext().getCommitMode())) {
-			context.getConnection().commit();
-		}
-	}
-
-	protected void afterExecuteSqlStatement(SqlExecutionContext context) throws SQLException {
-		if (CommitMode.PER_STATEMENT.equals(context.getJdbcContext().getCommitMode())) {
-			context.getConnection().commit();
 		}
 	}
 
@@ -169,6 +151,24 @@ public class DefaultSqlService implements SqlService {
 			statement.execute(sql);
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
+		}
+	}
+
+	protected void afterExecuteSql(JdbcContext context, Connection conn) throws SQLException {
+		if (CommitMode.PER_EXECUTION.equals(context.getCommitMode())) {
+			conn.commit();
+		}
+	}
+
+	protected void afterExecuteSqlFromSource(SqlExecutionContext context) throws SQLException {
+		if (CommitMode.PER_SOURCE.equals(context.getJdbcContext().getCommitMode())) {
+			context.getConnection().commit();
+		}
+	}
+
+	protected void afterExecuteSqlStatement(SqlExecutionContext context) throws SQLException {
+		if (CommitMode.PER_STATEMENT.equals(context.getJdbcContext().getCommitMode())) {
+			context.getConnection().commit();
 		}
 	}
 
