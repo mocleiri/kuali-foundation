@@ -101,41 +101,4 @@ public class SqlServiceTest {
 		return locations;
 	}
 
-	// @Test
-	public void test1() {
-		try {
-			long start = System.currentTimeMillis();
-			logger.info("Jdbc Utils Test");
-			List<String> keys = PropertyUtils.getSortedKeys(properties);
-			for (String key : keys) {
-				logger.info(key + "=" + properties.getProperty(key));
-			}
-			// Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
-			// Assert.assertNotNull("dbaSqlExecutor is null.", dbaSqlExecutor);
-			String dbaUser = properties.getProperty("jdbc.dba.username");
-			String dbaUrl = properties.getProperty("jdbc.dba.url");
-			String db = properties.getProperty("sql.database");
-			logger.info("Validating credentials for user '{}' on [{}]", dbaUser, dbaUrl);
-			// dbaSqlExecutor.executeString(properties.getProperty("sql.validate"));
-			logger.info("Dropping [{}] on [{}]", db, dbaUrl);
-			// dbaSqlExecutor.executeString(properties.getProperty("sql.dba.drop"));
-			logger.info("Creating [{}] on [{}]", db, dbaUrl);
-			// dbaSqlExecutor.executeString(properties.getProperty("sql.dba.create"));
-			String user = properties.getProperty("jdbc.username");
-			String url = properties.getProperty("jdbc.url");
-			logger.info("Validating credentials for user '{}' on [{}]", user, url);
-			// sqlExecutor.executeString(properties.getProperty("sql.validate"));
-
-			List<String> locations = getLocations();
-			int count = 0;
-			for (String location : locations) {
-				// count += sqlExecutor.executeSQL(location);
-			}
-			logger.info("Executed {} SQL statements", count);
-			logger.info("Elapsed: {}", (System.currentTimeMillis() - start));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }
