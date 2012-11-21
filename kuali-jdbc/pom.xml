@@ -98,13 +98,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-impex-master</artifactId>
-      <version>2.2.0-r35682</version>
-      <classifier>sql</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-impex-master</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
@@ -116,6 +109,12 @@
       <artifactId>ole-impex-rice</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
       <classifier>sql</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.ole</groupId>
+      <artifactId>ole-liquibase-sql</artifactId>
+      <version>0.8.0-n-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
