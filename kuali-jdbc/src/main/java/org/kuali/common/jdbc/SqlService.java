@@ -1,9 +1,11 @@
 package org.kuali.common.jdbc;
 
+import java.util.List;
+
 public interface SqlService {
 
-	void executeSql(JdbcContext context);
+	long executeSql(JdbcContext context, List<SqlSource> sources);
 
-	long getSqlStatementCount(SqlContext context);
+	long getSqlStatementCount(SqlContext context, List<SqlSource> sources);
 
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -21,21 +22,31 @@ public class DefaultSqlService implements SqlService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
 
 	@Override
-	public long getSqlStatementCount(SqlContext context) {
+	public long getSqlStatementCount(SqlContext context, List<SqlSource> sources) {
 		long count = 0;
-		for (SqlSource source : context.getSources()) {
-			count += getSqlStatementCount(context.getReader(), source);
+		for (SqlSource source : sources) {
+			count += getSqlStatementCount(context, source, count);
 		}
 		return count;
 	}
 
-	protected long getSqlStatementCount(SqlReader reader, SqlSource source) {
+	protected void show(SqlContext context, String sql, long count) {
+		if (context.isShow()) {
+			String show = context.isFlatten() ? Str.flatten(sql) : sql;
+			logger.info("{} - [{}]", count, show);
+		}
+	}
+
+	protected long getSqlStatementCount(SqlContext context, SqlSource source, long runningCount) {
 		long count = 0;
 		BufferedReader in = null;
 		try {
 			in = getBufferedReader(source);
-			while (reader.getSqlStatement(in) != null) {
+			String sql = context.getReader().getSqlStatement(in);
+			while (sql != null) {
 				count++;
+				show(context, sql, runningCount + count);
+				sql = context.getReader().getSqlStatement(in);
 			}
 			return count;
 		} catch (IOException e) {
@@ -62,41 +73,6 @@ public class DefaultSqlService implements SqlService {
 			return LocationUtils.getBufferedReaderFromString(source.getString(), encoding);
 		default:
 			throw new IllegalArgumentException(source.getType() + " is unknown");
-		}
-	}
-
-	protected int execute(BufferedReader reader) {
-		Connection conn = null;
-		Statement statement = null;
-		int count = 0;
-		try {
-			conn = null; // DataSourceUtils.doGetConnection(dataSource);
-			// conn.setAutoCommit(autoCommit);
-			statement = conn.createStatement();
-			String sql = null;// sqlReader.getSqlStatement(reader);
-			while (sql != null) {
-				count++;
-				// if (showSql) {
-				// logger.info("{} - [{}]", count, Str.flatten(sql));
-				// }
-				executeSQL(statement, sql);
-				sql = null;// sqlReader.getSqlStatement(reader);
-			}
-			conn.commit();
-			return count;
-		} catch (Exception e) {
-			throw new JdbcException(e);
-		} finally {
-			IOUtils.closeQuietly(reader);
-			closeQuietly(null, conn, statement);
-		}
-	}
-
-	protected void executeSQL(Statement statement, String sql) throws SQLException {
-		try {
-			statement.execute(sql);
-		} catch (SQLException ignored) {
-			; // Ignore
 		}
 	}
 
@@ -128,41 +104,82 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	@Override
-	public void executeSql(JdbcContext context) {
-		long count = 0;
-		for (SqlSource source : context.getSources()) {
-			count += executeSql(context, source);
-		}
-		logger.info("Executed {} sql statements", count);
-	}
-
-	protected long executeSql(JdbcContext context, SqlSource source) {
+	public long executeSql(JdbcContext context, List<SqlSource> sources) {
 		Connection conn = null;
 		Statement statement = null;
+		long count = 0;
+		try {
+			conn = DataSourceUtils.doGetConnection(context.getDataSource());
+			conn.setAutoCommit(false);
+			statement = conn.createStatement();
+			for (SqlSource source : sources) {
+				SqlExecutionContext sec = getSqlExecutionContext(context, conn, statement, source, count);
+				count += executeFromSource(sec);
+				afterExecuteSqlSource(sec);
+			}
+			afterExecuteSql(context, conn);
+			return count;
+		} catch (Exception e) {
+			throw new JdbcException(e);
+		} finally {
+			closeQuietly(context.getDataSource(), conn, statement);
+		}
+	}
+
+	protected void afterExecuteSql(JdbcContext context, Connection conn) throws SQLException {
+		if (CommitMode.PER_EXECUTION.equals(context.getCommitMode())) {
+			conn.commit();
+		}
+	}
+
+	protected void afterExecuteSqlSource(SqlExecutionContext context) throws SQLException {
+		if (CommitMode.PER_SOURCE.equals(context.getJdbcContext().getCommitMode())) {
+			context.getConnection().commit();
+		}
+	}
+
+	protected void afterExecuteSqlStatement(SqlExecutionContext context) throws SQLException {
+		if (CommitMode.PER_STATEMENT.equals(context.getJdbcContext().getCommitMode())) {
+			context.getConnection().commit();
+		}
+	}
+
+	protected long executeFromSource(SqlExecutionContext context) {
 		int count = 0;
 		BufferedReader in = null;
 		try {
-			in = getBufferedReader(source);
-			conn = DataSourceUtils.doGetConnection(context.getDataSource());
-			// conn.setAutoCommit(autoCommit);
-			statement = conn.createStatement();
-			String sql = context.getReader().getSqlStatement(in);
+			in = getBufferedReader(context.getSource());
+			String sql = context.getJdbcContext().getReader().getSqlStatement(in);
 			while (sql != null) {
 				count++;
-				if (context.isShow()) {
-					logger.info("{} - [{}]", count, Str.flatten(sql));
-				}
-				executeSQL(statement, sql);
-				sql = context.getReader().getSqlStatement(in);
+				show(context.getJdbcContext(), sql, context.getRunningCount() + count);
+				executeSQL(context.getStatement(), sql);
+				afterExecuteSqlStatement(context);
 			}
-			conn.commit();
 			return count;
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
 			IOUtils.closeQuietly(in);
-			closeQuietly(context.getDataSource(), conn, statement);
 		}
+	}
+
+	protected void executeSQL(Statement statement, String sql) throws SQLException {
+		try {
+			statement.execute(sql);
+		} catch (SQLException e) {
+			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
+		}
+	}
+
+	protected SqlExecutionContext getSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount) {
+		SqlExecutionContext sec = new SqlExecutionContext();
+		sec.setJdbcContext(context);
+		sec.setConnection(conn);
+		sec.setStatement(stmt);
+		sec.setSource(source);
+		sec.setRunningCount(runningCount);
+		return sec;
 	}
 
 }

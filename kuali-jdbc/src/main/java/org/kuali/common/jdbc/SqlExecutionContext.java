@@ -5,10 +5,19 @@ import java.sql.Statement;
 
 public class SqlExecutionContext {
 
+	JdbcContext jdbcContext;
 	Connection connection;
 	Statement statement;
-	SqlReader reader;
-	CommitMode commitMode;
+	SqlSource source;
+	long runningCount;
+
+	public JdbcContext getJdbcContext() {
+		return jdbcContext;
+	}
+
+	public void setJdbcContext(JdbcContext context) {
+		this.jdbcContext = context;
+	}
 
 	public Connection getConnection() {
 		return connection;
@@ -26,19 +35,20 @@ public class SqlExecutionContext {
 		this.statement = statement;
 	}
 
-	public SqlReader getReader() {
-		return reader;
+	public SqlSource getSource() {
+		return source;
 	}
 
-	public void setReader(SqlReader reader) {
-		this.reader = reader;
+	public void setSource(SqlSource source) {
+		this.source = source;
 	}
 
-	public CommitMode getCommitMode() {
-		return commitMode;
+	public long getRunningCount() {
+		return runningCount;
 	}
 
-	public void setCommitMode(CommitMode commitMode) {
-		this.commitMode = commitMode;
+	public void setRunningCount(long runningCount) {
+		this.runningCount = runningCount;
 	}
+
 }
