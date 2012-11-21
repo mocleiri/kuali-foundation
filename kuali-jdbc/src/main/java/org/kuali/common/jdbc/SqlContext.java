@@ -1,45 +1,33 @@
 package org.kuali.common.jdbc;
 
-import javax.sql.DataSource;
-
 public class SqlContext {
 
-	DataSource dataSource;
-	SqlReader sqlReader;
-	boolean autoCommit;
-	boolean showSql;
-	SqlSource sqlSource;
+	SqlReader reader;
+	boolean show;
+	SqlSource source;
 
-	public DataSource getDataSource() {
-		return dataSource;
+	public SqlReader getReader() {
+		return reader;
 	}
 
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public void setReader(SqlReader reader) {
+		this.reader = reader;
 	}
 
-	public SqlReader getSqlReader() {
-		return sqlReader;
+	public boolean isShow() {
+		return show;
 	}
 
-	public void setSqlReader(SqlReader sqlReader) {
-		this.sqlReader = sqlReader;
+	public void setShow(boolean show) {
+		this.show = show;
 	}
 
-	public boolean isAutoCommit() {
-		return autoCommit;
+	public SqlSource getSource() {
+		return source;
 	}
 
-	public void setAutoCommit(boolean autoCommit) {
-		this.autoCommit = autoCommit;
-	}
-
-	public boolean isShowSql() {
-		return showSql;
-	}
-
-	public void setShowSql(boolean showSql) {
-		this.showSql = showSql;
+	public void setSource(SqlSource source) {
+		this.source = source;
 	}
 
 }
