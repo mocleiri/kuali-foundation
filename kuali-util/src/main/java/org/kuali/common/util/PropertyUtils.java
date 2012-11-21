@@ -41,11 +41,11 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().toString();
 
 	/**
-	 * Return any keys from the <code>properties</code> passed in that end with <code>suffix</code>.
+	 * Return a sorted <code>List</code> of keys from <code>properties</code> that end with <code>suffix</code>.
 	 */
 	public static final List<String> getEndsWithKeys(Properties properties, String suffix) {
-		List<String> matches = new ArrayList<String>();
 		List<String> keys = getSortedKeys(properties);
+		List<String> matches = new ArrayList<String>();
 		for (String key : keys) {
 			if (StringUtils.endsWith(key, suffix)) {
 				matches.add(key);
@@ -105,6 +105,20 @@ public class PropertyUtils {
 			}
 		}
 		return includedKeys;
+	}
+
+	/**
+	 * Return a sorted <code>List</code> of keys from <code>properties</code> that start with <code>prefix</code>
+	 */
+	public static final List<String> getStartsWithKeys(Properties properties, String prefix) {
+		List<String> keys = getSortedKeys(properties);
+		List<String> matches = new ArrayList<String>();
+		for (String key : keys) {
+			if (StringUtils.startsWith(key, prefix)) {
+				matches.add(key);
+			}
+		}
+		return matches;
 	}
 
 	/**
@@ -185,7 +199,8 @@ public class PropertyUtils {
 	 * <code>NONE</code> the new properties are a duplicate of the properties passed in. If <code>mode</code> is <code>ENVIRONMENT</code>
 	 * the new properties contain the original properties plus any properties returned by <code>getEnvProperties()</code>. If
 	 * <code>mode</code> is <code>SYSTEM</code> the new properties contain the original properties plus <code>System.getProperties()</code>.
-	 * If <code>mode</code> is <code>BOTH</code> the new properties contain the original properties plus environment AND system properties.
+	 * If <code>mode</code> is <code>BOTH</code> the new properties contain the original properties plus <code>getEnvProperties()</code> and
+	 * <code>System.getProperties()</code>.
 	 */
 	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties newProperties = duplicate(properties);
@@ -201,8 +216,8 @@ public class PropertyUtils {
 	 * properties are empty. If <code>mode</code> is <code>ENVIRONMENT</code> the new properties contain the properties returned by
 	 * <code>getEnvProperties()</code>. If <code>mode</code> is <code>SYSTEM</code> the new properties contain
 	 * <code>System.getProperties()</code>. If <code>mode</code> is <code>BOTH</code> the new properties contain
-	 * <code>getEnvProperties</code> plus <code>System.getProperties()</code> with system properties overriding environment variables in the
-	 * case of duplicate properties.
+	 * <code>getEnvProperties</code> plus <code>System.getProperties()</code> with system properties overriding environment variables if the
+	 * same case sensitive property key is supplied in both places.
 	 */
 	public static final Properties getProperties(GlobalPropertiesMode mode) {
 		return getProperties(new Properties(), mode);
