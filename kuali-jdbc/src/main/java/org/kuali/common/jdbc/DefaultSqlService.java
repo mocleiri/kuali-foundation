@@ -142,7 +142,7 @@ public class DefaultSqlService implements SqlService {
 			statement = conn.createStatement();
 			for (SqlSource source : sources) {
 				SqlExecutionContext sec = getSqlExecutionContext(context, conn, statement, source, count);
-				count += executeFromSource(sec);
+				count += executeSqlFromSource(sec);
 				afterExecuteSqlFromSource(sec);
 			}
 			afterExecuteSql(context, conn);
@@ -154,17 +154,19 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	protected long executeFromSource(SqlExecutionContext context) {
+	protected long executeSqlFromSource(SqlExecutionContext context) {
 		int count = 0;
 		BufferedReader in = null;
 		try {
 			in = getBufferedReader(context.getSource());
-			String sql = context.getJdbcContext().getReader().getSqlStatement(in);
+			SqlReader reader = context.getJdbcContext().getReader();
+			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				count++;
 				show(context.getJdbcContext(), sql, context.getRunningCount() + count);
-				executeSQL(context.getStatement(), sql);
+				executeSqlStatement(context.getStatement(), sql);
 				afterExecuteSqlStatement(context);
+				sql = reader.getSqlStatement(in);
 			}
 			return count;
 		} catch (Exception e) {
@@ -174,7 +176,7 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	protected void executeSQL(Statement statement, String sql) throws SQLException {
+	protected void executeSqlStatement(Statement statement, String sql) throws SQLException {
 		try {
 			statement.execute(sql);
 		} catch (SQLException e) {
