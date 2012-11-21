@@ -27,12 +27,44 @@ public class SqlServiceTest {
 	@Autowired
 	private Properties properties = null;
 
+	@Autowired
+	private JdbcContext normal = null;
+
+	@Autowired
+	private JdbcContext dba = null;
+
 	@Test
 	public void testGetLocations() {
-		getLocations();
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			// logger.info(key + "=" + Str.flatten(properties.getProperty(key), "CR", "LF"));
+		}
+		List<String> sql = getSql();
+		List<SqlSource> sources = getStringSqlSources(sql);
+		service.executeSql(dba, sources);
+		// List<String> locations = getLocations();
 	}
 
-	public List<String> getLocations() {
+	protected List<SqlSource> getStringSqlSources(List<String> sql) {
+		List<SqlSource> sources = new ArrayList<SqlSource>();
+		for (String s : sql) {
+			SqlSource source = new SqlSource();
+			source.setString(s);
+			source.setType(SqlSourceType.STRING);
+			sources.add(source);
+		}
+		return sources;
+	}
+
+	protected List<String> getSql() {
+		List<String> sql = new ArrayList<String>();
+		sql.add(properties.getProperty("sql.validate"));
+		sql.add(properties.getProperty("sql.dba.drop"));
+		sql.add(properties.getProperty("sql.dba.create"));
+		return sql;
+	}
+
+	protected List<String> getLocations() {
 		List<String> locations = getLocations(properties);
 		for (String location : locations) {
 			Assert.assertTrue(LocationUtils.exists(location));
@@ -42,9 +74,9 @@ public class SqlServiceTest {
 	}
 
 	protected List<String> getLocations(Properties properties) {
-		List<String> schemas = PropertyUtils.getStartsWithKeys(properties, "schema.loc");
-		List<String> dataLocs = PropertyUtils.getStartsWithKeys(properties, "data.meta");
-		List<String> constraints = PropertyUtils.getStartsWithKeys(properties, "constraints.loc");
+		List<String> schemas = PropertyUtils.getStartsWithKeys(properties, "sql.schema.loc");
+		List<String> dataLocs = PropertyUtils.getStartsWithKeys(properties, "sql.data.meta");
+		List<String> constraints = PropertyUtils.getStartsWithKeys(properties, "sql.constraints.loc");
 		List<String> locations = new ArrayList<String>();
 		for (String schema : schemas) {
 			locations.add(properties.getProperty(schema));
@@ -65,6 +97,10 @@ public class SqlServiceTest {
 		try {
 			long start = System.currentTimeMillis();
 			logger.info("Jdbc Utils Test");
+			List<String> keys = PropertyUtils.getSortedKeys(properties);
+			for (String key : keys) {
+				logger.info(key + "=" + properties.getProperty(key));
+			}
 			// Assert.assertNotNull("sqlExecutor is null.", sqlExecutor);
 			// Assert.assertNotNull("dbaSqlExecutor is null.", dbaSqlExecutor);
 			String dbaUser = properties.getProperty("jdbc.dba.username");

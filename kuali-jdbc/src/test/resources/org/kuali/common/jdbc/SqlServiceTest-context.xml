@@ -38,7 +38,7 @@
     <property name="dataSource" ref="dataSource" />
   </bean>
 
-  <bean id="dba" class="org.kuali.common.jdbc.JdbcContext">
+  <bean id="dba" class="org.kuali.common.jdbc.JdbcContext" p:show="true" p:flatten="true">
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
