@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc;
 
-public interface JdbcService {
+public interface SqlService {
 
 	void executeSql(JdbcContext context);
 

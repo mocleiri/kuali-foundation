@@ -10,14 +10,15 @@ import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.util.Assert;
 
-public class DefaultJdbcService implements JdbcService {
+public class DefaultSqlService implements SqlService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
 
 	@Override
 	public long getSqlStatementCount(SqlContext context) {
@@ -28,7 +29,7 @@ public class DefaultJdbcService implements JdbcService {
 		return count;
 	}
 
-	public long getSqlStatementCount(SqlReader reader, SqlSource source) {
+	protected long getSqlStatementCount(SqlReader reader, SqlSource source) {
 		long count = 0;
 		BufferedReader in = null;
 		try {
@@ -128,7 +129,40 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(JdbcContext context) {
-		// TODO Auto-generated method stub
-
+		long count = 0;
+		for (SqlSource source : context.getSources()) {
+			count += executeSql(context, source);
+		}
+		logger.info("Executed {} sql statements", count);
 	}
+
+	protected long executeSql(JdbcContext context, SqlSource source) {
+		Connection conn = null;
+		Statement statement = null;
+		int count = 0;
+		BufferedReader in = null;
+		try {
+			in = getBufferedReader(source);
+			conn = DataSourceUtils.doGetConnection(context.getDataSource());
+			// conn.setAutoCommit(autoCommit);
+			statement = conn.createStatement();
+			String sql = context.getReader().getSqlStatement(in);
+			while (sql != null) {
+				count++;
+				if (context.isShow()) {
+					logger.info("{} - [{}]", count, Str.flatten(sql));
+				}
+				executeSQL(statement, sql);
+				sql = context.getReader().getSqlStatement(in);
+			}
+			conn.commit();
+			return count;
+		} catch (Exception e) {
+			throw new JdbcException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+			closeQuietly(context.getDataSource(), conn, statement);
+		}
+	}
+
 }
