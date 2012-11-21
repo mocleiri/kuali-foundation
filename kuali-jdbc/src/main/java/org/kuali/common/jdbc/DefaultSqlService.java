@@ -61,10 +61,10 @@ public class DefaultSqlService implements SqlService {
 	protected void show(SqlContext context, String sql, long count) {
 		if (context.isShow()) {
 			String log = context.isFlatten() ? Str.flatten(sql) : sql;
-			logger.info("{} - Executing - [{}]", count, log);
+			logger.info("{} - SQL - [{}]", count, log);
 		} else {
 			String log = context.isFlatten() ? Str.flatten(sql) : sql;
-			logger.debug("{} - Executing - [{}]", count, log);
+			logger.debug("{} - SQL - [{}]", count, log);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class DefaultSqlService implements SqlService {
 			while (sql != null) {
 				count++;
 				show(context.getJdbcContext(), sql, context.getRunningCount() + count);
-				executeSqlStatement(context.getStatement(), sql);
+				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);
 			}
@@ -179,9 +179,9 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	protected void executeSqlStatement(Statement statement, String sql) throws SQLException {
+	protected void executeSqlStatement(SqlExecutionContext context, String sql) throws SQLException {
 		try {
-			statement.execute(sql);
+			context.getStatement().execute(sql);
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
 		}

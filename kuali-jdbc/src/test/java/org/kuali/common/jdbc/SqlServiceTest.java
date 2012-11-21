@@ -34,13 +34,23 @@ public class SqlServiceTest {
 	private JdbcContext dba = null;
 
 	@Test
-	public void testGetLocations() {
+	public void testOLEDatabaseProcess() {
 		List<String> sql = getSql();
 		List<SqlSource> dbaSql = getStringSqlSources(sql);
-		service.executeSql(dba, dbaSql);
+		dba.setShow(false);
+		long count = service.getSqlStatementCount(dba, dbaSql);
+		logger.info("Located {} dba sql statements to execute", count);
+		long executed = service.executeSql(dba, dbaSql);
+		logger.info("Executed {} dba sql statements", executed);
 		List<String> locations = getLocations();
 		List<SqlSource> sources = getLocationSqlSources(locations);
-		service.executeSql(normal, sources);
+		normal.setShow(false);
+		long start = System.currentTimeMillis();
+		logger.info("Examining {} locations for SQL to execute", sources.size());
+		count = service.getSqlStatementCount(normal, sources);
+		long elapsed = System.currentTimeMillis() - start;
+		logger.info("Located {} SQL statements in {} millis", count, elapsed);
+		// service.executeSql(normal, sources);
 	}
 
 	protected List<SqlSource> getLocationSqlSources(List<String> locations) {
