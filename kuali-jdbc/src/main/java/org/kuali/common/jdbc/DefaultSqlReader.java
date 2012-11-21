@@ -36,7 +36,7 @@ public class DefaultSqlReader implements SqlReader {
 	@Override
 	public String getSqlStatement(BufferedReader reader) {
 		String line = readLine(reader);
-		String trimmed = StringUtils.isBlank(line) ? null : line.trim();
+		String trimmed = StringUtils.trim(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null && !delimiter.equals(trimmed)) {
 			if (!ignore(line)) {
@@ -65,12 +65,12 @@ public class DefaultSqlReader implements SqlReader {
 		try {
 			return reader.readLine();
 		} catch (IOException e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("Unexpected IO error", e);
 		}
 	}
 
 	protected boolean ignore(String line) {
-		return ignoreComments && line.trim().startsWith(commentToken);
+		return ignoreComments && StringUtils.startsWith(StringUtils.trim(line), commentToken);
 	}
 
 	public String getDelimiter() {
