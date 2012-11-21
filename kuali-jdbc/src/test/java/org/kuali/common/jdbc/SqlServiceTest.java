@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,34 +93,4 @@ public class SqlServiceTest {
 		}
 	}
 
-	protected List<String> getSchemaLocations(String[] schemas) {
-		List<String> schemaLocs = new ArrayList<String>();
-		List<String> constraintLocs = new ArrayList<String>();
-		for (String schema : schemas) {
-			Properties schemaProps = new Properties();
-			schemaProps.putAll(properties);
-			schemaProps.putAll(PropertyUtils.load("classpath:org/kuali/common/jdbc/schema.properties"));
-			schemaProps.setProperty("sql.schema", schema);
-			ResolvePlaceholdersModifier modifier = new ResolvePlaceholdersModifier();
-			modifier.modify(schemaProps);
-			String schemaLocation = schemaProps.getProperty("sql.schema.location");
-			String schemaConstraintsLocation = schemaProps.getProperty("sql.schema.location.constraints");
-			schemaLocs.add(schemaLocation);
-			constraintLocs.add(schemaConstraintsLocation);
-		}
-		List<String> locs = new ArrayList<String>();
-		locs.addAll(schemaLocs);
-		locs.addAll(constraintLocs);
-		return locs;
-	}
-
-	protected List<String> getTableLocations(String base, String tables) {
-		List<String> lines = LocationUtils.readLinesFromString(tables);
-		List<String> tableLocations = new ArrayList<String>();
-		for (String line : lines) {
-			String tableLocation = base + "/" + line + ".sql";
-			tableLocations.add(tableLocation);
-		}
-		return tableLocations;
-	}
 }
