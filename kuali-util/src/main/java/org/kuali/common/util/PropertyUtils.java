@@ -41,6 +41,17 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().toString();
 
 	/**
+	 * Return the property values from <code>keys</code>
+	 */
+	public static final List<String> getValues(Properties properties, List<String> keys) {
+		List<String> values = new ArrayList<String>();
+		for (String key : keys) {
+			values.add(properties.getProperty(key));
+		}
+		return values;
+	}
+
+	/**
 	 * Return a sorted <code>List</code> of keys from <code>properties</code> that end with <code>suffix</code>.
 	 */
 	public static final List<String> getEndsWithKeys(Properties properties, String suffix) {
