@@ -19,8 +19,8 @@ public class DefaultSqlService implements SqlService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
 
-	protected SqlMetadata execute(JdbcContext context, SqlSource source) {
-		return execute(context, Collections.singletonList(source));
+	protected SqlMetadata executeSource(JdbcContext context, SqlSource source) {
+		return executeSources(context, Collections.singletonList(source));
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata executeLocations(JdbcContext context, List<String> locations) {
-		return execute(context, JdbcUtils.getLocationSqlSources(locations));
+		return executeSources(context, JdbcUtils.getLocationSqlSources(locations));
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata executeStrings(JdbcContext context, List<String> sql) {
-		return execute(context, JdbcUtils.getStringSqlSources(sql));
+		return executeSources(context, JdbcUtils.getStringSqlSources(sql));
 	}
 
-	protected SqlMetadata execute(JdbcContext context, List<SqlSource> sources) {
+	protected SqlMetadata executeSources(JdbcContext context, List<SqlSource> sources) {
 		Connection conn = null;
 		Statement statement = null;
 		long count = 0;
