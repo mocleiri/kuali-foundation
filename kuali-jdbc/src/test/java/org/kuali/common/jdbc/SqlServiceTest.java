@@ -65,21 +65,21 @@ public class SqlServiceTest {
 	}
 
 	protected void doDba(SqlService service, JdbcContext context, List<String> dbaSql) {
-		logger.info("Executing dba SQL");
+		logger.info("Executing DBA SQL");
 		SqlMetadata metadata = service.execute(context, dbaSql);
-		logExecution("Total dba SQL statements: {}  Total sources: {}  Total time: {}", metadata);
+		logExecution("Total DBA SQL statements: {}  Sources: {}  Total time: {}", metadata);
 	}
 
 	protected void doSchema(SqlService service, JdbcContext context, Properties properties) {
 		logger.info("Executing schema SQL");
 		SqlMetadata metadata = doDDL(service, context, properties, "sql.schema.loc");
-		logExecution("Executed {} schema SQL statements from {} sources.  Total time: {}", metadata);
+		logExecution("Total schema SQL statements: {}  Sources: {}  Total time: {}", metadata);
 	}
 
 	protected void doConstraints(SqlService service, JdbcContext context, Properties properties) {
 		logger.info("Executing constraints SQL");
 		SqlMetadata metadata = doDDL(service, context, properties, "sql.constraints.loc");
-		logExecution("Executed {} constraints SQL statements from {} sources.  Total time: {}", metadata);
+		logExecution("Total constraints SQL statements: {}  Sources: {}  Total time: {}", metadata);
 	}
 
 	protected void doData(SqlService service, JdbcContext context, Properties properties) {
@@ -88,7 +88,7 @@ public class SqlServiceTest {
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
 		SqlMetadata metadata = service.executeLocations(context, locations);
-		logExecution("Executed {} data load SQL statements from {} sources.  Total time: {}", metadata);
+		logExecution("Total data load SQL statements: {}  Sources: {}  Total time: {}", metadata);
 	}
 
 	protected SqlMetadata doDDL(SqlService service, JdbcContext context, Properties properties, String prefix) {
