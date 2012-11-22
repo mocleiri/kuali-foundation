@@ -4,7 +4,7 @@ public class SqlSource {
 
 	String encoding;
 	String string;
-	StringType type;
+	SqlStringType type;
 
 	public String getString() {
 		return string;
@@ -14,11 +14,11 @@ public class SqlSource {
 		this.string = string;
 	}
 
-	public StringType getType() {
+	public SqlStringType getType() {
 		return type;
 	}
 
-	public void setType(StringType type) {
+	public void setType(SqlStringType type) {
 		this.type = type;
 	}
 

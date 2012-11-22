@@ -56,17 +56,18 @@ public class SqlServiceTest {
 			logger.info("DBA User - " + process.getDba().getUsername());
 			logger.info("----------------------------------");
 			doDba(service, dba, dbaSql);
-			doSchema(service, normal, properties);
-			doData(service, normal, properties);
-			doConstraints(service, normal, properties);
+			// doSchema(service, normal, properties);
+			// doData(service, normal, properties);
+			// doConstraints(service, normal, properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	protected void doDba(SqlService service, JdbcContext context, List<String> dbaSql) {
+		logger.info("Executing dba SQL");
 		SqlMetadata metadata = service.execute(context, dbaSql);
-		logger.info("Executed {} dba sql statements", metadata.getCount());
+		logExecution("Total dba SQL statements: {}  Total sources: {}  Total time: {}", metadata);
 	}
 
 	protected void doSchema(SqlService service, JdbcContext context, Properties properties) {

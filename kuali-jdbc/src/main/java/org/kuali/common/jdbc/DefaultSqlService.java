@@ -174,9 +174,9 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	protected void logSource(SqlExecutionContext context) {
-		StringType type = context.getSource().getType();
+		SqlStringType type = context.getSource().getType();
 		switch (type) {
-		case DATA:
+		case SQL:
 			return;
 		case LOCATION:
 			logger.info("Executing {}", context.getSource().getString());
