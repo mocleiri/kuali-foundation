@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Assert;
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
@@ -26,6 +27,9 @@ public class SqlServiceTest {
 	private SqlService service = null;
 
 	@Autowired
+	private DatabaseProcessContext process = null;
+
+	@Autowired
 	private Properties properties = null;
 
 	@Autowired
@@ -34,58 +38,78 @@ public class SqlServiceTest {
 	@Autowired
 	private JdbcContext dba = null;
 
+	@Resource(name = "dbaSql")
+	private List<String> dbaSql = null;
+
+	@Autowired
+	private SimpleFormatter formatter = null;
+
 	@Test
 	public void testOLEDatabaseProcess() {
-		SimpleFormatter sf = new SimpleFormatter();
-		List<String> locations = getLocations();
-		logger.info("Examining {} locations for SQL", locations.size());
-		long start = System.currentTimeMillis();
-		SqlMetadata metadata = service.getLocationsMetadata(normal, locations);
-		long elapsed = System.currentTimeMillis() - start;
-		logger.info("Found {} SQL statements.  Total time: {}", sf.getCount(metadata.getCount()), sf.getTime(elapsed));
-		start = System.currentTimeMillis();
-		// metadata = service.executeSql(normal, sources);
-		// elapsed = System.currentTimeMillis() - start;
-		// logger.info("Executed {} sql statements in {} millis", metadata.getCount(), elapsed);
+		try {
+			normal.setShow(true);
+			logger.info("-------- JDBC Information --------");
+			logger.info("DBA URL - " + process.getDba().getUrl());
+			logger.info("DBA User - " + process.getDba().getUsername());
+			logger.info("Driver - " + process.getDriver());
+			logger.info("URL - " + process.getNormal().getUrl());
+			logger.info("User - " + process.getNormal().getUsername());
+			logger.info("----------------------------------");
+			doDba(service, dba, dbaSql);
+			doSchema(service, normal, properties);
+			doData(service, normal, properties);
+			doConstraints(service, normal, properties);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	protected void doDba() {
-		List<String> dbaSql = getDbaSql();
-		SqlMetadata metadata = service.execute(dba, dbaSql);
+	protected void doDba(SqlService service, JdbcContext context, List<String> dbaSql) {
+		SqlMetadata metadata = service.execute(context, dbaSql);
 		logger.info("Executed {} dba sql statements", metadata.getCount());
 	}
 
-	protected List<String> getDbaSql() {
-		List<String> sql = new ArrayList<String>();
-		sql.add(properties.getProperty("sql.validate"));
-		sql.add(properties.getProperty("sql.dba.drop"));
-		sql.add(properties.getProperty("sql.dba.create"));
-		return sql;
+	protected void doSchema(SqlService service, JdbcContext context, Properties properties) {
+		logger.info("Executing schema SQL");
+		long start = System.currentTimeMillis();
+		SqlMetadata metadata = doPrefix(service, context, properties, "sql.schema.loc");
+		long elapsed = System.currentTimeMillis() - start;
+		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
+		logger.info("Executed {} schema SQL statements from {} sources.  Total time: {}", args);
 	}
 
-	protected List<String> getLocations() {
-		List<String> locations = getLocations(properties);
-		for (String location : locations) {
-			Assert.assertTrue(LocationUtils.exists(location));
-		}
-		return locations;
+	protected void doConstraints(SqlService service, JdbcContext context, Properties properties) {
+		logger.info("Executing constraints SQL");
+		long start = System.currentTimeMillis();
+		SqlMetadata metadata = doPrefix(service, context, properties, "sql.constraints.loc");
+		long elapsed = System.currentTimeMillis() - start;
+		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
+		logger.info("Executed {} constraints SQL statements from {} sources.  Total time: {}", args);
 	}
 
-	protected List<String> getLocations(Properties properties) {
-		List<String> schemas = PropertyUtils.getStartsWithKeys(properties, "sql.schema.loc");
-		List<String> dataLocs = PropertyUtils.getStartsWithKeys(properties, "sql.data.meta");
-		List<String> constraints = PropertyUtils.getStartsWithKeys(properties, "sql.constraints.loc");
+	protected void doData(SqlService service, JdbcContext context, Properties properties) {
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, "sql.data.meta");
+		List<String> resourceListings = PropertyUtils.getValues(properties, keys);
+		List<String> locations = getLocations(resourceListings);
+		logger.info("Executing data load SQL");
+		long start = System.currentTimeMillis();
+		SqlMetadata metadata = service.executeLocations(context, locations);
+		long elapsed = System.currentTimeMillis() - start;
+		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
+		logger.info("Executed {} data load SQL statements from {} sources.  Total time: {}", args);
+	}
+
+	protected SqlMetadata doPrefix(SqlService service, JdbcContext context, Properties properties, String prefix) {
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
+		List<String> locations = PropertyUtils.getValues(properties, keys);
+		return service.execute(context, locations);
+	}
+
+	protected List<String> getLocations(List<String> resourceListings) {
 		List<String> locations = new ArrayList<String>();
-		for (String schema : schemas) {
-			locations.add(properties.getProperty(schema));
-		}
-		for (String dataLoc : dataLocs) {
-			String location = properties.getProperty(dataLoc);
-			List<String> list = LocationUtils.readLines(location);
-			locations.addAll(list);
-		}
-		for (String constraint : constraints) {
-			locations.add(properties.getProperty(constraint));
+		for (String resourceListing : resourceListings) {
+			List<String> lines = LocationUtils.readLines(resourceListing);
+			locations.addAll(lines);
 		}
 		return locations;
 	}

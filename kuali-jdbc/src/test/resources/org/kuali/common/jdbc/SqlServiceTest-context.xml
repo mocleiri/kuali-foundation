@@ -17,36 +17,43 @@
     </property>
   </bean>
 
+  <util:list id="dbaSql">
+    <value>${sql.validate}</value>
+    <value>${sql.dba.drop}</value>
+    <value>${sql.dba.create}</value>
+  </util:list>
+
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
 
+  <bean id="formatter" class="org.kuali.common.util.SimpleFormatter" />
+
   <bean id="normalContext" class="org.kuali.common.jdbc.DatabaseContext">
-    <property name="driver" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.url}" />
     <property name="username" value="${jdbc.username}" />
     <property name="password" value="${jdbc.password}" />
   </bean>
 
   <bean id="dbaContext" class="org.kuali.common.jdbc.DatabaseContext">
-    <property name="driver" value="${jdbc.driverClassName}" />
-    <property name="url" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
+    <property name="url" value="${jdbc.dba.url}" />
+    <property name="username" value="${jdbc.dba.username}" />
+    <property name="password" value="${jdbc.dba.password}" />
   </bean>
 
   <bean id="process" class="org.kuali.common.jdbc.DatabaseProcessContext">
+    <property name="driver" value="${jdbc.driverClassName}" />
     <property name="dba" ref="dbaContext" />
     <property name="normal" ref="normalContext" />
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="#{normalContext.driver}" />
+    <property name="driverClassName" value="#{process.driver}" />
     <property name="url" value="#{normalContext.url}" />
     <property name="username" value="#{normalContext.username}" />
     <property name="password" value="#{normalContext.password}" />
   </bean>
 
   <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="#{dbaContext.driver}" />
+    <property name="driverClassName" value="#{process.driver}" />
     <property name="url" value="#{dbaContext.url}" />
     <property name="username" value="#{dbaContext.username}" />
     <property name="password" value="#{dbaContext.password}" />
