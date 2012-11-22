@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -173,9 +172,6 @@ public class DefaultSqlService implements SqlService {
 		SqlSourceType type = context.getSource().getType();
 		switch (type) {
 		case STRING:
-			return;
-		case FILE:
-			logger.info("Executing {}", LocationUtils.getCanonicalPath(context.getSource().getFile()));
 			return;
 		case LOCATION:
 			logger.info("Executing {}", context.getSource().getLocation());

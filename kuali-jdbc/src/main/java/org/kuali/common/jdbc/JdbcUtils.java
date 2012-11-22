@@ -22,11 +22,6 @@ public class JdbcUtils {
 	public static final BufferedReader getBufferedReader(SqlSource source) {
 		String encoding = source.getEncoding();
 		switch (source.getType()) {
-		case FILE:
-			Assert.notNull(source.getFile());
-			String path = LocationUtils.getCanonicalPath(source.getFile());
-			logger.debug("Opening {}", path);
-			return LocationUtils.getBufferedReader(source.getFile(), encoding);
 		case LOCATION:
 			Assert.notNull(source.getLocation());
 			logger.debug("Opening {}", source.getLocation());

@@ -1,5 +1,5 @@
 package org.kuali.common.jdbc;
 
 public enum SqlSourceType {
-	STRING, LOCATION, FILE;
+	STRING, LOCATION;
 }
