@@ -24,15 +24,19 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocations(String location, LocationType type) {
+	public static final List<String> getLocations(String location, LocationType type, String encoding) {
 		switch (type) {
 		case LOCATION:
 			return Collections.singletonList(location);
 		case LOCATIONLIST:
-			return getLocations(location);
+			return getLocations(location, encoding);
 		default:
 			throw new IllegalArgumentException(type + " is unknown");
 		}
+	}
+
+	public static final List<String> getLocations(String location, LocationType type) {
+		return getLocations(location, type, null);
 	}
 
 	public static final List<String> getLocations(String locationsList) {
