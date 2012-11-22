@@ -8,15 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.util.Assert;
 
 public class DefaultSqlService implements SqlService {
 
@@ -44,7 +41,7 @@ public class DefaultSqlService implements SqlService {
 		List<String> list = new ArrayList<String>();
 		BufferedReader in = null;
 		try {
-			in = getBufferedReader(source);
+			in = JdbcUtils.getBufferedReader(source);
 			String sql = context.getReader().getSqlStatement(in);
 			while (sql != null) {
 				list.add(sql);
@@ -72,7 +69,7 @@ public class DefaultSqlService implements SqlService {
 		long count = 0;
 		BufferedReader in = null;
 		try {
-			in = getBufferedReader(source);
+			in = JdbcUtils.getBufferedReader(source);
 			String sql = context.getReader().getSqlStatement(in);
 			while (sql != null) {
 				count++;
@@ -84,53 +81,6 @@ public class DefaultSqlService implements SqlService {
 			throw new JdbcException("Unexpected IO error", e);
 		} finally {
 			IOUtils.closeQuietly(in);
-		}
-	}
-
-	protected BufferedReader getBufferedReader(SqlSource source) {
-		String encoding = source.getEncoding();
-		switch (source.getType()) {
-		case FILE:
-			Assert.notNull(source.getFile());
-			String path = LocationUtils.getCanonicalPath(source.getFile());
-			logger.debug("Opening {}", path);
-			return LocationUtils.getBufferedReader(source.getFile(), encoding);
-		case LOCATION:
-			Assert.notNull(source.getLocation());
-			logger.debug("Opening {}", source.getLocation());
-			return LocationUtils.getBufferedReader(source.getLocation(), encoding);
-		case STRING:
-			Assert.notNull(source.getString());
-			return LocationUtils.getBufferedReaderFromString(source.getString(), encoding);
-		default:
-			throw new IllegalArgumentException(source.getType() + " is unknown");
-		}
-	}
-
-	protected void closeQuietly(DataSource dataSource, Connection conn, Statement statement) {
-		closeQuietly(statement);
-		closeQuietly(conn, dataSource);
-	}
-
-	protected void closeQuietly(Statement statement) {
-		if (statement == null) {
-			return;
-		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			throw new JdbcException(e);
-		}
-	}
-
-	protected void closeQuietly(Connection conn, DataSource dataSource) {
-		if (conn == null) {
-			return;
-		}
-		try {
-			DataSourceUtils.doReleaseConnection(conn, dataSource);
-		} catch (SQLException e) {
-			throw new JdbcException(e);
 		}
 	}
 
@@ -153,7 +103,7 @@ public class DefaultSqlService implements SqlService {
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
-			closeQuietly(context.getDataSource(), conn, statement);
+			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
 		}
 	}
 
@@ -178,7 +128,7 @@ public class DefaultSqlService implements SqlService {
 		int count = 0;
 		BufferedReader in = null;
 		try {
-			in = getBufferedReader(context.getSource());
+			in = JdbcUtils.getBufferedReader(context.getSource());
 			SqlReader reader = context.getJdbcContext().getReader();
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
