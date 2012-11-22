@@ -20,13 +20,13 @@ public class JdbcUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
 	public static final BufferedReader getBufferedReader(SqlSource source) {
+		Assert.notNull(source.getString());
 		String encoding = source.getEncoding();
 		switch (source.getType()) {
 		case LOCATION:
-			Assert.notNull(source.getLocation());
-			logger.debug("Opening {}", source.getLocation());
-			return LocationUtils.getBufferedReader(source.getLocation(), encoding);
-		case STRING:
+			logger.debug("Opening {}", source.getString());
+			return LocationUtils.getBufferedReader(source.getString(), encoding);
+		case DATA:
 			Assert.notNull(source.getString());
 			return LocationUtils.getBufferedReaderFromString(source.getString(), encoding);
 		default:
@@ -65,8 +65,8 @@ public class JdbcUtils {
 		List<SqlSource> sources = new ArrayList<SqlSource>();
 		for (String location : locations) {
 			SqlSource source = new SqlSource();
-			source.setLocation(location);
-			source.setType(SqlSourceType.LOCATION);
+			source.setString(location);
+			source.setType(StringType.LOCATION);
 			sources.add(source);
 		}
 		return sources;
@@ -77,7 +77,7 @@ public class JdbcUtils {
 		for (String s : sql) {
 			SqlSource source = new SqlSource();
 			source.setString(s);
-			source.setType(SqlSourceType.STRING);
+			source.setType(StringType.DATA);
 			sources.add(source);
 		}
 		return sources;

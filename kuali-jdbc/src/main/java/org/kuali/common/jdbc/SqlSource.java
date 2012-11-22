@@ -1,14 +1,10 @@
 package org.kuali.common.jdbc;
 
-import java.io.File;
-
 public class SqlSource {
 
 	String encoding;
 	String string;
-	String location;
-	File file;
-	SqlSourceType type;
+	StringType type;
 
 	public String getString() {
 		return string;
@@ -18,27 +14,11 @@ public class SqlSource {
 		this.string = string;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-	public SqlSourceType getType() {
+	public StringType getType() {
 		return type;
 	}
 
-	public void setType(SqlSourceType type) {
+	public void setType(StringType type) {
 		this.type = type;
 	}
 

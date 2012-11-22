@@ -174,12 +174,12 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	protected void logSource(SqlExecutionContext context) {
-		SqlSourceType type = context.getSource().getType();
+		StringType type = context.getSource().getType();
 		switch (type) {
-		case STRING:
+		case DATA:
 			return;
 		case LOCATION:
-			logger.info("Executing {}", context.getSource().getLocation());
+			logger.info("Executing {}", context.getSource().getString());
 			return;
 		default:
 			throw new IllegalArgumentException(type + " is unknown");
