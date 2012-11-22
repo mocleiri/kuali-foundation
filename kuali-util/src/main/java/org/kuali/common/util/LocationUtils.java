@@ -24,12 +24,12 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocations(String locationsList, String encoding) {
-		return getLocations(Collections.singletonList(locationsList), encoding);
-	}
-
 	public static final List<String> getLocations(String locationsList) {
 		return getLocations(locationsList, null);
+	}
+
+	public static final List<String> getLocations(String locationsList, String encoding) {
+		return getLocations(Collections.singletonList(locationsList), encoding);
 	}
 
 	public static final List<String> getLocations(List<String> locationsLists) {
