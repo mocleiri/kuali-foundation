@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 public class SqlSourceMetadata {
 
 	long count;
+	long executionTime;
 	SqlReader reader;
 	SqlSource source;
 
@@ -28,6 +29,14 @@ public class SqlSourceMetadata {
 
 	public void setSource(SqlSource source) {
 		this.source = source;
+	}
+
+	public long getExecutionTime() {
+		return executionTime;
+	}
+
+	public void setExecutionTime(long executionTime) {
+		this.executionTime = executionTime;
 	}
 
 }

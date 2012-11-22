@@ -5,6 +5,7 @@ import java.util.List;
 public class SqlMetadata {
 
 	long count;
+	long executionTime;
 
 	List<SqlSourceMetadata> sourceMetadata;
 
@@ -22,6 +23,14 @@ public class SqlMetadata {
 
 	public void setSourceMetadata(List<SqlSourceMetadata> sourceMetadata) {
 		this.sourceMetadata = sourceMetadata;
+	}
+
+	public long getExecutionTime() {
+		return executionTime;
+	}
+
+	public void setExecutionTime(long executionTime) {
+		this.executionTime = executionTime;
 	}
 
 }

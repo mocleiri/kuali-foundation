@@ -188,6 +188,7 @@ public class DefaultSqlService implements SqlService {
 		try {
 			in = JdbcUtils.getBufferedReader(context.getSource());
 			SqlReader reader = context.getJdbcContext().getReader();
+			long start = System.currentTimeMillis();
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				count++;
@@ -196,10 +197,12 @@ public class DefaultSqlService implements SqlService {
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);
 			}
+			long executionTime = System.currentTimeMillis() - start;
 			SqlSourceMetadata ssm = new SqlSourceMetadata();
 			ssm.setCount(count);
 			ssm.setReader(context.getJdbcContext().getReader());
 			ssm.setSource(context.getSource());
+			ssm.setExecutionTime(executionTime);
 			return ssm;
 		} catch (Exception e) {
 			throw new JdbcException(e);
