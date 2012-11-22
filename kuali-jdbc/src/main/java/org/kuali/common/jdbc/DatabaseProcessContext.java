@@ -3,7 +3,7 @@ package org.kuali.common.jdbc;
 public class DatabaseProcessContext {
 
 	DatabaseContext dba;
-	DatabaseContext user;
+	DatabaseContext normal;
 
 	public DatabaseContext getDba() {
 		return dba;
@@ -13,12 +13,12 @@ public class DatabaseProcessContext {
 		this.dba = dba;
 	}
 
-	public DatabaseContext getUser() {
-		return user;
+	public DatabaseContext getNormal() {
+		return normal;
 	}
 
-	public void setUser(DatabaseContext user) {
-		this.user = user;
+	public void setNormal(DatabaseContext user) {
+		this.normal = user;
 	}
 
 }
