@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.SimpleFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class SqlServiceTest {
 
 	@Test
 	public void testOLEDatabaseProcess() {
+		SimpleFormatter sf = new SimpleFormatter();
 		List<String> dbaSql = getDbaSql();
 		SqlMetadata metadata = service.executeStrings(dba, dbaSql);
 		logger.info("Executed {} dba sql statements", metadata.getCount());
@@ -44,7 +46,7 @@ public class SqlServiceTest {
 		logger.info("Examining {} locations for SQL to execute", sources.size());
 		metadata = service.getMetadata(normal, sources);
 		long elapsed = System.currentTimeMillis() - start;
-		logger.info("Located {} SQL statements in {} millis", metadata.getCount(), elapsed);
+		logger.info("Found {} SQL statements.  Total time: {}", sf.getCount(metadata.getCount()), sf.getTime(elapsed));
 		start = System.currentTimeMillis();
 		// metadata = service.executeSql(normal, sources);
 		// elapsed = System.currentTimeMillis() - start;

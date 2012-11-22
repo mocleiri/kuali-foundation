@@ -20,8 +20,7 @@ public class DefaultSqlService implements SqlService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
 
-	@Override
-	public SqlMetadata execute(JdbcContext context, SqlSource source) {
+	protected SqlMetadata execute(JdbcContext context, SqlSource source) {
 		return execute(context, Collections.singletonList(source));
 	}
 
@@ -45,8 +44,7 @@ public class DefaultSqlService implements SqlService {
 		return execute(context, JdbcUtils.getStringSqlSources(sql));
 	}
 
-	@Override
-	public SqlMetadata execute(JdbcContext context, List<SqlSource> sources) {
+	protected SqlMetadata execute(JdbcContext context, List<SqlSource> sources) {
 		Connection conn = null;
 		Statement statement = null;
 		long count = 0;
@@ -75,12 +73,30 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	@Override
-	public SqlMetadata getMetadata(SqlContext context, SqlSource source) {
-		return getMetadata(context, Collections.singletonList(source));
+	public SqlMetadata getLocationMetadata(SqlContext context, String location) {
+		return getLocationsMetadata(context, Collections.singletonList(location));
 	}
 
 	@Override
-	public SqlMetadata getMetadata(SqlContext context, List<SqlSource> sources) {
+	public SqlMetadata getLocationsMetadata(SqlContext context, List<String> locations) {
+		return getMetadata(context, JdbcUtils.getLocationSqlSources(locations));
+	}
+
+	@Override
+	public SqlMetadata getStringMetadata(SqlContext context, String sql) {
+		return getStringsMetadata(context, Collections.singletonList(sql));
+	}
+
+	@Override
+	public SqlMetadata getStringsMetadata(SqlContext context, List<String> sql) {
+		return getMetadata(context, JdbcUtils.getStringSqlSources(sql));
+	}
+
+	protected SqlMetadata getMetadata(SqlContext context, SqlSource source) {
+		return getMetadata(context, Collections.singletonList(source));
+	}
+
+	protected SqlMetadata getMetadata(SqlContext context, List<SqlSource> sources) {
 		List<SqlSourceMetadata> sourceMetadata = new ArrayList<SqlSourceMetadata>();
 		long count = 0;
 		for (SqlSource source : sources) {
@@ -117,7 +133,6 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	@Override
 	public List<String> getSqlStatements(SqlContext context, List<SqlSource> sources) {
 		List<String> sql = new ArrayList<String>();
 		for (SqlSource source : sources) {
@@ -126,7 +141,6 @@ public class DefaultSqlService implements SqlService {
 		return sql;
 	}
 
-	@Override
 	public List<String> getSqlStatements(SqlContext context, SqlSource source) {
 		List<String> list = new ArrayList<String>();
 		BufferedReader in = null;
