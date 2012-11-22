@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -62,6 +64,28 @@ public class JdbcUtils {
 		} catch (SQLException e) {
 			throw new JdbcException(e);
 		}
+	}
+
+	public static final List<SqlSource> getLocationSqlSources(List<String> locations) {
+		List<SqlSource> sources = new ArrayList<SqlSource>();
+		for (String location : locations) {
+			SqlSource source = new SqlSource();
+			source.setLocation(location);
+			source.setType(SqlSourceType.LOCATION);
+			sources.add(source);
+		}
+		return sources;
+	}
+
+	public static final List<SqlSource> getStringSqlSources(List<String> sql) {
+		List<SqlSource> sources = new ArrayList<SqlSource>();
+		for (String s : sql) {
+			SqlSource source = new SqlSource();
+			source.setString(s);
+			source.setType(SqlSourceType.STRING);
+			sources.add(source);
+		}
+		return sources;
 	}
 
 }

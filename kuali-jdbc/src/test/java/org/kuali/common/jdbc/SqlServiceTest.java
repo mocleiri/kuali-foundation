@@ -36,44 +36,22 @@ public class SqlServiceTest {
 	@Test
 	public void testOLEDatabaseProcess() {
 		List<String> sql = getSql();
-		List<SqlSource> dbaSql = getStringSqlSources(sql);
-		long count = service.getSqlStatementCount(dba, dbaSql);
-		logger.info("Located {} dba sql statements to execute", count);
+		List<SqlSource> dbaSql = JdbcUtils.getStringSqlSources(sql);
+		SqlMetadata metadata = service.getSqlMetadata(dba, dbaSql);
+		logger.info("Located {} dba sql statements to execute", metadata.getCount());
 		long executed = service.executeSql(dba, dbaSql);
 		logger.info("Executed {} dba sql statements", executed);
 		List<String> locations = getLocations();
-		List<SqlSource> sources = getLocationSqlSources(locations);
+		List<SqlSource> sources = JdbcUtils.getLocationSqlSources(locations);
 		long start = System.currentTimeMillis();
 		logger.info("Examining {} locations for SQL to execute", sources.size());
-		count = service.getSqlStatementCount(normal, sources);
+		metadata = service.getSqlMetadata(normal, sources);
 		long elapsed = System.currentTimeMillis() - start;
-		logger.info("Located {} SQL statements in {} millis", count, elapsed);
+		logger.info("Located {} SQL statements in {} millis", metadata.getCount(), elapsed);
 		start = System.currentTimeMillis();
 		executed = service.executeSql(normal, sources);
 		elapsed = System.currentTimeMillis() - start;
 		logger.info("Executed {} sql statements in {} millis", executed, elapsed);
-	}
-
-	protected List<SqlSource> getLocationSqlSources(List<String> locations) {
-		List<SqlSource> sources = new ArrayList<SqlSource>();
-		for (String location : locations) {
-			SqlSource source = new SqlSource();
-			source.setLocation(location);
-			source.setType(SqlSourceType.LOCATION);
-			sources.add(source);
-		}
-		return sources;
-	}
-
-	protected List<SqlSource> getStringSqlSources(List<String> sql) {
-		List<SqlSource> sources = new ArrayList<SqlSource>();
-		for (String s : sql) {
-			SqlSource source = new SqlSource();
-			source.setString(s);
-			source.setType(SqlSourceType.STRING);
-			sources.add(source);
-		}
-		return sources;
 	}
 
 	protected List<String> getSql() {

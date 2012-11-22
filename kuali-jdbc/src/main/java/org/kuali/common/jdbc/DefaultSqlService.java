@@ -20,15 +20,21 @@ public class DefaultSqlService implements SqlService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
 
 	@Override
-	public long getSqlStatementCount(SqlContext context, List<SqlSource> sources) {
+	public SqlMetadata getSqlMetadata(SqlContext context, List<SqlSource> sources) {
+		List<SqlSourceMetadata> list = new ArrayList<SqlSourceMetadata>();
 		long count = 0;
 		for (SqlSource source : sources) {
-			count += getSqlStatementCount(context, source, count);
+			SqlSourceMetadata ssm = getSqlSourceMetadata(context, source, count);
+			count += ssm.getCount();
+			list.add(ssm);
 		}
-		return count;
+		SqlMetadata metadata = new SqlMetadata();
+		metadata.setSourceMetadata(list);
+		metadata.setCount(count);
+		return metadata;
 	}
 
-	protected long getSqlStatementCount(SqlContext context, SqlSource source, long runningCount) {
+	protected SqlSourceMetadata getSqlSourceMetadata(SqlContext context, SqlSource source, long runningCount) {
 		long count = 0;
 		BufferedReader in = null;
 		try {
@@ -39,7 +45,11 @@ public class DefaultSqlService implements SqlService {
 				showSql(context, sql, runningCount + count);
 				sql = context.getReader().getSqlStatement(in);
 			}
-			return count;
+			SqlSourceMetadata metadata = new SqlSourceMetadata();
+			metadata.setCount(count);
+			metadata.setSource(source);
+			metadata.setReader(context.getReader());
+			return metadata;
 		} catch (IOException e) {
 			throw new JdbcException("Unexpected IO error", e);
 		} finally {
