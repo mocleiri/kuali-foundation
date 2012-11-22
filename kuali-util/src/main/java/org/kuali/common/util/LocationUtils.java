@@ -140,7 +140,7 @@ public class LocationUtils {
 	 * Return a <code>BufferedReader</code> that reads from <code>s</code>
 	 */
 	public static final BufferedReader getBufferedReaderFromString(String s) {
-		return getBufferedReader(s, null);
+		return getBufferedReaderFromString(s, null);
 	}
 
 	/**
