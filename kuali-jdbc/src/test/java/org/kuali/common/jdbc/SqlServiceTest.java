@@ -47,7 +47,6 @@ public class SqlServiceTest {
 	@Test
 	public void testOLEDatabaseProcess() {
 		try {
-			normal.setShow(true);
 			logger.info("-------- JDBC Information --------");
 			logger.info("DBA URL - " + process.getDba().getUrl());
 			logger.info("DBA User - " + process.getDba().getUsername());
@@ -102,7 +101,7 @@ public class SqlServiceTest {
 	protected SqlMetadata doPrefix(SqlService service, JdbcContext context, Properties properties, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = PropertyUtils.getValues(properties, keys);
-		return service.execute(context, locations);
+		return service.executeLocations(context, locations);
 	}
 
 	protected List<String> getLocations(List<String> resourceListings) {
