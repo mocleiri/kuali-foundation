@@ -42,7 +42,7 @@ public class Str {
 	}
 
 	/**
-	 * Split comma separated values into tokens.
+	 * Split comma separated values into tokens, optionally trimming the tokens.
 	 */
 	public static String[] splitCSV(String csv, boolean trim) {
 		return split(csv, COMMA, trim);
