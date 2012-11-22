@@ -24,14 +24,22 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocations(String locationList) {
-		return getLocations(Collections.singletonList(locationList));
+	public static final List<String> getLocations(String locationsList, String encoding) {
+		return getLocations(Collections.singletonList(locationsList), encoding);
 	}
 
-	public static final List<String> getLocations(List<String> locationLists) {
+	public static final List<String> getLocations(String locationsList) {
+		return getLocations(locationsList, null);
+	}
+
+	public static final List<String> getLocations(List<String> locationsLists) {
+		return getLocations(locationsLists, null);
+	}
+
+	public static final List<String> getLocations(List<String> locationsLists, String encoding) {
 		List<String> locations = new ArrayList<String>();
-		for (String locationList : locationLists) {
-			List<String> lines = readLines(locationList);
+		for (String locationsList : locationsLists) {
+			List<String> lines = readLines(locationsList, encoding);
 			locations.addAll(lines);
 		}
 		return locations;
