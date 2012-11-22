@@ -11,7 +11,6 @@
       <list>
         <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
         <value>classpath:org/kuali/common/jdbc/${db.vendor}.properties</value>
-        <value>classpath:org/kuali/common/sql/sql.properties</value>
         <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
         <value>classpath:org/kuali/ole/sql.properties</value>
       </list>
