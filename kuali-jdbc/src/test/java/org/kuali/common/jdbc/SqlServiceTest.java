@@ -38,7 +38,7 @@ public class SqlServiceTest {
 	public void testOLEDatabaseProcess() {
 		SimpleFormatter sf = new SimpleFormatter();
 		List<String> dbaSql = getDbaSql();
-		SqlMetadata metadata = service.executeStrings(dba, dbaSql);
+		SqlMetadata metadata = service.execute(dba, dbaSql);
 		logger.info("Executed {} dba sql statements", metadata.getCount());
 		List<String> locations = getLocations();
 		long start = System.currentTimeMillis();

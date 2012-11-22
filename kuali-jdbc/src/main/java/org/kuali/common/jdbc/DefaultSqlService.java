@@ -34,12 +34,12 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	@Override
-	public SqlMetadata executeString(JdbcContext context, String sql) {
-		return executeStrings(context, Collections.singletonList(sql));
+	public SqlMetadata execute(JdbcContext context, String sql) {
+		return execute(context, Collections.singletonList(sql));
 	}
 
 	@Override
-	public SqlMetadata executeStrings(JdbcContext context, List<String> sql) {
+	public SqlMetadata execute(JdbcContext context, List<String> sql) {
 		return executeSources(context, JdbcUtils.getStringSqlSources(sql));
 	}
 
@@ -78,7 +78,7 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata getLocationsMetadata(SqlContext context, List<String> locations) {
-		return getMetadata(context, JdbcUtils.getLocationSqlSources(locations));
+		return getSourceMetadata(context, JdbcUtils.getLocationSqlSources(locations));
 	}
 
 	@Override
@@ -88,14 +88,14 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata getStringsMetadata(SqlContext context, List<String> sql) {
-		return getMetadata(context, JdbcUtils.getStringSqlSources(sql));
+		return getSourceMetadata(context, JdbcUtils.getStringSqlSources(sql));
 	}
 
-	protected SqlMetadata getMetadata(SqlContext context, SqlSource source) {
-		return getMetadata(context, Collections.singletonList(source));
+	protected SqlMetadata getSourceMetadata(SqlContext context, SqlSource source) {
+		return getSourceMetadata(context, Collections.singletonList(source));
 	}
 
-	protected SqlMetadata getMetadata(SqlContext context, List<SqlSource> sources) {
+	protected SqlMetadata getSourceMetadata(SqlContext context, List<SqlSource> sources) {
 		List<SqlSourceMetadata> sourceMetadata = new ArrayList<SqlSourceMetadata>();
 		long count = 0;
 		for (SqlSource source : sources) {

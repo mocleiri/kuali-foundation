@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface SqlService {
 
-	SqlMetadata executeString(JdbcContext context, String sql);
+	SqlMetadata execute(JdbcContext context, String sql);
 
-	SqlMetadata executeStrings(JdbcContext context, List<String> sql);
+	SqlMetadata execute(JdbcContext context, List<String> sql);
 
 	SqlMetadata executeLocation(JdbcContext context, String location);
 
