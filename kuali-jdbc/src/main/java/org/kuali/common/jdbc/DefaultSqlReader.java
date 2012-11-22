@@ -49,19 +49,18 @@ public class DefaultSqlReader implements SqlReader {
 		if (sql == null) {
 			return null;
 		} else if (StringUtils.endsWith(sql, lineSeparator.getValue())) {
-			int beginIndex = 0;
 			int endIndex = sql.length() - lineSeparator.getValue().length();
-			return StringUtils.substring(sql, beginIndex, endIndex);
+			return StringUtils.substring(sql, 0, endIndex);
 		} else {
 			return sql;
 		}
 	}
 
 	protected boolean ignore(StringBuilder sql, String trimmedLine) {
-		return ignoreComments && StringUtils.isBlank(sql.toString()) && isComment(trimmedLine, commentTokens);
+		return ignoreComments && StringUtils.isBlank(sql.toString()) && isSqlComment(trimmedLine, commentTokens);
 	}
 
-	protected boolean isComment(String trimmedLine, List<String> commentTokens) {
+	protected boolean isSqlComment(String trimmedLine, List<String> commentTokens) {
 		for (String commentToken : commentTokens) {
 			if (StringUtils.startsWith(trimmedLine, commentToken)) {
 				return true;
