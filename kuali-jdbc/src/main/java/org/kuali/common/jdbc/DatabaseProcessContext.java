@@ -2,6 +2,8 @@ package org.kuali.common.jdbc;
 
 public class DatabaseProcessContext {
 
+	String driver;
+
 	DatabaseContext dba;
 	DatabaseContext normal;
 
@@ -19,6 +21,14 @@ public class DatabaseProcessContext {
 
 	public void setNormal(DatabaseContext user) {
 		this.normal = user;
+	}
+
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
 	}
 
 }

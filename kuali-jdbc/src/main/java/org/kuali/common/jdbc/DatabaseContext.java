@@ -3,7 +3,6 @@ package org.kuali.common.jdbc;
 public class DatabaseContext {
 
 	String url;
-	String driver;
 	String username;
 	String password;
 
@@ -13,14 +12,6 @@ public class DatabaseContext {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public String getDriver() {
-		return driver;
-	}
-
-	public void setDriver(String driver) {
-		this.driver = driver;
 	}
 
 	public String getUsername() {
