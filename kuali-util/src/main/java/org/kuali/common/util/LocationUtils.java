@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -21,6 +23,19 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
+
+	public static final List<String> getLocationsFromList(String locationList) {
+		return getLocations(Collections.singletonList(locationList));
+	}
+
+	public static final List<String> getLocations(List<String> locationLists) {
+		List<String> locations = new ArrayList<String>();
+		for (String locationList : locationLists) {
+			List<String> lines = readLines(locationList);
+			locations.addAll(lines);
+		}
+		return locations;
+	}
 
 	public static final String getCanonicalPath(File file) {
 		try {
