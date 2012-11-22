@@ -61,9 +61,10 @@ public class DefaultSqlService implements SqlService {
 				afterExecuteSqlFromSource(sec);
 			}
 			afterExecuteSql(context, conn);
+			long executionTime = System.currentTimeMillis() - start;
 			SqlMetadata metadata = new SqlMetadata();
 			metadata.setCount(count);
-			metadata.setExecutionTime(System.currentTimeMillis() - start);
+			metadata.setExecutionTime(executionTime);
 			metadata.setSourceMetadata(sourceMetadata);
 			return metadata;
 		} catch (Exception e) {
