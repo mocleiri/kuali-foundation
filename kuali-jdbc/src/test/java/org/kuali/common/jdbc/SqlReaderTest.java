@@ -15,6 +15,18 @@ public class SqlReaderTest {
 	final Logger logger = LoggerFactory.getLogger(SqlReaderTest.class);
 
 	@Test
+	public void simpleWayToBreakThingsTest() throws IOException {
+		SqlReader sqlReader = new DefaultSqlReader();
+		BufferedReader reader = LocationUtils.getBufferedReaderFromString(getSql4());
+		try {
+			// This one is too complicated for the default sql reader
+			Assert.assertEquals("SELECT '\n/\n'", sqlReader.getSqlStatement(reader));
+		} catch (AssertionError e) {
+			; // ignore
+		}
+	}
+
+	@Test
 	public void simpleCommentTest() throws IOException {
 		SqlReader sqlReader = new DefaultSqlReader();
 		BufferedReader reader = LocationUtils.getBufferedReaderFromString(getSqlWithComment1());
@@ -64,6 +76,12 @@ public class SqlReaderTest {
 		StringBuilder sb = new StringBuilder();
 		sb.append("-- Howdy\n");
 		sb.append("SELECT '\n-- Howdy'");
+		return sb.toString();
+	}
+
+	protected String getSql4() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT '\n/\n'");
 		return sb.toString();
 	}
 
