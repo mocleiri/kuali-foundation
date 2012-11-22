@@ -77,23 +77,17 @@ public class SqlServiceTest {
 
 	protected void doConstraints(SqlService service, JdbcContext context, Properties properties) {
 		logger.info("Executing constraints SQL");
-		long start = System.currentTimeMillis();
 		SqlMetadata metadata = doDDL(service, context, properties, "sql.constraints.loc");
-		long elapsed = System.currentTimeMillis() - start;
-		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
-		logger.info("Executed {} constraints SQL statements from {} sources.  Total time: {}", args);
+		logExecution("Executed {} constraints SQL statements from {} sources.  Total time: {}", metadata);
 	}
 
 	protected void doData(SqlService service, JdbcContext context, Properties properties) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, "sql.data.meta");
-		List<String> resourceListings = PropertyUtils.getValues(properties, keys);
-		List<String> locations = getLocations(resourceListings);
+		List<String> locationListings = PropertyUtils.getValues(properties, keys);
+		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
-		long start = System.currentTimeMillis();
 		SqlMetadata metadata = service.executeLocations(context, locations);
-		long elapsed = System.currentTimeMillis() - start;
-		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
-		logger.info("Executed {} data load SQL statements from {} sources.  Total time: {}", args);
+		logExecution("Executed {} data load SQL statements from {} sources.  Total time: {}", metadata);
 	}
 
 	protected SqlMetadata doDDL(SqlService service, JdbcContext context, Properties properties, String prefix) {
