@@ -12,11 +12,13 @@ public class DefaultSqlReader implements SqlReader {
 	public static final String DEFAULT_DELIMITER = "/";
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
 	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList(new String[] { "#", "--" });
+	public static final boolean DEFAULT_IS_TRIM = true;
+	public static final boolean DEFAULT_IS_IGNORE_COMMENTS = true;
 
 	String delimiter = DEFAULT_DELIMITER;
 	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
-	boolean trim = true;
-	boolean ignoreComments = true;
+	boolean trim = DEFAULT_IS_TRIM;
+	boolean ignoreComments = DEFAULT_IS_IGNORE_COMMENTS;
 	List<String> commentTokens = DEFAULT_COMMENT_TOKENS;
 
 	@Override
