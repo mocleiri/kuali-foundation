@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class DefaultSqlReader implements SqlReader {
@@ -23,6 +25,7 @@ public class DefaultSqlReader implements SqlReader {
 
 	@Override
 	public String getSqlStatement(BufferedReader reader) throws IOException {
+		Assert.assertNotNull(delimiter, "delimiter is null");
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
