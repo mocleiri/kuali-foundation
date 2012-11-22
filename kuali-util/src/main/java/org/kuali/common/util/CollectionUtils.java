@@ -9,6 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CollectionUtils {
 
+	public static final Object[] toArray(List<Object> objects) {
+		return objects.toArray(new Object[objects.size()]);
+	}
+
 	public static final boolean isEmpty(Collection<?> c) {
 		return c == null || c.size() == 0;
 	}

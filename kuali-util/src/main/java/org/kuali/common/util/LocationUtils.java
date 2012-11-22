@@ -39,22 +39,22 @@ public class LocationUtils {
 		return getLocations(location, type, null);
 	}
 
-	public static final List<String> getLocations(String locationsList) {
-		return getLocations(Collections.singletonList(locationsList), null);
+	public static final List<String> getLocations(String locationListing) {
+		return getLocations(Collections.singletonList(locationListing), null);
 	}
 
-	public static final List<String> getLocations(String locationsList, String encoding) {
-		return getLocations(Collections.singletonList(locationsList), encoding);
+	public static final List<String> getLocations(String locationListing, String encoding) {
+		return getLocations(Collections.singletonList(locationListing), encoding);
 	}
 
-	public static final List<String> getLocations(List<String> locationsLists) {
-		return getLocations(locationsLists, null);
+	public static final List<String> getLocations(List<String> locationListings) {
+		return getLocations(locationListings, null);
 	}
 
-	public static final List<String> getLocations(List<String> locationsLists, String encoding) {
+	public static final List<String> getLocations(List<String> locationListings, String encoding) {
 		List<String> locations = new ArrayList<String>();
-		for (String locationsList : locationsLists) {
-			List<String> lines = readLines(locationsList, encoding);
+		for (String locationListing : locationListings) {
+			List<String> lines = readLines(locationListing, encoding);
 			locations.addAll(lines);
 		}
 		return locations;
