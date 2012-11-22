@@ -57,7 +57,7 @@ public class ModeUtils {
 		if (arg2 != null) {
 			args.add(arg2);
 		}
-		return args.toArray(new Object[args.size()]);
+		return CollectionUtils.toArray(args);
 	}
 
 }
