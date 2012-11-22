@@ -56,7 +56,7 @@ public class PropertyUtils {
 
 	/**
 	 * Alter the <code>properties</code> passed in to contain only the desired property values. <code>includes</code> and
-	 * <code>excludes</code> are comma separated lists.
+	 * <code>excludes</code> are comma separated values.
 	 */
 	public static final void trim(Properties properties, String includesCSV, String excludesCSV) {
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
@@ -369,9 +369,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing value or the
-	 * newValue is the same as the oldValue set the property. If there is a conflict, check <code>propertyOverwriteMode</code> to make sure
-	 * we have permission to override the value.
+	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing value, add the
+	 * property. If there is a conflict, check <code>propertyOverwriteMode</code> to make sure we have permission to override the value.
 	 */
 	public static final void setProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
@@ -379,10 +378,11 @@ public class PropertyUtils {
 		boolean overwrite = existingProperty && !StringUtils.equals(oldValue, newValue);
 		if (overwrite) {
 			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of existing property [" + key + "] is not allowed.");
+			properties.setProperty(key, newValue);
 		} else if (!existingProperty) {
 			logger.debug("Adding property {}=[{}]", key, Str.flatten(newValue));
+			properties.setProperty(key, newValue);
 		}
-		properties.setProperty(key, newValue);
 	}
 
 	private static final String getDefaultComment(String encoding) {
