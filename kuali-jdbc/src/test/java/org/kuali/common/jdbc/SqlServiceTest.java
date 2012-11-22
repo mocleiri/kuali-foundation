@@ -49,11 +49,11 @@ public class SqlServiceTest {
 	public void testOLEDatabaseProcess() {
 		try {
 			logger.info("-------- JDBC Information --------");
-			logger.info("DBA URL - " + process.getDba().getUrl());
-			logger.info("DBA User - " + process.getDba().getUsername());
-			logger.info("Driver - " + process.getDriver());
 			logger.info("URL - " + process.getNormal().getUrl());
 			logger.info("User - " + process.getNormal().getUsername());
+			logger.info("Driver - " + process.getDriver());
+			logger.info("DBA URL - " + process.getDba().getUrl());
+			logger.info("DBA User - " + process.getDba().getUsername());
 			logger.info("----------------------------------");
 			doDba(service, dba, dbaSql);
 			doSchema(service, normal, properties);
