@@ -50,6 +50,7 @@ public class DefaultSqlService implements SqlService {
 		long start = 0;
 		try {
 			conn = DataSourceUtils.doGetConnection(context.getDataSource());
+			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
 			List<SqlSourceMetadata> sourceMetadata = new ArrayList<SqlSourceMetadata>();
@@ -61,6 +62,7 @@ public class DefaultSqlService implements SqlService {
 				afterExecuteSqlFromSource(sec);
 			}
 			afterExecuteSql(context, conn);
+			conn.setAutoCommit(originalAutoCommitSetting);
 			long executionTime = System.currentTimeMillis() - start;
 			SqlMetadata metadata = new SqlMetadata();
 			metadata.setCount(count);
