@@ -24,7 +24,7 @@ public class DefaultSqlReader implements SqlReader {
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
-		while (isContinue(line, trimmedLine, delimiter)) {
+		while (proceed(line, trimmedLine, delimiter)) {
 			if (!ignore(sb, trimmedLine)) {
 				sb.append(line + lineSeparator.getValue());
 			}
@@ -38,7 +38,7 @@ public class DefaultSqlReader implements SqlReader {
 		return StringUtils.equals(trimmedLine, delimiter);
 	}
 
-	protected boolean isContinue(String line, String trimmedLine, String delimiter) {
+	protected boolean proceed(String line, String trimmedLine, String delimiter) {
 		return line != null && !isEndOfSqlStatement(trimmedLine, delimiter);
 	}
 
