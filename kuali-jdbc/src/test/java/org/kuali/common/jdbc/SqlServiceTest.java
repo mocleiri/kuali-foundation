@@ -56,7 +56,7 @@ public class SqlServiceTest {
 			logger.info("DBA User - " + process.getDba().getUsername());
 			logger.info("----------------------------------");
 			doDba(service, dba, dbaSql);
-			// doSchema(service, normal, properties);
+			doSchema(service, normal, properties);
 			// doData(service, normal, properties);
 			// doConstraints(service, normal, properties);
 		} catch (Exception e) {
