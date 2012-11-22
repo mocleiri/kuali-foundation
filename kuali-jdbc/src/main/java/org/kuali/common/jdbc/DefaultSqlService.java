@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -18,6 +19,45 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 public class DefaultSqlService implements SqlService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
+
+	@Override
+	public SqlMetadata executeSql(JdbcContext context, SqlSource source) {
+		return executeSql(context, Collections.singletonList(source));
+	}
+
+	@Override
+	public SqlMetadata executeSql(JdbcContext context, List<SqlSource> sources) {
+		Connection conn = null;
+		Statement statement = null;
+		long count = 0;
+		try {
+			conn = DataSourceUtils.doGetConnection(context.getDataSource());
+			conn.setAutoCommit(false);
+			statement = conn.createStatement();
+			List<SqlSourceMetadata> sourceMetadata = new ArrayList<SqlSourceMetadata>();
+			for (SqlSource source : sources) {
+				SqlExecutionContext sec = getSqlExecutionContext(context, conn, statement, source, count);
+				SqlSourceMetadata ssm = executeSqlFromSource(sec);
+				sourceMetadata.add(ssm);
+				count += ssm.getCount();
+				afterExecuteSqlFromSource(sec);
+			}
+			afterExecuteSql(context, conn);
+			SqlMetadata metadata = new SqlMetadata();
+			metadata.setCount(count);
+			metadata.setSourceMetadata(sourceMetadata);
+			return metadata;
+		} catch (Exception e) {
+			throw new JdbcException(e);
+		} finally {
+			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
+		}
+	}
+
+	@Override
+	public SqlMetadata getSqlMetadata(SqlContext context, SqlSource source) {
+		return getSqlMetadata(context, Collections.singletonList(source));
+	}
 
 	@Override
 	public SqlMetadata getSqlMetadata(SqlContext context, List<SqlSource> sources) {
@@ -66,7 +106,8 @@ public class DefaultSqlService implements SqlService {
 		return sql;
 	}
 
-	protected List<String> getSqlStatements(SqlContext context, SqlSource source) {
+	@Override
+	public List<String> getSqlStatements(SqlContext context, SqlSource source) {
 		List<String> list = new ArrayList<String>();
 		BufferedReader in = null;
 		try {
@@ -94,29 +135,6 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	@Override
-	public long executeSql(JdbcContext context, List<SqlSource> sources) {
-		Connection conn = null;
-		Statement statement = null;
-		long count = 0;
-		try {
-			conn = DataSourceUtils.doGetConnection(context.getDataSource());
-			conn.setAutoCommit(false);
-			statement = conn.createStatement();
-			for (SqlSource source : sources) {
-				SqlExecutionContext sec = getSqlExecutionContext(context, conn, statement, source, count);
-				count += executeSqlFromSource(sec);
-				afterExecuteSqlFromSource(sec);
-			}
-			afterExecuteSql(context, conn);
-			return count;
-		} catch (Exception e) {
-			throw new JdbcException(e);
-		} finally {
-			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
-		}
-	}
-
 	protected void logSource(SqlExecutionContext context) {
 		SqlSourceType type = context.getSource().getType();
 		switch (type) {
@@ -133,7 +151,7 @@ public class DefaultSqlService implements SqlService {
 		}
 	}
 
-	protected long executeSqlFromSource(SqlExecutionContext context) {
+	protected SqlSourceMetadata executeSqlFromSource(SqlExecutionContext context) {
 		logSource(context);
 		int count = 0;
 		BufferedReader in = null;
@@ -148,7 +166,11 @@ public class DefaultSqlService implements SqlService {
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);
 			}
-			return count;
+			SqlSourceMetadata ssm = new SqlSourceMetadata();
+			ssm.setCount(count);
+			ssm.setReader(context.getJdbcContext().getReader());
+			ssm.setSource(context.getSource());
+			return ssm;
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
