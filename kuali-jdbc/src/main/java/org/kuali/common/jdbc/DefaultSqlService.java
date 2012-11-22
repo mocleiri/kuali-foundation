@@ -61,15 +61,15 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata getSqlMetadata(SqlContext context, List<SqlSource> sources) {
-		List<SqlSourceMetadata> list = new ArrayList<SqlSourceMetadata>();
+		List<SqlSourceMetadata> sourceMetadata = new ArrayList<SqlSourceMetadata>();
 		long count = 0;
 		for (SqlSource source : sources) {
 			SqlSourceMetadata ssm = getSqlSourceMetadata(context, source, count);
 			count += ssm.getCount();
-			list.add(ssm);
+			sourceMetadata.add(ssm);
 		}
 		SqlMetadata metadata = new SqlMetadata();
-		metadata.setSourceMetadata(list);
+		metadata.setSourceMetadata(sourceMetadata);
 		metadata.setCount(count);
 		return metadata;
 	}
