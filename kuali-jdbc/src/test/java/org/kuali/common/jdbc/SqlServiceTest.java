@@ -41,10 +41,9 @@ public class SqlServiceTest {
 		SqlMetadata metadata = service.executeStrings(dba, dbaSql);
 		logger.info("Executed {} dba sql statements", metadata.getCount());
 		List<String> locations = getLocations();
-		List<SqlSource> sources = JdbcUtils.getLocationSqlSources(locations);
 		long start = System.currentTimeMillis();
-		logger.info("Examining {} locations for SQL to execute", sources.size());
-		metadata = service.getMetadata(normal, sources);
+		logger.info("Examining {} locations for SQL", locations.size());
+		metadata = service.getLocationsMetadata(normal, locations);
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Found {} SQL statements.  Total time: {}", sf.getCount(metadata.getCount()), sf.getTime(elapsed));
 		start = System.currentTimeMillis();
@@ -66,7 +65,6 @@ public class SqlServiceTest {
 		for (String location : locations) {
 			Assert.assertTrue(LocationUtils.exists(location));
 		}
-		logger.info("Located {} resources containing SQL", locations.size());
 		return locations;
 	}
 
