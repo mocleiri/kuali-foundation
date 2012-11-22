@@ -67,19 +67,15 @@ public class SqlServiceTest {
 	protected void doDba(SqlService service, JdbcContext context, List<String> dbaSql) {
 		logger.info("Executing DBA SQL");
 		SqlMetadata metadata = service.execute(context, dbaSql);
-		logExecution("Total DBA SQL statements: {}  Sources: {}  Total time: {}", metadata);
+		logExecution("dba", metadata);
 	}
 
 	protected void doSchema(SqlService service, JdbcContext context, Properties properties) {
-		logger.info("Executing schema SQL");
-		SqlMetadata metadata = doDDL(service, context, properties, "sql.schema.loc");
-		logExecution("Total schema SQL statements: {}  Sources: {}  Total time: {}", metadata);
+		doDDL(service, context, properties, "schema", "sql.schema.loc");
 	}
 
 	protected void doConstraints(SqlService service, JdbcContext context, Properties properties) {
-		logger.info("Executing constraints SQL");
-		SqlMetadata metadata = doDDL(service, context, properties, "sql.constraints.loc");
-		logExecution("Total constraints SQL statements: {}  Sources: {}  Total time: {}", metadata);
+		doDDL(service, context, properties, "constraints", "sql.constraints.loc");
 	}
 
 	protected void doData(SqlService service, JdbcContext context, Properties properties) {
@@ -88,18 +84,20 @@ public class SqlServiceTest {
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
 		SqlMetadata metadata = service.executeLocations(context, locations);
-		logExecution("Total data load SQL statements: {}  Sources: {}  Total time: {}", metadata);
+		logExecution("data load", metadata);
 	}
 
-	protected SqlMetadata doDDL(SqlService service, JdbcContext context, Properties properties, String prefix) {
+	protected SqlMetadata doDDL(SqlService service, JdbcContext context, Properties properties, String type, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = PropertyUtils.getValues(properties, keys);
 		context.setShow(false);
+		logger.info("Executing " + type + " SQL");
 		SqlMetadata metadata = service.getLocationsMetadata(context, locations);
 		logger.info("Executing {} DDL statements", metadata.getCount());
 		context.setShow(true);
 		metadata = service.executeLocations(context, locations);
 		context.setShow(false);
+		logExecution("constraints", metadata);
 		return metadata;
 	}
 
@@ -112,12 +110,12 @@ public class SqlServiceTest {
 		return locations;
 	}
 
-	protected void logExecution(String msg, SqlMetadata metadata) {
+	protected void logExecution(String executionType, SqlMetadata metadata) {
 		List<Object> args = new ArrayList<Object>();
 		args.add(formatter.getCount(metadata.getCount()));
 		args.add(formatter.getCount(metadata.getSourceMetadata().size()));
 		args.add(formatter.getTime(metadata.getExecutionTime()));
-		logger.info(msg, CollectionUtils.toArray(args));
+		logger.info("Total " + executionType + " SQL statements: {}  Sources: {}  Total time: {}", CollectionUtils.toArray(args));
 	}
 
 }
