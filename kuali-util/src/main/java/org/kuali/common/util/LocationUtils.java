@@ -24,7 +24,7 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocationsFromList(String locationList) {
+	public static final List<String> getLocations(String locationList) {
 		return getLocations(Collections.singletonList(locationList));
 	}
 
