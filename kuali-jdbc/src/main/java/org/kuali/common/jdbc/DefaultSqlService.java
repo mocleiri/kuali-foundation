@@ -47,7 +47,7 @@ public class DefaultSqlService implements SqlService {
 		Connection conn = null;
 		Statement statement = null;
 		long count = 0;
-		long executionTime = 0;
+		long start = 0;
 		try {
 			conn = DataSourceUtils.doGetConnection(context.getDataSource());
 			conn.setAutoCommit(false);
@@ -58,13 +58,12 @@ public class DefaultSqlService implements SqlService {
 				SqlSourceMetadata ssm = executeSqlFromSource(sec);
 				sourceMetadata.add(ssm);
 				count += ssm.getCount();
-				executionTime += ssm.getExecutionTime();
 				afterExecuteSqlFromSource(sec);
 			}
 			afterExecuteSql(context, conn);
 			SqlMetadata metadata = new SqlMetadata();
 			metadata.setCount(count);
-			metadata.setExecutionTime(executionTime);
+			metadata.setExecutionTime(System.currentTimeMillis() - start);
 			metadata.setSourceMetadata(sourceMetadata);
 			return metadata;
 		} catch (Exception e) {
