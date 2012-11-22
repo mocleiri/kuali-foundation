@@ -26,6 +26,26 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	@Override
+	public SqlMetadata executeLocation(JdbcContext context, String location) {
+		return executeLocations(context, Collections.singletonList(location));
+	}
+
+	@Override
+	public SqlMetadata executeLocations(JdbcContext context, List<String> locations) {
+		return executeSql(context, JdbcUtils.getLocationSqlSources(locations));
+	}
+
+	@Override
+	public SqlMetadata executeString(JdbcContext context, String sql) {
+		return executeStrings(context, Collections.singletonList(sql));
+	}
+
+	@Override
+	public SqlMetadata executeStrings(JdbcContext context, List<String> sql) {
+		return executeSql(context, JdbcUtils.getStringSqlSources(sql));
+	}
+
+	@Override
 	public SqlMetadata executeSql(JdbcContext context, List<SqlSource> sources) {
 		Connection conn = null;
 		Statement statement = null;
