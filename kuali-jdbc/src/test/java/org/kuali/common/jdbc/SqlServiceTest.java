@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleFormatter;
@@ -70,11 +71,8 @@ public class SqlServiceTest {
 
 	protected void doSchema(SqlService service, JdbcContext context, Properties properties) {
 		logger.info("Executing schema SQL");
-		long start = System.currentTimeMillis();
 		SqlMetadata metadata = doDDL(service, context, properties, "sql.schema.loc");
-		long elapsed = System.currentTimeMillis() - start;
-		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
-		logger.info("Executed {} schema SQL statements from {} sources.  Total time: {}", args);
+		logExecution("Executed {} schema SQL statements from {} sources.  Total time: {}", metadata);
 	}
 
 	protected void doConstraints(SqlService service, JdbcContext context, Properties properties) {
@@ -117,6 +115,14 @@ public class SqlServiceTest {
 			locations.addAll(lines);
 		}
 		return locations;
+	}
+
+	protected void logExecution(String msg, SqlMetadata metadata) {
+		List<Object> args = new ArrayList<Object>();
+		args.add(formatter.getCount(metadata.getCount()));
+		args.add(formatter.getCount(metadata.getSourceMetadata().size()));
+		args.add(formatter.getTime(metadata.getExecutionTime()));
+		logger.info(msg, CollectionUtils.toArray(args));
 	}
 
 }
