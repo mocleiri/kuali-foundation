@@ -71,7 +71,7 @@ public class SqlServiceTest {
 	protected void doSchema(SqlService service, JdbcContext context, Properties properties) {
 		logger.info("Executing schema SQL");
 		long start = System.currentTimeMillis();
-		SqlMetadata metadata = doPrefix(service, context, properties, "sql.schema.loc");
+		SqlMetadata metadata = doDDL(service, context, properties, "sql.schema.loc");
 		long elapsed = System.currentTimeMillis() - start;
 		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
 		logger.info("Executed {} schema SQL statements from {} sources.  Total time: {}", args);
@@ -80,7 +80,7 @@ public class SqlServiceTest {
 	protected void doConstraints(SqlService service, JdbcContext context, Properties properties) {
 		logger.info("Executing constraints SQL");
 		long start = System.currentTimeMillis();
-		SqlMetadata metadata = doPrefix(service, context, properties, "sql.constraints.loc");
+		SqlMetadata metadata = doDDL(service, context, properties, "sql.constraints.loc");
 		long elapsed = System.currentTimeMillis() - start;
 		Object[] args = new Object[] { formatter.getCount(metadata.getCount()), formatter.getCount(metadata.getSourceMetadata().size()), formatter.getTime(elapsed) };
 		logger.info("Executed {} constraints SQL statements from {} sources.  Total time: {}", args);
@@ -98,10 +98,16 @@ public class SqlServiceTest {
 		logger.info("Executed {} data load SQL statements from {} sources.  Total time: {}", args);
 	}
 
-	protected SqlMetadata doPrefix(SqlService service, JdbcContext context, Properties properties, String prefix) {
+	protected SqlMetadata doDDL(SqlService service, JdbcContext context, Properties properties, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = PropertyUtils.getValues(properties, keys);
-		return service.executeLocations(context, locations);
+		context.setShow(false);
+		SqlMetadata metadata = service.getLocationsMetadata(context, locations);
+		logger.info("Executing {} DDL statements", metadata.getCount());
+		context.setShow(true);
+		metadata = service.executeLocations(context, locations);
+		context.setShow(false);
+		return metadata;
 	}
 
 	protected List<String> getLocations(List<String> resourceListings) {
