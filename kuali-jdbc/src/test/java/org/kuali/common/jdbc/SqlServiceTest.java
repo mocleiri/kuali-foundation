@@ -37,14 +37,12 @@ public class SqlServiceTest {
 	public void testOLEDatabaseProcess() {
 		List<String> sql = getSql();
 		List<SqlSource> dbaSql = getStringSqlSources(sql);
-		dba.setShow(false);
 		long count = service.getSqlStatementCount(dba, dbaSql);
 		logger.info("Located {} dba sql statements to execute", count);
 		long executed = service.executeSql(dba, dbaSql);
 		logger.info("Executed {} dba sql statements", executed);
 		List<String> locations = getLocations();
 		List<SqlSource> sources = getLocationSqlSources(locations);
-		normal.setShow(false);
 		long start = System.currentTimeMillis();
 		logger.info("Examining {} locations for SQL to execute", sources.size());
 		count = service.getSqlStatementCount(normal, sources);
