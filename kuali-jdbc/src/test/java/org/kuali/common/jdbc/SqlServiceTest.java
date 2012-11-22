@@ -37,19 +37,22 @@ public class SqlServiceTest {
 	@Test
 	public void testOLEDatabaseProcess() {
 		SimpleFormatter sf = new SimpleFormatter();
-		List<String> dbaSql = getDbaSql();
-		SqlMetadata metadata = service.execute(dba, dbaSql);
-		logger.info("Executed {} dba sql statements", metadata.getCount());
 		List<String> locations = getLocations();
-		long start = System.currentTimeMillis();
 		logger.info("Examining {} locations for SQL", locations.size());
-		metadata = service.getLocationsMetadata(normal, locations);
+		long start = System.currentTimeMillis();
+		SqlMetadata metadata = service.getLocationsMetadata(normal, locations);
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Found {} SQL statements.  Total time: {}", sf.getCount(metadata.getCount()), sf.getTime(elapsed));
 		start = System.currentTimeMillis();
 		// metadata = service.executeSql(normal, sources);
 		// elapsed = System.currentTimeMillis() - start;
 		// logger.info("Executed {} sql statements in {} millis", metadata.getCount(), elapsed);
+	}
+
+	protected void doDba() {
+		List<String> dbaSql = getDbaSql();
+		SqlMetadata metadata = service.execute(dba, dbaSql);
+		logger.info("Executed {} dba sql statements", metadata.getCount());
 	}
 
 	protected List<String> getDbaSql() {
