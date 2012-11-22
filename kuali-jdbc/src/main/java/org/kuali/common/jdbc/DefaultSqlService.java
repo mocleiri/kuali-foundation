@@ -28,6 +28,25 @@ public class DefaultSqlService implements SqlService {
 		return count;
 	}
 
+	protected long getSqlStatementCount(SqlContext context, SqlSource source, long runningCount) {
+		long count = 0;
+		BufferedReader in = null;
+		try {
+			in = JdbcUtils.getBufferedReader(source);
+			String sql = context.getReader().getSqlStatement(in);
+			while (sql != null) {
+				count++;
+				showSql(context, sql, runningCount + count);
+				sql = context.getReader().getSqlStatement(in);
+			}
+			return count;
+		} catch (IOException e) {
+			throw new JdbcException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 	@Override
 	public List<String> getSqlStatements(SqlContext context, List<SqlSource> sources) {
 		List<String> sql = new ArrayList<String>();
@@ -62,25 +81,6 @@ public class DefaultSqlService implements SqlService {
 		} else {
 			String log = context.isFlatten() ? Str.flatten(sql) : sql;
 			logger.debug("{} - SQL - [{}]", count, log);
-		}
-	}
-
-	protected long getSqlStatementCount(SqlContext context, SqlSource source, long runningCount) {
-		long count = 0;
-		BufferedReader in = null;
-		try {
-			in = JdbcUtils.getBufferedReader(source);
-			String sql = context.getReader().getSqlStatement(in);
-			while (sql != null) {
-				count++;
-				showSql(context, sql, runningCount + count);
-				sql = context.getReader().getSqlStatement(in);
-			}
-			return count;
-		} catch (IOException e) {
-			throw new JdbcException("Unexpected IO error", e);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 
