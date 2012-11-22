@@ -21,8 +21,8 @@ public class DefaultSqlService implements SqlService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlService.class);
 
 	@Override
-	public SqlMetadata executeSql(JdbcContext context, SqlSource source) {
-		return executeSql(context, Collections.singletonList(source));
+	public SqlMetadata execute(JdbcContext context, SqlSource source) {
+		return execute(context, Collections.singletonList(source));
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata executeLocations(JdbcContext context, List<String> locations) {
-		return executeSql(context, JdbcUtils.getLocationSqlSources(locations));
+		return execute(context, JdbcUtils.getLocationSqlSources(locations));
 	}
 
 	@Override
@@ -42,11 +42,11 @@ public class DefaultSqlService implements SqlService {
 
 	@Override
 	public SqlMetadata executeStrings(JdbcContext context, List<String> sql) {
-		return executeSql(context, JdbcUtils.getStringSqlSources(sql));
+		return execute(context, JdbcUtils.getStringSqlSources(sql));
 	}
 
 	@Override
-	public SqlMetadata executeSql(JdbcContext context, List<SqlSource> sources) {
+	public SqlMetadata execute(JdbcContext context, List<SqlSource> sources) {
 		Connection conn = null;
 		Statement statement = null;
 		long count = 0;
@@ -75,12 +75,12 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	@Override
-	public SqlMetadata getSqlMetadata(SqlContext context, SqlSource source) {
-		return getSqlMetadata(context, Collections.singletonList(source));
+	public SqlMetadata getMetadata(SqlContext context, SqlSource source) {
+		return getMetadata(context, Collections.singletonList(source));
 	}
 
 	@Override
-	public SqlMetadata getSqlMetadata(SqlContext context, List<SqlSource> sources) {
+	public SqlMetadata getMetadata(SqlContext context, List<SqlSource> sources) {
 		List<SqlSourceMetadata> sourceMetadata = new ArrayList<SqlSourceMetadata>();
 		long count = 0;
 		for (SqlSource source : sources) {

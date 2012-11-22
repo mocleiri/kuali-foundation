@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface SqlService {
 
-	SqlMetadata executeSql(JdbcContext context, List<SqlSource> sources);
-
 	SqlMetadata executeString(JdbcContext context, String sql);
 
 	SqlMetadata executeStrings(JdbcContext context, List<String> sql);
@@ -14,11 +12,13 @@ public interface SqlService {
 
 	SqlMetadata executeLocations(JdbcContext context, List<String> locations);
 
-	SqlMetadata executeSql(JdbcContext context, SqlSource source);
+	SqlMetadata execute(JdbcContext context, List<SqlSource> sources);
 
-	SqlMetadata getSqlMetadata(SqlContext context, List<SqlSource> sources);
+	SqlMetadata execute(JdbcContext context, SqlSource source);
 
-	SqlMetadata getSqlMetadata(SqlContext context, SqlSource source);
+	SqlMetadata getMetadata(SqlContext context, List<SqlSource> sources);
+
+	SqlMetadata getMetadata(SqlContext context, SqlSource source);
 
 	List<String> getSqlStatements(SqlContext context, List<SqlSource> sources);
 
