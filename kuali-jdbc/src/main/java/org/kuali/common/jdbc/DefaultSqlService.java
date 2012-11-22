@@ -47,7 +47,7 @@ public class DefaultSqlService implements SqlService {
 		Connection conn = null;
 		Statement statement = null;
 		long count = 0;
-		long start = 0;
+		long start = System.currentTimeMillis();
 		try {
 			conn = DataSourceUtils.doGetConnection(context.getDataSource());
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
