@@ -12,9 +12,9 @@ public interface SqlService {
 
 	SqlMetadata executeLocations(JdbcContext context, List<String> locations);
 
-	SqlMetadata getStringMetadata(SqlContext context, String sql);
+	SqlMetadata getMetadata(SqlContext context, String sql);
 
-	SqlMetadata getStringsMetadata(SqlContext context, List<String> sql);
+	SqlMetadata getMetadata(SqlContext context, List<String> sql);
 
 	SqlMetadata getLocationMetadata(SqlContext context, String location);
 

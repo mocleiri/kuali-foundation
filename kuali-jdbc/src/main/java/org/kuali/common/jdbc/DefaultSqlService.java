@@ -82,12 +82,12 @@ public class DefaultSqlService implements SqlService {
 	}
 
 	@Override
-	public SqlMetadata getStringMetadata(SqlContext context, String sql) {
-		return getStringsMetadata(context, Collections.singletonList(sql));
+	public SqlMetadata getMetadata(SqlContext context, String sql) {
+		return getMetadata(context, Collections.singletonList(sql));
 	}
 
 	@Override
-	public SqlMetadata getStringsMetadata(SqlContext context, List<String> sql) {
+	public SqlMetadata getMetadata(SqlContext context, List<String> sql) {
 		return getSourceMetadata(context, JdbcUtils.getStringSqlSources(sql));
 	}
 
