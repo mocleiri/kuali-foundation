@@ -35,12 +35,12 @@ public class SqlServiceTest {
 
 	@Test
 	public void testOLEDatabaseProcess() {
-		List<String> sql = getSql();
+		List<String> sql = getDbaSql();
 		List<SqlSource> dbaSql = JdbcUtils.getStringSqlSources(sql);
 		SqlMetadata metadata = service.getSqlMetadata(dba, dbaSql);
 		logger.info("Located {} dba sql statements to execute", metadata.getCount());
-		long executed = service.executeSql(dba, dbaSql);
-		logger.info("Executed {} dba sql statements", executed);
+		metadata = service.executeSql(dba, dbaSql);
+		logger.info("Executed {} dba sql statements", metadata.getCount());
 		List<String> locations = getLocations();
 		List<SqlSource> sources = JdbcUtils.getLocationSqlSources(locations);
 		long start = System.currentTimeMillis();
@@ -49,12 +49,12 @@ public class SqlServiceTest {
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Located {} SQL statements in {} millis", metadata.getCount(), elapsed);
 		start = System.currentTimeMillis();
-		executed = service.executeSql(normal, sources);
-		elapsed = System.currentTimeMillis() - start;
-		logger.info("Executed {} sql statements in {} millis", executed, elapsed);
+		// metadata = service.executeSql(normal, sources);
+		// elapsed = System.currentTimeMillis() - start;
+		// logger.info("Executed {} sql statements in {} millis", metadata.getCount(), elapsed);
 	}
 
-	protected List<String> getSql() {
+	protected List<String> getDbaSql() {
 		List<String> sql = new ArrayList<String>();
 		sql.add(properties.getProperty("sql.validate"));
 		sql.add(properties.getProperty("sql.dba.drop"));
