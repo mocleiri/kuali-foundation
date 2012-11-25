@@ -67,7 +67,7 @@ public class JdbcServiceTest {
 			logger.info("Driver Version - {}", metadata.getDriverVersion());
 			logger.info("SQL Encoding - {}", encoding);
 			logger.info("--------------------------------------------------");
-			doDba(service, dba, dbaSql, encoding);
+			doDba(service, dba, dbaSql);
 			// doSchema(service, normal, properties);
 			// doData(service, normal, properties);
 			// doConstraints(service, normal, properties);
@@ -76,9 +76,9 @@ public class JdbcServiceTest {
 		}
 	}
 
-	protected void doDba(JdbcService service, JdbcContext context, List<String> dbaSql, String encoding) {
+	protected void doDba(JdbcService service, JdbcContext context, List<String> dbaSql) {
 		logger.info("Executing DBA SQL");
-		SqlMetaDataList metadata = service.executeSqlStrings(context, dbaSql, encoding);
+		SqlMetaDataList metadata = service.executeSqlStrings(context, dbaSql);
 		logExecution("dba", metadata);
 	}
 
