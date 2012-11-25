@@ -5,19 +5,20 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 
 public class DefaultSqlReader implements SqlReader {
 
 	public static final String DEFAULT_DELIMITER = "/";
+	public static final DelimiterMode DEFAULT_DELIMITER_MODE = DelimiterMode.OWN_LINE;
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
 	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList(new String[] { "#", "--" });
 	public static final boolean DEFAULT_IS_TRIM = true;
 	public static final boolean DEFAULT_IS_IGNORE_COMMENTS = true;
 
 	String delimiter = DEFAULT_DELIMITER;
+	DelimiterMode delimiterMode = DEFAULT_DELIMITER_MODE;
 	LineSeparator lineSeparator = DEFAULT_LINE_SEPARATOR;
 	boolean trim = DEFAULT_IS_TRIM;
 	boolean ignoreComments = DEFAULT_IS_IGNORE_COMMENTS;
@@ -25,29 +26,36 @@ public class DefaultSqlReader implements SqlReader {
 
 	@Override
 	public String getSqlStatement(BufferedReader reader) throws IOException {
-		Assert.assertNotNull(delimiter, "delimiter is null");
+		Assert.notNull(delimiter, "delimiter is null");
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
-		while (proceed(line, trimmedLine, delimiter)) {
-			if (!ignore(sb, trimmedLine)) {
+		while (proceed(line, trimmedLine, delimiter, delimiterMode)) {
+			if (!ignore(ignoreComments, sb, trimmedLine, commentTokens)) {
 				sb.append(line + lineSeparator.getValue());
 			}
 			line = reader.readLine();
 			trimmedLine = StringUtils.trimToNull(line);
 		}
-		return getReturnValue(sb.toString());
+		return getReturnValue(sb.toString(), trim, lineSeparator);
 	}
 
-	protected boolean isEndOfSqlStatement(String trimmedLine, String delimiter) {
-		return StringUtils.equals(trimmedLine, delimiter);
+	protected boolean isEndOfSqlStatement(String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
+		switch (delimiterMode) {
+		case END_OF_LINE:
+			return StringUtils.endsWith(trimmedLine, delimiter);
+		case OWN_LINE:
+			return StringUtils.equals(trimmedLine, delimiter);
+		default:
+			throw new IllegalArgumentException("Delimiter mode '" + delimiterMode + "' is unknown");
+		}
 	}
 
-	protected boolean proceed(String line, String trimmedLine, String delimiter) {
-		return line != null && !isEndOfSqlStatement(trimmedLine, delimiter);
+	protected boolean proceed(String line, String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
+		return line != null && !isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode);
 	}
 
-	protected String getReturnValue(String sql) {
+	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {
 		if (trim) {
 			sql = StringUtils.trimToNull(sql);
 		}
@@ -61,7 +69,7 @@ public class DefaultSqlReader implements SqlReader {
 		}
 	}
 
-	protected boolean ignore(StringBuilder sql, String trimmedLine) {
+	protected boolean ignore(boolean ignoreComments, StringBuilder sql, String trimmedLine, List<String> commentTokens) {
 		return ignoreComments && StringUtils.isBlank(sql.toString()) && isSqlComment(trimmedLine, commentTokens);
 	}
 
@@ -104,6 +112,22 @@ public class DefaultSqlReader implements SqlReader {
 
 	public void setLineSeparator(LineSeparator lineSeparator) {
 		this.lineSeparator = lineSeparator;
+	}
+
+	public DelimiterMode getDelimiterMode() {
+		return delimiterMode;
+	}
+
+	public void setDelimiterMode(DelimiterMode delimiterMode) {
+		this.delimiterMode = delimiterMode;
+	}
+
+	public List<String> getCommentTokens() {
+		return commentTokens;
+	}
+
+	public void setCommentTokens(List<String> commentTokens) {
+		this.commentTokens = commentTokens;
 	}
 
 }

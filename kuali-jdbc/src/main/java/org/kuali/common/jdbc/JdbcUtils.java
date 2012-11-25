@@ -30,13 +30,13 @@ public class JdbcUtils {
 			Assert.notNull(source.getString());
 			return LocationUtils.getBufferedReaderFromString(source.getString(), encoding);
 		default:
-			throw new IllegalArgumentException(source.getType() + " is unknown");
+			throw new IllegalArgumentException("SQL source type '" + source.getType() + "' is unknown");
 		}
 	}
 
 	public static final void closeQuietly(DataSource dataSource, Connection conn, Statement statement) {
 		closeQuietly(statement);
-		closeQuietly(conn, dataSource);
+		closeQuietly(dataSource, conn);
 	}
 
 	public static final void closeQuietly(Statement statement) {
@@ -50,10 +50,11 @@ public class JdbcUtils {
 		}
 	}
 
-	public static final void closeQuietly(Connection conn, DataSource dataSource) {
-		if (conn == null) {
+	public static final void closeQuietly(DataSource dataSource, Connection conn) {
+		if (conn == null && dataSource == null) {
 			return;
 		}
+		Assert.notNull(dataSource, "dataSource is null but conn is not");
 		try {
 			DataSourceUtils.doReleaseConnection(conn, dataSource);
 		} catch (SQLException e) {
@@ -61,26 +62,27 @@ public class JdbcUtils {
 		}
 	}
 
-	public static final List<SqlSource> getLocationSqlSources(List<String> locations) {
+	public static final List<SqlSource> getSqlSources(List<String> locations, List<String> encodings) {
+		return getSqlSources(locations, encodings, SqlStringType.LOCATION);
+	}
+
+	public static final List<SqlSource> getSqlSources(List<String> strings, List<String> encodings, SqlStringType sqlStringType) {
+		Assert.isTrue(encodings == null || strings.size() == encodings.size());
 		List<SqlSource> sources = new ArrayList<SqlSource>();
-		for (String location : locations) {
+		for (int i = 0; i < strings.size(); i++) {
+			String string = strings.get(i);
+			String encoding = encodings == null ? null : encodings.get(i);
 			SqlSource source = new SqlSource();
-			source.setString(location);
-			source.setType(SqlStringType.LOCATION);
+			source.setString(string);
+			source.setEncoding(encoding);
+			source.setType(sqlStringType);
 			sources.add(source);
 		}
 		return sources;
 	}
 
-	public static final List<SqlSource> getStringSqlSources(List<String> sql) {
-		List<SqlSource> sources = new ArrayList<SqlSource>();
-		for (String s : sql) {
-			SqlSource source = new SqlSource();
-			source.setString(s);
-			source.setType(SqlStringType.SQL);
-			sources.add(source);
-		}
-		return sources;
+	public static final List<SqlSource> getSqlSourcesFromStrings(List<String> sql, List<String> encodings) {
+		return getSqlSources(sql, encodings, SqlStringType.SQL);
 	}
 
 }

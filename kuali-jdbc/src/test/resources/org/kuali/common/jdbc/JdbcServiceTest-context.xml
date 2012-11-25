@@ -6,10 +6,15 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding="UTF-8" p:resolvePlaceholders="true">
+  <bean id="encoding" class="java.lang.String">
+    <constructor-arg value="UTF-8" />
+  </bean>
+
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding-ref="encoding" p:resolvePlaceholders="true">
     <property name="locations">
       <list>
         <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+        <value>classpath:org/kuali/common/jdbc/${jdbc.env}.properties</value>
         <value>classpath:org/kuali/common/jdbc/${db.vendor}.properties</value>
         <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
         <value>classpath:org/kuali/ole/sql.properties</value>
@@ -27,46 +32,39 @@
 
   <bean id="formatter" class="org.kuali.common.util.SimpleFormatter" />
 
-  <bean id="normalContext" class="org.kuali.common.jdbc.DatabaseContext">
+  <bean id="dbp" class="org.kuali.common.jdbc.DatabaseProcessContext">
+    <property name="vendor" value="${db.vendor}" />
+    <property name="driver" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.url}" />
     <property name="username" value="${jdbc.username}" />
     <property name="password" value="${jdbc.password}" />
-  </bean>
-
-  <bean id="dbaContext" class="org.kuali.common.jdbc.DatabaseContext">
-    <property name="url" value="${jdbc.dba.url}" />
-    <property name="username" value="${jdbc.dba.username}" />
-    <property name="password" value="${jdbc.dba.password}" />
-  </bean>
-
-  <bean id="process" class="org.kuali.common.jdbc.DatabaseProcessContext">
-    <property name="driver" value="${jdbc.driverClassName}" />
-    <property name="dba" ref="dbaContext" />
-    <property name="normal" ref="normalContext" />
+    <property name="dbaUrl" value="${jdbc.dba.url}" />
+    <property name="dbaUsername" value="${jdbc.dba.username}" />
+    <property name="dbaPassword" value="${jdbc.dba.password}" />
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="#{process.driver}" />
-    <property name="url" value="#{normalContext.url}" />
-    <property name="username" value="#{normalContext.username}" />
-    <property name="password" value="#{normalContext.password}" />
+    <property name="driverClassName" value="#{dbp.driver}" />
+    <property name="url" value="#{dbp.url}" />
+    <property name="username" value="#{dbp.username}" />
+    <property name="password" value="#{dbp.password}" />
   </bean>
 
   <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="#{process.driver}" />
-    <property name="url" value="#{dbaContext.url}" />
-    <property name="username" value="#{dbaContext.username}" />
-    <property name="password" value="#{dbaContext.password}" />
+    <property name="driverClassName" value="#{dbp.driver}" />
+    <property name="url" value="#{dbp.dbaUrl}" />
+    <property name="username" value="#{dbp.dbaUsername}" />
+    <property name="password" value="#{dbp.dbaPassword}" />
   </bean>
 
   <bean id="normal" class="org.kuali.common.jdbc.JdbcContext">
     <property name="dataSource" ref="dataSource" />
   </bean>
 
-  <bean id="dba" class="org.kuali.common.jdbc.JdbcContext" p:show="true" p:flatten="true">
+  <bean id="dba" class="org.kuali.common.jdbc.JdbcContext">
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
-  <bean id="service" class="org.kuali.common.jdbc.DefaultSqlService" />
+  <bean id="service" class="org.kuali.common.jdbc.DefaultJdbcService" />
 
 </beans>

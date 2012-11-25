@@ -1,11 +1,13 @@
 package org.kuali.common.jdbc;
 
-public class SqlSourceMetadata {
+import java.util.ArrayList;
+
+public class SqlMetaDataList extends ArrayList<SqlMetaData> {
+
+	private static final long serialVersionUID = 7248787367263097240L;
 
 	long count;
 	long executionTime;
-	SqlReader reader;
-	SqlSource source;
 
 	public long getCount() {
 		return count;
@@ -15,22 +17,6 @@ public class SqlSourceMetadata {
 		this.count = count;
 	}
 
-	public SqlReader getReader() {
-		return reader;
-	}
-
-	public void setReader(SqlReader reader) {
-		this.reader = reader;
-	}
-
-	public SqlSource getSource() {
-		return source;
-	}
-
-	public void setSource(SqlSource source) {
-		this.source = source;
-	}
-
 	public long getExecutionTime() {
 		return executionTime;
 	}
@@ -38,5 +24,4 @@ public class SqlSourceMetadata {
 	public void setExecutionTime(long executionTime) {
 		this.executionTime = executionTime;
 	}
-
 }

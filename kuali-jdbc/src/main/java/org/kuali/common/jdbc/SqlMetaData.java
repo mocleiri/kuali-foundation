@@ -1,13 +1,11 @@
 package org.kuali.common.jdbc;
 
-import java.util.List;
-
-public class SqlMetadata {
+public class SqlMetaData {
 
 	long count;
 	long executionTime;
-
-	List<SqlSourceMetadata> sourceMetadata;
+	SqlReader reader;
+	SqlSource source;
 
 	public long getCount() {
 		return count;
@@ -17,20 +15,28 @@ public class SqlMetadata {
 		this.count = count;
 	}
 
-	public List<SqlSourceMetadata> getSourceMetadata() {
-		return sourceMetadata;
-	}
-
-	public void setSourceMetadata(List<SqlSourceMetadata> sourceMetadata) {
-		this.sourceMetadata = sourceMetadata;
-	}
-
 	public long getExecutionTime() {
 		return executionTime;
 	}
 
 	public void setExecutionTime(long executionTime) {
 		this.executionTime = executionTime;
+	}
+
+	public SqlReader getReader() {
+		return reader;
+	}
+
+	public void setReader(SqlReader reader) {
+		this.reader = reader;
+	}
+
+	public SqlSource getSource() {
+		return source;
+	}
+
+	public void setSource(SqlSource source) {
+		this.source = source;
 	}
 
 }
