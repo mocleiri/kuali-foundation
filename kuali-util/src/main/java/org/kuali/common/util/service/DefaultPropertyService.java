@@ -22,7 +22,7 @@ public class DefaultPropertyService implements PropertyService {
 	public Properties load(PropertyLoadContext context) {
 		Properties properties = loadProperties(context);
 		context.initialize(properties);
-		modify(properties, context.getModifiers());
+		modify(properties, context.getProcessors());
 		return properties;
 	}
 
@@ -30,7 +30,7 @@ public class DefaultPropertyService implements PropertyService {
 	public void store(PropertyStoreContext context, Properties properties) {
 		Properties duplicate = PropertyUtils.duplicate(properties);
 		context.initialize(duplicate);
-		modify(duplicate, context.getModifiers());
+		modify(duplicate, context.getProcessors());
 		PropertyUtils.store(duplicate, context.getFile(), context.getEncoding(), context.getComment());
 	}
 

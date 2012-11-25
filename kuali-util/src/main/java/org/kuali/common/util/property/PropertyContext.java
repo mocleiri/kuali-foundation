@@ -9,7 +9,7 @@ public interface PropertyContext {
 
 	String getEncoding();
 
-	List<PropertyProcessor> getModifiers();
+	List<PropertyProcessor> getProcessors();
 
 	void initialize(Properties properties);
 

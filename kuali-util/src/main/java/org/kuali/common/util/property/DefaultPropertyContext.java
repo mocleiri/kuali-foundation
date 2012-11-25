@@ -288,7 +288,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public List<PropertyProcessor> getModifiers() {
+	public List<PropertyProcessor> getProcessors() {
 		return modifiers;
 	}
 
