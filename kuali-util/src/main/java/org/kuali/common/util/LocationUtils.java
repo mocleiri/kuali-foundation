@@ -140,7 +140,7 @@ public class LocationUtils {
 		Reader reader = null;
 		try {
 			reader = getBufferedReader(in, encoding);
-			return IOUtils.readLines(reader);
+			return readLinesAndClose(reader);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
