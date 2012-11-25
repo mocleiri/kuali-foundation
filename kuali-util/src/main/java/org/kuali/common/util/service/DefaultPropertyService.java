@@ -9,7 +9,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
-import org.kuali.common.util.property.modifier.PropertyProcessor;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;

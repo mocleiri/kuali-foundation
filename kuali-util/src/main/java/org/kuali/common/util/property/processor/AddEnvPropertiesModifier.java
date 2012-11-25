@@ -1,4 +1,4 @@
-package org.kuali.common.util.property.modifier;
+package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 

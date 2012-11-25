@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
-import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
-import org.kuali.common.util.property.modifier.PathModifier;
-import org.kuali.common.util.property.modifier.PropertyProcessor;
-import org.kuali.common.util.property.modifier.VersionModifier;
+import org.kuali.common.util.property.processor.AddEnvPropertiesModifier;
+import org.kuali.common.util.property.processor.AddSystemPropertiesModifier;
+import org.kuali.common.util.property.processor.PathModifier;
+import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.kuali.common.util.property.processor.VersionModifier;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 

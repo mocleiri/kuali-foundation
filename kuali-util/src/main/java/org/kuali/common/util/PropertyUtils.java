@@ -20,9 +20,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
-import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
-import org.kuali.common.util.property.modifier.PropertyProcessor;
+import org.kuali.common.util.property.processor.AddEnvPropertiesModifier;
+import org.kuali.common.util.property.processor.AddSystemPropertiesModifier;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
