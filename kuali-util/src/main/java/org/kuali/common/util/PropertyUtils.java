@@ -22,7 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
-import org.kuali.common.util.property.modifier.PropertyModifier;
+import org.kuali.common.util.property.modifier.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -215,9 +215,9 @@ public class PropertyUtils {
 	 */
 	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties newProperties = duplicate(properties);
-		List<PropertyModifier> modifiers = getPropertyModifiers(mode);
-		for (PropertyModifier modifier : modifiers) {
-			modifier.modify(newProperties);
+		List<PropertyProcessor> modifiers = getPropertyModifiers(mode);
+		for (PropertyProcessor modifier : modifiers) {
+			modifier.process(newProperties);
 		}
 		return newProperties;
 	}
@@ -252,8 +252,8 @@ public class PropertyUtils {
 	/**
 	 * Return modifiers that add environment variables, system properties, or both, according to the mode passed in.
 	 */
-	public static final List<PropertyModifier> getPropertyModifiers(GlobalPropertiesMode mode) {
-		List<PropertyModifier> modifiers = new ArrayList<PropertyModifier>();
+	public static final List<PropertyProcessor> getPropertyModifiers(GlobalPropertiesMode mode) {
+		List<PropertyProcessor> modifiers = new ArrayList<PropertyProcessor>();
 		switch (mode) {
 		case NONE:
 			return modifiers;

@@ -8,7 +8,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 
-public class GlobalOverrideModifier implements PropertyModifier {
+public class GlobalOverrideModifier implements PropertyProcessor {
 
 	GlobalPropertiesMode globalPropertiesMode;
 	Mode propertyOverwriteMode;
@@ -28,7 +28,7 @@ public class GlobalOverrideModifier implements PropertyModifier {
 	}
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {

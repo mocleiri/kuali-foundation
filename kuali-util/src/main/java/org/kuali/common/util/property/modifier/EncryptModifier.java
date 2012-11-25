@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
 
-public class EncryptModifier implements PropertyModifier {
+public class EncryptModifier implements PropertyProcessor {
 
 	TextEncryptor encryptor;
 
@@ -20,7 +20,7 @@ public class EncryptModifier implements PropertyModifier {
 	}
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String clearTextValue = properties.getProperty(key);

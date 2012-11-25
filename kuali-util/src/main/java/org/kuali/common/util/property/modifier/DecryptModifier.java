@@ -7,7 +7,7 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.Assert;
 
-public class DecryptModifier implements PropertyModifier {
+public class DecryptModifier implements PropertyProcessor {
 
 	TextEncryptor encryptor;
 
@@ -21,7 +21,7 @@ public class DecryptModifier implements PropertyModifier {
 	}
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		Assert.notNull(encryptor, "encryptor is null");
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {

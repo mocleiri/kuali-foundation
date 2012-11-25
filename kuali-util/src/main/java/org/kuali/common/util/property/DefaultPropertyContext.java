@@ -17,7 +17,7 @@ import org.kuali.common.util.property.modifier.EndsWithDecryptModifier;
 import org.kuali.common.util.property.modifier.EndsWithEncryptModifier;
 import org.kuali.common.util.property.modifier.GlobalOverrideModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
-import org.kuali.common.util.property.modifier.PropertyModifier;
+import org.kuali.common.util.property.modifier.PropertyProcessor;
 import org.kuali.common.util.property.modifier.ReformatKeysAsEnvVarsModifier;
 import org.kuali.common.util.property.modifier.ResolvePlaceholdersModifier;
 import org.kuali.common.util.property.modifier.TrimModifier;
@@ -45,14 +45,14 @@ public class DefaultPropertyContext implements PropertyContext {
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
 	String encryptionPasswordProperty;
-	List<PropertyModifier> modifiers;
+	List<PropertyProcessor> modifiers;
 	List<String> pathProperties;
 	List<String> versionProperties;
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
-	protected List<PropertyModifier> getDefaultModifiers() {
-		List<PropertyModifier> defaultModifiers = new ArrayList<PropertyModifier>();
+	protected List<PropertyProcessor> getDefaultModifiers() {
+		List<PropertyProcessor> defaultModifiers = new ArrayList<PropertyProcessor>();
 
 		if (properties != null) {
 			defaultModifiers.add(new AddPropertiesModifier(properties));
@@ -99,7 +99,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		return defaultModifiers;
 	}
 
-	protected void addStyleModifier(List<PropertyModifier> defaultModifiers) {
+	protected void addStyleModifier(List<PropertyProcessor> defaultModifiers) {
 		if (style == null) {
 			return;
 		}
@@ -114,7 +114,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected void addEncModifier(List<PropertyModifier> defaultModifiers) {
+	protected void addEncModifier(List<PropertyProcessor> defaultModifiers) {
 		if (encryptionMode == null) {
 			return;
 		}
@@ -138,7 +138,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	public void initialize(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
-		List<PropertyModifier> defaultModifiers = getDefaultModifiers();
+		List<PropertyProcessor> defaultModifiers = getDefaultModifiers();
 		if (this.modifiers == null) {
 			this.modifiers = defaultModifiers;
 		} else {
@@ -288,11 +288,11 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	@Override
-	public List<PropertyModifier> getModifiers() {
+	public List<PropertyProcessor> getModifiers() {
 		return modifiers;
 	}
 
-	public void setModifiers(List<PropertyModifier> modifiers) {
+	public void setModifiers(List<PropertyProcessor> modifiers) {
 		this.modifiers = modifiers;
 	}
 

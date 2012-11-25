@@ -8,7 +8,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 
-public class PathModifier implements PropertyModifier {
+public class PathModifier implements PropertyProcessor {
 
 	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
@@ -25,7 +25,7 @@ public class PathModifier implements PropertyModifier {
 	}
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
 		for (String key : keys) {
 			String oldValue = properties.getProperty(key);

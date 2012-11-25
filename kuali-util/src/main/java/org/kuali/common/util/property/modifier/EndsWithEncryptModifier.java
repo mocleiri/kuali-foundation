@@ -23,7 +23,7 @@ public class EndsWithEncryptModifier extends DecryptModifier {
 	}
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String decryptedValue = properties.getProperty(key);

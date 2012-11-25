@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class TrimModifier implements PropertyModifier {
+public class TrimModifier implements PropertyProcessor {
 
 	public TrimModifier() {
 		this(null, null);
@@ -21,7 +21,7 @@ public class TrimModifier implements PropertyModifier {
 	List<String> excludes;
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		PropertyUtils.trim(properties, includes, excludes);
 	}
 

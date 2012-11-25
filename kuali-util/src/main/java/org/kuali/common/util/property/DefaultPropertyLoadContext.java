@@ -7,14 +7,14 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.modifier.AddEnvPropertiesModifier;
 import org.kuali.common.util.property.modifier.AddSystemPropertiesModifier;
 import org.kuali.common.util.property.modifier.PathModifier;
-import org.kuali.common.util.property.modifier.PropertyModifier;
+import org.kuali.common.util.property.modifier.PropertyProcessor;
 import org.kuali.common.util.property.modifier.VersionModifier;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
 	List<String> locations;
 	Mode missingLocationsMode = Mode.ERROR;
-	List<PropertyModifier> loadModifiers;
+	List<PropertyProcessor> loadModifiers;
 
 	@Override
 	public List<String> getLocations() {
@@ -26,11 +26,11 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	@Override
-	public List<PropertyModifier> getLoadModifiers() {
+	public List<PropertyProcessor> getLoadModifiers() {
 		return loadModifiers;
 	}
 
-	public void setLoadModifiers(List<PropertyModifier> loadModifiers) {
+	public void setLoadModifiers(List<PropertyProcessor> loadModifiers) {
 		this.loadModifiers = loadModifiers;
 	}
 
@@ -43,8 +43,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 	}
 
-	protected List<PropertyModifier> getDefaultLoadModifiers() {
-		List<PropertyModifier> modifiers = new ArrayList<PropertyModifier>();
+	protected List<PropertyProcessor> getDefaultLoadModifiers() {
+		List<PropertyProcessor> modifiers = new ArrayList<PropertyProcessor>();
 		modifiers.add(new AddEnvPropertiesModifier());
 		modifiers.add(new AddSystemPropertiesModifier());
 		if (pathProperties != null) {

@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class AddPrefixModifier implements PropertyModifier {
+public class AddPrefixModifier implements PropertyProcessor {
 
 	String prefix;
 
@@ -19,7 +19,7 @@ public class AddPrefixModifier implements PropertyModifier {
 	}
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		Properties duplicate = PropertyUtils.duplicate(properties);
 		properties.clear();

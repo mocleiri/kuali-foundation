@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class ResolvePlaceholdersModifier implements PropertyModifier {
+public class ResolvePlaceholdersModifier implements PropertyProcessor {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersModifier.class);
 
@@ -33,7 +33,7 @@ public class ResolvePlaceholdersModifier implements PropertyModifier {
 	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		Properties resolvedProperties = getResolvedProperties(properties, helper);
 		logger.info("Resolved {} property values", resolvedProperties.size());
 		properties.putAll(resolvedProperties);

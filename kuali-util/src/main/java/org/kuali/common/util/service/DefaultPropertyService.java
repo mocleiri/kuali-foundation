@@ -9,7 +9,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
-import org.kuali.common.util.property.modifier.PropertyModifier;
+import org.kuali.common.util.property.modifier.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -34,12 +34,12 @@ public class DefaultPropertyService implements PropertyService {
 		PropertyUtils.store(duplicate, context.getFile(), context.getEncoding(), context.getComment());
 	}
 
-	protected void modify(Properties properties, List<PropertyModifier> modifiers) {
+	protected void modify(Properties properties, List<PropertyProcessor> modifiers) {
 		if (modifiers == null) {
 			return;
 		}
-		for (PropertyModifier modifier : modifiers) {
-			modifier.modify(properties);
+		for (PropertyProcessor modifier : modifiers) {
+			modifier.process(properties);
 		}
 	}
 

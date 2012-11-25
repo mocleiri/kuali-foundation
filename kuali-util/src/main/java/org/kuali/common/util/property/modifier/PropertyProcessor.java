@@ -2,8 +2,8 @@ package org.kuali.common.util.property.modifier;
 
 import java.util.Properties;
 
-public interface PropertyModifier {
+public interface PropertyProcessor {
 
-	void modify(Properties properties);
+	void process(Properties properties);
 
 }

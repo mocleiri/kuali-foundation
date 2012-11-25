@@ -2,7 +2,7 @@ package org.kuali.common.util.property.modifier;
 
 import java.util.Properties;
 
-public class AddPropertiesModifier implements PropertyModifier {
+public class AddPropertiesModifier implements PropertyProcessor {
 
 	public AddPropertiesModifier() {
 		this(null);
@@ -16,7 +16,7 @@ public class AddPropertiesModifier implements PropertyModifier {
 	Properties properties;
 
 	@Override
-	public void modify(Properties properties) {
+	public void process(Properties properties) {
 		properties.putAll(this.properties);
 	}
 
