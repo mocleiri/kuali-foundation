@@ -7,8 +7,12 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EndsWithDecryptProcessor extends DecryptProcessor {
+
+	private static final Logger logger = LoggerFactory.getLogger(EndsWithDecryptProcessor.class);
 
 	String suffix = Constants.DEFAULT_ENCRYPTED_SUFFIX;
 	boolean removeEncryptedProperties = true;
@@ -32,6 +36,7 @@ public class EndsWithDecryptProcessor extends DecryptProcessor {
 			String newKey = key.substring(0, endIndex);
 			PropertyUtils.setProperty(properties, newKey, decryptedValue, propertyOverwriteMode);
 			if (removeEncryptedProperties) {
+				logger.debug("Removing {}", key);
 				properties.remove(key);
 			}
 		}
