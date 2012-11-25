@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringReader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -178,15 +178,7 @@ public class LocationUtils {
 	 * Return a <code>BufferedReader</code> that reads from <code>s</code>
 	 */
 	public static final BufferedReader getBufferedReaderFromString(String s) {
-		return getBufferedReaderFromString(s, null);
-	}
-
-	/**
-	 * Return a <code>BufferedReader</code> that reads from <code>s</code>
-	 */
-	public static final BufferedReader getBufferedReaderFromString(String s, String encoding) {
-		InputStream in = new ByteArrayInputStream(s.getBytes());
-		return getBufferedReader(in, encoding);
+		return new BufferedReader(new StringReader(s));
 	}
 
 	/**
@@ -236,7 +228,7 @@ public class LocationUtils {
 	/**
 	 * Null safe method for determining if <code>location</code> is an existing file.
 	 */
-	public static final boolean isFile(String location) {
+	public static final boolean isExistingFile(String location) {
 		if (location == null) {
 			return false;
 		}
@@ -251,7 +243,7 @@ public class LocationUtils {
 		if (location == null) {
 			return false;
 		}
-		if (isFile(location)) {
+		if (isExistingFile(location)) {
 			return true;
 		} else {
 			ResourceLoader loader = new DefaultResourceLoader();
@@ -265,8 +257,8 @@ public class LocationUtils {
 	 */
 	public static final InputStream getInputStream(String location) {
 		try {
-			if (isFile(location)) {
-				return new FileInputStream(location);
+			if (isExistingFile(location)) {
+				return FileUtils.openInputStream(new File(location));
 			}
 			ResourceLoader loader = new DefaultResourceLoader();
 			Resource resource = loader.getResource(location);
