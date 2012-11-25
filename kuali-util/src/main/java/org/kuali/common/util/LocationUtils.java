@@ -259,7 +259,7 @@ public class LocationUtils {
 
 	/**
 	 * Open an <code>InputStream</code> to <code>location</code>. If <code>location</code> is the path to an existing <code>File</code> on
-	 * the file system, a <code>FileInputStream</code> is returned. Otherwise Spring's resource loading framework is used to open an
+	 * the local file system, a <code>FileInputStream</code> is returned. Otherwise Spring's resource loading framework is used to open an
 	 * <code>InputStream</code> to whatever type of location is being referred to.
 	 */
 	public static final InputStream getInputStream(CharSequence location) throws IOException {
