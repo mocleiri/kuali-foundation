@@ -5,27 +5,29 @@ import java.util.Properties;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
+import org.springframework.util.Assert;
 
-public class EncryptModifier implements PropertyProcessor {
+public class DecryptProcessor implements PropertyProcessor {
 
 	TextEncryptor encryptor;
 
-	public EncryptModifier() {
+	public DecryptProcessor() {
 		this(null);
 	}
 
-	public EncryptModifier(TextEncryptor encryptor) {
+	public DecryptProcessor(TextEncryptor encryptor) {
 		super();
 		this.encryptor = encryptor;
 	}
 
 	@Override
 	public void process(Properties properties) {
+		Assert.notNull(encryptor, "encryptor is null");
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
-			String clearTextValue = properties.getProperty(key);
-			String encryptedValue = encryptor.encrypt(clearTextValue);
-			properties.setProperty(key, encryptedValue);
+			String encryptedValue = properties.getProperty(key);
+			String decryptedValue = encryptor.decrypt(encryptedValue);
+			properties.setProperty(key, decryptedValue);
 		}
 	}
 

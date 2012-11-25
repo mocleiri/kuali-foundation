@@ -2,13 +2,13 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-public class AddPropertiesModifier implements PropertyProcessor {
+public class AddPropertiesProcessor implements PropertyProcessor {
 
-	public AddPropertiesModifier() {
+	public AddPropertiesProcessor() {
 		this(null);
 	}
 
-	public AddPropertiesModifier(Properties properties) {
+	public AddPropertiesProcessor(Properties properties) {
 		super();
 		this.properties = properties;
 	}

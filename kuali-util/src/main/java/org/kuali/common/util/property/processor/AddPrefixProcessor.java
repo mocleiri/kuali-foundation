@@ -5,15 +5,15 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class AddPrefixModifier implements PropertyProcessor {
+public class AddPrefixProcessor implements PropertyProcessor {
 
 	String prefix;
 
-	public AddPrefixModifier() {
+	public AddPrefixProcessor() {
 		this(null);
 	}
 
-	public AddPrefixModifier(String prefix) {
+	public AddPrefixProcessor(String prefix) {
 		super();
 		this.prefix = prefix;
 	}

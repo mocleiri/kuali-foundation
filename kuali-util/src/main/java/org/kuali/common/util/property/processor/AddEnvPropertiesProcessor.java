@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class AddEnvPropertiesModifier implements PropertyProcessor {
+public class AddEnvPropertiesProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {

@@ -9,12 +9,12 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.processor.AddEnvPropertiesModifier;
-import org.kuali.common.util.property.processor.AddPrefixModifier;
-import org.kuali.common.util.property.processor.AddPropertiesModifier;
-import org.kuali.common.util.property.processor.AddSystemPropertiesModifier;
-import org.kuali.common.util.property.processor.EndsWithDecryptModifier;
-import org.kuali.common.util.property.processor.EndsWithEncryptModifier;
+import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
+import org.kuali.common.util.property.processor.AddPrefixProcessor;
+import org.kuali.common.util.property.processor.AddPropertiesProcessor;
+import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
+import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
+import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideModifier;
 import org.kuali.common.util.property.processor.PathModifier;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -55,15 +55,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		List<PropertyProcessor> defaultModifiers = new ArrayList<PropertyProcessor>();
 
 		if (properties != null) {
-			defaultModifiers.add(new AddPropertiesModifier(properties));
+			defaultModifiers.add(new AddPropertiesProcessor(properties));
 		}
 
 		if (addEnvironmentVariables) {
-			defaultModifiers.add(new AddEnvPropertiesModifier());
+			defaultModifiers.add(new AddEnvPropertiesProcessor());
 		}
 
 		if (addSystemProperties) {
-			defaultModifiers.add(new AddSystemPropertiesModifier());
+			defaultModifiers.add(new AddSystemPropertiesProcessor());
 		}
 
 		if (resolvePlaceholders) {
@@ -86,7 +86,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		if (!StringUtils.isBlank(prefix)) {
-			defaultModifiers.add(new AddPrefixModifier(prefix));
+			defaultModifiers.add(new AddPrefixProcessor(prefix));
 		}
 
 		addStyleModifier(defaultModifiers);
@@ -123,11 +123,11 @@ public class DefaultPropertyContext implements PropertyContext {
 			return;
 		case ENCRYPT:
 			TextEncryptor encryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultModifiers.add(new EndsWithEncryptModifier(encryptor));
+			defaultModifiers.add(new EndsWithEncryptProcessor(encryptor));
 			return;
 		case DECRYPT:
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultModifiers.add(new EndsWithDecryptModifier(decryptor));
+			defaultModifiers.add(new EndsWithDecryptProcessor(decryptor));
 			return;
 		default:
 			throw new IllegalArgumentException(encryptionMode + " is unknown");

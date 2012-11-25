@@ -8,17 +8,17 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 
-public class EndsWithEncryptModifier extends DecryptModifier {
+public class EndsWithEncryptProcessor extends DecryptProcessor {
 
 	String suffix = Constants.DEFAULT_ENCRYPTED_SUFFIX;
 	boolean removeUnencryptedProperties = true;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
-	public EndsWithEncryptModifier() {
+	public EndsWithEncryptProcessor() {
 		this(null);
 	}
 
-	public EndsWithEncryptModifier(TextEncryptor encryptor) {
+	public EndsWithEncryptProcessor(TextEncryptor encryptor) {
 		super(encryptor);
 	}
 

@@ -2,7 +2,7 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-public class AddSystemPropertiesModifier implements PropertyProcessor {
+public class AddSystemPropertiesProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
