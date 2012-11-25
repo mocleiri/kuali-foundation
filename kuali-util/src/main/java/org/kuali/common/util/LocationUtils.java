@@ -2,13 +2,13 @@ package org.kuali.common.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -17,14 +17,13 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocations(String location, LocationType type, String encoding) {
+	public static final List<String> getLocations(String location, LocationType type, CharSequence encoding) throws IOException {
 		switch (type) {
 		case LOCATION:
 			return Collections.singletonList(location);
@@ -35,23 +34,23 @@ public class LocationUtils {
 		}
 	}
 
-	public static final List<String> getLocations(String location, LocationType type) {
+	public static final List<String> getLocations(String location, LocationType type) throws IOException {
 		return getLocations(location, type, null);
 	}
 
-	public static final List<String> getLocations(String locationListing) {
+	public static final List<String> getLocations(String locationListing) throws IOException {
 		return getLocations(Collections.singletonList(locationListing), null);
 	}
 
-	public static final List<String> getLocations(String locationListing, String encoding) {
+	public static final List<String> getLocations(String locationListing, CharSequence encoding) throws IOException {
 		return getLocations(Collections.singletonList(locationListing), encoding);
 	}
 
-	public static final List<String> getLocations(List<String> locationListings) {
+	public static final List<String> getLocations(List<String> locationListings) throws IOException {
 		return getLocations(locationListings, null);
 	}
 
-	public static final List<String> getLocations(List<String> locationListings, String encoding) {
+	public static final List<String> getLocations(List<String> locationListings, CharSequence encoding) throws IOException {
 		List<String> locations = new ArrayList<String>();
 		for (String locationListing : locationListings) {
 			List<String> lines = readLines(locationListing, encoding);
@@ -72,7 +71,7 @@ public class LocationUtils {
 	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If <code>filename</code>
 	 * is a directory, delete it and all sub-directories.
 	 */
-	public static final boolean deleteFileQuietly(String filename) {
+	public static final boolean deleteFileQuietly(CharSequence filename) {
 		File file = getFileQuietly(filename);
 		return FileUtils.deleteQuietly(file);
 	}
@@ -81,29 +80,30 @@ public class LocationUtils {
 	 * Null safe method for getting a <code>File</code> handle from <code>filename</code>. If <code>filename</code> is null, null is
 	 * returned.
 	 */
-	public static final File getFileQuietly(String filename) {
+	public static final File getFileQuietly(CharSequence filename) {
 		if (filename == null) {
 			return null;
 		} else {
-			return new File(filename);
+			return new File(filename.toString());
 		}
 	}
 
 	/**
-	 * Convert the contents of <code>location</code> into a <code>String</code> using the platform default encoding.
+	 * Convert the contents of <code>location</code> into a <code>String</code> using the platform default encoding when reading from
+	 * <code>location</code>
 	 */
-	public static final String toString(String location) {
+	public static final String toString(CharSequence location) throws IOException {
 		return toString(location, null);
 	}
 
 	/**
 	 * Convert the contents of <code>location</code> into a <code>String</code> using the encoding indicated.
 	 */
-	public static final String toString(String location, String encoding) {
+	public static final String toString(CharSequence location, CharSequence encoding) {
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
-			return IOUtils.toString(in, encoding);
+			return IOUtils.toString(in, encoding.toString());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -112,66 +112,81 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Get the contents of <code>s</code> as a list of <code>String</code> one entry per line
+	 * Get the contents of <code>s</code> as a list of <code>String's</code> one entry per line
 	 */
 	public static final List<String> readLinesFromString(String s) {
-		return readLinesFromString(s, null);
+		Reader reader = getBufferedReaderFromString(s);
+		return readLinesAndClose(reader);
+	}
+
+	public static final List<String> readLinesAndClose(InputStream in) {
+		return readLinesAndClose(in, null);
+	}
+
+	public static final List<String> readLinesAndClose(Reader reader) {
+		try {
+			return IOUtils.readLines(reader);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(reader);
+		}
+	}
+
+	public static final List<String> readLinesAndClose(InputStream in, CharSequence encoding) {
+		Reader reader = null;
+		try {
+			reader = getBufferedReader(in, encoding);
+			return IOUtils.readLines(reader);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(reader);
+		}
 	}
 
 	/**
-	 * Get the contents of <code>s</code> as a list of <code>String</code> one entry per line
+	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the platform default encoding
 	 */
-	public static final List<String> readLinesFromString(String s, String encoding) {
-		InputStream in = new ByteArrayInputStream(s.getBytes());
-		return readLines(in, encoding);
-	}
-
-	/**
-	 * Get the contents of <code>location</code> as a list of <code>String</code> one entry per line using the platform default encoding
-	 */
-	public static final List<String> readLines(String location) {
+	public static final List<String> readLines(CharSequence location) {
 		return readLines(location, null);
 	}
 
 	/**
-	 * Get the contents of <code>location</code> as a list of <code>String</code> one entry per line using the encoding indicated.
+	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the encoding indicated.
 	 */
-	public static final List<String> readLines(String location, String encoding) {
-		InputStream in = null;
+	public static final List<String> readLines(CharSequence location, CharSequence encoding) {
+		Reader reader = null;
 		try {
-			in = getInputStream(location);
-			return readLines(in, encoding);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
-	/**
-	 * Get the contents of <code>in</code> as a list of <code>String</code> one entry per line using the encoding indicated.
-	 */
-	public static final List<String> readLines(InputStream in, String encoding) {
-		try {
-			return IOUtils.readLines(in, encoding);
+			reader = getBufferedReader(location, encoding);
+			return readLinesAndClose(reader);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
-			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(reader);
 		}
 	}
 
 	/**
 	 * Return a <code>BufferedReader</code> for the location indicated using the platform default encoding.
 	 */
-	public static final BufferedReader getBufferedReader(String location) {
+	public static final BufferedReader getBufferedReader(CharSequence location) throws IOException {
 		return getBufferedReader(location, null);
 	}
 
 	/**
 	 * Return a <code>BufferedReader</code> for the location indicated using the encoding indicated.
 	 */
-	public static final BufferedReader getBufferedReader(String location, String encoding) {
-		InputStream in = getInputStream(location);
-		return getBufferedReader(in, encoding);
+	public static final BufferedReader getBufferedReader(CharSequence location, CharSequence encoding) throws IOException {
+		InputStream in = null;
+		try {
+			in = getInputStream(location);
+			return getBufferedReader(in, encoding);
+		} catch (IOException e) {
+			throw new IOException("Unexpected IO error");
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
 	}
 
 	/**
@@ -185,15 +200,11 @@ public class LocationUtils {
 	 * Return a <code>Writer</code> that writes to <code>out</code> using the indicated encoding. <code>null</code> means use the platform's
 	 * default encoding.
 	 */
-	public static final Writer getWriter(OutputStream out, String encoding) {
-		try {
-			if (StringUtils.isBlank(encoding)) {
-				return new BufferedWriter(new OutputStreamWriter(out));
-			} else {
-				return new BufferedWriter(new OutputStreamWriter(out, encoding));
-			}
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+	public static final Writer getWriter(OutputStream out, CharSequence encoding) throws IOException {
+		if (encoding == null) {
+			return new BufferedWriter(new OutputStreamWriter(out));
+		} else {
+			return new BufferedWriter(new OutputStreamWriter(out, encoding.toString()));
 		}
 	}
 
@@ -201,45 +212,37 @@ public class LocationUtils {
 	 * Return a <code>BufferedReader</code> that reads from <code>file</code> using the indicated encoding. <code>null</code> means use the
 	 * platform's default encoding.
 	 */
-	public static final BufferedReader getBufferedReader(File file, String encoding) {
-		try {
-			return getBufferedReader(FileUtils.openInputStream(file), encoding);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		}
+	public static final BufferedReader getBufferedReader(File file, CharSequence encoding) throws IOException {
+		return getBufferedReader(FileUtils.openInputStream(file), encoding);
 	}
 
 	/**
 	 * Return a <code>BufferedReader</code> that reads from <code>in</code> using the indicated encoding. <code>null</code> means use the
 	 * platform's default encoding.
 	 */
-	public static final BufferedReader getBufferedReader(InputStream in, String encoding) {
-		try {
-			if (StringUtils.isBlank(encoding)) {
-				return new BufferedReader(new InputStreamReader(in));
-			} else {
-				return new BufferedReader(new InputStreamReader(in, encoding));
-			}
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+	public static final BufferedReader getBufferedReader(InputStream in, CharSequence encoding) throws IOException {
+		if (encoding == null) {
+			return new BufferedReader(new InputStreamReader(in));
+		} else {
+			return new BufferedReader(new InputStreamReader(in, encoding.toString()));
 		}
 	}
 
 	/**
 	 * Null safe method for determining if <code>location</code> is an existing file.
 	 */
-	public static final boolean isExistingFile(String location) {
+	public static final boolean isExistingFile(CharSequence location) {
 		if (location == null) {
 			return false;
 		}
-		File file = new File(location);
+		File file = new File(location.toString());
 		return file.exists();
 	}
 
 	/**
 	 * Null safe method for determining if <code>location</code> exists.
 	 */
-	public static final boolean exists(String location) {
+	public static final boolean exists(CharSequence location) {
 		if (location == null) {
 			return false;
 		}
@@ -247,7 +250,7 @@ public class LocationUtils {
 			return true;
 		} else {
 			ResourceLoader loader = new DefaultResourceLoader();
-			Resource resource = loader.getResource(location);
+			Resource resource = loader.getResource(location.toString());
 			return resource.exists();
 		}
 	}
@@ -255,16 +258,12 @@ public class LocationUtils {
 	/**
 	 * Open an <code>InputStream</code> to the indicated location.
 	 */
-	public static final InputStream getInputStream(String location) {
-		try {
-			if (isExistingFile(location)) {
-				return FileUtils.openInputStream(new File(location));
-			}
-			ResourceLoader loader = new DefaultResourceLoader();
-			Resource resource = loader.getResource(location);
-			return resource.getInputStream();
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
+	public static final InputStream getInputStream(CharSequence location) throws IOException {
+		if (isExistingFile(location)) {
+			return FileUtils.openInputStream(new File(location.toString()));
 		}
+		ResourceLoader loader = new DefaultResourceLoader();
+		Resource resource = loader.getResource(location.toString());
+		return resource.getInputStream();
 	}
 }
