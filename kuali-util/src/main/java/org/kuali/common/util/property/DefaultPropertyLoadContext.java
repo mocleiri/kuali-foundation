@@ -14,7 +14,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	List<String> locations;
 	Mode missingLocationsMode = Mode.ERROR;
-	List<PropertyProcessor> loadModifiers;
+	List<PropertyProcessor> loadProcessors;
 
 	@Override
 	public List<String> getLocations() {
@@ -27,23 +27,23 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	@Override
 	public List<PropertyProcessor> getLoadProcessors() {
-		return loadModifiers;
+		return loadProcessors;
 	}
 
-	public void setLoadModifiers(List<PropertyProcessor> loadModifiers) {
-		this.loadModifiers = loadModifiers;
+	public void setLoadProcessors(List<PropertyProcessor> loadProcessors) {
+		this.loadProcessors = loadProcessors;
 	}
 
 	@Override
 	public void initializeLoadProcessors() {
-		if (loadModifiers == null) {
-			loadModifiers = getDefaultLoadModifiers();
+		if (loadProcessors == null) {
+			loadProcessors = getDefaultLoadProcessors();
 		} else {
-			loadModifiers.addAll(0, getDefaultModifiers());
+			loadProcessors.addAll(0, getDefaultModifiers());
 		}
 	}
 
-	protected List<PropertyProcessor> getDefaultLoadModifiers() {
+	protected List<PropertyProcessor> getDefaultLoadProcessors() {
 		List<PropertyProcessor> modifiers = new ArrayList<PropertyProcessor>();
 		modifiers.add(new AddEnvPropertiesModifier());
 		modifiers.add(new AddSystemPropertiesModifier());
