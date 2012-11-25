@@ -8,7 +8,7 @@ public interface JdbcService {
 
 	JdbcMetaData getJdbcMetaData(DataSource dataSource);
 
-	SqlMetaData executeSqlString(JdbcContext context, CharSequence sql);
+	SqlMetaData executeSqlString(JdbcContext context, String sql);
 
 	SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql);
 
@@ -20,7 +20,7 @@ public interface JdbcService {
 
 	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, CharSequence encoding);
 
-	SqlMetaData getMetaDataFromString(SqlContext context, CharSequence sql);
+	SqlMetaData getMetaDataFromString(SqlContext context, String sql);
 
 	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql);
 

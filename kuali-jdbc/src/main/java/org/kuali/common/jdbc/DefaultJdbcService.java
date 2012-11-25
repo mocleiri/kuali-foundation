@@ -60,8 +60,8 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData executeSqlString(JdbcContext context, CharSequence sql) {
-		return executeSqlStrings(context, Collections.singletonList(sql.toString())).get(1);
+	public SqlMetaData executeSqlString(JdbcContext context, String sql) {
+		return executeSqlStrings(context, Collections.singletonList(sql)).get(1);
 	}
 
 	protected SqlMetaDataList executeSources(JdbcContext context, List<SqlSource> sources) {
@@ -105,8 +105,8 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData getMetaDataFromString(SqlContext context, CharSequence sql) {
-		return getMetaDataFromStrings(context, Collections.singletonList(sql.toString())).get(1);
+	public SqlMetaData getMetaDataFromString(SqlContext context, String sql) {
+		return getMetaDataFromStrings(context, Collections.singletonList(sql)).get(1);
 	}
 
 	protected SqlMetaData getSqlMetaData(SqlContext context, SqlSource source) {
