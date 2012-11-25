@@ -23,7 +23,7 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocations(String location, LocationType type, CharSequence encoding) throws IOException {
+	public static final List<String> getLocations(String location, LocationType type, CharSequence encoding) {
 		switch (type) {
 		case LOCATION:
 			return Collections.singletonList(location);
@@ -34,23 +34,23 @@ public class LocationUtils {
 		}
 	}
 
-	public static final List<String> getLocations(String location, LocationType type) throws IOException {
+	public static final List<String> getLocations(String location, LocationType type) {
 		return getLocations(location, type, null);
 	}
 
-	public static final List<String> getLocations(String locationListing) throws IOException {
+	public static final List<String> getLocations(String locationListing) {
 		return getLocations(Collections.singletonList(locationListing), null);
 	}
 
-	public static final List<String> getLocations(String locationListing, CharSequence encoding) throws IOException {
+	public static final List<String> getLocations(String locationListing, CharSequence encoding) {
 		return getLocations(Collections.singletonList(locationListing), encoding);
 	}
 
-	public static final List<String> getLocations(List<String> locationListings) throws IOException {
+	public static final List<String> getLocations(List<String> locationListings) {
 		return getLocations(locationListings, null);
 	}
 
-	public static final List<String> getLocations(List<String> locationListings, CharSequence encoding) throws IOException {
+	public static final List<String> getLocations(List<String> locationListings, CharSequence encoding) {
 		List<String> locations = new ArrayList<String>();
 		for (String locationListing : locationListings) {
 			List<String> lines = readLines(locationListing, encoding);
@@ -89,21 +89,24 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Convert the contents of <code>location</code> into a <code>String</code> using the platform default encoding when reading from
-	 * <code>location</code>
+	 * Get the contents of <code>location</code> as a <code>String</code> using the platform's default character encoding.
 	 */
-	public static final String toString(CharSequence location) throws IOException {
+	public static final String toString(CharSequence location) {
 		return toString(location, null);
 	}
 
 	/**
-	 * Convert the contents of <code>location</code> into a <code>String</code> using the encoding indicated.
+	 * Get the contents of <code>location</code> as a <code>String</code> using the specified character encoding.
 	 */
 	public static final String toString(CharSequence location, CharSequence encoding) {
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
-			return IOUtils.toString(in, encoding.toString());
+			if (encoding == null) {
+				return IOUtils.toString(in);
+			} else {
+				return IOUtils.toString(in, encoding.toString());
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
