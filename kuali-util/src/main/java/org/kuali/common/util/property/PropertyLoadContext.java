@@ -11,8 +11,8 @@ public interface PropertyLoadContext extends PropertyContext {
 
 	Mode getMissingLocationsMode();
 
-	List<PropertyProcessor> getLoadModifiers();
+	List<PropertyProcessor> getLoadProcessors();
 
-	void initializeLoadModifiers();
+	void initializeLoadProcessors();
 
 }

@@ -26,7 +26,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	@Override
-	public List<PropertyProcessor> getLoadModifiers() {
+	public List<PropertyProcessor> getLoadProcessors() {
 		return loadModifiers;
 	}
 
@@ -35,7 +35,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	@Override
-	public void initializeLoadModifiers() {
+	public void initializeLoadProcessors() {
 		if (loadModifiers == null) {
 			loadModifiers = getDefaultLoadModifiers();
 		} else {
