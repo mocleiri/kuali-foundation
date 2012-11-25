@@ -11,19 +11,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class ResolvePlaceholdersModifier implements PropertyProcessor {
+public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 
-	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersModifier.class);
+	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersProcessor.class);
 
-	public ResolvePlaceholdersModifier() {
+	public ResolvePlaceholdersProcessor() {
 		this(new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX));
 	}
 
-	public ResolvePlaceholdersModifier(PropertyPlaceholderHelper helper) {
+	public ResolvePlaceholdersProcessor(PropertyPlaceholderHelper helper) {
 		this(helper, GlobalPropertiesMode.BOTH);
 	}
 
-	public ResolvePlaceholdersModifier(PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
+	public ResolvePlaceholdersProcessor(PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
 		super();
 		this.helper = helper;
 		this.globalPropertiesMode = globalPropertiesMode;

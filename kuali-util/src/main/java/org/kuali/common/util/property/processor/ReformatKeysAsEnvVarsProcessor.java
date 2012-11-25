@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class ReformatKeysAsEnvVarsModifier implements PropertyProcessor {
+public class ReformatKeysAsEnvVarsProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {

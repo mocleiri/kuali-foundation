@@ -8,20 +8,20 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 
-public class GlobalOverrideModifier implements PropertyProcessor {
+public class GlobalOverrideProcessor implements PropertyProcessor {
 
 	GlobalPropertiesMode globalPropertiesMode;
 	Mode propertyOverwriteMode;
 
-	public GlobalOverrideModifier() {
+	public GlobalOverrideProcessor() {
 		this(GlobalPropertiesMode.BOTH, Constants.DEFAULT_PROPERTY_OVERWRITE_MODE);
 	}
 
-	public GlobalOverrideModifier(GlobalPropertiesMode globalPropertiesMode) {
+	public GlobalOverrideProcessor(GlobalPropertiesMode globalPropertiesMode) {
 		this(globalPropertiesMode, Constants.DEFAULT_PROPERTY_OVERWRITE_MODE);
 	}
 
-	public GlobalOverrideModifier(GlobalPropertiesMode globalPropertiesMode, Mode propertyOverwriteMode) {
+	public GlobalOverrideProcessor(GlobalPropertiesMode globalPropertiesMode, Mode propertyOverwriteMode) {
 		super();
 		this.globalPropertiesMode = globalPropertiesMode;
 		this.propertyOverwriteMode = propertyOverwriteMode;

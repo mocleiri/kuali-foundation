@@ -8,18 +8,18 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 
-public class PathModifier implements PropertyProcessor {
+public class PathProcessor implements PropertyProcessor {
 
 	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
 	List<String> excludes;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
-	public PathModifier() {
+	public PathProcessor() {
 		this(null);
 	}
 
-	public PathModifier(List<String> includes) {
+	public PathProcessor(List<String> includes) {
 		super();
 		this.includes = includes;
 	}

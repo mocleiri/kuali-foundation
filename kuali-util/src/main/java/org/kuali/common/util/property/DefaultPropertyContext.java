@@ -15,13 +15,13 @@ import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
-import org.kuali.common.util.property.processor.GlobalOverrideModifier;
-import org.kuali.common.util.property.processor.PathModifier;
+import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
+import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
-import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsModifier;
-import org.kuali.common.util.property.processor.ResolvePlaceholdersModifier;
-import org.kuali.common.util.property.processor.TrimModifier;
-import org.kuali.common.util.property.processor.VersionModifier;
+import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
+import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
+import org.kuali.common.util.property.processor.TrimProcessor;
+import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -68,21 +68,21 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
-			defaultModifiers.add(new ResolvePlaceholdersModifier(helper));
+			defaultModifiers.add(new ResolvePlaceholdersProcessor(helper));
 		}
 
 		if (!CollectionUtils.isEmpty(pathProperties)) {
-			defaultModifiers.add(new PathModifier(pathProperties));
+			defaultModifiers.add(new PathProcessor(pathProperties));
 		}
 
 		if (!CollectionUtils.isEmpty(versionProperties)) {
-			defaultModifiers.add(new VersionModifier(versionProperties));
+			defaultModifiers.add(new VersionProcessor(versionProperties));
 		}
 
 		addEncModifier(defaultModifiers);
 
 		if (globalPropertiesOverrideMode != null) {
-			defaultModifiers.add(new GlobalOverrideModifier(globalPropertiesOverrideMode));
+			defaultModifiers.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
 		}
 
 		if (!StringUtils.isBlank(prefix)) {
@@ -93,7 +93,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
 		if (trim) {
-			defaultModifiers.add(new TrimModifier(includes, excludes));
+			defaultModifiers.add(new TrimProcessor(includes, excludes));
 		}
 
 		return defaultModifiers;
@@ -107,7 +107,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		case NORMAL:
 			return;
 		case ENVIRONMENT_VARIABLE:
-			defaultModifiers.add(new ReformatKeysAsEnvVarsModifier());
+			defaultModifiers.add(new ReformatKeysAsEnvVarsProcessor());
 			return;
 		default:
 			throw new IllegalArgumentException(style + " is unknown");

@@ -5,13 +5,13 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 
-public class TrimModifier implements PropertyProcessor {
+public class TrimProcessor implements PropertyProcessor {
 
-	public TrimModifier() {
+	public TrimProcessor() {
 		this(null, null);
 	}
 
-	public TrimModifier(List<String> includes, List<String> excludes) {
+	public TrimProcessor(List<String> includes, List<String> excludes) {
 		super();
 		this.includes = includes;
 		this.excludes = excludes;

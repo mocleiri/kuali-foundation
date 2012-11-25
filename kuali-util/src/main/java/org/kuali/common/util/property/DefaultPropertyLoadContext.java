@@ -6,9 +6,9 @@ import java.util.List;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
 import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
-import org.kuali.common.util.property.processor.PathModifier;
+import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
-import org.kuali.common.util.property.processor.VersionModifier;
+import org.kuali.common.util.property.processor.VersionProcessor;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
@@ -48,10 +48,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		modifiers.add(new AddEnvPropertiesProcessor());
 		modifiers.add(new AddSystemPropertiesProcessor());
 		if (pathProperties != null) {
-			modifiers.add(new PathModifier(pathProperties));
+			modifiers.add(new PathProcessor(pathProperties));
 		}
 		if (versionProperties != null) {
-			modifiers.add(new VersionModifier(versionProperties));
+			modifiers.add(new VersionProcessor(versionProperties));
 		}
 		return modifiers;
 	}

@@ -9,7 +9,7 @@ import org.kuali.common.util.Version;
 import org.kuali.common.util.VersionUtils;
 import org.kuali.common.util.property.Constants;
 
-public class VersionModifier implements PropertyProcessor {
+public class VersionProcessor implements PropertyProcessor {
 
 	String majorSuffix = Constants.DEFAULT_MAJOR_VERSION_SUFFIX;
 	String minorSuffix = Constants.DEFAULT_MINOR_VERSION_SUFFIX;
@@ -22,11 +22,11 @@ public class VersionModifier implements PropertyProcessor {
 	List<String> excludes;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
-	public VersionModifier() {
+	public VersionProcessor() {
 		this(null);
 	}
 
-	public VersionModifier(List<String> includes) {
+	public VersionProcessor(List<String> includes) {
 		super();
 		this.includes = includes;
 	}
