@@ -13,13 +13,11 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.util.Assert;
 
 public class DefaultJdbcService implements JdbcService {
 
@@ -52,23 +50,18 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData executeSql(JdbcContext context, String location) {
+	public SqlMetaData executeSql(JdbcContext context, CharSequence location) {
 		return executeSql(context, location, null);
 	}
 
 	@Override
-	public SqlMetaData executeSql(JdbcContext context, String location, String encoding) {
-		return executeSql(context, Collections.singletonList(location), encoding).get(1);
+	public SqlMetaData executeSql(JdbcContext context, CharSequence location, CharSequence encoding) {
+		return executeSql(context, Collections.singletonList(location.toString()), encoding).get(1);
 	}
 
 	@Override
-	public SqlMetaData executeSqlString(JdbcContext context, String sql) {
-		return executeSqlString(context, sql, null);
-	}
-
-	@Override
-	public SqlMetaData executeSqlString(JdbcContext context, String sql, String encoding) {
-		return executeSqlStrings(context, Collections.singletonList(sql), encoding).get(1);
+	public SqlMetaData executeSqlString(JdbcContext context, CharSequence sql) {
+		return executeSqlStrings(context, Collections.singletonList(sql.toString())).get(1);
 	}
 
 	protected SqlMetaDataList executeSources(JdbcContext context, List<SqlSource> sources) {
@@ -102,30 +95,18 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData getMetaData(SqlContext context, String location) {
-		return getMetaData(context, location, null);
+	public SqlMetaData getMetaData(SqlContext context, CharSequence location) {
+		return getMetaData(context, Collections.singletonList(location.toString()), null).get(1);
 	}
 
 	@Override
 	public SqlMetaDataList getMetaData(SqlContext context, List<String> locations) {
-		// TODO
-		return null;
+		return getMetaData(context, locations, null);
 	}
 
 	@Override
-	public SqlMetaData getMetaDataFromString(SqlContext context, String sql) {
-		return getMetaDataFromString(context, sql, null);
-	}
-
-	@Override
-	public SqlMetaData getMetaDataFromString(SqlContext context, String sql, String encoding) {
-		return getMetaDataFromStrings(context, Collections.singletonList(sql), encoding).get(1);
-	}
-
-	@Override
-	public SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql) {
-		// TODO
-		return null;
+	public SqlMetaData getMetaDataFromString(SqlContext context, CharSequence sql) {
+		return getMetaDataFromStrings(context, Collections.singletonList(sql.toString())).get(1);
 	}
 
 	protected SqlMetaData getSqlMetaData(SqlContext context, SqlSource source) {
@@ -274,73 +255,36 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql) {
-		return executeSqlStrings(context, sql, new ArrayList<String>());
-	}
-
-	@Override
-	public SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql, String encoding) {
-		List<String> encodings = CollectionUtils.getPreFilledList(sql.size(), encoding);
-		return getMetaDataFromStrings(context, sql, encodings);
-	}
-
-	@Override
-	public SqlMetaData getMetaData(SqlContext context, String location, String encoding) {
-		return getMetaData(context, Collections.singletonList(location), encoding).get(1);
-	}
-
-	@Override
-	public SqlMetaDataList getMetaData(SqlContext context, List<String> locations, String encoding) {
-		List<String> encodings = CollectionUtils.getPreFilledList(locations.size(), encoding);
-		return getMetaData(context, locations, encodings);
+	public SqlMetaData getMetaData(SqlContext context, CharSequence location, CharSequence encoding) {
+		return getMetaData(context, Collections.singletonList(location.toString()), encoding).get(1);
 	}
 
 	@Override
 	public SqlMetaDataList executeSql(JdbcContext context, List<String> locations) {
-		return executeSql(context, locations, Collections.<String> emptyList());
+		return executeSql(context, locations, null);
 	}
 
 	@Override
-	public SqlMetaDataList executeSql(JdbcContext context, List<String> locations, String encoding) {
-		List<String> encodings = CollectionUtils.getPreFilledList(locations.size(), encoding);
-		return executeSql(context, locations, encodings);
-	}
-
-	@Override
-	public SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql, String encoding) {
-		List<String> encodings = CollectionUtils.getPreFilledList(sql.size(), encoding);
-		return executeSqlStrings(context, sql, encodings);
-	}
-
-	@Override
-	public SqlMetaDataList getMetaData(SqlContext context, List<String> locations, List<String> encodings) {
-		encodings = CollectionUtils.toNullIfEmpty(encodings);
-		Assert.isTrue(encodings == null || locations.size() == encodings.size());
-		List<SqlSource> sources = JdbcUtils.getSqlSources(locations, encodings);
+	public SqlMetaDataList getMetaData(SqlContext context, List<String> locations, CharSequence encoding) {
+		List<SqlSource> sources = JdbcUtils.getSqlSources(locations, encoding);
 		return getSqlMetaDataList(context, sources);
 	}
 
 	@Override
-	public SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql, List<String> encodings) {
-		encodings = CollectionUtils.toNullIfEmpty(encodings);
-		Assert.isTrue(encodings == null || sql.size() == encodings.size());
-		List<SqlSource> sources = JdbcUtils.getSqlSourcesFromStrings(sql, encodings);
+	public SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql) {
+		List<SqlSource> sources = JdbcUtils.getSqlSourcesFromStrings(sql);
 		return getSqlMetaDataList(context, sources);
 	}
 
 	@Override
-	public SqlMetaDataList executeSql(JdbcContext context, List<String> locations, List<String> encodings) {
-		encodings = CollectionUtils.toNullIfEmpty(encodings);
-		Assert.isTrue(encodings == null || encodings.size() == locations.size());
-		List<SqlSource> sources = JdbcUtils.getSqlSources(locations, encodings);
+	public SqlMetaDataList executeSql(JdbcContext context, List<String> locations, CharSequence encoding) {
+		List<SqlSource> sources = JdbcUtils.getSqlSources(locations, encoding);
 		return executeSources(context, sources);
 	}
 
 	@Override
-	public SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql, List<String> encodings) {
-		encodings = CollectionUtils.toNullIfEmpty(encodings);
-		Assert.isTrue(encodings == null || encodings.size() == sql.size());
-		List<SqlSource> sources = JdbcUtils.getSqlSourcesFromStrings(sql, encodings);
+	public SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql) {
+		List<SqlSource> sources = JdbcUtils.getSqlSourcesFromStrings(sql);
 		return executeSources(context, sources);
 	}
 

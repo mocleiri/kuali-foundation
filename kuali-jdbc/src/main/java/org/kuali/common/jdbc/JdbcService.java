@@ -8,43 +8,28 @@ public interface JdbcService {
 
 	JdbcMetaData getJdbcMetaData(DataSource dataSource);
 
-	SqlMetaData executeSqlString(JdbcContext context, String sql);
-
-	SqlMetaData executeSqlString(JdbcContext context, String sql, String encoding);
+	SqlMetaData executeSqlString(JdbcContext context, CharSequence sql);
 
 	SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql);
 
-	SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql, String encoding);
+	SqlMetaData executeSql(JdbcContext context, CharSequence location);
 
-	SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql, List<String> encodings);
-
-	SqlMetaData getMetaDataFromString(SqlContext context, String sql);
-
-	SqlMetaData getMetaDataFromString(SqlContext context, String sql, String encoding);
-
-	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql);
-
-	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql, String encoding);
-
-	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql, List<String> encodings);
-
-	SqlMetaData executeSql(JdbcContext context, String location);
-
-	SqlMetaData executeSql(JdbcContext context, String location, String encoding);
+	SqlMetaData executeSql(JdbcContext context, CharSequence location, CharSequence encoding);
 
 	SqlMetaDataList executeSql(JdbcContext context, List<String> locations);
 
-	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, String encoding);
+	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, CharSequence encoding);
 
-	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, List<String> encodings);
+	SqlMetaData getMetaDataFromString(SqlContext context, CharSequence sql);
 
-	SqlMetaData getMetaData(SqlContext context, String location);
+	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql);
 
-	SqlMetaData getMetaData(SqlContext context, String location, String encoding);
+	SqlMetaData getMetaData(SqlContext context, CharSequence location);
+
+	SqlMetaData getMetaData(SqlContext context, CharSequence location, CharSequence encoding);
 
 	SqlMetaDataList getMetaData(SqlContext context, List<String> locations);
 
-	SqlMetaDataList getMetaData(SqlContext context, List<String> locations, String encoding);
+	SqlMetaDataList getMetaData(SqlContext context, List<String> locations, CharSequence encoding);
 
-	SqlMetaDataList getMetaData(SqlContext context, List<String> locations, List<String> encodings);
 }

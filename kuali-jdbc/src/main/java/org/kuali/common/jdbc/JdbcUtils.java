@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,7 @@ public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
-	public static final BufferedReader getBufferedReader(SqlSource source) {
+	public static final BufferedReader getBufferedReader(SqlSource source) throws IOException {
 		Assert.notNull(source.getString());
 		String encoding = source.getEncoding();
 		switch (source.getType()) {
@@ -28,7 +29,7 @@ public class JdbcUtils {
 			return LocationUtils.getBufferedReader(source.getString(), encoding);
 		case SQL:
 			Assert.notNull(source.getString());
-			return LocationUtils.getBufferedReaderFromString(source.getString(), encoding);
+			return LocationUtils.getBufferedReaderFromString(source.getString());
 		default:
 			throw new IllegalArgumentException("SQL source type '" + source.getType() + "' is unknown");
 		}
@@ -62,27 +63,29 @@ public class JdbcUtils {
 		}
 	}
 
-	public static final List<SqlSource> getSqlSources(List<String> locations, List<String> encodings) {
-		return getSqlSources(locations, encodings, SqlStringType.LOCATION);
+	public static final List<SqlSource> getSqlSources(List<String> locations, CharSequence encoding) {
+		return getSqlSources(locations, encoding, SqlStringType.LOCATION);
 	}
 
-	public static final List<SqlSource> getSqlSources(List<String> strings, List<String> encodings, SqlStringType sqlStringType) {
-		Assert.isTrue(encodings == null || strings.size() == encodings.size());
+	public static final List<SqlSource> getSqlSources(List<String> strings, CharSequence encoding, SqlStringType sqlStringType) {
 		List<SqlSource> sources = new ArrayList<SqlSource>();
 		for (int i = 0; i < strings.size(); i++) {
 			String string = strings.get(i);
-			String encoding = encodings == null ? null : encodings.get(i);
 			SqlSource source = new SqlSource();
 			source.setString(string);
-			source.setEncoding(encoding);
+			if (encoding == null) {
+				source.setEncoding(null);
+			} else {
+				source.setEncoding(encoding.toString());
+			}
 			source.setType(sqlStringType);
 			sources.add(source);
 		}
 		return sources;
 	}
 
-	public static final List<SqlSource> getSqlSourcesFromStrings(List<String> sql, List<String> encodings) {
-		return getSqlSources(sql, encodings, SqlStringType.SQL);
+	public static final List<SqlSource> getSqlSourcesFromStrings(List<String> sql) {
+		return getSqlSources(sql, null, SqlStringType.SQL);
 	}
 
 }
