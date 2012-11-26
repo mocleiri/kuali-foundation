@@ -42,7 +42,7 @@ public class ModeUtils {
 			logger.error(msg, args);
 			throw new IllegalStateException(errMsg);
 		default:
-			throw new IllegalArgumentException(mode + " is unknown");
+			throw new IllegalArgumentException("Mode '" + mode + "' is unknown");
 		}
 	}
 
