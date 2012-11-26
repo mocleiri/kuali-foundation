@@ -23,7 +23,7 @@ import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
 
-	public static final List<String> getLocations(String location, LocationType type, CharSequence encoding) {
+	public static final List<String> getLocations(String location, LocationType type, String encoding) {
 		switch (type) {
 		case LOCATION:
 			return Collections.singletonList(location);
@@ -42,7 +42,7 @@ public class LocationUtils {
 		return getLocations(Collections.singletonList(locationListing), null);
 	}
 
-	public static final List<String> getLocations(String locationListing, CharSequence encoding) {
+	public static final List<String> getLocations(String locationListing, String encoding) {
 		return getLocations(Collections.singletonList(locationListing), encoding);
 	}
 
@@ -50,7 +50,7 @@ public class LocationUtils {
 		return getLocations(locationListings, null);
 	}
 
-	public static final List<String> getLocations(List<String> locationListings, CharSequence encoding) {
+	public static final List<String> getLocations(List<String> locationListings, String encoding) {
 		List<String> locations = new ArrayList<String>();
 		for (String locationListing : locationListings) {
 			List<String> lines = readLines(locationListing, encoding);
@@ -71,7 +71,7 @@ public class LocationUtils {
 	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If <code>filename</code>
 	 * is a directory, delete it and all sub-directories.
 	 */
-	public static final boolean deleteFileQuietly(CharSequence filename) {
+	public static final boolean deleteFileQuietly(String filename) {
 		File file = getFileQuietly(filename);
 		return FileUtils.deleteQuietly(file);
 	}
@@ -80,32 +80,32 @@ public class LocationUtils {
 	 * Null safe method for getting a <code>File</code> handle from <code>filename</code>. If <code>filename</code> is null, null is
 	 * returned.
 	 */
-	public static final File getFileQuietly(CharSequence filename) {
+	public static final File getFileQuietly(String filename) {
 		if (filename == null) {
 			return null;
 		} else {
-			return new File(filename.toString());
+			return new File(filename);
 		}
 	}
 
 	/**
 	 * Get the contents of <code>location</code> as a <code>String</code> using the platform's default character encoding.
 	 */
-	public static final String toString(CharSequence location) {
+	public static final String toString(String location) {
 		return toString(location, null);
 	}
 
 	/**
 	 * Get the contents of <code>location</code> as a <code>String</code> using the specified character encoding.
 	 */
-	public static final String toString(CharSequence location, CharSequence encoding) {
+	public static final String toString(String location, String encoding) {
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
 			if (encoding == null) {
 				return IOUtils.toString(in);
 			} else {
-				return IOUtils.toString(in, encoding.toString());
+				return IOUtils.toString(in, encoding);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -136,7 +136,7 @@ public class LocationUtils {
 		}
 	}
 
-	public static final List<String> readLinesAndClose(InputStream in, CharSequence encoding) {
+	public static final List<String> readLinesAndClose(InputStream in, String encoding) {
 		Reader reader = null;
 		try {
 			reader = getBufferedReader(in, encoding);
@@ -151,14 +151,14 @@ public class LocationUtils {
 	/**
 	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the platform default encoding
 	 */
-	public static final List<String> readLines(CharSequence location) {
+	public static final List<String> readLines(String location) {
 		return readLines(location, null);
 	}
 
 	/**
 	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the encoding indicated.
 	 */
-	public static final List<String> readLines(CharSequence location, CharSequence encoding) {
+	public static final List<String> readLines(String location, String encoding) {
 		Reader reader = null;
 		try {
 			reader = getBufferedReader(location, encoding);
@@ -173,14 +173,14 @@ public class LocationUtils {
 	/**
 	 * Return a <code>BufferedReader</code> for the location indicated using the platform default encoding.
 	 */
-	public static final BufferedReader getBufferedReader(CharSequence location) throws IOException {
+	public static final BufferedReader getBufferedReader(String location) throws IOException {
 		return getBufferedReader(location, null);
 	}
 
 	/**
 	 * Return a <code>BufferedReader</code> for the location indicated using the encoding indicated.
 	 */
-	public static final BufferedReader getBufferedReader(CharSequence location, CharSequence encoding) throws IOException {
+	public static final BufferedReader getBufferedReader(String location, String encoding) throws IOException {
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
@@ -202,11 +202,11 @@ public class LocationUtils {
 	 * Return a <code>Writer</code> that writes to <code>out</code> using the indicated encoding. <code>null</code> means use the platform's
 	 * default encoding.
 	 */
-	public static final Writer getWriter(OutputStream out, CharSequence encoding) throws IOException {
+	public static final Writer getWriter(OutputStream out, String encoding) throws IOException {
 		if (encoding == null) {
 			return new BufferedWriter(new OutputStreamWriter(out));
 		} else {
-			return new BufferedWriter(new OutputStreamWriter(out, encoding.toString()));
+			return new BufferedWriter(new OutputStreamWriter(out, encoding));
 		}
 	}
 
@@ -214,7 +214,7 @@ public class LocationUtils {
 	 * Return a <code>BufferedReader</code> that reads from <code>file</code> using the indicated encoding. <code>null</code> means use the
 	 * platform's default encoding.
 	 */
-	public static final BufferedReader getBufferedReader(File file, CharSequence encoding) throws IOException {
+	public static final BufferedReader getBufferedReader(File file, String encoding) throws IOException {
 		return getBufferedReader(FileUtils.openInputStream(file), encoding);
 	}
 
@@ -222,29 +222,29 @@ public class LocationUtils {
 	 * Return a <code>BufferedReader</code> that reads from <code>in</code> using the indicated encoding. <code>null</code> means use the
 	 * platform's default encoding.
 	 */
-	public static final BufferedReader getBufferedReader(InputStream in, CharSequence encoding) throws IOException {
+	public static final BufferedReader getBufferedReader(InputStream in, String encoding) throws IOException {
 		if (encoding == null) {
 			return new BufferedReader(new InputStreamReader(in));
 		} else {
-			return new BufferedReader(new InputStreamReader(in, encoding.toString()));
+			return new BufferedReader(new InputStreamReader(in, encoding));
 		}
 	}
 
 	/**
 	 * Null safe method for determining if <code>location</code> is an existing file.
 	 */
-	public static final boolean isExistingFile(CharSequence location) {
+	public static final boolean isExistingFile(String location) {
 		if (location == null) {
 			return false;
 		}
-		File file = new File(location.toString());
+		File file = new File(location);
 		return file.exists();
 	}
 
 	/**
 	 * Null safe method for determining if <code>location</code> exists.
 	 */
-	public static final boolean exists(CharSequence location) {
+	public static final boolean exists(String location) {
 		if (location == null) {
 			return false;
 		}
@@ -252,7 +252,7 @@ public class LocationUtils {
 			return true;
 		} else {
 			ResourceLoader loader = new DefaultResourceLoader();
-			Resource resource = loader.getResource(location.toString());
+			Resource resource = loader.getResource(location);
 			return resource.exists();
 		}
 	}
@@ -262,12 +262,12 @@ public class LocationUtils {
 	 * the local file system, a <code>FileInputStream</code> is returned. Otherwise Spring's resource loading framework is used to open an
 	 * <code>InputStream</code> to whatever type of location is being referred to.
 	 */
-	public static final InputStream getInputStream(CharSequence location) throws IOException {
+	public static final InputStream getInputStream(String location) throws IOException {
 		if (isExistingFile(location)) {
-			return FileUtils.openInputStream(new File(location.toString()));
+			return FileUtils.openInputStream(new File(location));
 		}
 		ResourceLoader loader = new DefaultResourceLoader();
-		Resource resource = loader.getResource(location.toString());
+		Resource resource = loader.getResource(location);
 		return resource.getInputStream();
 	}
 }
