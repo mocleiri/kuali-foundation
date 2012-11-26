@@ -53,18 +53,6 @@
     </developer>
   </developers>
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <configuration>
-            <systemPropertyVariables>
-              <file.encoding>${project.build.sourceEncoding}</file.encoding>
-            </systemPropertyVariables>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
