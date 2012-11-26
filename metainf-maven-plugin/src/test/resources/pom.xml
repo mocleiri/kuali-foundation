@@ -54,6 +54,7 @@
             <configuration>
               <include>**/sql/mysql/*.sql</include>
               <exclude>**/schema*.sql</exclude>
+              <outputFile>target/classes/META-INF/sql/mysql/schema.tables</outputFile>
             </configuration>
           </execution>
         </executions>
