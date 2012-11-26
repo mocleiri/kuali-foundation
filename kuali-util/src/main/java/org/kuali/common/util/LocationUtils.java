@@ -126,9 +126,11 @@ public class LocationUtils {
 		return readLinesAndClose(in, null);
 	}
 
-	public static final List<String> readLinesAndClose(Reader reader) {
+	public static final List<String> readLinesAndClose(InputStream in, String encoding) {
+		Reader reader = null;
 		try {
-			return IOUtils.readLines(reader);
+			reader = getBufferedReader(in, encoding);
+			return readLinesAndClose(reader);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -136,11 +138,9 @@ public class LocationUtils {
 		}
 	}
 
-	public static final List<String> readLinesAndClose(InputStream in, String encoding) {
-		Reader reader = null;
+	public static final List<String> readLinesAndClose(Reader reader) {
 		try {
-			reader = getBufferedReader(in, encoding);
-			return readLinesAndClose(reader);
+			return IOUtils.readLines(reader);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -251,8 +251,7 @@ public class LocationUtils {
 		if (isExistingFile(location)) {
 			return true;
 		} else {
-			ResourceLoader loader = new DefaultResourceLoader();
-			Resource resource = loader.getResource(location);
+			Resource resource = getResource(location);
 			return resource.exists();
 		}
 	}
@@ -260,14 +259,22 @@ public class LocationUtils {
 	/**
 	 * Open an <code>InputStream</code> to <code>location</code>. If <code>location</code> is the path to an existing <code>File</code> on
 	 * the local file system, a <code>FileInputStream</code> is returned. Otherwise Spring's resource loading framework is used to open an
-	 * <code>InputStream</code> to whatever type of location is being referred to.
+	 * <code>InputStream</code> to <code>location</code>.
 	 */
 	public static final InputStream getInputStream(String location) throws IOException {
 		if (isExistingFile(location)) {
 			return FileUtils.openInputStream(new File(location));
 		}
-		ResourceLoader loader = new DefaultResourceLoader();
-		Resource resource = loader.getResource(location);
+		Resource resource = getResource(location);
 		return resource.getInputStream();
 	}
+
+	public static final Resource getResource(String location) {
+		if (location == null) {
+			return null;
+		}
+		ResourceLoader loader = new DefaultResourceLoader();
+		return loader.getResource(location);
+	}
+
 }
