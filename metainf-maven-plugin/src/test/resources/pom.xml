@@ -52,6 +52,8 @@
               <goal>generatelocationlist</goal>
             </goals>
             <configuration>
+              <include>**/sql/mysql/*.sql</include>
+              <exclude>**/schema*.sql</exclude>
             </configuration>
           </execution>
         </executions>

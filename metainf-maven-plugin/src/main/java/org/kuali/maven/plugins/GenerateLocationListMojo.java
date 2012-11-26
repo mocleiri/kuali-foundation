@@ -16,9 +16,13 @@
 package org.kuali.maven.plugins;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @author Jeff Caddel
@@ -53,8 +57,37 @@ public class GenerateLocationListMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		getLog().info("Hello world");
-		getLog().info("exclude=" + exclude);
+		try {
+			getLog().info("Examining - " + baseDir.getAbsolutePath());
+			getLog().info("Include - " + include);
+			getLog().info("Exclude - " + exclude);
+			SimpleScanner scanner = new SimpleScanner(baseDir, include, exclude);
+			List<File> files = scanner.getFiles();
+			getLog().info("Located " + files.size() + " files");
+			String content = getLocations(baseDir, files, prefix);
+			getLog().info("Creating " + outputFile);
+			FileUtils.writeStringToFile(outputFile, content);
+		} catch (Exception e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
+	}
+
+	protected String getLocations(File baseDir, List<File> files, String prefix) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < files.size(); i++) {
+			if (i != 0) {
+				sb.append("\n");
+			}
+			sb.append(getLocation(baseDir, files.get(i), prefix));
+		}
+		return sb.toString();
+	}
+
+	protected String getLocation(File baseDir, File file, String prefix) throws IOException {
+		String dir = baseDir.getCanonicalPath();
+		String path = file.getCanonicalPath();
+		int pos = dir.length() + 1;
+		return prefix + StringUtils.substring(path, pos);
 	}
 
 	public String getInclude() {
