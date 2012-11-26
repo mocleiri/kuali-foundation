@@ -385,18 +385,21 @@ public class PropertyUtils {
 	 */
 	public static final void addOrOverwriteProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
-		boolean existingProperty = !StringUtils.isBlank(oldValue);
-		boolean overwrite = existingProperty && !StringUtils.equals(oldValue, newValue);
+		boolean newEqualsOld = StringUtils.equals(newValue, oldValue);
+		if (newEqualsOld) {
+			// Nothing to do! New value is the same as old value.
+			return;
+		}
+		boolean overwrite = !StringUtils.isBlank(oldValue);
 		if (overwrite) {
 			// This property already has a value, and it is different from the new value
 			// Check to make sure we are allowed to override the old value before doing so
 			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of existing property [" + key + "] is not allowed.");
-			properties.setProperty(key, newValue);
-		} else if (!existingProperty) {
+		} else {
 			// There is no existing value for this key
 			logger.debug("Adding property {}=[{}]", key, Str.flatten(newValue));
-			properties.setProperty(key, newValue);
 		}
+		properties.setProperty(key, newValue);
 	}
 
 	private static final String getDefaultComment(String encoding) {
