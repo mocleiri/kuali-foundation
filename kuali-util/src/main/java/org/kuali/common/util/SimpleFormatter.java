@@ -70,7 +70,7 @@ public class SimpleFormatter {
 		try {
 			return dateFormatter.parse(date);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Can't parse [" + date + "] Required format is [" + DATE_FORMAT + "]", e);
+			throw new IllegalArgumentException("Can't parse [" + date + "]", e);
 		}
 	}
 
@@ -215,5 +215,21 @@ public class SimpleFormatter {
 
 	public void setSizeFormatter(NumberFormat smallSizeFormatter) {
 		this.sizeFormatter = smallSizeFormatter;
+	}
+
+	public NumberFormat getCountFormatter() {
+		return countFormatter;
+	}
+
+	public void setCountFormatter(NumberFormat countFormatter) {
+		this.countFormatter = countFormatter;
+	}
+
+	public SimpleDateFormat getDateFormatter() {
+		return dateFormatter;
+	}
+
+	public void setDateFormatter(SimpleDateFormat dateFormatter) {
+		this.dateFormatter = dateFormatter;
 	}
 }
