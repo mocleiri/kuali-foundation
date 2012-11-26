@@ -5,14 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 public class VersionUtils {
 
 	public static final String MAVEN_SNAPSHOT_TOKEN = "SNAPSHOT";
-	private static final char[] DELIMITERS = new char[] { '.', '-' };
+	private static final String[] DELIMITERS = new String[] { ".", "-" };
 	private static final String SEPARATOR_CHARS = Str.toString(DELIMITERS);
 
 	/**
 	 * Return true if <code>version</code> ends with <code>-SNAPSHOT</code> or <code>.SNAPSHOT</code> (case insensitive).
 	 */
 	public static final boolean isSnapshot(String version) {
-		for (char delimiter : DELIMITERS) {
+		for (String delimiter : DELIMITERS) {
 			String suffix = delimiter + MAVEN_SNAPSHOT_TOKEN;
 			if (StringUtils.endsWithIgnoreCase(version, suffix)) {
 				return true;

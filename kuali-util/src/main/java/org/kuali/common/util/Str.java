@@ -14,15 +14,17 @@ public class Str {
 	public static final String LF = "\n";
 
 	/**
-	 * Convert <code>chars</code> to a <code>String</code>
+	 * Combine <code>tokens</code> into a <code>String</code>
 	 */
-	public static String toString(char[] chars) {
-		if (chars == null) {
+	public static String toString(String[] tokens) {
+		if (tokens == null) {
 			return null;
 		}
 		StringBuilder sb = new StringBuilder();
-		for (char c : chars) {
-			sb.append(c);
+		for (String token : tokens) {
+			if (token != null) {
+				sb.append(token);
+			}
 		}
 		return sb.toString();
 	}
