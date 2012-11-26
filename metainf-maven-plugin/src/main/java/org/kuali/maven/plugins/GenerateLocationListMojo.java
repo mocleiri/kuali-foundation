@@ -25,7 +25,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Create a location listing file that describes files inside of a jar file
+ * Create a location listing file that describes resources inside of a jar file
  *
  * @author Jeff Caddel
  * @goal generatelocationlist
@@ -48,7 +48,7 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	private String exclude;
 
 	/**
-	 * The directory to scan using the include/exclude patterns. Filenames are generated relative to this directory
+	 * The directory to scan using the include/exclude patterns. Paths in <code>outputFile</code> are generated relative to this directory
 	 *
 	 * @parameter expression="${metainf.basedir}" default-value="${project.build.outputDirectory}"
 	 * @required
@@ -56,7 +56,7 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	private File baseDir;
 
 	/**
-	 * The file which will contain the references to the files that were located
+	 * The file which will contain <code>classpath:</code> references to the files that were located
 	 *
 	 * @parameter expression="${metainf.outputFile}" default-value="${project.build.outputDirectory}/META-INF/classpath.resources"
 	 * @required
