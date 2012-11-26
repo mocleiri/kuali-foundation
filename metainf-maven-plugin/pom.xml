@@ -24,16 +24,16 @@
     <version>2.0.17</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>maven-manifest-plugin</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <artifactId>metainf-plugin</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven Manifest Plugin</name>
-  <description>Tools for inspecting MANIFEST.MF files</description>
+  <name>META-INF Maven Plugin</name>
+  <description>Tools for working with META-INF files</description>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-manifest-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/maven-manifest-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/maven-manifest-plugin</url>
+    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/metainf-maven-plugin</connection>
+    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/metainf-maven-plugin</developerConnection>
+    <url>http://svn.kuali.org/repos/foundation/trunk/metainf-maven-plugin</url>
   </scm>
   <dependencies>
     <dependency>
