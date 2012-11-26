@@ -38,7 +38,7 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
-	private static final String DEFAULT_ENCODING = Charset.defaultCharset().toString();
+	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 
 	/**
 	 * Return the property values from <code>keys</code>
@@ -94,7 +94,7 @@ public class PropertyUtils {
 	 * If <code>excludes</codes> is not empty and contains <code>value</code> return false.<br>
 	 * If <code>value</code> has not been explicitly excluded, proceed with checking the <code>includes</code> list.<br>
 	 * If <code>includes</code> is empty return true.<br>
-	 * If <code>includes</code> is not empty, return true only if <code>value</code> appears in the list.
+	 * If <code>includes</code> is not empty, return true if, and only if, <code>value</code> appears in the list.
 	 */
 	public static final boolean include(String value, List<String> includes, List<String> excludes) {
 		if (!CollectionUtils.isEmpty(excludes) && excludes.contains(value)) {
