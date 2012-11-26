@@ -14,18 +14,22 @@ public class HexUtils {
 	 * its hexadecimal form.
 	 */
 	public static String toHexString(String string, String charsetName) {
-		return toHexString(string, Charset.forName(charsetName));
+		if (charsetName == null) {
+			return toHexString(string, Charset.defaultCharset());
+		} else {
+			return toHexString(string, Charset.forName(charsetName));
+		}
 	}
 
 	/**
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
 	 * its hexadecimal form.
 	 */
-	public static String toHexString(String string, Charset charSet) {
+	public static String toHexString(String string, Charset charset) {
 		if (string == null) {
 			return null;
 		}
-		byte[] bytes = string.getBytes(charSet);
+		byte[] bytes = charset == null ? string.getBytes() : string.getBytes(charset);
 		return toHexString(bytes);
 	}
 
