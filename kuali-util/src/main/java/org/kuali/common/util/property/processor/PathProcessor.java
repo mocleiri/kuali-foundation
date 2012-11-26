@@ -31,7 +31,7 @@ public class PathProcessor implements PropertyProcessor {
 			String oldValue = properties.getProperty(key);
 			String newValue = Str.getPath(oldValue);
 			String newKey = key + "." + suffix;
-			PropertyUtils.setProperty(properties, newKey, newValue, propertyOverwriteMode);
+			PropertyUtils.addOrOverwriteProperty(properties, newKey, newValue, propertyOverwriteMode);
 		}
 	}
 

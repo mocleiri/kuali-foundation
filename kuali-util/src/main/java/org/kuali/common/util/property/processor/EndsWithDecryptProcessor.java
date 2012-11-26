@@ -34,7 +34,7 @@ public class EndsWithDecryptProcessor extends DecryptProcessor {
 			String decryptedValue = encryptor.decrypt(encryptedValue);
 			int endIndex = key.length() - suffix.length();
 			String newKey = key.substring(0, endIndex);
-			PropertyUtils.setProperty(properties, newKey, decryptedValue, propertyOverwriteMode);
+			PropertyUtils.addOrOverwriteProperty(properties, newKey, decryptedValue, propertyOverwriteMode);
 			if (removeEncryptedProperties) {
 				logger.debug("Removing {}", key);
 				properties.remove(key);

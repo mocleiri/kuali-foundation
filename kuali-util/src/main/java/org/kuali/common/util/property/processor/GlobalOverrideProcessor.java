@@ -33,7 +33,7 @@ public class GlobalOverrideProcessor implements PropertyProcessor {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String newValue = global.getProperty(key);
-			PropertyUtils.setProperty(properties, key, newValue, propertyOverwriteMode);
+			PropertyUtils.addOrOverwriteProperty(properties, key, newValue, propertyOverwriteMode);
 		}
 	}
 

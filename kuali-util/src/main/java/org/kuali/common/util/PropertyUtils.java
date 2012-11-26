@@ -383,7 +383,7 @@ public class PropertyUtils {
 	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing value, add the
 	 * property. If there is a conflict, check <code>propertyOverwriteMode</code> to make sure we have permission to override the value.
 	 */
-	public static final void setProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
+	public static final void addOrOverwriteProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
 		boolean existingProperty = !StringUtils.isBlank(oldValue);
 		boolean overwrite = existingProperty && !StringUtils.equals(oldValue, newValue);
