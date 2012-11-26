@@ -35,14 +35,15 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	/**
 	 * Regular expression pattern for files to include
 	 *
-	 * @parameter expression="${metainf.include}"
+	 * @parameter expression="${metainf.include}" default-value="\*\*\/*"
+	 * @required
 	 */
 	private String include;
 
 	/**
 	 * Regular expression pattern for files to exclude
 	 *
-	 * @parameter expression="${metainf.exclude}" default-value="${project.build.outputDirectory}/META-INF/*"
+	 * @parameter expression="${metainf.exclude}" default-value="\*\*\/META-INF/*"
 	 */
 	private String exclude;
 
@@ -50,13 +51,15 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	 * The directory to scan using the include/exclude patterns. Filenames are generated relative to this directory
 	 *
 	 * @parameter expression="${metainf.basedir}" default-value="${project.build.outputDirectory}"
+	 * @required
 	 */
 	private File baseDir;
 
 	/**
 	 * The file which will contain the references to the files that were located
 	 *
-	 * @parameter expression="${metainf.outputFile}" default-value="${project.build.outputDirectory}/META-INF/location.resources"
+	 * @parameter expression="${metainf.outputFile}" default-value="${project.build.outputDirectory}/META-INF/classpath.resources"
+	 * @required
 	 */
 	private File outputFile;
 
