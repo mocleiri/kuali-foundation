@@ -45,7 +45,9 @@ public class SimpleTest {
 			if (i != 0) {
 				sb.append(",");
 			}
-			sb.append(codePoints[i]);
+			int cp = codePoints[i];
+			int charCount = Character.charCount(cp);
+			sb.append(cp + ":cc=" + charCount);
 		}
 		sb.append("]");
 		return sb.toString();
