@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ModeUtils {
+
 	private static final Logger logger = LoggerFactory.getLogger(ModeUtils.class);
 
 	public static final void validate(Mode mode, String msg) {
