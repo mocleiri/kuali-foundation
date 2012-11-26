@@ -11,7 +11,7 @@ public class HexUtils {
 
 	/**
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
-	 * its hexadecimal form.
+	 * its 2 digit hexadecimal form.
 	 */
 	public static String toHexString(String string, String charsetName) {
 		if (charsetName == null) {
@@ -23,7 +23,7 @@ public class HexUtils {
 
 	/**
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
-	 * its hexadecimal form.
+	 * its 2 digit hexadecimal form.
 	 */
 	public static String toHexString(String string, Charset charset) {
 		if (string == null) {
@@ -34,7 +34,7 @@ public class HexUtils {
 	}
 
 	/**
-	 * Convert each <code>byte</code> into its hexadecimal form.
+	 * Convert each <code>byte</code> into its 2 digit hexadecimal form.
 	 */
 	public static String toHexString(byte[] bytes) {
 		if (bytes == null) {
