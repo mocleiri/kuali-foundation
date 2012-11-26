@@ -24,7 +24,7 @@
     <version>2.0.17</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>metainf-plugin</artifactId>
+  <artifactId>metainf-maven-plugin</artifactId>
   <version>1.0.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>META-INF Maven Plugin</name>
