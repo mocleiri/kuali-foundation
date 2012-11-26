@@ -64,7 +64,7 @@ public class HexUtils {
 
 	/**
 	 * Given a string in <code>strictly hex</code> format and the <code>encoding</code> that was used to produce the hex, convert it back to
-	 * a Java <code>String</code>.<code>strictly hex</code> in the context of this method means that the string:<br>
+	 * a Java <code>String</code>. <code>strictly hex</code> in the context of this method means that the string:<br>
 	 * 1 - Contains only the characters <code>a-f</code>, <code>A-F</code>, and <code>0-9</code><br>
 	 * 2 - Its length is an even number.
 	 */
