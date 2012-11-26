@@ -8,16 +8,24 @@ public class HexUtils {
 
 	public static final String ZERO = "0";
 
-	public static String toHex(String s, String charsetName) {
-		return toHex(s, Charset.forName(charsetName));
+	/**
+	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
+	 * its hexadecimal form.
+	 */
+	public static String toHex(String string, String charsetName) {
+		return toHex(string, Charset.forName(charsetName));
 	}
 
-	public static String toHex(String s, Charset charSet) {
-		if (s == null) {
+	/**
+	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
+	 * its hexadecimal form.
+	 */
+	public static String toHex(String string, Charset charSet) {
+		if (string == null) {
 			return null;
 		}
 		int byteMask = 0x000000ff;
-		byte[] bytes = s.getBytes(charSet);
+		byte[] bytes = string.getBytes(charSet);
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
 			int masked = byteMask & b;
