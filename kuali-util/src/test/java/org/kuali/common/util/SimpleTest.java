@@ -24,18 +24,19 @@ public class SimpleTest {
 		sb.append(rpad("s.length()=" + s.length(), 15));
 		sb.append(rpad("s.substring(4, 6)=" + s.substring(4, 6), 25));
 		sb.append("\n\n");
+		StringBuilder characters = new StringBuilder();
 		for (String encoding : encodings) {
 			byte[] bytes = s.getBytes(Charset.forName(encoding));
 			char[] chars = s.toCharArray();
 			int[] codePoints = getCodePoints(chars);
-			sb.append(rpad("encoding=" + encoding, 17));
-			sb.append(rpad("bytes=" + bytes.length, 9));
-			sb.append(rpad("chars=" + chars.length, 8));
-			sb.append(rpad(getHex(bytes), 50));
-			sb.append(getString(codePoints));
+			sb.append(rpad("encoding=" + encoding, 20));
+			sb.append(rpad("bytes=" + bytes.length, 15));
+			sb.append(rpad("chars=" + chars.length, 15));
+			sb.append(rpad(getHex(bytes), 55));
+			characters.append(getString(codePoints) + "\n");
 			sb.append("\n");
 		}
-		System.out.println("\n" + sb);
+		System.out.println("\n" + sb + "\n" + characters);
 	}
 
 	protected String getString(int[] codePoints) {
@@ -47,7 +48,7 @@ public class SimpleTest {
 			}
 			int cp = codePoints[i];
 			int charCount = Character.charCount(cp);
-			sb.append(cp + ":cc=" + charCount);
+			sb.append(cp + ":charCount=" + charCount);
 		}
 		sb.append("]");
 		return sb.toString();
