@@ -30,7 +30,7 @@ public class LocationUtils {
 		case LOCATIONLIST:
 			return getLocations(location, encoding);
 		default:
-			throw new IllegalArgumentException(type + " is unknown");
+			throw new IllegalArgumentException("Location type '" + type + "' is unknown");
 		}
 	}
 
