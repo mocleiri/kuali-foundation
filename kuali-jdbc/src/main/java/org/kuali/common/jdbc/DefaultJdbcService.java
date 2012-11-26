@@ -190,6 +190,15 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
+	protected SqlMetaData getSqlMetaData(long start, long count, SqlExecutionContext context) {
+		SqlMetaData ssm = new SqlMetaData();
+		ssm.setExecutionTime(System.currentTimeMillis() - start);
+		ssm.setCount(count);
+		ssm.setReader(context.getJdbcContext().getReader());
+		ssm.setSource(context.getSource());
+		return ssm;
+	}
+
 	protected SqlMetaData executeSqlFromSource(SqlExecutionContext context) {
 		logSource("Executing", context.getSource());
 		long count = 0;
@@ -205,12 +214,7 @@ public class DefaultJdbcService implements JdbcService {
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);
 			}
-			SqlMetaData ssm = new SqlMetaData();
-			ssm.setExecutionTime(System.currentTimeMillis() - start);
-			ssm.setCount(count);
-			ssm.setReader(context.getJdbcContext().getReader());
-			ssm.setSource(context.getSource());
-			return ssm;
+			return getSqlMetaData(start, count, context);
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
