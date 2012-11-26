@@ -14,20 +14,25 @@
   <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <properties>
     <slf4j.version>1.6.4</slf4j.version>
+    <commons.lang.version>3.1</commons.lang.version>
+    <commons.io.version>1.3.2</commons.io.version>
+    <spring.version>3.1.3.RELEASE</spring.version>
+    <maven.compat.version>3.0.4</maven.compat.version>
     <jenkins.excludeVersion>true</jenkins.excludeVersion>
+    <junit.version>4.10</junit.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.10</version>
+        <version>${junit.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
-        <version>3.1.1.RELEASE</version>
+        <version>${spring.version}</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -38,18 +43,18 @@
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-compat</artifactId>
-        <version>3.0.4</version>
+        <version>${maven.compat.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons.lang.version}</version>
       </dependency>
       <dependency>
-        <groupId>commons-io</groupId>
+        <groupId>org.apache.commons</groupId>
         <artifactId>commons-io</artifactId>
-        <version>2.3</version>
+        <version>${commons.io.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -79,11 +84,11 @@
       <artifactId>maven-compat</artifactId>
     </dependency>
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
+      <groupId>org.apache.commons</groupId>
       <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
