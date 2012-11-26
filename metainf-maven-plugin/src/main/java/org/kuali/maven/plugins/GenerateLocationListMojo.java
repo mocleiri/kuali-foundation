@@ -32,7 +32,7 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	private String include;
 
 	/**
-	 * @parameter expression="${metainf.exclude}"
+	 * @parameter expression="${metainf.exclude}" default-value="&#42;&#42;/META-INF/&#42;"
 	 */
 	private String exclude;
 
