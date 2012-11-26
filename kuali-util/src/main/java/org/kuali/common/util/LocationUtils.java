@@ -181,12 +181,10 @@ public class LocationUtils {
 	 * Return a <code>BufferedReader</code> for the location indicated using the encoding indicated.
 	 */
 	public static final BufferedReader getBufferedReader(String location, String encoding) throws IOException {
-		InputStream in = null;
 		try {
-			in = getInputStream(location);
+			InputStream in = getInputStream(location);
 			return getBufferedReader(in, encoding);
 		} catch (IOException e) {
-			IOUtils.closeQuietly(in);
 			throw new IOException("Unexpected IO error");
 		}
 	}
