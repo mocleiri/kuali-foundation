@@ -24,8 +24,15 @@ public class HexUtils {
 		if (string == null) {
 			return null;
 		}
-		int byteMask = 0x000000ff;
 		byte[] bytes = string.getBytes(charSet);
+		return toHex(bytes);
+	}
+
+	/**
+	 * Convert each <code>byte</code> into its hexadecimal form.
+	 */
+	public static String toHex(byte[] bytes) {
+		int byteMask = 0x000000ff;
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
 			int masked = byteMask & b;
