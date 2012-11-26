@@ -1,5 +1,6 @@
 package org.kuali.common.util;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +43,30 @@ public class HexUtils {
 			sb.append(padded);
 		}
 		return sb.toString();
+	}
+
+	public static final byte[] toBytes(String hex) {
+		char[] chars = hex.toCharArray();
+		int length = chars.length;
+		if (length % 2 != 0) {
+			throw new IllegalArgumentException("Invalid hex string [" + hex + "]");
+		}
+		byte[] bytes = new byte[length / 2];
+		int byteIndex = 0;
+		for (int i = 0; i < length; i += 2) {
+			char c1 = chars[i];
+			char c2 = chars[i + 1];
+			String s = c1 + "" + c2;
+			int integer = Integer.parseInt(s, 16);
+			int masked = integer & BYTE_MASK;
+			byte b = (byte) masked;
+			bytes[byteIndex++] = b;
+		}
+		return bytes;
+	}
+
+	public static final String toString(byte[] bytes, String charsetName) throws UnsupportedEncodingException {
+		return StringUtils.toString(bytes, charsetName);
 	}
 
 }

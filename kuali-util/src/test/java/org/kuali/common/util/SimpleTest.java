@@ -8,7 +8,7 @@ import org.junit.Test;
 public class SimpleTest {
 
 	@Test
-	public void testFileEncoding() {
+	public void testDefaultFileEncoding() {
 		System.out.println("file.encoding=" + System.getProperty("file.encoding"));
 		System.out.println("Charset.defaultCharset().name()=" + Charset.defaultCharset().name());
 	}
