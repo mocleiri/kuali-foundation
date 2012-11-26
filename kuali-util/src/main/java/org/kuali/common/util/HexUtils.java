@@ -45,7 +45,7 @@ public class HexUtils {
 		return sb.toString();
 	}
 
-	public static final byte[] toBytes(String hex) {
+	public static final byte[] getBytes(String hex) {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
 		if (length % 2 != 0) {
@@ -65,7 +65,8 @@ public class HexUtils {
 		return bytes;
 	}
 
-	public static final String toString(byte[] bytes, String charsetName) throws UnsupportedEncodingException {
+	public static final String toStringFromHex(String hex, String charsetName) throws UnsupportedEncodingException {
+		byte[] bytes = getBytes(hex);
 		return StringUtils.toString(bytes, charsetName);
 	}
 
