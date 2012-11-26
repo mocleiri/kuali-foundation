@@ -13,26 +13,26 @@ public class HexUtils {
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
 	 * its hexadecimal form.
 	 */
-	public static String toHex(String string, String charsetName) {
-		return toHex(string, Charset.forName(charsetName));
+	public static String toHexString(String string, String charsetName) {
+		return toHexString(string, Charset.forName(charsetName));
 	}
 
 	/**
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
 	 * its hexadecimal form.
 	 */
-	public static String toHex(String string, Charset charSet) {
+	public static String toHexString(String string, Charset charSet) {
 		if (string == null) {
 			return null;
 		}
 		byte[] bytes = string.getBytes(charSet);
-		return toHex(bytes);
+		return toHexString(bytes);
 	}
 
 	/**
 	 * Convert each <code>byte</code> into its hexadecimal form.
 	 */
-	public static String toHex(byte[] bytes) {
+	public static String toHexString(byte[] bytes) {
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
 			int masked = BYTE_MASK & b;
