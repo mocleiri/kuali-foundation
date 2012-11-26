@@ -33,6 +33,9 @@ public class HexUtils {
 	 * Convert each <code>byte</code> into its hexadecimal form.
 	 */
 	public static String toHexString(byte[] bytes) {
+		if (bytes == null) {
+			return null;
+		}
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
 			int masked = BYTE_MASK & b;
