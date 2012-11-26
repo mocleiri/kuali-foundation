@@ -397,7 +397,11 @@ public class PropertyUtils {
 	}
 
 	private static final String getDefaultComment(String encoding) {
-		return "encoding=" + StringUtils.defaultString(encoding, DEFAULT_ENCODING);
+		if (encoding == null) {
+			return "encoding.default=" + DEFAULT_ENCODING;
+		} else {
+			return "encoding=" + encoding;
+		}
 	}
 
 	private static final String getComment(String comment, String encoding) {
