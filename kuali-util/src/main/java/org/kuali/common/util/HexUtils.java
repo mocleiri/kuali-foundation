@@ -6,7 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public class HexUtils {
 
-	public static final String ZERO = "0";
+	private static final String ZERO = "0";
+	private static final int BYTE_MASK = 0x000000ff;
 
 	/**
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
@@ -32,10 +33,9 @@ public class HexUtils {
 	 * Convert each <code>byte</code> into its hexadecimal form.
 	 */
 	public static String toHex(byte[] bytes) {
-		int byteMask = 0x000000ff;
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
-			int masked = byteMask & b;
+			int masked = BYTE_MASK & b;
 			String hex = Integer.toHexString(masked).toUpperCase();
 			String padded = StringUtils.leftPad(hex, 2, ZERO);
 			sb.append(padded);
