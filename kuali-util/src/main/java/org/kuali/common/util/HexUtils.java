@@ -36,6 +36,12 @@ public class HexUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Given a string in <code>strictly hex</code> format, return the corresponding <code>byte[]</code>. <code>strictly hex</code> in the
+	 * context of this method means that the string:<br>
+	 * 1 - Contains only the characters <code>a-f</code>, <code>A-F</code>, and <code>0-9</code><br>
+	 * 2 - Its length is an even number.
+	 */
 	public static final byte[] getBytesFromHexString(String hex) {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
