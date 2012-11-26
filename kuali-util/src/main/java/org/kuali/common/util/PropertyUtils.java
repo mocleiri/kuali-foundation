@@ -400,7 +400,7 @@ public class PropertyUtils {
 		if (encoding == null) {
 			return "encoding.default=" + DEFAULT_ENCODING;
 		} else {
-			return "encoding=" + encoding;
+			return "encoding.specified=" + encoding;
 		}
 	}
 
