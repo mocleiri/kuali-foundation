@@ -20,18 +20,19 @@ public class SimpleTest {
 		String s2 = "𝟙𝟚𝟛";
 		String s = s1 + s2;
 		StringBuilder sb = new StringBuilder();
+		sb.append(rpad("s=" + s, 15));
+		sb.append(rpad("s.length()=" + s.length(), 15));
+		sb.append(rpad("s.substring(4, 6)=" + s.substring(4, 6), 25));
+		sb.append("\n\n");
 		for (String encoding : encodings) {
 			byte[] bytes = s.getBytes(Charset.forName(encoding));
 			char[] chars = s.toCharArray();
 			int[] codePoints = getCodePoints(chars);
-			sb.append(rpad("s.length()=" + s.length(), 15));
 			sb.append(rpad("encoding=" + encoding, 17));
-			sb.append(rpad("bytes=" + bytes.length, 10));
-			sb.append(rpad("chars=" + chars.length, 10));
-			sb.append(rpad(getHex(bytes), 53));
-			sb.append(rpad(s, 12));
+			sb.append(rpad("bytes=" + bytes.length, 9));
+			sb.append(rpad("chars=" + chars.length, 8));
+			sb.append(rpad(getHex(bytes), 50));
 			sb.append(getString(codePoints));
-			sb.append(s.substring(6, 8));
 			sb.append("\n");
 		}
 		System.out.println("\n" + sb);
