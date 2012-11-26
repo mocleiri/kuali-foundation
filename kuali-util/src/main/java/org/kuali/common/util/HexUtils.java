@@ -26,9 +26,6 @@ public class HexUtils {
 	 * its 2 digit hexadecimal form.
 	 */
 	public static String toHexString(String string, Charset charset) {
-		if (string == null) {
-			return null;
-		}
 		byte[] bytes = charset == null ? string.getBytes() : string.getBytes(charset);
 		return toHexString(bytes);
 	}
@@ -37,9 +34,6 @@ public class HexUtils {
 	 * Convert each <code>byte</code> into its 2 digit hexadecimal form.
 	 */
 	public static String toHexString(byte[] bytes) {
-		if (bytes == null) {
-			return null;
-		}
 		StringBuilder sb = new StringBuilder();
 		for (byte b : bytes) {
 			int masked = BYTE_MASK & b;
