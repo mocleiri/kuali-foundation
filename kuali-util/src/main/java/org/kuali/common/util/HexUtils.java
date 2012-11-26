@@ -1,7 +1,6 @@
 package org.kuali.common.util;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,23 +14,11 @@ public class HexUtils {
 	private static final int BYTE_MASK = 0x000000ff;
 
 	/**
-	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
-	 * its 2 digit hexadecimal form.
+	 * Convert <code>string</code> into a <code>byte[]</code> using the specified encoding, then convert each <code>byte</code> into its 2
+	 * digit hexadecimal form.
 	 */
-	public static String toHexString(String string, String charsetName) {
-		if (charsetName == null) {
-			return toHexString(string, Charset.defaultCharset());
-		} else {
-			return toHexString(string, Charset.forName(charsetName));
-		}
-	}
-
-	/**
-	 * Convert <code>string</code> into a <code>byte[]</code> using the specified character set, then convert each <code>byte</code> into
-	 * its 2 digit hexadecimal form.
-	 */
-	public static String toHexString(String string, Charset charset) {
-		byte[] bytes = charset == null ? string.getBytes() : string.getBytes(charset);
+	public static String toHexString(String string, String encoding) throws UnsupportedEncodingException {
+		byte[] bytes = encoding == null ? string.getBytes() : string.getBytes(encoding);
 		return toHexString(bytes);
 	}
 
@@ -49,7 +36,7 @@ public class HexUtils {
 		return sb.toString();
 	}
 
-	public static final byte[] getBytes(String hex) {
+	public static final byte[] getBytesFromHexString(String hex) {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
 		if (length % 2 != 0) {
@@ -69,9 +56,9 @@ public class HexUtils {
 		return bytes;
 	}
 
-	public static final String toStringFromHex(String hex, String charsetName) throws UnsupportedEncodingException {
-		byte[] bytes = getBytes(hex);
-		return StringUtils.toString(bytes, charsetName);
+	public static final String toStringFromHex(String hex, String encoding) throws UnsupportedEncodingException {
+		byte[] bytes = getBytesFromHexString(hex);
+		return StringUtils.toString(bytes, encoding);
 	}
 
 }
