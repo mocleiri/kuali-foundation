@@ -5,6 +5,10 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * A few (highly inefficient) methods for flipping Java <code>String's</code> into their hexadecimal equivalent and back again, given a
+ * character encoding.
+ */
 public class HexUtils {
 
 	private static final String ZERO = "0";
