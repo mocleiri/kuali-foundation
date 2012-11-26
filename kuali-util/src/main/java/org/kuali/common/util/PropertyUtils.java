@@ -388,9 +388,12 @@ public class PropertyUtils {
 		boolean existingProperty = !StringUtils.isBlank(oldValue);
 		boolean overwrite = existingProperty && !StringUtils.equals(oldValue, newValue);
 		if (overwrite) {
+			// This property already has a value, and it is different from the new value
+			// Check to make sure we are allowed to override the old value before doing so
 			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of existing property [" + key + "] is not allowed.");
 			properties.setProperty(key, newValue);
 		} else if (!existingProperty) {
+			// There is no existing value for this key
 			logger.debug("Adding property {}=[{}]", key, Str.flatten(newValue));
 			properties.setProperty(key, newValue);
 		}
