@@ -32,7 +32,7 @@ public class SimpleTest {
 			sb.append(rpad("encoding=" + encoding, 20));
 			sb.append(rpad("bytes=" + bytes.length, 15));
 			sb.append(rpad("chars=" + chars.length, 15));
-			sb.append(rpad(HexUtils.toHex(s, encoding), 55));
+			sb.append(rpad(HexUtils.toHex(bytes), 55));
 			characters.append(getString(codePoints) + "\n");
 			sb.append("\n");
 		}
