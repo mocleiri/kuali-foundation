@@ -25,32 +25,44 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
+ * Create a location listing file that describes files inside of a jar file
+ *
  * @author Jeff Caddel
  * @goal generatelocationlist
  */
 public class GenerateLocationListMojo extends AbstractMojo {
 
 	/**
+	 * Regular expression pattern for files to include
+	 *
 	 * @parameter expression="${metainf.include}"
 	 */
 	private String include;
 
 	/**
+	 * Regular expression pattern for files to exclude
+	 *
 	 * @parameter expression="${metainf.exclude}" default-value="${project.build.outputDirectory}/META-INF/*"
 	 */
 	private String exclude;
 
 	/**
+	 * The directory to scan using the include/exclude patterns. Filenames are generated relative to this directory
+	 *
 	 * @parameter expression="${metainf.basedir}" default-value="${project.build.outputDirectory}"
 	 */
 	private File baseDir;
 
 	/**
+	 * The file which will contain the references to the files that were located
+	 *
 	 * @parameter expression="${metainf.outputFile}" default-value="${project.build.outputDirectory}/META-INF/location.resources"
 	 */
 	private File outputFile;
 
 	/**
+	 * The prefix to insert before the relative path name
+	 *
 	 * @parameter expression="${metainf.prefix}" default-value="classpath:"
 	 */
 	private String prefix;
