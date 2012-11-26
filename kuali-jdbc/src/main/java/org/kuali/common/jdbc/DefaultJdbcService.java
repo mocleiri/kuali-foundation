@@ -50,13 +50,13 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData executeSql(JdbcContext context, CharSequence location) {
+	public SqlMetaData executeSql(JdbcContext context, String location) {
 		return executeSql(context, location, null);
 	}
 
 	@Override
-	public SqlMetaData executeSql(JdbcContext context, CharSequence location, CharSequence encoding) {
-		return executeSql(context, Collections.singletonList(location.toString()), encoding).get(1);
+	public SqlMetaData executeSql(JdbcContext context, String location, String encoding) {
+		return executeSql(context, Collections.singletonList(location), encoding).get(1);
 	}
 
 	@Override
@@ -95,8 +95,8 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData getMetaData(SqlContext context, CharSequence location) {
-		return getMetaData(context, Collections.singletonList(location.toString()), null).get(1);
+	public SqlMetaData getMetaData(SqlContext context, String location) {
+		return getMetaData(context, Collections.singletonList(location), null).get(1);
 	}
 
 	@Override
@@ -255,8 +255,8 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaData getMetaData(SqlContext context, CharSequence location, CharSequence encoding) {
-		return getMetaData(context, Collections.singletonList(location.toString()), encoding).get(1);
+	public SqlMetaData getMetaData(SqlContext context, String location, String encoding) {
+		return getMetaData(context, Collections.singletonList(location), encoding).get(1);
 	}
 
 	@Override
@@ -265,7 +265,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaDataList getMetaData(SqlContext context, List<String> locations, CharSequence encoding) {
+	public SqlMetaDataList getMetaData(SqlContext context, List<String> locations, String encoding) {
 		List<SqlSource> sources = JdbcUtils.getSqlSources(locations, encoding);
 		return getSqlMetaDataList(context, sources);
 	}
@@ -277,7 +277,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@Override
-	public SqlMetaDataList executeSql(JdbcContext context, List<String> locations, CharSequence encoding) {
+	public SqlMetaDataList executeSql(JdbcContext context, List<String> locations, String encoding) {
 		List<SqlSource> sources = JdbcUtils.getSqlSources(locations, encoding);
 		return executeSources(context, sources);
 	}

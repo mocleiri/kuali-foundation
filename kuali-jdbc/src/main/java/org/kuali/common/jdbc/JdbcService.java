@@ -12,24 +12,24 @@ public interface JdbcService {
 
 	SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql);
 
-	SqlMetaData executeSql(JdbcContext context, CharSequence location);
+	SqlMetaData executeSql(JdbcContext context, String location);
 
-	SqlMetaData executeSql(JdbcContext context, CharSequence location, CharSequence encoding);
+	SqlMetaData executeSql(JdbcContext context, String location, String encoding);
 
 	SqlMetaDataList executeSql(JdbcContext context, List<String> locations);
 
-	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, CharSequence encoding);
+	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, String encoding);
 
 	SqlMetaData getMetaDataFromString(SqlContext context, String sql);
 
 	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql);
 
-	SqlMetaData getMetaData(SqlContext context, CharSequence location);
+	SqlMetaData getMetaData(SqlContext context, String location);
 
-	SqlMetaData getMetaData(SqlContext context, CharSequence location, CharSequence encoding);
+	SqlMetaData getMetaData(SqlContext context, String location, String encoding);
 
 	SqlMetaDataList getMetaData(SqlContext context, List<String> locations);
 
-	SqlMetaDataList getMetaData(SqlContext context, List<String> locations, CharSequence encoding);
+	SqlMetaDataList getMetaData(SqlContext context, List<String> locations, String encoding);
 
 }

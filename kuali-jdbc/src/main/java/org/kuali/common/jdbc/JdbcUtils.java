@@ -63,19 +63,17 @@ public class JdbcUtils {
 		}
 	}
 
-	public static final List<SqlSource> getSqlSources(List<String> locations, CharSequence encoding) {
+	public static final List<SqlSource> getSqlSources(List<String> locations, String encoding) {
 		return getSqlSources(locations, encoding, SqlStringType.LOCATION);
 	}
 
-	public static final List<SqlSource> getSqlSources(List<String> strings, CharSequence encoding, SqlStringType type) {
+	public static final List<SqlSource> getSqlSources(List<String> strings, String encoding, SqlStringType type) {
 		List<SqlSource> sources = new ArrayList<SqlSource>();
 		for (String string : strings) {
 			SqlSource source = new SqlSource();
 			source.setString(string);
-			if (encoding == null) {
-				source.setEncoding(null);
-			} else {
-				source.setEncoding(encoding.toString());
+			if (encoding != null) {
+				source.setEncoding(encoding);
 			}
 			source.setType(type);
 			sources.add(source);
