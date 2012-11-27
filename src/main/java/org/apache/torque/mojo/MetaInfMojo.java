@@ -17,6 +17,7 @@ package org.apache.torque.mojo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -89,6 +90,7 @@ public class MetaInfMojo extends AbstractMojo {
 	}
 
 	protected String getLocations(File baseDir, List<File> files, String prefix) throws IOException {
+		Collections.sort(files);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < files.size(); i++) {
 			if (i != 0) {
