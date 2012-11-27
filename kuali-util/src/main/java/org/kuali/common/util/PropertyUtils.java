@@ -39,6 +39,7 @@ public class PropertyUtils {
 	private static final String XML_EXTENSION = ".xml";
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
+	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
 	/**
 	 * Return the property values from <code>keys</code>
@@ -166,10 +167,10 @@ public class PropertyUtils {
 			String path = file.getCanonicalPath();
 			boolean xml = isXml(path);
 			Properties sorted = getSortedProperties(properties);
-			comment = getComment(encoding, comment);
+			comment = getComment(encoding, comment, xml);
 			if (xml) {
 				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
-				if (StringUtils.isBlank(encoding)) {
+				if (encoding == null) {
 					sorted.storeToXML(out, comment);
 				} else {
 					sorted.storeToXML(out, comment, encoding);
@@ -402,19 +403,25 @@ public class PropertyUtils {
 		properties.setProperty(key, newValue);
 	}
 
-	private static final String getDefaultComment(String encoding) {
+	private static final String getDefaultComment(String encoding, boolean xml) {
 		if (encoding == null) {
-			return "encoding.default=" + DEFAULT_ENCODING;
+			if (xml) {
+				// Java defaults XML properties files to UTF-8 if no encoding is provided
+				return "encoding.default=" + DEFAULT_XML_ENCODING;
+			} else {
+				// For normal properties files the platform default encoding is used
+				return "encoding.default=" + DEFAULT_ENCODING;
+			}
 		} else {
 			return "encoding.specified=" + encoding;
 		}
 	}
 
-	private static final String getComment(String comment, String encoding) {
+	private static final String getComment(String comment, String encoding, boolean xml) {
 		if (StringUtils.isBlank(comment)) {
-			return getDefaultComment(encoding);
+			return getDefaultComment(encoding, xml);
 		} else {
-			return comment + "\n#" + getDefaultComment(encoding);
+			return comment + "\n#" + getDefaultComment(encoding, xml);
 		}
 	}
 
