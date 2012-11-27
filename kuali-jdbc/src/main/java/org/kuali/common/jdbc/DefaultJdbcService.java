@@ -38,17 +38,6 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected JdbcMetaData getJdbcMetaData(DatabaseMetaData dbmd) throws SQLException {
-		JdbcMetaData md = new JdbcMetaData();
-		md.setDatabaseProductName(dbmd.getDatabaseProductName());
-		md.setDatabaseProductVersion(dbmd.getDatabaseProductVersion());
-		md.setDriverName(dbmd.getDriverName());
-		md.setDriverVersion(dbmd.getDriverVersion());
-		md.setUrl(dbmd.getURL());
-		md.setUsername(dbmd.getUserName());
-		return md;
-	}
-
 	@Override
 	public SqlMetaData executeSql(JdbcContext context, String location) {
 		return executeSql(context, location, null);
@@ -290,6 +279,17 @@ public class DefaultJdbcService implements JdbcService {
 	public SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql) {
 		List<SqlSource> sources = JdbcUtils.getSqlSourcesFromStrings(sql);
 		return executeSources(context, sources);
+	}
+
+	protected JdbcMetaData getJdbcMetaData(DatabaseMetaData dbmd) throws SQLException {
+		JdbcMetaData md = new JdbcMetaData();
+		md.setDatabaseProductName(dbmd.getDatabaseProductName());
+		md.setDatabaseProductVersion(dbmd.getDatabaseProductVersion());
+		md.setDriverName(dbmd.getDriverName());
+		md.setDriverVersion(dbmd.getDriverVersion());
+		md.setUrl(dbmd.getURL());
+		md.setUsername(dbmd.getUserName());
+		return md;
 	}
 
 }
