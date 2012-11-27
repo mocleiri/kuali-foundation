@@ -122,7 +122,7 @@ public class DefaultJdbcService implements JdbcService {
 			in = JdbcUtils.getBufferedReader(source);
 			String sql = context.getReader().getSqlStatement(in);
 			while (sql != null) {
-				logger.info("{} - {}", ++count, Str.flatten(sql));
+				logger.debug("{} - {}", ++count, Str.flatten(sql));
 				sql = context.getReader().getSqlStatement(in);
 			}
 			SqlMetaData metadata = new SqlMetaData();
@@ -169,7 +169,7 @@ public class DefaultJdbcService implements JdbcService {
 		String string = source.getString();
 		switch (type) {
 		case SQL:
-			logger.info(prefix + " SQL [{}, encoding={}]", formatter.getSize(string.length()), encoding);
+			logger.info(prefix + " SQL [{}]", formatter.getSize(string.length()));
 			return;
 		case LOCATION:
 			logger.info(prefix + " [{}] encoding={}", string, encoding);
@@ -189,7 +189,7 @@ public class DefaultJdbcService implements JdbcService {
 			long start = System.currentTimeMillis();
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
-				logger.info("{} - [{}]", ++count, Str.flatten(sql));
+				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
 				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);

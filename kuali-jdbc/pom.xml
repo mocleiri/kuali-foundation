@@ -99,16 +99,14 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.ole</groupId>
-      <artifactId>ole-impex-master</artifactId>
+      <artifactId>ole-master-sql</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
-      <classifier>sql</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kuali.ole</groupId>
-      <artifactId>ole-impex-rice</artifactId>
+      <artifactId>ole-rice-sql</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
-      <classifier>sql</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
