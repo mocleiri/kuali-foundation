@@ -68,9 +68,9 @@ public class JdbcServiceTest {
 			logger.info("SQL Encoding - {}", encoding);
 			logger.info("--------------------------------------------------");
 			doDba(service, dba, dbaSql);
-			// doSchema(service, normal, properties);
-			// doData(service, normal, properties);
-			// doConstraints(service, normal, properties);
+			doSchema(service, normal, properties, encoding);
+			doData(service, normal, properties, encoding);
+			doConstraints(service, normal, properties, encoding);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,12 +90,12 @@ public class JdbcServiceTest {
 		doDDL(service, context, properties, "constraints", "sql.constraints.loc", encoding);
 	}
 
-	protected void doData(JdbcService service, JdbcContext context, Properties properties) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, "sql.data.meta");
+	protected void doData(JdbcService service, JdbcContext context, Properties properties, String encoding) {
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, "sql.data.loc");
 		List<String> locationListings = PropertyUtils.getValues(properties, keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
-		SqlMetaDataList metadata = service.executeSql(context, locations);
+		SqlMetaDataList metadata = service.executeSql(context, locations, encoding);
 		logExecution("data load", metadata);
 	}
 
