@@ -108,7 +108,7 @@ public class JdbcServiceTest {
 		SqlMetaDataList metadata = service.getMetaData(context, locations, encoding);
 		logger.info("Executing {} DDL statements", metadata.getCount());
 		metadata = service.executeSql(context, locations, encoding);
-		logExecution("constraints", metadata);
+		logExecution(type, metadata);
 		return metadata;
 	}
 
