@@ -3,7 +3,7 @@ package org.kuali.common.jdbc;
 import java.sql.Connection;
 import java.sql.Statement;
 
-public class SqlExecutionContext {
+public class SqlSourceExecutionContext {
 
 	JdbcContext jdbcContext;
 	Connection connection;

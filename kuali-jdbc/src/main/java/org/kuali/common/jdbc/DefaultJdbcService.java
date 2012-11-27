@@ -65,7 +65,7 @@ public class DefaultJdbcService implements JdbcService {
 			statement = conn.createStatement();
 			SqlMetaDataList smdl = new SqlMetaDataList();
 			for (SqlSource source : sources) {
-				SqlExecutionContext sec = getSqlExecutionContext(context, conn, statement, source, count);
+				SqlSourceExecutionContext sec = getSourceSqlExecutionContext(context, conn, statement, source, count);
 				SqlMetaData smd = executeSqlFromSource(sec);
 				smdl.add(smd);
 				count += smd.getCount();
@@ -179,7 +179,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected SqlMetaData getSqlMetaData(long start, long count, SqlExecutionContext context) {
+	protected SqlMetaData getSqlMetaData(long start, long count, SqlSourceExecutionContext context) {
 		SqlMetaData ssm = new SqlMetaData();
 		ssm.setExecutionTime(System.currentTimeMillis() - start);
 		ssm.setCount(count);
@@ -188,7 +188,7 @@ public class DefaultJdbcService implements JdbcService {
 		return ssm;
 	}
 
-	protected SqlMetaData executeSqlFromSource(SqlExecutionContext context) {
+	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource());
 		long count = 0;
 		BufferedReader in = null;
@@ -211,7 +211,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void executeSqlStatement(SqlExecutionContext context, String sql) throws SQLException {
+	protected void executeSqlStatement(SqlSourceExecutionContext context, String sql) throws SQLException {
 		try {
 			context.getStatement().execute(sql);
 		} catch (SQLException e) {
@@ -225,20 +225,20 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void afterExecuteSqlFromSource(SqlExecutionContext context) throws SQLException {
+	protected void afterExecuteSqlFromSource(SqlSourceExecutionContext context) throws SQLException {
 		if (CommitMode.PER_SOURCE.equals(context.getJdbcContext().getCommitMode())) {
 			context.getConnection().commit();
 		}
 	}
 
-	protected void afterExecuteSqlStatement(SqlExecutionContext context) throws SQLException {
+	protected void afterExecuteSqlStatement(SqlSourceExecutionContext context) throws SQLException {
 		if (CommitMode.PER_STATEMENT.equals(context.getJdbcContext().getCommitMode())) {
 			context.getConnection().commit();
 		}
 	}
 
-	protected SqlExecutionContext getSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount) {
-		SqlExecutionContext sec = new SqlExecutionContext();
+	protected SqlSourceExecutionContext getSourceSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount) {
+		SqlSourceExecutionContext sec = new SqlSourceExecutionContext();
 		sec.setJdbcContext(context);
 		sec.setConnection(conn);
 		sec.setStatement(stmt);
