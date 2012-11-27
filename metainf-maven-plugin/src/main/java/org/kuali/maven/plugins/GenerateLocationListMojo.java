@@ -73,14 +73,14 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
-			getLog().info("Examining - " + baseDir.getAbsolutePath());
+			getLog().info("Examining - " + baseDir.getCanonicalPath());
 			getLog().info("Include - " + include);
 			getLog().info("Exclude - " + exclude);
 			SimpleScanner scanner = new SimpleScanner(baseDir, include, exclude);
 			List<File> files = scanner.getFiles();
 			getLog().info("Located " + files.size() + " files");
 			String content = getLocations(baseDir, files, prefix);
-			getLog().info("Creating " + outputFile);
+			getLog().info("Creating " + outputFile.getCanonicalPath());
 			FileUtils.writeStringToFile(outputFile, content);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
