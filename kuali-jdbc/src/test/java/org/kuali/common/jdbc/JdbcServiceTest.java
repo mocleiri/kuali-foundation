@@ -51,6 +51,7 @@ public class JdbcServiceTest {
 	@Test
 	public void testOLEDatabaseProcess() {
 		try {
+			long start = System.currentTimeMillis();
 			logger.info("---------------- JDBC Information ----------------");
 			logger.info("Vendor - {}", process.getVendor());
 			logger.info("URL - {}", process.getUrl());
@@ -71,6 +72,7 @@ public class JdbcServiceTest {
 			doSchema(service, normal, properties, encoding);
 			doData(service, normal, properties, encoding);
 			doConstraints(service, normal, properties, encoding);
+			logger.info("Total time: {}", formatter.getTime(System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
