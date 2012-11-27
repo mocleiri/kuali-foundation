@@ -5,8 +5,8 @@ import java.io.UnsupportedEncodingException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * A few (highly inefficient) methods for flipping Java <code>String's</code> into their hexadecimal equivalent and back again, given an
- * encoding.
+ * A few (highly inefficient) methods that, when given an encoding, can convert Java <code>String's</code> into the hex for that encoding
+ * and then convert them back.
  */
 public class HexUtils {
 
