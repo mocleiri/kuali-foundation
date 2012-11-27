@@ -165,14 +165,13 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected void logSource(String prefix, SqlSource source) {
 		SqlStringType type = source.getType();
-		String encoding = source.getEncoding();
 		String string = source.getString();
 		switch (type) {
 		case SQL:
 			logger.info(prefix + " SQL [{}]", formatter.getSize(string.length()));
 			return;
 		case LOCATION:
-			logger.info(prefix + " [{}] encoding={}", string, encoding);
+			logger.info(prefix + " [{}]", string);
 			return;
 		default:
 			throw new IllegalArgumentException("SQL string type '" + type + "' is unknown");
