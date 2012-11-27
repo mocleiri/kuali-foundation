@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -76,7 +76,7 @@
             <schemaDir>${impex.mvn.dir}</schemaDir>
             <dataDTD>${impex.mvn.dtd}</dataDTD>
             <dataXMLDir>${impex.mvn.xml}</dataXMLDir>
-            <baseSqlDir>${impex.mvn.sql}</baseSqlDir>
+            <baseDir>${impex.mvn.dir}</baseDir>
           </configuration>
           <executions>
             <execution>
@@ -99,11 +99,14 @@
               <goals>
                 <goal>schemasql</goal>
                 <goal>datasql</goal>
-                <goal>generatetablelisting</goal>
+                <goal>metainf</goal>
               </goals>
               <configuration>
                 <targetDatabase>oracle</targetDatabase>
                 <outputDir>${impex.mvn.sql}</outputDir>
+                <include>**/sql/oracle/*.sql</include>
+                <exclude>**/sql/oracle/${impex.schema.name}*.sql</exclude>
+                <outputFile>${impex.mvn.dir}/META-INF/sql/oracle/${impex.schema.name}.tables</outputFile>
               </configuration>
             </execution>
             <execution>
@@ -112,11 +115,14 @@
               <goals>
                 <goal>schemasql</goal>
                 <goal>datasql</goal>
-                <goal>generatetablelisting</goal>
+                <goal>metainf</goal>
               </goals>
               <configuration>
                 <targetDatabase>mysql</targetDatabase>
                 <outputDir>${impex.mvn.sql}</outputDir>
+                <include>**/sql/mysql/*.sql</include>
+                <exclude>**/sql/mysql/${impex.schema.name}*.sql</exclude>
+                <outputFile>${impex.mvn.dir}/META-INF/sql/mysql/${impex.schema.name}.tables</outputFile>
               </configuration>
             </execution>
             <execution>
@@ -125,11 +131,14 @@
               <goals>
                 <goal>schemasql</goal>
                 <goal>datasql</goal>
-                <goal>generatetablelisting</goal>
+                <goal>metainf</goal>
               </goals>
               <configuration>
                 <targetDatabase>h2</targetDatabase>
                 <outputDir>${impex.mvn.sql}</outputDir>
+                <include>**/sql/h2/*.sql</include>
+                <exclude>**/sql/h2/${impex.schema.name}*.sql</exclude>
+                <outputFile>${impex.mvn.dir}/META-INF/sql/h2/${impex.schema.name}.tables</outputFile>
               </configuration>
             </execution>
           </executions>
