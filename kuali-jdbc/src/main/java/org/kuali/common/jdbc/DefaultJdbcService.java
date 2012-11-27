@@ -179,15 +179,6 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected SqlMetaData getSqlMetaData(long start, long count, SqlSourceExecutionContext context) {
-		SqlMetaData ssm = new SqlMetaData();
-		ssm.setExecutionTime(System.currentTimeMillis() - start);
-		ssm.setCount(count);
-		ssm.setReader(context.getJdbcContext().getReader());
-		ssm.setSource(context.getSource());
-		return ssm;
-	}
-
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource());
 		long count = 0;
@@ -237,16 +228,6 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected SqlSourceExecutionContext getSourceSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount) {
-		SqlSourceExecutionContext sec = new SqlSourceExecutionContext();
-		sec.setJdbcContext(context);
-		sec.setConnection(conn);
-		sec.setStatement(stmt);
-		sec.setSource(source);
-		sec.setRunningCount(runningCount);
-		return sec;
-	}
-
 	@Override
 	public SqlMetaData getMetaData(SqlContext context, String location, String encoding) {
 		return getMetaData(context, Collections.singletonList(location), encoding).get(1);
@@ -290,6 +271,25 @@ public class DefaultJdbcService implements JdbcService {
 		md.setUrl(dbmd.getURL());
 		md.setUsername(dbmd.getUserName());
 		return md;
+	}
+
+	protected SqlMetaData getSqlMetaData(long start, long count, SqlSourceExecutionContext context) {
+		SqlMetaData ssm = new SqlMetaData();
+		ssm.setExecutionTime(System.currentTimeMillis() - start);
+		ssm.setCount(count);
+		ssm.setReader(context.getJdbcContext().getReader());
+		ssm.setSource(context.getSource());
+		return ssm;
+	}
+
+	protected SqlSourceExecutionContext getSourceSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount) {
+		SqlSourceExecutionContext sec = new SqlSourceExecutionContext();
+		sec.setJdbcContext(context);
+		sec.setConnection(conn);
+		sec.setStatement(stmt);
+		sec.setSource(source);
+		sec.setRunningCount(runningCount);
+		return sec;
 	}
 
 }
