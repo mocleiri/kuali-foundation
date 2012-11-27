@@ -102,7 +102,7 @@ public class JdbcServiceTest {
 	protected SqlMetaDataList doDDL(JdbcService service, JdbcContext context, Properties properties, String type, String prefix, String encoding) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = PropertyUtils.getValues(properties, keys);
-		logger.info("Executing " + type + " SQL");
+		logger.info("Examining " + type + " SQL");
 		SqlMetaDataList metadata = service.getMetaData(context, locations, encoding);
 		logger.info("Executing {} DDL statements", metadata.getCount());
 		metadata = service.executeSql(context, locations, encoding);
