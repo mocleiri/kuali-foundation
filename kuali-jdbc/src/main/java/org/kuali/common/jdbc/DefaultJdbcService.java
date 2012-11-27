@@ -64,7 +64,7 @@ public class DefaultJdbcService implements JdbcService {
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
 			SqlMetaDataList smdl = new SqlMetaDataList();
-			logger.info("Execution SQL from {} sources", sources.size());
+			logger.info("Executing SQL from {} sources", sources.size());
 			for (SqlSource source : sources) {
 				SqlSourceExecutionContext sec = getSourceSqlExecutionContext(context, conn, statement, source, count);
 				SqlMetaData smd = executeSqlFromSource(sec);
