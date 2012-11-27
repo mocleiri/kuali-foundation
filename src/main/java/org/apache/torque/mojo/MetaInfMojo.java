@@ -57,7 +57,7 @@ public class MetaInfMojo extends AbstractMojo {
 	private File baseDir;
 
 	/**
-	 * The file which will contain <code>classpath:</code> references to the files that were located
+	 * The file which will contain <code>classpath</code> references to the files that were located
 	 *
 	 * @parameter expression="${metainf.outputFile}" default-value="${project.build.outputDirectory}/META-INF/classpath.resources"
 	 * @required
