@@ -185,7 +185,7 @@ public class LocationUtils {
 			InputStream in = getInputStream(location);
 			return getBufferedReader(in, encoding);
 		} catch (IOException e) {
-			throw new IOException("Unexpected IO error");
+			throw new IOException("Unexpected IO error", e);
 		}
 	}
 
