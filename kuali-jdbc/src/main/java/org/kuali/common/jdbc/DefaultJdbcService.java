@@ -65,8 +65,9 @@ public class DefaultJdbcService implements JdbcService {
 			statement = conn.createStatement();
 			SqlMetaDataList smdl = new SqlMetaDataList();
 			logger.info("Executing SQL from {} sources", sources.size());
-			for (SqlSource source : sources) {
-				SqlSourceExecutionContext sec = getSourceSqlExecutionContext(context, conn, statement, source, count);
+			for (int i = 0; i < sources.size(); i++) {
+				SqlSource source = sources.get(i);
+				SqlSourceExecutionContext sec = getSourceSqlExecutionContext(context, conn, statement, source, count, i, sources.size());
 				SqlMetaData smd = executeSqlFromSource(sec);
 				smdl.add(smd);
 				count += smd.getCount();
@@ -106,8 +107,9 @@ public class DefaultJdbcService implements JdbcService {
 	protected SqlMetaDataList getSqlMetaDataList(SqlContext context, List<SqlSource> sources) {
 		SqlMetaDataList smdl = new SqlMetaDataList();
 		long count = 0;
-		for (SqlSource source : sources) {
-			logSource("Examining", source);
+		for (int i = 0; i < sources.size(); i++) {
+			SqlSource source = sources.get(i);
+			logSource("Examining", source, i, sources.size());
 			SqlMetaData smd = getSqlMetaData(context, source, count);
 			count += smd.getCount();
 			smdl.add(smd);
@@ -164,15 +166,15 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void logSource(String prefix, SqlSource source) {
+	protected void logSource(String prefix, SqlSource source, int index, int size) {
 		SqlStringType type = source.getType();
 		String string = source.getString();
 		switch (type) {
 		case SQL:
-			logger.info(prefix + " SQL [{}]", formatter.getSize(string.length()));
+			logger.info(prefix + " SQL [{}] (" + (index + 1) + " of " + size + ")", formatter.getSize(string.length()));
 			return;
 		case LOCATION:
-			logger.info(prefix + " [{}]", string);
+			logger.info(prefix + " [{}] (" + (index + 1) + " of " + size + ")", string);
 			return;
 		default:
 			throw new IllegalArgumentException("SQL string type '" + type + "' is unknown");
@@ -180,7 +182,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
-		logSource("Executing", context.getSource());
+		logSource("Executing", context.getSource(), context.getSourceIndex(), context.getSourcesCount());
 		long count = 0;
 		BufferedReader in = null;
 		try {
@@ -282,13 +284,16 @@ public class DefaultJdbcService implements JdbcService {
 		return ssm;
 	}
 
-	protected SqlSourceExecutionContext getSourceSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount) {
+	protected SqlSourceExecutionContext getSourceSqlExecutionContext(JdbcContext context, Connection conn, Statement stmt, SqlSource source, long runningCount, int index,
+	        int sourcesCount) {
 		SqlSourceExecutionContext sec = new SqlSourceExecutionContext();
+		sec.setSourceIndex(index);
 		sec.setJdbcContext(context);
 		sec.setConnection(conn);
 		sec.setStatement(stmt);
 		sec.setSource(source);
 		sec.setRunningCount(runningCount);
+		sec.setSourcesCount(sourcesCount);
 		return sec;
 	}
 

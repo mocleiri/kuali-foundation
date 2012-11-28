@@ -10,6 +10,8 @@ public class SqlSourceExecutionContext {
 	Statement statement;
 	SqlSource source;
 	long runningCount;
+	int sourceIndex;
+	int sourcesCount;
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
@@ -49,6 +51,22 @@ public class SqlSourceExecutionContext {
 
 	public void setRunningCount(long runningCount) {
 		this.runningCount = runningCount;
+	}
+
+	public int getSourceIndex() {
+		return sourceIndex;
+	}
+
+	public void setSourceIndex(int index) {
+		this.sourceIndex = index;
+	}
+
+	public int getSourcesCount() {
+		return sourcesCount;
+	}
+
+	public void setSourcesCount(int sourcesCount) {
+		this.sourcesCount = sourcesCount;
 	}
 
 }
