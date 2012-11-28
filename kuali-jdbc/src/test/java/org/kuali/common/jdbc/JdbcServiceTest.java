@@ -12,6 +12,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleFormatter;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,12 @@ public class JdbcServiceTest {
 	@Test
 	public void testOLEDatabaseProcess() {
 		try {
+			List<String> keys = PropertyUtils.getSortedKeys(properties);
+			for (String key : keys) {
+				String value = properties.getProperty(key);
+				logger.info(key + "=" + Str.flatten(value));
+			}
+			/*
 			long start = System.currentTimeMillis();
 			logger.info("---------------- JDBC Information ----------------");
 			logger.info("Vendor - {}", process.getVendor());
@@ -73,6 +80,7 @@ public class JdbcServiceTest {
 			doData(service, normal, properties, encoding);
 			doConstraints(service, normal, properties, encoding);
 			logger.info("Total time: {}", formatter.getTime(System.currentTimeMillis() - start));
+			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

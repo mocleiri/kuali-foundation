@@ -10,14 +10,16 @@
     <constructor-arg value="UTF-8" />
   </bean>
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding-ref="encoding" p:resolvePlaceholders="true">
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:encoding-ref="encoding">
     <property name="locations">
       <list>
         <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-        <value>classpath:org/kuali/common/jdbc/${db.vendor}.properties</value>
-        <value>classpath:org/kuali/common/jdbc/${jdbc.env}.properties</value>
-        <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
-        <value>classpath:org/kuali/ole/sql.properties</value>
+        <!--
+          <value>classpath:org/kuali/common/jdbc/${jdbc.env}.properties</value>
+          <value>classpath:org/kuali/common/jdbc/${db.vendor}.properties</value>
+          <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
+          <value>classpath:org/kuali/ole/sql.properties</value>
+        -->
       </list>
     </property>
   </bean>
