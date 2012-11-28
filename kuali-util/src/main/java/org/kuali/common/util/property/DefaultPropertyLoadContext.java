@@ -39,7 +39,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		if (loadProcessors == null) {
 			loadProcessors = getDefaultLoadProcessors();
 		} else {
-			loadProcessors.addAll(0, getDefaultModifiers());
+			loadProcessors.addAll(0, getDefaultProcessors());
 		}
 	}
 

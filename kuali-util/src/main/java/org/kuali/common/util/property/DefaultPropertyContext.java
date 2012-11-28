@@ -50,7 +50,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
-	protected List<PropertyProcessor> getDefaultModifiers() {
+	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> defaultModifiers = new ArrayList<PropertyProcessor>();
 
 		if (properties != null) {
@@ -137,7 +137,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	public void initialize(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
-		List<PropertyProcessor> defaultModifiers = getDefaultModifiers();
+		List<PropertyProcessor> defaultModifiers = getDefaultProcessors();
 		if (this.modifiers == null) {
 			this.modifiers = defaultModifiers;
 		} else {
