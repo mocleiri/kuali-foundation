@@ -32,7 +32,7 @@
 
   <bean id="formatter" class="org.kuali.common.util.SimpleFormatter" />
 
-  <bean id="dbp" class="org.kuali.common.jdbc.DatabaseProcessContext">
+  <bean id="dbpc" class="org.kuali.common.jdbc.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
     <property name="driver" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.url}" />
@@ -44,17 +44,17 @@
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="#{dbp.driver}" />
-    <property name="url" value="#{dbp.url}" />
-    <property name="username" value="#{dbp.username}" />
-    <property name="password" value="#{dbp.password}" />
+    <property name="driverClassName" value="#{dbpc.driver}" />
+    <property name="url" value="#{dbpc.url}" />
+    <property name="username" value="#{dbpc.username}" />
+    <property name="password" value="#{dbpc.password}" />
   </bean>
 
   <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="#{dbp.driver}" />
-    <property name="url" value="#{dbp.dbaUrl}" />
-    <property name="username" value="#{dbp.dbaUsername}" />
-    <property name="password" value="#{dbp.dbaPassword}" />
+    <property name="driverClassName" value="#{dbpc.driver}" />
+    <property name="url" value="#{dbpc.dbaUrl}" />
+    <property name="username" value="#{dbpc.dbaUsername}" />
+    <property name="password" value="#{dbpc.dbaPassword}" />
   </bean>
 
   <bean id="normal" class="org.kuali.common.jdbc.JdbcContext">
