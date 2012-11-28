@@ -97,19 +97,16 @@ public class JdbcServiceTest {
 		List<String> locationListings = PropertyUtils.getValues(properties, keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
-		context.setShowProgressMin(1000);
+		context.setShowProgress(false);
 		SqlMetaDataList metadata = service.executeSql(context, locations, encoding);
-		context.setShowProgressMin(50);
+		context.setShowProgress(true);
 		logExecution("data load", metadata);
 	}
 
 	protected SqlMetaDataList doDDL(JdbcService service, JdbcContext context, Properties properties, String type, String prefix, String encoding) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = PropertyUtils.getValues(properties, keys);
-		logger.info("Examining " + type + " SQL");
-		SqlMetaDataList metadata = service.getMetaData(context, locations, encoding);
-		logger.info("Executing {} DDL statements", metadata.getCount());
-		metadata = service.executeSql(context, locations, encoding);
+		SqlMetaDataList metadata = service.executeSql(context, locations, encoding);
 		logExecution(type, metadata);
 		return metadata;
 	}
