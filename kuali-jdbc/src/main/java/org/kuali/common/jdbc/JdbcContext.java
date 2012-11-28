@@ -6,6 +6,7 @@ public class JdbcContext extends SqlContext {
 
 	DataSource dataSource;
 	CommitMode commitMode = CommitMode.PER_SOURCE;
+	boolean showProgress = true;
 	int showProgressMin = 50;
 	int showProgressDivisor = 10;
 
@@ -39,6 +40,14 @@ public class JdbcContext extends SqlContext {
 
 	public void setShowProgressDivisor(int showProgressDivisor) {
 		this.showProgressDivisor = showProgressDivisor;
+	}
+
+	public boolean isShowProgress() {
+		return showProgress;
+	}
+
+	public void setShowProgress(boolean showProgress) {
+		this.showProgress = showProgress;
 	}
 
 }

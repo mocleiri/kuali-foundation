@@ -97,7 +97,9 @@ public class JdbcServiceTest {
 		List<String> locationListings = PropertyUtils.getValues(properties, keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
+		context.setShowProgress(false);
 		SqlMetaDataList metadata = service.executeSql(context, locations, encoding);
+		context.setShowProgress(true);
 		logExecution("data load", metadata);
 	}
 

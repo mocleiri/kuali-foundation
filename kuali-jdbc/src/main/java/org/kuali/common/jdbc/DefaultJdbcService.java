@@ -171,10 +171,10 @@ public class DefaultJdbcService implements JdbcService {
 		String string = source.getString();
 		switch (type) {
 		case SQL:
-			logger.info(prefix + " SQL [{}] (" + (index + 1) + " of " + size + ")", formatter.getSize(string.length()));
+			logger.info(prefix + " SQL [{}] - " + (index + 1) + " of " + size + " total", formatter.getSize(string.length()));
 			return;
 		case LOCATION:
-			logger.info(prefix + " [{}] (" + (index + 1) + " of " + size + ")", string);
+			logger.info(prefix + " [{}] - " + (index + 1) + " of " + size + " total sources", string);
 			return;
 		default:
 			throw new IllegalArgumentException("SQL string type '" + type + "' is unknown");
@@ -200,8 +200,8 @@ public class DefaultJdbcService implements JdbcService {
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
-				if (count % showProgress == 0) {
-					logger.info("Executed " + count + " of " + metaData.getCount());
+				if (context.getJdbcContext().isShowProgress() && count % showProgress == 0) {
+					logger.info("Executed {} of {} SQL statements", count, metaData.getCount());
 				}
 				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);
