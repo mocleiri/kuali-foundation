@@ -181,10 +181,16 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
+	protected long getShowProgress(SqlSourceExecutionContext context, SqlMetaData metaData) {
+		int min = context.getJdbcContext().getShowProgressMin();
+		int divisor = context.getJdbcContext().getShowProgressDivisor();
+		return Math.max(min, metaData.getCount() / divisor);
+	}
+
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource(), context.getSourceIndex(), context.getSourcesCount());
 		SqlMetaData metaData = getSqlMetaData(context.getJdbcContext(), context.getSource());
-		long showProgress = Math.max(50, metaData.getCount() / 10);
+		long showProgress = getShowProgress(context, metaData);
 		long count = 0;
 		BufferedReader in = null;
 		try {
