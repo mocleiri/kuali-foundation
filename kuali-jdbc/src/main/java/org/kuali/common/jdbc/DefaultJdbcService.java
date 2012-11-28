@@ -45,12 +45,12 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public SqlMetaData executeSql(JdbcContext context, String location, String encoding) {
-		return executeSql(context, Collections.singletonList(location), encoding).get(1);
+		return executeSql(context, Collections.singletonList(location), encoding).get(0);
 	}
 
 	@Override
 	public SqlMetaData executeSqlString(JdbcContext context, String sql) {
-		return executeSqlStrings(context, Collections.singletonList(sql)).get(1);
+		return executeSqlStrings(context, Collections.singletonList(sql)).get(0);
 	}
 
 	protected SqlMetaDataList executeSources(JdbcContext context, List<SqlSource> sources) {
@@ -87,7 +87,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public SqlMetaData getMetaData(SqlContext context, String location) {
-		return getMetaData(context, Collections.singletonList(location), null).get(1);
+		return getMetaData(context, Collections.singletonList(location), null).get(0);
 	}
 
 	@Override
@@ -97,11 +97,11 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public SqlMetaData getMetaDataFromString(SqlContext context, String sql) {
-		return getMetaDataFromStrings(context, Collections.singletonList(sql)).get(1);
+		return getMetaDataFromStrings(context, Collections.singletonList(sql)).get(0);
 	}
 
 	protected SqlMetaData getSqlMetaData(SqlContext context, SqlSource source) {
-		return getSqlMetaDataList(context, Collections.singletonList(source)).get(1);
+		return getSqlMetaDataList(context, Collections.singletonList(source)).get(0);
 	}
 
 	protected SqlMetaDataList getSqlMetaDataList(SqlContext context, List<SqlSource> sources) {
@@ -183,6 +183,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource(), context.getSourceIndex(), context.getSourcesCount());
+		SqlMetaData metaData = getSqlMetaData(context.getJdbcContext(), context.getSource());
 		long count = 0;
 		BufferedReader in = null;
 		try {
@@ -192,6 +193,9 @@ public class DefaultJdbcService implements JdbcService {
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
+				if (count % 50 == 0) {
+					logger.info("Executed " + count + " of " + metaData.getCount());
+				}
 				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);
 				sql = reader.getSqlStatement(in);
@@ -232,7 +236,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public SqlMetaData getMetaData(SqlContext context, String location, String encoding) {
-		return getMetaData(context, Collections.singletonList(location), encoding).get(1);
+		return getMetaData(context, Collections.singletonList(location), encoding).get(0);
 	}
 
 	@Override
