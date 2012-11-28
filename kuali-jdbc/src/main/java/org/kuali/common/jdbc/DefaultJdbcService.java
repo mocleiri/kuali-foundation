@@ -109,7 +109,7 @@ public class DefaultJdbcService implements JdbcService {
 		long count = 0;
 		for (int i = 0; i < sources.size(); i++) {
 			SqlSource source = sources.get(i);
-			logSource("Examining", source, i, sources.size());
+			// logSource("Examining", source, i, sources.size());
 			SqlMetaData smd = getSqlMetaData(context, source, count);
 			count += smd.getCount();
 			smdl.add(smd);
@@ -184,6 +184,7 @@ public class DefaultJdbcService implements JdbcService {
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource(), context.getSourceIndex(), context.getSourcesCount());
 		SqlMetaData metaData = getSqlMetaData(context.getJdbcContext(), context.getSource());
+		long showProgress = Math.max(50, metaData.getCount() / 10);
 		long count = 0;
 		BufferedReader in = null;
 		try {
@@ -193,7 +194,7 @@ public class DefaultJdbcService implements JdbcService {
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
-				if (count % 50 == 0) {
+				if (count % showProgress == 0) {
 					logger.info("Executed " + count + " of " + metaData.getCount());
 				}
 				executeSqlStatement(context, sql);
