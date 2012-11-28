@@ -44,7 +44,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
-	String encryptionPasswordProperty;
 	List<PropertyProcessor> modifiers;
 	List<String> pathProperties;
 	List<String> versionProperties;
@@ -310,14 +309,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setVersionProperties(List<String> versionProperties) {
 		this.versionProperties = versionProperties;
-	}
-
-	public String getEncryptionPasswordProperty() {
-		return encryptionPasswordProperty;
-	}
-
-	public void setEncryptionPasswordProperty(String encryptionPasswordProperty) {
-		this.encryptionPasswordProperty = encryptionPasswordProperty;
 	}
 
 	public Properties getProperties() {
