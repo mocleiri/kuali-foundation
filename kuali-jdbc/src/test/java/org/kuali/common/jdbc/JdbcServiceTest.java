@@ -25,16 +25,19 @@ public class JdbcServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcServiceTest.class);
 
 	@Autowired
-	private JdbcService service = null;
+	private String encoding = null;
 
 	@Autowired
-	private String encoding = null;
+	private SimpleFormatter formatter = null;
+
+	@Autowired
+	private Properties properties = null;
 
 	@Autowired
 	private DatabaseProcessContext process = null;
 
 	@Autowired
-	private Properties properties = null;
+	private JdbcService service = null;
 
 	@Autowired
 	private JdbcContext normal = null;
@@ -44,9 +47,6 @@ public class JdbcServiceTest {
 
 	@Resource(name = "dbaSql")
 	private List<String> dbaSql = null;
-
-	@Autowired
-	private SimpleFormatter formatter = null;
 
 	@Test
 	public void testOLEDatabaseProcess() {
