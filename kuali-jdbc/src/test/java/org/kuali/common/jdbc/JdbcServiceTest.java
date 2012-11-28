@@ -57,13 +57,13 @@ public class JdbcServiceTest {
 			logger.info("URL - {}", process.getUrl());
 			logger.info("User - {}", process.getUsername());
 			logger.debug("Password - {}", process.getPassword());
-			logger.info("Driver - {}", process.getDriver());
 			logger.info("DBA URL - {}", process.getDbaUrl());
 			logger.info("DBA User - {}", process.getDbaUsername());
 			logger.debug("DBA Password - {}", process.getDbaPassword());
 			JdbcMetaData metadata = service.getJdbcMetaData(dba.getDataSource());
 			logger.info("Product Name - {}", metadata.getDatabaseProductName());
 			logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
+			logger.info("Driver - {}", process.getDriver());
 			logger.info("Driver Name - {}", metadata.getDriverName());
 			logger.info("Driver Version - {}", metadata.getDriverVersion());
 			logger.info("SQL Encoding - {}", encoding);
