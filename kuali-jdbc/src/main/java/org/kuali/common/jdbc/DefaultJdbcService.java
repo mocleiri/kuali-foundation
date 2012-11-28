@@ -181,16 +181,27 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected long getShowProgress(SqlSourceExecutionContext context, SqlMetaData metaData) {
+	protected ProgressContext getProgressContext(SqlSourceExecutionContext context) {
+		ProgressContext pc = new ProgressContext();
+		boolean showProgress = context.getJdbcContext().isShowProgress();
+		pc.setShowProgress(showProgress);
+		if (!showProgress) {
+			return pc;
+		}
+		SqlMetaData metaData = getSqlMetaData(context.getJdbcContext(), context.getSource());
 		int min = context.getJdbcContext().getShowProgressMin();
 		int divisor = context.getJdbcContext().getShowProgressDivisor();
-		return Math.max(min, metaData.getCount() / divisor);
+		long progress = Math.max(min, metaData.getCount() / divisor);
+		pc.setMin(min);
+		pc.setDivisor(divisor);
+		pc.setTotalCount(metaData.getCount());
+		pc.setProgress(progress);
+		return pc;
 	}
 
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource(), context.getSourceIndex(), context.getSourcesCount());
-		SqlMetaData metaData = getSqlMetaData(context.getJdbcContext(), context.getSource());
-		long showProgress = getShowProgress(context, metaData);
+		ProgressContext pc = getProgressContext(context);
 		long count = 0;
 		BufferedReader in = null;
 		try {
@@ -200,8 +211,8 @@ public class DefaultJdbcService implements JdbcService {
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
-				if (context.getJdbcContext().isShowProgress() && count % showProgress == 0) {
-					logger.info("Executed {} of {} SQL statements", count, metaData.getCount());
+				if (pc.isShowProgress() && count % pc.getProgress() == 0) {
+					logger.info("Executed {} of {} SQL statements", count, pc.getTotalCount());
 				}
 				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);
