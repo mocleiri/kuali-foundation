@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.SimpleFormatter;
 
-public class DatabaseInitializerContext {
+public class DatabaseInitializeContext {
 
 	JdbcService service = new DefaultJdbcService();
 	String schemaPropertyPrefix = "sql.schema.loc";

@@ -14,7 +14,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseService.class);
 
 	@Override
-	public void initialize(DatabaseInitializerContext context) {
+	public void initialize(DatabaseInitializeContext context) {
 		long start = System.currentTimeMillis();
 		logger.info("---------------- JDBC Information ----------------");
 		logger.info("Vendor - {}", context.getProcess().getVendor());
@@ -39,21 +39,21 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Total time: {}", context.getFormatter().getTime(System.currentTimeMillis() - start));
 	}
 
-	protected void doDba(DatabaseInitializerContext context) {
+	protected void doDba(DatabaseInitializeContext context) {
 		logger.info("Executing DBA SQL");
 		SqlMetaDataList metadata = context.getService().executeSqlStrings(context.getDba(), context.getDbaSql());
 		logExecution("dba", metadata, context.getFormatter());
 	}
 
-	protected void doSchema(DatabaseInitializerContext context) {
+	protected void doSchema(DatabaseInitializeContext context) {
 		doDDL(context, "schema", context.getSchemaPropertyPrefix());
 	}
 
-	protected void doConstraints(DatabaseInitializerContext context) {
+	protected void doConstraints(DatabaseInitializeContext context) {
 		doDDL(context, "constraints", context.getConstraintPropertyPrefix());
 	}
 
-	protected void doData(DatabaseInitializerContext context) {
+	protected void doData(DatabaseInitializeContext context) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), context.getDataPropertyPrefix());
 		List<String> locationListings = PropertyUtils.getValues(context.getProperties(), keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
@@ -64,7 +64,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logExecution("data load", metadata, context.getFormatter());
 	}
 
-	protected SqlMetaDataList doDDL(DatabaseInitializerContext context, String type, String prefix) {
+	protected SqlMetaDataList doDDL(DatabaseInitializeContext context, String type, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), prefix);
 		List<String> locations = PropertyUtils.getValues(context.getProperties(), keys);
 		SqlMetaDataList metadata = context.getService().executeSql(context.getNormal(), locations, context.getEncoding());

@@ -15,7 +15,7 @@ public class JdbcServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcServiceTest.class);
 
 	@Autowired
-	DatabaseInitializerContext context = null;
+	DatabaseInitializeContext context = null;
 
 	@Autowired
 	DatabaseService service = null;
