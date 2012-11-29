@@ -7,7 +7,7 @@ import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.util.SimpleFormatter;
 
-public class DatabaseInitializeContext {
+public class DatabaseResetContext {
 
 	public static final String DEFAULT_SCHEMA_PROPERTY_PREFIX = "sql.schema.loc";
 	public static final String DEFAULT_DATA_PROPERTY_PREFIX = "sql.data.loc";

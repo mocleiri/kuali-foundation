@@ -3,7 +3,7 @@ package org.kuali.common.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.jdbc.context.DatabaseInitializeContext;
+import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -15,7 +15,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseService.class);
 
 	@Override
-	public void initialize(DatabaseInitializeContext context) {
+	public void reset(DatabaseResetContext context) {
 		long start = System.currentTimeMillis();
 		logger.info("---------------- Initializing Database ----------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
@@ -47,22 +47,22 @@ public class DefaultDatabaseService implements DatabaseService {
 		one.addAll(two);
 	}
 
-	protected SqlMetaDataList doDba(DatabaseInitializeContext context) {
+	protected SqlMetaDataList doDba(DatabaseResetContext context) {
 		logger.info("Executing DBA SQL");
 		SqlMetaDataList metadata = context.getService().executeSqlStrings(context.getDbaJdbcContext(), context.getDbaSql());
 		logExecution("dba", metadata, context.getFormatter());
 		return metadata;
 	}
 
-	protected SqlMetaDataList doSchema(DatabaseInitializeContext context) {
+	protected SqlMetaDataList doSchema(DatabaseResetContext context) {
 		return doDDL(context, "schema", context.getSchemaPropertyPrefix());
 	}
 
-	protected SqlMetaDataList doConstraints(DatabaseInitializeContext context) {
+	protected SqlMetaDataList doConstraints(DatabaseResetContext context) {
 		return doDDL(context, "constraints", context.getConstraintPropertyPrefix());
 	}
 
-	protected SqlMetaDataList doData(DatabaseInitializeContext context) {
+	protected SqlMetaDataList doData(DatabaseResetContext context) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), context.getDataPropertyPrefix());
 		List<String> locationListings = PropertyUtils.getValues(context.getProperties(), keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
@@ -74,7 +74,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		return metadata;
 	}
 
-	protected SqlMetaDataList doDDL(DatabaseInitializeContext context, String type, String prefix) {
+	protected SqlMetaDataList doDDL(DatabaseResetContext context, String type, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), prefix);
 		List<String> locations = PropertyUtils.getValues(context.getProperties(), keys);
 		logger.info("Executing " + type + " SQL");

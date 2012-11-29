@@ -85,7 +85,7 @@
     <property name="dataSource" ref="dataSource" />
   </bean>
 
-  <bean id="context" class="org.kuali.common.jdbc.context.DatabaseInitializeContext">
+  <bean id="context" class="org.kuali.common.jdbc.context.DatabaseResetContext">
     <property name="normalJdbcContext" ref="normalJdbcContext" />
     <property name="dbaJdbcContext" ref="dbaJdbcContext" />
     <property name="databaseProcessContext" ref="dbpc" />

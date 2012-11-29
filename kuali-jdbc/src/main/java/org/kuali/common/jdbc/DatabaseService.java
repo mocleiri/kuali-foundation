@@ -1,9 +1,9 @@
 package org.kuali.common.jdbc;
 
-import org.kuali.common.jdbc.context.DatabaseInitializeContext;
+import org.kuali.common.jdbc.context.DatabaseResetContext;
 
 public interface DatabaseService {
 
-	void initialize(DatabaseInitializeContext context);
+	void reset(DatabaseResetContext context);
 
 }
