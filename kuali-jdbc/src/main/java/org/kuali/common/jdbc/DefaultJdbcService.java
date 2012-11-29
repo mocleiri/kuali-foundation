@@ -212,7 +212,7 @@ public class DefaultJdbcService implements JdbcService {
 			while (sql != null) {
 				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
 				if (pc.isShowProgress() && count % pc.getProgress() == 0) {
-					logger.info("Executed {} of {} SQL statements", count, pc.getTotalCount());
+					logger.info("Executed {} of {} SQL statements", formatter.getCount(count), formatter.getCount(pc.getTotalCount()));
 				}
 				executeSqlStatement(context, sql);
 				afterExecuteSqlStatement(context);

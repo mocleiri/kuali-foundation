@@ -63,7 +63,7 @@
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
-  <bean id="context" class="org.kuali.common.jdbc.DatabaseInitializerContext">
+  <bean id="context" class="org.kuali.common.jdbc.DatabaseInitializeContext">
     <property name="normal" ref="normal" />
     <property name="dba" ref="dba" />
     <property name="process" ref="dbpc" />
