@@ -175,7 +175,7 @@ public class DefaultJdbcService implements JdbcService {
 		String string = source.getString();
 		switch (type) {
 		case SQL:
-			logger.info((index + 1) + " of " + size + " - " + prefix + " SQL [length={}]", formatter.getCount(string.length()));
+			logger.info((index + 1) + " of " + size + " - " + prefix + " SQL [{} characters]", formatter.getCount(string.length()));
 			return;
 		case LOCATION:
 			logger.info((index + 1) + " of " + size + " - " + prefix + " [{}]", string);
