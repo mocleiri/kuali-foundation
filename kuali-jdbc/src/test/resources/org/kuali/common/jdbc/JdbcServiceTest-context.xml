@@ -63,7 +63,7 @@
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
-  <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" init-method="initialize">
+  <bean id="context" class="org.kuali.common.jdbc.DatabaseInitializerContext">
     <property name="normal" ref="normal" />
     <property name="dba" ref="dba" />
     <property name="process" ref="dbpc" />
@@ -71,4 +71,6 @@
     <property name="properties" ref="properties" />
     <property name="encoding" ref="encoding" />
   </bean>
+
+  <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" />
 </beans>
