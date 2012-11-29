@@ -57,7 +57,6 @@ public class JdbcServiceTest {
 				String value = properties.getProperty(key);
 				logger.info(key + "=" + Str.flatten(value));
 			}
-			/*
 			long start = System.currentTimeMillis();
 			logger.info("---------------- JDBC Information ----------------");
 			logger.info("Vendor - {}", process.getVendor());
@@ -80,7 +79,6 @@ public class JdbcServiceTest {
 			doData(service, normal, properties, encoding);
 			doConstraints(service, normal, properties, encoding);
 			logger.info("Total time: {}", formatter.getTime(System.currentTimeMillis() - start));
-			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
