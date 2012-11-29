@@ -10,10 +10,6 @@
     <constructor-arg value="UTF-8" />
   </bean>
 
-  <bean id="encryptionPassword" class="java.lang.String">
-    <constructor-arg value="${kuali.enc.password}" />
-  </bean>
-
   <util:list id="pathProperties" value-type="java.lang.String">
     <value>project.groupId</value>
     <value>deploy.groupId</value>
@@ -25,6 +21,8 @@
   </util:list>
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+    <property name="encryptionMode" value="DECRYPT" />
+    <property name="encryptionPassword" value="${kuali.enc.password}" />
     <property name="pathProperties" ref="pathProperties" />
     <property name="versionProperties" ref="versionProperties" />
     <property name="encoding" ref="encoding" />
