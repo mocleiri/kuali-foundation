@@ -46,6 +46,15 @@ public class JdbcServiceTest {
 	@Autowired
 	private JdbcContext dba = null;
 
+	@Autowired
+	private String schemaPropertyPrefix = null;
+
+	@Autowired
+	private String dataPropertyPrefix = null;
+
+	@Autowired
+	private String constraintPropertyPrefix = null;
+
 	@Resource(name = "dbaSql")
 	private List<String> dbaSql = null;
 
@@ -91,15 +100,15 @@ public class JdbcServiceTest {
 	}
 
 	protected void doSchema(JdbcService service, JdbcContext context, Properties properties, String encoding) {
-		doDDL(service, context, properties, "schema", "sql.schema.loc", encoding);
+		doDDL(service, context, properties, "schema", schemaPropertyPrefix, encoding);
 	}
 
 	protected void doConstraints(JdbcService service, JdbcContext context, Properties properties, String encoding) {
-		doDDL(service, context, properties, "constraints", "sql.constraints.loc", encoding);
+		doDDL(service, context, properties, "constraints", constraintPropertyPrefix, encoding);
 	}
 
 	protected void doData(JdbcService service, JdbcContext context, Properties properties, String encoding) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, "sql.data.loc");
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, dataPropertyPrefix);
 		List<String> locationListings = PropertyUtils.getValues(properties, keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");

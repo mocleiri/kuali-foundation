@@ -22,6 +22,16 @@
     </property>
   </bean>
 
+  <bean id="schemaPropertyPrefix" class="java.lang.String">
+    <constructor-arg value="${sql.schema.property.prefix}" />
+  </bean>
+  <bean id="dataPropertyPrefix" class="java.lang.String">
+    <constructor-arg value="${sql.data.property.prefix}" />
+  </bean>
+  <bean id="constraintPropertyPrefix" class="java.lang.String">
+    <constructor-arg value="${sql.constraint.property.prefix}" />
+  </bean>
+
   <util:list id="dbaSql">
     <value>${sql.validate}</value>
     <value>${sql.dba.drop}</value>
