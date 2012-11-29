@@ -10,8 +10,6 @@
     <constructor-arg value="UTF-8" />
   </bean>
 
-
-
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean" p:resolvePlaceholders="true" p:encoding-ref="encoding">
     <property name="locations">
       <list>
