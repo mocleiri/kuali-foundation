@@ -17,7 +17,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	@Override
 	public void reset(DatabaseResetContext context) {
 		long start = System.currentTimeMillis();
-		logger.info("---------------- Initializing Database ----------------");
+		logger.info("---------------- Reset Database ----------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("User - {}", context.getDatabaseProcessContext().getUsername());
@@ -42,7 +42,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logExecution("initialize", metaData, context.getFormatter());
 	}
 
-	public void add(SqlMetaDataList one, SqlMetaDataList two) {
+	protected void add(SqlMetaDataList one, SqlMetaDataList two) {
 		one.setCount(one.getCount() + two.getCount());
 		one.addAll(two);
 	}
