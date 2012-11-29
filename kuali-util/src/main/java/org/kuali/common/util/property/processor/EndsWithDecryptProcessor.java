@@ -30,6 +30,7 @@ public class EndsWithDecryptProcessor extends DecryptProcessor {
 	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getEndsWithKeys(properties, suffix);
 		for (String key : keys) {
+			logger.info("Decrypting [{}]", key);
 			String encryptedValue = properties.getProperty(key);
 			String decryptedValue = encryptor.decrypt(encryptedValue);
 			int endIndex = key.length() - suffix.length();
