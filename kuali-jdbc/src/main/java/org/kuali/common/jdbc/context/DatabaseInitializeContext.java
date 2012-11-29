@@ -9,11 +9,15 @@ import org.kuali.common.util.SimpleFormatter;
 
 public class DatabaseInitializeContext {
 
+	public static final String DEFAULT_SCHEMA_PROPERTY_PREFIX = "sql.schema.loc";
+	public static final String DEFAULT_DATA_PROPERTY_PREFIX = "sql.data.loc";
+	public static final String DEFAULT_CONSTRAINT_PROPERTY_PREFIX = "sql.constraints.loc";
+
 	JdbcService service = new DefaultJdbcService();
-	String schemaPropertyPrefix = "sql.schema.loc";
-	String dataPropertyPrefix = "sql.data.loc";
-	String constraintPropertyPrefix = "sql.constraints.loc";
 	SimpleFormatter formatter = new SimpleFormatter();
+	String schemaPropertyPrefix = DEFAULT_SCHEMA_PROPERTY_PREFIX;
+	String dataPropertyPrefix = DEFAULT_DATA_PROPERTY_PREFIX;
+	String constraintPropertyPrefix = DEFAULT_CONSTRAINT_PROPERTY_PREFIX;
 
 	String encoding;
 	Properties properties;
