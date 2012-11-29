@@ -58,7 +58,7 @@ public class DefaultPropertyService implements PropertyService {
 				Properties newProperties = PropertyUtils.load(resolvedLocation, context.getEncoding());
 				properties.putAll(newProperties);
 			} else {
-				ModeUtils.validate(context.getMissingLocationsMode(), "Ignoring non-existent location - [{}]", resolvedLocation, "Could not locate [" + resolvedLocation + "]");
+				ModeUtils.validate(context.getMissingLocationsMode(), "Skipping non-existent location - [{}]", resolvedLocation, "Could not locate [" + resolvedLocation + "]");
 			}
 		}
 		return properties;
