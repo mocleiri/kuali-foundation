@@ -15,12 +15,12 @@ public class DatabaseInitializeContext {
 	String constraintPropertyPrefix = "sql.constraints.loc";
 	SimpleFormatter formatter = new SimpleFormatter();
 
-	String encoding = null;
-	Properties properties = null;
-	DatabaseProcessContext process = null;
-	JdbcContext normal = null;
-	JdbcContext dba = null;
-	List<String> dbaSql = null;
+	String encoding;
+	Properties properties;
+	DatabaseProcessContext databaseProcessContext;
+	JdbcContext normal;
+	JdbcContext dba;
+	List<String> dbaSql;
 
 	public String getEncoding() {
 		return encoding;
@@ -46,12 +46,12 @@ public class DatabaseInitializeContext {
 		this.properties = properties;
 	}
 
-	public DatabaseProcessContext getProcess() {
-		return process;
+	public DatabaseProcessContext getDatabaseProcessContext() {
+		return databaseProcessContext;
 	}
 
-	public void setProcess(DatabaseProcessContext process) {
-		this.process = process;
+	public void setDatabaseProcessContext(DatabaseProcessContext process) {
+		this.databaseProcessContext = process;
 	}
 
 	public JdbcService getService() {

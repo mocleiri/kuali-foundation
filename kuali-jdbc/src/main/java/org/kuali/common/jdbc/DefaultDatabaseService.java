@@ -18,17 +18,17 @@ public class DefaultDatabaseService implements DatabaseService {
 	public void initialize(DatabaseInitializeContext context) {
 		long start = System.currentTimeMillis();
 		logger.info("---------------- JDBC Information ----------------");
-		logger.info("Vendor - {}", context.getProcess().getVendor());
-		logger.info("URL - {}", context.getProcess().getUrl());
-		logger.info("User - {}", context.getProcess().getUsername());
-		logger.debug("Password - {}", context.getProcess().getPassword());
-		logger.info("DBA URL - {}", context.getProcess().getDbaUrl());
-		logger.info("DBA User - {}", context.getProcess().getDbaUsername());
-		logger.debug("DBA Password - {}", context.getProcess().getDbaPassword());
+		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
+		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
+		logger.info("User - {}", context.getDatabaseProcessContext().getUsername());
+		logger.debug("Password - {}", context.getDatabaseProcessContext().getPassword());
+		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
+		logger.info("DBA User - {}", context.getDatabaseProcessContext().getDbaUsername());
+		logger.debug("DBA Password - {}", context.getDatabaseProcessContext().getDbaPassword());
 		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDba().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
-		logger.info("Driver - {}", context.getProcess().getDriver());
+		logger.info("Driver - {}", context.getDatabaseProcessContext().getDriver());
 		logger.info("Driver Name - {}", metadata.getDriverName());
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
 		logger.info("SQL Encoding - {}", context.getEncoding());
