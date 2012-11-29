@@ -32,7 +32,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Driver Name - {}", metadata.getDriverName());
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
 		logger.info("SQL Encoding - {}", context.getEncoding());
-		logger.info("--------------------------------------------------");
+		logger.info("-------------------------------------------------------");
 		SqlMetaDataList metaData = new SqlMetaDataList();
 		add(metaData, doDba(context));
 		add(metaData, doSchema(context));
