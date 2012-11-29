@@ -32,10 +32,10 @@
         <value>classpath:maven.properties</value>
         <value>classpath:org/kuali/common/deploy/common.properties</value>
         <value>classpath:${deploy.groupId.path}/common.properties</value>
-        <value>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</value>
         <value>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.properties</value>
-        <value>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.${deploy.version.incremental}.properties</value>
-        <value>classpath:${deploy.groupId.path}/${deploy.version.trimmed}.properties</value>
+        <value>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</value>
+        <value>classpath:${deploy.groupId.path}/${deploy.artifactId}.${deploy.version.major}.${deploy.version.minor}.${deploy.version.incremental}.properties</value>
+        <value>classpath:${deploy.groupId.path}/${deploy.artifactId}.${deploy.version.trimmed}.properties</value>
         <value>classpath:${deploy.groupId.path}/${deploy.env.name}.properties</value>
         <value>classpath:org/kuali/common/deploy/${db.vendor}.properties</value>
         <value>classpath:org/kuali/common/sql/sql.properties</value>
