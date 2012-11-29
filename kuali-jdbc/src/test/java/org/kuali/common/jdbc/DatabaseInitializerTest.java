@@ -16,9 +16,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class JdbcServiceTest {
+public class DatabaseInitializerTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(JdbcServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseInitializerTest.class);
 
 	@Autowired
 	DatabaseInitializeContext context = null;
