@@ -2,6 +2,7 @@ package org.kuali.common.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
@@ -37,7 +38,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		SqlMetaDataList metaData = new SqlMetaDataList();
 		add(metaData, doDba(context));
 		add(metaData, doSQL(context, "schema", context.getSchemaPropertyPrefix()));
-		add(metaData, doSQL(context, "data load", context.getDataPropertyPrefix()));
+		add(metaData, doSQL(context, "data load", context.getDataPropertyPrefix(), false));
 		add(metaData, doSQL(context, "constraints", context.getConstraintPropertyPrefix()));
 		metaData.setExecutionTime(System.currentTimeMillis() - start);
 		logExecution("initialize", metaData, context.getFormatter());
@@ -55,24 +56,12 @@ public class DefaultDatabaseService implements DatabaseService {
 		return metadata;
 	}
 
-	protected SqlMetaDataList doData(DatabaseResetContext context) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), context.getDataPropertyPrefix());
-		List<String> locationListings = PropertyUtils.getValues(context.getProperties(), keys);
-		List<String> locations = LocationUtils.getLocations(locationListings);
-		logger.info("Executing data load SQL");
-		context.getNormalJdbcContext().setShowProgress(false);
-		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
-		context.getNormalJdbcContext().setShowProgress(true);
-		logExecution("data load", metadata, context.getFormatter());
-		return metadata;
-	}
-
-	protected List<String> getLocations(DatabaseResetContext context, String prefix) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), prefix);
+	protected List<String> getLocations(Properties properties, String prefix, String locationListPattern) {
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = new ArrayList<String>();
 		for (String key : keys) {
-			String value = context.getProperties().getProperty(key);
-			if (isLocationList(key, context.getLocationListPattern())) {
+			String value = properties.getProperty(key);
+			if (isLocationList(key, locationListPattern)) {
 				List<String> list = LocationUtils.getLocations(value);
 				locations.addAll(list);
 			} else {
@@ -87,16 +76,13 @@ public class DefaultDatabaseService implements DatabaseService {
 	}
 
 	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix) {
-		List<String> locations = getLocations(context, prefix);
-		logger.info("Executing " + type + " SQL");
-		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
-		logExecution(type, metadata, context.getFormatter());
-		return metadata;
+		return doSQL(context, type, prefix, context.getNormalJdbcContext().isShowProgress());
 	}
 
-	protected SqlMetaDataList doDDL(DatabaseResetContext context, String type, String prefix) {
-		List<String> locations = getLocations(context, prefix);
+	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix, boolean showProgress) {
+		List<String> locations = getLocations(context.getProperties(), prefix, context.getLocationListPattern());
 		logger.info("Executing " + type + " SQL");
+		context.getNormalJdbcContext().setShowProgress(showProgress);
 		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
 		logExecution(type, metadata, context.getFormatter());
 		return metadata;
