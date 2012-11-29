@@ -45,9 +45,9 @@
   </bean>
 
   <util:list id="dbaSql">
-    <value>${sql.validate}</value>
-    <value>${sql.dba.drop}</value>
-    <value>${sql.dba.create}</value>
+    <value>${impex.sql.validate}</value>
+    <value>${impex.sql.drop}</value>
+    <value>${impex.sql.create}</value>
   </util:list>
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
