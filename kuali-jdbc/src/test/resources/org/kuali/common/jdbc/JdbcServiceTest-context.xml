@@ -78,17 +78,17 @@
     <property name="password" value="#{dbpc.dbaPassword}" />
   </bean>
 
-  <bean id="normal" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="dataSource" />
-  </bean>
-
-  <bean id="dba" class="org.kuali.common.jdbc.context.JdbcContext">
+  <bean id="dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
+  <bean id="normalJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
   <bean id="context" class="org.kuali.common.jdbc.context.DatabaseInitializeContext">
-    <property name="normal" ref="normal" />
-    <property name="dba" ref="dba" />
+    <property name="normalJdbcContext" ref="normalJdbcContext" />
+    <property name="dbaJdbcContext" ref="dbaJdbcContext" />
     <property name="databaseProcessContext" ref="dbpc" />
     <property name="dbaSql" ref="dbaSql" />
     <property name="properties" ref="properties" />
