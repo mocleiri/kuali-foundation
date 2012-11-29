@@ -30,7 +30,7 @@
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
 
-  <bean id="dbpc" class="org.kuali.common.jdbc.DatabaseProcessContext">
+  <bean id="dbpc" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
     <property name="driver" value="${jdbc.driverClassName}" />
     <property name="url" value="${jdbc.url}" />
@@ -55,15 +55,15 @@
     <property name="password" value="#{dbpc.dbaPassword}" />
   </bean>
 
-  <bean id="normal" class="org.kuali.common.jdbc.JdbcContext">
+  <bean id="normal" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="dataSource" />
   </bean>
 
-  <bean id="dba" class="org.kuali.common.jdbc.JdbcContext">
+  <bean id="dba" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
-  <bean id="context" class="org.kuali.common.jdbc.DatabaseInitializeContext">
+  <bean id="context" class="org.kuali.common.jdbc.context.DatabaseInitializeContext">
     <property name="normal" ref="normal" />
     <property name="dba" ref="dba" />
     <property name="process" ref="dbpc" />
