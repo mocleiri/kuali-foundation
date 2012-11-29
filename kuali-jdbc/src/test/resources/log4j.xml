@@ -24,6 +24,9 @@
       <param name="ConversionPattern" value="[%-4p] %c - %m%n" />
     </layout>
   </appender>
+  <logger name="org.kuali.common">
+    <level value="debug" />
+  </logger>
   <root>
     <priority value="info" />
     <appender-ref ref="console" />
