@@ -22,7 +22,7 @@ public class DefaultPropertyService implements PropertyService {
 	public Properties load(PropertyLoadContext context) {
 		Properties properties = loadProperties(context);
 		context.initialize(properties);
-		modify(properties, context.getProcessors());
+		process(properties, context.getProcessors());
 		return properties;
 	}
 
@@ -30,16 +30,16 @@ public class DefaultPropertyService implements PropertyService {
 	public void store(PropertyStoreContext context, Properties properties) {
 		Properties duplicate = PropertyUtils.duplicate(properties);
 		context.initialize(duplicate);
-		modify(duplicate, context.getProcessors());
+		process(duplicate, context.getProcessors());
 		PropertyUtils.store(duplicate, context.getFile(), context.getEncoding(), context.getComment());
 	}
 
-	protected void modify(Properties properties, List<PropertyProcessor> modifiers) {
-		if (modifiers == null) {
+	protected void process(Properties properties, List<PropertyProcessor> processors) {
+		if (processors == null) {
 			return;
 		}
-		for (PropertyProcessor modifier : modifiers) {
-			modifier.process(properties);
+		for (PropertyProcessor processor : processors) {
+			processor.process(properties);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class DefaultPropertyService implements PropertyService {
 		Properties properties = new Properties();
 		for (String location : context.getLocations()) {
 			Properties duplicate = PropertyUtils.duplicate(properties);
-			modify(duplicate, context.getLoadProcessors());
+			process(duplicate, context.getLoadProcessors());
 			String resolvedLocation = helper.replacePlaceholders(location, duplicate);
 			if (!location.equals(resolvedLocation)) {
 				logger.debug("Resolved location [{}] -> [{}]", location, resolvedLocation);
@@ -58,7 +58,7 @@ public class DefaultPropertyService implements PropertyService {
 				Properties newProperties = PropertyUtils.load(resolvedLocation, context.getEncoding());
 				properties.putAll(newProperties);
 			} else {
-				ModeUtils.validate(context.getMissingLocationsMode(), "Ignoring non-existent location - [{}]", location, "Could not locate [" + location + "]");
+				ModeUtils.validate(context.getMissingLocationsMode(), "Ignoring non-existent location - [{}]", resolvedLocation, "Could not locate [" + resolvedLocation + "]");
 			}
 		}
 		return properties;
