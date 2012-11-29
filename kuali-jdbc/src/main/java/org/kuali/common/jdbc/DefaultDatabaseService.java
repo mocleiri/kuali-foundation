@@ -25,7 +25,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
 		logger.info("DBA User - {}", context.getDatabaseProcessContext().getDbaUsername());
 		logger.debug("DBA Password - {}", context.getDatabaseProcessContext().getDbaPassword());
-		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDba().getDataSource());
+		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
 		logger.info("Driver - {}", context.getDatabaseProcessContext().getDriver());
@@ -42,7 +42,7 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	protected void doDba(DatabaseInitializeContext context) {
 		logger.info("Executing DBA SQL");
-		SqlMetaDataList metadata = context.getService().executeSqlStrings(context.getDba(), context.getDbaSql());
+		SqlMetaDataList metadata = context.getService().executeSqlStrings(context.getDbaJdbcContext(), context.getDbaSql());
 		logExecution("dba", metadata, context.getFormatter());
 	}
 
@@ -59,16 +59,16 @@ public class DefaultDatabaseService implements DatabaseService {
 		List<String> locationListings = PropertyUtils.getValues(context.getProperties(), keys);
 		List<String> locations = LocationUtils.getLocations(locationListings);
 		logger.info("Executing data load SQL");
-		context.getNormal().setShowProgress(false);
-		SqlMetaDataList metadata = context.getService().executeSql(context.getNormal(), locations, context.getEncoding());
-		context.getNormal().setShowProgress(true);
+		context.getNormalJdbcContext().setShowProgress(false);
+		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
+		context.getNormalJdbcContext().setShowProgress(true);
 		logExecution("data load", metadata, context.getFormatter());
 	}
 
 	protected SqlMetaDataList doDDL(DatabaseInitializeContext context, String type, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), prefix);
 		List<String> locations = PropertyUtils.getValues(context.getProperties(), keys);
-		SqlMetaDataList metadata = context.getService().executeSql(context.getNormal(), locations, context.getEncoding());
+		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
 		logExecution(type, metadata, context.getFormatter());
 		return metadata;
 	}

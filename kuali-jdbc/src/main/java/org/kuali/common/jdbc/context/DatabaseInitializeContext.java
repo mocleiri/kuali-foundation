@@ -22,8 +22,8 @@ public class DatabaseInitializeContext {
 	String encoding;
 	Properties properties;
 	DatabaseProcessContext databaseProcessContext;
-	JdbcContext normal;
-	JdbcContext dba;
+	JdbcContext normalJdbcContext;
+	JdbcContext dbaJdbcContext;
 	List<String> dbaSql;
 
 	public String getEncoding() {
@@ -66,20 +66,20 @@ public class DatabaseInitializeContext {
 		this.service = service;
 	}
 
-	public JdbcContext getNormal() {
-		return normal;
+	public JdbcContext getNormalJdbcContext() {
+		return normalJdbcContext;
 	}
 
-	public void setNormal(JdbcContext normal) {
-		this.normal = normal;
+	public void setNormalJdbcContext(JdbcContext normal) {
+		this.normalJdbcContext = normal;
 	}
 
-	public JdbcContext getDba() {
-		return dba;
+	public JdbcContext getDbaJdbcContext() {
+		return dbaJdbcContext;
 	}
 
-	public void setDba(JdbcContext dba) {
-		this.dba = dba;
+	public void setDbaJdbcContext(JdbcContext dba) {
+		this.dbaJdbcContext = dba;
 	}
 
 	public String getSchemaPropertyPrefix() {
