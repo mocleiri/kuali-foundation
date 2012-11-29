@@ -40,6 +40,20 @@ public class DefaultSqlReader implements SqlReader {
 		return getReturnValue(sb.toString(), trim, lineSeparator);
 	}
 
+	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {
+		if (trim) {
+			sql = StringUtils.trimToNull(sql);
+		}
+		if (sql == null) {
+			return null;
+		} else if (StringUtils.endsWith(sql, lineSeparator.getValue())) {
+			int endIndex = sql.length() - lineSeparator.getValue().length();
+			return StringUtils.substring(sql, 0, endIndex);
+		} else {
+			return sql;
+		}
+	}
+
 	protected boolean isEndOfSqlStatement(String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
 		switch (delimiterMode) {
 		case END_OF_LINE:
@@ -53,20 +67,6 @@ public class DefaultSqlReader implements SqlReader {
 
 	protected boolean proceed(String line, String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
 		return line != null && !isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode);
-	}
-
-	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {
-		if (trim) {
-			sql = StringUtils.trimToNull(sql);
-		}
-		if (sql == null) {
-			return null;
-		} else if (StringUtils.endsWith(sql, lineSeparator.getValue())) {
-			int endIndex = sql.length() - lineSeparator.getValue().length();
-			return StringUtils.substring(sql, 0, endIndex);
-		} else {
-			return sql;
-		}
 	}
 
 	protected boolean ignore(boolean ignoreComments, StringBuilder sql, String trimmedLine, List<String> commentTokens) {
