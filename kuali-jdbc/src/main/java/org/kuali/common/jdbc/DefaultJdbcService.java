@@ -177,7 +177,7 @@ public class DefaultJdbcService implements JdbcService {
 			logger.info(prefix + " SQL [{}] - " + (index + 1) + " of " + size + " total", formatter.getSize(string.length()));
 			return;
 		case LOCATION:
-			logger.info((index + 1) + " of " + size + " - " + prefix + " [{}] - ", string);
+			logger.info((index + 1) + " of " + size + " - " + prefix + " [{}]", string);
 			return;
 		default:
 			throw new IllegalArgumentException("SQL string type '" + type + "' is unknown");
