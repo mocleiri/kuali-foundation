@@ -22,16 +22,6 @@
     </property>
   </bean>
 
-  <bean id="schemaPropertyPrefix" class="java.lang.String">
-    <constructor-arg value="${sql.schema.property.prefix}" />
-  </bean>
-  <bean id="dataPropertyPrefix" class="java.lang.String">
-    <constructor-arg value="${sql.data.property.prefix}" />
-  </bean>
-  <bean id="constraintPropertyPrefix" class="java.lang.String">
-    <constructor-arg value="${sql.constraint.property.prefix}" />
-  </bean>
-
   <util:list id="dbaSql">
     <value>${sql.validate}</value>
     <value>${sql.dba.drop}</value>
@@ -39,8 +29,6 @@
   </util:list>
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
-
-  <bean id="formatter" class="org.kuali.common.util.SimpleFormatter" />
 
   <bean id="dbpc" class="org.kuali.common.jdbc.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
@@ -75,6 +63,12 @@
     <property name="dataSource" ref="dbaDataSource" />
   </bean>
 
-  <bean id="service" class="org.kuali.common.jdbc.DefaultJdbcService" />
-
+  <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" init-method="initialize">
+    <property name="normal" ref="normal" />
+    <property name="dba" ref="dba" />
+    <property name="process" ref="dbpc" />
+    <property name="dbaSql" ref="dbaSql" />
+    <property name="properties" ref="properties" />
+    <property name="encoding" ref="encoding" />
+  </bean>
 </beans>
