@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.context.DatabaseInitializeContext;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,8 @@ public class DatabaseInitializerTest {
 		Properties properties = context.getProperties();
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
-			logger.info(key + "=" + Str.flatten(properties.getProperty(key)));
+			// logger.info(key + "=" + Str.flatten(properties.getProperty(key)));
 		}
-		// service.initialize(context);
+		service.initialize(context);
 	}
 }
