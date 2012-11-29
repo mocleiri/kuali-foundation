@@ -26,7 +26,7 @@ public class DatabaseInitializerTest {
 	DatabaseService service = null;
 
 	@Test
-	public void testOLEDatabaseProcess() {
+	public void initializeDatabaseTest() {
 		Properties properties = context.getProperties();
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
