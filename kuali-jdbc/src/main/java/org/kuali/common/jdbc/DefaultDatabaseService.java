@@ -17,7 +17,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	@Override
 	public void initialize(DatabaseInitializeContext context) {
 		long start = System.currentTimeMillis();
-		logger.info("---------------- JDBC Information ----------------");
+		logger.info("---------------- Initializing Database ----------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("User - {}", context.getDatabaseProcessContext().getUsername());
