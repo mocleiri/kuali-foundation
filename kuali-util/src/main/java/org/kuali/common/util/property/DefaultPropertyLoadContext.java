@@ -13,7 +13,7 @@ import org.kuali.common.util.property.processor.VersionProcessor;
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
 	List<String> locations;
-	Mode missingLocationsMode = Mode.ERROR;
+	Mode missingLocationsMode = Mode.INFORM;
 	List<PropertyProcessor> loadProcessors;
 
 	@Override
