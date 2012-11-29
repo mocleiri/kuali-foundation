@@ -29,7 +29,6 @@
     <property name="versionProperties" ref="versionProperties" />
     <property name="encoding" ref="encoding" />
     <property name="resolvePlaceholders" value="true" />
-    <property name="missingLocationsMode" value="IGNORE" />
     <property name="locations">
       <list>
         <value>classpath:maven.properties</value>
