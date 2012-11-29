@@ -96,4 +96,5 @@
   </bean>
 
   <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" />
+
 </beans>
