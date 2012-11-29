@@ -1,19 +1,11 @@
 package org.kuali.common.jdbc;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleFormatter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabaseInitializerContext {
-
-	private static final Logger logger = LoggerFactory.getLogger(DatabaseInitializerContext.class);
 
 	String encoding = null;
 
@@ -37,70 +29,92 @@ public class DatabaseInitializerContext {
 
 	List<String> dbaSql = null;
 
-	public void initialize() {
-		long start = System.currentTimeMillis();
-		logger.info("---------------- JDBC Information ----------------");
-		logger.info("Vendor - {}", process.getVendor());
-		logger.info("URL - {}", process.getUrl());
-		logger.info("User - {}", process.getUsername());
-		logger.debug("Password - {}", process.getPassword());
-		logger.info("DBA URL - {}", process.getDbaUrl());
-		logger.info("DBA User - {}", process.getDbaUsername());
-		logger.debug("DBA Password - {}", process.getDbaPassword());
-		JdbcMetaData metadata = service.getJdbcMetaData(dba.getDataSource());
-		logger.info("Product Name - {}", metadata.getDatabaseProductName());
-		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
-		logger.info("Driver - {}", process.getDriver());
-		logger.info("Driver Name - {}", metadata.getDriverName());
-		logger.info("Driver Version - {}", metadata.getDriverVersion());
-		logger.info("SQL Encoding - {}", encoding);
-		logger.info("--------------------------------------------------");
-		doDba(service, dba, dbaSql);
-		doSchema(service, normal, properties, encoding);
-		doData(service, normal, properties, encoding);
-		doConstraints(service, normal, properties, encoding);
-		logger.info("Total time: {}", formatter.getTime(System.currentTimeMillis() - start));
+	public String getEncoding() {
+		return encoding;
 	}
 
-	protected void doDba(JdbcService service, JdbcContext context, List<String> dbaSql) {
-		logger.info("Executing DBA SQL");
-		SqlMetaDataList metadata = service.executeSqlStrings(context, dbaSql);
-		logExecution("dba", metadata);
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
-	protected void doSchema(JdbcService service, JdbcContext context, Properties properties, String encoding) {
-		doDDL(service, context, properties, "schema", schemaPropertyPrefix, encoding);
+	public SimpleFormatter getFormatter() {
+		return formatter;
 	}
 
-	protected void doConstraints(JdbcService service, JdbcContext context, Properties properties, String encoding) {
-		doDDL(service, context, properties, "constraints", constraintPropertyPrefix, encoding);
+	public void setFormatter(SimpleFormatter formatter) {
+		this.formatter = formatter;
 	}
 
-	protected void doData(JdbcService service, JdbcContext context, Properties properties, String encoding) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, dataPropertyPrefix);
-		List<String> locationListings = PropertyUtils.getValues(properties, keys);
-		List<String> locations = LocationUtils.getLocations(locationListings);
-		logger.info("Executing data load SQL");
-		context.setShowProgress(false);
-		SqlMetaDataList metadata = service.executeSql(context, locations, encoding);
-		context.setShowProgress(true);
-		logExecution("data load", metadata);
+	public Properties getProperties() {
+		return properties;
 	}
 
-	protected SqlMetaDataList doDDL(JdbcService service, JdbcContext context, Properties properties, String type, String prefix, String encoding) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
-		List<String> locations = PropertyUtils.getValues(properties, keys);
-		SqlMetaDataList metadata = service.executeSql(context, locations, encoding);
-		logExecution(type, metadata);
-		return metadata;
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
-	protected void logExecution(String executionType, SqlMetaDataList metadata) {
-		List<Object> args = new ArrayList<Object>();
-		args.add(formatter.getCount(metadata.getCount()));
-		args.add(formatter.getCount(metadata.size()));
-		args.add(formatter.getTime(metadata.getExecutionTime()));
-		logger.info("Total " + executionType + " SQL statements: {}  Sources: {}  Total time: {}", CollectionUtils.toArray(args));
+	public DatabaseProcessContext getProcess() {
+		return process;
+	}
+
+	public void setProcess(DatabaseProcessContext process) {
+		this.process = process;
+	}
+
+	public JdbcService getService() {
+		return service;
+	}
+
+	public void setService(JdbcService service) {
+		this.service = service;
+	}
+
+	public JdbcContext getNormal() {
+		return normal;
+	}
+
+	public void setNormal(JdbcContext normal) {
+		this.normal = normal;
+	}
+
+	public JdbcContext getDba() {
+		return dba;
+	}
+
+	public void setDba(JdbcContext dba) {
+		this.dba = dba;
+	}
+
+	public String getSchemaPropertyPrefix() {
+		return schemaPropertyPrefix;
+	}
+
+	public void setSchemaPropertyPrefix(String schemaPropertyPrefix) {
+		this.schemaPropertyPrefix = schemaPropertyPrefix;
+	}
+
+	public String getDataPropertyPrefix() {
+		return dataPropertyPrefix;
+	}
+
+	public void setDataPropertyPrefix(String dataPropertyPrefix) {
+		this.dataPropertyPrefix = dataPropertyPrefix;
+	}
+
+	public String getConstraintPropertyPrefix() {
+		return constraintPropertyPrefix;
+	}
+
+	public void setConstraintPropertyPrefix(String constraintPropertyPrefix) {
+		this.constraintPropertyPrefix = constraintPropertyPrefix;
+	}
+
+	public List<String> getDbaSql() {
+		return dbaSql;
+	}
+
+	public void setDbaSql(List<String> dbaSql) {
+		this.dbaSql = dbaSql;
 	}
 
 }
