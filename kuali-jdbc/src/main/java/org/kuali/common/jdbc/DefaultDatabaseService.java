@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
@@ -32,12 +33,12 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Driver Name - {}", metadata.getDriverName());
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
 		logger.info("SQL Encoding - {}", context.getEncoding());
-		logger.info("-------------------------------------------------------");
+		logger.info("------------------------------------------------");
 		SqlMetaDataList metaData = new SqlMetaDataList();
 		add(metaData, doDba(context));
-		add(metaData, doSchema(context));
-		add(metaData, doData(context));
-		add(metaData, doConstraints(context));
+		add(metaData, doSQL(context, "schema", context.getSchemaPropertyPrefix()));
+		add(metaData, doSQL(context, "data load", context.getDataPropertyPrefix()));
+		add(metaData, doSQL(context, "constraints", context.getConstraintPropertyPrefix()));
 		metaData.setExecutionTime(System.currentTimeMillis() - start);
 		logExecution("initialize", metaData, context.getFormatter());
 	}
@@ -54,14 +55,6 @@ public class DefaultDatabaseService implements DatabaseService {
 		return metadata;
 	}
 
-	protected SqlMetaDataList doSchema(DatabaseResetContext context) {
-		return doDDL(context, "schema", context.getSchemaPropertyPrefix());
-	}
-
-	protected SqlMetaDataList doConstraints(DatabaseResetContext context) {
-		return doDDL(context, "constraints", context.getConstraintPropertyPrefix());
-	}
-
 	protected SqlMetaDataList doData(DatabaseResetContext context) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), context.getDataPropertyPrefix());
 		List<String> locationListings = PropertyUtils.getValues(context.getProperties(), keys);
@@ -74,9 +67,35 @@ public class DefaultDatabaseService implements DatabaseService {
 		return metadata;
 	}
 
-	protected SqlMetaDataList doDDL(DatabaseResetContext context, String type, String prefix) {
+	protected List<String> getLocations(DatabaseResetContext context, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), prefix);
-		List<String> locations = PropertyUtils.getValues(context.getProperties(), keys);
+		List<String> locations = new ArrayList<String>();
+		for (String key : keys) {
+			String value = context.getProperties().getProperty(key);
+			if (isLocationList(key, context.getLocationListPattern())) {
+				List<String> list = LocationUtils.getLocations(value);
+				locations.addAll(list);
+			} else {
+				locations.add(value);
+			}
+		}
+		return locations;
+	}
+
+	protected boolean isLocationList(String key, String pattern) {
+		return StringUtils.contains(key, pattern);
+	}
+
+	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix) {
+		List<String> locations = getLocations(context, prefix);
+		logger.info("Executing " + type + " SQL");
+		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
+		logExecution(type, metadata, context.getFormatter());
+		return metadata;
+	}
+
+	protected SqlMetaDataList doDDL(DatabaseResetContext context, String type, String prefix) {
+		List<String> locations = getLocations(context, prefix);
 		logger.info("Executing " + type + " SQL");
 		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
 		logExecution(type, metadata, context.getFormatter());

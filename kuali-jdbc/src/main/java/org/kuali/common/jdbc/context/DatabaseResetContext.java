@@ -12,11 +12,11 @@ public class DatabaseResetContext {
 	public static final String DEFAULT_SCHEMA_PROPERTY_PREFIX = "sql.schema.loc";
 	public static final String DEFAULT_DATA_PROPERTY_PREFIX = "sql.data.loc";
 	public static final String DEFAULT_CONSTRAINT_PROPERTY_PREFIX = "sql.constraints.loc";
-	public static final String DEFAULT_LOCATION_LIST_SUFFIX = ".list";
+	public static final String DEFAULT_LOCATION_LIST_PATTERN = ".loc.list";
 
 	JdbcService service = new DefaultJdbcService();
 	SimpleFormatter formatter = new SimpleFormatter();
-	String locationListSuffix = DEFAULT_LOCATION_LIST_SUFFIX;
+	String locationListPattern = DEFAULT_LOCATION_LIST_PATTERN;
 	String schemaPropertyPrefix = DEFAULT_SCHEMA_PROPERTY_PREFIX;
 	String dataPropertyPrefix = DEFAULT_DATA_PROPERTY_PREFIX;
 	String constraintPropertyPrefix = DEFAULT_CONSTRAINT_PROPERTY_PREFIX;
@@ -116,12 +116,12 @@ public class DatabaseResetContext {
 		this.dbaSql = dbaSql;
 	}
 
-	public String getLocationListSuffix() {
-		return locationListSuffix;
+	public String getLocationListPattern() {
+		return locationListPattern;
 	}
 
-	public void setLocationListSuffix(String locationListSuffix) {
-		this.locationListSuffix = locationListSuffix;
+	public void setLocationListPattern(String locationListSuffix) {
+		this.locationListPattern = locationListSuffix;
 	}
 
 }
