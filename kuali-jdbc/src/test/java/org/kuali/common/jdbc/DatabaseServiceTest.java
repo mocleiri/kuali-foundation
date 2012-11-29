@@ -18,7 +18,7 @@ public class DatabaseServiceTest {
 	DatabaseService service = null;
 
 	@Test
-	public void initializeDatabaseTest() {
+	public void resetDatabaseTest() {
 		service.reset(context);
 	}
 }
