@@ -1,7 +1,9 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.context;
 
 import java.sql.Connection;
 import java.sql.Statement;
+
+import org.kuali.common.jdbc.SqlSource;
 
 public class SqlSourceExecutionContext {
 

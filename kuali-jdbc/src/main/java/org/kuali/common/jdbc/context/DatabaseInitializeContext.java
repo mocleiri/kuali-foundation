@@ -1,8 +1,10 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.context;
 
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.jdbc.DefaultJdbcService;
+import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.util.SimpleFormatter;
 
 public class DatabaseInitializeContext {

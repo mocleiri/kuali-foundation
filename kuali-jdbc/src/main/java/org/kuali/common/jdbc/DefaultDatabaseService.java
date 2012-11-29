@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.jdbc.context.DatabaseInitializeContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
