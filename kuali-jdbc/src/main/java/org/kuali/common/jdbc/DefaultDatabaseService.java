@@ -77,6 +77,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	protected SqlMetaDataList doDDL(DatabaseInitializeContext context, String type, String prefix) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(context.getProperties(), prefix);
 		List<String> locations = PropertyUtils.getValues(context.getProperties(), keys);
+		logger.info("Executing " + type + " SQL");
 		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
 		logExecution(type, metadata, context.getFormatter());
 		return metadata;
