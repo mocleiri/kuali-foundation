@@ -7,26 +7,17 @@ import org.kuali.common.util.SimpleFormatter;
 
 public class DatabaseInitializerContext {
 
+	JdbcService service = new DefaultJdbcService();
+	String schemaPropertyPrefix = "sql.schema.loc";
+	String dataPropertyPrefix = "sql.data.loc";
+	String constraintPropertyPrefix = "sql.constraints.loc";
+	SimpleFormatter formatter = new SimpleFormatter();
+
 	String encoding = null;
-
-	SimpleFormatter formatter = null;
-
 	Properties properties = null;
-
 	DatabaseProcessContext process = null;
-
-	JdbcService service = null;
-
 	JdbcContext normal = null;
-
 	JdbcContext dba = null;
-
-	String schemaPropertyPrefix = null;
-
-	String dataPropertyPrefix = null;
-
-	String constraintPropertyPrefix = null;
-
 	List<String> dbaSql = null;
 
 	public String getEncoding() {
