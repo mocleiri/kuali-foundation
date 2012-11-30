@@ -77,10 +77,10 @@ public class DefaultJdbcService implements JdbcService {
 				count += smd.getCount();
 				afterExecuteSqlFromSource(sec, smd);
 			}
-			afterExecuteAllSql(context, conn);
 			conn.setAutoCommit(originalAutoCommitSetting);
 			smdl.setExecutionTime(System.currentTimeMillis() - start);
 			smdl.setCount(count);
+			afterExecuteSources(context, conn);
 			return smdl;
 		} catch (Exception e) {
 			throw new JdbcException(e);
@@ -245,7 +245,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void afterExecuteAllSql(JdbcContext context, Connection conn) throws SQLException {
+	protected void afterExecuteSources(JdbcContext context, Connection conn) throws SQLException {
 		if (CommitMode.PER_EXECUTION.equals(context.getCommitMode())) {
 			conn.commit();
 		}
