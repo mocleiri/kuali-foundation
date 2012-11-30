@@ -260,7 +260,9 @@ public class DefaultJdbcService implements JdbcService {
 			context.getConnection().commit();
 		}
 		if (pc.isShowProgress() && count % pc.getProgress() == 0) {
-			logger.info("Executed {} of {} SQL statements", formatter.getCount(count), formatter.getCount(pc.getTotalCount()));
+			String count1 = formatter.getCount(count);
+			String count2 = formatter.getCount(pc.getTotalCount());
+			logger.info("Executed {} of {} SQL statements", count1, count2);
 		}
 	}
 
