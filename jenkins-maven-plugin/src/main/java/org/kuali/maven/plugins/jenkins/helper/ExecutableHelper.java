@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.jenkins.helper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +29,20 @@ public abstract class ExecutableHelper {
 
 	public abstract String getExecutable();
 	
-	public ProcessResult execute(Map Options, List<String> args, String input) {
-		String [] sArgs = (String[]) args.toArray();
+	public List<String> buildArgumentListFromMap(Map<String, String> options) {
+		List<String> list = new ArrayList<String>();
+		for(String key : options.keySet()) {
+			list.add(key.startsWith("-") ? key : "-" + key);
+			list.add(options.get(key));
+		}
+		return list;
+	}
+	
+	public ProcessResult execute(Map<String, String> options, List<String> args, String input) {
+		String[] arr = {};
+		List<String> list = buildArgumentListFromMap(options);
+		list.addAll(args);		
+		String [] sArgs = list.toArray(arr);
         return helper.execute(getExecutable(), sArgs, input);
 	}
 }

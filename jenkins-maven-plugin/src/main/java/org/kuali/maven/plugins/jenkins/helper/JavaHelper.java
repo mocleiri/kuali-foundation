@@ -18,12 +18,13 @@ package org.kuali.maven.plugins.jenkins.helper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 
-public class JavaHelper {
-    ProcessHelper helper = new ProcessHelper();
+public class JavaHelper extends ExecutableHelper {
 
     public static final String FS = System.getProperty("file.separator");
     public static final String JAVA_HOME_KEY = "java.home";
@@ -58,7 +59,8 @@ public class JavaHelper {
                 return path;
             }
         }
-        return JAVA;
+                return JAVA;
+
     }
 
     protected String[] getExecuteJarArgs(File jar, String... args) {
