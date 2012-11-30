@@ -56,6 +56,15 @@ public class DefaultDatabaseService implements DatabaseService {
 		return metadata;
 	}
 
+	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix, boolean showProgress) {
+		List<String> locations = getLocations(context.getProperties(), prefix, context.getLocationListPattern());
+		logger.info("Executing " + type + " SQL");
+		context.getNormalJdbcContext().setShowProgress(showProgress);
+		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
+		logExecution(type, metadata, context.getFormatter());
+		return metadata;
+	}
+
 	protected List<String> getLocations(Properties properties, String prefix, String locationListPattern) {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
 		List<String> locations = new ArrayList<String>();
@@ -77,15 +86,6 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix) {
 		return doSQL(context, type, prefix, context.getNormalJdbcContext().isShowProgress());
-	}
-
-	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix, boolean showProgress) {
-		List<String> locations = getLocations(context.getProperties(), prefix, context.getLocationListPattern());
-		logger.info("Executing " + type + " SQL");
-		context.getNormalJdbcContext().setShowProgress(showProgress);
-		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
-		logExecution(type, metadata, context.getFormatter());
-		return metadata;
 	}
 
 	protected void logExecution(String executionType, SqlMetaDataList metadata, SimpleFormatter formatter) {
