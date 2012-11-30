@@ -65,12 +65,13 @@ public class JenkinsHelper {
 	public static final String SERVER_ARG = "-s";
 	public static final String NONE = "NONE";
 	public static final String DASH = "-";
-	public static final String FS = System.getProperty("file.separator");
+	public static final String FS = System.getProperty("file.separator", "/");
 
 	Extractor extractor = new Extractor();
 	PropertiesUtils propertiesUtils = new PropertiesUtils();
 	ResourceUtils resourceUtils = new ResourceUtils();
 	JavaHelper javaHelper = new JavaHelper();
+	SshHelper sshHelper = new SshHelper();
 	CommandHelper cmdHelper = new CommandHelper();
 
 	protected List<String> getNamesList(String csvNames, List<String> names) {
@@ -243,16 +244,12 @@ public class JenkinsHelper {
 		}
 	}
 
-	protected ProcessResult executeCli(File jar, String url, Command cmd) {
-		String input = getInput(cmd);
-		return executeCli(jar, url, cmd.getArgs(), input);
+	
+	protected Map<String, String> getSshOptions(String port) {
+		HashMap<String, String> options = new HashMap<String, String>();
+		options.put("p", port);
+		return options;
 	}
-
-	protected ProcessResult executeCli(File jar, String url, List<String> args, String input) {
-		String[] cliArgs = getCliArgs(url, args);
-		return javaHelper.executeJar(jar, cliArgs, input);
-	}
-
 	protected String[] getCliArgs(String url, List<String> args) {
 		List<String> list = new ArrayList<String>();
 		list.add(SERVER_ARG);
@@ -493,11 +490,29 @@ public class JenkinsHelper {
 		List<ProcessResult> results = new ArrayList<ProcessResult>();
 		for (Command command : commands) {
 			logger.info(Helper.toString(command.getArgs()));
-			ProcessResult result = executeCli(jar, url, command);
+			ProcessResult result = executeCli(mojo, jar, url, command);
 			handleResult(command, result, mojo);
 			results.add(result);
 		}
 		handleResults(results, mojo);
+	}
+	
+	protected ProcessResult executeCli(BaseMojo mojo, File jar, String url, Command cmd) {
+		String input = getInput(cmd);
+		return executeCli(mojo, jar, url, cmd.getArgs(), input);
+	}
+
+	protected ProcessResult executeCli(BaseMojo mojo, File jar, String url, List<String> args, String input) {
+		if(mojo.isSshEnabled()) {
+			List<String> cliArgs = new ArrayList<String>();
+			cliArgs.add(url);
+			cliArgs.addAll(args);
+			Map<String, String> options = getSshOptions(Integer.toString(mojo.getSshPort()));		
+			return sshHelper.execute(options, cliArgs, input);
+		} else {
+			String[] cliArgs = getCliArgs(url, args);
+			return javaHelper.executeJar(jar, cliArgs, input);
+		}
 	}
 
 	protected void handleResults(List<ProcessResult> results, BaseMojo mojo) {
@@ -637,6 +652,7 @@ public class JenkinsHelper {
 		try {
 			String jobName = getJobName(mojo, type);
 			String filename = mojo.getWorkingDir() + FS + jobName + XML_EXTENSION;
+
 			String relativePath = getRelativePath(mojo, filename);
 			mojo.getLog().info("Generating: " + relativePath);
 			Properties properties = getProperties(mojo, type, mojo.getTimestampFormat());
@@ -644,7 +660,8 @@ public class JenkinsHelper {
 			String template = getTemplate(mojo.getStyles(), mojo.getStyle());
 			String xml = resourceUtils.read(template);
 			String resolvedXml = propertiesUtils.getResolvedValue(xml, properties);
-			resourceUtils.write(new File(filename), resolvedXml);
+			File file = new File(filename);
+			resourceUtils.write(file, resolvedXml);
 		} catch (IOException e) {
 			throw new JenkinsException(e);
 		}
