@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.0.9</version>
+    <version>2.0.20</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jdbc</artifactId>
@@ -134,7 +134,9 @@
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/*-context.xml</include>
+          <!--
+            <include>**/*-context.xml</include>
+          -->
           <include>**/*.properties</include>
         </includes>
       </testResource>
@@ -142,7 +144,9 @@
         <directory>src/test/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>**/*-context.xml</exclude>
+          <!--
+            <exclude>**/*-context.xml</exclude>
+          -->
           <exclude>**/*.properties</exclude>
         </excludes>
       </testResource>
