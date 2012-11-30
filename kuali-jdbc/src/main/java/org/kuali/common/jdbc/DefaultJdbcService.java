@@ -248,8 +248,10 @@ public class DefaultJdbcService implements JdbcService {
 		JdbcContext jdbcContext = context.getJdbcContext();
 		long count = metaData.getCount();
 		int min = jdbcContext.getShowProgressMin();
-		if (jdbcContext.isShowProgress() && count > min) {
-			logger.info("Execution complete. {} SQL statements", formatter.getCount(metaData.getCount()));
+		boolean showProgress = jdbcContext.isShowProgress() && count > min;
+		if (showProgress) {
+			String s = formatter.getCount(metaData.getCount());
+			logger.info("Executed {} of {} SQL statements", s, s);
 		}
 	}
 
