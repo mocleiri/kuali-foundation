@@ -36,6 +36,6 @@ public class ExportMojoTest extends AbstractMojoTestCase {
 	public void testMojoGoal() throws Exception {
 		File testPom = new File( getBasedir(), "src/test/resources/unit/" + TEST_CASE + "/plugin-config.xml" );
 		ExportMojo mojo = (ExportMojo) lookupMojo ( GOAL_NAME, testPom );
-		// mojo.execute(); // requires db
+		assertNotNull( mojo );
 	}
 }
