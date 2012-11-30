@@ -75,7 +75,7 @@ public class DefaultJdbcService implements JdbcService {
 				SqlMetaData smd = executeSqlFromSource(sec);
 				smdl.add(smd);
 				count += smd.getCount();
-				afterExecuteSqlFromSource(sec);
+				afterExecuteSqlFromSource(sec, smd);
 			}
 			afterExecuteAllSql(context, conn);
 			conn.setAutoCommit(originalAutoCommitSetting);
@@ -241,9 +241,15 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void afterExecuteSqlFromSource(SqlSourceExecutionContext context) throws SQLException {
+	protected void afterExecuteSqlFromSource(SqlSourceExecutionContext context, SqlMetaData metaData) throws SQLException {
 		if (CommitMode.PER_SOURCE.equals(context.getJdbcContext().getCommitMode())) {
 			context.getConnection().commit();
+		}
+		JdbcContext jdbcContext = context.getJdbcContext();
+		long count = metaData.getCount();
+		int min = jdbcContext.getShowProgressMin();
+		if (jdbcContext.isShowProgress() && count > min) {
+			logger.info("Execution complete. {} SQL statements", formatter.getCount(metaData.getCount()));
 		}
 	}
 
