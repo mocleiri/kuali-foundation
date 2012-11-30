@@ -26,7 +26,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 public class DefaultJdbcService implements JdbcService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
-	SimpleFormatter formatter = new SimpleFormatter();
+	protected SimpleFormatter formatter = new SimpleFormatter();
 
 	@Override
 	public JdbcMetaData getJdbcMetaData(DataSource dataSource) {
