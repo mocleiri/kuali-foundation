@@ -203,9 +203,19 @@ public class DefaultJdbcService implements JdbcService {
 		return pc;
 	}
 
+	protected void beforeExecutSqlFromSource(SqlSourceExecutionContext context, ProgressContext pc) {
+		int min = pc.getMin();
+		long count = pc.getTotalCount();
+		boolean showProgress = pc.isShowProgress() && count > min;
+		if (showProgress) {
+			logger.info("Executed 0 of {} SQL statements", formatter.getCount(pc.getTotalCount()));
+		}
+	}
+
 	protected SqlMetaData executeSqlFromSource(SqlSourceExecutionContext context) {
 		logSource("Executing", context.getSource(), context.getSourceIndex(), context.getSourcesCount());
 		ProgressContext pc = getProgressContext(context);
+		beforeExecutSqlFromSource(context, pc);
 		long count = 0;
 		BufferedReader in = null;
 		try {
