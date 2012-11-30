@@ -1,6 +1,5 @@
 package org.kuali.common.jdbc.context;
 
-import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.DefaultJdbcService;
@@ -26,7 +25,7 @@ public class DatabaseResetContext {
 	DatabaseProcessContext databaseProcessContext;
 	JdbcContext normalJdbcContext;
 	JdbcContext dbaJdbcContext;
-	List<String> dbaSql;
+	String dbaSql;
 
 	public String getEncoding() {
 		return encoding;
@@ -108,20 +107,20 @@ public class DatabaseResetContext {
 		this.constraintPropertyPrefix = constraintPropertyPrefix;
 	}
 
-	public List<String> getDbaSql() {
-		return dbaSql;
-	}
-
-	public void setDbaSql(List<String> dbaSql) {
-		this.dbaSql = dbaSql;
-	}
-
 	public String getLocationListPattern() {
 		return locationListPattern;
 	}
 
 	public void setLocationListPattern(String locationListSuffix) {
 		this.locationListPattern = locationListSuffix;
+	}
+
+	public String getDbaSql() {
+		return dbaSql;
+	}
+
+	public void setDbaSql(String dbaSql) {
+		this.dbaSql = dbaSql;
 	}
 
 }

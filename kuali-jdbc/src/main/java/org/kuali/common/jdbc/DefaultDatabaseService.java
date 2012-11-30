@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -51,7 +52,7 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	protected SqlMetaDataList doDba(DatabaseResetContext context) {
 		logger.info("Executing DBA SQL");
-		SqlMetaDataList metadata = context.getService().executeSqlStrings(context.getDbaJdbcContext(), context.getDbaSql());
+		SqlMetaDataList metadata = context.getService().executeSqlStrings(context.getDbaJdbcContext(), Collections.singletonList(context.getDbaSql()));
 		logExecution("dba", metadata, context.getFormatter());
 		return metadata;
 	}

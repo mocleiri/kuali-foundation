@@ -45,13 +45,11 @@
     </property>
   </bean>
 
-  <util:list id="dbaSql">
-    <value>${sql.validate}</value>
-    <value>${sql.dba.drop}</value>
-    <value>${sql.dba.create}</value>
-  </util:list>
-
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
+
+  <bean id="dbaSql" class="java.lang.String">
+    <constructor-arg value="${sql.validate} ${sql.dba.drop} ${sql.dba.create}" />
+  </bean>
 
   <bean id="dbpc" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
