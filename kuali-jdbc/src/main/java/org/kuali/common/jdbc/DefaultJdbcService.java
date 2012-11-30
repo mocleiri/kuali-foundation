@@ -114,7 +114,7 @@ public class DefaultJdbcService implements JdbcService {
 		for (int i = 0; i < sources.size(); i++) {
 			SqlSource source = sources.get(i);
 			// logSource("Examining", source, i, sources.size());
-			SqlMetaData smd = getSqlMetaData(context, source, count);
+			SqlMetaData smd = getSqlMetaDataFromSource(context, source);
 			count += smd.getCount();
 			smdl.add(smd);
 		}
@@ -122,7 +122,7 @@ public class DefaultJdbcService implements JdbcService {
 		return smdl;
 	}
 
-	protected SqlMetaData getSqlMetaData(SqlContext context, SqlSource source, long runningCount) {
+	protected SqlMetaData getSqlMetaDataFromSource(SqlContext context, SqlSource source) {
 		long count = 0;
 		BufferedReader in = null;
 		try {
