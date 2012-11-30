@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CollectionUtils {
 
 	public static final <T> List<T> toNullIfEmpty(List<T> list) {
-		if (list == null || list.size() == 0) {
+		if (isEmpty(list)) {
 			return null;
 		} else {
 			return list;
@@ -19,7 +19,7 @@ public class CollectionUtils {
 	}
 
 	public static final <T> Collection<T> toNullIfEmpty(Collection<T> c) {
-		if (c == null || c.size() == 0) {
+		if (isEmpty(c)) {
 			return null;
 		} else {
 			return c;
