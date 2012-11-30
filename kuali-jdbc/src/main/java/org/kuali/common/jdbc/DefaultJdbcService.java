@@ -215,11 +215,8 @@ public class DefaultJdbcService implements JdbcService {
 			String sql = reader.getSqlStatement(in);
 			while (sql != null) {
 				logger.debug("{} - [{}]", ++count, Str.flatten(sql));
-				if (pc.isShowProgress() && count % pc.getProgress() == 0) {
-					logger.info("Executed {} of {} SQL statements", formatter.getCount(count), formatter.getCount(pc.getTotalCount()));
-				}
 				executeSqlStatement(context, sql);
-				afterExecuteSqlStatement(context);
+				afterExecuteSqlStatement(context, count, pc);
 				sql = reader.getSqlStatement(in);
 			}
 			return getSqlMetaData(start, count, context);
@@ -250,9 +247,12 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void afterExecuteSqlStatement(SqlSourceExecutionContext context) throws SQLException {
+	protected void afterExecuteSqlStatement(SqlSourceExecutionContext context, long count, ProgressContext pc) throws SQLException {
 		if (CommitMode.PER_STATEMENT.equals(context.getJdbcContext().getCommitMode())) {
 			context.getConnection().commit();
+		}
+		if (pc.isShowProgress() && count % pc.getProgress() == 0) {
+			logger.info("Executed {} of {} SQL statements", formatter.getCount(count), formatter.getCount(pc.getTotalCount()));
 		}
 	}
 
