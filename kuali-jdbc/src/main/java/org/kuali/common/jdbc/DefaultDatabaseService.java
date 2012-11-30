@@ -44,7 +44,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		context.getNormalJdbcContext().setShowProgress(true);
 		add(metaData, doSQL(context, "constraints", context.getConstraintPropertyPrefix()));
 		metaData.setExecutionTime(System.currentTimeMillis() - start);
-		logExecution("initialize", metaData, context.getFormatter());
+		logExecution("reset", metaData, context.getFormatter());
 	}
 
 	protected void add(SqlMetaDataList one, SqlMetaDataList two) {

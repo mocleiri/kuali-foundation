@@ -208,7 +208,7 @@ public class DefaultJdbcService implements JdbcService {
 		long count = pc.getTotalCount();
 		boolean showProgress = pc.isShowProgress() && count > min;
 		if (showProgress) {
-			logger.info("Executed 0 of {} SQL statements", formatter.getCount(pc.getTotalCount()));
+			logger.info("Executing {} SQL statements", formatter.getCount(pc.getTotalCount()));
 		}
 	}
 
