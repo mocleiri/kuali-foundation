@@ -384,7 +384,7 @@ public class PropertyUtils {
 	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing value, add the
 	 * property. If there is a conflict, check <code>propertyOverwriteMode</code> to make sure we have permission to override the value.
 	 */
-	public static final void addOrOverwriteProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
+	public static final void addOrOverrideProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
 		boolean newEqualsOld = StringUtils.equals(newValue, oldValue);
 		if (newEqualsOld) {
@@ -395,7 +395,7 @@ public class PropertyUtils {
 		if (overwrite) {
 			// This property already has a value, and it is different from the new value
 			// Check to make sure we are allowed to override the old value before doing so
-			ModeUtils.validate(propertyOverwriteMode, "Overwriting [{}]", key, "Overwrite of existing property [" + key + "] is not allowed.");
+			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}]", key, "Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
 			logger.debug("Adding property {}=[{}]", key, Str.flatten(newValue));

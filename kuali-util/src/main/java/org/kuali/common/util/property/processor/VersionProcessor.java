@@ -43,7 +43,7 @@ public class VersionProcessor implements PropertyProcessor {
 		List<String> versionKeys = PropertyUtils.getSortedKeys(versionProperties);
 		for (String versionKey : versionKeys) {
 			String versionValue = versionProperties.getProperty(versionKey);
-			PropertyUtils.addOrOverwriteProperty(properties, versionKey, versionValue, propertyOverwriteMode);
+			PropertyUtils.addOrOverrideProperty(properties, versionKey, versionValue, propertyOverwriteMode);
 		}
 	}
 
