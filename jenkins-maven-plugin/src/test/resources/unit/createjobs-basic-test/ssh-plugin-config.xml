@@ -53,7 +53,7 @@
 					<!-- The defined stubs -->
 					<!-- default: base mojo -->
 					<url>localhost</url>
-					<port>9090</port>
+					<sshPort>9090</sshPort>
 					<sshEnabled>true</sshEnabled>
 					<timestampFormat>yyyy-MM-dd HH:mm:ss z</timestampFormat>
 					<workingDir>src/test/resources/unit/createjobs-basic-test/files</workingDir>
