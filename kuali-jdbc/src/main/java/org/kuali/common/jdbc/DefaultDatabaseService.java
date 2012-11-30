@@ -39,7 +39,9 @@ public class DefaultDatabaseService implements DatabaseService {
 		SqlMetaDataList metaData = new SqlMetaDataList();
 		add(metaData, doDba(context));
 		add(metaData, doSQL(context, "schema", context.getSchemaPropertyPrefix()));
-		add(metaData, doSQL(context, "data load", context.getDataPropertyPrefix(), false));
+		context.getNormalJdbcContext().setShowProgress(false);
+		add(metaData, doSQL(context, "data load", context.getDataPropertyPrefix()));
+		context.getNormalJdbcContext().setShowProgress(true);
 		add(metaData, doSQL(context, "constraints", context.getConstraintPropertyPrefix()));
 		metaData.setExecutionTime(System.currentTimeMillis() - start);
 		logExecution("initialize", metaData, context.getFormatter());
@@ -57,10 +59,9 @@ public class DefaultDatabaseService implements DatabaseService {
 		return metadata;
 	}
 
-	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix, boolean showProgress) {
+	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix) {
 		List<String> locations = getLocations(context.getProperties(), prefix, context.getLocationListPattern());
 		logger.info("Executing " + type + " SQL");
-		context.getNormalJdbcContext().setShowProgress(showProgress);
 		SqlMetaDataList metadata = context.getService().executeSql(context.getNormalJdbcContext(), locations, context.getEncoding());
 		logExecution(type, metadata, context.getFormatter());
 		return metadata;
@@ -83,10 +84,6 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	protected boolean isLocationList(String key, String pattern) {
 		return StringUtils.contains(key, pattern);
-	}
-
-	protected SqlMetaDataList doSQL(DatabaseResetContext context, String type, String prefix) {
-		return doSQL(context, type, prefix, context.getNormalJdbcContext().isShowProgress());
 	}
 
 	protected void logExecution(String executionType, SqlMetaDataList metadata, SimpleFormatter formatter) {

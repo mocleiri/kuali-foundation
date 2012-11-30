@@ -14,6 +14,7 @@ public class SqlSourceExecutionContext {
 	long runningCount;
 	int sourceIndex;
 	int sourcesCount;
+	ProgressContext progressContext;
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
@@ -69,6 +70,14 @@ public class SqlSourceExecutionContext {
 
 	public void setSourcesCount(int sourcesCount) {
 		this.sourcesCount = sourcesCount;
+	}
+
+	public ProgressContext getProgressContext() {
+		return progressContext;
+	}
+
+	public void setProgressContext(ProgressContext progressContext) {
+		this.progressContext = progressContext;
 	}
 
 }
