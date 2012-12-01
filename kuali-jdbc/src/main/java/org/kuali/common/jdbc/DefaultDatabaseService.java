@@ -39,9 +39,9 @@ public class DefaultDatabaseService implements DatabaseService {
 		SqlMetaDataList metaData = new SqlMetaDataList();
 		add(metaData, doDba(context));
 		add(metaData, doSQL(context, "schema", context.getSchemaPropertyPrefix()));
-		context.getNormalJdbcContext().setShowProgress(false);
+		context.getNormalJdbcContext().setShowProgressMin(5000);
 		add(metaData, doSQL(context, "data load", context.getDataPropertyPrefix()));
-		context.getNormalJdbcContext().setShowProgress(true);
+		context.getNormalJdbcContext().setShowProgressMin(50);
 		add(metaData, doSQL(context, "constraints", context.getConstraintPropertyPrefix()));
 		metaData.setExecutionTime(System.currentTimeMillis() - start);
 		logExecution("reset database", metaData, context.getFormatter());
