@@ -101,6 +101,8 @@ public class ConvertSQLMojo extends AbstractMojo {
 	 */
 	private boolean skipIrrelevantLiquibaseMetadataLines;
 
+	private List<String> liquibaseTokens = getLiquibaseTokens();
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
@@ -146,8 +148,7 @@ public class ConvertSQLMojo extends AbstractMojo {
 		if (!skipIrrelevantLiquibaseMetadataLines) {
 			return false;
 		}
-		List<String> tokens = getLiquibaseTokens();
-		for (String token : tokens) {
+		for (String token : liquibaseTokens) {
 			if (line.startsWith(token)) {
 				return true;
 			}
@@ -155,12 +156,19 @@ public class ConvertSQLMojo extends AbstractMojo {
 		return false;
 	}
 
+	protected String getRelativePath(File dir, File file) throws IOException {
+		String dirPath = dir.getCanonicalPath() + FS;
+		String filePath = file.getCanonicalPath();
+		String relativePath = StringUtils.remove(filePath, dirPath);
+		return relativePath;
+	}
+
 	protected void convert(File file) throws IOException {
-		String outputFilename = outputDir + FS + file.getName();
+		String outputFilename = outputDir + FS + getRelativePath(sourceDir, file);
 		File outputFile = new File(outputFilename);
 		@SuppressWarnings("unchecked")
 		List<String> lines = FileUtils.readLines(file, encoding);
-		getLog().info("Creating " + outputFile.getCanonicalPath());
+		getLog().info("Writing " + outputFile.getCanonicalPath());
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(outputFile);
