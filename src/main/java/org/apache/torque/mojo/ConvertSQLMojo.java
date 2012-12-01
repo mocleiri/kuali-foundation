@@ -159,8 +159,7 @@ public class ConvertSQLMojo extends AbstractMojo {
 	protected String getRelativePath(File dir, File file) throws IOException {
 		String dirPath = dir.getCanonicalPath() + FS;
 		String filePath = file.getCanonicalPath();
-		String relativePath = StringUtils.remove(filePath, dirPath);
-		return relativePath;
+		return StringUtils.remove(filePath, dirPath);
 	}
 
 	protected void convert(File file) throws IOException {
