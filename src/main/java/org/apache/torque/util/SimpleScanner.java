@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2012 The Kuali Foundation
+ * Copyright 2011-2012 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.torque.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -28,24 +30,30 @@ public class SimpleScanner extends DirectoryScanner {
 	private static final String FS = System.getProperty("file.separator");
 
 	public SimpleScanner() {
-		this(null, null, null);
+		this(null, getArray(null), getArray(null));
 	}
 
 	public SimpleScanner(File baseDir, String include, String exclude) {
+		this(baseDir, getArray(include), getArray(exclude));
+	}
+
+	public SimpleScanner(File baseDir, String[] includes, String[] excludes) {
 		super();
-		if (baseDir != null) {
-			setBasedir(baseDir);
-		}
-		if (include != null) {
-			setIncludes(new String[] { include });
-		}
-		if (exclude != null) {
-			setExcludes(new String[] { exclude });
+		setBasedir(baseDir);
+		setIncludes(includes);
+		setExcludes(excludes);
+	}
+
+	protected static final String[] getArray(String s) {
+		if (s == null) {
+			return null;
+		} else {
+			return new String[] { s };
 		}
 	}
 
 	/**
-	 * This method returns files that match an include pattern but do not match an exclude pattern
+	 * This method returns a sorted list of files that match an include pattern but do not match an exclude pattern
 	 */
 	public List<File> getFiles() {
 		scan();
@@ -56,6 +64,7 @@ public class SimpleScanner extends DirectoryScanner {
 			File file = new File(filename);
 			files.add(file);
 		}
+		Collections.sort(files);
 		return files;
 	}
 }

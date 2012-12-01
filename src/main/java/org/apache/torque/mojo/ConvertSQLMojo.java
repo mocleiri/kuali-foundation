@@ -77,16 +77,17 @@ public class ConvertSQLMojo extends AbstractMojo {
 	private File outputDir;
 
 	/**
-	 * Files to include
+	 * CSV list of regex patterns for files to include
 	 *
-	 * @parameter expression="${impex.includes}" default-value="*.sql"
+	 * @parameter expression="${impex.includes}" default-value="\*\*\/*.sql"
+	 * @required
 	 */
 	private String includes;
 
 	/**
-	 * Files to exclude
+	 * CSV list of regex patterns for files to exclude
 	 *
-	 * @parameter expression="${impex.excludes}"
+	 * @parameter expression="${impex.excludes}" default-value="\*\*\/.svn/**,\*\*\/.git/**"
 	 */
 	private String excludes;
 
@@ -103,6 +104,15 @@ public class ConvertSQLMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
+			// Make sure the sourceDir exists
+			FileUtils.forceMkdir(sourceDir);
+			getLog().info("Source Dir - " + sourceDir.getCanonicalPath());
+			getLog().info("Output Dir - " + outputDir.getCanonicalPath());
+			getLog().info("Includes - " + includes);
+			getLog().info("Excludes - " + excludes);
+			getLog().info("Old Delimiter - " + oldDelimiter);
+			getLog().info("New Delimiter - " + newDelimiter);
+			getLog().info("Encoding - " + encoding);
 			List<File> files = getFiles();
 			if (files == null || files.size() == 0) {
 				getLog().info("No files found");
@@ -167,8 +177,8 @@ public class ConvertSQLMojo extends AbstractMojo {
 	}
 
 	protected String getConvertedLine(String line) {
-		String trimmed = StringUtils.trim(line);
-		if (trimmed.endsWith(oldDelimiter)) {
+		String trimmed = StringUtils.trimToNull(line);
+		if (StringUtils.endsWith(trimmed, oldDelimiter)) {
 			int pos = line.lastIndexOf(oldDelimiter);
 			return line.substring(0, pos) + IOUtils.LINE_SEPARATOR_UNIX + newDelimiter + IOUtils.LINE_SEPARATOR_UNIX;
 		} else {
@@ -177,9 +187,10 @@ public class ConvertSQLMojo extends AbstractMojo {
 	}
 
 	protected List<File> getFiles() throws IOException {
-		FileUtils.forceMkdir(sourceDir);
 		getLog().info("Examining " + sourceDir.getCanonicalPath());
-		SimpleScanner scanner = new SimpleScanner(sourceDir, includes, excludes);
+		String[] includeTokens = StringUtils.split(includes, ",");
+		String[] excludeTokens = StringUtils.split(excludes, ",");
+		SimpleScanner scanner = new SimpleScanner(sourceDir, includeTokens, excludeTokens);
 		return scanner.getFiles();
 	}
 
