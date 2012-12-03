@@ -15,6 +15,9 @@ public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersProcessor.class);
 
+	PropertyPlaceholderHelper helper;
+	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
+
 	public ResolvePlaceholdersProcessor() {
 		this(new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX));
 	}
@@ -28,9 +31,6 @@ public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 		this.helper = helper;
 		this.globalPropertiesMode = globalPropertiesMode;
 	}
-
-	PropertyPlaceholderHelper helper;
-	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
 
 	@Override
 	public void process(Properties properties) {
