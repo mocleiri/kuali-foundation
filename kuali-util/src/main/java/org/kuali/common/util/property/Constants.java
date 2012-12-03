@@ -1,6 +1,7 @@
 package org.kuali.common.util.property;
 
 import org.kuali.common.util.Mode;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public final class Constants {
 
@@ -16,5 +17,6 @@ public final class Constants {
 	public static final String DEFAULT_SNAPSHOT_VERSION_SUFFIX = "snapshot";
 	public static final String DEFAULT_USER_HOME_KEY = "user.home";
 	public static final Mode DEFAULT_PROPERTY_OVERWRITE_MODE = Mode.INFORM;
+	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX);
 
 }

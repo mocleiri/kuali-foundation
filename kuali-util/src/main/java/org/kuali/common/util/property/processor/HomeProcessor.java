@@ -17,16 +17,16 @@ public class HomeProcessor implements PropertyProcessor {
 	private static final String FS = File.separator;
 
 	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
+	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String userHomeKey = Constants.DEFAULT_USER_HOME_KEY;
-	PropertyPlaceholderHelper helper;
 	String organizationCodeKey;
 	String groupCodeKey;
 	String organizationHomeKey;
 	String groupHomeKey;
-	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	public HomeProcessor() {
-		this(new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX));
+		this(Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER);
 	}
 
 	public HomeProcessor(PropertyPlaceholderHelper helper) {
