@@ -41,14 +41,63 @@ public class HomeProcessor implements PropertyProcessor {
 	@Override
 	public void process(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
-		String originalValue = global.getProperty(userHomeKey);
-		String resolvedValue = helper.replacePlaceholders(originalValue, global);
-		if (!resolvedValue.equals(originalValue)) {
-			logger.debug("Resolved '" + userHomeKey + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+		String originalUserHome = global.getProperty(userHomeKey);
+		String resolvedUserHome = helper.replacePlaceholders(originalUserHome, global);
+		if (!resolvedUserHome.equals(originalUserHome)) {
+			logger.debug("Resolved '" + userHomeKey + "' [{}] -> [{}]", Str.flatten(originalUserHome), Str.flatten(resolvedUserHome));
 		}
+		AppConfig ac = getAppConfig(resolvedUserHome, organizationGroupId, groupId, artifactId, propertiesFileSuffix);
+		Properties newProperties = getAppProperties(ac);
+		properties.putAll(newProperties);
 	}
 
-	protected String getOrganizationCode(String organizationGroupId) {
+	protected Properties getAppProperties(AppConfig ac) {
+		String orgIdKey = "org.id";
+		String orgCodeKey = "org.code";
+		String kualiHomeKey = ac.getOrgCode() + ".home";
+		String kualiGroupKey = ac.getOrgCode() + ".group";
+		String groupHomeKey = ac.getOrgCode() + "." + ac.getGroupCode() + ".home";
+
+		Properties properties = new Properties();
+		properties.setProperty(kualiHomeKey, ac.getOrgHome());
+		properties.setProperty(groupHomeKey, ac.getGroupHome());
+		properties.setProperty(kualiGroupKey, ac.getGroupCode());
+		properties.setProperty(orgIdKey, organizationGroupId);
+		properties.setProperty(orgCodeKey, ac.getOrgCode());
+		return properties;
+	}
+
+	protected AppConfig getAppConfig(String resolvedUserHome, String organizationGroupId, String groupId, String artifactId, String propertiesFileSuffix) {
+		String orgCode = getOrgCode(organizationGroupId);
+		String orgHome = getOrgHome(resolvedUserHome, orgCode);
+		String orgPropertiesLocation = getPropertiesFileLocation(orgHome, orgCode, propertiesFileSuffix);
+
+		String groupCode = getGroupCode(organizationGroupId, groupId);
+		String groupHome = getGroupHome(orgHome, groupCode);
+		String groupPropertiesLocation = getPropertiesFileLocation(groupHome, groupCode, propertiesFileSuffix);
+
+		String appCode = artifactId;
+		String appHome = getAppHome(groupHome, appCode);
+		String appPropertiesLocation = getPropertiesFileLocation(appHome, appCode, propertiesFileSuffix);
+
+		AppConfig ac = new AppConfig();
+
+		ac.setOrgCode(orgCode);
+		ac.setOrgHome(orgHome);
+		ac.setOrgPropertiesLocation(orgPropertiesLocation);
+
+		ac.setGroupCode(groupCode);
+		ac.setGroupHome(groupHome);
+		ac.setGroupPropertiesLocation(groupPropertiesLocation);
+
+		ac.setAppCode(appCode);
+		ac.setAppHome(appHome);
+		ac.setAppPropertiesLocation(appPropertiesLocation);
+
+		return ac;
+	}
+
+	protected String getOrgCode(String organizationGroupId) {
 		int pos = organizationGroupId.lastIndexOf(".");
 		String organizationCode = organizationGroupId;
 		if (pos != -1) {
@@ -70,25 +119,37 @@ public class HomeProcessor implements PropertyProcessor {
 		return groupCode;
 	}
 
-	protected String getOrganizationHome(String userHome, String organizationGroupId) {
-		String organizationCode = getOrganizationCode(organizationGroupId);
+	protected String getOrgHome(String userHome, String orgCode) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(userHome);
 		sb.append(FS);
 		sb.append(".");
-		sb.append(organizationCode);
+		sb.append(orgCode);
 		return sb.toString();
 	}
 
-	protected String getGroupHome(String organizationHome, String organizationGroupId, String groupId) {
-		return organizationHome + FS + getGroupCode(organizationGroupId, groupId);
+	protected String getGroupHome(String orgHome, String groupCode) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(orgHome);
+		sb.append(FS);
+		sb.append(groupCode);
+		return sb.toString();
 	}
 
-	protected String getPropertiesFilename(String groupHome, String artifactId, String propertiesFileSuffix) {
+	protected String getAppHome(String groupHome, String artifactId) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(groupHome);
 		sb.append(FS);
-		sb.append(artifactId + propertiesFileSuffix);
+		sb.append(artifactId);
+		return sb.toString();
+	}
+
+	protected String getPropertiesFileLocation(String home, String code, String suffix) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(home);
+		sb.append(FS);
+		sb.append(code);
+		sb.append(suffix);
 		return sb.toString();
 	}
 
@@ -138,6 +199,14 @@ public class HomeProcessor implements PropertyProcessor {
 
 	public void setHelper(PropertyPlaceholderHelper helper) {
 		this.helper = helper;
+	}
+
+	public String getPropertiesFileSuffix() {
+		return propertiesFileSuffix;
+	}
+
+	public void setPropertiesFileSuffix(String propertiesFileSuffix) {
+		this.propertiesFileSuffix = propertiesFileSuffix;
 	}
 
 }
