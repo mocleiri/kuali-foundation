@@ -7,6 +7,9 @@ import org.kuali.common.util.PropertyUtils;
 
 public class TrimProcessor implements PropertyProcessor {
 
+	List<String> includes;
+	List<String> excludes;
+
 	public TrimProcessor() {
 		this(null, null);
 	}
@@ -16,9 +19,6 @@ public class TrimProcessor implements PropertyProcessor {
 		this.includes = includes;
 		this.excludes = excludes;
 	}
-
-	List<String> includes;
-	List<String> excludes;
 
 	@Override
 	public void process(Properties properties) {
