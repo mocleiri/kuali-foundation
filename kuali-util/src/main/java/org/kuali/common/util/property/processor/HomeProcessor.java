@@ -5,69 +5,37 @@ import java.util.Properties;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 public class HomeProcessor implements PropertyProcessor {
-	private static final Logger logger = LoggerFactory.getLogger(HomeProcessor.class);
 	private static final String FS = File.separator;
 
-	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String userHomeKey = Constants.DEFAULT_USER_HOME_KEY;
 	String orgGroupCodeKey;
 	String projectGroupCodeKey;
 	String orgHomeKey;
 	String groupHomeKey;
 
-	public HomeProcessor() {
-		this(Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER);
-	}
-
-	public HomeProcessor(PropertyPlaceholderHelper helper) {
-		this(helper, GlobalPropertiesMode.BOTH);
-	}
-
-	public HomeProcessor(PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
-		super();
-		this.helper = helper;
-		this.globalPropertiesMode = globalPropertiesMode;
-	}
-
 	@Override
 	public void process(Properties properties) {
-		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
-		String userHome = getResolvedValue(userHomeKey, global, helper);
-		String orgCode = getResolvedValue(orgGroupCodeKey, global, helper);
-		String groupCode = getResolvedValue(projectGroupCodeKey, global, helper);
+		String userHome = properties.getProperty(userHomeKey);
+		String orgGroupCode = properties.getProperty(orgGroupCodeKey);
+		String projectGroupCode = properties.getProperty(projectGroupCodeKey);
 
-		String organizationHome = userHome + FS + "." + orgCode;
-		String groupHome = organizationHome + FS + groupCode;
+		String orgHome = userHome + FS + "." + orgGroupCode;
+		String groupHome = orgHome + FS + projectGroupCode;
 
-		PropertyUtils.addOrOverrideProperty(properties, orgHomeKey, organizationHome, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, orgHomeKey, orgHome, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupHomeKey, groupHome, propertyOverwriteMode);
 	}
 
-	protected String getResolvedValue(String key, Properties properties, PropertyPlaceholderHelper helper) {
-		String original = properties.getProperty(key);
-		String resolved = helper.replacePlaceholders(original, properties);
-		if (!resolved.equals(original)) {
-			logger.debug("Resolved '" + key + "' [{}] -> [{}]", Str.flatten(original), Str.flatten(resolved));
-		}
-		return resolved;
+	public Mode getPropertyOverwriteMode() {
+		return propertyOverwriteMode;
 	}
 
-	public GlobalPropertiesMode getGlobalPropertiesMode() {
-		return globalPropertiesMode;
-	}
-
-	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
-		this.globalPropertiesMode = globalPropertiesMode;
+	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
+		this.propertyOverwriteMode = propertyOverwriteMode;
 	}
 
 	public String getUserHomeKey() {
@@ -78,36 +46,28 @@ public class HomeProcessor implements PropertyProcessor {
 		this.userHomeKey = userHomeKey;
 	}
 
-	public PropertyPlaceholderHelper getHelper() {
-		return helper;
-	}
-
-	public void setHelper(PropertyPlaceholderHelper helper) {
-		this.helper = helper;
-	}
-
 	public String getOrgGroupCodeKey() {
 		return orgGroupCodeKey;
 	}
 
-	public void setOrgGroupCodeKey(String organizationCodeKey) {
-		this.orgGroupCodeKey = organizationCodeKey;
+	public void setOrgGroupCodeKey(String orgGroupCodeKey) {
+		this.orgGroupCodeKey = orgGroupCodeKey;
 	}
 
 	public String getProjectGroupCodeKey() {
 		return projectGroupCodeKey;
 	}
 
-	public void setProjectGroupCodeKey(String groupCodeKey) {
-		this.projectGroupCodeKey = groupCodeKey;
+	public void setProjectGroupCodeKey(String projectGroupCodeKey) {
+		this.projectGroupCodeKey = projectGroupCodeKey;
 	}
 
 	public String getOrgHomeKey() {
 		return orgHomeKey;
 	}
 
-	public void setOrgHomeKey(String organizationHomeKey) {
-		this.orgHomeKey = organizationHomeKey;
+	public void setOrgHomeKey(String orgHomeKey) {
+		this.orgHomeKey = orgHomeKey;
 	}
 
 	public String getGroupHomeKey() {
@@ -116,14 +76,6 @@ public class HomeProcessor implements PropertyProcessor {
 
 	public void setGroupHomeKey(String groupHomeKey) {
 		this.groupHomeKey = groupHomeKey;
-	}
-
-	public Mode getPropertyOverwriteMode() {
-		return propertyOverwriteMode;
-	}
-
-	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
-		this.propertyOverwriteMode = propertyOverwriteMode;
 	}
 
 }
