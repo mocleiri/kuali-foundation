@@ -20,14 +20,10 @@ public class SetSystemPropertiesProcessor implements PropertyProcessor {
 		this(null);
 	}
 
-	public SetSystemPropertiesProcessor(Mode propertyOverwriteMode) {
-		this(null, Constants.DEFAULT_PROPERTY_OVERWRITE_MODE);
-	}
-
-	public SetSystemPropertiesProcessor(List<String> includes, Mode propertyOverwriteMode) {
+	public SetSystemPropertiesProcessor(List<String> includes) {
 		super();
 		this.includes = includes;
-		this.propertyOverwriteMode = propertyOverwriteMode;
+		this.propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	}
 
 	@Override

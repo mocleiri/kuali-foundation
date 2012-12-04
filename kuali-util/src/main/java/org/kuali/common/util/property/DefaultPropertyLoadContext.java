@@ -15,6 +15,7 @@ import org.kuali.common.util.property.processor.VersionProcessor;
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
 	List<String> locations;
+	List<String> localLocations;
 	Mode missingLocationsMode = Mode.INFORM;
 	List<PropertyProcessor> loadProcessors;
 
@@ -47,11 +48,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	protected List<PropertyProcessor> getDefaultLoadProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+
 		processors.add(new AddEnvPropertiesProcessor());
 		processors.add(new AddSystemPropertiesProcessor());
+
 		if (pathProperties != null) {
 			processors.add(new PathProcessor(pathProperties));
 		}
+
 		if (versionProperties != null) {
 			processors.add(new VersionProcessor(versionProperties));
 		}
@@ -71,6 +75,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setMissingLocationsMode(Mode missingLocationsMode) {
 		this.missingLocationsMode = missingLocationsMode;
+	}
+
+	public List<String> getLocalLocations() {
+		return localLocations;
+	}
+
+	public void setLocalLocations(List<String> localLocations) {
+		this.localLocations = localLocations;
 	}
 
 }
