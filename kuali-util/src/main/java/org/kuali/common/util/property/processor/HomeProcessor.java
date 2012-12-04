@@ -20,8 +20,8 @@ public class HomeProcessor implements PropertyProcessor {
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String userHomeKey = Constants.DEFAULT_USER_HOME_KEY;
-	String orgCodeKey;
-	String groupCodeKey;
+	String orgGroupCodeKey;
+	String projectGroupCodeKey;
 	String orgHomeKey;
 	String groupHomeKey;
 
@@ -43,8 +43,8 @@ public class HomeProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
 		String userHome = getResolvedValue(userHomeKey, global, helper);
-		String orgCode = getResolvedValue(orgCodeKey, global, helper);
-		String groupCode = getResolvedValue(groupCodeKey, global, helper);
+		String orgCode = getResolvedValue(orgGroupCodeKey, global, helper);
+		String groupCode = getResolvedValue(projectGroupCodeKey, global, helper);
 
 		String organizationHome = userHome + FS + "." + orgCode;
 		String groupHome = organizationHome + FS + groupCode;
@@ -86,20 +86,20 @@ public class HomeProcessor implements PropertyProcessor {
 		this.helper = helper;
 	}
 
-	public String getOrgCodeKey() {
-		return orgCodeKey;
+	public String getOrgGroupCodeKey() {
+		return orgGroupCodeKey;
 	}
 
-	public void setOrgCodeKey(String organizationCodeKey) {
-		this.orgCodeKey = organizationCodeKey;
+	public void setOrgGroupCodeKey(String organizationCodeKey) {
+		this.orgGroupCodeKey = organizationCodeKey;
 	}
 
-	public String getGroupCodeKey() {
-		return groupCodeKey;
+	public String getProjectGroupCodeKey() {
+		return projectGroupCodeKey;
 	}
 
-	public void setGroupCodeKey(String groupCodeKey) {
-		this.groupCodeKey = groupCodeKey;
+	public void setProjectGroupCodeKey(String groupCodeKey) {
+		this.projectGroupCodeKey = groupCodeKey;
 	}
 
 	public String getOrgHomeKey() {

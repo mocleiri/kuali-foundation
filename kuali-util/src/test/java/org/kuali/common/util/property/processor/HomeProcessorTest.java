@@ -13,8 +13,8 @@ public class HomeProcessorTest {
 
 	protected HomeProcessor getHomeProcessor() {
 		HomeProcessor p = new HomeProcessor();
-		p.setOrgCodeKey("kuali.orgCode");
-		p.setGroupCodeKey("kuali.groupCode");
+		p.setOrgGroupCodeKey("kuali.orgCode");
+		p.setProjectGroupCodeKey("kuali.groupCode");
 		p.setOrgHomeKey("kuali.home");
 		p.setGroupHomeKey("kuali.ole.home");
 		return p;
