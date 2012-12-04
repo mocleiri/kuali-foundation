@@ -51,7 +51,7 @@ public class OrgProcessor implements PropertyProcessor {
 	}
 
 	protected String getOrgGroupCode(String groupId) {
-		int pos = groupId.lastIndexOf(".");
+		int pos = StringUtils.lastIndexOf(groupId, ".");
 		String code = groupId;
 		if (pos != -1) {
 			pos++;
