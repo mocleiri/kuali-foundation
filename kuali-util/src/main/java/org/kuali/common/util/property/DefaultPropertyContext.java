@@ -129,7 +129,7 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultModifiers.add(new EndsWithDecryptProcessor(decryptor));
 			return;
 		default:
-			throw new IllegalArgumentException(encryptionMode + " is unknown");
+			throw new IllegalArgumentException("Encryption mode '" + encryptionMode + "' is unknown");
 		}
 	}
 
