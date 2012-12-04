@@ -22,8 +22,9 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Given a Spring context containing a bean that implements <code>Executable</code> load the context and invoke the <code>execute()</code>
- * method, optionally filtering the XML content using Maven properties before doing so.
+ * Given a Spring context containing a bean that implements <code>org.kuali.common.util.execute.Executable</code> load the context, extract
+ * the <code>Executable</code> bean and invoke its <code>execute()</code> method. If <code>filterContext</code> is true the context is
+ * filtered using Maven properties before it is loaded.
  *
  * @goal execute
  */
