@@ -10,11 +10,14 @@ import org.kuali.common.util.property.Constants;
 public class OrgProcessor implements PropertyProcessor {
 
 	String orgGroupId;
-	String orgGroupIdKey;
-	String orgGroupCodeKey;
 	String projectGroupId;
+
+	String orgGroupIdKey;
 	String projectGroupIdKey;
+
+	String orgGroupCodeKey;
 	String projectGroupCodeKey;
+
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	@Override
