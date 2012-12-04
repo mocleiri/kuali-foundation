@@ -25,6 +25,8 @@ public class HomeProcessorTest {
 		OrgProcessor op = OrgProcessorTest.getProcessor();
 		HomeProcessor hp = getHomeProcessor();
 		Properties properties = new Properties();
+		properties.setProperty("kuali.groupId", "org.kuali");
+		properties.setProperty("kuali.project.groupId", "org.kuali.ole");
 		op.process(properties);
 		hp.process(properties);
 		showProperties(properties);
