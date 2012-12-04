@@ -118,7 +118,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-deploy</artifactId>
-      <version>1.2.21-SNAPSHOT</version>
+      <version>1.2.22-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
