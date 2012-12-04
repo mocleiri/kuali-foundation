@@ -12,12 +12,7 @@ public class HomeProcessorTest {
 	private static final Logger logger = LoggerFactory.getLogger(HomeProcessorTest.class);
 
 	protected HomeProcessor getHomeProcessor() {
-		HomeProcessor p = new HomeProcessor();
-		p.setOrgGroupCodeKey("kuali.groupCode");
-		p.setProjectGroupCodeKey("kuali.project.groupCode");
-		p.setOrgHomeKey("kuali.home");
-		p.setGroupHomeKey("kuali.ole.home");
-		return p;
+		return new HomeProcessor("kuali.groupId", "kuali.project.groupId");
 	}
 
 	@Test
