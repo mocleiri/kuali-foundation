@@ -25,7 +25,7 @@ public class HomeProcessor implements PropertyProcessor {
 	String orgGroupCodeKey;
 	String projectGroupCodeKey;
 	String orgHomeKey;
-	String groupHomeKey = Constants.DEFAULT_GROUP_HOME_PREFIX + "." + Constants.DEFAULT_HOME_SUFFIX;
+	String groupHomeKey;
 
 	public HomeProcessor() {
 		this(null, null, GlobalPropertiesMode.BOTH);
