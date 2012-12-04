@@ -89,7 +89,7 @@ public class ExecuteMojo extends AbstractMojo {
 		try {
 			FileUtils.forceMkdir(workingDir);
 			getLog().info("Working Dir - " + LocationUtils.getCanonicalPath(workingDir));
-			ApplicationContext ctx = new ClassPathXmlApplicationContext(contextLocation);
+			ApplicationContext ctx = getApplicationContext();
 			Executable executable = (Executable) ctx.getBean(executableBean);
 			executable.execute();
 		} catch (Exception e) {
