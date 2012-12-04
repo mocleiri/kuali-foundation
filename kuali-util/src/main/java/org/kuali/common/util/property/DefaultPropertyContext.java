@@ -22,7 +22,6 @@ import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
-import org.kuali.common.util.property.processor.SetSystemPropertiesProcessor;
 import org.kuali.common.util.property.processor.TrimProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
@@ -54,7 +53,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 	String orgGroupIdKey;
 	String projectGroupIdKey;
-	List<String> systemProperties;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> defaultProcessors = new ArrayList<PropertyProcessor>();
@@ -109,10 +107,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
 		if (trim) {
 			defaultProcessors.add(new TrimProcessor(includes, excludes));
-		}
-
-		if (systemProperties != null) {
-			defaultProcessors.add(new SetSystemPropertiesProcessor(systemProperties));
 		}
 
 		return defaultProcessors;
@@ -185,7 +179,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		resolveInternalList(properties, versionProperties);
 		resolveInternalList(properties, includes);
 		resolveInternalList(properties, excludes);
-		resolveInternalList(properties, systemProperties);
 	}
 
 	protected void resolveInternalList(Properties properties, List<String> list) {
@@ -362,14 +355,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setProjectGroupIdKey(String projectGroupIdKey) {
 		this.projectGroupIdKey = projectGroupIdKey;
-	}
-
-	public List<String> getSystemProperties() {
-		return systemProperties;
-	}
-
-	public void setSystemProperties(List<String> systemProperties) {
-		this.systemProperties = systemProperties;
 	}
 
 }

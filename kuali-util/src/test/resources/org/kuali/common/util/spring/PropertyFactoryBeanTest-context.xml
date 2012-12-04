@@ -24,11 +24,6 @@
     <value>enc.password.encrypted</value>
   </util:list>
 
-  <util:list id="systemProperties" value-type="java.lang.String">
-    <value>kuali.home</value>
-    <value>kuali.${project.groupId.code}.home</value>
-  </util:list>
-
   <util:list id="pathProperties" value-type="java.lang.String">
     <value>project.groupId</value>
     <value>deploy.groupId</value>
@@ -60,7 +55,6 @@
     <property name="service" ref="service" />
     <property name="locations" ref="locations" />
     <property name="pathProperties" ref="pathProperties" />
-    <property name="systemProperties" ref="systemProperties" />
     <property name="versionProperties" ref="versionProperties" />
     <property name="addSystemProperties" ref="addGlobalProperties" />
     <property name="addEnvironmentVariables" ref="addGlobalProperties" />
