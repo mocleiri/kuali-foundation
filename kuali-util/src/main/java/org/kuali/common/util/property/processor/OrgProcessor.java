@@ -9,23 +9,23 @@ import org.kuali.common.util.property.Constants;
 
 public class OrgProcessor implements PropertyProcessor {
 
-	String orgId;
 	String groupId;
-	String orgIdKey;
-	String orgCodeKey;
 	String groupIdKey;
 	String groupCodeKey;
+	String projectGroupId;
+	String projectGroupIdKey;
+	String projectGroupCodeKey;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	@Override
 	public void process(Properties properties) {
-		String organizationCode = getOrgCode(orgId);
-		String groupCode = getGroupCode(orgId, groupId);
+		String organizationCode = getOrgCode(groupId);
+		String groupCode = getGroupCode(groupId, projectGroupId);
 
-		PropertyUtils.addOrOverrideProperty(properties, orgIdKey, orgId, propertyOverwriteMode);
-		PropertyUtils.addOrOverrideProperty(properties, orgCodeKey, organizationCode, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupIdKey, groupId, propertyOverwriteMode);
-		PropertyUtils.addOrOverrideProperty(properties, groupCodeKey, groupCode, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, groupCodeKey, organizationCode, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, projectGroupIdKey, projectGroupId, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, projectGroupCodeKey, groupCode, propertyOverwriteMode);
 	}
 
 	protected String getOrgCode(String organizationGroupId) {
@@ -53,52 +53,52 @@ public class OrgProcessor implements PropertyProcessor {
 		return groupCode;
 	}
 
-	public String getOrgId() {
-		return orgId;
-	}
-
-	public void setOrgId(String organizationId) {
-		this.orgId = organizationId;
-	}
-
 	public String getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(String projectGroupId) {
-		this.groupId = projectGroupId;
+	public void setGroupId(String organizationId) {
+		this.groupId = organizationId;
 	}
 
-	public String getOrgIdKey() {
-		return orgIdKey;
+	public String getProjectGroupId() {
+		return projectGroupId;
 	}
 
-	public void setOrgIdKey(String organizationIdKey) {
-		this.orgIdKey = organizationIdKey;
-	}
-
-	public String getOrgCodeKey() {
-		return orgCodeKey;
-	}
-
-	public void setOrgCodeKey(String organizationCodeKey) {
-		this.orgCodeKey = organizationCodeKey;
+	public void setProjectGroupId(String projectGroupId) {
+		this.projectGroupId = projectGroupId;
 	}
 
 	public String getGroupIdKey() {
 		return groupIdKey;
 	}
 
-	public void setGroupIdKey(String groupIdKey) {
-		this.groupIdKey = groupIdKey;
+	public void setGroupIdKey(String organizationIdKey) {
+		this.groupIdKey = organizationIdKey;
 	}
 
 	public String getGroupCodeKey() {
 		return groupCodeKey;
 	}
 
-	public void setGroupCodeKey(String groupCodeKey) {
-		this.groupCodeKey = groupCodeKey;
+	public void setGroupCodeKey(String organizationCodeKey) {
+		this.groupCodeKey = organizationCodeKey;
+	}
+
+	public String getProjectGroupIdKey() {
+		return projectGroupIdKey;
+	}
+
+	public void setProjectGroupIdKey(String groupIdKey) {
+		this.projectGroupIdKey = groupIdKey;
+	}
+
+	public String getProjectGroupCodeKey() {
+		return projectGroupCodeKey;
+	}
+
+	public void setProjectGroupCodeKey(String groupCodeKey) {
+		this.projectGroupCodeKey = groupCodeKey;
 	}
 
 	public Mode getPropertyOverwriteMode() {
