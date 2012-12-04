@@ -6,8 +6,11 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SetSystemPropertiesProcessor implements PropertyProcessor {
+	private static final Logger logger = LoggerFactory.getLogger(SetSystemPropertiesProcessor.class);
 
 	Mode propertyOverwriteMode;
 	List<String> includes;
@@ -30,9 +33,11 @@ public class SetSystemPropertiesProcessor implements PropertyProcessor {
 	@Override
 	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
+		Properties systemProperties = System.getProperties();
 		for (String key : keys) {
-			String newValue = properties.getProperty(key);
-			PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
+			String value = properties.getProperty(key);
+			logger.info("Setting system property [{}]", key);
+			PropertyUtils.addOrOverrideProperty(systemProperties, key, value, propertyOverwriteMode);
 		}
 	}
 
