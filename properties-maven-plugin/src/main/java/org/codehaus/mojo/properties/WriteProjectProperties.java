@@ -68,7 +68,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	/**
 	 * If true placeholders are resolved before writing properties to the file
 	 *
-	 * @parameter expression="${properties.resolvePlaceholders}"
+	 * @parameter expression="${properties.resolvePlaceholders}" default-value="false"
 	 */
 	private boolean resolvePlaceholders;
 
