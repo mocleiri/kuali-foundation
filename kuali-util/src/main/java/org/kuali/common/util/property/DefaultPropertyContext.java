@@ -93,6 +93,11 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultProcessors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
 		}
 
+		if (resolvePlaceholders) {
+			Assert.notNull(helper, "helper is null");
+			defaultProcessors.add(new ResolvePlaceholdersProcessor(helper));
+		}
+
 		if (!StringUtils.isBlank(prefix)) {
 			defaultProcessors.add(new AddPrefixProcessor(prefix));
 		}
