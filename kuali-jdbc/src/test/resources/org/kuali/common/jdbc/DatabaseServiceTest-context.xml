@@ -42,6 +42,8 @@
         <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
       </list>
     </property>
+    <property name="orgGroupIdKey" value="kuali.groupId" />
+    <property name="projectGroupIdKey" value="project.groupId" />
   </bean>
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
