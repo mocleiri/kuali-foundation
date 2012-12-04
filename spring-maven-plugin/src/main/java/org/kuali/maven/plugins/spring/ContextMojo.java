@@ -3,6 +3,10 @@ package org.kuali.maven.plugins.spring;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
+/**
+ *
+ * @goal context
+ */
 public class ContextMojo extends AbstractMojo {
 
 	@Override
