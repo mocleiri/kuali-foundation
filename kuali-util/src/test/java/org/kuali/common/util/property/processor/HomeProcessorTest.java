@@ -11,17 +11,27 @@ import org.slf4j.LoggerFactory;
 public class HomeProcessorTest {
 	private static final Logger logger = LoggerFactory.getLogger(HomeProcessorTest.class);
 
-	HomeProcessor processor = getProcessor();
-
-	protected HomeProcessor getProcessor() {
-		HomeProcessor processor = new HomeProcessor();
-		return processor;
+	protected HomeProcessor getHomeProcessor() {
+		HomeProcessor p = new HomeProcessor();
+		p.setOrganizationCodeKey("kuali.organization.id");
+		p.setOrganizationHomeKey("kuali.home");
+		p.setGroupCodeKey("kuali.group.code");
+		p.setGroupHomeKey("kuali.${kuali.group.code}.home");
+		return p;
 	}
 
 	@Test
 	public void testProcess() {
+		OrganizationProcessor op = OrganizationProcessorTest.getProcessor();
+		HomeProcessor hp = getHomeProcessor();
 		Properties properties = new Properties();
-		processor.process(properties);
+		op.process(properties);
+		showProperties(properties);
+		hp.process(properties);
+		showProperties(properties);
+	}
+
+	protected void showProperties(Properties properties) {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String value = properties.getProperty(key);

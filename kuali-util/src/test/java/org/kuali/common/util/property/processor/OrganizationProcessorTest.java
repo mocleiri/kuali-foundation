@@ -13,7 +13,7 @@ public class OrganizationProcessorTest {
 
 	OrganizationProcessor processor = getProcessor();
 
-	protected OrganizationProcessor getProcessor() {
+	protected static OrganizationProcessor getProcessor() {
 		OrganizationProcessor processor = new OrganizationProcessor();
 		processor.setOrganizationId("org.kuali");
 		processor.setGroupId("org.kuali.ole");
