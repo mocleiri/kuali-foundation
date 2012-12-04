@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 public class OrganizationProcessorTest {
 	private static final Logger logger = LoggerFactory.getLogger(OrganizationProcessorTest.class);
 
-	OrganizationProcessor processor = getProcessor();
+	OrgProcessor processor = getProcessor();
 
-	protected static OrganizationProcessor getProcessor() {
-		OrganizationProcessor processor = new OrganizationProcessor();
+	protected static OrgProcessor getProcessor() {
+		OrgProcessor processor = new OrgProcessor();
 		processor.setOrgId("org.kuali");
 		processor.setGroupId("org.kuali.ole");
 		processor.setOrgIdKey("kuali.orgId");

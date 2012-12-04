@@ -7,7 +7,7 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 
-public class OrganizationProcessor implements PropertyProcessor {
+public class OrgProcessor implements PropertyProcessor {
 
 	String orgId;
 	String groupId;
