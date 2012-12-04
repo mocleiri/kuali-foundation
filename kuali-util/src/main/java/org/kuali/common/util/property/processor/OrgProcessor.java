@@ -9,9 +9,9 @@ import org.kuali.common.util.property.Constants;
 
 public class OrgProcessor implements PropertyProcessor {
 
-	String groupId;
-	String groupIdKey;
-	String groupCodeKey;
+	String orgGroupId;
+	String orgGroupIdKey;
+	String orgGroupCodeKey;
 	String projectGroupId;
 	String projectGroupIdKey;
 	String projectGroupCodeKey;
@@ -19,46 +19,62 @@ public class OrgProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
-		String organizationCode = getOrgCode(groupId);
-		String groupCode = getGroupCode(groupId, projectGroupId);
+		String orgGroupCode = getOrgGroupCode(orgGroupId);
+		String projectGroupCode = getProjectGroupCode(orgGroupId, projectGroupId);
 
-		PropertyUtils.addOrOverrideProperty(properties, groupIdKey, groupId, propertyOverwriteMode);
-		PropertyUtils.addOrOverrideProperty(properties, groupCodeKey, organizationCode, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, orgGroupIdKey, orgGroupId, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, orgGroupCodeKey, orgGroupCode, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, projectGroupIdKey, projectGroupId, propertyOverwriteMode);
-		PropertyUtils.addOrOverrideProperty(properties, projectGroupCodeKey, groupCode, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, projectGroupCodeKey, projectGroupCode, propertyOverwriteMode);
 	}
 
-	protected String getOrgCode(String organizationGroupId) {
-		int pos = organizationGroupId.lastIndexOf(".");
-		String organizationCode = organizationGroupId;
+	protected String getOrgGroupCode(String groupId) {
+		int pos = groupId.lastIndexOf(".");
+		String code = groupId;
 		if (pos != -1) {
 			pos++;
-			organizationCode = StringUtils.substring(organizationCode, pos);
+			code = StringUtils.substring(code, pos);
 		}
-		return organizationCode;
+		return code;
 	}
 
-	protected String getGroupCode(String orgId, String groupId) {
-		if (!StringUtils.startsWith(groupId, orgId)) {
-			throw new IllegalArgumentException(groupId + " does not start with " + orgId);
+	protected String getProjectGroupCode(String orgGroupId, String projectGroupId) {
+		if (!StringUtils.startsWith(projectGroupId, orgGroupId)) {
+			throw new IllegalArgumentException(projectGroupId + " does not start with " + orgGroupId);
 		}
-		String groupCode = StringUtils.remove(groupId, orgId);
-		if (StringUtils.startsWith(groupCode, ".")) {
-			groupCode = StringUtils.substring(groupCode, 1);
+		String code = StringUtils.remove(projectGroupId, orgGroupId);
+		if (StringUtils.startsWith(code, ".")) {
+			code = StringUtils.substring(code, 1);
 		}
-		int pos = StringUtils.indexOf(groupCode, ".");
+		int pos = StringUtils.indexOf(code, ".");
 		if (pos != -1) {
-			groupCode = StringUtils.substring(groupCode, 0, pos);
+			code = StringUtils.substring(code, 0, pos);
 		}
-		return groupCode;
+		return code;
 	}
 
-	public String getGroupId() {
-		return groupId;
+	public String getOrgGroupId() {
+		return orgGroupId;
 	}
 
-	public void setGroupId(String organizationId) {
-		this.groupId = organizationId;
+	public void setOrgGroupId(String orgGroupId) {
+		this.orgGroupId = orgGroupId;
+	}
+
+	public String getOrgGroupIdKey() {
+		return orgGroupIdKey;
+	}
+
+	public void setOrgGroupIdKey(String orgGroupIdKey) {
+		this.orgGroupIdKey = orgGroupIdKey;
+	}
+
+	public String getOrgGroupCodeKey() {
+		return orgGroupCodeKey;
+	}
+
+	public void setOrgGroupCodeKey(String orgGroupCodeKey) {
+		this.orgGroupCodeKey = orgGroupCodeKey;
 	}
 
 	public String getProjectGroupId() {
@@ -69,36 +85,20 @@ public class OrgProcessor implements PropertyProcessor {
 		this.projectGroupId = projectGroupId;
 	}
 
-	public String getGroupIdKey() {
-		return groupIdKey;
-	}
-
-	public void setGroupIdKey(String organizationIdKey) {
-		this.groupIdKey = organizationIdKey;
-	}
-
-	public String getGroupCodeKey() {
-		return groupCodeKey;
-	}
-
-	public void setGroupCodeKey(String organizationCodeKey) {
-		this.groupCodeKey = organizationCodeKey;
-	}
-
 	public String getProjectGroupIdKey() {
 		return projectGroupIdKey;
 	}
 
-	public void setProjectGroupIdKey(String groupIdKey) {
-		this.projectGroupIdKey = groupIdKey;
+	public void setProjectGroupIdKey(String projectGroupIdKey) {
+		this.projectGroupIdKey = projectGroupIdKey;
 	}
 
 	public String getProjectGroupCodeKey() {
 		return projectGroupCodeKey;
 	}
 
-	public void setProjectGroupCodeKey(String groupCodeKey) {
-		this.projectGroupCodeKey = groupCodeKey;
+	public void setProjectGroupCodeKey(String projectGroupCodeKey) {
+		this.projectGroupCodeKey = projectGroupCodeKey;
 	}
 
 	public Mode getPropertyOverwriteMode() {
