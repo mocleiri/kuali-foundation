@@ -16,7 +16,21 @@ public class OrgProcessor implements PropertyProcessor {
 	String orgGroupCodeKey;
 	String projectGroupCodeKey;
 
+	String codeSuffix = Constants.DEFAULT_CODE_SUFFIX;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+
+	public OrgProcessor() {
+		this(null, null);
+	}
+
+	public OrgProcessor(String orgGroupIdKey, String projectGroupIdKey) {
+		super();
+		this.orgGroupIdKey = orgGroupIdKey;
+		this.projectGroupIdKey = projectGroupIdKey;
+		this.orgGroupCodeKey = orgGroupIdKey + "." + codeSuffix;
+		this.projectGroupCodeKey = projectGroupIdKey + "." + codeSuffix;
+		this.propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+	}
 
 	@Override
 	public void process(Properties properties) {
@@ -99,6 +113,14 @@ public class OrgProcessor implements PropertyProcessor {
 
 	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
+	}
+
+	public String getCodeSuffix() {
+		return codeSuffix;
+	}
+
+	public void setCodeSuffix(String codeSuffix) {
+		this.codeSuffix = codeSuffix;
 	}
 
 }

@@ -49,6 +49,8 @@ public class DefaultPropertyContext implements PropertyContext {
 	List<String> versionProperties;
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
+	String orgGroupIdKey;
+	String projectGroupIdKey;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> defaultModifiers = new ArrayList<PropertyProcessor>();
@@ -325,6 +327,22 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
 		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
+	}
+
+	public String getOrgGroupIdKey() {
+		return orgGroupIdKey;
+	}
+
+	public void setOrgGroupIdKey(String orgGroupIdKey) {
+		this.orgGroupIdKey = orgGroupIdKey;
+	}
+
+	public String getProjectGroupIdKey() {
+		return projectGroupIdKey;
+	}
+
+	public void setProjectGroupIdKey(String projectGroupIdKey) {
+		this.projectGroupIdKey = projectGroupIdKey;
 	}
 
 }
