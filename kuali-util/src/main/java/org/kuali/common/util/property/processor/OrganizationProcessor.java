@@ -9,21 +9,21 @@ import org.kuali.common.util.property.Constants;
 
 public class OrganizationProcessor implements PropertyProcessor {
 
-	String organizationId;
+	String orgId;
 	String groupId;
-	String organizationIdKey;
-	String organizationCodeKey;
+	String orgIdKey;
+	String orgCodeKey;
 	String groupIdKey;
 	String groupCodeKey;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	@Override
 	public void process(Properties properties) {
-		String organizationCode = getOrgCode(organizationId);
-		String groupCode = getGroupCode(organizationId, groupId);
+		String organizationCode = getOrgCode(orgId);
+		String groupCode = getGroupCode(orgId, groupId);
 
-		PropertyUtils.addOrOverrideProperty(properties, organizationIdKey, organizationId, propertyOverwriteMode);
-		PropertyUtils.addOrOverrideProperty(properties, organizationCodeKey, organizationCode, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, orgIdKey, orgId, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, orgCodeKey, organizationCode, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupIdKey, groupId, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeKey, groupCode, propertyOverwriteMode);
 	}
@@ -53,12 +53,12 @@ public class OrganizationProcessor implements PropertyProcessor {
 		return groupCode;
 	}
 
-	public String getOrganizationId() {
-		return organizationId;
+	public String getOrgId() {
+		return orgId;
 	}
 
-	public void setOrganizationId(String organizationId) {
-		this.organizationId = organizationId;
+	public void setOrgId(String organizationId) {
+		this.orgId = organizationId;
 	}
 
 	public String getGroupId() {
@@ -69,20 +69,20 @@ public class OrganizationProcessor implements PropertyProcessor {
 		this.groupId = projectGroupId;
 	}
 
-	public String getOrganizationIdKey() {
-		return organizationIdKey;
+	public String getOrgIdKey() {
+		return orgIdKey;
 	}
 
-	public void setOrganizationIdKey(String organizationIdKey) {
-		this.organizationIdKey = organizationIdKey;
+	public void setOrgIdKey(String organizationIdKey) {
+		this.orgIdKey = organizationIdKey;
 	}
 
-	public String getOrganizationCodeKey() {
-		return organizationCodeKey;
+	public String getOrgCodeKey() {
+		return orgCodeKey;
 	}
 
-	public void setOrganizationCodeKey(String organizationCodeKey) {
-		this.organizationCodeKey = organizationCodeKey;
+	public void setOrgCodeKey(String organizationCodeKey) {
+		this.orgCodeKey = organizationCodeKey;
 	}
 
 	public String getGroupIdKey() {

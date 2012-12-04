@@ -15,10 +15,10 @@ public class OrganizationProcessorTest {
 
 	protected static OrganizationProcessor getProcessor() {
 		OrganizationProcessor processor = new OrganizationProcessor();
-		processor.setOrganizationId("org.kuali");
+		processor.setOrgId("org.kuali");
 		processor.setGroupId("org.kuali.ole");
-		processor.setOrganizationIdKey("kuali.orgId");
-		processor.setOrganizationCodeKey("kuali.orgCode");
+		processor.setOrgIdKey("kuali.orgId");
+		processor.setOrgCodeKey("kuali.orgCode");
 		processor.setGroupIdKey("kuali.groupId");
 		processor.setGroupCodeKey("kuali.groupCode");
 		return processor;
