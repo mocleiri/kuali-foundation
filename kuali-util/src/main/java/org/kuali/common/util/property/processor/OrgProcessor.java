@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.springframework.util.Assert;
 
 public class OrgProcessor implements PropertyProcessor {
 
@@ -19,8 +20,14 @@ public class OrgProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
+		Assert.notNull(orgGroupIdKey);
+		Assert.notNull(projectGroupIdKey);
+
 		String orgGroupId = properties.getProperty(orgGroupIdKey);
 		String projectGroupId = properties.getProperty(projectGroupIdKey);
+
+		Assert.notNull(orgGroupId);
+		Assert.notNull(projectGroupId);
 
 		String orgGroupCode = getOrgGroupCode(orgGroupId);
 		String projectGroupCode = getProjectGroupCode(orgGroupId, projectGroupId);
