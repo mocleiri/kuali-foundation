@@ -58,6 +58,9 @@
     <property name="versionProperties" ref="versionProperties" />
     <property name="addSystemProperties" ref="addGlobalProperties" />
     <property name="addEnvironmentVariables" ref="addGlobalProperties" />
+    <property name="orgGroupIdKey" value="kuali.groupId" />
+    <property name="projectGroupIdKey" value="kuali.project.groupId" />
+
   </bean>
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />

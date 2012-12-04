@@ -34,14 +34,14 @@ public class OrgProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
-		Assert.notNull(orgGroupIdKey);
-		Assert.notNull(projectGroupIdKey);
+		Assert.notNull(orgGroupIdKey, "orgGroupIdKey is null");
+		Assert.notNull(projectGroupIdKey, "projectGroupIdKey is null");
 
 		String orgGroupId = properties.getProperty(orgGroupIdKey);
 		String projectGroupId = properties.getProperty(projectGroupIdKey);
 
-		Assert.notNull(orgGroupId);
-		Assert.notNull(projectGroupId);
+		Assert.notNull(orgGroupId, "orgGroupId is null");
+		Assert.notNull(projectGroupId, "projectGroupId is null");
 
 		String orgGroupCode = getOrgGroupCode(orgGroupId);
 		String projectGroupCode = getProjectGroupCode(orgGroupId, projectGroupId);

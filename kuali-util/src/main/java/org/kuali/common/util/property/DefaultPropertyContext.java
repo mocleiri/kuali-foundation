@@ -16,6 +16,8 @@ import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
+import org.kuali.common.util.property.processor.HomeProcessor;
+import org.kuali.common.util.property.processor.OrgProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
@@ -53,54 +55,59 @@ public class DefaultPropertyContext implements PropertyContext {
 	String projectGroupIdKey;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
-		List<PropertyProcessor> defaultModifiers = new ArrayList<PropertyProcessor>();
+		List<PropertyProcessor> defaultProcessors = new ArrayList<PropertyProcessor>();
 
 		if (properties != null) {
-			defaultModifiers.add(new AddPropertiesProcessor(properties));
+			defaultProcessors.add(new AddPropertiesProcessor(properties));
 		}
 
 		if (addEnvironmentVariables) {
-			defaultModifiers.add(new AddEnvPropertiesProcessor());
+			defaultProcessors.add(new AddEnvPropertiesProcessor());
 		}
 
 		if (addSystemProperties) {
-			defaultModifiers.add(new AddSystemPropertiesProcessor());
+			defaultProcessors.add(new AddSystemPropertiesProcessor());
 		}
 
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
-			defaultModifiers.add(new ResolvePlaceholdersProcessor(helper));
+			defaultProcessors.add(new ResolvePlaceholdersProcessor(helper));
 		}
 
 		if (!CollectionUtils.isEmpty(pathProperties)) {
-			defaultModifiers.add(new PathProcessor(pathProperties));
+			defaultProcessors.add(new PathProcessor(pathProperties));
 		}
 
 		if (!CollectionUtils.isEmpty(versionProperties)) {
-			defaultModifiers.add(new VersionProcessor(versionProperties));
+			defaultProcessors.add(new VersionProcessor(versionProperties));
 		}
 
-		addEncModifier(defaultModifiers);
+		if (orgGroupIdKey != null && projectGroupIdKey != null) {
+			defaultProcessors.add(new OrgProcessor(orgGroupIdKey, projectGroupIdKey));
+			defaultProcessors.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey));
+		}
+
+		addEncModifier(defaultProcessors);
 
 		if (globalPropertiesOverrideMode != null) {
-			defaultModifiers.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
+			defaultProcessors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
 		}
 
 		if (!StringUtils.isBlank(prefix)) {
-			defaultModifiers.add(new AddPrefixProcessor(prefix));
+			defaultProcessors.add(new AddPrefixProcessor(prefix));
 		}
 
-		addStyleModifier(defaultModifiers);
+		addStyleModifier(defaultProcessors);
 
 		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
 		if (trim) {
-			defaultModifiers.add(new TrimProcessor(includes, excludes));
+			defaultProcessors.add(new TrimProcessor(includes, excludes));
 		}
 
-		return defaultModifiers;
+		return defaultProcessors;
 	}
 
-	protected void addStyleModifier(List<PropertyProcessor> defaultModifiers) {
+	protected void addStyleModifier(List<PropertyProcessor> defaultProcessors) {
 		if (style == null) {
 			return;
 		}
@@ -108,14 +115,14 @@ public class DefaultPropertyContext implements PropertyContext {
 		case NORMAL:
 			return;
 		case ENVIRONMENT_VARIABLE:
-			defaultModifiers.add(new ReformatKeysAsEnvVarsProcessor());
+			defaultProcessors.add(new ReformatKeysAsEnvVarsProcessor());
 			return;
 		default:
 			throw new IllegalArgumentException(style + " is unknown");
 		}
 	}
 
-	protected void addEncModifier(List<PropertyProcessor> defaultModifiers) {
+	protected void addEncModifier(List<PropertyProcessor> defaultProcessors) {
 		if (encryptionMode == null) {
 			return;
 		}
@@ -124,11 +131,11 @@ public class DefaultPropertyContext implements PropertyContext {
 			return;
 		case ENCRYPT:
 			TextEncryptor encryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultModifiers.add(new EndsWithEncryptProcessor(encryptor));
+			defaultProcessors.add(new EndsWithEncryptProcessor(encryptor));
 			return;
 		case DECRYPT:
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultModifiers.add(new EndsWithDecryptProcessor(decryptor));
+			defaultProcessors.add(new EndsWithDecryptProcessor(decryptor));
 			return;
 		default:
 			throw new IllegalArgumentException("Encryption mode '" + encryptionMode + "' is unknown");
@@ -139,11 +146,11 @@ public class DefaultPropertyContext implements PropertyContext {
 	public void initialize(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
-		List<PropertyProcessor> defaultModifiers = getDefaultProcessors();
+		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (this.processors == null) {
-			this.processors = defaultModifiers;
+			this.processors = defaultProcessors;
 		} else {
-			this.processors.addAll(0, defaultModifiers);
+			this.processors.addAll(0, defaultProcessors);
 		}
 	}
 
