@@ -44,7 +44,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
-	List<PropertyProcessor> modifiers;
+	List<PropertyProcessor> processors;
 	List<String> pathProperties;
 	List<String> versionProperties;
 	Properties properties;
@@ -138,10 +138,10 @@ public class DefaultPropertyContext implements PropertyContext {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
 		List<PropertyProcessor> defaultModifiers = getDefaultProcessors();
-		if (this.modifiers == null) {
-			this.modifiers = defaultModifiers;
+		if (this.processors == null) {
+			this.processors = defaultModifiers;
 		} else {
-			this.modifiers.addAll(0, defaultModifiers);
+			this.processors.addAll(0, defaultModifiers);
 		}
 	}
 
@@ -288,11 +288,11 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	@Override
 	public List<PropertyProcessor> getProcessors() {
-		return modifiers;
+		return processors;
 	}
 
-	public void setModifiers(List<PropertyProcessor> modifiers) {
-		this.modifiers = modifiers;
+	public void setProcessors(List<PropertyProcessor> modifiers) {
+		this.processors = modifiers;
 	}
 
 	public List<String> getPathProperties() {
