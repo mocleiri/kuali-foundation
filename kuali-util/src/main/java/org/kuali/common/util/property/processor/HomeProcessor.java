@@ -42,9 +42,9 @@ public class HomeProcessor implements PropertyProcessor {
 	@Override
 	public void process(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
-		String userHome = getResolvedProperty(userHomeKey, global, helper);
-		String orgCode = getResolvedProperty(organizationCodeKey, global, helper);
-		String groupCode = getResolvedProperty(groupCodeKey, global, helper);
+		String userHome = getResolvedValue(userHomeKey, global, helper);
+		String orgCode = getResolvedValue(organizationCodeKey, global, helper);
+		String groupCode = getResolvedValue(groupCodeKey, global, helper);
 
 		String organizationHome = userHome + FS + "." + orgCode;
 		String groupHome = organizationHome + FS + groupCode;
@@ -53,7 +53,7 @@ public class HomeProcessor implements PropertyProcessor {
 		PropertyUtils.addOrOverrideProperty(properties, groupHomeKey, groupHome, propertyOverwriteMode);
 	}
 
-	protected String getResolvedProperty(String key, Properties properties, PropertyPlaceholderHelper helper) {
+	protected String getResolvedValue(String key, Properties properties, PropertyPlaceholderHelper helper) {
 		String original = properties.getProperty(key);
 		String resolved = helper.replacePlaceholders(original, properties);
 		if (!resolved.equals(original)) {
