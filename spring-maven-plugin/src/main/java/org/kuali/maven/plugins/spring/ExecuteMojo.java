@@ -112,9 +112,8 @@ public class ExecuteMojo extends AbstractMojo {
 				return new ClassPathXmlApplicationContext(contextLocation);
 			}
 		}
-		Properties properties = getMavenProperties(project);
-		getLog().info("Filtering [" + contextLocation + "] using " + properties.size() + " properties");
-		String contextContent = getFilteredContextContent(properties, filterIncludes, filterExcludes);
+		Properties mavenProperties = getMavenProperties(project);
+		String contextContent = getFilteredContextContent(mavenProperties, filterIncludes, filterExcludes);
 		String filename = LocationUtils.getFilename(contextLocation);
 		File newFile = new File(workingDir, filename);
 		getLog().info("Creating [" + newFile.getAbsolutePath() + "]");
@@ -133,11 +132,12 @@ public class ExecuteMojo extends AbstractMojo {
 		return properties;
 	}
 
-	protected String getFilteredContextContent(Properties properties, List<String> includes, List<String> excludes) {
-		Properties duplicate = PropertyUtils.getProperties(properties, GlobalPropertiesMode.BOTH);
-		PropertyUtils.trim(duplicate, includes, excludes);
+	protected String getFilteredContextContent(Properties mavenProperties, List<String> includes, List<String> excludes) {
+		Properties global = PropertyUtils.getProperties(mavenProperties, GlobalPropertiesMode.BOTH);
+		PropertyUtils.trim(global, includes, excludes);
 		String originalContextContent = getContextContent(contextLocation, encoding);
-		return helper.replacePlaceholders(originalContextContent, duplicate);
+		getLog().info("Filtering [" + contextLocation + "] using " + mavenProperties.size() + " properties");
+		return helper.replacePlaceholders(originalContextContent, global);
 	}
 
 	protected String getContextContent(String contextLocation, String encoding) {
