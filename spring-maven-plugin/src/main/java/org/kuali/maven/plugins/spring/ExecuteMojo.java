@@ -116,8 +116,8 @@ public class ExecuteMojo extends AbstractMojo {
 		File newFile = new File(workingDir, filename);
 		getLog().info("Creating " + newFile.getAbsolutePath());
 		FileUtils.write(newFile, contextContent);
-		String path = LocationUtils.getCanonicalPath(newFile);
-		return new FileSystemXmlApplicationContext(path);
+		String url = LocationUtils.getURLString(newFile);
+		return new FileSystemXmlApplicationContext(url);
 	}
 
 	protected Properties getMavenProperties(MavenProject project) {
