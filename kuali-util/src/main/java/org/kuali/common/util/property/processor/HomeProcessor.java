@@ -20,9 +20,9 @@ public class HomeProcessor implements PropertyProcessor {
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String userHomeKey = Constants.DEFAULT_USER_HOME_KEY;
-	String organizationCodeKey;
+	String orgCodeKey;
 	String groupCodeKey;
-	String organizationHomeKey;
+	String orgHomeKey;
 	String groupHomeKey;
 
 	public HomeProcessor() {
@@ -43,13 +43,13 @@ public class HomeProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
 		String userHome = getResolvedValue(userHomeKey, global, helper);
-		String orgCode = getResolvedValue(organizationCodeKey, global, helper);
+		String orgCode = getResolvedValue(orgCodeKey, global, helper);
 		String groupCode = getResolvedValue(groupCodeKey, global, helper);
 
 		String organizationHome = userHome + FS + "." + orgCode;
 		String groupHome = organizationHome + FS + groupCode;
 
-		PropertyUtils.addOrOverrideProperty(properties, organizationHomeKey, organizationHome, propertyOverwriteMode);
+		PropertyUtils.addOrOverrideProperty(properties, orgHomeKey, organizationHome, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupHomeKey, groupHome, propertyOverwriteMode);
 	}
 
@@ -86,12 +86,12 @@ public class HomeProcessor implements PropertyProcessor {
 		this.helper = helper;
 	}
 
-	public String getOrganizationCodeKey() {
-		return organizationCodeKey;
+	public String getOrgCodeKey() {
+		return orgCodeKey;
 	}
 
-	public void setOrganizationCodeKey(String organizationCodeKey) {
-		this.organizationCodeKey = organizationCodeKey;
+	public void setOrgCodeKey(String organizationCodeKey) {
+		this.orgCodeKey = organizationCodeKey;
 	}
 
 	public String getGroupCodeKey() {
@@ -102,12 +102,12 @@ public class HomeProcessor implements PropertyProcessor {
 		this.groupCodeKey = groupCodeKey;
 	}
 
-	public String getOrganizationHomeKey() {
-		return organizationHomeKey;
+	public String getOrgHomeKey() {
+		return orgHomeKey;
 	}
 
-	public void setOrganizationHomeKey(String organizationHomeKey) {
-		this.organizationHomeKey = organizationHomeKey;
+	public void setOrgHomeKey(String organizationHomeKey) {
+		this.orgHomeKey = organizationHomeKey;
 	}
 
 	public String getGroupHomeKey() {

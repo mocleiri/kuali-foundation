@@ -13,9 +13,9 @@ public class HomeProcessorTest {
 
 	protected HomeProcessor getHomeProcessor() {
 		HomeProcessor p = new HomeProcessor();
-		p.setOrganizationCodeKey("kuali.orgCode");
+		p.setOrgCodeKey("kuali.orgCode");
 		p.setGroupCodeKey("kuali.groupCode");
-		p.setOrganizationHomeKey("kuali.home");
+		p.setOrgHomeKey("kuali.home");
 		p.setGroupHomeKey("kuali.ole.home");
 		return p;
 	}
