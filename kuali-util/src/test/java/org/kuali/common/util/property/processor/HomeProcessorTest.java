@@ -22,7 +22,7 @@ public class HomeProcessorTest {
 
 	@Test
 	public void testProcess() {
-		OrgProcessor op = OrganizationProcessorTest.getProcessor();
+		OrgProcessor op = OrgProcessorTest.getProcessor();
 		HomeProcessor hp = getHomeProcessor();
 		Properties properties = new Properties();
 		op.process(properties);

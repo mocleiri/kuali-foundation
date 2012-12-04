@@ -8,8 +8,8 @@ import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OrganizationProcessorTest {
-	private static final Logger logger = LoggerFactory.getLogger(OrganizationProcessorTest.class);
+public class OrgProcessorTest {
+	private static final Logger logger = LoggerFactory.getLogger(OrgProcessorTest.class);
 
 	OrgProcessor processor = getProcessor();
 
