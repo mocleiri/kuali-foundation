@@ -49,7 +49,7 @@
             <id>context</id>
             <phase>test</phase>
             <goals>
-              <goal>context</goal>
+              <goal>execute</goal>
             </goals>
             <configuration>
             </configuration>
