@@ -34,6 +34,10 @@
     <value>deploy.version</value>
   </util:list>
 
+  <util:list id="localLocations" value-type="java.lang.String">
+    <value>${kuali.${project.groupId.code}.home}/${project.artifactId}.properties</value>
+  </util:list>
+
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:maven.properties</value>
     <value>classpath:org/kuali/common/util/car.properties</value>
@@ -54,6 +58,7 @@
     <property name="encryptionPassword" ref="encryptionPassword" />
     <property name="service" ref="service" />
     <property name="locations" ref="locations" />
+    <property name="localLocations" ref="localLocations" />
     <property name="pathProperties" ref="pathProperties" />
     <property name="versionProperties" ref="versionProperties" />
     <property name="addSystemProperties" ref="addGlobalProperties" />
