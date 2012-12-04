@@ -35,6 +35,7 @@
   </util:list>
 
   <util:list id="localLocations" value-type="java.lang.String">
+    <value>${kuali.home}/${kuali.groupId.code}.properties</value>
     <value>${kuali.${project.groupId.code}.home}/${project.artifactId}.properties</value>
   </util:list>
 
