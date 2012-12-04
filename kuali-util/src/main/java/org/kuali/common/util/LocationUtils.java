@@ -275,4 +275,16 @@ public class LocationUtils {
 		return loader.getResource(location);
 	}
 
+	public static final String getFilename(String location) {
+		if (location == null) {
+			return null;
+		}
+		if (isExistingFile(location)) {
+			return getFileQuietly(location).getName();
+		} else {
+			Resource resource = getResource(location);
+			return resource.getFilename();
+		}
+	}
+
 }
