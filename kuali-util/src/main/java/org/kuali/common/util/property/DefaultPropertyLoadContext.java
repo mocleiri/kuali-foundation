@@ -56,8 +56,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 			modifiers.add(new VersionProcessor(versionProperties));
 		}
 		if (orgGroupIdKey != null && projectGroupIdKey != null) {
-			modifiers.add(new OrgProcessor());
-			modifiers.add(new HomeProcessor());
+			modifiers.add(new OrgProcessor(orgGroupIdKey, projectGroupIdKey));
+			modifiers.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey));
 		}
 		return modifiers;
 	}
