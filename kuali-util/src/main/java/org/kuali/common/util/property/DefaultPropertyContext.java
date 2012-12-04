@@ -84,7 +84,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		if (orgGroupIdKey != null && projectGroupIdKey != null) {
 			defaultProcessors.add(new OrgProcessor(orgGroupIdKey, projectGroupIdKey));
-			defaultProcessors.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey));
+			defaultProcessors.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey, globalPropertiesOverrideMode));
 		}
 
 		addEncModifier(defaultProcessors);

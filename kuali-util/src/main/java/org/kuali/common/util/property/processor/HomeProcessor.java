@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.springframework.util.Assert;
 
 public class HomeProcessor implements PropertyProcessor {
@@ -13,6 +14,7 @@ public class HomeProcessor implements PropertyProcessor {
 
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	String userHomeKey = Constants.DEFAULT_USER_HOME_KEY;
+	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
 	String orgGroupIdKey;
 	String projectGroupIdKey;
@@ -26,16 +28,17 @@ public class HomeProcessor implements PropertyProcessor {
 	String groupHomeKey;
 
 	public HomeProcessor() {
-		this(null, null);
+		this(null, null, GlobalPropertiesMode.BOTH);
 	}
 
-	public HomeProcessor(String orgGroupIdKey, String projectGroupIdKey) {
+	public HomeProcessor(String orgGroupIdKey, String projectGroupIdKey, GlobalPropertiesMode globalPropertiesOverrideMode) {
 		super();
 		this.orgGroupIdKey = orgGroupIdKey;
 		this.projectGroupIdKey = projectGroupIdKey;
 
 		this.orgGroupCodeKey = orgGroupIdKey + "." + codeSuffix;
 		this.projectGroupCodeKey = projectGroupIdKey + "." + codeSuffix;
+		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
 	}
 
 	@Override
@@ -43,14 +46,15 @@ public class HomeProcessor implements PropertyProcessor {
 		Assert.notNull(userHomeKey);
 		Assert.notNull(orgGroupCodeKey);
 		Assert.notNull(projectGroupCodeKey);
+		Properties duplicate = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 
-		String userHome = properties.getProperty(userHomeKey);
-		String orgGroupCode = properties.getProperty(orgGroupCodeKey);
-		String projectGroupCode = properties.getProperty(projectGroupCodeKey);
+		String userHome = duplicate.getProperty(userHomeKey);
+		String orgGroupCode = duplicate.getProperty(orgGroupCodeKey);
+		String projectGroupCode = duplicate.getProperty(projectGroupCodeKey);
 
-		Assert.notNull(userHome);
-		Assert.notNull(orgGroupCode);
-		Assert.notNull(projectGroupCode);
+		if (userHome == null || orgGroupCode == null || projectGroupCode == null) {
+			return;
+		}
 
 		String orgHome = userHome + FS + "." + orgGroupCode;
 		String groupHome = orgHome + FS + projectGroupCode;
@@ -144,6 +148,14 @@ public class HomeProcessor implements PropertyProcessor {
 
 	public void setHomeSuffix(String homeSuffix) {
 		this.homeSuffix = homeSuffix;
+	}
+
+	public GlobalPropertiesMode getGlobalPropertiesOverrideMode() {
+		return globalPropertiesOverrideMode;
+	}
+
+	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
+		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
 	}
 
 }

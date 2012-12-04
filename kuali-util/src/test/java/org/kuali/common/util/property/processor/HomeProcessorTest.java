@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,17 +13,14 @@ public class HomeProcessorTest {
 	private static final Logger logger = LoggerFactory.getLogger(HomeProcessorTest.class);
 
 	protected HomeProcessor getHomeProcessor() {
-		return new HomeProcessor("kuali.groupId", "kuali.project.groupId");
+		return new HomeProcessor(OrgProcessorTest.KUALI_GROUPID_KEY, OrgProcessorTest.KUALI_PROJECT_GROUPID_KEY, GlobalPropertiesMode.BOTH);
 	}
 
 	@Test
 	public void testProcess() {
 		OrgProcessor op = OrgProcessorTest.getProcessor();
 		HomeProcessor hp = getHomeProcessor();
-		Properties properties = new Properties();
-		properties.setProperty("kuali.groupId", "org.kuali");
-		properties.setProperty("kuali.project.groupId", "org.kuali.ole");
-		properties.setProperty("user.home", System.getProperty("user.home"));
+		Properties properties = OrgProcessorTest.getProperties();
 		op.process(properties);
 		hp.process(properties);
 		showProperties(properties);

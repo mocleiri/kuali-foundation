@@ -14,17 +14,22 @@ public class OrgProcessorTest {
 	OrgProcessor processor = getProcessor();
 
 	protected static final String KUALI_GROUPID_KEY = "kuali.groupId";
-	protected static final String KUALI_PROJECT_GROUPID_KEY = "kuali.project.groupId";
+	protected static final String KUALI_PROJECT_GROUPID_KEY = "project.groupId";
 
 	protected static OrgProcessor getProcessor() {
 		return new OrgProcessor(KUALI_GROUPID_KEY, KUALI_PROJECT_GROUPID_KEY);
 	}
 
-	@Test
-	public void testProcess() {
+	protected static Properties getProperties() {
 		Properties properties = new Properties();
 		properties.setProperty(KUALI_GROUPID_KEY, "org.kuali");
 		properties.setProperty(KUALI_PROJECT_GROUPID_KEY, "org.kuali.ole");
+		return properties;
+	}
+
+	@Test
+	public void testProcess() {
+		Properties properties = getProperties();
 		processor.process(properties);
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {

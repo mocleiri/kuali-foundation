@@ -6,6 +6,8 @@ import java.util.List;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
 import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
+import org.kuali.common.util.property.processor.HomeProcessor;
+import org.kuali.common.util.property.processor.OrgProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
@@ -53,6 +55,12 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		if (versionProperties != null) {
 			processors.add(new VersionProcessor(versionProperties));
 		}
+
+		if (orgGroupIdKey != null && projectGroupIdKey != null) {
+			processors.add(new OrgProcessor(orgGroupIdKey, projectGroupIdKey));
+			processors.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey, globalPropertiesOverrideMode));
+		}
+
 		return processors;
 	}
 

@@ -40,8 +40,9 @@ public class OrgProcessor implements PropertyProcessor {
 		String orgGroupId = properties.getProperty(orgGroupIdKey);
 		String projectGroupId = properties.getProperty(projectGroupIdKey);
 
-		Assert.notNull(orgGroupId, "orgGroupId is null");
-		Assert.notNull(projectGroupId, "projectGroupId is null");
+		if (orgGroupId == null || projectGroupId == null) {
+			return;
+		}
 
 		String orgGroupCode = getOrgGroupCode(orgGroupId);
 		String projectGroupCode = getProjectGroupCode(orgGroupId, projectGroupId);
