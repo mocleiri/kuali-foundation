@@ -136,7 +136,7 @@ public class ExecuteMojo extends AbstractMojo {
 		Properties global = PropertyUtils.getProperties(mavenProperties, GlobalPropertiesMode.BOTH);
 		PropertyUtils.trim(global, includes, excludes);
 		String originalContextContent = getContextContent(contextLocation, encoding);
-		getLog().info("Filtering [" + contextLocation + "] using " + mavenProperties.size() + " properties");
+		getLog().info("Filtering [" + contextLocation + "] using " + global.size() + " properties");
 		return helper.replacePlaceholders(originalContextContent, global);
 	}
 
