@@ -72,12 +72,21 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	 */
 	private boolean resolvePlaceholders;
 
+	/**
+	 * @parameter expression="${properties.includeStandardMavenProperties}" default-value="false"
+	 */
+	private boolean includeStandardMavenProperties;
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Properties properties = new Properties();
 
 		// Add project properties
 		properties.putAll(project.getProperties());
+
+		if (includeStandardMavenProperties) {
+			properties.putAll(getStandardMavenProperties(project));
+		}
 
 		// Add environment variables, overriding any existing properties with the same key
 		if (includeEnvironmentVariables) {
@@ -188,6 +197,14 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
 	public void setResolvePlaceholders(boolean resolvePlaceholders) {
 		this.resolvePlaceholders = resolvePlaceholders;
+	}
+
+	public boolean isIncludeStandardMavenProperties() {
+		return includeStandardMavenProperties;
+	}
+
+	public void setIncludeStandardMavenProperties(boolean includeStandardMavenProperties) {
+		this.includeStandardMavenProperties = includeStandardMavenProperties;
 	}
 
 }
