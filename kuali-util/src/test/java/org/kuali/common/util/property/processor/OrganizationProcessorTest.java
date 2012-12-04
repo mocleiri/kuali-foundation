@@ -17,10 +17,10 @@ public class OrganizationProcessorTest {
 		OrganizationProcessor processor = new OrganizationProcessor();
 		processor.setOrganizationId("org.kuali");
 		processor.setGroupId("org.kuali.ole");
-		processor.setOrganizationIdKey("kuali.organization.id");
-		processor.setOrganizationCodeKey("kuali.organization.code");
-		processor.setGroupIdKey("kuali.group.id");
-		processor.setGroupCodeKey("kuali.group.code");
+		processor.setOrganizationIdKey("kuali.orgId");
+		processor.setOrganizationCodeKey("kuali.orgCode");
+		processor.setGroupIdKey("kuali.groupId");
+		processor.setGroupCodeKey("kuali.groupCode");
 		return processor;
 	}
 

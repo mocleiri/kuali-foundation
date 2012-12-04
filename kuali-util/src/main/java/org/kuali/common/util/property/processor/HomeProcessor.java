@@ -54,10 +54,10 @@ public class HomeProcessor implements PropertyProcessor {
 	}
 
 	protected String getResolvedProperty(String key, Properties properties, PropertyPlaceholderHelper helper) {
-		String original = properties.getProperty(userHomeKey);
+		String original = properties.getProperty(key);
 		String resolved = helper.replacePlaceholders(original, properties);
 		if (!resolved.equals(original)) {
-			logger.debug("Resolved '" + userHomeKey + "' [{}] -> [{}]", Str.flatten(original), Str.flatten(resolved));
+			logger.debug("Resolved '" + key + "' [{}] -> [{}]", Str.flatten(original), Str.flatten(resolved));
 		}
 		return resolved;
 	}

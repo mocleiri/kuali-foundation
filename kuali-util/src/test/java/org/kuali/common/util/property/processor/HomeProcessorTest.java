@@ -13,10 +13,10 @@ public class HomeProcessorTest {
 
 	protected HomeProcessor getHomeProcessor() {
 		HomeProcessor p = new HomeProcessor();
-		p.setOrganizationCodeKey("kuali.organization.id");
+		p.setOrganizationCodeKey("kuali.orgCode");
+		p.setGroupCodeKey("kuali.groupCode");
 		p.setOrganizationHomeKey("kuali.home");
-		p.setGroupCodeKey("kuali.group.code");
-		p.setGroupHomeKey("kuali.${kuali.group.code}.home");
+		p.setGroupHomeKey("kuali.ole.home");
 		return p;
 	}
 
@@ -26,7 +26,6 @@ public class HomeProcessorTest {
 		HomeProcessor hp = getHomeProcessor();
 		Properties properties = new Properties();
 		op.process(properties);
-		showProperties(properties);
 		hp.process(properties);
 		showProperties(properties);
 	}
