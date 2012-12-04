@@ -9,9 +9,6 @@ import org.kuali.common.util.property.Constants;
 
 public class OrgProcessor implements PropertyProcessor {
 
-	String orgGroupId;
-	String projectGroupId;
-
 	String orgGroupIdKey;
 	String projectGroupIdKey;
 
@@ -22,12 +19,13 @@ public class OrgProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
+		String orgGroupId = properties.getProperty(orgGroupIdKey);
+		String projectGroupId = properties.getProperty(projectGroupIdKey);
+
 		String orgGroupCode = getOrgGroupCode(orgGroupId);
 		String projectGroupCode = getProjectGroupCode(orgGroupId, projectGroupId);
 
-		PropertyUtils.addOrOverrideProperty(properties, orgGroupIdKey, orgGroupId, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, orgGroupCodeKey, orgGroupCode, propertyOverwriteMode);
-		PropertyUtils.addOrOverrideProperty(properties, projectGroupIdKey, projectGroupId, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, projectGroupCodeKey, projectGroupCode, propertyOverwriteMode);
 	}
 
@@ -56,14 +54,6 @@ public class OrgProcessor implements PropertyProcessor {
 		return code;
 	}
 
-	public String getOrgGroupId() {
-		return orgGroupId;
-	}
-
-	public void setOrgGroupId(String orgGroupId) {
-		this.orgGroupId = orgGroupId;
-	}
-
 	public String getOrgGroupIdKey() {
 		return orgGroupIdKey;
 	}
@@ -72,28 +62,20 @@ public class OrgProcessor implements PropertyProcessor {
 		this.orgGroupIdKey = orgGroupIdKey;
 	}
 
-	public String getOrgGroupCodeKey() {
-		return orgGroupCodeKey;
-	}
-
-	public void setOrgGroupCodeKey(String orgGroupCodeKey) {
-		this.orgGroupCodeKey = orgGroupCodeKey;
-	}
-
-	public String getProjectGroupId() {
-		return projectGroupId;
-	}
-
-	public void setProjectGroupId(String projectGroupId) {
-		this.projectGroupId = projectGroupId;
-	}
-
 	public String getProjectGroupIdKey() {
 		return projectGroupIdKey;
 	}
 
 	public void setProjectGroupIdKey(String projectGroupIdKey) {
 		this.projectGroupIdKey = projectGroupIdKey;
+	}
+
+	public String getOrgGroupCodeKey() {
+		return orgGroupCodeKey;
+	}
+
+	public void setOrgGroupCodeKey(String orgGroupCodeKey) {
+		this.orgGroupCodeKey = orgGroupCodeKey;
 	}
 
 	public String getProjectGroupCodeKey() {

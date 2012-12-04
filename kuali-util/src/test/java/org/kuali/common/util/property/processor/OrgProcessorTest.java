@@ -15,18 +15,21 @@ public class OrgProcessorTest {
 
 	protected static OrgProcessor getProcessor() {
 		OrgProcessor processor = new OrgProcessor();
-		processor.setOrgGroupId("org.kuali");
-		processor.setProjectGroupId("org.kuali.ole");
+
 		processor.setOrgGroupIdKey("kuali.groupId");
-		processor.setOrgGroupCodeKey("kuali.groupCode");
 		processor.setProjectGroupIdKey("kuali.project.groupId");
+
+		processor.setOrgGroupCodeKey("kuali.groupCode");
 		processor.setProjectGroupCodeKey("kuali.project.groupCode");
+
 		return processor;
 	}
 
 	@Test
 	public void testProcess() {
 		Properties properties = new Properties();
+		properties.setProperty("kuali.groupId", "org.kuali");
+		properties.setProperty("kuali.project.groupId", "org.kuali.ole");
 		processor.process(properties);
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
