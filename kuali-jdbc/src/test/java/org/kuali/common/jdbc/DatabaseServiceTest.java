@@ -35,6 +35,6 @@ public class DatabaseServiceTest {
 			String value = properties.getProperty(key);
 			logger.info(key + "=" + Str.flatten(value));
 		}
-		// service.reset(context);
+		service.reset(context);
 	}
 }
