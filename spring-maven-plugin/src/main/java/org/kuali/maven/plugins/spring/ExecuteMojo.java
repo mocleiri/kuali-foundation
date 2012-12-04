@@ -110,11 +110,11 @@ public class ExecuteMojo extends AbstractMojo {
 			}
 		}
 		Properties properties = getMavenProperties(project);
-		getLog().info("Filtering " + contextLocation + " using " + properties.size() + " properties");
+		getLog().info("Filtering [" + contextLocation + "] using " + properties.size() + " properties");
 		String contextContent = getFilteredContextContent(properties, filterIncludes, filterExcludes);
 		String filename = LocationUtils.getFilename(contextLocation);
 		File newFile = new File(workingDir, filename);
-		getLog().info("Creating " + newFile.getAbsolutePath());
+		getLog().info("Creating [" + newFile.getAbsolutePath() + "]");
 		FileUtils.write(newFile, contextContent);
 		String url = LocationUtils.getURLString(newFile);
 		return new FileSystemXmlApplicationContext(url);
