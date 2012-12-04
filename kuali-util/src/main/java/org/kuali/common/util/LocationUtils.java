@@ -11,6 +11,9 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,6 +60,19 @@ public class LocationUtils {
 			locations.addAll(lines);
 		}
 		return locations;
+	}
+
+	public static final String getURLString(File file) {
+		if (file == null) {
+			return null;
+		}
+		try {
+			URI uri = file.toURI();
+			URL url = uri.toURL();
+			return url.toExternalForm();
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	public static final String getCanonicalPath(File file) {
