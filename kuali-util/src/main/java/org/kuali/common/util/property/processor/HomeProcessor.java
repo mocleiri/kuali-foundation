@@ -13,10 +13,30 @@ public class HomeProcessor implements PropertyProcessor {
 
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	String userHomeKey = Constants.DEFAULT_USER_HOME_KEY;
+
+	String orgGroupIdKey;
+	String projectGroupIdKey;
+
+	String codeSuffix = Constants.DEFAULT_CODE_SUFFIX;
+	String homeSuffix = Constants.DEFAULT_HOME_SUFFIX;
+
 	String orgGroupCodeKey;
 	String projectGroupCodeKey;
 	String orgHomeKey;
 	String groupHomeKey;
+
+	public HomeProcessor() {
+		this(null, null);
+	}
+
+	public HomeProcessor(String orgGroupIdKey, String projectGroupIdKey) {
+		super();
+		this.orgGroupIdKey = orgGroupIdKey;
+		this.projectGroupIdKey = projectGroupIdKey;
+
+		this.orgGroupCodeKey = orgGroupIdKey + "." + codeSuffix;
+		this.projectGroupCodeKey = projectGroupIdKey + "." + codeSuffix;
+	}
 
 	@Override
 	public void process(Properties properties) {
@@ -34,6 +54,13 @@ public class HomeProcessor implements PropertyProcessor {
 
 		String orgHome = userHome + FS + "." + orgGroupCode;
 		String groupHome = orgHome + FS + projectGroupCode;
+
+		if (orgHomeKey == null) {
+			this.orgHomeKey = orgGroupCode + ".home";
+		}
+		if (groupHomeKey == null) {
+			this.groupHomeKey = orgGroupCode + "." + projectGroupCode + ".home";
+		}
 
 		PropertyUtils.addOrOverrideProperty(properties, orgHomeKey, orgHome, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupHomeKey, groupHome, propertyOverwriteMode);
@@ -85,6 +112,38 @@ public class HomeProcessor implements PropertyProcessor {
 
 	public void setGroupHomeKey(String groupHomeKey) {
 		this.groupHomeKey = groupHomeKey;
+	}
+
+	public String getOrgGroupIdKey() {
+		return orgGroupIdKey;
+	}
+
+	public void setOrgGroupIdKey(String orgGroupIdKey) {
+		this.orgGroupIdKey = orgGroupIdKey;
+	}
+
+	public String getProjectGroupIdKey() {
+		return projectGroupIdKey;
+	}
+
+	public void setProjectGroupIdKey(String projectGroupIdKey) {
+		this.projectGroupIdKey = projectGroupIdKey;
+	}
+
+	public String getCodeSuffix() {
+		return codeSuffix;
+	}
+
+	public void setCodeSuffix(String codeSuffix) {
+		this.codeSuffix = codeSuffix;
+	}
+
+	public String getHomeSuffix() {
+		return homeSuffix;
+	}
+
+	public void setHomeSuffix(String homeSuffix) {
+		this.homeSuffix = homeSuffix;
 	}
 
 }
