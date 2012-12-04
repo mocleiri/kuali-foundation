@@ -107,7 +107,9 @@ public class ExecuteMojo extends AbstractMojo {
 		}
 		if (!filterContext) {
 			if (LocationUtils.isExistingFile(contextLocation)) {
-				return new FileSystemXmlApplicationContext(contextLocation);
+				File file = new File(contextLocation);
+				String url = LocationUtils.getURLString(file);
+				return new FileSystemXmlApplicationContext(url);
 			} else {
 				return new ClassPathXmlApplicationContext(contextLocation);
 			}
