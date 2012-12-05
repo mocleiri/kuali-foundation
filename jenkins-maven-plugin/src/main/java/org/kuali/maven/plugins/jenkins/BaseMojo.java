@@ -115,7 +115,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean sshVerbose;
 
 	/**
-	 * For ssh enabled calls, this is port the Jenkins server has been configured to listen for SSH connections on.
+	 * For ssh enabled calls, this is the port the Jenkins server has been configured to listen on for SSH connections.
 	 *
 	 * @parameter expression="${jenkins.sshPort}" default-value="45358"
 	 */
