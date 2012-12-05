@@ -45,7 +45,6 @@ public class ExecuteMojo extends AbstractMojo {
 	 * Character encoding for the context XML file
 	 *
 	 * @parameter expression="${spring.encoding}" default-value="${project.build.sourceEncoding}"
-	 * @required
 	 */
 	private String encoding;
 
