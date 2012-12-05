@@ -40,6 +40,7 @@
     <parent.groupId>${project.parent.groupId}</parent.groupId>
     <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
     <parent.version>${project.parent.version}</parent.version>
+    <ant.phase>none</ant.phase>
   </properties>
   <profiles>
     <profile>
@@ -69,7 +70,7 @@
               -->
               <execution>
                 <id>run</id>
-                <phase>process-resources</phase>
+                <phase>${ant.phase}</phase>
                 <goals>
                   <goal>run</goal>
                 </goals>
@@ -84,5 +85,12 @@
       </build>
     </profile>
   </profiles>
+  <dependencies>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-jdbc</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
 </project>
               
