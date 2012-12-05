@@ -26,88 +26,88 @@ import java.util.Map;
  */
 public class RunJobMojo extends SimpleJobMojo {
 
-    /**
-     * The Jenkins CLI command for running a job
-     *
-     * @parameter expression="${jenkins.cmd}" default-value="build"
-     * @required
-     */
-    private String cmd;
+	/**
+	 * The Jenkins CLI command for running a job
+	 *
+	 * @parameter expression="${jenkins.cmd}" default-value="build"
+	 * @required
+	 */
+	private String cmd;
 
-    /**
-     * If true, wait for the job to complete before continuing.
-     *
-     * @parameter expression="${jenkins.wait}" default-value="false"
-     * @required
-     */
-    private boolean wait;
+	/**
+	 * If true, wait for the job to complete before continuing.
+	 *
+	 * @parameter expression="${jenkins.wait}" default-value="true"
+	 * @required
+	 */
+	private boolean wait;
 
-    /**
-     * If true, check for changes before running the job. If nothing has changed, do not run the job.
-     *
-     * @parameter expression="${jenkins.skipIfNoChanges}" default-value="false"
-     * @required
-     */
-    private boolean skipIfNoChanges;
+	/**
+	 * If true, check for changes before running the job. If nothing has changed, do not run the job.
+	 *
+	 * @parameter expression="${jenkins.skipIfNoChanges}" default-value="false"
+	 * @required
+	 */
+	private boolean skipIfNoChanges;
 
-    /**
-     * Comma delimited list of key=value pairs to pass to the Jenkins job as build parameters
-     *
-     * @parameter expression="${jenkins.params}"
-     */
-    private String params;
+	/**
+	 * Comma delimited list of key=value pairs to pass to the Jenkins job as build parameters
+	 *
+	 * @parameter expression="${jenkins.params}"
+	 */
+	private String params;
 
-    /**
-     * key=value pairs to pass to the Jenkins job as build parameters
-     *
-     * @parameter
-     */
-    private Map<String, String> paramMap;
+	/**
+	 * key=value pairs to pass to the Jenkins job as build parameters
+	 *
+	 * @parameter
+	 */
+	private Map<String, String> paramMap;
 
-    @Override
-    protected void executeMojo() {
-        helper.execute(this);
-    }
+	@Override
+	protected void executeMojo() {
+		helper.execute(this);
+	}
 
-    public boolean isWait() {
-        return wait;
-    }
+	public boolean isWait() {
+		return wait;
+	}
 
-    public void setWait(boolean wait) {
-        this.wait = wait;
-    }
+	public void setWait(boolean wait) {
+		this.wait = wait;
+	}
 
-    public boolean isSkipIfNoChanges() {
-        return skipIfNoChanges;
-    }
+	public boolean isSkipIfNoChanges() {
+		return skipIfNoChanges;
+	}
 
-    public void setSkipIfNoChanges(boolean skipIfNoChanges) {
-        this.skipIfNoChanges = skipIfNoChanges;
-    }
+	public void setSkipIfNoChanges(boolean skipIfNoChanges) {
+		this.skipIfNoChanges = skipIfNoChanges;
+	}
 
-    public Map<String, String> getParamMap() {
-        return paramMap;
-    }
+	public Map<String, String> getParamMap() {
+		return paramMap;
+	}
 
-    public void setParamMap(Map<String, String> paramMap) {
-        this.paramMap = paramMap;
-    }
+	public void setParamMap(Map<String, String> paramMap) {
+		this.paramMap = paramMap;
+	}
 
-    public String getParams() {
-        return params;
-    }
+	public String getParams() {
+		return params;
+	}
 
-    public void setParams(String params) {
-        this.params = params;
-    }
+	public void setParams(String params) {
+		this.params = params;
+	}
 
-    @Override
-    public String getCmd() {
-        return cmd;
-    }
+	@Override
+	public String getCmd() {
+		return cmd;
+	}
 
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
-    }
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
+	}
 
 }
