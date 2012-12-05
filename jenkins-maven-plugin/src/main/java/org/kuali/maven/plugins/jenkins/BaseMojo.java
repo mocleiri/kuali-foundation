@@ -93,9 +93,9 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean stopOnError;
 
 	/**
-	 * If true, the version of the Maven project is dropped from the job name
+	 * If true, the version of the Maven project is not included in the job name
 	 *
-	 * @parameter expression="${jenkins.excludeVersion}" default-value="false"
+	 * @parameter expression="${jenkins.excludeVersion}" default-value="true"
 	 * @required
 	 */
 	private boolean excludeVersion;
