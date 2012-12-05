@@ -316,7 +316,11 @@ public class ConvertCloverETLMojo extends BaseMojo {
 			for (int j = 0; j < columns.size(); j++) {
 				String column = columns.get(j);
 				String value = row[j];
-				sb.append(" " + column + "=" + '"' + value + '"');
+				if (value == null || "".equals(value)) {
+					continue;
+				} else {
+					sb.append(" " + column + "=" + '"' + value + '"');
+				}
 			}
 			sb.append(" />\n");
 		}
