@@ -33,6 +33,8 @@ public class ExecuteMojo extends AbstractMojo {
 	LocationService locationService = new LocationService();
 
 	/**
+	 * Maven project
+	 *
 	 * @parameter default-value="${project}"
 	 * @required
 	 * @readonly
@@ -40,24 +42,33 @@ public class ExecuteMojo extends AbstractMojo {
 	private MavenProject project;
 
 	/**
+	 * Character encoding for the context
+	 *
 	 * @parameter expression="${spring.encoding}" default-value="${project.build.sourceEncoding}"
 	 * @required
 	 */
 	private String encoding;
 
 	/**
+	 * Location of a Spring context XML file. This can be any URL Spring's Resource loading framework understands eg
+	 * <code>classpath:mycontext.xml</code>
+	 *
 	 * @parameter expression="${spring.contextLocation}" default-value="classpath:${project.artifactId}-context.xml"
 	 * @required
 	 */
 	private String contextLocation;
 
 	/**
+	 * Spring managed bean that implements <code>Executable</code>
+	 *
 	 * @parameter expression="${spring.executableBean}" default-value="executable"
 	 * @required
 	 */
 	private String executableBean;
 
 	/**
+	 * Working directory for the plugin.
+	 *
 	 * @parameter expression="${spring.workingDir}" default-value="${project.build.directory}/spring"
 	 * @required
 	 */
