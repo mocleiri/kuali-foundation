@@ -244,8 +244,11 @@ public class JenkinsHelper {
 		}
 	}
 
-	protected Map<String, String> getSshOptions(int port) {
+	protected Map<String, String> getSshOptions(int port, boolean verbose) {
 		Map<String, String> options = new HashMap<String, String>();
+		if (verbose) {
+			options.put("v", "");
+		}
 		options.put("p", port + "");
 		return options;
 	}
@@ -519,7 +522,7 @@ public class JenkinsHelper {
 			List<String> cliArgs = new ArrayList<String>();
 			cliArgs.add(url);
 			cliArgs.addAll(args);
-			Map<String, String> options = getSshOptions(mojo.getSshPort());
+			Map<String, String> options = getSshOptions(mojo.getSshPort(), mojo.isSshVerbose());
 			return sshHelper.execute(options, cliArgs, input);
 		} else {
 			String[] cliArgs = getCliArgs(url, args);

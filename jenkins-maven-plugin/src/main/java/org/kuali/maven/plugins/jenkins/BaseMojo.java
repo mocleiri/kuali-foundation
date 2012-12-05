@@ -111,6 +111,13 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean sshEnabled;
 
 	/**
+	 * If true, ssh is executed with <code>-v</code>. Useful for troubleshooting ssh issues
+	 *
+	 * @parameter expression="${jenkins.sshVerbose}" default-value="false"
+	 */
+	private boolean sshVerbose;
+
+	/**
 	 * For ssh enabled calls, indicates port that Jenkins SSH has been configured to listen on
 	 *
 	 * @parameter expression="${jenkins.sshPort}" default-value="45358"
@@ -348,6 +355,14 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public boolean isSshVerbose() {
+		return sshVerbose;
+	}
+
+	public void setSshVerbose(boolean sshVerbose) {
+		this.sshVerbose = sshVerbose;
 	}
 
 }
