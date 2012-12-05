@@ -252,6 +252,10 @@ function count_organizations()
     <td><div  align="center">
         <div id="workarea">
           
+          
+          	
+          
+          
           <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Online Review: Inez Chew</td>
@@ -259,39 +263,458 @@ function count_organizations()
               <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
             </tr>
           </table>
-          
-        <div class="tab-container" align="center" id="G262" style="display: block;">
-            <div class="tab-container-error">
+        
+        <!-- Document Overview -->
+        <div class="tab-container" align="center" style="display: block;">
+            
+            <!-- Document Overview -->
+            <div class="tab-container-error"></div>
+            <div class="h2-container" style="height:20px; margin-top:1px;">
+                <h2>
+                    <img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="control_01" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#control_01").toggle(
+                                function()
+                                {
+                                    $("#div_01").slideDown(400);
+                                    $("#control_01").html("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#div_01").slideUp(200);
+                                    $("#control_01").html("src","../images/tinybutton-show.gif");
+                                }
+                            );	
+                        });
+                    </script> 
+                    Document Overview
+                </h2>
             </div>
-            <div class="h2-container">
-            	<h2>Document Overview</h2>
-            </div>
-            <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+            <table id="div_01" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:none;">
                 <tbody>
-                	<tr>
-                		<th>
-                			x
-                		</th>
-                		<td>
-                        	y
-                		</td>
-                		<th>
-                			x
-                		</th>
-                		<td>
-                        	y
-                		</td>
+                    <tr>
+                        <td>
+                            [Mock Note: typical 'document overview' stuff here.]
+                        </td>
                     </tr>
                 </tbody>
             </table>
+        
+        	<!-- Online Review -->
+            <div class="tab-container-error"></div>
+            <div class="h2-container" style="height:20px; margin-top:1px;">
+                <h2>
+                    <img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="control_02" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#control_02").toggle(
+                                function()
+                                {
+                                    $("#div_02").slideDown(400);
+                                    $("#control_02").html("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#div_02").slideUp(200);
+                                    $("#control_02").html("src","../images/tinybutton-show.gif");
+                                }
+                            );	
+                        });
+                    </script> 
+                    Online Review
+                </h2>
+            </div>
+            <table id="div_02" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:none;">
+                <tbody>
+                    <tr>
+                        <th style="text-align:right; width:220px;">
+                            Reviewer:
+                        </th>
+                        <td>
+                            Inez Chew
+                        </td>
+                        <th style="text-align:right; width:115px;">
+                            Requested Date:
+                        </th>
+                        <td>
+                            12/01/2012
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">
+                            Status:
+                        </th>
+                        <td>
+                            SAVED
+                        </td>
+                        <th style="text-align:right;">
+                            Due Date:
+                        </th>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right;">
+                            Determination Recommendation:
+                        </th>
+                        <td>
+                            <select>
+                            	<option>select</option>
+                                <option>option 1</option>
+                                <option>option 2</option>
+                            </select>
+                        </td>
+                        <th style="text-align:right;">
+                            Reviewer Type:
+                        </th>
+                        <td>
+                            secondary
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        	<!-- Review Comments -->
+            <div class="tab-container-error"></div>
+            <div class="h2-container" style="height:20px; margin-top:1px;">
+                <h2>
+                    <img src="../images/tinybutton-hide.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="control_03" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#control_03").toggle(
+                                function()
+                                {
+                                    $("#div_03").slideUpn(400);
+                                    $("#control_03").html("src","../images/tinybutton-showe.gif");
+                                },
+                                function()
+                                {
+                                    $("#div_03").slideDown(200);
+                                    $("#control_03").html("src","../images/tinybutton-hide.gif");
+                                }
+                            );	
+                        });
+                    </script> 
+                    Review Comments
+                </h2>
+            </div>
+            <table id="div_03" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:block;">
+                <tbody >
+                <tr>
+                    <th style="border-left:none;">&nbsp;
+                        
+                    </th>
+                    <th style="text-align:center;">
+                        Comment
+                    </th>
+                    <th style="text-align:center; min-width:125px;">
+                        Last Updated By
+                    </th>
+                    <th style="text-align:center; min-width:125px;">
+                        Created By
+                    </th>
+                    <th style="text-align:center; width:100px;">
+                        Actions
+                    </th>
+                </tr>
+                <tr>
+                    <th style="border-left:none; width:50px; text-align:center;">
+                        add:
+                    </th>
+                    <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                        
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                    Context/Panel:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    <select id="789" style="width:100%;">
+                                        <option value="0" selected="selected">select</option>
+                                        <option value="1">Organizations</option>
+                                        <option value="2">Funding Sources</option>
+                                        <option value="3">Funding Sources</option>
+                                    </select>
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                    Standard Comment:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    <select style="width:100%;">
+                                        <option value="0">select</option>
+                                        <option value="1" selected="selected">label one</option>
+                                        <option value="2">label two</option>
+                                    </select>
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none;" colspan="2">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                        
+                    </td>
+                    <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                        
+                    </td>
+                    <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                        <img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th style="border-left:none; text-align:center;">
+                        1
+                    </th>
+                    <td>
+                    
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; width:85px; font-weight:bold;" class="fineprint">
+                                    Context/Panel:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    <select id="456" style="width:100%;">
+                                        <option value="0">select</option>
+                                        <option value="1" selected="selected">Organizations</option>
+                                        <option value="2">Funding Sources</option>
+                                        <option value="3">Funding Sources</option>
+                                    </select>
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none;" colspan="2">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam accumsan orci sed commodo. Cras mattis malesuada cursus... 
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table> 
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; width:85px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                    Response:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                Some cleaver excuse why it can not be done and will require more money.
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table> 
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td>
+                        Reveiwerson, Joseph </td>
+                    <td>
+                        Reveiwerson, Joseph </td>
+                    <td style="text-align:center;">
+                        <!--<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />-->
+                        <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                        <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th style="border-left:none; text-align:center;">
+                        2
+                    </th>
+                    <td>
+                    
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; width:85px; font-weight:bold;" class="fineprint">
+                                    Context/Panel:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    <select id="123" style="width:100%;">
+                                        <option value="0">select</option>
+                                        <option value="1">Organizations</option>
+                                        <option value="2" selected="selected">Funding Sources</option>
+                                        <option value="3">Funding Sources</option>
+                                    </select>
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none;" colspan="2">
+                                    Nulla pharetra nisi ut urna ullamcorper eget blandit metus feugiat. Suspendisse non libero purus, non fringilla eros. Donec... 
+                                </td>
+                                <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; width:85px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                    Response:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    
+                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                
+                                            </td>
+                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                            </td>
+                                        </tr>
+                                    </table> 
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                    <td>
+                        Reveiwerson, Joseph </td>
+                    <td>
+                        Reveiwerson, Joseph </td>
+                    <td style="text-align:center;">
+                        <img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                        <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                        <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                    </td>
+                </tr>
+                
+            </table>
+        
+        	<!-- Review Attachment -->
+            <div class="tab-container-error"></div>
+            <div class="h2-container" style="height:20px; margin-top:1px;">
+                <h2>
+                    <img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="control_04" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#control_04").toggle(
+                                function()
+                                {
+                                    $("#div_04").slideDown(400);
+                                    $("#control_04").html("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#div_04").slideUp(200);
+                                    $("#control_04").html("src","../images/tinybutton-show.gif");
+                                }
+                            );	
+                        });
+                    </script> 
+                    Review Attachment
+                </h2>
+            </div>
+            <table id="div_04" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:none;">
+                <tbody>
+                    <tr>
+                        <th style="width:30px;">&nbsp;
+                            
+                        </th>
+                        <th>
+                            *Description
+                        </th>
+                        <th style="width:190px;">
+                            *File Name
+                        </th>
+                        <th style="width:70px;">
+                            Actions
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="infoline" style="font-weight:bold; text-align:center;">
+                            add
+                        </td>
+                        <td class="infoline" style="text-align:center;">
+                            
+                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none; background:none;">
+                                        <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                                    </td>
+                                    <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                        <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                        <td style="text-align:center;">
+                        	<input type="file" style="width:200px;" />
+                        </td>
+                        <td style="text-align:center;">
+                            <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('This would add the indicated record.'); return false" style="border:none;" alt="add" title="Add" type="image" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        	<!-- Protocol Review Actions -->
+            <div class="tab-container-error"></div>
+            <div class="h2-container" style="height:20px; margin-top:1px;">
+                <h2>
+                    <img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="control_05" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#control_05").toggle(
+                                function()
+                                {
+                                    $("#div_05").slideDown(400);
+                                    $("#control_05").html("src","../images/tinybutton-hide.gif");
+                                },
+                                function()
+                                {
+                                    $("#div_05").slideUp(200);
+                                    $("#control_05").html("src","../images/tinybutton-show.gif");
+                                }
+                            );	
+                        });
+                    </script> 
+                    Protocol Review Actions
+                </h2>
+            </div>
+            <table id="div_05" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:none;">
+                <tbody>
+                    <tr>
+                        <td style="text-align:center; padding:8px;">
+                            <img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" style="cursor:pointer;">
+                            <img src="../images/buttonsmall_approvereview.gif" alt="approve review" width="110" height="18" hspace="5" border="0" style="cursor:pointer;">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
         </div>
-          
-          
-          
-          
-          
-          
-          
           
           <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
             <tr>
@@ -300,22 +723,8 @@ function count_organizations()
             </tr>
           </table>
         </div>
-        <div align="right"><br>
-          * required </div>
         <div class="globalbuttons">
-        	
-            <img id="globalsave" src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" style="cursor:pointer;">
-            <script type="text/javascript" language="javascript">
-				$(document).ready(function() {
-		
-					$('#globalsave').click(function() {
-						savebutton();
-					});
-					
-				});
-			</script>
-            
-            <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0"></a> </div>
+            <a href="#"><img src="../images/buttonsmall_reload.gif" alt="reload" width="75" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_close.gif" alt="close" width="48" height="18" hspace="5" border="0"></a> </div>
       </div></td>
     <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
   </tr>

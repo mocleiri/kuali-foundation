@@ -292,3 +292,56 @@ Page
 		);	
 	});
 </script>                
+
+
+<!-- standard vertical tab -->
+
+
+<!-- Document Overview -->
+<div class="tab-container" align="center" style="display: block;"> <!-- wraps ALL tabs -->
+    
+    <!-- Tab Name -->
+    <div class="tab-container-error"></div>
+    <div class="h2-container" style="height:20px; margin-top:1px;">
+        <h2>
+            <img src="../images/tinybutton-show.gif" alt="show/hide this panel" width="45" height="15" border="0" align="absmiddle" id="control_02" />
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $("#control_02").toggle(
+                        function()
+                        {
+                            $("#div_02").slideDown(400);
+                            $("#control_02").html("src","../images/tinybutton-hide.gif");
+                        },
+                        function()
+                        {
+                            $("#div_02").slideUp(200);
+                            $("#control_02").html("src","../images/tinybutton-show.gif");
+                        }
+                    );	
+                });
+            </script> 
+            Tab Name
+        </h2>
+    </div>
+    <table id="div_02" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:none;">
+        <tbody>
+            <tr>
+                <th>
+                    x
+                </th>
+                <td>
+                    y
+                </td>
+                <th>
+                    x
+                </th>
+                <td>
+                    y
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+
