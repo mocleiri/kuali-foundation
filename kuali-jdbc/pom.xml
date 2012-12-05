@@ -97,25 +97,25 @@
       <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <!--
+      <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-master-sql</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-rice-sql</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-liquibase-sql</artifactId>
       <version>0.8.0-n-SNAPSHOT</version>
       <scope>test</scope>
-    </dependency>
-    <!--
+      </dependency>
       <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-deploy</artifactId>
@@ -136,9 +136,6 @@
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <!--
-            <include>**/*-context.xml</include>
-          -->
           <include>**/*.properties</include>
         </includes>
       </testResource>
@@ -146,9 +143,6 @@
         <directory>src/test/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <!--
-            <exclude>**/*-context.xml</exclude>
-          -->
           <exclude>**/*.properties</exclude>
         </excludes>
       </testResource>
