@@ -15,34 +15,36 @@
  */
 package org.kuali.maven.plugins.jenkins.helper;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.maven.plugins.jenkins.context.ProcessResult;
 
-
 public abstract class ExecutableHelper {
-	
-    ProcessHelper helper = new ProcessHelper();
+
+	ProcessHelper helper = new ProcessHelper();
 
 	public abstract String getExecutable();
-	
+
 	public List<String> buildArgumentListFromMap(Map<String, String> options) {
 		List<String> list = new ArrayList<String>();
-		for(String key : options.keySet()) {
+		for (String key : options.keySet()) {
+			String value = options.get(key);
 			list.add(key.startsWith("-") ? key : "-" + key);
-			list.add(options.get(key));
+			if (!StringUtils.isBlank(value)) {
+				list.add(options.get(key));
+			}
 		}
 		return list;
 	}
-	
+
 	public ProcessResult execute(Map<String, String> options, List<String> args, String input) {
 		String[] arr = {};
 		List<String> list = buildArgumentListFromMap(options);
-		list.addAll(args);		
-		String [] sArgs = list.toArray(arr);
-        return helper.execute(getExecutable(), sArgs, input);
+		list.addAll(args);
+		String[] sArgs = list.toArray(arr);
+		return helper.execute(getExecutable(), sArgs, input);
 	}
 }

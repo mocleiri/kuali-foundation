@@ -586,9 +586,9 @@ public class JenkinsHelper {
 		sb.append("cmd: " + cmd + "\n");
 		sb.append("result: " + exitValue + "\n");
 		sb.append("input: " + getInputErrorMessage(mojo, context.getInput()) + "\n");
-		if (exitValue != NO_SUCH_COMMAND) {
-			sb.append("details: " + result.getOutput());
-		}
+		// if (exitValue != NO_SUCH_COMMAND) {
+		sb.append("details: " + result.getOutput());
+		// }
 		return sb.toString();
 	}
 
