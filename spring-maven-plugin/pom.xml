@@ -41,9 +41,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</url>
   </scm>
   <build>
     <testResources>
