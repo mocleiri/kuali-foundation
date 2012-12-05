@@ -42,7 +42,7 @@ public class ExecuteMojo extends AbstractMojo {
 	private MavenProject project;
 
 	/**
-	 * Character encoding for the context
+	 * Character encoding for the context XML file
 	 *
 	 * @parameter expression="${spring.encoding}" default-value="${project.build.sourceEncoding}"
 	 * @required
@@ -70,7 +70,6 @@ public class ExecuteMojo extends AbstractMojo {
 	 * Working directory for the plugin.
 	 *
 	 * @parameter expression="${spring.workingDir}" default-value="${project.build.directory}/spring"
-	 * @required
 	 */
 	private File workingDir;
 
@@ -78,7 +77,6 @@ public class ExecuteMojo extends AbstractMojo {
 	 * If true <code>contextLocation</code> is filtered before being loaded
 	 *
 	 * @parameter expression="${spring.filterContext}" default-value="false"
-	 * @required
 	 */
 	private boolean filterContext;
 
