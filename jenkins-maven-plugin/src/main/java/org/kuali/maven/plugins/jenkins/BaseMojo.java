@@ -102,7 +102,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean excludeVersion;
 
 	/**
-	 * If true, Maven will issue ssh calls instead of jenkins-cli calls
+	 * If true, Maven will issue Jenkins CLI commands over <code>ssh</code> instead of via <code>java -jar jenkins-cli.jar</code>
 	 *
 	 * @parameter expression="${jenkins.sshEnabled}" default-value="true"
 	 */
