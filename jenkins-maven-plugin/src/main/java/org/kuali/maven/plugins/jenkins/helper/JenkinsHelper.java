@@ -244,12 +244,12 @@ public class JenkinsHelper {
 		}
 	}
 
-	
 	protected Map<String, String> getSshOptions(String port) {
-		HashMap<String, String> options = new HashMap<String, String>();
+		Map<String, String> options = new HashMap<String, String>();
 		options.put("p", port);
 		return options;
 	}
+
 	protected String[] getCliArgs(String url, List<String> args) {
 		List<String> list = new ArrayList<String>();
 		list.add(SERVER_ARG);
@@ -496,18 +496,18 @@ public class JenkinsHelper {
 		}
 		handleResults(results, mojo);
 	}
-	
+
 	protected ProcessResult executeCli(BaseMojo mojo, File jar, String url, Command cmd) {
 		String input = getInput(cmd);
 		return executeCli(mojo, jar, url, cmd.getArgs(), input);
 	}
 
 	protected ProcessResult executeCli(BaseMojo mojo, File jar, String url, List<String> args, String input) {
-		if(mojo.isSshEnabled()) {
+		if (mojo.isSshEnabled()) {
 			List<String> cliArgs = new ArrayList<String>();
 			cliArgs.add(url);
 			cliArgs.addAll(args);
-			Map<String, String> options = getSshOptions(Integer.toString(mojo.getSshPort()));		
+			Map<String, String> options = getSshOptions(Integer.toString(mojo.getSshPort()));
 			return sshHelper.execute(options, cliArgs, input);
 		} else {
 			String[] cliArgs = getCliArgs(url, args);

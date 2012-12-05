@@ -53,7 +53,7 @@ public class CliMojo extends BaseMojo {
 	/**
 	 * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
 	 *
-	 * If 'cmds' is provided 'cmd' is ignored
+	 * If <code>cmds</code> is provided <code>cmd</code> is ignored
 	 *
 	 * @parameter
 	 */
