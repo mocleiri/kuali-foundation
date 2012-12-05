@@ -26,74 +26,74 @@ import java.util.List;
  */
 public class CliMojo extends BaseMojo {
 
-    /**
-     * Jenkins CLI command to issue eg "help", "version", "who-ami-i", "build my-job -c -s" etc
-     *
-     * @parameter expression="${jenkins.cmd}" default-value="version"
-     * @required
-     */
-    private String cmd;
+	/**
+	 * Jenkins CLI command to issue eg "help", "version", "who-ami-i", "build my-job -c -s" etc
+	 *
+	 * @parameter expression="${jenkins.cmd}" default-value="version"
+	 * @required
+	 */
+	private String cmd;
 
-    /**
-     * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
-     *
-     * @parameter expression="${jenkins.stdin}"
-     */
-    private String stdin;
+	/**
+	 * Anything supplied here is provided as input to the standard input stream of Jenkins CLI
+	 *
+	 * @parameter expression="${jenkins.stdin}"
+	 */
+	private String stdin;
 
-    /**
-     * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other
-     * url Spring 3.0 resource loading can understand. If supplied, the content of the url is provided as input to the
-     * standard input stream of Jenkins CLI. If 'stdinUrl' is supplied 'stdin' is ignored.
-     *
-     * @parameter expression="${jenkins.stdinUrl}"
-     */
-    private String stdinUrl;
+	/**
+	 * This can be a file on the file system, a classpath resource using Spring's "classpath:" notation, or any other url Spring 3.0
+	 * resource loading can understand. If supplied, the content of the url is provided as input to the standard input stream of Jenkins
+	 * CLI. If <code>stdinUrl</code> is supplied <code>stdin</code> is ignored.
+	 *
+	 * @parameter expression="${jenkins.stdinUrl}"
+	 */
+	private String stdinUrl;
 
-    /**
-     * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
-     *
-     * If 'cmds' is provided 'cmd' is ignored
-     *
-     * @parameter
-     */
-    private List<Command> commands;
+	/**
+	 * List of commands to issue to Jenkins CLI eg "help", "version", "who-ami-i" etc
+	 *
+	 * If 'cmds' is provided 'cmd' is ignored
+	 *
+	 * @parameter
+	 */
+	private List<Command> commands;
 
-    @Override
-    protected void executeMojo() {
-        helper.execute(this);
-    }
+	@Override
+	protected void executeMojo() {
+		helper.execute(this);
+	}
 
-    public String getCmd() {
-        return cmd;
-    }
+	public String getCmd() {
+		return cmd;
+	}
 
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
-    }
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
+	}
 
-    public String getStdin() {
-        return stdin;
-    }
+	public String getStdin() {
+		return stdin;
+	}
 
-    public void setStdin(String stdin) {
-        this.stdin = stdin;
-    }
+	public void setStdin(String stdin) {
+		this.stdin = stdin;
+	}
 
-    public String getStdinUrl() {
-        return stdinUrl;
-    }
+	public String getStdinUrl() {
+		return stdinUrl;
+	}
 
-    public void setStdinUrl(String stdinUrl) {
-        this.stdinUrl = stdinUrl;
-    }
+	public void setStdinUrl(String stdinUrl) {
+		this.stdinUrl = stdinUrl;
+	}
 
-    public List<Command> getCommands() {
-        return commands;
-    }
+	public List<Command> getCommands() {
+		return commands;
+	}
 
-    public void setCommands(List<Command> commands) {
-        this.commands = commands;
-    }
+	public void setCommands(List<Command> commands) {
+		this.commands = commands;
+	}
 
 }

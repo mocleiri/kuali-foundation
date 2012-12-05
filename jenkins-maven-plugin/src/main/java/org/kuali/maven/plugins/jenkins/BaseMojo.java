@@ -146,8 +146,8 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	/**
 	 * Comma separated list of known job types. When specifying a job name these can be used as shorthand for the fully qualified job name.
-	 * eg "publish" gets expanded to "jenkins-maven-plugin-publish". To turn off expansion set 'jobTypes' to the empty string, null, or
-	 * 'NONE'
+	 * eg "publish" gets expanded to "jenkins-maven-plugin-publish". To turn off expansion set <code>jobTypes</code> to the empty string,
+	 * <code>null</code>, or <code>NONE</code>
 	 *
 	 * @parameter expression="${jenkins.jobTypes}" default-value="publish,unit,license,release"
 	 * @required
