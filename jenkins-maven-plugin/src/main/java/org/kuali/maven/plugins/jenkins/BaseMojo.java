@@ -58,7 +58,6 @@ public abstract class BaseMojo extends AbstractMojo {
 	 * The DNS name of a Jenkins instance to connect to (used when ssh is enabled)
 	 *
 	 * @parameter expression="${jenkins.hostname}"
-	 * @required
 	 */
 	private String hostname;
 
@@ -66,7 +65,6 @@ public abstract class BaseMojo extends AbstractMojo {
 	 * Username for an account on the Jenkins instance (used when ssh is enabled)
 	 *
 	 * @parameter expression="${jenkins.username}" default-value="${user.name}"
-	 * @required
 	 */
 	private String username;
 
