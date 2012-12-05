@@ -47,12 +47,28 @@ public abstract class BaseMojo extends AbstractMojo {
 	private List<Artifact> pluginArtifacts;
 
 	/**
-	 * The Jenkins instance to connect to.
+	 * The fully qualified url of a Jenkins instance to connect to.
 	 *
 	 * @parameter expression="${jenkins.url}" default-value="${project.ciManagement.url}"
 	 * @required
 	 */
 	private String url;
+
+	/**
+	 * The DNS name of a Jenkins instance to connect to (used when ssh is enabled)
+	 *
+	 * @parameter expression="${jenkins.hostname}"
+	 * @required
+	 */
+	private String hostname;
+
+	/**
+	 * Username for an account on the Jenkins instance (used when ssh is enabled)
+	 *
+	 * @parameter expression="${jenkins.username}" default-value="${user.name}"
+	 * @required
+	 */
+	private String username;
 
 	/**
 	 * The format for timestamp displays
@@ -316,6 +332,22 @@ public abstract class BaseMojo extends AbstractMojo {
 
 	public void setSshPort(int port) {
 		this.sshPort = port;
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

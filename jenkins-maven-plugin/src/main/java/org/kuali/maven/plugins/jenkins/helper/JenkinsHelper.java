@@ -244,9 +244,9 @@ public class JenkinsHelper {
 		}
 	}
 
-	protected Map<String, String> getSshOptions(String port) {
+	protected Map<String, String> getSshOptions(int port) {
 		Map<String, String> options = new HashMap<String, String>();
-		options.put("p", port);
+		options.put("p", port + "");
 		return options;
 	}
 
@@ -482,11 +482,23 @@ public class JenkinsHelper {
 		executeCli(mojo, Helper.toList(command));
 	}
 
+	protected String getActualUrl(BaseMojo mojo) {
+		if (mojo.isSshEnabled()) {
+			return mojo.getUsername() + "@" + mojo.getHostname();
+		} else {
+			return mojo.getUrl();
+		}
+	}
+
 	protected void executeCli(BaseMojo mojo, List<Command> commands) {
-		File jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
-		String url = mojo.getUrl();
-		logger.info("Jenkins CLI: " + jar.getPath());
-		logger.info("Jenkins URL: " + url);
+		String url = getActualUrl(mojo);
+		logger.info("Jenkins URL - " + url);
+
+		File jar = null;
+		if (!mojo.isSshEnabled()) {
+			jar = getJenkinsJar(mojo.getProject(), mojo.getPluginArtifacts());
+			logger.info("Jenkins CLI: " + jar.getPath());
+		}
 		List<ProcessResult> results = new ArrayList<ProcessResult>();
 		for (Command command : commands) {
 			logger.info(Helper.toString(command.getArgs()));
@@ -507,7 +519,7 @@ public class JenkinsHelper {
 			List<String> cliArgs = new ArrayList<String>();
 			cliArgs.add(url);
 			cliArgs.addAll(args);
-			Map<String, String> options = getSshOptions(Integer.toString(mojo.getSshPort()));
+			Map<String, String> options = getSshOptions(mojo.getSshPort());
 			return sshHelper.execute(options, cliArgs, input);
 		} else {
 			String[] cliArgs = getCliArgs(url, args);
