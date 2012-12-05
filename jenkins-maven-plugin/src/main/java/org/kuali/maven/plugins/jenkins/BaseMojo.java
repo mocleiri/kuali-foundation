@@ -88,19 +88,19 @@ public abstract class BaseMojo extends AbstractMojo {
 	private boolean excludeVersion;
 
 	/**
-	 * Optional: If true, the Maven will use ssh calls rather than jenkins-cli calls
+	 * If true, Maven will issue ssh calls instead of jenkins-cli calls
 	 *
-	 * @parameter expression="${jenkins.sshEnabled}" default-value="false"
+	 * @parameter expression="${jenkins.sshEnabled}" default-value="true"
 	 */
 	private boolean sshEnabled;
-	
+
 	/**
-	 * Optional: For ssh enabled calls, indicates port that the jenkins ssh is set to
+	 * For ssh enabled calls, indicates port that Jenkins SSH has been configured to listen on
 	 *
-	 * @parameter expression="${jenkins.sshPort}" default-value="9090"
+	 * @parameter expression="${jenkins.sshPort}" default-value="45358"
 	 */
 	private int sshPort;
-	
+
 	/**
 	 * If true, the Maven build will fail if Jenkins CLI returns a non-zero exit value, otherwise the Maven build will continue
 	 *
@@ -116,7 +116,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	 * &lt;configuration&gt;
 	 *   &lt;styles&gt;
 	 *     &lt;style&gt;
-	 *       &lt;name>&gt;my-custom-style&lt;/name>&gt;
+	 *       &lt;name&gt;my-custom-style&lt;/name&gt;
 	 *       &lt;template&gt;classpath:org/foo/bar/my-custom-style.xml&lt;/template&gt;
 	 *     &lt;/style&gt;
 	 *   &lt;/styles&gt;
@@ -297,7 +297,7 @@ public abstract class BaseMojo extends AbstractMojo {
 	public void setExcludeVersion(boolean includeVersion) {
 		this.excludeVersion = includeVersion;
 	}
-	
+
 	protected JenkinsHelper getHelper() {
 		return helper;
 	}
