@@ -47,10 +47,9 @@ public abstract class BaseMojo extends AbstractMojo {
 	private List<Artifact> pluginArtifacts;
 
 	/**
-	 * The fully qualified url of a Jenkins instance to connect to.
+	 * The fully qualified url of a Jenkins instance to connect to. This is required if <code>sshEnabled</code> is false.
 	 *
 	 * @parameter expression="${jenkins.url}" default-value="${project.ciManagement.url}"
-	 * @required
 	 */
 	private String url;
 
