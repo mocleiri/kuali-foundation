@@ -87,8 +87,8 @@ public class Str {
 		if (tokens == null) {
 			return null;
 		}
-		for (String token : tokens) {
-			token = trim ? StringUtils.trim(token) : token;
+		for (int i = 0; i < tokens.length; i++) {
+			tokens[i] = trim ? StringUtils.trim(tokens[i]) : tokens[i];
 		}
 		return tokens;
 	}
