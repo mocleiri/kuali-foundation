@@ -50,7 +50,7 @@ public class LoadProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
-		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 		for (String location : locations) {
 			Properties duplicate = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 			String resolvedLocation = helper.replacePlaceholders(location, duplicate);

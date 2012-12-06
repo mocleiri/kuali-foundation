@@ -59,7 +59,7 @@ public class DefaultPropertyService implements PropertyService {
 	}
 
 	protected Properties loadProperties(PropertyLoadContext context) {
-		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 		context.initializeLoadProcessors();
 		Properties properties = new Properties();
 		for (String location : context.getLocations()) {
