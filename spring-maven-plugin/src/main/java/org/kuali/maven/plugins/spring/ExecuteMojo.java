@@ -27,7 +27,6 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.LocationService;
 import org.kuali.common.util.spring.ToStringContext;
@@ -44,7 +43,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * @goal execute
  */
 public class ExecuteMojo extends AbstractMojo {
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", true);
 	LocationService locationService = new LocationService();
 
 	/**
