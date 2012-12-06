@@ -15,6 +15,7 @@
  */
 package org.codehaus.mojo.properties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -73,6 +74,13 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	private List<String> includes;
 
 	/**
+	 * List of properties to exclude
+	 *
+	 * @parameter
+	 */
+	private List<String> excludes;
+
+	/**
 	 * If true placeholders are resolved before writing properties to the file
 	 *
 	 * @parameter expression="${properties.resolvePlaceholders}" default-value="false"
@@ -105,8 +113,10 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties.putAll(System.getProperties());
 		}
 
-		List<String> includes = CollectionUtils.getTrimmedListFromCSV(include);
-		override(properties, includes);
+		List<String> includeList = getList(includes, include);
+		List<String> excludeList = getList(excludes, exclude);
+
+		override(properties, includeList);
 
 		// Resolve placeholders
 		if (resolvePlaceholders) {
@@ -114,7 +124,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		}
 
 		// Remove properties as appropriate
-		PropertyUtils.trim(properties, include, exclude);
+		PropertyUtils.trim(properties, includeList, excludeList);
 
 		getLog().info("Creating " + outputFile);
 
@@ -155,6 +165,20 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		}
 		return newProps;
 
+	}
+
+	protected List<String> getList(List<String> list, String csv) {
+		List<String> newList = new ArrayList<String>();
+		if (!CollectionUtils.isEmpty(list)) {
+			list.addAll(list);
+		}
+		List<String> csvList = CollectionUtils.getTrimmedListFromCSV(csv);
+		for (String element : csvList) {
+			if (!list.contains(element)) {
+				newList.add(element);
+			}
+		}
+		return newList;
 	}
 
 	public boolean isIncludeSystemProperties() {
