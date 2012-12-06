@@ -166,8 +166,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	}
 
 	protected void trim(Properties properties, String excludeCSV, String includeCSV) {
-		List<String> excludes = ReadPropertiesMojo.getListFromCSV(excludeCSV);
-		List<String> includes = ReadPropertiesMojo.getListFromCSV(includeCSV);
+		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludeCSV);
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includeCSV);
 		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
 		Collections.sort(keys);
 		for (String key : keys) {

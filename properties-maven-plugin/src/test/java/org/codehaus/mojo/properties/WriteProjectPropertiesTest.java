@@ -15,19 +15,16 @@
  */
 package org.codehaus.mojo.properties;
 
-import java.io.File;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 public class WriteProjectPropertiesTest {
 	WriteProjectProperties mojo = new WriteProjectProperties();
 
 	@Test
-	public void test1() {
+	public void test() {
 		try {
 			Properties properties = new Properties();
 			properties.setProperty("user.home", "foo");
@@ -38,22 +35,4 @@ public class WriteProjectPropertiesTest {
 		}
 	}
 
-	@Test
-	public void test() {
-		try {
-			File outputFile = new File("/Users/jeffcaddel/jbc.properties");
-
-			Properties properties = new Properties();
-			properties.setProperty("filename", "C:\\temp\\mvn.txt :   #   =");
-			properties.putAll(System.getenv());
-			properties.putAll(WriteProjectProperties.getEnvironmentVariables());
-			mojo.trim(properties, "filename", null);
-			mojo.writeProperties(outputFile, properties, OutputStyle.ENVIRONMENT_VARIABLE, "nightlytag");
-			File props2 = new File("/Users/jeffcaddel/jvm.properties");
-			OutputStream out = FileUtils.openOutputStream(props2);
-			properties.store(out, null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
