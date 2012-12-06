@@ -16,19 +16,31 @@
 package org.kuali.common.util;
 
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class SimpleTest {
 
 	@Test
+	public void testPropertyPlaceholderHelper() {
+		Properties properties = new Properties();
+		// properties.setProperty("foo", "bar");
+		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", true);
+		String original = "I went to the ${foo:mall}";
+		String resolved = helper.replacePlaceholders(original, properties);
+		System.out.println(resolved);
+	}
+
+	// @Test
 	public void testDefaultFileEncoding() {
 		System.out.println("file.encoding=" + System.getProperty("file.encoding"));
 		System.out.println("Charset.defaultCharset().name()=" + Charset.defaultCharset().name());
 	}
 
-	@Test
+	// @Test
 	public void testEncoding() {
 		String[] encodings = new String[] { "UTF-8", "UTF-16", "UTF-32" };
 		String s1 = "123";
