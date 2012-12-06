@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
-import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
@@ -33,7 +32,6 @@ import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.HomeProcessor;
-import org.kuali.common.util.property.processor.LoadProcessor;
 import org.kuali.common.util.property.processor.OrgProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -66,7 +64,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	List<PropertyProcessor> processors;
 	List<String> pathProperties;
 	List<String> versionProperties;
-	List<String> localLocations;
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 	String orgGroupIdKey;
@@ -106,10 +103,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		addEncModifier(defaultProcessors);
-
-		if (localLocations != null) {
-			defaultProcessors.add(new LoadProcessor(localLocations, globalPropertiesOverrideMode, encoding, Mode.INFORM));
-		}
 
 		if (globalPropertiesOverrideMode != null) {
 			defaultProcessors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
@@ -201,7 +194,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		resolveInternalList(properties, versionProperties);
 		resolveInternalList(properties, includes);
 		resolveInternalList(properties, excludes);
-		resolveInternalList(properties, localLocations);
 	}
 
 	protected void resolveInternalList(Properties properties, List<String> list) {
@@ -378,14 +370,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setProjectGroupIdKey(String projectGroupIdKey) {
 		this.projectGroupIdKey = projectGroupIdKey;
-	}
-
-	public List<String> getLocalLocations() {
-		return localLocations;
-	}
-
-	public void setLocalLocations(List<String> localLocations) {
-		this.localLocations = localLocations;
 	}
 
 }
