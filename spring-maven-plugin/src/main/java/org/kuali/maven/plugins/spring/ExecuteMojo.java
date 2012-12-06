@@ -95,14 +95,15 @@ public class ExecuteMojo extends AbstractMojo {
 	private boolean filterContext;
 
 	/**
-	 * List of Maven properties to include in the filtering process. All maven properties are used by default.
+	 * List of Maven properties to include in the filtering process when <code>filterContext</code> is <code>true</code>. If nothing is
+	 * provided here, all maven properties are used.
 	 *
 	 * @parameter
 	 */
 	private List<String> filterIncludes;
 
 	/**
-	 * List of Maven properties to exclude from the filtering process. All maven properties are used by default.
+	 * List of Maven properties to exclude from the filtering process.
 	 *
 	 * @parameter
 	 */
