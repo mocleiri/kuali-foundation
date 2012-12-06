@@ -17,17 +17,30 @@ package org.codehaus.mojo.properties;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 public class WriteProjectPropertiesTest {
+	WriteProjectProperties mojo = new WriteProjectProperties();
+
+	@Test
+	public void test1() {
+		try {
+			Properties properties = new Properties();
+			properties.setProperty("user.home", "foo");
+			mojo.override(properties, new ArrayList<String>());
+			System.out.println(properties.getProperty("user.home"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void test() {
 		try {
-			WriteProjectProperties mojo = new WriteProjectProperties();
 			File outputFile = new File("/Users/jeffcaddel/jbc.properties");
 
 			Properties properties = new Properties();
