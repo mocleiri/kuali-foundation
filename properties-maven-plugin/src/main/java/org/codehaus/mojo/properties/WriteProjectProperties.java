@@ -23,6 +23,8 @@ import java.util.Properties;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -98,18 +100,43 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties.putAll(System.getProperties());
 		}
 
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(include);
+		override(properties, includes);
+
 		// Resolve placeholders
 		if (resolvePlaceholders) {
 			properties = getResolvedProperties(properties);
 		}
 
 		// Remove properties as appropriate
-		trim(properties, exclude, include);
+		PropertyUtils.trim(properties, include, exclude);
 
 		getLog().info("Creating " + outputFile);
 
 		// Save the properties to a file
 		writeProperties(this.outputFile, properties, this.outputStyle, this.prefix);
+	}
+
+	protected void override(Properties properties, List<String> includes) {
+		List<String> keys = getKeys(properties, includes);
+		Properties global = PropertyUtils.getGlobalProperties(properties);
+		properties.clear();
+		for (String key : keys) {
+			String value = global.getProperty(key);
+			if (value != null) {
+				properties.setProperty(key, value);
+			}
+		}
+	}
+
+	protected List<String> getKeys(Properties properties, List<String> keys) {
+		List<String> newKeys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			if (!newKeys.contains(key)) {
+				newKeys.add(key);
+			}
+		}
+		return newKeys;
 	}
 
 	protected Properties getResolvedProperties(Properties props) {
