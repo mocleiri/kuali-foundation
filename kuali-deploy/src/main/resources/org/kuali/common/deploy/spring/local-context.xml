@@ -27,7 +27,7 @@
     <value>classpath:${project.groupId.path}/local.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>#{kualiHome}/${kuali.groupId.code}.properties</value>
-    <value>#{groupHome}/${deploy.artifactId}.properties</value>
+    <value>#{groupHome}/${project.artifactId}.properties</value>
     <value>classpath:org/kuali/common/deploy/${db.vendor}.properties</value>
     <value>classpath:org/kuali/common/sql/sql.properties</value>
     <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
