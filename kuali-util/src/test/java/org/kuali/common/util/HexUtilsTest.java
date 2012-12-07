@@ -29,6 +29,22 @@ public class HexUtilsTest {
 	private static final Logger logger = LoggerFactory.getLogger(HexUtilsTest.class);
 
 	@Test
+	public void testInvalidHex() throws IOException {
+		try {
+			logger.info(HexUtils.toStringFromHex("3", "UTF-8"));
+			Assert.fail("Strings with an odd number of characters should fail");
+		} catch (IllegalArgumentException e) {
+			; // ignore
+		}
+		try {
+			logger.info(HexUtils.toStringFromHex("z", "UTF-8"));
+			Assert.fail("Strings with characters outside the range 0-9, a-f, and A-F should fail");
+		} catch (IllegalArgumentException e) {
+			; // ignore
+		}
+	}
+
+	@Test
 	public void testRoundTripSimple() throws IOException {
 		testString("123");
 	}
