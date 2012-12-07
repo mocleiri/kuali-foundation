@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -160,7 +160,7 @@
     <plugin.license.version>1.9.0</plugin.license.version>
     <plugin.nexus.version>1.9.2.4</plugin.nexus.version>
     <plugin.project-info-reports.version>2.5.1</plugin.project-info-reports.version>
-    <plugin.properties.version>1.4.9</plugin.properties.version>
+    <plugin.properties.version>1.5.0</plugin.properties.version>
     <plugin.release.version>2.2.1</plugin.release.version>
     <plugin.resources.version>2.5</plugin.resources.version>
     <plugin.scm.version>1.6</plugin.scm.version>
@@ -168,7 +168,7 @@
     <plugin.site.version>3.0-beta-3</plugin.site.version>
     <plugin.sonar.version>2.0</plugin.sonar.version>
     <plugin.source.version>2.1.2</plugin.source.version>
-    <plugin.spring.version>1.0.0</plugin.spring.version>
+    <plugin.spring.version>1.0.1</plugin.spring.version>
     <plugin.sql.version>1.0.15</plugin.sql.version>
     <plugin.surefire.version>2.12.3</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.13</plugin.svn-revision-number.version>
