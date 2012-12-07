@@ -24,15 +24,11 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
-import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
-import org.kuali.common.util.property.processor.HomeProcessor;
-import org.kuali.common.util.property.processor.OrgProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
@@ -66,8 +62,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	List<String> versionProperties;
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
-	String orgGroupIdKey;
-	String projectGroupIdKey;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> defaultProcessors = new ArrayList<PropertyProcessor>();
@@ -77,11 +71,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		if (addEnvironmentVariables) {
-			defaultProcessors.add(new AddEnvPropertiesProcessor());
+			defaultProcessors.add(new AddPropertiesProcessor(PropertyUtils.getEnvAsProperties()));
 		}
 
 		if (addSystemProperties) {
-			defaultProcessors.add(new AddSystemPropertiesProcessor());
+			defaultProcessors.add(new AddPropertiesProcessor(System.getProperties()));
 		}
 
 		if (!CollectionUtils.isEmpty(pathProperties)) {
@@ -90,11 +84,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		if (!CollectionUtils.isEmpty(versionProperties)) {
 			defaultProcessors.add(new VersionProcessor(versionProperties));
-		}
-
-		if (orgGroupIdKey != null && projectGroupIdKey != null) {
-			defaultProcessors.add(new OrgProcessor(orgGroupIdKey, projectGroupIdKey));
-			defaultProcessors.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey, globalPropertiesOverrideMode));
 		}
 
 		addEncModifier(defaultProcessors);
@@ -351,22 +340,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
 		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
-	}
-
-	public String getOrgGroupIdKey() {
-		return orgGroupIdKey;
-	}
-
-	public void setOrgGroupIdKey(String orgGroupIdKey) {
-		this.orgGroupIdKey = orgGroupIdKey;
-	}
-
-	public String getProjectGroupIdKey() {
-		return projectGroupIdKey;
-	}
-
-	public void setProjectGroupIdKey(String projectGroupIdKey) {
-		this.projectGroupIdKey = projectGroupIdKey;
 	}
 
 }

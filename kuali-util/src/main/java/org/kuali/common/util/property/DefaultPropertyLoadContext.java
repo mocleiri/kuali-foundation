@@ -19,11 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
-import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
-import org.kuali.common.util.property.processor.HomeProcessor;
-import org.kuali.common.util.property.processor.OrgProcessor;
-import org.kuali.common.util.property.processor.PathProcessor;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 
@@ -62,23 +59,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	protected List<PropertyProcessor> getDefaultLoadProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-
-		processors.add(new AddEnvPropertiesProcessor());
-		processors.add(new AddSystemPropertiesProcessor());
-
-		if (pathProperties != null) {
-			processors.add(new PathProcessor(pathProperties));
+		if (properties != null) {
+			processors.add(new AddPropertiesProcessor(properties));
 		}
-
+		processors.add(new AddPropertiesProcessor(PropertyUtils.getEnvAsProperties()));
+		processors.add(new AddPropertiesProcessor(System.getProperties()));
 		if (versionProperties != null) {
 			processors.add(new VersionProcessor(versionProperties));
 		}
-
-		if (orgGroupIdKey != null && projectGroupIdKey != null) {
-			processors.add(new OrgProcessor(orgGroupIdKey, projectGroupIdKey));
-			processors.add(new HomeProcessor(orgGroupIdKey, projectGroupIdKey, globalPropertiesOverrideMode));
-		}
-
 		return processors;
 	}
 
