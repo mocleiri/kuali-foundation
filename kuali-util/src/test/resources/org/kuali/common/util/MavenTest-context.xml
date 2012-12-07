@@ -12,6 +12,7 @@
         <prop key="kuali.home">${user.home}/.${kuali.groupId.code}</prop>
         <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
+        <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
         <prop key="kuali.enc.mode">${kuali.enc.mode:NONE}</prop>
         <prop key="kuali.enc.password">${kuali.enc.password:NONE}</prop>
         <prop key="project.groupId">${project.groupId}</prop>
