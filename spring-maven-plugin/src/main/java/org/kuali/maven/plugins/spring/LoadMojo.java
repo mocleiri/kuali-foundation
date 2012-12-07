@@ -93,9 +93,15 @@ public class LoadMojo extends AbstractMojo implements LoadContext {
 	 */
 	private List<String> filterExcludes;
 
+	/**
+	 * Any properties supplied here are passed through to the Spring context
+	 *
+	 * @parameter
+	 */
+	private Properties properties;
+
 	private GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	private PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	private Properties properties;
 	private SpringService service = new DefaultSpringService();
 
 	@Override
