@@ -29,6 +29,7 @@ public class Str {
 	public static final String LF = "\n";
 	public static final String DOT = ".";
 	public static final String FORWARD_SLASH = "/";
+	public static final char DOUBLE_QUOTE = '"';
 
 	/**
 	 * Combine <code>tokens</code> into a <code>String</code>
@@ -57,7 +58,7 @@ public class Str {
 	 * Surround the string with double quotes.
 	 */
 	public static String quote(String s) {
-		return s == null ? null : '"' + s + '"';
+		return s == null ? null : DOUBLE_QUOTE + s + DOUBLE_QUOTE;
 	}
 
 	/**
