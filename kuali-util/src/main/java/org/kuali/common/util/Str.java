@@ -27,6 +27,8 @@ public class Str {
 	public static final String SPACE = " ";
 	public static final String CR = "\r";
 	public static final String LF = "\n";
+	public static final String DOT = ".";
+	public static final String FORWARD_SLASH = "/";
 
 	/**
 	 * Combine <code>tokens</code> into a <code>String</code>
@@ -48,7 +50,7 @@ public class Str {
 	 * Convert dots to forward slashes and trim.
 	 */
 	public static String getPath(String s) {
-		return StringUtils.trim(StringUtils.replace(s, ".", "/"));
+		return StringUtils.trim(StringUtils.replace(s, DOT, FORWARD_SLASH));
 	}
 
 	/**
