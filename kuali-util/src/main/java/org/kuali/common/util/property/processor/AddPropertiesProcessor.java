@@ -19,6 +19,8 @@ import java.util.Properties;
 
 public class AddPropertiesProcessor implements PropertyProcessor {
 
+	Properties properties;
+
 	public AddPropertiesProcessor() {
 		this(null);
 	}
@@ -27,8 +29,6 @@ public class AddPropertiesProcessor implements PropertyProcessor {
 		super();
 		this.properties = properties;
 	}
-
-	Properties properties;
 
 	@Override
 	public void process(Properties properties) {
