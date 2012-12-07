@@ -57,18 +57,34 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	/**
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
+	 * value. Using global properties to perform property resolution as indicated by <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
+	 */
 	public static final Properties getResolvedProperties(Properties properties) {
 		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
+	/**
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
+	 * value. Using global properties to perform property resolution as indicated by <code>globalPropertiesMode</code>
+	 */
 	public static final Properties getResolvedProperties(Properties properties, GlobalPropertiesMode globalPropertiesMode) {
 		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER, globalPropertiesMode);
 	}
 
+	/**
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
+	 * value. Using global properties to perform property resolution as indicated by <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
+	 */
 	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper) {
 		return getResolvedProperties(properties, helper, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
+	/**
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
+	 * value. Using global properties to perform property resolution as indicated by <code>globalPropertiesMode</code>
+	 */
 	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
