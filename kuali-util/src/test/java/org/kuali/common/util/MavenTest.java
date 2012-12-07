@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.spring.DefaultLoadContext;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +35,16 @@ public class MavenTest {
 	private static final Logger logger = LoggerFactory.getLogger(MavenTest.class);
 
 	@Autowired
-	private DefaultLoadContext context = null;
-
-	@Autowired
-	private SpringService service = null;
+	private Properties properties = null;
 
 	@Test
 	public void test() {
 		try {
-			Properties properties = new Properties();
-			properties.setProperty("spring.message", "howdy");
-			context.setProperties(properties);
-			logger.info(context.getWorkingDir() + "");
-			service.load(context);
+			List<String> keys = PropertyUtils.getSortedKeys(properties);
+			for (String key : keys) {
+				String value = Str.flatten(properties.getProperty(key));
+				logger.info(key + "=" + value);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
