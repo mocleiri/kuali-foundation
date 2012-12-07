@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -27,6 +28,11 @@ public class HexUtils {
 
 	private static final String ZERO = "0";
 	private static final int BYTE_MASK = 0x000000ff;
+	private static final CharSet HEX_CHARSET = CharSet.getInstance(CharSet.ASCII_NUMERIC.toString(), "A-F", "a-f");
+
+	public static final CharSet getHexCharSet() {
+		return HEX_CHARSET;
+	}
 
 	/**
 	 * Convert <code>string</code> into a <code>byte[]</code> using the specified encoding, then convert each <code>byte</code> into its 2
@@ -52,6 +58,18 @@ public class HexUtils {
 	}
 
 	/**
+	 * Return true if every character is valid hex <code>0-9</code>, <code>a-f</code>, or <code>A-F</code>
+	 */
+	public static final boolean isHex(char... chars) {
+		for (char c : chars) {
+			if (!HEX_CHARSET.contains(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Given a string in <code>strictly hex</code> format, return the corresponding <code>byte[]</code>. <code>strictly hex</code> in the
 	 * context of this method means that the string:<br>
 	 * 1 - Contains only the characters <code>a-f</code>, <code>A-F</code>, and <code>0-9</code><br>
@@ -61,13 +79,16 @@ public class HexUtils {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
 		if (length % 2 != 0) {
-			throw new IllegalArgumentException("Invalid hex string [" + hex + "]");
+			throw new IllegalArgumentException("Invalid hex string [" + hex + "].  String must contain an even number of characters");
 		}
 		byte[] bytes = new byte[length / 2];
 		int byteIndex = 0;
 		for (int i = 0; i < length; i += 2) {
 			char c1 = chars[i];
 			char c2 = chars[i + 1];
+			if (!isHex(c1, c2)) {
+				throw new IllegalArgumentException("Invalid hex string [" + hex + "].  One of the bytes at " + i + " is not in the range " + HEX_CHARSET.toString());
+			}
 			String s = c1 + "" + c2;
 			int integer = Integer.parseInt(s, 16);
 			int masked = integer & BYTE_MASK;
