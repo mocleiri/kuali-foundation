@@ -70,7 +70,8 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected String getFilteredContent(LoadContext context) {
-		Properties duplicate = PropertyUtils.getProperties(context.getProperties(), context.getGlobalPropertiesMode());
+		Properties original = context.getProperties() == null ? new Properties() : context.getProperties();
+		Properties duplicate = PropertyUtils.getProperties(original, context.getGlobalPropertiesMode());
 		PropertyUtils.trim(duplicate, context.getFilterIncludes(), context.getFilterExcludes());
 		String content = LocationUtils.toString(context.getContextLocation(), context.getEncoding());
 		logger.info("Filtering [" + context.getContextLocation() + "] using " + duplicate.size() + " properties");
