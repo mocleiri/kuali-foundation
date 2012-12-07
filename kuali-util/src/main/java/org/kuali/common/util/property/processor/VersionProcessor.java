@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.property.processor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -38,7 +39,11 @@ public class VersionProcessor implements PropertyProcessor {
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	public VersionProcessor() {
-		this(null);
+		this(Collections.<String> emptyList());
+	}
+
+	public VersionProcessor(String include) {
+		this(Collections.singletonList(include));
 	}
 
 	public VersionProcessor(List<String> includes) {
