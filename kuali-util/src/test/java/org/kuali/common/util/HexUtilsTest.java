@@ -34,13 +34,13 @@ public class HexUtilsTest {
 			logger.info(HexUtils.toStringFromHex("3", "UTF-8"));
 			Assert.fail("Strings with an odd number of characters should fail");
 		} catch (IllegalArgumentException e) {
-			; // ignore
+			logger.info(e.getMessage());
 		}
 		try {
-			logger.info(HexUtils.toStringFromHex("z", "UTF-8"));
+			logger.info(HexUtils.toStringFromHex("FFA019Z7AA", "UTF-8"));
 			Assert.fail("Strings with characters outside the range 0-9, a-f, and A-F should fail");
 		} catch (IllegalArgumentException e) {
-			; // ignore
+			logger.info(e.getMessage());
 		}
 	}
 
