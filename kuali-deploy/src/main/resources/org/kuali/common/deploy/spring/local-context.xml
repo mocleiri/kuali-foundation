@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <bean id="encoding" class="java.lang.String">
+    <constructor-arg value="${project.build.sourceEncoding:UTF-8}" />
+  </bean>
+
+  <bean id="encryptionMode" class="java.lang.String">
+    <constructor-arg value="NONE" />
+  </bean>
+
+  <util:list id="locations" value-type="java.lang.String">
+    <value>${maven.properties.file}</value>
+    <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
+    <value>classpath:${deploy.groupId.path}/local.properties</value>
+    <value>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</value>
+    <value>${kuali.home}/${kuali.groupId.code}.properties</value>
+    <value>${kuali.${deploy.groupId.code}.home}/${deploy.artifactId}.properties</value>
+    <value>classpath:org/kuali/common/deploy/${db.vendor}.properties</value>
+    <value>classpath:org/kuali/common/sql/sql.properties</value>
+    <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
+  </util:list>
+
+  <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context-new.xml" />
+
+  <context:property-placeholder properties-ref="properties" />
+
+</beans>
