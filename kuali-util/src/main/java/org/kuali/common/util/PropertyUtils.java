@@ -35,8 +35,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.property.processor.AddEnvPropertiesProcessor;
-import org.kuali.common.util.property.processor.AddSystemPropertiesProcessor;
+import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -269,20 +268,20 @@ public class PropertyUtils {
 	 * Return modifiers that add environment variables, system properties, or both, according to the mode passed in.
 	 */
 	public static final List<PropertyProcessor> getPropertyModifiers(GlobalPropertiesMode mode) {
-		List<PropertyProcessor> modifiers = new ArrayList<PropertyProcessor>();
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		switch (mode) {
 		case NONE:
-			return modifiers;
+			return processors;
 		case ENVIRONMENT:
-			modifiers.add(new AddEnvPropertiesProcessor());
-			return modifiers;
+			processors.add(new AddPropertiesProcessor(getEnvAsProperties()));
+			return processors;
 		case SYSTEM:
-			modifiers.add(new AddSystemPropertiesProcessor());
-			return modifiers;
+			processors.add(new AddPropertiesProcessor(System.getProperties()));
+			return processors;
 		case BOTH:
-			modifiers.add(new AddEnvPropertiesProcessor());
-			modifiers.add(new AddSystemPropertiesProcessor());
-			return modifiers;
+			processors.add(new AddPropertiesProcessor(getEnvAsProperties()));
+			processors.add(new AddPropertiesProcessor(System.getProperties()));
+			return processors;
 		default:
 			throw new IllegalStateException(mode + " is unknown");
 		}
