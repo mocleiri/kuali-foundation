@@ -56,13 +56,6 @@ public class LoadMojo extends AbstractMojo implements LoadContext {
 	private String encoding;
 
 	/**
-	 * By default <code>SYSTEM</code> and <code>ENVIRONMENT</code> properties override Maven properties
-	 *
-	 * @parameter expression="${spring.globalPropertiesMode}" default-value="BOTH"
-	 */
-	private GlobalPropertiesMode globalPropertiesMode;
-
-	/**
 	 * Location of a Spring context XML file. This can be any URL Spring's Resource loading framework understands eg
 	 * <code>classpath:mycontext.xml</code>
 	 *
@@ -100,6 +93,7 @@ public class LoadMojo extends AbstractMojo implements LoadContext {
 	 */
 	private List<String> filterExcludes;
 
+	private GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	private PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private Properties properties;
 	private SpringService service = new DefaultSpringService();
