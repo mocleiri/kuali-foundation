@@ -26,6 +26,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -117,10 +118,20 @@ public class ExecuteMojo extends AbstractMojo {
 			FileUtils.forceMkdir(workingDir);
 			getLog().info("Working Dir - " + LocationUtils.getCanonicalPath(workingDir));
 			ApplicationContext ctx = getApplicationContext();
+			// showProperties(ctx);
 			Executable executable = (Executable) ctx.getBean(executableBean);
 			executable.execute();
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
+		}
+	}
+
+	protected void showProperties(ApplicationContext ctx) {
+		Properties properties = (Properties) ctx.getBean("properties");
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			getLog().info(key + "=" + Str.flatten(value));
 		}
 	}
 
