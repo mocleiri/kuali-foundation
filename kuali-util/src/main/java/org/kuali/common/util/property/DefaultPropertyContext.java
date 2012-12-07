@@ -57,7 +57,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	boolean resolvePlaceholders;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
-	PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
@@ -84,11 +84,6 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultProcessors.add(new AddSystemPropertiesProcessor());
 		}
 
-		if (resolvePlaceholders) {
-			Assert.notNull(helper, "helper is null");
-			defaultProcessors.add(new ResolvePlaceholdersProcessor(helper));
-		}
-
 		if (!CollectionUtils.isEmpty(pathProperties)) {
 			defaultProcessors.add(new PathProcessor(pathProperties));
 		}
@@ -108,6 +103,7 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultProcessors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
 		}
 
+		// At this point no further properties will be added so we are safe to resolve place holders
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
 			defaultProcessors.add(new ResolvePlaceholdersProcessor(helper));
