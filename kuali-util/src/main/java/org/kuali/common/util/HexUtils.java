@@ -28,10 +28,29 @@ public class HexUtils {
 
 	private static final String ZERO = "0";
 	private static final int BYTE_MASK = 0x000000ff;
-	private static final CharSet HEX_CHARSET = CharSet.getInstance(CharSet.ASCII_NUMERIC.toString(), "A-F", "a-f");
+	private static final String[] HEX_RANGES = new String[] { "0-9", "A-F", "a-f" };
+	private static final String HEX_RANGES_STRING = toString(HEX_RANGES);
+	private static final CharSet HEX_CHARSET = CharSet.getInstance(HEX_RANGES);
 
 	public static final CharSet getHexCharSet() {
 		return HEX_CHARSET;
+	}
+
+	public static final String[] getHexRanges() {
+		return HEX_RANGES;
+	}
+
+	private static final String toString(String[] tokens) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (int i = 0; i < HEX_RANGES.length; i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			sb.append(HEX_RANGES[i]);
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 
 	/**
@@ -79,7 +98,7 @@ public class HexUtils {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
 		if (length % 2 != 0) {
-			throw new IllegalArgumentException("Invalid hex string [" + hex + "].  String must contain an even number of characters");
+			throw new IllegalArgumentException("Invalid hex string [" + hex + "].  String must contain an even number of characters.  '" + length + "' is not an even number!");
 		}
 		byte[] bytes = new byte[length / 2];
 		int byteIndex = 0;
@@ -87,7 +106,11 @@ public class HexUtils {
 			char c1 = chars[i];
 			char c2 = chars[i + 1];
 			if (!isHex(c1, c2)) {
-				throw new IllegalArgumentException("Invalid hex string [" + hex + "].  One of the bytes at " + i + " is not in the range " + HEX_CHARSET.toString());
+				int byteNumber = i / 2 + 1;
+				int c1Pos = i + 1;
+				int c2Pos = i + 2;
+				throw new IllegalArgumentException("Invalid hex string [" + hex + "] detected at byte " + byteNumber + ", characters " + c1Pos + "-" + c2Pos
+				        + ".  Both characters must be in the range " + HEX_RANGES_STRING);
 			}
 			String s = c1 + "" + c2;
 			int integer = Integer.parseInt(s, 16);
