@@ -32,7 +32,7 @@ public class DefaultSpringService implements SpringService {
 
 	protected ApplicationContext loadApplicationContext(LoadContext context) throws IOException {
 		boolean exists = LocationUtils.exists(context.getContextLocation());
-		if (exists) {
+		if (!exists) {
 			throw new IllegalArgumentException(context.getContextLocation() + " does not exist");
 		}
 
