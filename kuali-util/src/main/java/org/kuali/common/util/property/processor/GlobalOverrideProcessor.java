@@ -27,6 +27,8 @@ public class GlobalOverrideProcessor implements PropertyProcessor {
 
 	GlobalPropertiesMode globalPropertiesMode;
 	Mode propertyOverwriteMode;
+	List<String> includes;
+	List<String> excludes;
 
 	public GlobalOverrideProcessor() {
 		this(Constants.DEFAULT_GLOBAL_PROPERTIES_MODE, Constants.DEFAULT_PROPERTY_OVERWRITE_MODE);
@@ -45,7 +47,7 @@ public class GlobalOverrideProcessor implements PropertyProcessor {
 	@Override
 	public void process(Properties properties) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
 		for (String key : keys) {
 			String newValue = global.getProperty(key);
 			PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
@@ -66,6 +68,22 @@ public class GlobalOverrideProcessor implements PropertyProcessor {
 
 	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 }
