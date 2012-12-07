@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <bean id="mavenProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="properties">
+      <props>
+        <prop key="kuali.home">${user.home}/.${kuali.groupId.code}</prop>
+        <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
+        <prop key="kuali.groupId">${kuali.groupId}</prop>
+        <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
+        <prop key="kuali.enc.mode">${kuali.enc.mode:NONE}</prop>
+        <prop key="kuali.enc.password">${kuali.enc.password:NONE}</prop>
+        <prop key="project.groupId">${project.groupId}</prop>
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.version">${project.version}</prop>
+        <prop key="project.groupId.code">${project.groupId.code}</prop>
+        <prop key="project.groupId.path">${project.groupId.path}</prop>
+        <prop key="project.build.sourceEncoding">${project.build.sourceEncoding}</prop>
+        <prop key="project.basedir">${project.basedir}</prop>
+        <prop key="project.build.directory">${project.build.directory}</prop>
+        <prop key="jdbc.driver.groupId">${jdbc.driver.groupId}</prop>
+        <prop key="jdbc.driver.artifactId">${jdbc.driver.artifactId}</prop>
+        <prop key="jdbc.driver.version">${jdbc.driver.version}</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+    <property name="properties" ref="mavenProperties" />
+  </bean>
+
+</beans>

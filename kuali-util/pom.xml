@@ -61,6 +61,7 @@
           <include>maven.properties</include>
           <include>**/PropertyUtilsTest-context.xml</include>
           <include>**/SpringServiceTest-context.xml</include>
+          <include>**/MavenTest-context.xml</include>
         </includes>
       </testResource>
       <testResource>
@@ -68,7 +69,9 @@
         <filtering>false</filtering>
         <excludes>
           <exclude>maven.properties</exclude>
+          <exclude>**/PropertyUtilsTest-context.xml</exclude>
           <exclude>**/SpringServiceTest-context.xml</exclude>
+          <exclude>**/MavenTest-context.xml</exclude>
         </excludes>
       </testResource>
     </testResources>
