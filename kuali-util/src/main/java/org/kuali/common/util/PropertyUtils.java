@@ -34,11 +34,13 @@ import java.util.TreeSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
@@ -54,6 +56,33 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static final Properties getResolvedProperties(Properties properties) {
+		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
+	}
+
+	public static final Properties getResolvedProperties(Properties properties, GlobalPropertiesMode globalPropertiesMode) {
+		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER, globalPropertiesMode);
+	}
+
+	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper) {
+		return getResolvedProperties(properties, helper, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
+	}
+
+	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
+		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		Properties newProperties = new Properties();
+		for (String key : keys) {
+			String originalValue = properties.getProperty(key);
+			String resolvedValue = helper.replacePlaceholders(originalValue, global);
+			if (!resolvedValue.equals(originalValue)) {
+				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+			}
+			newProperties.setProperty(key, resolvedValue);
+		}
+		return newProperties;
+	}
 
 	/**
 	 * Return the property values from <code>keys</code>
