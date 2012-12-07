@@ -27,6 +27,7 @@
     <property name="workingDir" value="${project.build.directory}/spring" />
     <property name="encoding" value="${project.build.sourceEncoding}" />
     <property name="contextLocation" value="classpath:org/kuali/common/util/SimpleExecutable-context.xml" />
+    <property name="filterContext" value="true" />
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />
