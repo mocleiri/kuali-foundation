@@ -16,11 +16,9 @@
 package org.kuali.maven.plugins.spring;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -28,11 +26,9 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.service.LocationService;
-import org.kuali.common.util.spring.ToStringContext;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.LoadContext;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -41,9 +37,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
  *
  * @goal load
  */
-public class LoadMojo extends AbstractMojo {
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	LocationService locationService = new LocationService();
+public class LoadMojo extends AbstractMojo implements LoadContext {
 
 	/**
 	 * Maven project
@@ -60,6 +54,13 @@ public class LoadMojo extends AbstractMojo {
 	 * @parameter expression="${spring.encoding}" default-value="${project.build.sourceEncoding}"
 	 */
 	private String encoding;
+
+	/**
+	 * By default <code>SYSTEM</code> and <code>ENVIRONMENT</code> properties override Maven properties
+	 *
+	 * @parameter expression="${spring.globalPropertiesMode}" default-value="BOTH"
+	 */
+	private GlobalPropertiesMode globalPropertiesMode;
 
 	/**
 	 * Location of a Spring context XML file. This can be any URL Spring's Resource loading framework understands eg
@@ -99,43 +100,31 @@ public class LoadMojo extends AbstractMojo {
 	 */
 	private List<String> filterExcludes;
 
+	private PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	private Properties properties;
+	private SpringService service = new DefaultSpringService();
+
 	@Override
 	public void execute() throws MojoExecutionException {
-		try {
-			getLog().info("Context Location - " + contextLocation);
-			getLog().info("Filter Context - " + filterContext);
-			getLog().info("Working Dir - " + LocationUtils.getCanonicalPath(workingDir));
-			loadApplicationContext();
-		} catch (Exception e) {
-			throw new MojoExecutionException("Unexpected error", e);
-		}
+		setProperties(getPropertiesForSpring());
+		service.load(this);
 	}
 
-	protected ApplicationContext loadApplicationContext() throws IOException {
-		if (!LocationUtils.exists(contextLocation)) {
-			throw new IllegalArgumentException(contextLocation + " does not exist");
+	protected Properties getPropertiesForSpring() {
+		Properties props = new Properties();
+		// Duplicate the existing project properties
+		props.putAll(PropertyUtils.duplicate(project.getProperties()));
+		// Add any properties supplied directly to the mojo
+		if (properties != null) {
+			props.putAll(properties);
 		}
-		if (!filterContext) {
-			if (LocationUtils.isExistingFile(contextLocation)) {
-				File file = new File(contextLocation);
-				String url = LocationUtils.getURLString(file);
-				return new FileSystemXmlApplicationContext(url);
-			} else {
-				return new ClassPathXmlApplicationContext(contextLocation);
-			}
-		}
-		Properties mavenProperties = getMavenProperties(project);
-		String contextContent = getFilteredContextContent(mavenProperties, filterIncludes, filterExcludes);
-		String filename = LocationUtils.getFilename(contextLocation);
-		File newFile = new File(workingDir, filename);
-		getLog().info("Creating [" + newFile.getAbsolutePath() + "]");
-		FileUtils.write(newFile, contextContent);
-		String url = LocationUtils.getURLString(newFile);
-		return new FileSystemXmlApplicationContext(url);
+		// Add standard Maven config that isn't present in project.getProperties()
+		props.putAll(getStandardMavenProperties(project));
+		return props;
 	}
 
-	protected Properties getMavenProperties(MavenProject project) {
-		Properties properties = PropertyUtils.duplicate(project.getProperties());
+	protected Properties getStandardMavenProperties(MavenProject project) {
+		Properties properties = new Properties();
 		properties.setProperty("project.groupId", project.getGroupId());
 		properties.setProperty("project.artifactId", project.getArtifactId());
 		properties.setProperty("project.version", project.getVersion());
@@ -144,21 +133,34 @@ public class LoadMojo extends AbstractMojo {
 		return properties;
 	}
 
-	protected String getFilteredContextContent(Properties mavenProperties, List<String> includes, List<String> excludes) {
-		Properties properties = PropertyUtils.getProperties(mavenProperties, GlobalPropertiesMode.BOTH);
-		PropertyUtils.trim(properties, includes, excludes);
-		String content = getContextContent(contextLocation, encoding);
-		getLog().info("Filtering [" + contextLocation + "] using " + properties.size() + " properties");
-		return helper.replacePlaceholders(content, properties);
+	@Override
+	public PropertyPlaceholderHelper getHelper() {
+		return helper;
 	}
 
-	protected String getContextContent(String contextLocation, String encoding) {
-		ToStringContext context = new ToStringContext();
-		context.setEncoding(encoding);
-		context.setLocation(contextLocation);
-		return locationService.toString(context);
+	public void setHelper(PropertyPlaceholderHelper helper) {
+		this.helper = helper;
 	}
 
+	@Override
+	public GlobalPropertiesMode getGlobalPropertiesMode() {
+		return globalPropertiesMode;
+	}
+
+	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
+		this.globalPropertiesMode = globalPropertiesMode;
+	}
+
+	@Override
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	@Override
 	public String getContextLocation() {
 		return contextLocation;
 	}
@@ -167,10 +169,7 @@ public class LoadMojo extends AbstractMojo {
 		this.contextLocation = contextLocation;
 	}
 
-	public MavenProject getProject() {
-		return project;
-	}
-
+	@Override
 	public File getWorkingDir() {
 		return workingDir;
 	}
@@ -179,6 +178,7 @@ public class LoadMojo extends AbstractMojo {
 		this.workingDir = workingDir;
 	}
 
+	@Override
 	public boolean isFilterContext() {
 		return filterContext;
 	}
@@ -187,6 +187,7 @@ public class LoadMojo extends AbstractMojo {
 		this.filterContext = filterContext;
 	}
 
+	@Override
 	public List<String> getFilterIncludes() {
 		return filterIncludes;
 	}
@@ -195,6 +196,7 @@ public class LoadMojo extends AbstractMojo {
 		this.filterIncludes = filterIncludes;
 	}
 
+	@Override
 	public List<String> getFilterExcludes() {
 		return filterExcludes;
 	}
@@ -203,12 +205,25 @@ public class LoadMojo extends AbstractMojo {
 		this.filterExcludes = filterExcludes;
 	}
 
-	public String getEncoding() {
-		return encoding;
+	public MavenProject getProject() {
+		return project;
 	}
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
+	@Override
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public SpringService getService() {
+		return service;
+	}
+
+	public void setService(SpringService service) {
+		this.service = service;
 	}
 
 }
