@@ -15,9 +15,11 @@
  */
 package org.kuali.common.util.service;
 
+import java.util.Properties;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.spring.LoadContext;
+import org.kuali.common.util.spring.DefaultLoadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class SpringServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(SpringServiceTest.class);
 
 	@Autowired
-	private LoadContext context = null;
+	private DefaultLoadContext context = null;
 
 	@Autowired
 	private SpringService service = null;
@@ -39,6 +41,9 @@ public class SpringServiceTest {
 	@Test
 	public void test() {
 		try {
+			Properties properties = new Properties();
+			properties.setProperty("spring.message", "howdy");
+			context.setProperties(properties);
 			logger.info(context.getWorkingDir() + "");
 			service.load(context);
 		} catch (Exception e) {
