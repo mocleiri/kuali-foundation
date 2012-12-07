@@ -99,6 +99,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		addEncModifier(defaultProcessors);
 
+		// Make sure system/environment properties override everything else
 		if (globalPropertiesOverrideMode != null) {
 			defaultProcessors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
 		}
