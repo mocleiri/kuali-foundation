@@ -15,11 +15,9 @@
  */
 package org.kuali.common.util.property.processor;
 
-import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.slf4j.Logger;
@@ -30,15 +28,15 @@ public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersProcessor.class);
 
-	PropertyPlaceholderHelper helper;
-	GlobalPropertiesMode globalPropertiesMode = GlobalPropertiesMode.BOTH;
+	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 
 	public ResolvePlaceholdersProcessor() {
-		this(new PropertyPlaceholderHelper(Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX));
+		this(Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER);
 	}
 
 	public ResolvePlaceholdersProcessor(PropertyPlaceholderHelper helper) {
-		this(helper, GlobalPropertiesMode.BOTH);
+		this(helper, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
 	public ResolvePlaceholdersProcessor(PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
@@ -49,24 +47,9 @@ public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
-		Properties resolvedProperties = getResolvedProperties(properties, helper);
+		Properties resolvedProperties = PropertyUtils.getResolvedProperties(properties, helper, globalPropertiesMode);
 		logger.info("Resolved {} property values", resolvedProperties.size());
 		properties.putAll(resolvedProperties);
-	}
-
-	protected Properties getResolvedProperties(Properties props, PropertyPlaceholderHelper helper) {
-		Properties global = PropertyUtils.getProperties(props, globalPropertiesMode);
-		List<String> keys = PropertyUtils.getSortedKeys(props);
-		Properties newProps = new Properties();
-		for (String key : keys) {
-			String originalValue = props.getProperty(key);
-			String resolvedValue = helper.replacePlaceholders(originalValue, global);
-			if (!resolvedValue.equals(originalValue)) {
-				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
-			}
-			newProps.setProperty(key, resolvedValue);
-		}
-		return newProps;
 	}
 
 	public PropertyPlaceholderHelper getHelper() {
