@@ -109,7 +109,7 @@ public class HexUtils {
 				int byteNumber = i / 2 + 1;
 				int c1Pos = i + 1;
 				int c2Pos = i + 2;
-				throw new IllegalArgumentException("Invalid hex string [" + hex + "] detected at byte " + byteNumber + ", characters " + c1Pos + "-" + c2Pos
+				throw new IllegalArgumentException("Invalid hex string [" + hex + "].  Invalid hex detected at byte " + byteNumber + ", characters " + c1Pos + "-" + c2Pos
 				        + ".  Both characters must be in the range " + HEX_RANGES_STRING);
 			}
 			String s = c1 + "" + c2;
