@@ -62,6 +62,9 @@ public class DefaultPropertyService implements PropertyService {
 		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 		context.initializeLoadProcessors();
 		Properties properties = new Properties();
+		if (context.getLocations() == null) {
+			return properties;
+		}
 		for (String location : context.getLocations()) {
 			Properties duplicate = PropertyUtils.duplicate(properties);
 			process(duplicate, context.getLoadProcessors());
