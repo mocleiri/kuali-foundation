@@ -26,7 +26,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.LocationService;
@@ -37,7 +36,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Load Spring context given a <code>contextLocation</code>. If <code>filterContext</code> is true the context is filtered using Maven
+ * Given a <code>contextLocation</code> load a Spring context. If <code>filterContext</code> is true the context is filtered using Maven
  * properties before it is loaded.
  *
  * @goal load
@@ -110,31 +109,19 @@ public class LoadMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		getLog().info("Context Location - " + contextLocation);
-		getLog().info("Filter Context - " + filterContext);
 		try {
-			FileUtils.forceMkdir(workingDir);
+			getLog().info("Context Location - " + contextLocation);
+			getLog().info("Filter Context - " + filterContext);
 			getLog().info("Working Dir - " + LocationUtils.getCanonicalPath(workingDir));
-			ApplicationContext ctx = loadApplicationContext();
-			getLog().info("Loaded " + ctx.getDisplayName());
+			loadApplicationContext();
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	protected void showProperties(ApplicationContext ctx) {
-		Properties properties = (Properties) ctx.getBean("properties");
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
-		for (String key : keys) {
-			String value = properties.getProperty(key);
-			getLog().info(key + "=" + Str.flatten(value));
-		}
-	}
-
 	protected ApplicationContext loadApplicationContext() throws IOException {
-		boolean exists = LocationUtils.exists(contextLocation);
-		if (!exists) {
-			throw new IllegalArgumentException(contextLocation + " does not exists");
+		if (!LocationUtils.exists(contextLocation)) {
+			throw new IllegalArgumentException(contextLocation + " does not exist");
 		}
 		if (!filterContext) {
 			if (LocationUtils.isExistingFile(contextLocation)) {
@@ -166,11 +153,11 @@ public class LoadMojo extends AbstractMojo {
 	}
 
 	protected String getFilteredContextContent(Properties mavenProperties, List<String> includes, List<String> excludes) {
-		Properties global = PropertyUtils.getProperties(mavenProperties, GlobalPropertiesMode.BOTH);
-		PropertyUtils.trim(global, includes, excludes);
-		String originalContextContent = getContextContent(contextLocation, encoding);
-		getLog().info("Filtering [" + contextLocation + "] using " + global.size() + " properties");
-		return helper.replacePlaceholders(originalContextContent, global);
+		Properties properties = PropertyUtils.getProperties(mavenProperties, GlobalPropertiesMode.BOTH);
+		PropertyUtils.trim(properties, includes, excludes);
+		String content = getContextContent(contextLocation, encoding);
+		getLog().info("Filtering [" + contextLocation + "] using " + properties.size() + " properties");
+		return helper.replacePlaceholders(content, properties);
 	}
 
 	protected String getContextContent(String contextLocation, String encoding) {
