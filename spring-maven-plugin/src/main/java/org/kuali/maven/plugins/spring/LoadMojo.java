@@ -27,7 +27,6 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.LocationService;
@@ -38,13 +37,12 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Given a Spring context containing a bean that implements <code>org.kuali.common.util.execute.Executable</code> load the context, extract
- * the <code>Executable</code> bean and invoke its <code>execute()</code> method. If <code>filterContext</code> is true the context is
- * filtered using Maven properties before it is loaded.
+ * Load Spring context given a <code>contextLocation</code>. If <code>filterContext</code> is true the context is filtered using Maven
+ * properties before it is loaded.
  *
- * @goal execute
+ * @goal load
  */
-public class ExecuteMojo extends AbstractMojo {
+public class LoadMojo extends AbstractMojo {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	LocationService locationService = new LocationService();
 
@@ -117,10 +115,8 @@ public class ExecuteMojo extends AbstractMojo {
 		try {
 			FileUtils.forceMkdir(workingDir);
 			getLog().info("Working Dir - " + LocationUtils.getCanonicalPath(workingDir));
-			ApplicationContext ctx = getApplicationContext();
-			// showProperties(ctx);
-			Executable executable = (Executable) ctx.getBean(executableBean);
-			executable.execute();
+			ApplicationContext ctx = loadApplicationContext();
+			getLog().info("Loaded " + ctx.getDisplayName());
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
@@ -135,7 +131,7 @@ public class ExecuteMojo extends AbstractMojo {
 		}
 	}
 
-	protected ApplicationContext getApplicationContext() throws IOException {
+	protected ApplicationContext loadApplicationContext() throws IOException {
 		boolean exists = LocationUtils.exists(contextLocation);
 		if (!exists) {
 			throw new IllegalArgumentException(contextLocation + " does not exists");
