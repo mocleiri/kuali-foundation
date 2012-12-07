@@ -100,11 +100,11 @@ public class LoadMojo extends AbstractMojo implements LoadContext {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		setProperties(getPropertiesForSpring());
+		setProperties(getMavenPropertiesForSpring());
 		service.load(this);
 	}
 
-	protected Properties getPropertiesForSpring() {
+	protected Properties getMavenPropertiesForSpring() {
 		Properties props = new Properties();
 		// Duplicate the existing project properties
 		props.putAll(PropertyUtils.duplicate(project.getProperties()));
