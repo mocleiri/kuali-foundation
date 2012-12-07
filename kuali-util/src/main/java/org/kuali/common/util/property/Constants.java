@@ -37,6 +37,7 @@ public final class Constants {
 	public static final String DEFAULT_HOME_SUFFIX = "home";
 	public static final String DEFAULT_GROUP_HOME_PREFIX = "project";
 	public static final Mode DEFAULT_PROPERTY_OVERWRITE_MODE = Mode.INFORM;
+	public static final GlobalPropertiesMode DEFAULT_GLOBAL_PROPERTIES_MODE = GlobalPropertiesMode.BOTH;
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX,
 	        DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE);
 
