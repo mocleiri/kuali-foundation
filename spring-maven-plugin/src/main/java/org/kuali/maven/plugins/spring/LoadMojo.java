@@ -71,14 +71,6 @@ public class LoadMojo extends AbstractMojo {
 	private String contextLocation;
 
 	/**
-	 * Spring managed bean that implements <code>Executable</code>
-	 *
-	 * @parameter expression="${spring.executableBean}" default-value="executable"
-	 * @required
-	 */
-	private String executableBean;
-
-	/**
 	 * Working directory for the plugin.
 	 *
 	 * @parameter expression="${spring.workingDir}" default-value="${project.build.directory}/spring"
@@ -185,14 +177,6 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setWorkingDir(File workingDir) {
 		this.workingDir = workingDir;
-	}
-
-	public String getExecutableBean() {
-		return executableBean;
-	}
-
-	public void setExecutableBean(String executableBean) {
-		this.executableBean = executableBean;
 	}
 
 	public boolean isFilterContext() {
