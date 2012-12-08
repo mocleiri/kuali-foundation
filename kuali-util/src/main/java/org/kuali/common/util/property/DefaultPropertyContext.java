@@ -46,7 +46,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	GlobalPropertiesMode globalPropertiesOverrideMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
+	String globalPropertiesOverrideMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
 	String style = PropertyStyle.NORMAL.name();
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
@@ -78,7 +78,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		// Make sure system/environment properties override everything else
 		if (globalPropertiesOverrideMode != null) {
-			processors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
+			processors.add(new GlobalOverrideProcessor(GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode)));
 		}
 
 		// None of the processors below this should add new properties
@@ -145,7 +145,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	@Override
 	public void initialize(Properties properties) {
-		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
+		Properties global = PropertyUtils.getProperties(properties, GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode));
 		resolveInternalStrings(global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
@@ -299,13 +299,4 @@ public class DefaultPropertyContext implements PropertyContext {
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
-
-	public GlobalPropertiesMode getGlobalPropertiesOverrideMode() {
-		return globalPropertiesOverrideMode;
-	}
-
-	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
-		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
-	}
-
 }
