@@ -49,7 +49,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String organizationGroupIdProperty = Constants.DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY;
-	String organizationCodeProperty = Constants.DEFAULT_ORGANIZATION_CODE_PROPERTY;
 	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
 	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
 	String artifactIdProperty = Constants.DEFAULT_ARTIFACT_ID_PROPERTY;
@@ -296,14 +295,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setOrganizationGroupIdProperty(String orgIdProperty) {
 		this.organizationGroupIdProperty = orgIdProperty;
-	}
-
-	public String getOrganizationCodeProperty() {
-		return organizationCodeProperty;
-	}
-
-	public void setOrganizationCodeProperty(String orgCodeProperty) {
-		this.organizationCodeProperty = orgCodeProperty;
 	}
 
 	public String getArtifactIdProperty() {
