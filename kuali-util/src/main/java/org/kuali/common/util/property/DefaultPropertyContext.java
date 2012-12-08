@@ -61,22 +61,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
-	protected List<PropertyProcessor> getGavProcessors() {
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		if (organizationGroupIdProperty != null && groupIdProperty != null) {
-			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
-		}
-
-		if (groupIdProperty != null) {
-			processors.add(new PathProcessor(groupIdProperty));
-		}
-
-		if (versionProperty != null) {
-			processors.add(new VersionProcessor(versionProperty));
-		}
-		return processors;
-	}
-
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
@@ -115,6 +99,22 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		// Return the list of processors
+		return processors;
+	}
+
+	protected List<PropertyProcessor> getGavProcessors() {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+		if (organizationGroupIdProperty != null && groupIdProperty != null) {
+			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
+		}
+
+		if (groupIdProperty != null) {
+			processors.add(new PathProcessor(groupIdProperty));
+		}
+
+		if (versionProperty != null) {
+			processors.add(new VersionProcessor(versionProperty));
+		}
 		return processors;
 	}
 
