@@ -46,7 +46,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
+	GlobalPropertiesMode globalPropertiesOverrideMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	String style = PropertyStyle.NORMAL.name();
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
