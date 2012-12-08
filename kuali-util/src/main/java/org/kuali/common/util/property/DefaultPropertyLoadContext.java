@@ -56,7 +56,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		} else {
 			loadProcessors.addAll(0, getDefaultProcessors());
 		}
-		logger.info("Initialized " + loadProcessors.size() + "load processors");
+		logger.info("Initialized " + loadProcessors.size() + " load processors");
 	}
 
 	protected List<PropertyProcessor> getDefaultLoadProcessors() {
