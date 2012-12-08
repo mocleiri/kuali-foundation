@@ -60,49 +60,60 @@ public class DefaultPropertyContext implements PropertyContext {
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
-	protected List<PropertyProcessor> getDefaultProcessors() {
-		List<PropertyProcessor> defaultProcessors = new ArrayList<PropertyProcessor>();
-
-		if (properties != null) {
-			defaultProcessors.add(new AddPropertiesProcessor(properties));
-		}
-
+	protected List<PropertyProcessor> getGavProcessors() {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		if (organizationGroupIdProperty != null && groupIdProperty != null) {
-			defaultProcessors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
+			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
 		}
 
 		if (groupIdProperty != null) {
-			defaultProcessors.add(new PathProcessor(groupIdProperty));
+			processors.add(new PathProcessor(groupIdProperty));
 		}
 
 		if (versionProperty != null) {
-			defaultProcessors.add(new VersionProcessor(versionProperty));
+			processors.add(new VersionProcessor(versionProperty));
+		}
+		return processors;
+	}
+
+	protected List<PropertyProcessor> getDefaultProcessors() {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+
+		// Add any properties supplied directly to this bean
+		if (properties != null) {
+			processors.add(new AddPropertiesProcessor(properties));
 		}
 
+		// Add GAV related processing
+		processors.addAll(getGavProcessors());
+
 		// Decrypt/encrypt as appropriate
-		addEncModifier(defaultProcessors);
+		addEncProcessor(processors);
 
 		// Make sure system/environment properties override everything else
 		if (globalPropertiesOverrideMode != null) {
-			defaultProcessors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
+			processors.add(new GlobalOverrideProcessor(globalPropertiesOverrideMode));
 		}
 
-		// At this point no further properties will be added so we are safe to resolve place holders
+		// None of the processors below this should add new properties
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
-			defaultProcessors.add(new ResolvePlaceholdersProcessor(helper));
+			processors.add(new ResolvePlaceholdersProcessor(helper));
 		}
 
+		// Add a prefix to all of the existing properties if appropriate
 		if (!StringUtils.isBlank(prefix)) {
-			defaultProcessors.add(new AddPrefixProcessor(prefix));
+			processors.add(new AddPrefixProcessor(prefix));
 		}
 
-		addStyleModifier(defaultProcessors);
+		// Reformat the keys in environment variable format if appropriate
+		addStyleProcessor(processors);
 
-		return defaultProcessors;
+		// Return the list of processors
+		return processors;
 	}
 
-	protected void addStyleModifier(List<PropertyProcessor> defaultProcessors) {
+	protected void addStyleProcessor(List<PropertyProcessor> defaultProcessors) {
 		if (style == null) {
 			return;
 		}
@@ -117,7 +128,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected void addEncModifier(List<PropertyProcessor> defaultProcessors) {
+	protected void addEncProcessor(List<PropertyProcessor> defaultProcessors) {
 		if (encryptionMode == null) {
 			return;
 		}
