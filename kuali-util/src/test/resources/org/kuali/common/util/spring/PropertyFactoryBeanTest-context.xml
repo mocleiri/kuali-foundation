@@ -71,8 +71,6 @@
     <property name="encryptionPassword" ref="encryptionPassword" />
     <property name="service" ref="service" />
     <property name="locations" ref="locations" />
-    <property name="pathProperties" ref="pathProperties" />
-    <property name="versionProperties" ref="versionProperties" />
     <property name="addSystemProperties" ref="addGlobalProperties" />
     <property name="addEnvironmentVariables" ref="addGlobalProperties" />
   </bean>

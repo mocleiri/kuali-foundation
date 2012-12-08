@@ -64,8 +64,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 		processors.add(new AddPropertiesProcessor(PropertyUtils.getEnvAsProperties()));
 		processors.add(new AddPropertiesProcessor(System.getProperties()));
-		if (versionProperties != null) {
-			processors.add(new VersionProcessor(versionProperties));
+		if (versionProperty != null) {
+			processors.add(new VersionProcessor(versionProperty));
 		}
 		return processors;
 	}

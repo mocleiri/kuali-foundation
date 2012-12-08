@@ -54,12 +54,12 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
+	String pathProperty = Constants.DEFAULT_PATH_PROPERTY;
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
 	List<PropertyProcessor> processors;
-	List<String> pathProperties;
-	List<String> versionProperties;
 	Properties properties;
 	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
@@ -78,12 +78,12 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultProcessors.add(new AddPropertiesProcessor(System.getProperties()));
 		}
 
-		if (!CollectionUtils.isEmpty(pathProperties)) {
-			defaultProcessors.add(new PathProcessor(pathProperties));
+		if (pathProperty != null) {
+			defaultProcessors.add(new PathProcessor(pathProperty));
 		}
 
-		if (!CollectionUtils.isEmpty(versionProperties)) {
-			defaultProcessors.add(new VersionProcessor(versionProperties));
+		if (versionProperty != null) {
+			defaultProcessors.add(new VersionProcessor(versionProperty));
 		}
 
 		addEncModifier(defaultProcessors);
@@ -153,10 +153,10 @@ public class DefaultPropertyContext implements PropertyContext {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesOverrideMode);
 		resolveInternalStrings(global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
-		if (this.processors == null) {
-			this.processors = defaultProcessors;
+		if (processors == null) {
+			processors = defaultProcessors;
 		} else {
-			this.processors.addAll(0, defaultProcessors);
+			processors.addAll(0, defaultProcessors);
 		}
 	}
 
@@ -170,14 +170,11 @@ public class DefaultPropertyContext implements PropertyContext {
 			logger.info("Resolved prefix [{}]->[{}]", this.prefix, newPrefix);
 			this.prefix = newPrefix;
 		}
-
 		String newEncryptionPassword = getResolvedString(properties, this.encryptionPassword);
 		if (!StringUtils.equals(newEncryptionPassword, this.encryptionPassword)) {
 			logger.info("Resolved encryption password");
 			this.encryptionPassword = newEncryptionPassword;
 		}
-		resolveInternalList(properties, pathProperties);
-		resolveInternalList(properties, versionProperties);
 		resolveInternalList(properties, includes);
 		resolveInternalList(properties, excludes);
 	}
@@ -310,22 +307,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.processors = modifiers;
 	}
 
-	public List<String> getPathProperties() {
-		return pathProperties;
-	}
-
-	public void setPathProperties(List<String> pathProperties) {
-		this.pathProperties = pathProperties;
-	}
-
-	public List<String> getVersionProperties() {
-		return versionProperties;
-	}
-
-	public void setVersionProperties(List<String> versionProperties) {
-		this.versionProperties = versionProperties;
-	}
-
 	public Properties getProperties() {
 		return properties;
 	}
@@ -340,6 +321,22 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
 		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
+	}
+
+	public String getVersionProperty() {
+		return versionProperty;
+	}
+
+	public void setVersionProperty(String versionProperty) {
+		this.versionProperty = versionProperty;
+	}
+
+	public String getPathProperty() {
+		return pathProperty;
+	}
+
+	public void setPathProperty(String pathProperty) {
+		this.pathProperty = pathProperty;
 	}
 
 }
