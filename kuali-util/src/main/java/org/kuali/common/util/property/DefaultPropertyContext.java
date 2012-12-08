@@ -30,6 +30,7 @@ import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
+import org.kuali.common.util.property.processor.NoOpProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
@@ -88,7 +89,9 @@ public class DefaultPropertyContext implements PropertyContext {
 		processors.addAll(getGavProcessors());
 
 		// Decrypt/encrypt as appropriate
-		addEncProcessor(processors);
+		if (encryptionMode != null) {
+			processors.add(getEncProcessor(encryptionMode, encryptionStrength, encryptionPassword));
+		}
 
 		// Make sure system/environment properties override everything else
 		if (globalPropertiesOverrideMode != null) {
@@ -107,44 +110,37 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		// Reformat the keys in environment variable format if appropriate
-		addStyleProcessor(processors);
+		if (style != null) {
+			processors.add(getStyleProcessor(style));
+		}
 
 		// Return the list of processors
 		return processors;
 	}
 
-	protected void addStyleProcessor(List<PropertyProcessor> defaultProcessors) {
-		if (style == null) {
-			return;
-		}
+	protected PropertyProcessor getStyleProcessor(PropertyStyle style) {
 		switch (style) {
 		case NORMAL:
-			return;
+			return new NoOpProcessor();
 		case ENVIRONMENT_VARIABLE:
-			defaultProcessors.add(new ReformatKeysAsEnvVarsProcessor());
-			return;
+			return new ReformatKeysAsEnvVarsProcessor();
 		default:
-			throw new IllegalArgumentException(style + " is unknown");
+			throw new IllegalArgumentException("Property style " + style + " is unknown");
 		}
 	}
 
-	protected void addEncProcessor(List<PropertyProcessor> defaultProcessors) {
-		if (encryptionMode == null) {
-			return;
-		}
-		switch (encryptionMode) {
+	protected PropertyProcessor getEncProcessor(PropertyEncryptionMode mode, EncryptionStrength strength, String password) {
+		switch (mode) {
 		case NONE:
-			return;
+			return new NoOpProcessor();
 		case ENCRYPT:
-			TextEncryptor encryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultProcessors.add(new EndsWithEncryptProcessor(encryptor));
-			return;
+			TextEncryptor encryptor = EncUtils.getTextEncryptor(strength, password);
+			return new EndsWithEncryptProcessor(encryptor);
 		case DECRYPT:
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(encryptionStrength, encryptionPassword);
-			defaultProcessors.add(new EndsWithDecryptProcessor(decryptor));
-			return;
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(strength, password);
+			return new EndsWithDecryptProcessor(decryptor);
 		default:
-			throw new IllegalArgumentException("Encryption mode '" + encryptionMode + "' is unknown");
+			throw new IllegalArgumentException("Encryption mode '" + mode + "' is unknown");
 		}
 	}
 
