@@ -22,8 +22,11 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
+	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);
 
 	List<String> locations;
 	Mode missingLocationsMode = Mode.INFORM;
@@ -53,6 +56,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		} else {
 			loadProcessors.addAll(0, getDefaultProcessors());
 		}
+		logger.info("Initialized " + loadProcessors.size() + "load processors");
 	}
 
 	protected List<PropertyProcessor> getDefaultLoadProcessors() {
