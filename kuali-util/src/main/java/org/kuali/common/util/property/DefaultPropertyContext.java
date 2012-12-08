@@ -45,20 +45,20 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
-	String encoding;
-	boolean resolvePlaceholders;
-	String prefix;
-	String style = PropertyStyle.NORMAL.name();
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
+	String style = PropertyStyle.NORMAL.name();
+	String encryptionMode = PropertyEncryptionMode.NONE.name();
+	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String organizationGroupIdProperty = Constants.DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY;
 	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
 	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
-	String encryptionMode = PropertyEncryptionMode.NONE.name();
-	String encryptionStrength = EncryptionStrength.BASIC.name();
+	String encoding;
+	boolean resolvePlaceholders;
+	String prefix;
 	String encryptionPassword;
 	List<PropertyProcessor> processors;
 	Properties properties;
-	GlobalPropertiesMode globalPropertiesOverrideMode = GlobalPropertiesMode.BOTH;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
