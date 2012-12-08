@@ -49,8 +49,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		this.loadProcessors = loadProcessors;
 	}
 
-	@Override
-	public void initializeLoadProcessors() {
+	public void init() {
 		if (loadProcessors == null) {
 			loadProcessors = getDefaultLoadProcessors();
 		} else {

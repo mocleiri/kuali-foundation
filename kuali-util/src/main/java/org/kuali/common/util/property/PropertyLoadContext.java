@@ -28,6 +28,4 @@ public interface PropertyLoadContext extends PropertyContext {
 
 	List<PropertyProcessor> getLoadProcessors();
 
-	void initializeLoadProcessors();
-
 }
