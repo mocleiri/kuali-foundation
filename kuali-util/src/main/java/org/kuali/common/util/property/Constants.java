@@ -35,8 +35,8 @@ public final class Constants {
 	public static final String DEFAULT_CODE_SUFFIX = "code";
 	public static final String DEFAULT_HOME_SUFFIX = "home";
 	public static final String DEFAULT_USER_HOME_PROPERTY = "user.home";
-	public static final String DEFAULT_ORG_ID_PROPERTY = "org.id";
-	public static final String DEFAULT_ORG_CODE_PROPERTY = "org.code";
+	public static final String DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY = "organization.groupId";
+	public static final String DEFAULT_ORGANIZATION_CODE_PROPERTY = "organization.groupId.code";
 	public static final String DEFAULT_GROUP_ID_PROPERTY = "project.groupId";
 	public static final String DEFAULT_ARTIFACT_ID_PROPERTY = "project.artifactId";
 	public static final String DEFAULT_VERSION_PROPERTY = "project.version";
