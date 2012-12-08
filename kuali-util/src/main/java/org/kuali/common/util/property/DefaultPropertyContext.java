@@ -48,8 +48,11 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	String organizationGroupIdProperty = Constants.DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY;
+	String organizationCodeProperty = Constants.DEFAULT_ORGANIZATION_CODE_PROPERTY;
+	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
 	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
-	String pathProperty = Constants.DEFAULT_PATH_PROPERTY;
+	String artifactIdProperty = Constants.DEFAULT_ARTIFACT_ID_PROPERTY;
 	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
 	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
 	String encryptionPassword;
@@ -64,8 +67,8 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultProcessors.add(new AddPropertiesProcessor(properties));
 		}
 
-		if (pathProperty != null) {
-			defaultProcessors.add(new PathProcessor(pathProperty));
+		if (groupIdProperty != null) {
+			defaultProcessors.add(new PathProcessor(groupIdProperty));
 		}
 
 		if (versionProperty != null) {
@@ -278,12 +281,36 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.versionProperty = versionProperty;
 	}
 
-	public String getPathProperty() {
-		return pathProperty;
+	public String getGroupIdProperty() {
+		return groupIdProperty;
 	}
 
-	public void setPathProperty(String pathProperty) {
-		this.pathProperty = pathProperty;
+	public void setGroupIdProperty(String pathProperty) {
+		this.groupIdProperty = pathProperty;
+	}
+
+	public String getOrganizationGroupIdProperty() {
+		return organizationGroupIdProperty;
+	}
+
+	public void setOrganizationGroupIdProperty(String orgIdProperty) {
+		this.organizationGroupIdProperty = orgIdProperty;
+	}
+
+	public String getOrganizationCodeProperty() {
+		return organizationCodeProperty;
+	}
+
+	public void setOrganizationCodeProperty(String orgCodeProperty) {
+		this.organizationCodeProperty = orgCodeProperty;
+	}
+
+	public String getArtifactIdProperty() {
+		return artifactIdProperty;
+	}
+
+	public void setArtifactIdProperty(String artifactIdProperty) {
+		this.artifactIdProperty = artifactIdProperty;
 	}
 
 }
