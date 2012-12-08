@@ -23,7 +23,7 @@ public final class Constants {
 	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 	public static final String DEFAULT_VALUE_SEPARATOR = ":";
-	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE = true;
+	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS = true;
 	public static final String DEFAULT_ENCRYPTED_SUFFIX = ".encrypted";
 	public static final String DEFAULT_PATH_SUFFIX = "path";
 	public static final String DEFAULT_MAJOR_VERSION_SUFFIX = "major";
@@ -32,18 +32,20 @@ public final class Constants {
 	public static final String DEFAULT_QUALIFIER_VERSION_SUFFIX = "qualifier";
 	public static final String DEFAULT_TRIMMED_VERSION_SUFFIX = "trimmed";
 	public static final String DEFAULT_SNAPSHOT_VERSION_SUFFIX = "snapshot";
-	public static final String DEFAULT_USER_HOME_KEY = "user.home";
 	public static final String DEFAULT_CODE_SUFFIX = "code";
 	public static final String DEFAULT_HOME_SUFFIX = "home";
-	public static final String DEFAULT_GROUP_HOME_PREFIX = "project";
+	public static final String DEFAULT_USER_HOME_PROPERTY = "user.home";
+	public static final String DEFAULT_ORG_ID_PROPERTY = "org.id";
+	public static final String DEFAULT_ORG_CODE_PROPERTY = "org.code";
+	public static final String DEFAULT_GROUP_ID_PROPERTY = "project.groupId";
+	public static final String DEFAULT_ARTIFACT_ID_PROPERTY = "project.artifactId";
 	public static final String DEFAULT_VERSION_PROPERTY = "project.version";
-	public static final String DEFAULT_PATH_PROPERTY = "project.groupId";
 	public static final Mode DEFAULT_PROPERTY_OVERWRITE_MODE = Mode.INFORM;
 	public static final GlobalPropertiesMode DEFAULT_GLOBAL_PROPERTIES_MODE = GlobalPropertiesMode.BOTH;
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = getDefaultHelper();
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
-		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE);
+		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
 	}
 
 }
