@@ -21,39 +21,28 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
-import org.springframework.util.Assert;
 
 public class GroupCodeProcessor implements PropertyProcessor {
 
-	String organizationGroupIdProperty;
-	String groupIdProperty;
-	String groupCodeProperty;
+	String organizationGroupId;
+	String groupId;
+	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
 
-	String codeSuffix = Constants.DEFAULT_CODE_SUFFIX;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	public GroupCodeProcessor() {
 		this(null, null);
 	}
 
-	public GroupCodeProcessor(String organizationGroupIdProperty, String groupIdProperty) {
+	public GroupCodeProcessor(String organizationGroupId, String groupId) {
 		super();
-		this.organizationGroupIdProperty = organizationGroupIdProperty;
-		this.groupIdProperty = groupIdProperty;
-		this.groupCodeProperty = groupIdProperty + "." + Constants.DEFAULT_CODE_SUFFIX;
-		this.propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+		this.organizationGroupId = organizationGroupId;
+		this.groupId = groupId;
 	}
 
 	@Override
 	public void process(Properties properties) {
-		Assert.notNull(organizationGroupIdProperty, "organizationGroupIdProperty is null");
-		Assert.notNull(groupIdProperty, "groupIdProperty is null");
-
-		String organizationGroupId = properties.getProperty(organizationGroupIdProperty);
-		String groupId = properties.getProperty(groupIdProperty);
-
 		String groupCode = getGroupCode(organizationGroupId, groupId);
-
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
 	}
 
@@ -77,20 +66,20 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		return code;
 	}
 
-	public String getOrganizationGroupIdProperty() {
-		return organizationGroupIdProperty;
+	public String getOrganizationGroupId() {
+		return organizationGroupId;
 	}
 
-	public void setOrganizationGroupIdProperty(String organizationGroupIdProperty) {
-		this.organizationGroupIdProperty = organizationGroupIdProperty;
+	public void setOrganizationGroupId(String organizationGroupId) {
+		this.organizationGroupId = organizationGroupId;
 	}
 
-	public String getGroupIdProperty() {
-		return groupIdProperty;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setGroupIdProperty(String groupIdProperty) {
-		this.groupIdProperty = groupIdProperty;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getGroupCodeProperty() {
@@ -101,14 +90,6 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		this.groupCodeProperty = groupCodeProperty;
 	}
 
-	public String getCodeSuffix() {
-		return codeSuffix;
-	}
-
-	public void setCodeSuffix(String codeSuffix) {
-		this.codeSuffix = codeSuffix;
-	}
-
 	public Mode getPropertyOverwriteMode() {
 		return propertyOverwriteMode;
 	}
@@ -116,5 +97,4 @@ public class GroupCodeProcessor implements PropertyProcessor {
 	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
 	}
-
 }

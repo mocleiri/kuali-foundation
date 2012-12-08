@@ -50,13 +50,13 @@ public class DefaultPropertyContext implements PropertyContext {
 	String style = PropertyStyle.NORMAL.name();
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
-	String organizationGroupIdProperty = Constants.DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY;
-	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
-	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
+	String encryptionPassword;
+	String organizationGroupId;
+	String groupId;
+	String version;
 	String encoding;
 	boolean resolvePlaceholders;
 	String prefix;
-	String encryptionPassword;
 	List<PropertyProcessor> processors;
 	Properties properties;
 
@@ -103,16 +103,16 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	protected List<PropertyProcessor> getGavProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		if (organizationGroupIdProperty != null && groupIdProperty != null) {
-			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
+		if (organizationGroupId != null && groupId != null) {
+			processors.add(new GroupCodeProcessor(organizationGroupId, groupId));
 		}
 
-		if (groupIdProperty != null) {
-			processors.add(new PathProcessor(groupIdProperty));
+		if (groupId != null) {
+			processors.add(new PathProcessor(groupId));
 		}
 
-		if (versionProperty != null) {
-			processors.add(new VersionProcessor(versionProperty));
+		if (version != null) {
+			processors.add(new VersionProcessor(version));
 		}
 		return processors;
 	}
@@ -235,28 +235,28 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.helper = helper;
 	}
 
-	public String getOrganizationGroupIdProperty() {
-		return organizationGroupIdProperty;
+	public String getOrganizationGroupId() {
+		return organizationGroupId;
 	}
 
-	public void setOrganizationGroupIdProperty(String organizationGroupIdProperty) {
-		this.organizationGroupIdProperty = organizationGroupIdProperty;
+	public void setOrganizationGroupId(String organizationGroupIdProperty) {
+		this.organizationGroupId = organizationGroupIdProperty;
 	}
 
-	public String getGroupIdProperty() {
-		return groupIdProperty;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setGroupIdProperty(String groupIdProperty) {
-		this.groupIdProperty = groupIdProperty;
+	public void setGroupId(String groupIdProperty) {
+		this.groupId = groupIdProperty;
 	}
 
-	public String getVersionProperty() {
-		return versionProperty;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setVersionProperty(String versionProperty) {
-		this.versionProperty = versionProperty;
+	public void setVersion(String versionProperty) {
+		this.version = versionProperty;
 	}
 
 	public String getEncryptionMode() {
