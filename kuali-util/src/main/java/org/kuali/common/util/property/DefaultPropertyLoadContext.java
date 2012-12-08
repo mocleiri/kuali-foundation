@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
+import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 
@@ -66,6 +67,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		processors.add(new AddPropertiesProcessor(System.getProperties()));
 		if (versionProperty != null) {
 			processors.add(new VersionProcessor(versionProperty));
+		}
+		if (pathProperty != null) {
+			processors.add(new PathProcessor(pathProperty));
 		}
 		return processors;
 	}
