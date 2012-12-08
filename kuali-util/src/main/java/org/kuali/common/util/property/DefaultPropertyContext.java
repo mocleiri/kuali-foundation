@@ -48,14 +48,13 @@ public class DefaultPropertyContext implements PropertyContext {
 	String encoding;
 	boolean resolvePlaceholders;
 	String prefix;
-	PropertyStyle style = PropertyStyle.NORMAL;
+	String style = PropertyStyle.NORMAL.name();
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String organizationGroupIdProperty = Constants.DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY;
 	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
 	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
-	String artifactIdProperty = Constants.DEFAULT_ARTIFACT_ID_PROPERTY;
-	PropertyEncryptionMode encryptionMode = PropertyEncryptionMode.NONE;
-	EncryptionStrength encryptionStrength = EncryptionStrength.BASIC;
+	String encryptionMode = PropertyEncryptionMode.NONE.name();
+	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String encryptionPassword;
 	List<PropertyProcessor> processors;
 	Properties properties;
@@ -118,8 +117,8 @@ public class DefaultPropertyContext implements PropertyContext {
 		return processors;
 	}
 
-	protected PropertyProcessor getStyleProcessor(PropertyStyle style) {
-		switch (style) {
+	protected PropertyProcessor getStyleProcessor(String style) {
+		switch (PropertyStyle.valueOf(style)) {
 		case NORMAL:
 			return new NoOpProcessor();
 		case ENVIRONMENT_VARIABLE:
@@ -129,15 +128,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected PropertyProcessor getEncProcessor(PropertyEncryptionMode mode, EncryptionStrength strength, String password) {
-		switch (mode) {
+	protected PropertyProcessor getEncProcessor(String mode, String strength, String password) {
+		switch (PropertyEncryptionMode.valueOf(mode)) {
 		case NONE:
 			return new NoOpProcessor();
 		case ENCRYPT:
-			TextEncryptor encryptor = EncUtils.getTextEncryptor(strength, password);
+			TextEncryptor encryptor = EncUtils.getTextEncryptor(EncryptionStrength.valueOf(strength), password);
 			return new EndsWithEncryptProcessor(encryptor);
 		case DECRYPT:
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(strength, password);
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(EncryptionStrength.valueOf(strength), password);
 			return new EndsWithDecryptProcessor(decryptor);
 		default:
 			throw new IllegalArgumentException("Encryption mode '" + mode + "' is unknown");
@@ -220,11 +219,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.prefix = prefix;
 	}
 
-	public PropertyStyle getStyle() {
+	public String getStyle() {
 		return style;
 	}
 
-	public void setStyle(PropertyStyle style) {
+	public void setStyle(String style) {
 		this.style = style;
 	}
 
@@ -236,19 +235,43 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.helper = helper;
 	}
 
-	public PropertyEncryptionMode getEncryptionMode() {
+	public String getOrganizationGroupIdProperty() {
+		return organizationGroupIdProperty;
+	}
+
+	public void setOrganizationGroupIdProperty(String organizationGroupIdProperty) {
+		this.organizationGroupIdProperty = organizationGroupIdProperty;
+	}
+
+	public String getGroupIdProperty() {
+		return groupIdProperty;
+	}
+
+	public void setGroupIdProperty(String groupIdProperty) {
+		this.groupIdProperty = groupIdProperty;
+	}
+
+	public String getVersionProperty() {
+		return versionProperty;
+	}
+
+	public void setVersionProperty(String versionProperty) {
+		this.versionProperty = versionProperty;
+	}
+
+	public String getEncryptionMode() {
 		return encryptionMode;
 	}
 
-	public void setEncryptionMode(PropertyEncryptionMode encryptionMode) {
+	public void setEncryptionMode(String encryptionMode) {
 		this.encryptionMode = encryptionMode;
 	}
 
-	public EncryptionStrength getEncryptionStrength() {
+	public String getEncryptionStrength() {
 		return encryptionStrength;
 	}
 
-	public void setEncryptionStrength(EncryptionStrength encryptionStrength) {
+	public void setEncryptionStrength(String encryptionStrength) {
 		this.encryptionStrength = encryptionStrength;
 	}
 
@@ -265,8 +288,8 @@ public class DefaultPropertyContext implements PropertyContext {
 		return processors;
 	}
 
-	public void setProcessors(List<PropertyProcessor> modifiers) {
-		this.processors = modifiers;
+	public void setProcessors(List<PropertyProcessor> processors) {
+		this.processors = processors;
 	}
 
 	public Properties getProperties() {
@@ -283,38 +306,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setGlobalPropertiesOverrideMode(GlobalPropertiesMode globalPropertiesOverrideMode) {
 		this.globalPropertiesOverrideMode = globalPropertiesOverrideMode;
-	}
-
-	public String getVersionProperty() {
-		return versionProperty;
-	}
-
-	public void setVersionProperty(String versionProperty) {
-		this.versionProperty = versionProperty;
-	}
-
-	public String getGroupIdProperty() {
-		return groupIdProperty;
-	}
-
-	public void setGroupIdProperty(String pathProperty) {
-		this.groupIdProperty = pathProperty;
-	}
-
-	public String getOrganizationGroupIdProperty() {
-		return organizationGroupIdProperty;
-	}
-
-	public void setOrganizationGroupIdProperty(String orgIdProperty) {
-		this.organizationGroupIdProperty = orgIdProperty;
-	}
-
-	public String getArtifactIdProperty() {
-		return artifactIdProperty;
-	}
-
-	public void setArtifactIdProperty(String artifactIdProperty) {
-		this.artifactIdProperty = artifactIdProperty;
 	}
 
 }
