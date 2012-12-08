@@ -18,6 +18,7 @@ package org.kuali.common.util.service;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -50,23 +51,21 @@ public class DefaultPropertyService implements PropertyService {
 	}
 
 	protected void process(Properties properties, List<PropertyProcessor> processors) {
-		if (processors == null) {
-			return;
-		}
-		for (PropertyProcessor processor : processors) {
+		for (PropertyProcessor processor : CollectionUtils.toEmpty(processors)) {
 			processor.process(properties);
 		}
 	}
 
 	protected Properties loadProperties(PropertyLoadContext context) {
 		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		List<String> locations = CollectionUtils.toEmpty(context.getLocations());
+		List<PropertyProcessor> processors = CollectionUtils.toEmpty(context.getLoadProcessors());
+		logger.info("Examining " + locations.size() + " locations to load properties from");
+		logger.info("Running " + processors.size() + " processors after properties are loaded from each location");
 		Properties properties = new Properties();
-		if (context.getLocations() == null) {
-			return properties;
-		}
-		for (String location : context.getLocations()) {
+		for (String location : locations) {
 			Properties duplicate = PropertyUtils.duplicate(properties);
-			process(duplicate, context.getLoadProcessors());
+			process(duplicate, processors);
 			String resolvedLocation = helper.replacePlaceholders(location, duplicate);
 			if (!location.equals(resolvedLocation)) {
 				logger.debug("Resolved location [{}] -> [{}]", location, resolvedLocation);

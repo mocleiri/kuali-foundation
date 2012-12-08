@@ -75,6 +75,7 @@ public class DefaultPropertyContext implements PropertyContext {
 			defaultProcessors.add(new VersionProcessor(versionProperty));
 		}
 
+		// Decrypt/encrypt as appropriate
 		addEncModifier(defaultProcessors);
 
 		// Make sure system/environment properties override everything else

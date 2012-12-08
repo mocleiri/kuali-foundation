@@ -67,8 +67,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		if (versionProperty != null) {
 			processors.add(new VersionProcessor(versionProperty));
 		}
-		if (pathProperty != null) {
-			processors.add(new PathProcessor(pathProperty));
+		if (groupIdProperty != null) {
+			processors.add(new PathProcessor(groupIdProperty));
 		}
 		return processors;
 	}

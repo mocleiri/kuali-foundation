@@ -26,13 +26,13 @@ import org.slf4j.LoggerFactory;
 public class OrgProcessorTest {
 	private static final Logger logger = LoggerFactory.getLogger(OrgProcessorTest.class);
 
-	OrgProcessor processor = getProcessor();
+	GroupCodeProcessor processor = getProcessor();
 
 	protected static final String KUALI_GROUPID_KEY = "kuali.groupId";
 	protected static final String KUALI_PROJECT_GROUPID_KEY = "project.groupId";
 
-	protected static OrgProcessor getProcessor() {
-		return new OrgProcessor(KUALI_GROUPID_KEY, KUALI_PROJECT_GROUPID_KEY);
+	protected static GroupCodeProcessor getProcessor() {
+		return new GroupCodeProcessor(KUALI_GROUPID_KEY, KUALI_PROJECT_GROUPID_KEY);
 	}
 
 	protected static Properties getProperties() {
