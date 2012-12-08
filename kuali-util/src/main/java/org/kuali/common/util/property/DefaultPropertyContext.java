@@ -143,9 +143,19 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
+	protected GlobalPropertiesMode getResolvedGlobalPropertiesOverwriteMode(Properties properties, String globalPropertiesOverwriteMode) {
+		Properties global = PropertyUtils.getProperties(properties, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
+		String newGlobalPropertiesOverwriteMode = getResolvedString(global, globalPropertiesOverwriteMode);
+		if (!StringUtils.equals(newGlobalPropertiesOverwriteMode, globalPropertiesOverwriteMode)) {
+			logger.info("Resolved global properties overwrite mode [{}]->[{}]", globalPropertiesOverwriteMode, newGlobalPropertiesOverwriteMode);
+		}
+		return GlobalPropertiesMode.valueOf(newGlobalPropertiesOverwriteMode);
+	}
+
 	@Override
 	public void initialize(Properties properties) {
-		Properties global = PropertyUtils.getProperties(properties, GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode));
+		GlobalPropertiesMode mode = getResolvedGlobalPropertiesOverwriteMode(properties, globalPropertiesOverrideMode);
+		Properties global = PropertyUtils.getProperties(properties, mode);
 		resolveInternalStrings(global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
