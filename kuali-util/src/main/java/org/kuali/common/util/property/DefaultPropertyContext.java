@@ -29,6 +29,7 @@ import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
+import org.kuali.common.util.property.processor.GroupCodeProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
@@ -64,6 +65,10 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		if (properties != null) {
 			defaultProcessors.add(new AddPropertiesProcessor(properties));
+		}
+
+		if (organizationGroupIdProperty != null && groupIdProperty != null) {
+			defaultProcessors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
 		}
 
 		if (groupIdProperty != null) {
