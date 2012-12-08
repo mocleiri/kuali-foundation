@@ -33,12 +33,10 @@ import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
-import org.kuali.common.util.property.processor.TrimProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
@@ -46,10 +44,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
 	String encoding;
-	List<String> includes;
-	List<String> excludes;
-	boolean addEnvironmentVariables;
-	boolean addSystemProperties;
 	boolean resolvePlaceholders;
 	String prefix;
 	PropertyStyle style = PropertyStyle.NORMAL;
@@ -68,14 +62,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		if (properties != null) {
 			defaultProcessors.add(new AddPropertiesProcessor(properties));
-		}
-
-		if (addEnvironmentVariables) {
-			defaultProcessors.add(new AddPropertiesProcessor(PropertyUtils.getEnvAsProperties()));
-		}
-
-		if (addSystemProperties) {
-			defaultProcessors.add(new AddPropertiesProcessor(System.getProperties()));
 		}
 
 		if (pathProperty != null) {
@@ -104,11 +90,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		addStyleModifier(defaultProcessors);
-
-		boolean trim = !CollectionUtils.isEmpty(includes) || !CollectionUtils.isEmpty(excludes);
-		if (trim) {
-			defaultProcessors.add(new TrimProcessor(includes, excludes));
-		}
 
 		return defaultProcessors;
 	}
@@ -175,8 +156,6 @@ public class DefaultPropertyContext implements PropertyContext {
 			logger.info("Resolved encryption password");
 			this.encryptionPassword = newEncryptionPassword;
 		}
-		resolveInternalList(properties, includes);
-		resolveInternalList(properties, excludes);
 	}
 
 	protected void resolveInternalList(Properties properties, List<String> list) {
@@ -208,38 +187,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
-	}
-
-	public List<String> getIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-
-	public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
-	}
-
-	public boolean isAddEnvironmentVariables() {
-		return addEnvironmentVariables;
-	}
-
-	public void setAddEnvironmentVariables(boolean includeEnvironmentVariables) {
-		this.addEnvironmentVariables = includeEnvironmentVariables;
-	}
-
-	public boolean isAddSystemProperties() {
-		return addSystemProperties;
-	}
-
-	public void setAddSystemProperties(boolean includeSystemProperties) {
-		this.addSystemProperties = includeSystemProperties;
 	}
 
 	public boolean isResolvePlaceholders() {
