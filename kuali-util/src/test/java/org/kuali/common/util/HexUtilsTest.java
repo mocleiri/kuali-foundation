@@ -37,7 +37,7 @@ public class HexUtilsTest {
 			logger.info(e.getMessage());
 		}
 		try {
-			logger.info(HexUtils.toStringFromHex("FFA019Z7AA", "UTF-8"));
+			logger.info(HexUtils.toStringFromHex("FFA019z7AA", "UTF-8"));
 			Assert.fail("Strings with characters outside the range 0-9, a-f, and A-F should fail");
 		} catch (IllegalArgumentException e) {
 			logger.info(e.getMessage());
