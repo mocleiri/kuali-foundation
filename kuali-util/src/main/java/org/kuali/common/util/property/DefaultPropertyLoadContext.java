@@ -127,7 +127,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	private Properties getLocationHelperProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties locationHelperProperties = PropertyUtils.duplicate(PropertyUtils.toEmpty(properties));
-		List<PropertyProcessor> processors = getInternalProcessors();
+		List<PropertyProcessor> processors = getLocationHelperProcessors();
 		for (PropertyProcessor processor : processors) {
 			processor.process(locationHelperProperties);
 		}
@@ -142,7 +142,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		return processors;
 	}
 
-	protected List<PropertyProcessor> getInternalProcessors() {
+	protected List<PropertyProcessor> getLocationHelperProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
 		if (orgIdProperty != null && groupIdProperty != null) {
