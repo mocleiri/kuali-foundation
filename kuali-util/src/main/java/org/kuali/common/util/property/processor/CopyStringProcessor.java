@@ -5,17 +5,17 @@ import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-public class CopyStringPropertyProcessor implements PropertyProcessor {
+public class CopyStringProcessor implements PropertyProcessor {
 
 	Object bean;
 	String beanProperty;
 	String propertyKey;
 
-	public CopyStringPropertyProcessor() {
+	public CopyStringProcessor() {
 		this(null, null, null);
 	}
 
-	public CopyStringPropertyProcessor(Object bean, String beanProperty, String propertyKey) {
+	public CopyStringProcessor(Object bean, String beanProperty, String propertyKey) {
 		super();
 		this.bean = bean;
 		this.beanProperty = beanProperty;

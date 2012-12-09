@@ -24,7 +24,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.processor.CopyStringPropertyProcessor;
+import org.kuali.common.util.property.processor.CopyStringProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
@@ -158,8 +158,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 
-		if (encodingProperty != null) {
-			processors.add(new CopyStringPropertyProcessor(this, "encoding", encodingProperty));
+		if (encodingProperty != null && encoding == null) {
+			processors.add(new CopyStringProcessor(this, "encoding", encodingProperty));
 		}
 
 		return processors;
