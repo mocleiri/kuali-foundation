@@ -48,8 +48,10 @@ public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 	@Override
 	public void process(Properties properties) {
 		Properties resolvedProperties = PropertyUtils.getResolvedProperties(properties, helper, globalPropertiesMode);
-		logger.info("Resolved {} property values", resolvedProperties.size());
-		properties.putAll(resolvedProperties);
+		if (resolvedProperties.size() > 0) {
+			logger.info("Resolved {} property values", resolvedProperties.size());
+			properties.putAll(resolvedProperties);
+		}
 	}
 
 	public PropertyPlaceholderHelper getHelper() {
