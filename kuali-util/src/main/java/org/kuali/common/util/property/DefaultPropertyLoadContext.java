@@ -24,6 +24,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.processor.CopyStringPropertyProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -47,25 +48,35 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	@Override
 	public void init() {
 		Assert.notNull(helper, "helper is null");
-		locations = Collections.<String> emptyList();
-		internalProperties = getInternalProperties(properties);
-		globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, internalProperties);
-		missingLocationsMode = resolve(missingLocationsMode, internalProperties);
-
+		this.locations = Collections.<String> emptyList();
+		Properties global = getGlobalProperties(properties);
+		this.globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, global);
+		validateGlobalPropertiesOverrideMode(globalPropertiesOverrideMode);
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		this.internalProperties = getInternalProperties(properties, gpm);
 		logger.info("Internal properties size - " + internalProperties.size());
 		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
-		logger.info("Missing locations mode - " + missingLocationsMode);
-
+		logger.info("Encoding - " + encoding);
 		validate();
+	}
+
+	protected void processInternalStrings(Properties properties) {
+		if (encodingProperty != null) {
+			String originalValue = properties.getProperty(encodingProperty);
+			String resolvedValue = resolve(originalValue, properties);
+			this.encoding = resolvedValue;
+		}
+	}
+
+	protected void validateGlobalPropertiesOverrideMode(String globalPropertiesOverrideMode) {
+		validateResolved(globalPropertiesOverrideMode);
+		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 	}
 
 	protected void validate() {
 		validateResolved(globalPropertiesOverrideMode);
-		validateResolved(missingLocationsMode);
 		validateResolved(encoding);
-
 		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
-		Mode.valueOf(missingLocationsMode);
 	}
 
 	protected String resolve(String string, Properties properties) {
@@ -102,7 +113,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
 		if (resolve) {
 			Properties duplicate = PropertyUtils.duplicate(properties);
-			List<PropertyProcessor> processors = getLocationProcessors();
+			List<PropertyProcessor> processors = null;
 			for (PropertyProcessor processor : processors) {
 				processor.process(duplicate);
 			}
@@ -112,7 +123,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 	}
 
-	private Properties getInternalProperties(Properties properties) {
+	private Properties getGlobalProperties(Properties properties) {
 		if (properties == null) {
 			return PropertyUtils.getGlobalProperties();
 		} else {
@@ -120,15 +131,17 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 	}
 
-	protected List<PropertyProcessor> getLocationProcessors() {
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
-		processors.addAll(PropertyUtils.getPropertyProcessors(gpm));
-		processors.addAll(getGavProcessors());
-		return processors;
+	private Properties getInternalProperties(Properties properties, GlobalPropertiesMode mode) {
+		properties = PropertyUtils.toEmpty(properties);
+		Properties internalProperties = PropertyUtils.getProperties(properties, mode);
+		List<PropertyProcessor> processors = getInternalProcessors();
+		for (PropertyProcessor processor : processors) {
+			processor.process(internalProperties);
+		}
+		return internalProperties;
 	}
 
-	protected List<PropertyProcessor> getGavProcessors() {
+	protected List<PropertyProcessor> getInternalProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		if (organizationGroupIdProperty != null && groupIdProperty != null) {
 			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
@@ -140,6 +153,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 		if (versionProperty != null) {
 			processors.add(new VersionProcessor(versionProperty));
+		}
+		if (encodingProperty != null) {
+			processors.add(new CopyStringPropertyProcessor(this, "encoding", encodingProperty));
 		}
 		return processors;
 	}

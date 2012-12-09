@@ -57,6 +57,10 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static final Properties toEmpty(Properties properties) {
+		return properties == null ? new Properties() : properties;
+	}
+
 	public static final boolean containsUnresolvedPlaceholder2(String string) {
 		int beginIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_PREFIX);
 		if (beginIndex == -1) {
