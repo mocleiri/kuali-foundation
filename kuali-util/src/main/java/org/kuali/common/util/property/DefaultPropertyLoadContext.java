@@ -38,6 +38,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	String missingLocationsMode = Mode.INFORM.name();
 	String organizationGroupId;
 	String groupId;
+	String artifactId;
 	String version;
 
 	private Properties internalProperties;
@@ -51,6 +52,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		encoding = helper.replacePlaceholders(encoding, internalProperties);
 		organizationGroupId = helper.replacePlaceholders(organizationGroupId, internalProperties);
 		groupId = helper.replacePlaceholders(groupId, internalProperties);
+		artifactId = helper.replacePlaceholders(artifactId, internalProperties);
 		version = helper.replacePlaceholders(version, internalProperties);
 
 		logger.info("Internal properties size - " + internalProperties.size());
@@ -59,6 +61,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Encoding - " + encoding);
 		logger.info("Organization group id - " + organizationGroupId);
 		logger.info("Group id - " + groupId);
+		logger.info("Artifact id - " + artifactId);
 		logger.info("Version - " + version);
 
 		validate();
@@ -70,6 +73,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		validateResolved(encoding);
 		validateResolved(organizationGroupId);
 		validateResolved(groupId);
+		validateResolved(artifactId);
 		validateResolved(version);
 
 		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
