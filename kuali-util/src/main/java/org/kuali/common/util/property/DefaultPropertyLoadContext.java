@@ -40,7 +40,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	List<String> locations;
 	String missingLocationsMode = Mode.INFORM.name();
-	String organizationGroupIdProperty = "organization.groupId";
+	String organizationGroupIdProperty;
 	String groupIdProperty = "project.groupId";
 	String versionProperty = "project.version";
 	String encodingProperty = "project.build.sourceEncoding";
@@ -60,14 +60,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Encoding - " + encoding);
 		PropertyUtils.show(internalProperties);
 		validate();
-	}
-
-	protected void processInternalStrings(Properties properties) {
-		if (encodingProperty != null) {
-			String originalValue = properties.getProperty(encodingProperty);
-			String resolvedValue = resolve(originalValue, properties);
-			this.encoding = resolvedValue;
-		}
 	}
 
 	protected void validateGlobalPropertiesOverrideMode(String globalPropertiesOverrideMode) {
@@ -159,10 +151,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 			GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 			processors.add(new GlobalOverrideProcessor(gpm));
 		}
-		if (resolvePlaceholders) {
-			GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
-			processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
-		}
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 		if (encodingProperty != null) {
 			processors.add(new CopyStringPropertyProcessor(this, "encoding", encodingProperty));
 		}
