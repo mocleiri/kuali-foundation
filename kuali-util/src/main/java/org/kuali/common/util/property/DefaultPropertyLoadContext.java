@@ -70,10 +70,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	protected void validate() {
-		validateResolved(globalPropertiesOverrideMode);
-		validateResolved(missingLocationsMode);
+		validateGlobalPropertiesOverrideMode(globalPropertiesOverrideMode);
 		validateResolved(encoding);
-		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		validateResolved(missingLocationsMode);
 		Mode.valueOf(missingLocationsMode);
 	}
 

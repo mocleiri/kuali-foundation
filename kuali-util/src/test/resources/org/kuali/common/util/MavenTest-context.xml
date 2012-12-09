@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <import resource="classpath:org/kuali/common/util/maven-properties-context.xml" />
+  <import resource="classpath:org/kuali/common/util/build-properties-context.xml" />
 
   <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext" init-method="init">
     <property name="properties" ref="kuali.build.properties" />
