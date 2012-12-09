@@ -23,21 +23,20 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="kuali.build.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-    <property name="properties">
-      <props>
-        <prop key="kuali.home">\${user.home}/.${kuali.groupId.code}</prop>
-        <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
-        <prop key="kuali.groupId">${kuali.groupId}</prop>
-        <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
-        <prop key="project.groupId">${project.groupId}</prop>
-        <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="project.version">${project.version}</prop>
-        <prop key="project.build.sourceEncoding">${project.build.sourceEncoding}</prop>
-        <prop key="kuali.properties.global">${kuali.properties.global}</prop>
-        <prop key="kuali.properties.missing">${kuali.properties.missing}</prop>
-      </props>
-    </property>
+
+  <import resource="classpath:org/kuali/common/util/build-properties-context.xml" />
+
+  <util:list id="locations" value-type="java.lang.String">
+    <value>classpath:org/kuali/common/util/car.properties</value>
+  </util:list>
+
+
+  <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext" init-method="init">
+    <property name="locations" ref="locations" />
+    <property name="locationHelperProperties" ref="kuali.build.properties" />
+    <property name="orgIdProperty" value="kuali.groupId" />
   </bean>
+
+  <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
 
 </beans>

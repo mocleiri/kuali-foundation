@@ -54,6 +54,7 @@ public class DefaultPropertyService implements PropertyService {
 
 	protected Properties loadProperties(PropertyLoadContext context) {
 		Properties properties = context.init();
+		int initialSize = properties.size();
 		List<String> locations = CollectionUtils.toEmpty(context.getLocations());
 		logger.info("Examining " + locations.size() + " locations to load properties from");
 		int count = 0;
@@ -65,8 +66,9 @@ public class DefaultPropertyService implements PropertyService {
 				count++;
 			}
 		}
+		int newSize = properties.size();
 		int skipped = locations.size() - count;
-		logger.info("Loaded " + properties.size() + " properties from " + count + " locations.  Skipped " + skipped + " locations");
+		logger.info("Loaded " + (newSize - initialSize) + " properties from " + count + " locations.  Skipped " + skipped + " locations");
 		return properties;
 	}
 }
