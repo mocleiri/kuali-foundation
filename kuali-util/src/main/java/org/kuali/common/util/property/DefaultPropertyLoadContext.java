@@ -44,23 +44,23 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	String groupIdProperty = "project.groupId";
 	String versionProperty = "project.version";
 	String encodingProperty = "project.build.sourceEncoding";
-	private Properties internalProperties;
+	Properties locationHelperProperties;
 
 	@Override
 	public void init() {
 		Assert.notNull(helper, "helper is null");
 		this.locations = CollectionUtils.toEmpty(locations);
-		Properties global = getGlobalProperties(properties);
+		Properties global = getGlobalProperties(locationHelperProperties);
 		this.globalPropertiesMode = resolve(globalPropertiesMode, global);
 		this.missingLocationsMode = resolve(missingLocationsMode, global);
 		logger.info("Global properties mode - " + globalPropertiesMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
 		validateGlobalPropertiesMode(globalPropertiesMode);
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
-		this.internalProperties = getInternalProperties(properties, gpm);
-		logger.info("Internal properties size - " + internalProperties.size());
+		this.locationHelperProperties = getLocationHelperProperties(locationHelperProperties, gpm);
+		logger.info("Location helper properties size - " + locationHelperProperties.size());
 		logger.info("Encoding - " + encoding);
-		PropertyUtils.show(internalProperties);
+		PropertyUtils.show(locationHelperProperties);
 		validate();
 	}
 
@@ -109,7 +109,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	protected String getResolvedLocation(String location, Properties properties) {
 		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
 		if (resolve) {
-			Properties duplicate = PropertyUtils.duplicate(internalProperties);
+			Properties duplicate = PropertyUtils.duplicate(locationHelperProperties);
 			duplicate.putAll(properties);
 			List<PropertyProcessor> processors = getLocationProcessors();
 			for (PropertyProcessor processor : processors) {
@@ -125,13 +125,13 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		return PropertyUtils.getGlobalProperties(PropertyUtils.toEmpty(properties));
 	}
 
-	private Properties getInternalProperties(Properties properties, GlobalPropertiesMode mode) {
-		Properties internalProperties = PropertyUtils.duplicate(PropertyUtils.toEmpty(properties));
+	private Properties getLocationHelperProperties(Properties properties, GlobalPropertiesMode mode) {
+		Properties locationHelperProperties = PropertyUtils.duplicate(PropertyUtils.toEmpty(properties));
 		List<PropertyProcessor> processors = getInternalProcessors();
 		for (PropertyProcessor processor : processors) {
-			processor.process(internalProperties);
+			processor.process(locationHelperProperties);
 		}
-		return internalProperties;
+		return locationHelperProperties;
 	}
 
 	protected List<PropertyProcessor> getLocationProcessors() {
@@ -215,6 +215,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setEncodingProperty(String encodingProperty) {
 		this.encodingProperty = encodingProperty;
+	}
+
+	public Properties getLocationHelperProperties() {
+		return locationHelperProperties;
+	}
+
+	public void setLocationHelperProperties(Properties locationHelperProperties) {
+		this.locationHelperProperties = locationHelperProperties;
 	}
 
 }
