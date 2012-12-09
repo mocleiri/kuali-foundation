@@ -30,9 +30,7 @@ public class CopyStringPropertyProcessor implements PropertyProcessor {
 	protected void copyProperty(Object bean, String beanProperty, Properties properties, String propertyKey) {
 		try {
 			String value = properties.getProperty(propertyKey);
-			if (value != null) {
-				BeanUtils.copyProperty(bean, beanProperty, value);
-			}
+			BeanUtils.copyProperty(bean, beanProperty, value);
 		} catch (InvocationTargetException e) {
 			throw new IllegalArgumentException(e);
 		} catch (IllegalAccessException e) {

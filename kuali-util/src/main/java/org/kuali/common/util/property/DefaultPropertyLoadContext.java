@@ -132,8 +132,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	private Properties getInternalProperties(Properties properties, GlobalPropertiesMode mode) {
-		properties = PropertyUtils.toEmpty(properties);
-		Properties internalProperties = PropertyUtils.getProperties(properties, mode);
+		Properties internalProperties = PropertyUtils.getProperties(PropertyUtils.toEmpty(properties), mode);
 		List<PropertyProcessor> processors = getInternalProcessors();
 		for (PropertyProcessor processor : processors) {
 			processor.process(internalProperties);
@@ -175,6 +174,38 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
+	}
+
+	public String getOrganizationGroupIdProperty() {
+		return organizationGroupIdProperty;
+	}
+
+	public void setOrganizationGroupIdProperty(String organizationGroupIdProperty) {
+		this.organizationGroupIdProperty = organizationGroupIdProperty;
+	}
+
+	public String getGroupIdProperty() {
+		return groupIdProperty;
+	}
+
+	public void setGroupIdProperty(String groupIdProperty) {
+		this.groupIdProperty = groupIdProperty;
+	}
+
+	public String getVersionProperty() {
+		return versionProperty;
+	}
+
+	public void setVersionProperty(String versionProperty) {
+		this.versionProperty = versionProperty;
+	}
+
+	public String getEncodingProperty() {
+		return encodingProperty;
+	}
+
+	public void setEncodingProperty(String encodingProperty) {
+		this.encodingProperty = encodingProperty;
 	}
 
 }
