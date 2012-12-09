@@ -30,7 +30,6 @@
     <property name="properties" ref="kuali.build.properties" />
     <property name="organizationGroupIdProperty" value="kuali.groupId" />
     <property name="resolvePlaceholders" value="true" />
-    <property name="prefix" value="kuali" />
   </bean>
 
 </beans>
