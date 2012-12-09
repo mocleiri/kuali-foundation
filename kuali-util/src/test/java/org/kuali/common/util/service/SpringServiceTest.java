@@ -19,7 +19,7 @@ import java.util.Properties;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.spring.SpringContext;
+import org.kuali.common.util.spring.DefaultSpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class SpringServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(SpringServiceTest.class);
 
 	@Autowired
-	private SpringContext context = null;
+	private DefaultSpringContext context = null;
 
 	@Autowired
 	private SpringService service = null;
