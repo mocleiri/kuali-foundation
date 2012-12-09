@@ -47,13 +47,13 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	public void init() {
 		Assert.notNull(helper, "helper is null");
 		internalProperties = getInternalProperties(properties);
-		globalPropertiesOverrideMode = helper.replacePlaceholders(globalPropertiesOverrideMode, internalProperties);
-		missingLocationsMode = helper.replacePlaceholders(missingLocationsMode, internalProperties);
-		encoding = helper.replacePlaceholders(encoding, internalProperties);
-		organizationGroupId = helper.replacePlaceholders(organizationGroupId, internalProperties);
-		groupId = helper.replacePlaceholders(groupId, internalProperties);
-		artifactId = helper.replacePlaceholders(artifactId, internalProperties);
-		version = helper.replacePlaceholders(version, internalProperties);
+		globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, internalProperties);
+		missingLocationsMode = resolve(missingLocationsMode, internalProperties);
+		encoding = resolve(encoding, internalProperties);
+		organizationGroupId = resolve(organizationGroupId, internalProperties);
+		groupId = resolve(groupId, internalProperties);
+		artifactId = resolve(artifactId, internalProperties);
+		version = resolve(version, internalProperties);
 
 		logger.info("Internal properties size - " + internalProperties.size());
 		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
@@ -65,6 +65,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Version - " + version);
 
 		validate();
+	}
+
+	protected String resolve(String string, Properties properties) {
+		if (string == null) {
+			return null;
+		} else {
+			return helper.replacePlaceholders(string, properties);
+		}
 	}
 
 	protected void validate() {
