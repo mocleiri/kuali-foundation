@@ -57,6 +57,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Internal properties size - " + internalProperties.size());
 		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
 		logger.info("Encoding - " + encoding);
+		PropertyUtils.show(internalProperties);
 		validate();
 	}
 
@@ -132,7 +133,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	private Properties getInternalProperties(Properties properties, GlobalPropertiesMode mode) {
-		Properties internalProperties = PropertyUtils.getProperties(PropertyUtils.toEmpty(properties), mode);
+		Properties internalProperties = PropertyUtils.duplicate(PropertyUtils.toEmpty(properties));
 		List<PropertyProcessor> processors = getInternalProcessors();
 		for (PropertyProcessor processor : processors) {
 			processor.process(internalProperties);

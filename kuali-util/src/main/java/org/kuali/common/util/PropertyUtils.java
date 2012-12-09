@@ -235,6 +235,14 @@ public class PropertyUtils {
 		return keys;
 	}
 
+	public static final void show(Properties properties) {
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			String value = Str.flatten(properties.getProperty(key));
+			logger.info(key + "=" + value);
+		}
+	}
+
 	/**
 	 * Store the properties to the indicated file using the platform default encoding.
 	 */
