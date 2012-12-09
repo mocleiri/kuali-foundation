@@ -132,8 +132,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	protected List<PropertyProcessor> getLocationProcessors() {
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 		return processors;
