@@ -51,6 +51,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		Properties global = getGlobalProperties(locationHelperProperties);
 		this.globalPropertiesMode = resolve(globalPropertiesMode, global);
 		this.missingLocationsMode = resolve(missingLocationsMode, global);
+		this.encoding = resolve(encoding, global);
 		logger.info("Global properties mode - " + globalPropertiesMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
 		validateGlobalPropertiesMode(globalPropertiesMode);
@@ -161,6 +162,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 
+		// Copy the encoding from encodingProperty unless they explicitly supplied an encoding
 		if (encodingProperty != null && encoding == null) {
 			processors.add(new CopyStringProcessor(this, "encoding", encodingProperty));
 		}
