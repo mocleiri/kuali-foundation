@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
@@ -47,9 +46,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	Properties locationHelperProperties;
 
 	@Override
-	public void init() {
+	public Properties init() {
 		Assert.notNull(helper, "helper is null");
-		this.locations = CollectionUtils.toEmpty(locations);
 		Properties global = getGlobalProperties(locationHelperProperties);
 		this.globalPropertiesMode = resolve(globalPropertiesMode, global);
 		this.missingLocationsMode = resolve(missingLocationsMode, global);
@@ -62,6 +60,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Encoding - " + encoding);
 		PropertyUtils.show(locationHelperProperties);
 		validate();
+		Properties p = new Properties();
+		p.putAll(PropertyUtils.toEmpty(properties));
+		p.putAll(PropertyUtils.toEmpty(locationHelperProperties));
+		return p;
 	}
 
 	protected void validateGlobalPropertiesMode(String globalPropertiesMode) {
@@ -90,12 +92,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		return getValidatedLocation(resolvedLocation, Mode.valueOf(missingLocationsMode));
 	}
 
-	protected void validateResolved(String string) {
-		if (PropertyUtils.containsUnresolvedPlaceholder(string)) {
-			throw new IllegalArgumentException("Unable to resolve [" + string + "]");
-		}
-	}
-
 	protected String getValidatedLocation(String location, Mode missingLocationsMode) {
 		validateResolved(location);
 		if (LocationUtils.exists(location)) {
@@ -106,11 +102,16 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 	}
 
+	protected void validateResolved(String string) {
+		if (PropertyUtils.containsUnresolvedPlaceholder(string)) {
+			throw new IllegalArgumentException("Unable to resolve [" + string + "]");
+		}
+	}
+
 	protected String getResolvedLocation(String location, Properties properties) {
 		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
 		if (resolve) {
-			Properties duplicate = PropertyUtils.duplicate(locationHelperProperties);
-			duplicate.putAll(properties);
+			Properties duplicate = PropertyUtils.duplicate(properties);
 			List<PropertyProcessor> processors = getLocationProcessors();
 			for (PropertyProcessor processor : processors) {
 				processor.process(duplicate);

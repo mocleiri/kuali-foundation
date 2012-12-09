@@ -20,7 +20,7 @@ import java.util.Properties;
 
 public interface PropertyLoadContext extends PropertyContext {
 
-	void init();
+	Properties init();
 
 	List<String> getLocations();
 

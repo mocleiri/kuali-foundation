@@ -53,10 +53,9 @@ public class DefaultPropertyService implements PropertyService {
 	}
 
 	protected Properties loadProperties(PropertyLoadContext context) {
-		context.init();
-		List<String> locations = context.getLocations();
+		Properties properties = context.init();
+		List<String> locations = CollectionUtils.toEmpty(context.getLocations());
 		logger.info("Examining " + locations.size() + " locations to load properties from");
-		Properties properties = new Properties();
 		int count = 0;
 		for (String location : locations) {
 			String resolvedAndValidatedLocation = context.getLocation(location, properties);
