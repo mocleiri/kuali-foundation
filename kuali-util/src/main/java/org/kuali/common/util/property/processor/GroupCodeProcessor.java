@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.springframework.util.Assert;
 
 public class GroupCodeProcessor implements PropertyProcessor {
 
@@ -42,8 +43,16 @@ public class GroupCodeProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
+
+		Assert.notNull(organizationGroupIdProperty, "organizationGroupIdProperty is null");
+		Assert.notNull(groupIdProperty, "groupIdProperty is null");
+
 		String organizationGroupId = properties.getProperty(organizationGroupIdProperty);
 		String groupId = properties.getProperty(groupIdProperty);
+
+		Assert.notNull(organizationGroupId, "organizationGroupId is null");
+		Assert.notNull(groupId, "groupId is null");
+
 		String groupCode = getGroupCode(organizationGroupId, groupId);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
 	}
