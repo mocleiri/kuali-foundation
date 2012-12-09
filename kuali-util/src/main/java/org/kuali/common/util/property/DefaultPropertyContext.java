@@ -262,4 +262,12 @@ public class DefaultPropertyContext implements PropertyContext {
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
+
+	public String getGlobalPropertiesMode() {
+		return globalPropertiesMode;
+	}
+
+	public void setGlobalPropertiesMode(String globalPropertiesMode) {
+		this.globalPropertiesMode = globalPropertiesMode;
+	}
 }
