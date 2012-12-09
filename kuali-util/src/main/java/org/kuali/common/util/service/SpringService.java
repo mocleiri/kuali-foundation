@@ -21,4 +21,6 @@ public interface SpringService {
 
 	void load(SpringContext context);
 
+	void filter(SpringContext context);
+
 }
