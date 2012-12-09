@@ -53,9 +53,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		Properties global = getGlobalProperties(properties);
 		this.globalPropertiesMode = resolve(globalPropertiesMode, global);
 		this.missingLocationsMode = resolve(missingLocationsMode, global);
-		logger.info("Global properties override mode - " + globalPropertiesMode);
+		logger.info("Global properties mode - " + globalPropertiesMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
-		validateGlobalPropertiesOverrideMode(globalPropertiesMode);
+		validateGlobalPropertiesMode(globalPropertiesMode);
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		this.internalProperties = getInternalProperties(properties, gpm);
 		logger.info("Internal properties size - " + internalProperties.size());
@@ -64,13 +64,13 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		validate();
 	}
 
-	protected void validateGlobalPropertiesOverrideMode(String globalPropertiesOverrideMode) {
-		validateResolved(globalPropertiesOverrideMode);
-		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+	protected void validateGlobalPropertiesMode(String globalPropertiesMode) {
+		validateResolved(globalPropertiesMode);
+		GlobalPropertiesMode.valueOf(globalPropertiesMode);
 	}
 
 	protected void validate() {
-		validateGlobalPropertiesOverrideMode(globalPropertiesMode);
+		validateGlobalPropertiesMode(globalPropertiesMode);
 		validateResolved(encoding);
 		validateResolved(missingLocationsMode);
 		Mode.valueOf(missingLocationsMode);
