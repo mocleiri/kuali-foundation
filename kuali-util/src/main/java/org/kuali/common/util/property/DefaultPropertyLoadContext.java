@@ -51,12 +51,12 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		Assert.notNull(helper, "helper is null");
 		this.locations = CollectionUtils.toEmpty(locations);
 		Properties global = getGlobalProperties(properties);
-		this.globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, global);
+		this.globalPropertiesMode = resolve(globalPropertiesMode, global);
 		this.missingLocationsMode = resolve(missingLocationsMode, global);
-		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
+		logger.info("Global properties override mode - " + globalPropertiesMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
-		validateGlobalPropertiesOverrideMode(globalPropertiesOverrideMode);
-		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		validateGlobalPropertiesOverrideMode(globalPropertiesMode);
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		this.internalProperties = getInternalProperties(properties, gpm);
 		logger.info("Internal properties size - " + internalProperties.size());
 		logger.info("Encoding - " + encoding);
@@ -70,7 +70,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	protected void validate() {
-		validateGlobalPropertiesOverrideMode(globalPropertiesOverrideMode);
+		validateGlobalPropertiesOverrideMode(globalPropertiesMode);
 		validateResolved(encoding);
 		validateResolved(missingLocationsMode);
 		Mode.valueOf(missingLocationsMode);
@@ -135,7 +135,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	protected List<PropertyProcessor> getLocationProcessors() {
-		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
@@ -157,7 +157,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 			processors.add(new VersionProcessor(versionProperty));
 		}
 
-		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 

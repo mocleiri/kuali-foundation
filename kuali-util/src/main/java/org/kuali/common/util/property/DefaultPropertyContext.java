@@ -42,7 +42,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	String globalPropertiesOverrideMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
+	String globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
 	String style = PropertyStyle.NORMAL.name();
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
@@ -70,14 +70,14 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		// Make sure system/environment properties override everything else
-		if (globalPropertiesOverrideMode != null) {
-			processors.add(new GlobalOverrideProcessor(GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode)));
+		if (globalPropertiesMode != null) {
+			processors.add(new GlobalOverrideProcessor(GlobalPropertiesMode.valueOf(globalPropertiesMode)));
 		}
 
 		// None of the processors below this should add new properties
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
-			processors.add(new ResolvePlaceholdersProcessor(helper, GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode)));
+			processors.add(new ResolvePlaceholdersProcessor(helper, GlobalPropertiesMode.valueOf(globalPropertiesMode)));
 		}
 
 		// Add a prefix to all of the existing properties if appropriate
@@ -131,7 +131,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	@Override
 	public void initialize(Properties properties) {
-		GlobalPropertiesMode mode = getResolvedGlobalPropertiesOverwriteMode(properties, globalPropertiesOverrideMode);
+		GlobalPropertiesMode mode = getResolvedGlobalPropertiesOverwriteMode(properties, globalPropertiesMode);
 		Properties global = PropertyUtils.getProperties(properties, mode);
 		resolveInternalStrings(global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
