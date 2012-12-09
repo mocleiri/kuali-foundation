@@ -49,15 +49,24 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		globalPropertiesOverrideMode = helper.replacePlaceholders(globalPropertiesOverrideMode, internalProperties);
 		missingLocationsMode = helper.replacePlaceholders(missingLocationsMode, internalProperties);
 		encoding = helper.replacePlaceholders(encoding, internalProperties);
+		organizationGroupId = helper.replacePlaceholders(organizationGroupId, internalProperties);
+		groupId = helper.replacePlaceholders(groupId, internalProperties);
+		version = helper.replacePlaceholders(version, internalProperties);
 
 		logger.info("Internal properties size - " + internalProperties.size());
 		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
 		logger.info("Encoding - " + encoding);
+		logger.info("Organization group id - " + organizationGroupId);
+		logger.info("Group id - " + groupId);
+		logger.info("Version - " + version);
 
 		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		Mode.valueOf(missingLocationsMode);
 		validateResolved(encoding);
+		validateResolved(organizationGroupId);
+		validateResolved(groupId);
+		validateResolved(version);
 	}
 
 	@Override
