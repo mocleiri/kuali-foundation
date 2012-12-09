@@ -30,15 +30,10 @@
         <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
         <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
-        <prop key="kuali.enc.mode">${kuali.enc.mode:NONE}</prop>
-        <prop key="kuali.enc.password">${kuali.enc.password:NONE}</prop>
-        <prop key="organization.groupId">${organization.groupId}</prop>
         <prop key="project.groupId">${project.groupId}</prop>
         <prop key="project.artifactId">${project.artifactId}</prop>
         <prop key="project.version">${project.version}</prop>
         <prop key="project.build.sourceEncoding">${project.build.sourceEncoding}</prop>
-        <prop key="project.basedir">${project.basedir}</prop>
-        <prop key="project.build.directory">${project.build.directory}</prop>
       </props>
     </property>
   </bean>

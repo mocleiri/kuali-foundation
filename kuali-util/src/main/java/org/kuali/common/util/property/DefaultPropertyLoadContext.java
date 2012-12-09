@@ -37,10 +37,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	List<String> locations;
 	String missingLocationsMode = Mode.INFORM.name();
-	String organizationGroupId;
-	String groupId;
-	String artifactId;
-	String version;
+	String organizationGroupIdProperty = "organization.groupId";
+	String groupIdProperty = "project.groupId";
+	String versionProperty = "project.version";
+	String encodingProperty = "project.build.sourceEncoding";
 
 	private Properties internalProperties;
 
@@ -51,20 +51,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		internalProperties = getInternalProperties(properties);
 		globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, internalProperties);
 		missingLocationsMode = resolve(missingLocationsMode, internalProperties);
-		encoding = resolve(encoding, internalProperties);
-		organizationGroupId = resolve(organizationGroupId, internalProperties);
-		groupId = resolve(groupId, internalProperties);
-		artifactId = resolve(artifactId, internalProperties);
-		version = resolve(version, internalProperties);
 
 		logger.info("Internal properties size - " + internalProperties.size());
 		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
-		logger.info("Encoding - " + encoding);
-		logger.info("Organization group id - " + organizationGroupId);
-		logger.info("Group id - " + groupId);
-		logger.info("Artifact id - " + artifactId);
-		logger.info("Version - " + version);
 
 		validate();
 	}
@@ -73,10 +63,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		validateResolved(globalPropertiesOverrideMode);
 		validateResolved(missingLocationsMode);
 		validateResolved(encoding);
-		validateResolved(organizationGroupId);
-		validateResolved(groupId);
-		validateResolved(artifactId);
-		validateResolved(version);
 
 		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		Mode.valueOf(missingLocationsMode);
@@ -144,16 +130,16 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	protected List<PropertyProcessor> getGavProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		if (organizationGroupId != null && groupId != null) {
-			processors.add(new GroupCodeProcessor(organizationGroupId, groupId));
+		if (organizationGroupIdProperty != null && groupIdProperty != null) {
+			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
 		}
 
-		if (groupId != null) {
-			processors.add(new PathProcessor(groupId));
+		if (groupIdProperty != null) {
+			processors.add(new PathProcessor(groupIdProperty));
 		}
 
-		if (version != null) {
-			processors.add(new VersionProcessor(version));
+		if (versionProperty != null) {
+			processors.add(new VersionProcessor(versionProperty));
 		}
 		return processors;
 	}
@@ -173,38 +159,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
-	}
-
-	public String getOrganizationGroupId() {
-		return organizationGroupId;
-	}
-
-	public void setOrganizationGroupId(String organizationGroupId) {
-		this.organizationGroupId = organizationGroupId;
-	}
-
-	public String getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
-
-	public String getArtifactId() {
-		return artifactId;
-	}
-
-	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
 	}
 
 }
