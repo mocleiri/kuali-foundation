@@ -106,8 +106,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	protected String getResolvedLocation(String location, Properties properties) {
 		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
 		if (resolve) {
-			Properties duplicate = PropertyUtils.duplicate(properties);
-			List<PropertyProcessor> processors = null;
+			Properties duplicate = PropertyUtils.duplicate(internalProperties);
+			duplicate.putAll(properties);
+			List<PropertyProcessor> processors = getLocationProcessors();
 			for (PropertyProcessor processor : processors) {
 				processor.process(duplicate);
 			}
@@ -118,11 +119,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	private Properties getGlobalProperties(Properties properties) {
-		if (properties == null) {
-			return PropertyUtils.getGlobalProperties();
-		} else {
-			return PropertyUtils.getGlobalProperties(properties);
-		}
+		return PropertyUtils.getGlobalProperties(PropertyUtils.toEmpty(properties));
 	}
 
 	private Properties getInternalProperties(Properties properties, GlobalPropertiesMode mode) {
@@ -132,6 +129,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 			processor.process(internalProperties);
 		}
 		return internalProperties;
+	}
+
+	protected List<PropertyProcessor> getLocationProcessors() {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		processors.add(new GlobalOverrideProcessor(gpm));
+		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
+		return processors;
 	}
 
 	protected List<PropertyProcessor> getInternalProcessors() {
