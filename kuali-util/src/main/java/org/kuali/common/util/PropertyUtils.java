@@ -275,7 +275,7 @@ public class PropertyUtils {
 	 */
 	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties newProperties = duplicate(properties);
-		List<PropertyProcessor> modifiers = getPropertyModifiers(mode);
+		List<PropertyProcessor> modifiers = getPropertyProcessors(mode);
 		for (PropertyProcessor modifier : modifiers) {
 			modifier.process(newProperties);
 		}
@@ -312,7 +312,7 @@ public class PropertyUtils {
 	/**
 	 * Return modifiers that add environment variables, system properties, or both, according to the mode passed in.
 	 */
-	public static final List<PropertyProcessor> getPropertyModifiers(GlobalPropertiesMode mode) {
+	public static final List<PropertyProcessor> getPropertyProcessors(GlobalPropertiesMode mode) {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		switch (mode) {
 		case NONE:

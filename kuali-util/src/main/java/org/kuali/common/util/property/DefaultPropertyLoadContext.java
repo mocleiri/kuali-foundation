@@ -31,6 +31,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	List<String> locations;
 	Mode missingLocationsMode = Mode.INFORM;
 	List<PropertyProcessor> loadProcessors;
+	StringResolver stringResolver;
 
 	@Override
 	public List<String> getLocations() {
@@ -42,14 +43,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	@Override
-	public List<PropertyProcessor> getLoadProcessors() {
-		return loadProcessors;
-	}
-
-	public void setLoadProcessors(List<PropertyProcessor> loadProcessors) {
-		this.loadProcessors = loadProcessors;
-	}
-
 	public void init() {
 		if (loadProcessors == null) {
 			loadProcessors = getDefaultLoadProcessors();
@@ -64,19 +57,35 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		if (properties != null) {
 			processors.add(new AddPropertiesProcessor(properties));
 		}
-		processors.add(new AddPropertiesProcessor(PropertyUtils.getEnvAsProperties()));
-		processors.add(new AddPropertiesProcessor(System.getProperties()));
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		processors.addAll(PropertyUtils.getPropertyProcessors(gpm));
 		processors.addAll(getGavProcessors());
 		return processors;
 	}
 
-	@Override
 	public Mode getMissingLocationsMode() {
 		return missingLocationsMode;
 	}
 
 	public void setMissingLocationsMode(Mode missingLocationsMode) {
 		this.missingLocationsMode = missingLocationsMode;
+	}
+
+	public List<PropertyProcessor> getLoadProcessors() {
+		return loadProcessors;
+	}
+
+	public void setLoadProcessors(List<PropertyProcessor> loadProcessors) {
+		this.loadProcessors = loadProcessors;
+	}
+
+	@Override
+    public StringResolver getStringResolver() {
+		return stringResolver;
+	}
+
+	public void setStringResolver(StringResolver stringResolver) {
+		this.stringResolver = stringResolver;
 	}
 
 }

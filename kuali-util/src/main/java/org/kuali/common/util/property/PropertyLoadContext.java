@@ -18,14 +18,15 @@ package org.kuali.common.util.property;
 import java.util.List;
 
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.property.processor.PropertyProcessor;
 
 public interface PropertyLoadContext extends PropertyContext {
 
+	void init();
+
 	List<String> getLocations();
 
-	Mode getMissingLocationsMode();
+	StringResolver getStringResolver();
 
-	List<PropertyProcessor> getLoadProcessors();
+	Mode getMissingLocationsMode();
 
 }
