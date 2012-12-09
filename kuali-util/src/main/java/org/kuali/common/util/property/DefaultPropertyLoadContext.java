@@ -40,7 +40,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	List<String> locations;
 	String missingLocationsMode = Mode.INFORM.name();
-	String organizationGroupIdProperty;
+	String orgIdProperty;
 	String groupIdProperty = "project.groupId";
 	String versionProperty = "project.version";
 	String encodingProperty = "project.build.sourceEncoding";
@@ -146,8 +146,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	protected List<PropertyProcessor> getInternalProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
-		if (organizationGroupIdProperty != null && groupIdProperty != null) {
-			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
+		if (orgIdProperty != null && groupIdProperty != null) {
+			processors.add(new GroupCodeProcessor(orgIdProperty, groupIdProperty));
 		}
 
 		if (groupIdProperty != null) {
@@ -186,12 +186,12 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		this.locations = locations;
 	}
 
-	public String getOrganizationGroupIdProperty() {
-		return organizationGroupIdProperty;
+	public String getOrgIdProperty() {
+		return orgIdProperty;
 	}
 
-	public void setOrganizationGroupIdProperty(String organizationGroupIdProperty) {
-		this.organizationGroupIdProperty = organizationGroupIdProperty;
+	public void setOrgIdProperty(String organizationGroupIdProperty) {
+		this.orgIdProperty = organizationGroupIdProperty;
 	}
 
 	public String getGroupIdProperty() {
