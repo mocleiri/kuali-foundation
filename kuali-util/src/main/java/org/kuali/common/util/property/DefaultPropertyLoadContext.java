@@ -61,12 +61,19 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Group id - " + groupId);
 		logger.info("Version - " + version);
 
-		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
-		Mode.valueOf(missingLocationsMode);
+		validate();
+	}
+
+	protected void validate() {
+		validateResolved(globalPropertiesOverrideMode);
+		validateResolved(missingLocationsMode);
 		validateResolved(encoding);
 		validateResolved(organizationGroupId);
 		validateResolved(groupId);
 		validateResolved(version);
+
+		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		Mode.valueOf(missingLocationsMode);
 	}
 
 	@Override
