@@ -120,19 +120,10 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected GlobalPropertiesMode getResolvedGlobalPropertiesOverwriteMode(Properties properties, String globalPropertiesOverwriteMode) {
-		Properties global = PropertyUtils.getProperties(properties, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
-		String newGlobalPropertiesOverwriteMode = getResolvedString(global, globalPropertiesOverwriteMode);
-		if (!StringUtils.equals(newGlobalPropertiesOverwriteMode, globalPropertiesOverwriteMode)) {
-			logger.info("Resolved global properties overwrite mode [{}]->[{}]", globalPropertiesOverwriteMode, newGlobalPropertiesOverwriteMode);
-		}
-		return GlobalPropertiesMode.valueOf(newGlobalPropertiesOverwriteMode);
-	}
-
 	@Override
 	public void initialize(Properties properties) {
-		GlobalPropertiesMode mode = getResolvedGlobalPropertiesOverwriteMode(properties, globalPropertiesMode);
-		Properties global = PropertyUtils.getProperties(properties, mode);
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
+		Properties global = PropertyUtils.getProperties(properties, gpm);
 		resolveInternalStrings(global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
@@ -143,10 +134,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	protected void resolveInternalStrings(Properties properties) {
-		if (helper == null) {
-			return;
-		}
-
 		String newPrefix = getResolvedString(properties, this.prefix);
 		if (!StringUtils.equals(newPrefix, this.prefix)) {
 			logger.info("Resolved prefix [{}]->[{}]", this.prefix, newPrefix);
