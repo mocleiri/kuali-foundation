@@ -58,7 +58,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		this.locationHelperProperties = getLocationHelperProperties(locationHelperProperties, gpm);
 		logger.info("Location helper properties size - " + locationHelperProperties.size());
 		logger.info("Encoding - " + encoding);
-		PropertyUtils.show(locationHelperProperties);
 		validate();
 		Properties p = new Properties();
 		p.putAll(PropertyUtils.toEmpty(properties));

@@ -28,13 +28,16 @@
 
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/util/car.properties</value>
+    <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
   </util:list>
 
 
-  <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext" init-method="init">
+  <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext">
     <property name="locations" ref="locations" />
     <property name="locationHelperProperties" ref="kuali.build.properties" />
     <property name="orgIdProperty" value="kuali.groupId" />
+    <property name="globalPropertiesMode" value="${kuali.properties.global:BOTH}" />
+    <property name="missingLocationsMode" value="${kuali.properties.missing:INFORM}" />
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
