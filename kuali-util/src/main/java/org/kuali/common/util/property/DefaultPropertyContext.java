@@ -29,12 +29,9 @@ import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
-import org.kuali.common.util.property.processor.GroupCodeProcessor;
-import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
-import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -50,9 +47,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String encryptionPassword;
-	String organizationGroupId;
-	String groupId;
-	String version;
 	String encoding;
 	boolean resolvePlaceholders;
 	String prefix;
@@ -68,7 +62,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		// Add GAV related processing
-		processors.addAll(getGavProcessors());
+		// processors.addAll(getGavProcessors());
 
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
@@ -97,22 +91,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 
 		// Return the list of processors
-		return processors;
-	}
-
-	protected List<PropertyProcessor> getGavProcessors() {
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		if (organizationGroupId != null && groupId != null) {
-			processors.add(new GroupCodeProcessor(organizationGroupId, groupId));
-		}
-
-		if (groupId != null) {
-			processors.add(new PathProcessor(groupId));
-		}
-
-		if (version != null) {
-			processors.add(new VersionProcessor(version));
-		}
 		return processors;
 	}
 
@@ -242,30 +220,6 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setHelper(PropertyPlaceholderHelper helper) {
 		this.helper = helper;
-	}
-
-	public String getOrganizationGroupId() {
-		return organizationGroupId;
-	}
-
-	public void setOrganizationGroupId(String organizationGroupIdProperty) {
-		this.organizationGroupId = organizationGroupIdProperty;
-	}
-
-	public String getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(String groupIdProperty) {
-		this.groupId = groupIdProperty;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String versionProperty) {
-		this.version = versionProperty;
 	}
 
 	public String getEncryptionMode() {

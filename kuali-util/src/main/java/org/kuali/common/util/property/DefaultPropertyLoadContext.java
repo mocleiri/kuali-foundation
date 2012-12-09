@@ -23,7 +23,10 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.processor.GroupCodeProcessor;
+import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -33,17 +36,11 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	List<String> locations;
 	String missingLocationsMode = Mode.INFORM.name();
-	List<PropertyProcessor> loadProcessors;
+	String organizationGroupId;
+	String groupId;
+	String version;
+
 	private Properties internalProperties;
-
-	@Override
-	public List<String> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<String> locations) {
-		this.locations = locations;
-	}
 
 	@Override
 	public void init() {
@@ -115,12 +112,20 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		return processors;
 	}
 
-	public List<PropertyProcessor> getLoadProcessors() {
-		return loadProcessors;
-	}
+	protected List<PropertyProcessor> getGavProcessors() {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+		if (organizationGroupId != null && groupId != null) {
+			processors.add(new GroupCodeProcessor(organizationGroupId, groupId));
+		}
 
-	public void setLoadProcessors(List<PropertyProcessor> loadProcessors) {
-		this.loadProcessors = loadProcessors;
+		if (groupId != null) {
+			processors.add(new PathProcessor(groupId));
+		}
+
+		if (version != null) {
+			processors.add(new VersionProcessor(version));
+		}
+		return processors;
 	}
 
 	public String getMissingLocationsMode() {
@@ -129,6 +134,15 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setMissingLocationsMode(String missingLocationsMode) {
 		this.missingLocationsMode = missingLocationsMode;
+	}
+
+	@Override
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 
 }
