@@ -16,6 +16,7 @@
 package org.kuali.common.util.property;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,6 +47,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	@Override
 	public void init() {
 		Assert.notNull(helper, "helper is null");
+		locations = Collections.<String> emptyList();
 		internalProperties = getInternalProperties(properties);
 		globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, internalProperties);
 		missingLocationsMode = resolve(missingLocationsMode, internalProperties);
