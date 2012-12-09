@@ -25,9 +25,11 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.CopyStringPropertyProcessor;
+import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +53,11 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		this.locations = Collections.<String> emptyList();
 		Properties global = getGlobalProperties(properties);
 		this.globalPropertiesOverrideMode = resolve(globalPropertiesOverrideMode, global);
+		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
 		validateGlobalPropertiesOverrideMode(globalPropertiesOverrideMode);
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		this.internalProperties = getInternalProperties(properties, gpm);
 		logger.info("Internal properties size - " + internalProperties.size());
-		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
 		logger.info("Encoding - " + encoding);
 		PropertyUtils.show(internalProperties);
 		validate();
@@ -153,6 +155,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 		if (versionProperty != null) {
 			processors.add(new VersionProcessor(versionProperty));
+		}
+		if (globalPropertiesOverrideMode != null) {
+			GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+			processors.add(new GlobalOverrideProcessor(gpm));
+		}
+		if (resolvePlaceholders) {
+			GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+			processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 		}
 		if (encodingProperty != null) {
 			processors.add(new CopyStringPropertyProcessor(this, "encoding", encodingProperty));
