@@ -23,7 +23,7 @@ import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultLoadContext implements LoadContext {
+public class SpringContext {
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
@@ -35,8 +35,7 @@ public class DefaultLoadContext implements LoadContext {
 	List<String> filterIncludes;
 	List<String> filterExcludes;
 
-	@Override
-    public PropertyPlaceholderHelper getHelper() {
+	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -44,8 +43,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.helper = helper;
 	}
 
-	@Override
-    public GlobalPropertiesMode getGlobalPropertiesMode() {
+	public GlobalPropertiesMode getGlobalPropertiesMode() {
 		return globalPropertiesMode;
 	}
 
@@ -53,8 +51,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.globalPropertiesMode = globalPropertiesMode;
 	}
 
-	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -62,8 +59,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.encoding = encoding;
 	}
 
-	@Override
-    public String getContextLocation() {
+	public String getContextLocation() {
 		return contextLocation;
 	}
 
@@ -71,8 +67,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.contextLocation = contextLocation;
 	}
 
-	@Override
-    public Properties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 
@@ -80,8 +75,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.properties = properties;
 	}
 
-	@Override
-    public File getWorkingDir() {
+	public File getWorkingDir() {
 		return workingDir;
 	}
 
@@ -89,8 +83,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.workingDir = workingDir;
 	}
 
-	@Override
-    public boolean isFilterContext() {
+	public boolean isFilterContext() {
 		return filterContext;
 	}
 
@@ -98,8 +91,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.filterContext = filterContext;
 	}
 
-	@Override
-    public List<String> getFilterIncludes() {
+	public List<String> getFilterIncludes() {
 		return filterIncludes;
 	}
 
@@ -107,8 +99,7 @@ public class DefaultLoadContext implements LoadContext {
 		this.filterIncludes = filterIncludes;
 	}
 
-	@Override
-    public List<String> getFilterExcludes() {
+	public List<String> getFilterExcludes() {
 		return filterExcludes;
 	}
 

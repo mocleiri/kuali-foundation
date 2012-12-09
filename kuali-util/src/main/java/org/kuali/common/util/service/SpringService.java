@@ -15,10 +15,10 @@
  */
 package org.kuali.common.util.service;
 
-import org.kuali.common.util.spring.LoadContext;
+import org.kuali.common.util.spring.SpringContext;
 
 public interface SpringService {
 
-	void load(LoadContext context);
+	void load(SpringContext context);
 
 }

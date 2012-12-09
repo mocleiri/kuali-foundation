@@ -22,7 +22,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.spring.LoadContext;
+import org.kuali.common.util.spring.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -34,7 +34,7 @@ public class DefaultSpringService implements SpringService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
 	@Override
-	public void load(LoadContext context) {
+	public void load(SpringContext context) {
 		logger.info("Context Location - " + context.getContextLocation());
 		logger.info("Filter Context - " + context.isFilterContext());
 		logger.info("Working Dir - " + LocationUtils.getCanonicalPath(context.getWorkingDir()));
@@ -45,7 +45,7 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
-	protected ApplicationContext loadApplicationContext(LoadContext context) throws IOException {
+	protected ApplicationContext loadApplicationContext(SpringContext context) throws IOException {
 		boolean exists = LocationUtils.exists(context.getContextLocation());
 		if (!exists) {
 			throw new IllegalArgumentException(context.getContextLocation() + " does not exist");
@@ -62,7 +62,7 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
-	protected File createFilteredContextFile(LoadContext context) throws IOException {
+	protected File createFilteredContextFile(SpringContext context) throws IOException {
 		String content = getFilteredContent(context);
 		String filename = LocationUtils.getFilename(context.getContextLocation());
 		File file = new File(context.getWorkingDir(), filename);
@@ -71,7 +71,7 @@ public class DefaultSpringService implements SpringService {
 		return file;
 	}
 
-	protected File getFile(LoadContext context) throws IOException {
+	protected File getFile(SpringContext context) throws IOException {
 		if (context.isFilterContext()) {
 			return createFilteredContextFile(context);
 		} else {
@@ -84,7 +84,7 @@ public class DefaultSpringService implements SpringService {
 		return new FileSystemXmlApplicationContext(url);
 	}
 
-	protected String getFilteredContent(LoadContext context) {
+	protected String getFilteredContent(SpringContext context) {
 		Properties original = context.getProperties() == null ? new Properties() : context.getProperties();
 		Properties duplicate = PropertyUtils.getProperties(original, context.getGlobalPropertiesMode());
 		PropertyUtils.trim(duplicate, context.getFilterIncludes(), context.getFilterExcludes());
