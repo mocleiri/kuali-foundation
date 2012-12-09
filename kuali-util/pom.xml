@@ -53,17 +53,6 @@
     </developer>
   </developers>
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <configuration>
-            <escapeString>\</escapeString>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
