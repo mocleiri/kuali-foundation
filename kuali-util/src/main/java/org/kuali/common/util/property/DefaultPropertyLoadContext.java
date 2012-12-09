@@ -24,6 +24,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.CopyStringPropertyProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
@@ -166,6 +167,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 		if (encodingProperty != null) {
 			processors.add(new CopyStringPropertyProcessor(this, "encoding", encodingProperty));
+		}
+		if (prefix != null) {
+			processors.add(new AddPrefixProcessor(prefix));
 		}
 		return processors;
 	}

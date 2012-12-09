@@ -462,7 +462,7 @@ public class PropertyUtils {
 		Properties newProperties = new Properties();
 		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);
-			String newKey = prefix + "." + key;
+			String newKey = StringUtils.startsWith(key, prefix + ".") ? key : prefix + "." + key;
 			newProperties.setProperty(newKey, value);
 		}
 		return newProperties;
