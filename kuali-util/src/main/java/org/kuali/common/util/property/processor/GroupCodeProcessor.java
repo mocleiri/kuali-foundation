@@ -49,7 +49,6 @@ public class GroupCodeProcessor implements PropertyProcessor {
 	/**
 	 * Given <code>org.kuali</code> and <code>org.kuali.rice</code> return <code>rice</code><br>
 	 * Given <code>org.kuali</code> and <code>org.kuali.student.web</code> return <code>student</code><br>
-	 * Given <code>commons-lang</code> and <code>commons-lang</code> return <code>commons-lang</code><br>
 	 */
 	protected String getGroupCode(String organizationGroupId, String groupId) {
 		if (!StringUtils.startsWith(groupId, organizationGroupId)) {
