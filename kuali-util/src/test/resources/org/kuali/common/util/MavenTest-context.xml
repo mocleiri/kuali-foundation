@@ -29,7 +29,6 @@
   <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext" init-method="init">
     <property name="properties" ref="kuali.build.properties" />
     <property name="organizationGroupIdProperty" value="kuali.groupId" />
-    <property name="resolvePlaceholders" value="true" />
   </bean>
 
 </beans>

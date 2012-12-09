@@ -136,6 +136,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	protected List<PropertyProcessor> getInternalProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+
 		if (organizationGroupIdProperty != null && groupIdProperty != null) {
 			processors.add(new GroupCodeProcessor(organizationGroupIdProperty, groupIdProperty));
 		}
@@ -147,15 +148,15 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		if (versionProperty != null) {
 			processors.add(new VersionProcessor(versionProperty));
 		}
-		if (globalPropertiesOverrideMode != null) {
-			GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
-			processors.add(new GlobalOverrideProcessor(gpm));
-		}
+
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
+
 		if (encodingProperty != null) {
 			processors.add(new CopyStringPropertyProcessor(this, "encoding", encodingProperty));
 		}
+
 		return processors;
 	}
 
