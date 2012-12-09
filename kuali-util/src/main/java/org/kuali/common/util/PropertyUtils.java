@@ -57,7 +57,7 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
-	public static final boolean containsUnresolvedPlaceholder(String string) {
+	public static final boolean containsUnresolvedPlaceholder2(String string) {
 		int beginIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_PREFIX);
 		if (beginIndex == -1) {
 			return false;
@@ -68,6 +68,23 @@ public class PropertyUtils {
 		}
 		String substring = StringUtils.substring(string, beginIndex, endIndex);
 		return StringUtils.indexOf(substring, Constants.DEFAULT_VALUE_SEPARATOR) == -1;
+	}
+
+	public static final boolean containsUnresolvedPlaceholder(String string) {
+		return containsUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+	}
+
+	public static final boolean containsUnresolvedPlaceholder(String string, String prefix, String suffix) {
+		int beginIndex = StringUtils.indexOf(string, prefix);
+		if (beginIndex == -1) {
+			return false;
+		}
+		int endIndex = StringUtils.indexOf(string, suffix);
+		if (endIndex == -1) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**

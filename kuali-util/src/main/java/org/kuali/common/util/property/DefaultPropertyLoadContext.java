@@ -69,6 +69,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	protected String getValidatedLocation(String location) {
+		if (PropertyUtils.containsUnresolvedPlaceholder(location)) {
+			throw new IllegalArgumentException("Unable to resolve [" + location + "]");
+		}
 		if (LocationUtils.exists(location)) {
 			return location;
 		} else {
@@ -85,7 +88,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 			for (PropertyProcessor processor : processors) {
 				processor.process(duplicate);
 			}
-			return helper.replacePlaceholders(location, duplicate);
+			return helper.replacePlaceholders(location, properties);
 		} else {
 			return location;
 		}
