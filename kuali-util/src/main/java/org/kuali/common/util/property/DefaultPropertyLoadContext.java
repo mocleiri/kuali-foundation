@@ -115,4 +115,12 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		this.loadProcessors = loadProcessors;
 	}
 
+	public String getMissingLocationsMode() {
+		return missingLocationsMode;
+	}
+
+	public void setMissingLocationsMode(String missingLocationsMode) {
+		this.missingLocationsMode = missingLocationsMode;
+	}
+
 }
