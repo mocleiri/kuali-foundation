@@ -15,16 +15,10 @@
  */
 package org.kuali.common.util;
 
-import java.util.List;
-import java.util.Properties;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -34,11 +28,12 @@ public class MavenTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MavenTest.class);
 
-	@Autowired
-	private Properties properties = null;
+	//@Autowired
+	//private Properties properties = null;
 
 	@Test
 	public void test() {
+		/*
 		try {
 			List<String> keys = PropertyUtils.getSortedKeys(properties);
 			for (String key : keys) {
@@ -47,6 +42,6 @@ public class MavenTest {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
