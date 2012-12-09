@@ -120,6 +120,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		}
 		// Add standard Maven config that isn't present in project.getProperties()
 		props.putAll(getStandardMavenProperties(project));
+		// Return our merged properties object
 		return props;
 	}
 
