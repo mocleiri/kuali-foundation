@@ -34,7 +34,7 @@
         <prop key="project.artifactId">${project.artifactId}</prop>
         <prop key="project.version">${project.version}</prop>
         <prop key="project.build.sourceEncoding">${project.build.sourceEncoding}</prop>
-        <prop key="kuali.properties.missing.locations">${kuali.properties.missing.locations}</prop>
+        <prop key="kuali.properties.missing">${kuali.properties.missing}</prop>
         <prop key="kuali.properties.global">${kuali.properties.global}</prop>
       </props>
     </property>
