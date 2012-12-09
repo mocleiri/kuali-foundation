@@ -17,21 +17,24 @@ package org.kuali.common.util.property;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);
 
 	List<String> locations;
-	Mode missingLocationsMode = Mode.INFORM;
+	String missingLocationsMode = Mode.INFORM.name();
 	List<PropertyProcessor> loadProcessors;
-	StringResolver stringResolver;
+	private Properties internalProperties;
 
 	@Override
 	public List<String> getLocations() {
@@ -44,31 +47,64 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	@Override
 	public void init() {
-		if (loadProcessors == null) {
-			loadProcessors = getDefaultLoadProcessors();
+		Assert.notNull(helper, "helper is null");
+		internalProperties = getInternalProperties(properties);
+		globalPropertiesOverrideMode = helper.replacePlaceholders(globalPropertiesOverrideMode, internalProperties);
+		missingLocationsMode = helper.replacePlaceholders(missingLocationsMode, internalProperties);
+		encoding = helper.replacePlaceholders(encoding, internalProperties);
+
+		logger.info("Internal properties size - " + internalProperties.size());
+		logger.info("Global properties override mode - " + globalPropertiesOverrideMode);
+		logger.info("Missing locations mode - " + missingLocationsMode);
+		logger.info("Encoding - " + encoding);
+
+		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
+		Mode.valueOf(missingLocationsMode);
+	}
+
+	@Override
+	public String getLocation(String location, Properties properties) {
+		String resolvedLocation = getResolvedLocation(location, properties);
+		return getValidatedLocation(resolvedLocation);
+	}
+
+	protected String getValidatedLocation(String location) {
+		if (LocationUtils.exists(location)) {
+			return location;
 		} else {
-			loadProcessors.addAll(0, getDefaultProcessors());
+			ModeUtils.validate(Mode.valueOf(missingLocationsMode), "Skipping non-existent location - [{}]", location, "Could not locate [" + location + "]");
+			return null;
 		}
-		logger.info("Initialized " + loadProcessors.size() + " load processors");
+	}
+
+	protected String getResolvedLocation(String location, Properties properties) {
+		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
+		if (resolve) {
+			Properties duplicate = PropertyUtils.duplicate(properties);
+			List<PropertyProcessor> processors = getDefaultLoadProcessors();
+			for (PropertyProcessor processor : processors) {
+				processor.process(duplicate);
+			}
+			return helper.replacePlaceholders(location, duplicate);
+		} else {
+			return location;
+		}
+	}
+
+	private Properties getInternalProperties(Properties properties) {
+		if (properties == null) {
+			return PropertyUtils.getGlobalProperties();
+		} else {
+			return PropertyUtils.getGlobalProperties(properties);
+		}
 	}
 
 	protected List<PropertyProcessor> getDefaultLoadProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		if (properties != null) {
-			processors.add(new AddPropertiesProcessor(properties));
-		}
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		processors.addAll(PropertyUtils.getPropertyProcessors(gpm));
 		processors.addAll(getGavProcessors());
 		return processors;
-	}
-
-	public Mode getMissingLocationsMode() {
-		return missingLocationsMode;
-	}
-
-	public void setMissingLocationsMode(Mode missingLocationsMode) {
-		this.missingLocationsMode = missingLocationsMode;
 	}
 
 	public List<PropertyProcessor> getLoadProcessors() {
@@ -77,15 +113,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setLoadProcessors(List<PropertyProcessor> loadProcessors) {
 		this.loadProcessors = loadProcessors;
-	}
-
-	@Override
-    public StringResolver getStringResolver() {
-		return stringResolver;
-	}
-
-	public void setStringResolver(StringResolver stringResolver) {
-		this.stringResolver = stringResolver;
 	}
 
 }

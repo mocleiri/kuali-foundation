@@ -16,8 +16,7 @@
 package org.kuali.common.util.property;
 
 import java.util.List;
-
-import org.kuali.common.util.Mode;
+import java.util.Properties;
 
 public interface PropertyLoadContext extends PropertyContext {
 
@@ -25,8 +24,6 @@ public interface PropertyLoadContext extends PropertyContext {
 
 	List<String> getLocations();
 
-	StringResolver getStringResolver();
-
-	Mode getMissingLocationsMode();
+	String getLocation(String location, Properties properties);
 
 }

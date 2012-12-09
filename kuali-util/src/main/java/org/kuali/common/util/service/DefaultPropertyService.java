@@ -19,12 +19,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.PropertyLoadContext;
 import org.kuali.common.util.property.PropertyStoreContext;
-import org.kuali.common.util.property.StringResolver;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,15 +57,12 @@ public class DefaultPropertyService implements PropertyService {
 		logger.info("Examining " + locations.size() + " locations to load properties from");
 		Properties properties = new Properties();
 		int loadCount = 0;
-		StringResolver stringResolver = context.getStringResolver();
 		for (String location : locations) {
-			String resolvedLocation = stringResolver.resolve(location, properties);
-			if (LocationUtils.exists(resolvedLocation)) {
-				Properties newProperties = PropertyUtils.load(resolvedLocation, context.getEncoding());
+			String resolvedAndValidatedLocation = context.getLocation(location, properties);
+			if (resolvedAndValidatedLocation != null) {
+				Properties newProperties = PropertyUtils.load(resolvedAndValidatedLocation, context.getEncoding());
 				properties.putAll(newProperties);
 				loadCount++;
-			} else {
-				ModeUtils.validate(context.getMissingLocationsMode(), "Skipping non-existent location - [{}]", resolvedLocation, "Could not locate [" + resolvedLocation + "]");
 			}
 		}
 		int skipped = locations.size() - loadCount;

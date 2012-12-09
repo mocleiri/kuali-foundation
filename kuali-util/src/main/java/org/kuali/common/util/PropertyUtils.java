@@ -57,6 +57,19 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static final boolean containsUnresolvedPlaceholder(String string) {
+		int beginIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_PREFIX);
+		if (beginIndex == -1) {
+			return false;
+		}
+		int endIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_SUFFIX, beginIndex);
+		if (endIndex == -1) {
+			return false;
+		}
+		String substring = StringUtils.substring(string, beginIndex, endIndex);
+		return StringUtils.indexOf(substring, Constants.DEFAULT_VALUE_SEPARATOR) == -1;
+	}
+
 	/**
 	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
 	 * value. Using global properties to perform property resolution as indicated by <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
@@ -253,7 +266,7 @@ public class PropertyUtils {
 	 * <code>getEnvAsProperties</code> if there are duplicates.
 	 */
 	public static final Properties getGlobalProperties() {
-		return getProperties(GlobalPropertiesMode.BOTH);
+		return getProperties(Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
 	/**
@@ -262,7 +275,7 @@ public class PropertyUtils {
 	 * properties from <code>System.getProperties()</code> override everything.
 	 */
 	public static final Properties getGlobalProperties(Properties properties) {
-		return getProperties(properties, GlobalPropertiesMode.BOTH);
+		return getProperties(properties, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
 	/**
