@@ -16,6 +16,8 @@
 package org.kuali.common.util.property;
 
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.property.processor.NoOpProcessor;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public final class Constants {
@@ -41,6 +43,7 @@ public final class Constants {
 	public static final Mode DEFAULT_PROPERTY_OVERWRITE_MODE = Mode.INFORM;
 	public static final GlobalPropertiesMode DEFAULT_GLOBAL_PROPERTIES_MODE = GlobalPropertiesMode.BOTH;
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = getDefaultHelper();
+	public static final PropertyProcessor NO_OP_PROCESSOR = new NoOpProcessor();
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
 		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);

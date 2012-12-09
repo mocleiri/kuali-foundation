@@ -30,7 +30,6 @@ import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
-import org.kuali.common.util.property.processor.NoOpProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
@@ -120,7 +119,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	protected PropertyProcessor getStyleProcessor(String style) {
 		switch (PropertyStyle.valueOf(style)) {
 		case NORMAL:
-			return new NoOpProcessor();
+			return Constants.NO_OP_PROCESSOR;
 		case ENVIRONMENT_VARIABLE:
 			return new ReformatKeysAsEnvVarsProcessor();
 		default:
@@ -131,7 +130,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	protected PropertyProcessor getEncProcessor(String mode, String strength, String password) {
 		switch (PropertyEncryptionMode.valueOf(mode)) {
 		case NONE:
-			return new NoOpProcessor();
+			return Constants.NO_OP_PROCESSOR;
 		case ENCRYPT:
 			TextEncryptor encryptor = EncUtils.getTextEncryptor(EncryptionStrength.valueOf(strength), password);
 			return new EndsWithEncryptProcessor(encryptor);
