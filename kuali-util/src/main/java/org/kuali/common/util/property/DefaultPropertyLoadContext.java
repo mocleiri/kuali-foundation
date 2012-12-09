@@ -60,22 +60,27 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		Mode.valueOf(missingLocationsMode);
+		validateResolved(encoding);
 	}
 
 	@Override
 	public String getLocation(String location, Properties properties) {
 		String resolvedLocation = getResolvedLocation(location, properties);
-		return getValidatedLocation(resolvedLocation);
+		return getValidatedLocation(resolvedLocation, Mode.valueOf(missingLocationsMode));
 	}
 
-	protected String getValidatedLocation(String location) {
-		if (PropertyUtils.containsUnresolvedPlaceholder(location)) {
-			throw new IllegalArgumentException("Unable to resolve [" + location + "]");
+	protected void validateResolved(String string) {
+		if (PropertyUtils.containsUnresolvedPlaceholder(string)) {
+			throw new IllegalArgumentException("Unable to resolve [" + string + "]");
 		}
+	}
+
+	protected String getValidatedLocation(String location, Mode missingLocationsMode) {
+		validateResolved(location);
 		if (LocationUtils.exists(location)) {
 			return location;
 		} else {
-			ModeUtils.validate(Mode.valueOf(missingLocationsMode), "Skipping non-existent location - [{}]", location, "Could not locate [" + location + "]");
+			ModeUtils.validate(missingLocationsMode, "Skipping non-existent location - [{}]", location, "Could not locate [" + location + "]");
 			return null;
 		}
 	}
