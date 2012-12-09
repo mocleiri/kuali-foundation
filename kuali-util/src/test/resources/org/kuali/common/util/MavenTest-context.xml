@@ -33,4 +33,6 @@
     <property name="missingLocationsMode" value="${kuali.properties.missing}" />
   </bean>
 
+  <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
+
 </beans>
