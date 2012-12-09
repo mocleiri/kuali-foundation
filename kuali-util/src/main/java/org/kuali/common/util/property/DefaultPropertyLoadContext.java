@@ -67,14 +67,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		validate();
 	}
 
-	protected String resolve(String string, Properties properties) {
-		if (string == null) {
-			return null;
-		} else {
-			return helper.replacePlaceholders(string, properties);
-		}
-	}
-
 	protected void validate() {
 		validateResolved(globalPropertiesOverrideMode);
 		validateResolved(missingLocationsMode);
@@ -86,6 +78,14 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 		GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		Mode.valueOf(missingLocationsMode);
+	}
+
+	protected String resolve(String string, Properties properties) {
+		if (string == null) {
+			return null;
+		} else {
+			return helper.replacePlaceholders(string, properties);
+		}
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
 		if (resolve) {
 			Properties duplicate = PropertyUtils.duplicate(properties);
-			List<PropertyProcessor> processors = getDefaultLoadProcessors();
+			List<PropertyProcessor> processors = getLocationProcessors();
 			for (PropertyProcessor processor : processors) {
 				processor.process(duplicate);
 			}
@@ -132,7 +132,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 	}
 
-	protected List<PropertyProcessor> getDefaultLoadProcessors() {
+	protected List<PropertyProcessor> getLocationProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode);
 		processors.addAll(PropertyUtils.getPropertyProcessors(gpm));
