@@ -128,8 +128,8 @@ public class PropertyUtils {
 			String resolvedValue = helper.replacePlaceholders(originalValue, global);
 			if (!resolvedValue.equals(originalValue)) {
 				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+				newProperties.setProperty(key, resolvedValue);
 			}
-			newProperties.setProperty(key, resolvedValue);
 		}
 		return newProperties;
 	}
