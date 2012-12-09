@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="mavenProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+  <bean id="kuali.build.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     <property name="properties">
       <props>
         <prop key="kuali.home">\${user.home}/.${kuali.groupId.code}</prop>
