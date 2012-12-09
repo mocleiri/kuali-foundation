@@ -32,12 +32,9 @@ import org.kuali.common.util.spring.SpringContext;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Given a <code>contextLocation</code> load a Spring context. If <code>filterContext</code> is true the context is filtered using Maven
- * properties before it is loaded.
- *
- * @goal load
+ * @goal filter
  */
-public class LoadMojo extends AbstractMojo implements SpringContext {
+public class FilterMojo extends AbstractMojo implements SpringContext {
 
 	/**
 	 * Maven project
