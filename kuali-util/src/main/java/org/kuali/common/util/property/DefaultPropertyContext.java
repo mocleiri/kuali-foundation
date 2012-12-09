@@ -84,7 +84,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		// None of the processors below this should add new properties
 		if (resolvePlaceholders) {
 			Assert.notNull(helper, "helper is null");
-			processors.add(new ResolvePlaceholdersProcessor(helper));
+			processors.add(new ResolvePlaceholdersProcessor(helper, GlobalPropertiesMode.valueOf(globalPropertiesOverrideMode)));
 		}
 
 		// Add a prefix to all of the existing properties if appropriate
