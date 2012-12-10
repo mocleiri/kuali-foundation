@@ -44,7 +44,7 @@
   </ciManagement>
   <issueManagement>
     <system>JIRA</system>
-    <url>http://jira.kuali.org</url>
+    <url>http://${jira.hostname}</url>
   </issueManagement>
   <developers>
     <developer>
@@ -56,9 +56,28 @@
     </developer>
   </developers>
   <properties>
+    <jira.hostname>jira.kuali.org</jira.hostname>
     <ci.host>ci.fn.kuali.org</ci.host>
     <jenkins.hostname>${ci.host}</jenkins.hostname>
+
+    <maven.resources.escapeString>\</maven.resources.escapeString>
+
+    <!-- Add standard properties so they show up in project.getProperties() -->
+    <maven.project.groupId>${project.groupId}</maven.project.groupId>
+    <maven.project.artifactId>${project.artifactId}</maven.project.artifactId>
+    <maven.project.version>${project.version}</maven.project.version>
+    <maven.project.basedir>${project.basedir}</maven.project.basedir>
+    <maven.project.build.directory>${project.build.directory}</maven.project.build.directory>
+    <maven.project.build.testOutputDirectory>${project.build.testOutputDirectory}</maven.project.build.testOutputDirectory>
+    <maven.project.build.sourceDirectory>${project.build.sourceDirectory}</maven.project.build.sourceDirectory>
+    <maven.project.build.scriptSourceDirectory>${project.build.scriptSourceDirectory}</maven.project.build.scriptSourceDirectory>
+    <maven.project.build.testSourceDirectory>${project.build.testSourceDirectory}</maven.project.build.testSourceDirectory>
+    <maven.project.build.outputDirectory>${project.build.outputDirectory}</maven.project.build.outputDirectory>
+    <maven.project.build.sourceEncoding>${project.build.sourceEncoding}</maven.project.build.sourceEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kuali.properties.global>BOTH</kuali.properties.global>
+    <kuali.properties.missing>INFORM</kuali.properties.missing>
+
     <!-- Declared as properties so they can be shared between the compiler and javadoc plugins -->
     <kuali.compile.source>1.6</kuali.compile.source>
     <kuali.compile.target>1.6</kuali.compile.target>
@@ -78,7 +97,9 @@
     <!-- This is used in the licenses section as well as the jar/war plugins -->
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
     <!-- These properties are used when generating/deploying the maven generated site -->
+    <org.groupId>${kuali.groupId}</org.groupId>
     <kuali.groupId>org.kuali</kuali.groupId>
+    <kuali.groupId.code>kuali</kuali.groupId.code>
     <kuali.pom.1>org.kuali.pom:kuali-pom</kuali.pom.1>
     <kuali.pom.2>org.kuali.pom:kuali-common</kuali.pom.2>
     <kuali.pom.3>org.kuali.pom:kuali-maven</kuali.pom.3>
@@ -470,6 +491,7 @@
           <version>${plugin.resources.version}</version>
           <configuration>
             <encoding>${project.build.sourceEncoding}</encoding>
+            <escapeString>${maven.resources.escapeString}</escapeString>
           </configuration>
         </plugin>
         <plugin>
