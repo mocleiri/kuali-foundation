@@ -36,7 +36,7 @@ public class DriverManagerDataSource extends org.springframework.jdbc.datasource
 	}
 
 	/**
-	 * If <code>super.getPassword()</code> equals any of the strings in <code>nullPasswordTokens</code>, invoke
+	 * If <code>super.getPassword()</code> equals any of the strings in <code>getNullPasswordTokens()</code>, invoke
 	 * <code>super.setPassword(null)</code>
 	 */
 	public void nullifyPassword() {
