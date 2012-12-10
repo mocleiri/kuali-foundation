@@ -17,7 +17,7 @@
     <constructor-arg value="${sql.validate} ${sql.dba.drop} ${sql.dba.create}" />
   </bean>
 
-  <bean id="dbpc" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
+  <bean id="databaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
     <property name="driver" value="${jdbc.driver}" />
     <property name="url" value="${jdbc.url}" />
@@ -28,18 +28,18 @@
     <property name="dbaPassword" value="${jdbc.dba.password}" />
   </bean>
 
-  <bean id="dataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" init-method="nullifyPassword">
-    <property name="driverClassName" value="#{dbpc.driver}" />
-    <property name="url" value="#{dbpc.url}" />
-    <property name="username" value="#{dbpc.username}" />
-    <property name="password" value="#{dbpc.password}" />
+  <bean id="dataSource" class="org.kuali.common.jdbc.DriverManagerDataSource">
+    <property name="driverClassName" value="#{databaseProcessContext.driver}" />
+    <property name="url" value="#{databaseProcessContext.url}" />
+    <property name="username" value="#{databaseProcessContext.username}" />
+    <property name="password" value="#{databaseProcessContext.password}" />
   </bean>
 
-  <bean id="dbaDataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" init-method="nullifyPassword">
-    <property name="driverClassName" value="#{dbpc.driver}" />
-    <property name="url" value="#{dbpc.dbaUrl}" />
-    <property name="username" value="#{dbpc.dbaUsername}" />
-    <property name="password" value="#{dbpc.dbaPassword}" />
+  <bean id="dbaDataSource" class="org.kuali.common.jdbc.DriverManagerDataSource">
+    <property name="driverClassName" value="#{databaseProcessContext.driver}" />
+    <property name="url" value="#{databaseProcessContext.dbaUrl}" />
+    <property name="username" value="#{databaseProcessContext.dbaUsername}" />
+    <property name="password" value="#{databaseProcessContext.dbaPassword}" />
   </bean>
 
   <bean id="dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
@@ -61,7 +61,7 @@
 
   <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" />
 
-  <bean id="executable" class="org.kuali.common.deploy.DatabaseResetExecutor" init-method="execute">
+  <bean id="executable" class="org.kuali.common.jdbc.DatabaseResetExecutor" init-method="execute">
     <property name="context" ref="context" />
     <property name="service" ref="service" />
   </bean>
