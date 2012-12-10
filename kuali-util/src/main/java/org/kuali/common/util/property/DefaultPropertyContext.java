@@ -58,6 +58,8 @@ public class DefaultPropertyContext implements PropertyContext {
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
 			processors.add(getEncProcessor(encryptionMode, encryptionStrength, encryptionPassword));
+			// Remove the local reference to the encryption password now that the TextEncryptor has been created
+			this.encryptionPassword = null;
 		}
 
 		// Make sure system/environment properties override everything else
