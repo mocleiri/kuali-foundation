@@ -45,7 +45,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String encryptionPassword;
-	boolean resolvePlaceholders;
+	String resolvePlaceholders;
 	String prefix;
 	List<PropertyProcessor> processors;
 	Properties properties;
@@ -61,7 +61,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		// Make sure system/environment properties override everything else
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		processors.add(new GlobalOverrideProcessor(gpm));
-		if (resolvePlaceholders) {
+		if (Boolean.parseBoolean(resolvePlaceholders)) {
 			processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 		}
 
@@ -114,11 +114,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.encryptionStrength = resolve(encryptionStrength, global);
 		this.style = resolve(style, global);
 		this.prefix = resolve(prefix, global);
-		logger.info("Encryption mode - " + encryptionMode);
-		logger.info("Encryption strength - " + encryptionStrength);
-		logger.info("Encryption password - " + encryptionPassword);
-		logger.info("Property style - " + style);
-		logger.info("Property prefix - " + prefix);
+		this.resolvePlaceholders = resolve(resolvePlaceholders, global);
+
+		logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
+		logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
+		logger.info("Encryption password - " + StringUtils.trimToEmpty(encryptionPassword));
+		logger.info("Property style - " + StringUtils.trimToEmpty(style));
+		logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
+		logger.info("Resolve placeholders - " + StringUtils.trimToEmpty(resolvePlaceholders));
+		validate();
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
 			processors = defaultProcessors;
@@ -128,20 +132,19 @@ public class DefaultPropertyContext implements PropertyContext {
 		logger.info("Initialized " + defaultProcessors.size() + " processors.");
 	}
 
+	protected void validate() {
+		PropertyEncryptionMode.valueOf(encryptionMode);
+		EncryptionStrength.valueOf(encryptionStrength);
+		PropertyStyle.valueOf(style);
+		Boolean.parseBoolean(resolvePlaceholders);
+	}
+
 	protected String resolve(String string, Properties properties) {
 		if (string == null) {
 			return null;
 		} else {
 			return helper.replacePlaceholders(string, properties);
 		}
-	}
-
-	public boolean isResolvePlaceholders() {
-		return resolvePlaceholders;
-	}
-
-	public void setResolvePlaceholders(boolean resolvePlaceholders) {
-		this.resolvePlaceholders = resolvePlaceholders;
 	}
 
 	public String getPrefix() {
@@ -215,5 +218,13 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setGlobalPropertiesMode(String globalPropertiesMode) {
 		this.globalPropertiesMode = globalPropertiesMode;
+	}
+
+	public String getResolvePlaceholders() {
+		return resolvePlaceholders;
+	}
+
+	public void setResolvePlaceholders(String resolvePlaceholders) {
+		this.resolvePlaceholders = resolvePlaceholders;
 	}
 }
