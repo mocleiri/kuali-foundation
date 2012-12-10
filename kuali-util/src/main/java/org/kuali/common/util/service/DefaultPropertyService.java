@@ -33,7 +33,7 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public Properties load(PropertyLoadContext context) {
 		Properties properties = loadProperties(context);
-		logger.info("Loaded " + properties.size() + " properties");
+		logger.info("Loaded " + properties.size() + " properties total");
 		context.initialize(properties);
 		List<PropertyProcessor> processors = CollectionUtils.toEmpty(context.getProcessors());
 		logger.info("Processing " + properties.size() + " properties using " + processors.size() + " processors.");

@@ -166,7 +166,7 @@ public class DefaultPropertyContext implements PropertyContext {
 				key = StringUtils.substringBetween(string, prefix, suffix);
 			}
 			Assert.notNull(key, "key is null");
-			logger.debug("Removing [" + key + "]");
+			logger.info("Removing property '" + key + "'");
 			properties.remove(key);
 		}
 		return resolvedString;
