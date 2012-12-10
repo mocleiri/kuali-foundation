@@ -43,11 +43,11 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
+	String resolvePlaceholders = Boolean.toString(Constants.DEFAULT_RESOLVE_PLACEHOLDERS);
 	String style = PropertyStyle.NORMAL.name();
 	String encryptionMode = EncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String encryptionPassword;
-	String resolvePlaceholders;
 	String prefix;
 	List<PropertyProcessor> processors;
 	Properties properties;
@@ -58,12 +58,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
 			processors.add(getEncProcessor(encryptionMode, encryptionStrength, encryptionPassword));
-			// Remove the local reference to the encryption password now that the TextEncryptor has been created
-			// The encryption password is very likely to be hanging around in memory even after being null'd out locally.
-			// This just makes it slightly tougher for someone to obtain the password
-			// Having a reference to this bean no longer does them any good, they'd have to search around in memory to find it
-			this.encryptionPassword = null;
 		}
+
+		/**
+		 * Remove the local reference to the encryption password now that the TextEncryptor has been created.<br>
+		 * The encryption password is VERY likely to be hanging around in memory even after being null'd out locally.<br>
+		 * This just makes it slightly tougher for someone to obtain the password.<br>
+		 * Having a reference to this bean no longer does them any good, they'd have to search around in memory to find it
+		 */
+		this.encryptionPassword = null;
 
 		// Make sure system/environment properties override everything else
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);

@@ -26,6 +26,7 @@ public final class Constants {
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 	public static final String DEFAULT_VALUE_SEPARATOR = ":";
 	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS = true;
+	public static final boolean DEFAULT_RESOLVE_PLACEHOLDERS = true;
 	public static final String DEFAULT_ENCRYPTED_SUFFIX = ".encrypted";
 	public static final String DEFAULT_PATH_SUFFIX = "path";
 	public static final String DEFAULT_MAJOR_VERSION_SUFFIX = "major";
