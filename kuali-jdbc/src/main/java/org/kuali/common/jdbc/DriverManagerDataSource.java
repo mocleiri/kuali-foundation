@@ -68,7 +68,7 @@ public class DriverManagerDataSource extends org.springframework.jdbc.datasource
 	public void nullifyPassword() {
 		String pw = super.getPassword();
 		if (isNullify(pw)) {
-			logger.info("Database password for '{}' is '{}'  Setting to null.", super.getUsername(), pw);
+			logger.debug("Database password for '{}' is '{}'  Setting to null.", super.getUsername(), pw);
 			super.setPassword(null);
 		}
 	}
