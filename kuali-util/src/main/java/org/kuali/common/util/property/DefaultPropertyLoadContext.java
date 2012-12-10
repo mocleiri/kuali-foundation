@@ -59,7 +59,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		this.locationHelperProperties = getLocationHelperProperties(locationHelperProperties, gpm);
 		logger.info("Property file encoding - " + encoding);
-		logger.info("Using " + locationHelperProperties.size() + " properties to help resolve property locations.");
+		logger.info("Using " + locationHelperProperties.size() + " properties to assist with property loading.");
 		validate();
 		if (logger.isDebugEnabled()) {
 			PropertyUtils.show(locationHelperProperties);
