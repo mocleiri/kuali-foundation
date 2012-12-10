@@ -61,6 +61,15 @@ public class PropertyUtils {
 		return properties == null ? new Properties() : properties;
 	}
 
+	public static final boolean isSingleUnresolvedPlaceholder(String string) {
+		return isSingleUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+	}
+
+	public static final boolean isSingleUnresolvedPlaceholder(String string, String prefix, String suffix) {
+		int matches = StringUtils.countMatches(string, prefix);
+		return matches == 1 && StringUtils.startsWith(string, prefix) && StringUtils.endsWith(string, suffix);
+	}
+
 	public static final boolean containsUnresolvedPlaceholder2(String string) {
 		int beginIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_PREFIX);
 		if (beginIndex == -1) {

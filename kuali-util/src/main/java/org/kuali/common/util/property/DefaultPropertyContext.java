@@ -34,6 +34,7 @@ import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
@@ -111,7 +112,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		Properties global = PropertyUtils.getProperties(properties, gpm);
 		this.encryptionMode = resolve(encryptionMode, global);
-		this.encryptionPassword = resolve(encryptionPassword, global);
+		this.encryptionPassword = resolveAndRemove(encryptionPassword, global);
 		this.encryptionStrength = resolve(encryptionStrength, global);
 		this.style = resolve(style, global);
 		this.prefix = resolve(prefix, global);
@@ -142,6 +143,22 @@ public class DefaultPropertyContext implements PropertyContext {
 		EncryptionStrength.valueOf(encryptionStrength);
 		PropertyStyle.valueOf(style);
 		Boolean.parseBoolean(resolvePlaceholders);
+	}
+
+	protected String resolveAndRemove(String string, Properties properties) {
+		String resolvedString = resolve(string, properties);
+		if (PropertyUtils.isSingleUnresolvedPlaceholder(string)) {
+			String prefix = Constants.DEFAULT_PLACEHOLDER_PREFIX;
+			String suffix = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
+			String separator = Constants.DEFAULT_VALUE_SEPARATOR;
+			String key = StringUtils.substringBetween(string, prefix, separator);
+			if (key == null) {
+				key = StringUtils.substringBetween(string, prefix, suffix);
+			}
+			Assert.notNull(key, "key is null");
+			properties.remove(key);
+		}
+		return resolvedString;
 	}
 
 	protected String resolve(String string, Properties properties) {
