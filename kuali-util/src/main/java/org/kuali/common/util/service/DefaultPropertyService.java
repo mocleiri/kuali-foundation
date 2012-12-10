@@ -33,12 +33,12 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public Properties load(PropertyLoadContext context) {
 		Properties properties = loadProperties(context);
-		logger.info("Loaded " + properties.size() + " properties total");
+		logger.info("Working with " + properties.size() + " properties total.");
 		context.initialize(properties);
 		List<PropertyProcessor> processors = CollectionUtils.toEmpty(context.getProcessors());
 		logger.info("Processing " + properties.size() + " properties using " + processors.size() + " processors.");
 		process(properties, context.getProcessors());
-		logger.info("Returning " + properties.size() + " properties");
+		logger.info("Returning " + properties.size() + " properties.");
 		return properties;
 	}
 
@@ -60,7 +60,7 @@ public class DefaultPropertyService implements PropertyService {
 		Properties properties = context.init();
 		int initialSize = properties.size();
 		List<String> locations = CollectionUtils.toEmpty(context.getLocations());
-		logger.info("Examining " + locations.size() + " locations.");
+		logger.info("Examining " + locations.size() + " property locations.");
 		int count = 0;
 		for (String location : locations) {
 			String resolvedAndValidatedLocation = context.getLocation(location, properties);
@@ -72,7 +72,7 @@ public class DefaultPropertyService implements PropertyService {
 		}
 		int newSize = properties.size();
 		int skipped = locations.size() - count;
-		logger.info("Loaded " + (newSize - initialSize) + " properties from " + count + " locations.  Skipped " + skipped + " locations");
+		logger.info("Loaded " + (newSize - initialSize) + " properties from " + count + " locations.  Skipped " + skipped + " locations.");
 		return properties;
 	}
 }
