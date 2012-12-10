@@ -27,8 +27,10 @@
   <import resource="classpath:org/kuali/common/util/build-properties-context.xml" />
 
   <util:list id="locations" value-type="java.lang.String">
-    <value>classpath:org/kuali/common/util/car.properties</value>
+    <value>${user.home}/.ssh/kd.properties</value>
+    <value>classpath:${project.groupId.path}/util/car.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
+    <value>classpath:${project.groupId.path}/util/pw.properties</value>
   </util:list>
 
 
@@ -38,6 +40,8 @@
     <property name="orgIdProperty" value="kuali.groupId" />
     <property name="globalPropertiesMode" value="${kuali.properties.global:BOTH}" />
     <property name="missingLocationsMode" value="${kuali.properties.missing:INFORM}" />
+    <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
+    <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />

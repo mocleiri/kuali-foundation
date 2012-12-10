@@ -104,12 +104,13 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	protected String getResolvedLocation(String location, Properties properties) {
 		boolean resolve = PropertyUtils.containsUnresolvedPlaceholder(location);
 		if (resolve) {
-			Properties duplicate = PropertyUtils.duplicate(properties);
+			GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
+			Properties duplicate = PropertyUtils.getProperties(properties, gpm);
 			List<PropertyProcessor> processors = getLocationProcessors();
 			for (PropertyProcessor processor : processors) {
 				processor.process(duplicate);
 			}
-			return helper.replacePlaceholders(location, properties);
+			return helper.replacePlaceholders(location, duplicate);
 		} else {
 			return location;
 		}
