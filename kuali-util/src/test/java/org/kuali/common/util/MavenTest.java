@@ -39,6 +39,7 @@ public class MavenTest {
 
 	@Test
 	public void test() {
+		logger.info("");
 		// service.load(context);
 	}
 }
