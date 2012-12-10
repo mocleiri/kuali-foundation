@@ -25,7 +25,7 @@ public class DriverManagerDataSource extends org.springframework.jdbc.datasource
 		// Null it out if it matches one of the tokens
 		boolean nullifyPassword = (pw != null) && tokens.contains(pw);
 		if (nullifyPassword) {
-			logger.info("Datbase password for '{}' is '{}'  Setting to null.", super.getUsername(), pw);
+			logger.info("Database password for '{}' is '{}'  Setting to null.", super.getUsername(), pw);
 			super.setPassword(null);
 		}
 	}
