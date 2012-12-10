@@ -41,7 +41,11 @@ public class PropertyServiceTest {
 
 	@Test
 	public void test() {
-		Properties properties = service.loadProperties(context);
-		PropertyUtils.show(properties);
+		try {
+			Properties properties = service.load(context);
+			PropertyUtils.show(properties);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -114,6 +114,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.encryptionStrength = resolve(encryptionStrength, global);
 		this.style = resolve(style, global);
 		this.prefix = resolve(prefix, global);
+		logger.info("Encryption mode - " + encryptionMode);
+		logger.info("Encryption strength - " + encryptionStrength);
+		logger.info("Encryption password - " + encryptionPassword);
+		logger.info("Property style - " + style);
+		logger.info("Property prefix - " + prefix);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
 			processors = defaultProcessors;
