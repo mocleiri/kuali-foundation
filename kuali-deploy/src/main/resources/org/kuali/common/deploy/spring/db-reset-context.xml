@@ -6,53 +6,12 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="encoding" class="java.lang.String">
-    <constructor-arg value="${project.build.sourceEncoding}" />
-  </bean>
-
-  <util:list id="pathProperties" value-type="java.lang.String">
-    <value>project.groupId</value>
-    <value>deploy.groupId</value>
-  </util:list>
-
-  <util:list id="versionProperties" value-type="java.lang.String">
-    <value>project.version</value>
-    <value>deploy.version</value>
-  </util:list>
-
-  <util:list id="locations" value-type="java.lang.String">
-    <value>${project.build.directory}/spring/maven.properties</value>
-    <value>classpath:org/kuali/common/deploy/common.properties</value>
-    <value>classpath:${deploy.groupId.path}/common.properties</value>
-    <value>classpath:${deploy.groupId.path}/${deploy.version.major}.${deploy.version.minor}.properties</value>
-    <value>classpath:${deploy.groupId.path}/${deploy.artifactId}.properties</value>
-    <value>classpath:${deploy.groupId.path}/${deploy.artifactId}-${deploy.version.major}.${deploy.version.minor}.properties</value>
-    <value>classpath:${deploy.groupId.path}/${deploy.artifactId}-${deploy.version.major}.${deploy.version.minor}.${deploy.version.incremental}.properties</value>
-    <value>classpath:${deploy.groupId.path}/${deploy.env.name}.properties</value>
-    <value>classpath:org/kuali/common/deploy/${db.vendor}.properties</value>
-    <value>classpath:org/kuali/common/sql/sql.properties</value>
-    <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
-  </util:list>
-
-  <util:list id="localLocations" value-type="java.lang.String">
-    <value>${kuali.home}/${kuali.groupId.code}.properties</value>
-    <value>${kuali.${project.groupId.code}.home}/${project.artifactId}.properties</value>
-  </util:list>
-
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="encryptionMode" value="DECRYPT" />
-    <property name="encryptionPassword" value="${kuali.enc.password}" />
-    <property name="pathProperties" ref="pathProperties" />
-    <property name="versionProperties" ref="versionProperties" />
-    <property name="encoding" ref="encoding" />
-    <property name="resolvePlaceholders" value="true" />
     <property name="locations" ref="locations" />
-    <property name="localLocations" ref="localLocations" />
-    <property name="orgGroupIdKey" value="kuali.groupId" />
-    <property name="projectGroupIdKey" value="project.groupId" />
+    <property name="locationHelperProperties" ref="mavenProperties" />
+    <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
+    <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
   </bean>
-
-  <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
 
   <bean id="dbaSql" class="java.lang.String">
     <constructor-arg value="${sql.validate} ${sql.dba.drop} ${sql.dba.create}" />
@@ -97,12 +56,12 @@
     <property name="databaseProcessContext" ref="dbpc" />
     <property name="dbaSql" ref="dbaSql" />
     <property name="properties" ref="properties" />
-    <property name="encoding" ref="encoding" />
+    <property name="encoding" value="${project.build.sourceEncoding}" />
   </bean>
 
   <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" />
 
-  <bean id="executable" class="org.kuali.common.deploy.DatabaseResetExecutor">
+  <bean id="executable" class="org.kuali.common.deploy.DatabaseResetExecutor" init-method="execute">
     <property name="context" ref="context" />
     <property name="service" ref="service" />
   </bean>
