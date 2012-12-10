@@ -59,6 +59,9 @@ public class DefaultPropertyContext implements PropertyContext {
 		if (encryptionMode != null) {
 			processors.add(getEncProcessor(encryptionMode, encryptionStrength, encryptionPassword));
 			// Remove the local reference to the encryption password now that the TextEncryptor has been created
+			// The encryption password is very likely to be hanging around in memory even after being null'd out locally.
+			// This just makes it slightly tougher for someone to obtain the password
+			// Having a reference to this bean no longer does them any good, they'd have to search around in memory to find it
 			this.encryptionPassword = null;
 		}
 
