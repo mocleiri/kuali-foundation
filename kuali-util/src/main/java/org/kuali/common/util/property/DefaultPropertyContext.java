@@ -18,6 +18,7 @@ package org.kuali.common.util.property;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
@@ -40,6 +41,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class DefaultPropertyContext implements PropertyContext {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
+	private static final Random RANDOM = new Random(System.currentTimeMillis());
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
@@ -128,9 +130,9 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
 		logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-		String displayPassword = StringUtils.repeat("*", StringUtils.length(encryptionPassword));
-		if (logger.isDebugEnabled()) {
-			displayPassword = encryptionPassword;
+		String displayPassword = StringUtils.repeat("*", Math.max(RANDOM.nextInt(16), 8));
+		if (StringUtils.isBlank(encryptionPassword)) {
+			displayPassword = null;
 		}
 		logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
 		logger.info("Property style - " + StringUtils.trimToEmpty(style));
