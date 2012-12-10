@@ -111,26 +111,16 @@ public class DefaultPropertyContext implements PropertyContext {
 		Properties global = PropertyUtils.getProperties(properties, gpm);
 		this.encryptionMode = resolve(encryptionMode, global);
 		this.encryptionPassword = resolve(encryptionPassword, global);
+		this.encryptionStrength = resolve(encryptionStrength, global);
+		this.style = resolve(style, global);
+		this.prefix = resolve(prefix, global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
 			processors = defaultProcessors;
 		} else {
 			processors.addAll(0, defaultProcessors);
 		}
-	}
-
-	protected void resolveInternalList(Properties properties, List<String> list) {
-		if (list == null) {
-			return;
-		}
-		for (int i = 0; i < list.size(); i++) {
-			String original = list.get(i);
-			String resolved = helper.replacePlaceholders(original, properties);
-			if (!StringUtils.equals(original, resolved)) {
-				logger.info("Resolved [{}] -> [{}]", original, resolved);
-				list.set(i, resolved);
-			}
-		}
+		logger.info("Initialized " + defaultProcessors.size() + " processors.");
 	}
 
 	protected String resolve(String string, Properties properties) {
