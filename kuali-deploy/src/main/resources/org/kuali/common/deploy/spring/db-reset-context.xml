@@ -8,7 +8,7 @@
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations" ref="locations" />
-    <property name="locationHelperProperties" ref="mavenProperties" />
+    <property name="locationHelperProperties" ref="kuali.build.properties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
   </bean>
@@ -28,14 +28,14 @@
     <property name="dbaPassword" value="${jdbc.dba.password}" />
   </bean>
 
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="dataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" init-method="init">
     <property name="driverClassName" value="#{dbpc.driver}" />
     <property name="url" value="#{dbpc.url}" />
     <property name="username" value="#{dbpc.username}" />
     <property name="password" value="#{dbpc.password}" />
   </bean>
 
-  <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="dataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" init-method="init">
     <property name="driverClassName" value="#{dbpc.driver}" />
     <property name="url" value="#{dbpc.dbaUrl}" />
     <property name="username" value="#{dbpc.dbaUsername}" />

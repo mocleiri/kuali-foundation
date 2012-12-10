@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="mavenProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+  <bean id="kuali.build.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     <property name="properties">
       <props>
         <prop key="kuali.home">${user.home}/.${kuali.groupId.code}</prop>
@@ -34,7 +34,6 @@
 
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
-    <value>classpath:${project.groupId.path}/local.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>${kuali.group.home}/${project.artifactId}.properties</value>
     <value>classpath:org/kuali/common/deploy/${db.vendor}.properties</value>
