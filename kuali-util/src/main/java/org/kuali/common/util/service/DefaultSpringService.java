@@ -34,22 +34,6 @@ public class DefaultSpringService implements SpringService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
 	@Override
-	public void filter(SpringContext context) {
-		logger.info("Context Location - " + context.getContextLocation());
-		logger.info("Filter Context - " + context.isFilterContext());
-		logger.info("Working Dir - " + LocationUtils.getCanonicalPath(context.getWorkingDir()));
-		try {
-			boolean exists = LocationUtils.exists(context.getContextLocation());
-			if (!exists) {
-				throw new IllegalArgumentException(context.getContextLocation() + " does not exist");
-			}
-			createFilteredContextFile(context);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected error loading context", e);
-		}
-	}
-
-	@Override
 	public void load(SpringContext context) {
 		logger.info("Context Location - " + context.getContextLocation());
 		logger.info("Filter Context - " + context.isFilterContext());
