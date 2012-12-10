@@ -92,7 +92,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private List<String> filterExcludes;
 
 	/**
-	 * Any properties supplied here are passed through to the Spring context
+	 * Any properties supplied here are also used to filter the Spring context XML file
 	 *
 	 * @parameter
 	 */
