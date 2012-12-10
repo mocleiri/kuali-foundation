@@ -28,11 +28,16 @@ public class DatabaseServiceTest {
 
 	@Test
 	public void resetDatabaseTest() {
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
-		for (String key : keys) {
-			String value = properties.getProperty(key);
-			logger.info(key + "=" + Str.flatten(value));
+		try {
+			logger.info(properties + "");
+			List<String> keys = PropertyUtils.getSortedKeys(properties);
+			for (String key : keys) {
+				String value = properties.getProperty(key);
+				logger.info(key + "=" + Str.flatten(value));
+			}
+			service.reset(context);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		service.reset(context);
 	}
 }
