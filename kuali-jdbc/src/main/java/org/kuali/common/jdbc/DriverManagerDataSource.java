@@ -1,5 +1,7 @@
 package org.kuali.common.jdbc;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -35,16 +37,37 @@ public class DriverManagerDataSource extends org.springframework.jdbc.datasource
 		super(url);
 	}
 
+	@Override
+	public Connection getConnection() throws SQLException {
+		nullifyPassword();
+		return super.getConnection();
+	}
+
+	@Override
+	public Connection getConnection(String username, String password) throws SQLException {
+		if (isNullify(password)) {
+			logger.debug("Database password for '{}' is '{}'  Proceeding with null password", username, password);
+			return super.getConnection(username, null);
+		} else {
+			return super.getConnection(username, password);
+		}
+	}
+
 	/**
-	 * If <code>super.getPassword()</code> equals any of the strings in <code>getNullPasswordTokens()</code>, invoke
-	 * <code>super.setPassword(null)</code>
+	 * Return <code>true</code> if <code>password</code> is not null and is one of the strings in <code>getNullPasswordTokens()</code>,
+	 * false otherwise.
+	 */
+	protected boolean isNullify(String password) {
+		return password != null && CollectionUtils.toEmpty(nullPasswordTokens).contains(password);
+	}
+
+	/**
+	 * Invoke <code>super.setPassword(null)</code> if <code>getPassword()</code> returns a non-null String contained in
+	 * <code>getNullPasswordTokens()</code>
 	 */
 	public void nullifyPassword() {
 		String pw = super.getPassword();
-		List<String> tokens = CollectionUtils.toEmpty(nullPasswordTokens);
-		// Null it out if it matches one of the tokens
-		boolean nullifyPassword = (pw != null) && tokens.contains(pw);
-		if (nullifyPassword) {
+		if (isNullify(pw)) {
 			logger.info("Database password for '{}' is '{}'  Setting to null.", super.getUsername(), pw);
 			super.setPassword(null);
 		}
@@ -57,4 +80,5 @@ public class DriverManagerDataSource extends org.springframework.jdbc.datasource
 	public void setNullPasswordTokens(List<String> nullPasswordTokens) {
 		this.nullPasswordTokens = nullPasswordTokens;
 	}
+
 }
