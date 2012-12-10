@@ -40,7 +40,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	List<String> locations;
 	String encoding;
 	String missingLocationsMode = Mode.INFORM.name();
-	String orgIdProperty;
+	String orgIdProperty = "org.groupId";
 	String groupIdProperty = "project.groupId";
 	String versionProperty = "project.version";
 	String encodingProperty = "project.build.sourceEncoding";
@@ -74,7 +74,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	}
 
 	@Override
-    protected void validate() {
+	protected void validate() {
 		validateGlobalPropertiesMode(globalPropertiesMode);
 		validateResolved(encoding);
 		validateResolved(missingLocationsMode);
