@@ -62,7 +62,7 @@ public class DriverManagerDataSource extends org.springframework.jdbc.datasource
 	}
 
 	/**
-	 * Invoke <code>super.setPassword(null)</code> if <code>getPassword()</code> returns a non-null String contained in
+	 * Invoke <code>super.setPassword(null)</code> if <code>getPassword()</code> returns a non-null string contained in
 	 * <code>getNullPasswordTokens()</code>
 	 */
 	public void nullifyPassword() {
