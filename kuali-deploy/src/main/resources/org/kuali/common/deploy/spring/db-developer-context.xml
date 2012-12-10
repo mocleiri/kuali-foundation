@@ -43,6 +43,6 @@
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-  <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
+  <context:property-placeholder properties-ref="properties" system-properties-mode="${kuali.spring.systemPropertiesMode}" />
 
 </beans>
