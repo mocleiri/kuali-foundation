@@ -37,7 +37,7 @@ public class PropertyServiceTest {
 	private PropertyLoadContext context = null;
 
 	@Autowired
-	private DefaultPropertyService service = null;
+	private PropertyService service = null;
 
 	@Test
 	public void test() {
