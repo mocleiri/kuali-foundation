@@ -24,6 +24,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+  <bean id="context" class="org.kuali.common.util.spring.DefaultSpringContext" />
+
   <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />
 
 </beans>
