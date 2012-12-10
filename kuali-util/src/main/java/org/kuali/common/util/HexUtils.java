@@ -40,7 +40,7 @@ public class HexUtils {
 		return HEX_RANGES;
 	}
 
-	private static final String toString(String[] tokens) {
+	protected static final String toString(String[] tokens) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		for (int i = 0; i < HEX_RANGES.length; i++) {
