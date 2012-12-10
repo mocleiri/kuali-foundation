@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
 
 public class GroupCodeProcessor implements PropertyProcessor {
 
-	String organizationGroupIdProperty;
+	String orgIdProperty;
 	String groupIdProperty;
 	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
 
@@ -35,25 +35,25 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		this(null, null);
 	}
 
-	public GroupCodeProcessor(String organizationGroupIdProperty, String groupIdProperty) {
+	public GroupCodeProcessor(String orgIdProperty, String groupIdProperty) {
 		super();
-		this.organizationGroupIdProperty = organizationGroupIdProperty;
+		this.orgIdProperty = orgIdProperty;
 		this.groupIdProperty = groupIdProperty;
 	}
 
 	@Override
 	public void process(Properties properties) {
 
-		Assert.notNull(organizationGroupIdProperty, "organizationGroupIdProperty is null");
+		Assert.notNull(orgIdProperty, "orgIdProperty is null");
 		Assert.notNull(groupIdProperty, "groupIdProperty is null");
 
-		String organizationGroupId = properties.getProperty(organizationGroupIdProperty);
+		String organizationId = properties.getProperty(orgIdProperty);
 		String groupId = properties.getProperty(groupIdProperty);
 
-		Assert.notNull(organizationGroupId, "organizationGroupId is null");
+		Assert.notNull(organizationId, "organizationId is null");
 		Assert.notNull(groupId, "groupId is null");
 
-		String groupCode = getGroupCode(organizationGroupId, groupId);
+		String groupCode = getGroupCode(organizationId, groupId);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
 	}
 
@@ -76,12 +76,12 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		return code;
 	}
 
-	public String getOrganizationGroupIdProperty() {
-		return organizationGroupIdProperty;
+	public String getOrgIdProperty() {
+		return orgIdProperty;
 	}
 
-	public void setOrganizationGroupIdProperty(String organizationGroupIdProperty) {
-		this.organizationGroupIdProperty = organizationGroupIdProperty;
+	public void setOrgIdProperty(String orgIdProperty) {
+		this.orgIdProperty = orgIdProperty;
 	}
 
 	public String getGroupIdProperty() {
