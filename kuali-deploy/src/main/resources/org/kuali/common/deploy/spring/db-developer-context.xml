@@ -27,6 +27,7 @@
         <prop key="jdbc.driver.groupId">${jdbc.driver.groupId}</prop>
         <prop key="jdbc.driver.artifactId">${jdbc.driver.artifactId}</prop>
         <prop key="jdbc.driver.version">${jdbc.driver.version}</prop>
+        <prop key="db.vendor">${db.vendor}</prop>
       </props>
     </property>
   </bean>
