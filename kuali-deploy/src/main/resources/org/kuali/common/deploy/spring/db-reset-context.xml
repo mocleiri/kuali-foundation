@@ -53,7 +53,7 @@
   <bean id="context" class="org.kuali.common.jdbc.context.DatabaseResetContext">
     <property name="normalJdbcContext" ref="normalJdbcContext" />
     <property name="dbaJdbcContext" ref="dbaJdbcContext" />
-    <property name="databaseProcessContext" ref="dbpc" />
+    <property name="databaseProcessContext" ref="databaseProcessContext" />
     <property name="dbaSql" ref="dbaSql" />
     <property name="properties" ref="properties" />
     <property name="encoding" value="${project.build.sourceEncoding}" />
