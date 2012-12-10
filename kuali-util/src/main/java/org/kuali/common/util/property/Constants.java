@@ -37,7 +37,7 @@ public final class Constants {
 	public static final String DEFAULT_SNAPSHOT_VERSION_SUFFIX = "snapshot";
 	public static final String DEFAULT_CODE_SUFFIX = "code";
 	public static final String DEFAULT_HOME_SUFFIX = "home";
-	public static final String DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY = "organization.groupId";
+	public static final String DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY = "org.groupId";
 	public static final String DEFAULT_GROUP_ID_PROPERTY = "project.groupId";
 	public static final String DEFAULT_ARTIFACT_ID_PROPERTY = "project.artifactId";
 	public static final String DEFAULT_VERSION_PROPERTY = "project.version";
