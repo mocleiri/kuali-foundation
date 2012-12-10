@@ -29,6 +29,7 @@
   <util:list id="locations" value-type="java.lang.String">
     <value>${user.home}/.ssh/kuali.properties</value>
     <value>classpath:${project.groupId.path}/util/car.properties</value>
+    <value>classpath:${project.groupId.path}/util/${car.vendor}.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>classpath:${project.groupId.path}/util/pw.properties</value>
   </util:list>
