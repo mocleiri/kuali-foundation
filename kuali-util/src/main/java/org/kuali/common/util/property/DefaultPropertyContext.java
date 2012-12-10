@@ -122,7 +122,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
 		String displayPassword = StringUtils.repeat("*", StringUtils.length(encryptionPassword));
 		if (logger.isDebugEnabled()) {
-			displayPassword = StringUtils.trimToEmpty(encryptionPassword);
+			displayPassword = encryptionPassword;
 		}
 		logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
 		logger.info("Property style - " + StringUtils.trimToEmpty(style));
