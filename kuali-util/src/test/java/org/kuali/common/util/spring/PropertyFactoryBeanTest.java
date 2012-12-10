@@ -58,8 +58,8 @@ public class PropertyFactoryBeanTest {
 				String value = properties.getProperty(key);
 				logger.info(key + "=" + Str.flatten(value, "CR", "LF"));
 			}
-			service.store(encryptedStorage, properties);
-			service.store(normalStorage, properties);
+			// service.store(encryptedStorage, properties);
+			// service.store(normalStorage, properties);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
