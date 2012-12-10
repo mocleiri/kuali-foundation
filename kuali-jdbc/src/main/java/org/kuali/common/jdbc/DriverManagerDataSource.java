@@ -7,28 +7,29 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Very simple extension providing a token based method for explicitly setting the database password to <code>null</code>. If
- * <code>password</code> equals <code>noPasswordToken</code>, the <code>init()</code> method sets <code>password<code> to <code>null</code>.
+ * <code>password</code> equals <code>nullPasswordToken</code>, the <code>init()</code> method sets
+ * <code>password<code> to <code>null</code>.
  */
 public class DriverManagerDataSource extends org.springframework.jdbc.datasource.DriverManagerDataSource {
 
 	private static final Logger logger = LoggerFactory.getLogger(DriverManagerDataSource.class);
 
-	String noPasswordToken = Constants.NONE;
+	String nullPasswordToken = Constants.NONE;
 
 	public void init() {
-		boolean noPassword = StringUtils.equals(noPasswordToken, super.getPassword());
+		boolean noPassword = StringUtils.equals(nullPasswordToken, super.getPassword());
 		if (noPassword) {
-			logger.info("Password is '" + noPasswordToken + "'.  Setting to null.");
+			logger.info("Password is '" + nullPasswordToken + "'.  Setting to null.");
 			super.setPassword(null);
 		}
 	}
 
-	public String getNoPasswordToken() {
-		return noPasswordToken;
+	public String getNullPasswordToken() {
+		return nullPasswordToken;
 	}
 
-	public void setNoPasswordToken(String noPasswordToken) {
-		this.noPasswordToken = noPasswordToken;
+	public void setNullPasswordToken(String nullPasswordToken) {
+		this.nullPasswordToken = nullPasswordToken;
 	}
 
 }
