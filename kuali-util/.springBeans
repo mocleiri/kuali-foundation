@@ -9,6 +9,12 @@
 	<configs>
 		<config>src/test/resources/org/kuali/common/util/spring/PropertyFactoryBeanTest-context.xml</config>
 		<config>src/test/resources/org/kuali/common/util/spring/ToStringFactoryBeanTest-context.xml</config>
+		<config>src/test/resources/org/kuali/common/util/build-properties-context.xml</config>
+		<config>src/test/resources/org/kuali/common/util/spring/SimplePropertyFactoryBeanTest-context.xml</config>
+		<config>src/test/resources/org/kuali/common/util/service/SpringServiceTest-context.xml</config>
+		<config>src/test/resources/org/kuali/common/util/service/PropertyServiceTest-context.xml</config>
+		<config>src/test/resources/org/kuali/common/util/MavenTest-context.xml</config>
+		<config>src/test/resources/org/kuali/common/util/PropertyUtilsTest-context.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
