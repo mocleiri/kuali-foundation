@@ -128,15 +128,21 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.prefix = resolve(prefix, global);
 		this.resolvePlaceholders = resolve(resolvePlaceholders, global);
 
-		logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
-		logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-		String displayPassword = StringUtils.repeat("*", Math.max(RANDOM.nextInt(16), 8));
-		if (StringUtils.isBlank(encryptionPassword)) {
-			displayPassword = null;
+		if (!StringUtils.equals(EncryptionMode.NONE.name(), encryptionMode)) {
+			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
+			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
+			String displayPassword = StringUtils.repeat("*", Math.max(RANDOM.nextInt(16), 8));
+			if (StringUtils.isBlank(encryptionPassword)) {
+				displayPassword = null;
+			}
+			logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
 		}
-		logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
-		logger.info("Property style - " + StringUtils.trimToEmpty(style));
-		logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
+		if (!StringUtils.equals(PropertyStyle.NORMAL.name(), style)) {
+			logger.info("Property style - " + StringUtils.trimToEmpty(style));
+		}
+		if (!StringUtils.isEmpty(prefix)) {
+			logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
+		}
 		logger.info("Resolve placeholders - " + StringUtils.trimToEmpty(resolvePlaceholders));
 		validate();
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
@@ -157,7 +163,10 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	protected String resolveAndRemove(String string, Properties global, Properties properties) {
 		String resolvedString = resolve(string, global);
-		if (PropertyUtils.isSingleUnresolvedPlaceholder(string)) {
+		boolean placeholder = PropertyUtils.isSingleUnresolvedPlaceholder(string);
+		boolean resolved = !StringUtils.equals(string, resolvedString) && !StringUtils.equals("NONE", resolvedString);
+		boolean remove = placeholder && resolved;
+		if (remove) {
 			String prefix = Constants.DEFAULT_PLACEHOLDER_PREFIX;
 			String suffix = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
 			String separator = Constants.DEFAULT_VALUE_SEPARATOR;
