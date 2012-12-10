@@ -35,7 +35,7 @@
     <property name="password" value="#{dbpc.password}" />
   </bean>
 
-  <bean id="dataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" init-method="init">
+  <bean id="dbaDataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" init-method="init">
     <property name="driverClassName" value="#{dbpc.driver}" />
     <property name="url" value="#{dbpc.dbaUrl}" />
     <property name="username" value="#{dbpc.dbaUsername}" />
