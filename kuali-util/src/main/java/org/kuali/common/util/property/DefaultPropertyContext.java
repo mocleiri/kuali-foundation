@@ -118,13 +118,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.prefix = resolve(prefix, global);
 		this.resolvePlaceholders = resolve(resolvePlaceholders, global);
 
-		logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
-		logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-		String displayPassword = StringUtils.repeat("*", StringUtils.length(encryptionPassword));
-		if (logger.isDebugEnabled()) {
-			displayPassword = encryptionPassword;
+		if (!StringUtils.equals(EncryptionMode.NONE.name(), encryptionMode)) {
+			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
+			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
+			String displayPassword = StringUtils.repeat("*", StringUtils.length(encryptionPassword));
+			if (logger.isDebugEnabled()) {
+				displayPassword = encryptionPassword;
+			}
+			logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
 		}
-		logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
 		logger.info("Property style - " + StringUtils.trimToEmpty(style));
 		logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
 		logger.info("Resolve placeholders - " + StringUtils.trimToEmpty(resolvePlaceholders));
