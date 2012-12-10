@@ -34,6 +34,7 @@
 
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
+    <value>classpath:${project.groupId.path}/local.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>${kuali.group.home}/${project.artifactId}.properties</value>
     <value>classpath:org/kuali/common/deploy/${db.vendor}.properties</value>
