@@ -25,6 +25,8 @@ public class DefaultPropertyStoreContext extends DefaultPropertyContext implemen
 	// If not null, include this as a comment in the properties file
 	String comment;
 
+	String encoding;
+
 	@Override
 	public File getFile() {
 		return file;
@@ -41,5 +43,14 @@ public class DefaultPropertyStoreContext extends DefaultPropertyContext implemen
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@Override
+    public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 }

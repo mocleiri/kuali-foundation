@@ -22,8 +22,6 @@ import org.kuali.common.util.property.processor.PropertyProcessor;
 
 public interface PropertyContext {
 
-	String getEncoding();
-
 	List<PropertyProcessor> getProcessors();
 
 	void initialize(Properties properties);

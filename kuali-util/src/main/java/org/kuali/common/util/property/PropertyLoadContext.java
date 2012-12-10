@@ -26,4 +26,6 @@ public interface PropertyLoadContext extends PropertyContext {
 
 	String getLocation(String location, Properties properties);
 
+	String getEncoding();
+
 }

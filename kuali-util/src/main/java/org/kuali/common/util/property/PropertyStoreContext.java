@@ -23,4 +23,6 @@ public interface PropertyStoreContext extends PropertyContext {
 
 	String getComment();
 
+	String getEncoding();
+
 }

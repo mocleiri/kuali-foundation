@@ -38,6 +38,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);
 
 	List<String> locations;
+	String encoding;
 	String missingLocationsMode = Mode.INFORM.name();
 	String orgIdProperty;
 	String groupIdProperty = "project.groupId";
@@ -78,14 +79,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		Mode.valueOf(missingLocationsMode);
 	}
 
-	protected String resolve(String string, Properties properties) {
-		if (string == null) {
-			return null;
-		} else {
-			return helper.replacePlaceholders(string, properties);
-		}
-	}
-
 	@Override
 	public String getLocation(String location, Properties properties) {
 		String resolvedLocation = getResolvedLocation(location, properties);
@@ -122,11 +115,11 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		}
 	}
 
-	private Properties getGlobalProperties(Properties properties) {
+	protected Properties getGlobalProperties(Properties properties) {
 		return PropertyUtils.getGlobalProperties(PropertyUtils.toEmpty(properties));
 	}
 
-	private Properties getLocationHelperProperties(Properties properties, GlobalPropertiesMode mode) {
+	protected Properties getLocationHelperProperties(Properties properties, GlobalPropertiesMode mode) {
 		Properties locationHelperProperties = PropertyUtils.duplicate(PropertyUtils.toEmpty(properties));
 		List<PropertyProcessor> processors = getLocationHelperProcessors();
 		for (PropertyProcessor processor : processors) {
@@ -225,6 +218,15 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setLocationHelperProperties(Properties locationHelperProperties) {
 		this.locationHelperProperties = locationHelperProperties;
+	}
+
+	@Override
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }

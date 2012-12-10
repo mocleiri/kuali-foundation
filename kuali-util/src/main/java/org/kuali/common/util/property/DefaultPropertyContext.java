@@ -25,7 +25,6 @@ import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
-import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
@@ -34,7 +33,6 @@ import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertyContext implements PropertyContext {
@@ -47,7 +45,6 @@ public class DefaultPropertyContext implements PropertyContext {
 	String encryptionMode = PropertyEncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String encryptionPassword;
-	String encoding;
 	boolean resolvePlaceholders;
 	String prefix;
 	List<PropertyProcessor> processors;
@@ -56,28 +53,16 @@ public class DefaultPropertyContext implements PropertyContext {
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
-		// Add any properties supplied directly to this bean
-		if (properties != null) {
-			processors.add(new AddPropertiesProcessor(properties));
-		}
-
-		// Add GAV related processing
-		// processors.addAll(getGavProcessors());
-
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
 			processors.add(getEncProcessor(encryptionMode, encryptionStrength, encryptionPassword));
 		}
 
 		// Make sure system/environment properties override everything else
-		if (globalPropertiesMode != null) {
-			processors.add(new GlobalOverrideProcessor(GlobalPropertiesMode.valueOf(globalPropertiesMode)));
-		}
-
-		// None of the processors below this should add new properties
+		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
+		processors.add(new GlobalOverrideProcessor(gpm));
 		if (resolvePlaceholders) {
-			Assert.notNull(helper, "helper is null");
-			processors.add(new ResolvePlaceholdersProcessor(helper, GlobalPropertiesMode.valueOf(globalPropertiesMode)));
+			processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 		}
 
 		// Add a prefix to all of the existing properties if appropriate
@@ -124,25 +109,13 @@ public class DefaultPropertyContext implements PropertyContext {
 	public void initialize(Properties properties) {
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		Properties global = PropertyUtils.getProperties(properties, gpm);
-		resolveInternalStrings(global);
+		this.encryptionMode = resolve(encryptionMode, global);
+		this.encryptionPassword = resolve(encryptionPassword, global);
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
 			processors = defaultProcessors;
 		} else {
 			processors.addAll(0, defaultProcessors);
-		}
-	}
-
-	protected void resolveInternalStrings(Properties properties) {
-		String newPrefix = getResolvedString(properties, this.prefix);
-		if (!StringUtils.equals(newPrefix, this.prefix)) {
-			logger.info("Resolved prefix [{}]->[{}]", this.prefix, newPrefix);
-			this.prefix = newPrefix;
-		}
-		String newEncryptionPassword = getResolvedString(properties, this.encryptionPassword);
-		if (!StringUtils.equals(newEncryptionPassword, this.encryptionPassword)) {
-			logger.info("Resolved encryption password");
-			this.encryptionPassword = newEncryptionPassword;
 		}
 	}
 
@@ -160,21 +133,12 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected String getResolvedString(Properties properties, String original) {
-		if (original == null) {
+	protected String resolve(String string, Properties properties) {
+		if (string == null) {
 			return null;
 		} else {
-			return helper.replacePlaceholders(original, properties);
+			return helper.replacePlaceholders(string, properties);
 		}
-	}
-
-	@Override
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
 	}
 
 	public boolean isResolvePlaceholders() {
