@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
+import org.kuali.common.util.EncryptionMode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
@@ -42,7 +43,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
 	String style = PropertyStyle.NORMAL.name();
-	String encryptionMode = PropertyEncryptionMode.NONE.name();
+	String encryptionMode = EncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
 	String encryptionPassword;
 	String resolvePlaceholders;
@@ -91,7 +92,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	protected PropertyProcessor getEncProcessor(String mode, String strength, String password) {
-		switch (PropertyEncryptionMode.valueOf(mode)) {
+		switch (EncryptionMode.valueOf(mode)) {
 		case NONE:
 			return Constants.NO_OP_PROCESSOR;
 		case ENCRYPT:
@@ -133,7 +134,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	protected void validate() {
-		PropertyEncryptionMode.valueOf(encryptionMode);
+		EncryptionMode.valueOf(encryptionMode);
 		EncryptionStrength.valueOf(encryptionStrength);
 		PropertyStyle.valueOf(style);
 		Boolean.parseBoolean(resolvePlaceholders);
