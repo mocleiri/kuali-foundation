@@ -112,7 +112,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		Properties global = PropertyUtils.getProperties(properties, gpm);
 		this.encryptionMode = resolve(encryptionMode, global);
-		this.encryptionPassword = resolveAndRemove(encryptionPassword, global);
+		this.encryptionPassword = resolveAndRemove(encryptionPassword, global, properties);
 		this.encryptionStrength = resolve(encryptionStrength, global);
 		this.style = resolve(style, global);
 		this.prefix = resolve(prefix, global);
@@ -145,8 +145,8 @@ public class DefaultPropertyContext implements PropertyContext {
 		Boolean.parseBoolean(resolvePlaceholders);
 	}
 
-	protected String resolveAndRemove(String string, Properties properties) {
-		String resolvedString = resolve(string, properties);
+	protected String resolveAndRemove(String string, Properties global, Properties properties) {
+		String resolvedString = resolve(string, global);
 		if (PropertyUtils.isSingleUnresolvedPlaceholder(string)) {
 			String prefix = Constants.DEFAULT_PLACEHOLDER_PREFIX;
 			String suffix = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
@@ -156,6 +156,7 @@ public class DefaultPropertyContext implements PropertyContext {
 				key = StringUtils.substringBetween(string, prefix, suffix);
 			}
 			Assert.notNull(key, "key is null");
+			logger.info("Removing [" + key + "]");
 			properties.remove(key);
 		}
 		return resolvedString;
