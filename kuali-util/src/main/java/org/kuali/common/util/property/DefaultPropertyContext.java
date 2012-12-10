@@ -22,8 +22,8 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.EncUtils;
-import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.EncryptionMode;
+import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
@@ -119,7 +119,11 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
 		logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-		logger.info("Encryption password - " + StringUtils.trimToEmpty(encryptionPassword));
+		String displayPassword = StringUtils.repeat("*", StringUtils.length(encryptionPassword));
+		if (logger.isDebugEnabled()) {
+			displayPassword = StringUtils.trimToEmpty(encryptionPassword);
+		}
+		logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
 		logger.info("Property style - " + StringUtils.trimToEmpty(style));
 		logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
 		logger.info("Resolve placeholders - " + StringUtils.trimToEmpty(resolvePlaceholders));
