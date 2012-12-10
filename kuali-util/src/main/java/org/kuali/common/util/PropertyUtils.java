@@ -66,8 +66,11 @@ public class PropertyUtils {
 	}
 
 	public static final boolean isSingleUnresolvedPlaceholder(String string, String prefix, String suffix) {
-		int matches = StringUtils.countMatches(string, prefix);
-		return matches == 1 && StringUtils.startsWith(string, prefix) && StringUtils.endsWith(string, suffix);
+		int prefixMatches = StringUtils.countMatches(string, prefix);
+		int suffixMatches = StringUtils.countMatches(string, suffix);
+		boolean startsWith = StringUtils.startsWith(string, prefix);
+		boolean endsWith = StringUtils.endsWith(string, suffix);
+		return prefixMatches == 1 && suffixMatches == 1 && startsWith && endsWith;
 	}
 
 	public static final boolean containsUnresolvedPlaceholder2(String string) {
