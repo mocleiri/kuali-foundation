@@ -47,7 +47,8 @@
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="service" ref="service" />
     <property name="locations" ref="locations" />
-    <property name="orgIdProperty" value="kuali.groupId" />
+    <property name="globalPropertiesMode" value="${kuali.properties.global:BOTH}" />
+    <property name="missingLocationsMode" value="${kuali.properties.missing:INFORM}" />
   </bean>
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />

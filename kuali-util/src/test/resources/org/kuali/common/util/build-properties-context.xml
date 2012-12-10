@@ -30,6 +30,7 @@
         <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
         <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
+        <prop key="org.groupId">${kuali.groupId}</prop>
         <prop key="project.groupId">${project.groupId}</prop>
         <prop key="project.artifactId">${project.artifactId}</prop>
         <prop key="project.version">${project.version}</prop>
