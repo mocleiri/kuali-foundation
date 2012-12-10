@@ -5,6 +5,10 @@ import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Very small extension that provides a token based method for explicitly setting the database password to <code>null</code>. If
+ * <code>password</code> equals <code>noPasswordToken</code>, the <code>init()</code> method sets <code>password<code> to <code>null</code>.
+ */
 public class DriverManagerDataSource extends org.springframework.jdbc.datasource.DriverManagerDataSource {
 
 	private static final Logger logger = LoggerFactory.getLogger(DriverManagerDataSource.class);
