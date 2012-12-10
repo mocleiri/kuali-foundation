@@ -43,6 +43,7 @@
     <property name="missingLocationsMode" value="${kuali.properties.missing:INFORM}" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
+    <property name="resolvePlaceholders" value="${kuali.properties.resolve:TRUE}" />
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultPropertyService" />
