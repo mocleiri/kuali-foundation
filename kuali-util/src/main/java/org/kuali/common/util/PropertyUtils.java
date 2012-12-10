@@ -95,7 +95,7 @@ public class PropertyUtils {
 		if (beginIndex == -1) {
 			return false;
 		}
-		return StringUtils.indexOf(string, suffix) == -1;
+		return StringUtils.indexOf(string, suffix) != -1;
 	}
 
 	/**
