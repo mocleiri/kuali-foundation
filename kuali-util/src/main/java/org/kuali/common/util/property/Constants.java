@@ -46,6 +46,7 @@ public final class Constants {
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = getDefaultHelper();
 	public static final PropertyProcessor NO_OP_PROCESSOR = new NoOpProcessor();
 	public static final String NONE = "NONE";
+	public static final String NULL = "NULL";
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
 		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
