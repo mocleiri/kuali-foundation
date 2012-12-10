@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.PropertyUtils;
@@ -27,6 +28,7 @@ public class DatabaseServiceTest {
 	Properties properties = null;
 
 	@Test
+	@Ignore
 	public void resetDatabaseTest() {
 		try {
 			logger.info(properties + "");
