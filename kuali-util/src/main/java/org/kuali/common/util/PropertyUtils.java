@@ -95,12 +95,7 @@ public class PropertyUtils {
 		if (beginIndex == -1) {
 			return false;
 		}
-		int endIndex = StringUtils.indexOf(string, suffix);
-		if (endIndex == -1) {
-			return false;
-		} else {
-			return true;
-		}
+		return StringUtils.indexOf(string, suffix) == -1;
 	}
 
 	/**
