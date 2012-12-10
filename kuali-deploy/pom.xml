@@ -85,12 +85,5 @@
       </build>
     </profile>
   </profiles>
-  <dependencies>
-    <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-jdbc</artifactId>
-      <version>1.0.1</version>
-    </dependency>
-  </dependencies>
 </project>
               
