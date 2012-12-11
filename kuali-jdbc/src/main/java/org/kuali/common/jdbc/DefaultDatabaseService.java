@@ -75,11 +75,11 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	protected void logPassword(String prefix, String username, String password) {
 		if (password == null) {
-			logger.info("{} - {}", Constants.NONE);
+			logger.info("{} - {}", prefix, Constants.NONE);
 		} else if (StringUtils.equals(username, password)) {
-			logger.info("{} - {}", password);
+			logger.info("{} - {}", prefix, password);
 		} else {
-			logger.debug("{} - {}", password);
+			logger.debug("{} - {}", prefix, password);
 		}
 	}
 
