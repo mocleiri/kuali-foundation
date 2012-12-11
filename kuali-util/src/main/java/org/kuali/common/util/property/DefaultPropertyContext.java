@@ -117,6 +117,27 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
+	protected void log() {
+		if (!StringUtils.equals(EncryptionMode.NONE.name(), encryptionMode)) {
+			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
+			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
+			String displayPassword = null;
+			if (!StringUtils.isBlank(encryptionPassword)) {
+				displayPassword = StringUtils.repeat("*", Math.max(RANDOM.nextInt(16), 8));
+			}
+			logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
+		}
+		if (!StringUtils.equals(PropertyStyle.NORMAL.name(), style)) {
+			logger.info("Property style - " + StringUtils.trimToEmpty(style));
+		}
+		if (!StringUtils.isEmpty(prefix)) {
+			logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
+		}
+		if (!StringUtils.equals(Boolean.toString(Constants.DEFAULT_RESOLVE_PLACEHOLDERS), resolvePlaceholders)) {
+			logger.info("Resolve placeholders - " + resolvePlaceholders);
+		}
+	}
+
 	@Override
 	public void initialize(Properties properties) {
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
@@ -127,23 +148,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.style = resolve(style, global);
 		this.prefix = resolve(prefix, global);
 		this.resolvePlaceholders = resolve(resolvePlaceholders, global);
-
-		if (!StringUtils.equals(EncryptionMode.NONE.name(), encryptionMode)) {
-			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
-			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-			String displayPassword = StringUtils.repeat("*", Math.max(RANDOM.nextInt(16), 8));
-			if (StringUtils.isBlank(encryptionPassword)) {
-				displayPassword = null;
-			}
-			logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
-		}
-		if (!StringUtils.equals(PropertyStyle.NORMAL.name(), style)) {
-			logger.info("Property style - " + StringUtils.trimToEmpty(style));
-		}
-		if (!StringUtils.isEmpty(prefix)) {
-			logger.info("Property prefix - " + StringUtils.trimToEmpty(prefix));
-		}
-		logger.info("Resolve placeholders - " + StringUtils.trimToEmpty(resolvePlaceholders));
+		log();
 		validate();
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
@@ -164,7 +169,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	protected String resolveAndRemove(String string, Properties global, Properties properties) {
 		String resolvedString = resolve(string, global);
 		boolean placeholder = PropertyUtils.isSingleUnresolvedPlaceholder(string);
-		boolean resolved = !StringUtils.equals(string, resolvedString) && !StringUtils.equals("NONE", resolvedString);
+		boolean resolved = !StringUtils.equals(string, resolvedString) && !StringUtils.equals(Constants.NONE, resolvedString);
 		boolean remove = placeholder && resolved;
 		if (remove) {
 			String prefix = Constants.DEFAULT_PLACEHOLDER_PREFIX;
@@ -175,8 +180,10 @@ public class DefaultPropertyContext implements PropertyContext {
 				key = StringUtils.substringBetween(string, prefix, suffix);
 			}
 			Assert.notNull(key, "key is null");
-			logger.info("Removing property '" + key + "'");
-			properties.remove(key);
+			if (properties.getProperty(key) != null) {
+				logger.info("Removing property '" + key + "'");
+				properties.remove(key);
+			}
 		}
 		return resolvedString;
 	}
