@@ -23,7 +23,13 @@
   <entry key="mysql.drop">
     DROP DATABASE IF EXISTS ${sql.database}
     /
-    DELETE FROM MYSQL.USER WHERE USER = '${sql.username}'
+    GRANT USAGE ON *.* TO '${sql.username}'@'%' IDENTIFIED BY '${sql.password}'
+    /
+    GRANT USAGE ON *.* TO '${sql.username}'@'localhost' IDENTIFIED BY '${sql.password}'
+    /
+    DROP USER '${sql.username}'@'%'
+    /
+    DROP USER '${sql.username}'@'localhost'
     /
   </entry>
   <entry key="mysql.create">
