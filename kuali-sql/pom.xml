@@ -33,7 +33,7 @@
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-sql</connection>
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-sql</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/pom/trunk/kuali-sql</url>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-sql</url>
   </scm>
   <developers>
     <developer>
