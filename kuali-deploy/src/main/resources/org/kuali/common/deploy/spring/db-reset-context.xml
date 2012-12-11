@@ -57,6 +57,12 @@
   <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
     <property name="properties" ref="nullableProperties" />
     <property name="bean" ref="databaseProcessContext" />
+    <property name="nullTokens">
+      <list>
+        <value>NONE</value>
+        <value>NULL</value>
+      </list>
+    </property>
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
