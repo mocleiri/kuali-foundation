@@ -28,11 +28,12 @@
     <property name="locationHelperProperties" ref="kuali.properties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
-    <property name="orgIdProperty" value="${kuali.groupId}" />
+    <property name="orgIdProperty" value="kuali.groupId" />
+    <property name="encoding" value="${kuali.encoding}" />
   </bean>
 
   <bean id="dbaSql" class="java.lang.String">
-    <constructor-arg value="${sql.validate} ${sql.dba.drop} ${sql.dba.create}" />
+    <constructor-arg value="${sql.validate} ${sql.drop} ${sql.create}" />
   </bean>
 
   <bean id="databaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
