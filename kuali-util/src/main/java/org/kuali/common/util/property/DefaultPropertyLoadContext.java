@@ -23,7 +23,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.processor.CopyStringProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
@@ -40,11 +39,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	List<String> locations;
 	String encoding;
 	String missingLocationsMode = Mode.INFORM.name();
-	String orgIdProperty = "org.groupId";
-	String groupIdProperty = "project.groupId";
-	String versionProperty = "project.version";
-	String encodingProperty = "project.build.sourceEncoding";
 	Properties locationHelperProperties;
+	String organizationGroupId;
+	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
+	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
 
 	@Override
 	public Properties init() {
@@ -141,11 +139,22 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		return processors;
 	}
 
+	protected String getGroupId() {
+		if (groupIdProperty == null) {
+			return null;
+		} else if (locationHelperProperties == null) {
+			return null;
+		} else {
+			return locationHelperProperties.getProperty(groupIdProperty);
+		}
+	}
+
 	protected List<PropertyProcessor> getLocationHelperProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
-		if (orgIdProperty != null && groupIdProperty != null) {
-			processors.add(new GroupCodeProcessor(orgIdProperty, groupIdProperty));
+		String groupId = getGroupId();
+		if (organizationGroupId != null && groupId != null) {
+			processors.add(new GroupCodeProcessor(organizationGroupId, groupId));
 		}
 
 		if (groupIdProperty != null) {
@@ -159,11 +168,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
-
-		// Copy the encoding from encodingProperty unless they explicitly supplied an encoding
-		if (encodingProperty != null && encoding == null) {
-			processors.add(new CopyStringProcessor(this, "encoding", encodingProperty));
-		}
 
 		return processors;
 	}
@@ -185,12 +189,29 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		this.locations = locations;
 	}
 
-	public String getOrgIdProperty() {
-		return orgIdProperty;
+	public Properties getLocationHelperProperties() {
+		return locationHelperProperties;
 	}
 
-	public void setOrgIdProperty(String organizationGroupIdProperty) {
-		this.orgIdProperty = organizationGroupIdProperty;
+	public void setLocationHelperProperties(Properties locationHelperProperties) {
+		this.locationHelperProperties = locationHelperProperties;
+	}
+
+	@Override
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	public String getOrganizationGroupId() {
+		return organizationGroupId;
+	}
+
+	public void setOrganizationGroupId(String organizationGroupId) {
+		this.organizationGroupId = organizationGroupId;
 	}
 
 	public String getGroupIdProperty() {
@@ -207,31 +228,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setVersionProperty(String versionProperty) {
 		this.versionProperty = versionProperty;
-	}
-
-	public String getEncodingProperty() {
-		return encodingProperty;
-	}
-
-	public void setEncodingProperty(String encodingProperty) {
-		this.encodingProperty = encodingProperty;
-	}
-
-	public Properties getLocationHelperProperties() {
-		return locationHelperProperties;
-	}
-
-	public void setLocationHelperProperties(Properties locationHelperProperties) {
-		this.locationHelperProperties = locationHelperProperties;
-	}
-
-	@Override
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
 	}
 
 }

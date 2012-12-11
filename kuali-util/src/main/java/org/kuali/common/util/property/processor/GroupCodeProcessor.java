@@ -47,6 +47,7 @@ public class GroupCodeProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		logger.debug("organizationGroupId={}", organizationGroupId);
 		logger.debug("groupId={}", groupId);
+
 		Assert.notNull(organizationGroupId, "organizationGroupId is null");
 		Assert.notNull(groupId, "groupId is null");
 

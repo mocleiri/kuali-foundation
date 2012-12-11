@@ -26,10 +26,10 @@ import org.kuali.common.util.property.Constants;
 
 public class PathProcessor implements PropertyProcessor {
 
+	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	String suffix = Constants.DEFAULT_PATH_SUFFIX;
 	List<String> includes;
 	List<String> excludes;
-	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	public PathProcessor() {
 		this(Collections.<String> emptyList());
