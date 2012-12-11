@@ -23,93 +23,89 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.Extractor;
 
 /**
- * Validate that the URL provided in the <code>scm</code> section of the pom
- * matches up with a property that contains the correct SCM URL.
- * 
+ * Validate that the URL provided in the <code>scm</code> section of the pom matches up with a property that contains the correct SCM URL.
+ *
  * @goal validatescm
  */
 public class ValidateScmMojo extends AbstractMojo {
 
-    /**
-     * The Maven project this plugin runs in.
-     * 
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * The Maven project this plugin runs in.
+	 *
+	 * @parameter expression="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
 
-    /**
-     * Property containing the correct SCM URL. This can be a project property,
-     * system property, or environment variable.
-     * 
-     * @parameter expression="${extractor.scmUrlProperty}"
-     *            default-value="scm.url"
-     * @required
-     */
-    private String scmUrlProperty;
+	/**
+	 * Property containing the correct SCM URL. This can be a project property, system property, or environment variable.
+	 *
+	 * @parameter expression="${extractor.scmUrlProperty}" default-value="scm.url"
+	 * @required
+	 */
+	private String scmUrlProperty;
 
-    /**
-     * If true, the plugin will operate silently without generating any logging
-     * output
-     * 
-     * @parameter expression="${extractor.silent}" default-value="false"
-     * @required
-     */
-    private boolean silent;
+	/**
+	 * If true, the plugin will operate silently without generating any logging output
+	 *
+	 * @parameter expression="${extractor.silent}" default-value="false"
+	 * @required
+	 */
+	private boolean silent;
 
-    /**
-     * If true, the plugin will skip executing
-     * 
-     * @parameter expression="${extractor.skip}" default-value="false"
-     * @required
-     */
-    private boolean skip;
+	/**
+	 * If true, the plugin will skip executing
+	 *
+	 * @parameter expression="${extractor.skip}" default-value="false"
+	 * @required
+	 */
+	private boolean skip;
 
-    @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        if (skip) {
-            getLog().info("Skipping execution");
-            return;
-        }
-        Extractor extractor = new Extractor();
-        Scm trimmedScm = extractor.getTrimmedScm(project.getScm());
-        String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
-        extractor.validateTrimmedScm(trimmedScm, actualUrl);
-        if (!silent) {
-            getLog().info("The scm url's declared in the pom match the actual scm url");
-            getLog().info("   Actual - " + actualUrl);
-            getLog().info("      URL - " + project.getScm().getUrl());
-            getLog().info("Developer - " + project.getScm().getDeveloperConnection());
-            getLog().info("  Regular - " + project.getScm().getConnection());
-        }
-    }
+	@Override
+	public void execute() throws MojoExecutionException, MojoFailureException {
+		if (skip) {
+			getLog().info("Skipping execution");
+			return;
+		}
+		Extractor extractor = new Extractor();
+		Scm trimmedScm = extractor.getTrimmedScm(project.getScm());
+		String actualUrl = extractor.getActualUrl(project, scmUrlProperty);
+		extractor.validateTrimmedScm(trimmedScm, actualUrl);
+		if (!silent) {
+			getLog().info("The scm url's declared in the pom match the actual scm url");
+			getLog().info("   Actual - " + actualUrl);
+			getLog().info("      URL - " + project.getScm().getUrl());
+			getLog().info("Developer - " + project.getScm().getDeveloperConnection());
+			getLog().info("  Regular - " + project.getScm().getConnection());
+		}
+	}
 
-    public MavenProject getProject() {
-        return project;
-    }
+	public MavenProject getProject() {
+		return project;
+	}
 
-    public String getScmUrlProperty() {
-        return scmUrlProperty;
-    }
+	public String getScmUrlProperty() {
+		return scmUrlProperty;
+	}
 
-    public void setScmUrlProperty(String svnUrlProperty) {
-        this.scmUrlProperty = svnUrlProperty;
-    }
+	public void setScmUrlProperty(String svnUrlProperty) {
+		this.scmUrlProperty = svnUrlProperty;
+	}
 
-    public boolean isSilent() {
-        return silent;
-    }
+	public boolean isSilent() {
+		return silent;
+	}
 
-    public void setSilent(boolean silent) {
-        this.silent = silent;
-    }
+	public void setSilent(boolean silent) {
+		this.silent = silent;
+	}
 
-    public boolean isSkip() {
-        return skip;
-    }
+	public boolean isSkip() {
+		return skip;
+	}
 
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 }
