@@ -40,9 +40,12 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("User - {}", context.getDatabaseProcessContext().getUsername());
+		String user = context.getDatabaseProcessContext().getUsername();
 		String pw = context.getDatabaseProcessContext().getPassword();
 		if (pw == null) {
 			logger.info("Password - {}", Constants.NONE);
+		} else if (StringUtils.equals(user, pw)) {
+			logger.info("Password - {}", pw);
 		} else {
 			logger.debug("Password - {}", pw);
 		}
