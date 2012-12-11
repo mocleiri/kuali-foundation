@@ -14,15 +14,6 @@ public class DefaultBeanNullifier implements Nullify {
 	List<String> properties;
 	List<String> nullTokens = Arrays.asList(Constants.NULL);
 
-	public DefaultBeanNullifier() {
-		this(null);
-	}
-
-	public DefaultBeanNullifier(String nullToken) {
-		super();
-		this.nullTokens = Arrays.asList(nullToken);
-	}
-
 	@Override
 	public void nullify() {
 		Assert.notNull(bean, "bean cannot be null");
