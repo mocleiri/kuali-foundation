@@ -59,9 +59,7 @@ public class Str {
 		}
 		StringBuilder sb = new StringBuilder();
 		for (String token : tokens) {
-			if (token != null) {
-				sb.append(token);
-			}
+			sb.append(token);
 		}
 		return sb.toString();
 	}
