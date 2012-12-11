@@ -125,11 +125,11 @@ public class DefaultDatabaseService implements DatabaseService {
 			// There is no password, display NONE
 			logNullAsNone(prefix);
 		} else if (StringUtils.equals(username, password)) {
-			// Not exactly high security, log it at INFO level
+			// Not exactly high security, display the clear text value
 			logger.info("{} - {}", prefix, password);
 		} else {
-			// Otherwise only show it in debug mode
-			logger.debug("{} - {}", prefix, password);
+			// Otherwise obscure it
+			logger.info("{} - {}", prefix, StringUtils.repeat("*", password.length()));
 		}
 	}
 
