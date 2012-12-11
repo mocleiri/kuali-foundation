@@ -28,36 +28,29 @@ import org.springframework.util.Assert;
 public class GroupCodeProcessor implements PropertyProcessor {
 	private static final Logger logger = LoggerFactory.getLogger(GroupCodeProcessor.class);
 
-	String orgIdProperty;
-	String groupIdProperty;
 	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
-
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+	String organizationGroupId;
+	String groupId;
 
 	public GroupCodeProcessor() {
 		this(null, null);
 	}
 
-	public GroupCodeProcessor(String orgIdProperty, String groupIdProperty) {
+	public GroupCodeProcessor(String organizationGroupId, String groupId) {
 		super();
-		this.orgIdProperty = orgIdProperty;
-		this.groupIdProperty = groupIdProperty;
+		this.organizationGroupId = organizationGroupId;
+		this.groupId = groupId;
 	}
 
 	@Override
 	public void process(Properties properties) {
-		logger.debug("orgIdProperty={}", orgIdProperty);
-
-		Assert.notNull(orgIdProperty, "orgIdProperty is null");
-		Assert.notNull(groupIdProperty, "groupIdProperty is null");
-
-		String organizationId = properties.getProperty(orgIdProperty);
-		String groupId = properties.getProperty(groupIdProperty);
-
-		Assert.notNull(organizationId, "organizationId is null");
+		logger.debug("organizationGroupId={}", organizationGroupId);
+		logger.debug("groupId={}", groupId);
+		Assert.notNull(organizationGroupId, "organizationGroupId is null");
 		Assert.notNull(groupId, "groupId is null");
 
-		String groupCode = getGroupCode(organizationId, groupId);
+		String groupCode = getGroupCode(organizationGroupId, groupId);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
 	}
 
@@ -80,20 +73,20 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		return code;
 	}
 
-	public String getOrgIdProperty() {
-		return orgIdProperty;
+	public String getOrganizationGroupId() {
+		return organizationGroupId;
 	}
 
-	public void setOrgIdProperty(String orgIdProperty) {
-		this.orgIdProperty = orgIdProperty;
+	public void setOrganizationGroupId(String organizationGroupId) {
+		this.organizationGroupId = organizationGroupId;
 	}
 
-	public String getGroupIdProperty() {
-		return groupIdProperty;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setGroupIdProperty(String groupIdProperty) {
-		this.groupIdProperty = groupIdProperty;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getGroupCodeProperty() {
