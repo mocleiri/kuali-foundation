@@ -41,7 +41,7 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
     <!-- Controls deployment of Kuali applications -->
     <kuali-deploy.version>2.0.4-SNAPSHOT</kuali-deploy.version>
-    <kuali-jdbc.version></kuali-jdbc.version>
+    <kuali-jdbc.version>1.0.3-SNAPSHOT</kuali-jdbc.version>
     <kuali-util.version>1.0.4-SNAPSHOT</kuali-util.version>
     <kuali-sql.version>2.0.0-SNAPSHOT</kuali-sql.version>
     <!-- Explicitly set build timestamp. The maven-resource-plugin is not filtering values correctly without this -->
