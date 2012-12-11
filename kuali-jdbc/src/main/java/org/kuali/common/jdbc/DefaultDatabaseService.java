@@ -65,24 +65,6 @@ public class DefaultDatabaseService implements DatabaseService {
 		logExecution("reset database", metaData, context.getFormatter());
 	}
 
-	protected void logUsername(String prefix, String username) {
-		if (username == null) {
-			logger.info("{} - {}", prefix, Constants.NONE);
-		} else {
-			logger.info("{} - {}", prefix, username);
-		}
-	}
-
-	protected void logPassword(String prefix, String username, String password) {
-		if (password == null) {
-			logger.info("{} - {}", prefix, Constants.NONE);
-		} else if (StringUtils.equals(username, password)) {
-			logger.info("{} - {}", prefix, password);
-		} else {
-			logger.debug("{} - {}", prefix, password);
-		}
-	}
-
 	protected void add(SqlMetaDataList one, SqlMetaDataList two) {
 		one.setCount(one.getCount() + two.getCount());
 		one.addAll(two);
@@ -128,6 +110,34 @@ public class DefaultDatabaseService implements DatabaseService {
 		args.add(formatter.getCount(metadata.size()));
 		args.add(formatter.getTime(metadata.getExecutionTime()));
 		logger.info("Total " + executionType + " SQL statements: {}  SQL sources: {}  Total time: {}", CollectionUtils.toArray(args));
+	}
+
+	protected void logUsername(String prefix, String username) {
+		if (username == null) {
+			logNullAsNone(prefix);
+		} else {
+			logger.info("{} - {}", prefix, username);
+		}
+	}
+
+	protected void logPassword(String prefix, String username, String password) {
+		if (password == null) {
+			// There is no password, display NONE
+			logNullAsNone(prefix);
+		} else if (StringUtils.equals(username, password)) {
+			// Not exactly high security, log it at INFO level
+			logger.info("{} - {}", prefix, password);
+		} else {
+			// Otherwise only show it in debug mode
+			logger.debug("{} - {}", prefix, password);
+		}
+	}
+
+	/**
+	 * Log <code>null</code> as <code>NONE</code>
+	 */
+	protected void logNullAsNone(String prefix) {
+		logger.info("{} - {}", prefix, Constants.NONE);
 	}
 
 }
