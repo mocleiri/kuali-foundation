@@ -39,11 +39,11 @@
     <checkstyle.config.location>org/kuali/cm/checkstyle/kuali-sun.xml</checkstyle.config.location>
     <checkstyle.enable.rules.summary>true</checkstyle.enable.rules.summary>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
-    <!-- Controls deployment of Kuali applications -->
-    <kuali-deploy.version>2.0.4-SNAPSHOT</kuali-deploy.version>
-    <kuali-jdbc.version>1.0.3-SNAPSHOT</kuali-jdbc.version>
-    <kuali-util.version>1.0.4-SNAPSHOT</kuali-util.version>
-    <kuali-sql.version>2.0.0-SNAPSHOT</kuali-sql.version>
+    <!-- Common Kuali libraries -->
+    <kuali-util.version>1.0.5</kuali-util.version>
+    <kuali-sql.version>2.0.0</kuali-sql.version>
+    <kuali-jdbc.version>1.0.2</kuali-jdbc.version>
+    <kuali-deploy.version>2.0.3</kuali-deploy.version>
     <!-- Explicitly set build timestamp. The maven-resource-plugin is not filtering values correctly without this -->
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
     <!-- Default Clover config -->
@@ -760,4 +760,28 @@
       </plugin>
     </plugins>
   </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.kuali.common</groupId>
+        <artifactId>kuali-sql</artifactId>
+        <version>{kuali-sql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kuali.common</groupId>
+        <artifactId>kuali-util</artifactId>
+        <version>{kuali-util.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kuali.common</groupId>
+        <artifactId>kuali-jdbc</artifactId>
+        <version>{kuali-jdbc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kuali.common</groupId>
+        <artifactId>kuali-deploy</artifactId>
+        <version>{kuali-deploy.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
