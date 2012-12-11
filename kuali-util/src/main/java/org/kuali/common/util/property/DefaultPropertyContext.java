@@ -152,13 +152,17 @@ public class DefaultPropertyContext implements PropertyContext {
 		this.resolvePlaceholders = resolve(resolvePlaceholders, global);
 		log();
 		validate();
+		addProcessors();
+		logger.info("Proceeding with " + processors.size() + " processors.");
+	}
+
+	protected void addProcessors() {
 		List<PropertyProcessor> defaultProcessors = getDefaultProcessors();
 		if (processors == null) {
 			processors = defaultProcessors;
 		} else {
 			processors.addAll(0, defaultProcessors);
 		}
-		logger.info("Initialized " + defaultProcessors.size() + " processors.");
 	}
 
 	protected void validate() {
