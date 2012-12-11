@@ -42,6 +42,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <kuali-util.version>1.0.4-SNAPSHOT</kuali-util.version>
+    <kuali-sql.version>2.0.0-SNAPSHOT</kuali-sql.version>
   </properties>
   <developers>
     <developer>
