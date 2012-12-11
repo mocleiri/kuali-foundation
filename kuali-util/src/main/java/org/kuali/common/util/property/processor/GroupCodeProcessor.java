@@ -21,9 +21,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 public class GroupCodeProcessor implements PropertyProcessor {
+	private static final Logger logger = LoggerFactory.getLogger(GroupCodeProcessor.class);
 
 	String orgIdProperty;
 	String groupIdProperty;
@@ -43,6 +46,7 @@ public class GroupCodeProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
+		logger.debug("orgIdProperty={}", orgIdProperty);
 
 		Assert.notNull(orgIdProperty, "orgIdProperty is null");
 		Assert.notNull(groupIdProperty, "groupIdProperty is null");
