@@ -28,7 +28,6 @@
 
   <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext" init-method="init">
     <property name="locationHelperProperties" ref="kuali.build.properties" />
-    <property name="orgIdProperty" value="kuali.groupId" />
     <property name="globalPropertiesMode" value="${kuali.properties.global}" />
     <property name="missingLocationsMode" value="${kuali.properties.missing}" />
   </bean>

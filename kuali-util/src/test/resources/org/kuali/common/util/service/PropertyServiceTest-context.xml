@@ -38,7 +38,6 @@
   <bean id="context" class="org.kuali.common.util.property.DefaultPropertyLoadContext">
     <property name="locations" ref="locations" />
     <property name="locationHelperProperties" ref="kuali.build.properties" />
-    <property name="orgIdProperty" value="kuali.groupId" />
     <property name="globalPropertiesMode" value="${kuali.properties.global:BOTH}" />
     <property name="missingLocationsMode" value="${kuali.properties.missing:INFORM}" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />

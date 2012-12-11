@@ -53,6 +53,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Global properties mode - " + globalPropertiesMode);
 		logger.info("Missing locations mode - " + missingLocationsMode);
 		this.encoding = resolve(encoding, global);
+		this.organizationGroupId = resolve(organizationGroupId, global);
 		validateGlobalPropertiesMode(globalPropertiesMode);
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		this.locationHelperProperties = getLocationHelperProperties(locationHelperProperties, gpm);
