@@ -74,14 +74,17 @@ public class DefaultPropertyContext implements PropertyContext {
 		 */
 		this.encryptionPassword = null;
 
-		// Make sure system/environment properties override everything else
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
+
+		// By default, system/environment properties override loaded properties
 		processors.add(new GlobalOverrideProcessor(gpm));
+
+		// By default, all placeholders in the properties are resolved
 		if (Boolean.parseBoolean(resolvePlaceholders)) {
 			processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 		}
 
-		// Add a prefix to all of the existing properties if appropriate
+		// Add a prefix to the property keys if appropriate
 		if (!StringUtils.isBlank(prefix)) {
 			processors.add(new AddPrefixProcessor(prefix));
 		}
