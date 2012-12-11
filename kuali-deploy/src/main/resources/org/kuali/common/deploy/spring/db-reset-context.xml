@@ -55,7 +55,7 @@
   </util:list>
 
   <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
-    <property name="property" ref="nullableProperties" />
+    <property name="properties" ref="nullableProperties" />
     <property name="bean" ref="databaseProcessContext" />
   </bean>
 
