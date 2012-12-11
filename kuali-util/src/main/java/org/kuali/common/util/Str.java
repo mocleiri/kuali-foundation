@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -30,6 +32,15 @@ public class Str {
 	public static final String DOT = ".";
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
+
+	public static final boolean contains(List<String> tokens, String value, boolean caseSensitive) {
+		for (String token : tokens) {
+			if (equals(token, value, caseSensitive)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static final boolean equals(String s1, String s2, boolean caseSensitive) {
 		if (caseSensitive) {

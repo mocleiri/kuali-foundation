@@ -34,17 +34,8 @@ public class DefaultBeanNullifier implements Nullify {
 		if (value == null) {
 			return false;
 		} else {
-			return contains(nullTokens, value.toString(), caseSensitive);
+			return Str.contains(nullTokens, value.toString(), caseSensitive);
 		}
-	}
-
-	protected boolean contains(List<String> tokens, String value, boolean caseSensitive) {
-		for (String token : tokens) {
-			if (Str.equals(token, value, caseSensitive)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	protected void setProperty(Object bean, String property, Object value) {
