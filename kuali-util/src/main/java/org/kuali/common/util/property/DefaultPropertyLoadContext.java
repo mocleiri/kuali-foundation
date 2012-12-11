@@ -61,7 +61,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Property file encoding - " + encoding);
 		logger.info("Using " + locationHelperProperties.size() + " properties to assist with property loading.");
 		validate();
-		PropertyUtils.info(locationHelperProperties);
 		if (logger.isDebugEnabled()) {
 			PropertyUtils.debug(locationHelperProperties);
 		}
