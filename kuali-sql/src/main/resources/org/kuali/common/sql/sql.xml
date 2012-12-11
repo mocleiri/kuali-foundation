@@ -19,7 +19,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>General Purpose SQL Properties</comment>
-  <!-- Both the database and user must be gone when this SQL completes -->
   <entry key="liquibase.insert.default.lock.row">
     INSERT INTO DATABASECHANGELOGLOCK (ID,LOCKED) VALUES (1,0)
     /
