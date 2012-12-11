@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.1.2</version>
+    <version>2.1.6-SNAPSHOT</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
@@ -39,8 +39,6 @@
     <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
     <parent.version>${project.parent.version}</parent.version>
     <ant.phase>process-resources</ant.phase>
-    <kuali-jdbc.version>1.0.3-SNAPSHOT</kuali-jdbc.version>
-    <kuali-sql.version>2.0.0-SNAPSHOT</kuali-sql.version>
   </properties>
   <profiles>
     <profile>
