@@ -62,7 +62,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		logger.info("Using " + locationHelperProperties.size() + " properties to assist with property loading.");
 		validate();
 		if (logger.isDebugEnabled()) {
+			logger.debug("--- Location helper properties ---");
 			PropertyUtils.show(locationHelperProperties);
+			logger.debug("--- Location helper properties ---");
 		}
 		Properties p = new Properties();
 		p.putAll(PropertyUtils.toEmpty(properties));
