@@ -54,7 +54,7 @@
     <value>password</value>
   </util:list>
 
-  <bean id="nullifier" class="org.kuali.common.nullify.DefaultBeanNullifier" init-method="nullify">
+  <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
     <property name="property" ref="nullableProperties" />
     <property name="bean" ref="databaseProcessContext" />
   </bean>
