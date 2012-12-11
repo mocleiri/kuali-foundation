@@ -26,6 +26,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleFormatter;
+import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,10 +40,20 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("User - {}", context.getDatabaseProcessContext().getUsername());
-		logger.debug("Password - {}", context.getDatabaseProcessContext().getPassword());
+		String pw = context.getDatabaseProcessContext().getPassword();
+		if (pw == null) {
+			logger.info("Password - {}", Constants.NONE);
+		} else {
+			logger.debug("Password - {}", pw);
+		}
 		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
 		logger.info("DBA User - {}", context.getDatabaseProcessContext().getDbaUsername());
-		logger.debug("DBA Password - {}", context.getDatabaseProcessContext().getDbaPassword());
+		pw = context.getDatabaseProcessContext().getDbaPassword();
+		if (pw == null) {
+			logger.info("DBA Password - {}", Constants.NONE);
+		} else {
+			logger.debug("DBA Password - {}", pw);
+		}
 		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
