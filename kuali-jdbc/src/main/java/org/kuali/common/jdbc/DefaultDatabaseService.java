@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
@@ -35,28 +36,16 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	@Override
 	public void reset(DatabaseResetContext context) {
+		DatabaseProcessContext dpc = context.getDatabaseProcessContext();
 		long start = System.currentTimeMillis();
 		logger.info("---------------- Reset Database ----------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
-		logger.info("User - {}", context.getDatabaseProcessContext().getUsername());
-		String user = context.getDatabaseProcessContext().getUsername();
-		String pw = context.getDatabaseProcessContext().getPassword();
-		if (pw == null) {
-			logger.info("Password - {}", Constants.NONE);
-		} else if (StringUtils.equals(user, pw)) {
-			logger.info("Password - {}", pw);
-		} else {
-			logger.debug("Password - {}", pw);
-		}
+		logUsername("User", dpc.getUsername());
+		logPassword("Password", dpc.getUsername(), dpc.getPassword());
 		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
-		logger.info("DBA User - {}", context.getDatabaseProcessContext().getDbaUsername());
-		pw = context.getDatabaseProcessContext().getDbaPassword();
-		if (pw == null) {
-			logger.info("DBA Password - {}", Constants.NONE);
-		} else {
-			logger.debug("DBA Password - {}", pw);
-		}
+		logUsername("DBA User", dpc.getDbaUsername());
+		logPassword("DBA Password", dpc.getDbaUsername(), dpc.getDbaPassword());
 		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
@@ -74,6 +63,24 @@ public class DefaultDatabaseService implements DatabaseService {
 		add(metaData, doSQL(context, "constraints", context.getConstraintPropertyPrefix()));
 		metaData.setExecutionTime(System.currentTimeMillis() - start);
 		logExecution("reset database", metaData, context.getFormatter());
+	}
+
+	protected void logUsername(String prefix, String username) {
+		if (username == null) {
+			logger.info("{} - {}", prefix, Constants.NONE);
+		} else {
+			logger.info("{} - {}", prefix, username);
+		}
+	}
+
+	protected void logPassword(String prefix, String username, String password) {
+		if (password == null) {
+			logger.info("{} - {}", Constants.NONE);
+		} else if (StringUtils.equals(username, password)) {
+			logger.info("{} - {}", password);
+		} else {
+			logger.debug("{} - {}", password);
+		}
 	}
 
 	protected void add(SqlMetaDataList one, SqlMetaDataList two) {
