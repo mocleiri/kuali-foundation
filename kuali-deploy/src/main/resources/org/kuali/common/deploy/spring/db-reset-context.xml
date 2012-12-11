@@ -28,7 +28,8 @@
     <property name="locationHelperProperties" ref="kuali.properties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
-    <property name="orgIdProperty" value="kuali.groupId" />
+    <property name="organizationGroupId" value="${kuali.groupId}" />
+    <property name="groupId" value="${project.groupId}" />
     <property name="encoding" value="${kuali.encoding}" />
   </bean>
 
