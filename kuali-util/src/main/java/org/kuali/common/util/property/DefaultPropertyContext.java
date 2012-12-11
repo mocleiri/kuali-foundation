@@ -61,7 +61,9 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
-			processors.add(getEncProcessor(encryptionMode, encryptionStrength, encryptionPassword));
+			EncryptionMode mode = EncryptionMode.valueOf(encryptionMode);
+			EncryptionStrength strength = EncryptionStrength.valueOf(encryptionStrength);
+			processors.add(getEncProcessor(mode, strength, encryptionPassword));
 		}
 
 		/**
@@ -104,15 +106,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected PropertyProcessor getEncProcessor(String mode, String strength, String password) {
-		switch (EncryptionMode.valueOf(mode)) {
+	protected PropertyProcessor getEncProcessor(EncryptionMode mode, EncryptionStrength strength, String password) {
+		switch (mode) {
 		case NONE:
 			return Constants.NO_OP_PROCESSOR;
 		case ENCRYPT:
-			TextEncryptor encryptor = EncUtils.getTextEncryptor(EncryptionStrength.valueOf(strength), password);
+			TextEncryptor encryptor = EncUtils.getTextEncryptor(strength, password);
 			return new EndsWithEncryptProcessor(encryptor);
 		case DECRYPT:
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(EncryptionStrength.valueOf(strength), password);
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(strength, password);
 			return new EndsWithDecryptProcessor(decryptor);
 		default:
 			throw new IllegalArgumentException("Encryption mode '" + mode + "' is unknown");
