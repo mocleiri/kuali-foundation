@@ -57,14 +57,14 @@
     <property name="bean" ref="databaseProcessContext" />
   </bean>
 
-  <bean id="dataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" depends-on="nullifier">
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
     <property name="driverClassName" value="#{databaseProcessContext.driver}" />
     <property name="url" value="#{databaseProcessContext.url}" />
     <property name="username" value="#{databaseProcessContext.username}" />
     <property name="password" value="#{databaseProcessContext.password}" />
   </bean>
 
-  <bean id="dbaDataSource" class="org.kuali.common.jdbc.DriverManagerDataSource" depends-on="nullifier">
+  <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
     <property name="driverClassName" value="#{databaseProcessContext.driver}" />
     <property name="url" value="#{databaseProcessContext.dbaUrl}" />
     <property name="username" value="#{databaseProcessContext.dbaUsername}" />
