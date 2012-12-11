@@ -184,8 +184,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected String resolveAndRemove(String string, Properties global, Properties properties) {
-		String resolvedString = resolve(string, global);
+	protected void remove(String string, String resolvedString, Properties properties) {
 		boolean placeholder = PropertyUtils.isSingleUnresolvedPlaceholder(string);
 		boolean resolved = !StringUtils.equals(string, resolvedString);
 		boolean irrelevant = Str.contains(Arrays.asList(Constants.NONE, Constants.NULL), resolvedString, false);
@@ -198,6 +197,11 @@ public class DefaultPropertyContext implements PropertyContext {
 				properties.remove(key);
 			}
 		}
+	}
+
+	protected String resolveAndRemove(String string, Properties global, Properties properties) {
+		String resolvedString = resolve(string, global);
+		remove(string, resolvedString, properties);
 		return resolvedString;
 	}
 
