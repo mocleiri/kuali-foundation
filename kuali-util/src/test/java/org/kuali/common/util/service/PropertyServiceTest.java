@@ -44,7 +44,7 @@ public class PropertyServiceTest {
 		try {
 			logger.info("");
 			Properties properties = service.load(context);
-			PropertyUtils.show(properties);
+			PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

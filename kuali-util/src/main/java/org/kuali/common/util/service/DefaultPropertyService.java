@@ -39,6 +39,9 @@ public class DefaultPropertyService implements PropertyService {
 		logger.info("Processing " + properties.size() + " properties using " + processors.size() + " processors.");
 		process(properties, context.getProcessors());
 		logger.info("Returning " + properties.size() + " properties.");
+		if (logger.isDebugEnabled()) {
+			logger.debug(PropertyUtils.toString(properties));
+		}
 		return properties;
 	}
 

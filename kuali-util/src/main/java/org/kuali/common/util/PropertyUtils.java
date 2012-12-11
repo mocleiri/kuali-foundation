@@ -242,12 +242,24 @@ public class PropertyUtils {
 		return keys;
 	}
 
-	public static final void show(Properties properties) {
+	public static final String toString(Properties properties) {
 		List<String> keys = getSortedKeys(properties);
+		StringBuilder sb = new StringBuilder();
 		for (String key : keys) {
 			String value = Str.flatten(properties.getProperty(key));
-			logger.info(key + "=" + value);
+			sb.append(key + "=" + value + "\n");
 		}
+		return sb.toString();
+	}
+
+	public static final void info(Properties properties) {
+		properties = toEmpty(properties);
+		logger.info("--- Displaying {} properties ---\n\n{}", properties.size(), toString(properties));
+	}
+
+	public static final void debug(Properties properties) {
+		properties = toEmpty(properties);
+		logger.debug("--- Displaying {} properties ---\n\n{}", properties.size(), toString(properties));
 	}
 
 	/**
