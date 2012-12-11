@@ -19,7 +19,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>General Purpose SQL Properties</comment>
-  <entry key="liquibase.insert.default.lock.row">
+  <entry key="liquibase.insert">
     INSERT INTO DATABASECHANGELOGLOCK (ID,LOCKED) VALUES (1,0)
     /
   </entry>
