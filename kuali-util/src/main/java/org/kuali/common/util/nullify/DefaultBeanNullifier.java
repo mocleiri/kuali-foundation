@@ -26,9 +26,9 @@ public class DefaultBeanNullifier implements Nullify {
 
 	@Override
 	public void nullify() {
-		Assert.notNull(bean, "bean is null");
-		Assert.notNull(properties, "properties is null");
-		Assert.notNull(nullTokens, "nullTokens is null");
+		Assert.notNull(bean, "bean cannot be null");
+		Assert.notNull(properties, "properties cannot be null");
+		Assert.notNull(nullTokens, "nullTokens cannot be null");
 
 		for (String property : properties) {
 			String value = getProperty(bean, property);
