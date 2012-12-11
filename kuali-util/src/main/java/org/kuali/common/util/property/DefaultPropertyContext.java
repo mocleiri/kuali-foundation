@@ -16,6 +16,7 @@
 package org.kuali.common.util.property;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -26,6 +27,7 @@ import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionMode;
 import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
@@ -166,19 +168,26 @@ public class DefaultPropertyContext implements PropertyContext {
 		Boolean.parseBoolean(resolvePlaceholders);
 	}
 
+	protected String getPlaceholderKey(String string) {
+		String prefix = Constants.DEFAULT_PLACEHOLDER_PREFIX;
+		String suffix = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
+		String separator = Constants.DEFAULT_VALUE_SEPARATOR;
+		String key = StringUtils.substringBetween(string, prefix, separator);
+		if (key == null) {
+			return StringUtils.substringBetween(string, prefix, suffix);
+		} else {
+			return key;
+		}
+	}
+
 	protected String resolveAndRemove(String string, Properties global, Properties properties) {
 		String resolvedString = resolve(string, global);
 		boolean placeholder = PropertyUtils.isSingleUnresolvedPlaceholder(string);
-		boolean resolved = !StringUtils.equals(string, resolvedString) && !StringUtils.equals(Constants.NONE, resolvedString);
-		boolean remove = placeholder && resolved;
+		boolean resolved = !StringUtils.equals(string, resolvedString);
+		boolean irrelevant = Str.contains(Arrays.asList(Constants.NONE, Constants.NULL), resolvedString, false);
+		boolean remove = placeholder && resolved && !irrelevant;
 		if (remove) {
-			String prefix = Constants.DEFAULT_PLACEHOLDER_PREFIX;
-			String suffix = Constants.DEFAULT_PLACEHOLDER_SUFFIX;
-			String separator = Constants.DEFAULT_VALUE_SEPARATOR;
-			String key = StringUtils.substringBetween(string, prefix, separator);
-			if (key == null) {
-				key = StringUtils.substringBetween(string, prefix, suffix);
-			}
+			String key = getPlaceholderKey(string);
 			Assert.notNull(key, "key is null");
 			if (properties.getProperty(key) != null) {
 				logger.info("Removing property '" + key + "'");
