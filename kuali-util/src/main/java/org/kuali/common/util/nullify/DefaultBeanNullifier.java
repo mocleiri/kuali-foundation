@@ -12,16 +12,15 @@ public class DefaultBeanNullifier implements Nullify {
 
 	Object bean;
 	List<String> properties;
-	List<String> nullTokens = Arrays.asList(new String[] { Constants.NULL });
+	List<String> nullTokens = Arrays.asList(Constants.NULL);
 
 	public DefaultBeanNullifier() {
-		this(null, null);
+		this(null);
 	}
 
-	public DefaultBeanNullifier(Object bean, List<String> properties) {
+	public DefaultBeanNullifier(String nullToken) {
 		super();
-		this.bean = bean;
-		this.properties = properties;
+		this.nullTokens = Arrays.asList(nullToken);
 	}
 
 	@Override
@@ -31,22 +30,22 @@ public class DefaultBeanNullifier implements Nullify {
 		Assert.notNull(nullTokens, "nullTokens cannot be null");
 
 		for (String property : properties) {
-			String value = getProperty(bean, property);
+			Object value = getProperty(bean, property);
 			if (isNullify(value, nullTokens)) {
 				setProperty(bean, property, null);
 			}
 		}
 	}
 
-	protected boolean isNullify(String value, List<String> nullTokens) {
+	protected boolean isNullify(Object value, List<String> nullTokens) {
 		if (value == null) {
 			return false;
 		} else {
-			return nullTokens.contains(value);
+			return nullTokens.contains(value.toString());
 		}
 	}
 
-	protected void setProperty(Object bean, String property, String value) {
+	protected void setProperty(Object bean, String property, Object value) {
 		try {
 			PropertyUtils.setProperty(bean, property, value);
 		} catch (NoSuchMethodException e) {
@@ -58,9 +57,9 @@ public class DefaultBeanNullifier implements Nullify {
 		}
 	}
 
-	protected String getProperty(Object bean, String property) {
+	protected Object getProperty(Object bean, String property) {
 		try {
-			return (String) PropertyUtils.getProperty(bean, property);
+			return PropertyUtils.getProperty(bean, property);
 		} catch (NoSuchMethodException e) {
 			throw new IllegalArgumentException(e);
 		} catch (InvocationTargetException e) {
