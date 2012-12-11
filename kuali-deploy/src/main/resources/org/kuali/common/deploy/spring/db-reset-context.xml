@@ -28,6 +28,7 @@
     <property name="locationHelperProperties" ref="kuali.build.properties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
+    <property name="orgIdProperty" value="${kuali.groupId}" />
   </bean>
 
   <bean id="dbaSql" class="java.lang.String">
