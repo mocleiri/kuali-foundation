@@ -39,8 +39,8 @@
     <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
     <parent.version>${project.parent.version}</parent.version>
     <ant.phase>process-resources</ant.phase>
-    <kuali-sql.version>2.0.0-SNAPSHOT</kuali-sql.version>
     <kuali-jdbc.version>1.0.3-SNAPSHOT</kuali-jdbc.version>
+    <kuali-sql.version>2.0.0-SNAPSHOT</kuali-sql.version>
   </properties>
   <profiles>
     <profile>
@@ -88,13 +88,13 @@
   <dependencies>
     <dependency>
       <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-sql</artifactId>
-      <version>${kuali-sql.version}</version>
+      <artifactId>kuali-jdbc</artifactId>
+      <version>${kuali-jdbc.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-jdbc</artifactId>
-      <version>${kuali-jdbc.version}</version>
+      <artifactId>kuali-sql</artifactId>
+      <version>${kuali-sql.version}</version>
     </dependency>
   </dependencies>
 </project>
