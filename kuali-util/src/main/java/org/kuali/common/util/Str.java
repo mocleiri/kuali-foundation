@@ -31,10 +31,18 @@ public class Str {
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
 
+	public static final boolean equals(String s1, String s2, boolean caseSensitive) {
+		if (caseSensitive) {
+			return StringUtils.equals(s1, s2);
+		} else {
+			return StringUtils.equalsIgnoreCase(s1, s2);
+		}
+	}
+
 	/**
 	 * Combine <code>tokens</code> into a <code>String</code>
 	 */
-	public static String toString(String[] tokens) {
+	public static final String toString(String[] tokens) {
 		if (tokens == null) {
 			return null;
 		}
@@ -50,42 +58,42 @@ public class Str {
 	/**
 	 * Convert dots to forward slashes and trim.
 	 */
-	public static String getPath(String s) {
+	public static final String getPath(String s) {
 		return StringUtils.trim(StringUtils.replace(s, DOT, FORWARD_SLASH));
 	}
 
 	/**
 	 * Surround the string with double quotes.
 	 */
-	public static String quote(String s) {
+	public static final String quote(String s) {
 		return s == null ? null : DOUBLE_QUOTE + s + DOUBLE_QUOTE;
 	}
 
 	/**
 	 * Split comma separated values into tokens, optionally trimming the tokens.
 	 */
-	public static String[] splitCSV(String csv, boolean trim) {
+	public static final String[] splitCSV(String csv, boolean trim) {
 		return split(csv, COMMA, trim);
 	}
 
 	/**
 	 * Split comma separated values into tokens, trimming as we go.
 	 */
-	public static String[] splitAndTrimCSV(String csv) {
+	public static final String[] splitAndTrimCSV(String csv) {
 		return splitCSV(csv, true);
 	}
 
 	/**
 	 * Split the string into tokens using the indicated separator, trimming as we go.
 	 */
-	public static String[] splitAndTrim(String s, String separatorChars) {
+	public static final String[] splitAndTrim(String s, String separatorChars) {
 		return split(s, separatorChars, true);
 	}
 
 	/**
 	 * Split the string into tokens using the indicated separator chars, optionally trimming the tokens.
 	 */
-	public static String[] split(String s, String separatorChars, boolean trim) {
+	public static final String[] split(String s, String separatorChars, boolean trim) {
 		String[] tokens = StringUtils.split(s, separatorChars);
 		if (tokens == null) {
 			return null;

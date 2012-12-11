@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.Assert;
 
@@ -13,6 +14,7 @@ public class DefaultBeanNullifier implements Nullify {
 	Object bean;
 	List<String> properties;
 	List<String> nullTokens = Arrays.asList(Constants.NULL);
+	boolean caseSensitive = false;
 
 	@Override
 	public void nullify() {
@@ -22,18 +24,27 @@ public class DefaultBeanNullifier implements Nullify {
 
 		for (String property : properties) {
 			Object value = getProperty(bean, property);
-			if (isNullify(value, nullTokens)) {
+			if (isNullify(value, nullTokens, caseSensitive)) {
 				setProperty(bean, property, null);
 			}
 		}
 	}
 
-	protected boolean isNullify(Object value, List<String> nullTokens) {
+	protected boolean isNullify(Object value, List<String> nullTokens, boolean caseSensitive) {
 		if (value == null) {
 			return false;
 		} else {
-			return nullTokens.contains(value.toString());
+			return contains(nullTokens, value.toString(), caseSensitive);
 		}
+	}
+
+	protected boolean contains(List<String> tokens, String value, boolean caseSensitive) {
+		for (String token : tokens) {
+			if (Str.equals(token, value, caseSensitive)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	protected void setProperty(Object bean, String property, Object value) {
@@ -58,6 +69,38 @@ public class DefaultBeanNullifier implements Nullify {
 		} catch (IllegalAccessException e) {
 			throw new IllegalArgumentException(e);
 		}
+	}
+
+	public Object getBean() {
+		return bean;
+	}
+
+	public void setBean(Object bean) {
+		this.bean = bean;
+	}
+
+	public List<String> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<String> properties) {
+		this.properties = properties;
+	}
+
+	public List<String> getNullTokens() {
+		return nullTokens;
+	}
+
+	public void setNullTokens(List<String> nullTokens) {
+		this.nullTokens = nullTokens;
+	}
+
+	public boolean isCaseSensitive() {
+		return caseSensitive;
+	}
+
+	public void setCaseSensitive(boolean caseSensitive) {
+		this.caseSensitive = caseSensitive;
 	}
 
 }
