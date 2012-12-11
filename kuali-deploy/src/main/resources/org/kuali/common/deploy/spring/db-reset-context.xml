@@ -47,10 +47,10 @@
   </bean>
 
   <util:list id="nullableProperties" value-type="java.lang.String">
-    <value>dbaPassword</value>
     <value>dbaUsername</value>
-    <value>password</value>
+    <value>dbaPassword</value>
     <value>username</value>
+    <value>password</value>
   </util:list>
 
   <bean id="nullifier" class="org.kuali.common.nullify.DefaultBeanNullifier" init-method="nullify">
