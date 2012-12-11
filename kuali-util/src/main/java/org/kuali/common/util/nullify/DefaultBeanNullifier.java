@@ -1,7 +1,7 @@
 package org.kuali.common.util.nullify;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -13,7 +13,7 @@ public class DefaultBeanNullifier implements Nullify {
 
 	Object bean;
 	List<String> properties;
-	List<String> nullTokens = Arrays.asList(Constants.NULL);
+	List<String> nullTokens = Collections.singletonList(Constants.NULL);
 	boolean caseSensitive = false;
 
 	@Override
