@@ -13,4 +13,20 @@ public class SpringContextLoaderExecutable implements Executable {
 		service.load(context);
 	}
 
+	public SpringService getService() {
+		return service;
+	}
+
+	public void setService(SpringService service) {
+		this.service = service;
+	}
+
+	public SpringContext getContext() {
+		return context;
+	}
+
+	public void setContext(SpringContext context) {
+		this.context = context;
+	}
+
 }
