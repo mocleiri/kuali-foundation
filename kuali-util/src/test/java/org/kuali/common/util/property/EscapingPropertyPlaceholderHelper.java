@@ -9,6 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ *******************************************************************************************************************
+ * WARNING
+ *******************************************************************************************************************
+ * This class needs extensive testing. It does not work right. Do not use this in any real sort of way.
+ *******************************************************************************************************************
+ *
  * Support the equivalent of <code>escapeString</code> from the maven-resources-plugin.
  *
  * This allows you to place <code>\</code> in front of placeholders you don't want replaced.
