@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.spring;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -141,7 +142,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		this.properties = getMergedProperties();
+		this.properties = PropertyUtils.combine(getPropertiesList());
 		executeMojo();
 	}
 
@@ -150,16 +151,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 * mojo, and standard Maven properties. Project properties are overridden by properties supplied directly to the mojo. Standard Maven
 	 * properties override both.
 	 */
-	protected Properties getMergedProperties() {
-		Properties props = new Properties();
-		// Duplicate the existing project properties
-		props.putAll(PropertyUtils.toEmpty(project.getProperties()));
-		// Add any properties supplied directly to the mojo
-		props.putAll(PropertyUtils.toEmpty(properties));
-		// Add Maven config that isn't present in project.getProperties()
-		props.putAll(MavenUtils.getStandardMavenProperties(project));
-		// Return the merged properties
-		return props;
+	protected List<Properties> getPropertiesList() {
+		List<Properties> list = new ArrayList<Properties>();
+		list.add(PropertyUtils.toEmpty(project.getProperties()));
+		list.add(PropertyUtils.toEmpty(properties));
+		list.add(PropertyUtils.toEmpty(MavenUtils.getStandardMavenProperties(project)));
+		return list;
 	}
 
 	@Override
