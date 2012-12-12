@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
@@ -67,7 +68,7 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected Properties getProperties(SpringContext context) {
-		Properties properties = PropertyUtils.combine(context.getPropertySources());
+		Properties properties = PropertyUtils.combine(CollectionUtils.toEmpty(context.getPropertySources()));
 		if (context.isExportProperties()) {
 			File file = context.getExportedPropertiesFile();
 			Assert.notNull(file, "file is null");
