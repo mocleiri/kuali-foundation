@@ -38,7 +38,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * <code>maven.spring.properties</code>.<br>
  * <br>
  * This combination allows you to inject Maven properties into a Spring context using a single line of configuration:<br>
- * <code><context:property-placeholder location="${maven.spring.properties}" /></code><br>
+ * <code>&lt;context:property-placeholder location="${maven.spring.properties}" /&gt;</code><br>
  * OR<br>
  * <code>&lt;util:properties id="mavenProperties" location="${maven.spring.properties}"&gt;</code><br>
  *
