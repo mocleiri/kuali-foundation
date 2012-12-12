@@ -64,7 +64,9 @@ public class DefaultSpringService implements SpringService {
 	protected Properties getProperties(SpringContext context) {
 		Properties properties = PropertyUtils.combine(context.getPropertySources());
 		if (context.isExportProperties()) {
-			String value = LocationUtils.getCanonicalPath(context.getExportedPropertiesFile());
+			File file = context.getExportedPropertiesFile();
+			Assert.notNull(file, "file is null");
+			String value = LocationUtils.getCanonicalPath(file);
 			String name = context.getExportedPropertiesFileProperty();
 			properties.setProperty(name, value);
 		}
