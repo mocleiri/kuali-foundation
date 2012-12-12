@@ -16,22 +16,32 @@
 package org.kuali.common.util.spring;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultSpringContext implements SpringContext {
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	String encoding;
 	String contextLocation;
 	Properties properties;
 	File workingDir;
 	boolean filterContext;
+	List<String> filterIncludes;
+	List<String> filterExcludes;
+	List<String> exportIncludes;
+	List<String> exportExcludes;
+	boolean exportProperties;
+	File exportedPropertiesFile;
+	String exportedPropertiesFileProperty;
 
 	@Override
-    public PropertyPlaceholderHelper getHelper() {
+	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -40,7 +50,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -49,7 +59,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public String getContextLocation() {
+	public String getContextLocation() {
 		return contextLocation;
 	}
 
@@ -58,7 +68,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public Properties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 
@@ -67,7 +77,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public File getWorkingDir() {
+	public File getWorkingDir() {
 		return workingDir;
 	}
 
@@ -76,12 +86,84 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public boolean isFilterContext() {
+	public boolean isFilterContext() {
 		return filterContext;
 	}
 
 	public void setFilterContext(boolean filterContext) {
 		this.filterContext = filterContext;
+	}
+
+	@Override
+	public List<String> getFilterIncludes() {
+		return filterIncludes;
+	}
+
+	public void setFilterIncludes(List<String> filterIncludes) {
+		this.filterIncludes = filterIncludes;
+	}
+
+	@Override
+	public List<String> getFilterExcludes() {
+		return filterExcludes;
+	}
+
+	public void setFilterExcludes(List<String> filterExcludes) {
+		this.filterExcludes = filterExcludes;
+	}
+
+	@Override
+	public List<String> getExportIncludes() {
+		return exportIncludes;
+	}
+
+	public void setExportIncludes(List<String> exportIncludes) {
+		this.exportIncludes = exportIncludes;
+	}
+
+	@Override
+	public List<String> getExportExcludes() {
+		return exportExcludes;
+	}
+
+	public void setExportExcludes(List<String> exportExcludes) {
+		this.exportExcludes = exportExcludes;
+	}
+
+	@Override
+	public boolean isExportProperties() {
+		return exportProperties;
+	}
+
+	public void setExportProperties(boolean exportProperties) {
+		this.exportProperties = exportProperties;
+	}
+
+	@Override
+	public File getExportedPropertiesFile() {
+		return exportedPropertiesFile;
+	}
+
+	public void setExportedPropertiesFile(File exportedPropertiesFile) {
+		this.exportedPropertiesFile = exportedPropertiesFile;
+	}
+
+	@Override
+	public String getExportedPropertiesFileProperty() {
+		return exportedPropertiesFileProperty;
+	}
+
+	public void setExportedPropertiesFileProperty(String exportedPropertiesFileProperty) {
+		this.exportedPropertiesFileProperty = exportedPropertiesFileProperty;
+	}
+
+	@Override
+    public GlobalPropertiesMode getGlobalPropertiesMode() {
+		return globalPropertiesMode;
+	}
+
+	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
+		this.globalPropertiesMode = globalPropertiesMode;
 	}
 
 }

@@ -16,11 +16,15 @@
 package org.kuali.common.util.spring;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public interface SpringContext {
+
+	GlobalPropertiesMode getGlobalPropertiesMode();
 
 	PropertyPlaceholderHelper getHelper();
 
@@ -33,5 +37,19 @@ public interface SpringContext {
 	File getWorkingDir();
 
 	boolean isFilterContext();
+
+	List<String> getFilterIncludes();
+
+	List<String> getFilterExcludes();
+
+	List<String> getExportIncludes();
+
+	List<String> getExportExcludes();
+
+	boolean isExportProperties();
+
+	File getExportedPropertiesFile();
+
+	String getExportedPropertiesFileProperty();
 
 }
