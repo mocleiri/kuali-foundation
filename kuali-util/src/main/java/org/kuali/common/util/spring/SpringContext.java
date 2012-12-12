@@ -18,14 +18,11 @@ package org.kuali.common.util.spring;
 import java.io.File;
 import java.util.Properties;
 
-import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public interface SpringContext {
 
 	PropertyPlaceholderHelper getHelper();
-
-	GlobalPropertiesMode getGlobalPropertiesMode();
 
 	String getEncoding();
 

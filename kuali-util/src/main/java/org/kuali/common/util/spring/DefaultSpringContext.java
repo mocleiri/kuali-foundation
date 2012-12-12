@@ -19,13 +19,11 @@ import java.io.File;
 import java.util.Properties;
 
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultSpringContext implements SpringContext {
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	String encoding;
 	String contextLocation;
 	Properties properties;
@@ -33,7 +31,7 @@ public class DefaultSpringContext implements SpringContext {
 	boolean filterContext;
 
 	@Override
-	public PropertyPlaceholderHelper getHelper() {
+    public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -42,16 +40,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-	public GlobalPropertiesMode getGlobalPropertiesMode() {
-		return globalPropertiesMode;
-	}
-
-	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
-		this.globalPropertiesMode = globalPropertiesMode;
-	}
-
-	@Override
-	public String getEncoding() {
+    public String getEncoding() {
 		return encoding;
 	}
 
@@ -60,7 +49,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-	public String getContextLocation() {
+    public String getContextLocation() {
 		return contextLocation;
 	}
 
@@ -69,7 +58,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-	public Properties getProperties() {
+    public Properties getProperties() {
 		return properties;
 	}
 
@@ -78,7 +67,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-	public File getWorkingDir() {
+    public File getWorkingDir() {
 		return workingDir;
 	}
 
@@ -87,7 +76,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-	public boolean isFilterContext() {
+    public boolean isFilterContext() {
 		return filterContext;
 	}
 
