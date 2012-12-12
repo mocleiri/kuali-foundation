@@ -1,6 +1,6 @@
-package org.kuali.common.util.service;
+package org.kuali.common.util.execute;
 
-import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
 
 public class SpringContextLoaderExecutable implements Executable {
