@@ -157,8 +157,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		properties.setProperty("project.inceptionYear", project.getInceptionYear());
 		properties.setProperty("project.ciManagement.system", project.getCiManagement().getSystem());
 		properties.setProperty("project.ciManagement.url", project.getCiManagement().getUrl());
-		properties.setProperty("project.getIssueManagement.system", project.getIssueManagement().getSystem());
-		properties.setProperty("project.getIssueManagement.url", project.getIssueManagement().getUrl());
+		properties.setProperty("project.issueManagement.system", project.getIssueManagement().getSystem());
+		properties.setProperty("project.issueManagement.url", project.getIssueManagement().getUrl());
 		properties.setProperty("project.basedir", LocationUtils.getCanonicalPath(project.getBasedir()));
 		properties.setProperty("project.build.directory", project.getBuild().getDirectory());
 		properties.setProperty("project.build.outputDirectory", project.getBuild().getOutputDirectory());
