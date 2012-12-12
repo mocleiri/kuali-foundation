@@ -43,7 +43,12 @@ public class DefaultSpringService implements SpringService {
 		logger.info("Context Location - {}", location);
 		logger.info("Filter Context - {}", context.isFilterContext());
 		logger.info("Export Properties - {}", context.isExportProperties());
-		logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
+		if (context.isFilterContext()) {
+			logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
+		}
+		if (context.isExportProperties()) {
+			logger.info("Exporting properties to - {}", LocationUtils.getCanonicalPath(context.getExportedPropertiesFile()));
+		}
 		try {
 			doExport(context);
 			doLoad(context);
@@ -53,7 +58,7 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected void doExport(SpringContext context) {
-		if (context.isExportProperties()) {
+		if (!context.isExportProperties()) {
 			return;
 		}
 		Properties properties = getProperties(context);

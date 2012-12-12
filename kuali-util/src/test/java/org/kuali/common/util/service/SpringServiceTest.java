@@ -30,11 +30,13 @@ public class SpringServiceTest {
 	@Test
 	public void test() {
 		try {
+			String location = "classpath:org/kuali/common/util/service/SpringServiceTest-context.xml";
 			Properties properties = new Properties();
 			properties.setProperty("spring.message", "howdy");
 
 			DefaultSpringContext context = new DefaultSpringContext();
 			context.setPropertySources(Arrays.asList(properties));
+			context.setContextLocation(location);
 
 			SpringService service = new DefaultSpringService();
 			service.load(context);
