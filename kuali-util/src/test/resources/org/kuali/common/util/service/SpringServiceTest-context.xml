@@ -28,7 +28,7 @@
   <bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     <property name="properties">
       <props>
-        <prop key="spring.message">Hello World</prop>
+        <prop key="spring.message">Hi there</prop>
       </props>
     </property>
   </bean>
