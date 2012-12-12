@@ -406,11 +406,11 @@ function count_organizations()
                     <th style="border-left:none;">&nbsp;
                         
                     </th>
+                    <th style="text-align:center; min-width:125px;">
+                        Context*
+                    </th>
                     <th style="text-align:center;">
                         Comment
-                    </th>
-                    <th style="text-align:center; min-width:125px;">
-                        Associate To
                     </th>
                     <th style="text-align:center; min-width:200px;">
                         Created/Last Edited
@@ -423,6 +423,26 @@ function count_organizations()
                     <th style="border-left:none; width:50px; text-align:center;">
                         add:
                     </th>
+                    <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                        <select id="789" style="width:100%;">
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">Organizations</option>
+                            <option value="2">Funding Sources</option>
+                            <option value="3">Some other Place</option>
+                            <option value="4">Some other Place</option>
+                            <option value="5">Some other Place</option>
+                            <option value="6">Some other Place</option>
+                            <option value="7">Some other Place</option>
+                            <option value="8">Some other Place</option>
+                            <option value="9">Some other Place</option>
+                            <option value="10">Some other Place</option>
+                            <option value="11">Some other Place</option>
+                            <option value="12">Some other Place</option>
+                            <option value="13">Some other Place</option>
+                            <option value="14">Some other Place</option>
+                            <option value="15">Some other Place</option>
+                        </select>
+                    </td>
                     <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
                         
                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
@@ -469,9 +489,20 @@ function count_organizations()
                         
                     </td>
                     <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
-                        <select id="789" style="width:100%;">
-                            <option value="0" selected="selected">select</option>
-                            <option value="1">Organizations</option>
+                        
+                    </td>
+                    <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                        <img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th style="border-left:none; text-align:center;">
+                        1
+                    </th>
+                    <td>
+                        <select id="456" style="width:100%;">
+                            <option value="0">select</option>
+                            <option value="1" selected="selected">Organizations</option>
                             <option value="2">Funding Sources</option>
                             <option value="3">Some other Place</option>
                             <option value="4">Some other Place</option>
@@ -488,17 +519,6 @@ function count_organizations()
                             <option value="15">Some other Place</option>
                         </select>
                     </td>
-                    <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
-                        
-                    </td>
-                    <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
-                        <img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
-                    </td>
-                </tr>
-                <tr>
-                    <th style="border-left:none; text-align:center;">
-                        1
-                    </th>
                     <td>
                     
                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
@@ -527,7 +547,7 @@ function count_organizations()
                                 </td>
                             </tr>
                         </table> 
-                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <!--<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none; background:none; width:85px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
                                     Response:
@@ -547,28 +567,8 @@ function count_organizations()
                                     
                                 </td>
                             </tr>
-                        </table>
+                        </table>-->
                         
-                    </td>
-                    <td>
-                        <select id="456" style="width:100%;">
-                            <option value="0">select</option>
-                            <option value="1" selected="selected">Organizations</option>
-                            <option value="2">Funding Sources</option>
-                            <option value="3">Some other Place</option>
-                            <option value="4">Some other Place</option>
-                            <option value="5">Some other Place</option>
-                            <option value="6">Some other Place</option>
-                            <option value="7">Some other Place</option>
-                            <option value="8">Some other Place</option>
-                            <option value="9">Some other Place</option>
-                            <option value="10">Some other Place</option>
-                            <option value="11">Some other Place</option>
-                            <option value="12">Some other Place</option>
-                            <option value="13">Some other Place</option>
-                            <option value="14">Some other Place</option>
-                            <option value="15">Some other Place</option>
-                        </select>
                     </td>
                     <td>
                         
@@ -603,6 +603,26 @@ function count_organizations()
                         2
                     </th>
                     <td>
+                        <select id="123" style="width:100%;">
+                            <option value="0">select</option>
+                            <option value="1">Organizations</option>
+                            <option value="2" selected="selected">Funding Sources</option>
+                            <option value="3">Some other Place</option>
+                            <option value="4">Some other Place</option>
+                            <option value="5">Some other Place</option>
+                            <option value="6">Some other Place</option>
+                            <option value="7">Some other Place</option>
+                            <option value="8">Some other Place</option>
+                            <option value="9">Some other Place</option>
+                            <option value="10">Some other Place</option>
+                            <option value="11">Some other Place</option>
+                            <option value="12">Some other Place</option>
+                            <option value="13">Some other Place</option>
+                            <option value="14">Some other Place</option>
+                            <option value="15">Some other Place</option>
+                        </select>
+                    </td>
+                    <td>
                     
                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                             <!--<tr>
@@ -630,7 +650,7 @@ function count_organizations()
                                 </td>
                             </tr>
                         </table>
-                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <!--<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="border:none; background:none; width:85px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
                                     Response:
@@ -650,28 +670,8 @@ function count_organizations()
                                     
                                 </td>
                             </tr>
-                        </table>
+                        </table>-->
                         
-                    </td>
-                    <td>
-                        <select id="123" style="width:100%;">
-                            <option value="0">select</option>
-                            <option value="1">Organizations</option>
-                            <option value="2" selected="selected">Funding Sources</option>
-                            <option value="3">Some other Place</option>
-                            <option value="4">Some other Place</option>
-                            <option value="5">Some other Place</option>
-                            <option value="6">Some other Place</option>
-                            <option value="7">Some other Place</option>
-                            <option value="8">Some other Place</option>
-                            <option value="9">Some other Place</option>
-                            <option value="10">Some other Place</option>
-                            <option value="11">Some other Place</option>
-                            <option value="12">Some other Place</option>
-                            <option value="13">Some other Place</option>
-                            <option value="14">Some other Place</option>
-                            <option value="15">Some other Place</option>
-                        </select>
                     </td>
                     <td>
                         
