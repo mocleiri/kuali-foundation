@@ -27,6 +27,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
@@ -79,32 +80,18 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private boolean filterContext;
 
 	/**
-	 * Comma separated list of Maven properties to include. All properties are included by default.
-	 *
-	 * @parameter expression="${spring.include}"
-	 */
-	private String include;
-
-	/**
-	 * Comma separated list of Maven properties to exclude. No properties are excluded by default.
-	 *
-	 * @parameter expression="${spring.exclude}"
-	 */
-	private String exclude;
-
-	/**
 	 * List of Maven properties to include. All properties are included by default.
 	 *
 	 * @parameter
 	 */
-	private List<String> includes;
+	private List<String> exportIncludes;
 
 	/**
 	 * List of Maven properties to exclude. No properties are excluded by default.
 	 *
 	 * @parameter
 	 */
-	private List<String> excludes;
+	private List<String> exportExcludes;
 
 	/**
 	 * List of Maven properties to include in the context filtering process. All properties are included by default.
@@ -155,15 +142,14 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	/**
-	 * Always merge internal properties with project properties and standard Maven config.<br>
-	 * If <code>exportProperties</code> is <code>true</code> add the property <code>maven.spring.properties</code> and then store them to
-	 * the file system.
+	 *
 	 */
 	protected void handleProperties() {
-		this.properties = getMavenPropertiesForSpring();
+		Properties merged = getMergedProperties();
+		this.properties = PropertyUtils.duplicate(merged);
+		PropertyUtils.trim(properties, filterIncludes, filterExcludes);
 		if (this.exportProperties) {
-			String path = LocationUtils.getCanonicalPath(this.exportedPropertiesFile);
-			this.properties.setProperty(MAVEN_SPRING_PROPERTIES, path);
+			Properties export = PropertyUtils.duplicate(merged);
 			PropertyUtils.store(this.properties, this.exportedPropertiesFile, this.encoding);
 		}
 	}
@@ -173,7 +159,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 * along with standard Maven properties. Project properties are overridden by properties supplied directly to the mojo, and standard
 	 * Maven properties override everything.
 	 */
-	protected Properties getMavenPropertiesForSpring() {
+	protected Properties getMergedProperties() {
 		Properties props = new Properties();
 		// Duplicate the existing project properties
 		props.putAll(PropertyUtils.duplicate(PropertyUtils.toEmpty(project.getProperties())));
@@ -181,6 +167,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		props.putAll(PropertyUtils.toEmpty(properties));
 		// Add Maven config that isn't present in project.getProperties()
 		props.putAll(getStandardMavenProperties(project));
+		// If we are exporting the properties to the file system add a property containing the path to that file
+		if (this.exportProperties) {
+			String path = LocationUtils.getCanonicalPath(this.exportedPropertiesFile);
+			props.setProperty(MAVEN_SPRING_PROPERTIES, path);
+		}
+		PropertyUtils.process(props, new GlobalOverrideProcessor(globalPropertiesMode));
 		// Return the merged properties
 		return props;
 	}
@@ -245,36 +237,20 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.filterContext = filterContext;
 	}
 
-	public String getInclude() {
-		return include;
+	public List<String> getExportIncludes() {
+		return exportIncludes;
 	}
 
-	public void setInclude(String include) {
-		this.include = include;
+	public void setExportIncludes(List<String> includes) {
+		this.exportIncludes = includes;
 	}
 
-	public String getExclude() {
-		return exclude;
+	public List<String> getExportExcludes() {
+		return exportExcludes;
 	}
 
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
-	}
-
-	public List<String> getIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-
-	public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
+	public void setExportExcludes(List<String> excludes) {
+		this.exportExcludes = excludes;
 	}
 
 	@Override
@@ -302,7 +278,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.exportedPropertiesFile = exportedPropertiesFile;
 	}
 
-	@Override
 	public GlobalPropertiesMode getGlobalPropertiesMode() {
 		return globalPropertiesMode;
 	}
@@ -328,8 +303,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.service = service;
 	}
 
-	@Override
-    public List<String> getFilterIncludes() {
+	public List<String> getFilterIncludes() {
 		return filterIncludes;
 	}
 
@@ -337,8 +311,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.filterIncludes = filterIncludes;
 	}
 
-	@Override
-    public List<String> getFilterExcludes() {
+	public List<String> getFilterExcludes() {
 		return filterExcludes;
 	}
 
