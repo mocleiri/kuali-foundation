@@ -58,6 +58,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 		}
 	}
 
+	// New method
 	protected int getStartIndex(String s, String prefix, String skipString, int fromIndex) {
 		if (skipString == null) {
 			return StringUtils.indexOf(s, prefix, fromIndex);
@@ -76,6 +77,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 		}
 	}
 
+	// New method
 	protected int getNewFromIndex(int fromIndex, int pos, String s) {
 		return pos == -1 ? fromIndex : pos + s.length();
 	}
@@ -138,11 +140,10 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 				startIndex = -1;
 			}
 		}
+		// Added this block
 		String s = buf.toString();
 		if (skipString != null) {
-			/**
-			 * This isn't right, but it works unless a string contains the sequence "\${" without a matching "}"
-			 */
+			// This isn't right, but it works unless a string contains the sequence "\${" without a matching "}"
 			return StringUtils.replace(s, skipString, placeholderPrefix);
 		} else {
 			return s;
@@ -188,6 +189,14 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 
 	public String getSimplePrefix() {
 		return simplePrefix;
+	}
+
+	public String getEscapeString() {
+		return escapeString;
+	}
+
+	public String getSkipString() {
+		return skipString;
 	}
 
 }
