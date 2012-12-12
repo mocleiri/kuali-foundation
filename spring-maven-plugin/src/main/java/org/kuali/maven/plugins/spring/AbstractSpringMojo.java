@@ -107,6 +107,20 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private List<String> excludes;
 
 	/**
+	 * List of Maven properties to include in the context filtering process. All properties are included by default.
+	 *
+	 * @parameter
+	 */
+	private List<String> filterIncludes;
+
+	/**
+	 * List of Maven properties to exclude from the context filtering process. No properties are excluded by default.
+	 *
+	 * @parameter
+	 */
+	private List<String> filterExcludes;
+
+	/**
 	 * Additional properties to use when filtering the Spring context
 	 *
 	 * @parameter
@@ -114,8 +128,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private Properties properties;
 
 	/**
-	 * If true, the properties used to filter the Spring context are exported to the file system prior to the filtering and loading of the
-	 * Spring context.
+	 * If true, Maven properties are exported to the file system prior to the filtering and loading of the Spring context.
 	 *
 	 * @parameter expression="${spring.exportProperties}" default-value="true"
 	 */
@@ -197,24 +210,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public PropertyPlaceholderHelper getHelper() {
-		return helper;
-	}
-
-	public void setHelper(PropertyPlaceholderHelper helper) {
-		this.helper = helper;
-	}
-
-	@Override
-	public GlobalPropertiesMode getGlobalPropertiesMode() {
-		return globalPropertiesMode;
-	}
-
-	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
-		this.globalPropertiesMode = globalPropertiesMode;
-	}
-
-	@Override
 	public String getEncoding() {
 		return encoding;
 	}
@@ -250,61 +245,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.filterContext = filterContext;
 	}
 
-	@Override
-	public List<String> getFilterIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> filterIncludes) {
-		this.includes = filterIncludes;
-	}
-
-	@Override
-	public List<String> getFilterExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> filterExcludes) {
-		this.excludes = filterExcludes;
-	}
-
-	public MavenProject getProject() {
-		return project;
-	}
-
-	@Override
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-
-	public SpringService getService() {
-		return service;
-	}
-
-	public void setService(SpringService service) {
-		this.service = service;
-	}
-
-	public boolean isExportProperties() {
-		return exportProperties;
-	}
-
-	public void setExportProperties(boolean exportProperties) {
-		this.exportProperties = exportProperties;
-	}
-
-	public File getExportedPropertiesFile() {
-		return exportedPropertiesFile;
-	}
-
-	public void setExportedPropertiesFile(File exportedPropertiesFile) {
-		this.exportedPropertiesFile = exportedPropertiesFile;
-	}
-
 	public String getInclude() {
 		return include;
 	}
@@ -325,8 +265,85 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		return includes;
 	}
 
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
 	public List<String> getExcludes() {
 		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
+
+	@Override
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public boolean isExportProperties() {
+		return exportProperties;
+	}
+
+	public void setExportProperties(boolean exportProperties) {
+		this.exportProperties = exportProperties;
+	}
+
+	public File getExportedPropertiesFile() {
+		return exportedPropertiesFile;
+	}
+
+	public void setExportedPropertiesFile(File exportedPropertiesFile) {
+		this.exportedPropertiesFile = exportedPropertiesFile;
+	}
+
+	@Override
+	public GlobalPropertiesMode getGlobalPropertiesMode() {
+		return globalPropertiesMode;
+	}
+
+	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
+		this.globalPropertiesMode = globalPropertiesMode;
+	}
+
+	@Override
+	public PropertyPlaceholderHelper getHelper() {
+		return helper;
+	}
+
+	public void setHelper(PropertyPlaceholderHelper helper) {
+		this.helper = helper;
+	}
+
+	public SpringService getService() {
+		return service;
+	}
+
+	public void setService(SpringService service) {
+		this.service = service;
+	}
+
+	@Override
+    public List<String> getFilterIncludes() {
+		return filterIncludes;
+	}
+
+	public void setFilterIncludes(List<String> filterIncludes) {
+		this.filterIncludes = filterIncludes;
+	}
+
+	@Override
+    public List<String> getFilterExcludes() {
+		return filterExcludes;
+	}
+
+	public void setFilterExcludes(List<String> filterExcludes) {
+		this.filterExcludes = filterExcludes;
 	}
 
 }
