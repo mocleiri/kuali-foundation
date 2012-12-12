@@ -48,7 +48,7 @@ public class DefaultSpringService implements SpringService {
 			logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
 		}
 		if (context.isExportProperties()) {
-			logger.info("Exporting properties to - {}", LocationUtils.getCanonicalPath(context.getExportedPropertiesFile()));
+			logger.info("Exporting properties to - {}", LocationUtils.getCanonicalPath(context.getExportPropertiesFile()));
 		}
 		try {
 			doExport(context);
@@ -64,16 +64,16 @@ public class DefaultSpringService implements SpringService {
 		}
 		Properties properties = getProperties(context);
 		PropertyUtils.trim(properties, context.getFilterIncludes(), context.getFilterExcludes());
-		PropertyUtils.store(properties, context.getExportedPropertiesFile());
+		PropertyUtils.store(properties, context.getExportPropertiesFile());
 	}
 
 	protected Properties getProperties(SpringContext context) {
 		Properties properties = PropertyUtils.combine(CollectionUtils.toEmpty(context.getPropertySources()));
 		if (context.isExportProperties()) {
-			File file = context.getExportedPropertiesFile();
+			File file = context.getExportPropertiesFile();
 			Assert.notNull(file, "file is null");
 			String value = LocationUtils.getCanonicalPath(file);
-			String name = context.getExportedPropertiesFileProperty();
+			String name = context.getExportPropertiesFileProperty();
 			properties.setProperty(name, value);
 		}
 		PropertyUtils.process(properties, new GlobalOverrideProcessor(context.getGlobalPropertiesMode()));

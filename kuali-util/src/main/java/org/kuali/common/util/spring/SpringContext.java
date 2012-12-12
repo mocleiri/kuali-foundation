@@ -46,9 +46,9 @@ public interface SpringContext {
 
 	boolean isExportProperties();
 
-	File getExportedPropertiesFile();
+	File getExportPropertiesFile();
 
-	String getExportedPropertiesFileProperty();
+	String getExportPropertiesFileProperty();
 
 	List<Properties> getPropertySources();
 

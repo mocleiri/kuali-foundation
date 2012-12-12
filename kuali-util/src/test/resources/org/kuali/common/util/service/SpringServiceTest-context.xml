@@ -41,6 +41,9 @@
     <property name="contextLocation" value="classpath:org/kuali/common/util/SimpleExecutable-context.xml" />
     <property name="workingDir" value="${project.build.directory}/spring" />
     <property name="filterContext" value="true" />
+    <property name="exportProperties" value="true" />
+    <property name="exportPropertiesFile" value="${project.build.directory}/spring/test.properties" />
+    <property name="exportPropertiesFileProperty" value="spring.test.properties" />
     <property name="propertySources" ref="propertySources" />
   </bean>
 

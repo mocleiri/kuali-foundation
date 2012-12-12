@@ -36,8 +36,8 @@ public class DefaultSpringContext implements SpringContext {
 	List<String> exportIncludes;
 	List<String> exportExcludes;
 	boolean exportProperties;
-	File exportedPropertiesFile;
-	String exportedPropertiesFileProperty;
+	File exportPropertiesFile;
+	String exportPropertiesFileProperty;
 	List<Properties> propertySources;
 
 	@Override
@@ -140,21 +140,21 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public File getExportedPropertiesFile() {
-		return exportedPropertiesFile;
+    public File getExportPropertiesFile() {
+		return exportPropertiesFile;
 	}
 
-	public void setExportedPropertiesFile(File exportedPropertiesFile) {
-		this.exportedPropertiesFile = exportedPropertiesFile;
+	public void setExportPropertiesFile(File exportPropertiesFile) {
+		this.exportPropertiesFile = exportPropertiesFile;
 	}
 
 	@Override
-    public String getExportedPropertiesFileProperty() {
-		return exportedPropertiesFileProperty;
+    public String getExportPropertiesFileProperty() {
+		return exportPropertiesFileProperty;
 	}
 
-	public void setExportedPropertiesFileProperty(String exportedPropertiesFileProperty) {
-		this.exportedPropertiesFileProperty = exportedPropertiesFileProperty;
+	public void setExportPropertiesFileProperty(String exportPropertiesFileProperty) {
+		this.exportPropertiesFileProperty = exportPropertiesFileProperty;
 	}
 
 	@Override
