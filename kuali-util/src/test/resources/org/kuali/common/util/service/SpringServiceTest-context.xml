@@ -33,10 +33,15 @@
     </property>
   </bean>
 
+  <util:list id="propertySources" value-type="java.util.Properties">
+    <ref bean="properties" />
+  </util:list>
+
   <bean id="context" class="org.kuali.common.util.spring.DefaultSpringContext">
     <property name="contextLocation" value="classpath:org/kuali/common/util/SimpleExecutable-context.xml" />
     <property name="workingDir" value="${project.build.directory}/spring" />
     <property name="filterContext" value="true" />
+    <property name="propertySources" ref="propertySources" />
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />
