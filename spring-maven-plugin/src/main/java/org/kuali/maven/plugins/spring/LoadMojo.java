@@ -41,7 +41,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * <br>
  * OR<br>
  * <br>
- * <code>&lt;util:properties id="mavenProperties" location="${maven.spring.properties}"&gt;</code><br>
+ * <code>&lt;util:properties id="mavenProperties" location="${maven.spring.properties}" /&gt;</code><br>
  *
  * @goal load
  */
