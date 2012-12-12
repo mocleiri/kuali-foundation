@@ -63,7 +63,7 @@ public class DefaultSpringService implements SpringService {
 			return;
 		}
 		Properties properties = getProperties(context);
-		PropertyUtils.trim(properties, context.getFilterIncludes(), context.getFilterExcludes());
+		PropertyUtils.trim(properties, context.getExportIncludes(), context.getExportExcludes());
 		PropertyUtils.store(properties, context.getExportPropertiesFile());
 	}
 
@@ -72,7 +72,7 @@ public class DefaultSpringService implements SpringService {
 		if (context.isExportProperties()) {
 			File file = context.getExportPropertiesFile();
 			Assert.notNull(file, "file is null");
-			String value = LocationUtils.getCanonicalPath(file);
+			String value = LocationUtils.getURLString(file);
 			String name = context.getExportPropertiesFileProperty();
 			properties.setProperty(name, value);
 		}
