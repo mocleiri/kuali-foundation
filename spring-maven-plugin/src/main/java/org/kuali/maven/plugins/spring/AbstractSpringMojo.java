@@ -98,6 +98,21 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 */
 	private Properties properties;
 
+	/**
+	 * If true, the properties used to filter the Spring context are exported to the file system prior to the filtering and loading of the
+	 * Spring context.
+	 *
+	 * @parameter expression="${spring.exportProperties}" default-value="false"
+	 */
+	private boolean exportProperties;
+
+	/**
+	 * The file to export properties to when <code>exportProperties</code> is <code>true</code>
+	 *
+	 * @parameter expression="${spring.exportedPropertiesFile}" default-value="${project.build.directory}/spring/maven.properties"
+	 */
+	private File exportedPropertiesFile;
+
 	// This makes sure system properties and environment variables override properties provided elsewhere
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
@@ -107,8 +122,15 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		setProperties(getMavenPropertiesForSpring());
+		handleProperties();
 		executeMojo();
+	}
+
+	protected void handleProperties() {
+		this.properties = getMavenPropertiesForSpring();
+		if (this.exportProperties) {
+			PropertyUtils.store(this.properties, this.exportedPropertiesFile, this.encoding);
+		}
 	}
 
 	protected Properties getMavenPropertiesForSpring() {
@@ -238,6 +260,22 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	public void setService(SpringService service) {
 		this.service = service;
+	}
+
+	public boolean isExportProperties() {
+		return exportProperties;
+	}
+
+	public void setExportProperties(boolean exportProperties) {
+		this.exportProperties = exportProperties;
+	}
+
+	public File getExportedPropertiesFile() {
+		return exportedPropertiesFile;
+	}
+
+	public void setExportedPropertiesFile(File exportedPropertiesFile) {
+		this.exportedPropertiesFile = exportedPropertiesFile;
 	}
 
 }
