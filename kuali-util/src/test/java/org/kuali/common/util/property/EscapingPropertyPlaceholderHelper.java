@@ -134,7 +134,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 					startIndex = getStartIndex(buf.toString(), placeholderPrefix, skipString, fromIndex);
 				} else if (this.ignoreUnresolvablePlaceholders) {
 					// Proceed with unprocessed value.
-					// Replaced this line with the line below it
+					// ::JC:: Replaced this line with the line below it
 					// startIndex = buf.indexOf(this.placeholderPrefix, endIndex + this.placeholderSuffix.length());
 					int fromIndex = endIndex + placeholderSuffix.length();
 					startIndex = getStartIndex(buf.toString(), placeholderPrefix, skipString, fromIndex);
