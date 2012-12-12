@@ -47,9 +47,6 @@ public class DefaultSpringService implements SpringService {
 		if (context.isFilterContext()) {
 			logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
 		}
-		if (context.isExportProperties()) {
-			logger.info("Exporting properties to - {}", LocationUtils.getCanonicalPath(context.getExportPropertiesFile()));
-		}
 		try {
 			doExport(context);
 			doLoad(context);
