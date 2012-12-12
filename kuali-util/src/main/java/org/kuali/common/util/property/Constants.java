@@ -25,6 +25,7 @@ public final class Constants {
 	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 	public static final String DEFAULT_VALUE_SEPARATOR = ":";
+	public static final String DEFAULT_ESCAPE_STRING = "\\";
 	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS = true;
 	public static final boolean DEFAULT_RESOLVE_PLACEHOLDERS = true;
 	public static final String DEFAULT_ENCRYPTED_SUFFIX = ".encrypted";
@@ -49,7 +50,8 @@ public final class Constants {
 	public static final String NULL = "NULL";
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
-		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
+		return new EscapingPropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_ESCAPE_STRING,
+		        DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
 	}
 
 }

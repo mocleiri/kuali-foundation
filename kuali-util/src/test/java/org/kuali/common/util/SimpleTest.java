@@ -20,6 +20,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class SimpleTest {
@@ -28,8 +29,8 @@ public class SimpleTest {
 	public void testPropertyPlaceholderHelper() {
 		Properties properties = new Properties();
 		// properties.setProperty("foo", "bar");
-		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", true);
-		String original = "I went to the ${foo:mall}";
+		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		String original = "I went to the \\${foo:mall}";
 		String resolved = helper.replacePlaceholders(original, properties);
 		System.out.println(resolved);
 	}
