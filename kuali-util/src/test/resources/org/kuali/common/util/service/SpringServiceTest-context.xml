@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:properties id="mavenProperties" location="classpath:maven.properties" />
+  <context:property-placeholder location="classpath:maven.properties" />
 
   <bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     <property name="properties">
