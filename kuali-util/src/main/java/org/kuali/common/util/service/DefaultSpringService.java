@@ -99,15 +99,9 @@ public class DefaultSpringService implements SpringService {
 		return processors;
 	}
 
-	protected void process(Properties properties, List<PropertyProcessor> processors) {
-		for (PropertyProcessor processor : processors) {
-			processor.process(properties);
-		}
-	}
-
 	protected String getFilteredContent(SpringContext context) {
 		Properties duplicate = PropertyUtils.toEmpty(context.getProperties());
-		process(duplicate, getPropertyProcessors(context));
+		PropertyUtils.process(duplicate, getPropertyProcessors(context));
 		String content = LocationUtils.toString(context.getContextLocation(), context.getEncoding());
 		logger.info("Filtering [" + context.getContextLocation() + "] using " + duplicate.size() + " properties");
 		return context.getHelper().replacePlaceholders(content, duplicate);

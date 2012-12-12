@@ -57,6 +57,16 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static final void process(Properties properties, PropertyProcessor processor) {
+		process(properties, Collections.singletonList(processor));
+	}
+
+	public static final void process(Properties properties, List<PropertyProcessor> processors) {
+		for (PropertyProcessor processor : processors) {
+			processor.process(properties);
+		}
+	}
+
 	public static final Properties toEmpty(Properties properties) {
 		return properties == null ? new Properties() : properties;
 	}
