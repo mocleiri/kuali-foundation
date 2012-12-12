@@ -121,16 +121,16 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	/**
 	 * The file to export properties to when <code>exportProperties</code> is <code>true</code>
 	 *
-	 * @parameter expression="${spring.exportedPropertiesFile}" default-value="${project.build.directory}/spring/maven.properties"
+	 * @parameter expression="${spring.exportPropertiesFile}" default-value="${project.build.directory}/spring/maven.properties"
 	 */
-	private File exportedPropertiesFile;
+	private File exportPropertiesFile;
 
 	/**
 	 * If <code>exportProperties</code> is true, the path to the exported properties file will be included as a property under this key
 	 *
-	 * @parameter expression="${spring.exportedPropertiesFileProperty}" default-value="maven.spring.properties"
+	 * @parameter expression="${spring.exportPropertiesFileProperty}" default-value="maven.spring.properties"
 	 */
-	private String exportedPropertiesFileProperty;
+	private String exportPropertiesFileProperty;
 
 	// The Maven convention is for system properties and environment variables to override properties provided elsewhere
 	// This default setting follows that convention
@@ -146,8 +146,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	/**
-	 * Order here is significant. Project properties are overridden by properties supplied directly to the mojo. Standard Maven properties
-	 * must always win.
+	 * Order here is significant. Properties supplied directly to the mojo override properties from project.getProperties(). Standard Maven
+	 * properties override everything.
 	 */
 	@Override
 	public List<Properties> getPropertySources() {
@@ -159,7 +159,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public String getEncoding() {
+    public String getEncoding() {
 		return encoding;
 	}
 
@@ -168,7 +168,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public String getContextLocation() {
+    public String getContextLocation() {
 		return contextLocation;
 	}
 
@@ -177,7 +177,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public File getWorkingDir() {
+    public File getWorkingDir() {
 		return workingDir;
 	}
 
@@ -186,7 +186,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public boolean isFilterContext() {
+    public boolean isFilterContext() {
 		return filterContext;
 	}
 
@@ -195,21 +195,43 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public List<String> getExportIncludes() {
+    public List<String> getExportIncludes() {
 		return exportIncludes;
 	}
 
-	public void setExportIncludes(List<String> includes) {
-		this.exportIncludes = includes;
+	public void setExportIncludes(List<String> exportIncludes) {
+		this.exportIncludes = exportIncludes;
 	}
 
 	@Override
-	public List<String> getExportExcludes() {
+    public List<String> getExportExcludes() {
 		return exportExcludes;
 	}
 
-	public void setExportExcludes(List<String> excludes) {
-		this.exportExcludes = excludes;
+	public void setExportExcludes(List<String> exportExcludes) {
+		this.exportExcludes = exportExcludes;
+	}
+
+	@Override
+    public List<String> getFilterIncludes() {
+		return filterIncludes;
+	}
+
+	public void setFilterIncludes(List<String> filterIncludes) {
+		this.filterIncludes = filterIncludes;
+	}
+
+	@Override
+    public List<String> getFilterExcludes() {
+		return filterExcludes;
+	}
+
+	public void setFilterExcludes(List<String> filterExcludes) {
+		this.filterExcludes = filterExcludes;
+	}
+
+	public Properties getProperties() {
+		return properties;
 	}
 
 	public void setProperties(Properties properties) {
@@ -217,7 +239,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public boolean isExportProperties() {
+    public boolean isExportProperties() {
 		return exportProperties;
 	}
 
@@ -226,16 +248,25 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public File getExportedPropertiesFile() {
-		return exportedPropertiesFile;
+    public File getExportPropertiesFile() {
+		return exportPropertiesFile;
 	}
 
-	public void setExportedPropertiesFile(File exportedPropertiesFile) {
-		this.exportedPropertiesFile = exportedPropertiesFile;
+	public void setExportPropertiesFile(File exportPropertiesFile) {
+		this.exportPropertiesFile = exportPropertiesFile;
 	}
 
 	@Override
-	public GlobalPropertiesMode getGlobalPropertiesMode() {
+    public String getExportPropertiesFileProperty() {
+		return exportPropertiesFileProperty;
+	}
+
+	public void setExportPropertiesFileProperty(String exportPropertiesFileProperty) {
+		this.exportPropertiesFileProperty = exportPropertiesFileProperty;
+	}
+
+	@Override
+    public GlobalPropertiesMode getGlobalPropertiesMode() {
 		return globalPropertiesMode;
 	}
 
@@ -244,7 +275,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-	public PropertyPlaceholderHelper getHelper() {
+    public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -260,31 +291,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.service = service;
 	}
 
-	@Override
-	public List<String> getFilterIncludes() {
-		return filterIncludes;
+	public MavenProject getProject() {
+		return project;
 	}
-
-	public void setFilterIncludes(List<String> filterIncludes) {
-		this.filterIncludes = filterIncludes;
-	}
-
-	@Override
-	public List<String> getFilterExcludes() {
-		return filterExcludes;
-	}
-
-	public void setFilterExcludes(List<String> filterExcludes) {
-		this.filterExcludes = filterExcludes;
-	}
-
-	@Override
-	public String getExportedPropertiesFileProperty() {
-		return exportedPropertiesFileProperty;
-	}
-
-	public void setExportedPropertiesFileProperty(String exportedPropertiesFileProperty) {
-		this.exportedPropertiesFileProperty = exportedPropertiesFileProperty;
-	}
-
 }
