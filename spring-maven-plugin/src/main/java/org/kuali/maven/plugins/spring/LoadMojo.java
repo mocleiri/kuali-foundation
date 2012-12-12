@@ -37,7 +37,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
  *
  * @goal load
  */
-public abstract class LoadMojo extends AbstractMojo implements SpringContext {
+public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	/**
 	 * Maven project
