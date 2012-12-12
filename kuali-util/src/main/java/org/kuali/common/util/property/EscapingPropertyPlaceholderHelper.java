@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
  * This allows you to place <code>\</code> in front of placeholders you don't want replaced.
  *
  * The string <code>The sky over ${city} is \${color}</code> is resolved to <code>The sky over Phoenix is ${color}</code>
+ *
+ * You can also have default values that are themselves placeholders - <code>${foo:${bar}}</code>
  */
 public class EscapingPropertyPlaceholderHelper extends org.springframework.util.PropertyPlaceholderHelper {
 
@@ -82,6 +84,8 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 	protected String parseStringValue(String strVal, PlaceholderResolver placeholderResolver, Set<String> visitedPlaceholders) {
 		StringBuilder buf = new StringBuilder(strVal);
 
+		// Replaced this line with the line below it
+		// int startIndex = strVal.indexOf(this.placeholderPrefix);
 		int startIndex = getStartIndex(strVal, placeholderPrefix, skipString, 0);
 		while (startIndex != -1) {
 			int endIndex = findPlaceholderEndIndex(buf, startIndex);
@@ -102,6 +106,8 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 						String defaultValue = placeholder.substring(separatorIndex + this.valueSeparator.length());
 						propVal = placeholderResolver.resolvePlaceholder(actualPlaceholder);
 						if (propVal == null) {
+							// Replaced this line with the line below it
+							// propValue = defaultValue;
 							propVal = parseStringValue(defaultValue, placeholderResolver, visitedPlaceholders);
 						}
 					}
@@ -114,11 +120,13 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 					if (logger.isTraceEnabled()) {
 						logger.trace("Resolved placeholder '" + placeholder + "'");
 					}
+					// Replaced this line with the line below it
 					// startIndex = buf.indexOf(this.placeholderPrefix, startIndex + propVal.length());
 					int fromIndex = startIndex + propVal.length();
 					startIndex = getStartIndex(buf.toString(), placeholderPrefix, skipString, fromIndex);
 				} else if (this.ignoreUnresolvablePlaceholders) {
 					// Proceed with unprocessed value.
+					// Replaced this line with the line below it
 					// startIndex = buf.indexOf(this.placeholderPrefix, endIndex + this.placeholderSuffix.length());
 					int fromIndex = endIndex + placeholderSuffix.length();
 					startIndex = getStartIndex(buf.toString(), placeholderPrefix, skipString, fromIndex);
@@ -132,7 +140,9 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 		}
 		String s = buf.toString();
 		if (skipString != null) {
-			// This isn't right, but it will work in most cases
+			/**
+			 * This isn't right, but it works unless a string contains the sequence "\${" without a matching "}"
+			 */
 			return StringUtils.replace(s, skipString, placeholderPrefix);
 		} else {
 			return s;

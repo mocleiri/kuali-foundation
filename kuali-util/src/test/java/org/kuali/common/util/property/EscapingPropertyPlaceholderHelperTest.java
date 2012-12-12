@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.junit.Test;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class PropertyPlaceholderHelperTest {
+public class EscapingPropertyPlaceholderHelperTest {
 
 	@Test
 	public void test() {
@@ -13,8 +13,9 @@ public class PropertyPlaceholderHelperTest {
 		Properties properties = new Properties();
 		properties.setProperty("a", "1");
 		properties.setProperty("b", "2");
+		properties.setProperty("d", "5");
 		properties.setProperty("1.2", "foo");
-		String original = "\\${\\${a}.${b}} ${${a}.${b}}";
+		String original = "\\${${a}.${b}} ${${a}.${b}} ${c:${d:4}}";
 		String resolved = helper.replacePlaceholders(original, properties);
 		System.out.println(resolved);
 	}
