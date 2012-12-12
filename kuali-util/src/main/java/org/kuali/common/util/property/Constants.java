@@ -50,8 +50,7 @@ public final class Constants {
 	public static final String NULL = "NULL";
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
-		return new EscapingPropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_ESCAPE_STRING,
-		        DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
+		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
 	}
 
 }

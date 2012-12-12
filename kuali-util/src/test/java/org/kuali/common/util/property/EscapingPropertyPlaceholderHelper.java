@@ -109,7 +109,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 						propVal = placeholderResolver.resolvePlaceholder(actualPlaceholder);
 						if (propVal == null) {
 							// Replaced this line with the line below it
-							// propValue = defaultValue;
+							// propVal = defaultValue;
 							propVal = parseStringValue(defaultValue, placeholderResolver, visitedPlaceholders);
 						}
 					}

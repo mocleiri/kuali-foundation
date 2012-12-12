@@ -19,4 +19,14 @@ public class EscapingPropertyPlaceholderHelperTest {
 		String resolved = helper.replacePlaceholders(original, properties);
 		System.out.println(resolved);
 	}
+
+	@Test
+	public void test1() {
+		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		Properties properties = new Properties();
+		properties.setProperty("kuali.encoding", "UTF-8");
+		String original = "kuali.encoding=${kuali.encoding}  \\${user.home}";
+		String resolved = helper.replacePlaceholders(original, properties);
+		System.out.println(resolved);
+	}
 }
