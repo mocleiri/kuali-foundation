@@ -32,8 +32,6 @@ public interface SpringContext {
 
 	String getContextLocation();
 
-	Properties getProperties();
-
 	File getWorkingDir();
 
 	boolean isFilterContext();
@@ -51,5 +49,7 @@ public interface SpringContext {
 	File getExportedPropertiesFile();
 
 	String getExportedPropertiesFileProperty();
+
+	List<Properties> getPropertySources();
 
 }

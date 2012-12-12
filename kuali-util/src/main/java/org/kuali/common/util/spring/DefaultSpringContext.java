@@ -29,7 +29,6 @@ public class DefaultSpringContext implements SpringContext {
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	String encoding;
 	String contextLocation;
-	Properties properties;
 	File workingDir;
 	boolean filterContext;
 	List<String> filterIncludes;
@@ -39,122 +38,15 @@ public class DefaultSpringContext implements SpringContext {
 	boolean exportProperties;
 	File exportedPropertiesFile;
 	String exportedPropertiesFileProperty;
+	List<Properties> propertySources;
 
 	@Override
-	public PropertyPlaceholderHelper getHelper() {
+    public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
 	public void setHelper(PropertyPlaceholderHelper helper) {
 		this.helper = helper;
-	}
-
-	@Override
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
-	@Override
-	public String getContextLocation() {
-		return contextLocation;
-	}
-
-	public void setContextLocation(String contextLocation) {
-		this.contextLocation = contextLocation;
-	}
-
-	@Override
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-
-	@Override
-	public File getWorkingDir() {
-		return workingDir;
-	}
-
-	public void setWorkingDir(File workingDir) {
-		this.workingDir = workingDir;
-	}
-
-	@Override
-	public boolean isFilterContext() {
-		return filterContext;
-	}
-
-	public void setFilterContext(boolean filterContext) {
-		this.filterContext = filterContext;
-	}
-
-	@Override
-	public List<String> getFilterIncludes() {
-		return filterIncludes;
-	}
-
-	public void setFilterIncludes(List<String> filterIncludes) {
-		this.filterIncludes = filterIncludes;
-	}
-
-	@Override
-	public List<String> getFilterExcludes() {
-		return filterExcludes;
-	}
-
-	public void setFilterExcludes(List<String> filterExcludes) {
-		this.filterExcludes = filterExcludes;
-	}
-
-	@Override
-	public List<String> getExportIncludes() {
-		return exportIncludes;
-	}
-
-	public void setExportIncludes(List<String> exportIncludes) {
-		this.exportIncludes = exportIncludes;
-	}
-
-	@Override
-	public List<String> getExportExcludes() {
-		return exportExcludes;
-	}
-
-	public void setExportExcludes(List<String> exportExcludes) {
-		this.exportExcludes = exportExcludes;
-	}
-
-	@Override
-	public boolean isExportProperties() {
-		return exportProperties;
-	}
-
-	public void setExportProperties(boolean exportProperties) {
-		this.exportProperties = exportProperties;
-	}
-
-	@Override
-	public File getExportedPropertiesFile() {
-		return exportedPropertiesFile;
-	}
-
-	public void setExportedPropertiesFile(File exportedPropertiesFile) {
-		this.exportedPropertiesFile = exportedPropertiesFile;
-	}
-
-	@Override
-	public String getExportedPropertiesFileProperty() {
-		return exportedPropertiesFileProperty;
-	}
-
-	public void setExportedPropertiesFileProperty(String exportedPropertiesFileProperty) {
-		this.exportedPropertiesFileProperty = exportedPropertiesFileProperty;
 	}
 
 	@Override
@@ -164,6 +56,114 @@ public class DefaultSpringContext implements SpringContext {
 
 	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
 		this.globalPropertiesMode = globalPropertiesMode;
+	}
+
+	@Override
+    public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	@Override
+    public String getContextLocation() {
+		return contextLocation;
+	}
+
+	public void setContextLocation(String contextLocation) {
+		this.contextLocation = contextLocation;
+	}
+
+	@Override
+    public File getWorkingDir() {
+		return workingDir;
+	}
+
+	public void setWorkingDir(File workingDir) {
+		this.workingDir = workingDir;
+	}
+
+	@Override
+    public boolean isFilterContext() {
+		return filterContext;
+	}
+
+	public void setFilterContext(boolean filterContext) {
+		this.filterContext = filterContext;
+	}
+
+	@Override
+    public List<String> getFilterIncludes() {
+		return filterIncludes;
+	}
+
+	public void setFilterIncludes(List<String> filterIncludes) {
+		this.filterIncludes = filterIncludes;
+	}
+
+	@Override
+    public List<String> getFilterExcludes() {
+		return filterExcludes;
+	}
+
+	public void setFilterExcludes(List<String> filterExcludes) {
+		this.filterExcludes = filterExcludes;
+	}
+
+	@Override
+    public List<String> getExportIncludes() {
+		return exportIncludes;
+	}
+
+	public void setExportIncludes(List<String> exportIncludes) {
+		this.exportIncludes = exportIncludes;
+	}
+
+	@Override
+    public List<String> getExportExcludes() {
+		return exportExcludes;
+	}
+
+	public void setExportExcludes(List<String> exportExcludes) {
+		this.exportExcludes = exportExcludes;
+	}
+
+	@Override
+    public boolean isExportProperties() {
+		return exportProperties;
+	}
+
+	public void setExportProperties(boolean exportProperties) {
+		this.exportProperties = exportProperties;
+	}
+
+	@Override
+    public File getExportedPropertiesFile() {
+		return exportedPropertiesFile;
+	}
+
+	public void setExportedPropertiesFile(File exportedPropertiesFile) {
+		this.exportedPropertiesFile = exportedPropertiesFile;
+	}
+
+	@Override
+    public String getExportedPropertiesFileProperty() {
+		return exportedPropertiesFileProperty;
+	}
+
+	public void setExportedPropertiesFileProperty(String exportedPropertiesFileProperty) {
+		this.exportedPropertiesFileProperty = exportedPropertiesFileProperty;
+	}
+
+	@Override
+    public List<Properties> getPropertySources() {
+		return propertySources;
+	}
+
+	public void setPropertySources(List<Properties> propertySources) {
+		this.propertySources = propertySources;
 	}
 
 }
