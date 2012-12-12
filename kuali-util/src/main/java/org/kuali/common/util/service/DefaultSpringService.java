@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.spring.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,15 +38,37 @@ public class DefaultSpringService implements SpringService {
 	public void load(SpringContext context) {
 		logger.info("Context Location - " + context.getContextLocation());
 		logger.info("Filter Context - " + context.isFilterContext());
+		logger.info("Export Properties - " + context.isExportProperties());
 		logger.info("Working Dir - " + LocationUtils.getCanonicalPath(context.getWorkingDir()));
 		try {
-			loadApplicationContext(context);
+			doExport(context);
+			doLoad(context);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected error loading context", e);
 		}
 	}
 
-	protected ApplicationContext loadApplicationContext(SpringContext context) throws IOException {
+	protected void doExport(SpringContext context) {
+		if (context.isExportProperties()) {
+			return;
+		}
+		Properties properties = getProperties(context);
+		PropertyUtils.trim(properties, context.getFilterIncludes(), context.getFilterExcludes());
+		PropertyUtils.store(properties, context.getExportedPropertiesFile());
+	}
+
+	protected Properties getProperties(SpringContext context) {
+		Properties properties = PropertyUtils.combine(context.getPropertySources());
+		if (context.isExportProperties()) {
+			String value = LocationUtils.getCanonicalPath(context.getExportedPropertiesFile());
+			String name = context.getExportedPropertiesFileProperty();
+			properties.setProperty(name, value);
+		}
+		PropertyUtils.process(properties, new GlobalOverrideProcessor(context.getGlobalPropertiesMode()));
+		return properties;
+	}
+
+	protected ApplicationContext doLoad(SpringContext context) throws IOException {
 		boolean exists = LocationUtils.exists(context.getContextLocation());
 		if (!exists) {
 			throw new IllegalArgumentException(context.getContextLocation() + " does not exist");
@@ -90,7 +113,8 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected String getFilteredContent(SpringContext context) {
-		Properties properties = PropertyUtils.toEmpty(context.getProperties());
+		Properties properties = getProperties(context);
+		PropertyUtils.trim(properties, context.getFilterIncludes(), context.getFilterExcludes());
 		String content = LocationUtils.toString(context.getContextLocation(), context.getEncoding());
 		logger.info("Filtering [" + context.getContextLocation() + "] using " + properties.size() + " properties");
 		return context.getHelper().replacePlaceholders(content, properties);
