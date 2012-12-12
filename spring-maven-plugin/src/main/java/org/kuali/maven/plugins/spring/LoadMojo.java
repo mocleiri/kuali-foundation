@@ -140,8 +140,6 @@ public abstract class LoadMojo extends AbstractMojo implements SpringContext {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SpringService service = new DefaultSpringService();
 
-	protected abstract void executeMojo();
-
 	@Override
 	public void execute() throws MojoExecutionException {
 		service.load(this);
