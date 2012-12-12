@@ -79,6 +79,20 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private boolean filterContext;
 
 	/**
+	 * Comma separated list of Maven properties to include. All properties are included by default.
+	 *
+	 * @parameter expression="${spring.include}"
+	 */
+	private String include;
+
+	/**
+	 * Comma separated list of Maven properties to exclude. No properties are excluded by default.
+	 *
+	 * @parameter expression="${spring.exclude}"
+	 */
+	private String exclude;
+
+	/**
 	 * List of Maven properties to include. All properties are included by default.
 	 *
 	 * @parameter
@@ -289,6 +303,30 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	public void setExportedPropertiesFile(File exportedPropertiesFile) {
 		this.exportedPropertiesFile = exportedPropertiesFile;
+	}
+
+	public String getInclude() {
+		return include;
+	}
+
+	public void setInclude(String include) {
+		this.include = include;
+	}
+
+	public String getExclude() {
+		return exclude;
+	}
+
+	public void setExclude(String exclude) {
+		this.exclude = exclude;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
 	}
 
 }
