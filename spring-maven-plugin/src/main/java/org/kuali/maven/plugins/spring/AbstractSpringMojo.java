@@ -37,6 +37,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
  */
 public abstract class AbstractSpringMojo extends AbstractMojo implements SpringContext {
 
+	public static final String MAVEN_SPRING_PROPERTIES = "maven.spring.properties";
+
 	/**
 	 * Maven project
 	 *
@@ -77,19 +79,18 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private boolean filterContext;
 
 	/**
-	 * List of Maven properties to include in the filtering process when <code>filterContext</code> is <code>true</code>. If nothing is
-	 * provided here, all maven properties are used.
+	 * List of Maven properties to include. All properties are included by default.
 	 *
 	 * @parameter
 	 */
-	private List<String> filterIncludes;
+	private List<String> includes;
 
 	/**
-	 * List of Maven properties to exclude from the filtering process.
+	 * List of Maven properties to exclude. No properties are excluded by default.
 	 *
 	 * @parameter
 	 */
-	private List<String> filterExcludes;
+	private List<String> excludes;
 
 	/**
 	 * Additional properties to use when filtering the Spring context
@@ -102,7 +103,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 * If true, the properties used to filter the Spring context are exported to the file system prior to the filtering and loading of the
 	 * Spring context.
 	 *
-	 * @parameter expression="${spring.exportProperties}" default-value="false"
+	 * @parameter expression="${spring.exportProperties}" default-value="true"
 	 */
 	private boolean exportProperties;
 
@@ -127,12 +128,15 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	/**
-	 * Merge internal properties with project properties and standard Maven config.<br>
-	 * Write the properties to the file system if asked to do so.
+	 * Always merge internal properties with project properties and standard Maven config.<br>
+	 * If <code>exportProperties</code> is <code>true</code> add the property <code>maven.spring.properties</code> and then store them to
+	 * the file system.
 	 */
 	protected void handleProperties() {
 		this.properties = getMavenPropertiesForSpring();
 		if (this.exportProperties) {
+			String path = LocationUtils.getCanonicalPath(this.exportedPropertiesFile);
+			this.properties.setProperty(MAVEN_SPRING_PROPERTIES, path);
 			PropertyUtils.store(this.properties, this.exportedPropertiesFile, this.encoding);
 		}
 	}
@@ -234,20 +238,20 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	@Override
 	public List<String> getFilterIncludes() {
-		return filterIncludes;
+		return includes;
 	}
 
-	public void setFilterIncludes(List<String> filterIncludes) {
-		this.filterIncludes = filterIncludes;
+	public void setIncludes(List<String> filterIncludes) {
+		this.includes = filterIncludes;
 	}
 
 	@Override
 	public List<String> getFilterExcludes() {
-		return filterExcludes;
+		return excludes;
 	}
 
-	public void setFilterExcludes(List<String> filterExcludes) {
-		this.filterExcludes = filterExcludes;
+	public void setExcludes(List<String> filterExcludes) {
+		this.excludes = filterExcludes;
 	}
 
 	public MavenProject getProject() {
