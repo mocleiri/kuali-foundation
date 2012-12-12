@@ -98,6 +98,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 */
 	private Properties properties;
 
+	// This makes sure system properties and environment variables override properties provided elsewhere
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SpringService service = new DefaultSpringService();
@@ -113,22 +114,29 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	protected Properties getMavenPropertiesForSpring() {
 		Properties props = new Properties();
 		// Duplicate the existing project properties
-		props.putAll(PropertyUtils.duplicate(project.getProperties()));
+		props.putAll(PropertyUtils.duplicate(PropertyUtils.toEmpty(project.getProperties())));
 		// Add any properties supplied directly to the mojo
-		if (properties != null) {
-			props.putAll(properties);
-		}
-		// Add standard Maven config that isn't present in project.getProperties()
+		props.putAll(PropertyUtils.toEmpty(properties));
+		// Add Maven config that isn't present in project.getProperties()
 		props.putAll(getStandardMavenProperties(project));
-		// Return our merged properties object
+		// Return the merged properties
 		return props;
 	}
 
 	protected Properties getStandardMavenProperties(MavenProject project) {
 		Properties properties = new Properties();
+		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());
 		properties.setProperty("project.artifactId", project.getArtifactId());
 		properties.setProperty("project.version", project.getVersion());
+		properties.setProperty("project.packaging", project.getPackaging());
+		properties.setProperty("project.name", project.getName());
+		properties.setProperty("project.description", project.getDescription());
+		properties.setProperty("project.inceptionYear", project.getInceptionYear());
+		properties.setProperty("project.ciManagement.system", project.getCiManagement().getSystem());
+		properties.setProperty("project.ciManagement.url", project.getCiManagement().getUrl());
+		properties.setProperty("project.getIssueManagement.system", project.getIssueManagement().getSystem());
+		properties.setProperty("project.getIssueManagement.url", project.getIssueManagement().getUrl());
 		properties.setProperty("project.basedir", LocationUtils.getCanonicalPath(project.getBasedir()));
 		properties.setProperty("project.build.directory", project.getBuild().getDirectory());
 		properties.setProperty("project.build.outputDirectory", project.getBuild().getOutputDirectory());
