@@ -64,7 +64,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 		}
 	}
 
-	// New method
+	// ::JC:: New method
 	protected int getStartIndex(String s, String prefix, String skipString, int fromIndex) {
 		if (skipString == null) {
 			return StringUtils.indexOf(s, prefix, fromIndex);
@@ -83,7 +83,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 		}
 	}
 
-	// New method
+	// ::JC:: New method
 	protected int getNewFromIndex(int fromIndex, int pos, String s) {
 		return pos == -1 ? fromIndex : pos + s.length();
 	}
@@ -92,7 +92,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 	protected String parseStringValue(String strVal, PlaceholderResolver placeholderResolver, Set<String> visitedPlaceholders) {
 		StringBuilder buf = new StringBuilder(strVal);
 
-		// Replaced this line with the line below it
+		// ::JC:: Replaced this line with the line below it
 		// int startIndex = strVal.indexOf(this.placeholderPrefix);
 		int startIndex = getStartIndex(strVal, placeholderPrefix, skipString, 0);
 		while (startIndex != -1) {
@@ -128,7 +128,7 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 					if (logger.isTraceEnabled()) {
 						logger.trace("Resolved placeholder '" + placeholder + "'");
 					}
-					// Replaced this line with the line below it
+					// ::JC:: Replaced this line with the line below it
 					// startIndex = buf.indexOf(this.placeholderPrefix, startIndex + propVal.length());
 					int fromIndex = startIndex + propVal.length();
 					startIndex = getStartIndex(buf.toString(), placeholderPrefix, skipString, fromIndex);
@@ -146,10 +146,10 @@ public class EscapingPropertyPlaceholderHelper extends org.springframework.util.
 				startIndex = -1;
 			}
 		}
-		// Added this block
+		// ::JC:: Added this block
 		String s = buf.toString();
 		if (skipString != null) {
-			// This isn't right, but it works unless a string contains the sequence "\${" without a matching "}"
+			// This isn't right, but I *think* it works unless a string contains the sequence "\${" without a matching "}"
 			return StringUtils.replace(s, skipString, placeholderPrefix);
 		} else {
 			return s;
