@@ -15,7 +15,7 @@ public class EscapingPropertyPlaceholderHelperTest {
 		properties.setProperty("b", "2");
 		properties.setProperty("d", "5");
 		properties.setProperty("1.2", "foo");
-		String original = "\\${${a}.${b}} ${${a}.${b}} ${c:${d:4}}";
+		String original = "\\${${a}.${b}} ${${a}.${b}} ${c:${d:4}} \\${foo";
 		String resolved = helper.replacePlaceholders(original, properties);
 		System.out.println(resolved);
 	}
