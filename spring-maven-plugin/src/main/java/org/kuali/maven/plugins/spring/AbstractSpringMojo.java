@@ -27,7 +27,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
@@ -80,35 +79,35 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	private boolean filterContext;
 
 	/**
-	 * List of Maven properties to include. All properties are included by default.
+	 * List of properties to include. All properties are included by default.
 	 *
 	 * @parameter
 	 */
 	private List<String> exportIncludes;
 
 	/**
-	 * List of Maven properties to exclude. No properties are excluded by default.
+	 * List of properties to exclude. No properties are excluded by default.
 	 *
 	 * @parameter
 	 */
 	private List<String> exportExcludes;
 
 	/**
-	 * List of Maven properties to include in the context filtering process. All properties are included by default.
+	 * List of properties to include. All properties are included by default.
 	 *
 	 * @parameter
 	 */
 	private List<String> filterIncludes;
 
 	/**
-	 * List of Maven properties to exclude from the context filtering process. No properties are excluded by default.
+	 * List of properties to exclude. No properties are excluded by default.
 	 *
 	 * @parameter
 	 */
 	private List<String> filterExcludes;
 
 	/**
-	 * Additional properties to use when filtering the Spring context
+	 * Additional properties supplied directly to the mojo
 	 *
 	 * @parameter
 	 */
@@ -128,7 +127,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 */
 	private File exportedPropertiesFile;
 
-	// This makes sure system properties and environment variables override properties provided elsewhere
+	// The Maven convention is for system properties and environment variables to override properties provded elsewhere
+	// This default setting follows that convention
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SpringService service = new DefaultSpringService();
@@ -137,21 +137,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		handleProperties();
+		this.properties = getMergedProperties();
 		executeMojo();
-	}
-
-	/**
-	 *
-	 */
-	protected void handleProperties() {
-		Properties merged = getMergedProperties();
-		this.properties = PropertyUtils.duplicate(merged);
-		PropertyUtils.trim(properties, filterIncludes, filterExcludes);
-		if (this.exportProperties) {
-			Properties export = PropertyUtils.duplicate(merged);
-			PropertyUtils.store(this.properties, this.exportedPropertiesFile, this.encoding);
-		}
 	}
 
 	/**
@@ -167,12 +154,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		props.putAll(PropertyUtils.toEmpty(properties));
 		// Add Maven config that isn't present in project.getProperties()
 		props.putAll(getStandardMavenProperties(project));
-		// If we are exporting the properties to the file system add a property containing the path to that file
-		if (this.exportProperties) {
-			String path = LocationUtils.getCanonicalPath(this.exportedPropertiesFile);
-			props.setProperty(MAVEN_SPRING_PROPERTIES, path);
-		}
-		PropertyUtils.process(props, new GlobalOverrideProcessor(globalPropertiesMode));
 		// Return the merged properties
 		return props;
 	}
