@@ -25,4 +25,25 @@
 
   <util:properties id="mavenProperties" location="classpath:maven.properties" />
 
+  <bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="properties">
+      <props>
+        <prop key="spring.message">Hello World</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="context" class="org.kuali.common.util.spring.DefaultSpringContext">
+    <property name="contextLocation" value="classpath:org/kuali/common/util/SimpleExecutable-context.xml" />
+    <property name="workingDir" value="${project.build.directory}/spring" />
+    <property name="filterContext" value="true" />
+  </bean>
+
+  <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />
+
+  <bean id="executable" class="org.kuali.common.util.service.SpringContextLoaderExecutable" init-method="execute">
+    <property name="context" ref="context" />
+    <property name="service" ref="service" />
+  </bean>
+
 </beans>
