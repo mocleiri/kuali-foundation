@@ -23,7 +23,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -154,37 +153,13 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	protected Properties getMergedProperties() {
 		Properties props = new Properties();
 		// Duplicate the existing project properties
-		props.putAll(PropertyUtils.duplicate(PropertyUtils.toEmpty(project.getProperties())));
+		props.putAll(PropertyUtils.toEmpty(project.getProperties()));
 		// Add any properties supplied directly to the mojo
 		props.putAll(PropertyUtils.toEmpty(properties));
 		// Add Maven config that isn't present in project.getProperties()
-		props.putAll(getStandardMavenProperties(project));
+		props.putAll(MavenUtils.getStandardMavenProperties(project));
 		// Return the merged properties
 		return props;
-	}
-
-	protected Properties getStandardMavenProperties(MavenProject project) {
-		Properties properties = new Properties();
-		properties.setProperty("project.id", project.getId());
-		properties.setProperty("project.groupId", project.getGroupId());
-		properties.setProperty("project.artifactId", project.getArtifactId());
-		properties.setProperty("project.version", project.getVersion());
-		properties.setProperty("project.packaging", project.getPackaging());
-		properties.setProperty("project.name", project.getName());
-		properties.setProperty("project.description", project.getDescription());
-		properties.setProperty("project.inceptionYear", project.getInceptionYear());
-		properties.setProperty("project.ciManagement.system", project.getCiManagement().getSystem());
-		properties.setProperty("project.ciManagement.url", project.getCiManagement().getUrl());
-		properties.setProperty("project.issueManagement.system", project.getIssueManagement().getSystem());
-		properties.setProperty("project.issueManagement.url", project.getIssueManagement().getUrl());
-		properties.setProperty("project.basedir", LocationUtils.getCanonicalPath(project.getBasedir()));
-		properties.setProperty("project.build.directory", project.getBuild().getDirectory());
-		properties.setProperty("project.build.outputDirectory", project.getBuild().getOutputDirectory());
-		properties.setProperty("project.build.testOutputDirectory", project.getBuild().getTestOutputDirectory());
-		properties.setProperty("project.build.sourceDirectory", project.getBuild().getSourceDirectory());
-		properties.setProperty("project.build.scriptSourceDirectory", project.getBuild().getScriptSourceDirectory());
-		properties.setProperty("project.build.testSourceDirectory", project.getBuild().getTestSourceDirectory());
-		return properties;
 	}
 
 	@Override
