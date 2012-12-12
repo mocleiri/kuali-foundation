@@ -126,6 +126,10 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		executeMojo();
 	}
 
+	/**
+	 * Merge internal properties with project properties and standard Maven config.<br>
+	 * Write the properties to the file system if asked to do so.
+	 */
 	protected void handleProperties() {
 		this.properties = getMavenPropertiesForSpring();
 		if (this.exportProperties) {
@@ -133,6 +137,11 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		}
 	}
 
+	/**
+	 * Return a properties object containing merged properties from project.getProperties(), the internal properties supplied to this mojo
+	 * along with standard Maven properties. Project properties are overridden by properties supplied directly to the mojo, and standard
+	 * Maven properties override everything.
+	 */
 	protected Properties getMavenPropertiesForSpring() {
 		Properties props = new Properties();
 		// Duplicate the existing project properties
