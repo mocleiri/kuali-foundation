@@ -142,7 +142,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		this.properties = PropertyUtils.combine(getMavenPropertySources());
 		executeMojo();
 	}
 
@@ -150,7 +149,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 * Order here is significant. Project properties are overridden by properties supplied directly to the mojo. Standard Maven properties
 	 * must always win.
 	 */
-	protected List<Properties> getMavenPropertySources() {
+	@Override
+	public List<Properties> getPropertySources() {
 		List<Properties> list = new ArrayList<Properties>();
 		list.add(PropertyUtils.toEmpty(project.getProperties()));
 		list.add(PropertyUtils.toEmpty(properties));
@@ -210,11 +210,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 
 	public void setExportExcludes(List<String> excludes) {
 		this.exportExcludes = excludes;
-	}
-
-	@Override
-	public Properties getProperties() {
-		return properties;
 	}
 
 	public void setProperties(Properties properties) {
