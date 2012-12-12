@@ -30,7 +30,7 @@ public class SpringServiceTest {
 	@Test
 	public void test() {
 		try {
-			String location = "classpath:org/kuali/common/util/service/SpringServiceTest-context.xml";
+			String location = "classpath:org/kuali/common/util/SimpleExecutable-context.xml";
 			Properties properties = new Properties();
 			properties.setProperty("spring.message", "howdy");
 
