@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2012 The Kuali Foundation
+  Copyright 2004-2012 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
@@ -23,24 +23,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="kuali.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-    <property name="properties">
-      <props>
-        <prop key="kuali.encoding">${kuali.encoding}</prop>
-        <prop key="kuali.home">${user.home}/.${kuali.groupId.code}</prop>
-        <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
-        <prop key="kuali.groupId">${kuali.groupId}</prop>
-        <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
-        <prop key="project.groupId">${project.groupId}</prop>
-        <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="project.version">${project.version}</prop>
-        <prop key="db.vendor">${db.vendor}</prop>
-        <prop key="jdbc.driver.groupId">${jdbc.driver.groupId}</prop>
-        <prop key="jdbc.driver.artifactId">${jdbc.driver.artifactId}</prop>
-        <prop key="jdbc.driver.version">${jdbc.driver.version}</prop>
-      </props>
-    </property>
-  </bean>
+  <util:properties id="kuali.properties" location="${maven.spring.properties}">
+    <prop key="kuali.home">${user.home}/.${kuali.groupId.code}</prop>
+    <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
+  </util:properties>
 
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
@@ -53,7 +39,5 @@
   </util:list>
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
-
-  <context:property-placeholder properties-ref="properties" system-properties-mode="${kuali.spring.systemPropertiesMode}" />
 
 </beans>
