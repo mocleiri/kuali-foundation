@@ -15,36 +15,28 @@
  */
 package org.kuali.common.util.service;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.kuali.common.util.spring.DefaultSpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
 public class SpringServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringServiceTest.class);
-
-	@Autowired
-	private DefaultSpringContext context = null;
-
-	@Autowired
-	private SpringService service = null;
 
 	@Test
 	public void test() {
 		try {
 			Properties properties = new Properties();
 			properties.setProperty("spring.message", "howdy");
-			context.setProperties(properties);
-			logger.info(context.getWorkingDir() + "");
+
+			DefaultSpringContext context = new DefaultSpringContext();
+			context.setPropertySources(Arrays.asList(properties));
+
+			SpringService service = new DefaultSpringService();
 			service.load(context);
 		} catch (Exception e) {
 			e.printStackTrace();

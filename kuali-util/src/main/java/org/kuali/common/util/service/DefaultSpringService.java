@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.util.Assert;
 
 public class DefaultSpringService implements SpringService {
 
@@ -36,10 +37,13 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(SpringContext context) {
-		logger.info("Context Location - " + context.getContextLocation());
-		logger.info("Filter Context - " + context.isFilterContext());
-		logger.info("Export Properties - " + context.isExportProperties());
-		logger.info("Working Dir - " + LocationUtils.getCanonicalPath(context.getWorkingDir()));
+		Assert.notNull(context, "context is null");
+		String location = context.getContextLocation();
+		Assert.notNull(location, "location is null");
+		logger.info("Context Location - {}", location);
+		logger.info("Filter Context - {}", context.isFilterContext());
+		logger.info("Export Properties - {}", context.isExportProperties());
+		logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
 		try {
 			doExport(context);
 			doLoad(context);
