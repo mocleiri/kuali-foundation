@@ -17,11 +17,15 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.spring.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,9 +93,21 @@ public class DefaultSpringService implements SpringService {
 		return new FileSystemXmlApplicationContext(url);
 	}
 
+	protected List<PropertyProcessor> getPropertyProcessors(SpringContext context) {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+		processors.add(new GlobalOverrideProcessor(context.getGlobalPropertiesMode()));
+		return processors;
+	}
+
+	protected void process(Properties properties, List<PropertyProcessor> processors) {
+		for (PropertyProcessor processor : processors) {
+			processor.process(properties);
+		}
+	}
+
 	protected String getFilteredContent(SpringContext context) {
-		Properties original = PropertyUtils.toEmpty(context.getProperties());
-		Properties duplicate = PropertyUtils.getProperties(original, context.getGlobalPropertiesMode());
+		Properties duplicate = PropertyUtils.toEmpty(context.getProperties());
+		process(duplicate, getPropertyProcessors(context));
 		String content = LocationUtils.toString(context.getContextLocation(), context.getEncoding());
 		logger.info("Filtering [" + context.getContextLocation() + "] using " + duplicate.size() + " properties");
 		return context.getHelper().replacePlaceholders(content, duplicate);
