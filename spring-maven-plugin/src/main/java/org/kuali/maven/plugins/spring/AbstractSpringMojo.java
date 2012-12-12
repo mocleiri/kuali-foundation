@@ -132,7 +132,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 */
 	private String exportedPropertiesFileProperty;
 
-	// The Maven convention is for system properties and environment variables to override properties provded elsewhere
+	// The Maven convention is for system properties and environment variables to override properties provided elsewhere
 	// This default setting follows that convention
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
@@ -313,7 +313,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	@Override
-    public String getExportedPropertiesFileProperty() {
+	public String getExportedPropertiesFileProperty() {
 		return exportedPropertiesFileProperty;
 	}
 
