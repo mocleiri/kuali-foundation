@@ -37,8 +37,6 @@ import org.springframework.util.PropertyPlaceholderHelper;
  */
 public abstract class AbstractSpringMojo extends AbstractMojo implements SpringContext {
 
-	public static final String MAVEN_SPRING_PROPERTIES = "maven.spring.properties";
-
 	/**
 	 * Maven project
 	 *
@@ -127,6 +125,13 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	 */
 	private File exportedPropertiesFile;
 
+	/**
+	 * If <code>exportProperties</code> is true, the path to the exported properties file will be included as a property under this key
+	 *
+	 * @parameter expression="${spring.exportedPropertiesFileProperty}" default-value="maven.spring.properties"
+	 */
+	private String exportedPropertiesFileProperty;
+
 	// The Maven convention is for system properties and environment variables to override properties provded elsewhere
 	// This default setting follows that convention
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
@@ -142,9 +147,9 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 	}
 
 	/**
-	 * Return a properties object containing merged properties from project.getProperties(), the internal properties supplied to this mojo
-	 * along with standard Maven properties. Project properties are overridden by properties supplied directly to the mojo, and standard
-	 * Maven properties override everything.
+	 * Return a properties object containing the merged properties from project.getProperties(), the internal properties supplied to this
+	 * mojo, and standard Maven properties. Project properties are overridden by properties supplied directly to the mojo. Standard Maven
+	 * properties override both.
 	 */
 	protected Properties getMergedProperties() {
 		Properties props = new Properties();
@@ -218,6 +223,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.filterContext = filterContext;
 	}
 
+	@Override
 	public List<String> getExportIncludes() {
 		return exportIncludes;
 	}
@@ -226,6 +232,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.exportIncludes = includes;
 	}
 
+	@Override
 	public List<String> getExportExcludes() {
 		return exportExcludes;
 	}
@@ -243,6 +250,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.properties = properties;
 	}
 
+	@Override
 	public boolean isExportProperties() {
 		return exportProperties;
 	}
@@ -251,6 +259,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.exportProperties = exportProperties;
 	}
 
+	@Override
 	public File getExportedPropertiesFile() {
 		return exportedPropertiesFile;
 	}
@@ -259,6 +268,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.exportedPropertiesFile = exportedPropertiesFile;
 	}
 
+	@Override
 	public GlobalPropertiesMode getGlobalPropertiesMode() {
 		return globalPropertiesMode;
 	}
@@ -284,6 +294,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.service = service;
 	}
 
+	@Override
 	public List<String> getFilterIncludes() {
 		return filterIncludes;
 	}
@@ -292,12 +303,22 @@ public abstract class AbstractSpringMojo extends AbstractMojo implements SpringC
 		this.filterIncludes = filterIncludes;
 	}
 
+	@Override
 	public List<String> getFilterExcludes() {
 		return filterExcludes;
 	}
 
 	public void setFilterExcludes(List<String> filterExcludes) {
 		this.filterExcludes = filterExcludes;
+	}
+
+	@Override
+    public String getExportedPropertiesFileProperty() {
+		return exportedPropertiesFileProperty;
+	}
+
+	public void setExportedPropertiesFileProperty(String exportedPropertiesFileProperty) {
+		this.exportedPropertiesFileProperty = exportedPropertiesFileProperty;
 	}
 
 }
