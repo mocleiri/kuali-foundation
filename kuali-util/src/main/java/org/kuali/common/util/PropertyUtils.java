@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -56,6 +57,18 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static final Properties combine(List<Properties> properties) {
+		Properties combined = new Properties();
+		for (Properties p : properties) {
+			combined.putAll(PropertyUtils.toEmpty(p));
+		}
+		return combined;
+	}
+
+	public static final Properties combine(Properties... properties) {
+		return combine(Arrays.asList(properties));
+	}
 
 	public static final void process(Properties properties, PropertyProcessor processor) {
 		process(properties, Collections.singletonList(processor));
