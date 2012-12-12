@@ -400,7 +400,7 @@ function count_organizations()
                     Review Comments
                 </h2>
             </div>
-            <table id="div_03" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:block;">
+            <table id="div_03" class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0" style="display:block; border-left:1px solid #999;">
                 <tbody >
                 <tr>
                     <th style="border-left:none;">&nbsp;
@@ -410,10 +410,10 @@ function count_organizations()
                         Comment
                     </th>
                     <th style="text-align:center; min-width:125px;">
-                        Last Updated By
+                        Associate To
                     </th>
-                    <th style="text-align:center; min-width:125px;">
-                        Created By
+                    <th style="text-align:center; min-width:200px;">
+                        Created/Last Edited
                     </th>
                     <th style="text-align:center; width:100px;">
                         Actions
@@ -426,7 +426,7 @@ function count_organizations()
                     <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
                         
                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                            <tr>
+                            <!--<tr>
                                 <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
                                     Context/Panel:
                                 </td>
@@ -441,7 +441,7 @@ function count_organizations()
                                 <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                     <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
                                     Standard Comment:
@@ -469,7 +469,24 @@ function count_organizations()
                         
                     </td>
                     <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
-                        
+                        <select id="789" style="width:100%;">
+                            <option value="0" selected="selected">select</option>
+                            <option value="1">Organizations</option>
+                            <option value="2">Funding Sources</option>
+                            <option value="3">Some other Place</option>
+                            <option value="4">Some other Place</option>
+                            <option value="5">Some other Place</option>
+                            <option value="6">Some other Place</option>
+                            <option value="7">Some other Place</option>
+                            <option value="8">Some other Place</option>
+                            <option value="9">Some other Place</option>
+                            <option value="10">Some other Place</option>
+                            <option value="11">Some other Place</option>
+                            <option value="12">Some other Place</option>
+                            <option value="13">Some other Place</option>
+                            <option value="14">Some other Place</option>
+                            <option value="15">Some other Place</option>
+                        </select>
                     </td>
                     <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
                         
@@ -485,7 +502,7 @@ function count_organizations()
                     <td>
                     
                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                            <tr>
+                            <!--<tr>
                                 <td style="border:none; background:none; width:85px; font-weight:bold;" class="fineprint">
                                     Context/Panel:
                                 </td>
@@ -500,7 +517,7 @@ function count_organizations()
                                 <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                     <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td style="border:none; background:none;" colspan="2">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam accumsan orci sed commodo. Cras mattis malesuada cursus... 
@@ -534,9 +551,47 @@ function count_organizations()
                         
                     </td>
                     <td>
-                        Reveiwerson, Joseph </td>
+                        <select id="456" style="width:100%;">
+                            <option value="0">select</option>
+                            <option value="1" selected="selected">Organizations</option>
+                            <option value="2">Funding Sources</option>
+                            <option value="3">Some other Place</option>
+                            <option value="4">Some other Place</option>
+                            <option value="5">Some other Place</option>
+                            <option value="6">Some other Place</option>
+                            <option value="7">Some other Place</option>
+                            <option value="8">Some other Place</option>
+                            <option value="9">Some other Place</option>
+                            <option value="10">Some other Place</option>
+                            <option value="11">Some other Place</option>
+                            <option value="12">Some other Place</option>
+                            <option value="13">Some other Place</option>
+                            <option value="14">Some other Place</option>
+                            <option value="15">Some other Place</option>
+                        </select>
+                    </td>
                     <td>
-                        Reveiwerson, Joseph </td>
+                        
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; font-weight:bold;" class="fineprint">
+                                    Created By:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    Reveiwerson, Joseph
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; font-weight:bold;" class="fineprint">
+                                    Last Edited By:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    Reveiwerson, Joseph
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
                     <td style="text-align:center;">
                         <!--<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />-->
                         <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
@@ -550,7 +605,7 @@ function count_organizations()
                     <td>
                     
                         <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
-                            <tr>
+                            <!--<tr>
                                 <td style="border:none; background:none; width:85px; font-weight:bold;" class="fineprint">
                                     Context/Panel:
                                 </td>
@@ -565,7 +620,7 @@ function count_organizations()
                                 <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                     <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td style="border:none; background:none;" colspan="2">
                                     Nulla pharetra nisi ut urna ullamcorper eget blandit metus feugiat. Suspendisse non libero purus, non fringilla eros. Donec... 
@@ -599,9 +654,47 @@ function count_organizations()
                         
                     </td>
                     <td>
-                        Reveiwerson, Joseph </td>
+                        <select id="123" style="width:100%;">
+                            <option value="0">select</option>
+                            <option value="1">Organizations</option>
+                            <option value="2" selected="selected">Funding Sources</option>
+                            <option value="3">Some other Place</option>
+                            <option value="4">Some other Place</option>
+                            <option value="5">Some other Place</option>
+                            <option value="6">Some other Place</option>
+                            <option value="7">Some other Place</option>
+                            <option value="8">Some other Place</option>
+                            <option value="9">Some other Place</option>
+                            <option value="10">Some other Place</option>
+                            <option value="11">Some other Place</option>
+                            <option value="12">Some other Place</option>
+                            <option value="13">Some other Place</option>
+                            <option value="14">Some other Place</option>
+                            <option value="15">Some other Place</option>
+                        </select>
+                    </td>
                     <td>
-                        Reveiwerson, Joseph </td>
+                        
+                        <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; font-weight:bold;" class="fineprint">
+                                    Created By:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    Reveiwerson, Joseph
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none; background:none; text-align:right; font-weight:bold;" class="fineprint">
+                                    Last Edited By:
+                                </td>
+                                <td style="border:none; background:none;">
+                                    Reveiwerson, Joseph
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </td>
                     <td style="text-align:center;">
                         <img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
                         <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
