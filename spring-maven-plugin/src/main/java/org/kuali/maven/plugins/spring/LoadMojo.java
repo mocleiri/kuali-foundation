@@ -114,9 +114,9 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private Properties properties;
 
 	/**
-	 * If true, Maven properties are exported to the file system prior to the filtering and loading of the Spring context.
+	 * If true, Maven properties are exported to the file system prior to filtering and loading the Spring context.
 	 *
-	 * @parameter expression="${spring.exportProperties}" default-value="true"
+	 * @parameter expression="${spring.exportProperties}" default-value="false"
 	 */
 	private boolean exportProperties;
 
