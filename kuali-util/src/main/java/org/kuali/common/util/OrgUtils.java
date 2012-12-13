@@ -17,8 +17,8 @@ public class OrgUtils {
 	}
 
 	/**
-	 * Given <code>org.kuali</code> and <code>org.kuali.rice</code> return <code>rice</code><br>
-	 * Given <code>org.kuali</code> and <code>org.kuali.student.web</code> return <code>student</code><br>
+	 * Given {@code org.kuali} and {@code org.kuali.rice} return {@code rice}<br>
+	 * Given {@code org.kuali} and {@code org.kuali.student.web} return {@code student}<br>
 	 */
 	public static final String getGroupCode(String organizationGroupId, String groupId) {
 		if (!StringUtils.startsWith(groupId, organizationGroupId)) {
