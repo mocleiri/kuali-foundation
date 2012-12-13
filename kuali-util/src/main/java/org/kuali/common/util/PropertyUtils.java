@@ -41,6 +41,7 @@ import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -215,35 +216,51 @@ public class PropertyUtils {
 
 	/**
 	 * Return true if <code>value</code> should be included, false otherwise.<br>
-	 * If <code>excludes</codes> is not empty and matches <code>value</code> return false.<br>
-	 * If <code>value</code> has not been explicitly excluded, proceed with checking the <code>includes</code> list.<br>
+	 * If <code>excludes</code> is not empty and matches <code>value</code> return false.<br>
+	 * If <code>value</code> has not been explicitly excluded, check the <code>includes</code> list.<br>
 	 * If <code>includes</code> is empty return true.<br>
 	 * If <code>includes</code> is not empty, return true if, and only if, <code>value</code> matches a pattern from the
-	 * <code>includes</code> list. A single wildcard <code>*</code> is supported for both <code>includes</code> and <code>excludes</code>
-	 * patterns.
+	 * <code>includes</code> list.<br>
+	 * A single wildcard <code>*</code> pattern is supported for <code>includes</code> and <code>excludes</code>.<br>
+	 * If <code>value</code> contains the wildcard symbol <code>*</code>, <code>IllegalArgumentException</code> is thrown if the
+	 * include/exclude lists also contain strings with the wildcard symbol <code>*</code>
 	 */
 	public static final boolean include(String value, List<String> includes, List<String> excludes) {
-		boolean exclude = matches(value, excludes);
-		boolean include = CollectionUtils.isEmpty(includes) || matches(value, includes);
-		return include && !exclude;
+		if (singleWildcardMatch(value, excludes)) {
+			// No point incurring the overhead of matching an include pattern
+			return false;
+		} else {
+			// If includes is empty always return true
+			return CollectionUtils.isEmpty(includes) || singleWildcardMatch(value, includes);
+		}
 	}
 
-	public static boolean matches(String s, List<String> patterns) {
+	public static boolean singleWildcardMatch(String s, List<String> patterns) {
 		for (String pattern : CollectionUtils.toEmpty(patterns)) {
-			if (match(s, pattern)) {
+			if (singleWildcardMatch(s, pattern)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static boolean match(String s, String pattern) {
-		int pos = StringUtils.indexOf(pattern, WILDCARD);
+	public static boolean singleWildcardMatch(String value, String singleWildcardPattern) {
+		int pos = StringUtils.indexOf(singleWildcardPattern, WILDCARD);
 		if (pos == -1) {
-			return StringUtils.equals(s, pattern);
+			return StringUtils.equals(value, singleWildcardPattern);
 		} else {
-			pattern = StringUtils.substring(pattern, 0, pos);
-			return StringUtils.startsWith(s, pattern);
+			int patternMatches = StringUtils.countMatches(singleWildcardPattern, WILDCARD);
+			Assert.isTrue(patternMatches == 1, "[" + singleWildcardPattern + "] contains multiple wildcards.  Multiple wildcards are not supported.");
+			int valueMatches = StringUtils.countMatches(value, WILDCARD);
+			Assert.isTrue(valueMatches == 0, "[" + value + "] contains '" + WILDCARD + "'. Wildcard pattern matching is not supported for values that contain wildcards.");
+			int suffixPos = pos + WILDCARD.length();
+			boolean nullPrefix = pos == 0;
+			boolean nullSuffix = suffixPos >= singleWildcardPattern.length();
+			String prefix = nullPrefix ? null : StringUtils.substring(singleWildcardPattern, 0, pos);
+			String suffix = nullSuffix ? null : StringUtils.substring(singleWildcardPattern, suffixPos);
+			boolean prefixMatch = nullPrefix || StringUtils.startsWith(value, prefix);
+			boolean suffixMatch = nullSuffix || StringUtils.endsWith(value, suffix);
+			return prefixMatch && suffixMatch;
 		}
 	}
 

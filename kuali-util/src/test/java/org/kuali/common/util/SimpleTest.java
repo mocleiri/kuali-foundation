@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import junit.framework.Assert;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.property.Constants;
@@ -28,14 +30,61 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class SimpleTest {
 
 	@Test
-	public void testWildcard() {
+	public void testWildcards1() {
+		List<String> includes = Arrays.asList("*.home");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
+		PropertyUtils.trim(properties, includes, null);
+		PropertyUtils.info(properties);
+	}
+
+	@Test
+	public void testWildcards2() {
+		List<String> includes = Arrays.asList("java.*.version");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
+		PropertyUtils.trim(properties, includes, null);
+		PropertyUtils.info(properties);
+	}
+
+	@Test
+	public void testUserHomeWildcard() {
+		List<String> includes = Arrays.asList("user.*.home");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
+		PropertyUtils.trim(properties, includes, null);
+		int size = properties.size();
+		Assert.assertEquals(1, size);
+	}
+
+	@Test
+	public void testUserHome() {
+		List<String> includes = Arrays.asList("user.home");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
+		PropertyUtils.trim(properties, includes, null);
+		int size = properties.size();
+		Assert.assertEquals(1, size);
+	}
+
+	@Test
+	public void testMultipleWildcards() {
+		List<String> includes = Arrays.asList("java.*vm*.version");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
 		try {
-			List<String> includes = Arrays.asList("sun.*", "user.*");
-			Properties properties = PropertyUtils.duplicate(System.getProperties());
 			PropertyUtils.trim(properties, includes, null);
-			PropertyUtils.info(properties);
-		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail("Should fail on multiple wildcards");
+		} catch (IllegalArgumentException ignored) {
+			; // ignore
+		}
+	}
+
+	@Test
+	public void testPropertyKeysContainingWildards() {
+		List<String> includes = Arrays.asList("user.*");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
+		properties.setProperty("user.*.home", "foo");
+		try {
+			PropertyUtils.trim(properties, includes, null);
+			Assert.fail("Should fail if trying to match wildcard patterns against values containing wildcards");
+		} catch (IllegalArgumentException ignored) {
+			; // ignore
 		}
 	}
 
