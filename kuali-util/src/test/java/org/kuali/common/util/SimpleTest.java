@@ -76,11 +76,23 @@ public class SimpleTest {
 	}
 
 	@Test
-	public void testPropertyKeysContainingWildards() {
+	public void testPropertyKeysContainingWildardsAndNormalSearchIsUsed() {
+		List<String> includes = Arrays.asList("user.home");
+		Properties properties = PropertyUtils.duplicate(System.getProperties());
+		properties.setProperty("user.*.home", "foo");
+		// Non-wildcard searches on property keys containing wildcards is ok
+		PropertyUtils.trim(properties, includes, null);
+		int size = properties.size();
+		Assert.assertEquals(1, size);
+	}
+
+	@Test
+	public void testPropertyKeysContainingWildardsAndWildcardSearchIsUsed() {
 		List<String> includes = Arrays.asList("user.*");
 		Properties properties = PropertyUtils.duplicate(System.getProperties());
 		properties.setProperty("user.*.home", "foo");
 		try {
+			// Wildcard searches on property keys containing wildcards is NOT ok
 			PropertyUtils.trim(properties, includes, null);
 			Assert.fail("Should fail if trying to match wildcard patterns against values containing wildcards");
 		} catch (IllegalArgumentException ignored) {
