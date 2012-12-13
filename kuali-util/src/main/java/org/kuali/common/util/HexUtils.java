@@ -98,21 +98,19 @@ public class HexUtils {
 		char[] chars = hex.toCharArray();
 		int length = chars.length;
 		if (length % 2 != 0) {
-			throw new IllegalArgumentException("Invalid hex string [" + hex + "].  String must contain an even number of characters.  '" + length + "' is not an even number!");
+			throw new IllegalArgumentException("Invalid hex string [" + hex + "].  String must contain an even number of characters.  " + length + " is not an even number!");
 		}
 		byte[] bytes = new byte[length / 2];
 		int byteIndex = 0;
 		for (int i = 0; i < length; i += 2) {
 			char c1 = chars[i];
 			char c2 = chars[i + 1];
+			String s = c1 + "" + c2;
 			if (!isHex(c1, c2)) {
 				int byteNumber = i / 2 + 1;
-				int c1Pos = i + 1;
-				int c2Pos = i + 2;
-				throw new IllegalArgumentException("Invalid hex string [" + hex + "].  Invalid hex detected at byte " + byteNumber + ", characters " + c1Pos + "-" + c2Pos
-				        + ".  Both characters must be in the range " + HEX_RANGES_STRING);
+				throw new IllegalArgumentException("Invalid hex string [" + hex + "].  Invalid hex detected at byte " + byteNumber + " [" + s
+				        + "].  Both characters must be in the range " + HEX_RANGES_STRING);
 			}
-			String s = c1 + "" + c2;
 			int integer = Integer.parseInt(s, 16);
 			int masked = integer & BYTE_MASK;
 			byte b = (byte) masked;

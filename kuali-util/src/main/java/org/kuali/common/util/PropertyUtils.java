@@ -616,7 +616,7 @@ public class PropertyUtils {
 			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}]", key, "Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
-			logger.debug("Adding property {}=[{}]", key, Str.flatten(newValue));
+			logger.info("Adding property {}=[{}]", key, Str.flatten(newValue));
 		}
 		properties.setProperty(key, newValue);
 	}
