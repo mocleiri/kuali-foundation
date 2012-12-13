@@ -182,10 +182,11 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
-		// We don't want to allow folks to override properties Maven uses internally
+		// We don't want to allow the overriding of properties Maven uses internally
 		// For example ${project.artifactId}
 		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
 
+		// Merge CSV values with explicitly provided lists
 		this.filterIncludes = CollectionUtils.sortedMerge(filterIncludes, filterInclude);
 		this.filterExcludes = CollectionUtils.sortedMerge(filterExcludes, filterExclude);
 		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportInclude);
