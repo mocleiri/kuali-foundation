@@ -204,7 +204,7 @@ public class PropertyUtils {
 	 */
 	public static final void trim(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
-		StringFilter filter = getStringFilter(includes, excludes);
+		StringFilter filter = StringFilter.getInstance(includes, excludes);
 		for (String key : keys) {
 			boolean include = filter.include(key);
 			if (!include) {
@@ -214,19 +214,13 @@ public class PropertyUtils {
 		}
 	}
 
-	public static final StringFilter getStringFilter(List<String> includes, List<String> excludes) {
-		StringFilter filter = new StringFilter();
-		filter.compilePatterns();
-		return filter;
-	}
-
 	/**
 	 * Return property keys that should be included as a sorted list.
 	 */
 	public static final List<String> getSortedKeys(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
 		List<String> includedKeys = new ArrayList<String>();
-		StringFilter filter = getStringFilter(includes, excludes);
+		StringFilter filter = StringFilter.getInstance(includes, excludes);
 		for (String key : keys) {
 			if (filter.include(key)) {
 				includedKeys.add(key);

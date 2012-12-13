@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 /**
  * This class provides logic for filtering strings based on regular expressions. Given a list of includePatterns and excludePatterns the
@@ -32,23 +31,22 @@ public class StringFilter {
 	List<Pattern> includePatterns;
 	List<Pattern> excludePatterns;
 
-	protected Boolean compiled = Boolean.FALSE;
-
-	public StringFilter() {
-		this(null, null);
-	}
-
-	public StringFilter(List<String> includes, List<String> excludes) {
+	protected StringFilter(List<String> includes, List<String> excludes) {
 		super();
 		this.includes = includes;
 		this.excludes = excludes;
+	}
+
+	public static final StringFilter getInstance(List<String> includes, List<String> excludes) {
+		StringFilter filter = new StringFilter(includes, excludes);
+		filter.compilePatterns();
+		return filter;
 	}
 
 	/**
 	 * Return true if the string should be included.
 	 */
 	public boolean include(String s) {
-		assertCompiled();
 		if (exclude(s)) {
 			logger.debug("Excluding {}", s);
 			return false;
@@ -80,19 +78,12 @@ public class StringFilter {
 		return false;
 	}
 
-	protected synchronized void assertCompiled() {
-		Assert.isTrue(compiled, "Regular expression patterns have not been compiled.  Invoke compilePatterns() before invoking isInclude() or isExclude()");
-	}
-
 	/**
 	 * Compile the string patterns into Pattern objects
 	 */
-	public synchronized void compilePatterns() {
-		if (!compiled) {
-			this.includePatterns = getPatterns(includes);
-			this.excludePatterns = getPatterns(excludes);
-			this.compiled = true;
-		}
+	public void compilePatterns() {
+		this.includePatterns = getPatterns(includes);
+		this.excludePatterns = getPatterns(excludes);
 	}
 
 	/**
@@ -110,21 +101,4 @@ public class StringFilter {
 		}
 		return regexPatterns;
 	}
-
-	public List<String> getIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-
-	public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
-	}
-
 }
