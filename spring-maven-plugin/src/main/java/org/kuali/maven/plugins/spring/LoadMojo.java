@@ -102,6 +102,34 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private List<String> exportExcludes;
 
 	/**
+	 * Comma separated list of properties to include in the export
+	 *
+	 * @parameter expression="${spring.exportInclude}"
+	 */
+	private List<String> exportInclude;
+
+	/**
+	 * Comma separated list of properties to exclude from the export
+	 *
+	 * @parameter expression="${spring.exportExclude}"
+	 */
+	private List<String> exportExclude;
+
+	/**
+	 * Comma separated list of properties to include when filtering the context
+	 *
+	 * @parameter expression="${spring.filterInclude}"
+	 */
+	private List<String> filterInclude;
+
+	/**
+	 * Comma separated list of properties to exclude when filtering the context
+	 *
+	 * @parameter expression="${spring.filterExclude}"
+	 */
+	private List<String> filterExclude;
+
+	/**
 	 * List of properties to include. All properties are included by default.
 	 *
 	 * @parameter
@@ -302,5 +330,37 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	public MavenProject getProject() {
 		return project;
+	}
+
+	public List<String> getExportInclude() {
+		return exportInclude;
+	}
+
+	public void setExportInclude(List<String> exportInclude) {
+		this.exportInclude = exportInclude;
+	}
+
+	public List<String> getExportExclude() {
+		return exportExclude;
+	}
+
+	public void setExportExclude(List<String> exportExclude) {
+		this.exportExclude = exportExclude;
+	}
+
+	public List<String> getFilterInclude() {
+		return filterInclude;
+	}
+
+	public void setFilterInclude(List<String> filterInclude) {
+		this.filterInclude = filterInclude;
+	}
+
+	public List<String> getFilterExclude() {
+		return filterExclude;
+	}
+
+	public void setFilterExclude(List<String> filterExclude) {
+		this.filterExclude = filterExclude;
 	}
 }
