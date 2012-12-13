@@ -604,8 +604,7 @@ public class PropertyUtils {
 	 */
 	public static final void addOrOverrideProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
-		boolean newEqualsOld = StringUtils.equals(newValue, oldValue);
-		if (newEqualsOld) {
+		if (StringUtils.equals(newValue, oldValue)) {
 			// Nothing to do! New value is the same as old value.
 			return;
 		}
@@ -616,7 +615,7 @@ public class PropertyUtils {
 			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}]", key, "Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
-			logger.info("Adding property {}=[{}]", key, Str.flatten(newValue));
+			logger.info("Adding property {}={}", key, Str.flatten(newValue));
 		}
 		properties.setProperty(key, newValue);
 	}
