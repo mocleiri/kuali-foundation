@@ -612,10 +612,11 @@ public class PropertyUtils {
 		if (overwrite) {
 			// This property already has a value, and it is different from the new value
 			// Check to make sure we are allowed to override the old value before doing so
-			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}]", key, "Override of existing property [" + key + "] is not allowed.");
+			Object[] args = new Object[] { key, newValue, oldValue };
+			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}={}] was [{}]", args, "Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
-			logger.info("Adding property {}={}", key, Str.flatten(newValue));
+			logger.info("Adding [{}={}]", key, Str.flatten(newValue));
 		}
 		properties.setProperty(key, newValue);
 	}
