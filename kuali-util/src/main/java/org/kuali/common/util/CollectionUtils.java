@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -75,6 +77,17 @@ public class CollectionUtils {
 
 	public static final boolean isEmpty(Collection<?> c) {
 		return c == null || c.size() == 0;
+	}
+
+	public static final List<String> sortedMerge(List<String> list, String csv) {
+		Set<String> set = new TreeSet<String>();
+		for (String string : toEmpty(list)) {
+			set.add(string);
+		}
+		for (String string : getTrimmedListFromCSV(csv)) {
+			set.add(string);
+		}
+		return new ArrayList<String>(set);
 	}
 
 	public static final List<String> getTrimmedListFromCSV(String csv) {
