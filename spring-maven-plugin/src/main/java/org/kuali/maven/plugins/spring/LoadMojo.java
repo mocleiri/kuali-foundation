@@ -183,7 +183,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
 		// We don't want to allow the overriding of properties Maven uses internally
-		// For example ${project.artifactId}
+		// ${project.artifactId} needs to always faithfully represent the correct artifactId
 		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
 
 		// Merge CSV values with explicitly provided lists
