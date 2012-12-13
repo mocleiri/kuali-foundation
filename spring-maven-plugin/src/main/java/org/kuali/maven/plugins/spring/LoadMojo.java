@@ -182,7 +182,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	public void execute() throws MojoExecutionException {
 		this.filterIncludes = CollectionUtils.sortedMerge(filterIncludes, filterInclude);
 		this.filterExcludes = CollectionUtils.sortedMerge(filterExcludes, filterExclude);
-		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportExclude);
+		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportInclude);
 		this.exportExcludes = CollectionUtils.sortedMerge(exportExcludes, exportExclude);
 		service.load(this);
 	}
