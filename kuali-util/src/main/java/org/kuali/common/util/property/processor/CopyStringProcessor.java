@@ -20,6 +20,9 @@ import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+/**
+ * Copy a String property value into a bean
+ */
 public class CopyStringProcessor implements PropertyProcessor {
 
 	Object bean;
