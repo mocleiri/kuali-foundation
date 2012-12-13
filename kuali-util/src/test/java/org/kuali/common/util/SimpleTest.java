@@ -26,11 +26,11 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class SimpleTest {
 
 	@Test
-	public void testRegex() {
+	public void testWildcard() {
 		try {
 			Properties properties = PropertyUtils.duplicate(System.getProperties());
-			Properties java = PropertyUtils.getProperties(properties, "java.*", null);
-			PropertyUtils.info(java);
+			PropertyUtils.trim(properties, "sun.*", "sun.os.*");
+			PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

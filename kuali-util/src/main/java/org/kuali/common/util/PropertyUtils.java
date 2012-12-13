@@ -57,6 +57,7 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+	private static final String WILDCARD = "*";
 
 	public static final Properties combine(List<Properties> properties) {
 		Properties combined = new Properties();
@@ -204,30 +205,46 @@ public class PropertyUtils {
 	 */
 	public static final void trim(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
-		StringFilter filter = getStringFilter(includes, excludes);
 		for (String key : keys) {
-			boolean include = filter.include(key);
-			if (!include) {
+			if (!include(key, includes, excludes)) {
 				logger.debug("Removing [{}]", key);
 				properties.remove(key);
 			}
 		}
 	}
 
-	protected static StringFilter getStringFilter(List<String> includes, List<String> excludes) {
-		return StringFilter.getInstance(translate(includes), translate(excludes));
+	/**
+	 * Return true if <code>value</code> should be included, false otherwise.<br>
+	 * If <code>excludes</codes> is not empty and matches <code>value</code> return false.<br>
+	 * If <code>value</code> has not been explicitly excluded, proceed with checking the <code>includes</code> list.<br>
+	 * If <code>includes</code> is empty return true.<br>
+	 * If <code>includes</code> is not empty, return true if, and only if, <code>value</code> matches a pattern from the
+	 * <code>includes</code> list. A single wildcard <code>*</code> is supported for both <code>includes</code> and <code>excludes</code>
+	 * patterns.
+	 */
+	public static final boolean include(String value, List<String> includes, List<String> excludes) {
+		boolean exclude = matches(value, excludes);
+		boolean include = CollectionUtils.isEmpty(includes) || matches(value, includes);
+		return include && !exclude;
 	}
 
-	protected static List<String> translate(List<String> patterns) {
-		List<String> translated = new ArrayList<String>();
+	public static boolean matches(String s, List<String> patterns) {
 		for (String pattern : CollectionUtils.toEmpty(patterns)) {
-			translated.add(translate(pattern));
+			if (match(s, pattern)) {
+				return true;
+			}
 		}
-		return translated;
+		return false;
 	}
 
-	protected static String translate(String pattern) {
-		return pattern.replace(".", "\\.").replace("\\.*", "\\..*");
+	public static boolean match(String s, String pattern) {
+		int pos = StringUtils.indexOf(s, WILDCARD);
+		if (pos == -1) {
+			return StringUtils.equals(s, pattern);
+		} else {
+			pattern = StringUtils.substring(pattern, 0, pos);
+			return StringUtils.startsWith(s, pattern);
+		}
 	}
 
 	/**
@@ -256,9 +273,8 @@ public class PropertyUtils {
 	public static final List<String> getSortedKeys(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
 		List<String> includedKeys = new ArrayList<String>();
-		StringFilter filter = getStringFilter(includes, excludes);
 		for (String key : keys) {
-			if (filter.include(key)) {
+			if (include(key, includes, excludes)) {
 				includedKeys.add(key);
 			}
 		}
