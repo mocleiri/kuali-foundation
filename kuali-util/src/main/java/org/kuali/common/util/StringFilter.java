@@ -34,12 +34,12 @@ public class StringFilter {
 	private static final Logger logger = LoggerFactory.getLogger(StringFilter.class);
 
 	/**
-	 * List of regular expressions. A string must match one of these to be included
+	 * List of include regular expressions.
 	 */
 	List<String> includes;
 
 	/**
-	 * List of regular expressions. If there is a match on any of these the string is filtered out
+	 * List of exclude regular expressions.
 	 */
 	List<String> excludes;
 
@@ -73,8 +73,8 @@ public class StringFilter {
 	/**
 	 * Return true if the string should be excluded.
 	 */
-	protected boolean exclude(String s) {
-		return !CollectionUtils.isEmpty(includePatterns) && isMatch(s, excludePatterns);
+	public boolean exclude(String s) {
+		return !CollectionUtils.isEmpty(excludePatterns) && isMatch(s, excludePatterns);
 	}
 
 	/**
@@ -96,16 +96,15 @@ public class StringFilter {
 	/**
 	 * Compile the string patterns into Pattern objects
 	 */
-	public void compilePatterns() {
+	protected void compilePatterns() {
 		this.includePatterns = getPatterns(includes);
 		this.excludePatterns = getPatterns(excludes);
 	}
 
 	/**
-	 * Convert a List<String> into List<Pattern>
+	 * Convert a {@code List<String>} into {@code List<Pattern>}
 	 */
 	protected List<Pattern> getPatterns(List<String> patterns) {
-		// If List<String> is empty return an empty List<Pattern>
 		if (CollectionUtils.isEmpty(patterns)) {
 			return Collections.<Pattern> emptyList();
 		}
