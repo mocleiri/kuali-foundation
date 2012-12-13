@@ -25,6 +25,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CollectionUtils {
 
+	public static final <T> List<T> toEmptyList(T o) {
+		if (o == null) {
+			return Collections.<T> emptyList();
+		} else {
+			return Collections.singletonList(o);
+		}
+	}
+
 	public static final <T> List<T> toEmpty(List<T> list) {
 		if (list == null) {
 			return Collections.<T> emptyList();

@@ -26,6 +26,17 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class SimpleTest {
 
 	@Test
+	public void testRegex() {
+		try {
+			Properties properties = PropertyUtils.duplicate(System.getProperties());
+			Properties java = PropertyUtils.getProperties(properties, "java.*", null);
+			PropertyUtils.info(java);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// @Test
 	public void testPropertyPlaceholderHelper() {
 		Properties properties = new Properties();
 		// properties.setProperty("foo", "bar");

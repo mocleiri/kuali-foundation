@@ -204,7 +204,7 @@ public class PropertyUtils {
 	 */
 	public static final void trim(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
-		StringFilter filter = StringFilter.getInstance(includes, excludes);
+		StringFilter filter = getStringFilter(includes, excludes);
 		for (String key : keys) {
 			boolean include = filter.include(key);
 			if (!include) {
@@ -214,13 +214,49 @@ public class PropertyUtils {
 		}
 	}
 
+	protected static StringFilter getStringFilter(List<String> includes, List<String> excludes) {
+		return StringFilter.getInstance(translate(includes), translate(excludes));
+	}
+
+	protected static List<String> translate(List<String> patterns) {
+		List<String> translated = new ArrayList<String>();
+		for (String pattern : CollectionUtils.toEmpty(patterns)) {
+			translated.add(translate(pattern));
+		}
+		return translated;
+	}
+
+	protected static String translate(String pattern) {
+		return pattern.replace(".", "\\.").replace("\\.*", "\\..*");
+	}
+
+	/**
+	 * Return property keys that should be included as a sorted list.
+	 */
+	public static final Properties getProperties(Properties properties, String include, String exclude) {
+		List<String> keys = getSortedKeys(properties, include, exclude);
+		Properties newProperties = new Properties();
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			newProperties.setProperty(key, value);
+		}
+		return newProperties;
+	}
+
+	/**
+	 * Return property keys that should be included as a sorted list.
+	 */
+	public static final List<String> getSortedKeys(Properties properties, String include, String exclude) {
+		return getSortedKeys(properties, CollectionUtils.toEmptyList(include), CollectionUtils.toEmptyList(exclude));
+	}
+
 	/**
 	 * Return property keys that should be included as a sorted list.
 	 */
 	public static final List<String> getSortedKeys(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
 		List<String> includedKeys = new ArrayList<String>();
-		StringFilter filter = StringFilter.getInstance(includes, excludes);
+		StringFilter filter = getStringFilter(includes, excludes);
 		for (String key : keys) {
 			if (filter.include(key)) {
 				includedKeys.add(key);
