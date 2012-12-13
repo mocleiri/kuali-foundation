@@ -204,8 +204,9 @@ public class PropertyUtils {
 	 */
 	public static final void trim(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
+		StringFilter filter = getStringFilter(includes, excludes);
 		for (String key : keys) {
-			boolean include = include(key, includes, excludes);
+			boolean include = filter.include(key);
 			if (!include) {
 				logger.debug("Removing [{}]", key);
 				properties.remove(key);
@@ -213,19 +214,10 @@ public class PropertyUtils {
 		}
 	}
 
-	/**
-	 * Return true if <code>value</code> should be included, false otherwise.<br>
-	 * If <code>excludes</codes> is not empty and contains <code>value</code> return false.<br>
-	 * If <code>value</code> has not been explicitly excluded, proceed with checking the <code>includes</code> list.<br>
-	 * If <code>includes</code> is empty return true.<br>
-	 * If <code>includes</code> is not empty, return true if, and only if, <code>value</code> appears in the list.
-	 */
-	public static final boolean include(String value, List<String> includes, List<String> excludes) {
-		if (!CollectionUtils.isEmpty(excludes) && excludes.contains(value)) {
-			return false;
-		} else {
-			return CollectionUtils.isEmpty(includes) || includes.contains(value);
-		}
+	public static final StringFilter getStringFilter(List<String> includes, List<String> excludes) {
+		StringFilter filter = new StringFilter();
+		filter.compilePatterns();
+		return filter;
 	}
 
 	/**
@@ -234,8 +226,9 @@ public class PropertyUtils {
 	public static final List<String> getSortedKeys(Properties properties, List<String> includes, List<String> excludes) {
 		List<String> keys = getSortedKeys(properties);
 		List<String> includedKeys = new ArrayList<String>();
+		StringFilter filter = getStringFilter(includes, excludes);
 		for (String key : keys) {
-			if (include(key, includes, excludes)) {
+			if (filter.include(key)) {
 				includedKeys.add(key);
 			}
 		}

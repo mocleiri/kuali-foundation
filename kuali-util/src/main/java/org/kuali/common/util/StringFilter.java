@@ -88,9 +88,11 @@ public class StringFilter {
 	 * Compile the string patterns into Pattern objects
 	 */
 	public synchronized void compilePatterns() {
-		this.includePatterns = getPatterns(includes);
-		this.excludePatterns = getPatterns(excludes);
-		this.compiled = true;
+		if (!compiled) {
+			this.includePatterns = getPatterns(includes);
+			this.excludePatterns = getPatterns(excludes);
+			this.compiled = true;
+		}
 	}
 
 	/**
