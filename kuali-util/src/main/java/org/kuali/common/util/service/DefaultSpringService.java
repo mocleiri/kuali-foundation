@@ -39,37 +39,36 @@ public class DefaultSpringService implements SpringService {
 	@Override
 	public void load(SpringContext context) {
 		Assert.notNull(context, "context is null");
-		String location = context.getContextLocation();
-		Assert.notNull(location, "location is null");
-		logger.info("Context Location - {}", location);
+		Assert.notNull(context.getContextLocation(), "context location is null");
+		logger.info("Context Location - {}", context.getContextLocation());
 		logger.info("Filter Context - {}", context.isFilterContext());
 		logger.info("Export Properties - {}", context.isExportProperties());
 		if (context.isFilterContext()) {
 			logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
 		}
 		try {
-			doExport(context);
-			doLoad(context);
+			Properties properties = getProperties(context);
+			doExport(context, properties);
+			doLoad(context, properties);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected error loading context", e);
 		}
 	}
 
-	protected void doExport(SpringContext context) {
+	protected void doExport(SpringContext context, Properties properties) {
 		if (!context.isExportProperties()) {
 			return;
 		}
-		Properties properties = getProperties(context);
-		PropertyUtils.trim(properties, context.getExportIncludes(), context.getExportExcludes());
-		PropertyUtils.store(properties, context.getExportPropertiesFile());
+		Properties duplicate = PropertyUtils.duplicate(properties);
+		PropertyUtils.trim(duplicate, context.getExportIncludes(), context.getExportExcludes());
+		PropertyUtils.store(duplicate, context.getExportPropertiesFile());
 	}
 
 	protected Properties getProperties(SpringContext context) {
 		Properties properties = PropertyUtils.combine(CollectionUtils.toEmpty(context.getPropertySources()));
 		if (context.isExportProperties()) {
-			File file = context.getExportPropertiesFile();
-			Assert.notNull(file, "file is null");
-			String value = LocationUtils.getURLString(file);
+			Assert.notNull(context.getExportPropertiesFile(), "export properties file is null");
+			String value = LocationUtils.getURLString(context.getExportPropertiesFile());
 			String name = context.getExportPropertiesFileProperty();
 			properties.setProperty(name, value);
 		}
@@ -77,7 +76,7 @@ public class DefaultSpringService implements SpringService {
 		return properties;
 	}
 
-	protected ApplicationContext doLoad(SpringContext context) throws IOException {
+	protected ApplicationContext doLoad(SpringContext context, Properties properties) throws IOException {
 		boolean exists = LocationUtils.exists(context.getContextLocation());
 		if (!exists) {
 			throw new IllegalArgumentException(context.getContextLocation() + " does not exist");
@@ -89,7 +88,7 @@ public class DefaultSpringService implements SpringService {
 		if (loadFromClasspath) {
 			return new ClassPathXmlApplicationContext(context.getContextLocation());
 		} else {
-			File file = getFile(context);
+			File file = getFile(context, properties);
 			return getApplicationContext(file);
 		}
 	}
@@ -100,17 +99,17 @@ public class DefaultSpringService implements SpringService {
 		return file;
 	}
 
-	protected File createFilteredContextFile(SpringContext context) throws IOException {
-		String content = getFilteredContent(context);
+	protected File createFilteredContextFile(SpringContext context, Properties properties) throws IOException {
+		String content = getFilteredContent(context, properties);
 		File file = getNewFile(context);
 		logger.info("Creating [" + file.getCanonicalPath() + "]");
 		FileUtils.write(file, content);
 		return file;
 	}
 
-	protected File getFile(SpringContext context) throws IOException {
+	protected File getFile(SpringContext context, Properties properties) throws IOException {
 		if (context.isFilterContext()) {
-			return createFilteredContextFile(context);
+			return createFilteredContextFile(context, properties);
 		} else {
 			return new File(context.getContextLocation());
 		}
@@ -121,11 +120,11 @@ public class DefaultSpringService implements SpringService {
 		return new FileSystemXmlApplicationContext(url);
 	}
 
-	protected String getFilteredContent(SpringContext context) {
-		Properties properties = getProperties(context);
-		PropertyUtils.trim(properties, context.getFilterIncludes(), context.getFilterExcludes());
+	protected String getFilteredContent(SpringContext context, Properties properties) {
+		Properties duplicate = PropertyUtils.duplicate(properties);
+		PropertyUtils.trim(duplicate, context.getFilterIncludes(), context.getFilterExcludes());
 		String content = LocationUtils.toString(context.getContextLocation(), context.getEncoding());
-		logger.info("Filtering [" + context.getContextLocation() + "] using " + properties.size() + " properties");
-		return context.getHelper().replacePlaceholders(content, properties);
+		logger.info("Filtering [" + context.getContextLocation() + "] using " + duplicate.size() + " properties");
+		return context.getHelper().replacePlaceholders(content, duplicate);
 	}
 }
