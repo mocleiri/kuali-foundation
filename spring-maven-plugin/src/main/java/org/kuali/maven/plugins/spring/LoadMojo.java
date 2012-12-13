@@ -106,28 +106,28 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	 *
 	 * @parameter expression="${spring.exportInclude}"
 	 */
-	private List<String> exportInclude;
+	private String exportInclude;
 
 	/**
 	 * Comma separated list of properties to exclude from the export
 	 *
 	 * @parameter expression="${spring.exportExclude}"
 	 */
-	private List<String> exportExclude;
+	private String exportExclude;
 
 	/**
 	 * Comma separated list of properties to include when filtering the context
 	 *
 	 * @parameter expression="${spring.filterInclude}"
 	 */
-	private List<String> filterInclude;
+	private String filterInclude;
 
 	/**
 	 * Comma separated list of properties to exclude when filtering the context
 	 *
 	 * @parameter expression="${spring.filterExclude}"
 	 */
-	private List<String> filterExclude;
+	private String filterExclude;
 
 	/**
 	 * List of properties to include. All properties are included by default.
@@ -196,7 +196,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public String getEncoding() {
+    public String getEncoding() {
 		return encoding;
 	}
 
@@ -205,7 +205,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public String getContextLocation() {
+    public String getContextLocation() {
 		return contextLocation;
 	}
 
@@ -214,7 +214,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public File getWorkingDir() {
+    public File getWorkingDir() {
 		return workingDir;
 	}
 
@@ -223,7 +223,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public boolean isFilterContext() {
+    public boolean isFilterContext() {
 		return filterContext;
 	}
 
@@ -232,7 +232,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public List<String> getExportIncludes() {
+    public List<String> getExportIncludes() {
 		return exportIncludes;
 	}
 
@@ -241,7 +241,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public List<String> getExportExcludes() {
+    public List<String> getExportExcludes() {
 		return exportExcludes;
 	}
 
@@ -249,8 +249,40 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.exportExcludes = exportExcludes;
 	}
 
+	public String getExportInclude() {
+		return exportInclude;
+	}
+
+	public void setExportInclude(String exportInclude) {
+		this.exportInclude = exportInclude;
+	}
+
+	public String getExportExclude() {
+		return exportExclude;
+	}
+
+	public void setExportExclude(String exportExclude) {
+		this.exportExclude = exportExclude;
+	}
+
+	public String getFilterInclude() {
+		return filterInclude;
+	}
+
+	public void setFilterInclude(String filterInclude) {
+		this.filterInclude = filterInclude;
+	}
+
+	public String getFilterExclude() {
+		return filterExclude;
+	}
+
+	public void setFilterExclude(String filterExclude) {
+		this.filterExclude = filterExclude;
+	}
+
 	@Override
-	public List<String> getFilterIncludes() {
+    public List<String> getFilterIncludes() {
 		return filterIncludes;
 	}
 
@@ -259,7 +291,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public List<String> getFilterExcludes() {
+    public List<String> getFilterExcludes() {
 		return filterExcludes;
 	}
 
@@ -276,7 +308,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public boolean isExportProperties() {
+    public boolean isExportProperties() {
 		return exportProperties;
 	}
 
@@ -285,7 +317,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public File getExportPropertiesFile() {
+    public File getExportPropertiesFile() {
 		return exportPropertiesFile;
 	}
 
@@ -294,7 +326,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public String getExportPropertiesFileProperty() {
+    public String getExportPropertiesFileProperty() {
 		return exportPropertiesFileProperty;
 	}
 
@@ -303,7 +335,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public GlobalPropertiesMode getGlobalPropertiesMode() {
+    public GlobalPropertiesMode getGlobalPropertiesMode() {
 		return globalPropertiesMode;
 	}
 
@@ -312,7 +344,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public PropertyPlaceholderHelper getHelper() {
+    public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
@@ -328,39 +360,4 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.service = service;
 	}
 
-	public MavenProject getProject() {
-		return project;
-	}
-
-	public List<String> getExportInclude() {
-		return exportInclude;
-	}
-
-	public void setExportInclude(List<String> exportInclude) {
-		this.exportInclude = exportInclude;
-	}
-
-	public List<String> getExportExclude() {
-		return exportExclude;
-	}
-
-	public void setExportExclude(List<String> exportExclude) {
-		this.exportExclude = exportExclude;
-	}
-
-	public List<String> getFilterInclude() {
-		return filterInclude;
-	}
-
-	public void setFilterInclude(List<String> filterInclude) {
-		this.filterInclude = filterInclude;
-	}
-
-	public List<String> getFilterExclude() {
-		return filterExclude;
-	}
-
-	public void setFilterExclude(List<String> filterExclude) {
-		this.filterExclude = filterExclude;
-	}
 }
