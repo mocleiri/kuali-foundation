@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.Assert;
 
@@ -29,9 +30,7 @@ public class HomeProcessor implements PropertyProcessor {
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	String userHomeProperty = Constants.DEFAULT_USER_HOME_PROPERTY;
 	String fileSeparator = File.separator;
-	String hiddenDirectoryIndicator = ".";
-	String organizationHomeProperty;
-	String groupHomeProperty;
+	String hiddenDirectoryIndicator = Str.DOT;
 	String organizationGroupId;
 	String groupId;
 
@@ -53,13 +52,8 @@ public class HomeProcessor implements PropertyProcessor {
 		String organizationCode = OrgUtils.getOrgCode(organizationGroupId);
 		String groupCode = OrgUtils.getGroupCode(organizationGroupId, groupId);
 
-		if (this.organizationHomeProperty == null) {
-			this.organizationHomeProperty = organizationCode + "." + Constants.DEFAULT_HOME_SUFFIX;
-		}
-
-		if (this.groupHomeProperty == null) {
-			this.groupHomeProperty = organizationCode + "." + Constants.GROUP + "." + Constants.DEFAULT_HOME_SUFFIX;
-		}
+		String organizationHomeProperty = organizationCode + Str.DOT + Constants.DEFAULT_HOME_SUFFIX;
+		String groupHomeProperty = organizationCode + Str.DOT + Constants.GROUP + Str.DOT + Constants.DEFAULT_HOME_SUFFIX;
 
 		String organizationHome = System.getProperty(userHomeProperty) + fileSeparator + hiddenDirectoryIndicator + organizationCode;
 		String groupHome = organizationHome + fileSeparator + groupCode;
@@ -74,6 +68,14 @@ public class HomeProcessor implements PropertyProcessor {
 
 	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
+	}
+
+	public String getUserHomeProperty() {
+		return userHomeProperty;
+	}
+
+	public void setUserHomeProperty(String userHomeProperty) {
+		this.userHomeProperty = userHomeProperty;
 	}
 
 	public String getFileSeparator() {
@@ -92,30 +94,6 @@ public class HomeProcessor implements PropertyProcessor {
 		this.hiddenDirectoryIndicator = hiddenDirectoryIndicator;
 	}
 
-	public String getUserHomeProperty() {
-		return userHomeProperty;
-	}
-
-	public void setUserHomeProperty(String userHomeProperty) {
-		this.userHomeProperty = userHomeProperty;
-	}
-
-	public String getOrganizationHomeProperty() {
-		return organizationHomeProperty;
-	}
-
-	public void setOrganizationHomeProperty(String organizationHomeProperty) {
-		this.organizationHomeProperty = organizationHomeProperty;
-	}
-
-	public String getGroupHomeProperty() {
-		return groupHomeProperty;
-	}
-
-	public void setGroupHomeProperty(String groupHomeProperty) {
-		this.groupHomeProperty = groupHomeProperty;
-	}
-
 	public String getOrganizationGroupId() {
 		return organizationGroupId;
 	}
@@ -131,5 +109,4 @@ public class HomeProcessor implements PropertyProcessor {
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
-
 }
