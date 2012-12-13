@@ -16,7 +16,6 @@
 package org.kuali.maven.plugins.spring;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -180,24 +179,20 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	@Override
 	public void execute() throws MojoExecutionException {
+		// The ordering here is significant.
+		// Properties supplied directly to the mojo override properties from project.getProperties()
+		// But, internal Maven properties need to always win.
+		// We don't want to allow folks to override properties Maven uses internally
+		// For example ${project.artifactId}
+		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
+
 		this.filterIncludes = CollectionUtils.sortedMerge(filterIncludes, filterInclude);
 		this.filterExcludes = CollectionUtils.sortedMerge(filterExcludes, filterExclude);
 		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportInclude);
 		this.exportExcludes = CollectionUtils.sortedMerge(exportExcludes, exportExclude);
-		service.load(this);
-	}
 
-	/**
-	 * Order here is significant. Properties supplied directly to the mojo override properties from project.getProperties(). Standard Maven
-	 * properties override everything.
-	 */
-	@Override
-	public List<Properties> getPropertySources() {
-		List<Properties> list = new ArrayList<Properties>();
-		list.add(PropertyUtils.toEmpty(project.getProperties()));
-		list.add(PropertyUtils.toEmpty(properties));
-		list.add(PropertyUtils.toEmpty(MavenUtils.getStandardMavenProperties(project)));
-		return list;
+		// Invoke the service to load the context
+		service.load(this);
 	}
 
 	@Override
@@ -304,6 +299,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.filterExcludes = filterExcludes;
 	}
 
+	@Override
 	public Properties getProperties() {
 		return properties;
 	}

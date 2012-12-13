@@ -22,7 +22,7 @@ import org.kuali.common.util.LocationUtils;
 
 public class MavenUtils {
 
-	public static final Properties getStandardMavenProperties(MavenProject project) {
+	public static final Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
 		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());
