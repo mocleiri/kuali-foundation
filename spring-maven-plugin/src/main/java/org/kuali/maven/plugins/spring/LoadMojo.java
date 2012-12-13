@@ -23,6 +23,7 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -179,6 +180,10 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	@Override
 	public void execute() throws MojoExecutionException {
+		this.filterIncludes = CollectionUtils.sortedMerge(filterIncludes, filterInclude);
+		this.filterExcludes = CollectionUtils.sortedMerge(filterExcludes, filterExclude);
+		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportExclude);
+		this.exportExcludes = CollectionUtils.sortedMerge(exportExcludes, exportExclude);
 		service.load(this);
 	}
 
@@ -196,7 +201,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public String getEncoding() {
+	public String getEncoding() {
 		return encoding;
 	}
 
@@ -205,7 +210,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public String getContextLocation() {
+	public String getContextLocation() {
 		return contextLocation;
 	}
 
@@ -214,7 +219,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public File getWorkingDir() {
+	public File getWorkingDir() {
 		return workingDir;
 	}
 
@@ -223,7 +228,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public boolean isFilterContext() {
+	public boolean isFilterContext() {
 		return filterContext;
 	}
 
@@ -232,7 +237,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public List<String> getExportIncludes() {
+	public List<String> getExportIncludes() {
 		return exportIncludes;
 	}
 
@@ -241,7 +246,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public List<String> getExportExcludes() {
+	public List<String> getExportExcludes() {
 		return exportExcludes;
 	}
 
@@ -282,7 +287,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public List<String> getFilterIncludes() {
+	public List<String> getFilterIncludes() {
 		return filterIncludes;
 	}
 
@@ -291,7 +296,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public List<String> getFilterExcludes() {
+	public List<String> getFilterExcludes() {
 		return filterExcludes;
 	}
 
@@ -308,7 +313,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public boolean isExportProperties() {
+	public boolean isExportProperties() {
 		return exportProperties;
 	}
 
@@ -317,7 +322,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public File getExportPropertiesFile() {
+	public File getExportPropertiesFile() {
 		return exportPropertiesFile;
 	}
 
@@ -326,7 +331,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public String getExportPropertiesFileProperty() {
+	public String getExportPropertiesFileProperty() {
 		return exportPropertiesFileProperty;
 	}
 
@@ -335,7 +340,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public GlobalPropertiesMode getGlobalPropertiesMode() {
+	public GlobalPropertiesMode getGlobalPropertiesMode() {
 		return globalPropertiesMode;
 	}
 
@@ -344,7 +349,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public PropertyPlaceholderHelper getHelper() {
+	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
 
