@@ -57,31 +57,23 @@
   </developers>
   <properties>
     <jira.hostname>jira.kuali.org</jira.hostname>
+
     <ci.host>ci.fn.kuali.org</ci.host>
     <jenkins.hostname>${ci.host}</jenkins.hostname>
 
     <maven.resources.escapeString>\</maven.resources.escapeString>
 
-    <!-- Add standard properties so they show up in project.getProperties() -->
-    <maven.project.groupId>${project.groupId}</maven.project.groupId>
-    <maven.project.artifactId>${project.artifactId}</maven.project.artifactId>
-    <maven.project.version>${project.version}</maven.project.version>
-    <maven.project.basedir>${project.basedir}</maven.project.basedir>
-    <maven.project.build.directory>${project.build.directory}</maven.project.build.directory>
-    <maven.project.build.testOutputDirectory>${project.build.testOutputDirectory}</maven.project.build.testOutputDirectory>
-    <maven.project.build.sourceDirectory>${project.build.sourceDirectory}</maven.project.build.sourceDirectory>
-    <maven.project.build.scriptSourceDirectory>${project.build.scriptSourceDirectory}</maven.project.build.scriptSourceDirectory>
-    <maven.project.build.testSourceDirectory>${project.build.testSourceDirectory}</maven.project.build.testSourceDirectory>
-    <maven.project.build.outputDirectory>${project.build.outputDirectory}</maven.project.build.outputDirectory>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kuali.encoding>${project.build.sourceEncoding}</kuali.encoding>
+    <kuali.encoding>UTF-8</kuali.encoding>
+    <project.build.sourceEncoding>${kuali.encoding}</project.build.sourceEncoding>
+
+    <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
     <kuali.properties.global>BOTH</kuali.properties.global>
     <kuali.properties.missing>INFORM</kuali.properties.missing>
-    <kuali.spring.systemPropertiesMode>NEVER</kuali.spring.systemPropertiesMode>
 
     <!-- Declared as properties so they can be shared between the compiler and javadoc plugins -->
     <kuali.compile.source>1.6</kuali.compile.source>
     <kuali.compile.target>1.6</kuali.compile.target>
+
     <!-- Don't create -tests.jar for POM's and other modules that don't actually have test code -->
     <kuali.testjar.skipIfEmpty>true</kuali.testjar.skipIfEmpty>
     <!-- This profile provides quality control for official Kuali artifacts (GPG signature, attached sources, javadocs etc.) -->
@@ -97,8 +89,8 @@
     <kuali.svn.verbose>false</kuali.svn.verbose>
     <!-- This is used in the licenses section as well as the jar/war plugins -->
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
-    <!-- These properties are used when generating/deploying the maven generated site -->
-    <org.groupId>${kuali.groupId}</org.groupId>
+
+    <!-- Identifiers for the Kuali organization -->
     <kuali.groupId>org.kuali</kuali.groupId>
     <kuali.groupId.code>kuali</kuali.groupId.code>
 
@@ -195,7 +187,7 @@
     <plugin.site.version>3.0-beta-3</plugin.site.version>
     <plugin.sonar.version>2.0</plugin.sonar.version>
     <plugin.source.version>2.1.2</plugin.source.version>
-    <plugin.spring.version>1.1.0</plugin.spring.version>
+    <plugin.spring.version>1.1.1</plugin.spring.version>
     <plugin.sql.version>1.0.15</plugin.sql.version>
     <plugin.surefire.version>2.12.3</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.13</plugin.svn-revision-number.version>
