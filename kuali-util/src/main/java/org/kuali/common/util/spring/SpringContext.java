@@ -50,6 +50,6 @@ public interface SpringContext {
 
 	String getExportPropertiesFileProperty();
 
-	List<Properties> getPropertySources();
+	Properties getProperties();
 
 }

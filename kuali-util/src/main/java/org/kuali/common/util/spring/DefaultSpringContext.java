@@ -38,7 +38,7 @@ public class DefaultSpringContext implements SpringContext {
 	boolean exportProperties;
 	File exportPropertiesFile;
 	String exportPropertiesFileProperty;
-	List<Properties> propertySources;
+	Properties properties;
 
 	@Override
     public PropertyPlaceholderHelper getHelper() {
@@ -158,12 +158,12 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public List<Properties> getPropertySources() {
-		return propertySources;
+    public Properties getProperties() {
+		return properties;
 	}
 
-	public void setPropertySources(List<Properties> propertySources) {
-		this.propertySources = propertySources;
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }

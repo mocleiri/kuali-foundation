@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
@@ -65,9 +64,10 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected Properties getProperties(SpringContext context) {
-		Properties properties = PropertyUtils.combine(CollectionUtils.toEmpty(context.getPropertySources()));
+		Properties properties = context.getProperties();
 		if (context.isExportProperties()) {
 			Assert.notNull(context.getExportPropertiesFile(), "export properties file is null");
+			Assert.notNull(context.getExportPropertiesFileProperty(), "export properties file property is null");
 			String value = LocationUtils.getURLString(context.getExportPropertiesFile());
 			String name = context.getExportPropertiesFileProperty();
 			properties.setProperty(name, value);
