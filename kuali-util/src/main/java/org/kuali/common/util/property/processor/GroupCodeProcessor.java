@@ -17,8 +17,8 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
@@ -51,27 +51,8 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		Assert.notNull(organizationGroupId, "organizationGroupId is null");
 		Assert.notNull(groupId, "groupId is null");
 
-		String groupCode = getGroupCode(organizationGroupId, groupId);
+		String groupCode = OrgUtils.getGroupCode(organizationGroupId, groupId);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
-	}
-
-	/**
-	 * Given <code>org.kuali</code> and <code>org.kuali.rice</code> return <code>rice</code><br>
-	 * Given <code>org.kuali</code> and <code>org.kuali.student.web</code> return <code>student</code><br>
-	 */
-	protected String getGroupCode(String organizationGroupId, String groupId) {
-		if (!StringUtils.startsWith(groupId, organizationGroupId)) {
-			throw new IllegalArgumentException(groupId + " does not start with " + organizationGroupId);
-		}
-		String code = StringUtils.remove(groupId, organizationGroupId);
-		if (StringUtils.startsWith(code, ".")) {
-			code = StringUtils.substring(code, 1);
-		}
-		int pos = StringUtils.indexOf(code, ".");
-		if (pos != -1) {
-			code = StringUtils.substring(code, 0, pos);
-		}
-		return code;
 	}
 
 	public String getOrganizationGroupId() {

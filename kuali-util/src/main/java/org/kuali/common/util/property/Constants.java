@@ -38,14 +38,15 @@ public final class Constants {
 	public static final String DEFAULT_SNAPSHOT_VERSION_SUFFIX = "snapshot";
 	public static final String DEFAULT_CODE_SUFFIX = "code";
 	public static final String DEFAULT_HOME_SUFFIX = "home";
-	public static final String DEFAULT_ORGANIZATION_GROUP_ID_PROPERTY = "org.groupId";
 	public static final String DEFAULT_GROUP_ID_PROPERTY = "project.groupId";
 	public static final String DEFAULT_ARTIFACT_ID_PROPERTY = "project.artifactId";
+	public static final String DEFAULT_USER_HOME_PROPERTY = "user.home";
 	public static final String DEFAULT_VERSION_PROPERTY = "project.version";
 	public static final Mode DEFAULT_PROPERTY_OVERWRITE_MODE = Mode.INFORM;
 	public static final GlobalPropertiesMode DEFAULT_GLOBAL_PROPERTIES_MODE = GlobalPropertiesMode.BOTH;
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = getDefaultHelper();
 	public static final PropertyProcessor NO_OP_PROCESSOR = new NoOpProcessor();
+	public static final String GROUP = "group";
 	public static final String NONE = "NONE";
 	public static final String NULL = "NULL";
 

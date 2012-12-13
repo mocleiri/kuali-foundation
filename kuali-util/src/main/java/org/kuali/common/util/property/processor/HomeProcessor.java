@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.Assert;
@@ -26,29 +27,39 @@ import org.springframework.util.Assert;
 public class HomeProcessor implements PropertyProcessor {
 
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+	String userHomeProperty = Constants.DEFAULT_USER_HOME_PROPERTY;
 	String fileSeparator = File.separator;
 	String hiddenDirectoryIndicator = ".";
-	String userHomeProperty = "user.home";
 	String organizationHomeProperty;
 	String groupHomeProperty;
-	String organizationCode;
-	String groupCode;
+	String organizationGroupId;
+	String groupId;
 
 	public HomeProcessor() {
 		this(null, null);
 	}
 
-	public HomeProcessor(String organizationCode, String groupCode) {
+	public HomeProcessor(String organizationGroupId, String groupId) {
 		super();
-		this.organizationCode = organizationCode;
-		this.groupCode = groupCode;
+		this.organizationGroupId = organizationGroupId;
+		this.groupId = groupId;
 	}
 
 	@Override
 	public void process(Properties properties) {
+		Assert.notNull(organizationGroupId);
+		Assert.notNull(groupId);
 
-		Assert.notNull(organizationCode, "organizationCode is null");
-		Assert.notNull(groupCode, "groupCode is null");
+		String organizationCode = OrgUtils.getOrgCode(organizationGroupId);
+		String groupCode = OrgUtils.getGroupCode(organizationGroupId, groupId);
+
+		if (this.organizationHomeProperty == null) {
+			this.organizationHomeProperty = organizationCode + "." + Constants.DEFAULT_HOME_SUFFIX;
+		}
+
+		if (this.groupHomeProperty == null) {
+			this.groupHomeProperty = organizationCode + "." + Constants.GROUP + "." + Constants.DEFAULT_HOME_SUFFIX;
+		}
 
 		String organizationHome = System.getProperty(userHomeProperty) + fileSeparator + hiddenDirectoryIndicator + organizationCode;
 		String groupHome = organizationHome + fileSeparator + groupCode;
@@ -71,6 +82,14 @@ public class HomeProcessor implements PropertyProcessor {
 
 	public void setFileSeparator(String fileSeparator) {
 		this.fileSeparator = fileSeparator;
+	}
+
+	public String getHiddenDirectoryIndicator() {
+		return hiddenDirectoryIndicator;
+	}
+
+	public void setHiddenDirectoryIndicator(String hiddenDirectoryIndicator) {
+		this.hiddenDirectoryIndicator = hiddenDirectoryIndicator;
 	}
 
 	public String getUserHomeProperty() {
@@ -97,28 +116,20 @@ public class HomeProcessor implements PropertyProcessor {
 		this.groupHomeProperty = groupHomeProperty;
 	}
 
-	public String getOrganizationCode() {
-		return organizationCode;
+	public String getOrganizationGroupId() {
+		return organizationGroupId;
 	}
 
-	public void setOrganizationCode(String organizationCode) {
-		this.organizationCode = organizationCode;
+	public void setOrganizationGroupId(String organizationGroupId) {
+		this.organizationGroupId = organizationGroupId;
 	}
 
-	public String getGroupCode() {
-		return groupCode;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setGroupCode(String groupCode) {
-		this.groupCode = groupCode;
-	}
-
-	public String getHiddenDirectoryIndicator() {
-		return hiddenDirectoryIndicator;
-	}
-
-	public void setHiddenDirectoryIndicator(String hiddenDirectoryIndicator) {
-		this.hiddenDirectoryIndicator = hiddenDirectoryIndicator;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 }
