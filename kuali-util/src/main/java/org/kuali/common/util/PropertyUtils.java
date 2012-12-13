@@ -244,6 +244,25 @@ public class PropertyUtils {
 		return false;
 	}
 
+	/**
+	 * Match a value against a pattern that can optionally contain a single wildcard {@code *}. If {@code wildcardPattern} does not contain
+	 * {@code *}, {@code value} and {@code wildcardPattern} must match exactly. {@code IllegalArgumentException} is thrown if
+	 * {@code wildcardPattern} contains more than one {@code *} or if both {@code value} and {@code wildcardPattern} contain wildcards.
+	 *
+	 * <pre>
+	 * PropertyUtils.singleWildcardMatch(null, null)      = true
+	 * PropertyUtils.singleWildcardMatch(null, "def")     = false
+	 * PropertyUtils.singleWildcardMatch("abcdef", null)  = false
+	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd") = false
+	 * PropertyUtils.singleWildcardMatch("abcdef", "*def") = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*") = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef") = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def") = true
+	 * PropertyUtils.singleWildcardMatch("abc*def", "abcdef") = false
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc**def") = IllegalArgumentException
+	 * PropertyUtils.singleWildcardMatch("abc*def", "abc*def") = IllegalArgumentException
+	 * </pre>
+	 */
 	public static boolean singleWildcardMatch(String value, String singleWildcardPattern) {
 		int pos = StringUtils.indexOf(singleWildcardPattern, WILDCARD);
 		if (pos == -1) {
