@@ -16,6 +16,8 @@
 package org.kuali.common.util;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,8 +30,9 @@ public class SimpleTest {
 	@Test
 	public void testWildcard() {
 		try {
+			List<String> includes = Arrays.asList("sun.*", "user.*");
 			Properties properties = PropertyUtils.duplicate(System.getProperties());
-			PropertyUtils.trim(properties, "sun.*", "sun.os.*");
+			PropertyUtils.trim(properties, includes, null);
 			PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();

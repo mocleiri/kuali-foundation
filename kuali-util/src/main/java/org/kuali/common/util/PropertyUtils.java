@@ -238,7 +238,7 @@ public class PropertyUtils {
 	}
 
 	public static boolean match(String s, String pattern) {
-		int pos = StringUtils.indexOf(s, WILDCARD);
+		int pos = StringUtils.indexOf(pattern, WILDCARD);
 		if (pos == -1) {
 			return StringUtils.equals(s, pattern);
 		} else {
