@@ -169,7 +169,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private List<String> filterExcludes;
 
 	/**
-	 * Additional properties supplied directly to the mojo
+	 * Additional properties to supply to the Spring context. Properties provided here are added to Maven properties.
 	 *
 	 * @parameter
 	 */
