@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.1.6</version>
+    <version>2.1.15</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jdbc</artifactId>
@@ -55,7 +55,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>1.0.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
