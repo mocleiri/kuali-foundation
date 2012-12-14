@@ -27,7 +27,22 @@ import org.junit.Test;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class SimpleTest {
+public class SingleWildcardMatchTest {
+	@Test
+	public void testWildcards() {
+		Assert.assertTrue(PropertyUtils.singleWildcardMatch((String) null, (String) null));
+		Assert.assertFalse(PropertyUtils.singleWildcardMatch(null, ""));
+		Assert.assertFalse(PropertyUtils.singleWildcardMatch("", (String) null));
+		Assert.assertFalse(PropertyUtils.singleWildcardMatch(null, "*"));
+		Assert.assertTrue(PropertyUtils.singleWildcardMatch("", "*"));
+		Assert.assertFalse(PropertyUtils.singleWildcardMatch("*", ""));
+		try {
+			Assert.assertFalse(PropertyUtils.singleWildcardMatch("*", "*"));
+			Assert.fail("wildcards in both the value and pattern is not allowed");
+		} catch (IllegalArgumentException ignored) {
+			; // ignored
+		}
+	}
 
 	@Test
 	public void testWildcards1() {

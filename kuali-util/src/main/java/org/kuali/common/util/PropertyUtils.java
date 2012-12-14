@@ -253,23 +253,25 @@ public class PropertyUtils {
 	 * PropertyUtils.singleWildcardMatch(null, "abcdef")       = false
 	 * PropertyUtils.singleWildcardMatch("abcdef", null)       = false
 	 * PropertyUtils.singleWildcardMatch(null, "*")            = false
+	 * PropertyUtils.singleWildcardMatch(null, "**")           = false
 	 * PropertyUtils.singleWildcardMatch("", "*")              = true
 	 * PropertyUtils.singleWildcardMatch("*", "")              = false
 	 * PropertyUtils.singleWildcardMatch("*", "*")             = IllegalArgumentException
-	 * PropertyUtils.singleWildcardMatch(abcdef, "*")          = true
+	 * PropertyUtils.singleWildcardMatch("", "**")             = IllegalArgumentException
+	 * PropertyUtils.singleWildcardMatch("abcdef", "*")        = true
 	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd")      = false
 	 * PropertyUtils.singleWildcardMatch("abcdef", "*def")     = true
 	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*")     = true
 	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef")    = true
 	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def")  = true
 	 * PropertyUtils.singleWildcardMatch("abc*def", "abcdef")  = false
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc**def") = IllegalArgumentException
 	 * PropertyUtils.singleWildcardMatch("abc*def", "abc*def") = IllegalArgumentException
+	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*d*ef")  = IllegalArgumentException
 	 * </pre>
 	 */
 	public static boolean singleWildcardMatch(String value, String singleWildcardPattern) {
 		int pos = StringUtils.indexOf(singleWildcardPattern, Constants.WILDCARD);
-		if (pos == -1) {
+		if (value == null || pos == -1) {
 			return StringUtils.equals(value, singleWildcardPattern);
 		} else {
 			int patternMatches = StringUtils.countMatches(singleWildcardPattern, Constants.WILDCARD);
