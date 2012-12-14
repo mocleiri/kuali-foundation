@@ -55,8 +55,15 @@ import org.springframework.util.PropertyPlaceholderHelper;
  *
  * <pre>
  * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
- * OR
- * &lt;util:properties id="mavenProperties" location="${maven.spring.properties}" /&gt;
+ * </pre>
+ *
+ * Executing {@code mvn spring:load} will load {@code my-context.xml} using Maven properties to perform placeholder substitution. This makes
+ * it possible to easily take advantage of Maven configuration like {@code project.artifactId}:
+ *
+ * <pre>
+ *   &lt;bean id="artifactId" class="java.lang.String"&gt;
+ *     &lt;constructor-arg value="${project.artifactId}" /&gt;
+ *   &lt;/bean&gt;
  * </pre>
  *
  * @goal load
