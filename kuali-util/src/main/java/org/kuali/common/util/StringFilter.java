@@ -25,9 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class provides logic for filtering strings based on regular expressions. Given a list of includePatterns and excludePatterns the
- * filter method will remove strings from an Iterator<String> if there is no match on an inclusion pattern or there is a match on an
- * exclusion pattern
+ * This class provides logic for filtering strings based on regular expressions.
  */
 public class StringFilter {
 
