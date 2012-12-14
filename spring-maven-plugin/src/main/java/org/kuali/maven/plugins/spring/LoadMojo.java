@@ -33,11 +33,11 @@ import org.springframework.util.PropertyPlaceholderHelper;
 /**
  * Load a Spring context XML file optionally filtering it using Maven properties before doing so. If {@code exportProperties} is true, Maven
  * properties are exported to the file system prior to loading and filtering the Spring context. The path to the exported properties file is
- * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination provides a simple method for
- * injecting the complete set of Maven properties into a Spring context.<br>
+ * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination makes it simple to inject the
+ * complete set of Maven properties into a Spring context.<br>
  * <br>
  *
- * Include this configuration in the Maven pom:
+ * One method for doing so, is to include this configuration in a Maven pom:
  *
  * <pre>
  * &lt;plugin&gt;
@@ -51,16 +51,16 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * &lt;/plugin&gt;
  * </pre>
  *
- * Include this configuration in the Spring context:
+ * and then include this configuration in a Spring context XML file:
  *
  * <pre>
  * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
  * </pre>
  *
- * Executing {@code mvn spring:load} will then filter {@code my-context.xml} replacing <code>${maven.spring.properties}</code> with the
- * location of the properties file Maven properties were exported to. When the Spring context is loaded, Maven properties will be used to
- * perform placeholder substitution. This makes it possible to easily take advantage of Maven configuration like {@code project.artifactId}
- * in the Spring context.<br>
+ * Using this configuration, {@code mvn spring:load} will filter {@code my-context.xml} replacing <code>${maven.spring.properties}</code>
+ * with the location of the properties file Maven properties were exported to. When the Spring context is loaded, Maven properties will be
+ * used to perform placeholder substitution. This makes it possible to easily take advantage of Maven configuration like
+ * {@code project.artifactId} in the Spring context.<br>
  * <br>
  *
  * For example:
