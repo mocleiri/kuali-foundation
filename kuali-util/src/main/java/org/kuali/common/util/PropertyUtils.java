@@ -96,19 +96,6 @@ public class PropertyUtils {
 		return prefixMatches == 1 && suffixMatches == 1 && startsWith && endsWith;
 	}
 
-	public static final boolean containsUnresolvedPlaceholder2(String string) {
-		int beginIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_PREFIX);
-		if (beginIndex == -1) {
-			return false;
-		}
-		int endIndex = StringUtils.indexOf(string, Constants.DEFAULT_PLACEHOLDER_SUFFIX, beginIndex);
-		if (endIndex == -1) {
-			return false;
-		}
-		String substring = StringUtils.substring(string, beginIndex, endIndex);
-		return StringUtils.indexOf(substring, Constants.DEFAULT_VALUE_SEPARATOR) == -1;
-	}
-
 	public static final boolean containsUnresolvedPlaceholder(String string) {
 		return containsUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
 	}
