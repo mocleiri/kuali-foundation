@@ -43,8 +43,8 @@ public class StringFilter {
 	 */
 	List<String> excludes;
 
-	List<Pattern> includePatterns;
-	List<Pattern> excludePatterns;
+	protected List<Pattern> includePatterns;
+	protected List<Pattern> excludePatterns;
 
 	protected StringFilter(List<String> includes, List<String> excludes) {
 		super();
