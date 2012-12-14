@@ -217,7 +217,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		} else {
 			String resolvedValue = helper.replacePlaceholders(string, properties);
 			if (!StringUtils.equals(string, resolvedValue)) {
-				logger.info("Resolved {} -> {}", string, resolvedValue);
+				logger.debug("Resolved {} -> {}", string, resolvedValue);
 			}
 			return resolvedValue;
 		}

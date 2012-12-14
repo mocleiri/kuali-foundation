@@ -41,10 +41,6 @@
     <ref bean="propertiesProperty" />
   </util:list>
 
-  <util:list id="propertySources" value-type="java.util.Properties">
-    <ref bean="properties" />
-  </util:list>
-
   <bean id="context" class="org.kuali.common.util.spring.DefaultSpringContext">
     <property name="contextLocation" value="classpath:org/kuali/common/util/maven-spring-context.xml" />
     <property name="workingDir" value="${project.build.directory}/spring" />
@@ -53,7 +49,7 @@
     <property name="exportProperties" value="true" />
     <property name="exportPropertiesFile" value="${project.build.directory}/spring/test.properties" />
     <property name="exportPropertiesFileProperty" ref="propertiesProperty" />
-    <property name="propertySources" ref="propertySources" />
+    <property name="properties" ref="properties" />
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />
