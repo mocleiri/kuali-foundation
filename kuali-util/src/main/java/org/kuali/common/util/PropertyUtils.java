@@ -41,7 +41,6 @@ import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -244,45 +243,48 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Match a value against a pattern that can optionally contain a single wildcard {@code *}. If {@code wildcardPattern} does not contain
-	 * {@code *}, {@code value} and {@code wildcardPattern} must match exactly. {@code IllegalArgumentException} is thrown if
-	 * {@code wildcardPattern} contains more than one {@code *} or if both {@code value} and {@code wildcardPattern} contain wildcards.
+	 * Match {@code value} against {@code pattern} where {@code pattern} can optionally contain a single wildcard. If both are {@code null}
+	 * return {@code true}. If one is {@code null} but not the other, return {@code false}. If neither is {@code null}, any {@code pattern}
+	 * containing more than a single wildcard throws {@code IllegalArgumentException}.
 	 *
 	 * <pre>
-	 * PropertyUtils.singleWildcardMatch(null, null)           = true
-	 * PropertyUtils.singleWildcardMatch(null, "abcdef")       = false
-	 * PropertyUtils.singleWildcardMatch("abcdef", null)       = false
-	 * PropertyUtils.singleWildcardMatch(null, "*")            = false
-	 * PropertyUtils.singleWildcardMatch(null, "**")           = false
-	 * PropertyUtils.singleWildcardMatch("", "*")              = true
-	 * PropertyUtils.singleWildcardMatch("*", "")              = false
-	 * PropertyUtils.singleWildcardMatch("*", "*")             = IllegalArgumentException
-	 * PropertyUtils.singleWildcardMatch("", "**")             = IllegalArgumentException
-	 * PropertyUtils.singleWildcardMatch("abcdef", "*")        = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd")      = false
-	 * PropertyUtils.singleWildcardMatch("abcdef", "*def")     = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*")     = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef")    = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def")  = true
-	 * PropertyUtils.singleWildcardMatch("abc*def", "abcdef")  = false
-	 * PropertyUtils.singleWildcardMatch("abc*def", "abc*def") = IllegalArgumentException
-	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*d*ef")  = IllegalArgumentException
+	 * PropertyUtils.singleWildcardMatch(null, null)             = true
+	 * PropertyUtils.singleWildcardMatch(null, *)                = false
+	 * PropertyUtils.singleWildcardMatch(*, null)                = false
+	 * PropertyUtils.singleWildcardMatch(*, "*")                 = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd")        = false
+	 * PropertyUtils.singleWildcardMatch("abcdef", "*def")       = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*")       = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef")      = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def")    = true
+	 * PropertyUtils.singleWildcardMatch(*, "**")                = IllegalArgumentException
 	 * </pre>
 	 */
-	public static boolean singleWildcardMatch(String value, String singleWildcardPattern) {
-		int pos = StringUtils.indexOf(singleWildcardPattern, Constants.WILDCARD);
-		if (value == null || pos == -1) {
-			return StringUtils.equals(value, singleWildcardPattern);
+	public static boolean singleWildcardMatch(String value, String pattern) {
+		if (value == null && pattern == null) {
+			// both are null
+			return true;
+		} else if (value != null && pattern == null) {
+			// pattern is null but value is not
+			return false;
+		} else if (value == null && pattern != null) {
+			// value is null but pattern is not
+			return false;
+		} else if (StringUtils.countMatches(pattern, Constants.WILDCARD) > 1) {
+			throw new IllegalArgumentException("Pattern [" + pattern + "] is not supported.  Only one wildcard is allowed in the pattern");
+		} else if (pattern.equals(Constants.WILDCARD)) {
+			// neither one is null and pattern is the wildcard. Value is irrelevant
+			return true;
+		} else if (!StringUtils.contains(pattern, Constants.WILDCARD)) {
+			// Neither one is null and there is no wildcard in the pattern. They must match exactly
+			return StringUtils.equals(value, pattern);
 		} else {
-			int patternMatches = StringUtils.countMatches(singleWildcardPattern, Constants.WILDCARD);
-			Assert.isTrue(patternMatches == 1, "[" + singleWildcardPattern + "] contains multiple wildcards.  Multiple wildcards are not supported.");
-			int valueMatches = StringUtils.countMatches(value, Constants.WILDCARD);
-			Assert.isTrue(valueMatches == 0, "[" + value + "] contains '" + Constants.WILDCARD + "'. Wildcard pattern matching is not supported for values that contain wildcards.");
+			int pos = StringUtils.indexOf(pattern, Constants.WILDCARD);
 			int suffixPos = pos + Constants.WILDCARD.length();
 			boolean nullPrefix = pos == 0;
-			boolean nullSuffix = suffixPos >= singleWildcardPattern.length();
-			String prefix = nullPrefix ? null : StringUtils.substring(singleWildcardPattern, 0, pos);
-			String suffix = nullSuffix ? null : StringUtils.substring(singleWildcardPattern, suffixPos);
+			boolean nullSuffix = suffixPos >= pattern.length();
+			String prefix = nullPrefix ? null : StringUtils.substring(pattern, 0, pos);
+			String suffix = nullSuffix ? null : StringUtils.substring(pattern, suffixPos);
 			boolean prefixMatch = nullPrefix || StringUtils.startsWith(value, prefix);
 			boolean suffixMatch = nullSuffix || StringUtils.endsWith(value, suffix);
 			return prefixMatch && suffixMatch;
