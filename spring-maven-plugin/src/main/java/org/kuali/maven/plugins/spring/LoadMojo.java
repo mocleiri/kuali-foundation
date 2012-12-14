@@ -37,12 +37,12 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination allows the injection of Maven
  * properties into a Spring context by setting {@code filterContext=true} in the Maven pom and adding one line to the Spring XML
  * configuration file:<br>
- * <br>
- * {@code <context:property-placeholder location="$&#123;maven.spring.properties&#125;" />}<br>
- * <br>
- * OR<br>
- * <br>
- * {@code <util:properties id="mavenProperties" location="$&#123;maven.spring.properties&#125;" />}<br>
+ *
+ * <pre>
+ * <context:property-placeholder location="${maven.spring.properties}" />
+ * OR
+ * <util:properties id="mavenProperties" location="${maven.spring.properties}" />
+ * </pre>
  *
  * @goal load
  */
