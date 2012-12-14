@@ -243,9 +243,9 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Match {@code value} against {@code pattern} where {@code pattern} can optionally contain a single wildcard. If both are {@code null}
-	 * return {@code true}. If one is {@code null} but not the other, return {@code false}. If neither is {@code null}, any {@code pattern}
-	 * containing more than a single wildcard throws {@code IllegalArgumentException}.
+	 * Match {@code value} against {@code pattern} where {@code pattern} can optionally contain a single wildcard {@code *}. If both are
+	 * {@code null} return {@code true}. If one of {@code value} or {@code pattern} is {@code null} but the other isn't, return
+	 * {@code false}. Any {@code pattern} containing more than a single wildcard throws {@code IllegalArgumentException}.
 	 *
 	 * <pre>
 	 * PropertyUtils.singleWildcardMatch(null, null)             = true
