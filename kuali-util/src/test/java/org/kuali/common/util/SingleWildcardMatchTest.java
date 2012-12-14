@@ -36,12 +36,7 @@ public class SingleWildcardMatchTest {
 		Assert.assertFalse(PropertyUtils.singleWildcardMatch(null, "*"));
 		Assert.assertTrue(PropertyUtils.singleWildcardMatch("", "*"));
 		Assert.assertFalse(PropertyUtils.singleWildcardMatch("*", ""));
-		try {
-			Assert.assertFalse(PropertyUtils.singleWildcardMatch("*", "*"));
-			Assert.fail("wildcards in both the value and pattern is not allowed");
-		} catch (IllegalArgumentException ignored) {
-			; // ignored
-		}
+		Assert.assertTrue(PropertyUtils.singleWildcardMatch("*", "*"));
 	}
 
 	@Test
@@ -99,20 +94,6 @@ public class SingleWildcardMatchTest {
 		PropertyUtils.trim(properties, includes, null);
 		int size = properties.size();
 		Assert.assertEquals(1, size);
-	}
-
-	@Test
-	public void testPropertyKeysContainingWildardsAndWildcardSearchIsUsed() {
-		List<String> includes = Arrays.asList("user.*");
-		Properties properties = PropertyUtils.duplicate(System.getProperties());
-		properties.setProperty("user.*.home", "foo");
-		try {
-			// Wildcard searches on property keys containing wildcards is NOT ok
-			PropertyUtils.trim(properties, includes, null);
-			Assert.fail("Should fail if trying to match wildcard patterns against values containing wildcards");
-		} catch (IllegalArgumentException ignored) {
-			; // ignore
-		}
 	}
 
 	// @Test
