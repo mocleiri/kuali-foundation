@@ -25,6 +25,7 @@ import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.GroupCodeProcessor;
+import org.kuali.common.util.property.processor.HomeProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
@@ -156,6 +157,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		String groupId = getGroupId();
 		if (organizationGroupId != null && groupId != null) {
 			processors.add(new GroupCodeProcessor(organizationGroupId, groupId));
+			processors.add(new HomeProcessor(organizationGroupId, groupId));
 		}
 
 		if (groupIdProperty != null) {
