@@ -26,7 +26,6 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -171,14 +170,21 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	 */
 	private String exportPropertiesFileProperty;
 
+	/**
+	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
+	 *
+	 * @parameter expression="${spring.serviceClassname}" default-value="org.kuali.common.util.service.DefaultSpringService"
+	 */
+	private String serviceClassname;
+
 	// The Maven convention is for system properties and environment variables to override properties provided elsewhere
 	// This default setting follows that convention
 	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	SpringService service = new DefaultSpringService();
 
 	@Override
 	public void execute() throws MojoExecutionException {
+
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
@@ -192,8 +198,13 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportInclude);
 		this.exportExcludes = CollectionUtils.sortedMerge(exportExcludes, exportExclude);
 
-		// Invoke the service to load the context
-		service.load(this);
+		try {
+			Class<?> serviceClass = Class.forName(serviceClassname);
+			SpringService service = (SpringService) serviceClass.newInstance();
+			service.load(this);
+		} catch (Exception e) {
+			throw new MojoExecutionException("Unexpected error", e);
+		}
 	}
 
 	@Override
@@ -354,12 +365,12 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.helper = helper;
 	}
 
-	public SpringService getService() {
-		return service;
+	public String getServiceClassname() {
+		return serviceClassname;
 	}
 
-	public void setService(SpringService service) {
-		this.service = service;
+	public void setServiceClassname(String serviceClassname) {
+		this.serviceClassname = serviceClassname;
 	}
 
 }
