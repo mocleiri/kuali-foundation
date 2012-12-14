@@ -54,9 +54,11 @@ public class OrgProcessor implements PropertyProcessor {
 		Assert.notNull(groupId, "groupId is null");
 
 		String organizationCode = OrgUtils.getOrgCode(organizationGroupId);
-		String organizationCodeProperty = organizationCode + "." + organizationGroupCodeSuffix;
 		String groupCode = OrgUtils.getGroupCode(organizationGroupId, groupId);
-		PropertyUtils.addOrOverrideProperty(properties, organizationCodeProperty, organizationCode, propertyOverwriteMode);
+
+		String organizationGroupCodeProperty = organizationCode + "." + organizationGroupCodeSuffix;
+
+		PropertyUtils.addOrOverrideProperty(properties, organizationGroupCodeProperty, organizationCode, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
 	}
 
