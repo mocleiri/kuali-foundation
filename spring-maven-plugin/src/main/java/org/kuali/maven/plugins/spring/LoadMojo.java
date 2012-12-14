@@ -33,9 +33,24 @@ import org.springframework.util.PropertyPlaceholderHelper;
 /**
  * Load a Spring context XML file optionally filtering it using Maven properties before doing so. If {@code exportProperties} is true, Maven
  * properties are exported to the file system prior to loading and filtering the Spring context. The path to the exported properties file is
- * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination allows the injection of Maven
- * properties into a Spring context by setting {@code filterContext=true} in the Maven pom and adding one line to the Spring XML
- * configuration file:<br>
+ * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination provides a simple method for
+ * injecting Maven properties into a Spring context.
+ *
+ * Include this configuration in the Maven pom:
+ *
+ * <pre>
+ * &lt;plugin&gt;
+ *   &lt;groupId&gt;org.kuali.maven.plugins&lt;/groupId&gt;
+ *   &lt;artifactId&gt;spring-maven-plugin&lt;/artifactId&gt;
+ *   &lt;configuration&gt;
+ *     &lt;filterContext&gt;true&lt;/filterContext&gt;
+ *     &lt;filterInclude&gt;maven.spring.properties&lt;/filterInclude&gt;
+ *     &lt;contextLocation&gt;classpath:my-context.xml&lt;/contextLocation&gt;
+ *   &lt;/configuration&gt;
+ * &lt;/plugin&gt;
+ * </pre>
+ *
+ * Include this configuration in the Spring context:
  *
  * <pre>
  * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
