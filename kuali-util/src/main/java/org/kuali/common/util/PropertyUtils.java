@@ -233,7 +233,7 @@ public class PropertyUtils {
 		}
 	}
 
-	public static boolean isSingleWildcardMatch(String s, List<String> patterns) {
+	public static final boolean isSingleWildcardMatch(String s, List<String> patterns) {
 		for (String pattern : CollectionUtils.toEmpty(patterns)) {
 			if (isSingleWildcardMatch(s, pattern)) {
 				return true;
@@ -260,7 +260,7 @@ public class PropertyUtils {
 	 * PropertyUtils.singleWildcardMatch(*, "**")                = IllegalArgumentException
 	 * </pre>
 	 */
-	public static boolean isSingleWildcardMatch(String value, String pattern) {
+	public static final boolean isSingleWildcardMatch(String value, String pattern) {
 		if (value == null && pattern == null) {
 			// both are null
 			return true;
@@ -652,7 +652,7 @@ public class PropertyUtils {
 		}
 	}
 
-	protected static final String getComment(String encoding, String comment, boolean xml) {
+	private static final String getComment(String encoding, String comment, boolean xml) {
 		if (StringUtils.isBlank(comment)) {
 			return getDefaultComment(encoding, xml);
 		} else {
