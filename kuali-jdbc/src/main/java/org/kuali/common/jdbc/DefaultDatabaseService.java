@@ -25,9 +25,9 @@ import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleFormatter;
-import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,11 +41,11 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("---------------- Reset Database ----------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
-		logUsername("User", dpc.getUsername());
-		logPassword("Password", dpc.getUsername(), dpc.getPassword());
+		LoggerUtils.logUsername(logger, "User", dpc.getUsername());
+		LoggerUtils.logPassword(logger, "Password", dpc.getUsername(), dpc.getPassword());
 		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
-		logUsername("DBA User", dpc.getDbaUsername());
-		logPassword("DBA Password", dpc.getDbaUsername(), dpc.getDbaPassword());
+		LoggerUtils.logUsername(logger, "DBA User", dpc.getDbaUsername());
+		LoggerUtils.logPassword(logger, "DBA Password", dpc.getDbaUsername(), dpc.getDbaPassword());
 		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
@@ -111,33 +111,4 @@ public class DefaultDatabaseService implements DatabaseService {
 		args.add(formatter.getTime(metadata.getExecutionTime()));
 		logger.info("Total " + executionType + " SQL statements: {}  SQL sources: {}  Total time: {}", CollectionUtils.toArray(args));
 	}
-
-	protected void logUsername(String prefix, String username) {
-		if (username == null) {
-			logNullAsNone(prefix);
-		} else {
-			logger.info("{} - {}", prefix, username);
-		}
-	}
-
-	protected void logPassword(String prefix, String username, String password) {
-		if (password == null) {
-			// There is no password, display NONE
-			logNullAsNone(prefix);
-		} else if (StringUtils.equals(username, password)) {
-			// Not exactly high security, display the clear text value
-			logger.info("{} - {}", prefix, password);
-		} else {
-			// Otherwise obscure it
-			logger.info("{} - {}", prefix, StringUtils.repeat("*", password.length()));
-		}
-	}
-
-	/**
-	 * Log <code>null</code> as <code>NONE</code>
-	 */
-	protected void logNullAsNone(String prefix) {
-		logger.info("{} - {}", prefix, Constants.NONE);
-	}
-
 }
