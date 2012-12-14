@@ -30,13 +30,13 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class SingleWildcardMatchTest {
 	@Test
 	public void testWildcards() {
-		Assert.assertTrue(PropertyUtils.singleWildcardMatch((String) null, (String) null));
-		Assert.assertFalse(PropertyUtils.singleWildcardMatch(null, ""));
-		Assert.assertFalse(PropertyUtils.singleWildcardMatch("", (String) null));
-		Assert.assertFalse(PropertyUtils.singleWildcardMatch(null, "*"));
-		Assert.assertTrue(PropertyUtils.singleWildcardMatch("", "*"));
-		Assert.assertFalse(PropertyUtils.singleWildcardMatch("*", ""));
-		Assert.assertTrue(PropertyUtils.singleWildcardMatch("*", "*"));
+		Assert.assertTrue(PropertyUtils.isSingleWildcardMatch((String) null, (String) null));
+		Assert.assertFalse(PropertyUtils.isSingleWildcardMatch(null, ""));
+		Assert.assertFalse(PropertyUtils.isSingleWildcardMatch("", (String) null));
+		Assert.assertFalse(PropertyUtils.isSingleWildcardMatch(null, "*"));
+		Assert.assertTrue(PropertyUtils.isSingleWildcardMatch("", "*"));
+		Assert.assertFalse(PropertyUtils.isSingleWildcardMatch("*", ""));
+		Assert.assertTrue(PropertyUtils.isSingleWildcardMatch("*", "*"));
 	}
 
 	@Test

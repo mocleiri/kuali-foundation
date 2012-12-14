@@ -224,18 +224,18 @@ public class PropertyUtils {
 	 * include/exclude lists also contain strings with the wildcard symbol <code>*</code>
 	 */
 	public static final boolean include(String value, List<String> includes, List<String> excludes) {
-		if (singleWildcardMatch(value, excludes)) {
+		if (isSingleWildcardMatch(value, excludes)) {
 			// No point incurring the overhead of matching an include pattern
 			return false;
 		} else {
 			// If includes is empty always return true
-			return CollectionUtils.isEmpty(includes) || singleWildcardMatch(value, includes);
+			return CollectionUtils.isEmpty(includes) || isSingleWildcardMatch(value, includes);
 		}
 	}
 
-	public static boolean singleWildcardMatch(String s, List<String> patterns) {
+	public static boolean isSingleWildcardMatch(String s, List<String> patterns) {
 		for (String pattern : CollectionUtils.toEmpty(patterns)) {
-			if (singleWildcardMatch(s, pattern)) {
+			if (isSingleWildcardMatch(s, pattern)) {
 				return true;
 			}
 		}
@@ -260,7 +260,7 @@ public class PropertyUtils {
 	 * PropertyUtils.singleWildcardMatch(*, "**")                = IllegalArgumentException
 	 * </pre>
 	 */
-	public static boolean singleWildcardMatch(String value, String pattern) {
+	public static boolean isSingleWildcardMatch(String value, String pattern) {
 		if (value == null && pattern == null) {
 			// both are null
 			return true;
