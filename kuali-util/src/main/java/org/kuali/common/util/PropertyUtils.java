@@ -617,14 +617,23 @@ public class PropertyUtils {
 			return;
 		}
 		boolean overwrite = !StringUtils.isBlank(oldValue);
+
+		// TODO Yuck! Do something smarter here
+		String logNewValue = newValue;
+		String logOldValue = oldValue;
+		if (key.contains("password")) {
+			logNewValue = LoggerUtils.getPassword(null, logNewValue);
+			logOldValue = LoggerUtils.getPassword(null, logOldValue);
+		}
+
 		if (overwrite) {
 			// This property already has a value, and it is different from the new value
 			// Check to make sure we are allowed to override the old value before doing so
-			Object[] args = new Object[] { key, Str.flatten(newValue), Str.flatten(oldValue) };
+			Object[] args = new Object[] { key, Str.flatten(logNewValue), Str.flatten(logOldValue) };
 			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}={}] was [{}]", args, "Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
-			logger.info("Adding [{}={}]", key, Str.flatten(newValue));
+			logger.info("Adding [{}={}]", key, Str.flatten(logNewValue));
 		}
 		properties.setProperty(key, newValue);
 	}
