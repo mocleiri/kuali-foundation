@@ -39,9 +39,9 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * configuration file:<br>
  *
  * <pre>
- * <context:property-placeholder location="${maven.spring.properties}" />
+ * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
  * OR
- * <util:properties id="mavenProperties" location="${maven.spring.properties}" />
+ * &lt;util:properties id="mavenProperties" location="${maven.spring.properties}" /&gt;
  * </pre>
  *
  * @goal load
