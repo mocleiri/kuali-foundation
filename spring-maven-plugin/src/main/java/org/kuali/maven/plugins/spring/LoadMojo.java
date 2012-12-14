@@ -32,17 +32,17 @@ import org.kuali.common.util.spring.SpringContext;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Load a Spring context XML file optionally filtering it using Maven properties before doing so. If <code>exportProperties</code> is true,
- * Maven properties are exported to the file system prior to loading and filtering the Spring context. The path to the exported properties
- * file is automatically added to the Maven properties under the key <code>maven.spring.properties</code>. This combination allows the
- * injection of Maven properties into a Spring context by setting <code>filterContext=true</code> in the Maven pom and adding one line to
- * the Spring XML configuration file:<br>
+ * Load a Spring context XML file optionally filtering it using Maven properties before doing so. If {@code exportProperties} is true, Maven
+ * properties are exported to the file system prior to loading and filtering the Spring context. The path to the exported properties file is
+ * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination allows the injection of Maven
+ * properties into a Spring context by setting {@code filterContext=true} in the Maven pom and adding one line to the Spring XML
+ * configuration file:<br>
  * <br>
- * <code>&lt;context:property-placeholder location="${maven.spring.properties}" /&gt;</code><br>
+ * {@code <context:property-placeholder location="$&#123;maven.spring.properties&#125;" />}<br>
  * <br>
  * OR<br>
  * <br>
- * <code>&lt;util:properties id="mavenProperties" location="${maven.spring.properties}" /&gt;</code><br>
+ * {@code <util:properties id="mavenProperties" location="$&#123;maven.spring.properties&#125;" />}<br>
  *
  * @goal load
  */
@@ -66,7 +66,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	/**
 	 * Location of a Spring context XML file. This can be any URL Spring's Resource loading framework understands eg
-	 * <code>classpath:mycontext.xml</code>
+	 * {@code classpath:mycontext.xml}
 	 *
 	 * @parameter expression="${spring.contextLocation}" default-value="classpath:${project.artifactId}-context.xml"
 	 * @required
@@ -81,7 +81,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private File workingDir;
 
 	/**
-	 * If true <code>contextLocation</code> is filtered before being loaded
+	 * If true {@code contextLocation} is filtered before being loaded
 	 *
 	 * @parameter expression="${spring.filterContext}" default-value="false"
 	 */
@@ -158,14 +158,14 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private boolean exportProperties;
 
 	/**
-	 * The file to export properties to when <code>exportProperties</code> is <code>true</code>
+	 * The file to export properties to when {@code exportProperties} is {@code true}
 	 *
 	 * @parameter expression="${spring.exportPropertiesFile}" default-value="${project.build.directory}/spring/maven.properties"
 	 */
 	private File exportPropertiesFile;
 
 	/**
-	 * If <code>exportProperties</code> is true, the path to the exported properties file will be included as a property under this key
+	 * If {@code exportProperties} is true, the path to the exported properties file will be included as a property under this key
 	 *
 	 * @parameter expression="${spring.exportPropertiesFileProperty}" default-value="maven.spring.properties"
 	 */
