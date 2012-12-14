@@ -652,7 +652,7 @@ public class PropertyUtils {
 		}
 	}
 
-	protected static final String getComment(String comment, String encoding, boolean xml) {
+	protected static final String getComment(String encoding, String comment, boolean xml) {
 		if (StringUtils.isBlank(comment)) {
 			return getDefaultComment(encoding, xml);
 		} else {
