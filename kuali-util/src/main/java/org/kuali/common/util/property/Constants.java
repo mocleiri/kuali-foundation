@@ -50,6 +50,7 @@ public final class Constants {
 	public static final String GROUP = "group";
 	public static final String NONE = "NONE";
 	public static final String NULL = "NULL";
+	public static final String WILDCARD = "*";
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
 		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);

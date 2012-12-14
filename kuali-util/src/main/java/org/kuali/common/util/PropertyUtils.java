@@ -58,7 +58,6 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
-	private static final String WILDCARD = "*";
 
 	public static final Properties combine(List<Properties> properties) {
 		Properties combined = new Properties();
@@ -264,15 +263,15 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static boolean singleWildcardMatch(String value, String singleWildcardPattern) {
-		int pos = StringUtils.indexOf(singleWildcardPattern, WILDCARD);
+		int pos = StringUtils.indexOf(singleWildcardPattern, Constants.WILDCARD);
 		if (pos == -1) {
 			return StringUtils.equals(value, singleWildcardPattern);
 		} else {
-			int patternMatches = StringUtils.countMatches(singleWildcardPattern, WILDCARD);
+			int patternMatches = StringUtils.countMatches(singleWildcardPattern, Constants.WILDCARD);
 			Assert.isTrue(patternMatches == 1, "[" + singleWildcardPattern + "] contains multiple wildcards.  Multiple wildcards are not supported.");
-			int valueMatches = StringUtils.countMatches(value, WILDCARD);
-			Assert.isTrue(valueMatches == 0, "[" + value + "] contains '" + WILDCARD + "'. Wildcard pattern matching is not supported for values that contain wildcards.");
-			int suffixPos = pos + WILDCARD.length();
+			int valueMatches = StringUtils.countMatches(value, Constants.WILDCARD);
+			Assert.isTrue(valueMatches == 0, "[" + value + "] contains '" + Constants.WILDCARD + "'. Wildcard pattern matching is not supported for values that contain wildcards.");
+			int suffixPos = pos + Constants.WILDCARD.length();
 			boolean nullPrefix = pos == 0;
 			boolean nullSuffix = suffixPos >= singleWildcardPattern.length();
 			String prefix = nullPrefix ? null : StringUtils.substring(singleWildcardPattern, 0, pos);
