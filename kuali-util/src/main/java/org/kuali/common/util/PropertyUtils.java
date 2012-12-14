@@ -621,7 +621,7 @@ public class PropertyUtils {
 		// TODO Yuck! Do something smarter here
 		String logNewValue = newValue;
 		String logOldValue = oldValue;
-		if (key.contains("password")) {
+		if (StringUtils.containsIgnoreCase(key, "password")) {
 			logNewValue = LoggerUtils.getPassword(null, logNewValue);
 			logOldValue = LoggerUtils.getPassword(null, logOldValue);
 		}
