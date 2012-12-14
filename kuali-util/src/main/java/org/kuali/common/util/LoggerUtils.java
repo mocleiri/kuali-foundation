@@ -28,20 +28,19 @@ public class LoggerUtils {
 
 	public static final String getPassword(String username, String password, Obscurer obscurer) {
 		if (password == null) {
+			// There is no password, return NONE
 			return Constants.NONE;
 		} else if (StringUtils.equals(username, password)) {
+			// Not exactly high security, display the clear text value
 			return password;
 		} else {
+			// Otherwise obscure it
 			return obscurer.obscure(password);
 		}
 	}
 
 	public static final void logUsername(Logger logger, String prefix, String username) {
-		if (username == null) {
-			logNullAsNone(logger, prefix);
-		} else {
-			logger.info("{} - {}", prefix, username);
-		}
+		logger.info("{} - {}", prefix, getUsername(username));
 	}
 
 	public static final void logPassword(Logger logger, String prefix, String username, String password) {
@@ -49,16 +48,7 @@ public class LoggerUtils {
 	}
 
 	public static final void logPassword(Logger logger, String prefix, String username, String password, Obscurer obscurer) {
-		if (password == null) {
-			// There is no password, display NONE
-			logNullAsNone(logger, prefix);
-		} else if (StringUtils.equals(username, password)) {
-			// Not exactly high security, display the clear text value
-			logger.info("{} - {}", prefix, password);
-		} else {
-			// Otherwise obscure it
-			logger.info("{} - {}", prefix, obscurer.obscure(password));
-		}
+		logger.info("{} - {}", prefix, getPassword(username, password, obscurer));
 	}
 
 	/**
