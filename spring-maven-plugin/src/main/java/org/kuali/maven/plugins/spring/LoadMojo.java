@@ -91,7 +91,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	/**
 	 * Location of a Spring context XML file. This can be any URL Spring's Resource loading framework understands eg
-	 * {@code classpath:mycontext.xml}
+	 * {@code classpath:my-context.xml}
 	 *
 	 * @parameter expression="${spring.contextLocation}" default-value="classpath:${project.artifactId}-context.xml"
 	 * @required
