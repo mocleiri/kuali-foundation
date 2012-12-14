@@ -25,19 +25,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class GroupCodeProcessor implements PropertyProcessor {
-	private static final Logger logger = LoggerFactory.getLogger(GroupCodeProcessor.class);
+public class OrgProcessor implements PropertyProcessor {
+	private static final Logger logger = LoggerFactory.getLogger(OrgProcessor.class);
 
 	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 	String organizationGroupId;
 	String groupId;
 
-	public GroupCodeProcessor() {
+	public OrgProcessor() {
 		this(null, null);
 	}
 
-	public GroupCodeProcessor(String organizationGroupId, String groupId) {
+	public OrgProcessor(String organizationGroupId, String groupId) {
 		super();
 		this.organizationGroupId = organizationGroupId;
 		this.groupId = groupId;
@@ -51,7 +51,10 @@ public class GroupCodeProcessor implements PropertyProcessor {
 		Assert.notNull(organizationGroupId, "organizationGroupId is null");
 		Assert.notNull(groupId, "groupId is null");
 
+		String organizationCode = OrgUtils.getOrgCode(organizationGroupId);
+		String organizationCodeProperty = organizationCode + ".groupId.code";
 		String groupCode = OrgUtils.getGroupCode(organizationGroupId, groupId);
+		PropertyUtils.addOrOverrideProperty(properties, organizationCodeProperty, organizationCode, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
 	}
 
