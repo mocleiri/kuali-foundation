@@ -174,6 +174,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
 	 *
 	 * @parameter expression="${spring.serviceClassname}" default-value="org.kuali.common.util.service.DefaultSpringService"
+	 * @required
 	 */
 	private String serviceClassname;
 
