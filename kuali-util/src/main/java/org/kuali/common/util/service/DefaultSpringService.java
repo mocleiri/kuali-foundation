@@ -60,7 +60,7 @@ public class DefaultSpringService implements SpringService {
 		}
 		Properties duplicate = PropertyUtils.duplicate(properties);
 		PropertyUtils.trim(duplicate, context.getExportIncludes(), context.getExportExcludes());
-		PropertyUtils.store(duplicate, context.getExportPropertiesFile());
+		PropertyUtils.store(duplicate, context.getExportPropertiesFile(), context.getEncoding());
 	}
 
 	protected Properties getProperties(SpringContext context) {
@@ -103,7 +103,7 @@ public class DefaultSpringService implements SpringService {
 		String content = getFilteredContent(context, properties);
 		File file = getNewFile(context);
 		logger.info("Creating [" + file.getCanonicalPath() + "]");
-		FileUtils.write(file, content);
+		FileUtils.write(file, content, context.getEncoding());
 		return file;
 	}
 
