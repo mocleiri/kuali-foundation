@@ -57,8 +57,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
  * </pre>
  *
- * Executing {@code mvn spring:load} will load {@code my-context.xml} using Maven properties to perform placeholder substitution. This makes
- * it possible to easily take advantage of Maven configuration like {@code project.artifactId} in the Spring context.<br>
+ * Executing {@code mvn spring:load} will then load {@code my-context.xml} using Maven properties to perform placeholder substitution. This
+ * makes it possible to easily take advantage of Maven configuration like {@code project.artifactId} in the Spring context.<br>
  * <br>
  *
  * For example:
