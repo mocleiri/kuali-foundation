@@ -46,6 +46,7 @@ public final class Constants {
 	public static final GlobalPropertiesMode DEFAULT_GLOBAL_PROPERTIES_MODE = GlobalPropertiesMode.BOTH;
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = getDefaultHelper();
 	public static final PropertyProcessor NO_OP_PROCESSOR = new NoOpProcessor();
+	public static final String GROUP_ID = "groupId";
 	public static final String GROUP = "group";
 	public static final String NONE = "NONE";
 	public static final String NULL = "NULL";

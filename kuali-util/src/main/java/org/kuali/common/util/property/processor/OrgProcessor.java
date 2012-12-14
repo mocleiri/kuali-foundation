@@ -28,8 +28,10 @@ import org.springframework.util.Assert;
 public class OrgProcessor implements PropertyProcessor {
 	private static final Logger logger = LoggerFactory.getLogger(OrgProcessor.class);
 
-	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
+
+	String organizationGroupCodeSuffix = Constants.GROUP_ID + "." + Constants.DEFAULT_CODE_SUFFIX;
+	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
 	String organizationGroupId;
 	String groupId;
 
@@ -52,7 +54,7 @@ public class OrgProcessor implements PropertyProcessor {
 		Assert.notNull(groupId, "groupId is null");
 
 		String organizationCode = OrgUtils.getOrgCode(organizationGroupId);
-		String organizationCodeProperty = organizationCode + ".groupId.code";
+		String organizationCodeProperty = organizationCode + "." + organizationGroupCodeSuffix;
 		String groupCode = OrgUtils.getGroupCode(organizationGroupId, groupId);
 		PropertyUtils.addOrOverrideProperty(properties, organizationCodeProperty, organizationCode, propertyOverwriteMode);
 		PropertyUtils.addOrOverrideProperty(properties, groupCodeProperty, groupCode, propertyOverwriteMode);
@@ -88,6 +90,14 @@ public class OrgProcessor implements PropertyProcessor {
 
 	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
+	}
+
+	public String getOrganizationGroupCodeSuffix() {
+		return organizationGroupCodeSuffix;
+	}
+
+	public void setOrganizationGroupCodeSuffix(String organizationGroupCodeSuffix) {
+		this.organizationGroupCodeSuffix = organizationGroupCodeSuffix;
 	}
 
 }
