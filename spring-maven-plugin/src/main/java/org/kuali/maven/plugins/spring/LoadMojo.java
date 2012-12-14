@@ -57,8 +57,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
  * </pre>
  *
- * Executing {@code mvn spring:load} will then filter {@code my-context.xml} replacing <code>${maven.spring.properties>}</code> with the
- * file Maven properties were exported to. When the Spring context is loaded, Maven properties will be used to perform placeholder
+ * Executing {@code mvn spring:load} will then filter {@code my-context.xml} replacing <code>${maven.spring.properties}</code> with the
+ * location Maven properties were exported to. When the Spring context is loaded, Maven properties will be used to perform placeholder
  * substitution. This makes it possible to easily take advantage of Maven configuration like {@code project.artifactId} in the Spring
  * context.<br>
  * <br>
