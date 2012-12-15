@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
@@ -42,6 +43,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	String encoding;
 	String missingLocationsMode = Mode.INFORM.name();
 	Properties locationHelperProperties;
+	String locationHelperInclude;
+	String locationHelperExclude;
 	List<String> locationHelperIncludes;
 	List<String> locationHelperExcludes;
 	String organizationGroupId;
@@ -175,9 +178,9 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 
-		if (locationHelperIncludes != null || locationHelperExcludes != null) {
-			processors.add(new TrimProcessor(locationHelperIncludes, locationHelperExcludes));
-		}
+		this.locationHelperIncludes = CollectionUtils.sortedMerge(locationHelperIncludes, locationHelperInclude);
+		this.locationHelperExcludes = CollectionUtils.sortedMerge(locationHelperExcludes, locationHelperExclude);
+		processors.add(new TrimProcessor(locationHelperIncludes, locationHelperExcludes));
 
 		return processors;
 	}
@@ -254,6 +257,22 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setLocationHelperExcludes(List<String> locationHelperExcludes) {
 		this.locationHelperExcludes = locationHelperExcludes;
+	}
+
+	public String getLocationHelperInclude() {
+		return locationHelperInclude;
+	}
+
+	public void setLocationHelperInclude(String locationHelperInclude) {
+		this.locationHelperInclude = locationHelperInclude;
+	}
+
+	public String getLocationHelperExclude() {
+		return locationHelperExclude;
+	}
+
+	public void setLocationHelperExclude(String locationHelperExclude) {
+		this.locationHelperExclude = locationHelperExclude;
 	}
 
 }
