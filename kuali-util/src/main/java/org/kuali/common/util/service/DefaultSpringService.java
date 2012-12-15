@@ -17,10 +17,8 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.util.List;
-import java.util.Properties;
 
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.spring.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +36,11 @@ public class DefaultSpringService implements SpringService {
 		Assert.notNull(context.getProperties());
 		Assert.notNull(context.getPropertiesBeanName());
 
-		Properties duplicate = PropertyUtils.duplicate(context.getProperties());
 		String propertiesBeanName = context.getPropertiesBeanName();
-
 		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
 		parent.refresh();
-		logger.info("Registering {} properties under the bean name [{}]", duplicate.size(), propertiesBeanName);
-		parent.getBeanFactory().registerSingleton(propertiesBeanName, duplicate);
+		logger.info("Registering {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
+		parent.getBeanFactory().registerSingleton(propertiesBeanName, context.getProperties());
 
 		String[] locations = getLocations(context.getLocations());
 
