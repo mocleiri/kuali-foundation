@@ -206,9 +206,7 @@ public class PropertyUtils {
 	 * If <code>includes</code> is empty return true.<br>
 	 * If <code>includes</code> is not empty, return true if, and only if, <code>value</code> matches a pattern from the
 	 * <code>includes</code> list.<br>
-	 * A single wildcard <code>*</code> pattern is supported for <code>includes</code> and <code>excludes</code>.<br>
-	 * If <code>value</code> contains the wildcard symbol <code>*</code>, <code>IllegalArgumentException</code> is thrown if the
-	 * include/exclude lists also contain strings with the wildcard symbol <code>*</code>
+	 * A single wildcard <code>*</code> is supported for <code>includes</code> and <code>excludes</code>.<br>
 	 */
 	public static final boolean include(String value, List<String> includes, List<String> excludes) {
 		if (isSingleWildcardMatch(value, excludes)) {
@@ -235,37 +233,38 @@ public class PropertyUtils {
 	 * {@code false}. Any {@code pattern} containing more than a single wildcard throws {@code IllegalArgumentException}.
 	 *
 	 * <pre>
-	 * PropertyUtils.singleWildcardMatch(null, null)             = true
-	 * PropertyUtils.singleWildcardMatch(null, *)                = false
-	 * PropertyUtils.singleWildcardMatch(*, null)                = false
-	 * PropertyUtils.singleWildcardMatch(*, "*")                 = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd")        = false
-	 * PropertyUtils.singleWildcardMatch("abcdef", "*def")       = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*")       = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef")      = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def")    = true
-	 * PropertyUtils.singleWildcardMatch(*, "**")                = IllegalArgumentException
+	 * PropertyUtils.singleWildcardMatch(null, null)          = true
+	 * PropertyUtils.singleWildcardMatch(null, *)             = false
+	 * PropertyUtils.singleWildcardMatch(*, null)             = false
+	 * PropertyUtils.singleWildcardMatch(*, "*")              = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd")     = false
+	 * PropertyUtils.singleWildcardMatch("abcdef", "*def")    = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*")    = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef")   = true
+	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def") = true
+	 * PropertyUtils.singleWildcardMatch(*, "**")             = IllegalArgumentException
 	 * </pre>
 	 */
 	public static final boolean isSingleWildcardMatch(String value, String pattern) {
 		if (value == null && pattern == null) {
 			// both are null
 			return true;
-		} else if (value != null && pattern == null) {
-			// pattern is null but value is not
+		} else if (value != null && pattern == null || value == null && pattern != null) {
+			// One is null, but not the other
 			return false;
-		} else if (value == null && pattern != null) {
-			// value is null but pattern is not
-			return false;
-		} else if (StringUtils.countMatches(pattern, Constants.WILDCARD) > 1) {
-			throw new IllegalArgumentException("Pattern [" + pattern + "] is not supported.  Only one wildcard is allowed in the pattern");
 		} else if (pattern.equals(Constants.WILDCARD)) {
 			// neither one is null and pattern is the wildcard. Value is irrelevant
 			return true;
+		} else if (StringUtils.countMatches(pattern, Constants.WILDCARD) > 1) {
+			// More than one wildcard in the pattern is not supported
+			throw new IllegalArgumentException("Pattern [" + pattern + "] is not supported.  Only one wildcard is allowed in the pattern");
 		} else if (!StringUtils.contains(pattern, Constants.WILDCARD)) {
 			// Neither one is null and there is no wildcard in the pattern. They must match exactly
 			return StringUtils.equals(value, pattern);
 		} else {
+			// The pattern contains 1 (and only 1) wildcard
+			// Make sure value starts with the characters to the left of the wildcard
+			// and ends with the characters to the right of the wildcard
 			int pos = StringUtils.indexOf(pattern, Constants.WILDCARD);
 			int suffixPos = pos + Constants.WILDCARD.length();
 			boolean nullPrefix = pos == 0;
