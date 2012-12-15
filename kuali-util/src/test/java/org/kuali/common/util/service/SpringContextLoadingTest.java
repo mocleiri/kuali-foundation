@@ -3,10 +3,7 @@ package org.kuali.common.util.service;
 import java.util.Properties;
 
 import org.junit.Test;
-import org.kuali.common.util.LocationUtils;
-import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringContextLoadingTest {
 
@@ -14,9 +11,14 @@ public class SpringContextLoadingTest {
 	public void test() {
 
 		Properties properties = new Properties();
-		properties.setProperty("foo", "bar");
-		String contextXML = LocationUtils.toString("classpath:");
-		Resource resource = new ByteArrayResource(contextXML.getBytes());
-		GenericXmlApplicationContext springContext = new GenericXmlApplicationContext();
+		properties.setProperty("spring.message", "Good bye!");
+
+		ClassPathXmlApplicationContext parentContext = new ClassPathXmlApplicationContext();
+		parentContext.refresh();
+		parentContext.getBeanFactory().registerSingleton("properties", properties);
+
+		String[] locations = new String[] { "classpath:org/kuali/common/util/child-context.xml" };
+
+		new ClassPathXmlApplicationContext(locations, parentContext);
 	}
 }
