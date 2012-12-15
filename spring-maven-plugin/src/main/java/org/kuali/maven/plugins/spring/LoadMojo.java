@@ -15,6 +15,7 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -109,22 +110,38 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
-		// We don't want to allow the overriding of properties Maven uses internally
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
 		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
 
-		if (locations == null) {
-			this.locations = Collections.singletonList(location);
-		} else {
-			this.locations.add(0, location);
-		}
+		// Combine the list with the single value
+		this.locations = combine(locations, location);
 
+		// Invoke the service to load the context
+		invokeService(serviceClassname);
+	}
+
+	protected void invokeService(String serviceClassname) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
 			SpringService service = (SpringService) serviceClass.newInstance();
 			service.load(this);
-		} catch (Exception e) {
-			throw new MojoExecutionException("Unexpected error", e);
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		} catch (InstantiationException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		}
+	}
+
+	protected List<String> combine(List<String> locations, String location) {
+		if (locations == null) {
+			return Collections.singletonList(location);
+		} else {
+			// Insert location as the first element in the list
+			List<String> combined = new ArrayList<String>(locations);
+			combined.add(0, location);
+			return combined;
 		}
 	}
 
