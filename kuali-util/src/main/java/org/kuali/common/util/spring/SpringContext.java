@@ -15,40 +15,18 @@
  */
 package org.kuali.common.util.spring;
 
-import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.springframework.util.PropertyPlaceholderHelper;
-
 public interface SpringContext {
 
-	GlobalPropertiesMode getGlobalPropertiesMode();
+	List<String> getLocations();
 
-	PropertyPlaceholderHelper getHelper();
+	List<String> getIncludes();
 
-	String getEncoding();
+	List<String> getExcludes();
 
-	String getContextLocation();
-
-	File getWorkingDir();
-
-	boolean isFilterContext();
-
-	List<String> getFilterIncludes();
-
-	List<String> getFilterExcludes();
-
-	List<String> getExportIncludes();
-
-	List<String> getExportExcludes();
-
-	boolean isExportProperties();
-
-	File getExportPropertiesFile();
-
-	String getExportPropertiesFileProperty();
+	String getPropertiesBeanName();
 
 	Properties getProperties();
 

@@ -15,146 +15,51 @@
  */
 package org.kuali.common.util.spring;
 
-import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.springframework.util.PropertyPlaceholderHelper;
-
 public class DefaultSpringContext implements SpringContext {
 
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
-	String encoding;
-	String contextLocation;
-	File workingDir;
-	boolean filterContext;
-	List<String> filterIncludes;
-	List<String> filterExcludes;
-	List<String> exportIncludes;
-	List<String> exportExcludes;
-	boolean exportProperties;
-	File exportPropertiesFile;
-	String exportPropertiesFileProperty;
+	List<String> locations;
+	List<String> includes;
+	List<String> excludes;
+	String propertiesBeanName;
 	Properties properties;
 
 	@Override
-    public PropertyPlaceholderHelper getHelper() {
-		return helper;
+    public List<String> getLocations() {
+		return locations;
 	}
 
-	public void setHelper(PropertyPlaceholderHelper helper) {
-		this.helper = helper;
-	}
-
-	@Override
-    public GlobalPropertiesMode getGlobalPropertiesMode() {
-		return globalPropertiesMode;
-	}
-
-	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
-		this.globalPropertiesMode = globalPropertiesMode;
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 
 	@Override
-    public String getEncoding() {
-		return encoding;
+    public List<String> getIncludes() {
+		return includes;
 	}
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
-	@Override
-    public String getContextLocation() {
-		return contextLocation;
-	}
-
-	public void setContextLocation(String contextLocation) {
-		this.contextLocation = contextLocation;
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
 	}
 
 	@Override
-    public File getWorkingDir() {
-		return workingDir;
+    public List<String> getExcludes() {
+		return excludes;
 	}
 
-	public void setWorkingDir(File workingDir) {
-		this.workingDir = workingDir;
-	}
-
-	@Override
-    public boolean isFilterContext() {
-		return filterContext;
-	}
-
-	public void setFilterContext(boolean filterContext) {
-		this.filterContext = filterContext;
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 	@Override
-    public List<String> getFilterIncludes() {
-		return filterIncludes;
+    public String getPropertiesBeanName() {
+		return propertiesBeanName;
 	}
 
-	public void setFilterIncludes(List<String> filterIncludes) {
-		this.filterIncludes = filterIncludes;
-	}
-
-	@Override
-    public List<String> getFilterExcludes() {
-		return filterExcludes;
-	}
-
-	public void setFilterExcludes(List<String> filterExcludes) {
-		this.filterExcludes = filterExcludes;
-	}
-
-	@Override
-    public List<String> getExportIncludes() {
-		return exportIncludes;
-	}
-
-	public void setExportIncludes(List<String> exportIncludes) {
-		this.exportIncludes = exportIncludes;
-	}
-
-	@Override
-    public List<String> getExportExcludes() {
-		return exportExcludes;
-	}
-
-	public void setExportExcludes(List<String> exportExcludes) {
-		this.exportExcludes = exportExcludes;
-	}
-
-	@Override
-    public boolean isExportProperties() {
-		return exportProperties;
-	}
-
-	public void setExportProperties(boolean exportProperties) {
-		this.exportProperties = exportProperties;
-	}
-
-	@Override
-    public File getExportPropertiesFile() {
-		return exportPropertiesFile;
-	}
-
-	public void setExportPropertiesFile(File exportPropertiesFile) {
-		this.exportPropertiesFile = exportPropertiesFile;
-	}
-
-	@Override
-    public String getExportPropertiesFileProperty() {
-		return exportPropertiesFileProperty;
-	}
-
-	public void setExportPropertiesFileProperty(String exportPropertiesFileProperty) {
-		this.exportPropertiesFileProperty = exportPropertiesFileProperty;
+	public void setPropertiesBeanName(String propertiesBeanName) {
+		this.propertiesBeanName = propertiesBeanName;
 	}
 
 	@Override
@@ -165,5 +70,4 @@ public class DefaultSpringContext implements SpringContext {
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
-
 }

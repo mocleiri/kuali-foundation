@@ -16,19 +16,15 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.spring.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.util.Assert;
 
 public class DefaultSpringService implements SpringService {
@@ -37,94 +33,44 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(SpringContext context) {
-		Assert.notNull(context, "context is null");
-		Assert.notNull(context.getContextLocation(), "context location is null");
-		logger.info("Context Location - {}", context.getContextLocation());
-		logger.info("Filter Context - {}", context.isFilterContext());
-		logger.info("Export Properties - {}", context.isExportProperties());
-		if (context.isFilterContext()) {
-			logger.info("Working Dir - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
-		}
-		try {
-			Properties properties = getProperties(context);
-			doExport(context, properties);
-			doLoad(context, properties);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected error loading context", e);
-		}
-	}
+		Assert.notNull(context);
+		Assert.notNull(context.getLocations());
+		Assert.notNull(context.getProperties());
+		Assert.notNull(context.getPropertiesBeanName());
 
-	protected void doExport(SpringContext context, Properties properties) {
-		if (!context.isExportProperties()) {
-			return;
-		}
-		Properties duplicate = PropertyUtils.duplicate(properties);
-		PropertyUtils.trim(duplicate, context.getExportIncludes(), context.getExportExcludes());
-		PropertyUtils.store(duplicate, context.getExportPropertiesFile(), context.getEncoding());
-	}
+		Properties duplicate = PropertyUtils.duplicate(context.getProperties());
+		PropertyUtils.trim(duplicate, context.getIncludes(), context.getExcludes());
+		String propertiesBeanName = context.getPropertiesBeanName();
 
-	protected Properties getProperties(SpringContext context) {
-		Properties properties = context.getProperties();
-		if (context.isExportProperties()) {
-			Assert.notNull(context.getExportPropertiesFile(), "export properties file is null");
-			Assert.notNull(context.getExportPropertiesFileProperty(), "export properties file property is null");
-			String value = LocationUtils.getURLString(context.getExportPropertiesFile());
-			String name = context.getExportPropertiesFileProperty();
-			properties.setProperty(name, value);
-		}
-		PropertyUtils.process(properties, new GlobalOverrideProcessor(context.getGlobalPropertiesMode()));
-		return properties;
-	}
+		logger.info("Registring {} properties under the bean name [{}]", duplicate.size(), propertiesBeanName);
 
-	protected ApplicationContext doLoad(SpringContext context, Properties properties) throws IOException {
-		boolean exists = LocationUtils.exists(context.getContextLocation());
-		if (!exists) {
-			throw new IllegalArgumentException(context.getContextLocation() + " does not exist");
-		}
+		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
+		parent.refresh();
+		parent.getBeanFactory().registerSingleton(propertiesBeanName, duplicate);
 
-		boolean filter = context.isFilterContext();
-		boolean isFile = LocationUtils.isExistingFile(context.getContextLocation());
-		boolean loadFromClasspath = !filter && !isFile;
-		if (loadFromClasspath) {
-			return new ClassPathXmlApplicationContext(context.getContextLocation());
+		String[] locations = getLocations(context.getLocations());
+
+		if (locations.length == 1) {
+			logger.info("Loading [{}]", locations[0]);
 		} else {
-			File file = getFile(context, properties);
-			return getApplicationContext(file);
+			logger.info("Loading {} context locations", locations.length);
 		}
+		new ClassPathXmlApplicationContext(locations, parent);
 	}
 
-	protected File getNewFile(SpringContext context) {
-		String filename = LocationUtils.getFilename(context.getContextLocation());
-		File file = new File(context.getWorkingDir(), filename);
-		return file;
-	}
-
-	protected File createFilteredContextFile(SpringContext context, Properties properties) throws IOException {
-		String content = getFilteredContent(context, properties);
-		File file = getNewFile(context);
-		logger.info("Creating [" + file.getCanonicalPath() + "]");
-		FileUtils.write(file, content, context.getEncoding());
-		return file;
-	}
-
-	protected File getFile(SpringContext context, Properties properties) throws IOException {
-		if (context.isFilterContext()) {
-			return createFilteredContextFile(context, properties);
-		} else {
-			return new File(context.getContextLocation());
+	protected String[] getLocations(List<String> locations) {
+		for (int i = 0; i < locations.size(); i++) {
+			String location = locations.get(i);
+			if (!LocationUtils.exists(location)) {
+				throw new IllegalArgumentException("Location [" + location + "] does not exist");
+			}
+			if (LocationUtils.isExistingFile(location)) {
+				File file = new File(location);
+				// Convert the raw filename to a fully qualified file system url
+				locations.set(i, LocationUtils.getURLString(file));
+			}
 		}
+		return locations.toArray(new String[locations.size()]);
 	}
 
-	protected ApplicationContext getApplicationContext(File file) {
-		String url = LocationUtils.getURLString(file);
-		return new FileSystemXmlApplicationContext(url);
-	}
-
-	protected String getFilteredContent(SpringContext context, Properties properties) {
-		Properties duplicate = PropertyUtils.duplicate(properties);
-		PropertyUtils.trim(duplicate, context.getFilterIncludes(), context.getFilterExcludes());
-		String content = LocationUtils.toString(context.getContextLocation(), context.getEncoding());
-		logger.info("Filtering [" + context.getContextLocation() + "] using " + duplicate.size() + " properties");
-		return context.getHelper().replacePlaceholders(content, duplicate);
-	}
 }
