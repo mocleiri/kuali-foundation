@@ -22,7 +22,6 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
@@ -58,34 +57,6 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private List<String> locations;
 
 	/**
-	 * Comma separated list of properties to include.
-	 *
-	 * @parameter expression="${spring.include}"
-	 */
-	private String include;
-
-	/**
-	 * Comma separated list of properties to exclude.
-	 *
-	 * @parameter expression="${spring.exclude}"
-	 */
-	private String exclude;
-
-	/**
-	 * List of properties to include. All properties are included by default.
-	 *
-	 * @parameter
-	 */
-	private List<String> includes;
-
-	/**
-	 * List of properties to exclude. No properties are excluded by default.
-	 *
-	 * @parameter
-	 */
-	private List<String> excludes;
-
-	/**
 	 * Additional properties to supply to the Spring context. Properties provided here are added to Maven properties.
 	 *
 	 * @parameter
@@ -117,10 +88,6 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
 		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
 
-		// Merge CSV values with explicitly provided lists
-		this.includes = CollectionUtils.sortedMerge(includes, include);
-		this.excludes = CollectionUtils.sortedMerge(excludes, exclude);
-
 		if (locations == null) {
 			this.locations = Collections.singletonList(location);
 		} else {
@@ -145,7 +112,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public List<String> getLocations() {
+    public List<String> getLocations() {
 		return locations;
 	}
 
@@ -153,42 +120,8 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.locations = locations;
 	}
 
-	public String getInclude() {
-		return include;
-	}
-
-	public void setInclude(String include) {
-		this.include = include;
-	}
-
-	public String getExclude() {
-		return exclude;
-	}
-
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
-	}
-
 	@Override
-	public List<String> getIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-
-	@Override
-	public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
-	}
-
-	@Override
-	public Properties getProperties() {
+    public Properties getProperties() {
 		return properties;
 	}
 
@@ -197,7 +130,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public String getPropertiesBeanName() {
+    public String getPropertiesBeanName() {
 		return propertiesBeanName;
 	}
 
