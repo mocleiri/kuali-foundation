@@ -39,13 +39,11 @@ public class DefaultSpringService implements SpringService {
 		Assert.notNull(context.getPropertiesBeanName());
 
 		Properties duplicate = PropertyUtils.duplicate(context.getProperties());
-		PropertyUtils.trim(duplicate, context.getIncludes(), context.getExcludes());
 		String propertiesBeanName = context.getPropertiesBeanName();
-
-		logger.info("Registering {} properties under the bean name [{}]", duplicate.size(), propertiesBeanName);
 
 		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
 		parent.refresh();
+		logger.info("Registering {} properties under the bean name [{}]", duplicate.size(), propertiesBeanName);
 		parent.getBeanFactory().registerSingleton(propertiesBeanName, duplicate);
 
 		String[] locations = getLocations(context.getLocations());

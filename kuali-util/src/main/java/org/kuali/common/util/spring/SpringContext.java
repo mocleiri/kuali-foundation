@@ -22,10 +22,6 @@ public interface SpringContext {
 
 	List<String> getLocations();
 
-	List<String> getIncludes();
-
-	List<String> getExcludes();
-
 	String getPropertiesBeanName();
 
 	Properties getProperties();

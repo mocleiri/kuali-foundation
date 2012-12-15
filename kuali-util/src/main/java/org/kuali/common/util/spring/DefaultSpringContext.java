@@ -21,36 +21,16 @@ import java.util.Properties;
 public class DefaultSpringContext implements SpringContext {
 
 	List<String> locations;
-	List<String> includes;
-	List<String> excludes;
 	String propertiesBeanName;
 	Properties properties;
 
 	@Override
-    public List<String> getLocations() {
+	public List<String> getLocations() {
 		return locations;
 	}
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
-	}
-
-	@Override
-    public List<String> getIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-
-	@Override
-    public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
 	}
 
 	@Override
@@ -70,4 +50,5 @@ public class DefaultSpringContext implements SpringContext {
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
+
 }
