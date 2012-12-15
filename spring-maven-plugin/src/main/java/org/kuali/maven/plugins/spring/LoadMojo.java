@@ -27,13 +27,27 @@ import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
 
 /**
- * This mojo provides a lightweight integration between Spring and Maven centered around <code>java.util.Properties</code>. Given the
- * location of a Spring XML context, the mojo loads it, but first injects a <code>Properties</code> object containing an augmented set of
- * Maven properties. The properties are registered in the context under <code>propertiesBeanName</code> which defaults to
- * <code>maven.spring.properties</code>. One typical use of the injected Maven properties is for replacing property placeholders.
+ * <p>
+ * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration between Spring and Maven centered
+ * around <code>java.util.Properties</code>. Given the location of a Spring XML context, the mojo loads it, but first injects a
+ * <code>java.util.Properties</code> object containing an augmented set of Maven properties. The properties are registered in the context as
+ * a bean under <code>propertiesBeanName</code> which defaults to <code>maven.spring.properties</code>. One typical use of the injected
+ * Maven properties in a Spring context is for replacing property placeholders.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
  *
  * <pre>
- *  &lt;context:property-placeholder properties-ref="maven.spring.properties" /&gt;
+ *  &lt;beans&gt;
+ *
+ *   &lt;context:property-placeholder properties-ref="maven.spring.properties" /&gt;
+ *
+ *   &lt;bean id="artifactId" class="java.lang.String"&gt;
+ *    &lt;constructor-arg value="${project.artifactId}" /&gt;
+ *   &lt;/bean&gt;
+ *
+ *  &lt;/beans&gt;
  * </pre>
  *
  * @goal load
@@ -73,7 +87,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private Properties properties;
 
 	/**
-	 * The name to use when registering the Maven properties in the Spring context.
+	 * The name to use when registering the Maven properties as a bean in the Spring context.
 	 *
 	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.spring.properties"
 	 * @required
