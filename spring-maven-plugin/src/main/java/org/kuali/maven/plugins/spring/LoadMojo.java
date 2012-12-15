@@ -30,7 +30,7 @@ import org.kuali.common.util.spring.SpringContext;
  * <p>
  * This mojo provides the ability to load a Spring context XML file using a lightweight integration between Spring and Maven centered around
  * <code>java.util.Properties</code>. Given the location of a Spring XML context, the mojo loads and injects it with a
- * <code>java.util.Properties</code> object containing an augmented set of Maven properties. The <code>Properties</code> object is
+ * <code>java.util.Properties</code> object containing an augmented set of Maven properties. The <code>java.util.Properties</code> object is
  * registered in the context as a bean under <code>propertiesBeanName</code> which defaults to <code>maven.spring.properties</code>. One
  * typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
  * </p>
@@ -64,7 +64,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private MavenProject project;
 
 	/**
-	 * Location of a Spring context XML file. This can be a file on the file system, or any URL Spring's Resource loading framework
+	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework
 	 * understands eg {@code classpath:my-context.xml}
 	 *
 	 * @parameter expression="${spring.location}" default-value="classpath:${project.artifactId}-context.xml"
