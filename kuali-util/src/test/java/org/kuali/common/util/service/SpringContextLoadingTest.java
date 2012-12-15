@@ -13,12 +13,13 @@ public class SpringContextLoadingTest {
 		Properties properties = new Properties();
 		properties.setProperty("spring.message", "Good bye!");
 
-		ClassPathXmlApplicationContext parentContext = new ClassPathXmlApplicationContext();
-		parentContext.refresh();
-		parentContext.getBeanFactory().registerSingleton("properties", properties);
+		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
+		parent.refresh();
+		parent.getBeanFactory().registerSingleton("properties", properties);
 
 		String[] locations = new String[] { "classpath:org/kuali/common/util/child-context.xml" };
 
-		new ClassPathXmlApplicationContext(locations, parentContext);
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(locations, false, parent);
+		context.refresh();
 	}
 }
