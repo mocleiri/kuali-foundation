@@ -28,8 +28,8 @@ import org.kuali.common.util.spring.SpringContext;
 
 /**
  * <p>
- * This mojo provides the ability to load a Spring context XML file using a lightweight integration between Spring and Maven centered around
- * <code>java.util.Properties</code>. Given the location of a Spring XML context, the mojo loads and injects it with a
+ * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration technique between Spring and Maven
+ * centered around <code>java.util.Properties</code>. Given the location of a Spring XML context, the mojo loads and injects it with a
  * <code>java.util.Properties</code> object containing an augmented set of Maven properties. The <code>java.util.Properties</code> object is
  * registered in the context as a bean under <code>propertiesBeanName</code> which defaults to <code>maven.spring.properties</code>. One
  * typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
