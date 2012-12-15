@@ -42,7 +42,7 @@ public class DefaultSpringService implements SpringService {
 		PropertyUtils.trim(duplicate, context.getIncludes(), context.getExcludes());
 		String propertiesBeanName = context.getPropertiesBeanName();
 
-		logger.info("Registring {} properties under the bean name [{}]", duplicate.size(), propertiesBeanName);
+		logger.info("Registering {} properties under the bean name [{}]", duplicate.size(), propertiesBeanName);
 
 		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
 		parent.refresh();
