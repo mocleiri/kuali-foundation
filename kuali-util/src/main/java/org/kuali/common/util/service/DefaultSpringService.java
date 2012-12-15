@@ -39,7 +39,7 @@ public class DefaultSpringService implements SpringService {
 		String propertiesBeanName = context.getPropertiesBeanName();
 		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
 		parent.refresh();
-		logger.info("Registering {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
+		logger.info("Registering a properties object containing {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
 		parent.getBeanFactory().registerSingleton(propertiesBeanName, context.getProperties());
 
 		String[] locations = getLocations(context.getLocations());

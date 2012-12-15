@@ -160,6 +160,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	protected List<PropertyProcessor> getLocationHelperProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
+		this.locationHelperIncludes = CollectionUtils.sortedMerge(locationHelperIncludes, locationHelperInclude);
+		this.locationHelperExcludes = CollectionUtils.sortedMerge(locationHelperExcludes, locationHelperExclude);
+		processors.add(new TrimProcessor(locationHelperIncludes, locationHelperExcludes));
+
 		String groupId = getGroupId();
 		if (organizationGroupId != null && groupId != null) {
 			processors.add(new OrgProcessor(organizationGroupId, groupId));
@@ -177,10 +181,6 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
-
-		this.locationHelperIncludes = CollectionUtils.sortedMerge(locationHelperIncludes, locationHelperInclude);
-		this.locationHelperExcludes = CollectionUtils.sortedMerge(locationHelperExcludes, locationHelperExclude);
-		processors.add(new TrimProcessor(locationHelperIncludes, locationHelperExcludes));
 
 		return processors;
 	}
