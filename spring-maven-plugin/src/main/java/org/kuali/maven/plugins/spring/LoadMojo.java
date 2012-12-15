@@ -1,6 +1,3 @@
-
-
-
 /**
  * Copyright 2011-2012 The Kuali Foundation
  *
@@ -18,7 +15,7 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -27,53 +24,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Load a Spring context XML file optionally filtering it using Maven properties before doing so. If {@code exportProperties} is true, Maven
- * properties are exported to the file system prior to loading and filtering the Spring context. The path to the exported properties file is
- * automatically added to the Maven properties under the key {@code maven.spring.properties}. This combination makes it simple to inject the
- * complete set of Maven properties into a Spring context.<br>
- * <br>
- *
- * One method for doing so, is to include this configuration in a Maven pom:
- *
- * <pre>
- * &lt;plugin&gt;
- *   &lt;groupId&gt;org.kuali.maven.plugins&lt;/groupId&gt;
- *   &lt;artifactId&gt;spring-maven-plugin&lt;/artifactId&gt;
- *   &lt;configuration&gt;
- *     &lt;filterContext&gt;true&lt;/filterContext&gt;
- *     &lt;filterInclude&gt;maven.spring.properties&lt;/filterInclude&gt;
- *     &lt;contextLocation&gt;classpath:my-context.xml&lt;/contextLocation&gt;
- *   &lt;/configuration&gt;
- * &lt;/plugin&gt;
- * </pre>
- *
- * and then include this configuration in a Spring context XML file:
- *
- * <pre>
- * &lt;context:property-placeholder location="${maven.spring.properties}" /&gt;
- * </pre>
- *
- * Using this configuration, {@code mvn spring:load} will filter {@code my-context.xml} replacing <code>${maven.spring.properties}</code>
- * with the location of the properties file Maven properties were exported to. When the Spring context is loaded, Maven properties will be
- * used to perform placeholder substitution. This makes it possible to easily take advantage of Maven configuration like
- * {@code project.artifactId} in the Spring context.<br>
- * <br>
- *
- * For example:
- *
- * <pre>
- *   &lt;bean id="artifactId" class="java.lang.String"&gt;
- *     &lt;constructor-arg value="${project.artifactId}" /&gt;
- *   &lt;/bean&gt;
- * </pre>
- *
  * @goal load
  */
 public class LoadMojo extends AbstractMojo implements SpringContext {
@@ -88,90 +42,48 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private MavenProject project;
 
 	/**
-	 * Character encoding for the context XML file
-	 *
-	 * @parameter expression="${spring.encoding}" default-value="${project.build.sourceEncoding}"
-	 */
-	private String encoding;
-
-	/**
 	 * Location of a Spring context XML file. This can be any URL Spring's Resource loading framework understands eg
 	 * {@code classpath:my-context.xml}
 	 *
-	 * @parameter expression="${spring.contextLocation}" default-value="classpath:${project.artifactId}-context.xml"
+	 * @parameter expression="${spring.location}" default-value="classpath:${project.artifactId}-context.xml"
 	 * @required
 	 */
-	private String contextLocation;
+	private String location;
 
 	/**
-	 * Working directory for the plugin.
+	 * List of additional Spring context XML files to load (if any).
 	 *
-	 * @parameter expression="${spring.workingDir}" default-value="${project.build.directory}/spring"
+	 * @parameter
 	 */
-	private File workingDir;
+	private List<String> locations;
 
 	/**
-	 * If true {@code contextLocation} is filtered before being loaded
+	 * Comma separated list of properties to include.
 	 *
-	 * @parameter expression="${spring.filterContext}" default-value="false"
+	 * @parameter expression="${spring.include}"
 	 */
-	private boolean filterContext;
+	private String include;
+
+	/**
+	 * Comma separated list of properties to exclude.
+	 *
+	 * @parameter expression="${spring.exclude}"
+	 */
+	private String exclude;
 
 	/**
 	 * List of properties to include. All properties are included by default.
 	 *
 	 * @parameter
 	 */
-	private List<String> exportIncludes;
+	private List<String> includes;
 
 	/**
 	 * List of properties to exclude. No properties are excluded by default.
 	 *
 	 * @parameter
 	 */
-	private List<String> exportExcludes;
-
-	/**
-	 * Comma separated list of properties to include in the export
-	 *
-	 * @parameter expression="${spring.exportInclude}"
-	 */
-	private String exportInclude;
-
-	/**
-	 * Comma separated list of properties to exclude from the export
-	 *
-	 * @parameter expression="${spring.exportExclude}"
-	 */
-	private String exportExclude;
-
-	/**
-	 * Comma separated list of properties to include when filtering the context
-	 *
-	 * @parameter expression="${spring.filterInclude}"
-	 */
-	private String filterInclude;
-
-	/**
-	 * Comma separated list of properties to exclude when filtering the context
-	 *
-	 * @parameter expression="${spring.filterExclude}"
-	 */
-	private String filterExclude;
-
-	/**
-	 * List of properties to include. All properties are included by default.
-	 *
-	 * @parameter
-	 */
-	private List<String> filterIncludes;
-
-	/**
-	 * List of properties to exclude. No properties are excluded by default.
-	 *
-	 * @parameter
-	 */
-	private List<String> filterExcludes;
+	private List<String> excludes;
 
 	/**
 	 * Additional properties to supply to the Spring context. Properties provided here are added to Maven properties.
@@ -181,25 +93,11 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private Properties properties;
 
 	/**
-	 * If true, Maven properties are exported to the file system prior to filtering and loading the Spring context.
+	 * The name of the bean the properties will registered as in the context
 	 *
-	 * @parameter expression="${spring.exportProperties}" default-value="false"
+	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.spring.properties"
 	 */
-	private boolean exportProperties;
-
-	/**
-	 * The file to export properties to when {@code exportProperties} is {@code true}
-	 *
-	 * @parameter expression="${spring.exportPropertiesFile}" default-value="${project.build.directory}/spring/maven.properties"
-	 */
-	private File exportPropertiesFile;
-
-	/**
-	 * If {@code exportProperties} is true, the path to the exported properties file will be included as a property under this key
-	 *
-	 * @parameter expression="${spring.exportPropertiesFileProperty}" default-value="maven.spring.properties"
-	 */
-	private String exportPropertiesFileProperty;
+	private String propertiesBeanName;
 
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
@@ -208,11 +106,6 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	 * @required
 	 */
 	private String serviceClassname;
-
-	// The Maven convention is for system properties and environment variables to override properties provided elsewhere
-	// This default setting follows that convention
-	GlobalPropertiesMode globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE;
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
 	public void execute() throws MojoExecutionException {
@@ -225,10 +118,14 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
 
 		// Merge CSV values with explicitly provided lists
-		this.filterIncludes = CollectionUtils.sortedMerge(filterIncludes, filterInclude);
-		this.filterExcludes = CollectionUtils.sortedMerge(filterExcludes, filterExclude);
-		this.exportIncludes = CollectionUtils.sortedMerge(exportIncludes, exportInclude);
-		this.exportExcludes = CollectionUtils.sortedMerge(exportExcludes, exportExclude);
+		this.includes = CollectionUtils.sortedMerge(includes, include);
+		this.excludes = CollectionUtils.sortedMerge(excludes, exclude);
+
+		if (locations == null) {
+			this.locations = Collections.singletonList(location);
+		} else {
+			this.locations.add(0, location);
+		}
 
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
@@ -239,108 +136,55 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		}
 	}
 
-	@Override
-	public String getEncoding() {
-		return encoding;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
-	@Override
-	public String getContextLocation() {
-		return contextLocation;
-	}
-
-	public void setContextLocation(String contextLocation) {
-		this.contextLocation = contextLocation;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	@Override
-	public File getWorkingDir() {
-		return workingDir;
+	public List<String> getLocations() {
+		return locations;
 	}
 
-	public void setWorkingDir(File workingDir) {
-		this.workingDir = workingDir;
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 
-	@Override
-	public boolean isFilterContext() {
-		return filterContext;
+	public String getInclude() {
+		return include;
 	}
 
-	public void setFilterContext(boolean filterContext) {
-		this.filterContext = filterContext;
+	public void setInclude(String include) {
+		this.include = include;
 	}
 
-	@Override
-	public List<String> getExportIncludes() {
-		return exportIncludes;
+	public String getExclude() {
+		return exclude;
 	}
 
-	public void setExportIncludes(List<String> exportIncludes) {
-		this.exportIncludes = exportIncludes;
-	}
-
-	@Override
-	public List<String> getExportExcludes() {
-		return exportExcludes;
-	}
-
-	public void setExportExcludes(List<String> exportExcludes) {
-		this.exportExcludes = exportExcludes;
-	}
-
-	public String getExportInclude() {
-		return exportInclude;
-	}
-
-	public void setExportInclude(String exportInclude) {
-		this.exportInclude = exportInclude;
-	}
-
-	public String getExportExclude() {
-		return exportExclude;
-	}
-
-	public void setExportExclude(String exportExclude) {
-		this.exportExclude = exportExclude;
-	}
-
-	public String getFilterInclude() {
-		return filterInclude;
-	}
-
-	public void setFilterInclude(String filterInclude) {
-		this.filterInclude = filterInclude;
-	}
-
-	public String getFilterExclude() {
-		return filterExclude;
-	}
-
-	public void setFilterExclude(String filterExclude) {
-		this.filterExclude = filterExclude;
+	public void setExclude(String exclude) {
+		this.exclude = exclude;
 	}
 
 	@Override
-	public List<String> getFilterIncludes() {
-		return filterIncludes;
+	public List<String> getIncludes() {
+		return includes;
 	}
 
-	public void setFilterIncludes(List<String> filterIncludes) {
-		this.filterIncludes = filterIncludes;
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
 	}
 
 	@Override
-	public List<String> getFilterExcludes() {
-		return filterExcludes;
+	public List<String> getExcludes() {
+		return excludes;
 	}
 
-	public void setFilterExcludes(List<String> filterExcludes) {
-		this.filterExcludes = filterExcludes;
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 	@Override
@@ -353,48 +197,12 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-	public boolean isExportProperties() {
-		return exportProperties;
+	public String getPropertiesBeanName() {
+		return propertiesBeanName;
 	}
 
-	public void setExportProperties(boolean exportProperties) {
-		this.exportProperties = exportProperties;
-	}
-
-	@Override
-	public File getExportPropertiesFile() {
-		return exportPropertiesFile;
-	}
-
-	public void setExportPropertiesFile(File exportPropertiesFile) {
-		this.exportPropertiesFile = exportPropertiesFile;
-	}
-
-	@Override
-	public String getExportPropertiesFileProperty() {
-		return exportPropertiesFileProperty;
-	}
-
-	public void setExportPropertiesFileProperty(String exportPropertiesFileProperty) {
-		this.exportPropertiesFileProperty = exportPropertiesFileProperty;
-	}
-
-	@Override
-	public GlobalPropertiesMode getGlobalPropertiesMode() {
-		return globalPropertiesMode;
-	}
-
-	public void setGlobalPropertiesMode(GlobalPropertiesMode globalPropertiesMode) {
-		this.globalPropertiesMode = globalPropertiesMode;
-	}
-
-	@Override
-	public PropertyPlaceholderHelper getHelper() {
-		return helper;
-	}
-
-	public void setHelper(PropertyPlaceholderHelper helper) {
-		this.helper = helper;
+	public void setPropertiesBeanName(String propertiesBeanName) {
+		this.propertiesBeanName = propertiesBeanName;
 	}
 
 	public String getServiceClassname() {
@@ -403,6 +211,10 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 
 	public void setServiceClassname(String serviceClassname) {
 		this.serviceClassname = serviceClassname;
+	}
+
+	public MavenProject getProject() {
+		return project;
 	}
 
 }
