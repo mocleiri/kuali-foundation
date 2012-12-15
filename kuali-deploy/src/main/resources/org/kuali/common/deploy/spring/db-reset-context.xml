@@ -23,13 +23,23 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <util:list id="locationHelperIncludes" value-type="java.lang.String">
+    <value>kuali.encoding</value>
+    <value>kuali.groupId</value>
+    <value>project.groupId</value>
+    <value>project.artifactId</value>
+    <value>project.version</value>
+    <value>db.vendor</value>
+  </util:list>
+
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations" ref="locations" />
-    <property name="locationHelperProperties" ref="maven.properties" />
+    <property name="locationHelperProperties" ref="maven.spring.properties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encoding" value="${kuali.encoding}" />
+    <property name="locationHelperIncludes" ref="locationHelperIncludes" />
   </bean>
 
   <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
