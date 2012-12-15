@@ -27,6 +27,10 @@ import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringContext;
 
 /**
+ * This mojo provides a lightweight integration between Spring and Maven centered around <code>java.util.Properties</code>. Given the
+ * location of a Spring XML context, the mojo loads it, but first injects a <code>Properties</code> object containing the full set of Maven
+ * properties. The properties are registered in the context under the bean name <code>maven.spring.properties</code> by default.
+ *
  * @goal load
  */
 public class LoadMojo extends AbstractMojo implements SpringContext {
@@ -64,7 +68,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	private Properties properties;
 
 	/**
-	 * The name of the bean the properties will registered as in the context
+	 * The bean name to register the properties under.
 	 *
 	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.spring.properties"
 	 */
@@ -112,7 +116,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public List<String> getLocations() {
+	public List<String> getLocations() {
 		return locations;
 	}
 
@@ -121,7 +125,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public Properties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 
@@ -130,7 +134,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	}
 
 	@Override
-    public String getPropertiesBeanName() {
+	public String getPropertiesBeanName() {
 		return propertiesBeanName;
 	}
 
