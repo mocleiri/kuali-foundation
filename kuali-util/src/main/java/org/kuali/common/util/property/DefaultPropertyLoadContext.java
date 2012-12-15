@@ -29,6 +29,7 @@ import org.kuali.common.util.property.processor.OrgProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
+import org.kuali.common.util.property.processor.TrimProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	String encoding;
 	String missingLocationsMode = Mode.INFORM.name();
 	Properties locationHelperProperties;
+	List<String> locationHelperIncludes;
+	List<String> locationHelperExcludes;
 	String organizationGroupId;
 	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
 	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
@@ -172,6 +175,10 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		processors.add(new GlobalOverrideProcessor(gpm));
 		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
 
+		if (locationHelperIncludes != null || locationHelperExcludes != null) {
+			processors.add(new TrimProcessor(locationHelperIncludes, locationHelperExcludes));
+		}
+
 		return processors;
 	}
 
@@ -231,6 +238,22 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 	public void setVersionProperty(String versionProperty) {
 		this.versionProperty = versionProperty;
+	}
+
+	public List<String> getLocationHelperIncludes() {
+		return locationHelperIncludes;
+	}
+
+	public void setLocationHelperIncludes(List<String> locationHelperIncludes) {
+		this.locationHelperIncludes = locationHelperIncludes;
+	}
+
+	public List<String> getLocationHelperExcludes() {
+		return locationHelperExcludes;
+	}
+
+	public void setLocationHelperExcludes(List<String> locationHelperExcludes) {
+		this.locationHelperExcludes = locationHelperExcludes;
 	}
 
 }
