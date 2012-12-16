@@ -26,4 +26,6 @@ public interface SpringContext {
 
 	Properties getProperties();
 
+	boolean isInjectProperties();
+
 }

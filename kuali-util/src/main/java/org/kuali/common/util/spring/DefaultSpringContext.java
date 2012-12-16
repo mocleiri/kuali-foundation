@@ -23,6 +23,7 @@ public class DefaultSpringContext implements SpringContext {
 	List<String> locations;
 	String propertiesBeanName;
 	Properties properties;
+	boolean injectProperties;
 
 	@Override
 	public List<String> getLocations() {
@@ -34,7 +35,7 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public String getPropertiesBeanName() {
+	public String getPropertiesBeanName() {
 		return propertiesBeanName;
 	}
 
@@ -43,12 +44,20 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-    public Properties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public boolean isInjectProperties() {
+		return injectProperties;
+	}
+
+	public void setInjectProperties(boolean injectProperties) {
+		this.injectProperties = injectProperties;
 	}
 
 }
