@@ -22,6 +22,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.spring.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
 
@@ -33,23 +34,31 @@ public class DefaultSpringService implements SpringService {
 	public void load(SpringContext context) {
 		Assert.notNull(context);
 		Assert.notNull(context.getLocations());
-		Assert.notNull(context.getProperties());
-		Assert.notNull(context.getPropertiesBeanName());
 
+		ApplicationContext parent = null;
+		if (context.isInjectProperties()) {
+			parent = loadParent(context);
+		}
+		String[] locations = getLocations(context.getLocations());
+		logLocations(locations);
+		new ClassPathXmlApplicationContext(locations, parent);
+	}
+
+	protected ApplicationContext loadParent(SpringContext context) {
 		String propertiesBeanName = context.getPropertiesBeanName();
 		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
 		parent.refresh();
 		logger.info("Registering a properties object containing {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
 		parent.getBeanFactory().registerSingleton(propertiesBeanName, context.getProperties());
+		return parent;
+	}
 
-		String[] locations = getLocations(context.getLocations());
-
+	protected void logLocations(String[] locations) {
 		if (locations.length == 1) {
 			logger.info("Loading [{}]", locations[0]);
 		} else {
 			logger.info("Loading {} context locations", locations.length);
 		}
-		new ClassPathXmlApplicationContext(locations, parent);
 	}
 
 	protected String[] getLocations(List<String> locations) {
