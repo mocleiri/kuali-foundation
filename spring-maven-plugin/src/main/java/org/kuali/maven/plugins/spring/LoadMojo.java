@@ -30,10 +30,12 @@ import org.kuali.common.util.spring.SpringContext;
 /**
  * <p>
  * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration technique between Spring and Maven
- * centered around <code>java.util.Properties</code>. Given the location of a Spring XML context, the mojo loads and injects it with a
- * <code>java.util.Properties</code> object containing an augmented set of Maven properties. The <code>java.util.Properties</code> object is
- * registered in the context as a bean under <code>propertiesBeanName</code> which defaults to <code>maven.spring.properties</code>. One
- * typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
+ * centered around <code>java.util.Properties</code>. Prior to the Spring context being loaded, it is injected with a
+ * <code>java.util.Properties</code> object containing the full set of Maven properties. The <code>java.util.Properties</code> object is
+ * registered in the context as a bean under the name <code>maven.properties</code>.
+ * </p>
+ * <p>
+ * One typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
  * </p>
  * <p>
  * For example:
@@ -42,7 +44,7 @@ import org.kuali.common.util.spring.SpringContext;
  * <pre>
  *  &lt;beans&gt;
  *
- *   &lt;context:property-placeholder properties-ref="maven.spring.properties" /&gt;
+ *   &lt;context:property-placeholder properties-ref="maven.properties" /&gt;
  *
  *   &lt;bean id="artifactId" class="java.lang.String"&gt;
  *    &lt;constructor-arg value="${project.artifactId}" /&gt;
@@ -91,7 +93,7 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven properties as a bean in the Spring
 	 * context.
 	 *
-	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.spring.properties"
+	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.properties"
 	 * @required
 	 */
 	private String propertiesBeanName;
