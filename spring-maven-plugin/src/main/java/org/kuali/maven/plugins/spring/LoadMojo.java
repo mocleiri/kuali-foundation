@@ -25,7 +25,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.SpringContext;
 
 /**
  * <p>
@@ -55,7 +54,7 @@ import org.kuali.common.util.spring.SpringContext;
  *
  * @goal load
  */
-public class LoadMojo extends AbstractMojo implements SpringContext {
+public class LoadMojo extends AbstractMojo {
 
 	/**
 	 * Maven project
@@ -119,14 +118,14 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.locations = combine(locations, location);
 
 		// Invoke the service to load the context
-		invokeService(serviceClassname);
+		invokeService(serviceClassname, locations, propertiesBeanName, properties);
 	}
 
-	protected void invokeService(String serviceClassname) {
+	protected void invokeService(String serviceClassname, List<String> locations, String beanName, Object bean) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
 			SpringService service = (SpringService) serviceClass.newInstance();
-			service.load(this);
+			service.load(locations, beanName, bean);
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} catch (IllegalAccessException e) {
@@ -155,7 +154,6 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.location = location;
 	}
 
-	@Override
 	public List<String> getLocations() {
 		return locations;
 	}
@@ -164,7 +162,6 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.locations = locations;
 	}
 
-	@Override
 	public Properties getProperties() {
 		return properties;
 	}
@@ -173,7 +170,6 @@ public class LoadMojo extends AbstractMojo implements SpringContext {
 		this.properties = properties;
 	}
 
-	@Override
 	public String getPropertiesBeanName() {
 		return propertiesBeanName;
 	}
