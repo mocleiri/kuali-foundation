@@ -192,7 +192,7 @@ public class LoadMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Return a combined list where <code>string</code> is always the first element and the Strings in the list are unique
+	 * Return a combined list where <code>required</code> is always the first element and the Strings in the list are unique
 	 */
 	protected List<String> combine(String required, List<String> optional) {
 		Assert.notNull(required);
