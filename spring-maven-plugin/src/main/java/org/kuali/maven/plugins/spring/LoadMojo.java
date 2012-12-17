@@ -199,7 +199,7 @@ public class LoadMojo extends AbstractMojo {
 		if (optional == null) {
 			return Collections.singletonList(required);
 		} else {
-			List<String> combined = new ArrayList<String>(optional);
+			List<String> combined = new ArrayList<String>();
 			// Always insert required as the first element in the list
 			combined.add(required);
 			// Add the other strings but ensure the list does not already contain them
