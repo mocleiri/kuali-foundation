@@ -21,8 +21,8 @@ import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * A few (highly inefficient) methods that, when given an encoding, can convert Java <code>String's</code> into the hex for that encoding
- * and also convert the hex back into the original string.
+ * A few (highly inefficient) methods that, given an encoding, can convert <code>String's</code> into the hex for that encoding and also
+ * convert the hex back into the original string.
  */
 public class HexUtils {
 
