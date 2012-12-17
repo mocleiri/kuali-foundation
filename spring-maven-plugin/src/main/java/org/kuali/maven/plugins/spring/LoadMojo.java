@@ -32,10 +32,10 @@ import org.springframework.util.Assert;
  * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration technique between Spring and Maven
  * centered around <code>java.util.Properties</code>. Prior to the Spring context being loaded, it is injected with a
  * <code>java.util.Properties</code> object containing the full set of Maven properties. The <code>java.util.Properties</code> object is
- * registered in the context as a bean under the name <code>maven.properties</code>.
+ * registered in the context as a bean under the name <code>mavenProperties</code>.
  * </p>
  * <p>
- * One typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
+ * One common use of the injected Maven properties in a Spring context is for replacing property placeholders.
  * </p>
  * <p>
  * For example:
@@ -43,7 +43,7 @@ import org.springframework.util.Assert;
  *
  * <pre>
  *  &lt;beans&gt;
- *   &lt;context:property-placeholder properties-ref="maven.properties" /&gt;
+ *   &lt;context:property-placeholder properties-ref="mavenProperties" /&gt;
  *   &lt;bean id="artifactId" class="java.lang.String"&gt;
  *    &lt;constructor-arg value="${project.artifactId}" /&gt;
  *   &lt;/bean&gt;
@@ -104,14 +104,14 @@ public class LoadMojo extends AbstractMojo {
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven properties as a bean in the Spring
 	 * context.
 	 *
-	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.properties"
+	 * @parameter expression="${spring.propertiesBeanName}" default-value="mavenProperties"
 	 */
 	private String propertiesBeanName;
 
 	/**
 	 * The name to use when registering the <code>MavenProject</code> object as a bean in the Spring context.
 	 *
-	 * @parameter expression="${spring.projectBeanName}" default-value="maven.project"
+	 * @parameter expression="${spring.projectBeanName}" default-value="project"
 	 */
 	private String projectBeanName;
 
@@ -196,9 +196,14 @@ public class LoadMojo extends AbstractMojo {
 		if (locations == null) {
 			return Collections.singletonList(location);
 		} else {
-			// Insert location as the first element in the list
 			List<String> combined = new ArrayList<String>(locations);
-			combined.add(0, location);
+			// Always insert location as the first element in the list
+			combined.add(location);
+			for (String loc : locations) {
+				if (!combined.contains(loc)) {
+					combined.add(loc);
+				}
+			}
 			return combined;
 		}
 	}
