@@ -27,6 +27,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CollectionUtils {
 
+	/**
+	 * If <code>o==null</code> return an empty list otherwise return a singleton list.
+	 */
 	public static final <T> List<T> toEmptyList(T o) {
 		if (o == null) {
 			return Collections.<T> emptyList();
@@ -35,6 +38,9 @@ public class CollectionUtils {
 		}
 	}
 
+	/**
+	 * If <code>list==null</code> return an empty list otherwise return <code>list</code>
+	 */
 	public static final <T> List<T> toEmpty(List<T> list) {
 		if (list == null) {
 			return Collections.<T> emptyList();

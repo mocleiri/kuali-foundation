@@ -15,10 +15,20 @@
  */
 package org.kuali.common.util.service;
 
-import org.kuali.common.util.spring.InjectionContext;
+import java.util.List;
 
 public interface SpringService {
 
-	void load(InjectionContext context);
+	void load(String location);
+
+	void load(String location, String beanName, Object bean);
+
+	void load(String location, List<String> beanNames, List<Object> beans);
+
+	void load(List<String> locations);
+
+	void load(List<String> locations, String beanName, Object bean);
+
+	void load(List<String> locations, List<String> beanNames, List<Object> beans);
 
 }

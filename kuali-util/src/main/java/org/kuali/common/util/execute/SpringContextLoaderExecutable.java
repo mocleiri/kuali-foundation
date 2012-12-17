@@ -15,17 +15,20 @@
  */
 package org.kuali.common.util.execute;
 
+import java.util.List;
+
 import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.InjectionContext;
 
 public class SpringContextLoaderExecutable implements Executable {
 
 	SpringService service;
-	InjectionContext context;
+	List<String> locations;
+	List<String> beanNames;
+	List<Object> beans;
 
 	@Override
 	public void execute() {
-		service.load(context);
+		service.load(locations, beanNames, beans);
 	}
 
 	public SpringService getService() {
@@ -36,12 +39,27 @@ public class SpringContextLoaderExecutable implements Executable {
 		this.service = service;
 	}
 
-	public InjectionContext getContext() {
-		return context;
+	public List<String> getLocations() {
+		return locations;
 	}
 
-	public void setContext(InjectionContext context) {
-		this.context = context;
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 
+	public List<String> getBeanNames() {
+		return beanNames;
+	}
+
+	public void setBeanNames(List<String> beanNames) {
+		this.beanNames = beanNames;
+	}
+
+	public List<Object> getBeans() {
+		return beans;
+	}
+
+	public void setBeans(List<Object> beans) {
+		this.beans = beans;
+	}
 }

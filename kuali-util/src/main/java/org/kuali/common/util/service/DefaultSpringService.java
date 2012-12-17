@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.spring.InjectionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -35,30 +34,60 @@ public class DefaultSpringService implements SpringService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
 	@Override
-	public void load(InjectionContext context) {
-		Assert.notNull(context);
-		Assert.notNull(context.getLocations());
+	public void load(String location) {
+		load(location, Collections.<String> emptyList(), Collections.<Object> emptyList());
+	}
+
+	@Override
+	public void load(String location, String beanName, Object bean) {
+		load(location, CollectionUtils.toEmptyList(beanName), CollectionUtils.toEmptyList(bean));
+	}
+
+	@Override
+	public void load(String location, List<String> beanNames, List<Object> beans) {
+		load(CollectionUtils.toEmptyList(location), beanNames, beans);
+	}
+
+	@Override
+	public void load(List<String> locations) {
+		load(locations, Collections.<String> emptyList(), Collections.<Object> emptyList());
+	}
+
+	@Override
+	public void load(List<String> locations, String beanName, Object bean) {
+		load(locations, CollectionUtils.toEmptyList(beanName), CollectionUtils.toEmptyList(bean));
+	}
+
+	@Override
+	public void load(List<String> locations, List<String> beanNames, List<Object> beans) {
+		Assert.isTrue(locations.size() > 0);
+		beanNames = CollectionUtils.toEmpty(beanNames);
+		beans = CollectionUtils.toEmpty(beans);
+		Assert.isTrue(beanNames.size() == beans.size());
 
 		// Make sure all of the locations exist
-		validate(context.getLocations());
+		validate(locations);
 
-		// Convert file names to URL's
-		List<String> locations = getConvertedLocations(context.getLocations());
+		// Convert any file names to fully qualified file system URL's
+		List<String> convertedLocations = getConvertedLocations(locations);
 
-		if (context.isInjectBeans()) {
-			ApplicationContext parent = getApplicationContext(context, context.getBeanNames(), context.getBeans());
-			logLocations(locations);
-			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(locations), parent);
+		// May need to pre-register some beans
+		if (beanNames.size() > 0) {
+			logger.debug("Pre-registering {} bean", beanNames.size());
+			// Get a parent context with the bean's they've provided us pre-registered in the context
+			ApplicationContext parent = getApplicationContext(beanNames, beans);
+			// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
+			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations), parent);
 		} else {
-			logLocations(locations);
-			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(locations));
+			// Load the locations they provided us
+			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations));
 		}
 	}
 
 	/**
 	 * Return an <code>ApplicationContext</code> with <code>beans</code> registered in the context under <code>beanNames</code>
 	 */
-	protected ApplicationContext getApplicationContext(InjectionContext context, List<String> beanNames, List<Object> beans) {
+	protected ApplicationContext getApplicationContext(List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext();
 		applicationContext.refresh();
@@ -66,23 +95,15 @@ public class DefaultSpringService implements SpringService {
 		for (int i = 0; i < beanNames.size(); i++) {
 			String beanName = beanNames.get(i);
 			Object bean = beans.get(i);
+			logger.debug("Registering {}", beanName);
 			factory.registerSingleton(beanName, bean);
 		}
 		return applicationContext;
 	}
 
-	protected ApplicationContext getApplicationContext(InjectionContext context, String beanName, Object bean) {
-		return getApplicationContext(context, Collections.singletonList(beanName), Collections.singletonList(bean));
-	}
-
-	protected void logLocations(List<String> locations) {
-		if (locations.size() == 1) {
-			logger.info("Loading [{}]", locations.get(0));
-		} else {
-			logger.info("Loading {} context locations", locations.size());
-		}
-	}
-
+	/**
+	 * Make sure all of the locations actually exist
+	 */
 	protected void validate(List<String> locations) {
 		StringBuilder sb = new StringBuilder();
 		for (String location : locations) {
@@ -95,6 +116,9 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
+	/**
+	 * Format file names into fully qualified file system URL's
+	 */
 	protected List<String> getConvertedLocations(List<String> locations) {
 		List<String> converted = new ArrayList<String>();
 		for (String location : locations) {
