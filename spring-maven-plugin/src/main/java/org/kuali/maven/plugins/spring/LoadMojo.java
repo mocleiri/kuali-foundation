@@ -118,8 +118,10 @@ public class LoadMojo extends AbstractMojo {
 		// Combine the list with the single value
 		this.locations = combine(locations, location);
 
-		// Invoke the service to load the context
+		// Log what we are up to
 		log(locations, properties);
+
+		// Invoke the service to load the context
 		invokeService(serviceClassname, locations, propertiesBeanName, properties);
 	}
 
@@ -127,7 +129,7 @@ public class LoadMojo extends AbstractMojo {
 		if (locations.size() == 1) {
 			getLog().info("Injecting a properties object containing " + properties.size() + " Maven properties into [" + locations.get(0) + "]");
 		} else {
-			getLog().info("Injecting a properties object containing " + properties.size() + " Maven properties into " + locations.size() + " contexts");
+			getLog().info("Injecting a properties object containing " + properties.size() + " Maven properties into " + locations.size() + " Spring contexts");
 		}
 	}
 
