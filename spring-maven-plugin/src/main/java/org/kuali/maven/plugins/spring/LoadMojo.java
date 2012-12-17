@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration technique between Spring and Maven
  * centered around <code>java.util.Properties</code>. Prior to the Spring context being loaded, it is injected with a
  * <code>java.util.Properties</code> object containing the full set of Maven properties. The <code>java.util.Properties</code> object is
- * registered in the context as a bean under the name <code>maven.properties</code>.
+ * registered in the context as a bean under the id <code>maven.properties</code>.
  * </p>
  * <p>
  * One typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
@@ -43,13 +43,10 @@ import org.springframework.util.Assert;
  *
  * <pre>
  *  &lt;beans&gt;
- *
  *   &lt;context:property-placeholder properties-ref="maven.properties" /&gt;
- *
  *   &lt;bean id="artifactId" class="java.lang.String"&gt;
  *    &lt;constructor-arg value="${project.artifactId}" /&gt;
  *   &lt;/bean&gt;
- *
  *  &lt;/beans&gt;
  * </pre>
  *
@@ -90,20 +87,33 @@ public class LoadMojo extends AbstractMojo {
 	private Properties properties;
 
 	/**
-	 * If true, Maven properties are injected into the Spring context
+	 * If true, Maven properties are injected into the Spring context as a <code>java.util.Properties</code> object
 	 *
 	 * @parameter expression="${spring.injectProperties}" default-value="true"
 	 */
 	private boolean injectProperties;
 
 	/**
+	 * If true, the <code>MavenProject</code> object is injected into the Spring context
+	 *
+	 * @parameter expression="${spring.injectProject}" default-value="false"
+	 */
+	private boolean injectProject;
+
+	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven properties as a bean in the Spring
 	 * context.
 	 *
 	 * @parameter expression="${spring.propertiesBeanName}" default-value="maven.properties"
-	 * @required
 	 */
 	private String propertiesBeanName;
+
+	/**
+	 * The name to use when registering the <code>MavenProject</code> object as a bean in the Spring context.
+	 *
+	 * @parameter expression="${spring.projectBeanName}" default-value="maven.project"
+	 */
+	private String projectBeanName;
 
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
@@ -126,23 +136,46 @@ public class LoadMojo extends AbstractMojo {
 		this.locations = combine(locations, location);
 
 		// Log what we are up to
-		log(locations, properties);
+		logConfiguration();
 
 		// Invoke the service to load the context
-		invokeService(serviceClassname, locations, propertiesBeanName, properties);
-	}
-
-	protected void log(List<String> locations, Properties properties) {
-		if (locations.size() == 1) {
-			getLog().info("Injecting a properties object containing " + properties.size() + " Maven properties into [" + locations.get(0) + "]");
-		} else {
-			getLog().info("Injecting a properties object containing " + properties.size() + " Maven properties into " + locations.size() + " Spring contexts");
-		}
-	}
-
-	protected void invokeService(String serviceClassname, List<String> locations, String beanName, Object bean) {
 		SpringService service = getService(serviceClassname);
-		service.load(locations, beanName, bean);
+		service.load(locations, getBeanNames(), getBeans());
+	}
+
+	protected List<Object> getBeans() {
+		List<Object> beans = new ArrayList<Object>();
+		if (injectProperties) {
+			beans.add(properties);
+		}
+		if (injectProject) {
+			beans.add(project);
+		}
+		return beans;
+	}
+
+	protected List<String> getBeanNames() {
+		List<String> beanNames = new ArrayList<String>();
+		if (injectProperties) {
+			beanNames.add(propertiesBeanName);
+		}
+		if (injectProject) {
+			beanNames.add(projectBeanName);
+		}
+		return beanNames;
+	}
+
+	protected void logConfiguration() {
+		if (injectProperties) {
+			getLog().info("Injecting " + properties.size() + " Maven properties as a [" + properties.getClass().getName() + "] bean under the id [" + propertiesBeanName + "]");
+			getLog().debug("Displaying " + properties.size() + " properties\n\n" + PropertyUtils.toString(properties));
+		}
+		if (injectProject) {
+			getLog().info("Injecting the Maven project as a [" + project.getClass().getName() + "] bean under the id [" + projectBeanName + "]");
+		}
+		if (locations.size() > 1) {
+			getLog().info("Loading " + locations.size() + " Spring context files");
+		}
 	}
 
 	protected SpringService getService(String serviceClassname) {
@@ -220,6 +253,22 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setInjectProperties(boolean injectProperties) {
 		this.injectProperties = injectProperties;
+	}
+
+	public boolean isInjectProject() {
+		return injectProject;
+	}
+
+	public void setInjectProject(boolean injectProject) {
+		this.injectProject = injectProject;
+	}
+
+	public String getProjectBeanName() {
+		return projectBeanName;
+	}
+
+	public void setProjectBeanName(String projectBeanName) {
+		this.projectBeanName = projectBeanName;
 	}
 
 }
