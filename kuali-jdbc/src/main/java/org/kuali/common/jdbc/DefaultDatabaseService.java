@@ -109,6 +109,6 @@ public class DefaultDatabaseService implements DatabaseService {
 		args.add(formatter.getCount(metadata.getCount()));
 		args.add(formatter.getCount(metadata.size()));
 		args.add(formatter.getTime(metadata.getExecutionTime()));
-		logger.info("Total " + executionType + " SQL statements: {}  SQL sources: {}  Total time: {}", CollectionUtils.toArray(args));
+		logger.info("Total " + executionType + " SQL statements: {}  SQL sources: {}  Total time: {}", CollectionUtils.toObjectArray(args));
 	}
 }
