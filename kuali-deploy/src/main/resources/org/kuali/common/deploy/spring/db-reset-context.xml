@@ -30,6 +30,8 @@
     <value>project.artifactId</value>
     <value>project.version</value>
     <value>db.vendor</value>
+    <value>kuali.enc.*</value>
+    <value>jdbc.*</value>
   </util:list>
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
