@@ -135,7 +135,7 @@ public class LoadMojo extends AbstractMojo {
 		// Combine the list with the single value
 		this.locations = combine(location, locations);
 
-		// Log what we are up to
+		// Show what we are up to
 		logConfiguration();
 
 		// Invoke the service to load the context
