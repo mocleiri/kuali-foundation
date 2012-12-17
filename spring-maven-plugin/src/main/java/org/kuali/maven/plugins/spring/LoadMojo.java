@@ -90,6 +90,13 @@ public class LoadMojo extends AbstractMojo {
 	private Properties properties;
 
 	/**
+	 * If true, Maven properties are injected into the Spring context
+	 *
+	 * @parameter expression="${spring.injectProperties}" default-value="true"
+	 */
+	private boolean injectProperties;
+
+	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven properties as a bean in the Spring
 	 * context.
 	 *
@@ -134,10 +141,14 @@ public class LoadMojo extends AbstractMojo {
 	}
 
 	protected void invokeService(String serviceClassname, List<String> locations, String beanName, Object bean) {
+		SpringService service = getService(serviceClassname);
+		service.load(locations, beanName, bean);
+	}
+
+	protected SpringService getService(String serviceClassname) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
-			SpringService service = (SpringService) serviceClass.newInstance();
-			service.load(locations, beanName, bean);
+			return (SpringService) serviceClass.newInstance();
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} catch (IllegalAccessException e) {
@@ -201,6 +212,14 @@ public class LoadMojo extends AbstractMojo {
 
 	public MavenProject getProject() {
 		return project;
+	}
+
+	public boolean isInjectProperties() {
+		return injectProperties;
+	}
+
+	public void setInjectProperties(boolean injectProperties) {
+		this.injectProperties = injectProperties;
 	}
 
 }
