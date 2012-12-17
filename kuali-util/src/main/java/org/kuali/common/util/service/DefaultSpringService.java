@@ -73,7 +73,7 @@ public class DefaultSpringService implements SpringService {
 
 		// May need to pre-register some beans
 		if (beanNames.size() > 0) {
-			logger.debug("Pre-registering {} bean", beanNames.size());
+			logger.debug("Registering {} beans", beanNames.size());
 			// Get a parent context with the bean's they've provided us pre-registered in the context
 			ApplicationContext parent = getApplicationContext(beanNames, beans);
 			// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
@@ -95,7 +95,7 @@ public class DefaultSpringService implements SpringService {
 		for (int i = 0; i < beanNames.size(); i++) {
 			String beanName = beanNames.get(i);
 			Object bean = beans.get(i);
-			logger.debug("Registering [{}]", beanName);
+			logger.info("Registering [{}]", beanName);
 			factory.registerSingleton(beanName, bean);
 		}
 		return applicationContext;
