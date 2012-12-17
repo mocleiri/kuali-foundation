@@ -19,15 +19,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionMode;
 import org.kuali.common.util.EncryptionStrength;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.obscure.DefaultObscurer;
+import org.kuali.common.util.obscure.Obscurer;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
@@ -43,11 +45,10 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class DefaultPropertyContext implements PropertyContext {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
-	private static final Random RANDOM = new Random(System.currentTimeMillis());
-
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String globalPropertiesMode = Constants.DEFAULT_GLOBAL_PROPERTIES_MODE.name();
 	String resolvePlaceholders = Boolean.toString(Constants.DEFAULT_RESOLVE_PLACEHOLDERS);
+	Obscurer obscurer = new DefaultObscurer();
 	String style = PropertyStyle.NORMAL.name();
 	String encryptionMode = EncryptionMode.NONE.name();
 	String encryptionStrength = EncryptionStrength.BASIC.name();
@@ -128,12 +129,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		if (!StringUtils.equals(EncryptionMode.NONE.name(), encryptionMode)) {
 			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
 			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-			String displayPassword = null;
-			if (!StringUtils.isBlank(encryptionPassword)) {
-				int len = encryptionPassword.length();
-				displayPassword = StringUtils.repeat("*", Math.max(RANDOM.nextInt(len * 2), len / 2));
+			String displayPassword = LoggerUtils.getNullAsNone(encryptionPassword);
+			if (encryptionPassword != null) {
+				displayPassword = obscurer.obscure(encryptionPassword);
 			}
-			logger.info("Encryption password - " + StringUtils.trimToEmpty(displayPassword));
+			logger.info("Encryption password - " + displayPassword);
 		}
 		if (!StringUtils.equals(PropertyStyle.NORMAL.name(), style)) {
 			logger.info("Property style - " + StringUtils.trimToEmpty(style));
@@ -302,5 +302,13 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setResolvePlaceholders(String resolvePlaceholders) {
 		this.resolvePlaceholders = resolvePlaceholders;
+	}
+
+	public Obscurer getObscurer() {
+		return obscurer;
+	}
+
+	public void setObscurer(Obscurer obscurer) {
+		this.obscurer = obscurer;
 	}
 }
