@@ -95,7 +95,7 @@ public class DefaultSpringService implements SpringService {
 		for (int i = 0; i < beanNames.size(); i++) {
 			String beanName = beanNames.get(i);
 			Object bean = beans.get(i);
-			logger.debug("Registering {}", beanName);
+			logger.debug("Registering [{}]", beanName);
 			factory.registerSingleton(beanName, bean);
 		}
 		return applicationContext;
