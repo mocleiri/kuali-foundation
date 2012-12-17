@@ -25,6 +25,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.SpringService;
+import org.springframework.util.Assert;
 
 /**
  * <p>
@@ -136,6 +137,7 @@ public class LoadMojo extends AbstractMojo {
 	}
 
 	protected List<String> combine(List<String> locations, String location) {
+		Assert.notNull(location);
 		if (locations == null) {
 			return Collections.singletonList(location);
 		} else {
