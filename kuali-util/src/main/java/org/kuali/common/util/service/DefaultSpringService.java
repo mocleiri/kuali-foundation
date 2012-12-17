@@ -15,15 +15,13 @@
  */
 package org.kuali.common.util.service;
 
-import static org.kuali.common.util.CollectionUtils.toStringArray;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.spring.SimpleBeanContext;
 import org.kuali.common.util.spring.InjectionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,34 +42,37 @@ public class DefaultSpringService implements SpringService {
 		// Make sure all of the locations exist
 		validate(context.getLocations());
 
-		// Convert file system names to URL's
+		// Convert file names to URL's
 		List<String> locations = getConvertedLocations(context.getLocations());
 
-		if (context.isInjectProperties()) {
-			// Make the properties available to the Spring
-			logger.info("Registering a properties object containing {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
-			ApplicationContext parent = getApplicationContext(context, context.getPropertiesBeanName(), context.getProperties());
+		if (context.isInjectBeans()) {
+			ApplicationContext parent = getApplicationContext(context, context.getBeanNames(), context.getBeans());
 			logLocations(locations);
-			new ClassPathXmlApplicationContext(toStringArray(locations), parent);
+			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(locations), parent);
 		} else {
 			logLocations(locations);
-			new ClassPathXmlApplicationContext(toStringArray(locations));
+			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(locations));
 		}
 	}
 
-	protected ApplicationContext getApplicationContext(InjectionContext context, List<SimpleBeanContext> beanContexts) {
-		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
-		parent.refresh();
-		ConfigurableListableBeanFactory factory = parent.getBeanFactory();
-		for (SimpleBeanContext beanContext : beanContexts) {
-			factory.registerSingleton(beanContext.getName(), beanContext.getBean());
+	/**
+	 * Return an <code>ApplicationContext</code> with <code>beans</code> registered in the context under <code>beanNames</code>
+	 */
+	protected ApplicationContext getApplicationContext(InjectionContext context, List<String> beanNames, List<Object> beans) {
+		Assert.isTrue(beanNames.size() == beans.size());
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext();
+		applicationContext.refresh();
+		ConfigurableListableBeanFactory factory = applicationContext.getBeanFactory();
+		for (int i = 0; i < beanNames.size(); i++) {
+			String beanName = beanNames.get(i);
+			Object bean = beans.get(i);
+			factory.registerSingleton(beanName, bean);
 		}
-		return parent;
+		return applicationContext;
 	}
 
 	protected ApplicationContext getApplicationContext(InjectionContext context, String beanName, Object bean) {
-		SimpleBeanContext beanContext = new SimpleBeanContext(beanName, bean);
-		return getApplicationContext(context, Collections.singletonList(beanContext));
+		return getApplicationContext(context, Collections.singletonList(beanName), Collections.singletonList(bean));
 	}
 
 	protected void logLocations(List<String> locations) {
