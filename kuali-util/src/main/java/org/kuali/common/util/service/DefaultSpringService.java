@@ -74,6 +74,7 @@ public class DefaultSpringService implements SpringService {
 
 		// Convert any file names to fully qualified file system URL's
 		List<String> convertedLocations = getConvertedLocations(locations);
+		// The Spring classes prefer array's for most things
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
 		// May need to pre-register some beans
