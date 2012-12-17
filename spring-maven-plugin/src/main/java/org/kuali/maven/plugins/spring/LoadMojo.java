@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration technique between Spring and Maven
  * centered around <code>java.util.Properties</code>. Prior to the Spring context being loaded, it is injected with a
  * <code>java.util.Properties</code> object containing the full set of Maven properties. The <code>java.util.Properties</code> object is
- * registered in the context as a bean under the id <code>maven.properties</code>.
+ * registered in the context as a bean under the name <code>maven.properties</code>.
  * </p>
  * <p>
  * One typical use of the injected Maven properties in a Spring context is for replacing property placeholders.
