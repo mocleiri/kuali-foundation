@@ -74,6 +74,7 @@ public class DefaultSpringService implements SpringService {
 
 		// Convert any file names to fully qualified file system URL's
 		List<String> convertedLocations = getConvertedLocations(locations);
+		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
 		// May need to pre-register some beans
 		if (beanNames.size() > 0) {
@@ -83,13 +84,13 @@ public class DefaultSpringService implements SpringService {
 			// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
 			AbstractApplicationContext context = null;
 			try {
-				new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations), parent);
+				new ClassPathXmlApplicationContext(locationsArray, parent);
 			} finally {
 				closeQuietly(context);
 			}
 		} else {
 			// Load the locations they provided us
-			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations));
+			new ClassPathXmlApplicationContext(locationsArray);
 		}
 	}
 
