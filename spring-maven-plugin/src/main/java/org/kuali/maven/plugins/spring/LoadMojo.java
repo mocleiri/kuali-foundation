@@ -133,7 +133,7 @@ public class LoadMojo extends AbstractMojo {
 		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
 
 		// Combine the list with the single value
-		this.locations = combine(locations, location);
+		this.locations = combine(location, locations);
 
 		// Log what we are up to
 		logConfiguration();
@@ -191,18 +191,22 @@ public class LoadMojo extends AbstractMojo {
 		}
 	}
 
-	protected List<String> combine(List<String> locations, String location) {
-		Assert.notNull(location);
-		if (locations == null) {
-			return Collections.singletonList(location);
+	/**
+	 * Return a combined list where <code>string</code> is always the first element and the Strings in the list are unique
+	 */
+	protected List<String> combine(String required, List<String> optional) {
+		Assert.notNull(required);
+		if (optional == null) {
+			return Collections.singletonList(required);
 		} else {
-			List<String> combined = new ArrayList<String>(locations);
-			// Always insert location as the first element in the list
-			combined.add(location);
-			for (String loc : locations) {
-				if (!combined.contains(loc)) {
-					combined.add(loc);
-				}
+			List<String> combined = new ArrayList<String>(optional);
+			// Always insert required as the first element in the list
+			combined.add(required);
+			// Add the other strings but ensure the list does not already contain them
+			for (String element : optional) {
+				boolean doesNotContain = !combined.contains(element);
+				Assert.isTrue(doesNotContain);
+				combined.add(element);
 			}
 			return combined;
 		}
