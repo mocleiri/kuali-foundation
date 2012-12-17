@@ -174,7 +174,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		}
 		List<String> csvList = CollectionUtils.getTrimmedListFromCSV(csv);
 		for (String element : csvList) {
-			if (!list.contains(element)) {
+			if (!newList.contains(element)) {
 				newList.add(element);
 			}
 		}
