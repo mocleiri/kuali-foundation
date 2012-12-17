@@ -34,7 +34,7 @@
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations" ref="locations" />
-    <property name="locationHelperProperties" ref="maven.spring.properties" />
+    <property name="locationHelperProperties" ref="maven.properties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
