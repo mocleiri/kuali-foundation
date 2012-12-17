@@ -60,7 +60,10 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(List<String> locations, List<String> beanNames, List<Object> beans) {
+		// Make sure we have at least one location to load
 		Assert.isTrue(locations.size() > 0);
+
+		// Null-safe handling for non-required parameters
 		beanNames = CollectionUtils.toEmpty(beanNames);
 		beans = CollectionUtils.toEmpty(beans);
 		Assert.isTrue(beanNames.size() == beans.size());
@@ -89,16 +92,16 @@ public class DefaultSpringService implements SpringService {
 	 */
 	protected ApplicationContext getApplicationContext(List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
-		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext();
-		applicationContext.refresh();
-		ConfigurableListableBeanFactory factory = applicationContext.getBeanFactory();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
+		context.refresh();
+		ConfigurableListableBeanFactory factory = context.getBeanFactory();
 		for (int i = 0; i < beanNames.size(); i++) {
 			String beanName = beanNames.get(i);
 			Object bean = beans.get(i);
 			logger.info("Registering [{}]", beanName);
 			factory.registerSingleton(beanName, bean);
 		}
-		return applicationContext;
+		return context;
 	}
 
 	/**
