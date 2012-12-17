@@ -119,6 +119,8 @@ public class LoadMojo extends AbstractMojo {
 		this.locations = combine(locations, location);
 
 		// Invoke the service to load the context
+		String pluralizer = locations.size() > 1 ? "contexts" : "context";
+		getLog().info("Injecting a properties object containing " + properties.size() + " Maven properties into " + locations.size() + " Spring " + pluralizer);
 		invokeService(serviceClassname, locations, propertiesBeanName, properties);
 	}
 
