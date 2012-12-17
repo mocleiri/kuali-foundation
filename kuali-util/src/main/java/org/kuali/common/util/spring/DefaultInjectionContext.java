@@ -16,17 +16,16 @@
 package org.kuali.common.util.spring;
 
 import java.util.List;
-import java.util.Properties;
 
-public class DefaultSpringContext implements SpringContext {
+public class DefaultInjectionContext implements InjectionContext {
 
 	List<String> locations;
-	String propertiesBeanName;
-	Properties properties;
-	boolean injectProperties;
+	List<String> beanNames;
+	List<Object> beans;
+	boolean injectBeans;
 
 	@Override
-	public List<String> getLocations() {
+    public List<String> getLocations() {
 		return locations;
 	}
 
@@ -35,29 +34,29 @@ public class DefaultSpringContext implements SpringContext {
 	}
 
 	@Override
-	public String getPropertiesBeanName() {
-		return propertiesBeanName;
+    public List<String> getBeanNames() {
+		return beanNames;
 	}
 
-	public void setPropertiesBeanName(String propertiesBeanName) {
-		this.propertiesBeanName = propertiesBeanName;
+	public void setBeanNames(List<String> beanNames) {
+		this.beanNames = beanNames;
 	}
 
 	@Override
-	public Properties getProperties() {
-		return properties;
+    public List<Object> getBeans() {
+		return beans;
 	}
 
-	public void setProperties(Properties properties) {
-		this.properties = properties;
+	public void setBeans(List<Object> beans) {
+		this.beans = beans;
 	}
 
-	public boolean isInjectProperties() {
-		return injectProperties;
+	@Override
+    public boolean isInjectBeans() {
+		return injectBeans;
 	}
 
-	public void setInjectProperties(boolean injectProperties) {
-		this.injectProperties = injectProperties;
+	public void setInjectBeans(boolean injectBeans) {
+		this.injectBeans = injectBeans;
 	}
-
 }

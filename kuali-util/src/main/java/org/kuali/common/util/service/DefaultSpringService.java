@@ -15,13 +15,19 @@
  */
 package org.kuali.common.util.service;
 
+import static org.kuali.common.util.CollectionUtils.toStringArray;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.spring.SpringContext;
+import org.kuali.common.util.spring.SimpleBeanContext;
+import org.kuali.common.util.spring.InjectionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
@@ -31,49 +37,76 @@ public class DefaultSpringService implements SpringService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
 	@Override
-	public void load(SpringContext context) {
+	public void load(InjectionContext context) {
 		Assert.notNull(context);
 		Assert.notNull(context.getLocations());
 
-		ApplicationContext parent = null;
+		// Make sure all of the locations exist
+		validate(context.getLocations());
+
+		// Convert file system names to URL's
+		List<String> locations = getConvertedLocations(context.getLocations());
+
 		if (context.isInjectProperties()) {
-			parent = loadParent(context);
+			// Make the properties available to the Spring
+			logger.info("Registering a properties object containing {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
+			ApplicationContext parent = getApplicationContext(context, context.getPropertiesBeanName(), context.getProperties());
+			logLocations(locations);
+			new ClassPathXmlApplicationContext(toStringArray(locations), parent);
+		} else {
+			logLocations(locations);
+			new ClassPathXmlApplicationContext(toStringArray(locations));
 		}
-		String[] locations = getLocations(context.getLocations());
-		logLocations(locations);
-		new ClassPathXmlApplicationContext(locations, parent);
 	}
 
-	protected ApplicationContext loadParent(SpringContext context) {
-		String propertiesBeanName = context.getPropertiesBeanName();
+	protected ApplicationContext getApplicationContext(InjectionContext context, List<SimpleBeanContext> beanContexts) {
 		ClassPathXmlApplicationContext parent = new ClassPathXmlApplicationContext();
 		parent.refresh();
-		logger.info("Registering a properties object containing {} properties under the bean name [{}]", context.getProperties().size(), propertiesBeanName);
-		parent.getBeanFactory().registerSingleton(propertiesBeanName, context.getProperties());
+		ConfigurableListableBeanFactory factory = parent.getBeanFactory();
+		for (SimpleBeanContext beanContext : beanContexts) {
+			factory.registerSingleton(beanContext.getName(), beanContext.getBean());
+		}
 		return parent;
 	}
 
-	protected void logLocations(String[] locations) {
-		if (locations.length == 1) {
-			logger.info("Loading [{}]", locations[0]);
+	protected ApplicationContext getApplicationContext(InjectionContext context, String beanName, Object bean) {
+		SimpleBeanContext beanContext = new SimpleBeanContext(beanName, bean);
+		return getApplicationContext(context, Collections.singletonList(beanContext));
+	}
+
+	protected void logLocations(List<String> locations) {
+		if (locations.size() == 1) {
+			logger.info("Loading [{}]", locations.get(0));
 		} else {
-			logger.info("Loading {} context locations", locations.length);
+			logger.info("Loading {} context locations", locations.size());
 		}
 	}
 
-	protected String[] getLocations(List<String> locations) {
-		for (int i = 0; i < locations.size(); i++) {
-			String location = locations.get(i);
+	protected void validate(List<String> locations) {
+		StringBuilder sb = new StringBuilder();
+		for (String location : locations) {
 			if (!LocationUtils.exists(location)) {
-				throw new IllegalArgumentException("Location [" + location + "] does not exist");
-			}
-			if (LocationUtils.isExistingFile(location)) {
-				File file = new File(location);
-				// Convert the raw filename to a fully qualified file system url
-				locations.set(i, LocationUtils.getURLString(file));
+				sb.append("Location [" + location + "] does not exist\n");
 			}
 		}
-		return locations.toArray(new String[locations.size()]);
+		if (sb.length() > 0) {
+			throw new IllegalArgumentException(sb.toString());
+		}
+	}
+
+	protected List<String> getConvertedLocations(List<String> locations) {
+		List<String> converted = new ArrayList<String>();
+		for (String location : locations) {
+			if (LocationUtils.isExistingFile(location)) {
+				File file = new File(location);
+				// ClassPathXmlApplicationContext needs a fully qualified URL, not a filename
+				String url = LocationUtils.getCanonicalURLString(file);
+				converted.add(url);
+			} else {
+				converted.add(location);
+			}
+		}
+		return converted;
 	}
 
 }

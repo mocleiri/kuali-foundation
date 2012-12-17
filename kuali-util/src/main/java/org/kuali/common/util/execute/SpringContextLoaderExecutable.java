@@ -16,12 +16,12 @@
 package org.kuali.common.util.execute;
 
 import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.SpringContext;
+import org.kuali.common.util.spring.InjectionContext;
 
 public class SpringContextLoaderExecutable implements Executable {
 
 	SpringService service;
-	SpringContext context;
+	InjectionContext context;
 
 	@Override
 	public void execute() {
@@ -36,11 +36,11 @@ public class SpringContextLoaderExecutable implements Executable {
 		this.service = service;
 	}
 
-	public SpringContext getContext() {
+	public InjectionContext getContext() {
 		return context;
 	}
 
-	public void setContext(SpringContext context) {
+	public void setContext(InjectionContext context) {
 		this.context = context;
 	}
 

@@ -13,12 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util;
 
-import org.kuali.common.util.spring.InjectionContext;
+import java.io.File;
+import java.io.IOException;
 
-public interface SpringService {
+import org.junit.Test;
 
-	void load(InjectionContext context);
+public class LocationUtilsTest {
 
+	@Test
+	public void testGetURLString() throws IOException {
+		try {
+			File file = new File("./temp/../temp");
+			String path = LocationUtils.getCanonicalPath(file);
+			File canonical = new File(path);
+			System.out.println(LocationUtils.getURLString(file));
+			System.out.println(LocationUtils.getURLString(canonical));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

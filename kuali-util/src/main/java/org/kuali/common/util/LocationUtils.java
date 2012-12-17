@@ -77,6 +77,15 @@ public class LocationUtils {
 		return locations;
 	}
 
+	public static final String getCanonicalURLString(File file) {
+		if (file == null) {
+			return null;
+		}
+		String path = getCanonicalPath(file);
+		File canonical = new File(path);
+		return getURLString(canonical);
+	}
+
 	public static final String getURLString(File file) {
 		if (file == null) {
 			return null;

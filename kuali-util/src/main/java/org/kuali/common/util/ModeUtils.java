@@ -73,7 +73,7 @@ public class ModeUtils {
 		if (arg2 != null) {
 			args.add(arg2);
 		}
-		return CollectionUtils.toArray(args);
+		return CollectionUtils.toObjectArray(args);
 	}
 
 }

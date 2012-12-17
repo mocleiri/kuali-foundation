@@ -16,16 +16,15 @@
 package org.kuali.common.util.spring;
 
 import java.util.List;
-import java.util.Properties;
 
-public interface SpringContext {
+public interface InjectionContext {
 
 	List<String> getLocations();
 
-	String getPropertiesBeanName();
+	List<String> getBeanNames();
 
-	Properties getProperties();
+	List<Object> getBeans();
 
-	boolean isInjectProperties();
+	boolean isInjectBeans();
 
 }

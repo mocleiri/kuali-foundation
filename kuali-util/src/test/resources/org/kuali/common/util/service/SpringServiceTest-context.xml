@@ -41,7 +41,7 @@
     <ref bean="propertiesProperty" />
   </util:list>
 
-  <bean id="context" class="org.kuali.common.util.spring.DefaultSpringContext">
+  <bean id="context" class="org.kuali.common.util.spring.DefaultInjectionContext">
   </bean>
 
   <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />

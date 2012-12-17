@@ -71,8 +71,12 @@ public class CollectionUtils {
 		}
 	}
 
-	public static final Object[] toArray(List<Object> objects) {
+	public static final Object[] toObjectArray(List<Object> objects) {
 		return objects.toArray(new Object[objects.size()]);
+	}
+
+	public static final String[] toStringArray(List<String> strings) {
+		return strings.toArray(new String[strings.size()]);
 	}
 
 	public static final boolean isEmpty(Collection<?> c) {
