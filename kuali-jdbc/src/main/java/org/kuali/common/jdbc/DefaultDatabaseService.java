@@ -41,11 +41,11 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("---------------- Reset Database ----------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
-		LoggerUtils.logUsername(logger, "User", dpc.getUsername());
-		LoggerUtils.logPassword(logger, "Password", dpc.getUsername(), dpc.getPassword());
+		logger.info("User - ", LoggerUtils.getUsername(dpc.getUsername()));
+		logger.info("Password - ", LoggerUtils.getUsername(dpc.getPassword()));
 		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
-		LoggerUtils.logUsername(logger, "DBA User", dpc.getDbaUsername());
-		LoggerUtils.logPassword(logger, "DBA Password", dpc.getDbaUsername(), dpc.getDbaPassword());
+		logger.info("DBA User - ", LoggerUtils.getUsername(dpc.getDbaUsername()));
+		logger.info("DBA Password - ", LoggerUtils.getUsername(dpc.getDbaPassword()));
 		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
