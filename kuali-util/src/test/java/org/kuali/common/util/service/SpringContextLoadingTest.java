@@ -42,6 +42,7 @@ public class SpringContextLoadingTest {
 
 			ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(locations, false, parent);
 			context.refresh();
+			context.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
