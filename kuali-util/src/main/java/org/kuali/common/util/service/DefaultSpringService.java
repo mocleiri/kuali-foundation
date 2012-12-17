@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
 
@@ -80,7 +81,8 @@ public class DefaultSpringService implements SpringService {
 			// Get a parent context with the bean's they've provided us pre-registered in the context
 			ApplicationContext parent = getApplicationContext(beanNames, beans);
 			// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
-			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations), parent);
+			AbstractApplicationContext context = new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations), parent);
+			context.close();
 		} else {
 			// Load the locations they provided us
 			new ClassPathXmlApplicationContext(CollectionUtils.toStringArray(convertedLocations));
