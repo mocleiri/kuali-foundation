@@ -122,7 +122,7 @@ public class LoadMojo extends AbstractMojo {
 	private String projectBeanName;
 
 	/**
-	 * The name to use when registering the <code>mojo</code> object as a bean in the Spring context.
+	 * The name to use when registering this <code>mojo</code> object as a bean in the Spring context.
 	 *
 	 * @parameter expression="${spring.mojoBeanName}" default-value="mojo"
 	 */
@@ -139,14 +139,8 @@ public class LoadMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 
-		// Get internal Maven config as a properties object
-		Properties internal = MavenUtils.getInternalProperties(project);
-
-		// The ordering here is significant.
-		// Properties supplied directly to the mojo override properties from project.getProperties()
-		// But, internal Maven properties need to always win.
-		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		Properties mavenProperties = PropertyUtils.combine(project.getProperties(), properties, internal);
+		// Combine mojo properties, project properties and internal maven properties into a Properties object
+		Properties mavenProperties = getMavenProperties(project, properties);
 
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(location, locations);
@@ -162,6 +156,16 @@ public class LoadMojo extends AbstractMojo {
 		// Invoke the service to load the context injecting beans as appropriate
 		SpringService service = getService(serviceClassname);
 		service.load(contextLocations, beanNames, beans);
+	}
+
+	protected Properties getMavenProperties(MavenProject project, Properties properties) {
+		// Get internal Maven config as a properties object
+		Properties internal = MavenUtils.getInternalProperties(project);
+		// The ordering here is significant.
+		// Properties supplied directly to the mojo override properties from project.getProperties()
+		// But, internal Maven properties need to always win.
+		// ${project.artifactId} needs to always faithfully represent the correct artifactId
+		return PropertyUtils.combine(project.getProperties(), properties, internal);
 	}
 
 	protected void logConfiguration(Properties props, List<String> contextLocations) {
