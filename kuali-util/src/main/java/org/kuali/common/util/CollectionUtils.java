@@ -29,6 +29,21 @@ import org.springframework.util.Assert;
 public class CollectionUtils {
 
 	/**
+	 * Return a list containing only the elements where the corresponding index in the <code>includes</code> list is <code>true</code>.
+	 * <code>includes</code> and <code>list</code> must be the same size.
+	 */
+	public static final <T> List<T> getList(List<Boolean> includes, List<T> list) {
+		Assert.isTrue(includes.size() == list.size());
+		List<T> included = new ArrayList<T>();
+		for (int i = 0; i < includes.size(); i++) {
+			if (includes.get(i)) {
+				included.add(list.get(i));
+			}
+		}
+		return included;
+	}
+
+	/**
 	 * Return a combined list where <code>required</code> is always the first element in the list
 	 */
 	public static final <T> List<T> combine(T required, List<T> optional) {
