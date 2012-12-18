@@ -15,17 +15,16 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.SpringService;
-import org.springframework.util.Assert;
 
 /**
  * <p>
@@ -101,6 +100,13 @@ public class LoadMojo extends AbstractMojo {
 	private boolean injectProject;
 
 	/**
+	 * If true, this <code>mojo</code> object is injected into the Spring context
+	 *
+	 * @parameter expression="${spring.injectMojo}" default-value="false"
+	 */
+	private boolean injectMojo;
+
+	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven properties as a bean in the Spring
 	 * context.
 	 *
@@ -114,6 +120,13 @@ public class LoadMojo extends AbstractMojo {
 	 * @parameter expression="${spring.projectBeanName}" default-value="project"
 	 */
 	private String projectBeanName;
+
+	/**
+	 * The name to use when registering the <code>mojo</code> object as a bean in the Spring context.
+	 *
+	 * @parameter expression="${spring.mojoBeanName}" default-value="mojo"
+	 */
+	private String mojoBeanName;
 
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
@@ -130,39 +143,23 @@ public class LoadMojo extends AbstractMojo {
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		this.properties = PropertyUtils.combine(project.getProperties(), properties, MavenUtils.getInternalProperties(project));
+		Properties internal = MavenUtils.getInternalProperties(project);
+		Properties mavenProperties = PropertyUtils.combine(project.getProperties(), properties, internal);
 
-		// Combine the list with the single value
-		this.locations = combine(location, locations);
+		// Combine the main context location with any optional locations
+		List<String> contextLocations = CollectionUtils.combine(location, locations);
+
+		// Assemble any beans we may be injecting
+		List<Boolean> includes = Arrays.asList(injectProperties, injectProject, injectMojo);
+		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(propertiesBeanName, projectBeanName, mojoBeanName));
+		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, project, this));
 
 		// Show what we are up to
 		logConfiguration();
 
-		// Invoke the service to load the context
+		// Invoke the service to load the context injecting beans as appropriate
 		SpringService service = getService(serviceClassname);
-		service.load(locations, getBeanNames(), getBeans());
-	}
-
-	protected List<Object> getBeans() {
-		List<Object> beans = new ArrayList<Object>();
-		if (injectProperties) {
-			beans.add(properties);
-		}
-		if (injectProject) {
-			beans.add(project);
-		}
-		return beans;
-	}
-
-	protected List<String> getBeanNames() {
-		List<String> beanNames = new ArrayList<String>();
-		if (injectProperties) {
-			beanNames.add(propertiesBeanName);
-		}
-		if (injectProject) {
-			beanNames.add(projectBeanName);
-		}
-		return beanNames;
+		service.load(contextLocations, beanNames, beans);
 	}
 
 	protected void logConfiguration() {
@@ -172,6 +169,9 @@ public class LoadMojo extends AbstractMojo {
 		}
 		if (injectProject) {
 			getLog().info("Injecting the Maven project as a [" + project.getClass().getName() + "] bean under the id [" + projectBeanName + "]");
+		}
+		if (injectMojo) {
+			getLog().info("Injecting this mojo as a [" + this.getClass().getName() + "] bean under the id [" + mojoBeanName + "]");
 		}
 		if (locations.size() > 1) {
 			getLog().info("Loading " + locations.size() + " Spring context files");
@@ -188,27 +188,6 @@ public class LoadMojo extends AbstractMojo {
 			throw new IllegalStateException("Unexpected error", e);
 		} catch (InstantiationException e) {
 			throw new IllegalStateException("Unexpected error", e);
-		}
-	}
-
-	/**
-	 * Return a combined list where <code>required</code> is always the first element and the Strings in the list are unique
-	 */
-	protected List<String> combine(String required, List<String> optional) {
-		Assert.notNull(required);
-		if (optional == null) {
-			return Collections.singletonList(required);
-		} else {
-			List<String> combined = new ArrayList<String>();
-			// Always insert required as the first element in the list
-			combined.add(required);
-			// Add the other strings but ensure the list does not already contain them
-			for (String element : optional) {
-				boolean doesNotContain = !combined.contains(element);
-				Assert.isTrue(doesNotContain);
-				combined.add(element);
-			}
-			return combined;
 		}
 	}
 
@@ -278,6 +257,22 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setProjectBeanName(String projectBeanName) {
 		this.projectBeanName = projectBeanName;
+	}
+
+	public boolean isInjectMojo() {
+		return injectMojo;
+	}
+
+	public void setInjectMojo(boolean injectMojo) {
+		this.injectMojo = injectMojo;
+	}
+
+	public String getMojoBeanName() {
+		return mojoBeanName;
+	}
+
+	public void setMojoBeanName(String mojoBeanName) {
+		this.mojoBeanName = mojoBeanName;
 	}
 
 }
