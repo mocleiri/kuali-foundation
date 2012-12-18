@@ -158,14 +158,14 @@ public class LoadMojo extends AbstractMojo {
 		service.load(contextLocations, beanNames, beans);
 	}
 
-	protected Properties getMavenProperties(MavenProject project, Properties properties) {
+	protected Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
 		// Get internal Maven config as a properties object
 		Properties internal = MavenUtils.getInternalProperties(project);
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		return PropertyUtils.combine(project.getProperties(), properties, internal);
+		return PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
 	}
 
 	protected void logConfiguration(Properties props, List<String> contextLocations) {
