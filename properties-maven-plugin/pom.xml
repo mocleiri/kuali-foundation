@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>2.1.0</version>
+    <version>2.1.25</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>properties-maven-plugin</artifactId>
@@ -77,7 +77,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>1.0.1</version>
     </dependency>
   </dependencies>
   <build>
