@@ -155,17 +155,17 @@ public class LoadMojo extends AbstractMojo {
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, project, this));
 
 		// Show what we are up to
-		logConfiguration();
+		logConfiguration(mavenProperties, contextLocations);
 
 		// Invoke the service to load the context injecting beans as appropriate
 		SpringService service = getService(serviceClassname);
 		service.load(contextLocations, beanNames, beans);
 	}
 
-	protected void logConfiguration() {
+	protected void logConfiguration(Properties props, List<String> contextLocations) {
 		if (injectProperties) {
-			getLog().info("Injecting " + properties.size() + " Maven properties as a [" + properties.getClass().getName() + "] bean under the id [" + propertiesBeanName + "]");
-			getLog().debug("Displaying " + properties.size() + " properties\n\n" + PropertyUtils.toString(properties));
+			getLog().info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + propertiesBeanName + "]");
+			getLog().debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (injectProject) {
 			getLog().info("Injecting the Maven project as a [" + project.getClass().getName() + "] bean under the id [" + projectBeanName + "]");
@@ -173,8 +173,8 @@ public class LoadMojo extends AbstractMojo {
 		if (injectMojo) {
 			getLog().info("Injecting this mojo as a [" + this.getClass().getName() + "] bean under the id [" + mojoBeanName + "]");
 		}
-		if (locations.size() > 1) {
-			getLog().info("Loading " + locations.size() + " Spring context files");
+		if (contextLocations.size() > 1) {
+			getLog().info("Loading " + contextLocations.size() + " Spring context files");
 		}
 	}
 
