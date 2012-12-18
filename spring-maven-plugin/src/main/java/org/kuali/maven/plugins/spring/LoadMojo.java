@@ -153,7 +153,7 @@ public class LoadMojo extends AbstractMojo {
 		// Show what we are up to
 		logConfiguration(mavenProperties, contextLocations);
 
-		// Invoke the service to load the context injecting beans as appropriate
+		// Invoke the service to load the context and inject it with beans as appropriate
 		SpringService service = getService(serviceClassname);
 		service.load(contextLocations, beanNames, beans);
 	}
