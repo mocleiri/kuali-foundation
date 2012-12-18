@@ -139,11 +139,13 @@ public class LoadMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 
+		// Get internal Maven config as a properties object
+		Properties internal = MavenUtils.getInternalProperties(project);
+
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		Properties internal = MavenUtils.getInternalProperties(project);
 		Properties mavenProperties = PropertyUtils.combine(project.getProperties(), properties, internal);
 
 		// Combine the main context location with any optional locations
