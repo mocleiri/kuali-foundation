@@ -45,11 +45,6 @@ public class RunOnceExecutable implements Executable {
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}
 
-	protected boolean isState(Properties properties, String key, ExecutionMode mode) {
-		String value = properties.getProperty(key);
-		return StringUtils.equals(mode.name(), value);
-	}
-
 	public Executable getExecutable() {
 		return executable;
 	}
