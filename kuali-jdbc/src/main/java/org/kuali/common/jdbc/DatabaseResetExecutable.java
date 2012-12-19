@@ -20,7 +20,7 @@ import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.util.Assert;
 
-public class DatabaseResetExecutor implements Executable {
+public class DatabaseResetExecutable implements Executable {
 
 	DatabaseService service;
 	DatabaseResetContext context;
