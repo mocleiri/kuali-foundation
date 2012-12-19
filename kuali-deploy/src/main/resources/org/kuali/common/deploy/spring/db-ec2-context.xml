@@ -23,6 +23,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <util:properties id="mavenProperties" location="classpath:META-INF/org/kuali/maven.properties" />
+
   <util:list id="locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
