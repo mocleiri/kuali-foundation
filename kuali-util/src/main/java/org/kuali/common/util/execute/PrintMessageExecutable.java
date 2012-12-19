@@ -15,13 +15,18 @@
  */
 package org.kuali.common.util.execute;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PrintMessageExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(PrintMessageExecutable.class);
 
 	String message;
 
 	@Override
 	public void execute() {
-		System.out.println(message);
+		logger.info(message);
 	}
 
 	public String getMessage() {

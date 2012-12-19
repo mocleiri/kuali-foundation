@@ -23,8 +23,14 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="b" class="org.kuali.common.util.execute.SleepExecutable" p:millis="300" init-method="execute" />
-  <bean id="a" class="org.kuali.common.util.execute.SleepExecutable" p:millis="250" init-method="execute" depends-on="c" />
-  <bean id="c" class="org.kuali.common.util.execute.SleepExecutable" p:millis="350" init-method="execute" />
+  <bean id="a" class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute" depends-on="c">
+    <property name="message" value="a" />
+  </bean>
+  <bean id="b" class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute">
+    <property name="message" value="b" />
+  </bean>
+  <bean id="c" class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute">
+    <property name="message" value="c" />
+  </bean>
 
 </beans>
