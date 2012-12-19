@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 
 public class RunOnceExecutable implements Executable {
@@ -16,15 +15,30 @@ public class RunOnceExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		String location = LocationUtils.getCanonicalPath(propertiesFile);
-		Properties properties = PropertyUtils.load(location);
-		String value = properties.getProperty(property);
-		boolean runonce = StringUtils.equalsIgnoreCase("RUNONCE", value);
+		Properties properties = PropertyUtils.load(propertiesFile);
+		boolean runonce = isState(properties, property, ExecutionMode.RUNONCE);
 		if (runonce) {
-			executable.execute();
-			properties.setProperty(property, "COMPLETED");
-			PropertyUtils.store(properties, propertiesFile, encoding);
+			// Make sure we have the ability to successfully store updated properties back to the file
+			setState(properties, property, ExecutionMode.INPROGRESS);
+			try {
+				// Invoke execute now that we have successfully transitioned things to INPROGRESS
+				executable.execute();
+			} catch (Exception e) {
+				setState(properties, property, ExecutionMode.FAILED);
+				throw new IllegalStateException("Unexpected execution error", e);
+			}
+			setState(properties, property, ExecutionMode.COMPLETED);
 		}
+	}
+
+	protected void setState(Properties properties, String key, ExecutionMode task) {
+		properties.setProperty(property, task.name());
+		PropertyUtils.store(properties, propertiesFile, encoding);
+	}
+
+	protected boolean isState(Properties properties, String key, ExecutionMode task) {
+		String value = properties.getProperty(key);
+		return StringUtils.equals(task.name(), value);
 	}
 
 	public Executable getExecutable() {
