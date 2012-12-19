@@ -3,7 +3,6 @@ package org.kuali.common.util.execute;
 import java.io.File;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +19,10 @@ public class RunOnceExecutable implements Executable {
 	@Override
 	public void execute() {
 		Properties properties = PropertyUtils.load(propertiesFile, encoding);
-		String runOnceValue = properties.getProperty(property);
-		boolean runonce = StringUtils.equals(ExecutionMode.RUNONCE.name(), runOnceValue);
+		ExecutionMode mode = getExecutionMode(properties, property);
+		boolean runonce = ExecutionMode.RUNONCE.equals(mode);
 		if (runonce) {
-			logger.info("Running once - [{}={}]", property, runOnceValue);
+			logger.info("Running once - [{}={}]", property, mode);
 			// Make sure we have the ability to successfully store updated properties back to the file
 			setState(properties, property, ExecutionMode.INPROGRESS);
 			try {
@@ -36,8 +35,18 @@ public class RunOnceExecutable implements Executable {
 				throw new IllegalStateException("Unexpected execution error", e);
 			}
 		} else {
-			logger.info("Skipping execution - [{}={}]", property, runOnceValue);
+			logger.info("Skipping execution - [{}={}]", property, mode);
 		}
+	}
+
+	protected ExecutionMode getExecutionMode(Properties properties, String key) {
+		String value = properties.getProperty(property);
+		if (value == null) {
+			return ExecutionMode.NEVER;
+		} else {
+			return ExecutionMode.valueOf(value);
+		}
+
 	}
 
 	protected void setState(Properties properties, String key, ExecutionMode mode) {
