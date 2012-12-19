@@ -35,15 +35,10 @@
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-  <bean id="databaseResetExecutor" class="org.kuali.common.jdbc.DatabaseResetExecutor">
-    <property name="context" ref="context" />
-    <property name="service" ref="service" />
-  </bean>
-
-  <bean id="executor" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
+  <bean id="executable" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
     <property name="propertiesFile" value="${kuali.group.home}/${project.artifactId}.properties" />
     <property name="property" value="${project.groupId.code}.db.reset" />
-    <property name="executable" ref="databaseResetExecutor" />
+    <property name="executable" ref="databaseResetExecutable" />
     <property name="encoding" value="${kuali.encoding}" />
   </bean>
 
