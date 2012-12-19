@@ -28,7 +28,7 @@ public class DefaultSqlReader implements SqlReader {
 	public static final String DEFAULT_DELIMITER = "/";
 	public static final DelimiterMode DEFAULT_DELIMITER_MODE = DelimiterMode.OWN_LINE;
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
-	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList(new String[] { "#", "--" });
+	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList("#", "--");
 	public static final boolean DEFAULT_IS_TRIM = true;
 	public static final boolean DEFAULT_IS_IGNORE_COMMENTS = true;
 
