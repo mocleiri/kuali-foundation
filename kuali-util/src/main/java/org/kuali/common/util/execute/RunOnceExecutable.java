@@ -49,7 +49,7 @@ public class RunOnceExecutable implements Executable {
 		ExecutionMode mode = getExecutionMode(properties, property);
 		boolean runonce = ExecutionMode.RUNONCE.equals(mode);
 		if (runonce) {
-			logger.info("Running once - [{}={}]", property, mode);
+			logger.info("{}={}", property, mode);
 			// Make sure we have the ability to successfully store updated properties back to the file
 			setState(properties, property, ExecutionMode.INPROGRESS);
 			try {
@@ -71,7 +71,7 @@ public class RunOnceExecutable implements Executable {
 	protected ExecutionMode getExecutionMode(Properties properties, String key) {
 		String value = properties.getProperty(property);
 		if (value == null) {
-			return ExecutionMode.NEVER;
+			return ExecutionMode.NULL;
 		} else {
 			return ExecutionMode.valueOf(value);
 		}
@@ -79,7 +79,7 @@ public class RunOnceExecutable implements Executable {
 	}
 
 	protected void setState(Properties properties, String key, ExecutionMode mode) {
-		logger.info("Updating state [{}={}]", key, mode);
+		logger.info("{}={}", key, mode);
 		properties.setProperty(property, mode.name());
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}
