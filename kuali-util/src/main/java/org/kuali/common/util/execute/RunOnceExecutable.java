@@ -27,7 +27,6 @@ public class RunOnceExecutable implements Executable {
 			setState(properties, property, ExecutionMode.INPROGRESS);
 			try {
 				// Invoke execute now that we have successfully transitioned things to INPROGRESS
-				logger.info("Executing task");
 				executable.execute();
 				setState(properties, property, ExecutionMode.COMPLETED);
 			} catch (Exception e) {
@@ -50,7 +49,7 @@ public class RunOnceExecutable implements Executable {
 	}
 
 	protected void setState(Properties properties, String key, ExecutionMode mode) {
-		logger.info("Updating state to {}", ExecutionMode.INPROGRESS);
+		logger.info("Updating state [{}={}]", key, ExecutionMode.INPROGRESS);
 		properties.setProperty(property, mode.name());
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}
