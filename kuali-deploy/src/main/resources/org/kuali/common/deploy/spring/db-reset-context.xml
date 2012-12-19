@@ -112,9 +112,4 @@
 
   <bean id="service" class="org.kuali.common.jdbc.DefaultDatabaseService" />
 
-  <bean id="executable" class="org.kuali.common.jdbc.DatabaseResetExecutor" init-method="execute">
-    <property name="context" ref="context" />
-    <property name="service" ref="service" />
-  </bean>
-
 </beans>
