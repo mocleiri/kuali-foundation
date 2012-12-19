@@ -39,6 +39,9 @@ public class RunOnceExecutable implements Executable {
 			try {
 				// Invoke execute now that we have successfully transitioned things to INPROGRESS
 				executable.execute();
+				// There is always a chance that the executable finishes correctly and we encounter some kind of
+				// issue just storing the properties back to the file. This should be pretty rare considering
+				// we were able to successfully store the properties just prior to the executable commencing
 				setState(properties, property, ExecutionMode.COMPLETED);
 			} catch (Exception e) {
 				setState(properties, property, ExecutionMode.FAILED);
