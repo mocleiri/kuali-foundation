@@ -31,14 +31,14 @@ public class RunOnceExecutable implements Executable {
 		}
 	}
 
-	protected void setState(Properties properties, String key, ExecutionMode task) {
-		properties.setProperty(property, task.name());
+	protected void setState(Properties properties, String key, ExecutionMode mode) {
+		properties.setProperty(property, mode.name());
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}
 
-	protected boolean isState(Properties properties, String key, ExecutionMode task) {
+	protected boolean isState(Properties properties, String key, ExecutionMode mode) {
 		String value = properties.getProperty(key);
-		return StringUtils.equals(task.name(), value);
+		return StringUtils.equals(mode.name(), value);
 	}
 
 	public Executable getExecutable() {
