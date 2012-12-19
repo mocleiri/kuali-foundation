@@ -3,9 +3,11 @@ package org.kuali.common.util.execute;
 import java.io.File;
 import java.util.Properties;
 
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class RunOnceExecutable implements Executable {
 
@@ -18,6 +20,15 @@ public class RunOnceExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		Assert.notNull(propertiesFile);
+		Assert.notNull(property);
+		Assert.notNull(executable);
+
+		if (!propertiesFile.exists()) {
+			logger.info("Skipping execution. File does not exist - [{}]", LocationUtils.getCanonicalPath(propertiesFile));
+			return;
+		}
+
 		Properties properties = PropertyUtils.load(propertiesFile, encoding);
 		ExecutionMode mode = getExecutionMode(properties, property);
 		boolean runonce = ExecutionMode.RUNONCE.equals(mode);
