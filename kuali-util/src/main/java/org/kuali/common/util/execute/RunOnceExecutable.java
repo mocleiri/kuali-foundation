@@ -10,20 +10,20 @@ import org.kuali.common.util.PropertyUtils;
 public class RunOnceExecutable implements Executable {
 
 	Executable executable;
-	File file;
+	File propertiesFile;
 	String property;
 	String encoding;
 
 	@Override
 	public void execute() {
-		String location = LocationUtils.getCanonicalPath(file);
+		String location = LocationUtils.getCanonicalPath(propertiesFile);
 		Properties properties = PropertyUtils.load(location);
 		String value = properties.getProperty(property);
 		boolean runonce = StringUtils.equalsIgnoreCase("RUNONCE", value);
 		if (runonce) {
 			executable.execute();
 			properties.setProperty(property, "COMPLETED");
-			PropertyUtils.store(properties, file, encoding);
+			PropertyUtils.store(properties, propertiesFile, encoding);
 		}
 	}
 
@@ -35,12 +35,12 @@ public class RunOnceExecutable implements Executable {
 		this.executable = executable;
 	}
 
-	public File getFile() {
-		return file;
+	public File getPropertiesFile() {
+		return propertiesFile;
 	}
 
-	public void setFile(File file) {
-		this.file = file;
+	public void setPropertiesFile(File propertiesFile) {
+		this.propertiesFile = propertiesFile;
 	}
 
 	public String getProperty() {
@@ -51,4 +51,11 @@ public class RunOnceExecutable implements Executable {
 		this.property = property;
 	}
 
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
 }
