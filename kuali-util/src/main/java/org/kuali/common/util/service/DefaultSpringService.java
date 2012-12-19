@@ -25,7 +25,6 @@ import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
@@ -81,17 +80,22 @@ public class DefaultSpringService implements SpringService {
 		if (beanNames.size() > 0) {
 			logger.debug("Registering {} beans", beanNames.size());
 			// Get a parent context with the bean's they've provided us pre-registered in the context
-			ApplicationContext parent = getApplicationContext(beanNames, beans);
+			AbstractApplicationContext parent = getApplicationContext(beanNames, beans);
 			// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
 			AbstractApplicationContext context = null;
 			try {
-				new ClassPathXmlApplicationContext(locationsArray, parent);
+				context = new ClassPathXmlApplicationContext(locationsArray, parent);
+			} finally {
+				closeQuietly(context);
+				closeQuietly(parent);
+			}
+		} else {
+			AbstractApplicationContext context = null;
+			try {
+				context = new ClassPathXmlApplicationContext(locationsArray);
 			} finally {
 				closeQuietly(context);
 			}
-		} else {
-			// Load the locations they provided us
-			new ClassPathXmlApplicationContext(locationsArray);
 		}
 	}
 
@@ -104,9 +108,9 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	/**
-	 * Return an <code>ApplicationContext</code> with <code>beans</code> registered in the context under <code>beanNames</code>
+	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> registered in the context under <code>beanNames</code>
 	 */
-	protected ApplicationContext getApplicationContext(List<String> beanNames, List<Object> beans) {
+	protected AbstractApplicationContext getApplicationContext(List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
 		context.refresh();
