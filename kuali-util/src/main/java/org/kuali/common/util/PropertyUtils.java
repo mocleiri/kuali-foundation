@@ -529,6 +529,21 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Return a new <code>Properties</code> object loaded from <code>file</code>.
+	 */
+	public static final Properties load(File file) {
+		return load(file, null);
+	}
+
+	/**
+	 * Return a new <code>Properties</code> object loaded from <code>file</code> using the given encoding.
+	 */
+	public static final Properties load(File file, String encoding) {
+		String location = LocationUtils.getCanonicalPath(file);
+		return load(location, encoding);
+	}
+
+	/**
 	 * Return a new <code>Properties</code> object loaded from <code>location</code>.
 	 */
 	public static final Properties load(String location) {
