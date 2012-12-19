@@ -23,14 +23,18 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="a" class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute" depends-on="c">
+  <util:properties id="mavenProperties" location="classpath:maven.properties" />
+
+  <context:property-placeholder properties-ref="mavenProperties" />
+
+  <bean id="propertiesFile" class="java.lang.String">
+    <constructor-arg value="${project.build.directory}/test-classes/org/kuali/common/util/runonce.properties" />
+  </bean>
+
+  <bean id="printMessageExecutable" class="org.kuali.common.util.execute.PrintMessageExecutable">
     <property name="message" value="a" />
   </bean>
-  <bean id="b" class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute">
-    <property name="message" value="b" />
-  </bean>
-  <bean id="c" class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute">
-    <property name="message" value="c" />
-  </bean>
+
+
 
 </beans>
