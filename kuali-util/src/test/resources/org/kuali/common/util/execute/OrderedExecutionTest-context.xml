@@ -40,6 +40,7 @@
     <property name="executable" ref="printMessageExecutable" />
     <property name="propertiesFile" ref="propertiesFile" />
     <property name="property" value="print.message" />
+    <property name="encoding" value="${project.build.sourceEncoding}" />
   </bean>
 
 
