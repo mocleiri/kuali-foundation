@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="locations" value-type="java.lang.String">
+  <util:list id="deploy.locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
     <value>classpath:${project.groupId.path}/local.properties</value>
@@ -35,8 +35,8 @@
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-  <bean id="executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-    <property name="executable" ref="databaseResetExecutable" />
+  <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
+    <property name="executable" ref="deployDatabaseResetExecutable" />
   </bean>
 
   <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
