@@ -13,28 +13,26 @@ public class RunOnceExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(RunOnceExecutable.class);
 
 	Executable executable;
-	String groupHome;
-	Properties properties;
 	File propertiesFile;
 	String property;
 	String encoding;
 
 	@Override
 	public void execute() {
+		Properties properties = PropertyUtils.load(propertiesFile, encoding);
 		String runOnceValue = properties.getProperty(property);
 		boolean runonce = StringUtils.equals(ExecutionMode.RUNONCE.name(), runOnceValue);
 		if (runonce) {
 			logger.info("Running once - [{}={}]", property, runOnceValue);
-			Properties loaded = PropertyUtils.load(propertiesFile, encoding);
 			// Make sure we have the ability to successfully store updated properties back to the file
-			setState(loaded, property, ExecutionMode.INPROGRESS);
+			setState(properties, property, ExecutionMode.INPROGRESS);
 			try {
 				// Invoke execute now that we have successfully transitioned things to INPROGRESS
 				logger.info("Executing task");
 				executable.execute();
-				setState(loaded, property, ExecutionMode.COMPLETED);
+				setState(properties, property, ExecutionMode.COMPLETED);
 			} catch (Exception e) {
-				setState(loaded, property, ExecutionMode.FAILED);
+				setState(properties, property, ExecutionMode.FAILED);
 				throw new IllegalStateException("Unexpected execution error", e);
 			}
 		} else {
