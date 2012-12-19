@@ -120,7 +120,7 @@
     <!-- Internal kuali library versions -->
     <kuali-util.version>2.0.2</kuali-util.version>
     <kuali-sql.version>2.0.0</kuali-sql.version>
-    <kuali-jdbc.version>1.0.6</kuali-jdbc.version>
+    <kuali-jdbc.version>1.0.7</kuali-jdbc.version>
     <kuali-deploy.version>2.0.13</kuali-deploy.version>
   </properties>
   <profiles>
