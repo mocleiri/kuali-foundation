@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="locationHelperIncludes" value-type="java.lang.String">
+  <util:list id="deploy.locationHelperIncludes" value-type="java.lang.String">
     <value>kuali.encoding</value>
     <value>kuali.groupId</value>
     <value>project.groupId</value>
@@ -34,23 +34,21 @@
     <value>jdbc.*</value>
   </util:list>
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="locations" ref="locations" />
-    <property name="locationHelperProperties" ref="mavenProperties" />
+  <bean id="deploy.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+    <property name="locations" ref="deploy.locations" />
+    <property name="locationHelperProperties" ref="deploy.mavenProperties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encoding" value="${kuali.encoding}" />
-    <property name="locationHelperIncludes" ref="locationHelperIncludes" />
+    <property name="locationHelperIncludes" ref="deploy.locationHelperIncludes" />
   </bean>
 
-  <context:property-placeholder properties-ref="properties" system-properties-mode="NEVER" />
-
-  <bean id="dbaSql" class="java.lang.String">
+  <bean id="deploy.dbaSql" class="java.lang.String">
     <constructor-arg value="${sql.validate} ${sql.drop} ${sql.create}" />
   </bean>
 
-  <bean id="databaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
+  <bean id="deployDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
     <property name="driver" value="${jdbc.driver}" />
     <property name="url" value="${jdbc.url}" />
@@ -61,60 +59,60 @@
     <property name="dbaPassword" value="${jdbc.dba.password}" />
   </bean>
 
-  <util:list id="nullableProperties" value-type="java.lang.String">
+  <util:list id="deploy.nullableProperties" value-type="java.lang.String">
     <value>dbaUsername</value>
     <value>dbaPassword</value>
     <value>username</value>
     <value>password</value>
   </util:list>
 
-  <util:list id="nullTokens" value-type="java.lang.String">
+  <util:list id="deploy.nullTokens" value-type="java.lang.String">
     <value>NONE</value>
     <value>NULL</value>
   </util:list>
 
-  <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
-    <property name="properties" ref="nullableProperties" />
-    <property name="bean" ref="databaseProcessContext" />
-    <property name="nullTokens" ref="nullTokens" />
+  <bean id="deploy.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
+    <property name="properties" ref="deploy.nullableProperties" />
+    <property name="bean" ref="deployDatabaseProcessContext" />
+    <property name="nullTokens" ref="deploy.nullTokens" />
   </bean>
 
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
-    <property name="driverClassName" value="#{databaseProcessContext.driver}" />
-    <property name="url" value="#{databaseProcessContext.url}" />
-    <property name="username" value="#{databaseProcessContext.username}" />
-    <property name="password" value="#{databaseProcessContext.password}" />
+  <bean id="deploy.dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="deploy.nullifier">
+    <property name="driverClassName" value="#{deployDatabaseProcessContext.driver}" />
+    <property name="url" value="#{deployDatabaseProcessContext.url}" />
+    <property name="username" value="#{deployDatabaseProcessContext.username}" />
+    <property name="password" value="#{deployDatabaseProcessContext.password}" />
   </bean>
 
-  <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
-    <property name="driverClassName" value="#{databaseProcessContext.driver}" />
-    <property name="url" value="#{databaseProcessContext.dbaUrl}" />
-    <property name="username" value="#{databaseProcessContext.dbaUsername}" />
-    <property name="password" value="#{databaseProcessContext.dbaPassword}" />
+  <bean id="deploy.dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="deploy.nullifier">
+    <property name="driverClassName" value="#{deployDatabaseProcessContext.driver}" />
+    <property name="url" value="#{deployDatabaseProcessContext.dbaUrl}" />
+    <property name="username" value="#{deployDatabaseProcessContext.dbaUsername}" />
+    <property name="password" value="#{deployDatabaseProcessContext.dbaPassword}" />
   </bean>
 
-  <bean id="dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="dbaDataSource" />
+  <bean id="deploy.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="deploy.dbaDataSource" />
   </bean>
 
-  <bean id="normalJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="dataSource" />
+  <bean id="deploy.normalJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="deploy.dataSource" />
   </bean>
 
-  <bean id="databaseResetContext" class="org.kuali.common.jdbc.context.DatabaseResetContext">
-    <property name="normalJdbcContext" ref="normalJdbcContext" />
-    <property name="dbaJdbcContext" ref="dbaJdbcContext" />
-    <property name="databaseProcessContext" ref="databaseProcessContext" />
-    <property name="dbaSql" ref="dbaSql" />
-    <property name="properties" ref="properties" />
+  <bean id="deploy.databaseResetContext" class="org.kuali.common.jdbc.context.DatabaseResetContext">
+    <property name="normalJdbcContext" ref="deploy.normalJdbcContext" />
+    <property name="dbaJdbcContext" ref="deploy.dbaJdbcContext" />
+    <property name="databaseProcessContext" ref="deployDatabaseProcessContext" />
+    <property name="dbaSql" ref="deploy.dbaSql" />
+    <property name="properties" ref="deploy.properties" />
     <property name="encoding" value="${kuali.encoding}" />
   </bean>
 
-  <bean id="databaseService" class="org.kuali.common.jdbc.DefaultDatabaseService" />
+  <bean id="deploy.databaseService" class="org.kuali.common.jdbc.DefaultDatabaseService" />
 
-  <bean id="databaseResetExecutable" class="org.kuali.common.jdbc.DatabaseResetExecutable">
-    <property name="context" ref="databaseResetContext" />
-    <property name="service" ref="databaseService" />
+  <bean id="deploy.databaseResetExecutable" class="org.kuali.common.jdbc.DatabaseResetExecutable">
+    <property name="context" ref="deploy.databaseResetContext" />
+    <property name="service" ref="deploy.databaseService" />
   </bean>
 
 </beans>

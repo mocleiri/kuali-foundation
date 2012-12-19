@@ -39,4 +39,6 @@
     <property name="executable" ref="databaseResetExecutable" />
   </bean>
 
+  <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+
 </beans>

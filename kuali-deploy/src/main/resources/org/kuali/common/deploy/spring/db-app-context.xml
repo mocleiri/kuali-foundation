@@ -23,9 +23,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:properties id="mavenProperties" location="classpath:META-INF/org/kuali/maven.properties" />
+  <util:properties id="deploy.mavenProperties" location="classpath:org/kuali/maven.properties" />
 
-  <util:list id="locations" value-type="java.lang.String">
+  <util:list id="deploy.locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
     <value>classpath:${project.groupId.path}/local.properties</value>
@@ -37,10 +37,10 @@
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-  <bean id="executable" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
+  <bean id="deploy.executable" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
     <property name="propertiesFile" value="${kuali.group.home}/${project.artifactId}.properties" />
     <property name="property" value="${project.groupId.code}.db.reset" />
-    <property name="executable" ref="databaseResetExecutable" />
+    <property name="executable" ref="deploy.databaseResetExecutable" />
     <property name="encoding" value="${kuali.encoding}" />
   </bean>
 
