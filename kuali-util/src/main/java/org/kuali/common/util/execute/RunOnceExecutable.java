@@ -63,7 +63,7 @@ public class RunOnceExecutable implements Executable {
 	}
 
 	protected void setState(Properties properties, String key, ExecutionMode mode) {
-		logger.info("Updating state [{}={}]", key, ExecutionMode.INPROGRESS);
+		logger.info("Updating state [{}={}]", key, mode);
 		properties.setProperty(property, mode.name());
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}

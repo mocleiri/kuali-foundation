@@ -36,5 +36,12 @@
   </bean>
 
 
+  <bean id="runOnceExecutable" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
+    <property name="executable" ref="printMessageExecutable" />
+    <property name="propertiesFile" ref="propertiesFile" />
+    <property name="property" value="print.message" />
+  </bean>
+
+
 
 </beans>
