@@ -35,7 +35,7 @@
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-  <bean id="executable" class="org.kuali.common.util.ExecutableExecutable" init-method="execute">
+  <bean id="executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
     <property name="executable" ref="databaseResetExecutable" />
   </bean>
 
