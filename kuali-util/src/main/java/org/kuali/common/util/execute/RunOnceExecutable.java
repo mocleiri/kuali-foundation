@@ -29,6 +29,7 @@ public class RunOnceExecutable implements Executable {
 			return;
 		}
 
+		logger.info("Loading run once properties from - [{}]", LocationUtils.getCanonicalPath(propertiesFile));
 		Properties properties = PropertyUtils.load(propertiesFile, encoding);
 		ExecutionMode mode = getExecutionMode(properties, property);
 		boolean runonce = ExecutionMode.RUNONCE.equals(mode);
