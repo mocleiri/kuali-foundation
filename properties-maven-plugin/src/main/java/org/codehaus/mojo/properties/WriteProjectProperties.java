@@ -49,28 +49,28 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	private boolean includeEnvironmentVariables;
 
 	/**
-	 * CSV list of properties to exclude. A single wildcard character <code>*</code is supported.
+	 * CSV list of properties to exclude. A single wildcard character <code>*</code> is supported.
 	 *
 	 * @parameter expression="${properties.exclude}"
 	 */
 	private String exclude;
 
 	/**
-	 * CSV list of properties to include. A single wildcard character <code>*</code is supported.
+	 * CSV list of properties to include. A single wildcard character <code>*</code> is supported.
 	 *
 	 * @parameter expression="${properties.include}"
 	 */
 	private String include;
 
 	/**
-	 * List of properties to include. A single wildcard character <code>*</code is supported.
+	 * List of properties to include. A single wildcard character <code>*</code> is supported.
 	 *
 	 * @parameter
 	 */
 	private List<String> includes;
 
 	/**
-	 * List of properties to exclude. A single wildcard character <code>*</code is supported.
+	 * List of properties to exclude. A single wildcard character <code>*</code> is supported.
 	 *
 	 * @parameter
 	 */
