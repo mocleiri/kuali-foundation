@@ -49,29 +49,28 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	private boolean includeEnvironmentVariables;
 
 	/**
-	 * Comma separated set of properties to exclude when writing the properties file
+	 * CSV list of properties to exclude. A single wildcard character <code>*</code is supported.
 	 *
 	 * @parameter expression="${properties.exclude}"
 	 */
 	private String exclude;
 
 	/**
-	 * Comma separated set of properties to write to the properties file. If provided, only the properties matching those supplied here will
-	 * be written to the properties file.
+	 * CSV list of properties to include. A single wildcard character <code>*</code is supported.
 	 *
 	 * @parameter expression="${properties.include}"
 	 */
 	private String include;
 
 	/**
-	 * List of properties to include
+	 * List of properties to include. A single wildcard character <code>*</code is supported.
 	 *
 	 * @parameter
 	 */
 	private List<String> includes;
 
 	/**
-	 * List of properties to exclude
+	 * List of properties to exclude. A single wildcard character <code>*</code is supported.
 	 *
 	 * @parameter
 	 */
@@ -85,8 +84,8 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	private boolean resolvePlaceholders;
 
 	/**
-	 * If true, project.groupId, project.artifactId, project.version, project.basedir, project.build.directory are automatically added to
-	 * the properties file.
+	 * If true, <code>project.groupId</code>, <code>project.artifactId</code>, <code>project.version</code>, <code>project.basedir</code>,
+	 * <code>project.build.directory</code> are automatically added to the properties file.
 	 *
 	 * @parameter expression="${properties.includeStandardMavenProperties}" default-value="false"
 	 */
