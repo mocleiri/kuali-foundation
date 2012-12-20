@@ -84,8 +84,15 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	private boolean resolvePlaceholders;
 
 	/**
-	 * If true, <code>project.groupId</code>, <code>project.artifactId</code>, <code>project.version</code>, <code>project.basedir</code>,
-	 * <code>project.build.directory</code> are automatically added to the properties file.
+	 * If true, these Maven properties are added to the properties file:
+	 *
+	 * <pre>
+	 *   project.groupId
+	 *   project.artifactId
+	 *   project.version
+	 *   project.basedir
+	 *   project.build.directory
+	 * </pre>
 	 *
 	 * @parameter expression="${properties.includeStandardMavenProperties}" default-value="false"
 	 */
