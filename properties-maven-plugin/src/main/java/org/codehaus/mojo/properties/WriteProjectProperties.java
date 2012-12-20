@@ -15,16 +15,14 @@
  */
 package org.codehaus.mojo.properties;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.Constants;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Write project properties to a file.
@@ -88,9 +86,19 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	private boolean resolvePlaceholders;
 
 	/**
+	 * If true, project.groupId, project.artifactId, project.version, project.basedir, project.build.directory are automatically added to
+	 * the properties file.
+	 *
 	 * @parameter expression="${properties.includeStandardMavenProperties}" default-value="false"
 	 */
 	private boolean includeStandardMavenProperties;
+
+	/**
+	 * Anything provided here is added as a comment at the top of the properties file.
+	 *
+	 * @parameter expression="${properties.comment}"
+	 */
+	private String comment;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -100,7 +108,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		properties.putAll(project.getProperties());
 
 		if (includeStandardMavenProperties) {
-			properties.putAll(getStandardMavenProperties(project));
+			properties.putAll(MavenUtils.getInternalMavenProperties(project));
 		}
 
 		// Add environment variables, overriding any existing properties with the same key
@@ -113,27 +121,31 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties.putAll(System.getProperties());
 		}
 
-		List<String> includeList = getList(includes, include);
-		List<String> excludeList = getList(excludes, exclude);
+		// Combine the lists with the csv values
+		List<String> includeList = CollectionUtils.sortedMerge(includes, include);
+		List<String> excludeList = CollectionUtils.sortedMerge(excludes, exclude);
 
+		// Override any properties from the includes list with their equivalent system/env value
 		override(properties, includeList);
 
 		// Resolve placeholders
 		if (resolvePlaceholders) {
-			properties = getResolvedProperties(properties);
+			Properties resolved = PropertyUtils.getResolvedProperties(properties);
+			getLog().info("Resolved " + resolved.size() + " properties");
+			properties.putAll(resolved);
 		}
 
 		// Remove properties as appropriate
 		PropertyUtils.trim(properties, includeList, excludeList);
 
-		getLog().info("Creating " + outputFile);
+		getLog().info("Creating " + LocationUtils.getCanonicalPath(outputFile));
 
 		// Save the properties to a file
 		writeProperties(this.outputFile, properties, this.outputStyle, this.prefix);
 	}
 
 	protected void override(Properties properties, List<String> includes) {
-		List<String> keys = getKeys(properties, includes);
+		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, null);
 		Properties global = PropertyUtils.getGlobalProperties(properties);
 		properties.clear();
 		for (String key : keys) {
@@ -142,43 +154,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 				properties.setProperty(key, value);
 			}
 		}
-	}
-
-	protected List<String> getKeys(Properties properties, List<String> keys) {
-		List<String> newKeys = PropertyUtils.getSortedKeys(properties);
-		for (String key : keys) {
-			if (!newKeys.contains(key)) {
-				newKeys.add(key);
-			}
-		}
-		return newKeys;
-	}
-
-	protected Properties getResolvedProperties(Properties props) {
-		PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-		List<String> keys = PropertyUtils.getSortedKeys(props);
-		Properties newProps = new Properties();
-		for (String key : keys) {
-			String originalValue = props.getProperty(key);
-			String resolvedValue = pph.replacePlaceholders(originalValue, props);
-			newProps.setProperty(key, resolvedValue);
-		}
-		return newProps;
-
-	}
-
-	protected List<String> getList(List<String> list, String csv) {
-		List<String> newList = new ArrayList<String>();
-		if (!CollectionUtils.isEmpty(list)) {
-			newList.addAll(list);
-		}
-		List<String> csvList = CollectionUtils.getTrimmedListFromCSV(csv);
-		for (String element : csvList) {
-			if (!newList.contains(element)) {
-				newList.add(element);
-			}
-		}
-		return newList;
 	}
 
 	public boolean isIncludeSystemProperties() {
@@ -235,6 +210,22 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
 	public void setIncludes(List<String> includes) {
 		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }

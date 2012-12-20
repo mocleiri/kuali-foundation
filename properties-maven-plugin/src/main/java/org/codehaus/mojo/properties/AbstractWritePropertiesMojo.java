@@ -67,6 +67,12 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 	 */
 	String prefix;
 
+	/**
+	 *
+	 * @parameter expression="${properties.encoding}" default-value="${project.build.sourceEncoding}"
+	 */
+	String encoding;
+
 	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle, String prefix) throws MojoExecutionException {
 		Properties prefixed = getPrefixedProperties(properties, prefix);
 		Properties formatted = getFormattedProperties(prefixed, outputStyle);
@@ -80,16 +86,6 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
-	}
-
-	protected Properties getStandardMavenProperties(MavenProject project) {
-		Properties properties = new Properties();
-		properties.setProperty("project.groupId", project.getGroupId());
-		properties.setProperty("project.artifactId", project.getArtifactId());
-		properties.setProperty("project.version", project.getVersion());
-		properties.setProperty("project.basedir", project.getBasedir().getAbsolutePath());
-		properties.setProperty("project.build.directory", project.getBuild().getDirectory());
-		return properties;
 	}
 
 	protected SortedProperties getSortedProperties(Properties properties) {
@@ -134,5 +130,41 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 			newProperties.setProperty(newKey, value);
 		}
 		return newProperties;
+	}
+
+	public MavenProject getProject() {
+		return project;
+	}
+
+	public File getOutputFile() {
+		return outputFile;
+	}
+
+	public void setOutputFile(File outputFile) {
+		this.outputFile = outputFile;
+	}
+
+	public OutputStyle getOutputStyle() {
+		return outputStyle;
+	}
+
+	public void setOutputStyle(OutputStyle outputStyle) {
+		this.outputStyle = outputStyle;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 }
