@@ -73,10 +73,10 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 	 */
 	String comment;
 
-	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle, String prefix) {
+	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle, String prefix, String encoding, String comment) {
 		Properties prefixed = PropertyUtils.getPrefixedProperties(properties, prefix);
 		Properties formatted = getFormattedProperties(prefixed, outputStyle);
-		PropertyUtils.store(formatted, file, encoding);
+		PropertyUtils.store(formatted, file, encoding, comment);
 	}
 
 	protected Properties getFormattedProperties(Properties properties, OutputStyle style) {

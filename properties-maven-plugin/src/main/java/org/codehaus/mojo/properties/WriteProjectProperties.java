@@ -114,7 +114,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 			properties.putAll(System.getProperties());
 		}
 
-		// Combine the lists with the csv values
+		// Merge the lists with the csv values
 		List<String> includeList = CollectionUtils.sortedMerge(includes, include);
 		List<String> excludeList = CollectionUtils.sortedMerge(excludes, exclude);
 
@@ -134,7 +134,7 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 		getLog().info("Creating " + LocationUtils.getCanonicalPath(outputFile));
 
 		// Save the properties to a file
-		writeProperties(this.outputFile, properties, this.outputStyle, this.prefix);
+		writeProperties(outputFile, properties, outputStyle, prefix, encoding, comment);
 	}
 
 	protected void override(Properties properties, List<String> includes) {
