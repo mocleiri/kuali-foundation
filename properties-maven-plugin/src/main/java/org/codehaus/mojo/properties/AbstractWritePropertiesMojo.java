@@ -16,19 +16,11 @@
 package org.codehaus.mojo.properties;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.PropertyUtils;
 
 /**
  * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
@@ -68,30 +60,23 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 	String prefix;
 
 	/**
+	 * The encoding to use when storing the properties
 	 *
 	 * @parameter expression="${properties.encoding}" default-value="${project.build.sourceEncoding}"
 	 */
 	String encoding;
 
-	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle, String prefix) throws MojoExecutionException {
-		Properties prefixed = getPrefixedProperties(properties, prefix);
-		Properties formatted = getFormattedProperties(prefixed, outputStyle);
-		Properties sorted = getSortedProperties(formatted);
-		OutputStream out = null;
-		try {
-			out = FileUtils.openOutputStream(file);
-			sorted.store(out, "Created by the properties-maven-plugin");
-		} catch (IOException e) {
-			throw new MojoExecutionException("Error creating properties file", e);
-		} finally {
-			IOUtils.closeQuietly(out);
-		}
-	}
+	/**
+	 * Anything provided here is added as a comment at the top of the properties file.
+	 *
+	 * @parameter expression="${properties.comment}"
+	 */
+	String comment;
 
-	protected SortedProperties getSortedProperties(Properties properties) {
-		SortedProperties sp = new SortedProperties();
-		sp.putAll(properties);
-		return sp;
+	protected void writeProperties(File file, Properties properties, OutputStyle outputStyle, String prefix) {
+		Properties prefixed = PropertyUtils.getPrefixedProperties(properties, prefix);
+		Properties formatted = getFormattedProperties(prefixed, outputStyle);
+		PropertyUtils.store(formatted, file, encoding);
 	}
 
 	protected Properties getFormattedProperties(Properties properties, OutputStyle style) {
@@ -99,37 +84,10 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 		case NORMAL:
 			return properties;
 		case ENVIRONMENT_VARIABLE:
-			return getEnvironmentVariableProperties(properties);
+			return PropertyUtils.reformatKeysAsEnvVars(properties);
 		default:
 			throw new IllegalArgumentException(outputStyle + " is unknown");
 		}
-	}
-
-	protected Properties getPrefixedProperties(Properties properties, String prefix) {
-		if (StringUtils.isBlank(prefix)) {
-			return properties;
-		}
-		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
-		Collections.sort(keys);
-		Properties newProperties = new Properties();
-		for (String key : keys) {
-			String value = properties.getProperty(key);
-			String newKey = prefix + "." + key;
-			newProperties.setProperty(newKey, value);
-		}
-		return newProperties;
-	}
-
-	protected Properties getEnvironmentVariableProperties(Properties properties) {
-		List<String> keys = new ArrayList<String>(properties.stringPropertyNames());
-		Collections.sort(keys);
-		Properties newProperties = new Properties();
-		for (String key : keys) {
-			String value = properties.getProperty(key);
-			String newKey = key.toUpperCase().replace(".", "_");
-			newProperties.setProperty(newKey, value);
-		}
-		return newProperties;
 	}
 
 	public MavenProject getProject() {
@@ -166,5 +124,13 @@ public abstract class AbstractWritePropertiesMojo extends AbstractMojo {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

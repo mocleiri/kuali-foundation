@@ -93,13 +93,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 	 */
 	private boolean includeStandardMavenProperties;
 
-	/**
-	 * Anything provided here is added as a comment at the top of the properties file.
-	 *
-	 * @parameter expression="${properties.comment}"
-	 */
-	private String comment;
-
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Properties properties = new Properties();
@@ -218,14 +211,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
 	public void setExcludes(List<String> excludes) {
 		this.excludes = excludes;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
 	}
 
 }
