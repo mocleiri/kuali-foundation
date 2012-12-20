@@ -21,7 +21,6 @@ import java.util.Properties;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 
 /**
@@ -130,8 +129,6 @@ public class WriteProjectProperties extends AbstractWritePropertiesMojo {
 
 		// Remove properties as appropriate
 		PropertyUtils.trim(properties, includeList, excludeList);
-
-		getLog().info("Creating " + LocationUtils.getCanonicalPath(outputFile));
 
 		// Save the properties to a file
 		writeProperties(outputFile, properties, outputStyle, prefix, encoding, comment);
