@@ -15,21 +15,9 @@
  */
 package org.kuali.common.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-
-import org.junit.Test;
-
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 
 public class SshUtilsTest {
-
+/*
 	@Test
 	public void test() {
 		try {
@@ -65,4 +53,5 @@ public class SshUtilsTest {
 			e.printStackTrace();
 		}
 	}
+	*/
 }
