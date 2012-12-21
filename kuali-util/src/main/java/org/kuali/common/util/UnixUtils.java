@@ -50,6 +50,68 @@ public class UnixUtils {
 	/**
 	 * <pre>
 	 *  rsync source destination
+	 * </pre>
+	 */
+	public static final int rsync(File source, File destination) {
+		String sourcePath = validateRsyncSourceDir(source);
+		String destinationPath = validateRsyncSourceDir(destination);
+		return rsync(null, sourcePath, destinationPath);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync source [user@]hostname:destination
+	 * </pre>
+	 */
+	public static final int rsync(File source, String destination) {
+		String sourcePath = validateRsyncSourceDir(source);
+		return rsync(null, sourcePath, destination);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync [user@]hostname:source destination
+	 * </pre>
+	 */
+	public static final int rsync(String source, File destination) {
+		String destinationPath = validateRsyncSourceDir(destination);
+		return rsync(null, source, destinationPath);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync [options] source destination
+	 * </pre>
+	 */
+	public static final int rsync(List<String> options, File source, File destination) {
+		String sourcePath = validateRsyncSourceDir(source);
+		String destinationPath = validateRsyncSourceDir(destination);
+		return rsync(options, sourcePath, destinationPath);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync [options] source [user@]hostname:destination
+	 * </pre>
+	 */
+	public static final int rsync(List<String> options, File source, String destination) {
+		String sourcePath = validateRsyncSourceDir(source);
+		return rsync(options, sourcePath, destination);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync [options] [user@]hostname:source destination
+	 * </pre>
+	 */
+	public static final int rsync(List<String> options, String source, File destination) {
+		String destinationPath = validateRsyncSourceDir(destination);
+		return rsync(options, source, destinationPath);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync source destination
 	 *  rsync source [user@]hostname:destination
 	 *  rsync [user@]hostname:source destination
 	 * </pre>
@@ -469,6 +531,26 @@ public class UnixUtils {
 			sb.append(arguments.get(i));
 		}
 		return sb.toString();
+	}
+
+	protected static final String validateRsyncSourceDir(File dir) {
+		String path = LocationUtils.getCanonicalPath(dir);
+		if (!dir.exists()) {
+			throw new IllegalArgumentException(path + " does not exist");
+		}
+		if (!dir.isDirectory()) {
+			throw new IllegalArgumentException(path + " is not a directory");
+		}
+		return path;
+	}
+
+	protected static final String validateRsyncDestinationDir(File dir) {
+		try {
+			FileUtils.forceMkdir(dir);
+			return dir.getCanonicalPath();
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
 	}
 
 }
