@@ -30,7 +30,7 @@ public class ExecServiceTest {
 	public void testSsh() throws IOException {
 		try {
 			DefaultExecService des = new DefaultExecService();
-			int exitValue = des.ssh("root", "ci.fn.kuali.org", "sleep 30");
+			int exitValue = des.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			logger.info("Exit value = " + exitValue);
 		} catch (Exception e) {
 			e.printStackTrace();
