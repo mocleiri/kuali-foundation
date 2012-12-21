@@ -17,7 +17,9 @@ package org.kuali.common.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 public class UnixUtilsTest {
@@ -29,12 +31,15 @@ public class UnixUtilsTest {
 			String remote = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
 			UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
+			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh", true);
 			UnixUtils.scp(remote, local);
 			UnixUtils.sshrm("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
 			UnixUtils.scp(local, remote);
-			UnixUtils.sshmkdir("root@env11.ks.kuali.org", "/home/tomcat/foo");
+			UnixUtils.sshmkdir("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
 			String newRemote = "root@env11.ks.kuali.org:/home/tomcat/foo/bar.sh";
 			UnixUtils.scp(local, newRemote);
+			FileUtils.deleteDirectory(new File("/tmp/tomcat"));
+			UnixUtils.rsync(Arrays.asList("-r", "--stats", "-a"), "root@env11.ks.kuali.org:/home/tomcat/", "/tmp/tomcat");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
