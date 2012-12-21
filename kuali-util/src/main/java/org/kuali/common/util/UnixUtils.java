@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -41,6 +42,7 @@ public class UnixUtils {
 	private static final String RM = "rm";
 	private static final String CHOWN = "chown";
 	private static final String RSYNC = "rsync";
+	public static final int SUCCESS = 0;
 
 	/**
 	 * Invoke <code>rsync</code> to synchronize <code>src</code> with <code>dst</code>
@@ -127,17 +129,17 @@ public class UnixUtils {
 	}
 
 	/**
-	 * Execute <code>script</code> as <code>user</code> on <code>host</code>
+	 * Execute <code>script</code> as <code>login</code> on <code>host</code>
 	 */
-	public static final int sshsu(String host, String user, String script) {
-		return sshsu(null, host, user, script);
+	public static final int sshsu(String host, String login, String script) {
+		return sshsu(null, host, login, script);
 	}
 
 	/**
-	 * Execute <code>script</code> as <code>user</code> on <code>host</code>
+	 * Execute <code>script</code> as <code>login</code> on <code>host</code>
 	 */
-	public static final int sshsu(List<String> sshargs, String host, String user, String script) {
-		return ssh(host, SU + " - " + user + " " + script);
+	public static final int sshsu(List<String> sshargs, String host, String login, String script) {
+		return ssh(host, SU + " - " + login + " " + script);
 	}
 
 	/**
@@ -151,11 +153,22 @@ public class UnixUtils {
 	 * Execute <code>command</code> on <code>host</code> with an optional list of arguments
 	 */
 	public static final int ssh(List<String> args, String host, String command) {
-		Assert.notNull(host);
+		return ssh(args, null, host, command);
+	}
+
+	/**
+	 * Execute <code>command</code> on <code>host</code> with an optional list of arguments
+	 */
+	public static final int ssh(List<String> args, String user, String hostname, String command) {
+		Assert.notNull(hostname);
 		Assert.notNull(command);
 		List<String> arguments = new ArrayList<String>();
 		arguments.addAll(CollectionUtils.toEmpty(args));
-		arguments.add(host);
+		if (!StringUtils.isBlank(user)) {
+			arguments.add(user + "@" + hostname);
+		} else {
+			arguments.add(hostname);
+		}
 		arguments.add(command);
 		Commandline cl = new Commandline();
 		cl.setExecutable(SSH);
@@ -163,7 +176,17 @@ public class UnixUtils {
 		return execute(cl);
 	}
 
-	protected static final int scp(List<String> args, String location1, String location2) {
+	/**
+	 * Use <code>scp</code> to copy a file from <code>location1</code> to <code>location2</code>
+	 */
+	public static final int scp(String location1, String location2) {
+		return scp(null, location1, location2);
+	}
+
+	/**
+	 * Use <code>scp</code> to copy a file from <code>location1</code> to <code>location2</code>
+	 */
+	public static final int scp(List<String> args, String location1, String location2) {
 		Assert.notNull(location1);
 		Assert.notNull(location2);
 		List<String> arguments = new ArrayList<String>();
@@ -213,6 +236,12 @@ public class UnixUtils {
 	 */
 	public static final int scp(String remote, File local) {
 		return scp(null, remote, local);
+	}
+
+	public static final void validate(int exitValue, String message, Mode nonZeroExitValueMode) {
+		if (exitValue != UnixUtils.SUCCESS) {
+			ModeUtils.validate(nonZeroExitValueMode, message);
+		}
 	}
 
 	protected static final int execute(Commandline cl) {
