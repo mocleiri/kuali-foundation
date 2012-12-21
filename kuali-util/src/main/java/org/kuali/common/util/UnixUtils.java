@@ -51,10 +51,17 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync source destination
 	 * </pre>
+	 *
+	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must
+	 * already exist. <code>destination</code> will be created if it does not exist.
 	 */
 	public static final int rsync(File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
 		String destinationPath = validateRsyncSourceDir(destination);
+
+		// Can't be the same directory
+		Assert.isTrue(!source.equals(destination));
+
 		return rsync(null, sourcePath, destinationPath);
 	}
 
@@ -62,6 +69,8 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync source [user@]hostname:destination
 	 * </pre>
+	 *
+	 * Where <code>source</code> is a directory on the local file system. <code>source</code> must already exist.
 	 */
 	public static final int rsync(File source, String destination) {
 		String sourcePath = validateRsyncSourceDir(source);
@@ -72,6 +81,8 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [user@]hostname:source destination
 	 * </pre>
+	 *
+	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
 	public static final int rsync(String source, File destination) {
 		String destinationPath = validateRsyncSourceDir(destination);
@@ -82,6 +93,9 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [options] source destination
 	 * </pre>
+	 *
+	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must
+	 * already exist. <code>destination</code> will be created if it does not exist.
 	 */
 	public static final int rsync(List<String> options, File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
@@ -93,6 +107,8 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [options] source [user@]hostname:destination
 	 * </pre>
+	 *
+	 * Where <code>source</code> is a directory on the local file system. <code>source</code> must already exist.
 	 */
 	public static final int rsync(List<String> options, File source, String destination) {
 		String sourcePath = validateRsyncSourceDir(source);
@@ -103,6 +119,8 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [options] [user@]hostname:source destination
 	 * </pre>
+	 *
+	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
 	public static final int rsync(List<String> options, String source, File destination) {
 		String destinationPath = validateRsyncSourceDir(destination);
