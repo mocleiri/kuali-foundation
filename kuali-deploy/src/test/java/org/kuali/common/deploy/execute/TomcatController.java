@@ -27,6 +27,7 @@ public class TomcatController {
 			executables.add(new TomcatRemoveRootWebapp(hostname));
 			executables.add(new TomcatCopyJdbcDriver(hostname, jdbcDriver));
 			executables.add(new TomcatCopyWar(hostname, war));
+			executables.add(new TomcatCopySetEnv(hostname, war));
 			executables.add(new TomcatCleanup(hostname));
 			executables.add(new TomcatStartup(hostname));
 			for (Executable executable : executables) {
