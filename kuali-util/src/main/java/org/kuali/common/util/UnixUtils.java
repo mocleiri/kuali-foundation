@@ -68,40 +68,75 @@ public class UnixUtils {
 	/**
 	 * Change the ownership of a file on the indicated host
 	 */
-	public static final int sshchown(String host, String owner, String group, String file, boolean recursive) {
+	public static final int sshchown(List<String> sshargs, String host, String owner, String group, String file, boolean recursive) {
 		Assert.notNull(owner);
 		Assert.notNull(group);
 		Assert.notNull(file);
-		return ssh(host, CHOWN + (recursive ? " -R " : "") + " " + owner + ":" + group + " " + file);
+		return ssh(sshargs, host, CHOWN + (recursive ? " -R " : "") + " " + owner + ":" + group + " " + file);
+	}
+
+	/**
+	 * /** Change the ownership of a file on the indicated host
+	 */
+	public static final int sshchown(String host, String owner, String group, String file, boolean recursive) {
+		return sshchown(null, host, owner, group, file, recursive);
+	}
+
+	/**
+	 * Change the ownership of a file on the indicated host
+	 */
+	public static final int sshchown(List<String> sshargs, String host, String owner, String group, String file) {
+		return sshchown(sshargs, host, owner, group, file, false);
 	}
 
 	/**
 	 * Change the ownership of a file on the indicated host
 	 */
 	public static final int sshchown(String host, String owner, String group, String file) {
-		return sshchown(host, owner, group, file, false);
+		return sshchown(null, host, owner, group, file);
 	}
 
 	/**
 	 * If file is a directory, recursively remove it and all sub-directories from the indicated host, otherwise just remove the file.
 	 */
 	public static final int sshrm(String host, String file) {
+		return sshrm(null, host, file);
+	}
+
+	/**
+	 * If file is a directory, recursively remove it and all sub-directories from the indicated host, otherwise just remove the file.
+	 */
+	public static final int sshrm(List<String> sshargs, String host, String file) {
 		Assert.notNull(file);
-		return ssh(host, RM + " -rf " + file);
+		return ssh(sshargs, host, RM + " -rf " + file);
 	}
 
 	/**
 	 * Create a directory (and any necessary parent directories) on the indicated host
 	 */
 	public static final int sshmkdir(String host, String directory) {
+		return sshmkdir(null, host, directory);
+	}
+
+	/**
+	 * Create a directory (and any necessary parent directories) on the indicated host
+	 */
+	public static final int sshmkdir(List<String> sshargs, String host, String directory) {
 		Assert.notNull(directory);
-		return ssh(host, MKDIR + " -p " + directory);
+		return ssh(sshargs, host, MKDIR + " -p " + directory);
 	}
 
 	/**
 	 * Execute <code>script</code> as <code>user</code> on <code>host</code>
 	 */
 	public static final int sshsu(String host, String user, String script) {
+		return sshsu(null, host, user, script);
+	}
+
+	/**
+	 * Execute <code>script</code> as <code>user</code> on <code>host</code>
+	 */
+	public static final int sshsu(List<String> sshargs, String host, String user, String script) {
 		return ssh(host, SU + " - " + user + " " + script);
 	}
 
@@ -109,13 +144,13 @@ public class UnixUtils {
 	 * Execute <code>command</code> on <code>host</code>
 	 */
 	public static final int ssh(String host, String command) {
-		return ssh(host, command, null);
+		return ssh(null, host, command);
 	}
 
 	/**
 	 * Execute <code>command</code> on <code>host</code> with an optional list of arguments
 	 */
-	public static final int ssh(String host, String command, List<String> args) {
+	public static final int ssh(List<String> args, String host, String command) {
 		Assert.notNull(host);
 		Assert.notNull(command);
 		List<String> arguments = new ArrayList<String>();
@@ -128,7 +163,7 @@ public class UnixUtils {
 		return execute(cl);
 	}
 
-	protected static final int scp(String location1, String location2, List<String> args) {
+	protected static final int scp(List<String> args, String location1, String location2) {
 		Assert.notNull(location1);
 		Assert.notNull(location2);
 		List<String> arguments = new ArrayList<String>();
@@ -144,40 +179,40 @@ public class UnixUtils {
 	/**
 	 * Use <code>scp</code> to copy a file from the local file system to a remote server.
 	 */
-	public static final int scp(File local, String remote, List<String> args) {
+	public static final int scp(List<String> scpargs, File local, String remote) {
 		Assert.notNull(local);
 		String localPath = LocationUtils.getCanonicalPath(local);
 		if (!local.exists()) {
 			throw new IllegalArgumentException(localPath + " does not exist");
 		}
-		return scp(localPath, remote, args);
+		return scp(scpargs, localPath, remote);
 	}
 
 	/**
 	 * Use <code>scp</code> to copy a file from a remote server to the local file system.
 	 */
-	public static final int scp(String remote, File local, List<String> args) {
+	public static final int scp(List<String> scpargs, String remote, File local) {
 		try {
 			FileUtils.touch(local);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
 		String localPath = LocationUtils.getCanonicalPath(local);
-		return scp(remote, localPath, args);
+		return scp(scpargs, remote, localPath);
 	}
 
 	/**
 	 * Use <code>scp</code> to copy a file from the local file system to a remote server.
 	 */
 	public static final int scp(File local, String remote) {
-		return scp(local, remote, null);
+		return scp(null, local, remote);
 	}
 
 	/**
 	 * Use <code>scp</code> to copy a file from a remote server to the local file system.
 	 */
 	public static final int scp(String remote, File local) {
-		return scp(remote, local, null);
+		return scp(null, remote, local);
 	}
 
 	protected static final int execute(Commandline cl) {
