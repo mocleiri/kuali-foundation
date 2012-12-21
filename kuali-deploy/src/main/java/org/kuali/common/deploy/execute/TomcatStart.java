@@ -4,8 +4,17 @@ public class TomcatStart extends TomcatBase {
 
 	String script = "/usr/local/tomcat/bin/startup.sh";
 
+	public TomcatStart() {
+		this(null);
+	}
+
+	public TomcatStart(String hostname) {
+		super();
+		this.hostname = hostname;
+	}
+
 	@Override
-    public String getScript() {
+	public String getScript() {
 		return script;
 	}
 
