@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -34,7 +35,9 @@ import org.springframework.util.Assert;
  * Execute Unix utilities using java.
  */
 public class UnixUtils {
+
 	private static final Logger logger = LoggerFactory.getLogger(UnixUtils.class);
+
 	private static final String SCP = "scp";
 	private static final String SSH = "ssh";
 	private static final String SU = "su";
@@ -45,22 +48,30 @@ public class UnixUtils {
 	public static final int SUCCESS = 0;
 
 	/**
-	 * Invoke <code>rsync</code> to synchronize <code>src</code> with <code>dst</code>
+	 * <pre>
+	 *  rsync source destination
+	 *  rsync source [user@]hostname:destination
+	 *  rsync [user@]hostname:source destination
+	 * </pre>
 	 */
-	public static final int rsync(String src, String dst) {
-		return rsync(null, src, dst);
+	public static final int rsync(String source, String destination) {
+		return rsync(null, source, destination);
 	}
 
 	/**
-	 * Invoke <code>rsync</code> to synchronize <code>src</code> with <code>dst</code>
+	 * <pre>
+	 *  rsync [options] source destination
+	 *  rsync [options] source [user@]hostname:destination
+	 *  rsync [options] [user@]hostname:source destination
+	 * </pre>
 	 */
-	public static final int rsync(List<String> options, String src, String dst) {
-		Assert.notNull(src);
-		Assert.notNull(dst);
+	public static final int rsync(List<String> options, String source, String destination) {
+		Assert.notNull(source);
+		Assert.notNull(destination);
 		List<String> arguments = new ArrayList<String>();
 		arguments.addAll(CollectionUtils.toEmpty(options));
-		arguments.add(src);
-		arguments.add(dst);
+		arguments.add(source);
+		arguments.add(destination);
 		Commandline cl = new Commandline();
 		cl.setExecutable(RSYNC);
 		cl.addArguments(CollectionUtils.toStringArray(arguments));
@@ -68,27 +79,34 @@ public class UnixUtils {
 	}
 
 	/**
-	 * Change the ownership of a file on the indicated host
+	 * <pre>
+	 * ssh [args] [user@]hostname chown [chownargs] owner:group file
+	 * </pre>
 	 */
-	public static final int sshchown(List<String> args, String user, String hostname, String owner, String group, String file, boolean recursive) {
+	public static final int sshchown(List<String> args, String user, String hostname, List<String> chownargs, String owner, String group, String file) {
 		Assert.notNull(owner);
 		Assert.notNull(group);
 		Assert.notNull(file);
-		return ssh(args, user, hostname, CHOWN + (recursive ? " -R " : "") + " " + owner + ":" + group + " " + file);
+		String command = getChownCommand(chownargs, owner, group, file);
+		return ssh(args, user, hostname, command);
 	}
 
 	/**
-	 * Change the ownership of a file on the indicated host
+	 * <pre>
+	 * ssh [args] hostname chown -R owner:group file
+	 * </pre>
 	 */
-	public static final int sshchown(List<String> args, String hostname, String owner, String group, String file, boolean recursive) {
-		return sshchown(null, null, hostname, owner, group, file, recursive);
+	public static final int sshchownrecursive(List<String> args, String hostname, String owner, String group, String file) {
+		return sshchownrecursive(args, null, hostname, owner, group, file);
 	}
 
 	/**
-	 * Change the ownership of a file on the indicated host
+	 * <pre>
+	 * ssh [args] [user@]hostname chown -R owner:group file
+	 * </pre>
 	 */
-	public static final int sshchown(String hostname, String owner, String group, String file, boolean recursive) {
-		return sshchown(null, hostname, owner, group, file, recursive);
+	public static final int sshchownrecursive(List<String> args, String user, String hostname, String owner, String group, String file) {
+		return sshchown(args, user, hostname, Arrays.asList("-R"), owner, group, file);
 	}
 
 	/**
@@ -97,7 +115,25 @@ public class UnixUtils {
 	 * </pre>
 	 */
 	public static final int sshchown(List<String> args, String hostname, String owner, String group, String file) {
-		return sshchown(args, hostname, owner, group, file, false);
+		return sshchown(args, null, hostname, null, owner, group, file);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] [user@]hostname chown owner:group file
+	 * </pre>
+	 */
+	public static final int sshchown(List<String> args, String user, String hostname, String owner, String group, String file) {
+		return sshchown(args, user, hostname, null, owner, group, file);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [user@]hostname chown owner:group file
+	 * </pre>
+	 */
+	public static final int sshchown(String user, String hostname, String owner, String group, String file) {
+		return sshchown(null, user, hostname, null, owner, group, file);
 	}
 
 	/**
@@ -106,7 +142,7 @@ public class UnixUtils {
 	 * </pre>
 	 */
 	public static final int sshchown(String hostname, String owner, String group, String file) {
-		return sshchown(null, hostname, owner, group, file);
+		return sshchown(null, null, hostname, owner, group, file);
 	}
 
 	/**
@@ -114,8 +150,17 @@ public class UnixUtils {
 	 * ssh hostname rm -rf file
 	 * </pre>
 	 */
-	public static final int sshrm(String host, String file) {
-		return sshrm(null, host, file);
+	public static final int sshrm(String hostname, String file) {
+		return sshrm(null, null, hostname, file);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [user@]hostname rm -rf file
+	 * </pre>
+	 */
+	public static final int sshrm(String user, String hostname, String file) {
+		return sshrm(null, user, hostname, file);
 	}
 
 	/**
@@ -124,8 +169,17 @@ public class UnixUtils {
 	 * </pre>
 	 */
 	public static final int sshrm(List<String> args, String hostname, String file) {
+		return sshrm(args, null, hostname, file);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] [user@]hostname rm -rf file
+	 * </pre>
+	 */
+	public static final int sshrm(List<String> args, String user, String hostname, String file) {
 		Assert.notNull(file);
-		return ssh(args, hostname, RM + " -rf " + file);
+		return ssh(args, user, hostname, RM + " -rf " + file);
 	}
 
 	/**
@@ -369,4 +423,34 @@ public class UnixUtils {
 			throw new IllegalStateException(e);
 		}
 	}
+
+	protected static final String getChownCommand(List<String> args, String owner, String group, String file) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(CHOWN);
+		String arguments = getArguments(args);
+		if (arguments != null) {
+			sb.append(" ");
+			sb.append(arguments);
+		}
+		sb.append(" ");
+		sb.append(owner + ":" + group);
+		sb.append(" ");
+		sb.append(file);
+		return sb.toString();
+	}
+
+	protected static final String getArguments(List<String> arguments) {
+		if (CollectionUtils.isEmpty(arguments)) {
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < arguments.size(); i++) {
+			if (i != 0) {
+				sb.append(" ");
+			}
+			sb.append(arguments.get(i));
+		}
+		return sb.toString();
+	}
+
 }
