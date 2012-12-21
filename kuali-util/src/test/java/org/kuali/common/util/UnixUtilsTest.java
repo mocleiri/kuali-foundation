@@ -20,11 +20,10 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
 
 public class UnixUtilsTest {
 
-	@Test
+	// @Test
 	public void testSsh() throws IOException {
 		try {
 			File local = new File("/Users/jeffcaddel/Downloads/foo.sh");
@@ -45,7 +44,7 @@ public class UnixUtilsTest {
 		}
 	}
 
-	@Test
+	// @Test
 	public void testScp() throws IOException {
 		try {
 			File localFile1 = new File("/Users/jeffcaddel/Downloads/jjj.zip");
