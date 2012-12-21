@@ -12,7 +12,7 @@ public class ScpFileToRemote extends SecureBase implements Executable {
 
 	@Override
 	public void execute() {
-		String file = destinationDirectory + File.separator + source.getName();
+		String file = destinationDirectory + "/" + source.getName();
 		String destination = UnixUtils.getLocation(user, hostname, file);
 		int exitValue = UnixUtils.scp(source, destination);
 		UnixUtils.validate(exitValue, "Error copying local file to remote", nonZeroExitValueMode);

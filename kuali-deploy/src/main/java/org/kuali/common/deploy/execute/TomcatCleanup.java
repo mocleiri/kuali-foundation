@@ -1,8 +1,11 @@
 package org.kuali.common.deploy.execute;
 
-public class TomcatCleanup extends TomcatBase {
+import org.kuali.common.util.UnixUtils;
+import org.kuali.common.util.execute.Executable;
 
-	String script = "/usr/local/tomcat/bin/cleanup.sh";
+public class TomcatCleanup extends TomcatBase implements Executable {
+
+	String script = Constants.TOMCAT_BIN + "/cleanup.sh";
 
 	public TomcatCleanup() {
 		this(null);
@@ -11,6 +14,12 @@ public class TomcatCleanup extends TomcatBase {
 	public TomcatCleanup(String hostname) {
 		super();
 		this.hostname = hostname;
+	}
+
+	@Override
+	public void execute() {
+		int exitValue = UnixUtils.sshsu(user, hostname, login, tomcatBin + "/" + getScript());
+		UnixUtils.validate(exitValue, "Tomcat script [" + getScript() + "] exit value is [" + exitValue + "]", nonZeroExitValueMode);
 	}
 
 	@Override
