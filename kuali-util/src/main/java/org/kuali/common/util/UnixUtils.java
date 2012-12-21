@@ -28,11 +28,11 @@ public class UnixUtils {
 		return rsync(null, src, dst);
 	}
 
-	public static final int rsync(List<String> args, String src, String dst) {
+	public static final int rsync(List<String> options, String src, String dst) {
 		Assert.notNull(src);
 		Assert.notNull(dst);
 		List<String> arguments = new ArrayList<String>();
-		arguments.addAll(CollectionUtils.toEmpty(args));
+		arguments.addAll(CollectionUtils.toEmpty(options));
 		arguments.add(src);
 		arguments.add(dst);
 		Commandline cl = new Commandline();
