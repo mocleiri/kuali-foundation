@@ -8,6 +8,17 @@ public class RemoteShellScript extends SecureBase implements Executable {
 	String login;
 	String script;
 
+	public RemoteShellScript() {
+		this(null, null, null);
+	}
+
+	public RemoteShellScript(String hostname, String login, String script) {
+		super();
+		this.login = login;
+		this.script = script;
+		this.hostname = hostname;
+	}
+
 	@Override
 	public void execute() {
 		int exitValue = UnixUtils.sshsu(user, hostname, login, script);
