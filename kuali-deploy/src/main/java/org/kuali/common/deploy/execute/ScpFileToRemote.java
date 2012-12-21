@@ -7,14 +7,13 @@ import org.kuali.common.util.execute.Executable;
 
 public class ScpFileToRemote extends SecureBase implements Executable {
 
-	File source;
-	String destinationDirectory;
+	File localFile;
+	String remoteFile;
 
 	@Override
 	public void execute() {
-		String file = destinationDirectory + "/" + source.getName();
-		String destination = UnixUtils.getLocation(user, hostname, file);
-		int exitValue = UnixUtils.scp(source, destination);
+		String destination = UnixUtils.getLocation(user, hostname, remoteFile);
+		int exitValue = UnixUtils.scp(localFile, destination);
 		UnixUtils.validate(exitValue, "Error copying local file to remote", nonZeroExitValueMode);
 	}
 
