@@ -68,4 +68,12 @@ public class LoggingStreamConsumer implements StreamConsumer {
 		this.logger = logger;
 	}
 
+	public LoggerLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(LoggerLevel level) {
+		this.level = level;
+	}
+
 }
