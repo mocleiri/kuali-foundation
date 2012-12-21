@@ -15,14 +15,14 @@ public class TomcatController {
 	@Test
 	public void test() {
 		try {
-			logger.info("Hello world");
+			logger.info("Testing Tomcat Basics");
 			String hostname = "env7.ole.kuali.org";
 			List<Executable> executables = new ArrayList<Executable>();
-			executables.add(new TomcatStop(hostname));
+			executables.add(new TomcatShutdown(hostname));
 			executables.add(new TomcatCleanup(hostname));
-			executables.add(new TomcatStart(hostname));
-			executables.add(new TomcatStop(hostname));
-			executables.add(new TomcatStop(hostname));
+			executables.add(new TomcatStartup(hostname));
+			executables.add(new TomcatShutdown(hostname));
+			executables.add(new TomcatShutdown(hostname));
 			for (Executable executable : executables) {
 				executable.execute();
 			}
