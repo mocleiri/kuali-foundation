@@ -16,7 +16,7 @@ public abstract class TomcatBase implements Executable {
 	@Override
 	public void execute() {
 		int exitValue = UnixUtils.sshsu(user, hostname, login, getScript());
-		UnixUtils.validate(exitValue, "Tomcat script [" + getScript() + "] did not complete normally", nonZeroExitValueMode);
+		UnixUtils.validate(exitValue, "Tomcat script [" + getScript() + "] exit value is [" + exitValue + "]", nonZeroExitValueMode);
 	}
 
 	public Mode getNonZeroExitValueMode() {

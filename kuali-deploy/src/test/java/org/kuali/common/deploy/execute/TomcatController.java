@@ -21,6 +21,8 @@ public class TomcatController {
 			executables.add(new TomcatStop(hostname));
 			executables.add(new TomcatCleanup(hostname));
 			executables.add(new TomcatStart(hostname));
+			executables.add(new TomcatStop(hostname));
+			executables.add(new TomcatStop(hostname));
 			for (Executable executable : executables) {
 				executable.execute();
 			}
