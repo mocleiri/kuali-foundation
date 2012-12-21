@@ -15,8 +15,8 @@ public class CopyToRemote extends SecureBase implements Executable {
 	@Override
 	public void execute() {
 		String destination = UnixUtils.getLocation(user, hostname, remoteFile);
-		int exitValue = UnixUtils.scp(localFile, destination);
-		UnixUtils.validate(exitValue, "Error copying local file to remote", nonZeroExitValueMode);
+		int scp = UnixUtils.scp(localFile, destination);
+		UnixUtils.validate(scp, "Error copying local file to remote", nonZeroExitValueMode);
 		if (owner != null && group != null) {
 			int chown = UnixUtils.sshchown(user, hostname, owner, group, getRemoteFile());
 			UnixUtils.validate(chown, "Error changing file ownership", nonZeroExitValueMode);
