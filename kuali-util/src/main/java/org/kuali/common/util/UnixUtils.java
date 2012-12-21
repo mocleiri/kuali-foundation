@@ -374,6 +374,7 @@ public class UnixUtils {
 			sb.append(" ");
 			sb.append(arguments);
 		}
+		sb.append(" ");
 		for (String file : files) {
 			sb.append(file);
 		}
