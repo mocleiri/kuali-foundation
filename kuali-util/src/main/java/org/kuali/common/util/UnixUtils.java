@@ -93,6 +93,24 @@ public class UnixUtils {
 
 	/**
 	 * <pre>
+	 * ssh hostname chown -R owner:group file
+	 * </pre>
+	 */
+	public static final int sshchownrecursive(String hostname, String owner, String group, String file) {
+		return sshchownrecursive(null, null, hostname, owner, group, file);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [user@]hostname chown -R owner:group file
+	 * </pre>
+	 */
+	public static final int sshchownrecursive(String user, String hostname, String owner, String group, String file) {
+		return sshchownrecursive(null, user, hostname, owner, group, file);
+	}
+
+	/**
+	 * <pre>
 	 * ssh [args] hostname chown -R owner:group file
 	 * </pre>
 	 */

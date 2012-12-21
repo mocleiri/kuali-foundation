@@ -20,17 +20,18 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 
 public class UnixUtilsTest {
 
-	// @Test
+	@Test
 	public void testSsh() throws IOException {
 		try {
 			File local = new File("/Users/jeffcaddel/Downloads/foo.sh");
 			String remote = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
 			UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
-			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh", true);
+			UnixUtils.sshchownrecursive("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.scp(remote, local);
 			UnixUtils.sshrm("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
 			UnixUtils.scp(local, remote);
