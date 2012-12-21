@@ -85,7 +85,10 @@ public class UnixUtils {
 	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
 	public static final int rsync(String source, File destination) {
-		String destinationPath = validateRsyncSourceDir(destination);
+		String destinationPath = validateRsyncDestinationDir(destination);
+		if (!StringUtils.endsWith(source, File.separator)) {
+			source += File.separator;
+		}
 		return rsync(null, source, destinationPath);
 	}
 
@@ -564,7 +567,7 @@ public class UnixUtils {
 
 	protected static final String validateRsyncDestinationDir(File dir) {
 		try {
-			FileUtils.forceMkdir(dir);
+			FileUtils.forceMkdir(dir.getParentFile());
 			return dir.getCanonicalPath();
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO error", e);

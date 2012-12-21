@@ -25,7 +25,19 @@ import org.junit.Test;
 public class UnixUtilsTest {
 
 	@Test
-	public void testSsh() throws IOException {
+	public void testRsync() {
+		try {
+			String source = "root@env7.ole.kuali.org:/home/tomcat";
+			File destination = new File("/tmp/env7/tomcat");
+			FileUtils.deleteDirectory(destination.getParentFile());
+			UnixUtils.rsync(source, destination);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// @Test
+	public void testSsh() {
 		try {
 			File source = new File("/Users/jeffcaddel/Downloads/foo.sh");
 			String destination = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
