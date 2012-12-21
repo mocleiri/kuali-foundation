@@ -18,7 +18,7 @@ public class CopyToRemoteDir extends SecureBase implements Executable {
 		int scp = UnixUtils.scp(localFile, destination);
 		UnixUtils.validate(scp, "Error copying local file to remote", nonZeroExitValueMode);
 		if (owner != null && group != null) {
-			int chown = UnixUtils.sshchown(hostname, owner, group, getRemoteFile());
+			int chown = UnixUtils.sshchown(user, hostname, owner, group, getRemoteFile());
 			UnixUtils.validate(chown, "Error changing file ownership", nonZeroExitValueMode);
 		}
 	}

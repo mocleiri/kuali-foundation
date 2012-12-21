@@ -18,7 +18,8 @@ public class TomcatController {
 		try {
 			logger.info("Testing Tomcat Basics");
 			File jdbcDriver = new File("/Users/jeffcaddel/.m2/repository/com/oracle/ojdbc6_g/11.2.0.3/ojdbc6_g-11.2.0.3.jar");
-			File war = new File("/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-fs/target/ole-fs-0.8.0-q-SNAPSHOT-webapp.war");
+			// File war = new File("/Users/jeffcaddel/ws/ole-kfs-5.0/ole-app/ole-fs/target/ole-fs-0.8.0-q-SNAPSHOT-webapp.war");
+			File war = new File("/Users/jeffcaddel/Downloads/tomcatPluginV33.zip");
 			String hostname = "env7.ole.kuali.org";
 			List<Executable> executables = new ArrayList<Executable>();
 			executables.add(new TomcatShutdown(hostname));
