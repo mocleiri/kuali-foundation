@@ -45,6 +45,7 @@ public class UnixUtils {
 	private static final String MKDIR = "mkdir";
 	private static final String RM = "rm";
 	private static final String CHOWN = "chown";
+	private static final String CHMOD = "chmod";
 	private static final String RSYNC = "rsync";
 	private static final String FORWARD_SLASH = "/";
 	public static final int SUCCESS = 0;
@@ -377,6 +378,26 @@ public class UnixUtils {
 		sb.append(" ");
 		sb.append(getSpaceSeparatedStrings(files));
 		return sb.toString();
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] [user@]hostname chmod mode file
+	 * </pre>
+	 */
+	public static final int sshchmod(List<String> args, String user, String hostname, String mode, String file) {
+		Assert.notNull(mode);
+		Assert.notNull(file);
+		return ssh(args, user, hostname, CHMOD + " " + mode + " " + file);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [user@]hostname chmod mode file
+	 * </pre>
+	 */
+	public static final int sshchmod(String user, String hostname, String mode, String file) {
+		return sshchmod(null, user, hostname, mode, file);
 	}
 
 	/**
