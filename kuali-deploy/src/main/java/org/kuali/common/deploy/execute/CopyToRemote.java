@@ -17,4 +17,20 @@ public class CopyToRemote extends SecureBase implements Executable {
 		UnixUtils.validate(exitValue, "Error copying local file to remote", nonZeroExitValueMode);
 	}
 
+	public File getLocalFile() {
+		return localFile;
+	}
+
+	public void setLocalFile(File localFile) {
+		this.localFile = localFile;
+	}
+
+	public String getRemoteFile() {
+		return remoteFile;
+	}
+
+	public void setRemoteFile(String remoteFile) {
+		this.remoteFile = remoteFile;
+	}
+
 }
