@@ -143,21 +143,25 @@ public class UnixUtils {
 	}
 
 	/**
-	 * Execute <code>command</code> on <code>host</code>
+	 * Execute <code>command</code> on <code>hostname</code>
 	 */
-	public static final int ssh(String host, String command) {
-		return ssh(null, host, command);
+	public static final int ssh(String hostname, String command) {
+		return ssh(null, null, hostname, command);
+	}
+
+	public static final int ssh(String user, String hostname, String command) {
+		return ssh(null, user, hostname, command);
 	}
 
 	/**
-	 * Execute <code>command</code> on <code>host</code> with an optional list of arguments
+	 * Execute <code>command</code> on <code>hostname</code> with an optional list of arguments
 	 */
-	public static final int ssh(List<String> args, String host, String command) {
-		return ssh(args, null, host, command);
+	public static final int ssh(List<String> args, String hostname, String command) {
+		return ssh(args, null, hostname, command);
 	}
 
 	/**
-	 * Execute <code>command</code> on <code>host</code> with an optional list of arguments
+	 * Execute <code>command</code> on <code>hostname</code> as <code>user</code> with an optional list of arguments
 	 */
 	public static final int ssh(List<String> args, String user, String hostname, String command) {
 		Assert.notNull(hostname);
