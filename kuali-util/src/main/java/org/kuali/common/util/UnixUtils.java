@@ -359,7 +359,7 @@ public class UnixUtils {
 	 * </pre>
 	 */
 	public static final int sshsu(String hostname, String login, String command) {
-		return sshsu(null, hostname, login, command);
+		return sshsu(null, null, hostname, login, command);
 	}
 
 	/**
@@ -369,6 +369,15 @@ public class UnixUtils {
 	 */
 	public static final int sshsu(List<String> args, String hostname, String login, String command) {
 		return sshsu(args, null, hostname, login, command);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [user@]hostname su - login command
+	 * </pre>
+	 */
+	public static final int sshsu(String user, String hostname, String login, String command) {
+		return sshsu(null, user, hostname, login, command);
 	}
 
 	/**
