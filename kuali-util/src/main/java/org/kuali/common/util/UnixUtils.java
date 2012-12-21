@@ -58,7 +58,7 @@ public class UnixUtils {
 	 */
 	public static final int rsyncdirs(File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
-		String destinationPath = validateRsyncSourceDir(destination);
+		String destinationPath = validateRsyncDestinationDir(destination);
 
 		// Can't be the same directory
 		Assert.isTrue(!source.equals(destination));
@@ -100,7 +100,7 @@ public class UnixUtils {
 	 */
 	public static final int rsyncdirs(List<String> options, File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
-		String destinationPath = validateRsyncSourceDir(destination);
+		String destinationPath = validateRsyncDestinationDir(destination);
 		return rsyncdirs(options, sourcePath, destinationPath);
 	}
 
