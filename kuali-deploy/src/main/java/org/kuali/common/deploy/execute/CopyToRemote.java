@@ -5,7 +5,7 @@ import java.io.File;
 import org.kuali.common.util.UnixUtils;
 import org.kuali.common.util.execute.Executable;
 
-public class ScpFileToRemote extends SecureBase implements Executable {
+public class CopyToRemote extends SecureBase implements Executable {
 
 	File localFile;
 	String remoteFile;
