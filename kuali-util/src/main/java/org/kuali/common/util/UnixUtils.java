@@ -69,7 +69,7 @@ public class UnixUtils {
 		Assert.notNull(owner);
 		Assert.notNull(group);
 		Assert.notNull(file);
-		return ssh(host, CHOWN + ((recursive) ? " -R " : "") + " " + owner + ":" + group + " " + file);
+		return ssh(host, CHOWN + (recursive ? " -R " : "") + " " + owner + ":" + group + " " + file);
 	}
 
 	/**
