@@ -1,4 +1,4 @@
-package org.kuali.common.util.service;
+package org.kuali.common.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +10,12 @@ import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.LoggerLevel;
-import org.kuali.common.util.LoggingStreamConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class DefaultExecService {
-	private static final Logger logger = LoggerFactory.getLogger(DefaultExecService.class);
+public class UnixUtils {
+	private static final Logger logger = LoggerFactory.getLogger(UnixUtils.class);
 	private static final String SCP = "scp";
 	private static final String SSH = "ssh";
 	private static final String SU = "su";

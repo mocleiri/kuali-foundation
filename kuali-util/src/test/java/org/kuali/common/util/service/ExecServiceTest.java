@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
+import org.kuali.common.util.UnixUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class ExecServiceTest {
 	@Test
 	public void testSsh() throws IOException {
 		try {
-			DefaultExecService des = new DefaultExecService();
+			UnixUtils des = new UnixUtils();
 			int exitValue = des.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			logger.info("Exit value = " + exitValue);
 			int exitValue1 = des.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
@@ -42,7 +43,7 @@ public class ExecServiceTest {
 	@Test
 	public void testScp() throws IOException {
 		try {
-			DefaultExecService des = new DefaultExecService();
+			UnixUtils des = new UnixUtils();
 			File localFile1 = new File("/Users/jeffcaddel/Downloads/jjj.zip");
 			File localFile2 = new File("/Users/jeffcaddel/Downloads/foo/xyz/jjj.zip");
 			int exitValue1 = des.scp(localFile1, "root@ci.fn.kuali.org:/root/jjj.zip");
