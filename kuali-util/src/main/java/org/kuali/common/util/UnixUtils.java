@@ -585,7 +585,11 @@ public class UnixUtils {
 		if (!dir.isDirectory()) {
 			throw new IllegalArgumentException(path + " is not a directory");
 		}
-		return path;
+		if (!StringUtils.endsWith(path, "/")) {
+			return path + "/";
+		} else {
+			return path;
+		}
 	}
 
 	protected static final String validateRsyncDestinationDir(File dir) {
@@ -597,6 +601,10 @@ public class UnixUtils {
 		}
 	}
 
+	/**
+	 * Return a list containing the options <code>--recursive</code>, <code>--archive</code>, and <code>--delete</code> as the first 3
+	 * elements, with additional options coming after.
+	 */
 	protected static final List<String> getRsyncDirOptions(List<String> options) {
 		List<String> rsyncDirOptions = new ArrayList<String>();
 		rsyncDirOptions.add("--recursive");
