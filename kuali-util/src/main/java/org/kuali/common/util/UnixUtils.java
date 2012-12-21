@@ -369,15 +369,13 @@ public class UnixUtils {
 		Assert.notNull(files);
 		StringBuilder sb = new StringBuilder();
 		sb.append(RM);
-		String arguments = getArguments(args);
+		String arguments = getSpaceSeparatedStrings(args);
 		if (arguments != null) {
 			sb.append(" ");
 			sb.append(arguments);
 		}
 		sb.append(" ");
-		for (String file : files) {
-			sb.append(file);
-		}
+		sb.append(getSpaceSeparatedStrings(files));
 		return sb.toString();
 	}
 
@@ -635,7 +633,7 @@ public class UnixUtils {
 	protected static final String getChownCommand(List<String> args, String owner, String group, String file) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(CHOWN);
-		String arguments = getArguments(args);
+		String arguments = getSpaceSeparatedStrings(args);
 		if (arguments != null) {
 			sb.append(" ");
 			sb.append(arguments);
@@ -660,16 +658,16 @@ public class UnixUtils {
 		return sb.toString();
 	}
 
-	public static final String getArguments(List<String> arguments) {
-		if (CollectionUtils.isEmpty(arguments)) {
+	public static final String getSpaceSeparatedStrings(List<String> strings) {
+		if (CollectionUtils.isEmpty(strings)) {
 			return null;
 		}
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < arguments.size(); i++) {
+		for (int i = 0; i < strings.size(); i++) {
 			if (i != 0) {
 				sb.append(" ");
 			}
-			sb.append(arguments.get(i));
+			sb.append(strings.get(i));
 		}
 		return sb.toString();
 	}
