@@ -45,6 +45,7 @@ public class UnixUtils {
 	private static final String RM = "rm";
 	private static final String CHOWN = "chown";
 	private static final String RSYNC = "rsync";
+	private static final String FORWARD_SLASH = "/";
 	public static final int SUCCESS = 0;
 
 	/**
@@ -86,9 +87,6 @@ public class UnixUtils {
 	 */
 	public static final int rsyncdirs(String source, File destination) {
 		String destinationPath = validateRsyncDestinationDir(destination);
-		if (!StringUtils.endsWith(source, File.separator)) {
-			source += File.separator;
-		}
 		return rsyncdirs(null, source, destinationPath);
 	}
 
@@ -136,10 +134,22 @@ public class UnixUtils {
 	 *  rsync [options] source [user@]hostname:destination
 	 *  rsync [options] [user@]hostname:source destination
 	 * </pre>
+	 *
+	 * Always add a trailing slash to source when sync'ing directories.<br>
+	 * This forces rsync to behave like <code>cp</code>
+	 *
+	 * <pre>
+	 * cp -R /tmp/foo/bar  /tmp/xyz  -  creates files in /tmp/xyz
+	 * rsync /tmp/foo/bar/ /tmp/xyz  -  creates files in /tmp/xyz
+	 *
+	 * rsync /tmp/foo/bar  /tmp/xyz  -  creates files in /tmp/xyz/bar
+	 * </pre>
 	 */
 	public static final int rsyncdirs(List<String> options, String source, String destination) {
 		List<String> rsyncDirOptions = getRsyncDirOptions(options);
-		return rsync(rsyncDirOptions, source, destination);
+		// Make sure source has a trailing slash
+		String trailingSlashSource = StringUtils.endsWith(source, FORWARD_SLASH) ? source : source + FORWARD_SLASH;
+		return rsync(rsyncDirOptions, trailingSlashSource, destination);
 	}
 
 	/**
