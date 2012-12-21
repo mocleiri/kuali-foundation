@@ -160,7 +160,7 @@ public class UnixUtils {
 		try {
 			FileUtils.touch(local);
 		} catch (IOException e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("Unexpected IO error", e);
 		}
 		String localPath = LocationUtils.getCanonicalPath(local);
 		return scp(remote, localPath, args);
