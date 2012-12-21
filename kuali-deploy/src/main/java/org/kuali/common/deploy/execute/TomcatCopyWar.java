@@ -13,5 +13,7 @@ public class TomcatCopyWar extends CopyToRemote {
 		this.hostname = hostname;
 		this.localFile = war;
 		this.remoteFile = Constants.TOMCAT_ROOT_WAR;
+		this.owner = Constants.TOMCAT_USER;
+		this.group = Constants.TOMCAT_GROUP;
 	}
 }
