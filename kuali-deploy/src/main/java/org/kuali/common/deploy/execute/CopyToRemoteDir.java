@@ -9,13 +9,22 @@ public class CopyToRemoteDir extends SecureBase implements Executable {
 
 	File localFile;
 	String remoteDir;
+	String owner;
+	String group;
 
 	@Override
 	public void execute() {
-		String file = remoteDir + "/" + localFile.getName();
-		String destination = UnixUtils.getLocation(user, hostname, file);
-		int exitValue = UnixUtils.scp(localFile, destination);
-		UnixUtils.validate(exitValue, "Error copying local file to remote", nonZeroExitValueMode);
+		String destination = UnixUtils.getLocation(user, hostname, getRemoteFile());
+		int scp = UnixUtils.scp(localFile, destination);
+		UnixUtils.validate(scp, "Error copying local file to remote", nonZeroExitValueMode);
+		if (owner != null && group != null) {
+			int chown = UnixUtils.sshchown(hostname, owner, group, getRemoteFile());
+			UnixUtils.validate(chown, "Error changing file ownership", nonZeroExitValueMode);
+		}
+	}
+
+	protected String getRemoteFile() {
+		return remoteDir + "/" + localFile.getName();
 	}
 
 	public File getLocalFile() {
@@ -32,6 +41,22 @@ public class CopyToRemoteDir extends SecureBase implements Executable {
 
 	public void setRemoteDir(String remoteDir) {
 		this.remoteDir = remoteDir;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 }

@@ -7,6 +7,7 @@ public class Constants {
 
 	public static final String TOMCAT_HOME = "/usr/local/tomcat";
 	public static final String TOMCAT_USER = "tomcat";
+	public static final String TOMCAT_GROUP = "tomcat";
 	public static final String TOMCAT_BIN = TOMCAT_HOME + "/bin";
 	public static final String TOMCAT_LIB = TOMCAT_HOME + "/lib";
 	public static final String TOMCAT_LOGS = TOMCAT_HOME + "/logs";

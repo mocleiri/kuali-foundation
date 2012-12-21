@@ -13,5 +13,8 @@ public class TomcatCopyJdbcDriver extends CopyToRemoteDir {
 		this.hostname = hostname;
 		this.localFile = jdbcDriver;
 		this.remoteDir = Constants.TOMCAT_LIB;
+		this.owner = Constants.TOMCAT_USER;
+		this.group = Constants.TOMCAT_GROUP;
 	}
+
 }
