@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -313,7 +314,70 @@ public class UnixUtils {
 	 */
 	public static final int sshrm(List<String> args, String user, String hostname, String file) {
 		Assert.notNull(file);
-		return ssh(args, user, hostname, RM + " -rf " + file);
+		return sshrm(args, user, hostname, Collections.singletonList(file));
+	}
+
+	/**
+	 * <pre>
+	 * ssh hostname rm -rf file ...
+	 * </pre>
+	 */
+	public static final int sshrm(String hostname, List<String> files) {
+		return sshrm(null, null, hostname, files);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [user@]hostname rm -rf file ...
+	 * </pre>
+	 */
+	public static final int sshrm(String user, String hostname, List<String> files) {
+		return sshrm(null, user, hostname, files);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] hostname rm -rf file ...
+	 * </pre>
+	 */
+	public static final int sshrm(List<String> args, String hostname, List<String> files) {
+		return sshrm(args, null, hostname, files);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] [user@]hostname rm -rf file ...
+	 * </pre>
+	 */
+	public static final int sshrm(List<String> args, String user, String hostname, List<String> files) {
+		return sshrm(args, user, hostname, Arrays.asList("-rf"), files);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] [user@]hostname rm [rmargs] file ...
+	 * </pre>
+	 */
+	public static final int sshrm(List<String> args, String user, String hostname, List<String> rmargs, List<String> files) {
+		Assert.notNull(files);
+		Assert.isTrue(files.size() > 0);
+		String command = getRmCommand(rmargs, files);
+		return ssh(args, user, hostname, command);
+	}
+
+	public static final String getRmCommand(List<String> args, List<String> files) {
+		Assert.notNull(files);
+		StringBuilder sb = new StringBuilder();
+		sb.append(RM);
+		String arguments = getArguments(args);
+		if (arguments != null) {
+			sb.append(" ");
+			sb.append(arguments);
+		}
+		for (String file : files) {
+			sb.append(file);
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -582,7 +646,20 @@ public class UnixUtils {
 		return sb.toString();
 	}
 
-	protected static final String getArguments(List<String> arguments) {
+	public static final String getLocation(String user, String hostname, String file) {
+		Assert.notNull(user);
+		Assert.notNull(file);
+		StringBuilder sb = new StringBuilder();
+		if (!StringUtils.isBlank(user)) {
+			sb.append(user + "@");
+		}
+		sb.append(hostname);
+		sb.append(":");
+		sb.append(file);
+		return sb.toString();
+	}
+
+	public static final String getArguments(List<String> arguments) {
 		if (CollectionUtils.isEmpty(arguments)) {
 			return null;
 		}
@@ -604,8 +681,8 @@ public class UnixUtils {
 		if (!dir.isDirectory()) {
 			throw new IllegalArgumentException(path + " is not a directory");
 		}
-		if (!StringUtils.endsWith(path, "/")) {
-			return path + "/";
+		if (!StringUtils.endsWith(path, FORWARD_SLASH)) {
+			return path + FORWARD_SLASH;
 		} else {
 			return path;
 		}
