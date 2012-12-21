@@ -24,10 +24,16 @@ public class UnixUtils {
 	private static final String CHOWN = "chown";
 	private static final String RSYNC = "rsync";
 
+	/**
+	 * Invoke <code>rsync</code> to synchronize <code>src</code> with <code>dst</code>
+	 */
 	public static final int rsync(String src, String dst) {
 		return rsync(null, src, dst);
 	}
 
+	/**
+	 * Invoke <code>rsync</code> to synchronize <code>src</code> with <code>dst</code>
+	 */
 	public static final int rsync(List<String> options, String src, String dst) {
 		Assert.notNull(src);
 		Assert.notNull(dst);
