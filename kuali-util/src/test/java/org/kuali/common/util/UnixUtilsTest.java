@@ -28,8 +28,8 @@ public class UnixUtilsTest {
 	public void testRsync() {
 		try {
 			String source = "root@env7.ole.kuali.org:/home/tomcat";
-			File destination = new File("/tmp/env7/tomcat");
-			FileUtils.deleteDirectory(destination.getParentFile());
+			File destination = new File("/tmp/foo/man/chu/xyz");
+			FileUtils.deleteDirectory(new File("/tmp/foo"));
 			UnixUtils.rsyncdirs(Arrays.asList("--stats"), source, destination);
 		} catch (Exception e) {
 			e.printStackTrace();
