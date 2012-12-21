@@ -32,6 +32,9 @@ public class UnixUtilsTest {
 			UnixUtils.scp(remote, local);
 			UnixUtils.sshrm("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
 			UnixUtils.scp(local, remote);
+			UnixUtils.sshmkdir("root@env11.ks.kuali.org", "/home/tomcat/foo");
+			String newRemote = "root@env11.ks.kuali.org:/home/tomcat/foo/bar.sh";
+			UnixUtils.scp(local, newRemote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

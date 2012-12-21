@@ -22,6 +22,24 @@ public class UnixUtils {
 	private static final String MKDIR = "mkdir";
 	private static final String RM = "rm";
 	private static final String CHOWN = "chown";
+	private static final String RSYNC = "rsync";
+
+	public static final int rsync(String src, String dst) {
+		return rsync(null, src, dst);
+	}
+
+	public static final int rsync(List<String> args, String src, String dst) {
+		Assert.notNull(src);
+		Assert.notNull(dst);
+		List<String> arguments = new ArrayList<String>();
+		arguments.addAll(CollectionUtils.toEmpty(args));
+		arguments.add(src);
+		arguments.add(dst);
+		Commandline cl = new Commandline();
+		cl.setExecutable(RSYNC);
+		cl.addArguments(CollectionUtils.toStringArray(arguments));
+		return execute(cl);
+	}
 
 	/**
 	 * Change the ownership of a file on the indicated host
