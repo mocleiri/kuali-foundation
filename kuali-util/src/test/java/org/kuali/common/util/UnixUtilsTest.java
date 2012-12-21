@@ -19,20 +19,19 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class UnixUtilsTest {
-
-	private static final Logger logger = LoggerFactory.getLogger(UnixUtilsTest.class);
 
 	@Test
 	public void testSsh() throws IOException {
 		try {
-			int exitValue = UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
-			logger.info("Exit value = " + exitValue);
-			int exitValue1 = UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
-			logger.info("Exit value = " + exitValue1);
+			File local = new File("/Users/jeffcaddel/Downloads/foo.sh");
+			String remote = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
+			UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
+			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
+			UnixUtils.scp(remote, local);
+			UnixUtils.sshrm("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
+			UnixUtils.scp(local, remote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,10 +42,8 @@ public class UnixUtilsTest {
 		try {
 			File localFile1 = new File("/Users/jeffcaddel/Downloads/jjj.zip");
 			File localFile2 = new File("/Users/jeffcaddel/Downloads/foo/xyz/jjj.zip");
-			int exitValue1 = UnixUtils.scp(localFile1, "root@ci.fn.kuali.org:/root/jjj.zip");
-			logger.info("Exit value = " + exitValue1);
-			int exitValue2 = UnixUtils.scp("root@ci.fn.kuali.org:/root/jjj.zip", localFile2);
-			logger.info("Exit value = " + exitValue2);
+			UnixUtils.scp(localFile1, "root@ci.fn.kuali.org:/root/jjj.zip");
+			UnixUtils.scp("root@ci.fn.kuali.org:/root/jjj.zip", localFile2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

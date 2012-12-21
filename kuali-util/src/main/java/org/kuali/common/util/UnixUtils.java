@@ -142,6 +142,7 @@ public class UnixUtils {
 		try {
 			StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
 			StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+			logger.info(cl.toString());
 			return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
