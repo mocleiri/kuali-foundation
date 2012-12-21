@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.kuali.common.util.UnixUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,10 +29,9 @@ public class UnixUtilsTest {
 	@Test
 	public void testSsh() throws IOException {
 		try {
-			UnixUtils des = new UnixUtils();
-			int exitValue = des.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
+			int exitValue = UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			logger.info("Exit value = " + exitValue);
-			int exitValue1 = des.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
+			int exitValue1 = UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
 			logger.info("Exit value = " + exitValue1);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,12 +41,11 @@ public class UnixUtilsTest {
 	@Test
 	public void testScp() throws IOException {
 		try {
-			UnixUtils des = new UnixUtils();
 			File localFile1 = new File("/Users/jeffcaddel/Downloads/jjj.zip");
 			File localFile2 = new File("/Users/jeffcaddel/Downloads/foo/xyz/jjj.zip");
-			int exitValue1 = des.scp(localFile1, "root@ci.fn.kuali.org:/root/jjj.zip");
+			int exitValue1 = UnixUtils.scp(localFile1, "root@ci.fn.kuali.org:/root/jjj.zip");
 			logger.info("Exit value = " + exitValue1);
-			int exitValue2 = des.scp("root@ci.fn.kuali.org:/root/jjj.zip", localFile2);
+			int exitValue2 = UnixUtils.scp("root@ci.fn.kuali.org:/root/jjj.zip", localFile2);
 			logger.info("Exit value = " + exitValue2);
 		} catch (Exception e) {
 			e.printStackTrace();

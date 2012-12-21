@@ -23,36 +23,57 @@ public class UnixUtils {
 	private static final String RM = "rm";
 	private static final String CHOWN = "chown";
 
-	public int sshchown(String host, String owner, String group, String fileOrDirectory, boolean recursive) {
+	/**
+	 * Change the ownership of a file on the indicated host
+	 */
+	public static final int sshchown(String host, String owner, String group, String file, boolean recursive) {
 		Assert.notNull(owner);
 		Assert.notNull(group);
-		Assert.notNull(fileOrDirectory);
-		return ssh(host, CHOWN + ((recursive) ? " -R " : "") + " " + owner + ":" + group + " " + fileOrDirectory);
+		Assert.notNull(file);
+		return ssh(host, CHOWN + ((recursive) ? " -R " : "") + " " + owner + ":" + group + " " + file);
 	}
 
-	public int sshchown(String host, String owner, String group, String fileOrDirectory) {
-		return sshchown(host, owner, group, fileOrDirectory, false);
+	/**
+	 * Change the ownership of a file on the indicated host
+	 */
+	public static final int sshchown(String host, String owner, String group, String file) {
+		return sshchown(host, owner, group, file, false);
 	}
 
-	public int sshrm(String host, String fileOrDirectory) {
-		Assert.notNull(fileOrDirectory);
-		return ssh(host, RM + " -rf " + fileOrDirectory);
+	/**
+	 * If file is a directory, recursively remove it and all sub-directories from the indicated host, otherwise just remove the file.
+	 */
+	public static final int sshrm(String host, String file) {
+		Assert.notNull(file);
+		return ssh(host, RM + " -rf " + file);
 	}
 
-	public int sshmkdir(String host, String directory) {
+	/**
+	 * Create a directory (and any necessary parent directories) on the indicated host
+	 */
+	public static final int sshmkdir(String host, String directory) {
 		Assert.notNull(directory);
 		return ssh(host, MKDIR + " -p " + directory);
 	}
 
-	public int sshsu(String host, String user, String script) {
+	/**
+	 * Execute <code>script</code> as <code>user</code> on <code>host</code>
+	 */
+	public static final int sshsu(String host, String user, String script) {
 		return ssh(host, SU + " - " + user + " " + script);
 	}
 
-	public int ssh(String host, String command) {
+	/**
+	 * Execute <code>command</code> on <code>host</code>
+	 */
+	public static final int ssh(String host, String command) {
 		return ssh(host, command, null);
 	}
 
-	public int ssh(String host, String command, List<String> args) {
+	/**
+	 * Execute <code>command</code> on <code>host</code> with an optional list of arguments
+	 */
+	public static final int ssh(String host, String command, List<String> args) {
 		Assert.notNull(host);
 		Assert.notNull(command);
 		List<String> arguments = new ArrayList<String>();
@@ -65,7 +86,7 @@ public class UnixUtils {
 		return execute(cl);
 	}
 
-	protected int scp(String location1, String location2, List<String> args) {
+	protected static final int scp(String location1, String location2, List<String> args) {
 		Assert.notNull(location1);
 		Assert.notNull(location2);
 		List<String> arguments = new ArrayList<String>();
@@ -78,7 +99,10 @@ public class UnixUtils {
 		return execute(cl);
 	}
 
-	public int scp(File local, String remote, List<String> args) {
+	/**
+	 * Use <code>scp</code> to copy a file from the local file system to a remote server.
+	 */
+	public static final int scp(File local, String remote, List<String> args) {
 		Assert.notNull(local);
 		String localPath = LocationUtils.getCanonicalPath(local);
 		if (!local.exists()) {
@@ -87,7 +111,10 @@ public class UnixUtils {
 		return scp(localPath, remote, args);
 	}
 
-	public int scp(String remote, File local, List<String> args) {
+	/**
+	 * Use <code>scp</code> to copy a file from a remote server to the local file system.
+	 */
+	public static final int scp(String remote, File local, List<String> args) {
 		try {
 			FileUtils.touch(local);
 		} catch (IOException e) {
@@ -97,15 +124,21 @@ public class UnixUtils {
 		return scp(remote, localPath, args);
 	}
 
-	public int scp(File local, String remote) {
+	/**
+	 * Use <code>scp</code> to copy a file from the local file system to a remote server.
+	 */
+	public static final int scp(File local, String remote) {
 		return scp(local, remote, null);
 	}
 
-	public int scp(String remote, File local) {
+	/**
+	 * Use <code>scp</code> to copy a file from a remote server to the local file system.
+	 */
+	public static final int scp(String remote, File local) {
 		return scp(remote, local, null);
 	}
 
-	protected int execute(Commandline cl) {
+	protected static final int execute(Commandline cl) {
 		try {
 			StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
 			StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
