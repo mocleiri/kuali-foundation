@@ -22,11 +22,7 @@ public class DefaultExecService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultExecService.class);
 	private static final String SCP = "scp";
 
-	public int scp(String location1, String location2) {
-		return scp(location1, location2, null);
-	}
-
-	public int scp(String location1, String location2, List<String> args) {
+	protected int scp(String location1, String location2, List<String> args) {
 		Assert.notNull(location1);
 		Assert.notNull(location2);
 		List<String> arguments = new ArrayList<String>();
@@ -69,7 +65,7 @@ public class DefaultExecService {
 	protected int execute(Commandline cl) {
 		try {
 			StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
-			StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.ERROR);
+			StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
 			return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
