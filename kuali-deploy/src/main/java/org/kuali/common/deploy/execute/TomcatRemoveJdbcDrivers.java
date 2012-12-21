@@ -11,6 +11,6 @@ public class TomcatRemoveJdbcDrivers extends RemoteRm {
 	public TomcatRemoveJdbcDrivers(String hostname) {
 		super();
 		this.hostname = hostname;
-		this.files = Arrays.asList(Constants.TOMCAT_LIB + "/mysql*.jar ", Constants.TOMCAT_LIB + "/oracle*.jar");
+		this.files = Arrays.asList(Constants.TOMCAT_LIB + "/mysql*.jar ", Constants.TOMCAT_LIB + "/oracle*.jar", Constants.TOMCAT_LIB + "/ojdbc*.jar");
 	}
 }
