@@ -590,7 +590,7 @@ public class UnixUtils {
 
 	protected static final String validateRsyncDestinationDir(File dir) {
 		try {
-			FileUtils.forceMkdir(dir.getParentFile());
+			FileUtils.forceMkdir(dir);
 			return dir.getCanonicalPath();
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO error", e);
