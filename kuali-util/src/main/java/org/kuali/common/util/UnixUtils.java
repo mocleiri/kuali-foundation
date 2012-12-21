@@ -70,17 +70,17 @@ public class UnixUtils {
 	/**
 	 * Change the ownership of a file on the indicated host
 	 */
-	public static final int sshchown(List<String> sshargs, String user, String hostname, String owner, String group, String file, boolean recursive) {
+	public static final int sshchown(List<String> args, String user, String hostname, String owner, String group, String file, boolean recursive) {
 		Assert.notNull(owner);
 		Assert.notNull(group);
 		Assert.notNull(file);
-		return ssh(sshargs, user, hostname, CHOWN + (recursive ? " -R " : "") + " " + owner + ":" + group + " " + file);
+		return ssh(args, user, hostname, CHOWN + (recursive ? " -R " : "") + " " + owner + ":" + group + " " + file);
 	}
 
 	/**
 	 * Change the ownership of a file on the indicated host
 	 */
-	public static final int sshchown(List<String> sshargs, String hostname, String owner, String group, String file, boolean recursive) {
+	public static final int sshchown(List<String> args, String hostname, String owner, String group, String file, boolean recursive) {
 		return sshchown(null, null, hostname, owner, group, file, recursive);
 	}
 
@@ -92,93 +92,139 @@ public class UnixUtils {
 	}
 
 	/**
-	 * Change the ownership of a file on the indicated host
+	 * <pre>
+	 * ssh [args] hostname chown owner:group file
+	 * </pre>
 	 */
-	public static final int sshchown(List<String> sshargs, String hostname, String owner, String group, String file) {
-		return sshchown(sshargs, hostname, owner, group, file, false);
+	public static final int sshchown(List<String> args, String hostname, String owner, String group, String file) {
+		return sshchown(args, hostname, owner, group, file, false);
 	}
 
 	/**
-	 * Change the ownership of a file on the indicated host
+	 * <pre>
+	 * ssh hostname chown owner:group file
+	 * </pre>
 	 */
 	public static final int sshchown(String hostname, String owner, String group, String file) {
 		return sshchown(null, hostname, owner, group, file);
 	}
 
 	/**
-	 * If file is a directory, recursively remove it and all sub-directories from the indicated host, otherwise just remove the file.
+	 * <pre>
+	 * ssh hostname rm -rf file
+	 * </pre>
 	 */
 	public static final int sshrm(String host, String file) {
 		return sshrm(null, host, file);
 	}
 
 	/**
-	 * If file is a directory, recursively remove it and all sub-directories from the indicated host, otherwise just remove the file.
+	 * <pre>
+	 * ssh [args] hostname rm -rf file
+	 * </pre>
 	 */
-	public static final int sshrm(List<String> sshargs, String hostname, String file) {
+	public static final int sshrm(List<String> args, String hostname, String file) {
 		Assert.notNull(file);
-		return ssh(sshargs, hostname, RM + " -rf " + file);
+		return ssh(args, hostname, RM + " -rf " + file);
 	}
 
 	/**
-	 * Create a directory (and any necessary parent directories) on the indicated host
+	 * <pre>
+	 * ssh [user@]hostname mkdir -p directory
+	 * </pre>
+	 */
+	public static final int sshmkdir(String user, String hostname, String directory) {
+		return sshmkdir(null, user, hostname, directory);
+	}
+
+	/**
+	 * <pre>
+	 * ssh [args] [user@]hostname mkdir -p directory
+	 * </pre>
+	 */
+	public static final int sshmkdir(List<String> args, String user, String hostname, String directory) {
+		Assert.notNull(directory);
+		return ssh(args, user, hostname, MKDIR + " -p " + directory);
+	}
+
+	/**
+	 * <pre>
+	 * ssh hostname mkdir -p directory
+	 * </pre>
 	 */
 	public static final int sshmkdir(String hostname, String directory) {
-		return sshmkdir(null, hostname, directory);
+		return sshmkdir(null, null, hostname, directory);
 	}
 
 	/**
-	 * Create a directory (and any necessary parent directories) on the indicated host
+	 * <pre>
+	 * ssh [args] hostname mkdir -p directory
+	 * </pre>
 	 */
-	public static final int sshmkdir(List<String> sshargs, String host, String directory) {
-		Assert.notNull(directory);
-		return ssh(sshargs, host, MKDIR + " -p " + directory);
+	public static final int sshmkdir(List<String> args, String hostname, String directory) {
+		return sshmkdir(args, null, hostname, directory);
 	}
 
 	/**
-	 * <code>ssh [hostname] [su - &lt;login&gt; &lt;script&gt;]</code>
+	 * <pre>
+	 * ssh hostname su - login command
+	 * </pre>
 	 */
-	public static final int sshsu(String hostname, String login, String script) {
-		return sshsu(null, hostname, login, script);
+	public static final int sshsu(String hostname, String login, String command) {
+		return sshsu(null, hostname, login, command);
 	}
 
 	/**
-	 * <code>ssh [sshargs] [hostname] [su - &lt;login&gt; &lt;script&gt;]</code>
+	 * <pre>
+	 * ssh [args] hostname su - login command
+	 * </pre>
 	 */
-	public static final int sshsu(List<String> sshargs, String hostname, String login, String script) {
-		return sshsu(sshargs, null, hostname, login, script);
+	public static final int sshsu(List<String> args, String hostname, String login, String command) {
+		return sshsu(args, null, hostname, login, command);
 	}
 
 	/**
-	 * <code>ssh [sshargs] [user@][hostname] [su - &lt;login&gt; &lt;script&gt;]</code>
+	 * <pre>
+	 * ssh [args] [user@]hostname su - login command
+	 * </pre>
 	 */
-	public static final int sshsu(List<String> sshargs, String user, String hostname, String login, String script) {
-		return ssh(user, hostname, SU + " - " + login + " " + script);
+	public static final int sshsu(List<String> args, String user, String hostname, String login, String command) {
+		Assert.notNull(login);
+		Assert.notNull(command);
+		return ssh(user, hostname, SU + " - " + login + " " + command);
 	}
 
 	/**
-	 * <code>ssh [hostname] [command]</code>
+	 * <pre>
+	 * ssh hostname command
+	 * </pre>
 	 */
 	public static final int ssh(String hostname, String command) {
 		return ssh(null, null, hostname, command);
 	}
 
 	/**
-	 * <code>ssh [user@][hostname] [command]</code>
+	 * <pre>
+	 * ssh [user@]hostname command
+	 * </pre>
 	 */
 	public static final int ssh(String user, String hostname, String command) {
 		return ssh(null, user, hostname, command);
 	}
 
 	/**
-	 * <code>ssh [args] [hostname] [command]</code>
+	 * <pre>
+	 * ssh [args] hostname command
+	 * </pre>
 	 */
 	public static final int ssh(List<String> args, String hostname, String command) {
 		return ssh(args, null, hostname, command);
 	}
 
 	/**
-	 * <code>ssh [args] [user@][hostname] [command]</code>
+	 * <pre>
+	 * ssh [args] [user@]hostname command
+	 * </pre>
 	 */
 	public static final int ssh(List<String> args, String user, String hostname, String command) {
 		Assert.notNull(hostname);
@@ -208,8 +254,8 @@ public class UnixUtils {
 	 * [[user@]host:]file
 	 * </pre>
 	 */
-	public static final int scp(String location1, String location2) {
-		return scp(null, location1, location2);
+	public static final int scp(String source, String destination) {
+		return scp(null, source, destination);
 	}
 
 	/**
