@@ -126,7 +126,7 @@ public class UnixUtils {
 	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
 	public static final int rsyncdirs(List<String> options, String source, File destination) {
-		String destinationPath = validateRsyncSourceDir(destination);
+		String destinationPath = validateRsyncDestinationDir(destination);
 		return rsyncdirs(options, source, destinationPath);
 	}
 

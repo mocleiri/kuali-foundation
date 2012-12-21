@@ -30,7 +30,7 @@ public class UnixUtilsTest {
 			String source = "root@env7.ole.kuali.org:/home/tomcat";
 			File destination = new File("/tmp/env7/tomcat");
 			FileUtils.deleteDirectory(destination.getParentFile());
-			UnixUtils.rsyncdirs(source, destination);
+			UnixUtils.rsyncdirs(Arrays.asList("--stats"), source, destination);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
