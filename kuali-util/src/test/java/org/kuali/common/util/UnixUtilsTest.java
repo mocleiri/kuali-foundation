@@ -27,17 +27,17 @@ public class UnixUtilsTest {
 	@Test
 	public void testSsh() throws IOException {
 		try {
-			File local = new File("/Users/jeffcaddel/Downloads/foo.sh");
-			String remote = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
+			File source = new File("/Users/jeffcaddel/Downloads/foo.sh");
+			String destination = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
 			UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.sshchownrecursive("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
-			UnixUtils.scp(remote, local);
+			UnixUtils.scp(destination, source);
 			UnixUtils.sshrm("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
-			UnixUtils.scp(local, remote);
+			UnixUtils.scp(source, destination);
 			UnixUtils.sshmkdir("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
-			String newRemote = "root@env11.ks.kuali.org:/home/tomcat/foo/bar.sh";
-			UnixUtils.scp(local, newRemote);
+			String newDestination = "root@env11.ks.kuali.org:/home/tomcat/foo/bar.sh";
+			UnixUtils.scp(source, newDestination);
 			FileUtils.deleteDirectory(new File("/tmp/tomcat"));
 			UnixUtils.rsync(Arrays.asList("-r", "--stats", "-a"), "root@env11.ks.kuali.org:/home/tomcat/", "/tmp/tomcat");
 		} catch (Exception e) {
