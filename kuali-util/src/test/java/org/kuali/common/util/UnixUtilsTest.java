@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,9 +23,9 @@ import org.kuali.common.util.UnixUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExecServiceTest {
+public class UnixUtilsTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(ExecServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(UnixUtilsTest.class);
 
 	@Test
 	public void testSsh() throws IOException {
