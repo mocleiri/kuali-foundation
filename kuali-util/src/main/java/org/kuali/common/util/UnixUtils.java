@@ -55,14 +55,14 @@ public class UnixUtils {
 	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must
 	 * already exist. <code>destination</code> will be created if it does not exist.
 	 */
-	public static final int rsync(File source, File destination) {
+	public static final int rsyncdirs(File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
 		String destinationPath = validateRsyncSourceDir(destination);
 
 		// Can't be the same directory
 		Assert.isTrue(!source.equals(destination));
 
-		return rsync(null, sourcePath, destinationPath);
+		return rsyncdirs(null, sourcePath, destinationPath);
 	}
 
 	/**
@@ -72,9 +72,9 @@ public class UnixUtils {
 	 *
 	 * Where <code>source</code> is a directory on the local file system. <code>source</code> must already exist.
 	 */
-	public static final int rsync(File source, String destination) {
+	public static final int rsyncdirs(File source, String destination) {
 		String sourcePath = validateRsyncSourceDir(source);
-		return rsync(null, sourcePath, destination);
+		return rsyncdirs(null, sourcePath, destination);
 	}
 
 	/**
@@ -84,12 +84,12 @@ public class UnixUtils {
 	 *
 	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
-	public static final int rsync(String source, File destination) {
+	public static final int rsyncdirs(String source, File destination) {
 		String destinationPath = validateRsyncDestinationDir(destination);
 		if (!StringUtils.endsWith(source, File.separator)) {
 			source += File.separator;
 		}
-		return rsync(null, source, destinationPath);
+		return rsyncdirs(null, source, destinationPath);
 	}
 
 	/**
@@ -100,10 +100,10 @@ public class UnixUtils {
 	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must
 	 * already exist. <code>destination</code> will be created if it does not exist.
 	 */
-	public static final int rsync(List<String> options, File source, File destination) {
+	public static final int rsyncdirs(List<String> options, File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
 		String destinationPath = validateRsyncSourceDir(destination);
-		return rsync(options, sourcePath, destinationPath);
+		return rsyncdirs(options, sourcePath, destinationPath);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class UnixUtils {
 	 */
 	public static final int rsync(List<String> options, File source, String destination) {
 		String sourcePath = validateRsyncSourceDir(source);
-		return rsync(options, sourcePath, destination);
+		return rsyncdirs(options, sourcePath, destination);
 	}
 
 	/**
@@ -125,9 +125,32 @@ public class UnixUtils {
 	 *
 	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
-	public static final int rsync(List<String> options, String source, File destination) {
+	public static final int rsyncdirs(List<String> options, String source, File destination) {
 		String destinationPath = validateRsyncSourceDir(destination);
-		return rsync(options, source, destinationPath);
+		return rsyncdirs(options, source, destinationPath);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync [options] source destination
+	 *  rsync [options] source [user@]hostname:destination
+	 *  rsync [options] [user@]hostname:source destination
+	 * </pre>
+	 */
+	public static final int rsyncdirs(List<String> options, String source, String destination) {
+		List<String> rsyncDirOptions = getRsyncDirOptions(options);
+		return rsync(rsyncDirOptions, source, destination);
+	}
+
+	/**
+	 * <pre>
+	 *  rsync [options] source destination
+	 *  rsync [options] source [user@]hostname:destination
+	 *  rsync [options] [user@]hostname:source destination
+	 * </pre>
+	 */
+	public static final int rsyncdirs(String source, String destination) {
+		return rsyncdirs(null, source, destination);
 	}
 
 	/**
@@ -572,6 +595,19 @@ public class UnixUtils {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO error", e);
 		}
+	}
+
+	protected static final List<String> getRsyncDirOptions(List<String> options) {
+		List<String> rsyncDirOptions = new ArrayList<String>();
+		rsyncDirOptions.add("--recursive");
+		rsyncDirOptions.add("--archive");
+		rsyncDirOptions.add("--delete");
+		for (String option : CollectionUtils.toEmpty(options)) {
+			if (!rsyncDirOptions.contains(option)) {
+				rsyncDirOptions.add(option);
+			}
+		}
+		return rsyncDirOptions;
 	}
 
 }
