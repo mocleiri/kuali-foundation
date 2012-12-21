@@ -32,6 +32,8 @@ public class ExecServiceTest {
 			DefaultExecService des = new DefaultExecService();
 			int exitValue = des.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			logger.info("Exit value = " + exitValue);
+			int exitValue1 = des.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
+			logger.info("Exit value = " + exitValue1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -23,9 +23,33 @@ public class DefaultExecService {
 	private static final String SCP = "scp";
 	private static final String SSH = "ssh";
 	private static final String SU = "su";
+	private static final String MKDIR = "mkdir";
+	private static final String RM = "rm";
+	private static final String CHOWN = "chown";
 
-	public int sshsu(String host, String user, String command) {
-		return ssh(host, SU + " - " + user + " " + command);
+	public int sshchown(String host, String owner, String group, String fileOrDirectory, boolean recursive) {
+		Assert.notNull(owner);
+		Assert.notNull(group);
+		Assert.notNull(fileOrDirectory);
+		return ssh(host, CHOWN + ((recursive) ? " -R " : "") + " " + owner + ":" + group + " " + fileOrDirectory);
+	}
+
+	public int sshchown(String host, String owner, String group, String fileOrDirectory) {
+		return sshchown(host, owner, group, fileOrDirectory, false);
+	}
+
+	public int sshrm(String host, String fileOrDirectory) {
+		Assert.notNull(fileOrDirectory);
+		return ssh(host, RM + " -rf " + fileOrDirectory);
+	}
+
+	public int sshmkdir(String host, String directory) {
+		Assert.notNull(directory);
+		return ssh(host, MKDIR + " -p " + directory);
+	}
+
+	public int sshsu(String host, String user, String script) {
+		return ssh(host, SU + " - " + user + " " + script);
 	}
 
 	public int ssh(String host, String command) {
@@ -60,11 +84,11 @@ public class DefaultExecService {
 
 	public int scp(File local, String remote, List<String> args) {
 		Assert.notNull(local);
-		String localFilePath = LocationUtils.getCanonicalPath(local);
+		String localPath = LocationUtils.getCanonicalPath(local);
 		if (!local.exists()) {
-			throw new IllegalArgumentException(localFilePath + " does not exist");
+			throw new IllegalArgumentException(localPath + " does not exist");
 		}
-		return scp(local, remote, args);
+		return scp(localPath, remote, args);
 	}
 
 	public int scp(String remote, File local, List<String> args) {
