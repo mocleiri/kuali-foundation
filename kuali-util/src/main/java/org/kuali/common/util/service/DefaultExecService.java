@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -21,6 +22,28 @@ import org.springframework.util.Assert;
 public class DefaultExecService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultExecService.class);
 	private static final String SCP = "scp";
+	private static final String SSH = "ssh";
+
+	public int ssh(String user, String hostname, String command) {
+		return ssh(user, hostname, command, null);
+	}
+
+	public int ssh(String user, String hostname, String command, List<String> args) {
+		Assert.notNull(hostname);
+		Assert.notNull(command);
+		List<String> arguments = new ArrayList<String>();
+		arguments.addAll(CollectionUtils.toEmpty(args));
+		if (!StringUtils.isBlank(user)) {
+			arguments.add(user + "@" + hostname);
+		} else {
+			arguments.add(hostname);
+		}
+		arguments.add(command);
+		Commandline cl = new Commandline();
+		cl.setExecutable(SSH);
+		cl.addArguments(CollectionUtils.toStringArray(arguments));
+		return execute(cl);
+	}
 
 	protected int scp(String location1, String location2, List<String> args) {
 		Assert.notNull(location1);

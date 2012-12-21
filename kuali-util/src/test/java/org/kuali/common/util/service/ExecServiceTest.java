@@ -27,14 +27,25 @@ public class ExecServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(ExecServiceTest.class);
 
 	@Test
-	public void test() throws IOException {
+	public void testSsh() throws IOException {
+		try {
+			DefaultExecService des = new DefaultExecService();
+			int exitValue = des.ssh("root", "ci.fn.kuali.org", "sleep 30");
+			logger.info("Exit value = " + exitValue);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testScp() throws IOException {
 		try {
 			DefaultExecService des = new DefaultExecService();
 			File localFile1 = new File("/Users/jeffcaddel/Downloads/jjj.zip");
 			File localFile2 = new File("/Users/jeffcaddel/Downloads/foo/xyz/jjj.zip");
 			int exitValue1 = des.scp(localFile1, "root@ci.fn.kuali.org:/root/jjj.zip");
-			int exitValue2 = des.scp("root@ci.fn.kuali.org:/root/jjj.zip", localFile2);
 			logger.info("Exit value = " + exitValue1);
+			int exitValue2 = des.scp("root@ci.fn.kuali.org:/root/jjj.zip", localFile2);
 			logger.info("Exit value = " + exitValue2);
 		} catch (Exception e) {
 			e.printStackTrace();
