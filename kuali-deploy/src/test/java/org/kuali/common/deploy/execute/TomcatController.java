@@ -18,6 +18,7 @@ public class TomcatController {
 			logger.info("Testing Tomcat Basics");
 			String hostname = "env7.ole.kuali.org";
 			List<Executable> executables = new ArrayList<Executable>();
+			executables.add(new TomcatRemoveJdbcDrivers(hostname));
 			executables.add(new TomcatShutdown(hostname));
 			executables.add(new TomcatCleanup(hostname));
 			executables.add(new TomcatStartup(hostname));
