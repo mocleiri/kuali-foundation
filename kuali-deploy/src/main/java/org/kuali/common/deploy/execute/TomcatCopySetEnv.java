@@ -17,6 +17,8 @@ package org.kuali.common.deploy.execute;
 
 import java.io.File;
 
+import org.kuali.common.util.UnixUtils;
+
 public class TomcatCopySetEnv extends CopyToRemote {
 
 	public TomcatCopySetEnv() {
@@ -30,5 +32,12 @@ public class TomcatCopySetEnv extends CopyToRemote {
 		this.remoteFile = Constants.TOMCAT_SETENV;
 		this.owner = Constants.TOMCAT_USER;
 		this.group = Constants.TOMCAT_GROUP;
+	}
+
+	@Override
+	public void execute() {
+		super.execute();
+		int chmod = UnixUtils.sshchmod(user, hostname, "755", remoteFile);
+		UnixUtils.validate(chmod, "Error creating AppDynamics directory", nonZeroExitValueMode);
 	}
 }
