@@ -62,8 +62,9 @@ public class UnixUtils {
 		String sourcePath = validateRsyncSourceDir(source);
 		String destinationPath = validateRsyncDestinationDir(destination);
 
-		// Can't be the same directory
-		Assert.isTrue(!source.equals(destination));
+		// Make sure source is a different directory than destination
+		boolean different = !source.equals(destination);
+		Assert.isTrue(different);
 
 		return rsyncdirs(null, sourcePath, destinationPath);
 	}
@@ -149,7 +150,7 @@ public class UnixUtils {
 	 */
 	public static final int rsyncdirs(List<String> options, String source, String destination) {
 		List<String> rsyncDirOptions = getRsyncDirOptions(options);
-		// Make sure source has a trailing slash
+		// Make sure source always has a trailing slash
 		String trailingSlashSource = StringUtils.endsWith(source, FORWARD_SLASH) ? source : source + FORWARD_SLASH;
 		return rsync(rsyncDirOptions, trailingSlashSource, destination);
 	}
