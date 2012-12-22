@@ -28,6 +28,9 @@ public class TomcatShutdown extends RemoteShellScript {
 		this.hostname = hostname;
 		this.login = Constants.TOMCAT_USER;
 		this.script = Constants.TOMCAT_SHUTDOWN;
+		// Warn instead of error when executing the shut down script
+		// The shutdown script freaks out if catalina.pid has been messed with.
+		// Generally speaking if catalina.pid is gone, tomcat is off and we can usually safely ignore the script freaking out
 		this.nonZeroExitValueMode = Mode.WARN;
 	}
 }
