@@ -15,7 +15,6 @@
  */
 package org.kuali.common.deploy.execute;
 
-import org.kuali.common.util.Mode;
 
 public class TomcatCleanup extends RemoteShellScript {
 
@@ -28,6 +27,5 @@ public class TomcatCleanup extends RemoteShellScript {
 		this.hostname = hostname;
 		this.login = Constants.TOMCAT_USER;
 		this.script = Constants.TOMCAT_CLEANUP;
-		this.nonZeroExitValueMode = Mode.WARN;
 	}
 }
