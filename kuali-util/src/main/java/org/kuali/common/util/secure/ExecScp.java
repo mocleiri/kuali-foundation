@@ -98,8 +98,8 @@ public class ExecScp extends DefaultExecService implements Scp {
 	 * for creating <code>file</code>. The <code>scp</code> process being exec'd by Java usually has a tight coupling to the Java process
 	 * itself as it relates to manipulating the local file system. If Java succeeds, <code>scp</code> is likely to succeed. If Java fails,
 	 * <code>scp</code> is likely to fail. Aside from permissions issues, this also makes sure <code>file</code> is not an existing
-	 * directory. The default <code>scp</code> behavior silently overwrites existing files. Thus the <code>touch</code> utility should be a
-	 * reasonably accurate predictor for the success or failure of <code>scp</code> due to issues with the local file system.
+	 * directory. <code>scp</code> silently overwrites existing files by default. Thus the <code>touch</code> utility should be a reasonably
+	 * accurate predictor for the success or failure of <code>scp</code> due to issues with the local file system.
 	 */
 	protected String validateDestinationFile(File file) {
 		Assert.notNull(file);
