@@ -45,16 +45,20 @@ public class ExecScp extends DefaultExecService implements Scp {
 
 	@Override
 	public int copy(ScpContext context, File source, ScpFile destination) {
+		validateSource(source);
 		return copy(context, new ScpFile(source), destination);
 	}
 
 	@Override
 	public int copy(ScpContext context, ScpFile source, File destination) {
+		validateDestination(destination);
 		return copy(context, source, new ScpFile(destination));
 	}
 
 	@Override
 	public int copy(ScpContext context, File source, File destination) {
+		validateSource(source);
+		validateDestination(destination);
 		return copy(context, new ScpFile(source), new ScpFile(destination));
 	}
 
@@ -81,15 +85,15 @@ public class ExecScp extends DefaultExecService implements Scp {
 	/**
 	 * Make sure <code>file</code> exists and is readable.
 	 */
-	protected String validateSourceFile(File file) {
+	protected void validateSource(File file) {
 		Assert.notNull(file);
 		String path = LocationUtils.getCanonicalPath(file);
 		if (!file.exists()) {
 			throw new IllegalArgumentException("[" + path + "] does not exist");
+		} else if (file.isDirectory()) {
+			throw new IllegalArgumentException("Directory copying is not supported [" + path + "]");
 		} else if (!file.canRead()) {
 			throw new IllegalArgumentException("Cannot read from [" + path + "]");
-		} else {
-			return path;
 		}
 	}
 
@@ -101,11 +105,14 @@ public class ExecScp extends DefaultExecService implements Scp {
 	 * directory. <code>scp</code> silently overwrites existing files by default. Thus the <code>touch</code> utility should be a reasonably
 	 * accurate predictor for the success or failure of <code>scp</code> due to issues with the local file system.
 	 */
-	protected String validateDestinationFile(File file) {
+	protected void validateDestination(File file) {
 		Assert.notNull(file);
-		logger.debug("Touching [{}]", file);
+		String path = LocationUtils.getCanonicalPath(file);
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("Destination file is an existing directory [" + path + "]");
+		}
+		logger.debug("Touching [{}]", path);
 		LocationUtils.touch(file);
-		return LocationUtils.getCanonicalPath(file);
 	}
 
 	protected List<String> getScpArgs(ScpContext context, ScpFile source, ScpFile destination) {
