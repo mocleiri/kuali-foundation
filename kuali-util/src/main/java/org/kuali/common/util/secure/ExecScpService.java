@@ -16,9 +16,11 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.service.DefaultExecService;
@@ -42,12 +44,20 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 		if (!source.exists()) {
 			throw new IllegalArgumentException(sourcePath + " does not exist");
 		}
-		return 0;
+		return copy(context, source, sourcePath);
 	}
 
 	@Override
 	public int copy(SecureContext context, String source, File destination) {
-		return 0;
+		Assert.notNull(destination);
+		try {
+			logger.debug("Touching {}", destination);
+			FileUtils.touch(destination);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
+		String path = LocationUtils.getCanonicalPath(destination);
+		return copy(context, source, path);
 	}
 
 	protected int copy(SecureContext context, String source, String destination) {
@@ -57,6 +67,9 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 
 	protected List<String> getArgs(SecureContext context, String source, String destination) {
 		List<String> args = new ArrayList<String>();
+		if (context.getArgs() != null) {
+			args.addAll(context.getArgs());
+		}
 		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
 		addIdentityFile(context, args);
 		addPort(context, SSHUtils.DEFAULT_PORT, args);
