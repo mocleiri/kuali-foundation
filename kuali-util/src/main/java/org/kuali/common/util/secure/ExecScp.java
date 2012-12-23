@@ -32,9 +32,9 @@ import org.springframework.util.Assert;
 /**
  *
  */
-public class ExecScpService extends DefaultExecService implements ScpService {
+public class ExecScp extends DefaultExecService implements Scp {
 
-	private static final Logger logger = LoggerFactory.getLogger(ExecScpService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ExecScp.class);
 
 	private static final String SCP = "scp";
 

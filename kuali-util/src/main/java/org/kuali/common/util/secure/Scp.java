@@ -17,7 +17,7 @@ package org.kuali.common.util.secure;
 
 import java.io.File;
 
-public interface ScpService {
+public interface Scp {
 
 	int copy(File localFile, String destination);
 
