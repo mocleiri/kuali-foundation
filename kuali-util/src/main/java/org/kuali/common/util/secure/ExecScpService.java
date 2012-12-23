@@ -17,10 +17,26 @@ package org.kuali.common.util.secure;
 
 import java.io.File;
 
-public interface ScpService {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	int copy(SecureContext context, File source, String destination);
+/**
+ *
+ */
+public class ExecScpService implements ScpService {
 
-	int copy(SecureContext context, String source, File destination);
+	private static final Logger logger = LoggerFactory.getLogger(ExecScpService.class);
+
+	private static final String SCP = "scp";
+
+	@Override
+	public int copy(SecureContext context, File source, String destination) {
+		return 0;
+	}
+
+	@Override
+	public int copy(SecureContext context, String source, File destination) {
+		return 0;
+	}
 
 }

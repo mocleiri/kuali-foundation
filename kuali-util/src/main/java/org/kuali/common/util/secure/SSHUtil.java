@@ -45,13 +45,21 @@ public class SSHUtil {
 
 	/**
 	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and
-	 * parsing <code>~/.ssh/config</code>. Any files returned by this method are guaranteed to exist and be readable.
+	 * parsing <code>config</code>. Any files returned by this method are guaranteed to exist and be readable.
 	 */
-	public static final List<File> getDefaultPrivateKeys() {
-		String[] configuredPrivateKeys = getFilenames(CONFIG);
+	public static final List<File> getDefaultPrivateKeys(File config) {
+		String[] configuredPrivateKeys = getFilenames(config);
 		String[] defaultPrivateKeys = PRIVATE_KEY_DEFAULTS;
 		List<String> filenames = CollectionUtils.getCombined(configuredPrivateKeys, defaultPrivateKeys);
 		return getExistingAndReadable(filenames);
+	}
+
+	/**
+	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and
+	 * parsing <code>~/.ssh/config</code>. Any files returned by this method are guaranteed to exist and be readable.
+	 */
+	public static final List<File> getDefaultPrivateKeys() {
+		return getDefaultPrivateKeys(CONFIG);
 	}
 
 	public static final Properties getDefaultProperties() {
