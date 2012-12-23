@@ -645,7 +645,7 @@ public class UnixUtils {
 		validate(exitValue, message, Mode.ERROR);
 	}
 
-	protected static final int execute(Commandline cl) {
+	public static final int execute(Commandline cl) {
 		try {
 			StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
 			StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
