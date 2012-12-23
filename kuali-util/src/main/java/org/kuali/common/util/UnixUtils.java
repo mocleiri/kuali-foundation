@@ -671,16 +671,16 @@ public class UnixUtils {
 		return sb.toString();
 	}
 
-	public static final String getLocation(String user, String hostname, String file) {
+	public static final String getLocation(String user, String hostname, String filename) {
 		Assert.notNull(user);
-		Assert.notNull(file);
+		Assert.notNull(filename);
 		StringBuilder sb = new StringBuilder();
 		if (!StringUtils.isBlank(user)) {
 			sb.append(user + "@");
 		}
 		sb.append(hostname);
 		sb.append(":");
-		sb.append(file);
+		sb.append(filename);
 		return sb.toString();
 	}
 

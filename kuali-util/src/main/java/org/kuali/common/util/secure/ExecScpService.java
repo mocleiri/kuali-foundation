@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.UnixUtils;
 import org.kuali.common.util.service.DefaultExecService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,26 +39,28 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 	private static final String SCP = "scp";
 
 	@Override
-	public int copy(SecureContext context, File source, String destination) {
-		Assert.notNull(source);
-		String sourcePath = LocationUtils.getCanonicalPath(source);
-		if (!source.exists()) {
-			throw new IllegalArgumentException(sourcePath + " does not exist");
+	public int copy(SecureContext context, File localFile, String remoteFile) {
+		Assert.notNull(localFile);
+		String localFilePath = LocationUtils.getCanonicalPath(localFile);
+		if (!localFile.exists()) {
+			throw new IllegalArgumentException(localFilePath + " does not exist");
 		}
-		return copy(context, source, sourcePath);
+		String destination = UnixUtils.getLocation(context.getUsername(), context.getHostname(), remoteFile);
+		return copy(context, localFilePath, destination);
 	}
 
 	@Override
-	public int copy(SecureContext context, String source, File destination) {
-		Assert.notNull(destination);
+	public int copy(SecureContext context, String remoteFile, File localFile) {
+		Assert.notNull(localFile);
 		try {
-			logger.debug("Touching {}", destination);
-			FileUtils.touch(destination);
+			logger.debug("Touching {}", localFile);
+			FileUtils.touch(localFile);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
-		String path = LocationUtils.getCanonicalPath(destination);
-		return copy(context, source, path);
+		String source = UnixUtils.getLocation(context.getUsername(), context.getHostname(), remoteFile);
+		String destination = LocationUtils.getCanonicalPath(localFile);
+		return copy(context, source, destination);
 	}
 
 	protected int copy(SecureContext context, String source, String destination) {
@@ -67,15 +70,25 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 
 	protected List<String> getArgs(SecureContext context, String source, String destination) {
 		List<String> args = new ArrayList<String>();
+		// Add any extra arguments they may have provided
+		addArgs(context, args);
+		// Add arg for custom ssh_config file (if any)
+		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
+		// Add arg for custom private key (if any)
+		addIdentityFile(context, args);
+		// Add arg for port if they are not using 22
+		addPort(context, SSHUtils.DEFAULT_PORT, args);
+		// Add arg for source file
+		args.add(source);
+		// Add arg for destination file
+		args.add(destination);
+		return args;
+	}
+
+	protected void addArgs(SecureContext context, List<String> args) {
 		if (context.getArgs() != null) {
 			args.addAll(context.getArgs());
 		}
-		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
-		addIdentityFile(context, args);
-		addPort(context, SSHUtils.DEFAULT_PORT, args);
-		args.add(source);
-		args.add(destination);
-		return args;
 	}
 
 	protected void addPort(SecureContext context, int defaultPort, List<String> args) {
