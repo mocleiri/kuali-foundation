@@ -23,7 +23,7 @@ public class TomcatContext {
 	String webapps = WEBAPPS;
 	String owner = TOMCAT;
 	String group = TOMCAT;
-	String login = TOMCAT;
+	String user = TOMCAT;
 	String userHome = USER_HOME;
 
 	public String getStartup() {
@@ -130,11 +130,11 @@ public class TomcatContext {
 		this.group = group;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUser() {
+		return user;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUser(String login) {
+		this.user = login;
 	}
 }
