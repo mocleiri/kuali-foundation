@@ -1,6 +1,7 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
@@ -11,12 +12,14 @@ public interface ExecContext {
 
 	List<String> getArgs();
 
-	StreamConsumer getStdout();
-
-	StreamConsumer getStderr();
+	InputStream getInput();
 
 	int getTimeoutInSeconds();
 
 	File getWorkingDirectory();
+
+	StreamConsumer getStandardOutConsumer();
+
+	StreamConsumer getStandardErrConsumer();
 
 }

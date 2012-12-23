@@ -38,10 +38,16 @@ public class SSHUtils {
 	private static final String ID_RSA = SSHDIR + FS + "id_rsa";
 	private static final String ID_ECDSA = SSHDIR + FS + "id_ecdsa";
 	private static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
+	private static final int PORT_NUMBER_LOWEST = 1;
+	private static final int PORT_NUMBER_HIGHEST = 65535;
 
 	public static final File DEFAULT_CONFIG_FILE = new File(SSHDIR + FS + "config");
 	public static final int DEFAULT_PORT = 22;
 	public static final File DEFAULT_KNOWN_HOSTS = new File(SSHDIR + FS + "known_hosts");
+
+	public static final boolean isValidPort(int port) {
+		return port >= PORT_NUMBER_LOWEST && port <= PORT_NUMBER_HIGHEST;
+	}
 
 	/**
 	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and

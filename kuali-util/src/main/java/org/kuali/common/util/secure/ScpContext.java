@@ -16,23 +16,23 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.util.List;
+import java.util.Properties;
 
-public interface Scp {
+public interface ScpContext {
 
-	int copy(File source, File destination);
+	Properties getOptions();
 
-	int copy(ScpFile source, File destination);
+	int getPort();
 
-	int copy(File source, ScpFile destination);
+	File getKnownHosts();
 
-	int copy(ScpFile source, ScpFile destination);
+	boolean isTrust();
 
-	int copy(ScpContext context, File source, File destination);
+	File getConfigFile();
 
-	int copy(ScpContext context, ScpFile source, File destination);
+	File getPrivateKey();
 
-	int copy(ScpContext context, File source, ScpFile destination);
-
-	int copy(ScpContext context, ScpFile source, ScpFile destination);
+	List<String> getArgs();
 
 }

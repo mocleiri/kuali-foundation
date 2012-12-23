@@ -19,9 +19,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-public class SecureContext {
+public class SecureContext implements ScpContext {
 
-	Properties options = SSHUtils.getDefaultOptions();
+	Properties options;
 	int port = SSHUtils.DEFAULT_PORT;
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File configFile = SSHUtils.DEFAULT_CONFIG_FILE;
@@ -43,6 +43,7 @@ public class SecureContext {
 		this.password = password;
 	}
 
+	@Override
 	public int getPort() {
 		return port;
 	}
@@ -51,6 +52,7 @@ public class SecureContext {
 		this.port = port;
 	}
 
+	@Override
 	public File getKnownHosts() {
 		return knownHosts;
 	}
@@ -59,6 +61,7 @@ public class SecureContext {
 		this.knownHosts = knownHosts;
 	}
 
+	@Override
 	public File getConfigFile() {
 		return configFile;
 	}
@@ -67,6 +70,7 @@ public class SecureContext {
 		this.configFile = configFile;
 	}
 
+	@Override
 	public File getPrivateKey() {
 		return privateKey;
 	}
@@ -83,7 +87,8 @@ public class SecureContext {
 		this.passphrase = passphrase;
 	}
 
-	public boolean isTrust() {
+	@Override
+    public boolean isTrust() {
 		return trust;
 	}
 
@@ -115,6 +120,7 @@ public class SecureContext {
 		this.hostname = hostname;
 	}
 
+	@Override
 	public Properties getOptions() {
 		return options;
 	}
@@ -123,6 +129,7 @@ public class SecureContext {
 		this.options = options;
 	}
 
+	@Override
 	public List<String> getArgs() {
 		return args;
 	}

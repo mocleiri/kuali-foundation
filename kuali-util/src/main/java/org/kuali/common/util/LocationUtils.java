@@ -99,6 +99,14 @@ public class LocationUtils {
 		}
 	}
 
+	public static final void touch(File file) {
+		try {
+			FileUtils.touch(file);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
+	}
+
 	public static final String getCanonicalPath(File file) {
 		try {
 			return file.getCanonicalPath();

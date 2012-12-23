@@ -16,14 +16,12 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.UnixUtils;
 import org.kuali.common.util.service.DefaultExecService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,94 +33,112 @@ import org.springframework.util.Assert;
 public class ExecScp extends DefaultExecService implements Scp {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecScp.class);
+	private static final ScpContext DEFAULT_SCP_CONTEXT = new SecureContext();
 
 	private static final String SCP = "scp";
 
 	@Override
-	public int copy(SecureContext context, File localFile, String remoteFile) {
-		Assert.notNull(localFile);
-		String localFilePath = LocationUtils.getCanonicalPath(localFile);
-		if (!localFile.exists()) {
-			throw new IllegalArgumentException(localFilePath + " does not exist");
-		}
-		String destination = UnixUtils.getLocation(context.getUsername(), context.getHostname(), remoteFile);
-		return copy(context, localFilePath, destination);
-	}
-
-	@Override
-	public int copy(SecureContext context, String remoteFile, File localFile) {
-		Assert.notNull(localFile);
-		try {
-			logger.debug("Touching {}", localFile);
-			FileUtils.touch(localFile);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		}
-		String source = UnixUtils.getLocation(context.getUsername(), context.getHostname(), remoteFile);
-		String destination = LocationUtils.getCanonicalPath(localFile);
-		return copy(context, source, destination);
-	}
-
-	@Override
-	public int copy(SecureContext context, String source, String destination) {
+	public int copy(ScpContext context, ScpFile source, ScpFile destination) {
 		List<String> args = getScpArgs(context, source, destination);
 		return execute(SCP, args);
 	}
 
-	protected List<String> getScpArgs(SecureContext context, String source, String destination) {
+	@Override
+	public int copy(ScpContext context, File source, ScpFile destination) {
+		return copy(context, new ScpFile(source), destination);
+	}
+
+	@Override
+	public int copy(ScpContext context, ScpFile source, File destination) {
+		return copy(context, source, new ScpFile(destination));
+	}
+
+	@Override
+	public int copy(ScpContext context, File source, File destination) {
+		return copy(context, new ScpFile(source), new ScpFile(destination));
+	}
+
+	@Override
+	public int copy(ScpFile source, ScpFile destination) {
+		return copy(DEFAULT_SCP_CONTEXT, source, destination);
+	}
+
+	@Override
+	public int copy(File source, ScpFile destination) {
+		return copy(DEFAULT_SCP_CONTEXT, source, destination);
+	}
+
+	@Override
+	public int copy(File source, File destination) {
+		return copy(DEFAULT_SCP_CONTEXT, source, destination);
+	}
+
+	@Override
+	public int copy(ScpFile source, File destination) {
+		return copy(DEFAULT_SCP_CONTEXT, source, destination);
+	}
+
+	/**
+	 * Make sure <code>file</code> exists and is readable.
+	 */
+	protected String validateSourceFile(File file) {
+		Assert.notNull(file);
+		String path = LocationUtils.getCanonicalPath(file);
+		if (!file.exists()) {
+			throw new IllegalArgumentException("[" + path + "] does not exist");
+		} else if (!file.canRead()) {
+			throw new IllegalArgumentException("Cannot read from [" + path + "]");
+		} else {
+			return path;
+		}
+	}
+
+	/**
+	 * Prove we can actually create <code>file</code> using Java. This validates (among other things) that Java has sufficient permissions
+	 * for creating <code>file</code>. The <code>scp</code> process being exec'd by Java usually has a tight coupling to the Java process
+	 * itself as it relates to manipulating the local file system. If Java succeeds, <code>scp</code> is likely to succeed. If Java fails,
+	 * <code>scp</code> is likely to fail. Aside from permissions issues, this also makes sure <code>file</code> is not an existing
+	 * directory. The default <code>scp</code> behavior silently overwrites existing files. Thus the <code>touch</code> utility should be a
+	 * reasonably accurate predictor for the success or failure of <code>scp</code> due to issues with the local file system.
+	 */
+	protected String validateDestinationFile(File file) {
+		Assert.notNull(file);
+		logger.debug("Touching [{}]", file);
+		LocationUtils.touch(file);
+		return LocationUtils.getCanonicalPath(file);
+	}
+
+	protected List<String> getScpArgs(ScpContext context, ScpFile source, ScpFile destination) {
 		List<String> args = new ArrayList<String>();
-		// Add any extra arguments they may have provided
+		// Add explicitly provided args (if any)
 		CollectionUtils.nullSafeAdd(args, context.getArgs());
-		// Add arg for custom ssh_config file (if any)
-		addConfigFile(context.getConfigFile(), SSHUtils.DEFAULT_CONFIG_FILE, args);
+		// Add "-o" args (if any)
+		addOptions(args, context.getOptions());
+		// Add arg for custom ssh_config file (if provided and different from the default)
+		addConfigFile(args, context.getConfigFile(), SSHUtils.DEFAULT_CONFIG_FILE);
 		// Add arg for custom private key (if any)
-		addIdentityFile(context.getPrivateKey(), args);
-		// Add arg for port if they are not using 22
-		addPort(context, SSHUtils.DEFAULT_PORT, args);
+		addIdentityFile(args, context.getPrivateKey());
+		// Add arg for port (if provided and different from the default)
+		// Capital P because the scp protocol uses -p internally
+		addPort(args, "-P", context.getPort(), SSHUtils.DEFAULT_PORT);
 		// Add arg for source file
-		args.add(source);
+		args.add(toString(source));
 		// Add arg for destination file
-		args.add(destination);
+		args.add(toString(destination));
 		// Return the args list
 		return args;
 	}
 
-	protected void addPort(SecureContext context, int defaultPort, List<String> args) {
-		if (context.getPort() != defaultPort) {
-			// Capital P because the scp protocol uses -p internally
-			args.add("-P");
-			args.add(Integer.toString(context.getPort()));
+	protected String toString(ScpFile file) {
+		StringBuilder sb = new StringBuilder();
+		if (!StringUtils.isBlank(file.getUsername())) {
+			sb.append(file.getUsername() + "@");
 		}
-	}
-
-	@Override
-	public int copy(File localFile, String user, String hostname, String remoteFile) {
-		SecureContext context = new SecureContext(user, hostname);
-		return copy(context, localFile, remoteFile);
-	}
-
-	@Override
-	public int copy(String user, String hostname, String remoteFile, File localFile) {
-		SecureContext context = new SecureContext(user, hostname);
-		return copy(context, remoteFile, localFile);
-	}
-
-	@Override
-	public int copy(String source, String destination) {
-		SecureContext context = new SecureContext();
-		return copy(context, source, destination);
-	}
-
-	@Override
-	public int copy(File localFile, String destination) {
-		SecureContext context = new SecureContext();
-		return copy(context, localFile, destination);
-	}
-
-	@Override
-	public int copy(String source, File localFile) {
-		SecureContext context = new SecureContext();
-		return copy(context, source, localFile);
+		if (!StringUtils.isBlank(file.getHostname())) {
+			sb.append(file.getHostname() + ":");
+		}
+		sb.append(file.getFilename());
+		return sb.toString();
 	}
 
 }
