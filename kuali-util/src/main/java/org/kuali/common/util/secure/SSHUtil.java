@@ -29,8 +29,8 @@ public class SSHUtil {
 	private static final String IDENTITY_FILE = "IdentityFile";
 	private static final String TILDE = "~";
 	private static final String USER_HOME = System.getProperty("user.home");
-	private static final File CONFIG = new File(USER_HOME + FS + ".ssh" + FS + "config");
 	private static final String SSHDIR = USER_HOME + FS + ".ssh";
+	private static final File CONFIG = new File(SSHDIR + FS + "config");
 
 	private static final String IDENTITY = SSHDIR + FS + "identity";
 	private static final String ID_DSA = SSHDIR + FS + "id_dsa";
@@ -40,7 +40,7 @@ public class SSHUtil {
 
 	/**
 	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and
-	 * parsing <code>~/.ssh/config</code>. Any files contained in the list are guaranteed to exist and are readable.
+	 * parsing <code>~/.ssh/config</code>. Any files returned by this method are guaranteed to exist and be readable.
 	 */
 	public static final List<File> getDefaultPrivateKeys() {
 		String[] configuredPrivateKeys = getFilenames(CONFIG);
