@@ -29,6 +29,21 @@ import org.springframework.util.Assert;
 public class CollectionUtils {
 
 	/**
+	 * Return a new list containing the unique set of elements represented by <code>arrays</code>.
+	 */
+	public static final <T> List<T> getCombined(T[]... arrays) {
+		List<T> newList = new ArrayList<T>();
+		for (T[] array : arrays) {
+			for (T element : array) {
+				if (!newList.contains(element)) {
+					newList.add(element);
+				}
+			}
+		}
+		return newList;
+	}
+
+	/**
 	 * Return a list containing only the elements where the corresponding index in the <code>includes</code> list is <code>true</code>.
 	 * <code>includes</code> and <code>list</code> must be the same size.
 	 */
