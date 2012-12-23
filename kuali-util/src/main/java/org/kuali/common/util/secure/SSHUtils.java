@@ -62,10 +62,10 @@ public class SSHUtils {
 		return getDefaultPrivateKeys(DEFAULT_CONFIG_FILE);
 	}
 
-	public static final Properties getDefaultProperties() {
-		Properties properties = new Properties();
-		properties.setProperty(STRICT_HOST_KEY_CHECKING, NO);
-		return properties;
+	public static final Properties getDefaultOptions() {
+		Properties options = new Properties();
+		options.setProperty(STRICT_HOST_KEY_CHECKING, NO);
+		return options;
 	}
 
 	public static final List<File> getExistingAndReadable(List<String> filenames) {

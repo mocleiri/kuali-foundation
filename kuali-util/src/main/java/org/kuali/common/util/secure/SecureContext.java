@@ -16,28 +16,22 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 public class SecureContext {
 
-	Properties properties = SSHUtils.getDefaultProperties();
+	Properties options = SSHUtils.getDefaultOptions();
 	int port = SSHUtils.DEFAULT_PORT;
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File configFile = SSHUtils.DEFAULT_CONFIG_FILE;
+	boolean trust = true;
 	File privateKey;
 	String passphrase;
-	boolean trust = false;
 	String username;
 	String password;
 	String hostname;
-
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
+	List<String> args;
 
 	public int getPort() {
 		return port;
@@ -109,5 +103,21 @@ public class SecureContext {
 
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
+	}
+
+	public Properties getOptions() {
+		return options;
+	}
+
+	public void setOptions(Properties options) {
+		this.options = options;
+	}
+
+	public List<String> getArgs() {
+		return args;
+	}
+
+	public void setArgs(List<String> args) {
+		this.args = args;
 	}
 }

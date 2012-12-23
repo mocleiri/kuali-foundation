@@ -24,6 +24,7 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 /**
  *
@@ -36,6 +37,11 @@ public class ExecScpService implements ScpService {
 
 	@Override
 	public int copy(SecureContext context, File source, String destination) {
+		Assert.notNull(source);
+		String sourcePath = LocationUtils.getCanonicalPath(source);
+		if (!source.exists()) {
+			throw new IllegalArgumentException(sourcePath + " does not exist");
+		}
 		return 0;
 	}
 
@@ -50,11 +56,13 @@ public class ExecScpService implements ScpService {
 		return cl;
 	}
 
-	protected List<String> getArgs(SecureContext context) {
+	protected List<String> getArgs(SecureContext context, String source, String destination) {
 		List<String> args = new ArrayList<String>();
 		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
 		addIdentityFile(context, args);
 		addPort(context, SSHUtils.DEFAULT_PORT, args);
+		args.add(source);
+		args.add(destination);
 		return args;
 	}
 
