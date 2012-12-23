@@ -3,7 +3,8 @@ package org.kuali.common.deploy.context;
 import java.io.File;
 import java.util.List;
 
-import org.kuali.common.jdbc.DatabaseResetExecutable;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.NoOpExecutable;
 
 public class ApplicationContext {
 
@@ -13,7 +14,7 @@ public class ApplicationContext {
 	List<File> configFiles;
 	File war;
 	File jdbcDriver;
-	DatabaseResetExecutable databaseResetExecutable;
+	Executable databaseResetExecutable = new NoOpExecutable();
 
 	public String getGroupId() {
 		return groupId;
