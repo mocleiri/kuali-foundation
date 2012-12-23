@@ -9,6 +9,7 @@ public class ApplicationContext {
 	String artifactId;
 	String version;
 	List<File> configFiles;
+	File war;
 
 	public String getGroupId() {
 		return groupId;
@@ -40,6 +41,14 @@ public class ApplicationContext {
 
 	public void setConfigFiles(List<File> configFiles) {
 		this.configFiles = configFiles;
+	}
+
+	public File getWar() {
+		return war;
+	}
+
+	public void setWar(File war) {
+		this.war = war;
 	}
 
 }
