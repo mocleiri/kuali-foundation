@@ -23,8 +23,8 @@ public class SecureContext implements ScpContext {
 
 	Properties options;
 	int port = SSHUtils.DEFAULT_PORT;
-	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File configFile = SSHUtils.DEFAULT_CONFIG_FILE;
+	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	boolean trust = true;
 	File privateKey;
 	String passphrase;
@@ -88,7 +88,7 @@ public class SecureContext implements ScpContext {
 	}
 
 	@Override
-    public boolean isTrust() {
+	public boolean isTrust() {
 		return trust;
 	}
 
