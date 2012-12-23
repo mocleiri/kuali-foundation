@@ -16,7 +16,12 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +42,48 @@ public class ExecScpService implements ScpService {
 	@Override
 	public int copy(SecureContext context, String source, File destination) {
 		return 0;
+	}
+
+	protected Commandline getCommandLine(SecureContext context) {
+		Commandline cl = new Commandline();
+		cl.setExecutable(SCP);
+		return cl;
+	}
+
+	protected List<String> getArgs(SecureContext context) {
+		List<String> args = new ArrayList<String>();
+		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
+		addIdentityFile(context, args);
+		addPort(context, SSHUtils.DEFAULT_PORT, args);
+		return args;
+	}
+
+	protected void addPort(SecureContext context, int defaultPort, List<String> args) {
+		if (context.getPort() != defaultPort) {
+			args.add("-P");
+			args.add(Integer.toString(context.getPort()));
+		}
+	}
+
+	protected void addIdentityFile(SecureContext context, List<String> args) {
+		if (context.getPrivateKey() != null) {
+			String path = LocationUtils.getCanonicalPath(context.getPrivateKey());
+			args.add("-i");
+			args.add(path);
+		}
+	}
+
+	protected void addConfigFile(SecureContext context, File defaultConfigFile, List<String> args) {
+		File configFile = context.getConfigFile();
+		if (configFile == null) {
+			return;
+		}
+		String defaultPath = LocationUtils.getCanonicalPath(defaultConfigFile);
+		String configFilePath = LocationUtils.getCanonicalPath(configFile);
+		if (!StringUtils.equals(defaultPath, configFilePath)) {
+			args.add("-F");
+			args.add(configFilePath);
+		}
 	}
 
 }

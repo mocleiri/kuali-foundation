@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
-import org.kuali.common.util.secure.SSHUtil;
+import org.kuali.common.util.secure.SSHUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class SSHUtilsTest {
 	@Test
 	public void test() {
 		try {
-			List<File> files = SSHUtil.getDefaultPrivateKeys();
+			List<File> files = SSHUtils.getDefaultPrivateKeys();
 			for (File file : files) {
 				logger.info(file.getAbsolutePath());
 			}

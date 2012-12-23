@@ -20,14 +20,94 @@ import java.util.Properties;
 
 public class SecureContext {
 
-	Properties properties = SSHUtil.getDefaultProperties();
-	int port = SSHUtil.DEFAULT_SSH_PORT;
-	File knownHosts = SSHUtil.DEFAULT_KNOWN_HOSTS;
-	File configFile = SSHUtil.DEFAULT_CONFIG_FILE;
+	Properties properties = SSHUtils.getDefaultProperties();
+	int port = SSHUtils.DEFAULT_PORT;
+	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
+	File configFile = SSHUtils.DEFAULT_CONFIG_FILE;
 	File privateKey;
 	String passphrase;
 	boolean trust = false;
 	String username;
 	String password;
 	String hostname;
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public File getKnownHosts() {
+		return knownHosts;
+	}
+
+	public void setKnownHosts(File knownHosts) {
+		this.knownHosts = knownHosts;
+	}
+
+	public File getConfigFile() {
+		return configFile;
+	}
+
+	public void setConfigFile(File configFile) {
+		this.configFile = configFile;
+	}
+
+	public File getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(File privateKey) {
+		this.privateKey = privateKey;
+	}
+
+	public String getPassphrase() {
+		return passphrase;
+	}
+
+	public void setPassphrase(String passphrase) {
+		this.passphrase = passphrase;
+	}
+
+	public boolean isTrust() {
+		return trust;
+	}
+
+	public void setTrust(boolean trust) {
+		this.trust = trust;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
 }
