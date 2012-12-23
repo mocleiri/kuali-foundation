@@ -23,8 +23,13 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class SSHUtils {
+	private static final Logger logger = LoggerFactory.getLogger(SSHUtils.class);
 
 	private static final String FS = File.separator;
 	private static final String IDENTITY_FILE = "IdentityFile";
@@ -45,8 +50,55 @@ public class SSHUtils {
 	public static final int DEFAULT_PORT = 22;
 	public static final File DEFAULT_KNOWN_HOSTS = new File(SSHDIR + FS + "known_hosts");
 
+	/**
+	 * Return true if <code>port &gt;= 1</code> and <code>port &lt;= 65535</code>, false otherwise.
+	 */
 	public static final boolean isValidPort(int port) {
 		return port >= PORT_NUMBER_LOWEST && port <= PORT_NUMBER_HIGHEST;
+	}
+
+	public static final void addPort(List<String> args, String portOption, int port, int defaultPort) {
+		if (port != defaultPort) {
+			Assert.isTrue(SSHUtils.isValidPort(port));
+			logger.debug("port={}", port);
+			args.add(portOption);
+			args.add(Integer.toString(port));
+		}
+	}
+
+	public static final void addOptions(List<String> args, Properties options) {
+		if (options == null) {
+			return;
+		}
+		List<String> keys = PropertyUtils.getSortedKeys(options);
+		for (String key : keys) {
+			String value = options.getProperty(key);
+			logger.debug("Adding option [-o {}={}]", key, value);
+			args.add("-o");
+			args.add(key + "=" + value);
+		}
+	}
+
+	public static final void addConfigFile(List<String> args, File configFile, File defaultConfigFile) {
+		if (configFile == null) {
+			return;
+		}
+		String defaultPath = LocationUtils.getCanonicalPath(defaultConfigFile);
+		String configFilePath = LocationUtils.getCanonicalPath(configFile);
+		if (!StringUtils.equals(defaultPath, configFilePath)) {
+			logger.debug("SSH config=[{}]", configFilePath);
+			args.add("-F");
+			args.add(configFilePath);
+		}
+	}
+
+	public static final void addIdentityFile(List<String> args, File identityFile) {
+		if (identityFile != null) {
+			String path = LocationUtils.getCanonicalPath(identityFile);
+			logger.debug("Private key=[{}]", path);
+			args.add("-i");
+			args.add(path);
+		}
 	}
 
 	/**

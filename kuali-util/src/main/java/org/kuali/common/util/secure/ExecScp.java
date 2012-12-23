@@ -113,14 +113,14 @@ public class ExecScp extends DefaultExecService implements Scp {
 		// Add explicitly provided args (if any)
 		CollectionUtils.nullSafeAdd(args, context.getArgs());
 		// Add "-o" args (if any)
-		addOptions(args, context.getOptions());
+		SSHUtils.addOptions(args, context.getOptions());
 		// Add arg for custom ssh_config file (if provided and different from the default)
-		addConfigFile(args, context.getConfigFile(), SSHUtils.DEFAULT_CONFIG_FILE);
+		SSHUtils.addConfigFile(args, context.getConfigFile(), SSHUtils.DEFAULT_CONFIG_FILE);
 		// Add arg for custom private key (if any)
-		addIdentityFile(args, context.getPrivateKey());
+		SSHUtils.addIdentityFile(args, context.getPrivateKey());
 		// Add arg for port (if provided and different from the default)
 		// Capital P because the scp protocol uses -p internally
-		addPort(args, "-P", context.getPort(), SSHUtils.DEFAULT_PORT);
+		SSHUtils.addPort(args, "-P", context.getPort(), SSHUtils.DEFAULT_PORT);
 		// Add arg for source file
 		args.add(toString(source));
 		// Add arg for destination file
