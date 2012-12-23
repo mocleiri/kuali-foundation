@@ -17,10 +17,12 @@ package org.kuali.common.util.secure;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 public class SecureContext {
 
 	List<File> privateKeys = SSHUtil.getDefaultPrivateKeys();
+	Properties properties = SSHUtil.getDefaultProperties();
 	String username;
 	String password;
 	String hostname;
@@ -65,5 +67,21 @@ public class SecureContext {
 
 	public void setPassphrase(String passphrase) {
 		this.passphrase = passphrase;
+	}
+
+	public List<File> getPrivateKeys() {
+		return privateKeys;
+	}
+
+	public void setPrivateKeys(List<File> privateKeys) {
+		this.privateKeys = privateKeys;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 }

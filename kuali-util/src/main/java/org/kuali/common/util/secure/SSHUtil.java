@@ -52,10 +52,10 @@ public class SSHUtil {
 		return getExistingAndReadable(filenames);
 	}
 
-	public static final Properties getDefaultConfig() {
-		Properties config = new Properties();
-		config.setProperty(STRICT_HOST_KEY_CHECKING, NO);
-		return config;
+	public static final Properties getDefaultProperties() {
+		Properties properties = new Properties();
+		properties.setProperty(STRICT_HOST_KEY_CHECKING, NO);
+		return properties;
 	}
 
 	public static final List<File> getExistingAndReadable(List<String> filenames) {
