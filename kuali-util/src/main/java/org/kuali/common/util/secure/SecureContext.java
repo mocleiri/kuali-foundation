@@ -23,6 +23,9 @@ public class SecureContext {
 
 	List<File> privateKeys = SSHUtil.getDefaultPrivateKeys();
 	Properties properties = SSHUtil.getDefaultProperties();
+	int port = SSHUtil.DEFAULT_SSH_PORT;
+	File knownHosts = SSHUtil.DEFAULT_KNOWN_HOSTS;
+	boolean trust = false;
 	String username;
 	String password;
 	String hostname;

@@ -40,6 +40,8 @@ public class SSHUtil {
 	private static final String ID_RSA = SSHDIR + FS + "id_rsa";
 	private static final String ID_ECDSA = SSHDIR + FS + "id_ecdsa";
 	private static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
+	public static final int DEFAULT_SSH_PORT = 22;
+	public static final File DEFAULT_KNOWN_HOSTS = new File(SSHDIR + FS + "known_hosts");
 
 	/**
 	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and
