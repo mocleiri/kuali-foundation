@@ -24,7 +24,7 @@ public class TomcatContext {
 	String owner = TOMCAT;
 	String group = TOMCAT;
 	String login = TOMCAT;
-	String userHome;
+	String userHome = USER_HOME;
 
 	public String getStartup() {
 		return startup;
