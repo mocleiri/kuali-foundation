@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.cli.Commandline;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.service.DefaultExecService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
 /**
  *
  */
-public class ExecScpService implements ScpService {
+public class ExecScpService extends DefaultExecService implements ScpService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecScpService.class);
 
@@ -50,10 +50,9 @@ public class ExecScpService implements ScpService {
 		return 0;
 	}
 
-	protected Commandline getCommandLine(SecureContext context) {
-		Commandline cl = new Commandline();
-		cl.setExecutable(SCP);
-		return cl;
+	protected int copy(SecureContext context, String source, String destination) {
+		List<String> args = getArgs(context, source, destination);
+		return execute(SCP, args);
 	}
 
 	protected List<String> getArgs(SecureContext context, String source, String destination) {
