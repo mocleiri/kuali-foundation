@@ -1,22 +1,35 @@
 package org.kuali.common.deploy.context;
 
+import java.io.File;
+
 public class AppDynamicsContext {
-	String dir;
-	String controller;
 
-	public String getDir() {
-		return dir;
+	String remoteControllerDir;
+	String remoteControllerFile;
+	File controller;
+
+	public String getRemoteControllerDir() {
+		return remoteControllerDir;
 	}
 
-	public void setDir(String dir) {
-		this.dir = dir;
+	public void setRemoteControllerDir(String remoteControllerDir) {
+		this.remoteControllerDir = remoteControllerDir;
 	}
 
-	public String getController() {
+	public String getRemoteControllerFile() {
+		return remoteControllerFile;
+	}
+
+	public void setRemoteControllerFile(String remoteControllerFile) {
+		this.remoteControllerFile = remoteControllerFile;
+	}
+
+	public File getController() {
 		return controller;
 	}
 
-	public void setController(String controller) {
+	public void setController(File controller) {
 		this.controller = controller;
 	}
+
 }

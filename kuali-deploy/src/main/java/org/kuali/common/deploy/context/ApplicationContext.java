@@ -3,6 +3,8 @@ package org.kuali.common.deploy.context;
 import java.io.File;
 import java.util.List;
 
+import org.kuali.common.jdbc.DatabaseResetExecutable;
+
 public class ApplicationContext {
 
 	String groupId;
@@ -11,6 +13,7 @@ public class ApplicationContext {
 	List<File> configFiles;
 	File war;
 	File jdbcDriver;
+	DatabaseResetExecutable databaseResetExecutable;
 
 	public String getGroupId() {
 		return groupId;
