@@ -17,8 +17,19 @@ public class ExecScpTest {
 			File destination = new File("/tmp/bar/files.txt");
 
 			Scp scp = new ExecScp();
-			int exitValue = scp.copy(source, destination);
-			logger.info("SCP exit value = " + exitValue);
+			logger.info("SCP exit value = " + scp.copy(source, destination));
+
+			ScpFile scpFile = new ScpFile();
+			scpFile.setHostname("ci.rice.kuali.org");
+			scpFile.setUsername("root");
+			scpFile.setFilename("/root/files.txt");
+			logger.info("SCP exit value = " + scp.copy(scpFile, destination));
+
+			ScpFile scpFileDest = new ScpFile();
+			scpFileDest.setHostname("ci.rice.kuali.org");
+			scpFileDest.setUsername("root");
+			scpFileDest.setFilename("/root/files.txt");
+			logger.info("SCP exit value = " + scp.copy(source, scpFileDest));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
