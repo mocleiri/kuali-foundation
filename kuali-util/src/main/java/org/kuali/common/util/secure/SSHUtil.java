@@ -38,6 +38,10 @@ public class SSHUtil {
 	private static final String ID_ECDSA = SSHDIR + FS + "id_ecdsa";
 	private static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
 
+	/**
+	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and
+	 * parsing <code>~/.ssh/config</code>. Any files contained in the list are guaranteed to exist and are readable.
+	 */
 	public static final List<File> getDefaultPrivateKeys() {
 		String[] configuredPrivateKeys = getFilenames(CONFIG);
 		String[] defaultPrivateKeys = PRIVATE_KEY_DEFAULTS;
