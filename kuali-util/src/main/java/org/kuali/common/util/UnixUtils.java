@@ -635,10 +635,14 @@ public class UnixUtils {
 		return scp(null, source, destination);
 	}
 
-	public static final void validate(int exitValue, String message, Mode nonZeroExitValueMode) {
+	public static final void validate(int exitValue, String message, Mode mode) {
 		if (exitValue != UnixUtils.SUCCESS) {
-			ModeUtils.validate(nonZeroExitValueMode, message);
+			ModeUtils.validate(mode, message + " Exit value=[" + exitValue + "]");
 		}
+	}
+
+	public static final void validate(int exitValue, String message) {
+		validate(exitValue, message, Mode.ERROR);
 	}
 
 	protected static final int execute(Commandline cl) {
