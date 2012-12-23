@@ -9,7 +9,7 @@ public class DefaultTomcatService implements TomcatService {
 
 	@Override
 	public void shutdown(SecureContext security, TomcatContext tomcat) {
-		int exitValue = UnixUtils.sshsu(security.getUser(), security.getHostname(), tomcat.getShutdown());
+		int exitValue = UnixUtils.sshsu(security.getUser(), security.getHostname(), tomcat.getUser(), tomcat.getShutdown());
 		UnixUtils.validate(exitValue, "Error shutting down tomcat", Mode.WARN);
 	}
 
@@ -21,7 +21,7 @@ public class DefaultTomcatService implements TomcatService {
 
 	@Override
 	public void startup(SecureContext security, TomcatContext tomcat) {
-		int exitValue = UnixUtils.sshsu(security.getUser(), security.getHostname(), tomcat.getCleanup());
+		int exitValue = UnixUtils.sshsu(security.getUser(), security.getHostname(), tomcat.getUser(), tomcat.getCleanup());
 		UnixUtils.validate(exitValue, "Error starting tomcat");
 	}
 
