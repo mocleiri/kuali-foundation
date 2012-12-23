@@ -6,7 +6,7 @@ public class AppDynamicsContext {
 
 	String remoteControllerDir;
 	String remoteControllerFile;
-	File controller;
+	File localControllerFile;
 
 	public String getRemoteControllerDir() {
 		return remoteControllerDir;
@@ -24,12 +24,12 @@ public class AppDynamicsContext {
 		this.remoteControllerFile = remoteControllerFile;
 	}
 
-	public File getController() {
-		return controller;
+	public File getLocalControllerFile() {
+		return localControllerFile;
 	}
 
-	public void setController(File controller) {
-		this.controller = controller;
+	public void setLocalControllerFile(File localControllerFile) {
+		this.localControllerFile = localControllerFile;
 	}
 
 }
