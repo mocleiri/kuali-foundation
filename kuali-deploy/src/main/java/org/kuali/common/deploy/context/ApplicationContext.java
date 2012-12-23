@@ -10,6 +10,7 @@ public class ApplicationContext {
 	String version;
 	List<File> configFiles;
 	File war;
+	File jdbcDriver;
 
 	public String getGroupId() {
 		return groupId;
@@ -49,6 +50,14 @@ public class ApplicationContext {
 
 	public void setWar(File war) {
 		this.war = war;
+	}
+
+	public File getJdbcDriver() {
+		return jdbcDriver;
+	}
+
+	public void setJdbcDriver(File jdbcDriver) {
+		this.jdbcDriver = jdbcDriver;
 	}
 
 }
