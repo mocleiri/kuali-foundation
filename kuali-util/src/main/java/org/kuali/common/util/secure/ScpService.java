@@ -19,8 +19,16 @@ import java.io.File;
 
 public interface ScpService {
 
-	int copy(SecureContext context, File source, String destination);
+	int copy(SecureContext context, File localFile, String remoteFile);
 
-	int copy(SecureContext context, String source, File destination);
+	int copy(SecureContext context, String remoteFile, File localFile);
+
+	int copy(File localFile, String user, String hostname, String remoteFile);
+
+	int copy(String user, String hostname, String remoteFile, File localFile);
+
+	int copy(SecureContext context, String source, String destination);
+
+	int copy(String source, String destination);
 
 }

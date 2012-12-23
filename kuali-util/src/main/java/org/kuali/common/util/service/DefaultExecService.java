@@ -3,6 +3,7 @@ package org.kuali.common.util.service;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -21,6 +22,18 @@ public class DefaultExecService implements ExecService {
 			return CommandLineUtils.executeCommandLine(cl, context.getStdout(), context.getStderr());
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
+		}
+	}
+
+	protected void addConfigFile(File configFile, File defaultConfigFile, List<String> args) {
+		if (configFile == null) {
+			return;
+		}
+		String defaultPath = LocationUtils.getCanonicalPath(defaultConfigFile);
+		String configFilePath = LocationUtils.getCanonicalPath(configFile);
+		if (!StringUtils.equals(defaultPath, configFilePath)) {
+			args.add("-F");
+			args.add(configFilePath);
 		}
 	}
 

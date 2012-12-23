@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixUtils;
@@ -64,17 +63,18 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 		return copy(context, source, destination);
 	}
 
-	protected int copy(SecureContext context, String source, String destination) {
-		List<String> args = getArgs(context, source, destination);
+	@Override
+	public int copy(SecureContext context, String source, String destination) {
+		List<String> args = getScpArgs(context, source, destination);
 		return execute(SCP, args);
 	}
 
-	protected List<String> getArgs(SecureContext context, String source, String destination) {
+	protected List<String> getScpArgs(SecureContext context, String source, String destination) {
 		List<String> args = new ArrayList<String>();
 		// Add any extra arguments they may have provided
 		CollectionUtils.nullSafeAdd(args, context.getArgs());
 		// Add arg for custom ssh_config file (if any)
-		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
+		addConfigFile(context.getConfigFile(), SSHUtils.DEFAULT_CONFIG_FILE, args);
 		// Add arg for custom private key (if any)
 		addIdentityFile(context.getPrivateKey(), args);
 		// Add arg for port if they are not using 22
@@ -95,17 +95,22 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 		}
 	}
 
-	protected void addConfigFile(SecureContext context, File defaultConfigFile, List<String> args) {
-		File configFile = context.getConfigFile();
-		if (configFile == null) {
-			return;
-		}
-		String defaultPath = LocationUtils.getCanonicalPath(defaultConfigFile);
-		String configFilePath = LocationUtils.getCanonicalPath(configFile);
-		if (!StringUtils.equals(defaultPath, configFilePath)) {
-			args.add("-F");
-			args.add(configFilePath);
-		}
+	@Override
+	public int copy(File localFile, String user, String hostname, String remoteFile) {
+		SecureContext context = new SecureContext(user, hostname);
+		return copy(context, localFile, remoteFile);
+	}
+
+	@Override
+	public int copy(String user, String hostname, String remoteFile, File localFile) {
+		SecureContext context = new SecureContext(user, hostname);
+		return copy(context, remoteFile, localFile);
+	}
+
+	@Override
+	public int copy(String source, String destination) {
+		SecureContext context = new SecureContext();
+		return copy(context, source, destination);
 	}
 
 }

@@ -33,6 +33,16 @@ public class SecureContext {
 	String hostname;
 	List<String> args;
 
+	public SecureContext() {
+		this(null, null);
+	}
+
+	public SecureContext(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
 	public int getPort() {
 		return port;
 	}
