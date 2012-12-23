@@ -33,13 +33,13 @@ public class SSHUtil {
 	private static final String TILDE = "~";
 	private static final String USER_HOME = System.getProperty("user.home");
 	private static final String SSHDIR = USER_HOME + FS + ".ssh";
-	private static final File CONFIG = new File(SSHDIR + FS + "config");
 
 	private static final String IDENTITY = SSHDIR + FS + "identity";
 	private static final String ID_DSA = SSHDIR + FS + "id_dsa";
 	private static final String ID_RSA = SSHDIR + FS + "id_rsa";
 	private static final String ID_ECDSA = SSHDIR + FS + "id_ecdsa";
 	private static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
+	public static final File DEFAULT_CONFIG_FILE = new File(SSHDIR + FS + "config");
 	public static final int DEFAULT_SSH_PORT = 22;
 	public static final File DEFAULT_KNOWN_HOSTS = new File(SSHDIR + FS + "known_hosts");
 
@@ -59,7 +59,7 @@ public class SSHUtil {
 	 * parsing <code>~/.ssh/config</code>. Any files returned by this method are guaranteed to exist and be readable.
 	 */
 	public static final List<File> getDefaultPrivateKeys() {
-		return getDefaultPrivateKeys(CONFIG);
+		return getDefaultPrivateKeys(DEFAULT_CONFIG_FILE);
 	}
 
 	public static final Properties getDefaultProperties() {

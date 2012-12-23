@@ -16,75 +16,18 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
-import java.util.List;
 import java.util.Properties;
 
 public class SecureContext {
 
-	List<File> privateKeys = SSHUtil.getDefaultPrivateKeys();
 	Properties properties = SSHUtil.getDefaultProperties();
 	int port = SSHUtil.DEFAULT_SSH_PORT;
 	File knownHosts = SSHUtil.DEFAULT_KNOWN_HOSTS;
+	File configFile = SSHUtil.DEFAULT_CONFIG_FILE;
+	File privateKey;
+	String passphrase;
 	boolean trust = false;
 	String username;
 	String password;
 	String hostname;
-	File privateKey;
-	String passphrase;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getHostname() {
-		return hostname;
-	}
-
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
-	}
-
-	public File getPrivateKey() {
-		return privateKey;
-	}
-
-	public void setPrivateKey(File privateKey) {
-		this.privateKey = privateKey;
-	}
-
-	public String getPassphrase() {
-		return passphrase;
-	}
-
-	public void setPassphrase(String passphrase) {
-		this.passphrase = passphrase;
-	}
-
-	public List<File> getPrivateKeys() {
-		return privateKeys;
-	}
-
-	public void setPrivateKeys(List<File> privateKeys) {
-		this.privateKeys = privateKeys;
-	}
-
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
 }
