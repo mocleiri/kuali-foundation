@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixUtils;
 import org.kuali.common.util.service.DefaultExecService;
@@ -71,38 +72,26 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 	protected List<String> getArgs(SecureContext context, String source, String destination) {
 		List<String> args = new ArrayList<String>();
 		// Add any extra arguments they may have provided
-		addArgs(context, args);
+		CollectionUtils.nullSafeAdd(args, context.getArgs());
 		// Add arg for custom ssh_config file (if any)
 		addConfigFile(context, SSHUtils.DEFAULT_CONFIG_FILE, args);
 		// Add arg for custom private key (if any)
-		addIdentityFile(context, args);
+		addIdentityFile(context.getPrivateKey(), args);
 		// Add arg for port if they are not using 22
 		addPort(context, SSHUtils.DEFAULT_PORT, args);
 		// Add arg for source file
 		args.add(source);
 		// Add arg for destination file
 		args.add(destination);
+		// Return the args list
 		return args;
-	}
-
-	protected void addArgs(SecureContext context, List<String> args) {
-		if (context.getArgs() != null) {
-			args.addAll(context.getArgs());
-		}
 	}
 
 	protected void addPort(SecureContext context, int defaultPort, List<String> args) {
 		if (context.getPort() != defaultPort) {
+			// Capital P because the scp protocol uses -p internally
 			args.add("-P");
 			args.add(Integer.toString(context.getPort()));
-		}
-	}
-
-	protected void addIdentityFile(SecureContext context, List<String> args) {
-		if (context.getPrivateKey() != null) {
-			String path = LocationUtils.getCanonicalPath(context.getPrivateKey());
-			args.add("-i");
-			args.add(path);
 		}
 	}
 

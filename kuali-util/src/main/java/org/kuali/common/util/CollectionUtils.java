@@ -159,4 +159,10 @@ public class CollectionUtils {
 		list.addAll(Arrays.asList(tokens));
 		return list;
 	}
+
+	public static final <T> void nullSafeAdd(List<T> list1, List<T> list2) {
+		if (list2 != null) {
+			list1.addAll(list2);
+		}
+	}
 }

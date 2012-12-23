@@ -1,11 +1,13 @@
 package org.kuali.common.util.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,14 @@ public class DefaultExecService implements ExecService {
 			return CommandLineUtils.executeCommandLine(cl, context.getStdout(), context.getStderr());
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
+		}
+	}
+
+	protected void addIdentityFile(File identityFile, List<String> args) {
+		if (identityFile != null) {
+			String path = LocationUtils.getCanonicalPath(identityFile);
+			args.add("-i");
+			args.add(path);
 		}
 	}
 
