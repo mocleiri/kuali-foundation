@@ -15,43 +15,26 @@
  */
 package org.kuali.common.util;
 
+import java.io.File;
+import java.util.List;
+
+import org.junit.Test;
+import org.kuali.common.util.secure.SSHUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SSHUtilsTest {
-/*
+	private static final Logger logger = LoggerFactory.getLogger(SSHUtilsTest.class);
+
 	@Test
 	public void test() {
 		try {
-			String userHome = System.getProperty("user.home");
-			File localFile = new File(userHome + "/Downloads/jarc.zip");
-			String base = userHome + "/.ssh/";
-			List<String> privateKeys = Arrays.asList(base + "id_rsa", base + "kr-key.pem", base + "ks-key.pem");
-			String remoteDir = "/root/foo/joe/x";
-			String username = "root";
-			String host = "ci.fn.kuali.org";
-			int port = 22;
-			Properties config = new Properties();
-			config.setProperty("StrictHostKeyChecking", "no");
-			JSch jsch = new JSch();
-			for (String privateKey : privateKeys) {
-				jsch.addIdentity(privateKey);
+			List<File> files = SSHUtil.getDefaultPrivateKeys();
+			for (File file : files) {
+				logger.info(file.getAbsolutePath());
 			}
-			Session session = jsch.getSession(username, host, port);
-			session.setConfig(config);
-			session.connect();
-			ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
-			channel.connect();
-			String s = channel.pwd();
-			System.out.println(s);
-			channel.mkdir(remoteDir);
-			channel.cd(remoteDir);
-			String filename = localFile.getName();
-			InputStream in = new FileInputStream(localFile);
-			channel.put(in, filename);
-			channel.disconnect();
-			session.disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	*/
 }

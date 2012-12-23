@@ -18,6 +18,7 @@ package org.kuali.common.util.secure;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
@@ -27,6 +28,8 @@ public class SSHUtil {
 
 	private static final String FS = File.separator;
 	private static final String IDENTITY_FILE = "IdentityFile";
+	private static final String STRICT_HOST_KEY_CHECKING = "StrictHostKeyChecking";
+	private static final String NO = "no";
 	private static final String TILDE = "~";
 	private static final String USER_HOME = System.getProperty("user.home");
 	private static final String SSHDIR = USER_HOME + FS + ".ssh";
@@ -47,6 +50,12 @@ public class SSHUtil {
 		String[] defaultPrivateKeys = PRIVATE_KEY_DEFAULTS;
 		List<String> filenames = CollectionUtils.getCombined(configuredPrivateKeys, defaultPrivateKeys);
 		return getExistingAndReadable(filenames);
+	}
+
+	public static final Properties getDefaultConfig() {
+		Properties config = new Properties();
+		config.setProperty(STRICT_HOST_KEY_CHECKING, NO);
+		return config;
 	}
 
 	public static final List<File> getExistingAndReadable(List<String> filenames) {
@@ -85,7 +94,8 @@ public class SSHUtil {
 		for (String identityFileLine : identityFileLines) {
 			String originalFilename = StringUtils.substring(identityFileLine, IDENTITY_FILE.length());
 			String resolvedFilename = StringUtils.replace(originalFilename, TILDE, USER_HOME);
-			filenames.add(resolvedFilename);
+			String trimmed = StringUtils.trim(resolvedFilename);
+			filenames.add(trimmed);
 		}
 		return filenames;
 	}
