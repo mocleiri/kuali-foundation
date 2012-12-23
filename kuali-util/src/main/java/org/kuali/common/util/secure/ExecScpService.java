@@ -113,4 +113,16 @@ public class ExecScpService extends DefaultExecService implements ScpService {
 		return copy(context, source, destination);
 	}
 
+	@Override
+	public int copy(File localFile, String destination) {
+		SecureContext context = new SecureContext();
+		return copy(context, localFile, destination);
+	}
+
+	@Override
+	public int copy(String source, File localFile) {
+		SecureContext context = new SecureContext();
+		return copy(context, source, localFile);
+	}
+
 }
