@@ -16,7 +16,7 @@
 package org.kuali.common.util;
 
 
-public class SshUtilsTest {
+public class SSHUtilsTest {
 /*
 	@Test
 	public void test() {
