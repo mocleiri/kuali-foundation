@@ -45,7 +45,7 @@ public class ExecScpTest {
 			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs");
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();
-			logger.info("SCP exit value = " + scp.copy(context, getScpFiles(), destination));
+			logger.info("SCP exit value - [{}]", scp.copy(context, getScpFiles(), destination));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
