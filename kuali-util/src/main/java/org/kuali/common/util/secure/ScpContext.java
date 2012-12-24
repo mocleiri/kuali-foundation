@@ -35,4 +35,6 @@ public interface ScpContext {
 
 	List<String> getArgs();
 
+	boolean isRecursive();
+
 }

@@ -35,13 +35,16 @@ public class ExecScpTest {
 	}
 
 	@Test
-	public void testScpOptions() {
+	public void testBunchOfStuff() {
 		try {
 			SecureContext context = new SecureContext();
 			Properties options = new Properties();
 			options.setProperty("StrictHostKeyChecking", "no");
 			options.setProperty("Port", "22");
 			context.setOptions(options);
+			List<String> args = new ArrayList<String>();
+			args.add("-r");
+			context.setArgs(args);
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();
 			logger.info("SCP exit value - [{}]", scp.copy(context, getScpFiles(), destination));
