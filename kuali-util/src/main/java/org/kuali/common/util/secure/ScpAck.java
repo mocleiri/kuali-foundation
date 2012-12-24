@@ -3,7 +3,7 @@ package org.kuali.common.util.secure;
 public class ScpAck {
 
 	int code;
-	String message;
+	String errorMessage;
 
 	public int getCode() {
 		return code;
@@ -13,12 +13,12 @@ public class ScpAck {
 		this.code = code;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }
