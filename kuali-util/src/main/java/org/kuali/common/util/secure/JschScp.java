@@ -57,7 +57,7 @@ public class JschScp extends BaseScp {
 			Session session = jsch.getSession(destination.getUsername(), destination.getHostname(), context.getPort());
 			session.setConfig(context.getOptions());
 			session.connect();
-			String command = "scp -p -t " + source.getFilename();
+			String command = "scp -p -t " + destination.getFilename();
 			ChannelExec channel = (ChannelExec) session.openChannel("exec");
 			channel.setCommand(command);
 			out = channel.getOutputStream();
