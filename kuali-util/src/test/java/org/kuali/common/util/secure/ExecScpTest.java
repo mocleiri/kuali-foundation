@@ -27,16 +27,14 @@ public class ExecScpTest {
 
 	protected List<ScpFile> getScpFiles() {
 		List<ScpFile> files = new ArrayList<ScpFile>();
-		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs"));
 		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/1.pdf"));
-		// files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/2.pdf"));
-		// files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/3.pdf"));
+		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/2.pdf"));
+		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/3.pdf"));
 		return files;
 	}
 
 	@Test
-	public void test() {
-
+	public void testScpRecursive() {
 		try {
 			SecureContext context = new SecureContext();
 			List<String> args = new ArrayList<String>();
@@ -45,7 +43,32 @@ public class ExecScpTest {
 			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs");
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();
+			logger.info("SCP exit value - [{}]", scp.copy(context, source, destination));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testScpMulti() {
+		try {
+			SecureContext context = new SecureContext();
+			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
+			Scp scp = new ExecScp();
 			logger.info("SCP exit value - [{}]", scp.copy(context, getScpFiles(), destination));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testScpSingle() {
+		try {
+			SecureContext context = new SecureContext();
+			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs/1.pdf");
+			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
+			Scp scp = new ExecScp();
+			logger.info("SCP exit value - [{}]", scp.copy(context, source, destination));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
