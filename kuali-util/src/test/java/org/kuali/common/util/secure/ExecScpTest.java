@@ -48,10 +48,11 @@ public class ExecScpTest {
 		try {
 			SecureContext context = new SecureContext();
 			context.setRecursive(true);
+			context.setConfigFile(new File(System.getProperty("user.home") + "/.ssh/config.new"));
 			context.setPrivateKey(new File(System.getProperty("user.home") + "/.ssh/kr-key.pem"));
+			context.setPort(23);
 			Properties options = new Properties();
 			options.setProperty("StrictHostKeyChecking", "no");
-			options.setProperty("Port", "22");
 			context.setOptions(options);
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();

@@ -41,4 +41,12 @@ public class ExecScp extends BaseScp {
 		return service.execute(SCP, args);
 	}
 
+	public ExecService getService() {
+		return service;
+	}
+
+	public void setService(ExecService service) {
+		this.service = service;
+	}
+
 }
