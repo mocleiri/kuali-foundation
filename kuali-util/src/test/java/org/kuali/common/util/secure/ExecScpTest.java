@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.secure;
 
-import java.io.File;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +26,8 @@ public class ExecScpTest {
 	public void test() {
 
 		try {
-			File source = new File("/tmp/foo/files.txt");
-			File destination = new File("/tmp/bar/files.txt");
+			ScpFile source = ScpUtils.getScpFile("/tmp/foo/files.txt");
+			ScpFile destination = ScpUtils.getScpFile("/tmp/bar/files.txt");
 
 			Scp scp = new ExecScp();
 			logger.info("SCP exit value = " + scp.copy(source, destination));

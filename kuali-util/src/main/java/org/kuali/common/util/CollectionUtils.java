@@ -127,6 +127,20 @@ public class CollectionUtils {
 		}
 	}
 
+	public static final String getSpaceSeparatedString(List<?> list) {
+		if (list == null) {
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < list.size(); i++) {
+			if (i != 0) {
+				sb.append(" ");
+			}
+			sb.append(list.get(i).toString());
+		}
+		return sb.toString();
+	}
+
 	public static final Object[] toObjectArray(List<Object> objects) {
 		return objects.toArray(new Object[objects.size()]);
 	}

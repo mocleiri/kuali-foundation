@@ -33,6 +33,7 @@ public class Str {
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
 
+
 	public static final boolean contains(List<String> tokens, String value, boolean caseSensitive) {
 		for (String token : tokens) {
 			if (equals(token, value, caseSensitive)) {

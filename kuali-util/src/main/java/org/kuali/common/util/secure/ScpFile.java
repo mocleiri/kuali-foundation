@@ -15,9 +15,6 @@
  */
 package org.kuali.common.util.secure;
 
-import java.io.File;
-
-import org.kuali.common.util.LocationUtils;
 
 public class ScpFile {
 
@@ -27,10 +24,6 @@ public class ScpFile {
 
 	public ScpFile() {
 		this(null, null, null);
-	}
-
-	public ScpFile(File file) {
-		this(null, null, LocationUtils.getCanonicalPath(file));
 	}
 
 	public ScpFile(String filename) {

@@ -15,24 +15,28 @@
  */
 package org.kuali.common.util.secure;
 
-import java.io.File;
+import java.util.List;
 
 public interface Scp {
 
-	int copy(File source, File destination);
-
-	int copy(ScpFile source, File destination);
-
-	int copy(File source, ScpFile destination);
-
+	/**
+	 * Copy one file to destination.
+	 */
 	int copy(ScpFile source, ScpFile destination);
 
-	int copy(ScpContext context, File source, File destination);
+	/**
+	 * Copy multiple files to destination
+	 */
+	int copy(List<ScpFile> sources, ScpFile destination);
 
-	int copy(ScpContext context, ScpFile source, File destination);
-
-	int copy(ScpContext context, File source, ScpFile destination);
-
+	/**
+	 * Copy one file to destination.
+	 */
 	int copy(ScpContext context, ScpFile source, ScpFile destination);
+
+	/**
+	 * Copy multiple files to destination
+	 */
+	int copy(ScpContext context, List<ScpFile> sources, ScpFile destination);
 
 }

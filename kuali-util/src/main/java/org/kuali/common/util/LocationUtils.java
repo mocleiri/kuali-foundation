@@ -99,6 +99,14 @@ public class LocationUtils {
 		}
 	}
 
+	public static final void forceMkdir(File file) {
+		try {
+			FileUtils.forceMkdir(file);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
+	}
+
 	public static final void touch(File file) {
 		try {
 			FileUtils.touch(file);
