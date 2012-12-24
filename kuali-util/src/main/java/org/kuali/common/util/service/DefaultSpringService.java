@@ -17,7 +17,6 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
@@ -35,7 +34,7 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(String location) {
-		load(location, Collections.<String> emptyList(), Collections.<Object> emptyList());
+		load(location, (String) null, (Object) null);
 	}
 
 	@Override
@@ -50,7 +49,7 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(List<String> locations) {
-		load(locations, Collections.<String> emptyList(), Collections.<Object> emptyList());
+		load(locations, (String) null, (Object) null);
 	}
 
 	@Override
@@ -80,16 +79,11 @@ public class DefaultSpringService implements SpringService {
 		AbstractApplicationContext parent = null;
 		AbstractApplicationContext context = null;
 		try {
-			// May need to pre-register some beans
-			if (beanNames.size() > 0) {
-				// Get a parent context with the bean's they've provided us pre-registered in the context
-				parent = getApplicationContext(beanNames, beans);
-				// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
-				context = new ClassPathXmlApplicationContext(locationsArray, parent);
-			} else {
-				// Otherwise just load the locations they provided
-				context = new ClassPathXmlApplicationContext(locationsArray);
-			}
+			// Get a parent context with any bean's they've provided us pre-registered in the context
+			// Parent is null if there are no beans to register
+			parent = getApplicationContext(beanNames, beans);
+			// Load the locations they provided us, optionally wrapped in a parent context containing pre-registered beans
+			context = new ClassPathXmlApplicationContext(locationsArray, parent);
 		} finally {
 			// cleanup
 			closeQuietly(context);
@@ -112,6 +106,9 @@ public class DefaultSpringService implements SpringService {
 	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> registered in the context under <code>beanNames</code>
 	 */
 	protected AbstractApplicationContext getApplicationContext(List<String> beanNames, List<Object> beans) {
+		if (CollectionUtils.isEmpty(beanNames) && CollectionUtils.isEmpty(beans)) {
+			return null;
+		}
 		Assert.isTrue(beanNames.size() == beans.size());
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
 		context.refresh();
