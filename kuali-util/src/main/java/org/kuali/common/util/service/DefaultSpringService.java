@@ -73,32 +73,33 @@ public class DefaultSpringService implements SpringService {
 
 		// Convert any file names to fully qualified file system URL's
 		List<String> convertedLocations = getConvertedLocations(locations);
-		// The Spring classes prefer array's for most things
+
+		// The Spring classes prefer array's
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
-		// May need to pre-register some beans
-		if (beanNames.size() > 0) {
-			logger.debug("Registering {} beans", beanNames.size());
-			// Get a parent context with the bean's they've provided us pre-registered in the context
-			AbstractApplicationContext parent = getApplicationContext(beanNames, beans);
-			// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
-			AbstractApplicationContext context = null;
-			try {
+		AbstractApplicationContext parent = null;
+		AbstractApplicationContext context = null;
+		try {
+			// May need to pre-register some beans
+			if (beanNames.size() > 0) {
+				// Get a parent context with the bean's they've provided us pre-registered in the context
+				parent = getApplicationContext(beanNames, beans);
+				// Load the locations they provided us, wrapped in a parent context containing the pre-registered beans
 				context = new ClassPathXmlApplicationContext(locationsArray, parent);
-			} finally {
-				closeQuietly(context);
-				closeQuietly(parent);
-			}
-		} else {
-			AbstractApplicationContext context = null;
-			try {
+			} else {
+				// Otherwise just load the locations they provided
 				context = new ClassPathXmlApplicationContext(locationsArray);
-			} finally {
-				closeQuietly(context);
 			}
+		} finally {
+			// cleanup
+			closeQuietly(context);
+			closeQuietly(parent);
 		}
 	}
 
+	/**
+	 * Null safe close for a context
+	 */
 	protected void closeQuietly(AbstractApplicationContext context) {
 		if (context == null) {
 			return;
