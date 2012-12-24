@@ -40,6 +40,7 @@ public class ExecScpTest {
 			SecureContext context = new SecureContext();
 			Properties options = new Properties();
 			options.setProperty("StrictHostKeyChecking", "no");
+			options.setProperty("Port", "22");
 			context.setOptions(options);
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();
