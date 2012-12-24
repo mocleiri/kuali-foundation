@@ -17,6 +17,7 @@ package org.kuali.common.util.secure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -31,6 +32,21 @@ public class ExecScpTest {
 		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/2.pdf"));
 		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/3.pdf"));
 		return files;
+	}
+
+	@Test
+	public void testScpOptions() {
+		try {
+			SecureContext context = new SecureContext();
+			Properties options = new Properties();
+			options.setProperty("StrictHostKeyChecking", "no");
+			context.setOptions(options);
+			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
+			Scp scp = new ExecScp();
+			logger.info("SCP exit value - [{}]", scp.copy(context, getScpFiles(), destination));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
