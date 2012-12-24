@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.secure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +29,25 @@ public class ExecScpTest {
 	public void test() {
 
 		try {
-			ScpFile source = ScpUtils.getScpFile("/tmp/foo/files.txt");
-			ScpFile destination = ScpUtils.getScpFile("/tmp/bar/files.txt");
+			SecureContext context = new SecureContext();
+			List<String> args = new ArrayList<String>();
+			args.add("-r");
+			context.setArgs(args);
+			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs");
+			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
+			Scp scp = new ExecScp();
+			logger.info("SCP exit value = " + scp.copy(context, source, destination));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// @Test
+	public void test2() {
+
+		try {
+			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs/1.pdf");
+			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest");
 
 			Scp scp = new ExecScp();
 			logger.info("SCP exit value = " + scp.copy(source, destination));

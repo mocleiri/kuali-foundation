@@ -98,12 +98,12 @@ public class ScpUtils {
 			return;
 		}
 		File localFile = new File(destination.getFilename());
-		if (sources.size() > 0) {
+		if (sources.size() > 1) {
 			// If we have more than one source, the local file system destination must be a directory
 			LocationUtils.forceMkdir(localFile);
 		} else {
-			// Prove that a Java process can manipulate the local file system destination
-			LocationUtils.touch(localFile);
+			// Create any necessary but non-existent parent directories
+			LocationUtils.forceMkdir(localFile.getParentFile());
 		}
 	}
 
