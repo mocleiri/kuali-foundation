@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
 public class ScpUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ScpUtils.class);
 
-	public static final List<String> getScpArgs(ScpContext context, List<ScpFile> sources, ScpFile destination) {
+	public static final List<String> getScpExecArgs(ScpContext context, List<ScpFile> sources, ScpFile destination) {
 		List<String> args = new ArrayList<String>();
 		// Add explicitly provided args (if any)
 		CollectionUtils.nullSafeAdd(args, context.getArgs());

@@ -36,7 +36,7 @@ public class ExecScp extends BaseScp {
 	@Override
 	protected int executeCopy(ScpContext context, List<ScpFile> sources, ScpFile destination) {
 		context = (context == null) ? new SecureContext() : context;
-		List<String> args = ScpUtils.getScpArgs(context, sources, destination);
+		List<String> args = ScpUtils.getScpExecArgs(context, sources, destination);
 		logger.debug("SCP {} sources", sources.size());
 		return service.execute(SCP, args);
 	}
