@@ -50,7 +50,6 @@ public class ExecScpTest {
 			context.setRecursive(true);
 			context.setConfigFile(new File(System.getProperty("user.home") + "/.ssh/config.new"));
 			context.setPrivateKey(new File(System.getProperty("user.home") + "/.ssh/kr-key.pem"));
-			context.setPort(23);
 			Properties options = new Properties();
 			options.setProperty("StrictHostKeyChecking", "no");
 			context.setOptions(options);
