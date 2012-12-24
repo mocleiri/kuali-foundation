@@ -63,34 +63,21 @@ public class JschScp extends BaseScp {
 			out = channel.getOutputStream();
 			in = channel.getInputStream();
 			channel.connect();
-			int ack = checkAck(in);
-			if (ack != 0) {
-				throw new IllegalStateException("Acknowledgement must be zero but was " + ack + " instead");
-			}
+			ScpUtils.validateAck(in);
 			File localFile = new File(source.getFilename());
 			command = "T " + (localFile.lastModified() / 1000) + " 0 " + (localFile.lastModified() / 1000) + " 0\n";
 			out.write(command.getBytes());
 			out.flush();
-			ack = checkAck(in);
-			if (ack != 0) {
-				throw new IllegalStateException("Acknowledgement must be zero but was " + ack + " instead");
-			}
+			ScpUtils.validateAck(in);
 			long filesize = localFile.length();
 			command = "C0644 " + filesize + " " + localFile.getName() + "\n";
 			out.write(command.getBytes());
 			out.flush();
-			ack = checkAck(in);
-			if (ack != 0) {
-				throw new IllegalStateException("Acknowledgement must be zero but was " + ack + " instead");
-			}
-
+			ScpUtils.validateAck(in);
 			FileUtils.copyFile(localFile, out);
 			byte b = 0;
 			out.write(b);
-			ack = checkAck(in);
-			if (ack != 0) {
-				throw new IllegalStateException("Acknowledgement must be zero but was " + ack + " instead");
-			}
+			ScpUtils.validateAck(in);
 			out.close();
 			channel.disconnect();
 			session.disconnect();
