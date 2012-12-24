@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.secure;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -34,20 +35,27 @@ public class ExecScpTest {
 		return files;
 	}
 
+	protected List<ScpFile> getComboScpFiles() {
+		List<ScpFile> files = new ArrayList<ScpFile>();
+		files.add(new ScpFile("root", "ci.rice.kuali.org", "/root/files/1.txt"));
+		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/1.pdf"));
+		files.add(new ScpFile("root", "ci.fn.kuali.org", "/root/files/3.txt"));
+		return files;
+	}
+
 	@Test
 	public void testBunchOfStuff() {
 		try {
 			SecureContext context = new SecureContext();
+			context.setRecursive(true);
+			context.setPrivateKey(new File(System.getProperty("user.home") + "/.ssh/kr-key.pem"));
 			Properties options = new Properties();
 			options.setProperty("StrictHostKeyChecking", "no");
 			options.setProperty("Port", "22");
 			context.setOptions(options);
-			List<String> args = new ArrayList<String>();
-			args.add("-r");
-			context.setArgs(args);
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();
-			logger.info("SCP exit value - [{}]", scp.copy(context, getScpFiles(), destination));
+			logger.info("SCP exit value - [{}]", scp.copy(context, getComboScpFiles(), destination));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

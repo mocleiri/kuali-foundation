@@ -33,6 +33,9 @@ public class ScpUtils {
 		List<String> args = new ArrayList<String>();
 		// Add explicitly provided args (if any)
 		CollectionUtils.nullSafeAdd(args, context.getArgs());
+		if (context.isRecursive()) {
+			args.add("-r");
+		}
 		// Add "-o" args (if any)
 		SSHUtils.addOptions(args, context.getOptions());
 		// Add arg for custom ssh_config file (if provided and different from the default)
