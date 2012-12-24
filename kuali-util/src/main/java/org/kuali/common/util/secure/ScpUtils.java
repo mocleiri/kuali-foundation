@@ -42,8 +42,8 @@ public class ScpUtils {
 		// Add arg for port (if provided and different from the default)
 		// Capital P because the scp protocol uses -p internally
 		SSHUtils.addPort(args, "-P", context.getPort(), SSHUtils.DEFAULT_PORT);
-		// Add arg for source file
-		args.add(toString(sources));
+		// Add args for source files
+		CollectionUtils.nullSafeAdd(args, getStrings(sources));
 		// Add arg for destination file
 		args.add(toString(destination));
 		// Return the args list

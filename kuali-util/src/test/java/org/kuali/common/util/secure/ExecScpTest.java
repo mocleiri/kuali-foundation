@@ -25,6 +25,15 @@ import org.slf4j.LoggerFactory;
 public class ExecScpTest {
 	private static final Logger logger = LoggerFactory.getLogger(ExecScpTest.class);
 
+	protected List<ScpFile> getScpFiles() {
+		List<ScpFile> files = new ArrayList<ScpFile>();
+		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs"));
+		files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/1.pdf"));
+		// files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/2.pdf"));
+		// files.add(ScpUtils.getScpFile("/tmp/scp/pdfs/3.pdf"));
+		return files;
+	}
+
 	@Test
 	public void test() {
 
@@ -36,7 +45,7 @@ public class ExecScpTest {
 			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs");
 			ScpFile destination = ScpUtils.getScpFile("/tmp/scp/dest/x/y/z");
 			Scp scp = new ExecScp();
-			logger.info("SCP exit value = " + scp.copy(context, source, destination));
+			logger.info("SCP exit value = " + scp.copy(context, getScpFiles(), destination));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
