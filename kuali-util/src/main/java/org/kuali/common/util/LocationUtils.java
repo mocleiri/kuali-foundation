@@ -205,6 +205,13 @@ public class LocationUtils {
 	}
 
 	/**
+	 * Get the contents of <code>file</code> as a list of <code>String's</code> one entry per line using the platform default encoding
+	 */
+	public static final List<String> readLines(File file) {
+		return readLines(getCanonicalPath(file));
+	}
+
+	/**
 	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the platform default encoding
 	 */
 	public static final List<String> readLines(String location) {

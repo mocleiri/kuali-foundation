@@ -31,7 +31,7 @@ public class CollectionUtils {
 	/**
 	 * Return a new list containing the unique set of elements represented by <code>arrays</code>.
 	 */
-	public static final <T> List<T> getCombined(T[]... arrays) {
+	public static final <T> List<T> combine(T[]... arrays) {
 		List<T> newList = new ArrayList<T>();
 		for (T[] array : arrays) {
 			for (T element : array) {

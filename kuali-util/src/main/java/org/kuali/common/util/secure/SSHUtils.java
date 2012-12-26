@@ -108,7 +108,7 @@ public class SSHUtils {
 	public static final List<File> getDefaultPrivateKeys(File config) {
 		String[] configuredPrivateKeys = getFilenames(config);
 		String[] defaultPrivateKeys = PRIVATE_KEY_DEFAULTS;
-		List<String> filenames = CollectionUtils.getCombined(configuredPrivateKeys, defaultPrivateKeys);
+		List<String> filenames = CollectionUtils.combine(configuredPrivateKeys, defaultPrivateKeys);
 		return getExistingAndReadable(filenames);
 	}
 
@@ -138,12 +138,13 @@ public class SSHUtils {
 	}
 
 	public static final String[] getFilenames(File config) {
-		if (!config.exists() || !config.canRead()) {
+		if (config.exists() && config.canRead()) {
+			List<String> lines = LocationUtils.readLines(config);
+			List<String> identityFileLines = getIdentityFileLines(lines);
+			return CollectionUtils.toStringArray(getFilenames(identityFileLines));
+		} else {
 			return new String[] {};
 		}
-		List<String> lines = LocationUtils.readLines(config.getAbsolutePath());
-		List<String> identityFileLines = getIdentityFileLines(lines);
-		return CollectionUtils.toStringArray(getFilenames(identityFileLines));
 	}
 
 	public static final List<String> getIdentityFileLines(List<String> lines) {
