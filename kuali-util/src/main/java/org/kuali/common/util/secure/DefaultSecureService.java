@@ -224,20 +224,23 @@ public class DefaultSecureService implements SecureService {
 		Assert.notNull(file);
 		String path = LocationUtils.getCanonicalPath(file);
 		if (!file.exists()) {
-			throw new IllegalArgumentException("[" + path + "] does not exist");
+			throw new IllegalArgumentException("File [" + path + "] does not exist.");
+		}
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("File [" + path + "] is a directory.");
 		}
 		if (!file.canRead()) {
-			throw new IllegalArgumentException("[" + path + "] is not readable");
+			throw new IllegalArgumentException("File [" + path + "] is not readable.");
 		}
 	}
 
 	protected void validateCopyFileDestination(RemoteFile destination) {
 		Assert.notNull(destination);
-		Assert.hasLength(destination.getAbsolutePath());
+		Assert.notNull(destination.getAbsolutePath());
+		Assert.hasLength(LocationUtils.getNormalizedAbsolutePath(destination.getAbsolutePath()));
 		if (destination.isDirectory()) {
-			throw new IllegalArgumentException("[" + destination + "] is a directory");
+			throw new IllegalArgumentException("File [" + destination + "] is a directory.");
 		}
-		LocationUtils.getNormalizedAbsolutePath(destination.getAbsolutePath());
 	}
 
 	protected void validateCopyFile(File source, RemoteFile destination) {
