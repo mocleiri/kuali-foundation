@@ -29,11 +29,28 @@ public class DefaultSecureService implements SecureService {
 	private static final String SFTP = "sftp";
 	private static final String FORWARD_SLASH = "/";
 
-	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
-		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
-		for (String path : pathFragments) {
-			Vector<?> vector = channel.ls(path);
-			displayVector(vector);
+	/**
+	 *
+	 */
+	protected void forceMkdir(ChannelSftp channel, String path) throws SftpException {
+		RemoteFile dir = getRemoteFile(channel, path);
+		validateIsMissingOrDirectory(dir);
+		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(path, true);
+		for (String pathFragment : pathFragments) {
+			RemoteFile parentDir = getRemoteFile(channel, pathFragment);
+			validateIsMissingOrDirectory(parentDir);
+			if (!parentDir.isDirectory()) {
+				channel.mkdir(pathFragment);
+			}
+		}
+	}
+
+	protected boolean validateIsMissingOrDirectory(RemoteFile file) {
+		boolean missing = Exists.FALSE.equals(file.getExists());
+		if (missing || file.isDirectory()) {
+			return true;
+		} else {
+			throw new IllegalArgumentException("[" + file.getAbsolutePath() + "] is an existing file");
 		}
 	}
 
@@ -41,55 +58,47 @@ public class DefaultSecureService implements SecureService {
 	 * Return <code>true</code> if <code>path</code> exists.
 	 */
 	protected boolean isExistingPath(ChannelSftp channel, String path) throws SftpException {
-		try {
-			channel.stat(path);
-			return true;
-		} catch (SftpException e) {
-			return handleExistingFileCheckException(e);
-		}
+		RemoteFile file = getRemoteFile(channel, path);
+		return Exists.TRUE.equals(file.getExists());
 	}
 
 	/**
-	 * Return <code>false</code> if <code>path</code> does not exist or is a directory. Return <code>true</code> if <code>path</code> is an
-	 * existing file.
+	 * Return <code>true</code> if <code>path</code> is an existing file. Return <code>false</code> if <code>path</code> does not exist or
+	 * is an existing directory.
 	 */
 	protected boolean isExistingFile(ChannelSftp channel, String path) throws SftpException {
-		try {
-			RemoteFile file = getRemoteFile(channel, path);
-			return !file.isDirectory();
-		} catch (SftpException e) {
-			return handleExistingFileCheckException(e);
-		}
+		RemoteFile file = getRemoteFile(channel, path);
+		return Exists.TRUE.equals(file.getExists()) && !file.isDirectory();
 	}
 
 	/**
-	 * Return <code>false</code> if <code>path</code> does not exist or is a file. Return <code>true</code> if <code>path</code> is an
-	 * existing directory.
+	 * Return <code>true</code> if <code>path</code> is an existing directory. Return <code>false</code> if <code>path</code> does not exist
+	 * or is an existing file.
 	 */
 	protected boolean isExistingDirectory(ChannelSftp channel, String path) throws SftpException {
-		try {
-			RemoteFile file = getRemoteFile(channel, path);
-			return file.isDirectory();
-		} catch (SftpException e) {
-			return handleExistingFileCheckException(e);
-		}
+		RemoteFile file = getRemoteFile(channel, path);
+		return Exists.TRUE.equals(file.getExists()) && file.isDirectory();
 	}
 
 	protected boolean isNoSuchFileException(SftpException exception) {
 		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
 	}
 
-	protected boolean handleExistingFileCheckException(SftpException exception) throws SftpException {
+	protected RemoteFile handleNoSuchFileException(String path, SftpException exception) throws SftpException {
 		if (isNoSuchFileException(exception)) {
-			return false;
+			return new DefaultRemoteFile(path, Exists.FALSE);
 		} else {
 			throw exception;
 		}
 	}
 
 	protected RemoteFile getRemoteFile(ChannelSftp channel, String path) throws SftpException {
-		SftpATTRS attributes = channel.stat(path);
-		return getRemoteFile(path, attributes);
+		try {
+			SftpATTRS attributes = channel.stat(path);
+			return getRemoteFile(path, attributes);
+		} catch (SftpException e) {
+			return handleNoSuchFileException(path, e);
+		}
 	}
 
 	protected List<RemoteFile> getRemoteFiles(ChannelSftp channel, String path) throws SftpException {
@@ -116,6 +125,7 @@ public class DefaultSecureService implements SecureService {
 		file.setGroupId(attributes.getGId());
 		file.setLastModified(new Long(attributes.getMTime() * 1000));
 		file.setSize(attributes.getSize());
+		file.setExists(Exists.TRUE);
 		return file;
 	}
 
@@ -166,7 +176,6 @@ public class DefaultSecureService implements SecureService {
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
-			forceMkdirs(channel, destination);
 			in = new FileInputStream(source);
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {

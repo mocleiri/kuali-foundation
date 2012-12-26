@@ -16,7 +16,6 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
-import java.util.Date;
 
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
@@ -39,8 +38,13 @@ public class DefaultSecureServiceTest {
 			JSch jsch = JSchUtils.getDefaultJSch();
 			session = dss.openSession(jsch, "root", "ci.fn.kuali.org", 22, 0, SSHUtils.getDefaultOptions());
 			channel = dss.openSftpChannel(session);
-			RemoteFile file = dss.getRemoteFile(channel, "/root/x/y/z");
-			logger.info(file.getAbsolutePath() + " " + new Date(file.getLastModified()));
+			boolean file = dss.isExistingFile(channel, "/root");
+			boolean path = dss.isExistingPath(channel, "/root");
+			boolean dir = dss.isExistingDirectory(channel, "/root");
+			logger.info("file=" + file);
+			logger.info("path=" + path);
+			logger.info("dir=" + dir);
+			dss.forceMkdir(channel, "/root/x/y/z");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

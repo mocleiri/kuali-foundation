@@ -10,6 +10,17 @@ public class DefaultRemoteFile implements RemoteFile {
 	Long size;
 	boolean directory;
 	Long lastModified;
+	Exists exists = Exists.UNKNOWN;
+
+	public DefaultRemoteFile() {
+		this(null, Exists.UNKNOWN);
+	}
+
+	public DefaultRemoteFile(String absolutePath, Exists exists) {
+		super();
+		this.absolutePath = absolutePath;
+		this.exists = exists;
+	}
 
 	@Override
 	public String getHostname() {
@@ -75,12 +86,21 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public Integer getPermissions() {
+	public Integer getPermissions() {
 		return permissions;
 	}
 
 	public void setPermissions(Integer permissions) {
 		this.permissions = permissions;
+	}
+
+	@Override
+	public Exists getExists() {
+		return exists;
+	}
+
+	public void setExists(Exists exists) {
+		this.exists = exists;
 	}
 
 }

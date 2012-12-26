@@ -42,4 +42,8 @@ public interface RemoteFile {
 	 */
 	Long getLastModified();
 
+	/**
+	 * Indicates what is known about the existence of the file (UNKNOWN, TRUE, FALSE)
+	 */
+	Exists getExists();
 }
