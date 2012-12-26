@@ -1,9 +1,7 @@
 package org.kuali.common.util.secure;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -89,7 +87,15 @@ public class DefaultSecureService implements SecureService {
 
 	@Override
 	public void copyFile(JSch jsch, SessionContext context, File source, RemoteFile destination) {
-		JSchUtils.validateCopyFile(source, destination);
+		copyLocation(jsch, context, LocationUtils.getCanonicalURLString(source), destination);
+	}
+
+	@Override
+	public void copyLocation(JSch jsch, SessionContext context, String location, RemoteFile destination) {
+		if (LocationUtils.isExistingFile(location)) {
+			File source = new File(location);
+			JSchUtils.validateCopyFile(source, destination);
+		}
 		InputStream in = null;
 		Session session = null;
 		ChannelSftp channel = null;
@@ -97,7 +103,7 @@ public class DefaultSecureService implements SecureService {
 			session = JSchUtils.openSession(jsch, context);
 			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
 			forceMkdirs(channel, destination);
-			in = new BufferedInputStream(new FileInputStream(source));
+			in = LocationUtils.getInputStream(location);
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
