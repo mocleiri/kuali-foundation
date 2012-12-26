@@ -66,7 +66,7 @@ public class DefaultSecureServiceTest {
 			logger.info("file=" + file);
 			logger.info("path=" + path);
 			logger.info("dir=" + dir);
-			dss.forceMkdir(channel, rfile);
+			dss.forceMkdirs(channel, rfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

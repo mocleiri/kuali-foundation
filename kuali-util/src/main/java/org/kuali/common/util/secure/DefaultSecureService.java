@@ -33,9 +33,9 @@ public class DefaultSecureService implements SecureService {
 	private static final String FORWARD_SLASH = "/";
 
 	/**
-	 *
+	 * 
 	 */
-	protected void forceMkdir(ChannelSftp channel, RemoteFile file) throws SftpException {
+	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
 		updateRemoteFile(channel, file);
 		validateForceMkdir(file);
 		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
@@ -187,7 +187,7 @@ public class DefaultSecureService implements SecureService {
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
-			forceMkdir(channel, destination);
+			forceMkdirs(channel, destination);
 			in = new BufferedInputStream(new FileInputStream(source));
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {
