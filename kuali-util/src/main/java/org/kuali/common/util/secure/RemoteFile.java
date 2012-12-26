@@ -33,7 +33,7 @@ public interface RemoteFile {
 	boolean isDirectory();
 
 	/**
-	 * Last modified timestamp (millis since the epoch)
+	 * Last modified timestamp in milliseconds since the epoch (optional)
 	 */
 	Long getLastModified();
 
