@@ -6,12 +6,13 @@ public class DefaultRemoteFile implements RemoteFile {
 	String absolutePath;
 	Integer groupId;
 	Integer userId;
+	Integer permissions;
 	Long size;
 	boolean directory;
 	Long lastModified;
 
 	@Override
-    public String getHostname() {
+	public String getHostname() {
 		return hostname;
 	}
 
@@ -20,7 +21,7 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public String getAbsolutePath() {
+	public String getAbsolutePath() {
 		return absolutePath;
 	}
 
@@ -29,7 +30,7 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public Integer getGroupId() {
+	public Integer getGroupId() {
 		return groupId;
 	}
 
@@ -38,7 +39,7 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public Integer getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
@@ -47,7 +48,7 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public Long getSize() {
+	public Long getSize() {
 		return size;
 	}
 
@@ -56,7 +57,7 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public boolean isDirectory() {
+	public boolean isDirectory() {
 		return directory;
 	}
 
@@ -65,12 +66,21 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public Long getLastModified() {
+	public Long getLastModified() {
 		return lastModified;
 	}
 
 	public void setLastModified(Long lastModified) {
 		this.lastModified = lastModified;
+	}
+
+	@Override
+    public Integer getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Integer permissions) {
+		this.permissions = permissions;
 	}
 
 }

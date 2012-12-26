@@ -7,10 +7,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,9 @@ import org.springframework.util.Assert;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
 public class DefaultSecureService implements SecureService {
@@ -27,66 +29,87 @@ public class DefaultSecureService implements SecureService {
 	private static final String SFTP = "sftp";
 	private static final String FORWARD_SLASH = "/";
 
-	protected void validateCopyFileSource(File file) {
-		Assert.notNull(file);
-		String path = LocationUtils.getCanonicalPath(file);
-		if (!file.exists()) {
-			throw new IllegalArgumentException("[" + path + "] does not exist");
-		}
-		if (!file.canRead()) {
-			throw new IllegalArgumentException("[" + path + "] is not readable");
-		}
-	}
-
-	protected void validateCopyFileDestination(RemoteFile destination) {
-		Assert.notNull(destination);
-		Assert.hasLength(destination.getAbsolutePath());
-		if (destination.isDirectory()) {
-			throw new IllegalArgumentException("[" + destination + "] is a directory");
-		}
-	}
-
-	protected void validateCopyFile(File source, RemoteFile destination) {
-		validateCopyFileSource(source);
-		validateCopyFileDestination(destination);
-	}
-
 	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
-		List<String> fragments = getPathFragments(file);
-		for (String fragment : fragments) {
-			logger.info(fragment);
+		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
+		for (String path : pathFragments) {
+			Vector<?> vector = channel.ls(path);
+			displayVector(vector);
 		}
-		String workingDirectory = channel.pwd();
-		logger.info("working directory=[{}]", workingDirectory);
-		Vector<?> vector = channel.ls(".");
-		logger.info("vector.size()={}", vector.size());
 	}
 
-	protected List<String> getPathFragments(RemoteFile file) {
-		String normalized = LocationUtils.getNormalizedAbsolutePath(file.getAbsolutePath());
-		String[] tokens = StringUtils.split(normalized, FORWARD_SLASH);
-		List<String> fragments = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		sb.append(FORWARD_SLASH);
-		fragments.add(sb.toString());
-		int length = file.isDirectory() ? tokens.length : tokens.length - 1;
-		for (int i = 0; i < length - 1; i++) {
-			if (i != 0) {
-				sb.append(FORWARD_SLASH);
-			}
-			sb.append(tokens[i]);
-			fragments.add(sb.toString());
+	protected boolean isExistingDirectory(ChannelSftp channel, String path) {
+		return false;
+	}
+
+	protected RemoteFile getRemoteFile(ChannelSftp channel, String path) throws SftpException {
+		SftpATTRS attributes = channel.stat(path);
+		return getRemoteFile(path, attributes);
+	}
+
+	protected List<RemoteFile> getRemoteFiles(ChannelSftp channel, String path) throws SftpException {
+		@SuppressWarnings("unchecked")
+		Vector<ChannelSftp.LsEntry> entries = (Vector<ChannelSftp.LsEntry>) channel.ls(path);
+		return getRemoteFiles(entries, path);
+	}
+
+	protected List<RemoteFile> getRemoteFiles(Vector<ChannelSftp.LsEntry> entries, String path) {
+		List<RemoteFile> remoteFiles = new ArrayList<RemoteFile>();
+		for (ChannelSftp.LsEntry entry : entries) {
+			RemoteFile remoteFile = getRemoteFile(entry, path);
+			remoteFiles.add(remoteFile);
 		}
-		return fragments;
+		return remoteFiles;
+	}
+
+	protected RemoteFile getRemoteFile(String absolutePath, SftpATTRS attributes) {
+		DefaultRemoteFile file = new DefaultRemoteFile();
+		file.setAbsolutePath(absolutePath);
+		file.setDirectory(attributes.isDir());
+		file.setPermissions(attributes.getPermissions());
+		file.setUserId(attributes.getUId());
+		file.setGroupId(attributes.getGId());
+		file.setLastModified(new Long(attributes.getMTime() * 1000));
+		file.setSize(attributes.getSize());
+		return file;
+	}
+
+	protected RemoteFile getRemoteFile(ChannelSftp.LsEntry entry, String path) {
+		SftpATTRS attributes = entry.getAttrs();
+		return getRemoteFile(path + FORWARD_SLASH + entry.getFilename(), attributes);
+	}
+
+	protected void displayVector(Vector<?> v) {
+		List<?> elements = new ArrayList<Object>(v);
+		for (Object element : elements) {
+			ChannelSftp.LsEntry entry = (ChannelSftp.LsEntry) element;
+			displayEntry(entry);
+		}
+	}
+
+	protected void displayEntry(ChannelSftp.LsEntry entry) {
+		String filename = entry.getFilename();
+		String longname = entry.getLongname();
+		SftpATTRS attributes = entry.getAttrs();
+		int groupId = attributes.getGId();
+		int userId = attributes.getUId();
+		int lastModified = attributes.getMTime();
+		int permissions = attributes.getPermissions();
+		boolean directory = attributes.isDir();
+
+		logger.info("----------------------");
+		logger.info("filename - [{}]", filename);
+		logger.info("directory - [{}]", directory);
+		logger.info("longname - [{}]", longname);
+		logger.info("Group Id - [{}]", groupId);
+		logger.info("User Id - [{}]", userId);
+		logger.info("permissions - [{}]", permissions);
+		logger.info("lastModified - [{}]", lastModified);
+		logger.info("----------------------");
 	}
 
 	@Override
 	public void copyFile(File source, RemoteFile destination) {
 		validateCopyFile(source, destination);
-		List<String> fragments = getPathFragments(destination);
-		for (String fragment : fragments) {
-			logger.info(fragment);
-		}
 		InputStream in = null;
 		Session session = null;
 		ChannelSftp channel = null;
@@ -109,6 +132,19 @@ public class DefaultSecureService implements SecureService {
 		}
 	}
 
+	protected Session openSession(JSch jsch, String username, String hostname, int port, int timeout, Properties options) throws JSchException {
+		Session session = jsch.getSession(username, hostname, port);
+		session.setConfig(options);
+		session.connect(timeout);
+		return session;
+	}
+
+	protected ChannelSftp openSftpChannel(Session session) throws JSchException {
+		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
+		channel.connect();
+		return channel;
+	}
+
 	@Override
 	public void copyFile(RemoteFile source, File destination) {
 		OutputStream out = null;
@@ -116,11 +152,8 @@ public class DefaultSecureService implements SecureService {
 		ChannelSftp channel = null;
 		try {
 			JSch jsch = JSchUtils.getDefaultJSch();
-			session = jsch.getSession("root", source.getHostname(), 22);
-			session.setConfig(SSHUtils.getDefaultOptions());
-			session.connect();
-			channel = (ChannelSftp) session.openChannel(SFTP);
-			channel.connect();
+			session = openSession(jsch, "root", source.getHostname(), 22, 0, SSHUtils.getDefaultOptions());
+			channel = openSftpChannel(session);
 			out = new FileOutputStream(destination);
 			channel.get(source.getAbsolutePath(), out);
 		} catch (Exception e) {
@@ -130,6 +163,31 @@ public class DefaultSecureService implements SecureService {
 			JSchUtils.disconnectQuietly(channel);
 			JSchUtils.disconnectQuietly(session);
 		}
+	}
+
+	protected void validateCopyFileSource(File file) {
+		Assert.notNull(file);
+		String path = LocationUtils.getCanonicalPath(file);
+		if (!file.exists()) {
+			throw new IllegalArgumentException("[" + path + "] does not exist");
+		}
+		if (!file.canRead()) {
+			throw new IllegalArgumentException("[" + path + "] is not readable");
+		}
+	}
+
+	protected void validateCopyFileDestination(RemoteFile destination) {
+		Assert.notNull(destination);
+		Assert.hasLength(destination.getAbsolutePath());
+		if (destination.isDirectory()) {
+			throw new IllegalArgumentException("[" + destination + "] is a directory");
+		}
+		LocationUtils.getNormalizedAbsolutePath(destination.getAbsolutePath());
+	}
+
+	protected void validateCopyFile(File source, RemoteFile destination) {
+		validateCopyFileSource(source);
+		validateCopyFileDestination(destination);
 	}
 
 }

@@ -16,16 +16,40 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.util.Date;
 
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+
 public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
 
 	@Test
+	public void test3() {
+		Session session = null;
+		ChannelSftp channel = null;
+		try {
+			DefaultSecureService dss = new DefaultSecureService();
+			JSch jsch = JSchUtils.getDefaultJSch();
+			session = dss.openSession(jsch, "root", "ci.fn.kuali.org", 22, 0, SSHUtils.getDefaultOptions());
+			channel = dss.openSftpChannel(session);
+			RemoteFile file = dss.getRemoteFile(channel, "/root/x/y/z");
+			logger.info(file.getAbsolutePath() + " " + new Date(file.getLastModified()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JSchUtils.disconnectQuietly(channel);
+			JSchUtils.disconnectQuietly(session);
+		}
+	}
+
+	// @Test
 	public void test1() {
 		try {
 			String filename = "/Users/jeffcaddel/../../../../../jeffcaddel/x/y/z/.././../foo";

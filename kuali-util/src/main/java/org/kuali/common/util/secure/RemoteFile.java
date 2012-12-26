@@ -23,6 +23,11 @@ public interface RemoteFile {
 	Integer getGroupId();
 
 	/**
+	 * permissions for the file (optional)
+	 */
+	Integer getPermissions();
+
+	/**
 	 * Size of the file in bytes (optional)
 	 */
 	Long getSize();

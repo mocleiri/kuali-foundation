@@ -49,6 +49,23 @@ public class LocationUtils {
 	private static final String SLASH_DOT_SLASH = "/./";
 	private static final String SLASH_DOTDOT_SLASH = "/../";
 
+	public static final List<String> getNormalizedPathFragments(String absolutePath, boolean directory) {
+		String normalized = getNormalizedAbsolutePath(absolutePath);
+		String[] tokens = StringUtils.split(normalized, FORWARD_SLASH);
+		List<String> fragments = new ArrayList<String>();
+		StringBuilder sb = new StringBuilder();
+		sb.append(FORWARD_SLASH);
+		int length = directory ? tokens.length : tokens.length - 1;
+		for (int i = 0; i < length - 1; i++) {
+			if (i != 0) {
+				sb.append(FORWARD_SLASH);
+			}
+			sb.append(tokens[i]);
+			fragments.add(sb.toString());
+		}
+		return fragments;
+	}
+
 	public static final List<String> getLocations(String location, LocationType type, String encoding) {
 		switch (type) {
 		case LOCATION:
