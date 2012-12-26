@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 public class DefaultSecureServiceTest {
@@ -34,39 +33,17 @@ public class DefaultSecureServiceTest {
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
+			SessionContext context = new SessionContext();
+			context.setUsername("root");
+			context.setPort(22);
+			context.setTimeout(180);
 			File source = new File("/tmp/sftp/hello.txt");
-			RemoteFile remote = new RemoteFile("ci.fn.kuali.org", "/root/x/y/z/hello.txt");
+			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
 			File dest = new File("/tmp/sftp/goodbye.txt");
 
 			DefaultSecureService dss = new DefaultSecureService();
-			dss.copyFile(source, remote);
-			dss.copyFile(remote, dest);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
-		}
-	}
-
-	// @Test
-	public void test3() {
-		Session session = null;
-		ChannelSftp channel = null;
-		try {
-			RemoteFile rfile = new RemoteFile("ci.fn.kuali.org", "/root/x/y/z");
-
-			DefaultSecureService dss = new DefaultSecureService();
-			JSch jsch = JSchUtils.getDefaultJSch();
-			session = dss.openSession(jsch, "root", rfile.getHostname(), 22, 0, SSHUtils.getDefaultOptions());
-			channel = dss.openSftpChannel(session);
-			boolean file = dss.isExistingFile(channel, "/root");
-			boolean path = dss.isExistingPath(channel, "/root");
-			boolean dir = dss.isExistingDirectory(channel, "/root");
-			logger.info("file=" + file);
-			logger.info("path=" + path);
-			logger.info("dir=" + dir);
-			dss.forceMkdirs(channel, rfile);
+			dss.copyFile(context, source, remote);
+			dss.copyFile(context, remote, dest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -89,18 +66,4 @@ public class DefaultSecureServiceTest {
 		}
 	}
 
-	// @Test
-	public void test() {
-		try {
-			logger.info("Secure service test");
-			RemoteFile dst = new RemoteFile();
-			dst.setHostname("ci.fn.kuali.org");
-			dst.setAbsolutePath("/root/x/y/z/hello.txt");
-			File src = new File("/tmp/sftp/hello.txt");
-			DefaultSecureService ss = new DefaultSecureService();
-			ss.copyFile(src, dst);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

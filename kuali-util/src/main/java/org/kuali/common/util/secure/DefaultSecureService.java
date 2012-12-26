@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
@@ -33,7 +32,7 @@ public class DefaultSecureService implements SecureService {
 	private static final String FORWARD_SLASH = "/";
 
 	/**
-	 * 
+	 *
 	 */
 	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
 		updateRemoteFile(channel, file);
@@ -175,18 +174,15 @@ public class DefaultSecureService implements SecureService {
 	}
 
 	@Override
-	public void copyFile(File source, RemoteFile destination) {
+	public void copyFile(SessionContext context, File source, RemoteFile destination) {
 		validateCopyFile(source, destination);
 		InputStream in = null;
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
 			JSch jsch = JSchUtils.getDefaultJSch();
-			session = jsch.getSession("root", destination.getHostname(), 22);
-			session.setConfig(SSHUtils.getDefaultOptions());
-			session.connect();
-			channel = (ChannelSftp) session.openChannel(SFTP);
-			channel.connect();
+			session = openSession(jsch, context);
+			channel = openSftpChannel(session, context.getTimeout());
 			forceMkdirs(channel, destination);
 			in = new BufferedInputStream(new FileInputStream(source));
 			channel.put(in, destination.getAbsolutePath());
@@ -199,28 +195,28 @@ public class DefaultSecureService implements SecureService {
 		}
 	}
 
-	protected Session openSession(JSch jsch, String username, String hostname, int port, int timeout, Properties options) throws JSchException {
-		Session session = jsch.getSession(username, hostname, port);
-		session.setConfig(options);
-		session.connect(timeout);
+	protected Session openSession(JSch jsch, SessionContext context) throws JSchException {
+		Session session = jsch.getSession(context.getUsername(), context.getHostname(), context.getPort());
+		session.setConfig(context.getOptions());
+		session.connect(context.getTimeout());
 		return session;
 	}
 
-	protected ChannelSftp openSftpChannel(Session session) throws JSchException {
+	protected ChannelSftp openSftpChannel(Session session, int timeout) throws JSchException {
 		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
-		channel.connect();
+		channel.connect(timeout);
 		return channel;
 	}
 
 	@Override
-	public void copyFile(RemoteFile source, File destination) {
+	public void copyFile(SessionContext context, RemoteFile source, File destination) {
 		OutputStream out = null;
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
 			JSch jsch = JSchUtils.getDefaultJSch();
-			session = openSession(jsch, "root", source.getHostname(), 22, 0, SSHUtils.getDefaultOptions());
-			channel = openSftpChannel(session);
+			session = openSession(jsch, context);
+			channel = openSftpChannel(session, context.getTimeout());
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
 			channel.get(source.getAbsolutePath(), out);
 		} catch (Exception e) {
@@ -246,19 +242,17 @@ public class DefaultSecureService implements SecureService {
 		}
 	}
 
-	protected void validateCopyFileDestination(RemoteFile destination) {
-		Assert.notNull(destination);
-		Assert.notNull(destination.getAbsolutePath());
-		boolean notBlank = !StringUtils.isBlank(destination.getHostname());
-		Assert.isTrue(notBlank);
-		String normalized = LocationUtils.getNormalizedAbsolutePath(destination.getAbsolutePath());
-		if (!StringUtils.equals(normalized, destination.getAbsolutePath())) {
-			logger.info("Normalized path [{}] -> [{}]", destination.getAbsolutePath(), normalized);
-			destination.setAbsolutePath(normalized);
+	protected void validateCopyFileDestination(RemoteFile file) {
+		Assert.notNull(file);
+		Assert.notNull(file.getAbsolutePath());
+		String normalized = LocationUtils.getNormalizedAbsolutePath(file.getAbsolutePath());
+		if (!StringUtils.equals(normalized, file.getAbsolutePath())) {
+			logger.info("Normalized path [{}] -> [{}]", file.getAbsolutePath(), normalized);
+			file.setAbsolutePath(normalized);
 		}
-		Assert.hasLength(destination.getAbsolutePath());
-		if (destination.isDirectory()) {
-			throw new IllegalArgumentException("File [" + destination + "] is a directory.");
+		Assert.hasLength(file.getAbsolutePath());
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("File [" + file + "] is a directory.");
 		}
 	}
 

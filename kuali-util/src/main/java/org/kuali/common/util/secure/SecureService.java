@@ -4,8 +4,8 @@ import java.io.File;
 
 public interface SecureService {
 
-	void copyFile(File source, RemoteFile destination);
+	void copyFile(SessionContext context, File source, RemoteFile destination);
 
-	void copyFile(RemoteFile source, File destination);
+	void copyFile(SessionContext context, RemoteFile source, File destination);
 
 }
