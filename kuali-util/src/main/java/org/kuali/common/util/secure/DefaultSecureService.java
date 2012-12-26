@@ -6,21 +6,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
@@ -28,55 +24,39 @@ import com.jcraft.jsch.SftpException;
 public class DefaultSecureService implements SecureService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureService.class);
-	private static final String SFTP = "sftp";
-	private static final String FORWARD_SLASH = "/";
 
 	/**
 	 *
 	 */
 	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
 		updateRemoteFile(channel, file);
-		validateForceMkdir(file);
+		JSchUtils.validateForceMkdir(file);
 		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
 		for (String pathFragment : pathFragments) {
-			RemoteFile parentDir = getRemoteFile(channel, pathFragment);
-			validateForceMkdir(parentDir);
+			RemoteFile parentDir = new RemoteFile(pathFragment);
+			updateRemoteFile(channel, parentDir);
+			JSchUtils.validateForceMkdir(parentDir);
 			if (!parentDir.isDirectory()) {
+				logger.debug("Creating [{}]", pathFragment);
 				channel.mkdir(pathFragment);
 			}
 		}
 	}
 
-	protected boolean validateForceMkdir(RemoteFile file) {
-		boolean missing = Status.MISSING.equals(file.getStatus());
-		if (missing || file.isDirectory()) {
-			return true;
-		} else {
-			throw new IllegalArgumentException("File [" + file.getAbsolutePath() + "] exists and is not a directory. Unable to create directory.");
-		}
-	}
-
 	/**
-	 * Return <code>true</code> if <code>path</code> exists.
+	 * Return <code>true</code> if <code>file</code> exists.
 	 */
-	protected boolean isExistingPath(ChannelSftp channel, String absolutePath) throws SftpException {
-		RemoteFile file = getRemoteFile(channel, absolutePath);
+	protected boolean isExisting(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
 		return Status.EXISTS.equals(file.getStatus());
 	}
 
-	protected RemoteFile getRemoteFile(ChannelSftp channel, String absolutePath) throws SftpException {
-		RemoteFile file = new RemoteFile();
-		file.setAbsolutePath(absolutePath);
-		updateRemoteFile(channel, file);
-		return file;
-	}
-
 	/**
-	 * Return <code>true</code> if <code>path</code> is an existing file. Return <code>false</code> if <code>path</code> does not exist or
+	 * Return <code>true</code> if <code>file</code> is an existing file. Return <code>false</code> if <code>file</code> does not exist or
 	 * is an existing directory.
 	 */
-	protected boolean isExistingFile(ChannelSftp channel, String absolutePath) throws SftpException {
-		RemoteFile file = getRemoteFile(channel, absolutePath);
+	protected boolean isExistingFile(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
 		return Status.EXISTS.equals(file.getStatus()) && !file.isDirectory();
 	}
 
@@ -84,105 +64,38 @@ public class DefaultSecureService implements SecureService {
 	 * Return <code>true</code> if <code>path</code> is an existing directory. Return <code>false</code> if <code>path</code> does not exist
 	 * or is an existing file.
 	 */
-	protected boolean isExistingDirectory(ChannelSftp channel, String absolutePath) throws SftpException {
-		RemoteFile file = getRemoteFile(channel, absolutePath);
+	protected boolean isExistingDirectory(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
 		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
-	protected boolean isNoSuchFileException(SftpException exception) {
-		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
-	}
-
-	protected void handleNoSuchFileException(RemoteFile file, SftpException exception) throws SftpException {
-		if (isNoSuchFileException(exception)) {
-			file.setStatus(Status.MISSING);
-		} else {
-			throw exception;
-		}
-	}
-
+	/**
+	 * Connect to the remote server and acquire information about <code>file</code>
+	 */
 	protected void updateRemoteFile(ChannelSftp channel, RemoteFile file) throws SftpException {
 		try {
 			SftpATTRS attributes = channel.stat(file.getAbsolutePath());
-			updateRemoteFile(file, attributes);
+			JSchUtils.updateRemoteFile(file, attributes);
 		} catch (SftpException e) {
-			handleNoSuchFileException(file, e);
+			JSchUtils.handleNoSuchFileException(file, e);
 		}
 	}
 
 	protected List<RemoteFile> getRemoteFiles(ChannelSftp channel, String path) throws SftpException {
 		@SuppressWarnings("unchecked")
 		Vector<ChannelSftp.LsEntry> entries = (Vector<ChannelSftp.LsEntry>) channel.ls(path);
-		return getRemoteFiles(entries, path);
-	}
-
-	protected List<RemoteFile> getRemoteFiles(Vector<ChannelSftp.LsEntry> entries, String path) {
-		List<RemoteFile> remoteFiles = new ArrayList<RemoteFile>();
-		for (ChannelSftp.LsEntry entry : entries) {
-			RemoteFile remoteFile = getRemoteFile(entry, path);
-			remoteFiles.add(remoteFile);
-		}
-		return remoteFiles;
-	}
-
-	protected void updateRemoteFile(RemoteFile file, SftpATTRS attributes) {
-		file.setDirectory(attributes.isDir());
-		file.setPermissions(attributes.getPermissions());
-		file.setUserId(attributes.getUId());
-		file.setGroupId(attributes.getGId());
-		file.setLastModified(new Long(attributes.getMTime() * 1000));
-		file.setSize(attributes.getSize());
-		file.setStatus(Status.EXISTS);
-	}
-
-	protected RemoteFile getRemoteFile(ChannelSftp.LsEntry entry, String path) {
-		String absolutePath = path + FORWARD_SLASH + entry.getFilename();
-		SftpATTRS attributes = entry.getAttrs();
-		RemoteFile file = new RemoteFile();
-		file.setAbsolutePath(absolutePath);
-		updateRemoteFile(file, attributes);
-		return file;
-	}
-
-	protected void displayVector(Vector<?> v) {
-		List<?> elements = new ArrayList<Object>(v);
-		for (Object element : elements) {
-			ChannelSftp.LsEntry entry = (ChannelSftp.LsEntry) element;
-			displayEntry(entry);
-		}
-	}
-
-	protected void displayEntry(ChannelSftp.LsEntry entry) {
-		String filename = entry.getFilename();
-		String longname = entry.getLongname();
-		SftpATTRS attributes = entry.getAttrs();
-		int groupId = attributes.getGId();
-		int userId = attributes.getUId();
-		int lastModified = attributes.getMTime();
-		int permissions = attributes.getPermissions();
-		boolean directory = attributes.isDir();
-
-		logger.info("----------------------");
-		logger.info("filename - [{}]", filename);
-		logger.info("directory - [{}]", directory);
-		logger.info("longname - [{}]", longname);
-		logger.info("Group Id - [{}]", groupId);
-		logger.info("User Id - [{}]", userId);
-		logger.info("permissions - [{}]", permissions);
-		logger.info("lastModified - [{}]", lastModified);
-		logger.info("----------------------");
+		return JSchUtils.getRemoteFiles(entries, path);
 	}
 
 	@Override
-	public void copyFile(SessionContext context, File source, RemoteFile destination) {
-		validateCopyFile(source, destination);
+	public void copyFile(JSch jsch, SessionContext context, File source, RemoteFile destination) {
+		JSchUtils.validateCopyFile(source, destination);
 		InputStream in = null;
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
-			JSch jsch = JSchUtils.getDefaultJSch();
-			session = openSession(jsch, context);
-			channel = openSftpChannel(session, context.getTimeout());
+			session = JSchUtils.openSession(jsch, context);
+			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
 			forceMkdirs(channel, destination);
 			in = new BufferedInputStream(new FileInputStream(source));
 			channel.put(in, destination.getAbsolutePath());
@@ -195,28 +108,14 @@ public class DefaultSecureService implements SecureService {
 		}
 	}
 
-	protected Session openSession(JSch jsch, SessionContext context) throws JSchException {
-		Session session = jsch.getSession(context.getUsername(), context.getHostname(), context.getPort());
-		session.setConfig(context.getOptions());
-		session.connect(context.getTimeout());
-		return session;
-	}
-
-	protected ChannelSftp openSftpChannel(Session session, int timeout) throws JSchException {
-		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
-		channel.connect(timeout);
-		return channel;
-	}
-
 	@Override
-	public void copyFile(SessionContext context, RemoteFile source, File destination) {
+	public void copyFile(JSch jsch, SessionContext context, RemoteFile source, File destination) {
 		OutputStream out = null;
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
-			JSch jsch = JSchUtils.getDefaultJSch();
-			session = openSession(jsch, context);
-			channel = openSftpChannel(session, context.getTimeout());
+			session = JSchUtils.openSession(jsch, context);
+			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
 			channel.get(source.getAbsolutePath(), out);
 		} catch (Exception e) {
@@ -226,39 +125,6 @@ public class DefaultSecureService implements SecureService {
 			JSchUtils.disconnectQuietly(channel);
 			JSchUtils.disconnectQuietly(session);
 		}
-	}
-
-	protected void validateCopyFileSource(File file) {
-		Assert.notNull(file);
-		String path = LocationUtils.getCanonicalPath(file);
-		if (!file.exists()) {
-			throw new IllegalArgumentException("File [" + path + "] does not exist.");
-		}
-		if (file.isDirectory()) {
-			throw new IllegalArgumentException("File [" + path + "] is a directory.");
-		}
-		if (!file.canRead()) {
-			throw new IllegalArgumentException("File [" + path + "] is not readable.");
-		}
-	}
-
-	protected void validateCopyFileDestination(RemoteFile file) {
-		Assert.notNull(file);
-		Assert.notNull(file.getAbsolutePath());
-		String normalized = LocationUtils.getNormalizedAbsolutePath(file.getAbsolutePath());
-		if (!StringUtils.equals(normalized, file.getAbsolutePath())) {
-			logger.info("Normalized path [{}] -> [{}]", file.getAbsolutePath(), normalized);
-			file.setAbsolutePath(normalized);
-		}
-		Assert.hasLength(file.getAbsolutePath());
-		if (file.isDirectory()) {
-			throw new IllegalArgumentException("File [" + file + "] is a directory.");
-		}
-	}
-
-	protected void validateCopyFile(File source, RemoteFile destination) {
-		validateCopyFileSource(source);
-		validateCopyFileDestination(destination);
 	}
 
 }

@@ -2,8 +2,11 @@ package org.kuali.common.util.secure;
 
 import java.util.Properties;
 
+import com.jcraft.jsch.JSch;
+
 public class SessionContext {
 
+	JSch jsch;
 	String username;
 	String hostname;
 	int port;
@@ -48,6 +51,14 @@ public class SessionContext {
 
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;
+	}
+
+	public JSch getJsch() {
+		return jsch;
+	}
+
+	public void setJsch(JSch jsch) {
+		this.jsch = jsch;
 	}
 
 }

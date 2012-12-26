@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 public class DefaultSecureServiceTest {
@@ -33,6 +34,7 @@ public class DefaultSecureServiceTest {
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
+			JSch jsch = JSchUtils.getDefaultJSch();
 			SessionContext context = new SessionContext();
 			context.setUsername("root");
 			context.setPort(22);
@@ -42,8 +44,8 @@ public class DefaultSecureServiceTest {
 			File dest = new File("/tmp/sftp/goodbye.txt");
 
 			DefaultSecureService dss = new DefaultSecureService();
-			dss.copyFile(context, source, remote);
-			dss.copyFile(context, remote, dest);
+			dss.copyFile(jsch, context, source, remote);
+			dss.copyFile(jsch, context, remote, dest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

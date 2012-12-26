@@ -16,16 +16,23 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
+import com.jcraft.jsch.SftpException;
 
 /**
  *
@@ -33,10 +40,112 @@ import com.jcraft.jsch.Session;
 public class JSchUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSchUtils.class);
+	private static final String SFTP = "sftp";
+	private static final String FORWARD_SLASH = "/";
+
+	public static final boolean validateForceMkdir(RemoteFile file) {
+		boolean missing = Status.MISSING.equals(file.getStatus());
+		boolean exists = Status.EXISTS.equals(file.getStatus());
+		if (missing || exists && file.isDirectory()) {
+			return true;
+		} else {
+			throw new IllegalArgumentException("File [" + file.getAbsolutePath() + "] exists and is not a directory. Unable to create directory.");
+		}
+	}
+
+	public static void handleNoSuchFileException(RemoteFile file, SftpException exception) throws SftpException {
+		if (isNoSuchFileException(exception)) {
+			file.setStatus(Status.MISSING);
+		} else {
+			throw exception;
+		}
+	}
+
+	public static final boolean isNoSuchFileException(SftpException exception) {
+		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
+	}
+
+	public static final void validateCopyFileSource(File file) {
+		Assert.notNull(file);
+		String path = LocationUtils.getCanonicalPath(file);
+		if (!file.exists()) {
+			throw new IllegalArgumentException("File [" + path + "] does not exist.");
+		}
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("File [" + path + "] is a directory.");
+		}
+		if (!file.canRead()) {
+			throw new IllegalArgumentException("File [" + path + "] is not readable.");
+		}
+	}
+
+	public static final void validateCopyFileDestination(RemoteFile file) {
+		Assert.notNull(file);
+		Assert.notNull(file.getAbsolutePath());
+		String normalized = LocationUtils.getNormalizedAbsolutePath(file.getAbsolutePath());
+		if (!StringUtils.equals(normalized, file.getAbsolutePath())) {
+			logger.info("Normalized path [{}] -> [{}]", file.getAbsolutePath(), normalized);
+			file.setAbsolutePath(normalized);
+		}
+		Assert.hasLength(file.getAbsolutePath());
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("File [" + file + "] is a directory.");
+		}
+	}
+
+	public static final void validateCopyFile(File source, RemoteFile destination) {
+		validateCopyFileSource(source);
+		validateCopyFileDestination(destination);
+	}
+
+	public static final List<RemoteFile> getRemoteFiles(Vector<ChannelSftp.LsEntry> entries, String path) {
+		List<RemoteFile> remoteFiles = new ArrayList<RemoteFile>();
+		for (ChannelSftp.LsEntry entry : entries) {
+			RemoteFile remoteFile = getRemoteFile(entry, path);
+			remoteFiles.add(remoteFile);
+		}
+		return remoteFiles;
+	}
+
+	public static final void updateRemoteFile(RemoteFile file, SftpATTRS attributes) {
+		file.setDirectory(attributes.isDir());
+		file.setPermissions(attributes.getPermissions());
+		file.setUserId(attributes.getUId());
+		file.setGroupId(attributes.getGId());
+		file.setLastModified(new Long(attributes.getMTime() * 1000));
+		file.setSize(attributes.getSize());
+		file.setStatus(Status.EXISTS);
+	}
+
+	public static final RemoteFile getRemoteFile(ChannelSftp.LsEntry entry, String path) {
+		String absolutePath = path + FORWARD_SLASH + entry.getFilename();
+		SftpATTRS attributes = entry.getAttrs();
+		RemoteFile file = new RemoteFile();
+		file.setAbsolutePath(absolutePath);
+		updateRemoteFile(file, attributes);
+		return file;
+	}
+
+	public static final Session openSession(JSch jsch, SessionContext context) throws JSchException {
+		Session session = jsch.getSession(context.getUsername(), context.getHostname(), context.getPort());
+		session.setConfig(context.getOptions());
+		session.connect(context.getTimeout());
+		return session;
+	}
+
+	public static final ChannelSftp openSftpChannel(Session session, int timeout) throws JSchException {
+		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
+		channel.connect(timeout);
+		return channel;
+	}
 
 	public static final JSch getDefaultJSch() throws JSchException {
-		JSch jsch = new JSch();
 		List<File> privateKeys = SSHUtils.getDefaultPrivateKeys();
+		return getJSch(privateKeys);
+	}
+
+	public static final JSch getJSch(List<File> privateKeys) throws JSchException {
+		JSch jsch = new JSch();
 		for (File privateKey : privateKeys) {
 			String path = LocationUtils.getCanonicalPath(privateKey);
 			jsch.addIdentity(path);
