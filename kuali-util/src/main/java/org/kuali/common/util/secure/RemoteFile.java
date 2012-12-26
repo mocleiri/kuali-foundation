@@ -2,20 +2,39 @@ package org.kuali.common.util.secure;
 
 public interface RemoteFile {
 
-	String getUsername();
-
+	/**
+	 * Hostname where the file resides.
+	 */
 	String getHostname();
 
-	String getFilename();
+	/**
+	 * Absolute path to the file on that host
+	 */
+	String getAbsolutePath();
 
+	/**
+	 * uid for the owner of the file (optional)
+	 */
 	Integer getUserId();
 
+	/**
+	 * gid for the file (optional)
+	 */
 	Integer getGroupId();
 
+	/**
+	 * Size of the file in bytes (optional)
+	 */
 	Long getSize();
 
+	/**
+	 * Directory indicator
+	 */
 	boolean isDirectory();
 
+	/**
+	 * Last modified timestamp (millis since the epoch)
+	 */
 	Long getLastModified();
 
 }

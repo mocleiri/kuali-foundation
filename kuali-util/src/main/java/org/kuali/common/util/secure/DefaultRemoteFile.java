@@ -2,23 +2,13 @@ package org.kuali.common.util.secure;
 
 public class DefaultRemoteFile implements RemoteFile {
 
-	String username;
 	String hostname;
-	String filename;
+	String absolutePath;
 	Integer groupId;
 	Integer userId;
 	Long size;
 	boolean directory;
 	Long lastModified;
-
-	@Override
-    public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	@Override
     public String getHostname() {
@@ -30,12 +20,12 @@ public class DefaultRemoteFile implements RemoteFile {
 	}
 
 	@Override
-    public String getFilename() {
-		return filename;
+    public String getAbsolutePath() {
+		return absolutePath;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setAbsolutePath(String absolutePath) {
+		this.absolutePath = absolutePath;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class DefaultSecureService implements SecureService {
 
 	protected void validateCopyFileDestination(RemoteFile destination) {
 		Assert.notNull(destination);
-		Assert.hasLength(destination.getFilename());
+		Assert.hasLength(destination.getAbsolutePath());
 		if (destination.isDirectory()) {
 			throw new IllegalArgumentException("[" + destination + "] is a directory");
 		}
@@ -50,8 +50,8 @@ public class DefaultSecureService implements SecureService {
 		validateCopyFileDestination(destination);
 	}
 
-	protected void forceMkdirs(ChannelSftp channel, String filename) throws SftpException {
-		List<String> fragments = getFragments(filename);
+	protected void forceMkdirs(ChannelSftp channel, String absolutePath) throws SftpException {
+		List<String> fragments = getPathFragments(absolutePath);
 		for (String fragment : fragments) {
 			logger.info(fragment);
 		}
@@ -61,8 +61,9 @@ public class DefaultSecureService implements SecureService {
 		logger.info("vector.size()={}", vector.size());
 	}
 
-	protected List<String> getFragments(String filename) {
-		String[] tokens = StringUtils.split(filename, "/");
+	protected List<String> getPathFragments(String filename) {
+		String normalized = LocationUtils.getNormalizedPath(filename);
+		String[] tokens = StringUtils.split(normalized, "/");
 		List<String> fragments = new ArrayList<String>();
 		StringBuilder sb = new StringBuilder();
 		sb.append("/");
@@ -82,7 +83,7 @@ public class DefaultSecureService implements SecureService {
 	@Override
 	public void copyFile(File source, RemoteFile destination) {
 		validateCopyFile(source, destination);
-		List<String> fragments = getFragments(destination.getFilename());
+		List<String> fragments = getPathFragments(destination.getAbsolutePath());
 		for (String fragment : fragments) {
 			logger.info(fragment);
 		}
@@ -91,14 +92,14 @@ public class DefaultSecureService implements SecureService {
 		ChannelSftp channel = null;
 		try {
 			JSch jsch = JSchUtils.getDefaultJSch();
-			session = jsch.getSession(destination.getUsername(), destination.getHostname(), 22);
+			session = jsch.getSession("root", destination.getHostname(), 22);
 			session.setConfig(SSHUtils.getDefaultOptions());
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
-			forceMkdirs(channel, destination.getFilename());
+			forceMkdirs(channel, destination.getAbsolutePath());
 			in = new FileInputStream(source);
-			channel.put(in, destination.getFilename());
+			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
@@ -115,13 +116,13 @@ public class DefaultSecureService implements SecureService {
 		ChannelSftp channel = null;
 		try {
 			JSch jsch = JSchUtils.getDefaultJSch();
-			session = jsch.getSession(source.getUsername(), source.getHostname(), 22);
+			session = jsch.getSession("root", source.getHostname(), 22);
 			session.setConfig(SSHUtils.getDefaultOptions());
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
 			out = new FileOutputStream(destination);
-			channel.get(source.getFilename(), out);
+			channel.get(source.getAbsolutePath(), out);
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {

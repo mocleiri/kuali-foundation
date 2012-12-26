@@ -28,7 +28,7 @@ public class DefaultSecureServiceTest {
 	@Test
 	public void test1() {
 		try {
-			String filename = "/Users/jeffcaddel/../jeffcaddel/x/y/z/.././../foo";
+			String filename = "/Users/jeffcaddel/../../../../../jeffcaddel/x/y/z/.././../foo";
 			File file = new File(filename);
 			String url = LocationUtils.getCanonicalURLString(file);
 			logger.info(url);
@@ -44,9 +44,8 @@ public class DefaultSecureServiceTest {
 		try {
 			logger.info("Secure service test");
 			DefaultRemoteFile dst = new DefaultRemoteFile();
-			dst.setUsername("root");
 			dst.setHostname("ci.fn.kuali.org");
-			dst.setFilename("/root/x/y/z/hello.txt");
+			dst.setAbsolutePath("/root/x/y/z/hello.txt");
 			File src = new File("/tmp/sftp/hello.txt");
 			DefaultSecureService ss = new DefaultSecureService();
 			ss.copyFile(src, dst);

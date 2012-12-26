@@ -44,8 +44,10 @@ import org.springframework.core.io.ResourceLoader;
 public class LocationUtils {
 
 	private static final String FILE_PREFIX = "file:";
-	private static final String BACKSLASH = "\\";
-	private static final String FORWARDSLASH = "/";
+	private static final String BACK_SLASH = "\\";
+	private static final String FORWARD_SLASH = "/";
+	private static final String SLASH_DOT_SLASH = "/./";
+	private static final String SLASH_DOTDOT_SLASH = "/../";
 
 	public static final List<String> getLocations(String location, LocationType type, String encoding) {
 		switch (type) {
@@ -92,6 +94,15 @@ public class LocationUtils {
 		return getURLString(canonical);
 	}
 
+	public static final void validateNormalizedPath(String originalPath, String normalizedPath) {
+		if (StringUtils.contains(normalizedPath, SLASH_DOT_SLASH)) {
+			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
+		}
+		if (StringUtils.contains(normalizedPath, SLASH_DOTDOT_SLASH)) {
+			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
+		}
+	}
+
 	/**
 	 * Resolve and remove <code>..</code> and <code>.</code> from <code>absolutePath</code> after converting any back slashes to forward
 	 * slashes
@@ -100,8 +111,8 @@ public class LocationUtils {
 		if (absolutePath == null) {
 			return null;
 		}
-		String replaced = StringUtils.replace(absolutePath, BACKSLASH, FORWARDSLASH);
-		boolean absolute = StringUtils.startsWith(replaced, FORWARDSLASH);
+		String replaced = StringUtils.replace(absolutePath, BACK_SLASH, FORWARD_SLASH);
+		boolean absolute = StringUtils.startsWith(replaced, FORWARD_SLASH);
 		if (!absolute) {
 			throw new IllegalArgumentException("[" + absolutePath + "] is not an absolute path.");
 		}
@@ -111,7 +122,9 @@ public class LocationUtils {
 			URI normalizedURI = rawURI.normalize();
 			URL normalizedURL = normalizedURI.toURL();
 			String externalForm = normalizedURL.toExternalForm();
-			return StringUtils.substring(externalForm, FILE_PREFIX.length());
+			String trimmed = StringUtils.substring(externalForm, FILE_PREFIX.length());
+			validateNormalizedPath(absolutePath, trimmed);
+			return trimmed;
 		} catch (MalformedURLException e) {
 			throw new IllegalArgumentException(e);
 		} catch (URISyntaxException e) {
