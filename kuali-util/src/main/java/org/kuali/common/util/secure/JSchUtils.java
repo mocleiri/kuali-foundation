@@ -34,7 +34,7 @@ public class JSchUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSchUtils.class);
 
-	public static final JSch getDefaultJsch() throws JSchException {
+	public static final JSch getDefaultJSch() throws JSchException {
 		JSch jsch = new JSch();
 		List<File> privateKeys = SSHUtils.getDefaultPrivateKeys();
 		for (File privateKey : privateKeys) {
