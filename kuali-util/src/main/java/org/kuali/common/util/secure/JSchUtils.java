@@ -93,8 +93,11 @@ public class JSchUtils {
 		}
 	}
 
-	public static final void validateCopyFile(File source, RemoteFile destination) {
-		validateCopyFileSource(source);
+	public static final void validateCopyLocation(String location, RemoteFile destination) {
+		if (LocationUtils.isExistingFile(location)) {
+			File source = new File(location);
+			validateCopyFileSource(source);
+		}
 		validateCopyFileDestination(destination);
 	}
 

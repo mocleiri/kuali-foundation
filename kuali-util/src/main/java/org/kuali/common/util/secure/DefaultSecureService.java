@@ -92,10 +92,7 @@ public class DefaultSecureService implements SecureService {
 
 	@Override
 	public void copyLocation(JSch jsch, SessionContext context, String location, RemoteFile destination) {
-		if (LocationUtils.isExistingFile(location)) {
-			File source = new File(location);
-			JSchUtils.validateCopyFile(source, destination);
-		}
+		JSchUtils.validateCopyLocation(location, destination);
 		InputStream in = null;
 		Session session = null;
 		ChannelSftp channel = null;
