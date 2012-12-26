@@ -17,6 +17,7 @@ package org.kuali.common.util.secure;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -42,10 +43,10 @@ public class SSHUtils {
 	private static final String ID_DSA = SSHDIR + FS + "id_dsa";
 	private static final String ID_RSA = SSHDIR + FS + "id_rsa";
 	private static final String ID_ECDSA = SSHDIR + FS + "id_ecdsa";
-	private static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
 	private static final int PORT_NUMBER_LOWEST = 1;
 	private static final int PORT_NUMBER_HIGHEST = 65535;
 
+	public static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
 	public static final File DEFAULT_CONFIG_FILE = new File(SSHDIR + FS + "config");
 	public static final int DEFAULT_PORT = 22;
 	public static final File DEFAULT_KNOWN_HOSTS = new File(SSHDIR + FS + "known_hosts");
@@ -105,11 +106,19 @@ public class SSHUtils {
 	 * Return a non-null list containing any private keys found by examining default private key locations in <code>~/.ssh</code> and
 	 * parsing <code>config</code>. Any files returned by this method are guaranteed to exist and be readable.
 	 */
-	public static final List<File> getDefaultPrivateKeys(File config) {
+	public static final List<File> getPrivateKeys(File config) {
+		return getPrivateKeys(config, true);
+	}
+
+	public static final List<File> getPrivateKeys(File config, boolean includeDefaultPrivateKeyLocations) {
 		String[] configuredPrivateKeys = getFilenames(config);
-		String[] defaultPrivateKeys = PRIVATE_KEY_DEFAULTS;
-		List<String> filenames = CollectionUtils.combine(configuredPrivateKeys, defaultPrivateKeys);
-		return getExistingAndReadable(filenames);
+		if (includeDefaultPrivateKeyLocations) {
+			List<String> filenames = CollectionUtils.combine(configuredPrivateKeys, PRIVATE_KEY_DEFAULTS);
+			return getExistingAndReadable(filenames);
+		} else {
+			List<String> filenames = Arrays.asList(configuredPrivateKeys);
+			return getExistingAndReadable(filenames);
+		}
 	}
 
 	/**
@@ -117,7 +126,7 @@ public class SSHUtils {
 	 * parsing <code>~/.ssh/config</code>. Any files returned by this method are guaranteed to exist and be readable.
 	 */
 	public static final List<File> getDefaultPrivateKeys() {
-		return getDefaultPrivateKeys(DEFAULT_CONFIG_FILE);
+		return getPrivateKeys(DEFAULT_CONFIG_FILE);
 	}
 
 	public static final Properties getDefaultOptions() {
