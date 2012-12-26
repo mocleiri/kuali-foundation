@@ -18,6 +18,7 @@ package org.kuali.common.util.secure;
 import java.io.File;
 
 import org.junit.Test;
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,15 +26,29 @@ public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
 
 	@Test
+	public void test1() {
+		try {
+			String filename = "/Users/jeffcaddel/../jeffcaddel/x/y/z/.././../foo";
+			File file = new File(filename);
+			String url = LocationUtils.getCanonicalURLString(file);
+			logger.info(url);
+			String path = LocationUtils.getNormalizedPath(filename);
+			logger.info(path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// @Test
 	public void test() {
 		try {
 			logger.info("Secure service test");
 			DefaultRemoteFile dst = new DefaultRemoteFile();
 			dst.setUsername("root");
 			dst.setHostname("ci.fn.kuali.org");
-			dst.setFilename("/root/hello.txt");
+			dst.setFilename("/root/x/y/z/hello.txt");
 			File src = new File("/tmp/sftp/hello.txt");
-			SecureService ss = new DefaultSecureService();
+			DefaultSecureService ss = new DefaultSecureService();
 			ss.copyFile(src, dst);
 		} catch (Exception e) {
 			e.printStackTrace();

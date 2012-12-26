@@ -28,6 +28,7 @@ import java.io.StringReader;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,11 +36,16 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
+
+	private static final String FILE_PREFIX = "file:";
+	private static final String BACKSLASH = "\\";
+	private static final String FORWARDSLASH = "/";
 
 	public static final List<String> getLocations(String location, LocationType type, String encoding) {
 		switch (type) {
@@ -84,6 +90,33 @@ public class LocationUtils {
 		String path = getCanonicalPath(file);
 		File canonical = new File(path);
 		return getURLString(canonical);
+	}
+
+	/**
+	 * Resolve and remove <code>..</code> and <code>.</code> from <code>absolutePath</code> after converting any back slashes to forward
+	 * slashes
+	 */
+	public static final String getNormalizedPath(String absolutePath) {
+		if (absolutePath == null) {
+			return null;
+		}
+		String replaced = StringUtils.replace(absolutePath, BACKSLASH, FORWARDSLASH);
+		boolean absolute = StringUtils.startsWith(replaced, FORWARDSLASH);
+		if (!absolute) {
+			throw new IllegalArgumentException("[" + absolutePath + "] is not an absolute path.");
+		}
+		String prefixed = FILE_PREFIX + replaced;
+		try {
+			URI rawURI = new URI(prefixed);
+			URI normalizedURI = rawURI.normalize();
+			URL normalizedURL = normalizedURI.toURL();
+			String externalForm = normalizedURL.toExternalForm();
+			return StringUtils.substring(externalForm, FILE_PREFIX.length());
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(e);
+		} catch (URISyntaxException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	public static final String getURLString(File file) {
