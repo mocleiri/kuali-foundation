@@ -15,10 +15,16 @@
  */
 package org.kuali.common.util.secure;
 
+import java.io.File;
+import java.util.List;
+
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 /**
@@ -27,6 +33,16 @@ import com.jcraft.jsch.Session;
 public class JschUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JschUtils.class);
+
+	public static final JSch getDefaultJsch() throws JSchException {
+		JSch jsch = new JSch();
+		List<File> privateKeys = SSHUtils.getDefaultPrivateKeys();
+		for (File privateKey : privateKeys) {
+			String path = LocationUtils.getCanonicalPath(privateKey);
+			jsch.addIdentity(path);
+		}
+		return jsch;
+	}
 
 	public static final void disconnectQuietly(Session session) {
 		if (session == null) {
