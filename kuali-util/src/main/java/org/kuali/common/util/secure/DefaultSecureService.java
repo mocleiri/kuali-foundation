@@ -34,23 +34,23 @@ public class DefaultSecureService implements SecureService {
 	 */
 	protected void forceMkdir(ChannelSftp channel, String path) throws SftpException {
 		RemoteFile dir = getRemoteFile(channel, path);
-		validateIsMissingOrDirectory(dir);
+		validateForceMkdir(dir);
 		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(path, true);
 		for (String pathFragment : pathFragments) {
 			RemoteFile parentDir = getRemoteFile(channel, pathFragment);
-			validateIsMissingOrDirectory(parentDir);
+			validateForceMkdir(parentDir);
 			if (!parentDir.isDirectory()) {
 				channel.mkdir(pathFragment);
 			}
 		}
 	}
 
-	protected boolean validateIsMissingOrDirectory(RemoteFile file) {
+	protected boolean validateForceMkdir(RemoteFile file) {
 		boolean missing = Exists.FALSE.equals(file.getExists());
 		if (missing || file.isDirectory()) {
 			return true;
 		} else {
-			throw new IllegalArgumentException("[" + file.getAbsolutePath() + "] is an existing file");
+			throw new IllegalArgumentException("File [" + file.getAbsolutePath() + "] exists and is not a directory. Unable to create directory.");
 		}
 	}
 
