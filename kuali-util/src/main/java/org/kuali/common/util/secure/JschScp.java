@@ -90,8 +90,8 @@ public class JschScp extends BaseScp {
 		} finally {
 			IOUtils.closeQuietly(out);
 			IOUtils.closeQuietly(in);
-			JSchUtilss.disconnectQuietly(channel);
-			JSchUtilss.disconnectQuietly(session);
+			JSchUtils.disconnectQuietly(channel);
+			JSchUtils.disconnectQuietly(session);
 		}
 	}
 }

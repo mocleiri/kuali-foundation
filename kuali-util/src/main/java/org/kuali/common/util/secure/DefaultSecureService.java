@@ -9,7 +9,7 @@ public class DefaultSecureService implements SecureService {
 	@Override
 	public void copyFile(File source, RemoteFile destination) {
 		try {
-			JSch jsch = JSchUtilss.getDefaultJsch();
+			JSch jsch = JSchUtils.getDefaultJsch();
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		}
