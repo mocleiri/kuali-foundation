@@ -5,13 +5,14 @@ public class DefaultRemoteFile implements RemoteFile {
 	String username;
 	String hostname;
 	String filename;
-	Owner owner;
-	Group group;
-	long size;
+	Integer groupId;
+	Integer userId;
+	Long size;
 	boolean directory;
-	long lastModified;
+	Long lastModified;
 
-	public String getUsername() {
+	@Override
+    public String getUsername() {
 		return username;
 	}
 
@@ -19,7 +20,8 @@ public class DefaultRemoteFile implements RemoteFile {
 		this.username = username;
 	}
 
-	public String getHostname() {
+	@Override
+    public String getHostname() {
 		return hostname;
 	}
 
@@ -27,7 +29,8 @@ public class DefaultRemoteFile implements RemoteFile {
 		this.hostname = hostname;
 	}
 
-	public String getFilename() {
+	@Override
+    public String getFilename() {
 		return filename;
 	}
 
@@ -35,31 +38,35 @@ public class DefaultRemoteFile implements RemoteFile {
 		this.filename = filename;
 	}
 
-	public Owner getOwner() {
-		return owner;
+	@Override
+    public Integer getGroupId() {
+		return groupId;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 
-	public Group getGroup() {
-		return group;
+	@Override
+    public Integer getUserId() {
+		return userId;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public long getSize() {
+	@Override
+    public Long getSize() {
 		return size;
 	}
 
-	public void setSize(long size) {
+	public void setSize(Long size) {
 		this.size = size;
 	}
 
-	public boolean isDirectory() {
+	@Override
+    public boolean isDirectory() {
 		return directory;
 	}
 
@@ -67,11 +74,12 @@ public class DefaultRemoteFile implements RemoteFile {
 		this.directory = directory;
 	}
 
-	public long getLastModified() {
+	@Override
+    public Long getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(long lastModified) {
+	public void setLastModified(Long lastModified) {
 		this.lastModified = lastModified;
 	}
 

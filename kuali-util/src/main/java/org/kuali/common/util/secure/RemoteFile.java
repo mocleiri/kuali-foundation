@@ -8,14 +8,14 @@ public interface RemoteFile {
 
 	String getFilename();
 
-	Owner getOwner();
+	Integer getUserId();
 
-	Group getGroup();
+	Integer getGroupId();
 
-	long getSize();
+	Long getSize();
 
 	boolean isDirectory();
 
-	long getLastModified();
+	Long getLastModified();
 
 }
