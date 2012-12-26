@@ -41,12 +41,15 @@ public class ScpUtils {
 		ack.setCode(code);
 		switch (code) {
 		case 0: // success
-		case -1: // ????
+			return ack;
+		case -1: // no response from server
+			ack.setErrorMessage("No response from server");
 			return ack;
 		case 1: // error
+			ack.setErrorMessage("Error: " + getErrorMessage(in));
+			return ack;
 		case 2: // fatal error
-			String errorMessage = getScpErrorMessage(in);
-			ack.setErrorMessage(errorMessage);
+			ack.setErrorMessage("Fatal error: " + getErrorMessage(in));
 			return ack;
 		default:
 			throw new IllegalStateException("SCP acknowledgement code [" + code + "] + is unknown");
@@ -60,17 +63,17 @@ public class ScpUtils {
 
 	public static final void validate(ScpAck ack) {
 		if (ack.getCode() != 0) {
-			throw new IllegalStateException("Non-zero SCP acknowledgement code " + ack.getCode() + " [" + ack.getErrorMessage() + "]");
+			throw new IllegalStateException("Non-zero SCP acknowledgement code [" + ack.getCode() + "] [" + ack.getErrorMessage() + "]");
 		}
 	}
 
-	public static final String getScpErrorMessage(InputStream in) throws IOException {
+	public static final String getErrorMessage(InputStream in) throws IOException {
 		StringBuffer sb = new StringBuffer();
-		int c;
-		do {
-			c = in.read();
+		int c = in.read();
+		while (c > 0 && c != '\n') {
 			sb.append((char) c);
-		} while (c != '\n');
+			c = in.read();
+		}
 		return sb.toString();
 	}
 

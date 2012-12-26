@@ -15,27 +15,35 @@
  */
 package org.kuali.common.util.secure;
 
-import java.io.File;
-
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JschScpTest {
-	private static final Logger logger = LoggerFactory.getLogger(JschScpTest.class);
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.Session;
 
-	@Test
-	public void testSimple() {
-		try {
-			SecureContext context = new SecureContext();
-			context.setOptions(SSHUtils.getDefaultOptions());
-			context.setPrivateKey(new File("/Users/jeffcaddel/.ssh/kr-key.pem"));
-			ScpFile source = ScpUtils.getScpFile("/tmp/scp/pdfs/1.pdf");
-			ScpFile destination = new ScpFile("root", "ci.fn.kuali.org", "/root/files/x/y/z/1.pdf");
-			Scp scp = new JschScp();
-			logger.info("SCP exit value - [{}]", scp.copy(context, source, destination));
-		} catch (Exception e) {
-			e.printStackTrace();
+/**
+ *
+ */
+public class JschUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(JschUtils.class);
+
+	public static final void disconnectQuietly(Session session) {
+		if (session == null) {
+			return;
+		} else {
+			logger.trace("Disconnecting session");
+			session.disconnect();
 		}
 	}
+
+	public static final void disconnectQuietly(Channel channel) {
+		if (channel == null) {
+			return;
+		} else {
+			logger.trace("Disconnecting channel");
+			channel.disconnect();
+		}
+	}
+
 }

@@ -16,7 +16,6 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -50,15 +49,17 @@ public class JschScp extends BaseScp {
 	protected int executeCopy(ScpContext context, ScpFile source, ScpFile destination) {
 		OutputStream out = null;
 		InputStream in = null;
+		Session session = null;
+		ChannelExec channel = null;
 		try {
 			JSch jsch = new JSch();
 			String privateKeyPath = LocationUtils.getCanonicalPath(context.getPrivateKey());
 			jsch.addIdentity(privateKeyPath);
-			Session session = jsch.getSession(destination.getUsername(), destination.getHostname(), context.getPort());
+			session = jsch.getSession(destination.getUsername(), destination.getHostname(), context.getPort());
 			session.setConfig(context.getOptions());
 			session.connect();
 			String command = "scp -p -t " + destination.getFilename();
-			ChannelExec channel = (ChannelExec) session.openChannel("exec");
+			channel = (ChannelExec) session.openChannel("exec");
 			channel.setCommand(command);
 			out = channel.getOutputStream();
 			in = channel.getInputStream();
@@ -70,13 +71,15 @@ public class JschScp extends BaseScp {
 			out.flush();
 			ScpUtils.validateAck(in);
 			long filesize = localFile.length();
-			command = "C0644 " + filesize + " " + localFile.getName() + "\n";
+			File remoteFile = new File(destination.getFilename());
+			command = "C0644 " + filesize + " " + remoteFile.getName() + "\n";
 			out.write(command.getBytes());
 			out.flush();
 			ScpUtils.validateAck(in);
 			FileUtils.copyFile(localFile, out);
 			byte b = 0;
-			out.write(b);
+			out.write((byte) b);
+			out.flush();
 			ScpUtils.validateAck(in);
 			out.close();
 			channel.disconnect();
@@ -87,38 +90,8 @@ public class JschScp extends BaseScp {
 		} finally {
 			IOUtils.closeQuietly(out);
 			IOUtils.closeQuietly(in);
+			JschUtils.disconnectQuietly(channel);
+			JschUtils.disconnectQuietly(session);
 		}
-	}
-
-	protected int checkAck(InputStream in) throws IOException {
-		int b = in.read();
-		// b is 0 for success,
-		// 1 for error,
-		// 2 for fatal error,
-		// -1
-		if (b == 0) {
-			return b;
-		}
-		if (b == -1) {
-			return b;
-		}
-
-		if (b == 1 || b == 2) {
-			StringBuffer sb = new StringBuffer();
-			int c;
-			do {
-				c = in.read();
-				sb.append((char) c);
-			} while (c != '\n');
-			if (b == 1) {
-				// error
-				logger.error(sb.toString());
-			}
-			if (b == 2) {
-				// fatal error
-				logger.error(sb.toString());
-			}
-		}
-		return b;
 	}
 }
