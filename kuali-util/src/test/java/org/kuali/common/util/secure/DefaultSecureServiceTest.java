@@ -34,9 +34,11 @@ public class DefaultSecureServiceTest {
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
+			RemoteFile rfile = new RemoteFile("ci.fn.kuali.org", "/root/x/y/z");
+
 			DefaultSecureService dss = new DefaultSecureService();
 			JSch jsch = JSchUtils.getDefaultJSch();
-			session = dss.openSession(jsch, "root", "ci.fn.kuali.org", 22, 0, SSHUtils.getDefaultOptions());
+			session = dss.openSession(jsch, "root", rfile.getHostname(), 22, 0, SSHUtils.getDefaultOptions());
 			channel = dss.openSftpChannel(session);
 			boolean file = dss.isExistingFile(channel, "/root");
 			boolean path = dss.isExistingPath(channel, "/root");
@@ -44,7 +46,7 @@ public class DefaultSecureServiceTest {
 			logger.info("file=" + file);
 			logger.info("path=" + path);
 			logger.info("dir=" + dir);
-			dss.forceMkdir(channel, "/root/x/y/z");
+			dss.forceMkdir(channel, rfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

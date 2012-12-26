@@ -10,16 +10,16 @@ public class RemoteFile {
 	Long size;
 	boolean directory;
 	Long lastModified;
-	Exists exists = Exists.UNKNOWN;
+	Status status = Status.DEFAULT_REMOTE_FILE_STATUS;
 
 	public RemoteFile() {
-		this(null, Exists.UNKNOWN);
+		this(null, null);
 	}
 
-	public RemoteFile(String absolutePath, Exists exists) {
+	public RemoteFile(String hostname, String absolutePath) {
 		super();
+		this.hostname = hostname;
 		this.absolutePath = absolutePath;
-		this.exists = exists;
 	}
 
 	public String getHostname() {
@@ -86,12 +86,12 @@ public class RemoteFile {
 		this.lastModified = lastModified;
 	}
 
-	public Exists getExists() {
-		return exists;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setExists(Exists exists) {
-		this.exists = exists;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 }

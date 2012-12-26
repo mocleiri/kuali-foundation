@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +34,10 @@ public class DefaultSecureService implements SecureService {
 	/**
 	 *
 	 */
-	protected void forceMkdir(ChannelSftp channel, String path) throws SftpException {
-		RemoteFile dir = getRemoteFile(channel, path);
+	protected void forceMkdir(ChannelSftp channel, RemoteFile dir) throws SftpException {
+		updateRemoteFile(channel, dir);
 		validateForceMkdir(dir);
-		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(path, true);
+		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(dir.getAbsolutePath(), true);
 		for (String pathFragment : pathFragments) {
 			RemoteFile parentDir = getRemoteFile(channel, pathFragment);
 			validateForceMkdir(parentDir);
@@ -47,7 +48,7 @@ public class DefaultSecureService implements SecureService {
 	}
 
 	protected boolean validateForceMkdir(RemoteFile file) {
-		boolean missing = Exists.FALSE.equals(file.getExists());
+		boolean missing = Status.MISSING.equals(file.getStatus());
 		if (missing || file.isDirectory()) {
 			return true;
 		} else {
@@ -58,47 +59,54 @@ public class DefaultSecureService implements SecureService {
 	/**
 	 * Return <code>true</code> if <code>path</code> exists.
 	 */
-	protected boolean isExistingPath(ChannelSftp channel, String path) throws SftpException {
-		RemoteFile file = getRemoteFile(channel, path);
-		return Exists.TRUE.equals(file.getExists());
+	protected boolean isExistingPath(ChannelSftp channel, String absolutePath) throws SftpException {
+		RemoteFile file = getRemoteFile(channel, absolutePath);
+		return Status.EXISTS.equals(file.getStatus());
+	}
+
+	protected RemoteFile getRemoteFile(ChannelSftp channel, String absolutePath) throws SftpException {
+		RemoteFile file = new RemoteFile();
+		file.setAbsolutePath(absolutePath);
+		updateRemoteFile(channel, file);
+		return file;
 	}
 
 	/**
 	 * Return <code>true</code> if <code>path</code> is an existing file. Return <code>false</code> if <code>path</code> does not exist or
 	 * is an existing directory.
 	 */
-	protected boolean isExistingFile(ChannelSftp channel, String path) throws SftpException {
-		RemoteFile file = getRemoteFile(channel, path);
-		return Exists.TRUE.equals(file.getExists()) && !file.isDirectory();
+	protected boolean isExistingFile(ChannelSftp channel, String absolutePath) throws SftpException {
+		RemoteFile file = getRemoteFile(channel, absolutePath);
+		return Status.EXISTS.equals(file.getStatus()) && !file.isDirectory();
 	}
 
 	/**
 	 * Return <code>true</code> if <code>path</code> is an existing directory. Return <code>false</code> if <code>path</code> does not exist
 	 * or is an existing file.
 	 */
-	protected boolean isExistingDirectory(ChannelSftp channel, String path) throws SftpException {
-		RemoteFile file = getRemoteFile(channel, path);
-		return Exists.TRUE.equals(file.getExists()) && file.isDirectory();
+	protected boolean isExistingDirectory(ChannelSftp channel, String absolutePath) throws SftpException {
+		RemoteFile file = getRemoteFile(channel, absolutePath);
+		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
 	protected boolean isNoSuchFileException(SftpException exception) {
 		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
 	}
 
-	protected RemoteFile handleNoSuchFileException(String path, SftpException exception) throws SftpException {
+	protected void handleNoSuchFileException(RemoteFile file, SftpException exception) throws SftpException {
 		if (isNoSuchFileException(exception)) {
-			return new RemoteFile(path, Exists.FALSE);
+			file.setStatus(Status.MISSING);
 		} else {
 			throw exception;
 		}
 	}
 
-	protected RemoteFile getRemoteFile(ChannelSftp channel, String path) throws SftpException {
+	protected void updateRemoteFile(ChannelSftp channel, RemoteFile file) throws SftpException {
 		try {
-			SftpATTRS attributes = channel.stat(path);
-			return getRemoteFile(path, attributes);
+			SftpATTRS attributes = channel.stat(file.getAbsolutePath());
+			updateRemoteFile(file, attributes);
 		} catch (SftpException e) {
-			return handleNoSuchFileException(path, e);
+			handleNoSuchFileException(file, e);
 		}
 	}
 
@@ -117,22 +125,23 @@ public class DefaultSecureService implements SecureService {
 		return remoteFiles;
 	}
 
-	protected RemoteFile getRemoteFile(String absolutePath, SftpATTRS attributes) {
-		RemoteFile file = new RemoteFile();
-		file.setAbsolutePath(absolutePath);
+	protected void updateRemoteFile(RemoteFile file, SftpATTRS attributes) {
 		file.setDirectory(attributes.isDir());
 		file.setPermissions(attributes.getPermissions());
 		file.setUserId(attributes.getUId());
 		file.setGroupId(attributes.getGId());
 		file.setLastModified(new Long(attributes.getMTime() * 1000));
 		file.setSize(attributes.getSize());
-		file.setExists(Exists.TRUE);
-		return file;
+		file.setStatus(Status.EXISTS);
 	}
 
 	protected RemoteFile getRemoteFile(ChannelSftp.LsEntry entry, String path) {
+		String absolutePath = path + FORWARD_SLASH + entry.getFilename();
 		SftpATTRS attributes = entry.getAttrs();
-		return getRemoteFile(path + FORWARD_SLASH + entry.getFilename(), attributes);
+		RemoteFile file = new RemoteFile();
+		file.setAbsolutePath(absolutePath);
+		updateRemoteFile(file, attributes);
+		return file;
 	}
 
 	protected void displayVector(Vector<?> v) {
@@ -177,7 +186,7 @@ public class DefaultSecureService implements SecureService {
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
-			forceMkdir(channel, destination.getAbsolutePath());
+			forceMkdir(channel, destination);
 			in = new FileInputStream(source);
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {
@@ -239,7 +248,14 @@ public class DefaultSecureService implements SecureService {
 	protected void validateCopyFileDestination(RemoteFile destination) {
 		Assert.notNull(destination);
 		Assert.notNull(destination.getAbsolutePath());
-		Assert.hasLength(LocationUtils.getNormalizedAbsolutePath(destination.getAbsolutePath()));
+		boolean notBlank = !StringUtils.isBlank(destination.getHostname());
+		Assert.isTrue(notBlank);
+		String normalized = LocationUtils.getNormalizedAbsolutePath(destination.getAbsolutePath());
+		if (!StringUtils.equals(normalized, destination.getAbsolutePath())) {
+			logger.info("Normalized path [{}] -> [{}]", destination.getAbsolutePath(), normalized);
+			destination.setAbsolutePath(normalized);
+		}
+		Assert.hasLength(destination.getAbsolutePath());
 		if (destination.isDirectory()) {
 			throw new IllegalArgumentException("File [" + destination + "] is a directory.");
 		}
