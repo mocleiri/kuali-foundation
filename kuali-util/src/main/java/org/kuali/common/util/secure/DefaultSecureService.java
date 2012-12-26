@@ -35,9 +35,28 @@ public class DefaultSecureService implements SecureService {
 			updateRemoteFile(channel, parentDir);
 			JSchUtils.validateForceMkdir(parentDir);
 			if (!parentDir.isDirectory()) {
-				logger.debug("Creating [{}]", pathFragment);
-				channel.mkdir(pathFragment);
+				createDirectory(channel, parentDir);
 			}
+		}
+	}
+
+	protected void createDirectory(ChannelSftp channel, RemoteFile dir) throws SftpException {
+		String path = dir.getAbsolutePath();
+		logger.debug("Creating [{}]", path);
+		channel.mkdir(path);
+		setAttributes(channel, dir);
+	}
+
+	protected void setAttributes(ChannelSftp channel, RemoteFile file) throws SftpException {
+		String path = file.getAbsolutePath();
+		if (file.getPermissions() != null) {
+			channel.chmod(file.getPermissions(), path);
+		}
+		if (file.getGroupId() != null) {
+			channel.chgrp(file.getGroupId(), path);
+		}
+		if (file.getUserId() != null) {
+			channel.chown(file.getUserId(), path);
 		}
 	}
 
