@@ -32,7 +32,7 @@ public class DefaultSecureServiceTest {
 			File file = new File(filename);
 			String url = LocationUtils.getCanonicalURLString(file);
 			logger.info(url);
-			String path = LocationUtils.getNormalizedPath(filename);
+			String path = LocationUtils.getNormalizedAbsolutePath(filename);
 			logger.info(path);
 		} catch (Exception e) {
 			e.printStackTrace();

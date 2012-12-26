@@ -25,6 +25,7 @@ public class DefaultSecureService implements SecureService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureService.class);
 	private static final String SFTP = "sftp";
+	private static final String FORWARD_SLASH = "/";
 
 	protected void validateCopyFileSource(File file) {
 		Assert.notNull(file);
@@ -50,8 +51,8 @@ public class DefaultSecureService implements SecureService {
 		validateCopyFileDestination(destination);
 	}
 
-	protected void forceMkdirs(ChannelSftp channel, String absolutePath) throws SftpException {
-		List<String> fragments = getPathFragments(absolutePath);
+	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
+		List<String> fragments = getPathFragments(file);
 		for (String fragment : fragments) {
 			logger.info(fragment);
 		}
@@ -61,18 +62,16 @@ public class DefaultSecureService implements SecureService {
 		logger.info("vector.size()={}", vector.size());
 	}
 
-	protected List<String> getPathFragments(String filename) {
-		String normalized = LocationUtils.getNormalizedPath(filename);
-		String[] tokens = StringUtils.split(normalized, "/");
+	protected List<String> getPathFragments(RemoteFile file) {
+		String normalized = LocationUtils.getNormalizedAbsolutePath(file.getAbsolutePath());
+		String[] tokens = StringUtils.split(normalized, FORWARD_SLASH);
 		List<String> fragments = new ArrayList<String>();
 		StringBuilder sb = new StringBuilder();
-		sb.append("/");
-		if (StringUtils.startsWith(filename, "/")) {
-			fragments.add(sb.toString());
-		}
-		for (int i = 0; i < tokens.length - 1; i++) {
+		sb.append(FORWARD_SLASH);
+		int length = file.isDirectory() ? tokens.length : tokens.length - 1;
+		for (int i = 0; i < length - 1; i++) {
 			if (i != 0) {
-				sb.append("/");
+				sb.append(FORWARD_SLASH);
 			}
 			sb.append(tokens[i]);
 			fragments.add(sb.toString());
@@ -83,7 +82,7 @@ public class DefaultSecureService implements SecureService {
 	@Override
 	public void copyFile(File source, RemoteFile destination) {
 		validateCopyFile(source, destination);
-		List<String> fragments = getPathFragments(destination.getAbsolutePath());
+		List<String> fragments = getPathFragments(destination);
 		for (String fragment : fragments) {
 			logger.info(fragment);
 		}
@@ -97,7 +96,7 @@ public class DefaultSecureService implements SecureService {
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
-			forceMkdirs(channel, destination.getAbsolutePath());
+			forceMkdirs(channel, destination);
 			in = new FileInputStream(source);
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {

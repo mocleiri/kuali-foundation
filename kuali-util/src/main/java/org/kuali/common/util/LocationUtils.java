@@ -107,7 +107,7 @@ public class LocationUtils {
 	 * Resolve and remove <code>..</code> and <code>.</code> from <code>absolutePath</code> after converting any back slashes to forward
 	 * slashes
 	 */
-	public static final String getNormalizedPath(String absolutePath) {
+	public static final String getNormalizedAbsolutePath(String absolutePath) {
 		if (absolutePath == null) {
 			return null;
 		}
