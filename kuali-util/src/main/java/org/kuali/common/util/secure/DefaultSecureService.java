@@ -68,6 +68,7 @@ public class DefaultSecureService implements SecureService {
 		List<String> fragments = new ArrayList<String>();
 		StringBuilder sb = new StringBuilder();
 		sb.append(FORWARD_SLASH);
+		fragments.add(sb.toString());
 		int length = file.isDirectory() ? tokens.length : tokens.length - 1;
 		for (int i = 0; i < length - 1; i++) {
 			if (i != 0) {
