@@ -1,49 +1,97 @@
 package org.kuali.common.util.secure;
 
-public interface RemoteFile {
+public class RemoteFile {
 
-	/**
-	 * Hostname where the file resides.
-	 */
-	String getHostname();
+	String hostname;
+	String absolutePath;
+	Integer groupId;
+	Integer userId;
+	Integer permissions;
+	Long size;
+	boolean directory;
+	Long lastModified;
+	Exists exists = Exists.UNKNOWN;
 
-	/**
-	 * Absolute path to the file on that host
-	 */
-	String getAbsolutePath();
+	public RemoteFile() {
+		this(null, Exists.UNKNOWN);
+	}
 
-	/**
-	 * uid for the owner of the file (optional)
-	 */
-	Integer getUserId();
+	public RemoteFile(String absolutePath, Exists exists) {
+		super();
+		this.absolutePath = absolutePath;
+		this.exists = exists;
+	}
 
-	/**
-	 * gid for the file (optional)
-	 */
-	Integer getGroupId();
+	public String getHostname() {
+		return hostname;
+	}
 
-	/**
-	 * permissions for the file (optional)
-	 */
-	Integer getPermissions();
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
 
-	/**
-	 * Size of the file in bytes (optional)
-	 */
-	Long getSize();
+	public String getAbsolutePath() {
+		return absolutePath;
+	}
 
-	/**
-	 * Directory indicator
-	 */
-	boolean isDirectory();
+	public void setAbsolutePath(String absolutePath) {
+		this.absolutePath = absolutePath;
+	}
 
-	/**
-	 * Last modified timestamp in millis since the epoch (optional)
-	 */
-	Long getLastModified();
+	public Integer getGroupId() {
+		return groupId;
+	}
 
-	/**
-	 * Indicates what is known about the existence of the file (UNKNOWN, TRUE, FALSE)
-	 */
-	Exists getExists();
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Integer permissions) {
+		this.permissions = permissions;
+	}
+
+	public Long getSize() {
+		return size;
+	}
+
+	public void setSize(Long size) {
+		this.size = size;
+	}
+
+	public boolean isDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(boolean directory) {
+		this.directory = directory;
+	}
+
+	public Long getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(Long lastModified) {
+		this.lastModified = lastModified;
+	}
+
+	public Exists getExists() {
+		return exists;
+	}
+
+	public void setExists(Exists exists) {
+		this.exists = exists;
+	}
+
 }

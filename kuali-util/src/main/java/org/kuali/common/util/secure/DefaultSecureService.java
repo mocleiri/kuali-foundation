@@ -1,8 +1,8 @@
 package org.kuali.common.util.secure;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
@@ -86,7 +87,7 @@ public class DefaultSecureService implements SecureService {
 
 	protected RemoteFile handleNoSuchFileException(String path, SftpException exception) throws SftpException {
 		if (isNoSuchFileException(exception)) {
-			return new DefaultRemoteFile(path, Exists.FALSE);
+			return new RemoteFile(path, Exists.FALSE);
 		} else {
 			throw exception;
 		}
@@ -117,7 +118,7 @@ public class DefaultSecureService implements SecureService {
 	}
 
 	protected RemoteFile getRemoteFile(String absolutePath, SftpATTRS attributes) {
-		DefaultRemoteFile file = new DefaultRemoteFile();
+		RemoteFile file = new RemoteFile();
 		file.setAbsolutePath(absolutePath);
 		file.setDirectory(attributes.isDir());
 		file.setPermissions(attributes.getPermissions());
@@ -176,6 +177,7 @@ public class DefaultSecureService implements SecureService {
 			session.connect();
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
+			forceMkdir(channel, destination.getAbsolutePath());
 			in = new FileInputStream(source);
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {
@@ -209,7 +211,7 @@ public class DefaultSecureService implements SecureService {
 			JSch jsch = JSchUtils.getDefaultJSch();
 			session = openSession(jsch, "root", source.getHostname(), 22, 0, SSHUtils.getDefaultOptions());
 			channel = openSftpChannel(session);
-			out = new FileOutputStream(destination);
+			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
 			channel.get(source.getAbsolutePath(), out);
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);

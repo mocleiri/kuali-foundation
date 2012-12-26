@@ -71,7 +71,7 @@ public class DefaultSecureServiceTest {
 	public void test() {
 		try {
 			logger.info("Secure service test");
-			DefaultRemoteFile dst = new DefaultRemoteFile();
+			RemoteFile dst = new RemoteFile();
 			dst.setHostname("ci.fn.kuali.org");
 			dst.setAbsolutePath("/root/x/y/z/hello.txt");
 			File src = new File("/tmp/sftp/hello.txt");
