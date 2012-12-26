@@ -30,9 +30,9 @@ import com.jcraft.jsch.Session;
 /**
  *
  */
-public class JschUtils {
+public class JSchUtilss {
 
-	private static final Logger logger = LoggerFactory.getLogger(JschUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(JSchUtilss.class);
 
 	public static final JSch getDefaultJsch() throws JSchException {
 		JSch jsch = new JSch();
