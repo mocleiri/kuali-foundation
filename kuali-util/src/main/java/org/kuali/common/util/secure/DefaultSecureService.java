@@ -1,5 +1,6 @@
 package org.kuali.common.util.secure;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,10 +35,10 @@ public class DefaultSecureService implements SecureService {
 	/**
 	 *
 	 */
-	protected void forceMkdir(ChannelSftp channel, RemoteFile dir) throws SftpException {
-		updateRemoteFile(channel, dir);
-		validateForceMkdir(dir);
-		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(dir.getAbsolutePath(), true);
+	protected void forceMkdir(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
+		validateForceMkdir(file);
+		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
 		for (String pathFragment : pathFragments) {
 			RemoteFile parentDir = getRemoteFile(channel, pathFragment);
 			validateForceMkdir(parentDir);
@@ -187,7 +188,7 @@ public class DefaultSecureService implements SecureService {
 			channel = (ChannelSftp) session.openChannel(SFTP);
 			channel.connect();
 			forceMkdir(channel, destination);
-			in = new FileInputStream(source);
+			in = new BufferedInputStream(new FileInputStream(source));
 			channel.put(in, destination.getAbsolutePath());
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);

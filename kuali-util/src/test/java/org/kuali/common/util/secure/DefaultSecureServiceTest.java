@@ -30,6 +30,26 @@ public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
 
 	@Test
+	public void testRoundTrip() {
+		Session session = null;
+		ChannelSftp channel = null;
+		try {
+			File source = new File("/tmp/sftp/hello.txt");
+			RemoteFile remote = new RemoteFile("ci.fn.kuali.org", "/root/x/y/z/hello.txt");
+			File dest = new File("/tmp/sftp/goodbye.txt");
+
+			DefaultSecureService dss = new DefaultSecureService();
+			dss.copyFile(source, remote);
+			dss.copyFile(remote, dest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JSchUtils.disconnectQuietly(channel);
+			JSchUtils.disconnectQuietly(session);
+		}
+	}
+
+	// @Test
 	public void test3() {
 		Session session = null;
 		ChannelSftp channel = null;
