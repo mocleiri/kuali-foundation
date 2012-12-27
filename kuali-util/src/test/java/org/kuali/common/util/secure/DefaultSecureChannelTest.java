@@ -38,13 +38,19 @@ public class DefaultSecureChannelTest {
 	public void testRoundTrip() {
 		SecureChannel channel = null;
 		try {
+			String absolutePath = "/root/x/y/z/hello.txt";
 			File localSrc = new File("/tmp/sftp/src.txt");
 			File localDst = new File("/tmp/sftp/dst.txt");
 			channel = getSecureChannel();
 			channel.open();
-			RemoteFile remote = channel.getMetaData("/root/x/y/z/hello.txt");
+			RemoteFile remote = channel.getMetaData(absolutePath);
 			channel.copyFile(localSrc, remote);
 			channel.copyFile(remote, localDst);
+
+			RemoteFile newRemote = new RemoteFile(absolutePath);
+			newRemote.setDirectory(true);
+
+			channel.forceMkdir(newRemote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
