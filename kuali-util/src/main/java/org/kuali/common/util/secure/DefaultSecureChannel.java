@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -54,6 +53,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public synchronized void open() {
 		logOpen();
+		validate();
 		try {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
@@ -62,6 +62,11 @@ public class DefaultSecureChannel implements SecureChannel {
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error opening secure channel", e);
 		}
+	}
+
+	protected void validate() {
+		Assert.isTrue(SSHUtils.isValidPort(port));
+		Assert.isTrue(!StringUtils.isBlank(hostname));
 	}
 
 	protected void logOpen() {
@@ -178,22 +183,24 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
+	@Override
+	public RemoteFile getMetaData(String absolutePath) {
+		RemoteFile file = new RemoteFile();
+		file.setAbsolutePath(absolutePath);
+		updateRemoteFile(sftp, file);
+		return file;
+	}
+
 	/**
 	 * Connect to the remote server and acquire information about <code>file</code>
 	 */
-	protected void updateRemoteFile(ChannelSftp channel, RemoteFile file) throws SftpException {
+	protected void updateRemoteFile(ChannelSftp channel, RemoteFile file) {
 		try {
 			SftpATTRS attributes = channel.stat(file.getAbsolutePath());
 			JSchUtils.updateRemoteFile(file, attributes);
 		} catch (SftpException e) {
-			JSchUtils.handleNoSuchFileException(file, e);
+			handleNoSuchFileException(file, e);
 		}
-	}
-
-	protected List<RemoteFile> getRemoteFiles(ChannelSftp channel, String path) throws SftpException {
-		@SuppressWarnings("unchecked")
-		Vector<ChannelSftp.LsEntry> entries = (Vector<ChannelSftp.LsEntry>) channel.ls(path);
-		return JSchUtils.getRemoteFiles(entries, path);
 	}
 
 	@Override
@@ -362,6 +369,18 @@ public class DefaultSecureChannel implements SecureChannel {
 		if (file.getUserId() != null) {
 			channel.chown(file.getUserId(), path);
 		}
+	}
+
+	public static void handleNoSuchFileException(RemoteFile file, SftpException e) {
+		if (isNoSuchFileException(e)) {
+			file.setStatus(Status.MISSING);
+		} else {
+			throw new IllegalArgumentException("Unexpected SFTP error", e);
+		}
+	}
+
+	public static final boolean isNoSuchFileException(SftpException exception) {
+		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
 	}
 
 	/**

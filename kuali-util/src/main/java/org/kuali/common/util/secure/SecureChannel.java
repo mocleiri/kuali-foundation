@@ -26,4 +26,6 @@ public interface SecureChannel {
 
 	void copyFile(RemoteFile source, File destination);
 
+	RemoteFile getMetaData(String absolutePath);
+
 }

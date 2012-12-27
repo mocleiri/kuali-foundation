@@ -30,7 +30,6 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpATTRS;
-import com.jcraft.jsch.SftpException;
 
 /**
  *
@@ -39,18 +38,6 @@ public class JSchUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSchUtils.class);
 	private static final String FORWARD_SLASH = "/";
-
-	public static void handleNoSuchFileException(RemoteFile file, SftpException exception) throws SftpException {
-		if (isNoSuchFileException(exception)) {
-			file.setStatus(Status.MISSING);
-		} else {
-			throw exception;
-		}
-	}
-
-	public static final boolean isNoSuchFileException(SftpException exception) {
-		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
-	}
 
 	public static final void validateCopyFileSource(File file) {
 		Assert.notNull(file);
