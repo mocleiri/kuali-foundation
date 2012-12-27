@@ -19,45 +19,31 @@ import java.io.File;
 
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.spring.JSchFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.FactoryBean;
-
-import com.jcraft.jsch.JSch;
 
 public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
 
-	protected JSchContext getContext() throws Exception {
-		FactoryBean<JSch> factory = new JSchFactoryBean();
-		JSch jsch = factory.getObject();
-		JSchContext context = new JSchContext();
-		context.setHostname("ci.fn.kuali.org");
-		context.setJsch(jsch);
-		context.setUsername("root");
-		context.setPort(22);
-		// context.setTimeout(30000);
-		return context;
-	}
-
-	protected SecureChannel getClient() throws Exception {
-		JSchContext context = getContext();
-		DefaultSecureChannel client = new DefaultSecureChannel();
-		client.setContext(context);
-		return client;
+	protected SecureChannel getSecureChannel() {
+		DefaultSecureChannel channel = new DefaultSecureChannel();
+		channel.setUsername("root");
+		channel.setHostname("ci.fn.kuali.org");
+		channel.setStrictHostKeyChecking(false);
+		return channel;
 	}
 
 	@Test
 	public void testRoundTrip() {
 		try {
-			SecureChannel client = getClient();
-			File source = new File("/tmp/sftp/hello.txt");
+			File localSrc = new File("/tmp/sftp/hello.txt");
 			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
-			File dest = new File("/tmp/sftp/goodbye.txt");
-
-			client.copyFile(source, remote);
-			// client.copyFile(remote, dest);
+			File localDst = new File("/tmp/sftp/goodbye.txt");
+			SecureChannel channel = getSecureChannel();
+			channel.open();
+			channel.copyFile(localSrc, remote);
+			channel.copyFile(remote, localDst);
+			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -71,11 +71,17 @@ public class DefaultSecureChannel implements SecureChannel {
 		} else {
 			logger.info("Private key config - {}", config);
 		}
-		logger.info("Check default private key locations - {}", includeDefaultPrivateKeyLocations);
-		logger.info("Strict host key checking - {}", strictHostKeyChecking);
-		logger.info("Port - {}", port);
+		if (!includeDefaultPrivateKeyLocations) {
+			logger.info("Check default private key locations - {}", includeDefaultPrivateKeyLocations);
+		}
+		if (!strictHostKeyChecking) {
+			logger.info("Strict host key checking - {}", strictHostKeyChecking);
+		}
 		if (strictHostKeyChecking) {
 			logger.info("Known hosts - {}", knownHosts);
+		}
+		if (port != SSHUtils.DEFAULT_PORT) {
+			logger.info("Port - {}", port);
 		}
 		if (connectTimeout != null) {
 			logger.info("Connect timeout - {}", connectTimeout);
@@ -154,7 +160,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected JSch getJSch() throws JSchException {
 		List<File> mergedPrivateKeys = getMergedPrivateKeys();
-		logger.info("Private keys - {}", mergedPrivateKeys.size());
+		logger.debug("Located {} private keys", mergedPrivateKeys.size());
 		JSch jsch = JSchUtils.getJSch(mergedPrivateKeys);
 		if (strictHostKeyChecking && knownHosts != null) {
 			String path = LocationUtils.getCanonicalPath(knownHosts);
@@ -165,7 +171,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected List<File> getMergedPrivateKeys() {
 		if (privateKeys == null) {
-			logger.info("Examining {}", config);
+			logger.debug("Examining {}", config);
 			return SSHUtils.getPrivateKeys(config, includeDefaultPrivateKeyLocations);
 		} else {
 			return SSHUtils.getPrivateKeys(privateKeys, includeDefaultPrivateKeyLocations);
