@@ -8,7 +8,6 @@ public class RemoteFile {
 	Integer permissions;
 	Long size;
 	boolean directory;
-	Long lastModified;
 	Status status = Status.DEFAULT_REMOTE_FILE_STATUS;
 
 	public RemoteFile() {
@@ -66,14 +65,6 @@ public class RemoteFile {
 
 	public void setDirectory(boolean directory) {
 		this.directory = directory;
-	}
-
-	public Long getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Long lastModified) {
-		this.lastModified = lastModified;
 	}
 
 	public Status getStatus() {
