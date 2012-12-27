@@ -70,7 +70,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel - {}", getLocation(username, hostname));
+		logger.info("Opening secure channel - {}", getLocation());
 		if (privateKeys != null) {
 			logger.debug("Private keys - {}", privateKeys.size());
 		} else {
@@ -87,7 +87,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected String getLocation(String username, String hostname) {
+	protected String getLocation() {
 		return (username == null) ? hostname : username + "@" + hostname;
 	}
 
@@ -104,7 +104,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public synchronized void close() {
-		logger.info("Closing secure channel - {}", getLocation(username, hostname));
+		logger.info("Closing secure channel - {}", getLocation());
 		closeQuietly(sftp);
 		closeQuietly(exec);
 		closeQuietly(session);
@@ -197,14 +197,13 @@ public class DefaultSecureChannel implements SecureChannel {
 	public RemoteFile getMetaData(String absolutePath) {
 		Assert.hasLength(absolutePath);
 		RemoteFile file = new RemoteFile();
-		file.setHostname(hostname);
 		file.setAbsolutePath(absolutePath);
 		fillInAttributes(file, absolutePath);
 		return file;
 	}
 
 	protected String getLocation(RemoteFile file) {
-		return file.getHostname() + ":" + file.getAbsolutePath();
+		return getLocation() + ":" + file.getAbsolutePath();
 	}
 
 	@Override
@@ -241,7 +240,6 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected void fillInAttributes(RemoteFile file, String path) {
 		try {
-			file.setHostname(hostname);
 			SftpATTRS attributes = sftp.stat(path);
 			fillInAttributes(file, attributes);
 		} catch (SftpException e) {
