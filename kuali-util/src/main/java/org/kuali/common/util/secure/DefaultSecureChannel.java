@@ -250,6 +250,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected void fillInAttributes(RemoteFile file, String path) {
 		try {
+			file.setHostname(hostname);
 			SftpATTRS attributes = sftp.stat(path);
 			fillInAttributes(file, attributes);
 		} catch (SftpException e) {

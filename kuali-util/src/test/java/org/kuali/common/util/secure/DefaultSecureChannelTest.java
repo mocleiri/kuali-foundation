@@ -29,7 +29,7 @@ public class DefaultSecureChannelTest {
 	protected SecureChannel getSecureChannel() {
 		DefaultSecureChannel channel = new DefaultSecureChannel();
 		channel.setUsername("root");
-		channel.setHostname("ci.fn.kuali.org");
+		channel.setHostname("env7.ole.kuali.org");
 		channel.setStrictHostKeyChecking(false);
 		return channel;
 	}
@@ -51,7 +51,7 @@ public class DefaultSecureChannelTest {
 		}
 	}
 
-	// @Test
+	@Test
 	public void testRoundTrip() {
 		SecureChannel channel = null;
 		try {
@@ -63,11 +63,6 @@ public class DefaultSecureChannelTest {
 			RemoteFile remote = channel.getMetaData(absolutePath);
 			channel.copyFile(localSrc, remote);
 			channel.copyFile(remote, localDst);
-
-			RemoteFile newRemote = new RemoteFile(absolutePath);
-			newRemote.setDirectory(true);
-
-			channel.forceMkdir(newRemote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
