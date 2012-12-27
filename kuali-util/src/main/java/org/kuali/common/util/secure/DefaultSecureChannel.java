@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -280,18 +279,16 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void copyLocations(List<String> locations, List<RemoteFile> destinations) {
-		Assert.isTrue(locations.size() == destinations.size());
-		for (int i = 0; i < locations.size(); i++) {
-			String location = locations.get(i);
-			RemoteFile destination = destinations.get(i);
-			copyLocationToFile(sftp, location, destination);
-		}
-	}
-
-	@Override
 	public void copyLocationToFile(String location, RemoteFile destination) {
-		copyLocations(Collections.singletonList(location), Collections.singletonList(destination));
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			copyInputStreamToFile(in, destination);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
 	}
 
 	@Override
@@ -307,18 +304,6 @@ public class DefaultSecureChannel implements SecureChannel {
 			sftp.put(source, destination.getAbsolutePath());
 		} catch (SftpException e) {
 			throw new IllegalStateException("Unexpected error", e);
-		}
-	}
-
-	protected void copyLocationToFile(ChannelSftp sftp, String location, RemoteFile destination) {
-		InputStream in = null;
-		try {
-			in = LocationUtils.getInputStream(location);
-			copyInputStreamToFile(in, destination);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 
