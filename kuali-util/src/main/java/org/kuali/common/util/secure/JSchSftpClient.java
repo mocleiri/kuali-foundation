@@ -18,7 +18,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public class JSchSftpClient implements SecureFtpClient {
+public class JSchSftpClient {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSchSftpClient.class);
 
@@ -105,19 +105,16 @@ public class JSchSftpClient implements SecureFtpClient {
 		return JSchUtils.getRemoteFiles(entries, path);
 	}
 
-	@Override
 	public void copyFile(File source, ChannelSftp channel, RemoteFile destination) {
 		copyLocationToFile(LocationUtils.getCanonicalURLString(source), channel, destination);
 	}
 
-	@Override
 	public void copyFileToDirectory(File source, ChannelSftp channel, RemoteFile destination) {
 		String filename = source.getName();
 		updateRemoteFile(destination, filename);
 		copyFile(source, channel, destination);
 	}
 
-	@Override
 	public void copyLocationToFile(String location, ChannelSftp channel, RemoteFile destination) {
 		JSchUtils.validateCopyLocation(location, destination);
 		InputStream in = null;
@@ -131,7 +128,6 @@ public class JSchSftpClient implements SecureFtpClient {
 		}
 	}
 
-	@Override
 	public void copyInputStreamToFile(InputStream source, ChannelSftp channel, RemoteFile destination) {
 		try {
 			forceMkdirs(channel, destination);
@@ -155,14 +151,12 @@ public class JSchSftpClient implements SecureFtpClient {
 		destination.setDirectory(false);
 	}
 
-	@Override
 	public void copyLocationToDirectory(String location, ChannelSftp channel, RemoteFile destination) {
 		String filename = LocationUtils.getFilename(location);
 		updateRemoteFile(destination, filename);
 		copyLocationToFile(location, channel, destination);
 	}
 
-	@Override
 	public void copyFile(ChannelSftp channel, RemoteFile source, File destination) {
 		OutputStream out = null;
 		try {
