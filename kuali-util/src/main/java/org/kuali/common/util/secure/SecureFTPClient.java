@@ -6,13 +6,13 @@ import java.util.List;
 
 import com.jcraft.jsch.JSch;
 
-public interface SecureService {
+public interface SecureFTPClient {
 
 	void copyFileToDirectory(JSch jsch, SessionContext context, File source, RemoteFile destination);
 
 	void copyDirectory(JSch jsch, SessionContext context, File srcDir, RemoteFile dstDir);
 
-	void copyFileToFile(JSch jsch, SessionContext context, File srcFile, RemoteFile dstFile);
+	void copyFile(JSch jsch, SessionContext context, File srcFile, RemoteFile dstFile);
 
 	void copyLocationToDirectory(JSch jsch, SessionContext context, String source, RemoteFile destination);
 

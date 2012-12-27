@@ -19,9 +19,9 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public class DefaultSecureService implements SecureService {
+public class DefaultSecureFTPClient implements SecureFTPClient {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureFTPClient.class);
 
 	/**
 	 *
