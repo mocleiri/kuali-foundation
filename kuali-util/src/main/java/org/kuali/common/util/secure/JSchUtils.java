@@ -132,7 +132,9 @@ public class JSchUtils {
 	public static final Session openSession(JSchContext context) throws JSchException {
 		JSch jsch = context.getJsch();
 		Session session = jsch.getSession(context.getUsername(), context.getHostname(), context.getPort());
-		session.setConfig(context.getOptions());
+		if (context.getOptions() != null) {
+			session.setConfig(context.getOptions());
+		}
 		session.connect(context.getTimeout());
 		return session;
 	}

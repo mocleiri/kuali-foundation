@@ -24,9 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 
-import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 
 public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
@@ -35,33 +33,33 @@ public class DefaultSecureServiceTest {
 		FactoryBean<JSch> factory = new JSchFactoryBean();
 		JSch jsch = factory.getObject();
 		JSchContext context = new JSchContext();
+		context.setHostname("ci.fn.kuali.org");
 		context.setJsch(jsch);
 		context.setUsername("root");
 		context.setPort(22);
-		context.setTimeout(180);
+		// context.setTimeout(30000);
 		return context;
+	}
+
+	protected SecureFtpClient getClient() throws Exception {
+		JSchContext context = getContext();
+		JSchSecureFtpClient client = new JSchSecureFtpClient();
+		client.setContext(context);
+		return client;
 	}
 
 	@Test
 	public void testRoundTrip() {
-		Session session = null;
-		ChannelSftp channel = null;
 		try {
-			JSchContext context = getContext();
-			session = JSchUtils.openSession(context);
-			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
+			SecureFtpClient client = getClient();
 			File source = new File("/tmp/sftp/hello.txt");
 			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
 			File dest = new File("/tmp/sftp/goodbye.txt");
 
-			SecureFtpClient dss = new JSchSecureFtpClient();
-			dss.copyFile(source, channel, remote);
-			dss.copyFile(channel, remote, dest);
+			client.copyFile(source, remote);
+			// client.copyFile(remote, dest);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
 		}
 	}
 

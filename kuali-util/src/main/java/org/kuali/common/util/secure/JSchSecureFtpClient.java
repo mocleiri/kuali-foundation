@@ -226,4 +226,12 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
+	public JSchContext getContext() {
+		return context;
+	}
+
+	public void setContext(JSchContext context) {
+		this.context = context;
+	}
+
 }
