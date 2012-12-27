@@ -197,7 +197,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		RemoteFile file = new RemoteFile();
 		file.setHostname(hostname);
 		file.setAbsolutePath(absolutePath);
-		updateMetaData(sftp, file);
+		update(sftp, file);
 		return file;
 	}
 
@@ -233,8 +233,9 @@ public class DefaultSecureChannel implements SecureChannel {
 		return isStatus(file, Status.EXISTS) && file.isDirectory();
 	}
 
-	protected void updateMetaData(ChannelSftp sftp, RemoteFile file) {
+	protected void update(ChannelSftp sftp, RemoteFile file) {
 		try {
+			file.setHostname(hostname);
 			SftpATTRS attributes = sftp.stat(file.getAbsolutePath());
 			update(file, attributes);
 		} catch (SftpException e) {
@@ -351,12 +352,12 @@ public class DefaultSecureChannel implements SecureChannel {
 	 */
 	protected void forceMkdirs(ChannelSftp sftp, RemoteFile file) throws SftpException {
 		boolean directoryIndicator = file.isDirectory();
-		updateMetaData(sftp, file);
+		update(sftp, file);
 		validate(file, directoryIndicator);
 		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
 		for (String pathFragment : pathFragments) {
 			RemoteFile parentDir = new RemoteFile(pathFragment);
-			updateMetaData(sftp, parentDir);
+			update(sftp, parentDir);
 			validate(parentDir, true);
 			if (!parentDir.isDirectory()) {
 				createDirectory(sftp, parentDir);
@@ -442,7 +443,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	 * Return <code>true</code> if <code>file</code> exists.
 	 */
 	protected boolean isExisting(ChannelSftp sftp, RemoteFile file) throws SftpException {
-		updateMetaData(sftp, file);
+		update(sftp, file);
 		return Status.EXISTS.equals(file.getStatus());
 	}
 
@@ -451,7 +452,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	 * is an existing directory.
 	 */
 	protected boolean isExistingFile(ChannelSftp sftp, RemoteFile file) throws SftpException {
-		updateMetaData(sftp, file);
+		update(sftp, file);
 		return Status.EXISTS.equals(file.getStatus()) && !file.isDirectory();
 	}
 
@@ -460,7 +461,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	 * or is an existing file.
 	 */
 	protected boolean isExistingDirectory(ChannelSftp sftp, RemoteFile file) throws SftpException {
-		updateMetaData(sftp, file);
+		update(sftp, file);
 		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
