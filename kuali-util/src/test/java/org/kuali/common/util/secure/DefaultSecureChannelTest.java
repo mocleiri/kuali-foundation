@@ -22,8 +22,8 @@ import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultSecureServiceTest {
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
+public class DefaultSecureChannelTest {
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
 
 	protected SecureChannel getSecureChannel() {
 		DefaultSecureChannel channel = new DefaultSecureChannel();
