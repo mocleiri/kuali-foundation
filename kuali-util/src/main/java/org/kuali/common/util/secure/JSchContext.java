@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import com.jcraft.jsch.JSch;
 
-public class SessionContext {
+public class JSchContext {
 
 	JSch jsch;
 	String username;

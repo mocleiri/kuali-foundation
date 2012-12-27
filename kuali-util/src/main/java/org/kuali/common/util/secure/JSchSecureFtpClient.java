@@ -26,7 +26,7 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSchSecureFtpClient.class);
 
-	SessionContext context;
+	JSchContext context;
 
 	/**
 	 *

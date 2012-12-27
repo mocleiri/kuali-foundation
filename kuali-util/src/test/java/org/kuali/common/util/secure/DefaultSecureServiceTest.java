@@ -31,10 +31,10 @@ import com.jcraft.jsch.Session;
 public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
 
-	protected SessionContext getContext() throws Exception {
+	protected JSchContext getContext() throws Exception {
 		FactoryBean<JSch> factory = new JSchFactoryBean();
 		JSch jsch = factory.getObject();
-		SessionContext context = new SessionContext();
+		JSchContext context = new JSchContext();
 		context.setJsch(jsch);
 		context.setUsername("root");
 		context.setPort(22);
@@ -47,7 +47,7 @@ public class DefaultSecureServiceTest {
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
-			SessionContext context = getContext();
+			JSchContext context = getContext();
 			session = JSchUtils.openSession(context);
 			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
 			File source = new File("/tmp/sftp/hello.txt");
