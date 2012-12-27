@@ -22,11 +22,21 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public class JSchSecureFtpClient implements SecureFtpClient {
+public class DefaultSecureChannel implements SecureChannel {
 
-	private static final Logger logger = LoggerFactory.getLogger(JSchSecureFtpClient.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
 
 	JSchContext context;
+
+	@Override
+    public void connect() {
+
+	}
+
+	@Override
+    public void disconnect() {
+
+	}
 
 	/**
 	 * Connect to the remote server and acquire information about <code>file</code>

@@ -41,9 +41,9 @@ public class DefaultSecureServiceTest {
 		return context;
 	}
 
-	protected SecureFtpClient getClient() throws Exception {
+	protected SecureChannel getClient() throws Exception {
 		JSchContext context = getContext();
-		JSchSecureFtpClient client = new JSchSecureFtpClient();
+		DefaultSecureChannel client = new DefaultSecureChannel();
 		client.setContext(context);
 		return client;
 	}
@@ -51,7 +51,7 @@ public class DefaultSecureServiceTest {
 	@Test
 	public void testRoundTrip() {
 		try {
-			SecureFtpClient client = getClient();
+			SecureChannel client = getClient();
 			File source = new File("/tmp/sftp/hello.txt");
 			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
 			File dest = new File("/tmp/sftp/goodbye.txt");

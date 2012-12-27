@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
-public interface SecureFtpClient {
+public interface SecureChannel {
+
+	void connect();
+
+	void disconnect();
 
 	void copyFile(File source, RemoteFile destination);
 
