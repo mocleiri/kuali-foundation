@@ -18,6 +18,7 @@ package org.kuali.common.util.secure;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,7 +47,7 @@ public class SSHUtils {
 	private static final int PORT_NUMBER_LOWEST = 1;
 	private static final int PORT_NUMBER_HIGHEST = 65535;
 
-	public static final String[] PRIVATE_KEY_DEFAULTS = { IDENTITY, ID_DSA, ID_RSA, ID_ECDSA };
+	public static final List<String> PRIVATE_KEY_DEFAULTS = Arrays.asList(IDENTITY, ID_DSA, ID_RSA, ID_ECDSA);
 	public static final File DEFAULT_CONFIG_FILE = new File(SSHDIR + FS + "config");
 	public static final int DEFAULT_PORT = 22;
 	public static final File DEFAULT_KNOWN_HOSTS = new File(SSHDIR + FS + "known_hosts");
@@ -111,13 +112,25 @@ public class SSHUtils {
 	}
 
 	public static final List<File> getPrivateKeys(File config, boolean includeDefaultPrivateKeyLocations) {
-		String[] configuredPrivateKeys = getFilenames(config);
+		List<String> configuredPrivateKeys = getFilenames(config);
 		if (includeDefaultPrivateKeyLocations) {
-			List<String> filenames = CollectionUtils.combine(configuredPrivateKeys, PRIVATE_KEY_DEFAULTS);
+			List<String> filenames = CollectionUtils.combineStrings(configuredPrivateKeys, PRIVATE_KEY_DEFAULTS);
 			return getExistingAndReadable(filenames);
 		} else {
-			List<String> filenames = Arrays.asList(configuredPrivateKeys);
+			return getExistingAndReadable(configuredPrivateKeys);
+		}
+	}
+
+	public static final List<File> getPrivateKeys(List<File> privateKeys, boolean includeDefaultPrivateKeyLocations) {
+		List<String> privateKeyFilenames = new ArrayList<String>();
+		for (File privateKey : privateKeys) {
+			privateKeyFilenames.add(LocationUtils.getCanonicalPath(privateKey));
+		}
+		if (includeDefaultPrivateKeyLocations) {
+			List<String> filenames = CollectionUtils.combineStrings(privateKeyFilenames, PRIVATE_KEY_DEFAULTS);
 			return getExistingAndReadable(filenames);
+		} else {
+			return getExistingAndReadable(privateKeyFilenames);
 		}
 	}
 
@@ -146,13 +159,13 @@ public class SSHUtils {
 		return files;
 	}
 
-	public static final String[] getFilenames(File config) {
+	public static final List<String> getFilenames(File config) {
 		if (config.exists() && config.canRead()) {
 			List<String> lines = LocationUtils.readLines(config);
 			List<String> identityFileLines = getIdentityFileLines(lines);
-			return CollectionUtils.toStringArray(getFilenames(identityFileLines));
+			return getFilenames(identityFileLines);
 		} else {
-			return new String[] {};
+			return Collections.<String> emptyList();
 		}
 	}
 

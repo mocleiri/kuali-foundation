@@ -18,6 +18,7 @@ package org.kuali.common.util.spring;
 import java.io.File;
 import java.util.List;
 
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.secure.JSchUtils;
 import org.kuali.common.util.secure.SSHUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -30,6 +31,7 @@ public class JSchFactoryBean implements FactoryBean<JSch> {
 	File sshConfig = SSHUtils.DEFAULT_CONFIG_FILE;
 	boolean includeDefaultPrivateKeyLocations = true;
 	List<File> privateKeys;
+	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 
 	@Override
 	public JSch getObject() throws Exception {
@@ -38,14 +40,22 @@ public class JSchFactoryBean implements FactoryBean<JSch> {
 
 	protected synchronized JSch getInstance() throws Exception {
 		if (jsch == null) {
-			if (privateKeys != null) {
-				jsch = JSchUtils.getJSch(privateKeys);
-			} else {
-				List<File> privateKeys = SSHUtils.getPrivateKeys(sshConfig, includeDefaultPrivateKeyLocations);
-				jsch = JSchUtils.getJSch(privateKeys);
+			List<File> mergedPrivateKeys = getMergedPrivateKeys();
+			jsch = JSchUtils.getJSch(mergedPrivateKeys);
+			if (knownHosts != null) {
+				String path = LocationUtils.getCanonicalPath(knownHosts);
+				jsch.setKnownHosts(path);
 			}
 		}
 		return jsch;
+	}
+
+	protected List<File> getMergedPrivateKeys() {
+		if (privateKeys == null) {
+			return SSHUtils.getPrivateKeys(sshConfig, includeDefaultPrivateKeyLocations);
+		} else {
+			return SSHUtils.getPrivateKeys(privateKeys, includeDefaultPrivateKeyLocations);
+		}
 	}
 
 	@Override
@@ -72,14 +82,6 @@ public class JSchFactoryBean implements FactoryBean<JSch> {
 
 	public void setPrivateKeys(List<File> privateKeys) {
 		this.privateKeys = privateKeys;
-	}
-
-	public boolean isIncludeDefaultPrivateKeyLocations() {
-		return includeDefaultPrivateKeyLocations;
-	}
-
-	public void setIncludeDefaultPrivateKeyLocations(boolean includeDefaultPrivateKeyLocations) {
-		this.includeDefaultPrivateKeyLocations = includeDefaultPrivateKeyLocations;
 	}
 
 }

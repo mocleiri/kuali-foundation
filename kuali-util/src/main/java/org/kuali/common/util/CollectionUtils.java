@@ -29,15 +29,13 @@ import org.springframework.util.Assert;
 public class CollectionUtils {
 
 	/**
-	 * Return a new list containing the unique set of elements represented by <code>arrays</code>.
+	 * Return a new list containing the unique set of strings represented by <code>lists</code>.
 	 */
-	public static final <T> List<T> combine(T[]... arrays) {
-		List<T> newList = new ArrayList<T>();
-		for (T[] array : arrays) {
-			for (T element : array) {
-				if (!newList.contains(element)) {
-					newList.add(element);
-				}
+	public static final List<String> combineStrings(List<String> list1, List<String> list2) {
+		List<String> newList = new ArrayList<String>(list1);
+		for (String element : list2) {
+			if (!newList.contains(element)) {
+				newList.add(element);
 			}
 		}
 		return newList;
