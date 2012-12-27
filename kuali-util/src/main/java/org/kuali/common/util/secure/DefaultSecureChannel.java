@@ -102,6 +102,34 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
+	public String getAbsolutePath(String path) {
+		Assert.hasLength(path);
+		try {
+			RemoteFile file = getMetaData(path);
+			if (!isStatus(file, Status.EXISTS)) {
+				throw new IllegalArgumentException(getLocation(file) + " does not exist");
+			}
+			if (StringUtils.startsWith(path, FORWARDSLASH)) {
+				return LocationUtils.getNormalizedAbsolutePath(path);
+			}
+			String pwd = sftp.pwd();
+			String absolutePath = pwd + FORWARDSLASH + path;
+			String normalized = LocationUtils.getNormalizedAbsolutePath(absolutePath);
+			if (StringUtils.equals(normalized, FORWARDSLASH + FORWARDSLASH)) {
+				return FORWARDSLASH;
+			} else if (StringUtils.equals(normalized, FORWARDSLASH)) {
+				return FORWARDSLASH;
+			} else if (StringUtils.endsWith(normalized, FORWARDSLASH)) {
+				return StringUtils.substring(normalized, 0, normalized.length() - 1);
+			} else {
+				return normalized;
+			}
+		} catch (SftpException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	@Override
 	public synchronized void close() {
 		logger.info("Closing secure channel - {}", getLocation(username, hostname));
 		closeQuietly(sftp);
@@ -406,11 +434,11 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected String getInvalidExistingFileMessage(RemoteFile file) {
-		if (file.isDirectory()) {
-			return "[" + getLocation(file) + "] is an existing directory. Unable to create file.";
+	protected String getInvalidExistingFileMessage(RemoteFile existing) {
+		if (existing.isDirectory()) {
+			return "[" + getLocation(existing) + "] is an existing directory. Unable to create file.";
 		} else {
-			return "[" + getLocation(file) + "] is an existing file. Unable to create directory.";
+			return "[" + getLocation(existing) + "] is an existing file. Unable to create directory.";
 		}
 	}
 
