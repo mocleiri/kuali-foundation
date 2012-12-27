@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Str {
 
 	public static final String EMPTY_STRING = "";
+	public static final String UTF8 = "UTF-8";
 	public static final String COMMA = ",";
 	public static final String SPACE = " ";
 	public static final String CR = "\r";
@@ -33,6 +35,16 @@ public class Str {
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
 
+	public static final byte[] getUTF8Bytes(String s) {
+		if (s == null) {
+			return null;
+		}
+		try {
+			return s.getBytes(UTF8);
+		} catch (UnsupportedEncodingException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
 
 	public static final boolean contains(List<String> tokens, String value, boolean caseSensitive) {
 		for (String token : tokens) {

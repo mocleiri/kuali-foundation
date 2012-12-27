@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -294,7 +295,8 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyStringToFile(String string, RemoteFile destination) {
-		InputStream in = new ByteArrayInputStream(string.getBytes());
+		Assert.notNull(string);
+		InputStream in = new ByteArrayInputStream(Str.getUTF8Bytes(string));
 		copyInputStreamToFile(in, destination);
 	}
 
