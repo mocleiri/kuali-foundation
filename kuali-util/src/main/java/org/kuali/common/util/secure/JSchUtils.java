@@ -26,11 +26,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
@@ -40,7 +38,6 @@ import com.jcraft.jsch.SftpException;
 public class JSchUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSchUtils.class);
-	private static final String SFTP = "sftp";
 	private static final String FORWARD_SLASH = "/";
 
 	public static final boolean validateForceMkdir(RemoteFile file) {
@@ -129,22 +126,6 @@ public class JSchUtils {
 		return file;
 	}
 
-	public static final Session openSession(JSchContext context) throws JSchException {
-		JSch jsch = context.getJsch();
-		Session session = jsch.getSession(context.getUsername(), context.getHostname(), context.getPort());
-		if (context.getOptions() != null) {
-			session.setConfig(context.getOptions());
-		}
-		session.connect(context.getTimeout());
-		return session;
-	}
-
-	public static final ChannelSftp openSftpChannel(Session session, int timeout) throws JSchException {
-		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
-		channel.connect(timeout);
-		return channel;
-	}
-
 	public static final JSch getDefaultJSch() throws JSchException {
 		List<File> privateKeys = SSHUtils.getDefaultPrivateKeys();
 		return getJSch(privateKeys);
@@ -157,24 +138,6 @@ public class JSchUtils {
 			jsch.addIdentity(path);
 		}
 		return jsch;
-	}
-
-	public static final void disconnectQuietly(Session session) {
-		if (session == null) {
-			return;
-		} else {
-			logger.trace("Disconnecting session");
-			session.disconnect();
-		}
-	}
-
-	public static final void disconnectQuietly(Channel channel) {
-		if (channel == null) {
-			return;
-		} else {
-			logger.trace("Disconnecting channel");
-			channel.disconnect();
-		}
 	}
 
 }
