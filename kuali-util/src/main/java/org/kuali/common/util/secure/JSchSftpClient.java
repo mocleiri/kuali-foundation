@@ -18,9 +18,9 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public class JSchSftpClientt implements SecureFtpClient {
+public class JSchSftpClient implements SecureFtpClient {
 
-	private static final Logger logger = LoggerFactory.getLogger(JSchSftpClientt.class);
+	private static final Logger logger = LoggerFactory.getLogger(JSchSftpClient.class);
 
 	SessionContext context;
 
