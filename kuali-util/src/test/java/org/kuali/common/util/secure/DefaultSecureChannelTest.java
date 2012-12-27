@@ -70,9 +70,7 @@ public class DefaultSecureChannelTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (channel != null) {
-				channel.close();
-			}
+			ChannelUtils.closeQuietly(channel);
 		}
 	}
 
