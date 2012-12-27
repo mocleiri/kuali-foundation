@@ -3,21 +3,28 @@ package org.kuali.common.util.secure;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
@@ -25,17 +32,144 @@ import com.jcraft.jsch.SftpException;
 public class DefaultSecureChannel implements SecureChannel {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
+	private static final String SFTP = "sftp";
+	private static final String EXEC = "exec";
+	private static final String FORWARDSLASH = "/";
 
-	JSchContext context;
+	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
+	File config = SSHUtils.DEFAULT_CONFIG_FILE;
+	boolean includeDefaultPrivateKeyLocations = true;
+	boolean strictHostKeyChecking = true;
+	int port = SSHUtils.DEFAULT_PORT;
+	String username;
+	String hostname;
+	Integer connectTimeout;
+	List<File> privateKeys;
+	Properties options;
+
+	protected Session session;
+	protected ChannelSftp sftp;
+	protected ChannelExec exec;
 
 	@Override
-	public void open() {
+	public synchronized void open() {
+		logOpen();
+		try {
+			JSch jsch = getJSch();
+			this.session = openSession(jsch);
+			this.sftp = openSftpChannel(session, connectTimeout);
+			this.exec = openExecChannel(session, connectTimeout);
+		} catch (Exception e) {
+			throw new IllegalStateException("Unexpected error opening secure channel", e);
+		}
+	}
 
+	protected void logOpen() {
+		logger.info("Opening secure channel - {}", getLocation(username, hostname));
+		if (privateKeys != null) {
+			logger.info("Private keys - {}", privateKeys.size());
+		} else {
+			logger.info("Private key config - {}", config);
+		}
+		logger.info("Check default private key locations - {}", includeDefaultPrivateKeyLocations);
+		logger.info("Strict host key checking - {}", strictHostKeyChecking);
+		logger.info("Port - {}", port);
+		if (strictHostKeyChecking) {
+			logger.info("Known hosts - {}", knownHosts);
+		}
+		if (connectTimeout != null) {
+			logger.info("Connect timeout - {}", connectTimeout);
+		}
+		if (options != null) {
+			logger.info("Configuring channel with {} options", options.size());
+			PropertyUtils.debug(options);
+		}
+	}
+
+	protected String getLocation(String username, String hostname) {
+		return (username == null) ? hostname : username + "@" + hostname;
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
+		logger.info("Closing secure channel - {}", getLocation(username, hostname));
+		closeQuietly(sftp);
+		closeQuietly(exec);
+		closeQuietly(session);
+	}
 
+	protected ChannelExec openExecChannel(Session session, Integer timeout) throws JSchException {
+		ChannelExec channel = (ChannelExec) session.openChannel(EXEC);
+		connect(channel, timeout);
+		return channel;
+	}
+
+	protected void connect(Channel channel, Integer timeout) throws JSchException {
+		if (timeout == null) {
+			channel.connect();
+		} else {
+			channel.connect(timeout);
+		}
+	}
+
+	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
+		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
+		connect(channel, timeout);
+		return channel;
+	}
+
+	protected void closeQuietly(Session session) {
+		if (session != null) {
+			session.disconnect();
+		}
+	}
+
+	protected void closeQuietly(Channel channel) {
+		if (channel != null) {
+			channel.disconnect();
+		}
+	}
+
+	protected Properties getSessionProperties(Properties options, boolean strictHostKeyChecking) {
+		Properties properties = new Properties();
+		if (options != null) {
+			properties.putAll(options);
+		}
+		if (!strictHostKeyChecking) {
+			properties.setProperty(SSHUtils.STRICT_HOST_KEY_CHECKING, SSHUtils.NO);
+		}
+		return properties;
+	}
+
+	protected Session openSession(JSch jsch) throws JSchException {
+		Session session = jsch.getSession(username, hostname, port);
+		session.setConfig(getSessionProperties(options, strictHostKeyChecking));
+		if (connectTimeout == null) {
+			session.connect();
+		} else {
+			session.connect(connectTimeout);
+		}
+		return session;
+	}
+
+	protected JSch getJSch() throws JSchException {
+		List<File> mergedPrivateKeys = getMergedPrivateKeys();
+		logger.info("Private keys - {}", mergedPrivateKeys.size());
+		JSch jsch = JSchUtils.getJSch(mergedPrivateKeys);
+		if (strictHostKeyChecking && knownHosts != null) {
+			String path = LocationUtils.getCanonicalPath(knownHosts);
+			jsch.setKnownHosts(path);
+		}
+		return jsch;
+	}
+
+	protected List<File> getMergedPrivateKeys() {
+		if (privateKeys == null) {
+			logger.info("Examining {}", config);
+			return SSHUtils.getPrivateKeys(config, includeDefaultPrivateKeyLocations);
+		} else {
+			return SSHUtils.getPrivateKeys(privateKeys, includeDefaultPrivateKeyLocations);
+		}
 	}
 
 	/**
@@ -70,22 +204,11 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyLocations(List<String> locations, List<RemoteFile> destinations) {
-		Session session = null;
-		ChannelSftp channel = null;
-		try {
-			Assert.isTrue(locations.size() == destinations.size());
-			session = JSchUtils.openSession(context);
-			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
-			for (int i = 0; i < locations.size(); i++) {
-				String location = locations.get(i);
-				RemoteFile destination = destinations.get(i);
-				copyLocationToFile(channel, location, destination);
-			}
-		} catch (Exception e) {
-			throw new IllegalStateException("Unexpected error", e);
-		} finally {
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
+		Assert.isTrue(locations.size() == destinations.size());
+		for (int i = 0; i < locations.size(); i++) {
+			String location = locations.get(i);
+			RemoteFile destination = destinations.get(i);
+			copyLocationToFile(sftp, location, destination);
 		}
 	}
 
@@ -102,17 +225,10 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyInputStreamToFile(InputStream source, RemoteFile destination) {
-		Session session = null;
-		ChannelSftp channel = null;
 		try {
-			session = JSchUtils.openSession(context);
-			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
-			copyInputStreamToFile(channel, source, destination);
-		} catch (Exception e) {
+			copyInputStreamToFile(sftp, source, destination);
+		} catch (SftpException e) {
 			throw new IllegalStateException("Unexpected error", e);
-		} finally {
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
 		}
 	}
 
@@ -121,11 +237,11 @@ public class DefaultSecureChannel implements SecureChannel {
 		channel.put(source, destination.getAbsolutePath());
 	}
 
-	protected void copyLocationToFile(ChannelSftp channel, String location, RemoteFile destination) {
+	protected void copyLocationToFile(ChannelSftp sftp, String location, RemoteFile destination) {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			copyInputStreamToFile(channel, in, destination);
+			copyInputStreamToFile(sftp, in, destination);
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
@@ -134,10 +250,10 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected String getAbsolutePath(String absolutePath, String filename) {
-		if (StringUtils.endsWith(absolutePath, "/")) {
+		if (StringUtils.endsWith(absolutePath, FORWARDSLASH)) {
 			return absolutePath + filename;
 		} else {
-			return absolutePath + "/" + filename;
+			return absolutePath + FORWARDSLASH + filename;
 		}
 	}
 
@@ -156,20 +272,16 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFile(RemoteFile source, File destination) {
-		Session session = null;
-		ChannelSftp channel = null;
 		OutputStream out = null;
 		try {
-			session = JSchUtils.openSession(context);
-			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
-			channel.get(source.getAbsolutePath(), out);
-		} catch (Exception e) {
+			sftp.get(source.getAbsolutePath(), out);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		} catch (SftpException e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
 			IOUtils.closeQuietly(out);
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
 		}
 	}
 
@@ -236,12 +348,84 @@ public class DefaultSecureChannel implements SecureChannel {
 		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
-	public JSchContext getContext() {
-		return context;
+	public File getKnownHosts() {
+		return knownHosts;
 	}
 
-	public void setContext(JSchContext context) {
-		this.context = context;
+	public void setKnownHosts(File knownHosts) {
+		this.knownHosts = knownHosts;
+	}
+
+	public File getConfig() {
+		return config;
+	}
+
+	public void setConfig(File config) {
+		this.config = config;
+	}
+
+	public boolean isIncludeDefaultPrivateKeyLocations() {
+		return includeDefaultPrivateKeyLocations;
+	}
+
+	public void setIncludeDefaultPrivateKeyLocations(boolean includeDefaultPrivateKeyLocations) {
+		this.includeDefaultPrivateKeyLocations = includeDefaultPrivateKeyLocations;
+	}
+
+	public boolean isStrictHostKeyChecking() {
+		return strictHostKeyChecking;
+	}
+
+	public void setStrictHostKeyChecking(boolean strictHostKeyChecking) {
+		this.strictHostKeyChecking = strictHostKeyChecking;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public int getConnectTimeout() {
+		return connectTimeout;
+	}
+
+	public void setConnectTimeout(int connectTimeout) {
+		this.connectTimeout = connectTimeout;
+	}
+
+	public List<File> getPrivateKeys() {
+		return privateKeys;
+	}
+
+	public void setPrivateKeys(List<File> privateKeys) {
+		this.privateKeys = privateKeys;
+	}
+
+	public Properties getOptions() {
+		return options;
+	}
+
+	public void setOptions(Properties options) {
+		this.options = options;
 	}
 
 }

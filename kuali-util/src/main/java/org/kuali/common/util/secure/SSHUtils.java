@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
@@ -35,10 +36,8 @@ public class SSHUtils {
 
 	private static final String FS = File.separator;
 	private static final String IDENTITY_FILE = "IdentityFile";
-	private static final String STRICT_HOST_KEY_CHECKING = "StrictHostKeyChecking";
-	private static final String NO = "no";
 	private static final String TILDE = "~";
-	private static final String USER_HOME = System.getProperty("user.home");
+	private static final String USER_HOME = FileUtils.getUserDirectoryPath();
 	private static final String SSHDIR = USER_HOME + FS + ".ssh";
 	private static final String IDENTITY = SSHDIR + FS + "identity";
 	private static final String ID_DSA = SSHDIR + FS + "id_dsa";
@@ -47,6 +46,8 @@ public class SSHUtils {
 	private static final int PORT_NUMBER_LOWEST = 1;
 	private static final int PORT_NUMBER_HIGHEST = 65535;
 
+	public static final String STRICT_HOST_KEY_CHECKING = "StrictHostKeyChecking";
+	public static final String NO = "no";
 	public static final List<String> PRIVATE_KEY_DEFAULTS = Arrays.asList(IDENTITY, ID_DSA, ID_RSA, ID_ECDSA);
 	public static final File DEFAULT_CONFIG_FILE = new File(SSHDIR + FS + "config");
 	public static final int DEFAULT_PORT = 22;
