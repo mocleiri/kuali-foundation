@@ -11,17 +11,19 @@ public interface SecureChannel {
 
 	void copyFile(File source, RemoteFile destination);
 
-	void copyFileToDirectory(File source, RemoteFile destination);
-
 	void copyLocationToFile(String location, RemoteFile destination);
 
 	void copyInputStreamToFile(InputStream source, RemoteFile destination);
 
 	void copyStringToFile(String string, RemoteFile destination);
 
-	void copyLocationToDirectory(String location, RemoteFile destination);
-
 	void copyFile(RemoteFile source, File destination);
+
+	void copyFileToDirectory(RemoteFile source, File destination);
+
+	void copyFileToDirectory(File source, RemoteFile destination);
+
+	void copyLocationToDirectory(String location, RemoteFile destination);
 
 	RemoteFile getMetaData(String absolutePath);
 

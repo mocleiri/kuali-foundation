@@ -3,13 +3,13 @@ package org.kuali.common.util.secure;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
@@ -335,13 +335,18 @@ public class DefaultSecureChannel implements SecureChannel {
 		try {
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
 			sftp.get(source.getAbsolutePath(), out);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected error", e);
-		} catch (SftpException e) {
-			throw new IllegalStateException("Unexpected error", e);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
+
+	@Override
+	public void copyFileToDirectory(RemoteFile source, File destination) {
+		String filename = FilenameUtils.getName(source.getAbsolutePath());
+		File newDestination = new File(destination, filename);
+		copyFile(source, newDestination);
 	}
 
 	@Override
