@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface SecureChannel {
 
-	void connect();
+	void open();
 
-	void disconnect();
+	void close();
 
 	void copyFile(File source, RemoteFile destination);
 

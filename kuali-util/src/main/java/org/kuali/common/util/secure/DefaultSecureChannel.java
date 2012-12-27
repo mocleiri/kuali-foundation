@@ -29,12 +29,12 @@ public class DefaultSecureChannel implements SecureChannel {
 	JSchContext context;
 
 	@Override
-    public void connect() {
+	public void open() {
 
 	}
 
 	@Override
-    public void disconnect() {
+	public void close() {
 
 	}
 
