@@ -81,8 +81,10 @@ public class DefaultSecureChannel implements SecureChannel {
 		logger.debug("Known hosts - {}", knownHosts);
 		logger.debug("Port - {}", port);
 		logger.debug("Connect timeout - {}", connectTimeout);
-		logger.debug("Configuring channel with {} options", options.size());
-		PropertyUtils.debug(options);
+		if (options != null) {
+			logger.debug("Configuring channel with {} options", options.size());
+			PropertyUtils.debug(options);
+		}
 	}
 
 	protected String getLocation(String username, String hostname) {
