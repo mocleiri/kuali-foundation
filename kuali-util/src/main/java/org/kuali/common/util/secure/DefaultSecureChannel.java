@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Properties;
-import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -91,20 +90,6 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected String getLocation() {
 		return (username == null) ? hostname : username + "@" + hostname;
-	}
-
-	public List<RemoteFile> getDirectoryListing(String absolutePath) {
-		Assert.hasLength(absolutePath);
-		RemoteFile dir = getMetaData(absolutePath);
-		fillInAttributes(dir);
-		Assert.isTrue(isStatus(dir, Status.EXISTS));
-		Assert.isTrue(dir.isDirectory());
-		try {
-			Vector<?> vector = sftp.ls(absolutePath);
-		} catch (SftpException e) {
-			throw new IllegalStateException(e);
-		}
-		return null;
 	}
 
 	@Override
