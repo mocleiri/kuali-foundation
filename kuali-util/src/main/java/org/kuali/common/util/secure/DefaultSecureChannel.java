@@ -201,7 +201,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		return file;
 	}
 
-	protected String getPath(RemoteFile file) {
+	protected String getLocation(RemoteFile file) {
 		return file.getHostname() + ":" + file.getAbsolutePath();
 	}
 
@@ -212,7 +212,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			return;
 		}
 		if (file.isDirectory()) {
-			throw new IllegalArgumentException("[" + getPath(file) + "] is a directory.");
+			throw new IllegalArgumentException("[" + getLocation(file) + "] is a directory.");
 		}
 		try {
 			sftp.rm(absolutePath);
