@@ -15,7 +15,7 @@ public interface SecureChannel {
 
 	void copyInputStreamToFile(InputStream source, RemoteFile destination);
 
-	void copyStringToFile(String string, RemoteFile destination);
+	void copyStringToFile(String string, String encoding, RemoteFile destination);
 
 	void copyFile(RemoteFile source, File destination);
 

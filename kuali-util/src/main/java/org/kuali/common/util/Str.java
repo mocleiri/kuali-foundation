@@ -38,9 +38,20 @@ public class Str {
 	public static final byte[] getUTF8Bytes(String s) {
 		if (s == null) {
 			return null;
+		} else {
+			return getBytes(s, UTF8);
+		}
+	}
+
+	public static final byte[] getBytes(String s, String encoding) {
+		if (s == null) {
+			return null;
+		}
+		if (encoding == null) {
+			return s.getBytes();
 		}
 		try {
-			return s.getBytes(UTF8);
+			return s.getBytes(encoding);
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException(e);
 		}

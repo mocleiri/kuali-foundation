@@ -288,9 +288,9 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void copyStringToFile(String string, RemoteFile destination) {
+	public void copyStringToFile(String string, String encoding, RemoteFile destination) {
 		Assert.notNull(string);
-		InputStream in = new ByteArrayInputStream(Str.getUTF8Bytes(string));
+		InputStream in = new ByteArrayInputStream(Str.getBytes(string, encoding));
 		copyInputStreamToFile(in, destination);
 	}
 
