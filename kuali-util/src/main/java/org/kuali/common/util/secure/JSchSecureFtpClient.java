@@ -29,32 +29,6 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 	JSchContext context;
 
 	/**
-	 * Return <code>true</code> if <code>file</code> exists.
-	 */
-	protected boolean isExisting(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
-		return Status.EXISTS.equals(file.getStatus());
-	}
-
-	/**
-	 * Return <code>true</code> if <code>file</code> is an existing file. Return <code>false</code> if <code>file</code> does not exist or
-	 * is an existing directory.
-	 */
-	protected boolean isExistingFile(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
-		return Status.EXISTS.equals(file.getStatus()) && !file.isDirectory();
-	}
-
-	/**
-	 * Return <code>true</code> if <code>path</code> is an existing directory. Return <code>false</code> if <code>path</code> does not exist
-	 * or is an existing file.
-	 */
-	protected boolean isExistingDirectory(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
-		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
-	}
-
-	/**
 	 * Connect to the remote server and acquire information about <code>file</code>
 	 */
 	protected void updateRemoteFile(ChannelSftp channel, RemoteFile file) throws SftpException {
@@ -224,6 +198,32 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 		if (file.getUserId() != null) {
 			channel.chown(file.getUserId(), path);
 		}
+	}
+
+	/**
+	 * Return <code>true</code> if <code>file</code> exists.
+	 */
+	protected boolean isExisting(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
+		return Status.EXISTS.equals(file.getStatus());
+	}
+
+	/**
+	 * Return <code>true</code> if <code>file</code> is an existing file. Return <code>false</code> if <code>file</code> does not exist or
+	 * is an existing directory.
+	 */
+	protected boolean isExistingFile(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
+		return Status.EXISTS.equals(file.getStatus()) && !file.isDirectory();
+	}
+
+	/**
+	 * Return <code>true</code> if <code>path</code> is an existing directory. Return <code>false</code> if <code>path</code> does not exist
+	 * or is an existing file.
+	 */
+	protected boolean isExistingDirectory(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
+		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
 }
