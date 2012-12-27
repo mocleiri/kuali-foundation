@@ -270,6 +270,10 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFile(File source, RemoteFile destination) {
+		Assert.notNull(source);
+		Assert.isTrue(source.exists());
+		Assert.isTrue(!source.isDirectory());
+		Assert.isTrue(source.canRead());
 		copyLocationToFile(LocationUtils.getCanonicalURLString(source), destination);
 	}
 
@@ -282,6 +286,8 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyLocationToFile(String location, RemoteFile destination) {
+		Assert.notNull(location);
+		Assert.isTrue(LocationUtils.exists(location));
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
@@ -302,6 +308,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyInputStreamToFile(InputStream source, RemoteFile destination) {
+		Assert.notNull(source);
 		try {
 			createDirectories(destination);
 			sftp.put(source, destination.getAbsolutePath());
