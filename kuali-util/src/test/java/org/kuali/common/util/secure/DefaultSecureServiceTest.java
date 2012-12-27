@@ -54,7 +54,7 @@ public class DefaultSecureServiceTest {
 			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
 			File dest = new File("/tmp/sftp/goodbye.txt");
 
-			DefaultSecureFTPClient dss = new DefaultSecureFTPClient();
+			JSchSftpClientt dss = new JSchSftpClientt();
 			dss.copyFile(source, channel, remote);
 			dss.copyFile(channel, remote, dest);
 		} catch (Exception e) {
