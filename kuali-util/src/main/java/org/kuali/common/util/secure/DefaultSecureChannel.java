@@ -218,7 +218,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		try {
 			sftp.rm(absolutePath);
 		} catch (SftpException e) {
-			throw new IllegalStateException("Unexpected SFTP error", e);
+			throw new IllegalStateException(e);
 		}
 	}
 
@@ -301,7 +301,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			createDirectories(destination);
 			sftp.put(source, destination.getAbsolutePath());
 		} catch (SftpException e) {
-			throw new IllegalStateException("Unexpected error", e);
+			throw new IllegalStateException(e);
 		}
 	}
 
@@ -437,7 +437,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		if (isNoSuchFileException(e)) {
 			file.setStatus(Status.MISSING);
 		} else {
-			throw new IllegalStateException("Unexpected SFTP error", e);
+			throw new IllegalStateException(e);
 		}
 	}
 
