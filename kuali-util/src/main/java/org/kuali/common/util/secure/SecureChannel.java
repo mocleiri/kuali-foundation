@@ -36,6 +36,6 @@ public interface SecureChannel {
 
 	void forceMkdir(RemoteFile dir);
 
-	String getAbsolutePath(String path);
+	RemoteFile getWorkingDirectory();
 
 }

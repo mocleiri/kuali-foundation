@@ -35,19 +35,13 @@ public class DefaultSecureChannelTest {
 	}
 
 	@Test
-	public void testGetAbsolutePath() {
+	public void testGetWorkingDirectory() {
 		SecureChannel channel = null;
 		try {
-			String path = "/root/../root/././././x/../x/y/z/hello.txt";
 			channel = getSecureChannel();
 			channel.open();
-			logger.info(channel.getAbsolutePath(path));
-			logger.info(channel.getAbsolutePath("/"));
-			logger.info(channel.getAbsolutePath("."));
-			logger.info(channel.getAbsolutePath(".."));
-			logger.info(channel.getAbsolutePath("../"));
-			logger.info(channel.getAbsolutePath("../."));
-			logger.info(channel.getAbsolutePath("../.."));
+			RemoteFile file = channel.getWorkingDirectory();
+			logger.info(file.getAbsolutePath());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
