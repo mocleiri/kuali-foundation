@@ -94,8 +94,8 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public RemoteFile getWorkingDirectory() {
 		try {
-			String pwd = sftp.pwd();
-			return getMetaData(pwd);
+			String workingDirectory = sftp.pwd();
+			return getMetaData(workingDirectory);
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
 		}
