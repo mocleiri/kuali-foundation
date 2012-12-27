@@ -525,4 +525,8 @@ public class DefaultSecureChannel implements SecureChannel {
 		this.options = options;
 	}
 
+	public void setConnectTimeout(Integer connectTimeout) {
+		this.connectTimeout = connectTimeout;
+	}
+
 }
