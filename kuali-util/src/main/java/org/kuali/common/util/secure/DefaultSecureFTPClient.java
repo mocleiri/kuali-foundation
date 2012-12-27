@@ -111,9 +111,7 @@ public class DefaultSecureFTPClient implements SecureFTPClient {
 	@Override
 	public void copyFileToDirectory(File source, ChannelSftp channel, RemoteFile destination) {
 		String filename = source.getName();
-		String newAbsolutePath = getAbsolutePath(destination.getAbsolutePath(), filename);
-		destination.setAbsolutePath(newAbsolutePath);
-		destination.setDirectory(false);
+		updateRemoteFile(destination, filename);
 		copyFile(source, channel, destination);
 	}
 
@@ -149,12 +147,16 @@ public class DefaultSecureFTPClient implements SecureFTPClient {
 		}
 	}
 
-	@Override
-	public void copyLocationToDirectory(String location, ChannelSftp channel, RemoteFile destination) {
-		String filename = LocationUtils.getFilename(location);
+	protected void updateRemoteFile(RemoteFile destination, String filename) {
 		String newAbsolutePath = getAbsolutePath(destination.getAbsolutePath(), filename);
 		destination.setAbsolutePath(newAbsolutePath);
 		destination.setDirectory(false);
+	}
+
+	@Override
+	public void copyLocationToDirectory(String location, ChannelSftp channel, RemoteFile destination) {
+		String filename = LocationUtils.getFilename(location);
+		updateRemoteFile(destination, filename);
 		copyLocationToFile(location, channel, destination);
 	}
 

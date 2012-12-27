@@ -19,8 +19,10 @@ import java.io.File;
 
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.spring.JSchFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.FactoryBean;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -34,12 +36,16 @@ public class DefaultSecureServiceTest {
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
-			JSch jsch = JSchUtils.getDefaultJSch();
+			FactoryBean<JSch> factory = new JSchFactoryBean();
+			JSch jsch = factory.getObject();
 			SessionContext context = new SessionContext();
 			context.setUsername("root");
 			context.setPort(22);
 			context.setTimeout(180);
-			File source = new File("/tmp/sftp/hello.txt");
+			ChannelSource source = new ChannelSource();
+			source.setJsch(jsch);
+			source.setContext(context);
+`			File source = new File("/tmp/sftp/hello.txt");
 			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
 			File dest = new File("/tmp/sftp/goodbye.txt");
 

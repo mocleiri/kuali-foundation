@@ -1,6 +1,5 @@
 package org.kuali.common.util.secure;
 
-import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 
 public class ChannelSource {
@@ -22,10 +21,6 @@ public class ChannelSource {
 
 	public void setContext(SessionContext context) {
 		this.context = context;
-	}
-
-	public ChannelSftp getChannel() {
-		return null;
 	}
 
 }
