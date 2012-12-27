@@ -1,9 +1,11 @@
 package org.kuali.common.util.secure;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
@@ -119,17 +122,35 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 	}
 
 	@Override
-	public void copyLocationToFile(String location, RemoteFile destination) {
-		JSchUtils.validateCopyLocation(location, destination);
-		InputStream in = null;
+	public void copyLocations(List<String> locations, List<RemoteFile> destinations) {
+		Session session = null;
+		ChannelSftp channel = null;
 		try {
-			in = LocationUtils.getInputStream(location);
-			copyInputStreamToFile(in, destination);
+			Assert.isTrue(locations.size() == destinations.size());
+			session = JSchUtils.openSession(context);
+			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
+			for (int i = 0; i < locations.size(); i++) {
+				String location = locations.get(i);
+				RemoteFile destination = destinations.get(i);
+				copyLocationToFile(channel, location, destination);
+			}
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
-			IOUtils.closeQuietly(in);
+			JSchUtils.disconnectQuietly(channel);
+			JSchUtils.disconnectQuietly(session);
 		}
+	}
+
+	@Override
+	public void copyLocationToFile(String location, RemoteFile destination) {
+		copyLocations(Collections.singletonList(location), Collections.singletonList(destination));
+	}
+
+	@Override
+	public void copyStringToFile(String string, RemoteFile destination) {
+		InputStream in = new ByteArrayInputStream(string.getBytes());
+		copyInputStreamToFile(in, destination);
 	}
 
 	@Override
@@ -139,13 +160,29 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 		try {
 			session = JSchUtils.openSession(context);
 			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
-			forceMkdirs(channel, destination);
-			channel.put(source, destination.getAbsolutePath());
+			copyInputStreamToFile(channel, source, destination);
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
 			JSchUtils.disconnectQuietly(channel);
 			JSchUtils.disconnectQuietly(session);
+		}
+	}
+
+	protected void copyInputStreamToFile(ChannelSftp channel, InputStream source, RemoteFile destination) throws SftpException {
+		forceMkdirs(channel, destination);
+		channel.put(source, destination.getAbsolutePath());
+	}
+
+	protected void copyLocationToFile(ChannelSftp channel, String location, RemoteFile destination) {
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			copyInputStreamToFile(channel, in, destination);
+		} catch (Exception e) {
+			throw new IllegalStateException("Unexpected error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
