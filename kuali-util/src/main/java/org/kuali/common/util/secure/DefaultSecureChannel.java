@@ -186,14 +186,50 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public RemoteFile getMetaData(String absolutePath) {
 		RemoteFile file = new RemoteFile();
+		file.setHostname(hostname);
 		file.setAbsolutePath(absolutePath);
 		updateMetaData(sftp, file);
 		return file;
 	}
 
-	/**
-	 * Connect to the remote server and acquire information about <code>file</code>
-	 */
+	protected String getPath(RemoteFile file) {
+		return file.getHostname() + ":" + file.getAbsolutePath();
+	}
+
+	@Override
+	public void deleteFile(String absolutePath) {
+		RemoteFile file = getMetaData(absolutePath);
+		if (isStatus(file, Status.MISSING)) {
+			return;
+		}
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("[" + getPath(file) + "] is a directory.");
+		}
+		try {
+			sftp.rm(absolutePath);
+		} catch (SftpException e) {
+			throw new IllegalStateException("Unexpected SFTP error", e);
+		}
+	}
+
+	@Override
+	public boolean exists(String absolutePath) {
+		RemoteFile file = getMetaData(absolutePath);
+		return isStatus(file, Status.EXISTS);
+	}
+
+	@Override
+	public boolean isFile(String absolutePath) {
+		RemoteFile file = getMetaData(absolutePath);
+		return isStatus(file, Status.EXISTS) && !file.isDirectory();
+	}
+
+	@Override
+	public boolean isDirectory(String absolutePath) {
+		RemoteFile file = getMetaData(absolutePath);
+		return isStatus(file, Status.EXISTS) && file.isDirectory();
+	}
+
 	protected void updateMetaData(ChannelSftp sftp, RemoteFile file) {
 		try {
 			SftpATTRS attributes = sftp.stat(file.getAbsolutePath());
@@ -220,7 +256,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public void copyFileToDirectory(File source, RemoteFile destination) {
 		String filename = source.getName();
-		updateRemoteFile(destination, filename);
+		update(destination, filename);
 		copyFile(source, destination);
 	}
 
@@ -279,7 +315,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void updateRemoteFile(RemoteFile destination, String filename) {
+	protected void update(RemoteFile destination, String filename) {
 		String newAbsolutePath = getAbsolutePath(destination.getAbsolutePath(), filename);
 		destination.setAbsolutePath(newAbsolutePath);
 		destination.setDirectory(false);
@@ -288,7 +324,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public void copyLocationToDirectory(String location, RemoteFile destination) {
 		String filename = LocationUtils.getFilename(location);
-		updateRemoteFile(destination, filename);
+		update(destination, filename);
 		copyLocationToFile(location, destination);
 	}
 
@@ -329,7 +365,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		return file.getStatus().equals(status);
 	}
 
-	protected void validateStatus(RemoteFile file, Status... allowed) {
+	protected void validate(RemoteFile file, Status... allowed) {
 		for (Status status : allowed) {
 			if (isStatus(file, status)) {
 				return;
@@ -339,15 +375,22 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected boolean validate(RemoteFile file, boolean directoryIndicator) {
-		validateStatus(file, Status.MISSING, Status.EXISTS);
+		// Make sure file is not in UNKNOWN status
+		validate(file, Status.MISSING, Status.EXISTS);
+
+		// Convenience flags
 		boolean missing = isStatus(file, Status.MISSING);
 		boolean exists = isStatus(file, Status.EXISTS);
+
 		// Compare the actual file type to the file type it needs to be
 		boolean correctFileType = file.isDirectory() == directoryIndicator;
+
+		// Is everything as it should be?
 		boolean valid = missing || exists && correctFileType;
 		if (valid) {
 			return true;
 		} else {
+			// Something has gone awry
 			throw new IllegalArgumentException(getInvalidExistingFileMessage(file));
 		}
 	}
@@ -380,15 +423,15 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	public static void handleNoSuchFileException(RemoteFile file, SftpException e) {
+	protected void handleNoSuchFileException(RemoteFile file, SftpException e) {
 		if (isNoSuchFileException(e)) {
 			file.setStatus(Status.MISSING);
 		} else {
-			throw new IllegalArgumentException("Unexpected SFTP error", e);
+			throw new IllegalStateException("Unexpected SFTP error", e);
 		}
 	}
 
-	public static final boolean isNoSuchFileException(SftpException exception) {
+	protected boolean isNoSuchFileException(SftpException exception) {
 		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
 	}
 
