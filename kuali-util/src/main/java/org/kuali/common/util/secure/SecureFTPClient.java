@@ -4,22 +4,22 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
-import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.ChannelSftp;
 
 public interface SecureFTPClient {
 
-	void copyFileToDirectory(JSch jsch, SessionContext context, File source, RemoteFile destination);
+	void copyFile(File srcFile, ChannelSftp channel, RemoteFile dstFile);
 
-	void copyDirectory(JSch jsch, SessionContext context, File srcDir, RemoteFile dstDir);
+	void copyFileToDirectory(File source, ChannelSftp channel, RemoteFile destination);
 
-	void copyFile(JSch jsch, SessionContext context, File srcFile, RemoteFile dstFile);
+	void copyDirectory(File srcDir, ChannelSftp channel, RemoteFile dstDir);
 
-	void copyLocationToDirectory(JSch jsch, SessionContext context, String source, RemoteFile destination);
+	void copyLocationToDirectory(String source, ChannelSftp channel, RemoteFile destination);
 
-	void copyLocationToFile(JSch jsch, SessionContext context, String location, RemoteFile destination);
+	void copyLocationToFile(String location, ChannelSftp channel, RemoteFile destination);
 
-	void copyLocations(JSch jsch, SessionContext context, List<String> locations, List<RemoteFile> destinations);
+	void copyLocations(List<String> locations, ChannelSftp channel, List<RemoteFile> destinations);
 
-	void copyInputStreamToFile(JSch jsch, SessionContext context, InputStream source, RemoteFile destination);
+	void copyInputStreamToFile(InputStream source, ChannelSftp channel, RemoteFile destination);
 
 }
