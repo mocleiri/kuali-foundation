@@ -245,16 +245,20 @@ public class DefaultSecureChannel implements SecureChannel {
 		return isStatus(file, Status.EXISTS) && file.isDirectory();
 	}
 
+	protected void fillInAttributes(RemoteFile file) {
+		fillInAttributes(file, file.getAbsolutePath());
+	}
+
 	protected void fillInAttributes(RemoteFile file, String path) {
 		try {
 			SftpATTRS attributes = sftp.stat(path);
-			update(file, attributes);
+			fillInAttributes(file, attributes);
 		} catch (SftpException e) {
 			handleNoSuchFileException(file, e);
 		}
 	}
 
-	protected void update(RemoteFile file, SftpATTRS attributes) {
+	protected void fillInAttributes(RemoteFile file, SftpATTRS attributes) {
 		file.setDirectory(attributes.isDir());
 		file.setPermissions(attributes.getPermissions());
 		file.setUserId(attributes.getUId());
@@ -299,22 +303,18 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public void copyInputStreamToFile(InputStream source, RemoteFile destination) {
 		try {
-			copyInputStreamToFile(sftp, source, destination);
+			createDirectories(destination);
+			sftp.put(source, destination.getAbsolutePath());
 		} catch (SftpException e) {
 			throw new IllegalStateException("Unexpected error", e);
 		}
-	}
-
-	protected void copyInputStreamToFile(ChannelSftp sftp, InputStream source, RemoteFile destination) throws SftpException {
-		forceMkdirs(sftp, destination);
-		sftp.put(source, destination.getAbsolutePath());
 	}
 
 	protected void copyLocationToFile(ChannelSftp sftp, String location, RemoteFile destination) {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			copyInputStreamToFile(sftp, in, destination);
+			copyInputStreamToFile(in, destination);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -359,25 +359,25 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void forceMkdir(RemoteFile file) {
-		Assert.isTrue(file.isDirectory());
+	public void forceMkdir(RemoteFile dir) {
+		Assert.isTrue(dir.isDirectory());
 		try {
-			forceMkdirs(sftp, file);
+			createDirectories(dir);
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
 		}
 	}
 
-	protected void forceMkdirs(ChannelSftp sftp, RemoteFile file) throws SftpException {
+	protected void createDirectories(RemoteFile file) throws SftpException {
 		boolean directoryIndicator = file.isDirectory();
-		fillInAttributes(file, file.getAbsolutePath());
+		fillInAttributes(file);
 		validate(file, directoryIndicator);
-		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
-		for (String pathFragment : pathFragments) {
-			RemoteFile parentDir = new RemoteFile(pathFragment);
-			fillInAttributes(file, file.getAbsolutePath());
+		List<String> directories = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
+		for (String directory : directories) {
+			RemoteFile parentDir = new RemoteFile(directory);
+			fillInAttributes(parentDir);
 			validate(parentDir, true);
-			if (!parentDir.isDirectory()) {
+			if (!isStatus(parentDir, Status.EXISTS)) {
 				createDirectory(sftp, parentDir);
 			}
 		}
