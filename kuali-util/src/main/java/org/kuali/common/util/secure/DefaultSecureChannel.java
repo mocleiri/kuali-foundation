@@ -366,7 +366,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			fillInAttributes(parentDir);
 			validate(parentDir, true);
 			if (!isStatus(parentDir, Status.EXISTS)) {
-				createDirectory(sftp, parentDir);
+				createDirectory(parentDir);
 			}
 		}
 	}
@@ -413,14 +413,14 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void createDirectory(ChannelSftp sftp, RemoteFile dir) throws SftpException {
+	protected void createDirectory(RemoteFile dir) throws SftpException {
 		String path = dir.getAbsolutePath();
 		logger.debug("Creating [{}]", path);
 		sftp.mkdir(path);
-		setAttributes(sftp, dir);
+		setAttributes(dir);
 	}
 
-	protected void setAttributes(ChannelSftp sftp, RemoteFile file) throws SftpException {
+	protected void setAttributes(RemoteFile file) throws SftpException {
 		String path = file.getAbsolutePath();
 		if (file.getPermissions() != null) {
 			sftp.chmod(file.getPermissions(), path);
