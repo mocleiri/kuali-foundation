@@ -166,10 +166,19 @@ public class DefaultSecureChannel implements SecureChannel {
 	protected JSch getJSch() throws JSchException {
 		List<File> mergedPrivateKeys = getMergedPrivateKeys();
 		logger.debug("Located {} private keys", mergedPrivateKeys.size());
-		JSch jsch = JSchUtils.getJSch(mergedPrivateKeys);
+		JSch jsch = getJSch(mergedPrivateKeys);
 		if (strictHostKeyChecking && knownHosts != null) {
 			String path = LocationUtils.getCanonicalPath(knownHosts);
 			jsch.setKnownHosts(path);
+		}
+		return jsch;
+	}
+
+	protected JSch getJSch(List<File> privateKeys) throws JSchException {
+		JSch jsch = new JSch();
+		for (File privateKey : privateKeys) {
+			String path = LocationUtils.getCanonicalPath(privateKey);
+			jsch.addIdentity(path);
 		}
 		return jsch;
 	}

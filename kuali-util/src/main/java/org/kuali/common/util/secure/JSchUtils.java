@@ -16,16 +16,12 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 
 /**
  *
@@ -68,15 +64,6 @@ public class JSchUtils {
 			validateCopyFileSource(source);
 		}
 		validateCopyFileDestination(destination);
-	}
-
-	public static final JSch getJSch(List<File> privateKeys) throws JSchException {
-		JSch jsch = new JSch();
-		for (File privateKey : privateKeys) {
-			String path = LocationUtils.getCanonicalPath(privateKey);
-			jsch.addIdentity(path);
-		}
-		return jsch;
 	}
 
 }
