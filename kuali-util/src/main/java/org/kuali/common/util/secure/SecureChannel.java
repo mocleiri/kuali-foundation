@@ -1,11 +1,12 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 public interface SecureChannel {
 
-	void open();
+	void open() throws IOException;
 
 	void close();
 

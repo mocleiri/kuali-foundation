@@ -3,6 +3,7 @@ package org.kuali.common.util.secure;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -51,7 +52,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	protected ChannelExec exec;
 
 	@Override
-	public synchronized void open() {
+	public synchronized void open() throws IOException {
 		logOpen();
 		validate();
 		try {
@@ -60,7 +61,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			this.sftp = openSftpChannel(session, connectTimeout);
 			this.exec = openExecChannel(session, connectTimeout);
 		} catch (Exception e) {
-			throw new IllegalStateException("Unexpected error opening secure channel", e);
+			throw new IOException("Unexpected error opening secure channel", e);
 		}
 	}
 
