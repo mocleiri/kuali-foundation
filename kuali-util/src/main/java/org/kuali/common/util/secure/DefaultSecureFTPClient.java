@@ -9,13 +9,12 @@ import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
@@ -105,47 +104,69 @@ public class DefaultSecureFTPClient implements SecureFTPClient {
 	}
 
 	@Override
-	public void copyFile(JSch jsch, SessionContext context, File source, RemoteFile destination) {
-		copyLocation(jsch, context, LocationUtils.getCanonicalURLString(source), destination);
+	public void copyFile(File source, ChannelSftp channel, RemoteFile destination) {
+		copyLocationToFile(LocationUtils.getCanonicalURLString(source), channel, destination);
 	}
 
 	@Override
-	public void copyLocation(JSch jsch, SessionContext context, String location, RemoteFile destination) {
+	public void copyFileToDirectory(File source, ChannelSftp channel, RemoteFile destination) {
+		String filename = source.getName();
+		String newAbsolutePath = getAbsolutePath(destination.getAbsolutePath(), filename);
+		destination.setAbsolutePath(newAbsolutePath);
+		destination.setDirectory(false);
+		copyFile(source, channel, destination);
+	}
+
+	@Override
+	public void copyLocationToFile(String location, ChannelSftp channel, RemoteFile destination) {
 		JSchUtils.validateCopyLocation(location, destination);
 		InputStream in = null;
-		Session session = null;
-		ChannelSftp channel = null;
 		try {
-			session = JSchUtils.openSession(jsch, context);
-			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
-			forceMkdirs(channel, destination);
 			in = LocationUtils.getInputStream(location);
-			channel.put(in, destination.getAbsolutePath());
+			copyInputStreamToFile(in, channel, destination);
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
 			IOUtils.closeQuietly(in);
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
 		}
 	}
 
 	@Override
-	public void copyFile(JSch jsch, SessionContext context, RemoteFile source, File destination) {
-		OutputStream out = null;
-		Session session = null;
-		ChannelSftp channel = null;
+	public void copyInputStreamToFile(InputStream source, ChannelSftp channel, RemoteFile destination) {
 		try {
-			session = JSchUtils.openSession(jsch, context);
-			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
+			forceMkdirs(channel, destination);
+			channel.put(source, destination.getAbsolutePath());
+		} catch (SftpException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		}
+	}
+
+	protected String getAbsolutePath(String absolutePath, String filename) {
+		if (StringUtils.endsWith(absolutePath, "/")) {
+			return absolutePath + filename;
+		} else {
+			return absolutePath + "/" + filename;
+		}
+	}
+
+	@Override
+	public void copyLocationToDirectory(String location, ChannelSftp channel, RemoteFile destination) {
+		String filename = LocationUtils.getFilename(location);
+		String newAbsolutePath = getAbsolutePath(destination.getAbsolutePath(), filename);
+		destination.setAbsolutePath(newAbsolutePath);
+		destination.setDirectory(false);
+		copyLocationToFile(location, channel, destination);
+	}
+
+	public void copyFile(ChannelSftp channel, RemoteFile source, File destination) {
+		OutputStream out = null;
+		try {
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
 			channel.get(source.getAbsolutePath(), out);
 		} catch (Exception e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} finally {
 			IOUtils.closeQuietly(out);
-			JSchUtils.disconnectQuietly(channel);
-			JSchUtils.disconnectQuietly(session);
 		}
 	}
 
