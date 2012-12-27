@@ -219,12 +219,6 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public boolean isFile(String absolutePath) {
-		RemoteFile file = getMetaData(absolutePath);
-		return isStatus(file, Status.EXISTS) && !file.isDirectory();
-	}
-
-	@Override
 	public boolean isDirectory(String absolutePath) {
 		RemoteFile file = getMetaData(absolutePath);
 		return isStatus(file, Status.EXISTS) && file.isDirectory();

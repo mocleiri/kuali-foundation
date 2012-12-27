@@ -32,8 +32,6 @@ public interface SecureChannel {
 
 	boolean isDirectory(String absolutePath);
 
-	boolean isFile(String absolutePath);
-
 	void deleteFile(String absolutePath);
 
 }
