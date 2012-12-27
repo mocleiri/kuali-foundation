@@ -72,29 +72,17 @@ public class DefaultSecureChannel implements SecureChannel {
 	protected void logOpen() {
 		logger.info("Opening secure channel - {}", getLocation(username, hostname));
 		if (privateKeys != null) {
-			logger.info("Private keys - {}", privateKeys.size());
+			logger.debug("Private keys - {}", privateKeys.size());
 		} else {
-			logger.info("Private key config - {}", config);
+			logger.debug("Private key config - {}", config);
 		}
-		if (!includeDefaultPrivateKeyLocations) {
-			logger.info("Check default private key locations - {}", includeDefaultPrivateKeyLocations);
-		}
-		if (!strictHostKeyChecking) {
-			logger.info("Strict host key checking - {}", strictHostKeyChecking);
-		}
-		if (strictHostKeyChecking) {
-			logger.info("Known hosts - {}", knownHosts);
-		}
-		if (port != SSHUtils.DEFAULT_PORT) {
-			logger.info("Port - {}", port);
-		}
-		if (connectTimeout != null) {
-			logger.info("Connect timeout - {}", connectTimeout);
-		}
-		if (options != null) {
-			logger.info("Configuring channel with {} options", options.size());
-			PropertyUtils.debug(options);
-		}
+		logger.debug("Check default private key locations - {}", includeDefaultPrivateKeyLocations);
+		logger.debug("Strict host key checking - {}", strictHostKeyChecking);
+		logger.debug("Known hosts - {}", knownHosts);
+		logger.debug("Port - {}", port);
+		logger.debug("Connect timeout - {}", connectTimeout);
+		logger.debug("Configuring channel with {} options", options.size());
+		PropertyUtils.debug(options);
 	}
 
 	protected String getLocation(String username, String hostname) {
