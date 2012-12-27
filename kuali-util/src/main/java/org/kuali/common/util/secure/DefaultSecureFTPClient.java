@@ -160,6 +160,7 @@ public class DefaultSecureFTPClient implements SecureFTPClient {
 		copyLocationToFile(location, channel, destination);
 	}
 
+	@Override
 	public void copyFile(ChannelSftp channel, RemoteFile source, File destination) {
 		OutputStream out = null;
 		try {

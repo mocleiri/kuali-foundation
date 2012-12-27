@@ -31,27 +31,32 @@ import com.jcraft.jsch.Session;
 public class DefaultSecureServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureServiceTest.class);
 
+	protected SessionContext getContext() throws Exception {
+		FactoryBean<JSch> factory = new JSchFactoryBean();
+		JSch jsch = factory.getObject();
+		SessionContext context = new SessionContext();
+		context.setJsch(jsch);
+		context.setUsername("root");
+		context.setPort(22);
+		context.setTimeout(180);
+		return context;
+	}
+
 	@Test
 	public void testRoundTrip() {
 		Session session = null;
 		ChannelSftp channel = null;
 		try {
-			FactoryBean<JSch> factory = new JSchFactoryBean();
-			JSch jsch = factory.getObject();
-			SessionContext context = new SessionContext();
-			context.setUsername("root");
-			context.setPort(22);
-			context.setTimeout(180);
-			ChannelSource source = new ChannelSource();
-			source.setJsch(jsch);
-			source.setContext(context);
-`			File source = new File("/tmp/sftp/hello.txt");
+			SessionContext context = getContext();
+			session = JSchUtils.openSession(context);
+			channel = JSchUtils.openSftpChannel(session, context.getTimeout());
+			File source = new File("/tmp/sftp/hello.txt");
 			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
 			File dest = new File("/tmp/sftp/goodbye.txt");
 
 			DefaultSecureFTPClient dss = new DefaultSecureFTPClient();
-			dss.copyFile(jsch, context, source, remote);
-			dss.copyFile(jsch, context, remote, dest);
+			dss.copyFile(source, channel, remote);
+			dss.copyFile(channel, remote, dest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -7,6 +7,8 @@ import com.jcraft.jsch.ChannelSftp;
 
 public interface SecureFTPClient {
 
+	void copyFile(ChannelSftp channel, RemoteFile srcFile, File dstFile);
+
 	void copyFile(File srcFile, ChannelSftp channel, RemoteFile dstFile);
 
 	void copyInputStreamToFile(InputStream source, ChannelSftp channel, RemoteFile destination);
