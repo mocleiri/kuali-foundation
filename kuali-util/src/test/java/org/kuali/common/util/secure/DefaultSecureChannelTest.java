@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultSecureChannelTest {
+
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
 
 	protected SecureChannel getSecureChannel() {
@@ -35,17 +36,21 @@ public class DefaultSecureChannelTest {
 
 	@Test
 	public void testRoundTrip() {
+		SecureChannel channel = null;
 		try {
-			File localSrc = new File("/tmp/sftp/hello.txt");
-			RemoteFile remote = new RemoteFile("/root/x/y/z/hello.txt");
-			File localDst = new File("/tmp/sftp/goodbye.txt");
-			SecureChannel channel = getSecureChannel();
+			File localSrc = new File("/tmp/sftp/src.txt");
+			File localDst = new File("/tmp/sftp/dst.txt");
+			channel = getSecureChannel();
 			channel.open();
+			RemoteFile remote = channel.getMetaData("/root/x/y/z/hello.txt");
 			channel.copyFile(localSrc, remote);
 			channel.copyFile(remote, localDst);
-			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (channel != null) {
+				channel.close();
+			}
 		}
 	}
 

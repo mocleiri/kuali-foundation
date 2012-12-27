@@ -34,4 +34,6 @@ public interface SecureChannel {
 
 	void deleteFile(String absolutePath);
 
+	void forceMkdir(RemoteFile dir);
+
 }

@@ -305,7 +305,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			in = LocationUtils.getInputStream(location);
 			copyInputStreamToFile(sftp, in, destination);
 		} catch (Exception e) {
-			throw new IllegalStateException("Unexpected error", e);
+			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
@@ -347,9 +347,16 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	/**
-	 *
-	 */
+	@Override
+	public void forceMkdir(RemoteFile file) {
+		Assert.isTrue(file.isDirectory());
+		try {
+			forceMkdirs(sftp, file);
+		} catch (SftpException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 	protected void forceMkdirs(ChannelSftp sftp, RemoteFile file) throws SftpException {
 		boolean directoryIndicator = file.isDirectory();
 		update(sftp, file);
@@ -401,9 +408,9 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected String getInvalidExistingFileMessage(RemoteFile file) {
 		if (file.isDirectory()) {
-			return "File [" + file.getAbsolutePath() + "] is an existing directory. Unable to create file.";
+			return "[" + getLocation(file) + "] is an existing directory. Unable to create file.";
 		} else {
-			return "File [" + file.getAbsolutePath() + "] is an existing file. Unable to create directory.";
+			return "[" + getLocation(file) + "] is an existing file. Unable to create directory.";
 		}
 	}
 
