@@ -28,4 +28,12 @@ public interface SecureChannel {
 
 	RemoteFile getMetaData(String absolutePath);
 
+	boolean exists(String absolutePath);
+
+	boolean isDirectory(String absolutePath);
+
+	boolean isFile(String absolutePath);
+
+	void deleteFile(String absolutePath);
+
 }

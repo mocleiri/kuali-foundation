@@ -2,6 +2,7 @@ package org.kuali.common.util.secure;
 
 public class RemoteFile {
 
+	String hostname;
 	String absolutePath;
 	Integer groupId;
 	Integer userId;
@@ -73,6 +74,14 @@ public class RemoteFile {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
 	}
 
 }
