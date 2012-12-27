@@ -295,16 +295,38 @@ public class DefaultSecureChannel implements SecureChannel {
 	 *
 	 */
 	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
+		boolean directoryIndicator = file.isDirectory();
 		updateRemoteFile(channel, file);
-		JSchUtils.validateForceMkdir(file);
+		validate(file, directoryIndicator);
 		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
 		for (String pathFragment : pathFragments) {
 			RemoteFile parentDir = new RemoteFile(pathFragment);
 			updateRemoteFile(channel, parentDir);
-			JSchUtils.validateForceMkdir(parentDir);
+			validate(parentDir, true);
 			if (!parentDir.isDirectory()) {
 				createDirectory(channel, parentDir);
 			}
+		}
+	}
+
+	protected boolean validate(RemoteFile file, boolean directoryIndicator) {
+		boolean missing = Status.MISSING.equals(file.getStatus());
+		boolean exists = Status.EXISTS.equals(file.getStatus());
+		// Compare the actual file type to the file type it needs to be
+		boolean correctFileType = file.isDirectory() == directoryIndicator;
+		boolean valid = missing || exists && correctFileType;
+		if (valid) {
+			return true;
+		} else {
+			throw new IllegalArgumentException(getInvalidExistingFileMessage(file));
+		}
+	}
+
+	protected String getInvalidExistingFileMessage(RemoteFile file) {
+		if (file.isDirectory()) {
+			return "File [" + file.getAbsolutePath() + "] is an existing directory. Unable to create file.";
+		} else {
+			return "File [" + file.getAbsolutePath() + "] is an existing file. Unable to create directory.";
 		}
 	}
 

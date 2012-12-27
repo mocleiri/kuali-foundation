@@ -40,16 +40,6 @@ public class JSchUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JSchUtils.class);
 	private static final String FORWARD_SLASH = "/";
 
-	public static final boolean validateForceMkdir(RemoteFile file) {
-		boolean missing = Status.MISSING.equals(file.getStatus());
-		boolean exists = Status.EXISTS.equals(file.getStatus());
-		if (missing || exists && file.isDirectory()) {
-			return true;
-		} else {
-			throw new IllegalArgumentException("File [" + file.getAbsolutePath() + "] exists and is not a directory. Unable to create directory.");
-		}
-	}
-
 	public static void handleNoSuchFileException(RemoteFile file, SftpException exception) throws SftpException {
 		if (isNoSuchFileException(exception)) {
 			file.setStatus(Status.MISSING);
