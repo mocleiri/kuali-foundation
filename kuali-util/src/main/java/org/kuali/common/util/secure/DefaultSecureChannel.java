@@ -309,9 +309,23 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
+	protected boolean isStatus(RemoteFile file, Status status) {
+		return file.getStatus().equals(status);
+	}
+
+	protected void validateStatus(RemoteFile file, Status... allowed) {
+		for (Status status : allowed) {
+			if (isStatus(file, status)) {
+				return;
+			}
+		}
+		throw new IllegalArgumentException("Invalid status - " + file.getStatus());
+	}
+
 	protected boolean validate(RemoteFile file, boolean directoryIndicator) {
-		boolean missing = Status.MISSING.equals(file.getStatus());
-		boolean exists = Status.EXISTS.equals(file.getStatus());
+		validateStatus(file, Status.MISSING, Status.EXISTS);
+		boolean missing = isStatus(file, Status.MISSING);
+		boolean exists = isStatus(file, Status.EXISTS);
 		// Compare the actual file type to the file type it needs to be
 		boolean correctFileType = file.isDirectory() == directoryIndicator;
 		boolean valid = missing || exists && correctFileType;
