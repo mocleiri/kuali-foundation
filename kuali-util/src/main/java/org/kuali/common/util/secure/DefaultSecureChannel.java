@@ -60,7 +60,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			this.session = openSession(jsch);
 			this.sftp = openSftpChannel(session, connectTimeout);
 			this.exec = openExecChannel(session, connectTimeout);
-		} catch (Exception e) {
+		} catch (JSchException e) {
 			throw new IOException("Unexpected error opening secure channel", e);
 		}
 	}
