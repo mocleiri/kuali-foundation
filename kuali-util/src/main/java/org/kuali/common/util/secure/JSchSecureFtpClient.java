@@ -29,43 +29,6 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 	JSchContext context;
 
 	/**
-	 *
-	 */
-	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
-		JSchUtils.validateForceMkdir(file);
-		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
-		for (String pathFragment : pathFragments) {
-			RemoteFile parentDir = new RemoteFile(pathFragment);
-			updateRemoteFile(channel, parentDir);
-			JSchUtils.validateForceMkdir(parentDir);
-			if (!parentDir.isDirectory()) {
-				createDirectory(channel, parentDir);
-			}
-		}
-	}
-
-	protected void createDirectory(ChannelSftp channel, RemoteFile dir) throws SftpException {
-		String path = dir.getAbsolutePath();
-		logger.debug("Creating [{}]", path);
-		channel.mkdir(path);
-		setAttributes(channel, dir);
-	}
-
-	protected void setAttributes(ChannelSftp channel, RemoteFile file) throws SftpException {
-		String path = file.getAbsolutePath();
-		if (file.getPermissions() != null) {
-			channel.chmod(file.getPermissions(), path);
-		}
-		if (file.getGroupId() != null) {
-			channel.chgrp(file.getGroupId(), path);
-		}
-		if (file.getUserId() != null) {
-			channel.chown(file.getUserId(), path);
-		}
-	}
-
-	/**
 	 * Return <code>true</code> if <code>file</code> exists.
 	 */
 	protected boolean isExisting(ChannelSftp channel, RemoteFile file) throws SftpException {
@@ -223,6 +186,43 @@ public class JSchSecureFtpClient implements SecureFtpClient {
 			IOUtils.closeQuietly(out);
 			JSchUtils.disconnectQuietly(channel);
 			JSchUtils.disconnectQuietly(session);
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
+		updateRemoteFile(channel, file);
+		JSchUtils.validateForceMkdir(file);
+		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
+		for (String pathFragment : pathFragments) {
+			RemoteFile parentDir = new RemoteFile(pathFragment);
+			updateRemoteFile(channel, parentDir);
+			JSchUtils.validateForceMkdir(parentDir);
+			if (!parentDir.isDirectory()) {
+				createDirectory(channel, parentDir);
+			}
+		}
+	}
+
+	protected void createDirectory(ChannelSftp channel, RemoteFile dir) throws SftpException {
+		String path = dir.getAbsolutePath();
+		logger.debug("Creating [{}]", path);
+		channel.mkdir(path);
+		setAttributes(channel, dir);
+	}
+
+	protected void setAttributes(ChannelSftp channel, RemoteFile file) throws SftpException {
+		String path = file.getAbsolutePath();
+		if (file.getPermissions() != null) {
+			channel.chmod(file.getPermissions(), path);
+		}
+		if (file.getGroupId() != null) {
+			channel.chgrp(file.getGroupId(), path);
+		}
+		if (file.getUserId() != null) {
+			channel.chown(file.getUserId(), path);
 		}
 	}
 
