@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 public class SSHUtils {
+
 	private static final Logger logger = LoggerFactory.getLogger(SSHUtils.class);
 
 	private static final String FS = File.separator;
