@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class DefaultSecureChannelTest {
 
@@ -62,7 +63,12 @@ public class DefaultSecureChannelTest {
 			channel.open();
 			RemoteFile remote = channel.getMetaData(absolutePath);
 			channel.copyFile(localSrc, remote);
+			Assert.isTrue(channel.exists(absolutePath));
+			Assert.isTrue(!channel.isDirectory(absolutePath));
 			channel.copyFile(remote, localDst);
+			channel.deleteFile(absolutePath);
+			boolean missing = !channel.exists(absolutePath);
+			Assert.isTrue(missing);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
