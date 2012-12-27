@@ -102,7 +102,6 @@ public class JSchUtils {
 		file.setPermissions(attributes.getPermissions());
 		file.setUserId(attributes.getUId());
 		file.setGroupId(attributes.getGId());
-		file.setLastModified(new Long(attributes.getMTime() * 1000));
 		file.setSize(attributes.getSize());
 		file.setStatus(Status.EXISTS);
 	}
