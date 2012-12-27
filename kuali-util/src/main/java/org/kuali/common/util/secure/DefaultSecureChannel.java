@@ -124,9 +124,9 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
-		ChannelSftp channel = (ChannelSftp) session.openChannel(SFTP);
-		connect(channel, timeout);
-		return channel;
+		ChannelSftp sftp = (ChannelSftp) session.openChannel(SFTP);
+		connect(sftp, timeout);
+		return sftp;
 	}
 
 	protected void closeQuietly(Session session) {
@@ -187,20 +187,29 @@ public class DefaultSecureChannel implements SecureChannel {
 	public RemoteFile getMetaData(String absolutePath) {
 		RemoteFile file = new RemoteFile();
 		file.setAbsolutePath(absolutePath);
-		updateRemoteFile(sftp, file);
+		updateMetaData(sftp, file);
 		return file;
 	}
 
 	/**
 	 * Connect to the remote server and acquire information about <code>file</code>
 	 */
-	protected void updateRemoteFile(ChannelSftp channel, RemoteFile file) {
+	protected void updateMetaData(ChannelSftp sftp, RemoteFile file) {
 		try {
-			SftpATTRS attributes = channel.stat(file.getAbsolutePath());
-			JSchUtils.updateRemoteFile(file, attributes);
+			SftpATTRS attributes = sftp.stat(file.getAbsolutePath());
+			update(file, attributes);
 		} catch (SftpException e) {
 			handleNoSuchFileException(file, e);
 		}
+	}
+
+	protected void update(RemoteFile file, SftpATTRS attributes) {
+		file.setDirectory(attributes.isDir());
+		file.setPermissions(attributes.getPermissions());
+		file.setUserId(attributes.getUId());
+		file.setGroupId(attributes.getGId());
+		file.setSize(attributes.getSize());
+		file.setStatus(Status.EXISTS);
 	}
 
 	@Override
@@ -245,9 +254,9 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void copyInputStreamToFile(ChannelSftp channel, InputStream source, RemoteFile destination) throws SftpException {
-		forceMkdirs(channel, destination);
-		channel.put(source, destination.getAbsolutePath());
+	protected void copyInputStreamToFile(ChannelSftp sftp, InputStream source, RemoteFile destination) throws SftpException {
+		forceMkdirs(sftp, destination);
+		sftp.put(source, destination.getAbsolutePath());
 	}
 
 	protected void copyLocationToFile(ChannelSftp sftp, String location, RemoteFile destination) {
@@ -301,17 +310,17 @@ public class DefaultSecureChannel implements SecureChannel {
 	/**
 	 *
 	 */
-	protected void forceMkdirs(ChannelSftp channel, RemoteFile file) throws SftpException {
+	protected void forceMkdirs(ChannelSftp sftp, RemoteFile file) throws SftpException {
 		boolean directoryIndicator = file.isDirectory();
-		updateRemoteFile(channel, file);
+		updateMetaData(sftp, file);
 		validate(file, directoryIndicator);
 		List<String> pathFragments = LocationUtils.getNormalizedPathFragments(file.getAbsolutePath(), file.isDirectory());
 		for (String pathFragment : pathFragments) {
 			RemoteFile parentDir = new RemoteFile(pathFragment);
-			updateRemoteFile(channel, parentDir);
+			updateMetaData(sftp, parentDir);
 			validate(parentDir, true);
 			if (!parentDir.isDirectory()) {
-				createDirectory(channel, parentDir);
+				createDirectory(sftp, parentDir);
 			}
 		}
 	}
@@ -351,23 +360,23 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void createDirectory(ChannelSftp channel, RemoteFile dir) throws SftpException {
+	protected void createDirectory(ChannelSftp sftp, RemoteFile dir) throws SftpException {
 		String path = dir.getAbsolutePath();
 		logger.debug("Creating [{}]", path);
-		channel.mkdir(path);
-		setAttributes(channel, dir);
+		sftp.mkdir(path);
+		setAttributes(sftp, dir);
 	}
 
-	protected void setAttributes(ChannelSftp channel, RemoteFile file) throws SftpException {
+	protected void setAttributes(ChannelSftp sftp, RemoteFile file) throws SftpException {
 		String path = file.getAbsolutePath();
 		if (file.getPermissions() != null) {
-			channel.chmod(file.getPermissions(), path);
+			sftp.chmod(file.getPermissions(), path);
 		}
 		if (file.getGroupId() != null) {
-			channel.chgrp(file.getGroupId(), path);
+			sftp.chgrp(file.getGroupId(), path);
 		}
 		if (file.getUserId() != null) {
-			channel.chown(file.getUserId(), path);
+			sftp.chown(file.getUserId(), path);
 		}
 	}
 
@@ -386,8 +395,8 @@ public class DefaultSecureChannel implements SecureChannel {
 	/**
 	 * Return <code>true</code> if <code>file</code> exists.
 	 */
-	protected boolean isExisting(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
+	protected boolean isExisting(ChannelSftp sftp, RemoteFile file) throws SftpException {
+		updateMetaData(sftp, file);
 		return Status.EXISTS.equals(file.getStatus());
 	}
 
@@ -395,8 +404,8 @@ public class DefaultSecureChannel implements SecureChannel {
 	 * Return <code>true</code> if <code>file</code> is an existing file. Return <code>false</code> if <code>file</code> does not exist or
 	 * is an existing directory.
 	 */
-	protected boolean isExistingFile(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
+	protected boolean isExistingFile(ChannelSftp sftp, RemoteFile file) throws SftpException {
+		updateMetaData(sftp, file);
 		return Status.EXISTS.equals(file.getStatus()) && !file.isDirectory();
 	}
 
@@ -404,8 +413,8 @@ public class DefaultSecureChannel implements SecureChannel {
 	 * Return <code>true</code> if <code>path</code> is an existing directory. Return <code>false</code> if <code>path</code> does not exist
 	 * or is an existing file.
 	 */
-	protected boolean isExistingDirectory(ChannelSftp channel, RemoteFile file) throws SftpException {
-		updateRemoteFile(channel, file);
+	protected boolean isExistingDirectory(ChannelSftp sftp, RemoteFile file) throws SftpException {
+		updateMetaData(sftp, file);
 		return Status.EXISTS.equals(file.getStatus()) && file.isDirectory();
 	}
 
