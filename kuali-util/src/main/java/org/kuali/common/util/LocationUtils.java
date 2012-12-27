@@ -46,8 +46,8 @@ public class LocationUtils {
 	private static final String FILE_PREFIX = "file:";
 	private static final String BACK_SLASH = "\\";
 	private static final String FORWARD_SLASH = "/";
-	private static final String SLASH_DOT_SLASH = "/./";
-	private static final String SLASH_DOTDOT_SLASH = "/../";
+	private static final String SLASH_DOT = "/.";
+	private static final String DOT_SLASH = "./";
 
 	public static final List<String> getNormalizedPathFragments(String absolutePath, boolean directory) {
 		String normalized = getNormalizedAbsolutePath(absolutePath);
@@ -112,10 +112,10 @@ public class LocationUtils {
 	}
 
 	public static final void validateNormalizedPath(String originalPath, String normalizedPath) {
-		if (StringUtils.contains(normalizedPath, SLASH_DOT_SLASH)) {
+		if (StringUtils.contains(normalizedPath, SLASH_DOT)) {
 			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
 		}
-		if (StringUtils.contains(normalizedPath, SLASH_DOTDOT_SLASH)) {
+		if (StringUtils.contains(normalizedPath, DOT_SLASH)) {
 			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
 		}
 	}
