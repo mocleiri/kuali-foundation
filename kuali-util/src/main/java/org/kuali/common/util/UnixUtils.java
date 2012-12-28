@@ -184,7 +184,7 @@ public class UnixUtils {
 		Assert.notNull(source);
 		Assert.notNull(destination);
 		List<String> arguments = new ArrayList<String>();
-		arguments.addAll(CollectionUtils.toEmpty(options));
+		arguments.addAll(CollectionUtils.toEmptyList(options));
 		arguments.add(source);
 		arguments.add(destination);
 		Commandline cl = new Commandline();
@@ -493,7 +493,7 @@ public class UnixUtils {
 		Assert.notNull(hostname);
 		Assert.notNull(command);
 		List<String> arguments = new ArrayList<String>();
-		arguments.addAll(CollectionUtils.toEmpty(args));
+		arguments.addAll(CollectionUtils.toEmptyList(args));
 		if (!StringUtils.isBlank(user)) {
 			arguments.add(user + "@" + hostname);
 		} else {
@@ -536,7 +536,7 @@ public class UnixUtils {
 		Assert.notNull(source);
 		Assert.notNull(destination);
 		List<String> arguments = new ArrayList<String>();
-		arguments.addAll(CollectionUtils.toEmpty(args));
+		arguments.addAll(CollectionUtils.toEmptyList(args));
 		arguments.add(source);
 		arguments.add(destination);
 		Commandline cl = new Commandline();
@@ -683,7 +683,7 @@ public class UnixUtils {
 		rsyncDirOptions.add("--recursive");
 		rsyncDirOptions.add("--archive");
 		rsyncDirOptions.add("--delete");
-		for (String option : CollectionUtils.toEmpty(options)) {
+		for (String option : CollectionUtils.toEmptyList(options)) {
 			if (!rsyncDirOptions.contains(option)) {
 				rsyncDirOptions.add(option);
 			}
