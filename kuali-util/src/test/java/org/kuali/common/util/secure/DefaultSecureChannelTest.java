@@ -15,11 +15,13 @@
  */
 package org.kuali.common.util.secure;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.UnixCmds;
@@ -62,10 +64,12 @@ public class DefaultSecureChannelTest {
 
 	protected void show(Result result) throws IOException {
 		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
-		for (String line : CollectionUtils.getLines(result.getStdout())) {
+		List<String> stdout = IOUtils.readLines(new ByteArrayInputStream(result.getStdout()));
+		for (String line : stdout) {
 			logger.info(line);
 		}
-		for (String line : CollectionUtils.getLines(result.getStderr())) {
+		List<String> stderr = IOUtils.readLines(new ByteArrayInputStream(result.getStderr()));
+		for (String line : stderr) {
 			logger.error(line);
 		}
 	}

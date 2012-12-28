@@ -75,7 +75,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	protected Result getExecutionResult(int exitValue, long start, String stdout, String stderr, String command) {
+	protected Result getExecutionResult(int exitValue, long start, byte[] stdout, byte[] stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
 		Result result = new Result();
@@ -102,8 +102,8 @@ public class DefaultSecureChannel implements SecureChannel {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			exec.setErrStream(out);
 			connect(exec, null);
-			String stdout = IOUtils.toString(in, encoding);
-			String stderr = IOUtils.toString(new ByteArrayInputStream(out.toByteArray()), encoding);
+			byte[] stdout = IOUtils.toByteArray(in);
+			byte[] stderr = out.toByteArray();
 			out.close();
 			waitForClosed(exec, waitForClosedSleepMillis);
 			return getExecutionResult(exec.getExitStatus(), start, stdout, stderr, command);

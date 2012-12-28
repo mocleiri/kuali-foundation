@@ -4,8 +4,8 @@ public class Result {
 
 	String command;
 	int exitValue;
-	String stdout;
-	String stderr;
+	byte[] stdout;
+	byte[] stderr;
 	long start;
 	long stop;
 	long elapsed;
@@ -26,19 +26,19 @@ public class Result {
 		this.exitValue = exitValue;
 	}
 
-	public String getStdout() {
+	public byte[] getStdout() {
 		return stdout;
 	}
 
-	public void setStdout(String stdout) {
+	public void setStdout(byte[] stdout) {
 		this.stdout = stdout;
 	}
 
-	public String getStderr() {
+	public byte[] getStderr() {
 		return stderr;
 	}
 
-	public void setStderr(String stderr) {
+	public void setStderr(byte[] stderr) {
 		this.stderr = stderr;
 	}
 
@@ -65,4 +65,5 @@ public class Result {
 	public void setElapsed(long elapsed) {
 		this.elapsed = elapsed;
 	}
+
 }
