@@ -40,4 +40,16 @@ public interface SecureChannel {
 
 	ExecResult executeCommand(String command);
 
+	ExecResult su(String login, String command);
+
+	ExecResult mkdir(String path);
+
+	ExecResult rm(String path);
+
+	ExecResult chown(String owner, String group, String path);
+
+	ExecResult chownr(String owner, String group, String path);
+
+	ExecResult chmod(String permissions, String path);
+
 }

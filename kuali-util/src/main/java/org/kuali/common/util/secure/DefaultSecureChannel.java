@@ -85,37 +85,37 @@ public class DefaultSecureChannel implements SecureChannel {
 		return result;
 	}
 
+	@Override
 	public ExecResult mkdir(String path) {
 		assertNotBlank(path);
 		return executeCommand("mkdir -p " + path);
 	}
 
+	@Override
 	public ExecResult chmod(String path, String permissions) {
 		assertNotBlank(path);
 		return executeCommand("chmod  " + permissions + " " + path);
 	}
 
-	public ExecResult chownr(String owner, String group, String path) {
+	@Override
+    public ExecResult chownr(String owner, String group, String path) {
 		assertNotBlank(owner, group, path);
 		return executeCommand("chown -R " + owner + ":" + group + " " + path);
 	}
 
-	protected void assertNotBlank(String... strings) {
-		for (String string : strings) {
-			Assert.isTrue(!StringUtils.isBlank(string));
-		}
-	}
-
+	@Override
 	public ExecResult chown(String owner, String group, String path) {
 		assertNotBlank(owner, group, path);
 		return executeCommand("chown " + owner + ":" + group + " " + path);
 	}
 
-	public ExecResult rm(String path) {
+	@Override
+    public ExecResult rm(String path) {
 		assertNotBlank(path);
 		return executeCommand("rm -rf " + path);
 	}
 
+	@Override
 	public ExecResult su(String login, String command) {
 		assertNotBlank(login, command);
 		return executeCommand("su - " + login + " --command " + command);
@@ -162,6 +162,12 @@ public class DefaultSecureChannel implements SecureChannel {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
+		}
+	}
+
+	protected void assertNotBlank(String... strings) {
+		for (String string : strings) {
+			Assert.isTrue(!StringUtils.isBlank(string));
 		}
 	}
 
