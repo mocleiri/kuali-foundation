@@ -103,7 +103,7 @@ public class CollectionUtils {
 	/**
 	 * If <code>list==null</code> return an empty list otherwise return <code>list</code>
 	 */
-	public static final <T> List<T> toEmpty(List<T> list) {
+	public static final <T> List<T> toEmptyList(List<T> list) {
 		if (list == null) {
 			return Collections.<T> emptyList();
 		} else {
@@ -140,8 +140,9 @@ public class CollectionUtils {
 	}
 
 	public static final String getSpaceSeparatedString(List<?> list) {
+		list = toEmptyList(list);
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < toEmptyList(list).size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			if (i != 0) {
 				sb.append(" ");
 			}
@@ -164,7 +165,7 @@ public class CollectionUtils {
 
 	public static final List<String> sortedMerge(List<String> list, String csv) {
 		Set<String> set = new TreeSet<String>();
-		for (String string : toEmpty(list)) {
+		for (String string : toEmptyList(list)) {
 			set.add(string);
 		}
 		for (String string : getTrimmedListFromCSV(csv)) {

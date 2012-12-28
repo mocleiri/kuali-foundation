@@ -75,7 +75,7 @@ public class PropertyUtils {
 	}
 
 	public static final void process(Properties properties, List<PropertyProcessor> processors) {
-		for (PropertyProcessor processor : CollectionUtils.toEmpty(processors)) {
+		for (PropertyProcessor processor : CollectionUtils.toEmptyList(processors)) {
 			processor.process(properties);
 		}
 	}
@@ -219,7 +219,7 @@ public class PropertyUtils {
 	}
 
 	public static final boolean isSingleWildcardMatch(String s, List<String> patterns) {
-		for (String pattern : CollectionUtils.toEmpty(patterns)) {
+		for (String pattern : CollectionUtils.toEmptyList(patterns)) {
 			if (isSingleWildcardMatch(s, pattern)) {
 				return true;
 			}

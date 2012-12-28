@@ -46,7 +46,7 @@ public class DefaultSecureChannelTest {
 			UnixCmds cmds = new UnixCmds();
 			DefaultSecureChannel channel = getSecureChannel();
 			channel.open();
-			show(channel.executeCommand(cmds.rm("/root/x")));
+			show(channel.executeCommand(cmds.rmrf("/root/x")));
 			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh")));
 			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh")));
 			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/startup.sh")));
