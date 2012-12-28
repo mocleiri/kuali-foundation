@@ -43,7 +43,7 @@ public class UnixUtilsTest {
 			String destination = "root@env11.ks.kuali.org:/home/tomcat/foo.sh";
 			UnixUtils.sshsu("root@env11.ks.kuali.org", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.sshchown("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
-			UnixUtils.sshchownrecursive("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
+			UnixUtils.sshchownr("root@env11.ks.kuali.org", "tomcat", "tomcat", "/home/tomcat/foo.sh");
 			UnixUtils.scp(destination, source);
 			UnixUtils.sshrm("root@env11.ks.kuali.org", "/home/tomcat/foo.sh");
 			UnixUtils.scp(source, destination);
