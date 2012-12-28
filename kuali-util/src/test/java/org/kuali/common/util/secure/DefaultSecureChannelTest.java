@@ -42,19 +42,21 @@ public class DefaultSecureChannelTest {
 		try {
 			DefaultSecureChannel channel = getSecureChannel();
 			channel.open();
-			showResult(channel.rm("/root/x"));
-			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh"));
-			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh"));
-			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/startup.sh"));
-			showResult(channel.mkdir("/home/tomcat/x/y/z/foo"));
-			showResult(channel.chownr("tomcat", "tomcat", "/home/tomcat/x"));
+			show(channel.rm("/root/x"));
+			show(channel.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh"));
+			show(channel.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh"));
+			show(channel.su("tomcat", "/usr/local/tomcat/bin/startup.sh"));
+			show(channel.mkdir("/home/tomcat/x/y/z/foo"));
+			show(channel.executeCommand("ls -la > /home/tomcat/x/y/z/foo.sh"));
+			show(channel.chmod("", ""));
+			show(channel.chownr("tomcat", "tomcat", "/home/tomcat/x"));
 			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void showResult(ExecResult result) {
+	protected void show(ExecResult result) {
 		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
 		for (String line : result.getStdout()) {
 			logger.info(line);

@@ -92,13 +92,13 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public ExecResult chmod(String path, String permissions) {
-		assertNotBlank(path);
+	public ExecResult chmod(String permissions, String path) {
+		assertNotBlank(permissions, path);
 		return executeCommand("chmod  " + permissions + " " + path);
 	}
 
 	@Override
-    public ExecResult chownr(String owner, String group, String path) {
+	public ExecResult chownr(String owner, String group, String path) {
 		assertNotBlank(owner, group, path);
 		return executeCommand("chown -R " + owner + ":" + group + " " + path);
 	}
@@ -110,7 +110,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-    public ExecResult rm(String path) {
+	public ExecResult rm(String path) {
 		assertNotBlank(path);
 		return executeCommand("rm -rf " + path);
 	}
