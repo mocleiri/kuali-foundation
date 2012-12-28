@@ -32,7 +32,7 @@ public class DefaultSecureChannelTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
 	SimpleFormatter formatter = new SimpleFormatter();
 
-	protected DefaultSecureChannel getSecureChannel() {
+	protected SecureChannel getSecureChannel() {
 		DefaultSecureChannel channel = new DefaultSecureChannel();
 		channel.setUsername("root");
 		channel.setHostname("env7.ole.kuali.org");
@@ -44,16 +44,16 @@ public class DefaultSecureChannelTest {
 	public void testExec() {
 		try {
 			UnixCmds cmds = new UnixCmds();
-			DefaultSecureChannel channel = getSecureChannel();
+			SecureChannel channel = getSecureChannel();
 			channel.open();
-			show(channel.executeCommand(cmds.rmrf("/root/x")));
-			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh")));
-			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh")));
-			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/startup.sh")));
-			show(channel.executeCommand(cmds.mkdirp("/home/tomcat/x/y/z/foo")));
-			show(channel.executeCommand("ls -la > /home/tomcat/x/y/z/foo.sh"));
-			show(channel.executeCommand(cmds.chmod("755", "/home/tomcat/x/y/z/foo.sh")));
-			show(channel.executeCommand(cmds.chownr("tomcat", "tomcat", "/home/tomcat/x")));
+			show(channel.execute(cmds.rmrf("/root/x")));
+			show(channel.execute(cmds.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh")));
+			show(channel.execute(cmds.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh")));
+			show(channel.execute(cmds.su("tomcat", "/usr/local/tomcat/bin/startup.sh")));
+			show(channel.execute(cmds.mkdirp("/home/tomcat/x/y/z/foo")));
+			show(channel.execute("ls -la > /home/tomcat/x/y/z/foo.sh"));
+			show(channel.execute(cmds.chmod("755", "/home/tomcat/x/y/z/foo.sh")));
+			show(channel.execute(cmds.chownr("tomcat", "tomcat", "/home/tomcat/x")));
 			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
