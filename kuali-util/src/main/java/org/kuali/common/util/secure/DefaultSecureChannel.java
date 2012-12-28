@@ -116,18 +116,18 @@ public class DefaultSecureChannel implements SecureChannel {
 		return channel;
 	}
 
+	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
+		ChannelSftp sftp = (ChannelSftp) session.openChannel(SFTP);
+		connect(sftp, timeout);
+		return sftp;
+	}
+
 	protected void connect(Channel channel, Integer timeout) throws JSchException {
 		if (timeout == null) {
 			channel.connect();
 		} else {
 			channel.connect(timeout);
 		}
-	}
-
-	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
-		ChannelSftp sftp = (ChannelSftp) session.openChannel(SFTP);
-		connect(sftp, timeout);
-		return sftp;
 	}
 
 	protected void closeQuietly(Session session) {
