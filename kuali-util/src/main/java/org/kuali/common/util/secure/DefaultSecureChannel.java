@@ -75,10 +75,10 @@ public class DefaultSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	protected ExecutionResult getExecutionResult(int exitValue, long start, String stdout, String stderr, String command) {
+	protected Result getExecutionResult(int exitValue, long start, String stdout, String stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
-		ExecutionResult result = new ExecutionResult();
+		Result result = new Result();
 		result.setCommand(command);
 		result.setElapsed(elapsed);
 		result.setStart(start);
@@ -90,7 +90,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public ExecutionResult execute(String command) {
+	public Result execute(String command) {
 		ChannelExec exec = null;
 		InputStream in = null;
 		try {

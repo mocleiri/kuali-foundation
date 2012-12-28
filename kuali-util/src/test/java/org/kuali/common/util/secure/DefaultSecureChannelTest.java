@@ -60,7 +60,7 @@ public class DefaultSecureChannelTest {
 		}
 	}
 
-	protected void show(ExecutionResult result) throws IOException {
+	protected void show(Result result) throws IOException {
 		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
 		for (String line : CollectionUtils.getLines(result.getStdout())) {
 			logger.info(line);

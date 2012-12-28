@@ -1,6 +1,6 @@
 package org.kuali.common.util.secure;
 
-public class ExecutionResult {
+public class Result {
 
 	String command;
 	int exitValue;
