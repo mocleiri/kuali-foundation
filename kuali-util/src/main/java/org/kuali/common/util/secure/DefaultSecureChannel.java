@@ -14,12 +14,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
@@ -343,9 +343,8 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyStringToFile(String string, String encoding, RemoteFile destination) {
-		encoding = encoding == null ? this.encoding : encoding;
 		Assert.notNull(string);
-		Assert.notNull(encoding);
+		Assert.notBlank(encoding);
 		InputStream in = new ByteArrayInputStream(Str.getBytes(string, encoding));
 		copyInputStreamToFile(in, destination);
 		IOUtils.closeQuietly(in);
