@@ -656,7 +656,7 @@ public class UnixUtils {
 		}
 	}
 
-	protected static final String getChownCommand(List<String> args, String owner, String group, String file) {
+	public static final String getChownCommand(List<String> args, String owner, String group, String file) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(CHOWN);
 		String arguments = getSpaceSeparatedStrings(args);
