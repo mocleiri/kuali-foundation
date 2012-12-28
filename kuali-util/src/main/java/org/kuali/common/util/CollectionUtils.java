@@ -183,11 +183,26 @@ public class CollectionUtils {
 		return list;
 	}
 
-	public static final List<String> addStrings(List<String> list1, List<String> list2) {
+	public static final List<String> combineStrings(List<String> list1, List<String> list2, List<String> list3) {
 		List<String> combined = new ArrayList<String>();
 		nullSafeAdd(combined, list1);
 		nullSafeAdd(combined, list2);
+		nullSafeAdd(combined, list3);
 		return combined;
+	}
+
+	/**
+	 * Return a new list containing all of the strings from both lists with string added in between the strings from both lists
+	 */
+	public static final List<String> combineStrings(List<String> list1, String string, List<String> list2) {
+		return combineStrings(list1, toEmptyList(string), list2);
+	}
+
+	/**
+	 * Return a new list containing all of the strings from both lists
+	 */
+	public static final List<String> combineStrings(List<String> list1, List<String> list2) {
+		return combineStrings(list1, (String) null, list2);
 	}
 
 	public static final <T> void nullSafeAdd(List<T> list1, List<T> list2) {
