@@ -30,7 +30,6 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 /**
  * Execute Unix utilities using java.
@@ -212,8 +211,8 @@ public class UnixUtils {
 	 * ssh hostname chown -R owner:group file
 	 * </pre>
 	 */
-	public static final int sshchownrecursive(String hostname, String owner, String group, String file) {
-		return sshchownrecursive(null, null, hostname, owner, group, file);
+	public static final int sshchownr(String hostname, String owner, String group, String file) {
+		return sshchownr(null, null, hostname, owner, group, file);
 	}
 
 	/**
@@ -221,8 +220,8 @@ public class UnixUtils {
 	 * ssh [user@]hostname chown -R owner:group file
 	 * </pre>
 	 */
-	public static final int sshchownrecursive(String user, String hostname, String owner, String group, String file) {
-		return sshchownrecursive(null, user, hostname, owner, group, file);
+	public static final int sshchownr(String user, String hostname, String owner, String group, String file) {
+		return sshchownr(null, user, hostname, owner, group, file);
 	}
 
 	/**
@@ -230,8 +229,8 @@ public class UnixUtils {
 	 * ssh [args] hostname chown -R owner:group file
 	 * </pre>
 	 */
-	public static final int sshchownrecursive(List<String> args, String hostname, String owner, String group, String file) {
-		return sshchownrecursive(args, null, hostname, owner, group, file);
+	public static final int sshchownr(List<String> args, String hostname, String owner, String group, String file) {
+		return sshchownr(args, null, hostname, owner, group, file);
 	}
 
 	/**
@@ -239,7 +238,7 @@ public class UnixUtils {
 	 * ssh [args] [user@]hostname chown -R owner:group file
 	 * </pre>
 	 */
-	public static final int sshchownrecursive(List<String> args, String user, String hostname, String owner, String group, String file) {
+	public static final int sshchownr(List<String> args, String user, String hostname, String owner, String group, String file) {
 		return sshchown(args, user, hostname, Arrays.asList("-R"), owner, group, file);
 	}
 
@@ -357,10 +356,9 @@ public class UnixUtils {
 	 * ssh [args] [user@]hostname rm [rmargs] file ...
 	 * </pre>
 	 */
-	public static final int sshrm(List<String> args, String user, String hostname, List<String> rmargs, List<String> files) {
-		Assert.notNull(files);
-		Assert.isTrue(files.size() > 0);
-		String command = getRmCommand(rmargs, files);
+	public static final int sshrm(List<String> args, String user, String hostname, List<String> options, List<String> paths) {
+		Assert.notEmpty(paths);
+		String command = cmds.rm(options, paths);
 		return ssh(args, user, hostname, command);
 	}
 
@@ -369,10 +367,10 @@ public class UnixUtils {
 	 * ssh [args] [user@]hostname chmod mode file
 	 * </pre>
 	 */
-	public static final int sshchmod(List<String> args, String user, String hostname, String mode, String file) {
-		Assert.notNull(mode);
-		Assert.notNull(file);
-		return ssh(args, user, hostname,
+	public static final int sshchmod(List<String> args, String user, String hostname, String mode, String path) {
+		Assert.hasLength(mode);
+		Assert.notNull(path);
+		return ssh(args, user, hostname, cmds.chmod(mode, path));
 	}
 
 	/**
@@ -389,8 +387,8 @@ public class UnixUtils {
 	 * ssh [user@]hostname mkdir -p directory
 	 * </pre>
 	 */
-	public static final int sshmkdir(String user, String hostname, String directory) {
-		return sshmkdir(null, user, hostname, directory);
+	public static final int sshmkdir(String user, String hostname, String path) {
+		return sshmkdir(null, user, hostname, path);
 	}
 
 	/**
@@ -398,9 +396,9 @@ public class UnixUtils {
 	 * ssh [args] [user@]hostname mkdir -p directory
 	 * </pre>
 	 */
-	public static final int sshmkdir(List<String> args, String user, String hostname, String directory) {
-		Assert.notNull(directory);
-		return ssh(args, user, hostname, cmds.mkdirp(directory));
+	public static final int sshmkdir(List<String> args, String user, String hostname, String path) {
+		Assert.notBlank(path);
+		return ssh(args, user, hostname, cmds.mkdirp(path));
 	}
 
 	/**
@@ -408,8 +406,8 @@ public class UnixUtils {
 	 * ssh hostname mkdir -p directory
 	 * </pre>
 	 */
-	public static final int sshmkdir(String hostname, String directory) {
-		return sshmkdir(null, null, hostname, directory);
+	public static final int sshmkdir(String hostname, String path) {
+		return sshmkdir(null, null, hostname, path);
 	}
 
 	/**
@@ -417,8 +415,8 @@ public class UnixUtils {
 	 * ssh [args] hostname mkdir -p directory
 	 * </pre>
 	 */
-	public static final int sshmkdir(List<String> args, String hostname, String directory) {
-		return sshmkdir(args, null, hostname, directory);
+	public static final int sshmkdir(List<String> args, String hostname, String path) {
+		return sshmkdir(args, null, hostname, path);
 	}
 
 	/**
@@ -456,7 +454,7 @@ public class UnixUtils {
 	public static final int sshsu(List<String> args, String user, String hostname, String login, String command) {
 		Assert.notNull(login);
 		Assert.notNull(command);
-		return ssh(user, hostname, SU + " - " + login + " " + command);
+		return ssh(user, hostname, cmds.su(login, command));
 	}
 
 	/**

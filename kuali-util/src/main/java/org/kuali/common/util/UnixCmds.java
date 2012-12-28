@@ -11,9 +11,9 @@ public class UnixCmds {
 	private static final String CHOWN = "chown";
 	private static final String CHMOD = "chmod";
 
-	public String chmod(String octalMode, String path) {
+	public String chmod(String mode, String path) {
 		Assert.hasLength(path);
-		return chmod(octalMode, Collections.singletonList(path));
+		return chmod(mode, Collections.singletonList(path));
 	}
 
 	public String chmod(String octalMode, List<String> paths) {
