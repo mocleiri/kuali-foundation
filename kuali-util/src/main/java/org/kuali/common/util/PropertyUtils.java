@@ -233,16 +233,16 @@ public class PropertyUtils {
 	 * {@code false}. Any {@code pattern} containing more than a single wildcard throws {@code IllegalArgumentException}.
 	 *
 	 * <pre>
-	 * PropertyUtils.singleWildcardMatch(null, null)          = true
-	 * PropertyUtils.singleWildcardMatch(null, *)             = false
-	 * PropertyUtils.singleWildcardMatch(*, null)             = false
-	 * PropertyUtils.singleWildcardMatch(*, "*")              = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "bcd")     = false
-	 * PropertyUtils.singleWildcardMatch("abcdef", "*def")    = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*")    = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "ab*ef")   = true
-	 * PropertyUtils.singleWildcardMatch("abcdef", "abc*def") = true
-	 * PropertyUtils.singleWildcardMatch(*, "**")             = IllegalArgumentException
+	 * PropertyUtils.isSingleWildcardMatch(null, null)          = true
+	 * PropertyUtils.isSingleWildcardMatch(null, *)             = false
+	 * PropertyUtils.isSingleWildcardMatch(*, null)             = false
+	 * PropertyUtils.isSingleWildcardMatch(*, "*")              = true
+	 * PropertyUtils.isSingleWildcardMatch("abcdef", "bcd")     = false
+	 * PropertyUtils.isSingleWildcardMatch("abcdef", "*def")    = true
+	 * PropertyUtils.isSingleWildcardMatch("abcdef", "abc*")    = true
+	 * PropertyUtils.isSingleWildcardMatch("abcdef", "ab*ef")   = true
+	 * PropertyUtils.isSingleWildcardMatch("abcdef", "abc*def") = true
+	 * PropertyUtils.isSingleWildcardMatch(*, "**")             = IllegalArgumentException
 	 * </pre>
 	 */
 	public static final boolean isSingleWildcardMatch(String value, String pattern) {
