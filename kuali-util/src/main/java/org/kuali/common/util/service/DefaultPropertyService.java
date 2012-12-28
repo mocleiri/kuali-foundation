@@ -37,7 +37,7 @@ public class DefaultPropertyService implements PropertyService {
 		context.initialize(properties);
 		List<PropertyProcessor> processors = CollectionUtils.toEmpty(context.getProcessors());
 		logger.info("Processing " + properties.size() + " properties using " + processors.size() + " processors.");
-		process(properties, context.getProcessors());
+		PropertyUtils.process(properties, context.getProcessors());
 		logger.info("Returning " + properties.size() + " properties.");
 		if (logger.isDebugEnabled()) {
 			logger.debug(PropertyUtils.toString(properties));
@@ -49,14 +49,8 @@ public class DefaultPropertyService implements PropertyService {
 	public void store(PropertyStoreContext context, Properties properties) {
 		Properties duplicate = PropertyUtils.duplicate(properties);
 		context.initialize(duplicate);
-		process(duplicate, context.getProcessors());
+		PropertyUtils.process(duplicate, context.getProcessors());
 		PropertyUtils.store(duplicate, context.getFile(), context.getEncoding(), context.getComment());
-	}
-
-	protected void process(Properties properties, List<PropertyProcessor> processors) {
-		for (PropertyProcessor processor : CollectionUtils.toEmpty(processors)) {
-			processor.process(properties);
-		}
 	}
 
 	protected Properties loadProperties(PropertyLoadContext context) {

@@ -75,7 +75,7 @@ public class PropertyUtils {
 	}
 
 	public static final void process(Properties properties, List<PropertyProcessor> processors) {
-		for (PropertyProcessor processor : processors) {
+		for (PropertyProcessor processor : CollectionUtils.toEmpty(processors)) {
 			processor.process(properties);
 		}
 	}
