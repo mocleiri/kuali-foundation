@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
 public class CollectionUtils {
 
 	/**
-	 * Return a new list containing the unique set of strings represented by <code>lists</code>.
+	 * Return a new list containing the unique set of strings represented by both lists.
 	 */
 	public static final List<String> combineStrings(List<String> list1, List<String> list2) {
 		List<String> newList = new ArrayList<String>(list1);
