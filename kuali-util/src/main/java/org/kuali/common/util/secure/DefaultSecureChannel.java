@@ -90,7 +90,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public ExecutionResult executeCommand(String command) {
+	public ExecutionResult execute(String command) {
 		ChannelExec exec = null;
 		InputStream in = null;
 		try {
