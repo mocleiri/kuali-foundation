@@ -349,7 +349,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void forceMkdir(RemoteFile dir) {
+	public void createDirectory(RemoteFile dir) {
 		Assert.isTrue(dir.isDirectory());
 		try {
 			createDirectories(dir);
@@ -368,7 +368,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			fillInAttributes(parentDir);
 			validate(parentDir, true);
 			if (!isStatus(parentDir, Status.EXISTS)) {
-				createDirectory(parentDir);
+				mkdir(parentDir);
 			}
 		}
 	}
@@ -415,11 +415,15 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void createDirectory(RemoteFile dir) throws SftpException {
-		String path = dir.getAbsolutePath();
-		logger.debug("Creating [{}]", path);
-		sftp.mkdir(path);
-		setAttributes(dir);
+	protected void mkdir(RemoteFile dir) {
+		try {
+			String path = dir.getAbsolutePath();
+			logger.debug("Creating [{}]", path);
+			sftp.mkdir(path);
+			setAttributes(dir);
+		} catch (SftpException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	protected void setAttributes(RemoteFile file) throws SftpException {
