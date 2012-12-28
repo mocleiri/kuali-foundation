@@ -65,6 +65,24 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
+	@Override
+	public synchronized void close() {
+		logger.info("Closing secure channel - {}", getLocation());
+		closeQuietly(sftp);
+		closeQuietly(exec);
+		closeQuietly(session);
+	}
+
+	@Override
+	public RemoteFile getWorkingDirectory() {
+		try {
+			String workingDirectory = sftp.pwd();
+			return getMetaData(workingDirectory);
+		} catch (SftpException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 	protected void validate() {
 		Assert.isTrue(SSHUtils.isValidPort(port));
 		Assert.isTrue(!StringUtils.isBlank(hostname));
@@ -90,24 +108,6 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected String getLocation() {
 		return (username == null) ? hostname : username + "@" + hostname;
-	}
-
-	@Override
-	public RemoteFile getWorkingDirectory() {
-		try {
-			String workingDirectory = sftp.pwd();
-			return getMetaData(workingDirectory);
-		} catch (SftpException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	@Override
-	public synchronized void close() {
-		logger.info("Closing secure channel - {}", getLocation());
-		closeQuietly(sftp);
-		closeQuietly(exec);
-		closeQuietly(session);
 	}
 
 	protected ChannelExec openExecChannel(Session session, Integer timeout) throws JSchException {
