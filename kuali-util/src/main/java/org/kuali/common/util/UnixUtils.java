@@ -320,8 +320,8 @@ public class UnixUtils {
 	 * ssh hostname rm -rf file ...
 	 * </pre>
 	 */
-	public static final int sshrm(String hostname, List<String> files) {
-		return sshrm(null, null, hostname, files);
+	public static final int sshrm(String hostname, List<String> paths) {
+		return sshrm(null, null, hostname, paths);
 	}
 
 	/**
@@ -329,8 +329,8 @@ public class UnixUtils {
 	 * ssh [user@]hostname rm -rf file ...
 	 * </pre>
 	 */
-	public static final int sshrm(String user, String hostname, List<String> files) {
-		return sshrm(null, user, hostname, files);
+	public static final int sshrm(String user, String hostname, List<String> paths) {
+		return sshrm(null, user, hostname, paths);
 	}
 
 	/**
@@ -338,8 +338,8 @@ public class UnixUtils {
 	 * ssh [args] hostname rm -rf file ...
 	 * </pre>
 	 */
-	public static final int sshrm(List<String> args, String hostname, List<String> files) {
-		return sshrm(args, null, hostname, files);
+	public static final int sshrm(List<String> args, String hostname, List<String> paths) {
+		return sshrm(args, null, hostname, paths);
 	}
 
 	/**
@@ -347,8 +347,8 @@ public class UnixUtils {
 	 * ssh [args] [user@]hostname rm -rf file ...
 	 * </pre>
 	 */
-	public static final int sshrm(List<String> args, String user, String hostname, List<String> files) {
-		return sshrm(args, user, hostname, Arrays.asList("-rf"), files);
+	public static final int sshrm(List<String> args, String user, String hostname, List<String> paths) {
+		return sshrm(args, user, hostname, Arrays.asList("-r", "-f"), paths);
 	}
 
 	/**
