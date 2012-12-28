@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleFormatter;
+import org.kuali.common.util.UnixCmds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -42,16 +43,17 @@ public class DefaultSecureChannelTest {
 	@Test
 	public void testExec() {
 		try {
+			UnixCmds cmds = new UnixCmds();
 			DefaultSecureChannel channel = getSecureChannel();
 			channel.open();
-			show(channel.rm("/root/x"));
-			show(channel.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh"));
-			show(channel.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh"));
-			show(channel.su("tomcat", "/usr/local/tomcat/bin/startup.sh"));
-			show(channel.mkdir("/home/tomcat/x/y/z/foo"));
+			show(channel.executeCommand(cmds.rm("/root/x")));
+			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh")));
+			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh")));
+			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/startup.sh")));
+			show(channel.executeCommand(cmds.mkdirp("/home/tomcat/x/y/z/foo")));
 			show(channel.executeCommand("ls -la > /home/tomcat/x/y/z/foo.sh"));
-			show(channel.chmod("755", "/home/tomcat/x/y/z/foo.sh"));
-			show(channel.chownr("tomcat", "tomcat", "/home/tomcat/x"));
+			show(channel.executeCommand(cmds.chmod("755", "/home/tomcat/x/y/z/foo.sh")));
+			show(channel.executeCommand(cmds.chownr("tomcat", "tomcat", "/home/tomcat/x")));
 			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();

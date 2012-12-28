@@ -46,6 +46,11 @@ public class UnixCmds {
 
 	}
 
+	public String mkdir(String path) {
+		Assert.notBlank(path);
+		return mkdir(null, Collections.singletonList(path));
+	}
+
 	public String mkdir(List<String> options, List<String> paths) {
 		Assert.notEmpty(paths);
 		return cmd(MKDIR, CollectionUtils.combineStrings(options, paths));

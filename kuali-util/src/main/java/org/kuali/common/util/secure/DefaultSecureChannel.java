@@ -89,36 +89,6 @@ public class DefaultSecureChannel implements SecureChannel {
 		return result;
 	}
 
-	public ExecutionResult mkdir(String path) {
-		assertNotBlank(path);
-		return executeCommand("mkdir -p " + path);
-	}
-
-	public ExecutionResult chmod(String permissions, String path) {
-		assertNotBlank(permissions, path);
-		return executeCommand("chmod " + permissions + " " + path);
-	}
-
-	public ExecutionResult chownr(String owner, String group, String path) {
-		assertNotBlank(owner, group, path);
-		return executeCommand("chown -R " + owner + ":" + group + " " + path);
-	}
-
-	public ExecutionResult chown(String owner, String group, String path) {
-		assertNotBlank(owner, group, path);
-		return executeCommand("chown " + owner + ":" + group + " " + path);
-	}
-
-	public ExecutionResult rm(String path) {
-		assertNotBlank(path);
-		return executeCommand("rm -rf " + path);
-	}
-
-	public ExecutionResult su(String login, String command) {
-		assertNotBlank(login, command);
-		return executeCommand("su - " + login + " --command " + command);
-	}
-
 	@Override
 	public ExecutionResult executeCommand(String command) {
 		ChannelExec exec = null;
@@ -160,12 +130,6 @@ public class DefaultSecureChannel implements SecureChannel {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
-		}
-	}
-
-	protected void assertNotBlank(String... strings) {
-		for (String string : strings) {
-			Assert.isTrue(!StringUtils.isBlank(string));
 		}
 	}
 
