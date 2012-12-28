@@ -71,10 +71,11 @@ public class DefaultSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	protected ExecResult getExecResult(int exitValue, long start, List<String> stdout, List<String> stderr) {
+	protected ExecResult getExecResult(int exitValue, long start, List<String> stdout, List<String> stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
 		ExecResult result = new ExecResult();
+		result.setCommand(command);
 		result.setElapsed(elapsed);
 		result.setStart(start);
 		result.setStop(stop);
@@ -82,6 +83,41 @@ public class DefaultSecureChannel implements SecureChannel {
 		result.setStdout(stdout);
 		result.setStderr(stderr);
 		return result;
+	}
+
+	public ExecResult mkdir(String path) {
+		Assert.isTrue(!StringUtils.isBlank(path));
+		return executeCommand("mkdir -P " + path);
+	}
+
+	public ExecResult chmod(String path, String permissions) {
+		Assert.isTrue(!StringUtils.isBlank(path));
+		return executeCommand("chmod  " + permissions + " " + path);
+	}
+
+	public ExecResult chownr(String owner, String group, String path) {
+		Assert.isTrue(!StringUtils.isBlank(owner));
+		Assert.isTrue(!StringUtils.isBlank(group));
+		Assert.isTrue(!StringUtils.isBlank(path));
+		return executeCommand("chown -R " + owner + ":" + group + " " + path);
+	}
+
+	public ExecResult chown(String owner, String group, String path) {
+		Assert.isTrue(!StringUtils.isBlank(owner));
+		Assert.isTrue(!StringUtils.isBlank(group));
+		Assert.isTrue(!StringUtils.isBlank(path));
+		return executeCommand("chown " + owner + ":" + group + " " + path);
+	}
+
+	public ExecResult rm(String path) {
+		Assert.isTrue(!StringUtils.isBlank(path));
+		return executeCommand("rm -rf " + path);
+	}
+
+	public ExecResult su(String login, String command) {
+		Assert.isTrue(!StringUtils.isBlank(login));
+		Assert.isTrue(!StringUtils.isBlank(command));
+		return executeCommand("su - " + login + " --command " + command);
 	}
 
 	@Override
@@ -101,7 +137,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			List<String> stderr = IOUtils.readLines(new ByteArrayInputStream(out.toByteArray()));
 			out.close();
 			waitForClosed(exec);
-			return getExecResult(exec.getExitStatus(), start, stdout, stderr);
+			return getExecResult(exec.getExitStatus(), start, stdout, stderr, command);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {

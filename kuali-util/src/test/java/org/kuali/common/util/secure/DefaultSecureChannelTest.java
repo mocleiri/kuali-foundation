@@ -27,6 +27,7 @@ import org.springframework.util.Assert;
 public class DefaultSecureChannelTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
+	SimpleFormatter formatter = new SimpleFormatter();
 
 	protected DefaultSecureChannel getSecureChannel() {
 		DefaultSecureChannel channel = new DefaultSecureChannel();
@@ -39,21 +40,28 @@ public class DefaultSecureChannelTest {
 	@Test
 	public void testExec() {
 		try {
-			SimpleFormatter sf = new SimpleFormatter();
 			DefaultSecureChannel channel = getSecureChannel();
 			channel.open();
-			ExecResult result = channel.executeCommand("ls -la");
-			logger.info("Exit value: {} Total time: {}", result.getExitValue(), sf.getTime(result.getElapsed()));
-			for (String line : result.getStdout()) {
-				logger.info(line);
-			}
-			for (String line : result.getStderr()) {
-				logger.error(line);
-			}
+			showResult(channel.rm("/root/x"));
+			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh"));
+			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh"));
+			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/startup.sh"));
+			showResult(channel.su("tomcat", "pwd"));
 			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void showResult(ExecResult result) {
+		logger.info("Command - [{}]", result.getCommand());
+		for (String line : result.getStdout()) {
+			logger.info(line);
+		}
+		for (String line : result.getStderr()) {
+			logger.error(line);
+		}
+		logger.info("Exit value: {} Total time: {}", result.getExitValue(), formatter.getTime(result.getElapsed()));
 	}
 
 	// @Test

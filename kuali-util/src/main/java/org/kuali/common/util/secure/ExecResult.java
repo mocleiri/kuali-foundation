@@ -4,6 +4,7 @@ import java.util.List;
 
 public class ExecResult {
 
+	String command;
 	int exitValue;
 	List<String> stdout;
 	List<String> stderr;
@@ -57,6 +58,14 @@ public class ExecResult {
 
 	public void setElapsed(long elapsed) {
 		this.elapsed = elapsed;
+	}
+
+	public String getCommand() {
+		return command;
+	}
+
+	public void setCommand(String command) {
+		this.command = command;
 	}
 
 }
