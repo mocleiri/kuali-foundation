@@ -19,6 +19,7 @@ import java.io.File;
 
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.SimpleFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -27,7 +28,7 @@ public class DefaultSecureChannelTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
 
-	protected SecureChannel getSecureChannel() {
+	protected DefaultSecureChannel getSecureChannel() {
 		DefaultSecureChannel channel = new DefaultSecureChannel();
 		channel.setUsername("root");
 		channel.setHostname("env7.ole.kuali.org");
@@ -36,6 +37,25 @@ public class DefaultSecureChannelTest {
 	}
 
 	@Test
+	public void testExec() {
+		try {
+			SimpleFormatter sf = new SimpleFormatter();
+			DefaultSecureChannel channel = getSecureChannel();
+			channel.open();
+			ExecResult result = channel.executeCommand("sleep 30", 100);
+			logger.info("Exit value: {} Total time: {}", result.getExitValue(), sf.getTime(result.getElapsed()));
+			for (String line : result.getStdout()) {
+				logger.info(line);
+			}
+			for (String line : result.getStderr()) {
+				logger.error(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// @Test
 	public void testGetWorkingDirectory() {
 		SecureChannel channel = null;
 		try {
@@ -50,7 +70,7 @@ public class DefaultSecureChannelTest {
 		}
 	}
 
-	@Test
+	// @Test
 	public void testRoundTrip() {
 		SecureChannel channel = null;
 		try {

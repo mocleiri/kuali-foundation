@@ -2,6 +2,7 @@ package org.kuali.common.util.secure;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +50,6 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected Session session;
 	protected ChannelSftp sftp;
-	protected ChannelExec exec;
 
 	@Override
 	public synchronized void open() throws IOException {
@@ -59,7 +59,6 @@ public class DefaultSecureChannel implements SecureChannel {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
 			this.sftp = openSftpChannel(session, connectTimeout);
-			this.exec = openExecChannel(session, connectTimeout);
 		} catch (JSchException e) {
 			throw new IOException("Unexpected error opening secure channel", e);
 		}
@@ -69,8 +68,67 @@ public class DefaultSecureChannel implements SecureChannel {
 	public synchronized void close() {
 		logger.info("Closing secure channel - {}", getLocation());
 		closeQuietly(sftp);
-		closeQuietly(exec);
 		closeQuietly(session);
+	}
+
+	protected ExecResult getExecResult(int exitValue, long start, List<String> stdout, List<String> stderr) {
+		long stop = System.currentTimeMillis();
+		long elapsed = stop - start;
+		ExecResult result = new ExecResult();
+		result.setElapsed(elapsed);
+		result.setStart(start);
+		result.setStop(stop);
+		result.setExitValue(exitValue);
+		result.setStdout(stdout);
+		result.setStderr(stderr);
+		return result;
+	}
+
+	public ExecResult executeCommand(String command) {
+		return executeCommand(command, null);
+	}
+
+	public ExecResult executeCommand(String command, Integer timeout) {
+		ChannelExec exec = null;
+		InputStream in = null;
+		try {
+			long start = System.currentTimeMillis();
+			exec = (ChannelExec) session.openChannel(EXEC);
+			exec.setCommand(command);
+			exec.setInputStream(null);
+			in = exec.getInputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			exec.setErrStream(out);
+			connect(exec, timeout);
+			List<String> stdout = IOUtils.readLines(in);
+			List<String> stderr = IOUtils.readLines(new ByteArrayInputStream(out.toByteArray()));
+			out.close();
+			waitForClosed(exec);
+			return getExecResult(exec.getExitStatus(), start, stdout, stderr);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+			closeQuietly(exec);
+		}
+	}
+
+	protected void waitForClosed(ChannelExec exec) {
+		while (true) {
+			if (exec.isClosed()) {
+				break;
+			} else {
+				sleep(10);
+			}
+		}
+	}
+
+	protected void sleep(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	@Override
@@ -108,12 +166,6 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected String getLocation() {
 		return (username == null) ? hostname : username + "@" + hostname;
-	}
-
-	protected ChannelExec openExecChannel(Session session, Integer timeout) throws JSchException {
-		ChannelExec channel = (ChannelExec) session.openChannel(EXEC);
-		connect(channel, timeout);
-		return channel;
 	}
 
 	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
