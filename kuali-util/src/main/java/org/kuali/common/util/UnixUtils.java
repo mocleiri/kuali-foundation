@@ -45,6 +45,8 @@ public class UnixUtils {
 	private static final String FORWARD_SLASH = "/";
 	public static final int SUCCESS = 0;
 
+	private static final UnixCmds cmds = new UnixCmds();
+
 	/**
 	 * <pre>
 	 *  rsync source destination
@@ -197,11 +199,11 @@ public class UnixUtils {
 	 * ssh [args] [user@]hostname chown [chownargs] owner:group file
 	 * </pre>
 	 */
-	public static final int sshchown(List<String> args, String user, String hostname, List<String> chownargs, String owner, String group, String file) {
+	public static final int sshchown(List<String> args, String user, String hostname, List<String> options, String owner, String group, String file) {
 		Assert.notNull(owner);
 		Assert.notNull(group);
 		Assert.notNull(file);
-		String command = UnixCmds.chown(chownargs, owner, group, file);
+		String command = cmds.chown(options, owner, group, file);
 		return ssh(args, user, hostname, command);
 	}
 
@@ -370,7 +372,7 @@ public class UnixUtils {
 	public static final int sshchmod(List<String> args, String user, String hostname, String mode, String file) {
 		Assert.notNull(mode);
 		Assert.notNull(file);
-		return ssh(args, user, hostname, CHMOD + " " + mode + " " + file);
+		return ssh(args, user, hostname,
 	}
 
 	/**
@@ -398,7 +400,7 @@ public class UnixUtils {
 	 */
 	public static final int sshmkdir(List<String> args, String user, String hostname, String directory) {
 		Assert.notNull(directory);
-		return ssh(args, user, hostname, MKDIR + " -p " + directory);
+		return ssh(args, user, hostname, cmds.mkdirp(directory));
 	}
 
 	/**

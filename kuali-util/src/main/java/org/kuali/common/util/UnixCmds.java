@@ -21,10 +21,10 @@ public class UnixCmds {
 
 	}
 
-	public String chmod(List<String> options, String octalMode, List<String> paths) {
-		Assert.hasLength(octalMode);
+	public String chmod(List<String> options, String mode, List<String> paths) {
+		Assert.hasLength(mode);
 		Assert.notEmpty(paths);
-		return cmd(CHMOD, CollectionUtils.combineStrings(options, octalMode, paths));
+		return cmd(CHMOD, CollectionUtils.combineStrings(options, mode, paths));
 	}
 
 	public String mkdirp(String path) {
@@ -98,6 +98,11 @@ public class UnixCmds {
 		} else {
 			return chown(CollectionUtils.combineStringsUniquely(options, recursive), owner, group, paths);
 		}
+	}
+
+	public String chown(List<String> options, String owner, String group, String path) {
+		Assert.hasLength(path);
+		return chown(options, owner, group, Collections.singletonList(path));
 	}
 
 	public String chown(List<String> options, String owner, String group, List<String> paths) {
