@@ -16,8 +16,10 @@
 package org.kuali.common.util.secure;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Test;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleFormatter;
 import org.slf4j.Logger;
@@ -56,12 +58,12 @@ public class DefaultSecureChannelTest {
 		}
 	}
 
-	protected void show(ExecutionResult result) {
+	protected void show(ExecutionResult result) throws IOException {
 		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
-		for (String line : result.getStdout()) {
+		for (String line : CollectionUtils.getLines(result.getStdout())) {
 			logger.info(line);
 		}
-		for (String line : result.getStderr()) {
+		for (String line : CollectionUtils.getLines(result.getStderr())) {
 			logger.error(line);
 		}
 	}

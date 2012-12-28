@@ -36,12 +36,16 @@ public class DefaultSecureChannel implements SecureChannel {
 	private static final String SFTP = "sftp";
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
+	private static final String UTF8 = "UTF-8";
+	private static final int DEFAULT_SLEEP_MILLIS = 10;
 
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File config = SSHUtils.DEFAULT_CONFIG_FILE;
 	boolean includeDefaultPrivateKeyLocations = true;
 	boolean strictHostKeyChecking = true;
 	int port = SSHUtils.DEFAULT_PORT;
+	String encoding = UTF8;
+	int waitForClosedSleepMillis = DEFAULT_SLEEP_MILLIS;
 	String username;
 	String hostname;
 	Integer connectTimeout;
@@ -71,7 +75,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	protected ExecutionResult getExecResult(int exitValue, long start, List<String> stdout, List<String> stderr, String command) {
+	protected ExecutionResult getExecutionResult(int exitValue, long start, String stdout, String stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
 		ExecutionResult result = new ExecutionResult();
@@ -134,11 +138,11 @@ public class DefaultSecureChannel implements SecureChannel {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			exec.setErrStream(out);
 			connect(exec, null);
-			List<String> stdout = IOUtils.readLines(in);
-			List<String> stderr = IOUtils.readLines(new ByteArrayInputStream(out.toByteArray()));
+			String stdout = IOUtils.toString(in, encoding);
+			String stderr = IOUtils.toString(new ByteArrayInputStream(out.toByteArray()), encoding);
 			out.close();
-			waitForClosed(exec);
-			return getExecResult(exec.getExitStatus(), start, stdout, stderr, command);
+			waitForClosed(exec, waitForClosedSleepMillis);
+			return getExecutionResult(exec.getExitStatus(), start, stdout, stderr, command);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -147,12 +151,12 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void waitForClosed(ChannelExec exec) {
+	protected void waitForClosed(ChannelExec exec, long millis) {
 		while (true) {
 			if (exec.isClosed()) {
 				break;
 			} else {
-				sleep(10);
+				sleep(millis);
 			}
 		}
 	}
@@ -381,6 +385,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyStringToFile(String string, String encoding, RemoteFile destination) {
+		encoding = encoding == null ? this.encoding : encoding;
 		Assert.notNull(string);
 		Assert.notNull(encoding);
 		InputStream in = new ByteArrayInputStream(Str.getBytes(string, encoding));
@@ -625,6 +630,14 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public void setConnectTimeout(Integer connectTimeout) {
 		this.connectTimeout = connectTimeout;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }

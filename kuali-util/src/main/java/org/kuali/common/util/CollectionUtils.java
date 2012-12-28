@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,10 +25,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 public class CollectionUtils {
+
+	public static final List<String> getLines(String s) {
+		if (s == null) {
+			return Collections.<String> emptyList();
+		}
+		try {
+			return IOUtils.readLines(new StringReader(s));
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	/**
 	 * Return a new list containing the unique set of strings contained in both lists

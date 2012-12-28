@@ -1,16 +1,22 @@
 package org.kuali.common.util.secure;
 
-import java.util.List;
-
 public class ExecutionResult {
 
 	String command;
 	int exitValue;
-	List<String> stdout;
-	List<String> stderr;
+	String stdout;
+	String stderr;
 	long start;
 	long stop;
 	long elapsed;
+
+	public String getCommand() {
+		return command;
+	}
+
+	public void setCommand(String command) {
+		this.command = command;
+	}
 
 	public int getExitValue() {
 		return exitValue;
@@ -20,19 +26,19 @@ public class ExecutionResult {
 		this.exitValue = exitValue;
 	}
 
-	public List<String> getStdout() {
+	public String getStdout() {
 		return stdout;
 	}
 
-	public void setStdout(List<String> stdout) {
+	public void setStdout(String stdout) {
 		this.stdout = stdout;
 	}
 
-	public List<String> getStderr() {
+	public String getStderr() {
 		return stderr;
 	}
 
-	public void setStderr(List<String> stderr) {
+	public void setStderr(String stderr) {
 		this.stderr = stderr;
 	}
 
@@ -59,13 +65,4 @@ public class ExecutionResult {
 	public void setElapsed(long elapsed) {
 		this.elapsed = elapsed;
 	}
-
-	public String getCommand() {
-		return command;
-	}
-
-	public void setCommand(String command) {
-		this.command = command;
-	}
-
 }
