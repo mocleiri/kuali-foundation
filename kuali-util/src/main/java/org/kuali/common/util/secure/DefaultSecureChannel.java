@@ -86,37 +86,38 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	public ExecResult mkdir(String path) {
-		Assert.isTrue(!StringUtils.isBlank(path));
+		assertNotBlank(path);
 		return executeCommand("mkdir -p " + path);
 	}
 
 	public ExecResult chmod(String path, String permissions) {
-		Assert.isTrue(!StringUtils.isBlank(path));
+		assertNotBlank(path);
 		return executeCommand("chmod  " + permissions + " " + path);
 	}
 
 	public ExecResult chownr(String owner, String group, String path) {
-		Assert.isTrue(!StringUtils.isBlank(owner));
-		Assert.isTrue(!StringUtils.isBlank(group));
-		Assert.isTrue(!StringUtils.isBlank(path));
+		assertNotBlank(owner, group, path);
 		return executeCommand("chown -R " + owner + ":" + group + " " + path);
 	}
 
+	protected void assertNotBlank(String... strings) {
+		for (String string : strings) {
+			Assert.isTrue(!StringUtils.isBlank(string));
+		}
+	}
+
 	public ExecResult chown(String owner, String group, String path) {
-		Assert.isTrue(!StringUtils.isBlank(owner));
-		Assert.isTrue(!StringUtils.isBlank(group));
-		Assert.isTrue(!StringUtils.isBlank(path));
+		assertNotBlank(owner, group, path);
 		return executeCommand("chown " + owner + ":" + group + " " + path);
 	}
 
 	public ExecResult rm(String path) {
-		Assert.isTrue(!StringUtils.isBlank(path));
+		assertNotBlank(path);
 		return executeCommand("rm -rf " + path);
 	}
 
 	public ExecResult su(String login, String command) {
-		Assert.isTrue(!StringUtils.isBlank(login));
-		Assert.isTrue(!StringUtils.isBlank(command));
+		assertNotBlank(login, command);
 		return executeCommand("su - " + login + " --command " + command);
 	}
 
