@@ -48,7 +48,7 @@ public class DefaultSecureChannelTest {
 			show(channel.su("tomcat", "/usr/local/tomcat/bin/startup.sh"));
 			show(channel.mkdir("/home/tomcat/x/y/z/foo"));
 			show(channel.executeCommand("ls -la > /home/tomcat/x/y/z/foo.sh"));
-			show(channel.chmod("", ""));
+			show(channel.chmod("755", "/home/tomcat/x/y/z/foo.sh"));
 			show(channel.chownr("tomcat", "tomcat", "/home/tomcat/x"));
 			channel.close();
 		} catch (Exception e) {

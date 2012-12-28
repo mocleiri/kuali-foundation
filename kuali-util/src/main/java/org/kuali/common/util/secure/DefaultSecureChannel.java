@@ -94,7 +94,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public ExecResult chmod(String permissions, String path) {
 		assertNotBlank(permissions, path);
-		return executeCommand("chmod  " + permissions + " " + path);
+		return executeCommand("chmod " + permissions + " " + path);
 	}
 
 	@Override
