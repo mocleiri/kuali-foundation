@@ -68,6 +68,11 @@ public class UnixCmds {
 		return rmrf(null, paths);
 	}
 
+	public String rmrf(String path) {
+		Assert.notBlank(path);
+		return rmrf(null, Collections.singletonList(path));
+	}
+
 	public String rmrf(List<String> options, List<String> paths) {
 		List<String> recursiveSilent = Arrays.asList("-r", "-f");
 		if (options == null) {
@@ -75,6 +80,15 @@ public class UnixCmds {
 		} else {
 			return rm(CollectionUtils.combineStringsUniquely(options, recursiveSilent), paths);
 		}
+	}
+
+	public String rm(List<String> paths) {
+		return rm(null, paths);
+	}
+
+	public String rm(String path) {
+		Assert.notBlank(path);
+		return rm(null, Collections.singletonList(path));
 	}
 
 	public String rm(List<String> options, List<String> paths) {
