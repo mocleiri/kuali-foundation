@@ -290,8 +290,10 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public void copyStringToFile(String string, String encoding, RemoteFile destination) {
 		Assert.notNull(string);
+		Assert.notNull(encoding);
 		InputStream in = new ByteArrayInputStream(Str.getBytes(string, encoding));
 		copyInputStreamToFile(in, destination);
+		IOUtils.closeQuietly(in);
 	}
 
 	@Override
