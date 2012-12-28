@@ -38,4 +38,6 @@ public interface SecureChannel {
 
 	RemoteFile getWorkingDirectory();
 
+	ExecResult executeCommand(String command);
+
 }

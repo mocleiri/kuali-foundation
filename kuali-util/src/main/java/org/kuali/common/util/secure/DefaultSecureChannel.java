@@ -84,11 +84,8 @@ public class DefaultSecureChannel implements SecureChannel {
 		return result;
 	}
 
+	@Override
 	public ExecResult executeCommand(String command) {
-		return executeCommand(command, null);
-	}
-
-	public ExecResult executeCommand(String command, Integer timeout) {
 		ChannelExec exec = null;
 		InputStream in = null;
 		try {
@@ -99,7 +96,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			in = exec.getInputStream();
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			exec.setErrStream(out);
-			connect(exec, timeout);
+			connect(exec, null);
 			List<String> stdout = IOUtils.readLines(in);
 			List<String> stderr = IOUtils.readLines(new ByteArrayInputStream(out.toByteArray()));
 			out.close();

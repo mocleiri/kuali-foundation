@@ -42,7 +42,7 @@ public class DefaultSecureChannelTest {
 			SimpleFormatter sf = new SimpleFormatter();
 			DefaultSecureChannel channel = getSecureChannel();
 			channel.open();
-			ExecResult result = channel.executeCommand("sleep 30", 100);
+			ExecResult result = channel.executeCommand("ls -la");
 			logger.info("Exit value: {} Total time: {}", result.getExitValue(), sf.getTime(result.getElapsed()));
 			for (String line : result.getStdout()) {
 				logger.info(line);
