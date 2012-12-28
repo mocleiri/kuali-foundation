@@ -41,11 +41,6 @@ public class UnixUtils {
 
 	private static final String SCP = "scp";
 	private static final String SSH = "ssh";
-	private static final String SU = "su";
-	private static final String MKDIR = "mkdir";
-	private static final String RM = "rm";
-	private static final String CHOWN = "chown";
-	private static final String CHMOD = "chmod";
 	private static final String RSYNC = "rsync";
 	private static final String FORWARD_SLASH = "/";
 	public static final int SUCCESS = 0;
@@ -206,7 +201,7 @@ public class UnixUtils {
 		Assert.notNull(owner);
 		Assert.notNull(group);
 		Assert.notNull(file);
-		String command = getChownCommand(chownargs, owner, group, file);
+		String command = UnixCmds.chown(chownargs, owner, group, file);
 		return ssh(args, user, hostname, command);
 	}
 
@@ -365,20 +360,6 @@ public class UnixUtils {
 		Assert.isTrue(files.size() > 0);
 		String command = getRmCommand(rmargs, files);
 		return ssh(args, user, hostname, command);
-	}
-
-	public static final String getRmCommand(List<String> args, List<String> files) {
-		Assert.notNull(files);
-		StringBuilder sb = new StringBuilder();
-		sb.append(RM);
-		String arguments = getSpaceSeparatedStrings(args);
-		if (arguments != null) {
-			sb.append(" ");
-			sb.append(arguments);
-		}
-		sb.append(" ");
-		sb.append(getSpaceSeparatedStrings(files));
-		return sb.toString();
 	}
 
 	/**
@@ -656,21 +637,6 @@ public class UnixUtils {
 		}
 	}
 
-	public static final String getChownCommand(List<String> args, String owner, String group, String file) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(CHOWN);
-		String arguments = getSpaceSeparatedStrings(args);
-		if (arguments != null) {
-			sb.append(" ");
-			sb.append(arguments);
-		}
-		sb.append(" ");
-		sb.append(owner + ":" + group);
-		sb.append(" ");
-		sb.append(file);
-		return sb.toString();
-	}
-
 	public static final String getLocation(String user, String hostname, String filename) {
 		Assert.notNull(user);
 		Assert.notNull(filename);
@@ -681,20 +647,6 @@ public class UnixUtils {
 		sb.append(hostname);
 		sb.append(":");
 		sb.append(filename);
-		return sb.toString();
-	}
-
-	public static final String getSpaceSeparatedStrings(List<String> strings) {
-		if (CollectionUtils.isEmpty(strings)) {
-			return null;
-		}
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < strings.size(); i++) {
-			if (i != 0) {
-				sb.append(" ");
-			}
-			sb.append(strings.get(i));
-		}
 		return sb.toString();
 	}
 

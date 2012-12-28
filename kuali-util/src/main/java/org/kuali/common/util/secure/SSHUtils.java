@@ -116,7 +116,7 @@ public class SSHUtils {
 	public static final List<File> getPrivateKeys(File config, boolean includeDefaultPrivateKeyLocations) {
 		List<String> configuredPrivateKeys = getFilenames(config);
 		if (includeDefaultPrivateKeyLocations) {
-			List<String> filenames = CollectionUtils.combineStrings(configuredPrivateKeys, PRIVATE_KEY_DEFAULTS);
+			List<String> filenames = CollectionUtils.combineStringsUniquely(configuredPrivateKeys, PRIVATE_KEY_DEFAULTS);
 			return getExistingAndReadable(filenames);
 		} else {
 			return getExistingAndReadable(configuredPrivateKeys);
@@ -129,7 +129,7 @@ public class SSHUtils {
 			privateKeyFilenames.add(LocationUtils.getCanonicalPath(privateKey));
 		}
 		if (includeDefaultPrivateKeyLocations) {
-			List<String> filenames = CollectionUtils.combineStrings(privateKeyFilenames, PRIVATE_KEY_DEFAULTS);
+			List<String> filenames = CollectionUtils.combineStringsUniquely(privateKeyFilenames, PRIVATE_KEY_DEFAULTS);
 			return getExistingAndReadable(filenames);
 		} else {
 			return getExistingAndReadable(privateKeyFilenames);

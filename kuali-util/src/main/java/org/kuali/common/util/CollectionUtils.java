@@ -45,7 +45,7 @@ public class CollectionUtils {
 	/**
 	 * Return a new list containing the unique set of strings contained in both lists
 	 */
-	public static final List<String> combineStrings(List<String> list1, List<String> list2) {
+	public static final List<String> combineStringsUniquely(List<String> list1, List<String> list2) {
 		List<String> newList = new ArrayList<String>(list1);
 		for (String element : list2) {
 			if (!newList.contains(element)) {
@@ -140,11 +140,8 @@ public class CollectionUtils {
 	}
 
 	public static final String getSpaceSeparatedString(List<?> list) {
-		if (list == null) {
-			return null;
-		}
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < toEmptyList(list).size(); i++) {
 			if (i != 0) {
 				sb.append(" ");
 			}
@@ -184,6 +181,13 @@ public class CollectionUtils {
 		String[] tokens = Str.splitAndTrimCSV(csv);
 		list.addAll(Arrays.asList(tokens));
 		return list;
+	}
+
+	public static final List<String> addStrings(List<String> list1, List<String> list2) {
+		List<String> combined = new ArrayList<String>();
+		nullSafeAdd(combined, list1);
+		nullSafeAdd(combined, list2);
+		return combined;
 	}
 
 	public static final <T> void nullSafeAdd(List<T> list1, List<T> list2) {
