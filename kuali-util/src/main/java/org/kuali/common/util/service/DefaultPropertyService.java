@@ -35,7 +35,7 @@ public class DefaultPropertyService implements PropertyService {
 		Properties properties = loadProperties(context);
 		logger.info("Working with " + properties.size() + " properties total.");
 		context.initialize(properties);
-		List<PropertyProcessor> processors = CollectionUtils.toEmpty(context.getProcessors());
+		List<PropertyProcessor> processors = CollectionUtils.toEmptyList(context.getProcessors());
 		logger.info("Processing " + properties.size() + " properties using " + processors.size() + " processors.");
 		PropertyUtils.process(properties, context.getProcessors());
 		logger.info("Returning " + properties.size() + " properties.");
@@ -56,7 +56,7 @@ public class DefaultPropertyService implements PropertyService {
 	protected Properties loadProperties(PropertyLoadContext context) {
 		Properties properties = context.init();
 		int initialSize = properties.size();
-		List<String> locations = CollectionUtils.toEmpty(context.getLocations());
+		List<String> locations = CollectionUtils.toEmptyList(context.getLocations());
 		logger.info("Examining " + locations.size() + " property locations.");
 		int count = 0;
 		for (String location : locations) {
