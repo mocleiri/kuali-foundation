@@ -39,9 +39,9 @@ public class UnixCmds {
 	public String mkdirp(List<String> options, List<String> paths) {
 		List<String> parents = Arrays.asList("-p");
 		if (options == null) {
-			return rm(parents, paths);
+			return mkdir(parents, paths);
 		} else {
-			return rm(CollectionUtils.combineStringsUniquely(options, parents), paths);
+			return mkdir(CollectionUtils.combineStringsUniquely(options, parents), paths);
 		}
 
 	}
