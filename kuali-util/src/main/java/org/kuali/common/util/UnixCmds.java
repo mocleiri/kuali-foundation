@@ -12,12 +12,12 @@ public class UnixCmds {
 	private static final String CHMOD = "chmod";
 
 	public String chmod(String mode, String path) {
-		Assert.hasLength(path);
+		Assert.notBlank(path);
 		return chmod(mode, Collections.singletonList(path));
 	}
 
-	public String chmod(String octalMode, List<String> paths) {
-		return chmod(null, octalMode, paths);
+	public String chmod(String mode, List<String> paths) {
+		return chmod(null, mode, paths);
 
 	}
 
@@ -28,7 +28,7 @@ public class UnixCmds {
 	}
 
 	public String mkdirp(String path) {
-		Assert.hasLength(path);
+		Assert.notBlank(path);
 		return mkdirp(null, Collections.singletonList(path));
 	}
 
@@ -97,7 +97,7 @@ public class UnixCmds {
 	}
 
 	public String chownr(String owner, String group, String path) {
-		Assert.hasLength(path);
+		Assert.notBlank(path);
 		return chownr(owner, group, Collections.singletonList(path));
 	}
 
@@ -115,7 +115,7 @@ public class UnixCmds {
 	}
 
 	public String chown(List<String> options, String owner, String group, String path) {
-		Assert.hasLength(path);
+		Assert.notBlank(path);
 		return chown(options, owner, group, Collections.singletonList(path));
 	}
 
@@ -126,7 +126,7 @@ public class UnixCmds {
 	}
 
 	public String chown(String owner, String group, String path) {
-		Assert.hasLength(path);
+		Assert.notBlank(path);
 		return chown(null, owner, group, Collections.singletonList(path));
 	}
 
