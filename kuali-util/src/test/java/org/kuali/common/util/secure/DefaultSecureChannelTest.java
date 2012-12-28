@@ -50,6 +50,7 @@ public class DefaultSecureChannelTest {
 			for (String line : result.getStderr()) {
 				logger.error(line);
 			}
+			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
