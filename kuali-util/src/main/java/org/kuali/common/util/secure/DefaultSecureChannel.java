@@ -87,7 +87,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public ExecResult mkdir(String path) {
 		Assert.isTrue(!StringUtils.isBlank(path));
-		return executeCommand("mkdir -P " + path);
+		return executeCommand("mkdir -p " + path);
 	}
 
 	public ExecResult chmod(String path, String permissions) {

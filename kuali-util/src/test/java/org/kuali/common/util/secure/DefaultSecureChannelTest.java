@@ -46,7 +46,8 @@ public class DefaultSecureChannelTest {
 			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/forced-shutdown.sh"));
 			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/cleanup.sh"));
 			showResult(channel.su("tomcat", "/usr/local/tomcat/bin/startup.sh"));
-			showResult(channel.su("tomcat", "pwd"));
+			showResult(channel.mkdir("/home/tomcat/x/y/z/foo"));
+			showResult(channel.chownr("tomcat", "tomcat", "/home/tomcat/x"));
 			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,14 +55,13 @@ public class DefaultSecureChannelTest {
 	}
 
 	protected void showResult(ExecResult result) {
-		logger.info("Command - [{}]", result.getCommand());
+		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
 		for (String line : result.getStdout()) {
 			logger.info(line);
 		}
 		for (String line : result.getStderr()) {
 			logger.error(line);
 		}
-		logger.info("Exit value: {} Total time: {}", result.getExitValue(), formatter.getTime(result.getElapsed()));
 	}
 
 	// @Test
