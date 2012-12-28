@@ -56,7 +56,7 @@ public class DefaultSecureChannelTest {
 		}
 	}
 
-	protected void show(ExecResult result) {
+	protected void show(ExecutionResult result) {
 		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
 		for (String line : result.getStdout()) {
 			logger.info(line);

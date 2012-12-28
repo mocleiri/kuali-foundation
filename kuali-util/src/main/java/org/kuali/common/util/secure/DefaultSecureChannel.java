@@ -71,10 +71,10 @@ public class DefaultSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	protected ExecResult getExecResult(int exitValue, long start, List<String> stdout, List<String> stderr, String command) {
+	protected ExecutionResult getExecResult(int exitValue, long start, List<String> stdout, List<String> stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
-		ExecResult result = new ExecResult();
+		ExecutionResult result = new ExecutionResult();
 		result.setCommand(command);
 		result.setElapsed(elapsed);
 		result.setStart(start);
@@ -86,43 +86,43 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public ExecResult mkdir(String path) {
+	public ExecutionResult mkdir(String path) {
 		assertNotBlank(path);
 		return executeCommand("mkdir -p " + path);
 	}
 
 	@Override
-	public ExecResult chmod(String permissions, String path) {
+	public ExecutionResult chmod(String permissions, String path) {
 		assertNotBlank(permissions, path);
 		return executeCommand("chmod " + permissions + " " + path);
 	}
 
 	@Override
-	public ExecResult chownr(String owner, String group, String path) {
+	public ExecutionResult chownr(String owner, String group, String path) {
 		assertNotBlank(owner, group, path);
 		return executeCommand("chown -R " + owner + ":" + group + " " + path);
 	}
 
 	@Override
-	public ExecResult chown(String owner, String group, String path) {
+	public ExecutionResult chown(String owner, String group, String path) {
 		assertNotBlank(owner, group, path);
 		return executeCommand("chown " + owner + ":" + group + " " + path);
 	}
 
 	@Override
-	public ExecResult rm(String path) {
+	public ExecutionResult rm(String path) {
 		assertNotBlank(path);
 		return executeCommand("rm -rf " + path);
 	}
 
 	@Override
-	public ExecResult su(String login, String command) {
+	public ExecutionResult su(String login, String command) {
 		assertNotBlank(login, command);
 		return executeCommand("su - " + login + " --command " + command);
 	}
 
 	@Override
-	public ExecResult executeCommand(String command) {
+	public ExecutionResult executeCommand(String command) {
 		ChannelExec exec = null;
 		InputStream in = null;
 		try {

@@ -2,7 +2,7 @@ package org.kuali.common.util.secure;
 
 import java.util.List;
 
-public class ExecResult {
+public class ExecutionResult {
 
 	String command;
 	int exitValue;
