@@ -91,7 +91,6 @@
       <groupId>com.jcraft</groupId>
       <artifactId>jsch</artifactId>
       <version>${jsch.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
