@@ -75,20 +75,6 @@ public class DefaultSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	protected Result getExecutionResult(int exitValue, long start, byte[] stdout, byte[] stderr, String command) {
-		long stop = System.currentTimeMillis();
-		long elapsed = stop - start;
-		Result result = new Result();
-		result.setCommand(command);
-		result.setElapsed(elapsed);
-		result.setStart(start);
-		result.setStop(stop);
-		result.setExitValue(exitValue);
-		result.setStdout(stdout);
-		result.setStderr(stderr);
-		return result;
-	}
-
 	@Override
 	public Result execute(String command) {
 		ChannelExec exec = null;
@@ -106,7 +92,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			byte[] stderr = out.toByteArray();
 			out.close();
 			waitForClosed(exec, waitForClosedSleepMillis);
-			return getExecutionResult(exec.getExitStatus(), start, stdout, stderr, command);
+			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdout, stderr, command);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
