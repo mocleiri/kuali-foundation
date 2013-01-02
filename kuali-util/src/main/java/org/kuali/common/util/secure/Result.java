@@ -3,6 +3,8 @@ package org.kuali.common.util.secure;
 public class Result {
 
 	String command;
+	byte[] stdin;
+	String encoding;
 	int exitValue;
 	byte[] stdout;
 	byte[] stderr;
@@ -16,6 +18,22 @@ public class Result {
 
 	public void setCommand(String command) {
 		this.command = command;
+	}
+
+	public byte[] getStdin() {
+		return stdin;
+	}
+
+	public void setStdin(byte[] stdin) {
+		this.stdin = stdin;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 	public int getExitValue() {

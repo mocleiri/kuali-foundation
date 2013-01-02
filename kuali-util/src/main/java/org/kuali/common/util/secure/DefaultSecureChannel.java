@@ -76,27 +76,46 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public Result execute(String command) {
+	public Result executeCommand(String command) {
+		return executeCommand(command, null);
+	}
+
+	@Override
+	public Result executeCommand(String command, String stdin, String encoding) {
+		Assert.notNull(stdin);
+		Assert.notNull(encoding);
+		byte[] bytes = Str.getBytes(stdin, encoding);
+		return executeCommand(command, bytes);
+	}
+
+	@Override
+	public Result executeCommand(String command, byte[] stdin) {
 		ChannelExec exec = null;
-		InputStream in = null;
+		InputStream stdoutStream = null;
+		ByteArrayOutputStream stderrStream = null;
+		InputStream stdinStream = null;
 		try {
 			long start = System.currentTimeMillis();
 			exec = (ChannelExec) session.openChannel(EXEC);
+			if (stdin != null && stdin.length != 0) {
+				stdinStream = new ByteArrayInputStream(stdin);
+			}
+			exec.setInputStream(stdinStream);
 			exec.setCommand(command);
-			exec.setInputStream(null);
-			in = exec.getInputStream();
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			exec.setErrStream(out);
+			stdoutStream = exec.getInputStream();
+			stderrStream = new ByteArrayOutputStream();
+			exec.setErrStream(stderrStream);
 			connect(exec, null);
-			byte[] stdout = IOUtils.toByteArray(in);
-			byte[] stderr = out.toByteArray();
-			out.close();
+			byte[] stdout = IOUtils.toByteArray(stdoutStream);
+			byte[] stderr = stderrStream.toByteArray();
 			waitForClosed(exec, waitForClosedSleepMillis);
-			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdout, stderr, command);
+			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdin, stdout, stderr, command);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
-			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(stdinStream);
+			IOUtils.closeQuietly(stderrStream);
+			IOUtils.closeQuietly(stderrStream);
 			closeQuietly(exec);
 		}
 	}
