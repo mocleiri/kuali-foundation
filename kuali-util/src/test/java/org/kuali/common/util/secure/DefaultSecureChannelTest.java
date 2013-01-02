@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleFormatter;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.UnixCmds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class DefaultSecureChannelTest {
 			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/startup.sh")));
 			show(channel.executeCommand(cmds.mkdirp("/home/tomcat/x/y/z/foo")));
 			show(channel.executeCommand("ls -la > /home/tomcat/x/y/z/foo.sh"));
-			show(channel.executeCommand("cat", "foobar"));
+			show(channel.executeCommand("cat", "foo\nbar"));
 			show(channel.executeCommand(cmds.chmod("755", "/home/tomcat/x/y/z/foo.sh")));
 			show(channel.executeCommand(cmds.chownr("tomcat", "tomcat", "/home/tomcat/x")));
 			channel.close();
@@ -66,7 +67,7 @@ public class DefaultSecureChannelTest {
 			Object[] args = { result.getCommand(), formatter.getTime(result.getElapsed()) };
 			logger.info("[{}] - {}", args);
 		} else {
-			Object[] args = { result.getCommand(), result.getStdin(), formatter.getTime(result.getElapsed()) };
+			Object[] args = { result.getCommand(), Str.flatten(result.getStdin(), "CR", "LF"), formatter.getTime(result.getElapsed()) };
 			logger.info("[{}] < [{}] - {}", args);
 		}
 		String[] stdout = StringUtils.split(result.getStdout(), '\n');
