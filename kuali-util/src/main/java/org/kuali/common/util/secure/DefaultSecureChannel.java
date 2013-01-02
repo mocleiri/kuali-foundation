@@ -100,18 +100,23 @@ public class DefaultSecureChannel implements SecureChannel {
 		try {
 			long start = System.currentTimeMillis();
 			exec = (ChannelExec) session.openChannel(EXEC);
-			if (stdin != null && stdin.length != 0) {
-				stdinStream = new ByteArrayInputStream(stdin);
-			}
-			exec.setInputStream(stdinStream);
 			exec.setCommand(command);
-			stdoutStream = exec.getInputStream();
+			// Setup the stdin stream
+			stdinStream = getInputStream(stdin);
+			// Setup the stderr stream
 			stderrStream = new ByteArrayOutputStream();
+			// Setup the stdout stream
+			stdoutStream = exec.getInputStream();
+			exec.setInputStream(stdinStream);
 			exec.setErrStream(stderrStream);
+			// The executes the command consuming anything on stdin and storing results in stdout/stderr
 			connect(exec, null);
+			// Convert stdout and stderr into bytes
 			byte[] stdout = IOUtils.toByteArray(stdoutStream);
 			byte[] stderr = stderrStream.toByteArray();
+			// Make sure the channel is closed
 			waitForClosed(exec, waitForClosedSleepMillis);
+			// Return the result of executing the command
 			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdin, stdout, stderr, command);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
@@ -120,6 +125,14 @@ public class DefaultSecureChannel implements SecureChannel {
 			IOUtils.closeQuietly(stdoutStream);
 			IOUtils.closeQuietly(stderrStream);
 			closeQuietly(exec);
+		}
+	}
+
+	protected InputStream getInputStream(byte[] bytes) {
+		if (bytes == null) {
+			return null;
+		} else {
+			return new ByteArrayInputStream(bytes);
 		}
 	}
 
