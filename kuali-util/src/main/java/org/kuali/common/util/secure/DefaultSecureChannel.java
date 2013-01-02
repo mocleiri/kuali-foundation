@@ -83,7 +83,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public Result executeCommand(String command, String stdin, String encoding) {
 		byte[] bytes = Str.getBytes(stdin, encoding);
-		return executeCommand(command, bytes);
+		return executeCommand(command, bytes, encoding);
 	}
 
 	@Override
@@ -100,15 +100,17 @@ public class DefaultSecureChannel implements SecureChannel {
 			long start = System.currentTimeMillis();
 			exec = (ChannelExec) session.openChannel(EXEC);
 			exec.setCommand(command);
-			// Setup the stdin stream
+			// Prepare the stdin stream
 			stdinStream = getInputStream(stdin);
-			// Setup the stderr stream
+			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
-			// Setup the stdout stream
-			stdoutStream = exec.getInputStream();
+			// Update the ChannelExec object with the stdin stream
 			exec.setInputStream(stdinStream);
+			// Get the stdout stream from the ChannelExec object
+			stdoutStream = exec.getInputStream();
+			// Update the ChannelExec object with the stderr stream
 			exec.setErrStream(stderrStream);
-			// The executes the command consuming anything on stdin and storing results in stdout/stderr
+			// Execute the command while consuming anything from stdin and storing output in stdout/stderr
 			connect(exec, null);
 			// Convert stdout and stderr into bytes
 			byte[] stdout = IOUtils.toByteArray(stdoutStream);
