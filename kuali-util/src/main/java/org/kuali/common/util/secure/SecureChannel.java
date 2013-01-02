@@ -40,9 +40,11 @@ public interface SecureChannel {
 
 	Result executeCommand(String command);
 
+	Result executeCommand(String command, String encoding);
+
 	Result executeCommand(String command, byte[] stdin);
 
-	Result executeCommand(String command, String stdin);
+	Result executeCommand(String command, byte[] stdin, String encoding);
 
 	Result executeCommand(String command, String stdin, String encoding);
 

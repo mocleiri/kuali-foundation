@@ -93,7 +93,8 @@ public class DefaultSecureChannel implements SecureChannel {
 		return executeCommand(command, stdin, null);
 	}
 
-	public Result executeCommand(String command, byte[] stdin, String encoding) {
+	@Override
+    public Result executeCommand(String command, byte[] stdin, String encoding) {
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
@@ -106,10 +107,10 @@ public class DefaultSecureChannel implements SecureChannel {
 			stdinStream = getInputStream(stdin);
 			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
-			// Update the ChannelExec object with the stdin stream
-			exec.setInputStream(stdinStream);
 			// Get the stdout stream from the ChannelExec object
 			stdoutStream = exec.getInputStream();
+			// Update the ChannelExec object with the stdin stream
+			exec.setInputStream(stdinStream);
 			// Update the ChannelExec object with the stderr stream
 			exec.setErrStream(stderrStream);
 			// Execute the command while consuming anything from stdin and storing output in stdout/stderr
