@@ -80,8 +80,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public Result executeCommand(String command, String stdin, String encoding) {
-		byte[] bytes = Str.getBytes(stdin, encoding);
-		return executeCommand(command, bytes, encoding);
+		return executeCommand(command, Str.getBytes(stdin, encoding), encoding);
 	}
 
 	@Override
