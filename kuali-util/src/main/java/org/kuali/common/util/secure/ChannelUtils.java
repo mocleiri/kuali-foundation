@@ -2,6 +2,14 @@ package org.kuali.common.util.secure;
 
 public class ChannelUtils {
 
+	public static String getLocation(String username, String hostname, RemoteFile file) {
+		return getLocation(username, hostname) + ":" + file.getAbsolutePath();
+	}
+
+	public static String getLocation(String username, String hostname) {
+		return (username == null) ? hostname : username + "@" + hostname;
+	}
+
 	public static Result getExecutionResult(int exitValue, long start, byte[] stdin, String encoding, byte[] stdout, byte[] stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;

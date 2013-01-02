@@ -68,7 +68,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public synchronized void close() {
-		logger.info("Closing secure channel - {}", getLocation());
+		logger.info("Closing secure channel - {}", ChannelUtils.getLocation(username, hostname));
 		closeQuietly(sftp);
 		closeQuietly(session);
 	}
@@ -169,7 +169,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel - {}", getLocation());
+		logger.info("Opening secure channel - {}", ChannelUtils.getLocation(username, hostname));
 		if (privateKeys != null) {
 			logger.debug("Private keys - {}", privateKeys.size());
 		} else {
@@ -184,10 +184,6 @@ public class DefaultSecureChannel implements SecureChannel {
 			logger.debug("Configuring channel with {} options", options.size());
 			PropertyUtils.debug(options);
 		}
-	}
-
-	protected String getLocation() {
-		return (username == null) ? hostname : username + "@" + hostname;
 	}
 
 	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
@@ -276,10 +272,6 @@ public class DefaultSecureChannel implements SecureChannel {
 		return file;
 	}
 
-	protected String getLocation(RemoteFile file) {
-		return getLocation() + ":" + file.getAbsolutePath();
-	}
-
 	@Override
 	public void deleteFile(String absolutePath) {
 		RemoteFile file = getMetaData(absolutePath);
@@ -287,7 +279,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			return;
 		}
 		if (file.isDirectory()) {
-			throw new IllegalArgumentException("[" + getLocation(file) + "] is a directory.");
+			throw new IllegalArgumentException("[" + ChannelUtils.getLocation(username, hostname, file) + "] is a directory.");
 		}
 		try {
 			sftp.rm(absolutePath);
@@ -483,9 +475,9 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected String getInvalidExistingFileMessage(RemoteFile existing) {
 		if (existing.isDirectory()) {
-			return "[" + getLocation(existing) + "] is an existing directory. Unable to create file.";
+			return "[" + ChannelUtils.getLocation(username, hostname, existing) + "] is an existing directory. Unable to create file.";
 		} else {
-			return "[" + getLocation(existing) + "] is an existing file. Unable to create directory.";
+			return "[" + ChannelUtils.getLocation(username, hostname, existing) + "] is an existing file. Unable to create directory.";
 		}
 	}
 
