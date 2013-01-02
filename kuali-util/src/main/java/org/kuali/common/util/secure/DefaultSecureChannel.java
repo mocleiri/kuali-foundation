@@ -170,7 +170,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel - {} [{}]", ChannelUtils.getLocation(username, hostname), encoding);
+		logger.info("Opening secure channel - {} - {}", ChannelUtils.getLocation(username, hostname), encoding);
 		if (privateKeys != null) {
 			logger.debug("Private keys - {}", privateKeys.size());
 		} else {
