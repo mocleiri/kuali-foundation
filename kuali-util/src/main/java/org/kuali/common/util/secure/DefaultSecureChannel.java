@@ -124,12 +124,8 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void waitForClosed(ChannelExec exec, long millis) {
-		while (true) {
-			if (exec.isClosed()) {
-				break;
-			} else {
-				sleep(millis);
-			}
+		while (!exec.isClosed()) {
+			sleep(millis);
 		}
 	}
 
