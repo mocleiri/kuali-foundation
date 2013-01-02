@@ -3,7 +3,6 @@ package org.kuali.common.util.secure;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 
 public interface SecureChannel {
 
@@ -42,9 +41,5 @@ public interface SecureChannel {
 	Result executeCommand(String command);
 
 	Result executeCommand(String command, String stdin);
-
-	Result executeCommand(String command, Charset encoding);
-
-	Result executeCommand(String command, String stdin, Charset encoding);
 
 }

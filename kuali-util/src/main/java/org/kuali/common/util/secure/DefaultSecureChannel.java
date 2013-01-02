@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 
@@ -77,22 +76,15 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public Result executeCommand(String command) {
-		return executeCommand(command, (Charset) null);
-	}
-
-	@Override
-	public Result executeCommand(String command, Charset encoding) {
-		return executeCommand(command, null, encoding);
+		return executeCommand(command, null);
 	}
 
 	@Override
 	public Result executeCommand(String command, String stdin) {
-		return executeCommand(command, stdin, null);
+		return executeCommand(command, stdin, this.encoding);
 	}
 
-	@Override
-	public Result executeCommand(String command, String stdin, Charset encoding) {
-		encoding = (encoding == null) ? Charset.forName(this.encoding) : encoding;
+	public Result executeCommand(String command, String stdin, String encoding) {
 		Assert.notBlank(command);
 		Assert.notNull(encoding);
 		ChannelExec exec = null;
@@ -105,11 +97,11 @@ public class DefaultSecureChannel implements SecureChannel {
 			// Open an exec channel
 			exec = (ChannelExec) session.openChannel(EXEC);
 			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, encoding.name());
+			byte[] commandBytes = Str.getBytes(command, encoding);
 			// Store the command on the exec channel
 			exec.setCommand(commandBytes);
 			// Prepare the stdin stream
-			stdinStream = getInputStream(stdin, encoding.name());
+			stdinStream = getInputStream(stdin, encoding);
 			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
 			// Get the stdout stream from the ChannelExec object
@@ -122,12 +114,12 @@ public class DefaultSecureChannel implements SecureChannel {
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, null);
 			// Convert stdout and stderr into bytes
-			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding.name());
-			String stderr = Str.getString(stderrStream.toByteArray(), encoding.name());
+			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding);
+			String stderr = Str.getString(stderrStream.toByteArray(), encoding);
 			// Make sure the channel is closed
 			waitForClosed(exec, waitForClosedSleepMillis);
 			// Return the result of executing the command
-			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, command, stdin, stdout, stderr, encoding.name());
+			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, command, stdin, stdout, stderr, encoding);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
