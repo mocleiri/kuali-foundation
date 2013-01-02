@@ -36,7 +36,6 @@ public class DefaultSecureChannel implements SecureChannel {
 	private static final String SFTP = "sftp";
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
-	private static final String UTF8 = "UTF-8";
 	private static final int DEFAULT_SLEEP_MILLIS = 10;
 
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
@@ -44,7 +43,6 @@ public class DefaultSecureChannel implements SecureChannel {
 	boolean includeDefaultPrivateKeyLocations = true;
 	boolean strictHostKeyChecking = true;
 	int port = SSHUtils.DEFAULT_PORT;
-	String encoding = UTF8;
 	int waitForClosedSleepMillis = DEFAULT_SLEEP_MILLIS;
 	String username;
 	String hostname;
@@ -605,14 +603,6 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public void setConnectTimeout(Integer connectTimeout) {
 		this.connectTimeout = connectTimeout;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
 	}
 
 }
