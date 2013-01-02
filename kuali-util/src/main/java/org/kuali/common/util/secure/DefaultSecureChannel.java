@@ -37,6 +37,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
 	private static final int DEFAULT_SLEEP_MILLIS = 10;
+	private static final String UTF8 = "UTF-8";
 
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File config = SSHUtils.DEFAULT_CONFIG_FILE;
@@ -49,7 +50,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	Integer connectTimeout;
 	List<File> privateKeys;
 	Properties options;
-	String encoding = "UTF-8";
+	String encoding = UTF8;
 
 	protected Session session;
 	protected ChannelSftp sftp;
@@ -81,12 +82,11 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public Result executeCommand(String command, String stdin) {
-		return executeCommand(command, stdin, this.encoding);
+		return executeCommand(command, stdin, encoding);
 	}
 
 	public Result executeCommand(String command, String stdin, String encoding) {
 		Assert.notBlank(command);
-		Assert.notNull(encoding);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
@@ -113,7 +113,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, null);
-			// Convert stdout and stderr into bytes
+			// Convert stdout and stderr to String's
 			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding);
 			String stderr = Str.getString(stderrStream.toByteArray(), encoding);
 			// Make sure the channel is closed
@@ -123,6 +123,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
+			// Cleanup
 			IOUtils.closeQuietly(stdinStream);
 			IOUtils.closeQuietly(stdoutStream);
 			IOUtils.closeQuietly(stderrStream);
@@ -164,11 +165,12 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected void validate() {
 		Assert.isTrue(SSHUtils.isValidPort(port));
-		Assert.isTrue(!StringUtils.isBlank(hostname));
+		Assert.notBlank(hostname);
+		Assert.notBlank(encoding);
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel - {}", ChannelUtils.getLocation(username, hostname));
+		logger.info("Opening secure channel - {} [{}]", ChannelUtils.getLocation(username, hostname), encoding);
 		if (privateKeys != null) {
 			logger.debug("Private keys - {}", privateKeys.size());
 		} else {
@@ -353,7 +355,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void copyStringToFile(String string, String encoding, RemoteFile destination) {
+	public void copyStringToFile(String string, RemoteFile destination) {
 		Assert.notNull(string);
 		Assert.notBlank(encoding);
 		InputStream in = new ByteArrayInputStream(Str.getBytes(string, encoding));

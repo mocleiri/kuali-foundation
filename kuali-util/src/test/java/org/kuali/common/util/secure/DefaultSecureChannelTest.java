@@ -63,11 +63,11 @@ public class DefaultSecureChannelTest {
 
 	protected void show(Result result) throws IOException {
 		if (result.getStdin() == null) {
-			Object[] args = { result.getCommand(), result.getEncoding(), formatter.getTime(result.getElapsed()) };
-			logger.info("[{}] - [{} {}]", args);
+			Object[] args = { result.getCommand(), formatter.getTime(result.getElapsed()) };
+			logger.info("[{}] - {}", args);
 		} else {
-			Object[] args = { result.getCommand(), result.getStdin(), result.getEncoding(), formatter.getTime(result.getElapsed()) };
-			logger.info("[{}] < [{}] - [{} {}]", args);
+			Object[] args = { result.getCommand(), result.getStdin(), formatter.getTime(result.getElapsed()) };
+			logger.info("[{}] < [{}] - {}", args);
 		}
 		String[] stdout = StringUtils.split(result.getStdout(), '\n');
 		for (String line : stdout) {
