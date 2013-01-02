@@ -10,7 +10,7 @@ public class ChannelUtils {
 		return (username == null) ? hostname : username + "@" + hostname;
 	}
 
-	public static Result getExecutionResult(int exitValue, long start, byte[] stdin, String encoding, byte[] stdout, byte[] stderr, String command) {
+	public static Result getExecutionResult(int exitValue, long start, String command, String stdin, String stdout, String stderr, String encoding) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
 		Result result = new Result();

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 
@@ -49,6 +50,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	Integer connectTimeout;
 	List<File> privateKeys;
 	Properties options;
+	String encoding = "UTF-8";
 
 	protected Session session;
 	protected ChannelSftp sftp;
@@ -75,7 +77,12 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public Result executeCommand(String command) {
-		return executeCommand(command, (byte[]) null);
+		return executeCommand(command, (Charset) null);
+	}
+
+	@Override
+	public Result executeCommand(String command, Charset encoding) {
+		return executeCommand(command, null, encoding);
 	}
 
 	@Override
@@ -84,27 +91,25 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public Result executeCommand(String command, String stdin, String encoding) {
-		return executeCommand(command, Str.getBytes(stdin, encoding), encoding);
-	}
-
-	@Override
-	public Result executeCommand(String command, byte[] stdin) {
-		return executeCommand(command, stdin, null);
-	}
-
-	@Override
-    public Result executeCommand(String command, byte[] stdin, String encoding) {
+	public Result executeCommand(String command, String stdin, Charset encoding) {
+		encoding = (encoding == null) ? Charset.forName(this.encoding) : encoding;
+		Assert.notBlank(command);
+		Assert.notNull(encoding);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
 		InputStream stdinStream = null;
 		try {
+			// Preserve start time
 			long start = System.currentTimeMillis();
+			// Open an exec channel
 			exec = (ChannelExec) session.openChannel(EXEC);
-			exec.setCommand(command);
+			// Convert the command string to bytes
+			byte[] commandBytes = Str.getBytes(command, encoding.name());
+			// Store the command on the exec channel
+			exec.setCommand(commandBytes);
 			// Prepare the stdin stream
-			stdinStream = getInputStream(stdin);
+			stdinStream = getInputStream(stdin, encoding.name());
 			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
 			// Get the stdout stream from the ChannelExec object
@@ -113,15 +118,16 @@ public class DefaultSecureChannel implements SecureChannel {
 			exec.setInputStream(stdinStream);
 			// Update the ChannelExec object with the stderr stream
 			exec.setErrStream(stderrStream);
-			// Execute the command while consuming anything from stdin and storing output in stdout/stderr
+			// Execute the command.
+			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, null);
 			// Convert stdout and stderr into bytes
-			byte[] stdout = IOUtils.toByteArray(stdoutStream);
-			byte[] stderr = stderrStream.toByteArray();
+			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding.name());
+			String stderr = Str.getString(stderrStream.toByteArray(), encoding.name());
 			// Make sure the channel is closed
 			waitForClosed(exec, waitForClosedSleepMillis);
 			// Return the result of executing the command
-			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdin, encoding, stdout, stderr, command);
+			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, command, stdin, stdout, stderr, encoding.name());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -132,11 +138,11 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected InputStream getInputStream(byte[] bytes) {
-		if (bytes == null) {
+	protected InputStream getInputStream(String s, String encoding) {
+		if (s == null) {
 			return null;
 		} else {
-			return new ByteArrayInputStream(bytes);
+			return new ByteArrayInputStream(Str.getBytes(s, encoding));
 		}
 	}
 
@@ -600,6 +606,22 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public void setConnectTimeout(Integer connectTimeout) {
 		this.connectTimeout = connectTimeout;
+	}
+
+	public int getWaitForClosedSleepMillis() {
+		return waitForClosedSleepMillis;
+	}
+
+	public void setWaitForClosedSleepMillis(int waitForClosedSleepMillis) {
+		this.waitForClosedSleepMillis = waitForClosedSleepMillis;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
