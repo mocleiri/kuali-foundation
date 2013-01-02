@@ -45,12 +45,12 @@ public class DefaultSecureChannel implements SecureChannel {
 	boolean strictHostKeyChecking = true;
 	int port = SSHUtils.DEFAULT_PORT;
 	int waitForClosedSleepMillis = DEFAULT_SLEEP_MILLIS;
+	String encoding = UTF8;
 	String username;
 	String hostname;
 	Integer connectTimeout;
 	List<File> privateKeys;
 	Properties options;
-	String encoding = UTF8;
 
 	protected Session session;
 	protected ChannelSftp sftp;
