@@ -81,11 +81,6 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public Result executeCommand(String command, String stdin) {
-		return executeCommand(command, stdin, null);
-	}
-
-	@Override
 	public Result executeCommand(String command, String stdin, String encoding) {
 		byte[] bytes = Str.getBytes(stdin, encoding);
 		return executeCommand(command, bytes);
@@ -93,6 +88,10 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public Result executeCommand(String command, byte[] stdin) {
+		return executeCommand(command, stdin, null);
+	}
+
+	public Result executeCommand(String command, byte[] stdin, String encoding) {
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
@@ -117,7 +116,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			// Make sure the channel is closed
 			waitForClosed(exec, waitForClosedSleepMillis);
 			// Return the result of executing the command
-			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdin, stdout, stderr, command);
+			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, stdin, encoding, stdout, stderr, command);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {

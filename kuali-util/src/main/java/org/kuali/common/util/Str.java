@@ -35,6 +35,20 @@ public class Str {
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
 
+	public static final String getString(byte[] bytes, String encoding) {
+		if (bytes == null) {
+			return null;
+		}
+		if (encoding == null) {
+			return new String(bytes);
+		}
+		try {
+			return new String(bytes, encoding);
+		} catch (UnsupportedEncodingException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
 	public static final byte[] getUTF8Bytes(String s) {
 		if (s == null) {
 			return null;

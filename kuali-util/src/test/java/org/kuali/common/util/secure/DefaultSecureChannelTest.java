@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleFormatter;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.UnixCmds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class DefaultSecureChannelTest {
 			show(channel.executeCommand(cmds.su("tomcat", "/usr/local/tomcat/bin/startup.sh")));
 			show(channel.executeCommand(cmds.mkdirp("/home/tomcat/x/y/z/foo")));
 			show(channel.executeCommand("ls -la > /home/tomcat/x/y/z/foo.sh"));
-			show(channel.executeCommand("cat", "foobar"));
+			show(channel.executeCommand("cat", "foobar", "UTF-8"));
 			show(channel.executeCommand(cmds.chmod("755", "/home/tomcat/x/y/z/foo.sh")));
 			show(channel.executeCommand(cmds.chownr("tomcat", "tomcat", "/home/tomcat/x")));
 			channel.close();
@@ -64,7 +65,13 @@ public class DefaultSecureChannelTest {
 	}
 
 	protected void show(Result result) throws IOException {
-		logger.info("[{}] - {}", result.getCommand(), formatter.getTime(result.getElapsed()));
+		if (result.getStdin() == null) {
+			logger.info("[{}] - {} ", result.getCommand(), formatter.getTime(result.getElapsed()));
+		} else {
+			String input = Str.getString(result.getStdin(), result.getEncoding());
+			Object[] args = { result.getCommand(), input, formatter.getTime(result.getElapsed()) };
+			logger.info("[{}] < [{}] - {} ", args);
+		}
 		List<String> stdout = IOUtils.readLines(new ByteArrayInputStream(result.getStdout()));
 		for (String line : stdout) {
 			logger.info(line);

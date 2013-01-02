@@ -2,10 +2,11 @@ package org.kuali.common.util.secure;
 
 public class ChannelUtils {
 
-	public static Result getExecutionResult(int exitValue, long start, byte[] stdin, byte[] stdout, byte[] stderr, String command) {
+	public static Result getExecutionResult(int exitValue, long start, byte[] stdin, String encoding, byte[] stdout, byte[] stderr, String command) {
 		long stop = System.currentTimeMillis();
 		long elapsed = stop - start;
 		Result result = new Result();
+		result.setEncoding(encoding);
 		result.setCommand(command);
 		result.setElapsed(elapsed);
 		result.setStart(start);
