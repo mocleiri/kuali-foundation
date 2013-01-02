@@ -117,7 +117,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(stdinStream);
-			IOUtils.closeQuietly(stderrStream);
+			IOUtils.closeQuietly(stdoutStream);
 			IOUtils.closeQuietly(stderrStream);
 			closeQuietly(exec);
 		}
