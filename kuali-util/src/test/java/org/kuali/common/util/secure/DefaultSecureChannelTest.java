@@ -17,6 +17,7 @@ package org.kuali.common.util.secure;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -34,10 +35,14 @@ public class DefaultSecureChannelTest {
 	SimpleFormatter formatter = new SimpleFormatter();
 
 	protected SecureChannel getSecureChannel() {
+		String privateKeyString = LocationUtils.toString("/Users/jeffcaddel/.ssh/ole-key.pem");
 		DefaultSecureChannel channel = new DefaultSecureChannel();
 		channel.setUsername("root");
 		channel.setHostname("env7.ole.kuali.org");
 		channel.setStrictHostKeyChecking(false);
+		channel.setIncludeDefaultPrivateKeyLocations(false);
+		channel.setUseConfigFile(false);
+		channel.setPrivateKeyStrings(Arrays.asList(privateKeyString));
 		return channel;
 	}
 
@@ -63,6 +68,7 @@ public class DefaultSecureChannelTest {
 	}
 
 	protected void show(Result result) throws IOException {
+		logger.info("Exit value = {}", result.getExitValue());
 		if (result.getStdin() == null) {
 			Object[] args = { result.getCommand(), formatter.getTime(result.getElapsed()) };
 			logger.info("[{}] - {}", args);

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -42,6 +43,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File config = SSHUtils.DEFAULT_CONFIG_FILE;
+	boolean useConfigFile = true;
 	boolean includeDefaultPrivateKeyLocations = true;
 	boolean strictHostKeyChecking = true;
 	int port = SSHUtils.DEFAULT_PORT;
@@ -174,7 +176,8 @@ public class DefaultSecureChannel implements SecureChannel {
 		} else {
 			logger.debug("Private key config - {}", config);
 		}
-		logger.debug("Check default private key locations - {}", includeDefaultPrivateKeyLocations);
+		logger.debug("Include default private key locations - {}", includeDefaultPrivateKeyLocations);
+		logger.debug("Use config file - {}", useConfigFile);
 		logger.debug("Strict host key checking - {}", strictHostKeyChecking);
 		logger.debug("Known hosts - {}", knownHosts);
 		logger.debug("Port - {}", port);
@@ -234,9 +237,9 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected JSch getJSch() throws JSchException {
-		List<File> mergedPrivateKeys = getMergedPrivateKeys();
-		logger.debug("Located {} private keys", mergedPrivateKeys.size());
-		JSch jsch = getJSch(mergedPrivateKeys, privateKeyStrings);
+		List<File> uniquePrivateKeyFiles = getUniquePrivateKeyFiles();
+		logger.debug("Located {} private keys on the file system", uniquePrivateKeyFiles.size());
+		JSch jsch = getJSch(uniquePrivateKeyFiles, privateKeyStrings);
 		if (strictHostKeyChecking && knownHosts != null) {
 			String path = LocationUtils.getCanonicalPath(knownHosts);
 			jsch.setKnownHosts(path);
@@ -259,13 +262,25 @@ public class DefaultSecureChannel implements SecureChannel {
 		return jsch;
 	}
 
-	protected List<File> getMergedPrivateKeys() {
-		if (privateKeys == null && privateKeyStrings == null) {
-			logger.debug("Examining {}", config);
-			return SSHUtils.getPrivateKeys(config, includeDefaultPrivateKeyLocations);
+	protected List<File> getUniquePrivateKeyFiles() {
+		List<String> paths = new ArrayList<String>();
+		if (privateKeys != null) {
+			for (File privateKey : privateKeys) {
+				paths.add(LocationUtils.getCanonicalPath(privateKey));
+			}
 		}
-
-		return SSHUtils.getPrivateKeys(privateKeys, includeDefaultPrivateKeyLocations);
+		if (useConfigFile) {
+			for (String path : SSHUtils.getFilenames(config)) {
+				paths.add(path);
+			}
+		}
+		if (includeDefaultPrivateKeyLocations) {
+			for (String path : SSHUtils.PRIVATE_KEY_DEFAULTS) {
+				paths.add(path);
+			}
+		}
+		List<String> uniquePaths = CollectionUtils.getUniqueStrings(paths);
+		return SSHUtils.getExistingAndReadable(uniquePaths);
 	}
 
 	@Override
@@ -628,6 +643,14 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public void setPrivateKeyStrings(List<String> privateKeyStrings) {
 		this.privateKeyStrings = privateKeyStrings;
+	}
+
+	public boolean isUseConfigFile() {
+		return useConfigFile;
+	}
+
+	public void setUseConfigFile(boolean useConfigFile) {
+		this.useConfigFile = useConfigFile;
 	}
 
 }

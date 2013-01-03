@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -30,6 +31,29 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 public class CollectionUtils {
+
+	public static final List<String> getUniqueStrings(List<String> strings) {
+		List<String> unique = new ArrayList<String>();
+		for (String string : strings) {
+			if (!unique.contains(string)) {
+				unique.add(string);
+			}
+		}
+		return unique;
+	}
+
+	public static final List<File> getUniqueFiles(List<File> files) {
+		List<String> strings = new ArrayList<String>();
+		for (File file : files) {
+			strings.add(LocationUtils.getCanonicalPath(file));
+		}
+		List<String> uniqueStrings = getUniqueStrings(strings);
+		List<File> uniqueFiles = new ArrayList<File>();
+		for (String uniqueString : uniqueStrings) {
+			uniqueFiles.add(new File(uniqueString));
+		}
+		return uniqueFiles;
+	}
 
 	public static final List<String> getLines(String s) {
 		if (s == null) {

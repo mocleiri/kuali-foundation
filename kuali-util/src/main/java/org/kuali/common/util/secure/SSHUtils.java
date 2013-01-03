@@ -24,7 +24,6 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
@@ -110,30 +109,8 @@ public class SSHUtils {
 	 * parsing <code>config</code>. Any files returned by this method are guaranteed to exist and be readable.
 	 */
 	public static final List<File> getPrivateKeys(File config) {
-		return getPrivateKeys(config, true);
-	}
-
-	public static final List<File> getPrivateKeys(File config, boolean includeDefaultPrivateKeyLocations) {
-		List<String> configuredPrivateKeys = getFilenames(config);
-		if (includeDefaultPrivateKeyLocations) {
-			List<String> filenames = CollectionUtils.combineStringsUniquely(configuredPrivateKeys, PRIVATE_KEY_DEFAULTS);
-			return getExistingAndReadable(filenames);
-		} else {
-			return getExistingAndReadable(configuredPrivateKeys);
-		}
-	}
-
-	public static final List<File> getPrivateKeys(List<File> privateKeys, boolean includeDefaultPrivateKeyLocations) {
-		List<String> privateKeyFilenames = new ArrayList<String>();
-		for (File privateKey : privateKeys) {
-			privateKeyFilenames.add(LocationUtils.getCanonicalPath(privateKey));
-		}
-		if (includeDefaultPrivateKeyLocations) {
-			List<String> filenames = CollectionUtils.combineStringsUniquely(privateKeyFilenames, PRIVATE_KEY_DEFAULTS);
-			return getExistingAndReadable(filenames);
-		} else {
-			return getExistingAndReadable(privateKeyFilenames);
-		}
+		List<String> paths = getFilenames(config);
+		return getExistingAndReadable(paths);
 	}
 
 	/**
