@@ -1,26 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2010-2013 The Kuali Foundation
+  Copyright 2010-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
   <comment>Oracle SQL</comment>
+  <!--
+    Drop a user ignoring Oracle's "user does not exist" error
+    This SQL fails if there are any active connections for the user
+  -->
   <entry key="oracle.drop">
     BEGIN EXECUTE IMMEDIATE 'DROP USER ${sql.username} CASCADE'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -01918 THEN RAISE; END IF; END;
+    /
+  </entry>
+  <!-- Kill any active sessions for the indicated user before dropping them -->
+  <entry key="oracle.killAndDrop">
+    BEGIN
+    FOR sessions IN (SELECT sid, serial# FROM v$session WHERE username = '${sql.username}')
+    LOOP
+    EXECUTE IMMEDIATE 'ALTER SYSTEM KILL SESSION '''||SESSIONS.SID||','||SESSIONS.SERIAL#||'''';
+    END LOOP;
+    EXECUTE IMMEDIATE 'DROP user ${sql.username} CASCADE'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -01918 THEN RAISE; END IF; END;
+    /
+  </entry>
+  <!--
+    Kill any active sessions via Amazon's custom rdsadmin package.
+    The Amazon RDS service does not directly allow certain types of DBA activities, including killing active sessions.
+    Killing active sessions is only allowed by running the rdsadmin_util.kill() function they provide
+  -->
+  <entry key="oracle.killAndDrop.rds">
+    BEGIN
+    FOR sessions IN (SELECT sid, serial# FROM v$session WHERE username = '${sql.username}')
+    LOOP
+    rdsadmin.rdsadmin_util.kill(sessions.sid,sessions.serial#);
+    END LOOP;
+    EXECUTE IMMEDIATE 'DROP user ${sql.username} CASCADE'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -01918 THEN RAISE; END IF; END;
     /
   </entry>
   <entry key="oracle.create">
