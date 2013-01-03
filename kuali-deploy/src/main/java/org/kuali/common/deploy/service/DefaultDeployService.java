@@ -1,9 +1,13 @@
 package org.kuali.common.deploy.service;
 
 import org.kuali.common.util.secure.SecureChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 public class DefaultDeployService implements DeployService {
+
+	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
 	SecureChannel channel;
 	ApplicationServerController controller;
@@ -15,6 +19,7 @@ public class DefaultDeployService implements DeployService {
 		Assert.notNull(controller);
 		Assert.notNull(attendant);
 		try {
+			logger.debug("Opening secure channel");
 			channel.open();
 			controller.stop();
 			attendant.clean();

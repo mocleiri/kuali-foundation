@@ -65,8 +65,18 @@
     <property name="startup" value="${tomcat.startup}" />
   </bean>
 
+  <util:list id="kdo.filesToDelete" value-type="java.lang.String">
+    <value>${tomcat.lib}/mysql*.jar</value>
+    <value>${tomcat.lib}/ojdbc*.jar</value>
+    <value>${tomcat.lib}/classes12*.jar</value>
+    <value>${tomcat.lib}/orai18n*.jar</value>
+    <value>${tomcat.setenv}</value>
+    <value>${appdynamics.controller}</value>
+  </util:list>
+
   <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
     <property name="channel" ref="kdo.secureChannel" />
+    <property name="filesToDelete" ref="kdo.filesToDelete" />
   </bean>
 
   <bean id="kdo.deployService" class="org.kuali.common.deploy.service.DefaultDeployService" init-method="deploy">

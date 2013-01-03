@@ -3,9 +3,15 @@ package org.kuali.common.deploy.service;
 import java.util.List;
 
 import org.kuali.common.util.UnixCmds;
+import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 public class DefaultFileSystemAttendant implements FileSystemAttendant {
+
+	private static final Logger logger = LoggerFactory.getLogger(DefaultFileSystemAttendant.class);
 
 	UnixCmds cmds = new UnixCmds();
 	SecureChannel channel;
@@ -14,7 +20,17 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 
 	@Override
 	public void clean() {
+		deleteFiles(filesToDelete);
+	}
 
+	protected void deleteFiles(List<String> files) {
+		if (CollectionUtils.isEmpty(files)) {
+			return;
+		}
+		String command = cmds.rmrf(files);
+		Result result = channel.executeCommand(command);
+		ServiceUtils.logResult(result, logger);
+		ServiceUtils.validateResult(result);
 	}
 
 	@Override
