@@ -7,7 +7,7 @@ public class DefaultDeployService implements DeployService {
 
 	SecureChannel channel;
 	ApplicationServerController controller;
-	FileSystemAttendant organizer;
+	FileSystemAttendant attendant;
 
 	@Override
 	public void deploy() {
@@ -16,8 +16,8 @@ public class DefaultDeployService implements DeployService {
 		try {
 			channel.open();
 			controller.stop();
-			organizer.clean();
-			organizer.prepare();
+			attendant.clean();
+			attendant.prepare();
 			controller.start();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
@@ -42,12 +42,12 @@ public class DefaultDeployService implements DeployService {
 		this.channel = channel;
 	}
 
-	public FileSystemAttendant getOrganizer() {
-		return organizer;
+	public FileSystemAttendant getAttendant() {
+		return attendant;
 	}
 
-	public void setOrganizer(FileSystemAttendant organizer) {
-		this.organizer = organizer;
+	public void setAttendant(FileSystemAttendant attendant) {
+		this.attendant = attendant;
 	}
 
 }
