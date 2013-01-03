@@ -1,6 +1,6 @@
 package org.kuali.common.deploy.service;
 
-public class DefaultFileSystemOrganizer implements FileSystemOrganizer {
+public class DefaultFileSystemAttendant implements FileSystemAttendant {
 
 	@Override
     public void clean() {

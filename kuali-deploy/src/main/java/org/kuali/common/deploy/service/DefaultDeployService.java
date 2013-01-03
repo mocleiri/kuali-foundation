@@ -7,7 +7,7 @@ public class DefaultDeployService implements DeployService {
 
 	SecureChannel channel;
 	ApplicationServerController controller;
-	FileSystemOrganizer organizer;
+	FileSystemAttendant organizer;
 
 	@Override
 	public void deploy() {
@@ -42,11 +42,11 @@ public class DefaultDeployService implements DeployService {
 		this.channel = channel;
 	}
 
-	public FileSystemOrganizer getOrganizer() {
+	public FileSystemAttendant getOrganizer() {
 		return organizer;
 	}
 
-	public void setOrganizer(FileSystemOrganizer organizer) {
+	public void setOrganizer(FileSystemAttendant organizer) {
 		this.organizer = organizer;
 	}
 
