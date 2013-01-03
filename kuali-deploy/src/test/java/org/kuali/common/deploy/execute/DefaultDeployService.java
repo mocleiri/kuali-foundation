@@ -30,19 +30,28 @@ public class DefaultDeployService {
 		return channel;
 	}
 
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SecureChannel channel = getSecureChannel();
 	UnixCmds cmds = new UnixCmds();
 
-	protected String getValue(Properties properties, String key) {
-		String originalValue = properties.getProperty(key);
-		return helper.replacePlaceholders(originalValue, properties);
+	protected Properties getProperties() {
+		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		Properties properties = PropertyUtils.load("classpath:org/kuali/common/deploy.properties");
+		Properties resolved = PropertyUtils.getResolvedProperties(properties);
+		properties.putAll(resolved);
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		Properties returnProperties = new Properties();
+		for (String key : keys) {
+			String originalValue = properties.getProperty(key);
+			String resolvedValue = helper.replacePlaceholders(originalValue, properties);
+			returnProperties.setProperty(key, resolvedValue);
+		}
+		return returnProperties;
 	}
 
 	@Test
 	public void execute() {
 		try {
-			Properties properties = PropertyUtils.load("classpath:org/kuali/common/deploy.properties");
+			Properties properties = getProperties();
 			channel.open();
 			doShutdown(properties);
 		} catch (Exception e) {
@@ -53,8 +62,8 @@ public class DefaultDeployService {
 	}
 
 	protected void doShutdown(Properties properties) {
-		String login = getValue(properties, "tomcat.user");
-		String script = getValue(properties, "tomcat.shutdown");
+		String login = properties.getProperty("tomcat.user");
+		String script = properties.getProperty("tomcat.shutdown");
 		String shutdown = cmds.su(login, script);
 		logger.info("[{}]", shutdown);
 		Result result = channel.executeCommand(shutdown);
