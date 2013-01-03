@@ -15,6 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -50,6 +51,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	String hostname;
 	Integer connectTimeout;
 	List<File> privateKeys;
+	List<String> privateKeyStrings;
 	Properties options;
 
 	protected Session session;
@@ -234,7 +236,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	protected JSch getJSch() throws JSchException {
 		List<File> mergedPrivateKeys = getMergedPrivateKeys();
 		logger.debug("Located {} private keys", mergedPrivateKeys.size());
-		JSch jsch = getJSch(mergedPrivateKeys);
+		JSch jsch = getJSch(mergedPrivateKeys, privateKeyStrings);
 		if (strictHostKeyChecking && knownHosts != null) {
 			String path = LocationUtils.getCanonicalPath(knownHosts);
 			jsch.setKnownHosts(path);
@@ -242,22 +244,28 @@ public class DefaultSecureChannel implements SecureChannel {
 		return jsch;
 	}
 
-	protected JSch getJSch(List<File> privateKeys) throws JSchException {
+	protected JSch getJSch(List<File> privateKeys, List<String> privateKeyStrings) throws JSchException {
 		JSch jsch = new JSch();
 		for (File privateKey : privateKeys) {
 			String path = LocationUtils.getCanonicalPath(privateKey);
 			jsch.addIdentity(path);
 		}
+		int count = 0;
+		for (String privateKeyString : CollectionUtils.toEmptyList(privateKeyStrings)) {
+			String name = Integer.toString(count++);
+			byte[] bytes = Str.getBytes(privateKeyString, encoding);
+			jsch.addIdentity(name, bytes, null, null);
+		}
 		return jsch;
 	}
 
 	protected List<File> getMergedPrivateKeys() {
-		if (privateKeys == null) {
+		if (privateKeys == null && privateKeyStrings == null) {
 			logger.debug("Examining {}", config);
 			return SSHUtils.getPrivateKeys(config, includeDefaultPrivateKeyLocations);
-		} else {
-			return SSHUtils.getPrivateKeys(privateKeys, includeDefaultPrivateKeyLocations);
 		}
+
+		return SSHUtils.getPrivateKeys(privateKeys, includeDefaultPrivateKeyLocations);
 	}
 
 	@Override
@@ -612,6 +620,14 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public List<String> getPrivateKeyStrings() {
+		return privateKeyStrings;
+	}
+
+	public void setPrivateKeyStrings(List<String> privateKeyStrings) {
+		this.privateKeyStrings = privateKeyStrings;
 	}
 
 }
