@@ -19,10 +19,43 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
 import org.kuali.common.util.property.Constants;
+import org.slf4j.Logger;
 
 public class LoggerUtils {
 
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
+
+	public static void logLines(String s, Logger logger, LoggerLevel level) {
+		if (s == null) {
+			return;
+		}
+		String[] lines = StringUtils.split(s, "\n");
+		for (String line : lines) {
+			LoggerUtils.logMsg(line, logger, level);
+		}
+	}
+
+	public static final void logMsg(String msg, Logger logger, LoggerLevel level) {
+		switch (level) {
+		case DEBUG:
+			logger.debug(msg);
+			return;
+		case TRACE:
+			logger.trace(msg);
+			return;
+		case INFO:
+			logger.info(msg);
+			return;
+		case WARN:
+			logger.warn(msg);
+			return;
+		case ERROR:
+			logger.error(msg);
+			return;
+		default:
+			throw new IllegalArgumentException("Logger level " + level + " is unknown");
+		}
+	}
 
 	public static final String getUsername(String username) {
 		return getNullAsNone(username);
