@@ -74,9 +74,33 @@
     <value>${appdynamics.controller}</value>
   </util:list>
 
+  <util:list id="kdo.directoriesToDelete" value-type="java.lang.String">
+    <value>${tomcat.work}</value>
+    <value>${tomcat.logs}</value>
+    <value>${tomcat.webapps}</value>
+    <value>${tomcat.conf.catalina}</value>
+    <value>${tomcat.home.kuali}</value>
+  </util:list>
+
+  <util:list id="kdo.directoriesToCreate" value-type="java.lang.String">
+    <value>${tomcat.logs}</value>
+    <value>${tomcat.webapps}</value>
+    <value>${tomcat.home.kuali}</value>
+  </util:list>
+
+  <util:list id="kdo.directoriesToChown" value-type="java.lang.String">
+    <value>${tomcat.base}</value>
+    <value>${tomcat.home}</value>
+  </util:list>
+
   <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="filesToDelete" ref="kdo.filesToDelete" />
+    <property name="directoriesToDelete" ref="kdo.directoriesToDelete" />
+    <property name="directoriesToCreate" ref="kdo.directoriesToCreate" />
+    <property name="directoriesToChown" ref="kdo.directoriesToChown" />
+    <property name="owner" value="${tomcat.owner}" />
+    <property name="group" value="${tomcat.group}" />
   </bean>
 
   <bean id="kdo.deployService" class="org.kuali.common.deploy.service.DefaultDeployService" init-method="deploy">
