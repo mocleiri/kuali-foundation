@@ -65,5 +65,11 @@
     <property name="startup" value="${tomcat.startup}" />
   </bean>
 
+  <bean id="kdo.deployService" class="org.kuali.common.deploy.service.DefaultDeployService">
+    <property name="tomcat" ref="kdo.secureChannel" />
+    <property name="username" value="${tomcat.user}" />
+    <property name="shutdown" value="${tomcat.shutdown}" />
+    <property name="startup" value="${tomcat.startup}" />
+  </bean>
 
 </beans>

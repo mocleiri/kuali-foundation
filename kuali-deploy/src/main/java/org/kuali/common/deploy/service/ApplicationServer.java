@@ -15,7 +15,7 @@
  */
 package org.kuali.common.deploy.service;
 
-public interface TomcatService {
+public interface ApplicationServer {
 
 	void shutdown();
 
