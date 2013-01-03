@@ -1,6 +1,5 @@
 package org.kuali.common.deploy.execute;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,6 +20,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class DefaultDeployService implements DeployService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
+
 	static {
 		System.setProperty("dns.hostname", "env7.ole.kuali.org");
 	}
@@ -98,16 +98,4 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
-	protected void validateResult(Result result) {
-		validateResult(result, Arrays.asList(0));
-	}
-
-	protected void validateResult(Result result, List<Integer> exitValues) {
-		for (Integer exitValue : exitValues) {
-			if (exitValue.equals(result.getExitValue())) {
-				return;
-			}
-		}
-		throw new IllegalStateException("Exit value " + result.getExitValue() + " is not allowed");
-	}
 }
