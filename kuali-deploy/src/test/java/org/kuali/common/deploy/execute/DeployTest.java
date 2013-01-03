@@ -14,6 +14,7 @@ public class DeployTest {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("deploy.env", "7");
 			logger.info("Hello world");
 			ss.load("classpath:org/kuali/common/deploy/spring/deploy-context.xml");
 		} catch (Exception e) {

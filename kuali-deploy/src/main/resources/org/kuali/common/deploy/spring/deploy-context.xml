@@ -51,4 +51,19 @@
   </bean>
 
   <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+
+  <bean id="deploy.secureChannel" class="org.kuali.common.util.secure.DefaultSecureChannel" init-method="open" destroy-method="close">
+    <property name="username" value="${kdo.channel.username}" />
+    <property name="hostname" value="${kdo.channel.hostname}" />
+    <property name="strictHostKeyChecking" value="${kdo.channel.strictHostKeyChecking}" />
+  </bean>
+
+  <bean id="deploy.tomcatService" class="org.kuali.common.deploy.service.DefaultTomcatService">
+    <property name="channel" ref="deploy.secureChannel" />
+    <property name="username" value="${tomcat.user}" />
+    <property name="shutdown" value="${tomcat.shutdown}" />
+    <property name="startup" value="${tomcat.startup}" />
+  </bean>
+
+
 </beans>
