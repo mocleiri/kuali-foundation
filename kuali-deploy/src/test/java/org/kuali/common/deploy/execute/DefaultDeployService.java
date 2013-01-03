@@ -18,20 +18,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultDeployService {
+public class DefaultDeployService implements DeployService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
+	static {
+		System.setProperty("dns.hostname", "env7.ole.kuali.org");
+	}
+	Properties properties = getProperties();
+	SecureChannel channel = getSecureChannel(properties);
+	UnixCmds cmds = new UnixCmds();
 
-	protected SecureChannel getSecureChannel() {
+	protected SecureChannel getSecureChannel(Properties properties) {
+		String username = properties.getProperty("deploy.username");
+		String hostname = properties.getProperty("deploy.hostname");
 		DefaultSecureChannel channel = new DefaultSecureChannel();
-		channel.setUsername("root");
-		channel.setHostname("env7.ole.kuali.org");
+		channel.setUsername(username);
+		channel.setHostname(hostname);
 		channel.setStrictHostKeyChecking(false);
 		return channel;
 	}
-
-	SecureChannel channel = getSecureChannel();
-	UnixCmds cmds = new UnixCmds();
 
 	protected Properties getProperties() {
 		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
@@ -51,9 +56,11 @@ public class DefaultDeployService {
 	@Test
 	public void execute() {
 		try {
-			Properties properties = getProperties();
 			channel.open();
-			doShutdown(properties);
+			shutdown();
+			cleanup();
+			prepare();
+			startup();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -61,17 +68,26 @@ public class DefaultDeployService {
 		}
 	}
 
-	protected void doShutdown(Properties properties) {
+	@Override
+	public void cleanup() {
+	}
+
+	@Override
+	public void prepare() {
+	}
+
+	@Override
+	public void startup() {
+	}
+
+	@Override
+	public void shutdown() {
 		String login = properties.getProperty("tomcat.user");
 		String script = properties.getProperty("tomcat.shutdown");
 		String shutdown = cmds.su(login, script);
 		logger.info("[{}]", shutdown);
 		Result result = channel.executeCommand(shutdown);
 		logResult(result);
-	}
-
-	protected void doCleanup(Properties properties) {
-
 	}
 
 	protected void logResult(Result result) {
