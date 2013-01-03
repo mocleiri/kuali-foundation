@@ -174,7 +174,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		logger.debug("Private key files - {}", CollectionUtils.toEmptyList(privateKeys).size());
 		logger.debug("Private key strings - {}", CollectionUtils.toEmptyList(privateKeyStrings).size());
 		logger.debug("Private key config file - {}", config);
-		logger.debug("Private key config file usage - {}", useConfigFile);
+		logger.debug("Private key config file use - {}", useConfigFile);
 		logger.debug("Include default private key locations - {}", includeDefaultPrivateKeyLocations);
 		logger.debug("Known hosts - {}", knownHosts);
 		logger.debug("Port - {}", port);
