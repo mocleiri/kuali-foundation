@@ -67,7 +67,7 @@ public class DefaultSecureChannelTest {
 			Object[] args = { result.getCommand(), formatter.getTime(result.getElapsed()) };
 			logger.info("[{}] - {}", args);
 		} else {
-			Object[] args = { result.getCommand(), Str.flatten(result.getStdin(), "CR", "LF"), formatter.getTime(result.getElapsed()) };
+			Object[] args = { result.getCommand(), Str.flatten(result.getStdin(), "\\r", "\\n"), formatter.getTime(result.getElapsed()) };
 			logger.info("[{}] < [{}] - {}", args);
 		}
 		String[] stdout = StringUtils.split(result.getStdout(), '\n');
