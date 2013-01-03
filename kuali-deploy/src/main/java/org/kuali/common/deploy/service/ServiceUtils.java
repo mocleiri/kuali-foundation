@@ -8,12 +8,13 @@ import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.secure.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class ServiceUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServiceUtils.class);
 
-	public static void logResult(Result result) {
+	public static void logResult(Result result, Logger logger) {
 		LoggerUtils.logLines(result.getStdout(), logger, LoggerLevel.INFO);
 		LoggerUtils.logLines(result.getStderr(), logger, LoggerLevel.WARN);
 		if (result.getExitValue() != 0) {
@@ -26,6 +27,8 @@ public class ServiceUtils {
 	}
 
 	public static void validateResult(Result result, List<Integer> exitValues) {
+		Assert.notNull(exitValues);
+		logger.trace("exitValues.size()={}", exitValues.size());
 		for (Integer exitValue : exitValues) {
 			if (exitValue.equals(result.getExitValue())) {
 				return;
