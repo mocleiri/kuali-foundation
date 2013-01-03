@@ -5,7 +5,7 @@ import org.kuali.common.util.secure.SecureChannel;
 
 public class DefaultDeployService implements DeployService {
 
-	ApplicationServer applicationServer;
+	ApplicationServerController applicationServer;
 	SecureChannel channel;
 
 	@Override
@@ -22,11 +22,11 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
-	public ApplicationServer getApplicationServer() {
+	public ApplicationServerController getApplicationServer() {
 		return applicationServer;
 	}
 
-	public void setApplicationServer(ApplicationServer applicationServer) {
+	public void setApplicationServer(ApplicationServerController applicationServer) {
 		this.applicationServer = applicationServer;
 	}
 

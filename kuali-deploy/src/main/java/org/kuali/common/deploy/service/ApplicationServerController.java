@@ -15,7 +15,7 @@
  */
 package org.kuali.common.deploy.service;
 
-public interface ApplicationServer {
+public interface ApplicationServerController {
 
 	void shutdown();
 
