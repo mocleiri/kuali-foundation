@@ -20,13 +20,13 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.UnixCmds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 public class DefaultSecureChannelTest {
 
@@ -107,11 +107,10 @@ public class DefaultSecureChannelTest {
 			RemoteFile remote = channel.getMetaData(absolutePath);
 			channel.copyFile(localSrc, remote);
 			Assert.isTrue(channel.exists(absolutePath));
-			Assert.isTrue(!channel.isDirectory(absolutePath));
+			Assert.isFalse(channel.isDirectory(absolutePath));
 			channel.copyFile(remote, localDst);
 			channel.deleteFile(absolutePath);
-			boolean missing = !channel.exists(absolutePath);
-			Assert.isTrue(missing);
+			Assert.isTrue(channel.exists(absolutePath));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
