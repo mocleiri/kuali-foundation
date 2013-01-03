@@ -21,4 +21,20 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
+	public ApplicationServer getApplicationServer() {
+		return applicationServer;
+	}
+
+	public void setApplicationServer(ApplicationServer applicationServer) {
+		this.applicationServer = applicationServer;
+	}
+
+	public SecureChannel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(SecureChannel channel) {
+		this.channel = channel;
+	}
+
 }
