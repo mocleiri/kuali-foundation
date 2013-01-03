@@ -176,7 +176,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		logger.debug("Private key config file - {}", config);
 		logger.debug("Private key config file use - {}", useConfigFile);
 		logger.debug("Include default private key locations - {}", includeDefaultPrivateKeyLocations);
-		logger.debug("Known hosts - {}", knownHosts);
+		logger.debug("Known hosts file - {}", knownHosts);
 		logger.debug("Port - {}", port);
 		logger.debug("Connect timeout - {}", connectTimeout);
 		logger.debug("Strict host key checking - {}", strictHostKeyChecking);
