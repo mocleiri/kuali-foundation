@@ -37,7 +37,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
 	private static final int DEFAULT_SLEEP_MILLIS = 10;
-	private static final String UTF8 = "UTF-8";
+	private static final String DEFAULT_ENCODING = "UTF-8";
 
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File config = SSHUtils.DEFAULT_CONFIG_FILE;
@@ -45,7 +45,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	boolean strictHostKeyChecking = true;
 	int port = SSHUtils.DEFAULT_PORT;
 	int waitForClosedSleepMillis = DEFAULT_SLEEP_MILLIS;
-	String encoding = UTF8;
+	String encoding = DEFAULT_ENCODING;
 	String username;
 	String hostname;
 	Integer connectTimeout;
