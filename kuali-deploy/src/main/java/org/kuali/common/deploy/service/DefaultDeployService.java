@@ -13,6 +13,7 @@ public class DefaultDeployService implements DeployService {
 	public void deploy() {
 		Assert.notNull(channel);
 		Assert.notNull(controller);
+		Assert.notNull(attendant);
 		try {
 			channel.open();
 			controller.stop();
