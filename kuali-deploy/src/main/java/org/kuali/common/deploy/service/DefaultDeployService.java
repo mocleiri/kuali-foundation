@@ -1,15 +1,17 @@
 package org.kuali.common.deploy.service;
 
-import org.kuali.common.util.secure.ChannelUtils;
 import org.kuali.common.util.secure.SecureChannel;
+import org.springframework.util.Assert;
 
 public class DefaultDeployService implements DeployService {
 
-	ApplicationServerController controller;
 	SecureChannel channel;
+	ApplicationServerController controller;
 
 	@Override
 	public void deploy() {
+		Assert.notNull(channel);
+		Assert.notNull(controller);
 		try {
 			channel.open();
 			controller.shutdown();
@@ -18,7 +20,7 @@ public class DefaultDeployService implements DeployService {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
-			ChannelUtils.closeQuietly(channel);
+			channel.close();
 		}
 	}
 
