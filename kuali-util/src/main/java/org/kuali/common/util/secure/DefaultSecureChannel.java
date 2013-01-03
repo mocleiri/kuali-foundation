@@ -252,7 +252,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 		int count = 0;
 		for (String privateKeyString : CollectionUtils.toEmptyList(privateKeyStrings)) {
-			String name = Integer.toString(count++);
+			String name = "privateKeyString-" + Integer.toString(count++);
 			byte[] bytes = Str.getBytes(privateKeyString, encoding);
 			jsch.addIdentity(name, bytes, null, null);
 		}
