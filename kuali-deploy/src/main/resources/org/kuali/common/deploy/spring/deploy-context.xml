@@ -65,9 +65,14 @@
     <property name="startup" value="${tomcat.startup}" />
   </bean>
 
+  <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
+    <property name="channel" ref="kdo.secureChannel" />
+  </bean>
+
   <bean id="kdo.deployService" class="org.kuali.common.deploy.service.DefaultDeployService" init-method="deploy">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="controller" ref="kdo.controller" />
+    <property name="attendant" ref="kdo.attendant" />
   </bean>
 
 </beans>
