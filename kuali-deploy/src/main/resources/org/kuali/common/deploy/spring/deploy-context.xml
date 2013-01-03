@@ -23,6 +23,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <util:properties id="deploy.mavenProperties" location="classpath:org/kuali/maven.properties" />
+
   <util:list id="deploy.locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/deploy.properties</value>
   </util:list>
@@ -48,4 +50,5 @@
     <property name="locationHelperIncludes" ref="deploy.locationHelperIncludes" />
   </bean>
 
+  <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
 </beans>
