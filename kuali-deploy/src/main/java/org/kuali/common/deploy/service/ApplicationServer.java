@@ -19,6 +19,8 @@ public interface ApplicationServer {
 
 	void shutdown();
 
+	void cleanup();
+
 	void startup();
 
 }

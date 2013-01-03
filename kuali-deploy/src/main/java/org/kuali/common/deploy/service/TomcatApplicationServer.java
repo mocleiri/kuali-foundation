@@ -28,10 +28,12 @@ public class TomcatApplicationServer implements ApplicationServer {
 	UnixCmds cmds = new UnixCmds();
 	boolean validateShutdownExitValue = false;
 	boolean validateStartupExitValue = true;
+	boolean validateCleanupExitValue = true;
 	SecureChannel channel;
 	String username;
 	String shutdown;
 	String startup;
+	String cleanup;
 
 	@Override
 	public void shutdown() {
@@ -41,6 +43,11 @@ public class TomcatApplicationServer implements ApplicationServer {
 	@Override
 	public void startup() {
 		executeCommand(cmds.su(username, startup), validateStartupExitValue);
+	}
+
+	@Override
+	public void cleanup() {
+		executeCommand(cmds.su(username, cleanup), validateCleanupExitValue);
 	}
 
 	protected void executeCommand(String command, boolean validateResult) {
@@ -106,5 +113,21 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setStartup(String startup) {
 		this.startup = startup;
+	}
+
+	public boolean isValidateCleanupExitValue() {
+		return validateCleanupExitValue;
+	}
+
+	public void setValidateCleanupExitValue(boolean validateCleanupExitValue) {
+		this.validateCleanupExitValue = validateCleanupExitValue;
+	}
+
+	public String getCleanup() {
+		return cleanup;
+	}
+
+	public void setCleanup(String cleanup) {
+		this.cleanup = cleanup;
 	}
 }

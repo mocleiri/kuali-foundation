@@ -13,6 +13,7 @@ public class DefaultDeployService implements DeployService {
 		try {
 			channel.open();
 			applicationServer.shutdown();
+			applicationServer.cleanup();
 			applicationServer.startup();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
