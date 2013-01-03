@@ -15,10 +15,10 @@
  */
 package org.kuali.common.deploy.service;
 
-public interface ApplicationServerController {
+public interface FileSystemOrganizer {
 
-	void stop();
+	void clean();
 
-	void start();
+	void prepare();
 
 }

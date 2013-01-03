@@ -14,9 +14,8 @@ public class DefaultDeployService implements DeployService {
 		Assert.notNull(controller);
 		try {
 			channel.open();
-			controller.shutdown();
-			controller.cleanup();
-			controller.startup();
+			controller.stop();
+			controller.start();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {

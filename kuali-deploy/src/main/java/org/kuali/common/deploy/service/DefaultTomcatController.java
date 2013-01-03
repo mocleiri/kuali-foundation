@@ -33,21 +33,15 @@ public class DefaultTomcatController implements ApplicationServerController {
 	String username;
 	String shutdown;
 	String startup;
-	String cleanup;
 
 	@Override
-	public void shutdown() {
+	public void stop() {
 		executeCommand(cmds.su(username, shutdown), validateShutdownExitValue);
 	}
 
 	@Override
-	public void startup() {
+	public void start() {
 		executeCommand(cmds.su(username, startup), validateStartupExitValue);
-	}
-
-	@Override
-	public void cleanup() {
-		executeCommand(cmds.su(username, cleanup), validateCleanupExitValue);
 	}
 
 	protected void executeCommand(String command, boolean validateResult) {
@@ -122,11 +116,4 @@ public class DefaultTomcatController implements ApplicationServerController {
 		this.validateCleanupExitValue = validateCleanupExitValue;
 	}
 
-	public String getCleanup() {
-		return cleanup;
-	}
-
-	public void setCleanup(String cleanup) {
-		this.cleanup = cleanup;
-	}
 }
