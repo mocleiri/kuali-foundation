@@ -62,7 +62,6 @@
     <property name="channel" ref="kdo.secureChannel" />
     <property name="username" value="${tomcat.user}" />
     <property name="shutdown" value="${tomcat.shutdown}" />
-    <property name="cleanup" value="${tomcat.cleanup}" />
     <property name="startup" value="${tomcat.startup}" />
   </bean>
 
