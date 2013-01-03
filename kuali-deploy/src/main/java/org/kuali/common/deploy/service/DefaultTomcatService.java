@@ -46,9 +46,9 @@ public class DefaultTomcatService implements TomcatService {
 	protected void executeCommand(String command, boolean validateResult) {
 		logger.info("[{}]", command);
 		Result result = channel.executeCommand(command);
+		ServiceUtils.logResult(result);
 		if (validateResult) {
 			ServiceUtils.validateResult(result);
 		}
-		ServiceUtils.logResult(result);
 	}
 }
