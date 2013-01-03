@@ -15,6 +15,8 @@
  */
 package org.kuali.common.deploy.service;
 
+import java.util.Date;
+
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
@@ -27,8 +29,6 @@ public class DefaultTomcatController implements ApplicationServerController {
 
 	UnixCmds cmds = new UnixCmds();
 	boolean validateShutdownExitValue = false;
-	boolean validateStartupExitValue = true;
-	boolean validateCleanupExitValue = true;
 	SecureChannel channel;
 	String username;
 	String shutdown;
@@ -36,12 +36,13 @@ public class DefaultTomcatController implements ApplicationServerController {
 
 	@Override
 	public void stop() {
+		logger.info("Shutting down Tomcat - {}", new Date());
 		executeCommand(cmds.su(username, shutdown), validateShutdownExitValue);
 	}
 
 	@Override
 	public void start() {
-		executeCommand(cmds.su(username, startup), validateStartupExitValue);
+		executeCommand(cmds.su(username, startup), true);
 	}
 
 	protected void executeCommand(String command, boolean validateResult) {
@@ -66,14 +67,6 @@ public class DefaultTomcatController implements ApplicationServerController {
 
 	public void setValidateShutdownExitValue(boolean validateShutdownExitValue) {
 		this.validateShutdownExitValue = validateShutdownExitValue;
-	}
-
-	public boolean isValidateStartupExitValue() {
-		return validateStartupExitValue;
-	}
-
-	public void setValidateStartupExitValue(boolean validateStartupExitValue) {
-		this.validateStartupExitValue = validateStartupExitValue;
 	}
 
 	public SecureChannel getChannel() {
@@ -106,14 +99,6 @@ public class DefaultTomcatController implements ApplicationServerController {
 
 	public void setStartup(String startup) {
 		this.startup = startup;
-	}
-
-	public boolean isValidateCleanupExitValue() {
-		return validateCleanupExitValue;
-	}
-
-	public void setValidateCleanupExitValue(boolean validateCleanupExitValue) {
-		this.validateCleanupExitValue = validateCleanupExitValue;
 	}
 
 }
