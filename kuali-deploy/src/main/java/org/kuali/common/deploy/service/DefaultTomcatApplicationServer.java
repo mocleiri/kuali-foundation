@@ -51,7 +51,6 @@ public class DefaultTomcatApplicationServer implements ApplicationServer {
 	}
 
 	protected void executeCommand(String command, boolean validateResult) {
-		logger.info("[{}]", command);
 		Result result = channel.executeCommand(command);
 		ServiceUtils.logResult(result, logger);
 		if (validateResult) {

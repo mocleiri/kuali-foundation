@@ -58,10 +58,11 @@
     <property name="strictHostKeyChecking" value="${kdo.channel.strictHostKeyChecking}" />
   </bean>
 
-  <bean id="kdo.applicationServer" class="org.kuali.common.deploy.service.TomcatApplicationServer">
+  <bean id="kdo.applicationServer" class="org.kuali.common.deploy.service.DefaultTomcatApplicationServer">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="username" value="${tomcat.user}" />
     <property name="shutdown" value="${tomcat.shutdown}" />
+    <property name="cleanup" value="${tomcat.cleanup}" />
     <property name="startup" value="${tomcat.startup}" />
   </bean>
 
