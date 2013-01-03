@@ -74,7 +74,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public synchronized void close() {
-		logger.info("Closing secure channel - {}", ChannelUtils.getLocation(username, hostname));
+		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(username, hostname));
 		closeQuietly(sftp);
 		closeQuietly(session);
 	}
@@ -170,7 +170,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel - {} - {}", ChannelUtils.getLocation(username, hostname), encoding);
+		logger.info("Opening secure channel [{}] {}", ChannelUtils.getLocation(username, hostname), encoding);
 		logger.debug("Private key files - {}", CollectionUtils.toEmptyList(privateKeys).size());
 		logger.debug("Private key strings - {}", CollectionUtils.toEmptyList(privateKeyStrings).size());
 		logger.debug("Private key config file - {}", config);
