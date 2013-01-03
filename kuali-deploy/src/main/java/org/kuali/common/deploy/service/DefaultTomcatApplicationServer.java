@@ -21,9 +21,9 @@ import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TomcatApplicationServer implements ApplicationServer {
+public class DefaultTomcatApplicationServer implements ApplicationServer {
 
-	private static final Logger logger = LoggerFactory.getLogger(TomcatApplicationServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultTomcatApplicationServer.class);
 
 	UnixCmds cmds = new UnixCmds();
 	boolean validateShutdownExitValue = false;
