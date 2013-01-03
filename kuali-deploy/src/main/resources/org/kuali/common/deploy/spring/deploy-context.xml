@@ -23,13 +23,13 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:properties id="deploy.mavenProperties" location="classpath:org/kuali/maven.properties" />
+  <util:properties id="kdo.mavenProperties" location="classpath:org/kuali/maven.properties" />
 
-  <util:list id="deploy.locations" value-type="java.lang.String">
+  <util:list id="kdo.locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/deploy.properties</value>
   </util:list>
 
-  <util:list id="deploy.locationHelperIncludes" value-type="java.lang.String">
+  <util:list id="kdo.locationHelperIncludes" value-type="java.lang.String">
     <value>kuali.encoding</value>
     <value>kuali.groupId</value>
     <value>project.groupId</value>
@@ -40,26 +40,26 @@
     <value>jdbc.*</value>
   </util:list>
 
-  <bean id="deploy.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="locations" ref="deploy.locations" />
-    <property name="locationHelperProperties" ref="deploy.mavenProperties" />
+  <bean id="kdo.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+    <property name="locations" ref="kdo.locations" />
+    <property name="locationHelperProperties" ref="kdo.mavenProperties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encoding" value="${kuali.encoding}" />
-    <property name="locationHelperIncludes" ref="deploy.locationHelperIncludes" />
+    <property name="locationHelperIncludes" ref="kdo.locationHelperIncludes" />
   </bean>
 
-  <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+  <context:property-placeholder properties-ref="kdo.properties" system-properties-mode="NEVER" />
 
-  <bean id="deploy.secureChannel" class="org.kuali.common.util.secure.DefaultSecureChannel" init-method="open" destroy-method="close">
+  <bean id="kdo.secureChannel" class="org.kuali.common.util.secure.DefaultSecureChannel">
     <property name="username" value="${kdo.channel.username}" />
     <property name="hostname" value="${kdo.channel.hostname}" />
     <property name="strictHostKeyChecking" value="${kdo.channel.strictHostKeyChecking}" />
   </bean>
 
-  <bean id="deploy.tomcatService" class="org.kuali.common.deploy.service.DefaultTomcatService">
-    <property name="channel" ref="deploy.secureChannel" />
+  <bean id="kdo.tomcatService" class="org.kuali.common.deploy.service.DefaultTomcatService">
+    <property name="channel" ref="kdo.secureChannel" />
     <property name="username" value="${tomcat.user}" />
     <property name="shutdown" value="${tomcat.shutdown}" />
     <property name="startup" value="${tomcat.startup}" />

@@ -51,4 +51,60 @@ public class DefaultTomcatService implements TomcatService {
 			ServiceUtils.validateResult(result);
 		}
 	}
+
+	public UnixCmds getCmds() {
+		return cmds;
+	}
+
+	public void setCmds(UnixCmds cmds) {
+		this.cmds = cmds;
+	}
+
+	public boolean isValidateShutdownExitValue() {
+		return validateShutdownExitValue;
+	}
+
+	public void setValidateShutdownExitValue(boolean validateShutdownExitValue) {
+		this.validateShutdownExitValue = validateShutdownExitValue;
+	}
+
+	public boolean isValidateStartupExitValue() {
+		return validateStartupExitValue;
+	}
+
+	public void setValidateStartupExitValue(boolean validateStartupExitValue) {
+		this.validateStartupExitValue = validateStartupExitValue;
+	}
+
+	public SecureChannel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(SecureChannel channel) {
+		this.channel = channel;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getShutdown() {
+		return shutdown;
+	}
+
+	public void setShutdown(String shutdown) {
+		this.shutdown = shutdown;
+	}
+
+	public String getStartup() {
+		return startup;
+	}
+
+	public void setStartup(String startup) {
+		this.startup = startup;
+	}
 }
