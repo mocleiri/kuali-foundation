@@ -5,16 +5,16 @@ import org.kuali.common.util.secure.SecureChannel;
 
 public class DefaultDeployService implements DeployService {
 
-	ApplicationServerController applicationServer;
+	ApplicationServerController controller;
 	SecureChannel channel;
 
 	@Override
 	public void deploy() {
 		try {
 			channel.open();
-			applicationServer.shutdown();
-			applicationServer.cleanup();
-			applicationServer.startup();
+			controller.shutdown();
+			controller.cleanup();
+			controller.startup();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -22,12 +22,12 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
-	public ApplicationServerController getApplicationServer() {
-		return applicationServer;
+	public ApplicationServerController getController() {
+		return controller;
 	}
 
-	public void setApplicationServer(ApplicationServerController applicationServer) {
-		this.applicationServer = applicationServer;
+	public void setController(ApplicationServerController controller) {
+		this.controller = controller;
 	}
 
 	public SecureChannel getChannel() {
