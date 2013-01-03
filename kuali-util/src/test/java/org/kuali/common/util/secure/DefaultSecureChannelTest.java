@@ -68,7 +68,10 @@ public class DefaultSecureChannelTest {
 	}
 
 	protected void show(Result result) throws IOException {
-		logger.info("Exit value = {}", result.getExitValue());
+		int exitValue = result.getExitValue();
+		if (exitValue != 0) {
+			logger.info("Exit value = {}", result.getExitValue());
+		}
 		if (result.getStdin() == null) {
 			Object[] args = { result.getCommand(), formatter.getTime(result.getElapsed()) };
 			logger.info("[{}] - {}", args);

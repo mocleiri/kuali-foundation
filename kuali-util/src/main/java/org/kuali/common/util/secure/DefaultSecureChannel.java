@@ -171,19 +171,17 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected void logOpen() {
 		logger.info("Opening secure channel - {} - {}", ChannelUtils.getLocation(username, hostname), encoding);
-		if (privateKeys != null) {
-			logger.debug("Private keys - {}", privateKeys.size());
-		} else {
-			logger.debug("Private key config - {}", config);
-		}
+		logger.debug("Private key files - {}", CollectionUtils.toEmptyList(privateKeys).size());
+		logger.debug("Private key strings - {}", CollectionUtils.toEmptyList(privateKeyStrings).size());
+		logger.debug("Private key config file - {}", config);
+		logger.debug("Private key config file usage - {}", useConfigFile);
 		logger.debug("Include default private key locations - {}", includeDefaultPrivateKeyLocations);
-		logger.debug("Use config file - {}", useConfigFile);
-		logger.debug("Strict host key checking - {}", strictHostKeyChecking);
 		logger.debug("Known hosts - {}", knownHosts);
 		logger.debug("Port - {}", port);
 		logger.debug("Connect timeout - {}", connectTimeout);
+		logger.debug("Strict host key checking - {}", strictHostKeyChecking);
+		logger.debug("Configuring channel with {} custom options", PropertyUtils.toEmpty(options).size());
 		if (options != null) {
-			logger.debug("Configuring channel with {} options", options.size());
 			PropertyUtils.debug(options);
 		}
 	}
