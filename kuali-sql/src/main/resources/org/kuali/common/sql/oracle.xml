@@ -38,7 +38,7 @@
     /
   </entry>
   <!--
-    Kill any active sessions via Amazon's custom rdsadmin package.
+    Kill any active sessions for the indicated user before dropping them.
     The Amazon RDS service does not directly allow certain types of DBA activities, including killing active sessions.
     Killing active sessions is only allowed by running the rdsadmin_util.kill() function they provide
   -->
