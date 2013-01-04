@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.UnixCmds;
+import org.kuali.common.util.secure.RemoteFile;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 	List<String> directoriesToDelete;
 	List<String> directoriesToCreate;
 	List<String> directoriesToChown;
+	List<String> jsps;
+	String jspDir;
 	String owner;
 	String group;
 
@@ -33,7 +36,19 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 	@Override
 	public void prepare() {
 		executeCommand(cmds.mkdirp(directoriesToCreate), directoriesToCreate);
+		copyJsps();
 		executeCommand(cmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
+	}
+
+	protected void copyJsps() {
+		if (CollectionUtils.isEmpty(jsps)) {
+			return;
+		}
+		RemoteFile destination = new RemoteFile(jspDir);
+		for (String jsp : jsps) {
+			logger.info("Copying [{}] -> [{}]", jsp, jspDir);
+			channel.copyLocationToDirectory(jsp, destination);
+		}
 	}
 
 	protected void executeCommand(String command, List<String> paths) {
@@ -107,6 +122,22 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 
 	public void setDirectoriesToChown(List<String> directoriesToChown) {
 		this.directoriesToChown = directoriesToChown;
+	}
+
+	public List<String> getJsps() {
+		return jsps;
+	}
+
+	public void setJsps(List<String> jsps) {
+		this.jsps = jsps;
+	}
+
+	public String getJspDir() {
+		return jspDir;
+	}
+
+	public void setJspDir(String jspDir) {
+		this.jspDir = jspDir;
 	}
 
 }
