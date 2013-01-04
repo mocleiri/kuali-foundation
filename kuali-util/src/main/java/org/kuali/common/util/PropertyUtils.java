@@ -623,8 +623,8 @@ public class PropertyUtils {
 		String logNewValue = newValue;
 		String logOldValue = oldValue;
 		if (obscure(key)) {
-			logNewValue = LoggerUtils.getPassword(null, logNewValue);
-			logOldValue = LoggerUtils.getPassword(null, logOldValue);
+			logNewValue = "PROTECTED";
+			logOldValue = "PROTECTED";
 		}
 
 		if (overwrite) {
@@ -644,6 +644,9 @@ public class PropertyUtils {
 			return true;
 		}
 		if (StringUtils.containsIgnoreCase(key, ".secret")) {
+			return true;
+		}
+		if (StringUtils.containsIgnoreCase(key, ".privateKey")) {
 			return true;
 		}
 		return false;

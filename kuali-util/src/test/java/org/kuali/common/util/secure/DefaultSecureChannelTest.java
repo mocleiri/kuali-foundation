@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -36,6 +37,10 @@ public class DefaultSecureChannelTest {
 
 	protected SecureChannel getSecureChannel() {
 		String privateKeyString = LocationUtils.toString("/Users/jeffcaddel/.ssh/ole-key.pem");
+		BasicTextEncryptor bte = new BasicTextEncryptor();
+		bte.setPassword("1423Morgan");
+		String s = bte.encrypt(privateKeyString);
+		System.out.println(s);
 		DefaultSecureChannel channel = new DefaultSecureChannel();
 		channel.setUsername("root");
 		channel.setHostname("env7.ole.kuali.org");
