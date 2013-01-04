@@ -34,7 +34,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 	String jspDir;
 	String setenv;
 	String setenvPermissions;
-	String jdbcDriver;
 	String owner;
 	String group;
 	List<Deployable> deployables;
@@ -228,14 +227,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 
 	public void setFormatter(SimpleFormatter formatter) {
 		this.formatter = formatter;
-	}
-
-	public String getJdbcDriver() {
-		return jdbcDriver;
-	}
-
-	public void setJdbcDriver(String jdbcDriver) {
-		this.jdbcDriver = jdbcDriver;
 	}
 
 }
