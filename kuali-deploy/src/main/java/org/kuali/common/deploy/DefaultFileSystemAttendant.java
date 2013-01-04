@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.secure.RemoteFile;
@@ -21,6 +22,7 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	SimpleFormatter formatter = new SimpleFormatter();
 	UnixCmds cmds = new UnixCmds();
 	Properties properties;
 	SecureChannel channel;
@@ -59,14 +61,19 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 			RemoteFile destination = new RemoteFile(deployable.getRemote());
 			String location = deployable.getLocal();
 			if (deployable.isFilter()) {
+				long start = System.currentTimeMillis();
 				String originalContent = LocationUtils.toString(location);
 				String resolvedContent = helper.replacePlaceholders(originalContent, properties);
-				Object[] args = { properties.size(), location, destination.getAbsolutePath() };
-				logger.info("Using {} properties to filter [{}] -> [{}]", args);
 				channel.copyStringToFile(resolvedContent, destination);
+				long elapsed = System.currentTimeMillis() - start;
+				Object[] args = { properties.size(), location, destination.getAbsolutePath(), formatter.getTime(elapsed) };
+				logger.info("Used {} properties to filter [{}] -> [{}] - {}", args);
 			} else {
-				logger.info("[{}] -> [{}]", location, destination.getAbsolutePath());
+				long start = System.currentTimeMillis();
 				channel.copyLocationToFile(location, destination);
+				long elapsed = System.currentTimeMillis() - start;
+				Object[] args = { location, destination.getAbsolutePath(), formatter.getTime(elapsed) };
+				logger.info("[{}] -> [{}] - {}", args);
 			}
 		}
 	}
@@ -77,9 +84,11 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 		}
 		RemoteFile destination = new RemoteFile(jspDir);
 		for (String jsp : jsps) {
-			String filename = LocationUtils.getFilename(jsp);
-			logger.info("[{}] -> [{}]", jsp, jspDir + "/" + filename);
+			long start = System.currentTimeMillis();
 			channel.copyLocationToDirectory(jsp, destination);
+			long elapsed = System.currentTimeMillis() - start;
+			String filename = LocationUtils.getFilename(jsp);
+			logger.info("[{}] -> [{}] - " + formatter.getTime(elapsed), jsp, jspDir + "/" + filename);
 		}
 	}
 
