@@ -1,6 +1,7 @@
 package org.kuali.common.deploy;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,8 +31,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 	List<String> directoriesToDelete;
 	List<String> directoriesToCreate;
 	List<String> directoriesToChown;
-	List<String> jsps;
-	String jspDir;
 	String setenv;
 	String setenvPermissions;
 	String owner;
@@ -47,9 +46,7 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 	@Override
 	public void prepare() {
 		executeCommand(cmds.mkdirp(directoriesToCreate), directoriesToCreate);
-		copyJsps();
 		copyDeployables();
-		executeCommand(cmds.chmod(setenvPermissions, Arrays.asList(setenv)), Arrays.asList(setenv));
 		executeCommand(cmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
 	}
 
@@ -73,24 +70,22 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 				channel.copyLocationToFile(location, destination);
 				logCopy(location, destination.getAbsolutePath(), System.currentTimeMillis() - start);
 			}
-		}
-	}
-
-	protected void copyJsps() {
-		if (CollectionUtils.isEmpty(jsps)) {
-			return;
-		}
-		RemoteFile destination = new RemoteFile(jspDir);
-		for (String jsp : jsps) {
-			long start = System.currentTimeMillis();
-			channel.copyLocationToDirectory(jsp, destination);
-			logCopy(jsp, jspDir + "/" + LocationUtils.getFilename(jsp), System.currentTimeMillis() - start);
+			if (deployable.getPermissions() != null) {
+				String path = deployable.getRemote();
+				String perms = deployable.getPermissions();
+				String command = cmds.chmod(perms, path);
+				executeCommand(command, path);
+			}
 		}
 	}
 
 	protected void logCopy(String src, String dst, long elapsed) {
 		Object[] args = { src, dst, formatter.getTime(elapsed) };
 		logger.info("[{}] -> [{}] - {}", args);
+	}
+
+	protected void executeCommand(String command, String path) {
+		executeCommand(command, Collections.singletonList(path));
 	}
 
 	protected void executeCommand(String command, List<String> paths) {
@@ -164,22 +159,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 
 	public void setDirectoriesToChown(List<String> directoriesToChown) {
 		this.directoriesToChown = directoriesToChown;
-	}
-
-	public List<String> getJsps() {
-		return jsps;
-	}
-
-	public void setJsps(List<String> jsps) {
-		this.jsps = jsps;
-	}
-
-	public String getJspDir() {
-		return jspDir;
-	}
-
-	public void setJspDir(String jspDir) {
-		this.jspDir = jspDir;
 	}
 
 	public List<Deployable> getDeployables() {
