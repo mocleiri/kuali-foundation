@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -351,9 +353,22 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFileToDirectory(File source, RemoteFile destination) {
+		RemoteFile clone = clone(destination);
 		String filename = source.getName();
-		addFilenameToPath(destination, filename);
-		copyFile(source, destination);
+		addFilenameToPath(clone, filename);
+		copyFile(source, clone);
+	}
+
+	protected RemoteFile clone(RemoteFile file) {
+		try {
+			RemoteFile clone = new RemoteFile();
+			BeanUtils.copyProperties(clone, file);
+			return clone;
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	@Override
@@ -407,9 +422,10 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyLocationToDirectory(String location, RemoteFile destination) {
+		RemoteFile clone = clone(destination);
 		String filename = LocationUtils.getFilename(location);
-		addFilenameToPath(destination, filename);
-		copyLocationToFile(location, destination);
+		addFilenameToPath(clone, filename);
+		copyLocationToFile(location, clone);
 	}
 
 	@Override
