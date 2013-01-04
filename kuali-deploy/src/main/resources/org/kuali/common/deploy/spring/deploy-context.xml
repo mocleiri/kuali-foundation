@@ -53,10 +53,17 @@
 
   <context:property-placeholder properties-ref="kdo.properties" system-properties-mode="NEVER" />
 
+  <util:list id="kdo.channel.privateKeyStrings" value-type="java.lang.String">
+    <value>${project.privateKey}</value>
+  </util:list>
+
   <bean id="kdo.secureChannel" class="org.kuali.common.util.secure.DefaultSecureChannel">
     <property name="username" value="${kdo.channel.username}" />
     <property name="hostname" value="${kdo.channel.hostname}" />
     <property name="strictHostKeyChecking" value="${kdo.channel.strictHostKeyChecking}" />
+    <property name="useConfigFile" value="${kdo.channel.useConfigFile}" />
+    <property name="includeDefaultPrivateKeyLocations" value="${kdo.channel.includeDefaultPrivateKeyLocations}" />
+    <property name="privateKeyStrings" ref="kdo.channel.privateKeyStrings" />
   </bean>
 
   <bean id="kdo.controller" class="org.kuali.common.deploy.DefaultTomcatController">
