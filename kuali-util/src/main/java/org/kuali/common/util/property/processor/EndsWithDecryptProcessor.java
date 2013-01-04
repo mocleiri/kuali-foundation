@@ -18,6 +18,7 @@ package org.kuali.common.util.property.processor;
 import java.util.List;
 import java.util.Properties;
 
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
@@ -48,7 +49,7 @@ public class EndsWithDecryptProcessor extends DecryptProcessor {
 		for (String key : keys) {
 			logger.debug("Decrypting [{}]", key);
 			String encryptedValue = properties.getProperty(key);
-			String decryptedValue = encryptor.decrypt(encryptedValue);
+			String decryptedValue = decrypt(key, encryptedValue, encryptor);
 			int endIndex = key.length() - suffix.length();
 			String newKey = key.substring(0, endIndex);
 			PropertyUtils.addOrOverrideProperty(properties, newKey, decryptedValue, propertyOverwriteMode);
@@ -56,6 +57,14 @@ public class EndsWithDecryptProcessor extends DecryptProcessor {
 				logger.debug("Removing {}", key);
 				properties.remove(key);
 			}
+		}
+	}
+
+	protected String decrypt(String key, String encryptedValue, TextEncryptor encryptor) {
+		try {
+			return encryptor.decrypt(encryptedValue);
+		} catch (EncryptionOperationNotPossibleException e) {
+			throw new IllegalStateException("Unexpected error decrypting [" + key + "]=[" + encryptedValue + "]");
 		}
 	}
 
