@@ -106,16 +106,6 @@
     <value>${appdynamics.base}</value>
   </util:list>
 
-  <util:list id="kdo.jsps" value-type="java.lang.String">
-    <value>${tomcat.jsp.env}</value>
-    <value>${tomcat.jsp.tail}</value>
-  </util:list>
-
-  <bean id="kdo.jdbcDriver" class="org.kuali.common.deploy.Deployable">
-    <property name="remote" value="${tomcat.jdbc.driver}" />
-    <property name="local" value="${jdbc.driver.local}" />
-  </bean>
-
   <bean id="kdo.setenv" class="org.kuali.common.deploy.Deployable">
     <property name="remote" value="${tomcat.setenv}" />
     <property name="local" value="${tomcat.setenv.local}" />
@@ -128,10 +118,33 @@
     <property name="filter" value="true" />
   </bean>
 
+  <bean id="kdo.jsp.env" class="org.kuali.common.deploy.Deployable">
+    <property name="remote" value="${tomcat.jsp.env}" />
+    <property name="local" value="${tomcat.jsp.env.local}" />
+  </bean>
+
+  <bean id="kdo.jsp.tail" class="org.kuali.common.deploy.Deployable">
+    <property name="remote" value="${tomcat.jsp.tail}" />
+    <property name="local" value="${tomcat.jsp.tail.local}" />
+  </bean>
+
+  <bean id="kdo.jdbcDriver" class="org.kuali.common.deploy.Deployable">
+    <property name="remote" value="${tomcat.jdbc.driver}" />
+    <property name="local" value="${jdbc.driver.local}" />
+  </bean>
+
+  <bean id="kdo.war" class="org.kuali.common.deploy.Deployable">
+    <property name="remote" value="${tomcat.root.war}" />
+    <property name="local" value="${kdo.war.local}" />
+  </bean>
+
   <util:list id="kdo.deployables" value-type="org.kuali.common.deploy.Deployable">
-    <ref bean="kdo.jdbcDriver" />
     <ref bean="kdo.setenv" />
     <ref bean="kdo.appdynamics" />
+    <ref bean="kdo.jsp.env" />
+    <ref bean="kdo.jsp.tail" />
+    <ref bean="kdo.jdbcDriver" />
+    <ref bean="kdo.war" />
   </util:list>
 
   <bean id="kdo.handler" class="org.kuali.common.deploy.DefaultFileSystemHandler">
@@ -142,8 +155,6 @@
     <property name="directoriesToChown" ref="kdo.directoriesToChown" />
     <property name="deployables" ref="kdo.deployables" />
     <property name="properties" ref="kdo.properties" />
-    <property name="jsps" ref="kdo.jsps" />
-    <property name="jspDir" value="${tomcat.logs}" />
     <property name="owner" value="${tomcat.owner}" />
     <property name="group" value="${tomcat.group}" />
     <property name="setenv" value="${tomcat.setenv}" />
