@@ -11,19 +11,19 @@ public class DefaultDeployService implements DeployService {
 
 	SecureChannel channel;
 	ApplicationServerController controller;
-	FileSystemHandler attendant;
+	FileSystemHandler handler;
 
 	@Override
 	public void deploy() {
 		Assert.notNull(channel);
 		Assert.notNull(controller);
-		Assert.notNull(attendant);
+		Assert.notNull(handler);
 		try {
 			logger.debug("Opening secure channel");
 			channel.open();
 			controller.stop();
-			attendant.clean();
-			attendant.prepare();
+			handler.clean();
+			handler.prepare();
 			controller.start();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
@@ -48,12 +48,12 @@ public class DefaultDeployService implements DeployService {
 		this.channel = channel;
 	}
 
-	public FileSystemHandler getAttendant() {
-		return attendant;
+	public FileSystemHandler getHandler() {
+		return handler;
 	}
 
-	public void setAttendant(FileSystemHandler attendant) {
-		this.attendant = attendant;
+	public void setHandler(FileSystemHandler handler) {
+		this.handler = handler;
 	}
 
 }

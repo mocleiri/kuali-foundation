@@ -127,7 +127,7 @@
     <ref bean="kdo.appdynamics" />
   </util:list>
 
-  <bean id="kdo.attendant" class="org.kuali.common.deploy.DefaultFileSystemAttendant">
+  <bean id="kdo.handler" class="org.kuali.common.deploy.DefaultFileSystemHandler">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="filesToDelete" ref="kdo.filesToDelete" />
     <property name="directoriesToDelete" ref="kdo.directoriesToDelete" />
@@ -146,7 +146,7 @@
   <bean id="kdo.deployService" class="org.kuali.common.deploy.DefaultDeployService" init-method="deploy">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="controller" ref="kdo.controller" />
-    <property name="attendant" ref="kdo.attendant" />
+    <property name="handler" ref="kdo.handler" />
   </bean>
 
 </beans>
