@@ -622,7 +622,7 @@ public class PropertyUtils {
 		// TODO Yuck! Do something smarter here
 		String logNewValue = newValue;
 		String logOldValue = oldValue;
-		if (StringUtils.containsIgnoreCase(key, "password")) {
+		if (obscure(key)) {
 			logNewValue = LoggerUtils.getPassword(null, logNewValue);
 			logOldValue = LoggerUtils.getPassword(null, logOldValue);
 		}
@@ -637,6 +637,16 @@ public class PropertyUtils {
 			logger.info("Adding [{}={}]", key, Str.flatten(logNewValue));
 		}
 		properties.setProperty(key, newValue);
+	}
+
+	protected static boolean obscure(String key) {
+		if (StringUtils.containsIgnoreCase(key, "password")) {
+			return true;
+		}
+		if (StringUtils.containsIgnoreCase(key, ".secret")) {
+			return true;
+		}
+		return false;
 	}
 
 	private static final String getDefaultComment(String encoding, boolean xml) {
