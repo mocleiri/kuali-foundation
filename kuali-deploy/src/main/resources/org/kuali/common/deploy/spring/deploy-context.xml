@@ -103,6 +103,12 @@
     <property name="local" value="${tomcat.setenv.local}" />
     <property name="filter" value="true" />
   </bean>
+  
+  <bean id="kdo.appdynamics" class="org.kuali.common.deploy.Deployable">
+    <property name="remote" value="${tomcat.setenv}" />
+    <property name="local" value="${tomcat.setenv.local}" />
+    <property name="filter" value="true" />
+  </bean>
 
   <util:list id="kdo.deployables" value-type="org.kuali.common.deploy.Deployable">
     <ref bean="kdo.setenv" />
