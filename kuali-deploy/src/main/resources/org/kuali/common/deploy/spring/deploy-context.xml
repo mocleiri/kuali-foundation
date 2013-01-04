@@ -59,7 +59,7 @@
     <property name="strictHostKeyChecking" value="${kdo.channel.strictHostKeyChecking}" />
   </bean>
 
-  <bean id="kdo.controller" class="org.kuali.common.deploy.service.DefaultTomcatController">
+  <bean id="kdo.controller" class="org.kuali.common.deploy.DefaultTomcatController">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="username" value="${tomcat.user}" />
     <property name="shutdown" value="${tomcat.shutdown}" />
@@ -118,7 +118,7 @@
     <ref bean="kdo.appdynamics" />
   </util:list>
 
-  <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
+  <bean id="kdo.attendant" class="org.kuali.common.deploy.DefaultFileSystemAttendant">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="filesToDelete" ref="kdo.filesToDelete" />
     <property name="directoriesToDelete" ref="kdo.directoriesToDelete" />
@@ -134,7 +134,7 @@
     <property name="setenvPermissions" value="${tomcat.setenv.perms}" />
   </bean>
 
-  <bean id="kdo.deployService" class="org.kuali.common.deploy.service.DefaultDeployService" init-method="deploy">
+  <bean id="kdo.deployService" class="org.kuali.common.deploy.DefaultDeployService" init-method="deploy">
     <property name="channel" ref="kdo.secureChannel" />
     <property name="controller" ref="kdo.controller" />
     <property name="attendant" ref="kdo.attendant" />

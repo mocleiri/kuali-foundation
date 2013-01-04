@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.execute;
+package org.kuali.common.deploy;
 
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
