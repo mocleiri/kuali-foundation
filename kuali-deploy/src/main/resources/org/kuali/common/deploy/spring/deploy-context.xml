@@ -128,6 +128,13 @@
     <property name="local" value="${tomcat.jsp.tail.local}" />
   </bean>
 
+  <bean id="kdoJdbcDriverFilename" class="org.kuali.common.util.spring.ArtifactFilenameFactoryBean">
+    <property name="groupId" value="${jdbc.driver.groupId}" />
+    <property name="artifactId" value="${jdbc.driver.artifactId}" />
+    <property name="version" value="${jdbc.driver.version}" />
+    <property name="packaging" value="jar" />
+  </bean>
+
   <bean id="kdoJdbcDriverPath" class="org.kuali.common.util.spring.ArtifactPathFactoryBean">
     <property name="groupId" value="${jdbc.driver.groupId}" />
     <property name="artifactId" value="${jdbc.driver.artifactId}" />
@@ -146,7 +153,7 @@
   </bean>
 
   <bean id="kdo.jdbcDriver" class="org.kuali.common.deploy.Deployable">
-    <property name="remote" value="${tomcat.jdbc.driver}" />
+    <property name="remote" value="${tomcat.lib}/#{kdoJdbcDriverFilename}" />
     <property name="local" value="#{kdoJdbcDriverPath}" />
   </bean>
 
