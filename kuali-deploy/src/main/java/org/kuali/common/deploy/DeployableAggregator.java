@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface DeployableAggregator {
 
-	List<Deployable> getDeployables();
+	List<Deployable> aggregate();
 
 }
