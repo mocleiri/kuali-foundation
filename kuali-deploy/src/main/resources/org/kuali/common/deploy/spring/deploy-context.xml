@@ -86,11 +86,13 @@
     <value>${tomcat.logs}</value>
     <value>${tomcat.webapps}</value>
     <value>${tomcat.home.kuali}</value>
+    <value>${appdynamics.conf}</value>
   </util:list>
 
   <util:list id="kdo.directoriesToChown" value-type="java.lang.String">
     <value>${tomcat.base}</value>
     <value>${tomcat.home}</value>
+    <value>${appdynamics.conf}</value>
   </util:list>
 
   <util:list id="kdo.jsps" value-type="java.lang.String">
@@ -103,15 +105,16 @@
     <property name="local" value="${tomcat.setenv.local}" />
     <property name="filter" value="true" />
   </bean>
-  
+
   <bean id="kdo.appdynamics" class="org.kuali.common.deploy.Deployable">
-    <property name="remote" value="${tomcat.setenv}" />
-    <property name="local" value="${tomcat.setenv.local}" />
+    <property name="remote" value="${appdynamics.controller}" />
+    <property name="local" value="${appdynamics.controller.local}" />
     <property name="filter" value="true" />
   </bean>
 
   <util:list id="kdo.deployables" value-type="org.kuali.common.deploy.Deployable">
     <ref bean="kdo.setenv" />
+    <ref bean="kdo.appdynamics" />
   </util:list>
 
   <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
