@@ -15,37 +15,22 @@
  */
 package org.kuali.common.util.spring;
 
-import java.io.File;
-
 import org.kuali.common.util.Artifact;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
-public class RepositoryPathFactoryBean extends Artifact implements FactoryBean<String> {
-
-	File localRepositoryDir = RepositoryUtils.getDefaultLocalRepositoryDir();
-	boolean mustExist;
+public class ArtifactFilenameFactoryBean extends Artifact implements FactoryBean<String> {
 
 	@Override
 	public String getObject() throws Exception {
 
-		Assert.notNull(localRepositoryDir);
 		Assert.notNull(getGroupId());
 		Assert.notNull(getArtifactId());
 		Assert.notNull(getVersion());
 		Assert.notNull(getPackaging());
 
-		File file = RepositoryUtils.getFile(localRepositoryDir, this);
-		validate(file);
-		return LocationUtils.getCanonicalPath(file);
-	}
-
-	protected void validate(File file) {
-		if (!file.exists() && mustExist) {
-			throw new IllegalStateException(file + " does not exist");
-		}
+		return RepositoryUtils.getFilename(this);
 	}
 
 	@Override
@@ -57,21 +42,4 @@ public class RepositoryPathFactoryBean extends Artifact implements FactoryBean<S
 	public boolean isSingleton() {
 		return false;
 	}
-
-	public File getLocalRepositoryDir() {
-		return localRepositoryDir;
-	}
-
-	public void setLocalRepositoryDir(File localRepositoryDir) {
-		this.localRepositoryDir = localRepositoryDir;
-	}
-
-	public boolean isMustExist() {
-		return mustExist;
-	}
-
-	public void setMustExist(boolean mustExist) {
-		this.mustExist = mustExist;
-	}
-
 }
