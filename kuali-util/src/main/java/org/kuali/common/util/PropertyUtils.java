@@ -646,7 +646,7 @@ public class PropertyUtils {
 		if (StringUtils.containsIgnoreCase(key, ".secret")) {
 			return true;
 		}
-		if (StringUtils.containsIgnoreCase(key, ".privateKey")) {
+		if (StringUtils.containsIgnoreCase(key, ".private")) {
 			return true;
 		}
 		return false;
