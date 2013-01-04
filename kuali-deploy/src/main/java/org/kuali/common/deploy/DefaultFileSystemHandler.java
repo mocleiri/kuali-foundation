@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultFileSystemAttendant implements FileSystemAttendant {
+public class DefaultFileSystemHandler implements FileSystemHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultFileSystemAttendant.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultFileSystemHandler.class);
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;

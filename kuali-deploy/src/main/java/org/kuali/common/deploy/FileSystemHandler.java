@@ -15,7 +15,7 @@
  */
 package org.kuali.common.deploy;
 
-public interface FileSystemAttendant {
+public interface FileSystemHandler {
 
 	void clean();
 

@@ -11,7 +11,7 @@ public class DefaultDeployService implements DeployService {
 
 	SecureChannel channel;
 	ApplicationServerController controller;
-	FileSystemAttendant attendant;
+	FileSystemHandler attendant;
 
 	@Override
 	public void deploy() {
@@ -48,11 +48,11 @@ public class DefaultDeployService implements DeployService {
 		this.channel = channel;
 	}
 
-	public FileSystemAttendant getAttendant() {
+	public FileSystemHandler getAttendant() {
 		return attendant;
 	}
 
-	public void setAttendant(FileSystemAttendant attendant) {
+	public void setAttendant(FileSystemHandler attendant) {
 		this.attendant = attendant;
 	}
 
