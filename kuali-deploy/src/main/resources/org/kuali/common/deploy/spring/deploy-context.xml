@@ -28,6 +28,7 @@
   <util:list id="kdo.locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/deploy.properties</value>
     <value>classpath:${project.groupId.path}/deploy.properties</value>
+    <value>classpath:${project.groupId.path}/env${deploy.env}.properties</value>
   </util:list>
 
   <util:list id="kdo.locationHelperIncludes" value-type="java.lang.String">
@@ -36,6 +37,7 @@
     <value>project.groupId</value>
     <value>project.artifactId</value>
     <value>project.version</value>
+    <value>deploy.env</value>
     <value>db.vendor</value>
     <value>kuali.enc.*</value>
     <value>jdbc.*</value>
