@@ -71,9 +71,7 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 			} else {
 				long start = System.currentTimeMillis();
 				channel.copyLocationToFile(location, destination);
-				long elapsed = System.currentTimeMillis() - start;
-				Object[] args = { location, destination.getAbsolutePath(), formatter.getTime(elapsed) };
-				logger.info("[{}] -> [{}] - {}", args);
+				logCopy(location, destination.getAbsolutePath(), System.currentTimeMillis() - start);
 			}
 		}
 	}
@@ -86,10 +84,14 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 		for (String jsp : jsps) {
 			long start = System.currentTimeMillis();
 			channel.copyLocationToDirectory(jsp, destination);
-			long elapsed = System.currentTimeMillis() - start;
 			String filename = LocationUtils.getFilename(jsp);
-			logger.info("[{}] -> [{}] - " + formatter.getTime(elapsed), jsp, jspDir + "/" + filename);
+			logCopy(jsp, jspDir = "/" + filename, System.currentTimeMillis() - start);
 		}
+	}
+
+	protected void logCopy(String src, String dst, long elapsed) {
+		Object[] args = { src, dst, formatter.getTime(elapsed) };
+		logger.info("[{}] -> [{}] - {}", args);
 	}
 
 	protected void executeCommand(String command, List<String> paths) {
