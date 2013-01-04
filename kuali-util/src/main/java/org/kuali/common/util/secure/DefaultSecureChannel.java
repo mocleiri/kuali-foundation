@@ -374,7 +374,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public void copyLocationToFile(String location, RemoteFile destination) {
 		Assert.notNull(location);
-		Assert.isTrue(LocationUtils.exists(location));
+		Assert.isTrue(LocationUtils.exists(location), location + " does not exist");
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
