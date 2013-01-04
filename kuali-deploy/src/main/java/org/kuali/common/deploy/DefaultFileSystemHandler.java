@@ -84,8 +84,7 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 		for (String jsp : jsps) {
 			long start = System.currentTimeMillis();
 			channel.copyLocationToDirectory(jsp, destination);
-			String filename = LocationUtils.getFilename(jsp);
-			logCopy(jsp, jspDir = "/" + filename, System.currentTimeMillis() - start);
+			logCopy(jsp, jspDir + "/" + LocationUtils.getFilename(jsp), System.currentTimeMillis() - start);
 		}
 	}
 
