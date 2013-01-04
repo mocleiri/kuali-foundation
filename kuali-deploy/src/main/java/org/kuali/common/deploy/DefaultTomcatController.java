@@ -24,7 +24,7 @@ import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultTomcatController implements ApplicationServerController {
+public class DefaultTomcatController implements AppServerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultTomcatController.class);
 

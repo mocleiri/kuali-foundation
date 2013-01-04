@@ -15,7 +15,7 @@
  */
 package org.kuali.common.deploy;
 
-public interface ApplicationServerController {
+public interface AppServerController {
 
 	void stop();
 

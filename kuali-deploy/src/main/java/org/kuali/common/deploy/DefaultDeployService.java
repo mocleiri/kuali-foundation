@@ -10,7 +10,7 @@ public class DefaultDeployService implements DeployService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
 	SecureChannel channel;
-	ApplicationServerController controller;
+	AppServerController controller;
 	FileSystemHandler handler;
 
 	@Override
@@ -32,11 +32,11 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
-	public ApplicationServerController getController() {
+	public AppServerController getController() {
 		return controller;
 	}
 
-	public void setController(ApplicationServerController controller) {
+	public void setController(AppServerController controller) {
 		this.controller = controller;
 	}
 
