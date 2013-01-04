@@ -44,9 +44,9 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 		if (CollectionUtils.isEmpty(jsps)) {
 			return;
 		}
-		RemoteFile destination = new RemoteFile(jspDir);
 		for (String jsp : jsps) {
-			logger.info("Copying [{}] -> [{}]", jsp, jspDir);
+			logger.info("[{}] -> [{}]", jsp, jspDir);
+			RemoteFile destination = new RemoteFile(jspDir);
 			channel.copyLocationToDirectory(jsp, destination);
 		}
 	}

@@ -92,6 +92,10 @@
     <value>${tomcat.base}</value>
     <value>${tomcat.home}</value>
   </util:list>
+  <util:list id="kdo.jsps" value-type="java.lang.String">
+    <value>${tomcat.jsp.env}</value>
+    <value>${tomcat.jsp.tail}</value>
+  </util:list>
 
   <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
     <property name="channel" ref="kdo.secureChannel" />
@@ -99,6 +103,8 @@
     <property name="directoriesToDelete" ref="kdo.directoriesToDelete" />
     <property name="directoriesToCreate" ref="kdo.directoriesToCreate" />
     <property name="directoriesToChown" ref="kdo.directoriesToChown" />
+    <property name="jsps" ref="kdo.jsps" />
+    <property name="jspDir" value="${tomcat.logs}" />
     <property name="owner" value="${tomcat.owner}" />
     <property name="group" value="${tomcat.group}" />
   </bean>
