@@ -9,7 +9,6 @@ import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.secure.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 public class ServiceUtils {
 
@@ -27,11 +26,10 @@ public class ServiceUtils {
 
 	public static void validateResult(Result result) {
 		validateResult(result, Arrays.asList(0));
+		logger.trace("Result is valid");
 	}
 
 	public static void validateResult(Result result, List<Integer> exitValues) {
-		Assert.notNull(exitValues);
-		logger.trace("exitValues.size()={}", exitValues.size());
 		for (Integer exitValue : exitValues) {
 			if (exitValue.equals(result.getExitValue())) {
 				return;
