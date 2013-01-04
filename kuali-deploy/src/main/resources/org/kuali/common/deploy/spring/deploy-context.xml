@@ -38,6 +38,7 @@
     <value>project.groupId</value>
     <value>project.artifactId</value>
     <value>project.version</value>
+    <value>project.classifier</value>
     <value>deploy.env</value>
     <value>db.vendor</value>
     <value>kuali.enc.*</value>
