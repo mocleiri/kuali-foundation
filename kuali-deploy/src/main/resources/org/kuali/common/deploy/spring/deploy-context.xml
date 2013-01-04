@@ -56,7 +56,7 @@
   <context:property-placeholder properties-ref="kdo.properties" system-properties-mode="NEVER" />
 
   <util:list id="kdo.channel.privateKeyStrings" value-type="java.lang.String">
-    <value>${project.privateKey}</value>
+    <value>${kdo.channel.privateKey}</value>
   </util:list>
 
   <bean id="kdo.secureChannel" class="org.kuali.common.util.secure.DefaultSecureChannel">
