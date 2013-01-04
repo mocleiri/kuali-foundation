@@ -1,5 +1,6 @@
 package org.kuali.common.deploy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultDeployableAggregator implements DeployableAggregator {
@@ -15,7 +16,9 @@ public class DefaultDeployableAggregator implements DeployableAggregator {
 
 	@Override
 	public List<Deployable> aggregate() {
-		return null;
+		List<Deployable> aggregate = new ArrayList<Deployable>();
+
+		return aggregate;
 	}
 
 	public List<Deployable> getDeployables() {
