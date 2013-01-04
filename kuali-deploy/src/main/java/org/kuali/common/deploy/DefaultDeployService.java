@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.service;
+package org.kuali.common.deploy;
 
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;

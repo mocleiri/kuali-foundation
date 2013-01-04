@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.service;
+package org.kuali.common.deploy;
 
 import java.util.Arrays;
 import java.util.List;

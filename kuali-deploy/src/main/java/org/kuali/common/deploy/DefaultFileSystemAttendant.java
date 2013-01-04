@@ -1,10 +1,9 @@
-package org.kuali.common.deploy.service;
+package org.kuali.common.deploy;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.property.Constants;

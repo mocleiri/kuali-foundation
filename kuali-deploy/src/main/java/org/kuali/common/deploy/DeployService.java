@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.service;
+package org.kuali.common.deploy;
 
 public interface DeployService {
 
