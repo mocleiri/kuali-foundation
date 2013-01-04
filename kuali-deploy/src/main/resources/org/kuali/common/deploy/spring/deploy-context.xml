@@ -103,7 +103,7 @@
   <util:list id="kdo.directoriesToChown" value-type="java.lang.String">
     <value>${tomcat.base}</value>
     <value>${tomcat.home}</value>
-    <value>${appdynamics.conf}</value>
+    <value>${appdynamics.base}</value>
   </util:list>
 
   <util:list id="kdo.jsps" value-type="java.lang.String">
