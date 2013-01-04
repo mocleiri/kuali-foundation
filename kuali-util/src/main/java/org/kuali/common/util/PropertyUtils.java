@@ -640,7 +640,7 @@ public class PropertyUtils {
 	}
 
 	protected static boolean obscure(String key) {
-		if (StringUtils.containsIgnoreCase(key, "password")) {
+		if (StringUtils.containsIgnoreCase(key, ".password")) {
 			return true;
 		}
 		if (StringUtils.containsIgnoreCase(key, ".secret")) {
