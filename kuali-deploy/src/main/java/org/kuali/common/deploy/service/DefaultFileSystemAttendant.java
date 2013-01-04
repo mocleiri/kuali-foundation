@@ -2,21 +2,27 @@ package org.kuali.common.deploy.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
+import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixCmds;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.secure.RemoteFile;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultFileSystemAttendant implements FileSystemAttendant {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultFileSystemAttendant.class);
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 
+	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	Properties properties;
 	UnixCmds cmds = new UnixCmds();
 	SecureChannel channel;
 	List<String> filesToDelete;
@@ -24,9 +30,12 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 	List<String> directoriesToCreate;
 	List<String> directoriesToChown;
 	List<String> jsps;
+	String setenv;
+	String setenvPermissions;
 	String jspDir;
 	String owner;
 	String group;
+	List<Deployable> deployables;
 
 	@Override
 	public void clean() {
@@ -38,7 +47,26 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 	public void prepare() {
 		executeCommand(cmds.mkdirp(directoriesToCreate), directoriesToCreate);
 		copyJsps();
+		copyDeployables();
+		executeCommand(cmds.chmod(setenvPermissions, Arrays.asList(setenv)), Arrays.asList(setenv));
 		executeCommand(cmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
+	}
+
+	protected void copyDeployables() {
+		if (CollectionUtils.isEmpty(deployables)) {
+			return;
+		}
+		for (Deployable deployable : deployables) {
+			RemoteFile destination = new RemoteFile(deployable.getRemote());
+			String location = deployable.getLocal();
+			if (deployable.isFilter()) {
+				String originalContent = LocationUtils.toString(location);
+				String resolvedContent = helper.replacePlaceholders(originalContent, properties);
+				channel.copyStringToFile(resolvedContent, destination);
+			} else {
+				channel.copyLocationToFile(location, destination);
+			}
+		}
 	}
 
 	protected void copyJsps() {
@@ -140,6 +168,46 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 
 	public void setJspDir(String jspDir) {
 		this.jspDir = jspDir;
+	}
+
+	public List<Deployable> getDeployables() {
+		return deployables;
+	}
+
+	public void setDeployables(List<Deployable> deployables) {
+		this.deployables = deployables;
+	}
+
+	public String getSetenv() {
+		return setenv;
+	}
+
+	public void setSetenv(String setenv) {
+		this.setenv = setenv;
+	}
+
+	public String getSetenvPermissions() {
+		return setenvPermissions;
+	}
+
+	public void setSetenvPermissions(String setenvPermissions) {
+		this.setenvPermissions = setenvPermissions;
+	}
+
+	public PropertyPlaceholderHelper getHelper() {
+		return helper;
+	}
+
+	public void setHelper(PropertyPlaceholderHelper helper) {
+		this.helper = helper;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }

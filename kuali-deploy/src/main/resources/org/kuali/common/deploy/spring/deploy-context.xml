@@ -92,9 +92,20 @@
     <value>${tomcat.base}</value>
     <value>${tomcat.home}</value>
   </util:list>
+
   <util:list id="kdo.jsps" value-type="java.lang.String">
     <value>${tomcat.jsp.env}</value>
     <value>${tomcat.jsp.tail}</value>
+  </util:list>
+
+  <bean id="kdo.setenv" class="org.kuali.common.deploy.Deployable">
+    <property name="remote" value="${tomcat.setenv}" />
+    <property name="local" value="${tomcat.setenv.local}" />
+    <property name="filter" value="true" />
+  </bean>
+
+  <util:list id="kdo.deployables" value-type="org.kuali.common.deploy.Deployable">
+    <ref bean="kdo.setenv" />
   </util:list>
 
   <bean id="kdo.attendant" class="org.kuali.common.deploy.service.DefaultFileSystemAttendant">
@@ -103,10 +114,14 @@
     <property name="directoriesToDelete" ref="kdo.directoriesToDelete" />
     <property name="directoriesToCreate" ref="kdo.directoriesToCreate" />
     <property name="directoriesToChown" ref="kdo.directoriesToChown" />
+    <property name="deployables" ref="kdo.deployables" />
+    <property name="properties" ref="kdo.properties" />
     <property name="jsps" ref="kdo.jsps" />
     <property name="jspDir" value="${tomcat.logs}" />
     <property name="owner" value="${tomcat.owner}" />
     <property name="group" value="${tomcat.group}" />
+    <property name="setenv" value="${tomcat.setenv}" />
+    <property name="setenvPermissions" value="${tomcat.setenv.perms}" />
   </bean>
 
   <bean id="kdo.deployService" class="org.kuali.common.deploy.service.DefaultDeployService" init-method="deploy">
