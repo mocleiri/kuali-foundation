@@ -62,8 +62,11 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 			if (deployable.isFilter()) {
 				String originalContent = LocationUtils.toString(location);
 				String resolvedContent = helper.replacePlaceholders(originalContent, properties);
+				logger.info("Filtering [{}] with {} properties", location, properties.size());
+				logger.info("Pushing filtered content to [{}]", destination.getAbsolutePath());
 				channel.copyStringToFile(resolvedContent, destination);
 			} else {
+				logger.info("[{}] -> [{}]", location, destination.getAbsolutePath());
 				channel.copyLocationToFile(location, destination);
 			}
 		}
