@@ -23,7 +23,7 @@ import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
-public class RepositoryFileFactoryBean extends Artifact implements FactoryBean<String> {
+public class RepositoryPathFactoryBean extends Artifact implements FactoryBean<String> {
 
 	File localRepositoryDir = RepositoryUtils.getDefaultLocalRepositoryDir();
 	boolean mustExist;
