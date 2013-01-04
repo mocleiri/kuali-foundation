@@ -3,6 +3,7 @@ package org.kuali.common.deploy.service;
 import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.RemoteFile;
 import org.kuali.common.util.secure.Result;
@@ -46,7 +47,8 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 		}
 		RemoteFile destination = new RemoteFile(jspDir);
 		for (String jsp : jsps) {
-			logger.info("[{}] -> [{}]", jsp, jspDir);
+			String filename = LocationUtils.getFilename(jsp);
+			logger.info("[{}] -> [{}]", jsp, jspDir + "/" + filename);
 			channel.copyLocationToDirectory(jsp, destination);
 		}
 	}
