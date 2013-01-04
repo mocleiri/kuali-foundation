@@ -18,19 +18,28 @@ package org.kuali.common.util.spring;
 import java.io.File;
 
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.util.Assert;
 
-public class RepositoryFileFactoryBean extends Artifact implements FactoryBean<File> {
+public class RepositoryFileFactoryBean extends Artifact implements FactoryBean<String> {
 
 	File localRepositoryDir = RepositoryUtils.getDefaultLocalRepositoryDir();
 	boolean mustExist;
 
 	@Override
-	public File getObject() throws Exception {
+	public String getObject() throws Exception {
+
+		Assert.notNull(localRepositoryDir);
+		Assert.notNull(getGroupId());
+		Assert.notNull(getArtifactId());
+		Assert.notNull(getVersion());
+		Assert.notNull(getPackaging());
+
 		File file = RepositoryUtils.getFile(localRepositoryDir, this);
 		validate(file);
-		return file;
+		return LocationUtils.getCanonicalPath(file);
 	}
 
 	protected void validate(File file) {
@@ -40,8 +49,8 @@ public class RepositoryFileFactoryBean extends Artifact implements FactoryBean<F
 	}
 
 	@Override
-	public Class<File> getObjectType() {
-		return File.class;
+	public Class<String> getObjectType() {
+		return String.class;
 	}
 
 	@Override

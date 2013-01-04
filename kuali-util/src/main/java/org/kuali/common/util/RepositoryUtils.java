@@ -18,6 +18,8 @@ package org.kuali.common.util;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.Constants;
 
 public class RepositoryUtils {
 
@@ -38,13 +40,23 @@ public class RepositoryUtils {
 		sb.append(artifact.getArtifactId());
 		sb.append("-");
 		sb.append(artifact.getVersion());
-		if (artifact.getClassifier() != null) {
+		if (!isNullOrNone(artifact.getClassifier())) {
 			sb.append("-");
 			sb.append(artifact.getClassifier());
 		}
 		sb.append(".");
 		sb.append(artifact.getPackaging());
 		return sb.toString();
+	}
+
+	public static final boolean isNullOrNone(String s) {
+		if (s == null) {
+			return true;
+		}
+		if (StringUtils.equalsIgnoreCase(Constants.NONE, s)) {
+			return true;
+		}
+		return StringUtils.equalsIgnoreCase(Constants.NULL, s);
 	}
 
 	public static final File getDefaultLocalRepositoryDir() {
