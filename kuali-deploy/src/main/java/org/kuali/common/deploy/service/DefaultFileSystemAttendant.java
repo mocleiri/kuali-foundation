@@ -22,8 +22,8 @@ public class DefaultFileSystemAttendant implements FileSystemAttendant {
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	Properties properties;
 	UnixCmds cmds = new UnixCmds();
+	Properties properties;
 	SecureChannel channel;
 	List<String> filesToDelete;
 	List<String> directoriesToDelete;
