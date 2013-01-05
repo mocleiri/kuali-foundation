@@ -1,5 +1,6 @@
 package org.kuali.common.deploy;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -78,8 +79,13 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 	}
 
 	protected void logCopy(String src, String dst, long elapsed) {
-		Object[] args = { src, dst, formatter.getTime(elapsed) };
-		logger.info("[{}] -> [{}] - {}", args);
+		String rate = "";
+		if (LocationUtils.isExistingFile(src)) {
+			long bytes = new File(src).length();
+			rate = formatter.getRate(elapsed, bytes);
+		}
+		Object[] args = { src, dst, formatter.getTime(elapsed), rate };
+		logger.info("[{}] -> [{}] - {} {}", args);
 	}
 
 	protected void executeCommand(String command, String path) {
