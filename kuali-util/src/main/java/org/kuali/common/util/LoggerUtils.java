@@ -73,8 +73,18 @@ public class LoggerUtils {
 		return getPassword(username, password, DEFAULT_OBSCURER);
 	}
 
+	public static boolean isNullOrNone(String s) {
+		if (s == null) {
+			return true;
+		}
+		if (StringUtils.equalsIgnoreCase(Constants.NONE, s)) {
+			return true;
+		}
+		return StringUtils.equalsIgnoreCase(Constants.NULL, s);
+	}
+
 	public static final String getPassword(String username, String password, Obscurer obscurer) {
-		if (password == null) {
+		if (isNullOrNone(password)) {
 			// There is no password, return NONE
 			return Constants.NONE;
 		} else if (StringUtils.equals(username, password)) {
