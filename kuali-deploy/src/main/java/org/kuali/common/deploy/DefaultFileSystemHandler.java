@@ -31,8 +31,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 	List<String> directoriesToDelete;
 	List<String> directoriesToCreate;
 	List<String> directoriesToChown;
-	String setenv;
-	String setenvPermissions;
 	String owner;
 	String group;
 	List<Deployable> deployables;
@@ -167,22 +165,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 
 	public void setDeployables(List<Deployable> deployables) {
 		this.deployables = deployables;
-	}
-
-	public String getSetenv() {
-		return setenv;
-	}
-
-	public void setSetenv(String setenv) {
-		this.setenv = setenv;
-	}
-
-	public String getSetenvPermissions() {
-		return setenvPermissions;
-	}
-
-	public void setSetenvPermissions(String setenvPermissions) {
-		this.setenvPermissions = setenvPermissions;
 	}
 
 	public PropertyPlaceholderHelper getHelper() {
