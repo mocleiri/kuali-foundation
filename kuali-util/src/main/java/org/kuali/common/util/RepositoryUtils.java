@@ -73,13 +73,4 @@ public class RepositoryUtils {
 		return new File(localRepositoryDir.getAbsolutePath() + FS + path, filename);
 	}
 
-	public static final boolean existsLocally(Artifact artifact) {
-		return existsLocally(getDefaultLocalRepositoryDir(), artifact);
-	}
-
-	public static final boolean existsLocally(File localRepositoryDir, Artifact artifact) {
-		File file = getFile(localRepositoryDir, artifact);
-		return file.exists();
-	}
-
 }
