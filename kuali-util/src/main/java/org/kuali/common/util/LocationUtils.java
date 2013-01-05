@@ -114,7 +114,7 @@ public class LocationUtils {
 	}
 
 	public static final void validateNormalizedPath(String originalPath, String normalizedPath) {
-		if (CollectionUtils.contains(normalizedPath, Arrays.asList(SLASH_DOT_DOT, SLASH_DOT_SLASH, DOT_DOT_SLASH))) {
+		if (CollectionUtils.containsAny(normalizedPath, Arrays.asList(SLASH_DOT_DOT, SLASH_DOT_SLASH, DOT_DOT_SLASH))) {
 			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
 		}
 	}

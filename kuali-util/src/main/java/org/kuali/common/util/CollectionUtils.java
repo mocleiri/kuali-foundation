@@ -239,7 +239,7 @@ public class CollectionUtils {
 	/**
 	 * Return <code>true</code> if <code>s</code> contains any of the strings from <code>strings</code>
 	 */
-	public static final boolean contains(String s, List<String> strings) {
+	public static final boolean containsAny(String s, List<String> strings) {
 		for (String string : strings) {
 			if (StringUtils.contains(s, string)) {
 				return true;
