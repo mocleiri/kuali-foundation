@@ -39,8 +39,9 @@
   </entry>
   <!--
     Kill any active sessions for the indicated user before dropping them.
-    The Amazon RDS service does not directly allow certain types of DBA activities, including killing active sessions.
-    Killing active sessions is only allowed by running the rdsadmin_util.kill() function they provide
+    The Amazon RDS service does not directly allow the killing of active sessions the normal Oracle way.
+    Killing active sessions is done by running the rdsadmin.rdsadmin_util.kill() function they provide.
+    The reason Amazon prohibits certain DBA activities is so they can successfully provide a managed database service.
   -->
   <entry key="oracle.killAndDrop.rds">
     BEGIN
