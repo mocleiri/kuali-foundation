@@ -31,6 +31,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,8 +47,9 @@ public class LocationUtils {
 	private static final String FILE_PREFIX = "file:";
 	private static final String BACK_SLASH = "\\";
 	private static final String FORWARD_SLASH = "/";
-	private static final String SLASH_DOT = "/.";
-	private static final String DOT_SLASH = "./";
+	private static final String SLASH_DOT_SLASH = "/./";
+	private static final String DOT_DOT_SLASH = "../";
+	private static final String SLASH_DOT_DOT = "/..";
 
 	public static final List<String> getNormalizedPathFragments(String absolutePath, boolean directory) {
 		String normalized = getNormalizedAbsolutePath(absolutePath);
@@ -112,10 +114,7 @@ public class LocationUtils {
 	}
 
 	public static final void validateNormalizedPath(String originalPath, String normalizedPath) {
-		if (StringUtils.contains(normalizedPath, SLASH_DOT)) {
-			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
-		}
-		if (StringUtils.contains(normalizedPath, DOT_SLASH)) {
+		if (CollectionUtils.contains(normalizedPath, Arrays.asList(SLASH_DOT_DOT, SLASH_DOT_SLASH, DOT_DOT_SLASH))) {
 			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
 		}
 	}

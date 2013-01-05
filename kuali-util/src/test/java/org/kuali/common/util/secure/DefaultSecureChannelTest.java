@@ -51,7 +51,7 @@ public class DefaultSecureChannelTest {
 		return channel;
 	}
 
-	@Test
+	// @Test
 	public void testExec() {
 		try {
 			UnixCmds cmds = new UnixCmds();
@@ -132,10 +132,10 @@ public class DefaultSecureChannelTest {
 		}
 	}
 
-	// @Test
+	@Test
 	public void test1() {
 		try {
-			String filename = "/Users/jeffcaddel/../../../../../jeffcaddel/x/y/z/.././../foo";
+			String filename = "/home/.kuali";
 			File file = new File(filename);
 			String url = LocationUtils.getCanonicalURLString(file);
 			logger.info(url);

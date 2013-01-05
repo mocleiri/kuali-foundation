@@ -235,4 +235,16 @@ public class CollectionUtils {
 			list1.addAll(list2);
 		}
 	}
+
+	/**
+	 * Return <code>true</code> if <code>s</code> contains any of the strings from <code>strings</code>
+	 */
+	public static final boolean contains(String s, List<String> strings) {
+		for (String string : strings) {
+			if (StringUtils.contains(s, string)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
