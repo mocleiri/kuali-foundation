@@ -24,6 +24,7 @@ import org.kuali.common.util.property.Constants;
 public class RepositoryUtils {
 
 	private static final String FS = File.separator;
+	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
 
 	public static final String getRepositoryPath(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
@@ -60,7 +61,7 @@ public class RepositoryUtils {
 	}
 
 	public static final File getDefaultLocalRepositoryDir() {
-		return new File(FileUtils.getUserDirectoryPath() + FS + ".m2" + FS + "repository");
+		return new File(FileUtils.getUserDirectoryPath() + FS + DEFAULT_MAVEN_REPO_PATH);
 	}
 
 	public static final File getFile(Artifact artifact) {
