@@ -50,7 +50,7 @@ public class RepositoryUtils {
 	}
 
 	public static final boolean isNullOrNone(String s) {
-		if (s == null) {
+		if (StringUtils.isBlank(s)) {
 			return true;
 		}
 		if (StringUtils.equalsIgnoreCase(Constants.NONE, s)) {
