@@ -95,15 +95,6 @@ public class LocationUtils {
 		return getLocations(locationListings, null);
 	}
 
-	public static final void copyLocationsToFiles(List<String> locations, List<File> files, String encoding) {
-		Assert.isTrue(locations.size() == files.size());
-		for (int i = 0; i < locations.size(); i++) {
-			String location = locations.get(i);
-			File destination = files.get(i);
-			copyLocationToFile(location, destination, encoding);
-		}
-	}
-
 	public static final void copyLocationToFile(String location, File destination, String encoding) {
 		Assert.notNull(location);
 		Assert.notNull(destination);

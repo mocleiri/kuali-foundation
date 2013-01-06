@@ -7,7 +7,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 
-public class CopyLocationsExecutable implements Executable {
+public class CopyLocationsToDirectoryExecutable implements Executable {
 
 	String locationListing;
 	File directory;
@@ -15,7 +15,7 @@ public class CopyLocationsExecutable implements Executable {
 	String encoding;
 
 	@Override
-    public void execute() {
+	public void execute() {
 		Assert.notNull(locationListing);
 		Assert.notNull(directory);
 		List<String> locations = LocationUtils.getLocations(locationListing, encoding);
@@ -24,7 +24,16 @@ public class CopyLocationsExecutable implements Executable {
 			filenames = CollectionUtils.getSequencedStrings(filenames);
 		}
 		List<File> files = LocationUtils.getFiles(directory, filenames);
-		LocationUtils.copyLocationsToFiles(locations, files, encoding);
+		copyLocationsToFiles(locations, files, encoding);
+	}
+
+	protected void copyLocationsToFiles(List<String> locations, List<File> files, String encoding) {
+		Assert.isTrue(locations.size() == files.size());
+		for (int i = 0; i < locations.size(); i++) {
+			String location = locations.get(i);
+			File destination = files.get(i);
+			LocationUtils.copyLocationToFile(location, destination, encoding);
+		}
 	}
 
 	public String getLocationListing() {
