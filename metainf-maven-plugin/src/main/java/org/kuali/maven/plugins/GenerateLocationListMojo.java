@@ -31,6 +31,7 @@ import org.codehaus.plexus.util.StringUtils;
  *
  * @author Jeff Caddel
  * @goal generatelocationlist
+ * @phase prepare-package
  */
 public class GenerateLocationListMojo extends AbstractMojo {
 
