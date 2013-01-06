@@ -60,7 +60,8 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	/**
 	 * The file which will contain <code>classpath:</code> references to the files that were located
 	 *
-	 * @parameter expression="${metainf.outputFile}" default-value="${project.build.outputDirectory}/META-INF/classpath.resources"
+	 * @parameter expression="${metainf.outputFile}"
+	 *            default-value="${project.build.outputDirectory}/META-INF/${project.artifactId}.resources"
 	 * @required
 	 */
 	private File outputFile;
