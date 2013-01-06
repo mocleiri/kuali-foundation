@@ -17,8 +17,6 @@ package org.kuali.common.util.execute;
 
 import java.util.List;
 
-import org.springframework.util.Assert;
-
 /**
  * Execute the list of <code>executables</code> supplied to this bean
  */
@@ -28,7 +26,6 @@ public class ExecutablesExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		Assert.notNull(executables);
 		for (Executable executable : executables) {
 			executable.execute();
 		}
