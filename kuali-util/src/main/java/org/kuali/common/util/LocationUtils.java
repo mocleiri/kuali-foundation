@@ -118,18 +118,6 @@ public class LocationUtils {
 		}
 	}
 
-	public static final void copyLocationsToDirectory(String locationListing, File directory, boolean addSequenceToFilenames, String encoding) {
-		Assert.notNull(locationListing);
-		Assert.notNull(directory);
-		List<String> locations = getLocations(locationListing, encoding);
-		List<String> filenames = getFilenames(locations);
-		if (addSequenceToFilenames) {
-			filenames = CollectionUtils.getSequencedStrings(filenames);
-		}
-		List<File> files = getFiles(directory, filenames);
-		copyLocationsToFiles(locations, files, encoding);
-	}
-
 	public static final List<File> getFiles(File dir, List<String> filenames) {
 		List<File> files = new ArrayList<File>();
 		for (String filename : filenames) {
