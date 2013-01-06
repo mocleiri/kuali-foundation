@@ -27,13 +27,13 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Create a location listing file that describes resources inside of a jar file
+ * Create a file in META-INF that describes resources bundled into a jar file
  *
  * @author Jeff Caddel
- * @goal generatelocationlist
+ * @goal resourcelist
  * @phase prepare-package
  */
-public class GenerateLocationListMojo extends AbstractMojo {
+public class ResourceList extends AbstractMojo {
 
 	/**
 	 * Regular expression pattern for files to include
