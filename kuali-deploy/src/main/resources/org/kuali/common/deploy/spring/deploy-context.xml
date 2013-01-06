@@ -180,9 +180,7 @@
     <ref bean="kdo.jsp.tail" />
     <ref bean="kdo.config" />
     <ref bean="kdo.jdbcDriver" />
-    <!--
-      <ref bean="kdo.war" />
-    -->
+    <ref bean="kdo.war" />
   </util:list>
 
   <bean id="kdo.handler" class="org.kuali.common.deploy.DefaultFileSystemHandler">
