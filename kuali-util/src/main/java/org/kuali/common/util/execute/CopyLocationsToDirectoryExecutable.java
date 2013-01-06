@@ -6,8 +6,12 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CopyLocationsToDirectoryExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(CopyLocationsToDirectoryExecutable.class);
 
 	String locationListing;
 	File directory;
@@ -18,6 +22,7 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 	public void execute() {
 		Assert.notNull(locationListing);
 		Assert.notNull(directory);
+		logger.info("[{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
 		List<String> locations = LocationUtils.getLocations(locationListing, encoding);
 		List<String> filenames = LocationUtils.getFilenames(locations);
 		if (addSequenceToFilenames) {
