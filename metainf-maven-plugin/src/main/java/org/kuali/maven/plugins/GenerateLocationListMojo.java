@@ -17,6 +17,8 @@ package org.kuali.maven.plugins;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -70,6 +72,13 @@ public class GenerateLocationListMojo extends AbstractMojo {
 	 */
 	private String prefix;
 
+	/**
+	 * If true, the location list is sorted.
+	 *
+	 * @parameter expression="${metainf.sort}" default-value="true"
+	 */
+	private boolean sort;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
@@ -79,23 +88,24 @@ public class GenerateLocationListMojo extends AbstractMojo {
 			SimpleScanner scanner = new SimpleScanner(baseDir, include, exclude);
 			List<File> files = scanner.getFiles();
 			getLog().info("Located " + files.size() + " files");
-			String content = getLocations(baseDir, files, prefix);
+			List<String> locations = getLocations(baseDir, files, prefix);
+			if (sort) {
+				Collections.sort(locations);
+			}
 			getLog().info("Creating " + outputFile.getCanonicalPath());
-			FileUtils.writeStringToFile(outputFile, content);
+			FileUtils.writeLines(outputFile, locations);
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
 	}
 
-	protected String getLocations(File baseDir, List<File> files, String prefix) throws IOException {
-		StringBuilder sb = new StringBuilder();
+	protected List<String> getLocations(File baseDir, List<File> files, String prefix) throws IOException {
+		List<String> locations = new ArrayList<String>();
 		for (int i = 0; i < files.size(); i++) {
-			if (i != 0) {
-				sb.append("\n");
-			}
-			sb.append(getLocation(baseDir, files.get(i), prefix));
+			String location = getLocation(baseDir, files.get(i), prefix);
+			locations.add(location);
 		}
-		return sb.toString();
+		return locations;
 	}
 
 	protected String getLocation(File baseDir, File file, String prefix) throws IOException {
@@ -143,6 +153,14 @@ public class GenerateLocationListMojo extends AbstractMojo {
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public boolean isSort() {
+		return sort;
+	}
+
+	public void setSort(boolean sort) {
+		this.sort = sort;
 	}
 
 }
