@@ -95,6 +95,59 @@ public class LocationUtils {
 		return getLocations(locationListings, null);
 	}
 
+	public static final void copyLocationsToFiles(List<String> locations, List<File> files, String encoding) {
+		Assert.isTrue(locations.size() == files.size());
+		for (int i = 0; i < locations.size(); i++) {
+			String location = locations.get(i);
+			File destination = files.get(i);
+			copyLocationToFile(location, destination, encoding);
+		}
+	}
+
+	public static final void copyLocationToFile(String location, File destination, String encoding) {
+		Assert.notNull(location);
+		Assert.notNull(destination);
+		InputStream in = null;
+		try {
+			in = getInputStream(location);
+			FileUtils.copyInputStreamToFile(in, destination);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	public static final void copyLocationsToDirectory(String locationListing, File directory, boolean addSequenceToFilenames, String encoding) {
+		Assert.notNull(locationListing);
+		Assert.notNull(directory);
+		List<String> locations = getLocations(locationListing, encoding);
+		List<String> filenames = getFilenames(locations);
+		if (addSequenceToFilenames) {
+			filenames = CollectionUtils.getSequencedStrings(filenames);
+		}
+		List<File> files = getFiles(directory, filenames);
+		copyLocationsToFiles(locations, files, encoding);
+	}
+
+	public static final List<File> getFiles(File dir, List<String> filenames) {
+		List<File> files = new ArrayList<File>();
+		for (String filename : filenames) {
+			File file = new File(dir, filename);
+			files.add(file);
+		}
+		return files;
+	}
+
+	public static final List<String> getFilenames(List<String> locations) {
+		Assert.notNull(locations);
+		List<String> filenames = new ArrayList<String>();
+		for (String location : locations) {
+			filenames.add(getFilename(location));
+		}
+		return filenames;
+	}
+
 	public static final List<String> getLocations(List<String> locationListings, String encoding) {
 		List<String> locations = new ArrayList<String>();
 		for (String locationListing : locationListings) {
