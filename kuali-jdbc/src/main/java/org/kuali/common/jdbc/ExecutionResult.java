@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc;
 
-public class SqlMetaData {
+public class ExecutionResult {
 
 	long count;
 	long executionTime;
