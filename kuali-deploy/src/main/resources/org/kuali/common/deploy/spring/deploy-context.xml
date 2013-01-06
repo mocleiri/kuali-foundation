@@ -26,7 +26,7 @@
   <util:properties id="kdo.mavenProperties" location="classpath:org/kuali/maven.properties" />
 
   <util:list id="kdo.locations" value-type="java.lang.String">
-    <value>classpath:org/kuali/common/deploy.properties</value>
+    <value>classpath:org/kuali/common/deploy/deploy.properties</value>
     <value>classpath:org/kuali/common/deploy/driver.properties</value>
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
