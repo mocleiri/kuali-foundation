@@ -22,7 +22,7 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 	public void execute() {
 		Assert.notNull(locationListing);
 		Assert.notNull(directory);
-		logger.info("[{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
+		logger.info("Copying [{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
 		List<String> locations = LocationUtils.getLocations(locationListing, encoding);
 		List<String> filenames = LocationUtils.getFilenames(locations);
 		if (addSequenceToFilenames) {
@@ -30,6 +30,7 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 		}
 		List<File> files = LocationUtils.getFiles(directory, filenames);
 		copyLocationsToFiles(locations, files, encoding);
+		logger.info("Copied {} files", locations.size());
 	}
 
 	protected void copyLocationsToFiles(List<String> locations, List<File> files, String encoding) {
