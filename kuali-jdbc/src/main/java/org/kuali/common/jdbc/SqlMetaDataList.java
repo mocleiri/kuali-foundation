@@ -17,7 +17,7 @@ package org.kuali.common.jdbc;
 
 import java.util.ArrayList;
 
-public class SqlMetaDataList extends ArrayList<ExecutionResult> {
+public class SqlMetaDataList extends ArrayList<SqlMetaData> {
 
 	private static final long serialVersionUID = 7248787367263097240L;
 

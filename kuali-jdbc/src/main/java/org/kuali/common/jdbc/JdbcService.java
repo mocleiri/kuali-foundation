@@ -26,25 +26,25 @@ public interface JdbcService {
 
 	JdbcMetaData getJdbcMetaData(DataSource dataSource);
 
-	ExecutionResult executeSqlString(JdbcContext context, String sql);
+	SqlMetaData executeSqlString(JdbcContext context, String sql);
 
 	SqlMetaDataList executeSqlStrings(JdbcContext context, List<String> sql);
 
-	ExecutionResult executeSql(JdbcContext context, String location);
+	SqlMetaData executeSql(JdbcContext context, String location);
 
-	ExecutionResult executeSql(JdbcContext context, String location, String encoding);
+	SqlMetaData executeSql(JdbcContext context, String location, String encoding);
 
 	SqlMetaDataList executeSql(JdbcContext context, List<String> locations);
 
 	SqlMetaDataList executeSql(JdbcContext context, List<String> locations, String encoding);
 
-	ExecutionResult getMetaDataFromString(SqlContext context, String sql);
+	SqlMetaData getMetaDataFromString(SqlContext context, String sql);
 
 	SqlMetaDataList getMetaDataFromStrings(SqlContext context, List<String> sql);
 
-	ExecutionResult getMetaData(SqlContext context, String location);
+	SqlMetaData getMetaData(SqlContext context, String location);
 
-	ExecutionResult getMetaData(SqlContext context, String location, String encoding);
+	SqlMetaData getMetaData(SqlContext context, String location, String encoding);
 
 	SqlMetaDataList getMetaData(SqlContext context, List<String> locations);
 
