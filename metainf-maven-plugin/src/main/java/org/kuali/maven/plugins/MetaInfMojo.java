@@ -27,13 +27,14 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Create a file in META-INF that describes resources bundled into a jar file
+ * Create a file in META-INF that lists resources bundled into a jar file
  *
  * @author Jeff Caddel
- * @goal resourcelist
+ *
+ * @goal metainf
  * @phase prepare-package
  */
-public class ResourceList extends AbstractMojo {
+public class MetaInfMojo extends AbstractMojo {
 
 	/**
 	 * Regular expression pattern for files to include
