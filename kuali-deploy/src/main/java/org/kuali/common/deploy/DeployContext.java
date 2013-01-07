@@ -4,6 +4,7 @@ import org.kuali.common.util.Artifact;
 
 public class DeployContext {
 
+	String environment;
 	String username;
 	String hostname;
 	Artifact war;
@@ -39,6 +40,14 @@ public class DeployContext {
 
 	public void setJdbcDriver(Artifact jdbcDriver) {
 		this.jdbcDriver = jdbcDriver;
+	}
+
+	public String getEnvironment() {
+		return environment;
+	}
+
+	public void setEnvironment(String environment) {
+		this.environment = environment;
 	}
 
 }
