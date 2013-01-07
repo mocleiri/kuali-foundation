@@ -19,7 +19,9 @@ public class DefaultDeployService implements DeployService {
 		Assert.notNull(channel);
 		Assert.notNull(controller);
 		Assert.notNull(handler);
+		Assert.notNull(context);
 		try {
+			logger.info("Environment - " + context.getEnvironment());
 			logger.debug("Opening secure channel");
 			channel.open();
 			controller.stop();

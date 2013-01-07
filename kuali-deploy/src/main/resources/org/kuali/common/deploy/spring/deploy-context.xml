@@ -74,6 +74,7 @@
   </bean>
 
   <bean id="kdoContext" class="org.kuali.common.deploy.DeployContext">
+    <property name="environment" value="${deploy.env}" />
     <property name="username" value="${kdo.channel.username}" />
     <property name="hostname" value="${kdo.channel.hostname}" />
     <property name="jdbcDriver" ref="kdoJdbcDriverArtifact" />
