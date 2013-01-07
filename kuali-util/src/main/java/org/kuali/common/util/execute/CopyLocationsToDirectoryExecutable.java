@@ -27,6 +27,7 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 		}
 		Assert.notNull(locationListing);
 		Assert.notNull(directory);
+		Assert.isTrue(LocationUtils.exists(locationListing));
 		logger.info("Copying [{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
 		List<String> locations = LocationUtils.getLocations(locationListing, encoding);
 		List<String> filenames = LocationUtils.getFilenames(locations);
