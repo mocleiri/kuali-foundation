@@ -23,12 +23,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
+  <util:properties id="kdo.mavenProperties" location="classpath:org/kuali/maven.properties" />
 
-  <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-    <property name="executable" ref="deploy.databaseResetExecutable" />
-  </bean>
-
-  <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+  <import resource="classpath:org/kuali/common/deploy/spring/deploy-context.xml" />
 
 </beans>

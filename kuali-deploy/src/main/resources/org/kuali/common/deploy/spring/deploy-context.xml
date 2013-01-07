@@ -23,8 +23,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:properties id="kdo.mavenProperties" location="classpath:org/kuali/maven.properties" />
-
   <util:list id="kdo.locations" value-type="java.lang.String">
     <value>classpath:org/kuali/common/deploy/deploy.properties</value>
     <value>classpath:org/kuali/common/deploy/driver.properties</value>
@@ -41,7 +39,7 @@
     <value>project.groupId</value>
     <value>project.artifactId</value>
     <value>project.version</value>
-    <value>project.classifier</value>
+    <value>deploy.classifier</value>
     <value>deploy.env</value>
     <value>db.vendor</value>
     <value>kuali.enc.*</value>
@@ -152,7 +150,7 @@
     <property name="groupId" value="${project.groupId}" />
     <property name="artifactId" value="${project.artifactId}" />
     <property name="version" value="${project.version}" />
-    <property name="classifier" value="${project.classifier:NONE}" />
+    <property name="classifier" value="${deploy.classifier:NONE}" />
     <property name="packaging" value="war" />
     <property name="mustExist" value="true" />
   </bean>
@@ -180,7 +178,9 @@
     <ref bean="kdo.jsp.tail" />
     <ref bean="kdo.config" />
     <ref bean="kdo.jdbcDriver" />
-    <ref bean="kdo.war" />
+    <!--
+      <ref bean="kdo.war" />
+    -->
   </util:list>
 
   <bean id="kdo.handler" class="org.kuali.common.deploy.DefaultFileSystemHandler">
