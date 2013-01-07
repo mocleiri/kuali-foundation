@@ -16,15 +16,16 @@
 package org.kuali.common.util;
 
 public class Counter {
+
 	int count;
 
 	public Counter() {
 		this(0);
 	}
 
-	public Counter(int count) {
+	public Counter(int startValue) {
 		super();
-		this.count = count;
+		this.count = startValue;
 	}
 
 	public int increment() {
