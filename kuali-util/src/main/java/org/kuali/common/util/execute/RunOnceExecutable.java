@@ -47,7 +47,7 @@ public class RunOnceExecutable implements Executable {
 		logger.info("Examining run once property [{}] in [{}]", property, LocationUtils.getCanonicalPath(propertiesFile));
 		Properties properties = PropertyUtils.load(propertiesFile, encoding);
 		ExecutionMode mode = getExecutionMode(properties, property);
-		boolean runonce = ExecutionMode.RUNONCE.equals(mode);
+		boolean runonce = isRunOnce(mode);
 		if (runonce) {
 			logger.info("{}={}", property, mode);
 			// Make sure we have the ability to successfully store updated properties back to the file
@@ -68,12 +68,21 @@ public class RunOnceExecutable implements Executable {
 		}
 	}
 
+	protected boolean isRunOnce(ExecutionMode mode) {
+		if (ExecutionMode.RUNONCE.equals(mode)) {
+			return true;
+		} else {
+			return ExecutionMode.TRUE.equals(mode);
+		}
+
+	}
+
 	protected ExecutionMode getExecutionMode(Properties properties, String key) {
 		String value = properties.getProperty(property);
 		if (value == null) {
 			return ExecutionMode.NULL;
 		} else {
-			return ExecutionMode.valueOf(value);
+			return ExecutionMode.valueOf(value.toUpperCase());
 		}
 
 	}
