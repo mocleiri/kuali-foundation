@@ -25,6 +25,20 @@ public class RepositoryUtils {
 	private static final String FS = File.separator;
 	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
 
+	public static final String toString(Artifact artifact) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(artifact.getGroupId());
+		sb.append(":");
+		sb.append(artifact.getArtifactId());
+		sb.append(":");
+		sb.append(artifact.getVersion());
+		if (!NullUtils.isNullOrNone(artifact.getClassifier())) {
+			sb.append(":");
+			sb.append(artifact.getClassifier());
+		}
+		return sb.toString();
+	}
+
 	public static final String getRepositoryPath(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(Str.getPath(artifact.getGroupId()));
