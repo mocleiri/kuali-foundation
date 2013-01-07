@@ -36,12 +36,8 @@
   <util:list id="kdo.locationHelperIncludes" value-type="java.lang.String">
     <value>kuali.encoding</value>
     <value>kuali.groupId</value>
-    <value>project.groupId</value>
-    <value>project.artifactId</value>
-    <value>project.version</value>
-    <value>deploy.classifier</value>
-    <value>deploy.env</value>
     <value>db.vendor</value>
+    <value>deploy.*</value>
     <value>kuali.enc.*</value>
     <value>jdbc.*</value>
   </util:list>
