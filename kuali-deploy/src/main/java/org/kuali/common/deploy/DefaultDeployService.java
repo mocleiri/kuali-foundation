@@ -29,7 +29,7 @@ public class DefaultDeployService implements DeployService {
 			if (context.getJdbcDriver() != null) {
 				logger.info("Jdbc Driver - {}", RepositoryUtils.toString(context.getJdbcDriver()));
 			}
-			logger.info("Config - [{}] -> [{}]", context.getConfig().getLocal(), context.getConfig().getRemote());
+			logger.info("Config - {}", context.getConfig().getLocal());
 			logger.info("----------------------------------------------------");
 			channel.open();
 			controller.stop();
