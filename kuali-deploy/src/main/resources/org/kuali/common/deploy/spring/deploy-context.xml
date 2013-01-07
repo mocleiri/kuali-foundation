@@ -65,7 +65,7 @@
     <property name="packaging" value="jar" />
   </bean>
 
-  <bean id="kdoWarFileArtifact" class="org.kuali.common.util.Artifact">
+  <bean id="kdoApplicationArtifact" class="org.kuali.common.util.Artifact">
     <property name="groupId" value="${project.groupId}" />
     <property name="artifactId" value="${project.artifactId}" />
     <property name="version" value="${project.version}" />
@@ -78,7 +78,7 @@
     <property name="username" value="${kdo.channel.username}" />
     <property name="hostname" value="${kdo.channel.hostname}" />
     <property name="jdbcDriver" ref="kdoJdbcDriverArtifact" />
-    <property name="war" ref="kdoWarFileArtifact" />
+    <property name="application" ref="kdoApplicationArtifact" />
   </bean>
 
   <util:list id="kdo.channel.privateKeyStrings" value-type="java.lang.String">
@@ -169,12 +169,12 @@
     <property name="mustExist" value="true" />
   </bean>
 
-  <bean id="kdoWarFilePath" class="org.kuali.common.util.spring.ArtifactPathFactoryBean">
-    <property name="groupId" value="#{kdoWarFileArtifact.groupId}" />
-    <property name="artifactId" value="#{kdoWarFileArtifact.artifactId}" />
-    <property name="version" value="#{kdoWarFileArtifact.version}" />
-    <property name="classifier" value="#{kdoWarFileArtifact.classifier}" />
-    <property name="packaging" value="#{kdoWarFileArtifact.packaging}" />
+  <bean id="kdoApplicationPath" class="org.kuali.common.util.spring.ArtifactPathFactoryBean">
+    <property name="groupId" value="#{kdoApplicationArtifact.groupId}" />
+    <property name="artifactId" value="#{kdoApplicationArtifact.artifactId}" />
+    <property name="version" value="#{kdoApplicationArtifact.version}" />
+    <property name="classifier" value="#{kdoApplicationArtifact.classifier}" />
+    <property name="packaging" value="#{kdoApplicationArtifact.packaging}" />
     <property name="mustExist" value="true" />
   </bean>
 
@@ -185,7 +185,7 @@
 
   <bean id="kdo.war" class="org.kuali.common.deploy.Deployable">
     <property name="remote" value="${tomcat.root.war}" />
-    <property name="local" value="#{kdoWarFilePath}" />
+    <property name="local" value="#{kdoApplicationPath}" />
   </bean>
 
   <bean id="kdo.config" class="org.kuali.common.deploy.Deployable">
