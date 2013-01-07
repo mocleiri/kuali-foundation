@@ -23,12 +23,22 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <util:list id="deploy.locations" value-type="java.lang.String">
+    <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+    <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
+    <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
+    <value>${kuali.group.home}/${project.artifactId}.properties</value>
+    <value>classpath:org/kuali/common/sql/sql.xml</value>
+    <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
+  </util:list>
+
   <util:list id="deploy.locationHelperIncludes" value-type="java.lang.String">
     <value>kuali.encoding</value>
     <value>kuali.groupId</value>
     <value>project.groupId</value>
     <value>project.artifactId</value>
     <value>project.version</value>
+    <value>project.classifier</value>
     <value>db.vendor</value>
     <value>kuali.enc.*</value>
     <value>jdbc.*</value>

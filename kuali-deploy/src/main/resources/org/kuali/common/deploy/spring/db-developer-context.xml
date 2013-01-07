@@ -22,17 +22,6 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-
-  <util:list id="deploy.locations" value-type="java.lang.String">
-    <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-    <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
-    <value>classpath:${project.groupId.path}/local.properties</value>
-    <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
-    <value>${kuali.group.home}/${project.artifactId}.properties</value>
-    <value>classpath:org/kuali/common/sql/sql.xml</value>
-    <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
-  </util:list>
-
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
   <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
