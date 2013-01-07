@@ -183,7 +183,7 @@
     <property name="local" value="#{kdoJdbcDriverPath}" />
   </bean>
 
-  <bean id="kdo.war" class="org.kuali.common.deploy.Deployable">
+  <bean id="kdo.application" class="org.kuali.common.deploy.Deployable">
     <property name="remote" value="${tomcat.root.war}" />
     <property name="local" value="#{kdoApplicationPath}" />
   </bean>
@@ -202,7 +202,7 @@
     <ref bean="kdo.config" />
     <ref bean="kdo.jdbcDriver" />
     <!--
-      <ref bean="kdo.war" />
+      <ref bean="kdo.application" />
     -->
   </util:list>
 
