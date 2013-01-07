@@ -1,5 +1,6 @@
 package org.kuali.common.deploy;
 
+import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,14 @@ public class DefaultDeployService implements DeployService {
 		Assert.notNull(handler);
 		Assert.notNull(context);
 		try {
-			logger.info("Environment - " + context.getEnvironment());
+			Artifact war = context.getWar();
+			logger.info("---------------- Deploy Application ----------------");
+			logger.info("Group Id - {}", war.getGroupId());
+			logger.info("Artifact Id - {}", war.getArtifactId());
+			logger.info("Version - {}", war.getVersion());
+			logger.info("Classifier - {}", war.getClassifier());
+			logger.info("Packaging - {}", war.getPackaging());
+			logger.info("------------------------------------------------");
 			channel.open();
 			controller.stop();
 			handler.clean();
