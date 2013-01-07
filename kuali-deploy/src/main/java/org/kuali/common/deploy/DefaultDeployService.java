@@ -1,6 +1,5 @@
 package org.kuali.common.deploy;
 
-import org.kuali.common.util.Artifact;
 import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -23,16 +22,10 @@ public class DefaultDeployService implements DeployService {
 		Assert.notNull(handler);
 		Assert.notNull(context);
 		try {
-			Artifact war = context.getWar();
 			logger.info("---------------- Deploy Application ----------------");
-			logger.info("Secure Channel Username - {}", context.getUsername());
-			logger.info("Secure Channel Hostname - {}", context.getHostname());
+			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getHostname());
 			logger.info("Environment - {}", context.getEnvironment());
-			logger.info("Group Id - {}", war.getGroupId());
-			logger.info("Artifact Id - {}", war.getArtifactId());
-			logger.info("Version - {}", war.getVersion());
-			logger.info("Classifier - {}", war.getClassifier());
-			logger.info("Packaging - {}", war.getPackaging());
+			logger.info("Application - {}", RepositoryUtils.toString(context.getApplication()));
 			if (context.getJdbcDriver() != null) {
 				logger.info("Jdbc Driver - {}", RepositoryUtils.toString(context.getJdbcDriver()));
 			}
