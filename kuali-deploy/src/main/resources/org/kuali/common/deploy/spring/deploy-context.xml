@@ -79,6 +79,7 @@
     <property name="hostname" value="${kdo.channel.hostname}" />
     <property name="jdbcDriver" ref="kdoJdbcDriverArtifact" />
     <property name="application" ref="kdoApplicationArtifact" />
+    <property name="config" ref="kdo.config" />
   </bean>
 
   <util:list id="kdo.channel.privateKeyStrings" value-type="java.lang.String">
