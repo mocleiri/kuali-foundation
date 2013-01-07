@@ -116,14 +116,9 @@
   </bean>
 
   <bean id="deploy.workflowExecutable" class="org.kuali.common.util.execute.CopyLocationsToDirectoryExecutable">
-    <property name="locationListing" value="${project.workflow.locations}" />
-    <property name="directory" value="${project.workflow.pending}" />
+    <property name="locationListing" value="${project.workflow.locations:NONE}" />
+    <property name="directory" value="${project.workflow.pending:NONE}" />
     <property name="encoding" value="${kuali.encoding}" />
   </bean>
-
-  <util:list id="deploy.databaseExecutables" value-type="org.kuali.common.util.execute.Executable">
-    <ref bean="deploy.workflowExecutable"/>
-    <ref bean="deploy.databaseResetExecutable"/>
-  </util:list>
 
 </beans>
