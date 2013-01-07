@@ -36,6 +36,8 @@ public class RepositoryUtils {
 			sb.append(":");
 			sb.append(artifact.getClassifier());
 		}
+		sb.append(":");
+		sb.append(artifact.getPackaging());
 		return sb.toString();
 	}
 
