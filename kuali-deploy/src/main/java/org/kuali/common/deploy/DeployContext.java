@@ -6,7 +6,8 @@ public class DeployContext {
 
 	String username;
 	String hostname;
-	Artifact artifact;
+	Artifact war;
+	Artifact jdbcDriver;
 
 	public String getUsername() {
 		return username;
@@ -24,12 +25,20 @@ public class DeployContext {
 		this.hostname = hostname;
 	}
 
-	public Artifact getArtifact() {
-		return artifact;
+	public Artifact getWar() {
+		return war;
 	}
 
-	public void setArtifact(Artifact artifact) {
-		this.artifact = artifact;
+	public void setWar(Artifact war) {
+		this.war = war;
+	}
+
+	public Artifact getJdbcDriver() {
+		return jdbcDriver;
+	}
+
+	public void setJdbcDriver(Artifact jdbcDriver) {
+		this.jdbcDriver = jdbcDriver;
 	}
 
 }

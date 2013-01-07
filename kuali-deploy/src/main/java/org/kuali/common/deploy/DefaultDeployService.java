@@ -12,6 +12,7 @@ public class DefaultDeployService implements DeployService {
 	SecureChannel channel;
 	AppServerController controller;
 	FileSystemHandler handler;
+	DeployContext context;
 
 	@Override
 	public void deploy() {
@@ -54,6 +55,14 @@ public class DefaultDeployService implements DeployService {
 
 	public void setHandler(FileSystemHandler handler) {
 		this.handler = handler;
+	}
+
+	public DeployContext getContext() {
+		return context;
+	}
+
+	public void setContext(DeployContext context) {
+		this.context = context;
 	}
 
 }
