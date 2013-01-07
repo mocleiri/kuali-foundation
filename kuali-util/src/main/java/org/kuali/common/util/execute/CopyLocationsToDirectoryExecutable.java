@@ -6,6 +6,7 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,13 +14,17 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CopyLocationsToDirectoryExecutable.class);
 
+	boolean addSequenceToFilenames = true;
 	String locationListing;
 	File directory;
-	boolean addSequenceToFilenames = true;
 	String encoding;
 
 	@Override
 	public void execute() {
+		if (NullUtils.isNullOrNone(locationListing)) {
+			logger.info("Skipping execution.  Location listing [{}]", locationListing);
+			return;
+		}
 		Assert.notNull(locationListing);
 		Assert.notNull(directory);
 		logger.info("Copying [{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
