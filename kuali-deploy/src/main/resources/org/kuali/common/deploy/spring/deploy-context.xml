@@ -85,8 +85,8 @@
   </util:list>
 
   <bean id="kdo.secureChannel" class="org.kuali.common.util.secure.DefaultSecureChannel">
-    <property name="username" value="${kdo.channel.username}" />
-    <property name="hostname" value="${kdo.channel.hostname}" />
+    <property name="username" value="#{kdoContext.username}" />
+    <property name="hostname" value="#{kdoContext.hostname}" />
     <property name="strictHostKeyChecking" value="${kdo.channel.strictHostKeyChecking}" />
     <property name="useConfigFile" value="${kdo.channel.useConfigFile}" />
     <property name="includeDefaultPrivateKeyLocations" value="${kdo.channel.includeDefaultPrivateKeyLocations}" />
@@ -221,6 +221,7 @@
     <property name="channel" ref="kdo.secureChannel" />
     <property name="controller" ref="kdo.controller" />
     <property name="handler" ref="kdo.handler" />
+    <property name="context" ref="kdoContext" />
   </bean>
 
 </beans>
