@@ -40,7 +40,7 @@
   <bean id="deploy.executable" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
     <property name="propertiesFile" value="${kuali.group.home}/${project.artifactId}.properties" />
     <property name="property" value="${project.groupId.code}.db.reset" />
-    <property name="executable" ref="deploy.databaseResetExecutable" />
+    <property name="executable" ref="deploy.databaseExecutables" />
     <property name="encoding" value="${kuali.encoding}" />
   </bean>
 
