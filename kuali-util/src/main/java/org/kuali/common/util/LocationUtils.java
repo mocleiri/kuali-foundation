@@ -57,11 +57,23 @@ public class LocationUtils {
 	 * with <code>classpath:</code>
 	 */
 	public static final String getClasspathFilename(String location) {
-		if (!isClasspathLocation(location)) {
-			throw new IllegalArgumentException(location + " must start with " + CLASSPATH);
-		} else {
-			return StringUtils.substring(location, CLASSPATH.length());
+		return getClasspathFilenames(Arrays.asList(location)).get(0);
+	}
+
+	/**
+	 * Return the text that appears after <code>classpath:</code>. Throws <code>IllegalArgumentException</code> if any locations do not
+	 * start with <code>classpath:</code>
+	 */
+	public static final List<String> getClasspathFilenames(List<String> locations) {
+		List<String> classpathFilenames = new ArrayList<String>();
+		for (String location : locations) {
+			if (!isClasspathLocation(location)) {
+				throw new IllegalArgumentException(location + " must start with " + CLASSPATH);
+			} else {
+				classpathFilenames.add(StringUtils.substring(location, CLASSPATH.length()));
+			}
 		}
+		return classpathFilenames;
 	}
 
 	/**
