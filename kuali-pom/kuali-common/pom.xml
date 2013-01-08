@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -118,10 +118,10 @@
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
 
     <!-- Internal kuali library versions -->
-    <kuali-util.version>2.0.2</kuali-util.version>
-    <kuali-sql.version>2.0.0</kuali-sql.version>
+    <kuali-util.version>3.0.0</kuali-util.version>
+    <kuali-sql.version>2.0.1-SNAPSHOT</kuali-sql.version>
     <kuali-jdbc.version>1.0.7</kuali-jdbc.version>
-    <kuali-deploy.version>2.0.15</kuali-deploy.version>
+    <kuali-deploy.version>2.0.16-SNAPSHOT</kuali-deploy.version>
   </properties>
   <profiles>
     <profile>
@@ -204,6 +204,69 @@
                 <groupId>org.kuali.common</groupId>
                 <artifactId>kuali-deploy</artifactId>
                 <version>${kuali-deploy.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>kdo</id>
+      <properties>
+        <mysql.groupId>mysql</mysql.groupId>
+        <mysql.artifactId>mysql-connector-java</mysql.artifactId>
+        <mysql.version>5.1.20</mysql.version>
+        <oracle.groupId>com.oracle</oracle.groupId>
+        <oracle.artifactId>ojdbc6_g</oracle.artifactId>
+        <oracle.version>11.2.0.2</oracle.version>
+        <deploy.env>NONE</deploy.env>
+        <project.classifier>NONE</project.classifier>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>spring-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>load</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>load</goal>
+                </goals>
+                <configuration>
+                  <location>classpath:org/kuali/common/deploy/spring/deploy-context.xml</location>
+                  <propertiesBeanName>kdo.mavenProperties</propertiesBeanName>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>kuali-deploy</artifactId>
+                <version>${kuali-deploy.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>kuali-util</artifactId>
+                <version>${kuali-util.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>${mysql.groupId}</groupId>
+                <artifactId>${mysql.artifactId}</artifactId>
+                <version>${mysql.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>${oracle.groupId}</groupId>
+                <artifactId>${oracle.artifactId}</artifactId>
+                <version>${oracle.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${project.artifactId}</artifactId>
+                <version>${project.version}</version>
+                <classifier>${project.classifier}</classifier>
+                <type>war</type>
               </dependency>
             </dependencies>
           </plugin>
