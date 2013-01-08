@@ -50,6 +50,26 @@ public class LocationUtils {
 	private static final String SLASH_DOT_SLASH = "/./";
 	private static final String DOT_DOT_SLASH = "../";
 	private static final String SLASH_DOT_DOT = "/..";
+	private static final String CLASSPATH = "classpath:";
+
+	/**
+	 * Return the text that appears after <code>classpath:</code>. Throws <code>IllegalArgumentException</code> if location does not start
+	 * with <code>classpath:</code>
+	 */
+	public static final String getClasspathFilename(String location) {
+		if (!isClasspathLocation(location)) {
+			throw new IllegalArgumentException(location + " must start with " + CLASSPATH);
+		} else {
+			return StringUtils.substring(location, CLASSPATH.length());
+		}
+	}
+
+	/**
+	 * Return <code>true</code> if location starts with <code>classpath:</code>
+	 */
+	public static final boolean isClasspathLocation(String location) {
+		return StringUtils.startsWith(location, CLASSPATH);
+	}
 
 	public static final List<String> getNormalizedPathFragments(String absolutePath, boolean directory) {
 		String normalized = getNormalizedAbsolutePath(absolutePath);
