@@ -32,18 +32,22 @@ import org.springframework.util.Assert;
 
 public class CollectionUtils {
 
-	public static final List<String> getSequencedStrings(List<String> strings) {
+	public static final List<String> getSequencedStrings(List<String> strings, int initialSequenceNumber) {
 		List<String> sequencedStrings = new ArrayList<String>();
 		int size = strings.size();
 		int length = new Integer(size).toString().length();
 		String prefix = StringUtils.repeat("0", length);
 		for (int i = 0; i < size; i++) {
 			String string = strings.get(i);
-			String sequence = StringUtils.right(prefix + i, length);
+			String sequence = StringUtils.right(prefix + (initialSequenceNumber++), length);
 			String sequencedString = sequence + "-" + string;
 			sequencedStrings.add(sequencedString);
 		}
 		return sequencedStrings;
+	}
+
+	public static final List<String> getSequencedStrings(List<String> strings) {
+		return getSequencedStrings(strings, 0);
 	}
 
 	public static final List<String> getUniqueStrings(List<String> strings) {

@@ -15,6 +15,7 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(CopyLocationsToDirectoryExecutable.class);
 
 	boolean addSequenceToFilenames = true;
+	int initialSequenceNumber = 1;
 	String locationListing;
 	File directory;
 	String encoding;
@@ -32,7 +33,7 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 		List<String> locations = LocationUtils.getLocations(locationListing, encoding);
 		List<String> filenames = LocationUtils.getFilenames(locations);
 		if (addSequenceToFilenames) {
-			filenames = CollectionUtils.getSequencedStrings(filenames);
+			filenames = CollectionUtils.getSequencedStrings(filenames, initialSequenceNumber);
 		}
 		List<File> files = LocationUtils.getFiles(directory, filenames);
 		copyLocationsToFiles(locations, files, encoding);
@@ -78,5 +79,13 @@ public class CopyLocationsToDirectoryExecutable implements Executable {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public int getInitialSequenceNumber() {
+		return initialSequenceNumber;
+	}
+
+	public void setInitialSequenceNumber(int initialSequenceNumber) {
+		this.initialSequenceNumber = initialSequenceNumber;
 	}
 }
