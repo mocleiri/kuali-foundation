@@ -16,5 +16,5 @@
 package org.kuali.common.util.execute;
 
 public enum ExecutionMode {
-	TRUE, FALSE, RUNONCE, NEVER, INPROGRESS, COMPLETED, FAILED, NULL;
+	TRUE, FALSE, RUNONCE, ALWAYS, NEVER, INPROGRESS, COMPLETED, FAILED, NULL;
 }
