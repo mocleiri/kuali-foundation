@@ -109,6 +109,7 @@
     <value>${tomcat.lib}/orai18n*.jar</value>
     <value>${tomcat.setenv}</value>
     <value>${appdynamics.controller}</value>
+    <value>${tomcat.home.kuali}</value>
   </util:list>
 
   <util:list id="kdo.directoriesToDelete" value-type="java.lang.String">
