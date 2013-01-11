@@ -27,4 +27,24 @@
 
   <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
+  <bean id="deploy.workflowExecutable" class="org.kuali.common.util.execute.CopyLocationsToDirectoryExecutable">
+    <property name="locationListing" value="${project.workflow.locations:NONE}" />
+    <property name="directory" value="${project.workflow.pending:NONE}" />
+    <property name="encoding" value="${kuali.encoding}" />
+  </bean>
+
+  <bean id="deploy.workflowRunOnce" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
+    <property name="propertiesFile" value="${kuali.group.home}/${project.artifactId}.properties" />
+    <property name="property" value="${project.groupId.code}.workflow.unpack" />
+    <property name="executable" ref="deploy.workflowExecutable" />
+    <property name="encoding" value="${kuali.encoding}" />
+  </bean>
+
+  <bean id="deploy.databaseRunOnce" class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
+    <property name="propertiesFile" value="${kuali.group.home}/${project.artifactId}.properties" />
+    <property name="property" value="${project.groupId.code}.db.reset" />
+    <property name="executable" ref="deploy.databaseResetExecutable" />
+    <property name="encoding" value="${kuali.encoding}" />
+  </bean>
+
 </beans>
