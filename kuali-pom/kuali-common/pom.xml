@@ -121,7 +121,7 @@
     <kuali-util.version>3.0.3</kuali-util.version>
     <kuali-sql.version>2.0.1</kuali-sql.version>
     <kuali-jdbc.version>1.0.7</kuali-jdbc.version>
-    <kuali-deploy.version>2.0.18</kuali-deploy.version>
+    <kuali-deploy.version>2.0.19</kuali-deploy.version>
   </properties>
   <profiles>
     <profile>
