@@ -32,13 +32,16 @@ import org.springframework.util.Assert;
 
 public class CollectionUtils {
 
+	/**
+	 * Prefix the strings passed in with left padded zero's plus their position in the list. The number of zero's used in the padding equals
+	 * the number of digits in the size of the list.
+	 */
 	public static final List<String> getSequencedStrings(List<String> strings, int initialSequenceNumber) {
 		List<String> sequencedStrings = new ArrayList<String>();
 		int size = strings.size();
 		int length = new Integer(size).toString().length();
 		String prefix = StringUtils.repeat("0", length);
-		for (int i = 0; i < size; i++) {
-			String string = strings.get(i);
+		for (String string : strings) {
 			String sequence = StringUtils.right(prefix + (initialSequenceNumber++), length);
 			String sequencedString = sequence + "-" + string;
 			sequencedStrings.add(sequencedString);
@@ -46,10 +49,17 @@ public class CollectionUtils {
 		return sequencedStrings;
 	}
 
+	/**
+	 * Prefix the strings passed in with left padded zero's plus their position in the list. The number of zero's used in the padding equals
+	 * the number of digits in the size of the list.
+	 */
 	public static final List<String> getSequencedStrings(List<String> strings) {
 		return getSequencedStrings(strings, 0);
 	}
 
+	/**
+	 * Return a new <code>List</code> containing the unique set of strings from <code>strings</code>
+	 */
 	public static final List<String> getUniqueStrings(List<String> strings) {
 		List<String> unique = new ArrayList<String>();
 		for (String string : strings) {
@@ -88,7 +98,7 @@ public class CollectionUtils {
 	 * Return a new list containing the unique set of strings contained in both lists
 	 */
 	public static final List<String> combineStringsUniquely(List<String> list1, List<String> list2) {
-		List<String> newList = new ArrayList<String>(list1);
+		List<String> newList = getUniqueStrings(list1);
 		for (String element : list2) {
 			if (!newList.contains(element)) {
 				newList.add(element);
