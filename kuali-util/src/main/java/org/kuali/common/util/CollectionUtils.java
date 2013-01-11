@@ -33,8 +33,8 @@ import org.springframework.util.Assert;
 public class CollectionUtils {
 
 	/**
-	 * Prefix the strings passed in with left padded zero's plus their position in the list. The number of zero's used in the padding equals
-	 * the number of digits in the size of the list.
+	 * Prefix the strings passed in with their position in the list (left padded with zero's). The number of zero's used in the padding is
+	 * the number of digits in the size of the list. A list with 100 elements will return strings prefixed with 000, 001, etc.
 	 */
 	public static final List<String> getSequencedStrings(List<String> strings, int initialSequenceNumber) {
 		List<String> sequencedStrings = new ArrayList<String>();
@@ -50,8 +50,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Prefix the strings passed in with left padded zero's plus their position in the list. The number of zero's used in the padding equals
-	 * the number of digits in the size of the list.
+	 * Prefix the strings passed in with their position in the list (left padded with zero's). The number of zero's used in the padding is
+	 * the number of digits in the size of the list. A list with 100 elements will return strings prefixed with 000, 001, etc.
 	 */
 	public static final List<String> getSequencedStrings(List<String> strings) {
 		return getSequencedStrings(strings, 0);
