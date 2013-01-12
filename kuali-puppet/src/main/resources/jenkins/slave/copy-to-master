@@ -1,0 +1,36 @@
+#!/bin/sh
+
+echo $(date)
+set -xe
+
+if [ -z "${JOB_NAME}" ] ; then
+  echo "Please set JOB_NAME"
+  exit 1
+fi
+
+if [ -z "${JENKINS_MASTER}" ] ; then
+  echo "Please set JENKINS_MASTER"
+  exit 1
+fi
+
+LCL_WS=/var/lib/jenkins/workspace/$JOB_NAME
+RMT_WS=/var/lib/jenkins/jobs/$JOB_NAME/workspace
+
+# The trailing slash is significant here
+SRC=$LCL_WS/
+DST=jenkins@$JENKINS_MASTER:$RMT_WS
+
+# Skip compressing files we know are compressed already
+SKIPCOMPRESS=jar,war,zip,gz,bz2,png,jpg,jpeg,gif,ico
+
+chown -R jenkins:ubuntu $LCL_WS
+
+#
+# Make the rsync call
+# -a preserves permissions, last modified, group, owner, and recurses into sub-directories
+# --delete removes files from DST that are not in SRC
+#
+rsync -az --stats --skip-compress=$SKIPCOMPRESS --delete $SRC $DST
+
+set +x
+echo $(date)
