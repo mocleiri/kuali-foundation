@@ -1,4 +1,4 @@
-ile {'/tmp/test1':
+file {'/tmp/test1':
   ensure  => present,
   content => "Hi.",
 }
