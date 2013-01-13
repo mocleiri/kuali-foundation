@@ -1,14 +1,19 @@
+# Make sure the openssh-server package is present before sync'ing the sshd_config file
 package { 'openssh-server':
   ensure => present,
   before => File['/etc/ssh/sshd_config'],
 }
 
+# Sync the sshd_config file based on our template and make sure it has the right permissions
 file { '/etc/ssh/sshd_config':
   ensure => file,
   mode   => 600,
   source => '/root/learning-manifests/resources/sshd_config',
 }
 
+# 1 - Make sure the sshd service is running
+# 2 - Make sure it starts automatically at boot time 
+# 3 - Restart it anytime sshd_config changes
 service { 'sshd':
   ensure     => running,
   enable     => true,
