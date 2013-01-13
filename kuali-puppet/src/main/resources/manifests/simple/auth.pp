@@ -1,3 +1,15 @@
+file { '/etc/ssh/sshd_config':
+  ensure => file,
+  mode   => 600,
+  source => '/root/learning-manifests/resources/sshd_config',
+}
+
+service { 'sshd':
+  ensure     => running,
+  enable     => true,
+  subscribe  => File['/etc/ssh/sshd_config'],
+}
+    
 file {
   "/root/.ssh/":
   path    => "/root/.ssh/",
