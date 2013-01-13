@@ -7,7 +7,7 @@ package { 'openssh-server':
 
 # Make sure the sshd_config file exists
 # Make sure it is a file (not a directory)
-# Make sure it as the right permissions
+# Make sure it has the right permissions
 # Sync it with our sshd_config template file
 file { '/etc/ssh/sshd_config':
   ensure => file,
