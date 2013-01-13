@@ -5,9 +5,9 @@ host {'self':
   ip           => $ipaddress,
 }
     
-file {'motd':
+file {'/tmp/info.txt':
   ensure  => file,
-  path    => '/etc/motd',
+  path    => '/tmp/info.txt',
   mode    => 0644,
   content => "Welcome to ${hostname},\na ${operatingsystem} island in the sea of ${domain}.\n",
 }
