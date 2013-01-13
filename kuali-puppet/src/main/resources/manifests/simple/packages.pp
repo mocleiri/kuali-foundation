@@ -1,11 +1,11 @@
 package { 
+  "curl": 
+    ensure => present;
   "man": 
     ensure => present;
   "zip": 
     ensure => present;
   "wget": 
-    ensure => present;
-  "curl": 
     ensure => present;
   "unzip": 
     ensure => present;
