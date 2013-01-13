@@ -9,5 +9,5 @@ file {'/tmp/info.txt':
   ensure  => file,
   path    => '/tmp/info.txt',
   mode    => 0644,
-  content => "AMI: $ec2_ami_id\nType: $ec2_instance_type\nDNS : $ec2_public_hostname",
+  content => "DNS:  $ec2_public_hostname\nAMI:  $ec2_ami_id\nType: $ec2_instance_type",
 }
