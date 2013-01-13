@@ -1,5 +1,5 @@
 # Make sure the openssh-server package is present 
-# Always check this before sync'ing the sshd_config file
+# Make sure of this BEFORE sync'ing the sshd_config file
 package { 'openssh-server':
   ensure => present,
   before => File['/etc/ssh/sshd_config'],
