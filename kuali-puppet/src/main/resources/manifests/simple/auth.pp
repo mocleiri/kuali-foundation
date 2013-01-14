@@ -1,27 +1,27 @@
 # Make sure the openssh-server package is present 
 # Make sure of this BEFORE sync'ing the sshd_config file
-package { 'openssh-server':
+package { "openssh-server":
   ensure => present,
-  before => File['/etc/ssh/sshd_config'],
+  before => File["/etc/ssh/sshd_config"],
 }
 
 # Make sure the sshd_config file exists
 # Make sure it is a file (not a directory)
 # Make sure it has the right permissions
 # Replace the contents of /etc/ssh/sshd_config with the contents of our template file
-file { '/etc/ssh/sshd_config':
+file { "/etc/ssh/sshd_config":
   ensure => file,
   mode   => 600,
-  source => '/root/learning-manifests/resources/sshd_config',
+  source => "/root/learning-manifests/resources/sshd_config",
 }
 
 # Make sure the sshd service is running
 # Make sure it starts automatically at boot time 
 # Restart it anytime /etc/ssh/sshd_config changes
-service { 'sshd':
+service { "sshd":
   ensure     => running,
   enable     => true,
-  subscribe  => File['/etc/ssh/sshd_config'],
+  subscribe  => File["/etc/ssh/sshd_config"],
 }
     
 # Create the file /root/.ssh/authorized_keys (if it does not already exist)
