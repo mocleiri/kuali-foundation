@@ -24,20 +24,6 @@ service { 'sshd':
   subscribe  => File['/etc/ssh/sshd_config'],
 }
     
-file {
-  "/root/.ssh/":
-  path    => "/root/.ssh/",
-  ensure  => directory,
-  mode    => 700,
-  owner   => root,
-  group   => root;
-  "/root/.ssh/authorized_keys":
-  path    => "/root/.ssh/authorized_keys",
-  mode    => 600,
-  owner   => root,
-  group   => root;
-}
-
 ssh_authorized_key {
   "ks-key":
     ensure  => present,
