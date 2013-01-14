@@ -52,12 +52,12 @@ public class LocationUtils {
 	private static final String SLASH_DOT_DOT = "/..";
 	private static final String CLASSPATH = "classpath:";
 
-	public static final void copyLocationsToFiles(List<String> locations, List<File> files, String encoding) {
+	public static final void copyLocationsToFiles(List<String> locations, List<File> files) {
 		Assert.isTrue(locations.size() == files.size());
 		for (int i = 0; i < locations.size(); i++) {
 			String location = locations.get(i);
 			File destination = files.get(i);
-			LocationUtils.copyLocationToFile(location, destination, encoding);
+			LocationUtils.copyLocationToFile(location, destination);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class LocationUtils {
 		return getLocations(locationListings, null);
 	}
 
-	public static final void copyLocationToFile(String location, File destination, String encoding) {
+	public static final void copyLocationToFile(String location, File destination) {
 		Assert.notNull(location);
 		Assert.notNull(destination);
 		InputStream in = null;

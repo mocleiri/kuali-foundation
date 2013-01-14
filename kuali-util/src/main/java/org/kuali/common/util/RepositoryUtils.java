@@ -16,11 +16,8 @@
 package org.kuali.common.util;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 public class RepositoryUtils {
@@ -41,15 +38,7 @@ public class RepositoryUtils {
 
 	public static final void copyArtifactToFile(String repository, Artifact artifact, File file) {
 		String location = repository + getRepositoryPath(artifact);
-		InputStream in = null;
-		try {
-			in = LocationUtils.getInputStream(location);
-			FileUtils.copyInputStreamToFile(in, file);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
+		LocationUtils.copyLocationToFile(location, file);
 	}
 
 	public static final String toString(Artifact artifact) {

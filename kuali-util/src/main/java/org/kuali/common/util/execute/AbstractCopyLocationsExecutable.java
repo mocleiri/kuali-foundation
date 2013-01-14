@@ -15,7 +15,6 @@ public abstract class AbstractCopyLocationsExecutable implements Executable {
 
 	String locationListing;
 	File directory;
-	String encoding;
 
 	protected abstract List<File> getFiles(List<String> locations);
 
@@ -29,9 +28,9 @@ public abstract class AbstractCopyLocationsExecutable implements Executable {
 		Assert.notNull(directory);
 		Assert.isTrue(LocationUtils.exists(locationListing));
 		logger.info("Copying [{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
-		List<String> locations = LocationUtils.getLocations(locationListing, encoding);
+		List<String> locations = LocationUtils.getLocations(locationListing);
 		List<File> files = getFiles(locations);
-		LocationUtils.copyLocationsToFiles(locations, files, encoding);
+		LocationUtils.copyLocationsToFiles(locations, files);
 		logger.info("Copied {} files", locations.size());
 	}
 
@@ -49,13 +48,5 @@ public abstract class AbstractCopyLocationsExecutable implements Executable {
 
 	public void setDirectory(File directory) {
 		this.directory = directory;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
 	}
 }
