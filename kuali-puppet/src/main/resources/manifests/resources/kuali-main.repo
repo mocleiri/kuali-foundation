@@ -1,0 +1,5 @@
+[kuali-main]
+name=kuali-main
+baseurl=file:///root/rpms
+enabled=1
+gpgcheck=0
