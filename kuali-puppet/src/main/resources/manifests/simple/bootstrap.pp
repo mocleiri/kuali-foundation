@@ -10,6 +10,6 @@ $url = "${repository}/${repopath}"
 
 
 exec { "fetch ${filename}":
-  path => ['/bin', '/usr/bin', 'sbin', '/usr/sbin'],
+  path => ["/bin", "/usr/bin", "sbin", "/usr/sbin"],
   command => "curl -L -o ${filename} ${url}",
 }
