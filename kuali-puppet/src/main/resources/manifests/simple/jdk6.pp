@@ -5,13 +5,13 @@ $jdk7version = "1.7.0_11"
 $versionsuffix = "fcs"
 
 $version = "${jdk6version}-${versionsuffix}"
-$removedir = "${installdir}/${jdkpackage}${jdk7version}"
+$jdk7dir = "${installdir}/${jdkpackage}${jdk7version}"
 
 package { $jdkpackage:
   ensure => $version,
 }
 
-file { $removedir:
+file { $jdk7dir:
   ensure  => absent,
   force   => true,
   require => Package[$jdkpackage],
