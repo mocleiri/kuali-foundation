@@ -17,7 +17,7 @@ file { '/etc/ssh/sshd_config':
 
 # Make sure the sshd service is running
 # Make sure it starts automatically at boot time 
-# Restart it anytime sshd_config changes
+# Restart it anytime /etc/ssh/sshd_config changes
 service { 'sshd':
   ensure     => running,
   enable     => true,
