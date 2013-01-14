@@ -1,7 +1,15 @@
-include s3file::curl
- 
-s3file { "/tmp/whatever.pom":
-  s3_domain = "maven.kuali.org",
-  source => "external/com/oracle/ojdbc14/10.2.0.3.0/ojdbc14-10.2.0.3.0.pom",
-  ensure => "present",
+$groupid = "com/oracle"
+$artifactid = "ojdbc14"
+$version = "10.2.0.3.0"
+$packaging = "pom"
+$repo = "https://maven.kuali.org/external"
+$repopath = "${groupid}/${artifactid}/${version}/${artifactid}-${version}";
+$userhome = "/root"
+$filename = "${userhome}/.m2/repository/${repopath}"
+$url = "${repository}/${repopath}"
+
+
+exec { "fetch ${filename}":
+  path => ['/bin', '/usr/bin', 'sbin', '/usr/sbin'],
+  command => "curl -L -o ${filename} ${url}",
 }
