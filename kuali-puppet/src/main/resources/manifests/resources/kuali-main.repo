@@ -3,3 +3,5 @@ name=kuali-main
 baseurl=file:///root/rpms
 enabled=1
 gpgcheck=0
+retries=5
+timeout=10
