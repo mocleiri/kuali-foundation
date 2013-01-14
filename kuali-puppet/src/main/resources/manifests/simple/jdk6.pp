@@ -8,9 +8,10 @@ $version = "${jdk6version}-${versionsuffix}"
 $removedir = "${installdir}/${jdkpackage}-${jdk7version}"
 
 package { $jdkpackage:
-  ensure => $version;
+  ensure => $version,
 }
 
 file { $removedir:
-  ensure => absent;
+  ensure => absent,
+  after => Package[$jdkpackage],
 }
