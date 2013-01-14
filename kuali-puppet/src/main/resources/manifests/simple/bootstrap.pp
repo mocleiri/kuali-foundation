@@ -10,16 +10,16 @@ $localrepo = "${userhome}/.m2/repository"
 $localdir = "${localrepo}/${repopath}"
 $localfile = "${localdir}/${filename}"
 $url = "${repo}/${repopath}/${filename}"
+$paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
 
-file { $localdir:
-  ensure  => directory,
-  recurse => true,
-  force   => true,
+exec { "create-bootstrap-dir":
+  path    => $paths
+  command => "mkdir -p ${localdir}",
 }
 
 exec { "fetch ${filename}":
-  path => ["/bin", "/usr/bin", "sbin", "/usr/sbin"],
-  command => "curl -L -o ${filename} ${url}",
-  require => File[$localdir],
+  path    => $paths
+  command => "curl -L -o ${localfile} ${url}",
+  require => Exec["create-bootstrap-dir"],
 }
