@@ -1,4 +1,9 @@
-$repo = "http://maven.kuali.org/release"
+# http://maven.kuali.org.s3.amazonaws.com/release/org/kuali/rice/rice-core-api/2.2.0/rice-core-api-2.2.0.jar
+
+$s3 = "s3.amazonaws.com"
+$bucket = "maven.kuali.org"
+$prefix = "release"
+$repo = "https://${bucket}.${s3}/${prefix}"
 $groupid = "org/kuali/rice"
 $artifactid = "rice-core-api"
 $version = "2.2.0"
