@@ -24,8 +24,8 @@ service { 'sshd':
   subscribe  => File['/etc/ssh/sshd_config'],
 }
     
-# Create the file /root/.ssh/authorized_keys
-# Uses the permissions you'd expect
+# Create the file /root/.ssh/authorized_keys (if it does not already exist)
+# The default permissions are what you'd expect
 # 700 on the .ssh directory
 # 400 on authorized_keys
 # Create one entry in authorized_keys with ks-key in it
