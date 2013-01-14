@@ -11,6 +11,6 @@ package { "jdk":
   ensure => $version;
 }
 
-file { $removedir
+file { $removedir:
   ensure => absent;
 }
