@@ -1,3 +1,3 @@
 package {'jdk':
-  ensure => '1.6.0_38',
+  ensure => '1.6.0_38-fcs',
 }
