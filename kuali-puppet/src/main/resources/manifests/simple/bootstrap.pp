@@ -3,7 +3,7 @@
 $s3 = "s3.amazonaws.com"
 $bucket = "maven.kuali.org"
 $prefix = "release"
-$repo = "https://${bucket}.${s3}/${prefix}"
+$repo = "https://${s3}/${bucket}/${prefix}"
 $groupid = "org/kuali/rice"
 $artifactid = "rice-core-api"
 $version = "2.2.0"
