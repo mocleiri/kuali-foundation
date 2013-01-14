@@ -24,11 +24,11 @@ service { 'sshd':
   subscribe  => File['/etc/ssh/sshd_config'],
 }
     
-# Creates the file /root/.ssh/authorized_keys
+# Create the file /root/.ssh/authorized_keys
 # Uses the permissions you'd expect
-#  700 on the .ssh directory
-#  400 on authorized_keys
-# Creates one entry in authorized_keys with ks-key in it
+# 700 on the .ssh directory
+# 400 on authorized_keys
+# Create one entry in authorized_keys with ks-key in it
 ssh_authorized_key {
   "ks-key":
     ensure  => present,
