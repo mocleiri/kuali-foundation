@@ -8,7 +8,7 @@ package { 'openssh-server':
 # Make sure the sshd_config file exists
 # Make sure it is a file (not a directory)
 # Make sure it has the right permissions
-# Sync it with our sshd_config template file
+# Replace the contents of /etc/ssh/sshd_config with the contents of our template file
 file { '/etc/ssh/sshd_config':
   ensure => file,
   mode   => 600,
