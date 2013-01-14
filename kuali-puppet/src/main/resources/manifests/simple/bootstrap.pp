@@ -17,10 +17,12 @@ $localfile = "${localdir}/${filename}"
 $url = "${repo}/${repopath}/${filename}"
 $paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
+notify {$url:}
+
 exec { "create-bootstrap-dir":
   path    => $paths,
   command => "mkdir -p ${localdir}",
-  unless  => "[ -e ${localdir} ]"
+  creates => $localdir
 }
 
 exec { "fetch ${filename}":
