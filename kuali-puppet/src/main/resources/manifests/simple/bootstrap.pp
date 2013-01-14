@@ -1,9 +1,9 @@
-$repo = "http://maven.kuali.org/external"
-$groupid = "com/oracle"
-$artifactid = "ojdbc14"
-$version = "10.2.0.3.0"
-$packaging = "pom"
-$repopath = "${groupid}/${artifactid}/${version}/"
+$repo = "http://maven.kuali.org/release"
+$groupid = "org/kuali/rice"
+$artifactid = "rice-core-api"
+$version = "2.2.0"
+$packaging = "jar"
+$repopath = "${groupid}/${artifactid}/${version}"
 $filename = "${artifactid}-${version}.${packaging}"
 $userhome = "/root"
 $localrepo = "${userhome}/.m2/repository"
@@ -12,14 +12,15 @@ $localfile = "${localdir}/${filename}"
 $url = "${repo}/${repopath}/${filename}"
 $paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
-
 exec { "create-bootstrap-dir":
-  path    => $paths
+  path    => $paths,
   command => "mkdir -p ${localdir}",
+  unless  => "[ -e ${localdir} ]"
 }
 
 exec { "fetch ${filename}":
-  path    => $paths
-  command => "curl -L -o ${localfile} ${url}",
+  path    => $paths,
+  command => "curl --location -output ${localfile} ${url}",
   require => Exec["create-bootstrap-dir"],
+  unless  => "[ -e ${filename} ] && curl --head ${url} | grep ETag | grep `md5sum ${filename} | cut -c1-32`"
 }
