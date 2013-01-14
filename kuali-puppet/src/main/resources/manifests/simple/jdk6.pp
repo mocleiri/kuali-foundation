@@ -7,7 +7,7 @@ $versionsuffix = "fcs"
 $version = "${jdk6version}-${versionsuffix}"
 $removedir = "${installdir}/${jdkpackage}-${jdk7version}"
 
-package { "jdk":
+package { $jdkpackage:
   ensure => $version;
 }
 
