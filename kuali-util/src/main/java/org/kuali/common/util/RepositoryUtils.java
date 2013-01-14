@@ -16,14 +16,41 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 public class RepositoryUtils {
 
 	private static final String FS = File.separator;
 	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
+
+	public static final void copyArtifact(String repository, Artifact artifact) {
+		File file = getFile(artifact);
+		copyArtifactToFile(repository, artifact, file);
+	}
+
+	public static final void copyArtifactToDirectory(String repository, Artifact artifact, File directory) {
+		String filename = getFilename(artifact);
+		File file = new File(directory, filename);
+		copyArtifactToFile(repository, artifact, file);
+	}
+
+	public static final void copyArtifactToFile(String repository, Artifact artifact, File file) {
+		String location = repository + getRepositoryPath(artifact);
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			FileUtils.copyInputStreamToFile(in, file);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
 
 	public static final String toString(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
