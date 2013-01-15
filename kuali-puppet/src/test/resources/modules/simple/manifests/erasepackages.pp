@@ -1,31 +1,31 @@
 package { 
-  "man": 
+  'man': 
     ensure => absent;
-  "zip": 
+  'zip': 
     ensure => absent;
-  "unzip": 
+  'unzip': 
     ensure => absent;
-  "wget": 
+  'wget': 
     ensure => absent;
-  "subversion": 
+  'subversion': 
     ensure => absent;
-  "fog":
+  'fog':
     ensure => absent,
     before => Package['ruby-devel']; 
-  "ruby-devel": 
+  'ruby-devel': 
     ensure => absent,
     before => Package['rubygems']; 
   'ruby-nokogiri': 
     ensure => absent,
     before => Package['rubygems']; 
-  "rubygems": 
+  'rubygems': 
     ensure => absent;
 #    
 # rsync and openssh-clients are both required by git
 #
-#  "rsync": 
+#  'rsync': 
 #    ensure => absent;
-#  "openssh-clients": 
+#  'openssh-clients': 
 #    ensure => absent;
 #
 # The Amazon git rpm's don't play well with puppet
@@ -34,10 +34,10 @@ package {
 # it.  But you can't uninstall perl-Git first, because it
 # depends on git.  Seems like a catch-22.
 #
-#  "git": 
+#  'git': 
 #    ensure => absent,
-#    before => Package["rsync","openssh-clients"];
-#  "perl-Git": 
+#    before => Package['rsync','openssh-clients'];
+#  'perl-Git': 
 #    ensure => absent,
-#    before => Package["git"];
+#    before => Package['git'];
 }
