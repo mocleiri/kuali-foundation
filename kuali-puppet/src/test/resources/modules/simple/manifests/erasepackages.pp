@@ -36,7 +36,7 @@ package { 'ruby-nokogiri':
 
 package { 'rubygems': 
   ensure => absent,
-  require => Package['fog', 'rubygem-nokogiri', 'ruby-devel'], 
+  require => Package['fog', 'ruby-nokogiri', 'ruby-devel'], 
 }
 
 #    
