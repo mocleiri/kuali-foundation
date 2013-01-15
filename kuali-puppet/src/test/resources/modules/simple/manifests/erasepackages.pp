@@ -18,7 +18,4 @@ package {
   "git": 
     ensure => absent,
     before => Package["rsync","openssh-clients"];
-  "perl-Git": 
-    ensure => absent,
-    before => Package["git"];
 }
