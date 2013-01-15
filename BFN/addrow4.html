@@ -1,0 +1,1921 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Kuali</title>
+<LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+<meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+<link href="../css/kuali.css" rel=stylesheet type="text/css">
+<link href="../css/bfn.css" rel=stylesheet type="text/css">
+<script language=javascript src="../scripts/my_bm_inc.js"></script>
+<script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+<script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+
+// Unload
+function setConfirmUnload(on) {    
+	window.onbeforeunload = (on) ? unloadMessage : null;	
+}
+
+function unloadMessage() {
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	return "You have changed data on at least one add row without adding the record. If you navigate away from this page without first adding your data, the information will be lost.";
+}
+
+// count all changed fields
+function count_allchanged()
+{
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//setConfirmUnload(true);
+	}
+	else
+	{
+		//setConfirmUnload(false);
+	}
+}
+
+// save button
+function savebutton()
+{
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//alert("You have changed data on at least one add row without adding the record. If you navigate away from this page without first adding your data, the information will be lost.");
+		//setConfirmUnload(true);
+	}
+	else
+	{
+		//alert("This would save changes were this not a lowly mock.");
+		//setConfirmUnload(false);
+	}
+}
+
+// count changed fields: changed_participanttypes
+function count_participanttypes()
+{
+	var x=0;
+	$(".changed_participanttypes").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//$("#changedfields_participanttypes").html("Unsaved: " + x);
+		$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
+		$("#changedfields_participanttypes2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		//$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		//$("#changedfields_participanttypes2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		$("#changedfields_participanttypes").show();
+		$("#changedfields_participanttypes2").show();
+	}
+	else
+	{
+		$("#changedfields_participanttypes").html("");
+		$("#changedfields_participanttypes").hide();
+		$("#changedfields_participanttypes2").html("");
+		$("#changedfields_participanttypes2").hide();
+	}
+}
+
+// count changed fields: changed_statusdates
+function count_organizations()
+{
+	var x=0;
+	$(".changed_organizations").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//$("#changed_organizations").html("Unsaved: " + x);
+		//$("#changed_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
+		//$("#changed_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		$("#changedfields_organizations").html("<img src='../images/warning16blue.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /> ");
+		$("#changedfields_organizations2").html("<img src='../images/warning16blue.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /> ");
+		$("#changedfields_organizations").show();
+		$("#changedfields_organizations2").show();
+		$("#changedfields_organizations3").slideDown(300);
+		$("#resetOrg").slideDown(300);
+		
+	}
+	else
+	{
+		$("#changedfields_organizations").html("");
+		$("#changedfields_organizations2").hide();
+		$("#changedfields_organizations").html("");
+		$("#changedfields_organizations2").hide();
+		$("#changedfields_organizations3").slideUp(300);
+		$("#resetOrg").slideUp(300);
+	}
+}
+
+
+//-->
+</script>
+
+<!-- jQuery -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" language="javascript"></script>
+<script type="text/javascript" language="javascript">
+	$(document).ready(function() {
+		
+		/*function setConfirmUnload(on) {    
+			window.onbeforeunload = (on) ? unloadMessage : null;	
+		}
+		
+		function unloadMessage() {
+			return 'You have entered new data on this page. If you navigate away from this page without first saving your data, the changes will be lost.';
+		}
+		
+		
+		$(':input',document.kualiform).bind("change", function() { 
+				setConfirmUnload(true);
+			}
+		);*/
+
+		
+	});
+</script>
+
+</head>
+<body style="position:relative;">
+<div id="grayout" style="position:absolute; top:0px; left:0px; width:100%; height:100%; background-image:url('images/black20.png'); z-index:0; display:none;"> </div>
+<form name="example" id="kualiform"  method="post" action="">
+<div class="headerarea-kra" id="headerarea">
+  <h1>IRB - Protocol <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  <div class="headerbox">
+    <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
+      <tr>
+        <th scope=row><div align=right>Document Id:</div></th>
+        <td>291607</td>
+        <th scope=row><div align=right>Status:</div></th>
+        <td>new</td>
+      </tr>
+      <tr>
+        <th scope=row><div align=right>Initiator:</div></th>
+        <td>&lt;user name&gt;</td>
+        <th scope=row><div align=right>Last Updated:</div></th>
+        <td>10:06 AM 03/30/2005</td>
+      </tr>
+      <tr>
+          <th class="bord-l" scope=row><div align=right>Protocol #:</div></th>
+          <td class="datacell-l">000235</td>
+          <th class="bord-l" scope=row><div align=right>Expiration Date:</div></th>
+          <td class="datacell-l">10/24/2009</td>
+        </tr>
+    </table>
+  </div>
+</div>
+<!--TABBED TOP NAVIGATION-->
+<div class="horz-links-bkgrnd" id="horz-links">
+  <div id="tabs">
+    <dl class="tabul"> <dt class="licurrent" ><span class="tabright tabcurrent">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-protocol-BFN03.html');return document.MM_returnValue" value="Protocol" class="globalsave">
+        </span></dt><dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-personnel.html');return document.MM_returnValue" value="Personnel" class="globalsave">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-permissions.html');return document.MM_returnValue" value="Permissions" class="globalsave">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-questionnaire.html');return document.MM_returnValue" value="Questionnaire" class="globalsave">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-customdata.html');return document.MM_returnValue" value="Custom Data" class="globalsave">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-notes.html');return document.MM_returnValue" value="Attachments &amp; Notes" class="globalsave">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-specialreview.html');return document.MM_returnValue" value="Special Review" class="globalsave">
+        </span></dt>
+      <dt><span class="tabright">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','../kra-irb-dev/irb-protocolactions.html');return document.MM_returnValue" value="Protocol Actions" class="globalsave">
+        </span></dt>
+    </dl>
+    <script type="text/javascript" language="javascript">
+		$(document).ready(function() {
+
+			$('.globalsave').click(function() {
+				count_allchanged();
+			});
+			
+		});
+	</script>
+  </div>
+</div>
+<div class="msg-excol">
+  <div class="left-errmsg">
+    <div class=""><span class="excol"> </span></div>
+  </div>
+  <div class="right">
+    <div class="excol">
+      <input name="imageField" type="image" class="tinybutton" src="../images/tinybutton1-siteindex.gif">
+      <input name="imageField" type="image" class="tinybutton" src="../images/tinybutton-expandall.gif" alt="expand all">
+      <input name="imageField" type="image" class="tinybutton" src="../images/tinybutton-collapseall.gif" alt="collapse all">
+      <br>
+    </div>
+  </div>
+</div>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+    <td><div  align="center">
+        <div id="workarea">
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
+              <td class="tabtable1-mid"><a id="A262" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F262" vspace=6></a> </td>
+              <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G262" style="display:none;">
+            <div class="tab-container-error"> </div>
+            <div class="h2-container">
+              <h2>Document Overview</h2>
+            </div>
+            <table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <th colspan="1" rowspan="2" align="right" valign="top">&nbsp; <font color="">*&nbsp;</font>
+                    <label for="document.documentHeader.financialDocumentDescription"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=financialDocumentDescription" tabindex="32767" target="helpWindow">Description: </a> </label>
+                  </th>
+                  <td rowspan="2" align="left" valign="top"><input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text">
+                  </td>
+                  <th colspan="1" align="right">&nbsp;
+                    <label for="document.explanation"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.module.financial.document.InternalBillingDocument&amp;attributeName=explanation" tabindex="32767" target="helpWindow">Explanation: </a> </label>
+                  </th>
+                  <td align="left" valign="middle"><textarea name="document.explanation" tabindex="0" cols="40" rows="3" style="" id="document.explanation"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <th rowspan="1" colspan="1" align="right">&nbsp;
+                    <label for="document.documentHeader.organizationDocumentNumber"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=organizationDocumentNumber" tabindex="32767" target="helpWindow">Org. Doc. #: </a> </label>
+                  </th>
+                  <td align="left" valign="middle"><input name="document.documentHeader.organizationDocumentNumber" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber" type="text">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Required Fields for Saving Document</td>
+              <td class="tabtable2-mid"><a href="#" id="A787" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F787" vspace=6></a></td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width=12 height=29 align=absmiddle></td>
+            </tr>
+          </table>
+          
+          <!-- TAB -->
+          <div class="tab-container" align="center" id="G787" style="display:none;">
+            <div class="h2-container"><span class="subhead-left">
+              <h2>Required Fields for Saving Document</h2>
+              </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-irb-dev/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <th><div align=right>
+                    <label for="protocol type">*Protocol Type:</label>
+                  </div></th>
+                <td><select size=1 name="numberofreg2" id="protocol type" onChange="showDivs(this)">
+                    <option value=0 selected>select</option>
+                    <option value=01>Standard</option>
+                    <option value=02>Emergency Use</option>
+                    <option value=03>Humanitarian Use Device(HUD)</option>
+                    <option value=04>Exempt</option>
+                    <option value=05>Full Board</option>
+                  </select></td>
+            
+            <!-- Principal Investigator: -->
+                <th>
+                	<div align="right">*Principal Investigator:</div>
+                </th>
+                <td>
+                	<!--<table border="0" width="100%" style="border:none;">
+                    	<tr>
+                        	<td width="20" valign="middle" style="border:none;">
+                            	<img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                            </td>
+                            <td style="border:none;">
+                            	Employee Search
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td width="20" valign="middle" style="border:none;">
+                            	<img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                            </td>
+                            <td style="border:none;">
+                            	Non-employee Search
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border:none;">&nbsp;</td>
+                            <td style="border:none;">
+                            	<input type="text" name="x" style="width:100%" value="004538" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border:none;">&nbsp;</td>
+                            <td style="border:none;">
+                            	<span class="fineprint">Terry Durkin</span>
+                            </td>
+                        </tr>
+                    </table>-->
+                    
+                    <table border="0" width="100%" style="border:none;">
+                    	<tr>
+                        	<td style="border:none;">
+                            	Employee Search
+                            </td>
+                            <td width="40" valign="middle" style="border:none;">
+                            	<nobr>
+                                <img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                                <img src="../images/book_open.png" border="0" width="16" height="16" align="absmiddle">
+                                </nobr>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border:none;">
+                            	Non-employee Search
+                            </td>
+                            <td width="40" valign="middle" style="border:none;">
+                            	<nobr>
+                                <img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                                <img src="../images/book_open.png" border="0" width="16" height="16" align="absmiddle">
+                                </nobr>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                        	<td style="border:none;">
+                            	<input type="text" name="x" style="width:100%" value="004538" />
+                            </td>
+                            <td style="border:none;">&nbsp;</td>
+                        </tr>-->
+                        <tr>
+                        	<td style="border:none;">
+                            	<span class="fineprint">Terry Durkin</span>
+                            </td>
+                            <td style="border:none;">&nbsp;</td>
+                        </tr>
+                    </table>
+                    
+                </td>
+               
+            
+                
+              </tr>
+              <tr>
+                <th><div align=right>* Title:</div></th>
+                <td align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription2" tabindex=0 cols=40 rows=4 id="newPurchasingItemLine.itemDescription2"></textarea>
+                  <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                
+                
+				<!-- Lead Unit -->
+                <th>
+                	<div align="right">*Lead Unit:</div>
+                </th>
+                <td>
+                    <!--<table border="0" width="100%" style="border:none;">
+                    	<tr>
+                        	<td width="20" valign="middle" style="border:none;">
+                            	<img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                            </td>
+                            <td style="border:none;">
+                            	<input type="text" name="x" style="width:100%" value="243000" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border:none;">&nbsp;</td>
+                            <td style="border:none;">
+                            	<span class="fineprint" >Plasma Fusion Center</span>
+                            </td>
+                        </tr>
+                    </table>-->
+                    
+                    <table border="0" width="100%" style="border:none;">
+                    	<tr>
+                        	<td style="border:none;">
+                            	<input type="text" name="x" style="width:100%" value="243000" />
+                            </td>
+                            <td width="40" valign="middle" style="border:none;">
+                            	<nobr>
+                                <img src="../images/searchicon.gif" border="0" width="16" height="16" align="absmiddle">
+                                <img src="../images/book_open.png" border="0" width="16" height="16" align="absmiddle">
+                                </nobr>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border:none;">
+                            	<span class="fineprint" >Plasma Fusion Center</span>
+                            </td>
+                            <td style="border:none;">&nbsp;</td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                  
+                  
+                  
+              </tr>
+            </table>
+          </div>
+        
+          
+          
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Status &amp; Dates</td>
+              <td class="tabtable2-mid"><a href="#" id="A323" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F323" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G323" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Status &amp; Dates</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <th><div align="right">
+                    <label for="status">Protocol #:</label>
+                  </div></th>
+                <td>12351253</td>
+                <th><div align="right">
+                    <label for="approval date">Protocol Status:</label>
+                    <label for="fda application id"> </label>
+                  </div></th>
+                <td align=left valign=middle>In Progress </td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                    <label for="approval date">Initial Approval Date:</label>
+                  </div></th>
+                <td align=left valign=middle><span> 12/14/2006 </span></td>
+                <th><div align="right">
+                    <label for="approval date">Last Approval Date:</label>
+                  </div></th>
+                <td align=left valign=middle>03/14/2007</td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                    <label for="approval date">Submission Date:</label>
+                  </div></th>
+                <td align=left valign=middle><span> Generated on Submission </span></td>
+                <th><div align="right">
+                    <label for="approval date">Expiration Date:</label>
+                  </div></th>
+                <td align=left valign=middle>03/14/2007</td>
+              </tr>
+            </table><div class="h2-container"> <span class="subhead-left">
+              <h2>Risk Levels</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            
+                <table cellpadding=0 cellspacing=0 summary="">
+                    <tr>
+                        <th>
+                            Risk Level
+                        </th>
+                        <th style="width:105px;;">
+                        	Date Assigned
+                        </th>
+                        <th style="width:105px;">
+                            Date Updated
+                        </th>
+                        <th style="width:60px;">
+                        	Status
+                        </th>
+                        <th>
+                            Comments
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            No greater than minimal risk.
+                        </td>
+                        <td>
+                        	08/10/2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td>
+                        	Active
+                        </td>
+                        <td>
+                            
+                            <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="border:none;">
+                                        Enter comments here on this...
+                                    </td>
+                                    <td style="border:none; width:20px; vertical-align:bottom;">
+                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Moderate Risk
+                        </td>
+                        <td>
+                        	08/11/2008
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td>
+                        	Active
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                    </tr>
+                </table>
+            
+          </div>
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Additional Information</td>
+              <td class="tabtable2-mid"><a href="#" id="A423" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F423" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G423" style="display: none;">
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Additional Information</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table cellpadding=0 cellspacing=0 summary="">
+              <tr>
+                <th width="33%"><div align="right">
+                    <label for="status">FDA IND or IDE #:</label>
+                  </div></th>
+                <td width="26%"><input name="document.documentHeader.organizationDocumentNumber2" maxlength="10" size="12" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.organizationDocumentNumber2" type="text"></td>
+                <th width="23%"><div align="right">
+                    <label for="approval date">Billable:</label>
+                    <label for="fda application id"> </label>
+                  </div></th>
+                <td width="18%" align=left valign=middle><input name="checkbox" type="checkbox" class="nobord" id="checkbox"></td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                    <label for="approval date">Reference ID1:</label>
+                  </div></th>
+                <td align=left valign=middle><span> <span>
+                  <input name="date" type=text size=12 id="date">
+                  </span></span></td>
+                <th><div align="right">
+                    <label for="approval date">Reference ID2:</label>
+                  </div></th>
+                <td align=left valign=middle><span>
+                  <input name="date" type=text size=12 id="date2">
+                  </span></td>
+              </tr>
+              <tr>
+                <th><div align="right">
+                    <label for="approval date">Summary/Keywords:</label>
+                  </div></th>
+                <td colspan="3" align=left valign=middle>
+                	
+                    <table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none;">
+                                <textarea name="zs" style="width:100%; text-align:left;" rows="3"></textarea>
+                            </td>
+                            <td style="border:none; width:20px; vertical-align:bottom;">
+                                <input name="xs" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+              </tr>
+            </table>
+            
+        <!-- Other Identifiers Panel -->
+            <br>
+            <div class="h2-container">
+                <span class="subhead-left">
+                    <h2>Other Identifers</h2>
+                </span>
+                <span class="subhead-right">
+                    <span class="subhead">
+                        <a href="#"><img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a>
+                    </span>
+                </span>
+            </div>
+            <table align=center cellpadding=0 cellspacing=0 summary="">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>*Type</th>
+                    <th>*Other Identifier</th>
+                    <th>Application Date</th>
+                    <th>Approval Date</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <th class="infoline" rowspan="2">add:</th>
+                    <td class="infoline" style="text-align:center;">
+                        <!--<input type="text" name="type" value="" size="24" />-->
+                        <select name="CustomData" id="CustomData">
+                            <option value="0" selected>CALGB</option>
+                            <option value="1">RTOG</option>
+                            <option value="2">IRBNet </option>
+                            <option value="3">COAG </option>
+                        </select>
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="otheridentifier" value="" size="15" />
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="date1" id="applicationdate" value="" size="10" />
+						<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td class="infoline" style="text-align:center;">
+                        <input type="text" name="date2" id="approvaldate" value="" size="10" />
+						<a href="#" target="calWindow" title="date selector"><img src="../images/cal.gif" style="cursor:pointer;" alt="date selector" align="top" /></a>
+                    </td>
+                    <td class="infoline" rowspan="2" style="text-align:center;">
+                        <div align=center>
+                            <a href="#"><img src="../images/tinybutton-add1.gif" alt="add" title="add" width="40" height="15" border="0"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Comment:</th>
+                    <th colspan="3" style="vertical-align:bottom">
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none; background:none;">
+                                    <textarea name="z" style="width:100%; text-align:left;" rows="2" readonly></textarea>
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom; background:none;">
+                                    <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" title="Expanded Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </th>
+                </tr>
+                <tr>
+                    <th rowspan="2">1</th>
+                    <td style="text-align:left;">RTOG</td>
+                    <td style="text-align:left;">12345</td>
+                    <td style="text-align:left;">01/12/2008</td>
+                    <td style="text-align:left;">02/12/2008</td>
+                    <td rowspan="2" style="text-align:center;">
+                        <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Comment:</th>
+                    <td colspan="3" style="vertical-align:bottom">
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <!--<textarea name="z" style="width:100%; text-align:left;" rows="3" readonly>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel tortor sit amet nisi adipiscing viverra. Praesent quis nisi vel felis pretium facilisis.</textarea>-->
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel tortor sit amet nisi 
+                                    adipiscing viverra. Praesent quis nisi vel felis pretium facilisis. Duis consectetur urna at purus. 
+                                    Aenean sed turpis sit amet nunc molestie suscipit. Quisque congue leo at ante laoreet tincidunt. 
+                                    Nam sed orci...
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="2">2</th>
+                    <td style="text-align:left;">CALGB</td>
+                    <td style="text-align:left;">absdf</td>
+                    <td style="text-align:left;">01/01/2008</td>
+                    <td style="text-align:left;">01/03/2008</td>
+                    <td rowspan="2" style="text-align:center;">
+                        <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" title="delete" width="40" height="15" border="0"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Comment:</th>
+                    <td colspan="3" style="vertical-align:bottom">
+                    
+                    	<table style="border:none; width:100%;" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="border:none;">
+                                    <!--<textarea name="zb" style="width:100%; text-align:left;" rows="3" readonly>Quisque pulvinar lacus quis felis vulputate eleifend. Quisque purus nunc, imperdiet ultrices, pretium quis, consequat et, nisl. Quisque sit amet justo.</textarea>-->
+                                    Quisque pulvinar lacus quis felis vulputate eleifend. Quisque purus nunc, imperdiet ultrices, pretium 
+                                    quis, consequat et, nisl. Quisque sit amet justo. Sed tellus. Nam felis elit, pretium vehicula, 
+                                    fringilla a, iaculis rhoncus, ipsum. Cum sociis natoque penatibus et magnis dis parturient montes, 
+                                    nascetur ridiculus mus...
+                                </td>
+                                <td style="border:none; width:20px; vertical-align:bottom;">
+                                    <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('If this were not a mock, this icon would open a read only view of the full text.'); return false" class="tinybutton" alt="Expanded Read Only Text Area" type="image" />
+                                </td>
+                            </tr>
+                        </table>
+                    
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
+            <br>
+            <div class="h2-container"> <span class="subhead-left">
+              <h2>Area of Research</h2>
+              </span><span class="subhead-right"> <span class="subhead"><a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width="15" height="14" border="0" align="absmiddle" onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></span></div>
+            <table align=center cellpadding=0 cellspacing=0 summary="">
+              <!-- <tr>
+                        <td colspan="6" class="tab-subhead"><div align="left">Consultants</div></td>
+                      </tr> -->
+              <tr>
+                <th width="5%">&nbsp;</th>
+                <th>Code/Description</th>
+                <th width="20%">Actions</th>
+              </tr>
+              <tr>
+                <th class="infoline">add:</th>
+                <td class="infoline">(select) <a href="#">
+                  <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                  </a></td>
+                <td class="infoline">&nbsp;
+                	
+                </td>
+              </tr>
+              <tr>
+                <th>1</th>
+                <td><span> 37.01 Biology</span></td>
+                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th>2</th>
+                <td><span> 37.12 Chemistry</span></td>
+                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <td><span> 37.36 History</span></td>
+                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th>4</th>
+                <td><span> 37.53 Geography</span></td>
+                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+              <tr>
+                <th>5</th>
+                <td><span> 37.96 Sociology</span></td>
+                <td><div align=center><a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+              </tr>
+            </table>
+          </div>
+          
+          
+          
+          <!-- Organizations -->
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" ><span class="changedfieldsnote" id="changedfields_organizations" style="display:none;"></span>Organizations</td>
+              <td class="tabtable2-mid"><a href="#" id="A126" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F126" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align=center id="G126" style="display:block;">
+            
+            <div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px; position:relative;">
+                	
+                    <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
+                    
+                    <div title="Comments" id="control_comment00" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#666; font-weight:100; font-size:9px;">
+                    	2
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#control_comment00").toggle(
+                                function () {
+                                    $("#div_comment00").slideDown(400);
+									$("#commentarrow00").slideDown(400);
+                                  }, 
+                                  function () {
+                                    $("#div_comment00").slideUp(400);
+									$("#commentarrow00").slideUp(400);
+                                  }
+                            );
+                        });
+                    </script>
+                    
+                    Organizations
+                    <img src="../images/commentarrow.png" alt="comment" id="commentarrow00" style="position:absolute; right:23px; bottom:2px; margin-bottom:-10px; width:13px; height:13px; border:none; z-index:99; display:none;" />
+                </div>
+                <div id="div_comment00" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding-left:30px; padding-bottom:30px; padding-right:5px; padding-top:5px;">
+                	
+                    <div style="padding:0px; border:2px solid #F00; max-height:300px; overflow:auto; box-shadow: 9px 9px 5px #666;">
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" class="fixtablewidth" cellspacing="0">
+                    	<tr>
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#b0b0b0; font-weight:bold;" colspan="6">
+                            	Review Comments <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to Online Review.'); return false;" />
+                            </td>
+                        </tr>
+                        <tbody >
+                    	<tr>
+                        	<th style="border-left:none;">&nbsp;
+                            	
+                            </th>
+                            <th style="text-align:center;">
+                            	Comment
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Last Updated By
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Created By
+                            </th>
+                            <th style="text-align:center; width:100px;">
+                            	Actions
+                            </th>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; width:50px; text-align:center;">
+                            	add:
+                            </th>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                        	Standard Comment:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            <select style="width:100%;">
+                                                <option value="0">select</option>
+                                                <option value="1" selected="selected">label one</option>
+                                                <option value="2">label two</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	<img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                                
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	1
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam accumsan orci sed commodo. Cras mattis malesuada cursus... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">
+                                                        Some cleaver excuse why it can not be done and will require more money.
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td style="text-align:center;">
+                            	<!--<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />-->
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <!--<img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />-->
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	2
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Nulla pharetra nisi ut urna ullamcorper eget blandit metus feugiat. Suspendisse non libero purus, non fringilla eros. Donec... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                        
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                                <!--<img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    
+                </div>
+          
+            	<table align=center cellpadding=0 cellspacing=0 summary="">
+                    <tr>
+                        <th>&nbsp;
+                        	
+                        </th>
+                        <th>
+                            <div align=left>
+                            <label for="label">*Organization Id </label>
+                            </div>
+                        </th>
+                        <th>
+                        	Organization Type
+                        </th>
+                        <th>
+                        	Contact
+                        </th>
+                        <th>
+                        	FWA Number
+                        </th>
+                        <th>
+                        	<span class="changedfieldsnote" id="changedfields_organizations2" style="display:none;"></span>Actions
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="infoline">
+                            add:
+                        </th>
+                        <td class="infoline">
+                            <input name="label123" type=text size=10 id="label123">
+                            <script type="text/javascript" language="javascript">
+								$(document).ready(function() {
+						
+									// original value or changed?
+									$('#label123').keyup(function() {
+										var x = $(this).val();
+										if( x == "" )
+										{
+											$(this).removeClass("thischanged");
+											$(this).removeClass("changed_organizations");
+										}
+										else
+										{
+											$(this).addClass("thischanged");
+											$(this).addClass("changed_organizations");
+										}
+										count_organizations();
+										count_allchanged();
+									});
+									
+								});
+							</script>
+                            <a href="#">
+                            <input name="image32" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                            </a><a href="#">
+                            <input name="image33" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                            </a>
+                        </td>
+                        <td class="infoline">
+                            <select name="select5d" id="select5d">
+                                <option value="0" selected>select</option>
+                                <option value="1">Performing Organization</option>
+                                <option value="2">External</option>
+                            </select>
+							<script type="text/javascript" language="javascript">
+                                $(document).ready(function() {
+                        
+                                    // original value or changed?
+                                    $('#select5d').change(function() {
+                                        var x = $(this).val();
+                                        if( x == 0 )
+                                        {
+                                            $(this).removeClass("thischanged");
+                                            $(this).removeClass("changed_organizations");
+                                        }
+                                        else
+                                        {
+                                            $(this).addClass("thischanged");
+                                            $(this).addClass("changed_organizations");
+                                        }
+                                        count_organizations();
+                                        count_allchanged();
+                                    });
+                                    
+                                });
+                            </script>
+                        </td>
+                        <td class="infoline">&nbsp;</td>
+                      <td class="infoline">&nbsp;
+                            
+                        </td>
+                        <td class="infoline">
+                            <div align=center>
+                            	<img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0>
+                                <img id="resetOrg" src="../images/tinybutton-reset1.gif" alt="reset" width=40 height=15 hspace=3 vspace=3 border=0 style="cursor:pointer; display:none;">
+								<script type="text/javascript" language="javascript">
+                                    $(document).ready(function() {
+                            
+                                        // original value or changed?
+                                        $('#resetOrg').click(function() {
+                                            
+                                            $("#label123").val("");
+                                            $("#label123").removeClass("thischanged");
+                                            $("#label123").removeClass("changed_organizations");
+                                            
+                                            $("#select5d").val(0);
+                                            $("#select5d").removeClass("thischanged");
+                                            $("#select5d").removeClass("changed_organizations");
+                                            
+                                            count_organizations();
+                                            count_allchanged();
+                                            
+                                        });
+                                        
+                                    });
+                                </script>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            1
+                        </th>
+                        <td>
+                            <span>
+                            000001
+                            <span class="infoline"><a href="#">
+                            <input name="image332" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                          </a></span></span><br>
+                            <span class="fineprint">University</span>
+                        </td>
+                  <td>
+                        	Performing Organization
+                        </td>
+                        <td>
+                            Wargel, Joe: 
+                            77 Massachusetts Ave, Cambridge, MA 02139 <a href="#">
+                            <input name="image3" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                            <input name="image3" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                            <br>
+                            </a>
+                        </td>
+                        <td>
+                        	11111
+                        </td>
+                        <td>
+                        	<div align=center><a href="#"><img src="../images/tinybutton-clraddress.gif" alt="delete" width=79 height=15 hspace=3 vspace=3 border=0><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                        </td>
+                    </tr>
+                </table>
+                
+          </div>
+          
+          
+          
+          
+          <!-- Funding Sources -->
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Funding Sources</td>
+              <td class="tabtable2-mid"><a href="#" id="A03" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F03" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G03" style="display:none;">
+              
+              	<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px; position:relative;">
+                	
+                    <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
+                    
+                    <div title="Changes to Comments" id="control_comment01" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-orange.png'); margin-right:3px; text-align:center; color:#333; font-weight:bold; font-size:9px;">
+                    	3
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#control_comment01").toggle(
+                                function () {
+                                    $("#div_comment01").slideDown(400);
+                                    $("#control_comment01").css("background-image","url('../images/comment14-gray.png')");
+									$("#control_comment01").css("font-weight","100");
+									$("#control_comment01").css("color","#666");
+									$("#commentarrow01").slideDown(400);
+                                  }, 
+                                  function () {
+                                    $("#div_comment01").slideUp(400);
+									$("#commentarrow01").slideUp(400);
+                                  }
+                            );
+                        });
+                    </script>
+                    
+                    Funding Sources
+                    <img src="../images/commentarrow.png" alt="comment" id="commentarrow01" style="position:absolute; right:23px; bottom:2px; margin-bottom:-10px; width:13px; height:13px; border:none; z-index:99; display:none;" />
+                </div>
+                <div id="div_comment01" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding-left:30px; padding-bottom:30px; padding-right:5px; padding-top:5px;">
+                	
+                    <div style="padding:0px; border:2px solid #F00; max-height:300px; overflow:auto; box-shadow: 9px 9px 5px #666;">
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" class="fixtablewidth" cellspacing="0">
+                    	<tr>
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#b0b0b0; font-weight:bold;" colspan="6">
+                            	Review Comments <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to Online Review.'); return false;" />
+                                <img src="../images/commentarrow.png" alt="comment" style="float:right; width:13px; height:13px; border:none; margin-right:12px; margin-top:-16px; z-index:99;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none;">&nbsp;
+                            	
+                            </th>
+                            <th style="text-align:center;">
+                            	Comment
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Last Updated By
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Created By
+                            </th>
+                            <th style="text-align:center; width:100px;">
+                            	Actions
+                            </th>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; width:50px; text-align:center;">
+                            	add:
+                            </th>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                        	Standard Comment:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            <select style="width:100%;">
+                                                <option value="0">select</option>
+                                                <option value="1" selected="selected">label one</option>
+                                                <option value="2">label two</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	<img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	1
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam accumsan orci sed commodo. Cras mattis malesuada cursus... 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                        
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td>
+                            	Reveiwerson, Joseph </td>
+                            <td style="text-align:center;">
+                            	<!--<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />-->
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <!--<img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />-->
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	2
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3">Sed vel dictum eros. Morbi nec lacus ac odio feugiat suscipit non quis urna. Curabitur egestas leo arcu. Etiam sed lacus tellus... </textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                        
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Ewer, Reeve
+                            </td>
+                            <td>
+                            	Ewer, Reeve</td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	3
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Another comment.  
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                        
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <!--<img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />-->
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	4
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Yet another comment. 
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                        
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />
+                                <!--<img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />-->
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; text-align:center;">
+                            	5
+                            </th>
+                            <td>
+                            
+                            	<table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none;">
+                                            Something inappropriate that makes me blush.  
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                            <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:60px; font-weight:bold; text-align:right; color:#7E7E7E;" class="fineprint">
+                                            Response:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            
+                                            <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border:none; background:none; border:1px solid #999; height:30px; overflow:hidden; vertical-align:top;">&nbsp;
+                                                        
+                                                    </td>
+                                                    <td style="border:none; background:none; width:26px; vertical-align:bottom;">
+                                                        <input name="x" src="../images/openreadonly_greenarrow01.png" onclick="javascript: alert('This would open a read only view of the full text.'); return false" style="border:none;" alt="Expanded Read Only Text Area" type="image" />
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td>
+                            	Urcher, Reese </td>
+                            <td style="text-align:center;">
+                            	<img src="../images/arrow-up.gif" alt="up"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row up.'); return false;" />
+                                <!--<img src="../images/arrow-down.gif" alt="down"  style="width:17px; height:14px; border:none; cursor:pointer;" onclick="alert('This would move this data row down.'); return false;" />-->
+                                <!--<img src="../images/tinybutton-delete1.gif" alt="delete"  style="width:40px; height:15px; border:none; cursor:pointer;" onclick="alert('This would delete this data row.'); return false;" />-->
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    
+                </div>
+            
+            
+                <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
+                    <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
+                        <tr align="center" valign="top">
+                            <th>&nbsp;</th>
+                            <th><label for="type">*Funding Type</label></th>
+                            <th><label for="number">*Funding ID </label></th>
+                            <th><label for="title">*Source</label></th>
+                            <th><label for="title">*Title</label></th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr >
+                            <th class="infoline">
+                            	<div align="center">add:</div>
+                            </th>
+                            <td nowrap class="infoline">
+                                <div align="center">
+                                <label>
+                                <select name="select3" id="type">
+                                    <option selected>select</option>
+                                    <option>award</option>
+                                    <option>development proposal</option>
+                                    <option>institutional proposal</option>
+                                    <option>others</option>
+                                    <option>sponsor</option>
+                                    <option>unit</option>
+                                </select>
+                                </label>
+                                </div>
+                            </td>
+                            <td nowrap class="infoline">
+                                <div align="center">
+                                <input name="totalCostLimit" size="10" onchange="dataChanged()" style="text-align: right;" type="text" id="number"/>
+                                <span class="grid">
+                                <input name="image" type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                                <input name="image2" type="image" class="nobord" src="../images/book_open.png" alt="inquiry">
+                                </span></div>
+                            </td>
+                            <td class="infoline">
+                                <div align="center">
+                                <input name="totalCostLimit2" size="20" onchange="dataChanged()" style="text-align: right;" type="text" id="source1"/>
+                                </div>
+                            </td>
+                            <td class="infoline">
+                                <div align="center">
+                                <input name="totalCostLimit21" size="35" onchange="dataChanged()" style="text-align: right;" type="text" id="title1"/>
+                                </div>
+                            </td>
+                            <td class="infoline">
+                            	<div align=center><a href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th>
+                            	<div align="center">1</div>
+                            </th>
+                            <td>
+                                Award
+                            </td>
+                            <td nowrap>
+                                713476
+                            </td>
+                            <td nowrap>
+                                NIH
+                            </td>
+                            <td nowrap>
+                                Lorem Ipsum
+                            </td>
+                            <td>
+                            	<div align=center>
+                                	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                	<a href="#"><img src="../images/tinybutton-view.gif" alt="detail" width="40" height="15" hspace=3 vspace=3 border=0></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><div align="center">2</div></th>
+                            <td>
+                                Unit
+                            </td>
+                            <td>
+                                345787
+                            </td>
+                            <td>
+                                Chemistry Department
+                            </td>
+                            <td>
+                                Dolor Sit
+                            </td>
+                            <td>
+                            	<div align=center>
+                                	<a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                                	<a href="#"><img src="../images/tinybutton-view.gif" alt="detail" width="40" height="15" hspace=3 vspace=3 border=0></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><div align="center">3</div></th>
+                            <td>
+                                Other
+                            </td>
+                            <td>
+                                345787
+                            </td>
+                            <td>&nbsp;
+                                
+                            </td>
+                            <td>&nbsp;
+                                
+                            </td>
+                            <td>
+                            	<div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            
+          </div>
+          
+          
+          
+          
+          <!-- Participant Types -->
+          <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+              <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width="12" height="29" align="absmiddle" >Participant Types <span class="changedfieldsnote" id="changedfields_participanttypes" style="display:none;"></span></td>
+              <td class="tabtable2-mid"><a href="#" id="A90" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F90" ></a> </td>
+              <td class="tabtable2-right"><img src="../images/tab-topright1.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+          </table>
+          <div class="tab-container" align="center" id="G90" style="display:none;">
+          
+           		<div style="background-color:#6B6B6B; color:#FFF; font-weight:bold; margin-left:11px; margin-right:11px; text-align:left; padding:3px; padding-left:5px; position:relative;">
+                	
+                    <img src="../images/my_cp_inf.gif" alt="help" style="width:15px; height:14px; float:right; border:none;">
+                    
+                    <div title="Comments" id="control_comment02" style="float:right; cursor:pointer; width:19px; height:14px; background-image:url('../images/comment14-gray.png'); margin-right:3px; text-align:center; color:#666; font-weight:100; font-size:9px;">
+                    	+
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#control_comment02").toggle(
+                                function () {
+                                    $("#div_comment02").slideDown(400);
+									$("#commentarrow02").slideDown(400);
+                                  }, 
+                                  function () {
+                                    $("#div_comment02").slideUp(400);
+									$("#commentarrow02").slideUp(400);
+                                  }
+                            );
+                        });
+                    </script>
+                    
+                    Participant Types
+                    <img src="../images/commentarrow.png" alt="comment" id="commentarrow02" style="position:absolute; right:23px; bottom:2px; margin-bottom:-10px; width:13px; height:13px; border:none; z-index:99; display:none;" />
+                </div>
+                <div id="div_comment02" style="display:none; border:1px solid #999; background-color:#CCC; color:#000; font-weight:100; margin-left:11px; margin-right:11px; text-align:left; padding-left:30px; padding-bottom:30px; padding-right:5px; padding-top:5px;">
+                	
+                    <div style="padding:0px; border:2px solid #F00; max-height:300px; overflow:auto; box-shadow: 9px 9px 5px #666;">
+                    <table style="border:1px solid #999999; padding:0px; border-bottom:0px;" class="fixtablewidth" cellspacing="0">
+                    	<tr>
+                        	<td style="border-left:none; padding:2px; padding-left:5px; background-color:#b0b0b0; font-weight:bold;" colspan="6">
+                            	Review Comments <img src="../images/gointo.png" alt="go to current version" title="go to current version" style="width:16px; height:16px; border:none; cursor:pointer;" onclick="alert('This would redirect the browser to Online Review.'); return false;" />
+                                <img src="../images/commentarrow.png" alt="comment" style="float:right; width:13px; height:13px; border:none; margin-right:12px; margin-top:-16px; z-index:99;" />
+                            </td>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none;">&nbsp;
+                            	
+                            </th>
+                            <th style="text-align:center;">
+                            	Comment
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Last Updated By
+                            </th>
+                            <th style="text-align:center; min-width:125px;">
+                            	Created By
+                            </th>
+                            <th style="text-align:center; width:100px;">
+                            	Actions
+                            </th>
+                        </tr>
+                    	<tr>
+                        	<th style="border-left:none; width:50px; text-align:center;">
+                            	add:
+                            </th>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	
+                                <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="border:none; background:none; width:105px; font-weight:bold;" class="fineprint">
+                                        	Standard Comment:
+                                        </td>
+                                        <td style="border:none; background:none;">
+                                            <select style="width:100%;">
+                                                <option value="0">select</option>
+                                                <option value="1" selected="selected">label one</option>
+                                                <option value="2">label two</option>
+                                            </select>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none; margin-left:3px;" type="image" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none; background:none;" colspan="2">
+                                            <textarea name="z" style="width:100%; text-align:left;" rows="3"></textarea>
+                                        </td>
+                                        <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                            <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">&nbsp;
+                            	
+                            </td>
+                            <td style="text-align:center; padding:2px; background-image: url('../images/th-back1.gif'); background-position: center bottom;">
+                            	<img src="../images/tinybutton-add1.gif" alt="add" style="width:40px; height:15px; border:none; cursor:pointer;;" onclick="alert('This would add a new data row.'); return false;" />
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    
+                </div>
+              
+              
+            <table align="center" border="0" cellpadding="2" cellspacing="0" width="98%">
+              <tbody _base_href="http://coeus-test.mit.edu/coeus42/coeuslite/wmc/budget/tiles/budgetSummaryTile.jsp">
+                <tr align="center" valign="top">
+                  <th style="width:50px;">&nbsp;</th>
+                  <th><label for="description">*Description</label></th>
+                  <th><label for="count">Count</label></th>
+                  <th style="width:120px;">Actions</th>
+                </tr>
+                <tr >
+                  <th class="infoline"><div align="center">
+                  	<span class="changedfieldsnote" id="changedfields_participanttypes2" style="display:none;"></span> add:
+                  </div></th>
+                  <td nowrap class="infoline"><div align="center">
+                      
+                        <select name="select" id="descriptionPT">
+                            <option value="0" selected>select</option>
+                            <option value="1">children</option>
+                            <option value="2">desicionally impaired</option>
+                            <option value="3">prisoners</option>
+                            <option value="4">pregnant women</option>
+                            <option value="5">fetuses</option>
+                            <option value="6">students</option>
+                            <option value="7">other</option>
+                            <option value="8">student - minor</option>
+                        </select>
+						<script type="text/javascript" language="javascript">
+                            $(document).ready(function() {
+					
+								// original value or changed?
+								$('#descriptionPT').change(function() {
+									var x = $(this).val();
+									if( x == 0 )
+									{
+										$(this).removeClass("thischanged");
+										$(this).removeClass("changed_participanttypes");
+									}
+									else
+									{
+										$(this).addClass("thischanged");
+										$(this).addClass("changed_participanttypes");
+									}
+									count_participanttypes();
+									count_allchanged();
+								});
+								
+							});
+						</script>
+                      
+                    </div></td>
+                  <td nowrap class="infoline"><div align="center">
+                      <input name="totalCostLimit7" size="8" style="text-align: right;" type="text" id="totalCostLimit7" />
+                      <script type="text/javascript" language="javascript">
+                            $(document).ready(function() {
+					
+								// original value or changed?
+								$('#totalCostLimit7').keyup(function() {
+									var x = $(this).val();
+									if( x == "" )
+									{
+										$(this).removeClass("thischanged");
+										$(this).removeClass("changed_participanttypes");
+									}
+									else
+									{
+										$(this).addClass("thischanged");
+										$(this).addClass("changed_participanttypes");
+									}
+									count_participanttypes();
+									count_allchanged();
+								});
+								
+							});
+						</script>
+                    </div></td>
+                  <td class="infoline"><div align=center>
+                  <a id="changePT" href="#"><img src="../images/tinybutton-add1.gif" alt="add" width=40 height=15 hspace=3 vspace=3 border=0></a>
+                  <img id="resetPT" src="../images/tinybutton-reset1.gif" alt="reset" width=40 height=15 hspace=3 vspace=3 border=0 style="cursor:pointer;">
+                  	<script type="text/javascript" language="javascript">
+						$(document).ready(function() {
+				
+							// original value or changed?
+							$('#resetPT').click(function() {
+								
+								$("#totalCostLimit7").val("");
+								$("#totalCostLimit7").removeClass("thischanged");
+								$("#totalCostLimit7").removeClass("changed_participanttypes");
+								
+								$("#descriptionPT").val(0);
+								$("#descriptionPT").removeClass("thischanged");
+								$("#descriptionPT").removeClass("changed_participanttypes");
+								
+								count_participanttypes();
+								count_allchanged();
+								
+							});
+							
+						});
+					</script>
+                  </div></td>
+                </tr>
+                <tr >
+                  <th><div align="center">&nbsp;1 </div></th>
+                  <td><div align="center">
+                      children
+                    </div></td>
+                  <td nowrap><div align="center">
+                      <input name="totalCostLimit7" type="text"  onchange="dataChanged()" style="text-align: right;" value="52" size="8" id="count"/>
+                    </div></td>
+                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                </tr>
+                <tr>
+                  <th><div align="center">&nbsp;2 </div></th>
+                  <td><div align="center">
+                      prisoners
+                    </div></td>
+                  <td><div align="center">
+                    <input name="count" size="8" onchange="dataChanged()" style="text-align: right;" type="text" id="count2"/>
+                  </div></td>
+                  <td><div align=center> <a href="#"><img src="../images/tinybutton-delete1.gif" alt="delete" width=40 height=15 hspace=3 vspace=3 border=0></a></div></td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+          
+          
+          
+          
+          
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
+            <tr>
+              <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
+              <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
+            </tr>
+          </table>
+        </div>
+        <div align="right"><br>
+          * required </div>
+        <div class="globalbuttons">
+        	<div id="changedfields_organizations3" style="display:none; margin:auto; width:200px; text-align:center; padding-bottom:3px;">
+            	<img src='../images/warning16blue.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /> You have entered or changed data on add rows without adding a new record.
+            </div>
+            <img id="globalsave" src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" style="cursor:pointer;">
+            <script type="text/javascript" language="javascript">
+				$(document).ready(function() {
+		
+					$('#globalsave').click(function() {
+						savebutton();
+					});
+					
+				});
+			</script>
+            
+            <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0"></a> </div>
+      </div></td>
+    <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><span class="tab-container" style="display: none;"><img src="../kra-irb-dev/images/prot-research-premium.jpg" alt="Premium" width="649" height="396"><br>
+  <br>
+  <img src="../kra-irb-dev/images/prot-research-lite.jpg" alt="Lite" width="771" height="190"><span class="tab-container" style="display: none;"><img src="../kra-irb-dev/images/protocol-fundsource.jpg" alt="Premium" width="678" height="424"><br>
+  <br>
+  <img src="../kra-irb-dev/images/prot-funding-lite.jpg" alt="Lite" width="770" height="297"></span></span></p>
+
+</form>
+
+</body>
+</html>
