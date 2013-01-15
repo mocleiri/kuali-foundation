@@ -12,9 +12,9 @@ package {
   'openssh-clients': 
     ensure => latest;
   'subversion': 
-    ensure => installed;
+    ensure => latest;
   'git':
-    ensure => installed;
+    ensure => latest;
 }
 
 package { 'rubygems':
