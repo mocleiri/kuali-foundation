@@ -18,19 +18,16 @@ package {
 }
 
 package { 'rubygems':
-  version => '1.8.11',
-  ensure => installed,
+  ensure => '1.8.11',
 }
 
 package { 'ruby-devel': 
-  version => '1.8.7.371',
-  ensure  => installed,
+  ensure => '1.8.7.371',
   require => Package['rubygems'],
 }
 
 package { 'ruby-nokogiri': 
-  version => '1.5.2',
-  ensure  => installed,
+  ensure => '1.5.2',
   require => Package['ruby-devel'],
 }
 
