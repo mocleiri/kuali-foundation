@@ -10,11 +10,11 @@ package {
   "subversion": 
     ensure => absent;
   "fog":
-    before => 'ruby-devel', 
     ensure => absent;
+    before => Package['ruby-devel'], 
   "ruby-devel": 
-    before => 'ruby-gems', 
     ensure => absent;
+    before => Package['rubygems'], 
   "rubygems": 
     ensure => absent;
 #    
