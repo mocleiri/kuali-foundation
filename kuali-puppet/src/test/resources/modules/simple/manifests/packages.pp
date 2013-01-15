@@ -32,7 +32,7 @@ package { 'ruby-nokogiri':
 }
 
 package { 'fog': 
-  ensure   => installed,
+  ensure   => '1.8.0',
   provider => 'gem',
   require  => Package['ruby-nokogiri'],
 }
