@@ -7,14 +7,14 @@ package {
     ensure => absent;
   "wget": 
     ensure => absent;
-  "rsync": 
-    ensure => absent;
-  "openssh-clients": 
-    ensure => absent;
   "rubygems": 
     ensure => absent;
   "subversion": 
     ensure => absent;
+#  "rsync": 
+#    ensure => absent;
+#  "openssh-clients": 
+#    ensure => absent;
 #
 # The Amazon git rpm's don't play well with puppet
 # Attempting to uninstall git results in an error related
