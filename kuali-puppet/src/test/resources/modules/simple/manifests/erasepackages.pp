@@ -19,16 +19,15 @@ package { 'fog':
 
 package { 'ruby-devel': 
   ensure => absent,
-  before => Package['rubygems']; 
 }
 
 package { 'ruby-nokogiri': 
   ensure => absent,
-  before => Package['rubygems']; 
 }
 
 package { 'rubygems': 
   ensure => absent;
+  require => Package['ruby-nokogiri', 'ruby-devel']; 
 }
 
 #    
