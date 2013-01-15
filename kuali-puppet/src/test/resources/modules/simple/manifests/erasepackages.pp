@@ -39,6 +39,19 @@ package { 'rubygems':
   require => Package['fog', 'ruby-nokogiri', 'ruby-devel'], 
 }
 
+package { 'rsync': 
+  ensure => absent,
+}
+
+package { 'openssh-clients': 
+  ensure => absent,
+}
+
+package { 'git':
+  ensure => absent,
+  before => Package['rsync','openssh-clients'], 
+}
+
 #    
 # rsync and openssh-clients are both required by git
 #
