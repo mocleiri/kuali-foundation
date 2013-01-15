@@ -27,8 +27,8 @@ exec { $mkdircmd:
 
 #
 # Invoke cURL to download the artifact UNLESS
-# 1 - the file already exists AND
-# 2 - the md5 checksum returned by Amazon S3 equals the md5 checksum returned by the local file system
+# 1 - the file already exists in the local Maven repository AND
+# 2 - the md5 checksum returned in the Amazon S3 http header equals the md5 checksum returned by the local file system
 #
 exec { $curlcmd:
   path    => $paths,
