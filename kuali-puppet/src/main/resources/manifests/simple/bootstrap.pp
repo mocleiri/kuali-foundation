@@ -7,7 +7,7 @@ $artifact_id = "rice-core-api"
 $version = "2.2.0"
 $packaging = "jar"
 $repopath = "${group_id}/${artifact_id}/${version}"
-$filename = "${artifactid}-${version}.${packaging}"
+$filename = "${artifact_id}-${version}.${packaging}"
 $userhome = "/root"
 $localrepo = "${userhome}/.m2/repository"
 $localdir = "${localrepo}/${repopath}"
@@ -24,7 +24,7 @@ $curl = "curl --location --output ${localfile} ${url}"
 $curl_unless = "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
 
 $curl_md5 = "curl --location --output ${localfile_md5} ${url_md5}"
-$curl_md5unless = "[ -e ${localfile_md5} ] && curl --silent --head ${url_md5} | grep ETag | grep `md5sum ${localfile_md5} | cut --characters=1-32`"
+$curl_md5_unless = "[ -e ${localfile_md5} ] && curl --silent --head ${url_md5} | grep ETag | grep `md5sum ${localfile_md5} | cut --characters=1-32`"
 
 #
 # Create the directory making parent directories as needed, unless the directory already exists
@@ -33,7 +33,7 @@ exec { $mkdir:
   path    => $paths,
   command => $mkdir,
   creates => $localdir,
-  before  => Exec[$curl],
+  before  => Exec[$curl, $curl_md5],
 }
 
 #
@@ -55,6 +55,6 @@ exec { $curl:
 exec { $curl_md5:
   path    => $paths,
   command => $curl_md5,
-  unless  => $curl_md5unless,
+  unless  => $curl_md5_unless,
 }
 
