@@ -47,9 +47,14 @@ package { 'openssh-clients':
   ensure => absent,
 }
 
-package { 'git':
+package { 'perl-Git':
   ensure => absent,
   before => Package['rsync','openssh-clients'], 
+}
+
+package { 'git':
+  ensure => absent,
+  before => Package['perl-Git'], 
 }
 
 #    
