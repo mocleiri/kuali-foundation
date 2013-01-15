@@ -25,6 +25,11 @@ exec { $mkdircmd:
   before  => Exec[$curlcmd],
 }
 
+#
+# Invoke cURL to download the artifact UNLESS
+# 1 - the file already exists AND
+# 2 - the md5 checksum returned by Amazon S3 equals the md5 checksum returned by the local file system
+#
 exec { $curlcmd:
   path    => $paths,
   command => $curlcmd,
