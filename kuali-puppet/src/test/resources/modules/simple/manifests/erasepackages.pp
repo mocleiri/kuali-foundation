@@ -7,9 +7,15 @@ package {
     ensure => absent;
   "wget": 
     ensure => absent;
-  "rubygems": 
-    ensure => absent;
   "subversion": 
+    ensure => absent;
+  "fog":
+    before => 'ruby-devel', 
+    ensure => absent;
+  "ruby-devel": 
+    before => 'ruby-gems', 
+    ensure => absent;
+  "rubygems": 
     ensure => absent;
 #    
 # rsync and openssh-clients are both required by git
