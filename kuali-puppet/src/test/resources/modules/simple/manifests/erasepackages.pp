@@ -11,6 +11,7 @@ package {
     ensure => absent;
   'fog':
     ensure => absent,
+    provider => 'gem',
     before => Package['ruby-devel']; 
   'ruby-devel': 
     ensure => absent,
@@ -20,6 +21,8 @@ package {
     before => Package['rubygems']; 
   'rubygems': 
     ensure => absent;
+}
+
 #    
 # rsync and openssh-clients are both required by git
 #
@@ -40,4 +43,3 @@ package {
 #  'perl-Git': 
 #    ensure => absent,
 #    before => Package['git'];
-}
