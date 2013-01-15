@@ -10,7 +10,7 @@ package { 'unzip':
 package { 'wget': 
   ensure => absent,
 }
-# Leave svn alone so we don't have to keep re-installing    
+# Leave svn alone so we don't have to keep re-installing it
 #package { 'subversion': 
 #  ensure => absent,
 #}
