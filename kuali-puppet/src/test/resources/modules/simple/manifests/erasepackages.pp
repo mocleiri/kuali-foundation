@@ -7,8 +7,9 @@ package {
     ensure => absent;
   'wget': 
     ensure => absent;
-  'subversion': 
-    ensure => absent;
+# Leave svn alone so we don't have to keep re-installing    
+#  'subversion': 
+#    ensure => absent;
 }
 
 package { 'fog':
