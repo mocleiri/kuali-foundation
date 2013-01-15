@@ -20,8 +20,11 @@ package {
   'ruby-devel': 
     ensure  => installed,
     require => Package['rubygems'];
+  'ruby-nokogiri': 
+    ensure  => installed,
+    require => Package['ruby-devel'];
   'fog': 
     ensure   => installed,
     provider => 'gem',
-    require  => Package['ruby-devel'];
+    require  => Package['ruby-nokogiri'];
 }
