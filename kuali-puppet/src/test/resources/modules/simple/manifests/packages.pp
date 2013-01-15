@@ -1,4 +1,4 @@
-package { 
+package { 'all-packages': 
   'man': 
     ensure => latest;
   'zip': 
@@ -20,7 +20,9 @@ package {
   'ruby-devel': 
     ensure => installed,
     require => Package['rubygems'];
-  'fog': 
+}
+
+package { 'fog': 
     ensure   => 'installed',
     provider => 'gem',
     require => Package['rubygems','ruby-devel'];
