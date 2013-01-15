@@ -1,4 +1,4 @@
-package { 
+package {
   'man': 
     ensure => latest;
   'zip': 
@@ -15,16 +15,27 @@ package {
     ensure => installed;
   'git':
     ensure => installed;
-  'rubygems': 
-    ensure => installed;
-  'ruby-devel': 
-    ensure  => installed,
-    require => Package['rubygems'];
-  'ruby-nokogiri': 
-    ensure  => installed,
-    require => Package['ruby-devel'];
-  'fog': 
-    ensure   => installed,
-    provider => 'gem',
-    require  => Package['ruby-nokogiri'];
+}
+
+package { 'rubygems':
+  version => '1.8.11',
+  ensure => installed,
+}
+
+package { 'ruby-devel': 
+  version => '1.8.7.371',
+  ensure  => installed,
+  require => Package['rubygems'],
+}
+
+package { 'ruby-nokogiri': 
+  version => '1.5.2',
+  ensure  => installed,
+  require => Package['ruby-devel'],
+}
+
+package { 'fog': 
+  ensure   => installed,
+  provider => 'gem',
+  require  => Package['ruby-nokogiri'],
 }
