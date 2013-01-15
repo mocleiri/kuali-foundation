@@ -1,21 +1,23 @@
-package { 
-  'man': 
-    ensure => absent;
-  'zip': 
-    ensure => absent;
-  'unzip': 
-    ensure => absent;
-  'wget': 
-    ensure => absent;
-# Leave svn alone so we don't have to keep re-installing    
-#  'subversion': 
-#    ensure => absent;
+package { 'man': 
+  ensure => absent,
 }
+package { 'zip': 
+  ensure => absent,
+}
+package { 'unzip': 
+  ensure => absent,
+}
+package { 'wget': 
+  ensure => absent,
+}
+# Leave svn alone so we don't have to keep re-installing    
+#package { 'subversion': 
+#  ensure => absent,
+#}
 
 package { 'fog':
   ensure => absent,
   provider => 'gem',
-  before => Package['ruby-devel']; 
 }
 
 package { 'ruby-devel': 
@@ -27,8 +29,8 @@ package { 'ruby-nokogiri':
 }
 
 package { 'rubygems': 
-  ensure => absent;
-  require => Package['ruby-nokogiri', 'ruby-devel']; 
+  ensure => absent,
+  require => Package['fog', 'ruby-nokogiri', 'ruby-devel'], 
 }
 
 #    
