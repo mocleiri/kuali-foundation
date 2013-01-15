@@ -1,0 +1,16 @@
+#!/bin/bash -e
+echo $(date)
+
+RUBY=ruby
+PUPPET=puppet
+
+RUBY_VERSION=1.8.7.371
+PUPPET_VERSION=2.7.18
+
+RUBY_PACKAGE=$RUBY-$RUBY_VERSION
+PUPPET_PACKAGE=$PUPPET-$PUPPET_VERSION
+
+yum remove $PUPPET $RUBY -y
+yum install $RUBY_PACKAGE $PUPPET_PACKAGE -y
+
+echo $(date)
