@@ -11,6 +11,9 @@ package {
     ensure => absent;
   "subversion": 
     ensure => absent;
+#    
+# rsync and openssh-clients are both required by git
+#
 #  "rsync": 
 #    ensure => absent;
 #  "openssh-clients": 
