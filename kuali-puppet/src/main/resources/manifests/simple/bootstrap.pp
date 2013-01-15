@@ -15,15 +15,19 @@ $localfile = "${localdir}/${filename}"
 $url = "${repo}/${repopath}/${filename}"
 $paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
-exec { "touch ${localfile}":
+$curlcmd = "curl --location --output ${localfile} ${url}"
+$mkdircmd = "mkdir -p ${localdir}"
+
+exec { $mkdircmd:
   path    => $paths,
-  command => "touch ${localfile}",
-  creates => $localfile
+  command => $mkdircmd,
+  creates => $localdir,
+  before  => Exec[$curlcmd],
 }
 
-exec { "fetch ${filename}":
+exec { $curlcmd:
   path    => $paths,
-  command => "curl --location -output ${localfile} ${url}",
-  require => Exec["create-bootstrap-dir"],
+  command => $curlcmd,
   unless  => "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
 }
+
