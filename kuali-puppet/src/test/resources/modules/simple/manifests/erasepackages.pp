@@ -17,5 +17,5 @@ package {
     ensure => absent,
   "git": 
     ensure => absent,
-    before => Package["rsync","openssh-clients"]
+    before => Package["rsync","openssh-clients"],
 }
