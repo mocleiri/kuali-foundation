@@ -18,7 +18,8 @@ package {
   'rubygems': 
     ensure => installed;
   'ruby-devel': 
-    ensure => installed;
+    ensure => installed,
+    require => Package['rubygems'];
   'fog': 
     ensure   => 'installed',
     provider => 'gem',
