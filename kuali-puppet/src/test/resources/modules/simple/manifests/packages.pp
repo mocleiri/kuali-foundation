@@ -11,13 +11,14 @@ package {
     ensure => latest;
   'openssh-clients': 
     ensure => latest;
-  'rubygems': 
-    ensure => installed;
   'subversion': 
     ensure => installed;
   'git':
     ensure => installed;
+  'rubygems': 
+    ensure => installed;
   'fog': 
     ensure   => 'installed',
     provider => 'gem',
+    requires => 'rubygems',
 }
