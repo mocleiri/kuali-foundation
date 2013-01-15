@@ -9,18 +9,26 @@ package {
     ensure => absent;
   'subversion': 
     ensure => absent;
-  'fog':
-    ensure => absent,
-    provider => 'gem',
-    before => Package['ruby-devel']; 
-  'ruby-devel': 
-    ensure => absent,
-    before => Package['rubygems']; 
-  'ruby-nokogiri': 
-    ensure => absent,
-    before => Package['rubygems']; 
-  'rubygems': 
-    ensure => absent;
+}
+
+package { 'fog':
+  ensure => absent,
+  provider => 'gem',
+  before => Package['ruby-devel']; 
+}
+
+package { 'ruby-devel': 
+  ensure => absent,
+  before => Package['rubygems']; 
+}
+
+package { 'ruby-nokogiri': 
+  ensure => absent,
+  before => Package['rubygems']; 
+}
+
+package { 'rubygems': 
+  ensure => absent;
 }
 
 #    
