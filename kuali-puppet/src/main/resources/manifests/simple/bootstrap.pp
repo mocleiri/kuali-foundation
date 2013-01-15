@@ -23,8 +23,8 @@ $mkdir = "mkdir -p ${localdir}"
 $curl = "curl --location --output ${localfile} ${url}"
 $curl_unless = "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
 
-$curl_md5 = "curl --location --output ${localfilemd5} ${urlmd5}"
-$curl_md5unless = "[ -e ${localfilemd5} ] && curl --silent --head ${urlmd5} | grep ETag | grep `md5sum ${localfilemd5} | cut --characters=1-32`"
+$curl_md5 = "curl --location --output ${localfile_md5} ${url_md5}"
+$curl_md5unless = "[ -e ${localfile_md5} ] && curl --silent --head ${url_md5} | grep ETag | grep `md5sum ${localfile_md5} | cut --characters=1-32`"
 
 #
 # Create the directory making parent directories as needed, unless the directory already exists
