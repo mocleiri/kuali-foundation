@@ -15,9 +15,13 @@ $localfile = "${localdir}/${filename}"
 $url = "${repo}/${repopath}/${filename}"
 $paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
-$curlcmd = "curl --location --output ${localfile} ${url}"
 $mkdircmd = "mkdir -p ${localdir}"
+$curlcmd = "curl --location --output ${localfile} ${url}"
+$curlunless = "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
 
+#
+# Create the directory making parent directories as needed, unless the directory already exists
+#
 exec { $mkdircmd:
   path    => $paths,
   command => $mkdircmd,
@@ -27,12 +31,12 @@ exec { $mkdircmd:
 
 #
 # Invoke cURL to download the artifact UNLESS
-# 1 - the file already exists in the local Maven repository AND
-# 2 - the md5 checksum returned in the Amazon S3 http header equals the md5 checksum returned by the local file system
+#   1 - the artifact already exists in the local Maven repository AND
+#   2 - the md5 checksum returned in the Amazon S3 http header equals the md5 checksum returned by the local file system
 #
 exec { $curlcmd:
   path    => $paths,
   command => $curlcmd,
-  unless  => "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
+  unless  => $curlunless,
 }
 
