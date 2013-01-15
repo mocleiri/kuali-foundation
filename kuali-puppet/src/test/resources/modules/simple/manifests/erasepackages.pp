@@ -1,21 +1,21 @@
 package { 
   "man": 
-    ensure => absent,
+    ensure => absent;
   "zip": 
-    ensure => absent,
+    ensure => absent;
   "unzip": 
-    ensure => absent,
+    ensure => absent;
   "wget": 
-    ensure => absent,
+    ensure => absent;
   "rsync": 
-    ensure => absent,
+    ensure => absent;
   "openssh-clients": 
-    ensure => absent,
+    ensure => absent;
   "rubygems": 
-    ensure => absent,
+    ensure => absent;
   "subversion": 
-    ensure => absent,
+    ensure => absent;
   "git": 
     ensure => absent,
-    before => Package["rsync","openssh-clients"],
+    before => Package["rsync","openssh-clients"];
 }
