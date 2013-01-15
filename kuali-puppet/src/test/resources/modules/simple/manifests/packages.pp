@@ -1,6 +1,4 @@
 package { 
-  "curl": 
-    ensure => present;
   "man": 
     ensure => present;
   "zip": 
@@ -12,5 +10,11 @@ package {
   "rsync": 
     ensure => present;
   "openssh-clients": 
+    ensure => present;
+  "rubygems": 
+    ensure => present;
+  "subversion": 
+    ensure => present;
+  "git": 
     ensure => present;
 }
