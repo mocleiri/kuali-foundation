@@ -2,31 +2,38 @@ $s3 = "s3.amazonaws.com"
 $bucket = "maven.kuali.org"
 $prefix = "release"
 $repo = "https://${s3}/${bucket}/${prefix}"
-$groupid = "org/kuali/rice"
-$artifactid = "rice-core-api"
+$group_id = "org/kuali/rice"
+$artifact_id = "rice-core-api"
 $version = "2.2.0"
 $packaging = "jar"
-$repopath = "${groupid}/${artifactid}/${version}"
+$repopath = "${group_id}/${artifact_id}/${version}"
 $filename = "${artifactid}-${version}.${packaging}"
 $userhome = "/root"
 $localrepo = "${userhome}/.m2/repository"
 $localdir = "${localrepo}/${repopath}"
+
 $localfile = "${localdir}/${filename}"
+$localfile_md5 = "${localdir}/${filename}.md5"
 $url = "${repo}/${repopath}/${filename}"
+$url_md5 = "${repo}/${repopath}/${filename}.md5"
 $paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
-$mkdircmd = "mkdir -p ${localdir}"
-$curlcmd = "curl --location --output ${localfile} ${url}"
-$curlunless = "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
+$mkdir = "mkdir -p ${localdir}"
+
+$curl = "curl --location --output ${localfile} ${url}"
+$curl_unless = "[ -e ${localfile} ] && curl --silent --head ${url} | grep ETag | grep `md5sum ${localfile} | cut --characters=1-32`"
+
+$curl_md5 = "curl --location --output ${localfilemd5} ${urlmd5}"
+$curl_md5unless = "[ -e ${localfilemd5} ] && curl --silent --head ${urlmd5} | grep ETag | grep `md5sum ${localfilemd5} | cut --characters=1-32`"
 
 #
 # Create the directory making parent directories as needed, unless the directory already exists
 #
-exec { $mkdircmd:
+exec { $mkdir:
   path    => $paths,
-  command => $mkdircmd,
+  command => $mkdir,
   creates => $localdir,
-  before  => Exec[$curlcmd],
+  before  => Exec[$curl],
 }
 
 #
@@ -34,9 +41,20 @@ exec { $mkdircmd:
 #   1 - the artifact already exists in the local Maven repository AND
 #   2 - the md5 checksum returned in the Amazon S3 http header equals the md5 checksum returned by the local file system
 #
-exec { $curlcmd:
+exec { $curl:
   path    => $paths,
-  command => $curlcmd,
-  unless  => $curlunless,
+  command => $curl,
+  unless  => $curl_unless,
+}
+
+#
+# Invoke cURL to download the artifact UNLESS
+#   1 - the artifact already exists in the local Maven repository AND
+#   2 - the md5 checksum returned in the Amazon S3 http header equals the md5 checksum returned by the local file system
+#
+exec { $curl_md5:
+  path    => $paths,
+  command => $curl_md5,
+  unless  => $curl_md5unless,
 }
 
