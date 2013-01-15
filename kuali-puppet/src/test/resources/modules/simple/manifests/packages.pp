@@ -20,5 +20,5 @@ package {
   'fog': 
     ensure   => 'installed',
     provider => 'gem',
-    requires => 'rubygems',
+    requires => Package['rubygems'];
 }
