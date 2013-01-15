@@ -1,8 +1,7 @@
 #!/bin/bash -e
 
-PUPPET=puppet
+PACKAGE=puppet
 VERSION=2.7.18
-PACKAGE=$PUPPET-$VERSION
 
-yum erase $PUPPET -y
-yum install $PACKAGE -y
+yum erase $PACKAGE -y
+yum install $PACKAGE-$VERSION -y
