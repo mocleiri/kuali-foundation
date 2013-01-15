@@ -18,12 +18,10 @@ package {
   'rubygems': 
     ensure => installed;
   'ruby-devel': 
-    ensure => installed,
+    ensure  => installed,
     require => Package['rubygems'];
-}
-
-package { 'fog': 
-    ensure   => 'installed',
+  'fog': 
+    ensure   => installed,
     provider => 'gem',
-    require => Package['rubygems','ruby-devel'];
+    require  => Package['ruby-devel'];
 }
