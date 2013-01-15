@@ -15,10 +15,10 @@ $localfile = "${localdir}/${filename}"
 $url = "${repo}/${repopath}/${filename}"
 $paths = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
-exec { "create-bootstrap-dir":
+exec { "touch ${localfile}":
   path    => $paths,
-  command => "mkdir -p ${localdir}",
-  creates => $localdir
+  command => "touch ${localfile}",
+  creates => $localfile
 }
 
 exec { "fetch ${filename}":
