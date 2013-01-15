@@ -1,5 +1,4 @@
 #!/bin/bash -e
-echo $(date)
 
 RUBY=ruby
 PUPPET=puppet
@@ -12,5 +11,3 @@ PUPPET_PACKAGE=$PUPPET-$PUPPET_VERSION
 
 yum remove $PUPPET $RUBY -y
 yum install $RUBY_PACKAGE $PUPPET_PACKAGE -y
-
-echo $(date)
