@@ -39,7 +39,7 @@ exec { $mkdir:
 #
 # Invoke cURL to download the artifact UNLESS
 #   1 - the artifact already exists in the local Maven repository AND
-#   2 - the md5 checksum returned in the Amazon S3 http header equals the md5 checksum returned by the local file system
+#   2 - the md5 checksum returned in the Amazon S3 http header matches the md5 checksum returned by the local file system
 #
 exec { $curl:
   path    => $paths,
