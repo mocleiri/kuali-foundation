@@ -15,6 +15,9 @@ package {
   "ruby-devel": 
     ensure => absent,
     before => Package['rubygems']; 
+  "ruby-nokogiri": 
+    ensure => absent,
+    before => Package['rubygems']; 
   "rubygems": 
     ensure => absent;
 #    
