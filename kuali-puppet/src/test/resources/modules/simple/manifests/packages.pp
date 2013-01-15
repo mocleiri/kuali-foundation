@@ -1,4 +1,4 @@
-package { 'all-packages': 
+package { 
   'man': 
     ensure => latest;
   'zip': 
