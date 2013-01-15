@@ -27,7 +27,7 @@ package { 'ruby-devel':
 
 package { 'ruby-nokogiri': 
   ensure => absent,
-  before => 'rubygems',
+  before => Package['rubygems'],
 }
 
 package { 'rubygems': 
