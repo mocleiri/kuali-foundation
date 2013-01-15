@@ -54,7 +54,7 @@ package { 'perl-Git':
 
 package { 'git':
   ensure => absent,
-  before => Package['perl-Git'], 
+  require => Package['perl-Git'], 
 }
 
 #    
