@@ -8,10 +8,10 @@ class maven {
   $filename = "/tmp/jdk7-1.7.0-u07-linux-x64.zip"
   $expires = 30
   
-  $curl = s3getcurl($bucket, $key, $filename, $expires)
+  $curlcmd = s3getcurlcmd($bucket, $key, $filename, $expires)
 
   exec { $curl:
-    command => $curl,
+    command => $curlcmd,
   }
 }
 
