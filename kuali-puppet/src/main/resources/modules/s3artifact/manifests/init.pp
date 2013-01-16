@@ -44,7 +44,7 @@ define s3artifact ($localrepo
   $md5exec = "s3curl(${bucket}, ${md5key}, ${md5file}, ${expires})"
 
   # Title of the exec resource for the cURL command that downloads the S3 object itself
-  $objectexec = "s3curl(${bucket}, ${key}, ${filename}, ${expires})"
+  $objectexec = "s3curl(${bucket}, ${key}, ${file}, ${expires})"
   
   # Exec resource to download the .md5 checksum of the S3 object to a local file
   exec { $md5exec:
