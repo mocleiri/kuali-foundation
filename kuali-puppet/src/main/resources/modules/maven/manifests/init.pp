@@ -7,9 +7,9 @@ class maven {
   $name = "bar"
   $expires = 30
   
-  $curl = s3getcurl($bucket, $title, $name, $expires)
+  $url = s3getcurl("maven.kuali.org", "foo", "bar", 30)
 
-  notify {$curl:}
+  notify {$url:}
 }
 
 class {'maven': }
