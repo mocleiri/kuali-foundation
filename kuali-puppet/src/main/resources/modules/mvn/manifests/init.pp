@@ -1,5 +1,5 @@
-class maven {
-  class { 'maven::s3artifact' :
+class mvn {
+  class { 'mvn::s3artifact' :
     bucket      => 'maven.kuali.org,
     prefix      => 'private',
     group_id    => 'com.oracle',
@@ -8,4 +8,4 @@ class maven {
   }
 }
 
-class {'maven':}
+class {'mvn':}
