@@ -7,7 +7,7 @@ module Puppet::Parser::Functions
     tokens = mystring.split('.')
     path = ''
     for i in 1..tokens.length
-      path << tokens[i]
+      path << tokens[#{i}]
     end
     return mystring
   end
