@@ -4,15 +4,15 @@ require 'time'
 
 module Puppet::Parser::Functions
   newfunction(:s3curl, :type => :rvalue, :doc => <<-EOS
-    Generates a curl command containing a presigned url for the s3 object specified
+    Generates a cURL command containing a presigned url for the S3 object specified
     by the bucket and key.  Executing the cURL command returned by this function
-    will download the s3 object to filename
+    will download the S3 object to filename
     EOS
              ) do |args|
     bucket   = args[0] # S3 bucket name
     key      = args[1] # key for an object in the bucket
-    filename = args[2] # download location
-    expires  = args[3] # in seconds
+    filename = args[2] # path on the local file system to download the S3 object to
+    expires  = args[3] # length of time (in seconds) the url is valid for
     Fog.credentials_path = '/etc/puppet/fog_cred'
     s3 = Fog::Storage.new(:provider => 'AWS')
     s3bucket = s3.directories.get(bucket)
