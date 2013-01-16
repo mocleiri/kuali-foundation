@@ -4,7 +4,7 @@ Exec { path => $exec_path }
 class maven {
   
   $bucket = "maven.kuali.org"
-  $key = "builds/org/kuali/pom/kuali-common/1.1.9-r8385/kuali-common-1.1.9-r8385.pom"
+  $key = "private/com/oracle/jdk7/1.7.0-u07/jdk7-1.7.0-u07-linux-x64.zip"
   $filename = "/tmp/kuali-common-1.1.9-r8385.pom"
   $expires = 30
   
