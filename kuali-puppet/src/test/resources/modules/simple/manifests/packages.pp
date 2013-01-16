@@ -32,5 +32,5 @@ package { 'ruby-nokogiri':
 package { 'fog': 
   ensure   => '1.8.0',
   provider => 'gem',
-  require  => Package['ruby-gems','ruby-nokogiri','ruby-devel'],
+  require  => Package['rubygems','ruby-nokogiri','ruby-devel'],
 }
