@@ -1,20 +1,13 @@
-package { 'man': 
-  ensure => absent,
+package {
+  'man':             ensure => absent;
+  'zip':             ensure => absent;
+  'unzip':           ensure => absent;
+  'wget':            ensure => absent;
+  'rsync':           ensure => absent;
+  'openssh-clients': ensure => absent;
+# 'subversion':      ensure => absent; 
+  'git':             ensure => purged; # purged instead of absent because it lists rsync and openssh-clients as dependencies
 }
-package { 'zip': 
-  ensure => absent,
-}
-package { 'unzip': 
-  ensure => absent,
-}
-package { 'wget': 
-  ensure => absent,
-}
-
-# Leave svn alone so we don't have to keep re-installing it
-#package { 'subversion': 
-#  ensure => absent,
-#}
 
 package { 'fog':
   ensure => absent,
@@ -32,8 +25,4 @@ package { 'ruby-nokogiri':
 package { 'rubygems': 
   ensure => purged,
   require => Package['fog'], 
-}
-
-package { 'git':
-  ensure => purged,
 }

@@ -1,20 +1,12 @@
 package {
-  'man': 
-    ensure => latest;
-  'zip': 
-    ensure => latest;
-  'unzip': 
-    ensure => latest;
-  'wget': 
-    ensure => latest;
-  'rsync': 
-    ensure => latest;
-  'openssh-clients': 
-    ensure => latest;
-  'subversion': 
-    ensure => latest;
-  'git':
-    ensure => latest;
+  'man':             ensure => latest;
+  'zip':             ensure => latest;
+  'unzip':           ensure => latest;
+  'wget':            ensure => latest;
+  'rsync':           ensure => latest;
+  'openssh-clients': ensure => latest;
+  'subversion':      ensure => latest;
+  'git':             ensure => latest;
 }
 
 package { 'rubygems':
