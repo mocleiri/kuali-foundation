@@ -5,6 +5,7 @@ $bucket = "maven.kuali.org"
 $prefix = "private"
 $packaging = "zip"
 $classifier = "linux-x64"
+
 $jdk7artifactid = "jdk7"
 $jdk6artifactid = "jdk6"
 
