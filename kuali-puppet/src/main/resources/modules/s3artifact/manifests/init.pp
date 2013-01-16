@@ -32,7 +32,8 @@ define s3artifact ($localrepo
   $path = "${groupid}/${artifactid}/${version}"
 
   # The fully qualified key to the correct S3 object in the bucket
-  # eg "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar"
+  # eg "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar" or
+  # "release/org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar"
   if ($prefix == undef) {
     $key = "${path}/${filename}"
   } else {
