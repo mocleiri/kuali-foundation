@@ -57,7 +57,7 @@ define s3artifact ($localrepo
   # Exec resource to download the S3 object itself
   exec { $objectexec:
     # Execute a cURL command to download the S3 object
-    command     => s3curl($bucket, $key, $filename, $expires),
+    command     => s3curl($bucket, $key, $file, $expires),
     # Subscribe to the exec resource that downloads the .md5 file associated with the S3 object
     subscribe   => Exec[$md5exec],
     # Only download the S3 object if the .md5 file changes
