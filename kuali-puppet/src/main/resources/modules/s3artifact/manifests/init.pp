@@ -30,5 +30,19 @@ define s3artifact ($localrepo
   $md5key = "${key}.md5"
   $md5file = "${file}.md5"
   
+  # The md5 checksum maintained by S3 of the .md5 file
+  $md5md5 = s3md5($bucket,$md5key)
+
+  # Condition indicating the local .md5 file exactly matches the .md5 file on S3
+  #  1 - The .md5 file exists AND
+  #  2 - The local md5 checksum of the local .md5 file matches the md5 checksum maintained by S3 
+  $md5unless = "[ -e ${md5file} ] && echo \"${md5md5}  ${md5file}\" | md5sum --check --status"
+
+  # Title of the exec resource for the cURL command that downloads the .md5 file associated with the S3 object
+  $md5exec = "s3curl(${bucket}, ${md5key}, ${md5file}, ${expires})"
+
+  # Title of the exec resource for the cURL command that downloads the S3 object itself
+  $objectexec = "s3curl(${bucket}, ${key}, ${filename}, ${expires})"
+  
   notify {"${bucket} ${key} ${file}":}
 }
