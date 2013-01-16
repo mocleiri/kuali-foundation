@@ -21,11 +21,14 @@ define s3artifact ($localrepo
   }
   
   $repo_path = "${group_id}/${artifact_id}/${version}"
-  $key_fragment = "
-  
-  notify {$id:}
-  notify {$bucket:}
-  if ($prefix != undef) {
-    notify {$prefix:}
+
+  if ($prefix == undef) {
+    $key = "${repo_path}/${filename}"
+  } else {
+    $key = "${prefix}/${repo_path}/${filename}"
   }
+  
+  $path = "${localrepo}/${repo_path}/${filename}"
+  
+  notify {"${bucket} ${key} ${path}:}
 }
