@@ -10,11 +10,18 @@ define s3artifact ($localrepo
 ) {
 
   $id_fragment = "${group_id}:${artifact_id}:${version}:${packaging}"
+  $filename_fragment = "${artifact_id}-${version}"
+  
   if ($classifier != undef) {
     $id = "${id_fragment}:${classifier}"
+    $filename = "${filename_fragment}-${classifier}.${packaging}"
   } else {
     $id = $id_fragment
+    $filename = "${filename_fragment}.${packaging}"
   }
+  
+  $repo_path = "${group_id}/${artifact_id}/${version}"
+  $key_fragment = "
   
   notify {$id:}
   notify {$bucket:}
