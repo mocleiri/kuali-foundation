@@ -32,7 +32,7 @@ define s3artifact ($localrepo
   $path = "${groupid}/${artifactid}/${version}"
 
   # The fully qualified key to the correct S3 object in the bucket
-  # eg "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar" or
+  # "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar" or
   # "release/org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar"
   if ($prefix == undef) {
     $key = "${path}/${filename}"
@@ -64,7 +64,7 @@ define s3artifact ($localrepo
   # Title of the exec resource for the cURL command that downloads the S3 object itself
   $objectexec = "s3curl(${bucket}, ${key}, ${file}, ${expires})"
   
-  # Exec resource to download the .md5 checksum of the S3 object to a local file
+  # Exec resource that downloads the .md5 checksum of the S3 object
   exec { $md5exec:
     # Execute a cURL command to download the .md5 file associated with the S3 object
     command => s3curl($bucket, $md5key, $md5file, $expires),
@@ -72,7 +72,7 @@ define s3artifact ($localrepo
     unless  => $md5unless,
   }
   
-  # Exec resource to download the S3 object itself
+  # Exec resource that downloads the S3 object itself
   exec { $objectexec:
     # Execute a cURL command to download the S3 object
     command     => s3curl($bucket, $key, $file, $expires),
