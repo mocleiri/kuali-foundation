@@ -3,11 +3,11 @@ class maven {
   notify {'Hello world':}
   
   $bucket = "maven.kuali.org"
-  $title = "foo"
-  $name = "bar"
+  $key = "foo"
+  $filename = "/tmp/tmp.txt"
   $expires = 30
   
-  $url = s3getcurl("maven.kuali.org", "foo", "bar", 30)
+  $url = s3getcurl($bucket,$key,$filename,$expires)
 
   notify {$url:}
 }
