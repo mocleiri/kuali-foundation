@@ -3,12 +3,12 @@ require 'fog'
 
 module Puppet::Parser::Functions
   newfunction(:s3getEtag, :type => :rvalue, :doc => <<-EOS
-Returns the md5 hash of the s3 object specified by the bucket and key.
-Note: This will not work if the object was uploaded with Multipart.
-EOS
+    Returns the md5 hash of the s3 object specified by the bucket and key.
+    Note: This will not work if the object was uploaded with Multipart.
+    EOS
              ) do |args|
-    bucket = args[0]
-    key = args[1]
+    bucket   = args[0]
+    key      = args[1]
     Fog.credentials_path = '/etc/puppet/fog_cred'
     s3 = Fog::Storage.new(:provider => 'AWS')
     s3bucket = s3.directories.get(bucket)
