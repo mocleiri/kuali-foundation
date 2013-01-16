@@ -2,7 +2,7 @@ require 'rubygems'
 require 'fog'
 
 module Puppet::Parser::Functions
-  newfunction(:s3getmd5sum, :type => :rvalue, :doc => <<-EOS
+  newfunction(:s3md5sum, :type => :rvalue, :doc => <<-EOS
     Returns the md5 hash of the s3 object specified by the bucket and key.
     Note: This will not work if the object was uploaded with Multipart.
     EOS
