@@ -9,20 +9,24 @@ class maven {
   $key = "private/com/oracle/jdk7/1.7.0-u07/jdk7-1.7.0-u07-linux-x64.zip"
   $filename = "/tmp/jdk7-1.7.0-u07-linux-x64.zip"
 
-  $key_md5 = "${key}.md5"
-  $key_md5_value = s3md5($bucket,$key_md5)
-  notify {$key_md5_value:}
-  $filename_md5 = "${filename}.md5"
+  $md5key = "${key}.md5"
+  $md5file = "${filename}.md5"
+  $md5md5 = s3md5($bucket,$md5key)
+  $md5unless = "echo \"${md5md5}  ${md5file}\" | md5sum -c --status"
   
-  $md5exec = "s3curl(${bucket}, ${key_md5}, ${filename_md5}, ${expires})"
+  notify {$md5unless:}
+  
+  $md5exec = "s3curl(${bucket}, ${md5key}, ${md5file}, ${expires})"
+  $objectexec = "s3curl(${bucket}, ${key}, ${filename}, ${expires})"
   
   exec { $md5exec:
-    command => s3curl($bucket, $key_md5, $filename_md5, $expires),
+    command => s3curl($bucket, $md5key, $md5file, $expires),
+    unless  => $md5unless,
   }
   
-  exec { "s3curl(${bucket}, ${key}, ${filename}, ${expires})":
+  exec { $objectexec:
     command => s3curl($bucket, $key, $filename, $expires),
-    require => Exec[$md5exec],
+    subscribe => Exec[$md5exec],
   }
 
 }
