@@ -26,3 +26,5 @@ class maven {
 }
 
 class {'maven': }
+
+# grep `md5sum jdk7-1.7.0-u07-linux-x64.zip | cut -c1-32` jdk7-1.7.0-u07-linux-x64.zip.md5  && echo yo
