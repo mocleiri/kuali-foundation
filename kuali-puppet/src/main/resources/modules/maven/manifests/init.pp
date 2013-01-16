@@ -14,7 +14,7 @@ class maven {
 
   # Fully qualified path to download the S3 object to
   # Any non-existing parent directories are automatically created as needed
-  $filename = "/tmp/jdk7-1.7.0-u07-linux-x64.zip"
+  $filename = "/root/.m2/repository/jdk7-1.7.0-u07-linux-x64.zip"
 
   # The key to the md5 checksum of the S3 object being downloaded
   $md5key = "${key}.md5"
