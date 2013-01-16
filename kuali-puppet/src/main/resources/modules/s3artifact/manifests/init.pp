@@ -1,2 +1,2 @@
-define s3artifact {
+define s3artifact ($bucket) {
 }
