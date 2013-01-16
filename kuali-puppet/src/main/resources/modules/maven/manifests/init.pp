@@ -7,7 +7,7 @@ class maven {
   $name = "bar"
   $expires = 30
   
-  $curl = s3getcurl($bucket, $title, $name, $expires),
+  $curl = s3getcurl($bucket, $title, $name, $expires)
 
   notify {$curl:}
 }
