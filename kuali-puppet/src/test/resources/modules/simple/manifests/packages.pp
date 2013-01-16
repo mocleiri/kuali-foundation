@@ -22,8 +22,8 @@ package { 'rubygems':
 }
 
 package { 'ruby-nokogiri': 
-  ensure => '1.5.2-1.6.amzn1',
-  require  => Package['rubygems'],
+  ensure  => '1.5.2-1.6.amzn1',
+  require => Package['rubygems'],
 }
 
 package { 'ruby-devel': 
