@@ -9,9 +9,11 @@ define s3artifact ($localrepo
   , $ensure = 'present'
 ) {
 
-  $id = "${group_id}:${artifact_id}:${version}:${packaging}"
+  $id_fragment = "${group_id}:${artifact_id}:${version}:${packaging}"
   if ($classifier != undef) {
-    $id = "${id}:${classifier}"
+    $id = "${id_fragment}:${classifier}"
+  } else {
+    $id = $id_fragment
   }
   
   notify {$id:}
