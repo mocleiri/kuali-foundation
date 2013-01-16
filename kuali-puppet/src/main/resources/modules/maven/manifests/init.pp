@@ -10,7 +10,7 @@ class maven {
   
   $s3curlcmd = s3curlcmd($bucket, $key, $filename, $expires)
 
-  exec { $curl:
+  exec { $s3curlcmd:
     command => $s3curlcmd,
   }
   
