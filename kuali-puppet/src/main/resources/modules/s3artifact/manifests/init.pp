@@ -6,7 +6,6 @@ define s3artifact ($localrepo
   , $version
   , $packaging = 'jar'
   , $classifier = undef
-  , $ensure = 'present'
 ) {
 
   # File system paths to check for cURL and md5sum
