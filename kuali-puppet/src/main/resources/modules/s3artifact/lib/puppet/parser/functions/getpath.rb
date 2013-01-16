@@ -4,7 +4,7 @@ module Puppet::Parser::Functions
     EOS
              ) do |args|
     mystring = args[0] # the string to convert
-    tokens = mystring[0].split('.')
+    tokens = mystring.split('.')
     return tokens.join('/')
   end
 end
