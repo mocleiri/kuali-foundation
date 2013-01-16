@@ -1,5 +1,5 @@
-class maven::s3artifact {
+class maven::s3artifact ($group_id = 'com.oracle') {
 
-  notify {"hello world":}
+  notify {$group_id:}
   
 }
