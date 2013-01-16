@@ -9,9 +9,9 @@ module Puppet::Parser::Functions
     EOS
              ) do |args|
     bucket   = args[0] # S3 bucket name
-    key      = args[1] # key into that bucket
-    filename = args[2] # local file where the file will be downloaded
-    expires  = args[3] # in seconds from the current time
+    key      = args[1] # key for an object in the bucket
+    filename = args[2] # download location
+    expires  = args[3] # in seconds
     Fog.credentials_path = '/etc/puppet/fog_cred'
     s3 = Fog::Storage.new(:provider => 'AWS')
     s3bucket = s3.directories.get(bucket)
