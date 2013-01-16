@@ -1,6 +1,6 @@
 
 $localrepo = "/root/.m2/repository"
-$groupid = "com/oracle"
+$groupid = "com.oracle"
 $bucket = "maven.kuali.org"
 $prefix = "private"
 $packaging = "zip"
