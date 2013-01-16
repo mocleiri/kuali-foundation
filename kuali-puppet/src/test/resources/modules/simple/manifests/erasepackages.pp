@@ -1,14 +1,14 @@
 package { 'man': 
-  ensure => absent,
+  ensure => purged,
 }
 package { 'zip': 
-  ensure => absent,
+  ensure => purged,
 }
 package { 'unzip': 
-  ensure => absent,
+  ensure => purged,
 }
 package { 'wget': 
-  ensure => absent,
+  ensure => purged,
 }
 
 # Leave svn alone so we don't have to keep re-installing it
@@ -17,12 +17,12 @@ package { 'wget':
 #}
 
 package { 'fog':
-  ensure => absent,
+  ensure => purged,
   provider => 'gem',
 }
 
 package { 'ruby-devel': 
-  ensure => absent,
+  ensure => purged,
 }
 
 package { 'rubygem-nokogiri': 
@@ -35,7 +35,7 @@ package { 'ruby-nokogiri':
 }
 
 package { 'rubygems': 
-  ensure => absent,
+  ensure => purged,
   require => Package['fog', 'ruby-nokogiri', 'ruby-devel'], 
 }
 

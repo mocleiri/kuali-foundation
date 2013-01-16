@@ -23,16 +23,14 @@ package { 'rubygems':
 
 package { 'ruby-devel': 
   ensure => '1.8.7.371-1.20.amzn1',
-  require => Package['rubygems'],
 }
 
 package { 'ruby-nokogiri': 
   ensure => '1.5.2-1.6.amzn1',
-  require => Package['ruby-devel'],
 }
 
 package { 'fog': 
   ensure   => '1.8.0',
   provider => 'gem',
-  require  => Package['ruby-nokogiri'],
+  require  => Package['ruby-gems','ruby-nokogiri','ruby-devel'],
 }
