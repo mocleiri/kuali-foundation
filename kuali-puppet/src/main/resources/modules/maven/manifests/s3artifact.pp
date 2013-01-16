@@ -1,5 +1,6 @@
-class maven::s3artifact ($group_id = 'com.oracle') {
+class maven::s3artifact ($group_id, $artifact_id, $version, $packaging = 'jar', $classifier = undef) {
 
-  notify {$group_id:}
+  $gav = "${group_id}:${artifact_id}:${version}:${packaging}"
+  notify {$gav}
   
 }
