@@ -5,8 +5,8 @@ package {
   'wget':            ensure => absent;
   'rsync':           ensure => absent;
   'openssh-clients': ensure => absent;
-# 'subversion':      ensure => absent; 
-  'git':             ensure => absent; # purged instead of absent because it lists rsync and openssh-clients as dependencies
+# 'subversion':      ensure => absent; # leave subversion alone so we don't have to keep re-installing it
+  'git':             ensure => purged; # purged instead of absent because it lists rsync and openssh-clients as dependencies
 }
 
 package { 'fog':
