@@ -10,6 +10,8 @@ class maven {
   $filename = "/tmp/jdk7-1.7.0-u07-linux-x64.zip"
 
   $key_md5 = "${key}.md5"
+  $key_md5_value = s3md5($bucket,$key_md5)
+  notify({$key_md5_value}:)
   $filename_md5 = "${filename}.md5"
   
   $md5exec = "s3curl(${bucket}, ${key_md5}, ${filename_md5}, ${expires})"
