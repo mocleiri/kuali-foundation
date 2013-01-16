@@ -26,10 +26,13 @@ define s3artifact ($localrepo
     $filename = "${artifactid}-${version}-${classifier}.${packaging}"
   }
   
+  # Convert "org.apache.commons" into "org/apache/commons"
+  $groupidpath = getpath($groupid)
+
   # The relative path to the directory containing the file in the maven repository
   # This value is identical for both the S3 maven repository and the maven repository on the local file system
   # eg "org/apache/commons/commons-io/1.3.2"
-  $path = "${groupid}/${artifactid}/${version}"
+  $path = "${groupidpath}/${artifactid}/${version}"
 
   # The fully qualified key to the correct S3 object in the bucket
   # "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar" or
