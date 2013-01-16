@@ -3,7 +3,7 @@ require 'fog'
 require 'time'
 
 module Puppet::Parser::Functions
-  newfunction(:s3curlcmd, :type => :rvalue, :doc => <<-EOS
+  newfunction(:s3curl, :type => :rvalue, :doc => <<-EOS
     Generates a curl command containing a presigned url for the s3 object specified
     by the bucket and key.  The contents of the url are downloaded to filename.
     EOS
