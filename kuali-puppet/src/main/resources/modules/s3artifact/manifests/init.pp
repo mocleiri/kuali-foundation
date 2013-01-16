@@ -12,26 +12,34 @@ define s3artifact ($localrepo
   $exec_path = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
   Exec { path => $exec_path }
   
+  # The amount of time in seconds the pre-signed url is valid for
   $expires = 30
   
-  $filename_fragment = "${artifact_id}-${version}"
   if ($classifier == undef) {
-    $filename = "${filename_fragment}.${packaging}"
+    $filename = "${artifact_id}-${version}.${packaging}"
   } else {
-    $filename = "${filename_fragment}-${classifier}.${packaging}"
+    $filename = "${artifact_id}-${version}-${classifier}.${packaging}"
   }
   
-  $repo_path = "${group_id}/${artifact_id}/${version}"
+  # The relative path to the directory containing the file in the maven repository
+  # This is identical for both the S3 maven repository and the maven repository on the local file system
+  $path = "${group_id}/${artifact_id}/${version}"
 
+  # The key to the correct S3 object in the bucket
   if ($prefix == undef) {
-    $key = "${repo_path}/${filename}"
+    $key = "${path}/${filename}"
   } else {
-    $key = "${prefix}/${repo_path}/${filename}"
+    $key = "${prefix}/${path}/${filename}"
   }
   
-  $file = "${localrepo}/${repo_path}/${filename}"
+  # Fully qualified filename where the S3 object will be downloaded to
+  # Any non-existing parent directories are automatically created as needed
+  $file = "${localrepo}/${path}/${filename}"
   
+  # The S3 key to the md5 checksum of the S3 object being downloaded
   $md5key = "${key}.md5"
+
+  # Fully qualified filename for the downloaded .md5 file
   $md5file = "${file}.md5"
   
   # The md5 checksum maintained by S3 of the .md5 file
