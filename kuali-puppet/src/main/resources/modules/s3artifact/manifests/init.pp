@@ -1,8 +1,8 @@
 define s3artifact ($localrepo
   , $bucket
   , $prefix = undef
-  , $group_id
-  , $artifact_id
+  , $groupid
+  , $artifactid
   , $version
   , $packaging = 'jar'
   , $classifier = undef
@@ -22,15 +22,15 @@ define s3artifact ($localrepo
   
   # The name of the file eg "commons-io-1.3.2.jar"
   if ($classifier == undef) {
-    $filename = "${artifact_id}-${version}.${packaging}"
+    $filename = "${artifactid}-${version}.${packaging}"
   } else {
-    $filename = "${artifact_id}-${version}-${classifier}.${packaging}"
+    $filename = "${artifactid}-${version}-${classifier}.${packaging}"
   }
   
   # The relative path to the directory containing the file in the maven repository
   # This value is identical for both the S3 maven repository and the maven repository on the local file system
   # eg "org/apache/commons/commons-io/1.3.2"
-  $path = "${group_id}/${artifact_id}/${version}"
+  $path = "${groupid}/${artifactid}/${version}"
 
   # The fully qualified key to the correct S3 object in the bucket
   # eg "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar"
