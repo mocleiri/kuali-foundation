@@ -1,13 +1,11 @@
 class maven {
 
-  notify {'Hello world':}
-  
   $bucket = "maven.kuali.org"
-  $key = "foo"
-  $filename = "/tmp/tmp.txt"
+  $key = "/private/com/oracle/jdk7/1.7.0-u07/jdk7-1.7.0-u07-linux-x64.zip"
+  $filename = "/tmp/jdk7-1.7.0-u07-linux-x64.zip"
   $expires = 30
   
-  $url = s3getcurl($bucket,$key,$filename,$expires)
+  $url = s3getcurl($bucket, $key, $filename, $expires)
 
   notify {$url:}
 }
