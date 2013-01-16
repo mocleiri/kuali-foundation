@@ -9,6 +9,12 @@ define s3artifact ($localrepo
   , $ensure = 'present'
 ) {
 
+  $id = "${group_id}:${artifact_id}:${version}:${packaging}"
+  if ($classifier != undef) {
+    $id = "${id}:${classifier}"
+  }
+  
+  notify {$id:}
   notify {$bucket:}
   if ($prefix != undef) {
     notify {$prefix:}
