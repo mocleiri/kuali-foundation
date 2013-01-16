@@ -24,7 +24,11 @@ define s3artifact ($localrepo
     $key = "${prefix}/${repo_path}/${filename}"
   }
   
+  
   $file = "${localrepo}/${repo_path}/${filename}"
+  
+  $md5key = "${key}.md5"
+  $md5file = "${file}.md5"
   
   notify {"${bucket} ${key} ${file}":}
 }
