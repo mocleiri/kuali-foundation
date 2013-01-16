@@ -24,7 +24,6 @@ define s3artifact ($localrepo
     $key = "${prefix}/${repo_path}/${filename}"
   }
   
-  
   $file = "${localrepo}/${repo_path}/${filename}"
   
   $md5key = "${key}.md5"
@@ -44,5 +43,21 @@ define s3artifact ($localrepo
   # Title of the exec resource for the cURL command that downloads the S3 object itself
   $objectexec = "s3curl(${bucket}, ${key}, ${filename}, ${expires})"
   
-  notify {"${bucket} ${key} ${file}":}
+  # Exec resource to download the .md5 checksum of the S3 object to a local file
+  exec { $md5exec:
+    # Execute a cURL command to download the .md5 file associated with the S3 object
+    command => s3curl($bucket, $md5key, $md5file, $expires),
+    # Unless the .md5 already exists locally AND the md5 checksum of the .md5 file matches the md5 checksum maintained by S3
+    unless  => $md5unless,
+  }
+  
+  # Exec resource to download the S3 object itself
+  exec { $objectexec:
+    # Execute a cURL command to download the S3 object
+    command     => s3curl($bucket, $key, $filename, $expires),
+    # Subscribe to the exec resource that downloads the .md5 file associated with the S3 object
+    subscribe   => Exec[$md5exec],
+    # Only download the S3 object if the .md5 file changes
+    refreshonly => true,
+  }
 }
