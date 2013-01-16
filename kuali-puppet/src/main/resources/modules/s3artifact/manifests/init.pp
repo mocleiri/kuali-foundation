@@ -9,7 +9,7 @@ define s3artifact ($localrepo
   , $ensure = 'present'
 ) {
 
-  # File system paths to check
+  # File system paths to check for cURL and md5sum
   $exec_path = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
 
   # Do this once so each exec command can inherit the paths
