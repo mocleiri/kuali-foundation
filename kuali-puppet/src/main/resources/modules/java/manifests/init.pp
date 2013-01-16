@@ -22,7 +22,7 @@ s3artifact { $jdk6:
   artifactid  => $jdk6artifactid,
   version     => $jdk6version,
   classifier  => $classifier,
-  packaging   => $packaging,
+  packaging   => 'bin',
 }
 
 s3artifact { $jdk7:
@@ -33,5 +33,5 @@ s3artifact { $jdk7:
   artifactid  => $jdk7artifactid,
   version     => $jdk7version,
   classifier  => $classifier,
-  packaging   => 'bin',
+  packaging   => $packaging,
 }
