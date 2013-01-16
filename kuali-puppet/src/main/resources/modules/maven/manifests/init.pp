@@ -12,15 +12,15 @@ class maven {
   $key_md5 = "${key}.md5"
   $filename_md5 = "${filename}.md5"
   
-  $s3curlmd5exec = "s3curl(${bucket}, ${key_md5}, ${filename_md5}, ${expires})"
+  $md5exec = "s3curl(${bucket}, ${key_md5}, ${filename_md5}, ${expires})"
   
-  exec { $s3curlmd5exec:
+  exec { $md5exec:
     command => s3curl($bucket, $key_md5, $filename_md5, $expires),
   }
   
   exec { "s3curl(${bucket}, ${key}, ${filename}, ${expires})":
     command => s3curl($bucket, $key, $filename, $expires),
-    require => Exec[$s3curlmd5exec],
+    require => Exec[$md5exec],
   }
 
 }
