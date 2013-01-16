@@ -9,12 +9,18 @@ define s3artifact ($localrepo
   , $ensure = 'present'
 ) {
 
+  # File system paths to check
   $exec_path = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
+
+  # Do this once so each exec command can inherit the paths
   Exec { path => $exec_path }
   
   # The amount of time in seconds the pre-signed url is valid for
+  # The http request must be initiated within 30 seconds
+  # The http request does not have to finish within 30 seconds
   $expires = 30
   
+  # The name of the file eg "commons-io-1.3.2.jar"
   if ($classifier == undef) {
     $filename = "${artifact_id}-${version}.${packaging}"
   } else {
@@ -22,18 +28,20 @@ define s3artifact ($localrepo
   }
   
   # The relative path to the directory containing the file in the maven repository
-  # This is identical for both the S3 maven repository and the maven repository on the local file system
+  # This value is identical for both the S3 maven repository and the maven repository on the local file system
+  # eg "org/apache/commons/commons-io/1.3.2"
   $path = "${group_id}/${artifact_id}/${version}"
 
-  # The key to the correct S3 object in the bucket
+  # The fully qualified key to the correct S3 object in the bucket
+  # eg "org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar"
   if ($prefix == undef) {
     $key = "${path}/${filename}"
   } else {
     $key = "${prefix}/${path}/${filename}"
   }
   
-  # Fully qualified filename where the S3 object will be downloaded to
-  # Any non-existing parent directories are automatically created as needed
+  # Fully qualified filename that the S3 object will be downloaded to
+  # Any non-existing parent directories are automatically created by cURL as needed
   $file = "${localrepo}/${path}/${filename}"
   
   # The S3 key to the md5 checksum of the S3 object being downloaded
