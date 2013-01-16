@@ -36,7 +36,7 @@ class maven {
   # Title of the exec resource for the cURL command that downloads the S3 object itself
   $objectexec = "s3curl(${bucket}, ${key}, ${filename}, ${expires})"
   
-  # Exec resource to download the .md5 checksum of the object to a local file
+  # Exec resource to download the .md5 checksum of the S3 object to a local file
   exec { $md5exec:
     # Execute a cURL command to download the .md5 file associated with the S3 object
     command => s3curl($bucket, $md5key, $md5file, $expires),
