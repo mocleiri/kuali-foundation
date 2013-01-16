@@ -1,5 +1,6 @@
 
 s3artifact { "java":
+  localrepo   => '/root/.m2/repository',
   bucket      => 'maven.kuali.org',
   prefix      => 'private',
   group_id    => 'com.oracle',
