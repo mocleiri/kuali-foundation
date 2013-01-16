@@ -26,6 +26,7 @@ class maven {
   exec { $objectexec:
     command => s3curl($bucket, $key, $filename, $expires),
     unless => $objectunless,
+    require => Exec[$md5exec],
   }
 
 }
