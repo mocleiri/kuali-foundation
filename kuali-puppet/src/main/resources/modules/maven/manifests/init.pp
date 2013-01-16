@@ -1,5 +1,5 @@
 class maven {
-  class { 'maven::maven' :
+  class { 'maven::s3artifact' :
   }
 }
 
