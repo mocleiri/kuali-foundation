@@ -490,3 +490,45 @@ dl.table-display dd {
 	padding-left: 0px;
 	vertical-align: top;
 }
+
+
+#sortable1 {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 800px;
+	margin-bottom:;
+}
+#sortable1 li {
+	margin:;
+	padding:;
+	float: left;
+	width: 96px;
+	height: 96px;
+	font-size:;
+	text-align: center;
+	background-image: url(../img/icon-user.png);
+	border: 1px solid #CCC;
+	margin-top: 6px;
+	margin-right: 6px;
+	margin-bottom: 6px;
+	margin-left: 6px;
+}
+
+
+
+#sortable1 li.ui-state-disabled {background-image: url(../img/icon-user-add.png);}
+
+
+#sortable1 .ui-state-default span {
+	display: block;
+	margin-top: 96px;
+	font-size: .85em;
+	font-style: italic;
+	color: #999;
+}
+.box .boxHeader h3 span {
+	font-size: 0.8em;
+	color: #666;
+	font-weight: normal;
+}
