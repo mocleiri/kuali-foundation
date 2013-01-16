@@ -12,6 +12,7 @@ class maven {
 
   exec { $curl:
     command => $s3curlcmd,
+    logoutput => true,
   }
 }
 
