@@ -5,6 +5,7 @@ s3artifact { "java":
   prefix      => 'private',
   group_id    => 'com/oracle',
   artifact_id => 'jdk7',
+  packaging   => 'zip',
   version     => '1.7.0-u07',
   classifier  => 'linux-x64',
 }
