@@ -16,7 +16,7 @@ module Puppet::Parser::Functions
     s3 = Fog::Storage.new(:provider => 'AWS')
     s3bucket = s3.directories.get(bucket)
     url = s3bucket.files.get_https_url(key, Time.parse(DateTime.now.to_s).to_i + expires.to_i)
-    cmd = "curl --create-dirs --retry 3 --silent --fail --progress-bar --output #{filename} '#{url}'"
+    cmd = "curl --create-dirs --retry 3 --fail --progress-bar --output #{filename} '#{url}'"
     return cmd
   end
 end
