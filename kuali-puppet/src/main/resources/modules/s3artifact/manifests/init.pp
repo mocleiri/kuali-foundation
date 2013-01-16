@@ -12,6 +12,8 @@ define s3artifact ($localrepo
   $exec_path = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
   Exec { path => $exec_path }
   
+  $expires = 30
+  
   $filename_fragment = "${artifact_id}-${version}"
   if ($classifier == undef) {
     $filename = "${filename_fragment}.${packaging}"
