@@ -1,6 +1,6 @@
 class maven {
 
-  notify {'Hello world'}
+  notify {'Hello world':}
 
 }
 
