@@ -1,2 +1,2 @@
-s3artifact {
+s3artifact { "java":
 }
