@@ -30,5 +30,5 @@ define s3artifact ($localrepo
   
   $path = "${localrepo}/${repo_path}/${filename}"
   
-  notify {"${bucket} ${key} ${path}:}
+  notify {"${bucket} ${key} ${path}":}
 }
