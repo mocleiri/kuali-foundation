@@ -1,4 +1,4 @@
-class java::package_64bit {
+class java::package_64bit($zip, $name) {
 
   notify {"Hello World":}
 
