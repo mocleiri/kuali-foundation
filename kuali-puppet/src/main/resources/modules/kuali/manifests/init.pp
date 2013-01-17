@@ -4,4 +4,4 @@ class kuali {
 
 }
 
-class {'kuali'}
+class {'kuali':}
