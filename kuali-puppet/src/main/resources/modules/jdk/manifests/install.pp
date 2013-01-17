@@ -32,12 +32,12 @@ define jdk::install ($localrepo
   $unzip = "unzip -d ${basedir} ${file}"
   
   file { $jdksymlink:
-    ensure => absent;
+    ensure => absent,
   }
   
   file { $jdkdir:
-    ensure  => absent;
-    recurse => true;
+    ensure  => absent,
+    recurse => true,
   }
   
   exec { $unzip:
