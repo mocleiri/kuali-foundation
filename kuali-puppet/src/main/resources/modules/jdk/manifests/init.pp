@@ -2,7 +2,7 @@ class jdk ($level
   , $version
 ) {
 
-  if ($level != '6' && $level != '7') {
+  if ($level != '6' and $level != '7') {
     fail("jdk level ${level} is not supported")
   }
 
