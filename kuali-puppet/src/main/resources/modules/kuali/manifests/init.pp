@@ -15,13 +15,13 @@ class kuali {
   jdk { 'jdk6':
     level      => '6',
     version    => $jdk6version,
-    require    => Essentials['essentials'],
+    require    => Kuali::Essentials['essentials'],
   }
 
   jdk { 'jdk7':
     level      => '7',
     version    => $jdk7version,
-    require    => Essentials['essentials'],
+    require    => Kuali::Essentials['essentials'],
   }
 
 }

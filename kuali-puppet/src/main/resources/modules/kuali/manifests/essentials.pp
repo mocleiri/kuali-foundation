@@ -1,4 +1,4 @@
-define essentials {
+define kuali::essentials {
 
   package {
     'man':             ensure => latest;
