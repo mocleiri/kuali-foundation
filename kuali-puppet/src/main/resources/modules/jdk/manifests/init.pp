@@ -3,7 +3,7 @@ class jdk ($level
 ) {
 
   if ($level != '6' and $level != '7') {
-    fail("jdk level ${level} is not supported")
+    fail("jdk level ${level} is not supported. The only supported jdk levels are 6 and 7")
   }
 
   case $::osfamily {
