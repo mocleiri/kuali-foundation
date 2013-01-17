@@ -23,10 +23,14 @@ define jdk ($localrepo = "/root/.m2/repository"
   }
 
   jdk::install { $artifact:
-    localrepo => $localrepo,
-    level     => $level,
-    version   => $version,
-    require   => S3artifact[$artifact]
+    localrepo  => $localrepo,
+    groupid    => $groupid,
+    artifactid => $artifactid,
+    version    => $version,
+    packaging  => $packaging,
+    classifier => $classifier,
+    level      => $level,
+    require    => S3artifact[$artifact]
   }
   
 }
