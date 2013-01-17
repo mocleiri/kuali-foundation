@@ -1,4 +1,9 @@
-define jdk ($localrepo, $bucket, $prefix, $level, $version) {
+define jdk ($localrepo = "/root/.m2/repository"
+  , $bucket = "maven.kuali.org"
+  , $prefix = "private"
+  , $level
+  , $version
+) {
 
   $artifact = "jdk-${version}"
   notify {$artifact:}
