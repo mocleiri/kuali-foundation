@@ -10,8 +10,8 @@ class java (
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
         class { 'java::package_64bit':
-          version      => $version,
-          distribution => $distribution,
+#          version      => $version,
+#          distribution => $distribution,
 #          require      => Anchor['java::begin'],
 #          before       => Anchor['java::end'],
         }
