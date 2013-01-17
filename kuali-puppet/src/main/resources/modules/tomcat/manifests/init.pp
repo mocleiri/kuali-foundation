@@ -1,12 +1,11 @@
-define jdk ($localrepo = "/root/.m2/repository"
+define tomcat ($localrepo = "/root/.m2/repository"
   , $bucket = "maven.kuali.org"
-  , $prefix = "private"
-  , $groupid = "com.oracle"
-  , $artifactid = "jdk"
+  , $prefix = "external"
+  , $groupid = "org.apache.tomcat"
+  , $artifactid = "apache-tomcat"
   , $version
   , $packaging = "zip"
-  , $classifier = "linux-x64"
-  , $level
+  , $classifier = undef,
 ) {
 
   $artifact = "jdk-${version}"
@@ -22,7 +21,7 @@ define jdk ($localrepo = "/root/.m2/repository"
     classifier => $classifier,
   }
 
-  jdk::install { $artifact:
+  tomcat::install { $artifact:
     localrepo   => $localrepo,
     groupid     => $groupid,
     artifactid  => $artifactid,
