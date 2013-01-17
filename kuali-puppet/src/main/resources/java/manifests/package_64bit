@@ -1,0 +1,8 @@
+class java::package_64bit (
+  $version,
+  $distribution
+) {
+
+  notify {"Hello World":}
+
+}
