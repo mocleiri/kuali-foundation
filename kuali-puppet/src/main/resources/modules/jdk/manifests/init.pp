@@ -1,11 +1,11 @@
-class java ($level
+class jdk ($level
   , $version
 ) {
 
   case $::osfamily {
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
-        class { 'java::package_64bit':
+        class { 'jdk::package_64bit':
           level   => $level,
           version => $version,
         }
