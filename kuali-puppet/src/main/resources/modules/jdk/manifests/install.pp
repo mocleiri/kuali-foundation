@@ -22,11 +22,11 @@ define jdk::install ($localrepo
   # The relative path to the directory containing the file in a Maven repository
   # This value is identical for both the S3 Maven repository and the Maven repository on the local file system
   # eg "org/apache/commons/commons-io/1.3.2"
-  $path = "${groupidpath}/${artifactid}/${version}"
+  $repopath = "${groupidpath}/${artifactid}/${version}"
 
   # Fully qualified filename that the S3 object will be downloaded to
   # Any non-existing parent directories are automatically created by cURL as needed
-  $file = "${localrepo}/${path}/${filename}"
+  $file = "${localrepo}/${repopath}/${filename}"
   
   $jdkdir = "${basedir}/jdk-${version}"
   $jdksymlink = "${basedir}/jdk${level}"
