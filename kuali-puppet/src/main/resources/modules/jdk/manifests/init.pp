@@ -4,19 +4,8 @@ define jdk ($level, $version) {
     fail("jdk level ${level} is not supported. The only supported jdk levels are 6 and 7")
   }
 
-  case $::osfamily {
-    'Linux': {
-      if $::hardwaremodel == 'x86_64' {
-        class { 'jdk::package_64bit':
-          level   => $level,
-          version => $version,
-        }
-      } else {
-        fail("osfamily ${::osfamily} with hardwaremodel ${::hardwaremodel} is not supported")
-      }
-    }
-    default: {
-      fail("osfamily ${::osfamily} is not supported")
-    }
+  if ($::hardwaremodel != 'x86_64') {
+    fail("Only 64 bit systesm are supported. hardwaremodel ${::hardwaremodel} is not supported")
   }
+
 }
