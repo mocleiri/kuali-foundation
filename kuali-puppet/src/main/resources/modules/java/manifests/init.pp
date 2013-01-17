@@ -1,5 +1,5 @@
 class java ($zip
-  , $name
+  , $level
 ) {
 
   case $::osfamily {
