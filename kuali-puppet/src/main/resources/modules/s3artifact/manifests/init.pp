@@ -47,7 +47,7 @@ define s3artifact ($localrepo
   # Any non-existing parent directories are automatically created by cURL as needed
   $file = "${localrepo}/${path}/${filename}"
   
-  # The S3 key to the md5 checksum of the S3 object being downloaded
+  # The S3 key to the .md5 file holding the checksum for the S3 object being downloaded
   $md5key = "${key}.md5"
 
   # Fully qualified filename for the downloaded .md5 file
