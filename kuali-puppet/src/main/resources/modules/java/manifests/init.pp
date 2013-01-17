@@ -1,13 +1,13 @@
-class java ($version
-  , $level
+class java ($level
+  , $version
 ) {
 
   case $::osfamily {
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
         class { 'java::package_64bit':
-          version => $version,
           level   => $level,
+          version => $version,
         }
       } else {
         fail("osfamily ${::osfamily} with hardwaremodel ${::hardwaremodel} is not supported")
