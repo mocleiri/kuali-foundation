@@ -58,7 +58,7 @@ define s3artifact ($localrepo
 
   # Condition indicating the local .md5 file exactly matches the .md5 file on S3
   #  1 - The .md5 file exists AND
-  #  2 - The local md5 checksum of the local .md5 file matches the md5 checksum maintained by S3 
+  #  2 - The locally generated md5 checksum of the local .md5 file matches the md5 checksum maintained by S3 
   $md5unless = "[ -e ${md5file} ] && echo \"${md5md5}  ${md5file}\" | md5sum --check --status"
 
   # Title of the exec resource for the cURL command that downloads the .md5 file associated with the S3 object
