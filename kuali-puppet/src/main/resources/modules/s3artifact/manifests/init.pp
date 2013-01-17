@@ -81,7 +81,10 @@ define s3artifact ($localrepo
     command     => s3curl($bucket, $key, $file, $expires),
     # Subscribe to the exec resource that downloads the .md5 file associated with the S3 object
     subscribe   => Exec[$md5exec],
-    # Only download the S3 object if the .md5 file changes
+    # Never run this exec command on its own
+    # Only run it in response to the $md5exec command running
+    # The $md5exec command will only run if the .md5 file does not exist OR
+    # the .md5 file no longer matches what is on S3
     refreshonly => true,
   }
 }
