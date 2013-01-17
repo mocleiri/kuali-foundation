@@ -1,4 +1,4 @@
-define jdk ($level, $version) {
+define jdk ($localrepo, $bucket, $prefix, $level, $version) {
 
   $artifact = "jdk-${version}"
   notify {$artifact:}
