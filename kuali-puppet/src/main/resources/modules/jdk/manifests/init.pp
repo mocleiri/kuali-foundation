@@ -1,22 +1,33 @@
 define jdk ($localrepo = "/root/.m2/repository"
   , $bucket = "maven.kuali.org"
   , $prefix = "private"
-  , $level
+  , $groupid = "com.oracle"
+  , $artifactid = "jdk"
   , $version
+  , $classifier = undef
+  , $level
 ) {
 
+  $packaging = "zip"
   $artifact = "jdk-${version}"
+  
   notify {$artifact:}
   
-  jdk::download { $artifact:
-    level   => $level,
-    version => $version,
+  s3artifact { $artifact:
+    localrepo  => $localrepo,
+    bucket     => $bucket,
+    prefix     => $prefix,
+    groupid    => $groupid,
+    artifactid => $artifactid
+    version    => $version,
+    packaging  => $packaging,
+    classifier => $classifier,
   }
 
   jdk::install { $artifact:
     level   => $level,
     version => $version,
-    require => Jdk::Download[$artifact]
+    require => S3artifact[$artifact]
   }
   
 }
