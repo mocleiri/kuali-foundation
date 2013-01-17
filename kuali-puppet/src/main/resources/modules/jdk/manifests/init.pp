@@ -30,7 +30,7 @@ define jdk ($localrepo = "/root/.m2/repository"
     packaging   => $packaging,
     classifier  => $classifier,
     level       => $level,
-    subscribe   => S3artifact[$artifact]
+    subscribe   => S3artifact[$artifact],
     refreshonly => true,
   }
   
