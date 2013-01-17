@@ -4,7 +4,7 @@ define jdk ($localrepo = "/root/.m2/repository"
   , $groupid = "com.oracle"
   , $artifactid = "jdk"
   , $version
-  , $classifier = undef
+  , $classifier = "linux-x64"
   , $level
 ) {
 
