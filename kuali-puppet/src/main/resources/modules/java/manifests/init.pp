@@ -3,17 +3,17 @@ class java (
   $version      = 'present'
 ) {
 
-  anchor { 'java::begin': }
-  anchor { 'java::end': }
+#  anchor { 'java::begin': }
+#  anchor { 'java::end': }
 
   case $::osfamily {
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
-        class { 'java::package_redhat':
+        class { 'java::package_64bit':
           version      => $version,
           distribution => $distribution,
-          require      => Anchor['java::begin'],
-          before       => Anchor['java::end'],
+#          require      => Anchor['java::begin'],
+#          before       => Anchor['java::end'],
         }
       } else {
         fail("osfamily ${::osfamily} with hardwaremodel ${::hardwaremodel} is not supported")
