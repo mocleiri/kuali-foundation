@@ -763,8 +763,8 @@ public class GenericPool {
 					}
 
 				} catch (Exception e) {
-					log.error(
-						"GenericPool:cleanUp Error Exception in GenericPool:cleanUp");
+					log.info(
+						"GenericPool:cleanUp Error Exception in GenericPool:cleanUp " + e.getMessage());
 				}
                                 synchronized (this) {
 				    notifyAll();
