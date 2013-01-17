@@ -8,7 +8,7 @@ define tomcat ($localrepo = "/root/.m2/repository"
   , $classifier = undef,
 ) {
 
-  $artifact = "jdk-${version}"
+  $artifact = "${artifactid}-${version}"
   
   s3artifact { $artifact:
     localrepo  => $localrepo,
