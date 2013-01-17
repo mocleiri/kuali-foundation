@@ -2,7 +2,7 @@ class kuali {
 
   notify {"Hello Kuali World":}
   
-  class {'java':
+  class { 'java':
     level   => '6',
     version => 'foo',
   }
