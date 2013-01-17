@@ -16,7 +16,7 @@ define s3artifact ($localrepo
   
   # The amount of time in seconds the pre-signed url is valid for
   # The http request must be initiated within 30 seconds
-  # The http request does not have to finish within 30 seconds
+  # The http request does not have to completed within 30 seconds
   $expires = 30
   
   # The name of the file eg "commons-io-1.3.2.jar"
