@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>xapool</groupId>
   <artifactId>xapool</artifactId>
-  <version>1.5.0-patch3</version>
+  <version>1.5.0-patch4</version>
   <description>this is rice modified xapool</description>
   
   <scm>
