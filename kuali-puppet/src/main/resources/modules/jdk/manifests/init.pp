@@ -11,8 +11,6 @@ define jdk ($localrepo = "/root/.m2/repository"
 
   $artifact = "jdk-${version}"
   
-  notify {$artifact:}
-  
   s3artifact { $artifact:
     localrepo  => $localrepo,
     bucket     => $bucket,
