@@ -13,4 +13,5 @@ define jdk ($level, $version) {
     version => $version,
     require => Jdk::Download[$artifact]
   }
+  
 }
