@@ -6,7 +6,6 @@ define jdk::install ($localrepo
   , $classifier
   , $level
   , $basedir = '/usr/java'
-  , $path = '/usr/bin'
 ) {
 
     # The name of the file eg "commons-io-1.3.2.jar"
@@ -30,8 +29,6 @@ define jdk::install ($localrepo
   
   $jdkdir = "${basedir}/jdk-${version}"
   $jdksymlink = "${basedir}/jdk${level}"
-  $pathsymlink = "${path}/java${level}"
-  $javasymlink = "${jdksymlink}/bin/java"
   $unzip = "unzip -d ${basedir} ${file}"
   
   exec { $unzip:
@@ -45,11 +42,4 @@ define jdk::install ($localrepo
     require => Exec[$unzip],
   }
   
-  file { $pathsymlink:
-    ensure  => 'link',
-    target  => $javasymlink,
-    require => File[$jdksymlink],
-  }
-  
-	
 }
