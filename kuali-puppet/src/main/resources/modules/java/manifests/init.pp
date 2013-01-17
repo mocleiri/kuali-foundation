@@ -6,8 +6,8 @@ class java ($zip
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
         class { 'java::package_64bit':
-          zip  => $zip,
-          name => $name,
+          zip   => $zip,
+          level => $level,
         }
       } else {
         fail("osfamily ${::osfamily} with hardwaremodel ${::hardwaremodel} is not supported")

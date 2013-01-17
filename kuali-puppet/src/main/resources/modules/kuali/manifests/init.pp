@@ -3,8 +3,8 @@ class kuali {
   notify {"Hello World":}
   
   class {'java':
-    zip  => 'foo',
-    name => 'bar',
+    zip   => 'foo',
+    level => '6',
   }
 
 }
