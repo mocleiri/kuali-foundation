@@ -31,6 +31,7 @@ define jdk::install ($localrepo
   $jdkdir = "${basedir}/jdk-${version}"
   $jdksymlink = "${basedir}/jdk${level}"
   $pathsymlink = "${path}/java${level}"
+  $javasymlink = "${jdksymlink}/bin/java"
   $unzip = "unzip -d ${basedir} ${file}"
   
   exec { $unzip:
@@ -46,7 +47,7 @@ define jdk::install ($localrepo
   
   file { $pathsymlink:
     ensure  => 'link',
-    target  => $jdksymlink,
+    target  => $javasymlink,
     require => File[$jdksymlink],
   }
   
