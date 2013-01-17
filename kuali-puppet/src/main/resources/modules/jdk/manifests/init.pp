@@ -2,6 +2,10 @@ class jdk ($level
   , $version
 ) {
 
+  if ($level != '6' && $level != '7') {
+    fail("jdk level ${level} is not supported")
+  }
+
   case $::osfamily {
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
