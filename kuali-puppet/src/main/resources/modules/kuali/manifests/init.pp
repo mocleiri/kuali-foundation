@@ -20,6 +20,10 @@ class kuali {
     version    => $jdk7version,
   }
 
+  tomcat { 'tomcat':
+    version    => $tomcatversion,
+  }
+
 }
 
 class {'kuali':}
