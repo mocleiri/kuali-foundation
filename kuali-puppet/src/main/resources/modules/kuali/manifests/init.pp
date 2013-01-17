@@ -10,7 +10,7 @@ class kuali {
   $jdk7version = "1.7.0-u11"
   $tomcatversion = "6.0.35"
   
-  essentials { 'essentials': }
+  kuali::essentials { 'essentials': }
   
   jdk { 'jdk6':
     level      => '6',
