@@ -1,4 +1,4 @@
-class java(
+class java (
   $distribution = 'jdk',
   $version      = 'present'
 ) {
