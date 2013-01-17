@@ -10,14 +10,18 @@ class kuali {
   $jdk7version = "1.7.0-u11"
   $tomcatversion = "6.0.35"
   
+  essentials { 'essentials': }
+  
   jdk { 'jdk6':
     level      => '6',
     version    => $jdk6version,
+    require    => Essentials['essentials'],
   }
 
   jdk { 'jdk7':
     level      => '7',
     version    => $jdk7version,
+    require    => Essentials['essentials'],
   }
 
 }
