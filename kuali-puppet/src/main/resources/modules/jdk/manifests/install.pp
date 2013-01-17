@@ -33,7 +33,6 @@ define jdk::install ($localrepo
   
   exec { $unzip:
     command => $unzip,
-    require => File[$jdksymlink,$jdkdir],
     creates => $jdkdir,
   }
   
