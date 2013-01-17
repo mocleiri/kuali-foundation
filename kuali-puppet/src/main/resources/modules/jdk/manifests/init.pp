@@ -5,7 +5,11 @@ define jdk ($level, $version) {
   }
 
   if ($::hardwaremodel != 'x86_64') {
-    fail("Only 64 bit systems are supported. hardwaremodel ${::hardwaremodel} is not supported")
+    fail("Only x86_64 systems are supported. hardwaremodel ${::hardwaremodel} is not supported")
+  }
+
+  if ($::osfamily != 'Linux') {
+    fail("Only Linux systems are supported. osfamily ${::osfamily} is not supported")
   }
 
 }
