@@ -5,7 +5,6 @@ define tomcat ($localrepo = "/root/.m2/repository"
   , $artifactid = "apache-tomcat"
   , $version
   , $packaging = "zip"
-  , $classifier = undef,
 ) {
 
   $artifact = "${artifactid}-${version}"
@@ -18,7 +17,6 @@ define tomcat ($localrepo = "/root/.m2/repository"
     artifactid => $artifactid,
     version    => $version,
     packaging  => $packaging,
-    classifier => $classifier,
   }
 
   tomcat::install { $artifact:
@@ -27,8 +25,6 @@ define tomcat ($localrepo = "/root/.m2/repository"
     artifactid  => $artifactid,
     version     => $version,
     packaging   => $packaging,
-    classifier  => $classifier,
-    level       => $level,
     require     => S3artifact[$artifact],
   }
   
