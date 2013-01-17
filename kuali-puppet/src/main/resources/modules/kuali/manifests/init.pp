@@ -7,7 +7,7 @@ class kuali {
   Exec { path => $exec_path }
   
   $jdk6version = "1.6.0-u38"
-  $jdk7version = "1.7.0-u10"
+  $jdk7version = "1.7.0-u11"
   
   jdk { 'jdk6':
     level      => '6',
