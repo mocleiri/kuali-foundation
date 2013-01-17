@@ -15,7 +15,7 @@ define jdk::install ($localrepo
   }
   
   # Convert "org.apache.commons" into "org/apache/commons"
-  $groupidpath = getpath($groupid)
+  $groupidpath = S3Artifact::getpath($groupid)
   
   # The relative path to the directory containing the file in a Maven repository
   # This value is identical for both the S3 Maven repository and the Maven repository on the local file system
