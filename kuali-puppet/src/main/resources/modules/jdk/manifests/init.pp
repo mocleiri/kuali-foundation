@@ -1,7 +1,7 @@
 define jdk ($level, $version) {
 
   if ($level != '6' and $level != '7') {
-    fail("jdk level ${level} is not supported. The only supported jdk levels are 6 and 7")
+    fail("Only jdk levels 6 and 7 are supported. jdk level ${level} is not supported.")
   }
 
   if ($::hardwaremodel != 'x86_64') {
