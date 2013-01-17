@@ -8,12 +8,6 @@ define s3artifact ($localrepo
   , $classifier = undef
 ) {
 
-  # File system paths to check for cURL and md5sum
-  $exec_path = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]
-
-  # Do this once so each exec command can inherit the paths
-  Exec { path => $exec_path }
-  
   # The amount of time in seconds the pre-signed url is valid for
   # The http request must be initiated within this time
   # The http request does not have to be completed within this time
