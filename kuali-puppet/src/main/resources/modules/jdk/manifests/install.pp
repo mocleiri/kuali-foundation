@@ -38,7 +38,8 @@ define jdk::install ($localrepo
   }
   
   file { $jdksymlink:
-    ensure => absent,
+    ensure  => 'link',
+    target  => $jdkdir,
     require => Exec[$unzip],
   }
   
