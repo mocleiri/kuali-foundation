@@ -1,6 +1,6 @@
 class kuali {
 
-  notify {"Hello World":}
+  notify {"Hello Kuali World":}
   
   class {'java':
     zip   => 'foo',
