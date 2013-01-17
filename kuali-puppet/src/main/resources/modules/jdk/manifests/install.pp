@@ -38,6 +38,7 @@ define jdk::install ($localrepo
   file { $jdkdir:
     ensure  => absent,
     recurse => true,
+    force   => true,
   }
   
   exec { $unzip:
