@@ -31,19 +31,15 @@ define jdk::install ($localrepo
   $jdksymlink = "${basedir}/jdk${level}"
   $unzip = "unzip -d ${basedir} ${file}"
   
-  file { $jdksymlink:
-    ensure => absent,
-  }
-  
-  file { $jdkdir:
-    ensure  => absent,
-    recurse => true,
-    force   => true,
-  }
-  
   exec { $unzip:
     command => $unzip,
     require => File[$jdksymlink,$jdkdir],
+    creates => $jdkdir,
+  }
+  
+  file { $jdksymlink:
+    ensure => absent,
+    require => Exec[$unzip],
   }
   
 	
