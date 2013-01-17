@@ -5,6 +5,7 @@ define jdk::install ($localrepo
   , $packaging
   , $classifier
   , $level
+  , $basedir = '/usr/java'
 ) {
 
     # The name of the file eg "commons-io-1.3.2.jar"
@@ -25,6 +26,14 @@ define jdk::install ($localrepo
   # Fully qualified filename that the S3 object will be downloaded to
   # Any non-existing parent directories are automatically created by cURL as needed
   $file = "${localrepo}/${path}/${filename}"
+  
+  $jdkdir = "${basedir}/jdk-${version}"
+  $unzip = "unzip -d ${basedir} ${file}"
+  
+  exec { $unzip:
+    command => $unzip,
+    creates => $jdkdir,
+  }
+  
 	
-  notify {$file:}  
 }
