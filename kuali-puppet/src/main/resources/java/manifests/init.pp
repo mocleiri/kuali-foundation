@@ -9,7 +9,7 @@ class java(
   case $::osfamily {
     'Linux': {
       if $::hardwaremodel == 'x86_64' {
-        class { 'java::package_redhat':
+        class { 'java::package_64bit':
           version      => $version,
           distribution => $distribution,
           require      => Anchor['java::begin'],
