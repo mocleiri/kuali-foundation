@@ -4,11 +4,11 @@ define jdk ($localrepo = "/root/.m2/repository"
   , $groupid = "com.oracle"
   , $artifactid = "jdk"
   , $version
+  , $packaging = "zip"
   , $classifier = "linux-x64"
   , $level
 ) {
 
-  $packaging = "zip"
   $artifact = "jdk-${version}"
   
   notify {$artifact:}
