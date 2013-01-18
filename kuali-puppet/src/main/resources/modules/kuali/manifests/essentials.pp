@@ -1,3 +1,5 @@
+class kuali::essentials {
+
   package {
     'man':             ensure => latest;
     'zip':             ensure => latest;
@@ -27,3 +29,5 @@
     provider => 'gem',
     require  => Package['rubygems','ruby-nokogiri','ruby-devel'],
   }
+  
+}
