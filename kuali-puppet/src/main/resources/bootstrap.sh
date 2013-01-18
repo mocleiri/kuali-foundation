@@ -4,7 +4,7 @@
 # EC2 AMI ID: ami-05da696c
 #
 
-alias yum=yum -y
+alias yum='yum -y'
 
 yum erase puppet
 yum install puppet

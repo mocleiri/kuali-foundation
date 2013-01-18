@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-alias yum=yum -y
+alias yum='yum -y'
 
 yum erase puppet
 yum erase rubygems
