@@ -1,22 +1,22 @@
 #!/bin/bash -e
 
-alias yum='yum -y'
-
-yum erase puppet
-yum erase rubygems
-yum erase ruby-nokogiri
-yum erase subversion
-yum erase man
-yum erase zip
-yum erase unzip
-yum erase wget
-yum erase rsync
-yum erase openssh-clients
-yum erase subversion
-yum erase git
-yum erase ruby-devel 
+yum erase puppet -y
+yum erase rubygems -y
+yum erase ruby-nokogiri -y
+yum erase subversion -y
+yum erase man -y
+yum erase zip -y
+yum erase unzip -y
+yum erase wget -y
+yum erase rsync -y
+yum erase openssh-clients -y
+yum erase subversion -y
+yum erase git -y
+yum erase ruby-devel -y 
 
 rm -rf /usr/java
 rm -rf /root/.m2
 rm -rf /root/.gem
 rm -rf /root/.subversion
+rm -rf /usr/local/tomcat
+rm -rf /home/tomcat
