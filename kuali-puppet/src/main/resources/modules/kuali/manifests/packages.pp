@@ -31,5 +31,3 @@ class kuali::packages {
   }
   
 }
-
-class {'kuali::packages':}
