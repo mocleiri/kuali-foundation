@@ -9,6 +9,8 @@ class java ($jdk6_version = undef
   , $classifier
 ) {
 
+  require kuali::packages
+
   if ($jdk6_version == undef and $jdk7_version == undef) {
     fail("No version provided for either jdk6 of jdk7")
   }
