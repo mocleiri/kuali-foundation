@@ -1,11 +1,12 @@
 class java ($jdk6_version = undef
   , $jdk7_version = undef
-  , $bucket
-  , $prefix = undef
+  , $local_repo = "/root/.m2/repository"
+  , $bucket = "maven.kuali.org"
+  , $prefix = "private"
   , $group_id = "com.oracle"
   , $artifact_id = "jdk"
   , $packaging = "zip"
-  , $classifier
+  , $classifier = "linux-x64"
 ) {
 
   java::jdk { 'jdk7':
