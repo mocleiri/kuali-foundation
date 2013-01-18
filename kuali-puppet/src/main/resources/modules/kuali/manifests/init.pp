@@ -20,7 +20,6 @@ class kuali {
     artifact_id  => "jdk",
     packaging    => "zip",
     classifier   => "linux-x64",
-    require      => kuali::packages,
   }
   
 }
