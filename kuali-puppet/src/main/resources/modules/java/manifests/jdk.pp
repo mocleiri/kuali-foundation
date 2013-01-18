@@ -1,12 +1,12 @@
-class java ($jdk6_version = undef
-  , $jdk7_version = undef
-  , $bucket
-  , $prefix = undef
-  , $group_id = "com.oracle"
-  , $artifact_id = "jdk"
+define java::jdk ($localrepo = "/root/.m2/repository"
+  , $bucket = "maven.kuali.org"
+  , $prefix = "private"
+  , $groupid = "com.oracle"
+  , $artifactid = "jdk"
   , $version
   , $packaging = "zip"
-  , $classifier
+  , $classifier = "linux-x64"
+  , $level
 ) {
 
   $artifact = "jdk-${version}"
