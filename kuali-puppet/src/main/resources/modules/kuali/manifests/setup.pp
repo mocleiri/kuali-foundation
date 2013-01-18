@@ -1,4 +1,4 @@
-class kuali::setup {
+define kuali::setup {
 
   # File system paths to check for exec calls
   $exec_path = ["/bin", "/usr/bin", "/sbin", "/usr/sbin", "/usr/local/sbin", "/usr/local/bin"]

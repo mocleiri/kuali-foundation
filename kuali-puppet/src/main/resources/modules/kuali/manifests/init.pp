@@ -1,3 +1,5 @@
+include 'kuali::setup'
+
 class kuali {
 
   $local_repo = "/root/.m2/repository"
