@@ -10,7 +10,7 @@ class java ($jdk6_version = undef
 ) {
 
   if ($jdk6_version == undef and $jdk7_version == undef) {
-    fail("No version provided for either jdk6 of jdk7")
+    fail("No version provided for either jdk6 or jdk7")
   }
 
   if ($jdk6_version != undef) {
