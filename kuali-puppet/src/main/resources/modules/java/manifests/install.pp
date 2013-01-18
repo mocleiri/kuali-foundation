@@ -1,4 +1,4 @@
-define jdk::install ($local_repo
+define java::install ($local_repo
   , $group_id
   , $artifact_id
   , $version
