@@ -18,22 +18,22 @@ class kuali {
   # Do this once so each exec command can inherit the paths
   Exec { path => $exec_path }
   
-  $jdk6version = "1.6.0-u38"
-  $jdk7version = "1.7.0-u11"
-  $tomcatversion = "6.0.35"
+  $jdk6_version = "1.6.0-u38"
+  $jdk7_version = "1.7.0-u11"
+  $tomcat_version = "6.0.35"
   
   jdk { 'jdk6':
     level      => '6',
-    version    => $jdk6version,
+    version    => $jdk6_version,
   }
 
   jdk { 'jdk7':
     level      => '7',
-    version    => $jdk7version,
+    version    => $jdk7_version,
   }
 
   tomcat { 'tomcat':
-    version    => $tomcatversion,
+    version    => $tomcat_version,
   }
 
 }
