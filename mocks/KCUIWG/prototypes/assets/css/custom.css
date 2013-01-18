@@ -90,7 +90,7 @@ a:hover {
 }
 /* Content */
 #content {
-	margin-left: 220px;
+	
 	margin-left: 200px;
 	margin-right: 0;
 	padding-bottom: 25px;
@@ -101,6 +101,7 @@ a:hover {
 */
 	border-bottom-left-radius: 8px;
 	background-color: #e0e0e0;
+	
 	background-image: none;
 }
 
@@ -569,15 +570,82 @@ dl.table-display dd {
 
 
 
+.breadcrumb {
+	list-style: none;
+	background-color: #585758;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 10px;
+	margin-left: 0;
+	padding-top: 4px;
+	padding-right: 4px;
+	padding-bottom: 4px;
+	padding-left: 8px;
+}
+.breadcrumb a { color:#FFF}
+
+
+.breadcrumb > li {
+  display: inline-block;
+  *display: inline;
+  text-shadowww: 0 1px 0 #ffffff;
+  *zoom: 1;
+}
+
+.breadcrumb > li > .divider {
+	padding: 0 5px;
+	color: #CCCCCC;
+}
+
+.breadcrumb > .active {
+	color: #CCCCCC;
+}
+
+
+.breadcrumb > li {
+display: inline-block;
+text-shadow: 0 1px 0 
+#000;
+}
+
+.nav-tabs {
+border-bottom: 1px solid 
+#A8A8A8;
+}
 
 
 
 
 
 
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+	color: #555555;
+	cursor: default;
+	background-color: #E0E0E0;
+	border-bottom-color: transparent;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #A8A8A8;
+	border-right-color: #A8A8A8;
+	border-left-color: #A8A8A8;
+}
 
 
 
 
+.nav > li > a:hover {
+	text-decoration: none;
+	background-color: #585758;
+	color:#FFF
+}
 
 

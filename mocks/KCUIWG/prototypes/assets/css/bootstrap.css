@@ -4880,12 +4880,12 @@ input[type="submit"].btn.btn-mini {
 }
 
 .breadcrumb > li > .divider {
-  padding: 0 5px;
-  color: #ccc;
+	padding: 0 5px;
+	color: #585758;
 }
 
 .breadcrumb > .active {
-  color: #999999;
+	color: #585758;
 }
 
 .pagination {

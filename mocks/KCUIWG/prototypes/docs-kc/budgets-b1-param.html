@@ -31,13 +31,14 @@
 </div>
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul style="display: block; ">
-    <li  ><a href="proposal.html"><i class="icon icon-home"></i><span>Proposal</span></a></li>
+    <li ><a href="proposal.html"><i class="icon icon-home"></i><span>Proposal</span></a></li>
     <li><a href="granstgov.html"><i class="icon icon-bookmark"></i><span>Grants.gov</span></a></li>
     <li><a href="keypersonnel.html"><i class="icon icon-user"></i><span>Key Personnel</span></a></li>
     <li ><a href="specialreview.html"><i class="icon icon-eye-open"></i><span>Special Review</span></a></li>
     <li><a href="customdata.html"><i class="icon icon-star"></i><span>Custom Data</span></a></li>
     <li><a href="abstracts.html"><i class="icon icon-file"></i><span>Abstracts &amp; Attachments</span></a></li>
-    <li class="active"><a href="questions.html"><i class="icon icon-ok"></i><span>Questions</span></a></li>    <li><a href="budgets.html"><i class="icon icon-leaf"></i><span>Budgets</span></a> </li>
+    <li><a href="questions.html"><i class="icon icon-ok"></i><span>Questions</span></a></li>
+    <li class=" active"><a href="budgets.html"><i class="icon icon-leaf"></i><span>Budgets</span></a> </li>
     <li><a href="permissions.html"><i class="icon icon-check"></i><span>Permissions</span></a></li>
     <li><a href="propactions.html"><i class="icon icon-cog"></i><span>Proposal Actions</span></a></li>
     <li><a href="medusa.html"><i class="icon icon-road"></i><span>Medusa</span></a></li>
@@ -47,55 +48,55 @@
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12" style="max-width:800px">
+        <ul class="breadcrumb">
+          <li><a href="budgets.html">Budget Home</a> <span class="divider">/</span></li>
+          <li class="active">Budget 1</li>
+        </ul>
+        <ul class="nav nav-tabs">
+          <li class="active"> <a href="budgets-b1-param.html">Parameters</a> </li>
+          <li><a href="budgets-b1-rates.html">Rates</a></li>
+          <li><a href="#">Summary</a></li>
+          <li><a href="#">Personnel</a></li>
+          <li><a href="#">Non-personnel</a></li>
+          <li><a href="#">Distribution &amp; Income</a></li>
+          <li><a href="#">Modular Budget</a></li>
+          <li><a href="#">Budget Actions</a></li>
+         
+        </ul>
         <div class="box">
           <div class="boxHeader">
-            <h3> asdf </h3>
+            <h3> Budget Overview</h3>
           </div>
-          <div class="boxContent" style=" display:nonee" > <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
-              </div>
-            </div> <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
-              </div>
-            </div>
-          </div>
-        </div><div class="box">
-          <div class="boxHeader">
-            <h3> asdf </h3>
-          </div>
-          <div class="boxContent" style=" display:nonee" > <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
-              </div>
-            </div> <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
-              </div>
-            </div>
+          <div class="boxContent" style=" display:" > 
+            asdf asdf asdf 
           </div>
         </div>
-
-        
+        <div class="box">
+          <div class="boxHeader">
+            <h3> Budget Periods &amp; Totals</h3>
+          </div>
+          <div class="boxContent" style=" display:" >   <div class="boxSubheader">
+              <h4> Periods</h4>
+              <div class="boxControls"><a href="#" class="disclose-dl1">show</a></div>
+            </div>  <div class="boxSubheader">
+              <h4> Totals</h4>
+              <div class="boxControls"><a href="#" class="disclose-dl1">show</a></div>
+            </div> </div>
+        </div>
         <!--<div class="box">
           <div class="boxHeader">
             <h3> asdfasdfasdf </h3>
           </div>
           <div class="boxContent"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
-        </div>-->
+        </div>--> 
       </div>
     </div>
   </form>
 </div>
 <p><!-- Le javascript
-    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="../assets/js/jquery.js"></script>  <script src="../assets/js/bootstrap-transition.js"></script>   
-<script src="../assets/js/bootstrap-fileupload.js"></script> <script src="../assets/js/bootstrap-alert.js"></script> 
+    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="../assets/js/jquery.js"></script> <script src="../assets/js/bootstrap-transition.js"></script> 
+  <script src="../assets/js/bootstrap-fileupload.js"></script> <script src="../assets/js/bootstrap-alert.js"></script> 
   <script src="../assets/js/bootstrap-modal.js"></script> 
   <script src="../assets/js/bootstrap-dropdown.js"></script> 
   <script src="../assets/js/bootstrap-scrollspy.js"></script> 
@@ -107,6 +108,26 @@
   <script src="../assets/js/bootstrap-carousel.js"></script> 
   <script src="../assets/js/bootstrap-typeahead.js"></script> 
   <script src="../assets/js/bootstrap-editable.js"></script> 
-  <script src="../assets/js/application.js"></script>
+  <script src="../assets/js/application.js"></script> 
+  <script type="text/javascript">
+    $(document).ready(function () {
+  
+  
+  
+  $(".disclose-dl1").toggle(
+
+        function () {
+            $("#dl1").slideDown(600);
+            $(".disclose-dl1").html("hide");
+        },
+
+        function () {
+            $("#dl1").slideUp(600);
+            $(".disclose-dl1").html("show");
+        });
+  
+	
+});
+  </script>
 </body>
 </html>
