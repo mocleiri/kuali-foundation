@@ -1,14 +1,10 @@
 #!/bin/bash -e
 
-#PACKAGE=puppet
-#VERSION=2.7.18
+alias yum=yum -y
 
-#yum erase $PACKAGE -y
-#yum install $PACKAGE-$VERSION -y
-
-yum erase puppet -y
-yum install puppet -y
-yum install rubygems -y
-yum install ruby-nokogiri -y
-yum install subversion -y
+yum erase puppet
+yum install puppet
+yum install rubygems
+yum install ruby-nokogiri
+yum install subversion
 
