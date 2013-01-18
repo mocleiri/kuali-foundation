@@ -56,54 +56,85 @@
       <div class="span12" style="max-width:800px">
         <div class="box">
           <div class="boxHeader">
-            <h3> asdf </h3>
+            <h3> Budget Versions</h3>
           </div>
-          <div class="boxContent" style=" display:nonee" > <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
-              </div>
-            </div> <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
-              </div>
+          <div class="boxContent" style=" display:nonew" >
+            <div class="boxSubheader">
+              <h4>Add Budget</h4>
             </div>
-          </div>
-        </div><div class="box">
-          <div class="boxHeader">
-            <h3> asdf </h3>
-          </div>
-          <div class="boxContent" style=" display:nonee" > <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
+            <fieldset>
+              <div class="control-group"> 
+                <!-- Text input-->
+                <label class="control-label" for="input01"> Name</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge">
+                </div>
               </div>
-            </div> <div class="control-group">
-              <label class="control-label" for="Description">asdf</label>
-              <div class="controls">
-                <input type="text" id="Description" placeholder="" class="input-xlarge">
+              <div class="control-group"> 
+                <!-- Text input-->
+                <label class="control-label" for="input01"></label>
+                <div class="controls"> <a href="#" class="btn btn-inverse btn-small"><i class="icon-white icon-plus"></i>Add Budget</a></div>
               </div>
+            </fieldset>
+            <div class="boxSubheader">
+              <h4> Budget 1</h4>
+              <div class="boxControls"><a href="#" class="disclose-dl1">show</a></div>
+            </div>
+            <div id="dl1" style="display:nonee">
+              <dl class="table-display" style="margin-top:-13px;">
+                <dt>Residual Funds</dt>
+                <dd>&nbsp;</dd>
+                <dt>Cost Sharing</dt>
+                <dd>0.00</dd>
+                <dt>Unrecovered F&amp;A</dt>
+                <dd>0.00</dd>
+                <dt>F&amp;A Rate Type</dt>
+                <dd>MTDC</dd>
+                <dt>Last Updated</dt>
+                <dd>Jan 18, 2013 3:33:51 PM </dd>
+                <dt>Last Updated By</dt>
+                <dd>thrclark</dd>
+                <dt>Comments</dt>
+                <dd>&nbsp;</dd>
+                
+              </dl>
+              <div class="clearfix"></div>
+              
+                            <div class="control-group"> 
+                <!-- Text input-->
+                <label class="control-label" for="input01"></label>
+                <div class="controls"> <a href="#" class="btn btn-mini">copy</a> <a href="#" class="btn btn-mini">open</a></div>
+              </div>
+
+            </div>
+            <div class="boxSubheader">
+              <h4> Budget 2</h4>
+              <div class="boxControls"><a href="#" class="disclose-dl2">show</a></div>
+            </div>
+            <div class="boxSubheader">
+              <h4> Budget 3</h4>
+              <div class="boxControls"><a href="#" class="disclose-dl3">show</a></div>
+            </div>
+            <div class="boxSubheader">
+              <h4> Budget 4</h4>
+              <div class="boxControls"><a href="#" class="disclose-dl4">show</a></div>
             </div>
           </div>
         </div>
-
-        
         <!--<div class="box">
           <div class="boxHeader">
             <h3> asdfasdfasdf </h3>
           </div>
           <div class="boxContent"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
-        </div>-->
+        </div>--> 
       </div>
     </div>
   </form>
 </div>
 <p><!-- Le javascript
-    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="../assets/js/jquery.js"></script> 
-  <script src="../assets/js/bootstrap-transition.js"></script> 
-  <script src="../assets/js/bootstrap-alert.js"></script> 
+    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="../assets/js/jquery.js"></script> <script src="../assets/js/bootstrap-transition.js"></script> 
+  <script src="../assets/js/bootstrap-fileupload.js"></script> <script src="../assets/js/bootstrap-alert.js"></script> 
   <script src="../assets/js/bootstrap-modal.js"></script> 
   <script src="../assets/js/bootstrap-dropdown.js"></script> 
   <script src="../assets/js/bootstrap-scrollspy.js"></script> 
@@ -115,6 +146,26 @@
   <script src="../assets/js/bootstrap-carousel.js"></script> 
   <script src="../assets/js/bootstrap-typeahead.js"></script> 
   <script src="../assets/js/bootstrap-editable.js"></script> 
-  <script src="../assets/js/application.js"></script>
+  <script src="../assets/js/application.js"></script> 
+  <script type="text/javascript">
+    $(document).ready(function () {
+  
+  
+  
+  $(".disclose-dl1").toggle(
+
+        function () {
+            $("#dl1").slideDown(600);
+            $(".disclose-dl1").html("hide");
+        },
+
+        function () {
+            $("#dl1").slideUp(600);
+            $(".disclose-dl1").html("show");
+        });
+  
+	
+});
+  </script>
 </body>
 </html>

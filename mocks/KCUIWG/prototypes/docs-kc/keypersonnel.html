@@ -84,12 +84,12 @@
           <div class="boxHeader">
             <h3> Art Tatum <span> (PI/Contact)</span></h3>
           </div>
-          <div class="boxContent" style=" display:none" >
+          <div class="boxContent" style=" display:nonee" >
             <div class="boxSubheader">
               <h4> Details</h4>
               <div class="boxControls"><a href="#" class="disclose-dl1">show</a></div>
             </div>
-            <div id="dl1" style="display:none">
+            <div id="dl1" style="display:nonee">
               <dl class="table-display" style="margin-top:-13px;">
                 <dt>Proposal Person Role Id</dt>
                 <dd>&nbsp; </dd>
@@ -156,7 +156,7 @@
               <h4>Extended Details</h4>
               <div class="boxControls"><a href="#" class="disclose-dl2">show</a></div>
             </div>
-            <div id="dl2" style="display:none">
+            <div id="dl2" style="display:nonee">
               <dl class="table-display" style="margin-top:-13px;">
                 <dt>Age by Fiscal Year </dt>
                 <dd><a href="#" >add</a></dd>
@@ -221,7 +221,7 @@
               <h4>Degrees</h4>
               <div class="boxControls"><a href="#" class="disclose-dl3">show</a></div>
             </div>
-            <div id="dl3" style="display:none">
+            <div id="dl3" style="display:nonee">
               <table class="table table-striped table-bordered table-condensed">
                 <thead>
                   <tr>
@@ -234,7 +234,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><span class="addline">
+                    <td>
                       <select name="select" class=" input-small" title="* Degree Type">
                         <option value="">select</option>
                         <option value="AS">Associate in Science</option>
@@ -288,16 +288,16 @@
                         <option value="MD">Medical Doctor</option>
                         <option value="UKNW">No Degree information specified</option>
                       </select>
-                      </span></td>
-                    <td><span class="addline">
+                      </td>
+                    <td>
                       <input type="text" class=" input-medium" name="textfield" value="asdf" id="textfield2" tabindex="1" />
-                      </span></td>
-                    <td><span class="addline">
+                      </td>
+                    <td>
                       <input type="text" class=" input-small" name="textfield5" id="textfield3" tabindex="1" />
-                      </span></td>
-                    <td><span class="addline">
+                      </td>
+                    <td>
                       <input type="text" class=" input-medium" name="textfield6" id="textfield4" tabindex="1" />
-                      </span></td>
+                      </td>
                     <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-plus"></i></a></td>
                   </tr>
                   <tr>
@@ -327,7 +327,7 @@
             <div class="boxSubheader">
               <h4>Unit Details</h4>
               <div class="boxControls"><a href="#" class="disclose-dl4">show</a></div>
-              <div id="dl4" style="display:none">
+              <div id="dl4" style="display:nonee">
                 <table class="table table-striped table-bordered table-condensed">
                   <thead>
                     <tr>
@@ -359,7 +359,7 @@
             <div class="boxSubheader">
               <h4>Proposal Person Certification (Incomplete)</h4>
               <div class="boxControls"><a href="#" class="disclose-dl5">show</a></div>
-              <div id="dl5" style="display:none">
+              <div id="dl5" style="display:nonee">
                 <fieldset class="question">
                   <legend>I certify that (1) all information provided in this request or application is true, complete and accurate to the best of my knowledge and (2) I understand that any false, fictitious, or fraudulent statements or claims may subject me to criminal, civil or administrative penalties.</legend>
                   <div class="questionControls">
@@ -449,7 +449,7 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Add Personnel</h3>
   </div>
-   <iframe src="keypersonnel-add1.html" style="border:none; width:100%; height:400px;"></iframe>
+   <iframe src="keypersonnel-add1.html" style="border:nonee; width:100%; height:400px;"></iframe>
 </div>
 
 
@@ -460,9 +460,8 @@
   <!-- Le javascript
     ================================================== --><!-- Placed at the end of the document so the pages load faster --> 
   <script src="../assets/js/jquery.js"></script> 
-  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
-  <script src="../assets/js/bootstrap-transition.js"></script> 
-  <script src="../assets/js/bootstrap-alert.js"></script> 
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>  <script src="../assets/js/bootstrap-transition.js"></script>   
+<script src="../assets/js/bootstrap-fileupload.js"></script> <script src="../assets/js/bootstrap-alert.js"></script> 
   <script src="../assets/js/bootstrap-modal.js"></script> 
   <script src="../assets/js/bootstrap-dropdown.js"></script> 
   <script src="../assets/js/bootstrap-scrollspy.js"></script> 
@@ -477,6 +476,57 @@
   <script src="../assets/js/application.js"></script> 
   <script type="text/javascript">
     $(document).ready(function () {
+		
+		
+		$(".ddd1, .ddd2, .ddd3, .ddd4").fadeOut(0);
+		
+		
+		
+	     $(".hhh1").hover(
+
+    function () {
+        $(".ddd1").fadeIn(200);
+    },
+
+    function () {
+        $(".ddd1").fadeOut(200);
+    });
+	
+		
+	     $(".hhh2").hover(
+
+    function () {
+        $(".ddd2").fadeIn(200);
+    },
+
+    function () {
+        $(".ddd2").fadeOut(200);
+    });
+		
+			
+	     $(".hhh3").hover(
+
+    function () {
+        $(".ddd3").fadeIn(200);
+    },
+
+    function () {
+        $(".ddd3").fadeOut(200);
+    });
+		
+		     $(".hhh4").hover(
+
+    function () {
+        $(".ddd4").fadeIn(200);
+    },
+
+    function () {
+        $(".ddd4").fadeOut(200);
+    });
+		
+		
+		
+		
         $('#username, #email, #phone, #prititle, #dirtitle, #fax, #pager, #mobile, #officelocation,#officelocation2,#address1,#address2, #address3, #city, #county, #zip, #edlevel, #gradyear, #major, #degree, #school').editable();
 		
 		
@@ -574,6 +624,13 @@
     var url = $(this).attr('url');
     var modal_id = $(this).attr('data-controls-modal');
     $("#" + modal_id).load(url).modal('show');
+	
+	
+	
+	
+	
+	
+	
 });
   </script>
   

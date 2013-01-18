@@ -1,6 +1,10 @@
 $(document).ready(function () {
     // inline editing 
     //$.fn.editable.defaults.mode = 'inline';
+	
+	
+	
+	
     $.fn.editable.defaults.mode = 'popup';
     // box show hide
     $('div.boxHeader').click(function (accordian) {
@@ -86,14 +90,6 @@ $(document).ready(function () {
         });
     }
  
-     $(".hhh1").hover(
 
-    function () {
-        $(".ddd1").fadeIn(200);
-    },
-
-    function () {
-        $(".ddd1").fadeOut(200);
-    });
 
 });

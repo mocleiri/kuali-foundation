@@ -532,6 +532,8 @@ dl.table-display dd {
 	font-size: 0.8em;
 	color: #666;
 	font-weight: normal;
+	display:inline;
+	position:;
 }
 .sortable #sortable1 .ui-state-default .delete {
 	position: absolute;
@@ -539,3 +541,43 @@ dl.table-display dd {
 	right: -6px;
 	
 }
+.sortable #sortable1 .delete .icon-remove-sign {
+	
+	background-image: url(../img/icon-remove.png);
+	background-position: 0px 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
