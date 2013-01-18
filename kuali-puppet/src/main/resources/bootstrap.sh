@@ -6,6 +6,7 @@
 #yum erase $PACKAGE -y
 #yum install $PACKAGE-$VERSION -y
 
+yum erase puppet -y
 yum install puppet -y
 yum install rubygems -y
 yum install ruby-nokogiri -y
