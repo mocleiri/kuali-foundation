@@ -1,8 +1,9 @@
 #!/bin/bash -e
 
 yum erase puppet -y
-yum erase rubygems -y
 yum erase ruby-nokogiri -y
+yum erase rubygems -y
+yum erase ruby-devel -y 
 yum erase subversion -y
 yum erase man -y
 yum erase zip -y
@@ -12,7 +13,6 @@ yum erase rsync -y
 yum erase openssh-clients -y
 yum erase subversion -y
 yum erase git -y
-yum erase ruby-devel -y 
 
 rm -rf /usr/java
 rm -rf /root/.m2
