@@ -1,8 +1,8 @@
-define java::jdk ($localrepo = "/root/.m2/repository"
+define java::jdk ($local_repo = "/root/.m2/repository"
   , $bucket = "maven.kuali.org"
   , $prefix = "private"
-  , $groupid = "com.oracle"
-  , $artifactid = "jdk"
+  , $group_id = "com.oracle"
+  , $artifact_id = "jdk"
   , $version
   , $packaging = "zip"
   , $classifier = "linux-x64"
@@ -12,25 +12,25 @@ define java::jdk ($localrepo = "/root/.m2/repository"
   $artifact = "jdk-${version}"
   
   s3artifact { $artifact:
-    localrepo  => $localrepo,
-    bucket     => $bucket,
-    prefix     => $prefix,
-    groupid    => $groupid,
-    artifactid => $artifactid,
-    version    => $version,
-    packaging  => $packaging,
-    classifier => $classifier,
-  }
-
-  jdk::install { $artifact:
-    localrepo   => $localrepo,
-    groupid     => $groupid,
-    artifactid  => $artifactid,
+    local_repo  => $local_repo,
+    bucket      => $bucket,
+    prefix      => $prefix,
+    group_id    => $group_id,
+    artifact_id => $artifact_id,
     version     => $version,
     packaging   => $packaging,
     classifier  => $classifier,
-    level       => $level,
-    require     => S3artifact[$artifact],
+  }
+
+  java::install { $artifact:
+    local_repo   => $local_repo,
+    group_id     => $group_id,
+    artifact_id  => $artifact_id,
+    version      => $version,
+    packaging    => $packaging,
+    classifier   => $classifier,
+    level        => $level,
+    require      => S3artifact[$artifact],
   }
   
 }
