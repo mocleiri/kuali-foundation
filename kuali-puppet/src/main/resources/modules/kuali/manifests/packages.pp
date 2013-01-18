@@ -18,7 +18,6 @@ class kuali::packages {
   package { 'fog': 
     ensure   => '1.8.0',
     provider => 'gem',
-    require  => Package['rubygems','ruby-nokogiri','ruby-devel'],
   }
   
 }
