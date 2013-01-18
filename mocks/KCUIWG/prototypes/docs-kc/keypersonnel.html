@@ -8,7 +8,10 @@
 <meta name="author" content="">
 <!-- Le styles -->
 <link href="../assets/css/bootstrap.css" rel="stylesheet">
-<style type="text/css"></style>
+<style type="text/css">
+
+
+</style>
 <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="../assets/css/custom.css" rel="stylesheet">
 <link href="../assets/css/bootstrap-editable.css" rel="stylesheet">
@@ -65,11 +68,11 @@
           
           <div class="sortable" style="margin-bottom:40px">
             <ul id="sortable1">
-              <li class="ui-state-default"><span>Art Tatum</span></li>
-              <li class="ui-state-default"><span>Ben Webster</span></li>
-              <li class="ui-state-default"><span>Ella Fitzgerald</span></li>
-              <li class="ui-state-default"><span>Jimmy Blanton</span></li>
-              <li class="ui-state-default ui-state-disabled"><span><a href="#myModal" role="button" data-toggle="modal">+ add person</a></span></li>
+              <li class="ui-state-default hhh1"><span class="delete ddd1"><i class="icon-remove-sign"></i></span><span class="name">Art Tatum</span></li>
+              <li class="ui-state-default hhh2"><span class="delete ddd2"><i class="icon-remove-sign"></i></span><span class="name">Ben Webster</span></li>
+              <li class="ui-state-default hhh3"><span class="delete ddd3"><i class="icon-remove-sign"></i></span><span class="name">Ella Fitzgerald</span></li>
+              <li class="ui-state-default hhh4"><span class="delete ddd4"><i class="icon-remove-sign"></i></span><span class="name">Jimmy Blanton</span></li>
+              <li class="ui-state-default ui-state-disabled"><span class="name"><a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="res-modal" data-keyboard="true" url="keypersonnel-iframeshell.html"> + add person </a></span></li>
             </ul><div class="clearfix"></div></div>
              <div class="boxSubheader">
               <h4> Combined Credit Split</h4>
@@ -305,7 +308,7 @@
                     <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a></td>
                   </tr>
                   <tr>
-                    <td>Master of Education</td>
+                    <td height="70">Master of Education</td>
                     <td>Deus meus, recorder in gratiarum actione tibi, et confitear misericordias tuas super me. perfundantur ossa mea dilectione tua,</td>
                     <td>2008</td>
                     <td>Stanislaus State University</td>
@@ -446,19 +449,13 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Add Personnel</h3>
   </div>
-  <div class="modal-body">
-    <p>maybe some sort of wizard here?</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-small" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-small btn-inverse">Add</button>
-  </div>
+   <iframe src="keypersonnel-add1.html" style="border:none; width:100%; height:400px;"></iframe>
 </div>
 
 
+<div class="modal hide fade" id="res-modal"></div>
 
 
-<p> 
   
   <!-- Le javascript
     ================================================== --><!-- Placed at the end of the document so the pages load faster --> 
@@ -481,6 +478,12 @@
   <script type="text/javascript">
     $(document).ready(function () {
         $('#username, #email, #phone, #prititle, #dirtitle, #fax, #pager, #mobile, #officelocation,#officelocation2,#address1,#address2, #address3, #city, #county, #zip, #edlevel, #gradyear, #major, #degree, #school').editable();
+		
+		
+
+		
+		
+		
         $(function () {
             $('#role').editable({
                 value: 1,
@@ -565,6 +568,13 @@
  
     $( "#sortable1 li, #sortable2 li" ).disableSelection();		
   });
+  
+  
+  $(".ajax-modal").live('click', function() {
+    var url = $(this).attr('url');
+    var modal_id = $(this).attr('data-controls-modal');
+    $("#" + modal_id).load(url).modal('show');
+});
   </script>
   
   

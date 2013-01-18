@@ -513,6 +513,7 @@ dl.table-display dd {
 	margin-right: 6px;
 	margin-bottom: 6px;
 	margin-left: 6px;
+	position:relative;
 }
 
 
@@ -520,7 +521,7 @@ dl.table-display dd {
 #sortable1 li.ui-state-disabled {background-image: url(../img/icon-user-add.png);}
 
 
-#sortable1 .ui-state-default span {
+#sortable1 .ui-state-default span.name {
 	display: block;
 	margin-top: 96px;
 	font-size: .85em;
@@ -531,4 +532,10 @@ dl.table-display dd {
 	font-size: 0.8em;
 	color: #666;
 	font-weight: normal;
+}
+.sortable #sortable1 .ui-state-default .delete {
+	position: absolute;
+	top: -10px;
+	right: -6px;
+	
 }
