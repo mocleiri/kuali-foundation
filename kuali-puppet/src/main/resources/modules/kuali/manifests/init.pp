@@ -1,6 +1,6 @@
 class kuali {
 
-  kuali::setup { 'setup': }
+  class { 'kuali::setup': }
 
   $local_repo = "/root/.m2/repository"
   $bucket = "maven.kuali.org"
