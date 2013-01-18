@@ -17,6 +17,10 @@ class kuali::setup {
     'git':             ensure => latest;
   }
 
+  package { 'ruby-devel': 
+    ensure => '1.8.7.371-1.20.amzn1',
+  }
+
   package { 'rubygems':
     ensure => '1.8.11-3.1.amzn1',
   }
@@ -24,10 +28,6 @@ class kuali::setup {
   package { 'ruby-nokogiri': 
     ensure  => '1.5.2-1.6.amzn1',
     require => Package['rubygems'],
-  }
-
-  package { 'ruby-devel': 
-    ensure => '1.8.7.371-1.20.amzn1',
   }
 
   package { 'fog': 
