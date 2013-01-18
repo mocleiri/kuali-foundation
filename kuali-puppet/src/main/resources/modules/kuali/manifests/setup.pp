@@ -36,9 +36,4 @@ class kuali::setup {
     require  => Package['rubygems','ruby-nokogiri','ruby-devel'],
   }
   
-  package { 'puppetlabs-stdlib': 
-    ensure   => '3.2.0',
-    provider => 'gem',
-    require  => Package['rubygems'],
-  }
 }
