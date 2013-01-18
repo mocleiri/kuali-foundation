@@ -36,4 +36,9 @@ class kuali::setup {
     require  => Package['rubygems','ruby-nokogiri','ruby-devel'],
   }
   
+  package { 'stdlib': 
+    ensure   => latest,
+    provider => 'gem',
+    require  => Package['rubygems'],
+  }
 }
