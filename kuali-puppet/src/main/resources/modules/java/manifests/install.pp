@@ -8,7 +8,7 @@ define jdk::install ($localrepo
   , $basedir = '/usr/java'
 ) {
 
-    # The name of the file eg "commons-io-1.3.2.jar"
+  # The name of the file eg "commons-io-1.3.2.jar"
   if ($classifier == undef) {
     $filename = "${artifactid}-${version}.${packaging}"
   } else {
