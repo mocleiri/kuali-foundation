@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.CommitMode;
 
-public class JdbcContext extends SqlContext {
+public class JdbcContext {
 
 	DataSource dataSource;
 	CommitMode commitMode = CommitMode.PER_SOURCE;
