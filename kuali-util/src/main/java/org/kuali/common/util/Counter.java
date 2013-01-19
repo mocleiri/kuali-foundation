@@ -29,18 +29,12 @@ public class Counter {
 	}
 
 	public int increment() {
-		if (count == Integer.MAX_VALUE) {
-			throw new IllegalStateException("Maximum integer value exceeded");
-		} else {
-			return ++count;
-		}
+		Assert.isFalse(count == Integer.MAX_VALUE);
+		return count++;
 	}
 
 	public int decrement() {
-		if (count == Integer.MIN_VALUE) {
-			throw new IllegalStateException("Minimum integer value exceeded");
-		} else {
-			return --count;
-		}
+		Assert.isFalse(count == Integer.MIN_VALUE);
+		return count--;
 	}
 }
