@@ -18,14 +18,11 @@ package org.kuali.common.jdbc.context;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import org.kuali.common.jdbc.SqlSource;
-
 public class SqlSourceExecutionContext {
 
 	JdbcContext jdbcContext;
 	Connection connection;
 	Statement statement;
-	SqlSource source;
 	long runningCount;
 	int sourceIndex;
 	int sourcesCount;
@@ -53,14 +50,6 @@ public class SqlSourceExecutionContext {
 
 	public void setStatement(Statement statement) {
 		this.statement = statement;
-	}
-
-	public SqlSource getSource() {
-		return source;
-	}
-
-	public void setSource(SqlSource source) {
-		this.source = source;
 	}
 
 	public long getRunningCount() {

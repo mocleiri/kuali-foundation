@@ -17,10 +17,11 @@ package org.kuali.common.jdbc;
 
 public class SqlMetaData {
 
+	// The number of individual sql statements
 	long count;
-	long executionTime;
-	SqlReader reader;
-	SqlSource source;
+
+	// The collective size of the individual sql statements
+	long size;
 
 	public long getCount() {
 		return count;
@@ -30,27 +31,12 @@ public class SqlMetaData {
 		this.count = count;
 	}
 
-	public long getExecutionTime() {
-		return executionTime;
+	public long getSize() {
+		return size;
 	}
 
-	public void setExecutionTime(long executionTime) {
-		this.executionTime = executionTime;
+	public void setSize(long size) {
+		this.size = size;
 	}
 
-	public SqlReader getReader() {
-		return reader;
-	}
-
-	public void setReader(SqlReader reader) {
-		this.reader = reader;
-	}
-
-	public SqlSource getSource() {
-		return source;
-	}
-
-	public void setSource(SqlSource source) {
-		this.source = source;
-	}
 }
