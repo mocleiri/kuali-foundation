@@ -21,9 +21,7 @@ public class DefaultJdbcServiceTest {
 			JdbcService service = new DefaultJdbcService();
 			String encoding = "UTF-8";
 
-			String tableList = "classpath:sql/oracle/rice-impex-master-tables.txt";
-			List<String> tables = LocationUtils.getLocations(tableList);
-			List<String> locations = getLocations(tables);
+			List<String> locations = getLocations("oracle", "rice-impex-master");
 			List<SqlMetaData> smdl = service.getMetaData(reader, locations, encoding);
 
 			long count = 0;
@@ -46,6 +44,16 @@ public class DefaultJdbcServiceTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<String> getLocations(String vendor, String schema) {
+		List<String> locations = new ArrayList<String>();
+		locations.add("classpath:sql/" + vendor + "/" + schema + ".sql");
+		String tableList = "classpath:sql/" + vendor + "/" + schema + "-tables.txt";
+		List<String> tables = LocationUtils.getLocations(tableList);
+		locations.addAll(getLocations(tables));
+		locations.add("classpath:sql/" + vendor + "/" + schema + "-constraints.sql");
+		return locations;
 	}
 
 	protected List<String> getLocations(List<String> tables) {
