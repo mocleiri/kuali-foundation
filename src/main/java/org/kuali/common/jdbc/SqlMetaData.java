@@ -15,13 +15,20 @@
  */
 package org.kuali.common.jdbc;
 
-public class SqlMetaData {
+public class SqlMetaData implements Comparable<SqlMetaData> {
 
 	// The number of individual sql statements
 	long count;
 
 	// The collective size of the individual sql statements
 	long size;
+
+	@Override
+	public int compareTo(SqlMetaData other) {
+		Long size1 = this.size;
+		Long size2 = other.getSize();
+		return size1.compareTo(size2);
+	}
 
 	public long getCount() {
 		return count;
