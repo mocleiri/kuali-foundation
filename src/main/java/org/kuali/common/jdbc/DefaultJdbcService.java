@@ -20,14 +20,15 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.SimpleFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -35,7 +36,29 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 public class DefaultJdbcService implements JdbcService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
-	protected SimpleFormatter formatter = new SimpleFormatter();
+
+	@Override
+    public List<ExecutionMetaData> executeSql(JdbcContext context, List<String> locations, String encoding) {
+		Connection conn = null;
+		Statement statement = null;
+		try {
+			conn = DataSourceUtils.doGetConnection(context.getDataSource());
+			boolean originalAutoCommitSetting = conn.getAutoCommit();
+			conn.setAutoCommit(false);
+			statement = conn.createStatement();
+			for (int i = 0; i < locations.size(); i++) {
+				String location = locations.get(i);
+				SqlSourceExecutionContext sec = getSourceSqlExecutionContext(context, conn, statement, source, count, i, sources.size());
+				SqlMetaData smd = executeSqlFromSource(sec);
+			}
+			conn.setAutoCommit(originalAutoCommitSetting);
+			return new ArrayList<ExecutionMetaData>();
+		} catch (Exception e) {
+			throw new JdbcException(e);
+		} finally {
+			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
+		}
+	}
 
 	@Override
 	public JdbcMetaData getJdbcMetaData(DataSource dataSource) {
