@@ -107,6 +107,28 @@ public class CollectionUtils {
 		return newList;
 	}
 
+	protected static final <T> T getNewInstance(Class<T> c) {
+		try {
+			return c.newInstance();
+		} catch (IllegalAccessException e) {
+			throw new IllegalArgumentException(e);
+		} catch (InstantiationException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	/**
+	 * Create a new list containing new instances of <code>c</code>
+	 */
+	public static final <T> List<T> getNewList(Class<T> c, int size) {
+		List<T> list = new ArrayList<T>();
+		for (int i = 0; i < size; i++) {
+			T element = getNewInstance(c);
+			list.add(element);
+		}
+		return list;
+	}
+
 	/**
 	 * Return a list containing only the elements where the corresponding index in the <code>includes</code> list is <code>true</code>.
 	 * <code>includes</code> and <code>list</code> must be the same size.
