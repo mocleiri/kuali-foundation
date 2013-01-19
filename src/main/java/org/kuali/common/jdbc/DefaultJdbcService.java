@@ -29,34 +29,93 @@ import javax.sql.DataSource;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.util.CollectionUtils;
 
 public class DefaultJdbcService implements JdbcService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
 
 	@Override
-    public List<ExecutionMetaData> executeSql(JdbcContext context, List<String> locations, String encoding) {
+	public void executeSql(ExecutionContext context) {
+		JdbcContext jdbc = context.getJdbcContext();
 		Connection conn = null;
 		Statement statement = null;
 		try {
-			conn = DataSourceUtils.doGetConnection(context.getDataSource());
+			conn = DataSourceUtils.doGetConnection(jdbc.getDataSource());
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			for (int i = 0; i < locations.size(); i++) {
-				String location = locations.get(i);
-				SqlSourceExecutionContext sec = getSourceSqlExecutionContext(context, conn, statement, source, count, i, sources.size());
-				SqlMetaData smd = executeSqlFromSource(sec);
-			}
+			executeSqlStrings(statement, context);
+			executeLocations(statement, context);
 			conn.setAutoCommit(originalAutoCommitSetting);
-			return new ArrayList<ExecutionMetaData>();
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
-			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
+			JdbcUtils.closeQuietly(jdbc.getDataSource(), conn, statement);
+		}
+	}
+
+	protected void executeSqlStrings(Statement statement, ExecutionContext context) {
+		if (CollectionUtils.isEmpty(context.getSql())) {
+			// nothing to do
+			return;
+		}
+		for (String sql : context.getSql()) {
+			executeSqlString(statement, context, sql);
+		}
+	}
+
+	protected void executeSqlString(Statement statement, ExecutionContext context, String sql) {
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReaderFromString(sql);
+			executeSql(statement, context.getReader(), in);
+		} catch (Exception e) {
+			throw new JdbcException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected void executeLocations(Statement statement, ExecutionContext context) {
+		if (CollectionUtils.isEmpty(context.getLocations())) {
+			// nothing to do
+			return;
+		}
+		for (String location : context.getLocations()) {
+			executeLocation(statement, context, location);
+		}
+	}
+
+	protected void executeLocation(Statement statement, ExecutionContext context, String location) {
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReader(location, context.getEncoding());
+			executeSql(statement, context.getReader(), in);
+		} catch (Exception e) {
+			throw new JdbcException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected void executeSql(Statement statement, SqlReader reader, BufferedReader in) throws IOException, SQLException {
+		String sql = reader.getSqlStatement(in);
+		while (sql != null) {
+			executeSql(statement, sql);
+			sql = reader.getSqlStatement(in);
+		}
+	}
+
+	protected void executeSql(Statement statement, String sql) throws SQLException {
+		try {
+			statement.execute(sql);
+		} catch (SQLException e) {
+			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
 		}
 	}
 
