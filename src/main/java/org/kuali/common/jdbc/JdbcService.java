@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.jdbc.context.JdbcContext;
+
 public interface JdbcService {
 
 	JdbcMetaData getJdbcMetaData(DataSource dataSource);
@@ -31,4 +33,5 @@ public interface JdbcService {
 
 	List<SqlMetaData> getMetaData(SqlReader reader, List<String> locations, String encoding);
 
+	List<ExecutionMetaData> executeSql(JdbcContext context, List<String> locations, String encoding);
 }
