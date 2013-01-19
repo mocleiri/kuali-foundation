@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 public class SqlSource {
 
 	String location;
+	String sql;
 	SqlMetaData metaData;
 
 	public String getLocation() {
@@ -19,6 +20,14 @@ public class SqlSource {
 
 	public void setMetaData(SqlMetaData metaData) {
 		this.metaData = metaData;
+	}
+
+	public String getSql() {
+		return sql;
+	}
+
+	public void setSql(String sql) {
+		this.sql = sql;
 	}
 
 }
