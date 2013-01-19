@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -32,9 +33,9 @@ public class DefaultJdbcServiceTest {
 				String location = locations.get(i);
 				count += smd.getCount();
 				size += smd.getSize();
-				String sz = FormatUtils.getSize(smd.getSize());
-				String ct = FormatUtils.getCount(smd.getCount());
-				logger.info(location + " - " + sz + ", " + ct);
+				String ct = StringUtils.leftPad(FormatUtils.getCount(smd.getCount()), 5, " ");
+				String sz = StringUtils.rightPad(FormatUtils.getSize(smd.getSize()), 10, " ");
+				logger.info(ct + "  " + sz + " " + location);
 			}
 
 			String c = FormatUtils.getCount(count);
