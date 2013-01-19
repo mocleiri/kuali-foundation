@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -19,8 +20,13 @@ public class DefaultJdbcServiceTest {
 			JdbcService service = new DefaultJdbcService();
 			String encoding = "UTF-8";
 
-			String list = "classpath:sql/oracle/rice-impex-master-tables.txt";
-			List<String> locations = LocationUtils.getLocations(list);
+			String tableList = "classpath:sql/oracle/rice-impex-master-tables.txt";
+			List<String> tables = LocationUtils.getLocations(tableList);
+			List<String> locations = new ArrayList<String>();
+			for (String table : tables) {
+				String location = "classpath:sql/oracle/" + table + ".sql";
+				locations.add(location);
+			}
 
 			List<SqlMetaData> smdl = service.getMetaData(reader, locations, encoding);
 			long count = 0;

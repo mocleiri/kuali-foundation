@@ -56,7 +56,7 @@ public class DefaultJdbcService implements JdbcService {
 	public List<SqlMetaData> getMetaData(SqlReader reader, List<String> locations, String encoding) {
 		List<SqlMetaData> smdl = new ArrayList<SqlMetaData>();
 		for (String location : locations) {
-			smdl.add(getMetaDataFromString(reader, location));
+			smdl.add(getMetaData(reader, location, encoding));
 		}
 		return smdl;
 	}
