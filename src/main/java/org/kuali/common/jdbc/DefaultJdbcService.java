@@ -51,6 +51,7 @@ public class DefaultJdbcService implements JdbcService {
 			statement = conn.createStatement();
 			executeSqlStrings(statement, context);
 			executeLocations(statement, context);
+			conn.commit();
 			conn.setAutoCommit(originalAutoCommitSetting);
 		} catch (Exception e) {
 			throw new JdbcException(e);
