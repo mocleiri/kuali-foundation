@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.listener.DefaultSqlListener;
+import org.kuali.common.jdbc.listener.LogProgressListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -76,7 +76,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
 		ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setListener(new DefaultSqlListener());
+		ec.setListener(new LogProgressListener());
 		return ec;
 	}
 

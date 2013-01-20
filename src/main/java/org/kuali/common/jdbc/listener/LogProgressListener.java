@@ -12,9 +12,9 @@ import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultSqlListener implements SqlListener {
+public class LogProgressListener implements SqlListener {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(LogProgressListener.class);
 
 	ExecutionMetaData start;
 	ExecutionMetaData finish;
