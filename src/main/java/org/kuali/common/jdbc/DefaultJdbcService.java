@@ -48,25 +48,16 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(ExecutionContext context) {
-		beforeMetaData(context);
+		context.getListener().beforeMetaData(context);
 		List<SqlSource> sources = getSqlSources(context);
 		SqlExecutionEvent event = new SqlExecutionEvent(context, sources);
-		beforeExecution(event);
+		context.getListener().beforeExecution(event);
 		if (context.getThreads() < 2 || sources.size() < 2) {
 			executeSequentially(context, sources);
 		} else {
 			executeMultiThreaded(context, sources);
 		}
-		afterExecution(event);
-	}
-
-	protected void beforeMetaData(ExecutionContext context) {
-	}
-
-	protected void beforeExecution(SqlExecutionEvent event) {
-	}
-
-	protected void afterExecution(SqlExecutionEvent event) {
+		context.getListener().afterExecution(event);
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
@@ -207,7 +198,7 @@ public class DefaultJdbcService implements JdbcService {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReaderFromString(sql);
-			executeSql(conn, statement, context.getReader(), in);
+			executeSql(conn, statement, context, in);
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
@@ -219,7 +210,7 @@ public class DefaultJdbcService implements JdbcService {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(location, context.getEncoding());
-			executeSql(conn, statement, context.getReader(), in);
+			executeSql(conn, statement, context, in);
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
@@ -227,10 +218,11 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void executeSql(Connection conn, Statement statement, SqlReader reader, BufferedReader in) throws IOException, SQLException {
+	protected void executeSql(Connection conn, Statement statement, ExecutionContext context, BufferedReader in) throws IOException, SQLException {
+		SqlReader reader = context.getReader();
 		String sql = reader.getSqlStatement(in);
 		while (sql != null) {
-			executeSql(statement, sql);
+			executeSql(statement, sql, context);
 			sql = reader.getSqlStatement(in);
 		}
 	}
@@ -248,14 +240,14 @@ public class DefaultJdbcService implements JdbcService {
 
 	}
 
-	protected void executeSql(Statement statement, String sql) throws SQLException {
+	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
 		try {
-			beforeExecuteSql(sql);
+			context.getListener().beforeExecuteSql(sql);
 			if (execute(sql)) {
 				logger.debug("[{}]", Str.flatten(sql));
 				statement.execute(sql);
 			}
-			afterExecuteSql(sql);
+			context.getListener().afterExecuteSql(sql);
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
 		}

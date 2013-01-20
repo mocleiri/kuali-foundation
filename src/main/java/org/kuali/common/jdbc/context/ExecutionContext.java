@@ -2,6 +2,8 @@ package org.kuali.common.jdbc.context;
 
 import java.util.List;
 
+import org.kuali.common.jdbc.DefaultSqlListener;
+import org.kuali.common.jdbc.SqlListener;
 import org.kuali.common.jdbc.SqlReader;
 
 public class ExecutionContext {
@@ -12,6 +14,7 @@ public class ExecutionContext {
 	String encoding;
 	List<String> sql;
 	int threads = 1;
+	SqlListener listener = new DefaultSqlListener();
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
@@ -59,6 +62,14 @@ public class ExecutionContext {
 
 	public void setThreads(int threads) {
 		this.threads = threads;
+	}
+
+	public SqlListener getListener() {
+		return listener;
+	}
+
+	public void setListener(SqlListener listener) {
+		this.listener = listener;
 	}
 
 }
