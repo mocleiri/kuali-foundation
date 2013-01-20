@@ -37,6 +37,7 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
@@ -50,24 +51,29 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public void executeSql(ExecutionContext context) {
 		List<SqlSource> sources = getSqlSources(context);
-		if (context.getThreads() < 2 || sources.size() == 1) {
+		if (context.getThreads() < 2 || sources.size() < 2) {
 			executeSequentially(context, sources);
 		} else {
-			List<SqlBucket> buckets = getSqlBuckets(context, sources);
-			List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context);
-
-			// Store some context for the thread handler
-			ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
-			thc.setList(sbcs);
-			thc.setHandler(new SqlBucketHandler());
-			thc.setMax(buckets.size());
-			thc.setMin(buckets.size());
-			thc.setDivisor(1);
-			thc.setListener(new PercentCompleteListener<SqlBucketContext>());
-
-			ThreadInvoker invoker = new ThreadInvoker();
-			ExecutionStatistics stats = invoker.invokeThreads(thc);
+			executeMultiThreaded(context, sources);
 		}
+	}
+
+	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
+		List<SqlBucket> buckets = getSqlBuckets(context, sources);
+		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context);
+
+		// Store some context for the thread handler
+		ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
+		thc.setList(sbcs);
+		thc.setHandler(new SqlBucketHandler());
+		thc.setMax(buckets.size());
+		thc.setMin(buckets.size());
+		thc.setDivisor(1);
+		thc.setListener(new PercentCompleteListener<SqlBucketContext>());
+
+		ThreadInvoker invoker = new ThreadInvoker();
+		ExecutionStatistics stats = invoker.invokeThreads(thc);
+		logger.info("Total time: {}", FormatUtils.getTime(stats.getExecutionTime()));
 	}
 
 	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context) {
