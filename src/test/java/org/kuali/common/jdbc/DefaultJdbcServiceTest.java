@@ -72,8 +72,7 @@ public class DefaultJdbcServiceTest {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
-		// ec.setLocations(getLocations("mysql", "rice-impex-master"));
-		ec.setLocations(Arrays.asList(getSchemaLocation("mysql", "rice-impex-server-bootstrap")));
+		ec.setLocations(getLocations("mysql", "rice-impex-server-bootstrap"));
 		return ec;
 	}
 
@@ -81,7 +80,7 @@ public class DefaultJdbcServiceTest {
 	public void testReset() {
 		try {
 			JdbcService service = new DefaultJdbcService();
-			service.executeSql(getDba());
+			// service.executeSql(getDba());
 			service.executeSql(getNormal());
 		} catch (Exception e) {
 			e.printStackTrace();

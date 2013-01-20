@@ -27,6 +27,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.CollectionUtils;
@@ -121,10 +122,21 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
+	protected boolean execute(String sql) {
+		if (StringUtils.contains(sql, "KRCR_PARM_TYP_T")) {
+			return true;
+		}
+		return false;
+	}
+
 	protected void executeSql(Statement statement, String sql) throws SQLException {
 		try {
-			logger.info("[{}]", Str.flatten(sql));
-			statement.execute(sql);
+			if (execute(sql)) {
+				logger.info("[{}]", Str.flatten(sql));
+				if (false) {
+					statement.execute(sql);
+				}
+			}
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
 		}
