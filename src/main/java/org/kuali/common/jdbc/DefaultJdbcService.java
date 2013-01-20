@@ -31,6 +31,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.context.SqlBucketContext;
+import org.kuali.common.threads.ExecutionStatistics;
+import org.kuali.common.threads.ThreadHandlerContext;
+import org.kuali.common.threads.ThreadInvoker;
+import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
@@ -49,7 +54,44 @@ public class DefaultJdbcService implements JdbcService {
 			executeSequentially(context, sources);
 		} else {
 			List<SqlBucket> buckets = getSqlBuckets(context, sources);
+			List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context);
+
+			// Store some context for the thread handler
+			ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
+			thc.setList(sbcs);
+			thc.setHandler(new SqlBucketHandler());
+			thc.setMax(buckets.size());
+			thc.setMin(buckets.size());
+			thc.setDivisor(1);
+			thc.setListener(new PercentCompleteListener<SqlBucketContext>());
+
+			ThreadInvoker invoker = new ThreadInvoker();
+			ExecutionStatistics stats = invoker.invokeThreads(thc);
 		}
+	}
+
+	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context) {
+		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
+		for (SqlBucket bucket : buckets) {
+			SqlBucketContext sbc = new SqlBucketContext();
+			sbc.setService(this);
+			sbc.setBucket(bucket);
+			sbc.setContext(getExecutionContext(context, bucket));
+			sbcs.add(sbc);
+		}
+		return sbcs;
+	}
+
+	protected ExecutionContext getExecutionContext(ExecutionContext original, SqlBucket bucket) {
+		List<SqlSource> sources = bucket.getSources();
+		ExecutionContext context = new ExecutionContext();
+		context.setSql(getSql(sources));
+		context.setLocations(getLocations(sources));
+		context.setEncoding(original.getEncoding());
+		context.setJdbcContext(original.getJdbcContext());
+		context.setReader(original.getReader());
+		context.setThreads(1);
+		return context;
 	}
 
 	protected List<SqlBucket> getSqlBuckets(ExecutionContext context, List<SqlSource> sources) {
@@ -94,6 +136,26 @@ public class DefaultJdbcService implements JdbcService {
 		} finally {
 			JdbcUtils.closeQuietly(jdbc.getDataSource(), conn, statement);
 		}
+	}
+
+	protected List<String> getSql(List<SqlSource> sources) {
+		List<String> sql = new ArrayList<String>();
+		for (SqlSource source : sources) {
+			if (source.getSql() != null) {
+				sql.add(source.getSql());
+			}
+		}
+		return sql;
+	}
+
+	protected List<String> getLocations(List<SqlSource> sources) {
+		List<String> locations = new ArrayList<String>();
+		for (SqlSource source : sources) {
+			if (source.getLocation() != null) {
+				locations.add(source.getLocation());
+			}
+		}
+		return locations;
 	}
 
 	protected List<SqlSource> getSqlSources(ExecutionContext context) {
