@@ -1,4 +1,5 @@
 package org.kuali.common.jdbc;
+
 import java.util.List;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
@@ -16,6 +17,7 @@ public class DefaultSqlListener implements SqlListener {
 	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		this.start = getStartMeta(event.getSources());
+		System.out.print("[INFO] Progress: ");
 	}
 
 	@Override
@@ -32,6 +34,7 @@ public class DefaultSqlListener implements SqlListener {
 
 	@Override
 	public synchronized void afterExecution(SqlExecutionEvent event) {
+		System.out.println();
 	}
 
 	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {
