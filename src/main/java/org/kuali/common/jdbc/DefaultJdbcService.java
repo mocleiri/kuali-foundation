@@ -28,14 +28,12 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlBucketContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
-import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -51,11 +49,22 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public void executeSql(ExecutionContext context) {
 		List<SqlSource> sources = getSqlSources(context);
+		SqlExecutionEvent event = new SqlExecutionEvent(context, sources);
+		beforeExecution(event);
 		if (context.getThreads() < 2 || sources.size() < 2) {
 			executeSequentially(context, sources);
 		} else {
 			executeMultiThreaded(context, sources);
 		}
+		afterExecution(event);
+	}
+
+	protected void beforeExecution(SqlExecutionEvent event) {
+
+	}
+
+	protected void afterExecution(SqlExecutionEvent event) {
+
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
@@ -69,7 +78,7 @@ public class DefaultJdbcService implements JdbcService {
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
-		thc.setListener(new PercentCompleteListener<SqlBucketContext>());
+		// thc.setListener(new PercentCompleteListener<SqlBucketContext>());
 
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
@@ -225,15 +234,26 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected boolean execute(String sql) {
-		return !StringUtils.contains(sql, "TRUNCATE TABLE");
+		return false;
+		// return !StringUtils.contains(sql, "TRUNCATE TABLE");
+	}
+
+	protected void beforeExecuteSql(String sql) {
+
+	}
+
+	protected void afterExecuteSql(String sql) {
+
 	}
 
 	protected void executeSql(Statement statement, String sql) throws SQLException {
 		try {
+			beforeExecuteSql(sql);
 			if (execute(sql)) {
 				logger.debug("[{}]", Str.flatten(sql));
 				statement.execute(sql);
 			}
+			afterExecuteSql(sql);
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
 		}
