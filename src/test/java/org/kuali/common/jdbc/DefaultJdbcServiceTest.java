@@ -67,7 +67,6 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbcDba());
 		ec.setReader(reader);
 		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
-		ec.setListener(new DefaultSqlListener());
 		return ec;
 	}
 

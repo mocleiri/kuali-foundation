@@ -228,23 +228,10 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected boolean execute(String sql) {
-		return false;
-		// return !StringUtils.contains(sql, "TRUNCATE TABLE");
-	}
-
-	protected void beforeExecuteSql(String sql) {
-
-	}
-
-	protected void afterExecuteSql(String sql) {
-
-	}
-
 	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
 		try {
 			context.getListener().beforeExecuteSql(sql);
-			if (execute(sql)) {
+			if (false) {
 				logger.debug("[{}]", Str.flatten(sql));
 				statement.execute(sql);
 			}
