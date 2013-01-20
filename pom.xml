@@ -63,7 +63,7 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-impex-master</artifactId>
+      <artifactId>rice-impex-server-bootstrap</artifactId>
       <version>2.2.0</version>
       <classifier>sql</classifier>
     </dependency>

@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.jdbc.context.ExecutionContext;
+
 public interface JdbcService {
 
 	JdbcMetaData getJdbcMetaData(DataSource dataSource);

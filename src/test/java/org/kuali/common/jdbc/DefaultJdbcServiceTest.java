@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -71,7 +72,8 @@ public class DefaultJdbcServiceTest {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
-		ec.setLocations(getLocations("mysql", "rice-impex-master"));
+		// ec.setLocations(getLocations("mysql", "rice-impex-master"));
+		ec.setLocations(Arrays.asList(getSchemaLocation("mysql", "rice-impex-server-bootstrap")));
 		return ec;
 	}
 
@@ -118,9 +120,17 @@ public class DefaultJdbcServiceTest {
 		}
 	}
 
+	protected String getSchemaLocation(String vendor, String schema) {
+		return "classpath:sql/" + vendor + "/" + schema + ".sql";
+	}
+
+	protected String getConstraintsLocation(String vendor, String schema) {
+		return "classpath:sql/" + vendor + "/" + schema + "-constraints.sql";
+	}
+
 	protected List<String> getLocations(String vendor, String schema) {
 		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:sql/" + vendor + "/" + schema + ".sql");
+		locations.add(getSchemaLocation(vendor, schema));
 		String tableList = "classpath:sql/" + vendor + "/" + schema + "-tables.txt";
 		List<String> tables = LocationUtils.getLocations(tableList);
 		locations.addAll(getLocations(tables));
