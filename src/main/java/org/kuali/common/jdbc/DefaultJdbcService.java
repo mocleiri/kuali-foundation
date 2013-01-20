@@ -43,6 +43,16 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(ExecutionContext context) {
+		List<SqlSource> sources = getSqlSources(context);
+		if (context.getThreads() < 2 || sources.size() == 1) {
+			executeSequentially(context, sources);
+		} else {
+			int bucketCount = Math.min(sources.size(), context.getThreads());
+			List<SqlBucket> buckets = CollectionUtils.getNewList(SqlBucket.class, bucketCount);
+		}
+	}
+
+	protected void executeSequentially(ExecutionContext context, List<SqlSource> sources) {
 		JdbcContext jdbc = context.getJdbcContext();
 		Connection conn = null;
 		Statement statement = null;
@@ -51,7 +61,6 @@ public class DefaultJdbcService implements JdbcService {
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			List<SqlSource> sources = getSqlSources(context);
 			executeSqlSources(conn, statement, context, sources);
 			conn.commit();
 			conn.setAutoCommit(originalAutoCommitSetting);
@@ -123,7 +132,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected boolean execute(String sql) {
-		if (StringUtils.contains(sql, "KRCR_PARM_TYP_T")) {
+		if (StringUtils.contains(sql, "KRSB_QRTZ_LOCKS")) {
 			return true;
 		}
 		return false;
@@ -133,9 +142,7 @@ public class DefaultJdbcService implements JdbcService {
 		try {
 			if (execute(sql)) {
 				logger.info("[{}]", Str.flatten(sql));
-				if (false) {
-					statement.execute(sql);
-				}
+				statement.execute(sql);
 			}
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);

@@ -73,6 +73,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
 		ec.setLocations(getLocations("mysql", "rice-impex-server-bootstrap"));
+		ec.setThreads(3);
 		return ec;
 	}
 
@@ -80,7 +81,7 @@ public class DefaultJdbcServiceTest {
 	public void testReset() {
 		try {
 			JdbcService service = new DefaultJdbcService();
-			// service.executeSql(getDba());
+			service.executeSql(getDba());
 			service.executeSql(getNormal());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,9 +131,7 @@ public class DefaultJdbcServiceTest {
 	protected List<String> getLocations(String vendor, String schema) {
 		List<String> locations = new ArrayList<String>();
 		locations.add(getSchemaLocation(vendor, schema));
-		String tableList = "classpath:sql/" + vendor + "/" + schema + "-tables.txt";
-		List<String> tables = LocationUtils.getLocations(tableList);
-		locations.addAll(getLocations(tables));
+		locations.addAll(LocationUtils.getLocations("classpath:META-INF/mysql/rice-impex-server-bootstrap.tables"));
 		locations.add("classpath:sql/" + vendor + "/" + schema + "-constraints.sql");
 		return locations;
 	}
