@@ -11,6 +11,8 @@ import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogProgressListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
+import org.kuali.common.jdbc.listener.LogSummaryListener;
+import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -65,11 +67,16 @@ public class DefaultJdbcServiceTest {
 	}
 
 	protected ExecutionContext getDbaContext() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new LogSqlListener());
+		listeners.add(new LogSummaryListener());
+		SqlListener listener = new NotifyingListener(listeners);
+
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(getJdbcDba());
 		ec.setReader(reader);
 		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
-		ec.setListener(new LogSqlListener());
+		ec.setListener(listener);
 		return ec;
 	}
 

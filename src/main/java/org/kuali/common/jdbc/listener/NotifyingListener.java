@@ -14,6 +14,15 @@ public class NotifyingListener implements SqlListener {
 
 	List<SqlListener> listeners = new ArrayList<SqlListener>();
 
+	public NotifyingListener() {
+		this(null);
+	}
+
+	public NotifyingListener(List<SqlListener> listeners) {
+		super();
+		this.listeners = listeners;
+	}
+
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
 		for (SqlListener listener : listeners) {
