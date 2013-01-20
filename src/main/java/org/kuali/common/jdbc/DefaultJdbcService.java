@@ -122,6 +122,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected void executeSql(Statement statement, String sql) throws SQLException {
 		try {
+			logger.info("SQL:[{}]", Str.flatten(sql));
 			statement.execute(sql);
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
