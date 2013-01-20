@@ -28,12 +28,12 @@ import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.util.CollectionUtils;
 
 public class DefaultJdbcService implements JdbcService {
 
@@ -49,8 +49,8 @@ public class DefaultJdbcService implements JdbcService {
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			executeSqlStrings(statement, context);
-			executeLocations(statement, context);
+			List<SqlSource> sources = getSqlSources(context);
+			executeSqlSources(conn, statement, context, sources);
 			conn.commit();
 			conn.setAutoCommit(originalAutoCommitSetting);
 		} catch (Exception e) {
@@ -60,21 +60,39 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void executeSqlStrings(Statement statement, ExecutionContext context) {
-		if (CollectionUtils.isEmpty(context.getSql())) {
-			// nothing to do
-			return;
+	protected List<SqlSource> getSqlSources(ExecutionContext context) {
+		List<SqlSource> sources = new ArrayList<SqlSource>();
+		for (String sql : CollectionUtils.toEmptyList(context.getSql())) {
+			SqlSource source = new SqlSource();
+			source.setSql(sql);
+			source.setMetaData(getMetaDataFromString(context.getReader(), sql));
+			sources.add(source);
 		}
-		for (String sql : context.getSql()) {
-			executeSqlString(statement, context, sql);
+		for (String location : CollectionUtils.toEmptyList(context.getLocations())) {
+			SqlSource source = new SqlSource();
+			source.setLocation(location);
+			source.setEncoding(context.getEncoding());
+			source.setMetaData(getMetaData(context.getReader(), location, context.getEncoding()));
+			sources.add(source);
+		}
+		return sources;
+	}
+
+	protected void executeSqlSources(Connection conn, Statement statement, ExecutionContext context, List<SqlSource> sources) {
+		for (SqlSource source : sources) {
+			if (source.getSql() != null) {
+				executeSqlString(conn, statement, context, source.getSql());
+			} else {
+				executeLocation(conn, statement, context, source.getLocation());
+			}
 		}
 	}
 
-	protected void executeSqlString(Statement statement, ExecutionContext context, String sql) {
+	protected void executeSqlString(Connection conn, Statement statement, ExecutionContext context, String sql) {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReaderFromString(sql);
-			executeSql(statement, context.getReader(), in);
+			executeSql(conn, statement, context.getReader(), in);
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
@@ -82,21 +100,11 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void executeLocations(Statement statement, ExecutionContext context) {
-		if (CollectionUtils.isEmpty(context.getLocations())) {
-			// nothing to do
-			return;
-		}
-		for (String location : context.getLocations()) {
-			executeLocation(statement, context, location);
-		}
-	}
-
-	protected void executeLocation(Statement statement, ExecutionContext context, String location) {
+	protected void executeLocation(Connection conn, Statement statement, ExecutionContext context, String location) {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(location, context.getEncoding());
-			executeSql(statement, context.getReader(), in);
+			executeSql(conn, statement, context.getReader(), in);
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
@@ -104,7 +112,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void executeSql(Statement statement, SqlReader reader, BufferedReader in) throws IOException, SQLException {
+	protected void executeSql(Connection conn, Statement statement, SqlReader reader, BufferedReader in) throws IOException, SQLException {
 		String sql = reader.getSqlStatement(in);
 		while (sql != null) {
 			executeSql(statement, sql);
