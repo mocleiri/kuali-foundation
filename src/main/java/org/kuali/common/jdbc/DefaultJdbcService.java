@@ -22,6 +22,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -47,8 +48,17 @@ public class DefaultJdbcService implements JdbcService {
 		if (context.getThreads() < 2 || sources.size() == 1) {
 			executeSequentially(context, sources);
 		} else {
-			int bucketCount = Math.min(sources.size(), context.getThreads());
+			int bucketCount = Math.min(context.getThreads(), sources.size());
+			Collections.sort(sources);
+			Collections.reverse(sources);
 			List<SqlBucket> buckets = CollectionUtils.getNewList(SqlBucket.class, bucketCount);
+			for (SqlSource source : sources) {
+				Collections.sort(buckets);
+				SqlBucket smallest = buckets.get(0);
+				smallest.getSources().add(source);
+				smallest.setCount(smallest.getCount() + source.getMetaData().getCount());
+				smallest.setSize(smallest.getSize() + source.getMetaData().getSize());
+			}
 		}
 	}
 

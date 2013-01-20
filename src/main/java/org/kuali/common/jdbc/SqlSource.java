@@ -1,11 +1,18 @@
 package org.kuali.common.jdbc;
 
-public class SqlSource {
+public class SqlSource implements Comparable<SqlSource> {
 
 	String location;
 	String encoding;
 	String sql;
 	SqlMetaData metaData;
+
+	@Override
+    public int compareTo(SqlSource other) {
+		Long size1 = metaData.getSize();
+		Long size2 = other.getMetaData().getSize();
+		return size1.compareTo(size2);
+	}
 
 	public String getLocation() {
 		return location;
