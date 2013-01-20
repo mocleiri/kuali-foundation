@@ -11,7 +11,7 @@ public class ExecutionContext {
 	List<String> locations;
 	String encoding;
 	List<String> sql;
-	int threads;
+	int threads = 1;
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
