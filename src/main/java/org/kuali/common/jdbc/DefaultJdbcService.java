@@ -99,6 +99,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.setJdbcContext(original.getJdbcContext());
 		context.setReader(original.getReader());
 		context.setThreads(1);
+		context.setListener(original.getListener());
 		return context;
 	}
 

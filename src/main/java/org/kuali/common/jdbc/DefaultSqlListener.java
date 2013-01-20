@@ -17,7 +17,6 @@ public class DefaultSqlListener implements SqlListener {
 	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		this.start = getStartMeta(event.getSources());
-		System.out.print("[INFO] Progress: ");
 	}
 
 	@Override
