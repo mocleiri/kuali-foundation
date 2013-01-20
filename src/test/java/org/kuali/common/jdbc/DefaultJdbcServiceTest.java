@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.listener.DefaultSqlListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
