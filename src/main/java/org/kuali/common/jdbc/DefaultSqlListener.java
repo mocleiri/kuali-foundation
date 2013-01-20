@@ -3,8 +3,13 @@ package org.kuali.common.jdbc;
 import java.util.List;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.util.FormatUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultSqlListener implements SqlListener {
+
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSqlListener.class);
 
 	ExecutionMetaData start;
 	ExecutionMetaData finish;
@@ -17,6 +22,10 @@ public class DefaultSqlListener implements SqlListener {
 	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		this.start = getStartMeta(event.getSources());
+		String count = FormatUtils.getCount(start.getCount());
+		String size = FormatUtils.getSize(start.getSize());
+		logger.info("Executing {} SQL statements.  Total Size: {}", count, size);
+		System.out.print("[INFO] Progress: ");
 	}
 
 	@Override
@@ -42,7 +51,7 @@ public class DefaultSqlListener implements SqlListener {
 		for (SqlSource source : sources) {
 			SqlMetaData smd = source.getMetaData();
 			count += smd.getCount();
-			count += smd.getSize();
+			size += smd.getSize();
 		}
 		ExecutionMetaData meta = new ExecutionMetaData();
 		meta.setCount(count);

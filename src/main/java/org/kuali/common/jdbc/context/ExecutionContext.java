@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.context;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.DefaultSqlListener;
+import org.kuali.common.jdbc.NoOpSqlListener;
 import org.kuali.common.jdbc.SqlListener;
 import org.kuali.common.jdbc.SqlReader;
 
@@ -14,7 +14,7 @@ public class ExecutionContext {
 	String encoding;
 	List<String> sql;
 	int threads = 1;
-	SqlListener listener = new DefaultSqlListener();
+	SqlListener listener = new NoOpSqlListener();
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
