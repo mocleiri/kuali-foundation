@@ -48,18 +48,33 @@ public class DefaultJdbcService implements JdbcService {
 		if (context.getThreads() < 2 || sources.size() == 1) {
 			executeSequentially(context, sources);
 		} else {
-			int bucketCount = Math.min(context.getThreads(), sources.size());
-			Collections.sort(sources);
-			Collections.reverse(sources);
-			List<SqlBucket> buckets = CollectionUtils.getNewList(SqlBucket.class, bucketCount);
-			for (SqlSource source : sources) {
-				Collections.sort(buckets);
-				SqlBucket smallest = buckets.get(0);
-				smallest.getSources().add(source);
-				smallest.setCount(smallest.getCount() + source.getMetaData().getCount());
-				smallest.setSize(smallest.getSize() + source.getMetaData().getSize());
-			}
+			List<SqlBucket> buckets = getSqlBuckets(context, sources);
 		}
+	}
+
+	protected List<SqlBucket> getSqlBuckets(ExecutionContext context, List<SqlSource> sources) {
+		// number of buckets equals thread count, unless thread count > total number of sources
+		int bucketCount = Math.min(context.getThreads(), sources.size());
+		// Sort the sources by size
+		Collections.sort(sources);
+		// Largest to smallest instead of smallest to largest
+		Collections.reverse(sources);
+		// Allocate some buckets to hold the sql
+		List<SqlBucket> buckets = CollectionUtils.getNewList(SqlBucket.class, bucketCount);
+		// Distribute the sources into buckets as evenly as possible
+		// "Evenly" in this case means each bucket should be roughly the same size
+		for (SqlSource source : sources) {
+			// Sort the buckets by size
+			Collections.sort(buckets);
+			// First bucket in the list is the smallest
+			SqlBucket smallest = buckets.get(0);
+			// Add this source to the bucket
+			smallest.getSources().add(source);
+			// Update the bucket metadata holding overall size
+			smallest.setCount(smallest.getCount() + source.getMetaData().getCount());
+			smallest.setSize(smallest.getSize() + source.getMetaData().getSize());
+		}
+		return buckets;
 	}
 
 	protected void executeSequentially(ExecutionContext context, List<SqlSource> sources) {
