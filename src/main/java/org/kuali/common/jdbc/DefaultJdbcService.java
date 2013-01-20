@@ -48,6 +48,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(ExecutionContext context) {
+		beforeMetaData(context);
 		List<SqlSource> sources = getSqlSources(context);
 		SqlExecutionEvent event = new SqlExecutionEvent(context, sources);
 		beforeExecution(event);
@@ -59,12 +60,13 @@ public class DefaultJdbcService implements JdbcService {
 		afterExecution(event);
 	}
 
-	protected void beforeExecution(SqlExecutionEvent event) {
+	protected void beforeMetaData(ExecutionContext context) {
+	}
 
+	protected void beforeExecution(SqlExecutionEvent event) {
 	}
 
 	protected void afterExecution(SqlExecutionEvent event) {
-
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
