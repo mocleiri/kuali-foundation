@@ -219,16 +219,13 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected boolean execute(String sql) {
-		if (StringUtils.contains(sql, "KRSB_QRTZ_LOCKS")) {
-			return true;
-		}
-		return false;
+		return !StringUtils.contains(sql, "TRUNCATE TABLE");
 	}
 
 	protected void executeSql(Statement statement, String sql) throws SQLException {
 		try {
 			if (execute(sql)) {
-				logger.info("[{}]", Str.flatten(sql));
+				logger.debug("[{}]", Str.flatten(sql));
 				statement.execute(sql);
 			}
 		} catch (SQLException e) {

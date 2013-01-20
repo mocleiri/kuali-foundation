@@ -22,15 +22,17 @@ public class DefaultJdbcServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcServiceTest.class);
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	Properties properties = getProperties();
 	SqlReader reader = new DefaultSqlReader();
+	String vendor = "mysql";
+	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
+	Properties properties = getProperties();
 
 	protected Properties getProperties() {
 		Properties sql = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
 		Properties properties = PropertyUtils.combine(sql, jdbc1, jdbc2);
-		properties.setProperty("db.vendor", "mysql");
+		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		return properties;
 	}
@@ -60,7 +62,7 @@ public class DefaultJdbcServiceTest {
 		return context;
 	}
 
-	protected ExecutionContext getDba() {
+	protected ExecutionContext getDbaContext() {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(getJdbcDba());
 		ec.setReader(reader);
@@ -68,11 +70,19 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getNormal() {
+	protected ExecutionContext getSchemasContext() {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
-		ec.setLocations(getLocations("mysql", "rice-impex-server-bootstrap"));
+		ec.setLocations(getSchemaLocations(vendor, schemas));
+		return ec;
+	}
+
+	protected ExecutionContext getDataContext() {
+		ExecutionContext ec = new ExecutionContext();
+		ec.setJdbcContext(getJdbc());
+		ec.setReader(reader);
+		ec.setLocations(getDataLocations(vendor, schemas));
 		ec.setThreads(3);
 		return ec;
 	}
@@ -81,8 +91,9 @@ public class DefaultJdbcServiceTest {
 	public void testReset() {
 		try {
 			JdbcService service = new DefaultJdbcService();
-			service.executeSql(getDba());
-			service.executeSql(getNormal());
+			service.executeSql(getDbaContext());
+			service.executeSql(getSchemasContext());
+			service.executeSql(getDataContext());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,7 +106,7 @@ public class DefaultJdbcServiceTest {
 			JdbcService service = new DefaultJdbcService();
 			String encoding = "UTF-8";
 
-			List<String> locations = getLocations("oracle", "rice-impex-master");
+			List<String> locations = new ArrayList<String>();// getLocations("oracle", "rice-impex-master");
 			List<SqlMetaData> smdl = service.getMetaData(reader, locations, encoding);
 
 			long count = 0;
@@ -120,6 +131,14 @@ public class DefaultJdbcServiceTest {
 		}
 	}
 
+	protected List<String> getSchemaLocations(String vendor, List<String> schemas) {
+		List<String> locations = new ArrayList<String>();
+		for (String schema : schemas) {
+			locations.add(getSchemaLocation(vendor, schema));
+		}
+		return locations;
+	}
+
 	protected String getSchemaLocation(String vendor, String schema) {
 		return "classpath:sql/" + vendor + "/" + schema + ".sql";
 	}
@@ -128,21 +147,15 @@ public class DefaultJdbcServiceTest {
 		return "classpath:sql/" + vendor + "/" + schema + "-constraints.sql";
 	}
 
-	protected List<String> getLocations(String vendor, String schema) {
+	protected List<String> getDataLocations(String vendor, List<String> schemas) {
 		List<String> locations = new ArrayList<String>();
-		locations.add(getSchemaLocation(vendor, schema));
-		locations.addAll(LocationUtils.getLocations("classpath:META-INF/mysql/rice-impex-server-bootstrap.tables"));
-		locations.add("classpath:sql/" + vendor + "/" + schema + "-constraints.sql");
-		return locations;
-	}
-
-	protected List<String> getLocations(List<String> tables) {
-		List<String> locations = new ArrayList<String>();
-		for (String table : tables) {
-			String location = "classpath:sql/oracle/" + table + ".sql";
-			locations.add(location);
+		for (String schema : schemas) {
+			locations.addAll(getDataLocations(vendor, schema));
 		}
 		return locations;
 	}
 
+	protected List<String> getDataLocations(String vendor, String schema) {
+		return LocationUtils.getLocations("classpath:META-INF/" + vendor + "/" + schema + ".tables");
+	}
 }
