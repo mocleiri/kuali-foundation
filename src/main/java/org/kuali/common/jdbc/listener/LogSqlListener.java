@@ -5,6 +5,7 @@ import org.kuali.common.jdbc.SqlListener;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ public class LogSqlListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
 	LoggerLevel level = LoggerLevel.INFO;
+	boolean flatten = true;
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
@@ -23,7 +25,8 @@ public class LogSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecuteSql(String sql) {
-		LoggerUtils.logMsg(sql, logger, level);
+		String msg = (flatten) ? Str.flatten(sql) : sql;
+		LoggerUtils.logMsg("[" + msg + "]", logger, level);
 	}
 
 	@Override

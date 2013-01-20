@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogProgressListener;
+import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -68,6 +69,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbcDba());
 		ec.setReader(reader);
 		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
+		ec.setListener(new LogSqlListener());
 		return ec;
 	}
 
