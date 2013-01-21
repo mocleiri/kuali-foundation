@@ -6,7 +6,8 @@ public class ThreadsProgressListener extends ProgressListener {
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-		// intentionally do nothing here to prevent this.total from being altered
+		// intentionally do nothing here
+		// this overrides the super class behavior that initializes the total SQL statement count
 	}
 
 }
