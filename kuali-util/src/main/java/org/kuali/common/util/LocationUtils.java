@@ -38,11 +38,15 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 public class LocationUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(LocationUtils.class);
 
 	private static final String FILE_PREFIX = "file:";
 	private static final String BACK_SLASH = "\\";
@@ -139,6 +143,7 @@ public class LocationUtils {
 	public static final void copyLocationToFile(String location, File destination) {
 		Assert.notNull(location);
 		Assert.notNull(destination);
+		logger.debug("Copying [{}]->[{}]", location, destination);
 		InputStream in = null;
 		try {
 			in = getInputStream(location);
