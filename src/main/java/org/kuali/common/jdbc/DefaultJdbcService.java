@@ -31,7 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlBucketContext;
-import org.kuali.common.jdbc.listener.NoOpSqlListener;
+import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -101,7 +101,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.setReader(original.getReader());
 		context.setThreads(1);
 		context.setExecute(original.isExecute());
-		context.setListener(new NoOpSqlListener());
+		context.setListener(new LogSqlListener());
 		return context;
 	}
 
