@@ -81,8 +81,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
 		ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setListener(getSchemaListener());
-		ec.setExecute(false);
+		ec.setListener(getSchemasListener());
 		return ec;
 	}
 
@@ -92,7 +91,7 @@ public class DefaultJdbcServiceTest {
 		ec.setReader(reader);
 		ec.setLocations(getDataLocations(vendor, schemas));
 		ec.setThreads(10);
-		ec.setExecute(false);
+		ec.setListener(getDataListener());
 		return ec;
 	}
 
@@ -103,7 +102,14 @@ public class DefaultJdbcServiceTest {
 		return new NotifyingListener(listeners);
 	}
 
-	protected SqlListener getSchemaListener() {
+	protected SqlListener getSchemasListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new SummaryListener());
+		listeners.add(new ProgressListener());
+		return new NotifyingListener(listeners);
+	}
+
+	protected SqlListener getDataListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new SummaryListener());
 		listeners.add(new ProgressListener());
@@ -113,10 +119,21 @@ public class DefaultJdbcServiceTest {
 	@Test
 	public void testReset() {
 		try {
+			ExecutionContext dba = getDbaContext();
+			ExecutionContext schemas = getSchemasContext();
+			ExecutionContext data = getDataContext();
+
+			dba.setExecute(true);
+			schemas.setExecute(true);
+			data.setExecute(true);
+
 			JdbcService service = new DefaultJdbcService();
-			service.executeSql(getDbaContext());
-			service.executeSql(getSchemasContext());
-			service.executeSql(getDataContext());
+			long start = System.currentTimeMillis();
+			service.executeSql(dba);
+			service.executeSql(schemas);
+			service.executeSql(data);
+			long millis = System.currentTimeMillis() - start;
+			logger.info("Total Time: {}", FormatUtils.getTime(millis));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

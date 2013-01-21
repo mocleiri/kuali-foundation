@@ -8,9 +8,15 @@ import org.kuali.common.jdbc.listener.SqlListener;
 
 public class ExecutionContext {
 
+	// If false, no SQL is executed.
+	// Everything leading up to SQL execution still takes place
+	// Connecting to the database, parsing SQL, etc.
+	boolean execute = true;
+
+	// Use this to enable multi-threaded SQL execution
+	// When used, SQL supplied to this context does not execute sequentially
 	int threads = 1;
 	SqlListener listener = new NoOpSqlListener();
-	boolean execute = true;
 	JdbcContext jdbcContext;
 	SqlReader reader;
 	List<String> locations;
