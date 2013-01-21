@@ -19,7 +19,7 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 	}
 
 	@Override
-	public void beforeExecution(SqlExecutionEvent event) {
+	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		// The total number of SQL statements being executed
 		this.total = JdbcUtils.getSqlCount(event.getSources());
 	}
@@ -29,7 +29,7 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 	}
 
 	@Override
-	public void afterExecuteSql(String sql) {
+	public synchronized void afterExecuteSql(String sql) {
 		// The first SQL statement was just executed
 		if (count == 0) {
 			logger.debug("Progress started");
