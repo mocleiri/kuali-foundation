@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.threads;
 
 import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.SqlBucketContext;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 
