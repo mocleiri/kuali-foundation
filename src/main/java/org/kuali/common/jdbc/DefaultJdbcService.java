@@ -31,6 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlBucketContext;
+import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -51,14 +52,13 @@ public class DefaultJdbcService implements JdbcService {
 	public void executeSql(ExecutionContext context) {
 		context.getListener().beforeMetaData(context);
 		List<SqlSource> sources = getSqlSources(context);
-		SqlExecutionEvent event = new SqlExecutionEvent(context, sources);
-		context.getListener().beforeExecution(event);
+		context.getListener().beforeExecution(new SqlExecutionEvent(context, sources));
 		if (context.getThreads() < 2 || sources.size() < 2) {
 			executeSequentially(context, sources);
 		} else {
 			executeMultiThreaded(context, sources);
 		}
-		context.getListener().afterExecution(event);
+		context.getListener().afterExecution(new SqlExecutionEvent(context, sources));
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
@@ -100,7 +100,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.setJdbcContext(original.getJdbcContext());
 		context.setReader(original.getReader());
 		context.setThreads(1);
-		context.setListener(original.getListener());
+		context.setListener(new NoOpSqlListener());
 		return context;
 	}
 
