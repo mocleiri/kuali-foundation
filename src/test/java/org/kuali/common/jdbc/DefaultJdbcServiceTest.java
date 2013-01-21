@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
@@ -141,39 +140,8 @@ public class DefaultJdbcServiceTest {
 			service.executeSql(schemas);
 			service.executeSql(data);
 			service.executeSql(constraints);
-			logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// @Test
-	public void test() {
-		try {
-			SqlReader reader = new DefaultSqlReader();
-			JdbcService service = new DefaultJdbcService();
-			String encoding = "UTF-8";
-
-			List<String> locations = new ArrayList<String>();// getLocations("oracle", "rice-impex-master");
-			List<SqlMetaData> smdl = service.getMetaData(reader, locations, encoding);
-
-			long count = 0;
-			long size = 0;
-			for (int i = 0; i < locations.size(); i++) {
-				SqlMetaData smd = smdl.get(i);
-				String location = locations.get(i);
-				count += smd.getCount();
-				size += smd.getSize();
-				String ct = StringUtils.leftPad(FormatUtils.getCount(smd.getCount()), 5, " ");
-				String sz = StringUtils.rightPad(FormatUtils.getSize(smd.getSize()), 10, " ");
-				logger.info(ct + "  " + sz + " " + location);
-			}
-
-			String c = FormatUtils.getCount(count);
-			String s = FormatUtils.getSize(size);
-
-			logger.info("Count: {} Size: {}", c, s);
-
+			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
+			logger.info("Total time: {}", time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
