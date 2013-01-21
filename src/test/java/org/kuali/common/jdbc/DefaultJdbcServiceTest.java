@@ -128,7 +128,7 @@ public class DefaultJdbcServiceTest {
 			ExecutionContext data = getDataContext();
 			ExecutionContext constraints = getConstraintsContext();
 
-			boolean execute = true;
+			boolean execute = false;
 
 			dba.setExecute(execute);
 			schemas.setExecute(execute);

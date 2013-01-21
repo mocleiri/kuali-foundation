@@ -28,7 +28,7 @@ public class SummaryListener implements SqlListener {
 		String sources = FormatUtils.getCount(event.getSources().size());
 		String size = FormatUtils.getSize(this.size);
 		Object[] args = { count, sources, size };
-		logger.info("SQL Count: {}  Sources: {}  Size: {}", args);
+		logger.info("[SQL Count: {}  Sources: {}  Size: {}]", args);
 	}
 
 	@Override
@@ -48,6 +48,6 @@ public class SummaryListener implements SqlListener {
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
 		Object[] args = { count, sources, size, time, rate };
-		logger.info("SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}", args);
+		logger.info("[SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args);
 	}
 }
