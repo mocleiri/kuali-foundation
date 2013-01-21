@@ -81,7 +81,8 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
 		ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setListener(getSchemasListener());
+		ec.setThreads(ec.getLocations().size());
+		ec.setListener(getDefaultListener());
 		return ec;
 	}
 
@@ -91,28 +92,31 @@ public class DefaultJdbcServiceTest {
 		ec.setReader(reader);
 		ec.setLocations(getDataLocations(vendor, schemas));
 		ec.setThreads(10);
-		ec.setListener(getDataListener());
+		ec.setListener(getDefaultListener());
 		return ec;
 	}
 
-	protected SqlListener getDbaListener() {
+	protected ExecutionContext getConstraintsContext() {
+		ExecutionContext ec = new ExecutionContext();
+		ec.setJdbcContext(getJdbc());
+		ec.setReader(reader);
+		ec.setLocations(getConstraintsLocations(vendor, schemas));
+		ec.setThreads(ec.getLocations().size());
+		ec.setListener(getDefaultListener());
+		return ec;
+	}
+
+	protected NotifyingListener getDefaultListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new ProgressListener());
+		listeners.add(new SummaryListener());
+		return new NotifyingListener(listeners);
+	}
+
+	protected NotifyingListener getDbaListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new LogSqlListener());
 		listeners.add(new SummaryListener());
-		return new NotifyingListener(listeners);
-	}
-
-	protected SqlListener getSchemasListener() {
-		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(new SummaryListener());
-		listeners.add(new ProgressListener());
-		return new NotifyingListener(listeners);
-	}
-
-	protected SqlListener getDataListener() {
-		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(new SummaryListener());
-		listeners.add(new ProgressListener());
 		return new NotifyingListener(listeners);
 	}
 
@@ -122,17 +126,20 @@ public class DefaultJdbcServiceTest {
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getSchemasContext();
 			ExecutionContext data = getDataContext();
+			ExecutionContext constraints = getConstraintsContext();
 
-			boolean execute = false;
+			boolean execute = true;
 
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
 			data.setExecute(execute);
+			constraints.setExecute(execute);
 
 			JdbcService service = new DefaultJdbcService();
 			service.executeSql(dba);
 			service.executeSql(schemas);
 			service.executeSql(data);
+			service.executeSql(constraints);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,6 +181,14 @@ public class DefaultJdbcServiceTest {
 		List<String> locations = new ArrayList<String>();
 		for (String schema : schemas) {
 			locations.add(getSchemaLocation(vendor, schema));
+		}
+		return locations;
+	}
+
+	protected List<String> getConstraintsLocations(String vendor, List<String> schemas) {
+		List<String> locations = new ArrayList<String>();
+		for (String schema : schemas) {
+			locations.add(getConstraintsLocation(vendor, schema));
 		}
 		return locations;
 	}
