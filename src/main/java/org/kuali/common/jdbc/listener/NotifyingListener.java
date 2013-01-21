@@ -8,7 +8,7 @@ import org.kuali.common.jdbc.SqlListener;
 import org.kuali.common.jdbc.context.ExecutionContext;
 
 /**
- * Don't actually do any work ourself, just notify our listeners so they can do they actual work.
+ * Don't actually do any work ourself, just notify other listeners so they can do something useful
  */
 public class NotifyingListener implements SqlListener {
 
