@@ -1,7 +1,7 @@
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.SqlExecutionEvent;
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Str;

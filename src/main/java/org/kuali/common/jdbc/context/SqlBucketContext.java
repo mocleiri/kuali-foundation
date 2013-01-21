@@ -1,7 +1,7 @@
 package org.kuali.common.jdbc.context;
 
 import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.SqlBucket;
+import org.kuali.common.jdbc.threads.SqlBucket;
 
 public class SqlBucketContext {
 

@@ -1,7 +1,9 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.threads;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.kuali.common.jdbc.SqlSource;
 
 public class SqlBucket implements Comparable<SqlBucket> {
 

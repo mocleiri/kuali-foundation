@@ -1,7 +1,8 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.threads;
 
 import java.util.List;
 
+import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
 
 public class SqlExecutionEvent {

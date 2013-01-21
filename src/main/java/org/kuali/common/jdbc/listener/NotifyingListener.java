@@ -3,8 +3,8 @@ package org.kuali.common.jdbc.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.jdbc.SqlExecutionEvent;
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 
 /**
  * Notify other listeners about SQL related events
