@@ -42,12 +42,12 @@ public class SummaryListener implements SqlListener {
 	@Override
 	public void afterExecution(SqlExecutionEvent event) {
 		long elapsed = System.currentTimeMillis() - startMillis;
-		String sources = FormatUtils.getCount(event.getSources().size());
-		String time = FormatUtils.getTime(elapsed);
 		String count = FormatUtils.getCount(this.count);
+		String sources = FormatUtils.getCount(event.getSources().size());
 		String size = FormatUtils.getSize(this.size);
+		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
-		Object[] args = { count, sources, time, size, rate };
-		logger.info("SQL Count: {}  Sources: {}  Time: {}  Size: {}  Rate: {}", args);
+		Object[] args = { count, sources, size, time, rate };
+		logger.info("SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}", args);
 	}
 }

@@ -123,7 +123,7 @@ public class DefaultJdbcServiceTest {
 			ExecutionContext schemas = getSchemasContext();
 			ExecutionContext data = getDataContext();
 
-			boolean execute = true;
+			boolean execute = false;
 
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
