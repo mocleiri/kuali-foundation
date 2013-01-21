@@ -23,7 +23,7 @@ public class ProgressListener implements SqlListener {
 	int percentCompletePrevious;
 	PrintStream out = System.out;
 	String startToken = ".";
-	String completeToken = ".";
+	String completeToken = "\n";
 	String progressToken = ".";
 
 	@Override
@@ -50,16 +50,18 @@ public class ProgressListener implements SqlListener {
 			percentCompletePrevious = percentComplete;
 			out.print(progressToken);
 		}
+		if (count == total) {
+			out.print(completeToken);
+		}
+	}
+
+	@Override
+	public synchronized void afterExecution(SqlExecutionEvent event) {
 	}
 
 	protected boolean enoughProgress(int percentComplete) {
 		int needed = percentCompletePrevious + percentageIncrement;
 		return percentComplete >= needed;
-	}
-
-	@Override
-	public synchronized void afterExecution(SqlExecutionEvent event) {
-		out.println();
 	}
 
 	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {
@@ -74,6 +76,86 @@ public class ProgressListener implements SqlListener {
 		meta.setCount(count);
 		meta.setSize(size);
 		return meta;
+	}
+
+	public ExecutionMetaData getStart() {
+		return start;
+	}
+
+	public void setStart(ExecutionMetaData start) {
+		this.start = start;
+	}
+
+	public ExecutionMetaData getFinish() {
+		return finish;
+	}
+
+	public void setFinish(ExecutionMetaData finish) {
+		this.finish = finish;
+	}
+
+	public long getCount() {
+		return count;
+	}
+
+	public void setCount(long count) {
+		this.count = count;
+	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
+	}
+
+	public int getPercentageIncrement() {
+		return percentageIncrement;
+	}
+
+	public void setPercentageIncrement(int percentageIncrement) {
+		this.percentageIncrement = percentageIncrement;
+	}
+
+	public int getPercentCompletePrevious() {
+		return percentCompletePrevious;
+	}
+
+	public void setPercentCompletePrevious(int percentCompletePrevious) {
+		this.percentCompletePrevious = percentCompletePrevious;
+	}
+
+	public PrintStream getOut() {
+		return out;
+	}
+
+	public void setOut(PrintStream out) {
+		this.out = out;
+	}
+
+	public String getStartToken() {
+		return startToken;
+	}
+
+	public void setStartToken(String startToken) {
+		this.startToken = startToken;
+	}
+
+	public String getCompleteToken() {
+		return completeToken;
+	}
+
+	public void setCompleteToken(String completeToken) {
+		this.completeToken = completeToken;
+	}
+
+	public String getProgressToken() {
+		return progressToken;
+	}
+
+	public void setProgressToken(String progressToken) {
+		this.progressToken = progressToken;
 	}
 
 }
