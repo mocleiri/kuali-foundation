@@ -78,9 +78,9 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
-		long sqlCount = JdbcUtils.getSqlCount(sources);
+		long total = JdbcUtils.getSqlCount(sources);
 		ThreadsProgressListener listener = new ThreadsProgressListener();
-		listener.setTotal(sqlCount);
+		listener.setTotal(total);
 
 		List<SqlBucket> buckets = getSqlBuckets(context, sources);
 		Collections.sort(buckets);
