@@ -65,9 +65,10 @@ public class DefaultJdbcService implements JdbcService {
 			SqlBucket bucket = buckets.get(i);
 			List<SqlSource> sources = bucket.getSources();
 			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(sources));
+			String srcs = FormatUtils.getCount(sources.size());
 			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(sources));
-			Object[] args = { i + 1, count, size };
-			logger.info("Bucket {} - SQL Statements: {}  Size: {}", args);
+			Object[] args = { i + 1, count, srcs, size };
+			logger.info("Bucket {} - SQL Count: {}  Sources: {}  Size: {}", args);
 		}
 	}
 
