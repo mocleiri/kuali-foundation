@@ -1,6 +1,5 @@
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.ExecutionMetaData;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlExecutionEvent;
 import org.kuali.common.jdbc.context.ExecutionContext;
@@ -12,8 +11,6 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 
 	private static final Logger logger = LoggerFactory.getLogger(ProgressListener.class);
 
-	ExecutionMetaData start;
-	ExecutionMetaData finish;
 	long count = 0;
 	long total = 0;
 
@@ -23,8 +20,8 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-		this.start = JdbcUtils.getStartMeta(event.getSources());
-		this.total = start.getCount();
+		// The total number of SQL statements being executed
+		this.total = JdbcUtils.getSqlCount(event.getSources());
 	}
 
 	@Override
@@ -33,12 +30,19 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 
 	@Override
 	public void afterExecuteSql(String sql) {
+		// The first SQL statement was just executed
 		if (count == 0) {
 			logger.debug("Progress started");
 			progressStarted();
 		}
+
+		// Increment the counter
+		this.count++;
+
 		// TODO This breaks for clients trying to track execution progress of more than Integer.MAX_VALUE SQL statements
-		progressOccurred((int) count++, (int) total, null);
+		progressOccurred((int) count, (int) total, null);
+
+		// The last SQL statement was just executed
 		if (count == total) {
 			logger.debug("Progress complete");
 			progressCompleted();
@@ -49,35 +53,4 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 	public void afterExecution(SqlExecutionEvent event) {
 	}
 
-	public ExecutionMetaData getStart() {
-		return start;
-	}
-
-	public void setStart(ExecutionMetaData start) {
-		this.start = start;
-	}
-
-	public ExecutionMetaData getFinish() {
-		return finish;
-	}
-
-	public void setFinish(ExecutionMetaData finish) {
-		this.finish = finish;
-	}
-
-	public long getCount() {
-		return count;
-	}
-
-	public void setCount(long count) {
-		this.count = count;
-	}
-
-	public long getTotal() {
-		return total;
-	}
-
-	public void setTotal(long total) {
-		this.total = total;
-	}
 }

@@ -2,34 +2,20 @@ package org.kuali.common.jdbc.listener;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.ExecutionMetaData;
 import org.kuali.common.jdbc.SqlExecutionEvent;
-import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlSource;
-import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ThreadsProgressListener extends PercentCompleteListener<String> implements SqlListener {
+public class ThreadsProgressListener extends ProgressListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThreadsProgressListener.class);
 
-	ExecutionMetaData start;
-	ExecutionMetaData finish;
-	long count = 0;
-	long total = 0;
+	List<SqlSource> sources;
 
 	@Override
-	public synchronized void beforeMetaData(ExecutionContext context) {
-	}
-
-	@Override
-	public synchronized void beforeExecution(SqlExecutionEvent event) {
-	}
-
-	@Override
-	public synchronized void beforeExecuteSql(String sql) {
+	public void beforeExecution(SqlExecutionEvent event) {
+		// intentionally do nothing to override the super class behavior
 	}
 
 	@Override
@@ -46,53 +32,12 @@ public class ThreadsProgressListener extends PercentCompleteListener<String> imp
 		}
 	}
 
-	@Override
-	public synchronized void afterExecution(SqlExecutionEvent event) {
+	public List<SqlSource> getSources() {
+		return sources;
 	}
 
-	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {
-		long count = 0;
-		long size = 0;
-		for (SqlSource source : sources) {
-			SqlMetaData smd = source.getMetaData();
-			count += smd.getCount();
-			size += smd.getSize();
-		}
-		ExecutionMetaData meta = new ExecutionMetaData();
-		meta.setCount(count);
-		meta.setSize(size);
-		return meta;
+	public void setSources(List<SqlSource> sources) {
+		this.sources = sources;
 	}
 
-	public ExecutionMetaData getStart() {
-		return start;
-	}
-
-	public void setStart(ExecutionMetaData start) {
-		this.start = start;
-	}
-
-	public ExecutionMetaData getFinish() {
-		return finish;
-	}
-
-	public void setFinish(ExecutionMetaData finish) {
-		this.finish = finish;
-	}
-
-	public long getCount() {
-		return count;
-	}
-
-	public void setCount(long count) {
-		this.count = count;
-	}
-
-	public long getTotal() {
-		return total;
-	}
-
-	public void setTotal(long total) {
-		this.total = total;
-	}
 }

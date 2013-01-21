@@ -31,18 +31,17 @@ public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
-	public static ExecutionMetaData getStartMeta(List<SqlSource> sources) {
+	/**
+	 * Return a count of the total number of SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its
+	 * <code>SqlMetaData</code> filled in.
+	 */
+	public static long getSqlCount(List<SqlSource> sources) {
 		long count = 0;
-		long size = 0;
 		for (SqlSource source : sources) {
 			SqlMetaData smd = source.getMetaData();
 			count += smd.getCount();
-			size += smd.getSize();
 		}
-		ExecutionMetaData meta = new ExecutionMetaData();
-		meta.setCount(count);
-		meta.setSize(size);
-		return meta;
+		return count;
 	}
 
 	public static final void closeQuietly(DataSource dataSource, Connection conn, Statement statement) {
