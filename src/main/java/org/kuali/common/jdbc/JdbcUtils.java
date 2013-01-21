@@ -18,6 +18,7 @@ package org.kuali.common.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -29,6 +30,20 @@ import org.springframework.util.Assert;
 public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
+
+	public static ExecutionMetaData getStartMeta(List<SqlSource> sources) {
+		long count = 0;
+		long size = 0;
+		for (SqlSource source : sources) {
+			SqlMetaData smd = source.getMetaData();
+			count += smd.getCount();
+			size += smd.getSize();
+		}
+		ExecutionMetaData meta = new ExecutionMetaData();
+		meta.setCount(count);
+		meta.setSize(size);
+		return meta;
+	}
 
 	public static final void closeQuietly(DataSource dataSource, Connection conn, Statement statement) {
 		closeQuietly(statement);

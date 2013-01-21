@@ -1,11 +1,8 @@
 package org.kuali.common.jdbc.listener;
 
-import java.util.List;
-
 import org.kuali.common.jdbc.ExecutionMetaData;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlExecutionEvent;
-import org.kuali.common.jdbc.SqlMetaData;
-import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.slf4j.Logger;
@@ -26,7 +23,7 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-		this.start = getStartMeta(event.getSources());
+		this.start = JdbcUtils.getStartMeta(event.getSources());
 		this.total = start.getCount();
 	}
 
@@ -50,20 +47,6 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 
 	@Override
 	public void afterExecution(SqlExecutionEvent event) {
-	}
-
-	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {
-		long count = 0;
-		long size = 0;
-		for (SqlSource source : sources) {
-			SqlMetaData smd = source.getMetaData();
-			count += smd.getCount();
-			size += smd.getSize();
-		}
-		ExecutionMetaData meta = new ExecutionMetaData();
-		meta.setCount(count);
-		meta.setSize(size);
-		return meta;
 	}
 
 	public ExecutionMetaData getStart() {
