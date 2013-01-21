@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.1.28</version>
+    <version>2.1.40</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jdbc</artifactId>
@@ -71,6 +71,25 @@
       <artifactId>rice-impex-server-bootstrap</artifactId>
       <version>2.2.0</version>
       <classifier>sql</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.ole</groupId>
+      <artifactId>ole-rice-sql</artifactId>
+      <version>0.8.1-q-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.ole</groupId>
+      <artifactId>ole-master-sql</artifactId>
+      <version>0.8.1-q-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.ole</groupId>
+      <artifactId>ole-liquibase-sql</artifactId>
+      <version>0.8.1-q-SNAPSHOT</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

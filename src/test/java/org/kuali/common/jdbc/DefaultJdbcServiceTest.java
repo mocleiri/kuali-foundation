@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
@@ -29,13 +30,26 @@ public class DefaultJdbcServiceTest {
 	SqlReader reader = new DefaultSqlReader();
 	String vendor = "mysql";
 	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
-	Properties properties = getProperties();
+	Properties properties = getOleProperties();
+	JdbcContext jdbcDba = getJdbcDba();
+	JdbcContext jdbcContext = getJdbc();
 
 	protected Properties getProperties() {
 		Properties sql = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
 		Properties properties = PropertyUtils.combine(sql, jdbc1, jdbc2);
+		properties.setProperty("db.vendor", vendor);
+		properties.setProperty("jdbc.username", "JDBCTEST");
+		return properties;
+	}
+
+	protected Properties getOleProperties() {
+		Properties sql = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
+		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
+		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
+		Properties ole = PropertyUtils.load("classpath:org/kuali/ole/ole-fs.properties");
+		Properties properties = PropertyUtils.combine(sql, jdbc1, jdbc2, ole);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		return properties;
@@ -68,7 +82,7 @@ public class DefaultJdbcServiceTest {
 
 	protected ExecutionContext getDbaContext() {
 		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(getJdbcDba());
+		ec.setJdbcContext(jdbcDba);
 		ec.setReader(reader);
 		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
 		ec.setListener(getDbaListener());
@@ -77,7 +91,7 @@ public class DefaultJdbcServiceTest {
 
 	protected ExecutionContext getSchemasContext() {
 		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(getJdbc());
+		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		ec.setLocations(getSchemaLocations(vendor, schemas));
 		ec.setThreads(ec.getLocations().size());
@@ -87,7 +101,7 @@ public class DefaultJdbcServiceTest {
 
 	protected ExecutionContext getDataContext() {
 		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(getJdbc());
+		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		ec.setLocations(getDataLocations(vendor, schemas));
 		ec.setThreads(10);
@@ -97,7 +111,7 @@ public class DefaultJdbcServiceTest {
 
 	protected ExecutionContext getConstraintsContext() {
 		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(getJdbc());
+		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		ec.setLocations(getConstraintsLocations(vendor, schemas));
 		ec.setThreads(ec.getLocations().size());
@@ -122,6 +136,13 @@ public class DefaultJdbcServiceTest {
 	@Test
 	public void testReset() {
 		try {
+
+			// PropertyUtils.info(properties);
+
+			List<String> schemaLocations = getLocations("sql.schema.loc");
+			List<String> dataLocations = getLocations("sql.data.loc");
+			List<String> constraintsLocations = getLocations("sql.constraints.loc");
+
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getSchemasContext();
 			ExecutionContext data = getDataContext();
@@ -145,6 +166,20 @@ public class DefaultJdbcServiceTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<String> getLocations(String prefix) {
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
+		List<String> locations = new ArrayList<String>();
+		for (String key : keys) {
+			String value = getValue(key);
+			if (StringUtils.contains(key, ".loc.list")) {
+				locations.addAll(LocationUtils.getLocations(value));
+			} else {
+				locations.add(value);
+			}
+		}
+		return locations;
 	}
 
 	protected List<String> getSchemaLocations(String vendor, List<String> schemas) {
