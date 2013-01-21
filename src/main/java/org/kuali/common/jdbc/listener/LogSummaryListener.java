@@ -45,11 +45,12 @@ public class LogSummaryListener implements SqlListener {
 	public void afterExecution(SqlExecutionEvent event) {
 		long elapsed = System.currentTimeMillis() - startMillis;
 		long bytes = start.getSize();
+		String time = FormatUtils.getTime(elapsed);
 		String count = FormatUtils.getCount(start.getCount());
 		String size = FormatUtils.getSize(start.getSize());
 		String rate = FormatUtils.getRate(elapsed, bytes);
-		Object[] args = { count, size, rate };
-		logger.info("Executed {} SQL statements.  Total Size: {}  Rate: {}", args);
+		Object[] args = { count, time, size, rate };
+		logger.info("SQL Count: {}  Time: {}  Size: {}  Rate: {}", args);
 	}
 
 	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {

@@ -34,6 +34,7 @@ import org.kuali.common.jdbc.context.SqlBucketContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
+import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -71,7 +72,7 @@ public class DefaultJdbcService implements JdbcService {
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
-		// thc.setListener(new PercentCompleteListener<SqlBucketContext>());
+		thc.setListener(new PercentCompleteListener<SqlBucketContext>());
 
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
