@@ -123,17 +123,14 @@ public class DefaultJdbcServiceTest {
 			ExecutionContext schemas = getSchemasContext();
 			ExecutionContext data = getDataContext();
 
-			dba.setExecute(true);
-			schemas.setExecute(true);
-			data.setExecute(true);
+			dba.setExecute(false);
+			schemas.setExecute(false);
+			data.setExecute(false);
 
 			JdbcService service = new DefaultJdbcService();
-			long start = System.currentTimeMillis();
 			service.executeSql(dba);
 			service.executeSql(schemas);
 			service.executeSql(data);
-			long millis = System.currentTimeMillis() - start;
-			logger.info("Total Time: {}", FormatUtils.getTime(millis));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
