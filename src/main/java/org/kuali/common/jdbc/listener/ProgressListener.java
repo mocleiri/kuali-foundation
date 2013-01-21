@@ -12,45 +12,42 @@ import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogSummaryListener implements SqlListener {
+public class ProgressListener implements SqlListener {
 
-	private static final Logger logger = LoggerFactory.getLogger(LogSummaryListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProgressListener.class);
 
 	ExecutionMetaData start;
 	ExecutionMetaData finish;
-	long startMillis;
+	int count = 0;
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
-		this.startMillis = System.currentTimeMillis();
+	public synchronized void beforeMetaData(ExecutionContext context) {
 	}
 
 	@Override
-	public void beforeExecution(SqlExecutionEvent event) {
+	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		this.start = getStartMeta(event.getSources());
 		String count = FormatUtils.getCount(start.getCount());
 		String size = FormatUtils.getSize(start.getSize());
 		logger.info("Executing {} SQL statements.  Total Size: {}", count, size);
+		System.out.print("[INFO] Progress: ");
 	}
 
 	@Override
-	public void beforeExecuteSql(String sql) {
+	public synchronized void beforeExecuteSql(String sql) {
 	}
 
 	@Override
-	public void afterExecuteSql(String sql) {
+	public synchronized void afterExecuteSql(String sql) {
+		count++;
+		if (count % 100 == 0) {
+			System.out.print(".");
+		}
 	}
 
 	@Override
-	public void afterExecution(SqlExecutionEvent event) {
-		long elapsed = System.currentTimeMillis() - startMillis;
-		long bytes = start.getSize();
-		String time = FormatUtils.getTime(elapsed);
-		String count = FormatUtils.getCount(start.getCount());
-		String size = FormatUtils.getSize(start.getSize());
-		String rate = FormatUtils.getRate(elapsed, bytes);
-		Object[] args = { count, time, size, rate };
-		logger.info("SQL Count: {}  Time: {}  Size: {}  Rate: {}", args);
+	public synchronized void afterExecution(SqlExecutionEvent event) {
+		System.out.println();
 	}
 
 	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {

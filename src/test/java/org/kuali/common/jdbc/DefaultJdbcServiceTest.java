@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogSqlListener;
-import org.kuali.common.jdbc.listener.LogSummaryListener;
+import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -77,13 +77,13 @@ public class DefaultJdbcServiceTest {
 	protected SqlListener getDbaListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new LogSqlListener());
-		listeners.add(new LogSummaryListener());
+		listeners.add(new SummaryListener());
 		return new NotifyingListener(listeners);
 	}
 
 	protected SqlListener getSchemaListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(new LogSummaryListener());
+		listeners.add(new SummaryListener());
 		return new NotifyingListener(listeners);
 	}
 
