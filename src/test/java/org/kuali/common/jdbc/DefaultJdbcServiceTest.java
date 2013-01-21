@@ -76,6 +76,26 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
+	protected ExecutionContext getSchemasContext() {
+		ExecutionContext ec = new ExecutionContext();
+		ec.setJdbcContext(getJdbc());
+		ec.setReader(reader);
+		ec.setLocations(getSchemaLocations(vendor, schemas));
+		ec.setListener(getSchemaListener());
+		ec.setExecute(false);
+		return ec;
+	}
+
+	protected ExecutionContext getDataContext() {
+		ExecutionContext ec = new ExecutionContext();
+		ec.setJdbcContext(getJdbc());
+		ec.setReader(reader);
+		ec.setLocations(getDataLocations(vendor, schemas));
+		ec.setThreads(10);
+		ec.setExecute(false);
+		return ec;
+	}
+
 	protected SqlListener getDbaListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new LogSqlListener());
@@ -88,24 +108,6 @@ public class DefaultJdbcServiceTest {
 		listeners.add(new SummaryListener());
 		listeners.add(new ProgressListener());
 		return new NotifyingListener(listeners);
-	}
-
-	protected ExecutionContext getSchemasContext() {
-		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(getJdbc());
-		ec.setReader(reader);
-		ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setListener(getSchemaListener());
-		return ec;
-	}
-
-	protected ExecutionContext getDataContext() {
-		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(getJdbc());
-		ec.setReader(reader);
-		ec.setLocations(getDataLocations(vendor, schemas));
-		ec.setThreads(10);
-		return ec;
 	}
 
 	@Test
