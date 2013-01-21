@@ -14,8 +14,8 @@ public class ProgressListener implements SqlListener {
 	int percentageIncrement = 1;
 	int percentCompletePrevious;
 	String startToken = "[INFO] Progress: ";
-	String completeToken = ".";
-	String progressToken = "\n";
+	String progressToken = ".";
+	String completeToken = "\n";
 
 	public void setTotal(long total) {
 		this.total = total;
