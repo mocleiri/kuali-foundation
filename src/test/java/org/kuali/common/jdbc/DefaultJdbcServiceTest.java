@@ -73,8 +73,8 @@ public class DefaultJdbcServiceTest {
 	protected JdbcContext getJdbc() {
 		String url = getValue("jdbc.url");
 		String driver = getValue("jdbc.driver");
-		JdbcContext context = new JdbcContext();
 		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, getValue("jdbc.username"), getValue("jdbc.password"));
+		JdbcContext context = new JdbcContext();
 		dataSource.setDriverClassName(driver);
 		context.setDataSource(dataSource);
 		return context;
@@ -136,6 +136,38 @@ public class DefaultJdbcServiceTest {
 		return new NotifyingListener(listeners);
 	}
 
+	// @Test
+	public void testFunkySql() {
+		try {
+			String url = getValue("jdbc.url");
+			String driver = getValue("jdbc.driver");
+			DriverManagerDataSource dataSource = new DriverManagerDataSource(url, getValue("jdbc.username"), getValue("jdbc.password"));
+			dataSource.setDriverClassName(driver);
+
+			JdbcContext jc = new JdbcContext();
+			jc.setDataSource(dataSource);
+
+			String sql1 = "TRUNCATE TABLE CA_ORG_RTNG_MDL_NM_T";
+			String sql2 = "INSERT INTO CA_ORG_RTNG_MDL_NM_T (FIN_COA_CD,ORG_CD,ORG_RTNG_MDL_NM,OBJ_ID,VER_NBR,ROW_ACTV_IND)  VALUES ('IN','PSYC','ADULT-45\\'S','186AB5398D69E0BCE043814FD881E0BC',1.0,'Y')";
+
+			ExecutionContext ec = new ExecutionContext();
+			ec.setEncoding("UTF-8");
+			ec.setSql(Arrays.asList(sql1, sql2));
+			ec.setLocations(Arrays.asList("sql/mysql/CA_ORG_RTNG_MDL_NM_T.sql"));
+			ec.setReader(new DefaultSqlReader());
+			ec.setJdbcContext(jc);
+			ec.setListener(new LogSqlListener());
+
+			JdbcService service = new DefaultJdbcService();
+			service.executeSql(ec);
+			JdbcMetaData md = service.getJdbcMetaData(dataSource);
+			logger.info(md.getDriverName());
+			logger.info(md.getDriverVersion());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Test
 	public void testReset() {
 		try {
@@ -150,6 +182,7 @@ public class DefaultJdbcServiceTest {
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
 			data.setExecute(execute);
+			data.setThreads(1);
 			constraints.setExecute(execute);
 
 			long start = System.currentTimeMillis();

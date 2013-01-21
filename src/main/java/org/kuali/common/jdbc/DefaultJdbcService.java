@@ -60,6 +60,7 @@ public class DefaultJdbcService implements JdbcService {
 		ExecutionContext context = new ExecutionContext();
 		context.setJdbcContext(jdbcContext);
 		context.setSql(Arrays.asList(sql));
+		context.setReader(new DefaultSqlReader());
 		executeSql(context);
 	}
 
@@ -263,6 +264,10 @@ public class DefaultJdbcService implements JdbcService {
 		while (sql != null) {
 			executeSql(statement, sql, context);
 			sql = reader.getSqlStatement(in);
+		}
+		if (context.getJdbcContext().getCommitMode().equals(CommitMode.PER_SOURCE)) {
+			logger.debug("Invoking conn.commit()");
+			conn.commit();
 		}
 	}
 
