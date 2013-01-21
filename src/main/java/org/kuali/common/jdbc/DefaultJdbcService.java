@@ -39,7 +39,6 @@ import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 import org.kuali.common.jdbc.threads.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -67,41 +66,14 @@ public class DefaultJdbcService implements JdbcService {
 		context.getListener().afterExecution(new SqlExecutionEvent(context, sources));
 	}
 
-	protected void summarizeBuckets(List<SqlBucket> buckets) {
-		List<Object[]> argsList = new ArrayList<Object[]>();
-		for (int i = 0; i < buckets.size(); i++) {
-			SqlBucket bucket = buckets.get(i);
-			List<SqlSource> sources = bucket.getSources();
-			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(sources));
-			String srcs = FormatUtils.getCount(sources.size());
-			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(sources));
-			Object[] args = { i + 1, count, srcs, size };
-			argsList.add(args);
-		}
-		List<String> columns = Arrays.asList("Bucket", "SQL Count", "Sources", "Size");
-		LoggerUtils.logTable(columns, argsList, LoggerLevel.INFO, logger);
-	}
-
-	protected int[] getPadding(List<String> columns, List<Object[]> argsList) {
-		int[] padding = new int[columns.size()];
-		for (int i = 0; i < padding.length; i++) {
-			padding[i] = Math.max(padding[i], columns.get(i).length());
-		}
-		for (Object[] args : argsList) {
-			Assert.isTrue(columns.size() == args.length, "Column count must equals args.length");
-			for (int i = 0; i < args.length; i++) {
-				padding[i] = Math.max(padding[i], args[i].toString().length());
-			}
-		}
-		return padding;
-	}
-
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
 		long sqlCount = JdbcUtils.getSqlCount(sources);
 		ThreadsProgressListener listener = new ThreadsProgressListener();
 		listener.setTotal(sqlCount);
 
 		List<SqlBucket> buckets = getSqlBuckets(context, sources);
+		Collections.sort(buckets);
+		Collections.reverse(buckets);
 		summarizeBuckets(buckets);
 		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
 
@@ -116,6 +88,21 @@ public class DefaultJdbcService implements JdbcService {
 
 		ThreadInvoker invoker = new ThreadInvoker();
 		invoker.invokeThreads(thc);
+	}
+
+	protected void summarizeBuckets(List<SqlBucket> buckets) {
+		List<Object[]> argsList = new ArrayList<Object[]>();
+		for (int i = 0; i < buckets.size(); i++) {
+			SqlBucket bucket = buckets.get(i);
+			List<SqlSource> sources = bucket.getSources();
+			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(sources));
+			String srcs = FormatUtils.getCount(sources.size());
+			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(sources));
+			Object[] args = { i + 1, count, srcs, size };
+			argsList.add(args);
+		}
+		List<String> columns = Arrays.asList("Bucket", "SQL Count", "Sources", "Size");
+		LoggerUtils.logTable(columns, argsList, LoggerLevel.INFO, logger);
 	}
 
 	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context, SqlListener listener) {
