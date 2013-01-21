@@ -135,11 +135,13 @@ public class DefaultJdbcServiceTest {
 			data.setExecute(execute);
 			constraints.setExecute(execute);
 
+			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
 			service.executeSql(dba);
 			service.executeSql(schemas);
 			service.executeSql(data);
 			service.executeSql(constraints);
+			logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
