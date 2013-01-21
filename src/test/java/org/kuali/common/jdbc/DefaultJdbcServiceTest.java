@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogSqlListener;
+import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.util.FormatUtils;

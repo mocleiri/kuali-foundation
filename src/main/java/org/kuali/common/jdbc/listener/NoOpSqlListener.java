@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.SqlExecutionEvent;
-import org.kuali.common.jdbc.SqlListener;
 import org.kuali.common.jdbc.context.ExecutionContext;
 
 public class NoOpSqlListener implements SqlListener {
