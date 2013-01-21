@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.listener.LogProgressListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSummaryListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
@@ -67,17 +66,25 @@ public class DefaultJdbcServiceTest {
 	}
 
 	protected ExecutionContext getDbaContext() {
-		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(new LogSqlListener());
-		listeners.add(new LogSummaryListener());
-		SqlListener listener = new NotifyingListener(listeners);
-
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(getJdbcDba());
 		ec.setReader(reader);
 		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
-		ec.setListener(listener);
+		ec.setListener(getDbaListener());
 		return ec;
+	}
+
+	protected SqlListener getDbaListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new LogSqlListener());
+		listeners.add(new LogSummaryListener());
+		return new NotifyingListener(listeners);
+	}
+
+	protected SqlListener getSchemaListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new LogSummaryListener());
+		return new NotifyingListener(listeners);
 	}
 
 	protected ExecutionContext getSchemasContext() {
@@ -85,7 +92,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
 		ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setListener(new LogProgressListener());
+		ec.setListener(getSchemaListener());
 		return ec;
 	}
 
@@ -94,7 +101,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(getJdbc());
 		ec.setReader(reader);
 		ec.setLocations(getDataLocations(vendor, schemas));
-		ec.setThreads(3);
+		ec.setThreads(10);
 		return ec;
 	}
 
