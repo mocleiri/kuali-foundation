@@ -10,7 +10,7 @@ public class ThreadsProgressListener extends ProgressListener {
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-		// intentionally do nothing to override the super class behavior
+		// intentionally do nothing here to prevent this.total from being altered
 	}
 
 }
