@@ -232,8 +232,7 @@ public class DefaultJdbcService implements JdbcService {
 	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
 		try {
 			context.getListener().beforeExecuteSql(sql);
-			if (false) {
-				logger.debug("[{}]", Str.flatten(sql));
+			if (context.isExecute()) {
 				statement.execute(sql);
 			}
 			context.getListener().afterExecuteSql(sql);

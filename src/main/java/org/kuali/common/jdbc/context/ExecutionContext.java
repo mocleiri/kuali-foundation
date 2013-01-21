@@ -8,13 +8,14 @@ import org.kuali.common.jdbc.listener.SqlListener;
 
 public class ExecutionContext {
 
+	int threads = 1;
+	SqlListener listener = new NoOpSqlListener();
+	boolean execute = true;
 	JdbcContext jdbcContext;
 	SqlReader reader;
 	List<String> locations;
 	String encoding;
 	List<String> sql;
-	int threads = 1;
-	SqlListener listener = new NoOpSqlListener();
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
@@ -70,6 +71,14 @@ public class ExecutionContext {
 
 	public void setListener(SqlListener listener) {
 		this.listener = listener;
+	}
+
+	public boolean isExecute() {
+		return execute;
+	}
+
+	public void setExecute(boolean execute) {
+		this.execute = execute;
 	}
 
 }
