@@ -123,9 +123,11 @@ public class DefaultJdbcServiceTest {
 			ExecutionContext schemas = getSchemasContext();
 			ExecutionContext data = getDataContext();
 
-			dba.setExecute(false);
-			schemas.setExecute(false);
-			data.setExecute(false);
+			boolean execute = true;
+
+			dba.setExecute(execute);
+			schemas.setExecute(execute);
+			data.setExecute(execute);
 
 			JdbcService service = new DefaultJdbcService();
 			service.executeSql(dba);
