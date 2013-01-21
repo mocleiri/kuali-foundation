@@ -31,13 +31,11 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlBucketContext;
-import org.kuali.common.jdbc.listener.LogSqlListener;
-import org.kuali.common.threads.ExecutionStatistics;
+import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.listener.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
-import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
@@ -62,8 +60,12 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
+		long sqlCount = JdbcUtils.getSqlCount(sources);
+		ThreadsProgressListener listener = new ThreadsProgressListener();
+		listener.setTotal(sqlCount);
+
 		List<SqlBucket> buckets = getSqlBuckets(context, sources);
-		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context);
+		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
 
 		// Store some context for the thread handler
 		ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
@@ -72,26 +74,25 @@ public class DefaultJdbcService implements JdbcService {
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
-		thc.setListener(new PercentCompleteListener<SqlBucketContext>());
+		// thc.setListener(new PercentCompleteListener<SqlBucketContext>());
 
 		ThreadInvoker invoker = new ThreadInvoker();
-		ExecutionStatistics stats = invoker.invokeThreads(thc);
-		logger.info("Total time: {}", FormatUtils.getTime(stats.getExecutionTime()));
+		invoker.invokeThreads(thc);
 	}
 
-	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context) {
+	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context, SqlListener listener) {
 		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
 		for (SqlBucket bucket : buckets) {
 			SqlBucketContext sbc = new SqlBucketContext();
 			sbc.setService(this);
 			sbc.setBucket(bucket);
-			sbc.setContext(getExecutionContext(context, bucket));
+			sbc.setContext(getExecutionContext(context, bucket, listener));
 			sbcs.add(sbc);
 		}
 		return sbcs;
 	}
 
-	protected ExecutionContext getExecutionContext(ExecutionContext original, SqlBucket bucket) {
+	protected ExecutionContext getExecutionContext(ExecutionContext original, SqlBucket bucket, SqlListener listener) {
 		List<SqlSource> sources = bucket.getSources();
 		ExecutionContext context = new ExecutionContext();
 		context.setSql(getSql(sources));
@@ -101,7 +102,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.setReader(original.getReader());
 		context.setThreads(1);
 		context.setExecute(original.isExecute());
-		context.setListener(new LogSqlListener());
+		context.setListener(listener);
 		return context;
 	}
 
