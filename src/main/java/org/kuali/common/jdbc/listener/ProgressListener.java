@@ -1,6 +1,5 @@
 package org.kuali.common.jdbc.listener;
 
-import java.io.PrintStream;
 import java.util.List;
 
 import org.kuali.common.jdbc.ExecutionMetaData;
@@ -8,10 +7,11 @@ import org.kuali.common.jdbc.SqlExecutionEvent;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.threads.listener.MavenConsoleListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProgressListener implements SqlListener {
+public class ProgressListener extends MavenConsoleListener<String> implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProgressListener.class);
 
@@ -19,49 +19,37 @@ public class ProgressListener implements SqlListener {
 	ExecutionMetaData finish;
 	long count = 0;
 	long total = 0;
-	int percentageIncrement = 2;
-	int percentCompletePrevious;
-	PrintStream out = System.out;
-	String startToken = ".";
-	String completeToken = "\n";
-	String progressToken = ".";
 
 	@Override
-	public synchronized void beforeMetaData(ExecutionContext context) {
-		logger.trace("before metadata");
+	public void beforeMetaData(ExecutionContext context) {
 	}
 
 	@Override
-	public synchronized void beforeExecution(SqlExecutionEvent event) {
+	public void beforeExecution(SqlExecutionEvent event) {
 		this.start = getStartMeta(event.getSources());
 		this.total = start.getCount();
-		out.print("[INFO] Progress: ");
 	}
 
 	@Override
-	public synchronized void beforeExecuteSql(String sql) {
+	public void beforeExecuteSql(String sql) {
 	}
 
 	@Override
-	public synchronized void afterExecuteSql(String sql) {
-		count++;
-		int percentComplete = (int) ((count * 100) / total);
-		if (enoughProgress(percentComplete)) {
-			percentCompletePrevious = percentComplete;
-			out.print(progressToken);
+	public void afterExecuteSql(String sql) {
+		if (count == 0) {
+			logger.debug("Progress started");
+			progressStarted();
 		}
+		// TODO This breaks for clients trying to track execution progress of more than Integer.MAX_VALUE SQL statements
+		progressOccurred((int) count++, (int) total, null);
 		if (count == total) {
-			out.print(completeToken);
+			logger.debug("Progress complete");
+			progressCompleted();
 		}
 	}
 
 	@Override
-	public synchronized void afterExecution(SqlExecutionEvent event) {
-	}
-
-	protected boolean enoughProgress(int percentComplete) {
-		int needed = percentCompletePrevious + percentageIncrement;
-		return percentComplete >= needed;
+	public void afterExecution(SqlExecutionEvent event) {
 	}
 
 	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {
@@ -109,53 +97,4 @@ public class ProgressListener implements SqlListener {
 	public void setTotal(long total) {
 		this.total = total;
 	}
-
-	public int getPercentageIncrement() {
-		return percentageIncrement;
-	}
-
-	public void setPercentageIncrement(int percentageIncrement) {
-		this.percentageIncrement = percentageIncrement;
-	}
-
-	public int getPercentCompletePrevious() {
-		return percentCompletePrevious;
-	}
-
-	public void setPercentCompletePrevious(int percentCompletePrevious) {
-		this.percentCompletePrevious = percentCompletePrevious;
-	}
-
-	public PrintStream getOut() {
-		return out;
-	}
-
-	public void setOut(PrintStream out) {
-		this.out = out;
-	}
-
-	public String getStartToken() {
-		return startToken;
-	}
-
-	public void setStartToken(String startToken) {
-		this.startToken = startToken;
-	}
-
-	public String getCompleteToken() {
-		return completeToken;
-	}
-
-	public void setCompleteToken(String completeToken) {
-		this.completeToken = completeToken;
-	}
-
-	public String getProgressToken() {
-		return progressToken;
-	}
-
-	public void setProgressToken(String progressToken) {
-		this.progressToken = progressToken;
-	}
-
 }
