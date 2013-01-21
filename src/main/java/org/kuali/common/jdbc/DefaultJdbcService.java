@@ -29,7 +29,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlBucketContext;
@@ -41,6 +40,8 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerLevel;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,28 +76,7 @@ public class DefaultJdbcService implements JdbcService {
 			argsList.add(args);
 		}
 		List<String> columns = Arrays.asList("Bucket", "SQL Count", "Sources", "Size");
-		int[] padding = getPadding(columns, argsList);
-		StringBuilder header = new StringBuilder();
-		for (int i = 0; i < columns.size(); i++) {
-			if (i != 0) {
-				header.append("  ");
-			}
-			header.append(StringUtils.leftPad(columns.get(i), padding[i]));
-		}
-		logger.info(header.toString());
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < padding.length; i++) {
-			if (i != 0) {
-				sb.append("  ");
-			}
-			sb.append("{}");
-		}
-		for (Object[] args : argsList) {
-			for (int i = 0; i < args.length; i++) {
-				args[i] = StringUtils.leftPad(args[i].toString(), padding[i]);
-			}
-			logger.info(sb.toString(), args);
-		}
+		LoggerUtils.logTable(columns, argsList, LoggerLevel.INFO, logger);
 	}
 
 	protected int[] getPadding(List<String> columns, List<Object[]> argsList) {
