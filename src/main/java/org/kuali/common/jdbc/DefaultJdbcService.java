@@ -278,7 +278,7 @@ public class DefaultJdbcService implements JdbcService {
 			if (context.isExecute()) {
 				String token = "ROURKE - BIOLOGY";
 				if (StringUtils.contains(sql, token)) {
-					logger.info("********\n\n" + sql + "\n\n**********");
+					logger.info("\n\n********\n\n" + sql + "\n\n**********\n\n");
 				}
 				statement.execute(sql);
 			}
