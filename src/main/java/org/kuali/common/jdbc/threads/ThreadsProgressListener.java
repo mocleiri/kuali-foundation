@@ -1,12 +1,8 @@
-package org.kuali.common.jdbc.listener;
+package org.kuali.common.jdbc.threads;
 
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
+import org.kuali.common.jdbc.listener.ProgressListener;
 
 public class ThreadsProgressListener extends ProgressListener {
-
-	public void setTotal(long total) {
-		this.total = total;
-	}
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {

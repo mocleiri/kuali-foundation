@@ -14,6 +14,10 @@ public class ProgressListener extends PercentCompleteListener<String> implements
 	long count = 0;
 	long total = 0;
 
+	public void setTotal(long total) {
+		this.total = total;
+	}
+
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
 	}
