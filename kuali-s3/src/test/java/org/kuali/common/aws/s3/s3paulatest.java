@@ -49,7 +49,11 @@ public class s3paulatest {
 	
 	private Process process;
 	
-
+	public Process getProcess() {
+		return process;
+	}
+	public void setProcess(Process process) {
+		this.process = process;}
 
 	protected AWSCredentials getCredentials() {
 		log.debug("access key: " + ACCESSKEY);
@@ -125,7 +129,7 @@ public class s3paulatest {
 	
 	//@Test
 	
-	public void s3Metrics() {
+	public void s3Metrics() throws InterruptedException {
 		String bucketName = "maven.kuali.org";
 	
 		AmazonS3Client client = getClient();
@@ -158,6 +162,7 @@ public class s3paulatest {
 		String BucketListB = "/tmp/BucketListB.cvs";  //Snapshot Table Listing
 		String BucketListC = "/tmp/BucketListC.cvs";  //Release Table Listing
 		String BucketListD = "/tmp/BucketListD.cvs";  //Captures The Date of the Report
+		String BucketListE = "/tmp/BucketListE.cvs";  //Total Expire and Release for all Areas
 
 		String BucketListExpired= "/tmp/ExpiredList.txt";
 	   	writeLinesToFile(BucketListExpired,  "ExpiredFile", true); 
@@ -190,6 +195,8 @@ public class s3paulatest {
 		 long lineValue  = 0L;
 		 long expireValueGB = 0L;
 		 long keepValueGB   = 0L;
+		 long KeepTotalGB = 0L;
+		 long ExpireTotalGB   = 0L;
 		  	             
 		 String relAreaName = "";
 		 //String BuildLine;
@@ -202,7 +209,11 @@ public class s3paulatest {
 		 //BucketListA - Total of the build Areas
 		 PrintLine =  ( "RelArea,CandidateExpire GB,KeepSpace GB,Total GB");
 		 writeLinesToFile(BucketListA,  PrintLine, true);
-	            
+	     
+		 //BucketListE - Total of the build Areas
+		 PrintLine =  ( "Area,CandidateExpire GB,KeepSpace GB");
+		 writeLinesToFile(BucketListE,  PrintLine, true);
+		 
 	    String relAreaArray[] = { 
 	      "builds/", 
 	      "release/",
@@ -332,7 +343,12 @@ public class s3paulatest {
   commaE = "";  
   
   	            
-   // Fall through here after the summary, and lets do totals and printing for each major area            
+   // Fall through here after the summary, and lets do totals and printing for each major area  
+  
+  // Add up the Total for all Areas for Keep and Expire data
+  KeepTotalGB = KeepTotalGB + ReleaseAreaTotalKGB;
+  ExpireTotalGB   = ExpireTotalGB + ReleaseAreaTotalEGB;
+	 
    if (relArea == "builds/")
 	{
   	 //BucketChart03
@@ -344,7 +360,8 @@ public class s3paulatest {
   	 //BucketListA
   	 PrintLine  = ("builds" +","+ Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB)+","+Long.toString(ReleaseAreaTotalGB));
      writeLinesToFile(BucketListA,  PrintLine, false);
-  	          
+     
+    
   	//For Totals
   	sbuildtotalGB   = Long.toString(ReleaseAreaTotalGB);
     System.out.println(relArea+" "+sbuildtotalGB);
@@ -535,18 +552,57 @@ public class s3paulatest {
 	writeLinesToFile(BucketChart01a,  PrintLine, true);
 	PrintLine  = ("A, "+sbuildtotalGB +","+ssnapshottotalGB +","+sreleasetotalGB+","+sexternaltotalGB +","+sprivatetotalGB);
 	writeLinesToFile(BucketChart01a,  PrintLine, false);
-	System.out.println("BucketChart01a: "+ PrintLine);
-	  	
-	 try{
- 		String cmdlinux = "scp /tmp/"+"*"+".cvs"+ " root"+ "@" +"50.19.200.109" +":"+  "/usr/local/tomcat";
 
- 		Runtime runtime = Runtime.getRuntime();
- 	    process = runtime.exec(cmdlinux);
+	System.out.println("BucketChart01a: "+ PrintLine);
+	
+	 //BucketListE
+ 	 PrintLine  = ("A ,"+ Long.toString(ExpireTotalGB) +","+Long.toString(KeepTotalGB));
+     writeLinesToFile(BucketListE,  PrintLine, false);
+    
+	  	
+    
+	 try{
+		 
+		 String report[] = { 
+				 "BucketChart1.cvs",
+				 "BucketChart1a.cvs",
+				 "BucketChart2.cvs",
+				 "BucketChart2a.cvs",
+				 "BucketChart2b.cvs",
+				 "BucketChart3.cvs",
+				 "BucketChart4.cvs",
+				 "BucketChart5.cvs",
+				 "BucketChart5a.cvs",
+				 "BucketChart6.cvs",
+				 "BucketChart6a.cvs",
+				 "BucketListA.cvs",
+				 "BucketListB.cvs",
+				 "BucketListC.cvs",
+				 "BucketListD.cvs",
+				 "BucketListE.cvs",
+				 "CaptureDate.cvs"  
+			   }; 
+		 
+		String cmdlinux;
+		String filetocopy;
+		int rs = report.length - 1;
+		for (int r = 0; r <= rs; r++)
+		  { 
+		  	
+			filetocopy = report[r]; 
+ 	        cmdlinux = "scp /tmp/"+filetocopy+" root"+ "@" +"ec2-50-19-200-109.compute-1.amazonaws.com" +":"+  "/usr/local/tomcat";
+ 	      	Runtime runtime = Runtime.getRuntime();
+ 	        setProcess(runtime.exec(cmdlinux));
+ 	        Thread.sleep(1000);
+            System.out.println(cmdlinux);
+		  }
   }
   catch(IOException ex){
       System.out.println (ex.toString());
 		System.out.println("Could not find file " );
   }
+	
+	
 	}; //testDateListing
 	
 	 
