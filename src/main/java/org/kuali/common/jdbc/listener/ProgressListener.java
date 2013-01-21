@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc.listener;
 
+import java.io.PrintStream;
 import java.util.List;
 
 import org.kuali.common.jdbc.ExecutionMetaData;
@@ -7,7 +8,6 @@ import org.kuali.common.jdbc.SqlExecutionEvent;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,19 +17,25 @@ public class ProgressListener implements SqlListener {
 
 	ExecutionMetaData start;
 	ExecutionMetaData finish;
-	int count = 0;
+	long count = 0;
+	long total = 0;
+	int percentageIncrement = 2;
+	int percentCompletePrevious;
+	PrintStream out = System.out;
+	String startToken = ".";
+	String completeToken = ".";
+	String progressToken = ".";
 
 	@Override
 	public synchronized void beforeMetaData(ExecutionContext context) {
+		logger.trace("before metadata");
 	}
 
 	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		this.start = getStartMeta(event.getSources());
-		String count = FormatUtils.getCount(start.getCount());
-		String size = FormatUtils.getSize(start.getSize());
-		logger.info("Executing {} SQL statements.  Total Size: {}", count, size);
-		System.out.print("[INFO] Progress: ");
+		this.total = start.getCount();
+		out.print("[INFO] Progress: ");
 	}
 
 	@Override
@@ -39,14 +45,21 @@ public class ProgressListener implements SqlListener {
 	@Override
 	public synchronized void afterExecuteSql(String sql) {
 		count++;
-		if (count % 100 == 0) {
-			System.out.print(".");
+		int percentComplete = (int) ((count * 100) / total);
+		if (enoughProgress(percentComplete)) {
+			percentCompletePrevious = percentComplete;
+			out.print(progressToken);
 		}
+	}
+
+	protected boolean enoughProgress(int percentComplete) {
+		int needed = percentCompletePrevious + percentageIncrement;
+		return percentComplete >= needed;
 	}
 
 	@Override
 	public synchronized void afterExecution(SqlExecutionEvent event) {
-		System.out.println();
+		out.println();
 	}
 
 	protected ExecutionMetaData getStartMeta(List<SqlSource> sources) {
