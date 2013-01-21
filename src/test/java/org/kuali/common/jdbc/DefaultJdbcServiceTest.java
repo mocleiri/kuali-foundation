@@ -93,7 +93,8 @@ public class DefaultJdbcServiceTest {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
-		ec.setLocations(getSchemaLocations(vendor, schemas));
+		// ec.setLocations(getSchemaLocations(vendor, schemas));
+		ec.setLocations(getLocations("sql.schema.loc"));
 		ec.setThreads(ec.getLocations().size());
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -103,7 +104,8 @@ public class DefaultJdbcServiceTest {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
-		ec.setLocations(getDataLocations(vendor, schemas));
+		// ec.setLocations(getDataLocations(vendor, schemas));
+		ec.setLocations(getLocations("sql.data.loc"));
 		ec.setThreads(10);
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -113,7 +115,8 @@ public class DefaultJdbcServiceTest {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
-		ec.setLocations(getConstraintsLocations(vendor, schemas));
+		// ec.setLocations(getConstraintsLocations(vendor, schemas));
+		ec.setLocations(getLocations("sql.constraints.loc"));
 		ec.setThreads(ec.getLocations().size());
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -137,18 +140,12 @@ public class DefaultJdbcServiceTest {
 	public void testReset() {
 		try {
 
-			// PropertyUtils.info(properties);
-
-			List<String> schemaLocations = getLocations("sql.schema.loc");
-			List<String> dataLocations = getLocations("sql.data.loc");
-			List<String> constraintsLocations = getLocations("sql.constraints.loc");
-
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getSchemasContext();
 			ExecutionContext data = getDataContext();
 			ExecutionContext constraints = getConstraintsContext();
 
-			boolean execute = false;
+			boolean execute = true;
 
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
@@ -163,7 +160,7 @@ public class DefaultJdbcServiceTest {
 			service.executeSql(constraints);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}

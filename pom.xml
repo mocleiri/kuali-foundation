@@ -41,6 +41,7 @@
     <oracle.version>11.2.0.2</oracle.version>
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
+    <ole.version>0.8.1-q-r10472</ole.version>
   </properties>
   <developers>
     <developer>
@@ -76,19 +77,19 @@
     <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-rice-sql</artifactId>
-      <version>0.8.1-q-SNAPSHOT</version>
+      <version>${ole.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-master-sql</artifactId>
-      <version>0.8.1-q-SNAPSHOT</version>
+      <version>${ole.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-liquibase-sql</artifactId>
-      <version>0.8.1-q-SNAPSHOT</version>
+      <version>${ole.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

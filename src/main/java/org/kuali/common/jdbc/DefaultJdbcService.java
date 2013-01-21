@@ -54,6 +54,16 @@ public class DefaultJdbcService implements JdbcService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
 
 	@Override
+	public void executeSql(DataSource dataSource, String sql) {
+		JdbcContext jdbcContext = new JdbcContext();
+		jdbcContext.setDataSource(dataSource);
+		ExecutionContext context = new ExecutionContext();
+		context.setJdbcContext(jdbcContext);
+		context.setSql(Arrays.asList(sql));
+		executeSql(context);
+	}
+
+	@Override
 	public void executeSql(ExecutionContext context) {
 		context.getListener().beforeMetaData(context);
 		List<SqlSource> sources = getSqlSources(context);

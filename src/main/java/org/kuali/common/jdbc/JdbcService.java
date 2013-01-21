@@ -34,4 +34,6 @@ public interface JdbcService {
 	List<SqlMetaData> getMetaData(SqlReader reader, List<String> locations, String encoding);
 
 	void executeSql(ExecutionContext context);
+
+	void executeSql(DataSource dataSource, String sql);
 }
