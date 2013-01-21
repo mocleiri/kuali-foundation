@@ -36,6 +36,7 @@ import org.kuali.common.jdbc.listener.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
@@ -59,12 +60,24 @@ public class DefaultJdbcService implements JdbcService {
 		context.getListener().afterExecution(new SqlExecutionEvent(context, sources));
 	}
 
+	protected void logBuckets(List<SqlBucket> buckets) {
+		for (int i = 0; i < buckets.size(); i++) {
+			SqlBucket bucket = buckets.get(i);
+			List<SqlSource> sources = bucket.getSources();
+			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(sources));
+			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(sources));
+			Object[] args = { i + 1, count, size };
+			logger.info("Bucket {} - SQL Statements: {}  Size: {}", args);
+		}
+	}
+
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
 		long sqlCount = JdbcUtils.getSqlCount(sources);
 		ThreadsProgressListener listener = new ThreadsProgressListener();
 		listener.setTotal(sqlCount);
 
 		List<SqlBucket> buckets = getSqlBuckets(context, sources);
+		logBuckets(buckets);
 		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
 
 		// Store some context for the thread handler
