@@ -7,11 +7,11 @@ import org.kuali.common.jdbc.SqlExecutionEvent;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.threads.listener.MavenConsoleListener;
+import org.kuali.common.threads.listener.PercentCompleteListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProgressListener extends MavenConsoleListener<String> implements SqlListener {
+public class ProgressListener extends PercentCompleteListener<String> implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProgressListener.class);
 
