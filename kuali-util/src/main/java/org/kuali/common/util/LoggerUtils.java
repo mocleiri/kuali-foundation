@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
@@ -24,6 +26,60 @@ import org.slf4j.Logger;
 public class LoggerUtils {
 
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
+
+	public static int[] getPadding(List<String> columns, List<Object[]> argsList) {
+		int[] padding = new int[columns.size()];
+		for (int i = 0; i < padding.length; i++) {
+			padding[i] = Math.max(padding[i], columns.get(i).length());
+		}
+		for (Object[] args : argsList) {
+			Assert.isTrue(columns.size() == args.length, "Column count must equals args.length");
+			for (int i = 0; i < args.length; i++) {
+				padding[i] = Math.max(padding[i], args[i].toString().length());
+			}
+		}
+		return padding;
+	}
+
+	public static String getHeader(List<String> columns, int[] padding) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < columns.size(); i++) {
+			if (i != 0) {
+				sb.append("  ");
+			}
+			sb.append(StringUtils.leftPad(columns.get(i), padding[i]));
+		}
+		return sb.toString();
+	}
+
+	public static String getMsg(int count) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < count; i++) {
+			if (i != 0) {
+				sb.append("  ");
+			}
+			sb.append("{}");
+		}
+		return sb.toString();
+	}
+
+	public static void updateArgsList(List<Object[]> argsList, int[] padding) {
+		for (Object[] args : argsList) {
+			for (int i = 0; i < args.length; i++) {
+				args[i] = StringUtils.leftPad(args[i].toString(), padding[i]);
+			}
+		}
+	}
+
+	public static void logTable(List<String> columns, List<Object[]> argsList, LoggerLevel level, Logger logger) {
+		int[] padding = getPadding(columns, argsList);
+		logMsg(getHeader(columns, padding), logger, level);
+		String msg = getMsg(padding.length);
+		updateArgsList(argsList, padding);
+		for (Object[] args : argsList) {
+			logMsg(msg, args, logger, level);
+		}
+	}
 
 	public static void logLines(String s, Logger logger, LoggerLevel level) {
 		if (s == null) {
@@ -35,26 +91,30 @@ public class LoggerUtils {
 		}
 	}
 
-	public static final void logMsg(String msg, Logger logger, LoggerLevel level) {
+	public static final void logMsg(String msg, Object[] args, Logger logger, LoggerLevel level) {
 		switch (level) {
 		case DEBUG:
-			logger.debug(msg);
+			logger.debug(msg, args);
 			return;
 		case TRACE:
-			logger.trace(msg);
+			logger.trace(msg, args);
 			return;
 		case INFO:
-			logger.info(msg);
+			logger.info(msg, args);
 			return;
 		case WARN:
-			logger.warn(msg);
+			logger.warn(msg, args);
 			return;
 		case ERROR:
-			logger.error(msg);
+			logger.error(msg, args);
 			return;
 		default:
 			throw new IllegalArgumentException("Logger level " + level + " is unknown");
 		}
+	}
+
+	public static final void logMsg(String msg, Logger logger, LoggerLevel level) {
+		logMsg(msg, null, logger, level);
 	}
 
 	public static final String getUsername(String username) {
