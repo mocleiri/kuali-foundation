@@ -182,8 +182,8 @@ public class DefaultJdbcServiceTest {
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
 			data.setExecute(execute);
-			data.setThreads(1);
-			constraints.setExecute(execute);
+			data.setThreads(2);
+			constraints.setExecute(false);
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();

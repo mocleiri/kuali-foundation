@@ -29,6 +29,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -275,6 +276,10 @@ public class DefaultJdbcService implements JdbcService {
 		try {
 			context.getListener().beforeExecuteSql(sql);
 			if (context.isExecute()) {
+				String token = "ROURKE - BIOLOGY";
+				if (StringUtils.contains(sql, token)) {
+					logger.info("********\n\n" + sql + "\n\n**********");
+				}
 				statement.execute(sql);
 			}
 			context.getListener().afterExecuteSql(sql);
