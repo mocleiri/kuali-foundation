@@ -584,6 +584,7 @@ dl.table-display dd {
 	padding-right: 4px;
 	padding-bottom: 4px;
 	padding-left: 8px;
+	background-image: url(../img/back.png);
 }
 .breadcrumb a { color:#FFF}
 
@@ -647,5 +648,3 @@ border-bottom: 1px solid
 	background-color: #585758;
 	color:#FFF
 }
-
-
