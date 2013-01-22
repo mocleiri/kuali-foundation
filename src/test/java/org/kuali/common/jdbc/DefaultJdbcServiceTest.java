@@ -178,8 +178,12 @@ public class DefaultJdbcServiceTest {
 
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
+			int i = 0;
 			for (ExecutionContext ec : data) {
-				ec.setExecute(execute);
+				i++;
+				if (i != 3) {
+					ec.setExecute(execute);
+				}
 				ec.setThreads(new Integer(dataThreads));
 			}
 			constraints.setExecute(true);
