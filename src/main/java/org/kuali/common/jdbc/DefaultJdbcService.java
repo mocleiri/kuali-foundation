@@ -268,23 +268,11 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected boolean skip(String sql) {
-		if (sql.contains("DROP TABLE")) {
-			return true;
-		}
-		if (sql.contains("TRUNCATE TABLE")) {
-			return true;
-		}
-		return false;
-	}
-
 	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
 		try {
 			context.getListener().beforeExecuteSql(sql);
 			if (context.isExecute()) {
-				if (!skip(sql)) {
-					statement.execute(sql);
-				}
+				statement.execute(sql);
 			}
 			context.getListener().afterExecuteSql(sql);
 		} catch (SQLException e) {
