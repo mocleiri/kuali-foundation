@@ -183,13 +183,13 @@ public class DefaultJdbcServiceTest {
 
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getThreadSafeDDLContext("sql.schema.loc");
-			schemas.setMessage("Creating schemas for OLE and Rice");
+			schemas.setMessage("Executing schema creation DDL");
 			ExecutionContext data1 = getThreadSafeDMLContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
-			data1.setMessage("Loading default data for OLE and Rice");
+			data1.setMessage("Executing concurrent DML");
 			ExecutionContext data2 = getSequentialDMLContext(Arrays.asList("sql.data.loc.list.3"));
-			data2.setMessage("Executing Liquibase SQL for OLE and Rice");
+			data2.setMessage("Executing sequential DML");
 			ExecutionContext constraints = getThreadSafeDDLContext("sql.constraints.loc");
-			constraints.setMessage("Applying constraints for OLE and Rice");
+			constraints.setMessage("Executing constraints DDL");
 
 			List<ExecutionContext> contexts = Arrays.asList(dba, schemas, data1, data2, constraints);
 
