@@ -168,13 +168,15 @@ public class DefaultJdbcServiceTest {
 
 			List<ExecutionContext> contexts = Arrays.asList(schemas, data1, data2, constraints);
 
-			boolean execute = Boolean.getBoolean("sql.execute");
+			boolean skip = Boolean.getBoolean("sql.skip");
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
 			service.executeSql(dba);
 			for (ExecutionContext context : contexts) {
-				context.setExecute(execute);
+				if (skip) {
+					context.setExecute(false);
+				}
 				service.executeSql(context);
 			}
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
