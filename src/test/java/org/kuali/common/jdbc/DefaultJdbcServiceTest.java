@@ -116,7 +116,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		// ec.setLocations(getDataLocations(vendor, schemas));
-		ec.setLocations(getLocations("sql.data.loc"));
+		ec.setLocations(getLocations("sql.data.loc.list.1"));
 		ec.setThreads(10);
 		ec.setListener(getDefaultListener());
 		return ec;
