@@ -224,13 +224,14 @@ public class DefaultJdbcService implements JdbcService {
 		return sources;
 	}
 
-	protected void executeSqlSources(Connection conn, Statement statement, ExecutionContext context, List<SqlSource> sources) {
+	protected void executeSqlSources(Connection conn, Statement statement, ExecutionContext context, List<SqlSource> sources) throws SQLException {
 		for (SqlSource source : sources) {
 			if (source.getSql() != null) {
 				executeSqlString(conn, statement, context, source.getSql());
 			} else {
 				executeLocation(conn, statement, context, source.getLocation());
 			}
+			conn.commit();
 		}
 	}
 
