@@ -58,12 +58,12 @@ public class DefaultJdbcServiceTest {
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
-		// properties.setProperty("mysql.dba.url", "jdbc:mysql://mysql.rice.kuali.org");
-		// properties.setProperty("mysql.dba.username", "master");
-		// properties.setProperty("mysql.dba.password", "gw570229");
-		properties.setProperty("mysql.dba.url", "jdbc:mysql://localhost");
-		properties.setProperty("mysql.dba.username", "root");
-		properties.setProperty("mysql.dba.password", "NONE");
+		properties.setProperty("mysql.dba.url", "jdbc:mysql://mysql.rice.kuali.org");
+		properties.setProperty("mysql.dba.username", "master");
+		properties.setProperty("mysql.dba.password", "gw570229");
+		// properties.setProperty("mysql.dba.url", "jdbc:mysql://localhost");
+		// properties.setProperty("mysql.dba.username", "root");
+		// properties.setProperty("mysql.dba.password", "NONE");
 		return properties;
 	}
 
