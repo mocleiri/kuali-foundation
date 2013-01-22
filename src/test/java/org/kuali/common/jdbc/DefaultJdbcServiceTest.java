@@ -28,7 +28,7 @@ public class DefaultJdbcServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcServiceTest.class);
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
-	String vendor = "mysql";
+	String vendor = "oracle";
 	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
@@ -52,6 +52,9 @@ public class DefaultJdbcServiceTest {
 		Properties properties = PropertyUtils.combine(sql, jdbc1, jdbc2, ole);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
+		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE");
+		properties.setProperty("oracle.dba.username", "master");
+		properties.setProperty("oracle.dba.password", "gw570229");
 		return properties;
 	}
 
