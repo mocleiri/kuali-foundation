@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 public class LogSqlListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
-	LoggerLevel level = LoggerLevel.INFO;
+	LoggerLevel level = LoggerLevel.DEBUG;
 	boolean flatten = true;
 
 	@Override
