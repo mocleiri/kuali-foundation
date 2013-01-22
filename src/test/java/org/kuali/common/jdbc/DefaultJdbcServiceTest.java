@@ -54,7 +54,7 @@ public class DefaultJdbcServiceTest {
 		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
-		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE");
+		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
 		return properties;
@@ -164,7 +164,7 @@ public class DefaultJdbcServiceTest {
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
 			data.setExecute(execute);
-			data.setThreads(10);
+			data.setThreads(3);
 			constraints.setExecute(false);
 
 			long start = System.currentTimeMillis();
