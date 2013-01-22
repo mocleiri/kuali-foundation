@@ -30,7 +30,7 @@ public class DefaultJdbcServiceTest {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
 	String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
-	String dataThreads = System.getProperty("data.threads") == null ? "1" : System.getProperty("data.threads");
+	String dataThreads = System.getProperty("data.threads") == null ? "5" : System.getProperty("data.threads");
 	boolean mysqlRice = Boolean.getBoolean("mysql.rice");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
