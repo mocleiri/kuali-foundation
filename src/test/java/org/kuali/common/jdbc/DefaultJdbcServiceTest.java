@@ -29,6 +29,7 @@ public class DefaultJdbcServiceTest {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
 	String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
+	String dataThreads = System.getProperty("data.threads") == null ? "1" : System.getProperty("data.threads");
 	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
@@ -167,8 +168,8 @@ public class DefaultJdbcServiceTest {
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
 			data.setExecute(execute);
-			data.setThreads(1);
-			constraints.setExecute(false);
+			data.setThreads(new Integer(dataThreads));
+			constraints.setExecute(true);
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
