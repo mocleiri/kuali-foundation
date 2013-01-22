@@ -85,10 +85,11 @@ public class DefaultJdbcService implements JdbcService {
 		// SQL from different files can execute concurrently, but the SQL inside each file needs to execute in order
 		// For example OLE has ~250,000 SQL statements split up across ~300 files
 		// In addition, the schema related DDL files need to execute first, then data, then constraints DDL files
-		// Thus our list is pretty small, even though the total number of SQL statements is quite large
-		// Only printing a dot to the console when each thread completes is not granular enough
+		// Some files are HUGE, some are tiny. Printing a dot after each file completes doesn't make sense.
+		// Our list of buckets is pretty small, even though the total number of SQL statements is quite large
+		// Only printing a dot to the console when each bucket completes is not granular enough
 
-		// Setup a listener that prints a dot to the console each time 1% progress is made
+		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
 		ThreadsProgressListener listener = new ThreadsProgressListener();
 		listener.setTotal(JdbcUtils.getSqlCount(sources));
 
