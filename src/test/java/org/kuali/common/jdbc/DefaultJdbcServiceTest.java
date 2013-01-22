@@ -133,11 +133,14 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getThreadSafeDDLContext(String key) {
+	protected ExecutionContext getThreadSafeDDLContext(Properties properties) {
+
+		String prefix = "sql.schema";
+
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
-		ec.setLocations(getLocations(key));
+		// ec.setLocations(getLocations(key));
 		ec.setThreads(ec.getLocations().size());
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -171,7 +174,7 @@ public class DefaultJdbcServiceTest {
 			int threads = new Integer(dataThreads);
 
 			ExecutionContext dba = getDbaContext();
-			ExecutionContext schemas = getThreadSafeDDLContext("sql.schema.loc");
+			ExecutionContext schemas = getThreadSafeDDLContext(properties);
 			schemas.setMessage("Executing schema DDL");
 			ExecutionContext data1 = getThreadSafeDMLContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
 			data1.setMessage("Executing concurrent DML");
