@@ -108,11 +108,11 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getSequentialDataContext(List<String> keys) {
-		return getThreadSafeDataContext(keys, 1);
+	protected ExecutionContext getSequentialDMLContext(List<String> keys) {
+		return getThreadSafeDMLContext(keys, 1);
 	}
 
-	protected ExecutionContext getThreadSafeDataContext(List<String> keys, int threads) {
+	protected ExecutionContext getThreadSafeDMLContext(List<String> keys, int threads) {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
@@ -126,7 +126,7 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getThreadSafeDMLContext(String key) {
+	protected ExecutionContext getThreadSafeDDLContext(String key) {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
@@ -164,10 +164,10 @@ public class DefaultJdbcServiceTest {
 			int threads = new Integer(dataThreads);
 
 			ExecutionContext dba = getDbaContext();
-			ExecutionContext schemas = getThreadSafeDMLContext("sql.schema.loc");
-			ExecutionContext data1 = getThreadSafeDataContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
-			ExecutionContext data2 = getSequentialDataContext(Arrays.asList("sql.data.loc.list.3"));
-			ExecutionContext constraints = getThreadSafeDMLContext("sql.constraints.loc");
+			ExecutionContext schemas = getThreadSafeDDLContext("sql.schema.loc");
+			ExecutionContext data1 = getThreadSafeDMLContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
+			ExecutionContext data2 = getSequentialDMLContext(Arrays.asList("sql.data.loc.list.3"));
+			ExecutionContext constraints = getThreadSafeDDLContext("sql.constraints.loc");
 
 			List<ExecutionContext> contexts = Arrays.asList(schemas, data1, data2, constraints);
 
@@ -201,41 +201,5 @@ public class DefaultJdbcServiceTest {
 			}
 		}
 		return locations;
-	}
-
-	protected List<String> getSchemaLocations(String vendor, List<String> schemas) {
-		List<String> locations = new ArrayList<String>();
-		for (String schema : schemas) {
-			locations.add(getSchemaLocation(vendor, schema));
-		}
-		return locations;
-	}
-
-	protected List<String> getConstraintsLocations(String vendor, List<String> schemas) {
-		List<String> locations = new ArrayList<String>();
-		for (String schema : schemas) {
-			locations.add(getConstraintsLocation(vendor, schema));
-		}
-		return locations;
-	}
-
-	protected String getSchemaLocation(String vendor, String schema) {
-		return "classpath:sql/" + vendor + "/" + schema + ".sql";
-	}
-
-	protected String getConstraintsLocation(String vendor, String schema) {
-		return "classpath:sql/" + vendor + "/" + schema + "-constraints.sql";
-	}
-
-	protected List<String> getDataLocations(String vendor, List<String> schemas) {
-		List<String> locations = new ArrayList<String>();
-		for (String schema : schemas) {
-			locations.addAll(getDataLocations(vendor, schema));
-		}
-		return locations;
-	}
-
-	protected List<String> getDataLocations(String vendor, String schema) {
-		return LocationUtils.getLocations("classpath:META-INF/" + vendor + "/" + schema + ".tables");
 	}
 }
