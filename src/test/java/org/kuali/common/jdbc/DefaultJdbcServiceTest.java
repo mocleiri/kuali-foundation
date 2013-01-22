@@ -112,12 +112,22 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getDataContext() {
+	protected List<ExecutionContext> getDataContexts() {
+		String prefix = "sql.data.loc";
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
+		List<ExecutionContext> dataContexts = new ArrayList<ExecutionContext>();
+		for (String key : keys) {
+			ExecutionContext dataContext = getDataContext(key);
+			dataContexts.add(dataContext);
+		}
+		return dataContexts;
+	}
+
+	protected ExecutionContext getDataContext(String key) {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
-		// ec.setLocations(getDataLocations(vendor, schemas));
-		ec.setLocations(getLocations("sql.data.loc.list." + schemaNumber));
+		ec.setLocations(getLocations(key));
 		ec.setThreads(10);
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -161,22 +171,26 @@ public class DefaultJdbcServiceTest {
 
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getSchemasContext();
-			ExecutionContext data = getDataContext();
+			List<ExecutionContext> data = getDataContexts();
 			ExecutionContext constraints = getConstraintsContext();
 
 			boolean execute = true;
 
 			dba.setExecute(execute);
 			schemas.setExecute(execute);
-			data.setExecute(execute);
-			data.setThreads(new Integer(dataThreads));
+			for (ExecutionContext ec : data) {
+				ec.setExecute(execute);
+				ec.setThreads(new Integer(dataThreads));
+			}
 			constraints.setExecute(true);
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
 			service.executeSql(dba);
 			service.executeSql(schemas);
-			service.executeSql(data);
+			for (ExecutionContext ec : data) {
+				service.executeSql(ec);
+			}
 			service.executeSql(constraints);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
