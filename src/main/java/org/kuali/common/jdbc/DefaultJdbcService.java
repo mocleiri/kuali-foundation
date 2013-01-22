@@ -41,10 +41,7 @@ import org.kuali.common.jdbc.threads.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.LoggerLevel;
-import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,16 +66,33 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
 
+		// Divide the SQL we have to execute up into buckets as "evenly" as possible
+		List<SqlBucket> buckets = getSqlBuckets(context, sources);
+
+		// Notify the listener now that buckets are created
+		context.getListener().bucketsCreated(new BucketEvent(context, buckets));
+
+		// Sort the buckets largest to smallest
+		Collections.sort(buckets);
+		Collections.reverse(buckets);
+
+		// Progress across all of the threads is coordinated by ThreadsProgressListener
+		// The tracking built into the kuali-threads package assumes "progress" equals one element from the list completing
+		// It assumes you have a gigantic list where each element in the list = 1 unit of work
+		// A large list of files that need to be posted to S3 (for example).
+		// If we could randomly split up the SQL and execute it in whatever order we wanted, the built in tracking would work.
+		// We cannot do that though, since the SQL in each file needs to execute sequentially in order
+		// SQL from different files can execute concurrently, but the SQL inside each file needs to execute in order
+		// For example OLE has ~250,000 SQL statements split up across ~300 files
+		// In addition, the schema related DDL files need to execute first, then data, then constraints DDL files
+		// Thus our list is pretty small, even though the total number of SQL statements is quite large
+		// Only printing a dot to the console when each thread completes is not granular enough
+
+		// Setup a listener that prints a dot to the console each time 1% progress is made
 		ThreadsProgressListener listener = new ThreadsProgressListener();
 		listener.setTotal(JdbcUtils.getSqlCount(sources));
 
-		List<SqlBucket> buckets = getSqlBuckets(context, sources);
-
-		context.getListener().bucketsCreated(new BucketEvent(context, buckets));
-
-		Collections.sort(buckets);
-		Collections.reverse(buckets);
-		summarizeBuckets(buckets);
+		// Provide some context for each bucket
 		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
 
 		// Store some context for the thread handler
@@ -90,6 +104,7 @@ public class DefaultJdbcService implements JdbcService {
 		thc.setDivisor(1);
 		// thc.setListener(new PercentCompleteListener<SqlBucketContext>());
 
+		// Start threads to execute SQL from multiple files concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		invoker.invokeThreads(thc);
 	}
@@ -103,21 +118,6 @@ public class DefaultJdbcService implements JdbcService {
 		context.setSql(Arrays.asList(sql));
 		context.setReader(new DefaultSqlReader());
 		executeSql(context);
-	}
-
-	protected void summarizeBuckets(List<SqlBucket> buckets) {
-		List<Object[]> argsList = new ArrayList<Object[]>();
-		for (int i = 0; i < buckets.size(); i++) {
-			SqlBucket bucket = buckets.get(i);
-			List<SqlSource> sources = bucket.getSources();
-			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(sources));
-			String srcs = FormatUtils.getCount(sources.size());
-			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(sources));
-			Object[] args = { i + 1, count, srcs, size };
-			argsList.add(args);
-		}
-		List<String> columns = Arrays.asList("Bucket", "SQL Count", "Sources", "Size");
-		LoggerUtils.logTable(columns, argsList, LoggerLevel.INFO, logger);
 	}
 
 	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context, SqlListener listener) {
