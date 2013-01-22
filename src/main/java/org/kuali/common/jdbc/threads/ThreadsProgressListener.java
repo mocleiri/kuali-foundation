@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc.threads;
 
 import org.kuali.common.jdbc.listener.ProgressListener;
+import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 
 public class ThreadsProgressListener extends ProgressListener {
 

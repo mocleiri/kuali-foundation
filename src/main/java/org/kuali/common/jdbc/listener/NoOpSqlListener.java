@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 
 public class NoOpSqlListener implements SqlListener {
 
@@ -11,6 +10,10 @@ public class NoOpSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
+	}
+
+	@Override
+	public void bucketsCreated(BucketEvent event) {
 	}
 
 	@Override

@@ -1,13 +1,14 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 
 public interface SqlListener {
 
 	void beforeMetaData(ExecutionContext context);
 
 	void beforeExecution(SqlExecutionEvent event);
+
+	void bucketsCreated(BucketEvent event);
 
 	void beforeExecuteSql(String sql);
 

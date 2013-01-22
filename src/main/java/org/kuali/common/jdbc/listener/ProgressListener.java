@@ -4,7 +4,6 @@ import java.io.PrintStream;
 
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 
 public class ProgressListener implements SqlListener {
 
@@ -29,6 +28,10 @@ public class ProgressListener implements SqlListener {
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		// The total number of SQL statements being executed
 		this.total = JdbcUtils.getSqlCount(event.getSources());
+	}
+
+	@Override
+	public void bucketsCreated(BucketEvent event) {
 	}
 
 	@Override

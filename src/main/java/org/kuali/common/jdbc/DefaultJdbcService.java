@@ -31,11 +31,12 @@ import javax.sql.DataSource;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.listener.BucketEvent;
+import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.jdbc.threads.SqlBucketContext;
 import org.kuali.common.jdbc.threads.SqlBucketHandler;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 import org.kuali.common.jdbc.threads.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -54,17 +55,6 @@ public class DefaultJdbcService implements JdbcService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
 
 	@Override
-	public void executeSql(DataSource dataSource, String sql) {
-		JdbcContext jdbcContext = new JdbcContext();
-		jdbcContext.setDataSource(dataSource);
-		ExecutionContext context = new ExecutionContext();
-		context.setJdbcContext(jdbcContext);
-		context.setSql(Arrays.asList(sql));
-		context.setReader(new DefaultSqlReader());
-		executeSql(context);
-	}
-
-	@Override
 	public void executeSql(ExecutionContext context) {
 		context.getListener().beforeMetaData(context);
 		List<SqlSource> sources = getSqlSources(context);
@@ -78,11 +68,14 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
-		long total = JdbcUtils.getSqlCount(sources);
+
 		ThreadsProgressListener listener = new ThreadsProgressListener();
-		listener.setTotal(total);
+		listener.setTotal(JdbcUtils.getSqlCount(sources));
 
 		List<SqlBucket> buckets = getSqlBuckets(context, sources);
+
+		context.getListener().bucketsCreated(new BucketEvent(context, buckets));
+
 		Collections.sort(buckets);
 		Collections.reverse(buckets);
 		summarizeBuckets(buckets);
@@ -99,6 +92,17 @@ public class DefaultJdbcService implements JdbcService {
 
 		ThreadInvoker invoker = new ThreadInvoker();
 		invoker.invokeThreads(thc);
+	}
+
+	@Override
+	public void executeSql(DataSource dataSource, String sql) {
+		JdbcContext jdbcContext = new JdbcContext();
+		jdbcContext.setDataSource(dataSource);
+		ExecutionContext context = new ExecutionContext();
+		context.setJdbcContext(jdbcContext);
+		context.setSql(Arrays.asList(sql));
+		context.setReader(new DefaultSqlReader());
+		executeSql(context);
 	}
 
 	protected void summarizeBuckets(List<SqlBucket> buckets) {

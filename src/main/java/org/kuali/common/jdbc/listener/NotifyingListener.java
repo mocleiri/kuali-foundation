@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 
 /**
  * Notify other listeners about SQL related events
@@ -33,6 +32,13 @@ public class NotifyingListener implements SqlListener {
 	public void beforeExecution(SqlExecutionEvent event) {
 		for (SqlListener listener : listeners) {
 			listener.beforeExecution(event);
+		}
+	}
+
+	@Override
+	public void bucketsCreated(BucketEvent event) {
+		for (SqlListener listener : listeners) {
+			listener.bucketsCreated(event);
 		}
 	}
 

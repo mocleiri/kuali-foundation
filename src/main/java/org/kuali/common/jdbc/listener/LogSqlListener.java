@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Str;
@@ -20,6 +19,10 @@ public class LogSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
+	}
+
+	@Override
+	public void bucketsCreated(BucketEvent event) {
 	}
 
 	@Override

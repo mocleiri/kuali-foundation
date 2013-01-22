@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.threads;
+package org.kuali.common.jdbc.listener;
 
 import java.util.List;
 

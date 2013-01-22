@@ -2,7 +2,6 @@ package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.threads.SqlExecutionEvent;
 import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,10 @@ public class SummaryListener implements SqlListener {
 		String size = FormatUtils.getSize(this.size);
 		Object[] args = { count, sources, size };
 		logger.info("[SQL Count: {}  Sources: {}  Size: {}]", args);
+	}
+
+	@Override
+	public void bucketsCreated(BucketEvent event) {
 	}
 
 	@Override
