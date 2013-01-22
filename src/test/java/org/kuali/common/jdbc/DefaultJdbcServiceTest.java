@@ -186,14 +186,12 @@ public class DefaultJdbcServiceTest {
 			ExecutionContext data2 = getSequentialDMLContext(Arrays.asList("sql.data.loc.list.3"));
 			ExecutionContext constraints = getThreadSafeDDLContext("sql.constraints.loc");
 
-			List<ExecutionContext> contexts = Arrays.asList(schemas, data1, data2, constraints);
+			List<ExecutionContext> contexts = Arrays.asList(dba, schemas, data1, data2, constraints);
 
 			boolean skip = Boolean.getBoolean("sql.skip") || true;
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
-			dba.setExecute(!skip);
-			service.executeSql(dba);
 			for (ExecutionContext context : contexts) {
 				if (skip) {
 					context.setExecute(false);
