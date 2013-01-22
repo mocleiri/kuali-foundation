@@ -23,10 +23,10 @@ import org.kuali.common.util.SimpleFormatter;
 
 public class DatabaseResetContext {
 
-	public static final String DEFAULT_SCHEMA_PROPERTY_PREFIX = "sql.schema.loc";
-	public static final String DEFAULT_DATA_PROPERTY_PREFIX = "sql.data.loc";
-	public static final String DEFAULT_CONSTRAINT_PROPERTY_PREFIX = "sql.constraints.loc";
-	public static final String DEFAULT_LOCATION_LIST_PATTERN = ".loc.list";
+	public static final String DEFAULT_SCHEMA_PROPERTY_PREFIX = "sql.schema";
+	public static final String DEFAULT_DATA_PROPERTY_PREFIX = "sql.data";
+	public static final String DEFAULT_CONSTRAINT_PROPERTY_PREFIX = "sql.constraints";
+	public static final String DEFAULT_LOCATION_LIST_PATTERN = ".list";
 
 	JdbcService service = new DefaultJdbcService();
 	SimpleFormatter formatter = new SimpleFormatter();
