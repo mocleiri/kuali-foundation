@@ -8,6 +8,15 @@ import org.slf4j.LoggerFactory;
 
 public class MessageListener implements SqlListener {
 
+	public MessageListener() {
+		this(null);
+	}
+
+	public MessageListener(String beforeMetaData) {
+		super();
+		this.beforeMetaData = beforeMetaData;
+	}
+
 	private static final Logger logger = LoggerFactory.getLogger(MessageListener.class);
 	LoggerLevel level = LoggerLevel.INFO;
 	String beforeMetaData;
@@ -19,32 +28,44 @@ public class MessageListener implements SqlListener {
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
-		LoggerUtils.logMsg(beforeMetaData, logger, level);
+		if (beforeMetaData != null) {
+			LoggerUtils.logMsg(beforeMetaData, logger, level);
+		}
 	}
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-		LoggerUtils.logMsg(beforeExecution, logger, level);
+		if (beforeExecution != null) {
+			LoggerUtils.logMsg(beforeExecution, logger, level);
+		}
 	}
 
 	@Override
 	public void bucketsCreated(BucketEvent event) {
-		LoggerUtils.logMsg(bucketsCreated, logger, level);
+		if (bucketsCreated != null) {
+			LoggerUtils.logMsg(bucketsCreated, logger, level);
+		}
 	}
 
 	@Override
 	public void beforeExecuteSql(String sql) {
-		LoggerUtils.logMsg(beforeExecuteSql, logger, level);
+		if (beforeExecuteSql != null) {
+			LoggerUtils.logMsg(beforeExecuteSql, logger, level);
+		}
 	}
 
 	@Override
 	public void afterExecuteSql(String sql) {
-		LoggerUtils.logMsg(afterExecuteSql, logger, level);
+		if (afterExecuteSql != null) {
+			LoggerUtils.logMsg(afterExecuteSql, logger, level);
+		}
 	}
 
 	@Override
 	public void afterExecution(SqlExecutionEvent event) {
-		LoggerUtils.logMsg(afterExecution, logger, level);
+		if (afterExecution != null) {
+			LoggerUtils.logMsg(afterExecution, logger, level);
+		}
 	}
 
 	public LoggerLevel getLevel() {
