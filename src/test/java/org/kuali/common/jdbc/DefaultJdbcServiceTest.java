@@ -102,11 +102,16 @@ public class DefaultJdbcServiceTest {
 	}
 
 	protected JdbcContext getJdbc() {
+
 		String url = getValue("jdbc.url");
 		String driver = getValue("jdbc.driver");
-		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, getValue("jdbc.username"), getValue("jdbc.password"));
-		JdbcContext context = new JdbcContext();
+		String username = getValue("jdbc.username");
+		String password = getValue("jdbc.password");
+
+		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, username, password);
 		dataSource.setDriverClassName(driver);
+
+		JdbcContext context = new JdbcContext();
 		context.setDataSource(dataSource);
 		return context;
 	}
