@@ -35,21 +35,23 @@ public class DefaultJdbcServiceTest {
 	JdbcContext jdbcContext = getJdbc();
 
 	protected Properties getProperties() {
-		Properties sql = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
+		Properties sql1 = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
+		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
-		Properties properties = PropertyUtils.combine(sql, jdbc1, jdbc2);
+		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		return properties;
 	}
 
 	protected Properties getOleProperties() {
-		Properties sql = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
+		Properties sql1 = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
+		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
 		Properties ole = PropertyUtils.load("classpath:org/kuali/ole/ole-fs.properties");
-		Properties properties = PropertyUtils.combine(sql, jdbc1, jdbc2, ole);
+		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.rice.kuali.org:1521:ORACLE");
@@ -66,8 +68,10 @@ public class DefaultJdbcServiceTest {
 	protected JdbcContext getJdbcDba() {
 		String url = getValue("jdbc.dba.url");
 		String driver = getValue("jdbc.driver");
+		String username = getValue("jdbc.dba.username");
+		String password = getValue("jdbc.dba.password");
 		JdbcContext context = new JdbcContext();
-		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, "root", null);
+		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, username, password);
 		dataSource.setDriverClassName(driver);
 		context.setDataSource(dataSource);
 		return context;
@@ -139,41 +143,16 @@ public class DefaultJdbcServiceTest {
 		return new NotifyingListener(listeners);
 	}
 
-	// @Test
-	public void testFunkySql() {
-		try {
-			String url = getValue("jdbc.url");
-			String driver = getValue("jdbc.driver");
-			DriverManagerDataSource dataSource = new DriverManagerDataSource(url, getValue("jdbc.username"), getValue("jdbc.password"));
-			dataSource.setDriverClassName(driver);
-
-			JdbcContext jc = new JdbcContext();
-			jc.setDataSource(dataSource);
-
-			String sql1 = "TRUNCATE TABLE CA_ORG_RTNG_MDL_NM_T";
-			String sql2 = "INSERT INTO CA_ORG_RTNG_MDL_NM_T (FIN_COA_CD,ORG_CD,ORG_RTNG_MDL_NM,OBJ_ID,VER_NBR,ROW_ACTV_IND)  VALUES ('IN','PSYC','ADULT-45\\'S','186AB5398D69E0BCE043814FD881E0BC',1.0,'Y')";
-
-			ExecutionContext ec = new ExecutionContext();
-			ec.setEncoding("UTF-8");
-			ec.setSql(Arrays.asList(sql1, sql2));
-			ec.setLocations(Arrays.asList("sql/mysql/CA_ORG_RTNG_MDL_NM_T.sql"));
-			ec.setReader(new DefaultSqlReader());
-			ec.setJdbcContext(jc);
-			ec.setListener(new LogSqlListener());
-
-			JdbcService service = new DefaultJdbcService();
-			service.executeSql(ec);
-			JdbcMetaData md = service.getJdbcMetaData(dataSource);
-			logger.info(md.getDriverName());
-			logger.info(md.getDriverVersion());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Test
 	public void testReset() {
 		try {
+
+			logger.info(getValue("jdbc.url"));
+			logger.info(getValue("jdbc.dba.url"));
+			logger.info(getValue("jdbc.username"));
+			logger.info(getValue("jdbc.password"));
+			logger.info(getValue("jdbc.dba.username"));
+			logger.info(getValue("jdbc.dba.password"));
 
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getSchemasContext();
