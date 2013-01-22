@@ -168,7 +168,7 @@ public class DefaultJdbcServiceTest {
 
 			List<ExecutionContext> contexts = Arrays.asList(schemas, data1, data2, constraints);
 
-			boolean execute = false;
+			boolean execute = Boolean.getBoolean("sql.execute");
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
