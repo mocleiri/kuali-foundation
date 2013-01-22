@@ -607,9 +607,10 @@ dl.table-display dd {
 
 
 .breadcrumb > li {
-display: inline-block;
-text-shadow: 0 1px 0 
+	display: inline-block;
+	text-shadow: 0 1px 0 
 #000;
+	color: #999;
 }
 
 .nav-tabs {
