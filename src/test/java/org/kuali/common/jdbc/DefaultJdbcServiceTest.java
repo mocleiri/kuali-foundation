@@ -28,7 +28,7 @@ public class DefaultJdbcServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcServiceTest.class);
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
-	String vendor = "oracle";
+	String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
 	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
