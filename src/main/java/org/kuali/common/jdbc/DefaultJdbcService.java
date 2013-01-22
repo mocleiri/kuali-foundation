@@ -29,7 +29,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -41,7 +40,6 @@ import org.kuali.common.jdbc.threads.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -272,15 +270,23 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
+	protected boolean skip(String sql) {
+		if (sql.contains("DROP TABLE")) {
+			return true;
+		}
+		if (sql.contains("TRUNCATE TABLE")) {
+			return true;
+		}
+		return false;
+	}
+
 	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
 		try {
 			context.getListener().beforeExecuteSql(sql);
 			if (context.isExecute()) {
-				if (StringUtils.contains(sql, "\\'")) {
-					sql = StringUtils.replace(sql, "\\'", "''");
-					// logger.info("\n\n**********\n\n" + sql + "\n\n**********\n\n");
+				if (!skip(sql)) {
+					statement.execute(sql);
 				}
-				statement.execute(sql);
 			}
 			context.getListener().afterExecuteSql(sql);
 		} catch (SQLException e) {
