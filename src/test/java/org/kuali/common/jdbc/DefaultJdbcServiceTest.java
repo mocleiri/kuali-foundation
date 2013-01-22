@@ -14,6 +14,7 @@ import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -133,9 +134,10 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getThreadSafeDDLContext(Properties properties) {
+	protected ExecutionContext getThreadSafeDDLContext() {
 
-		String prefix = "sql.schema";
+		String csv = getValue("sql.schemas.concurrent");
+		List<String> properties = CollectionUtils.getTrimmedListFromCSV(csv);
 
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
