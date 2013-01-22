@@ -22,6 +22,7 @@ public class ExecutionContext {
 	List<String> locations;
 	String encoding;
 	List<String> sql;
+	String message;
 
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
@@ -85,6 +86,14 @@ public class ExecutionContext {
 
 	public void setExecute(boolean execute) {
 		this.execute = execute;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

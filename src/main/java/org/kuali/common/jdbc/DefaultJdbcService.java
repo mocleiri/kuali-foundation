@@ -53,6 +53,9 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(ExecutionContext context) {
+		if (context.getMessage() != null) {
+			logger.info(context.getMessage());
+		}
 		context.getListener().beforeMetaData(context);
 		List<SqlSource> sources = getSqlSources(context);
 		context.getListener().beforeExecution(new SqlExecutionEvent(context, sources));

@@ -118,6 +118,7 @@ public class DefaultJdbcServiceTest {
 
 	protected ExecutionContext getDbaContext() {
 		ExecutionContext ec = new ExecutionContext();
+		ec.setMessage("Executing DBA SQL");
 		ec.setJdbcContext(jdbcDba);
 		ec.setReader(reader);
 		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
@@ -182,9 +183,13 @@ public class DefaultJdbcServiceTest {
 
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getThreadSafeDDLContext("sql.schema.loc");
+			schemas.setMessage("Creating schemas for OLE and Rice");
 			ExecutionContext data1 = getThreadSafeDMLContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
+			data1.setMessage("Loading default data for OLE and Rice");
 			ExecutionContext data2 = getSequentialDMLContext(Arrays.asList("sql.data.loc.list.3"));
+			data2.setMessage("Executing Liquibase SQL for OLE and Rice");
 			ExecutionContext constraints = getThreadSafeDDLContext("sql.constraints.loc");
+			constraints.setMessage("Applying constraints for OLE and Rice");
 
 			List<ExecutionContext> contexts = Arrays.asList(dba, schemas, data1, data2, constraints);
 

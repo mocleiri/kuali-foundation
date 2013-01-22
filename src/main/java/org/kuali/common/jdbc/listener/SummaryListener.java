@@ -15,7 +15,7 @@ public class SummaryListener implements SqlListener {
 	long startMillis;
 	long count;
 	long size;
-	LoggerLevel loggerLevel = LoggerLevel.DEBUG;
+	LoggerLevel loggerLevel = LoggerLevel.INFO;
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
@@ -30,7 +30,7 @@ public class SummaryListener implements SqlListener {
 		String sources = FormatUtils.getCount(event.getSources().size());
 		String size = FormatUtils.getSize(this.size);
 		Object[] args = { count, sources, size };
-		LoggerUtils.logMsg("[SQL Count: {}  Sources: {}  Size: {}]", args, logger, loggerLevel);
+		LoggerUtils.logMsg("Executing - [SQL Count: {}  Sources: {}  Size: {}]", args, logger, loggerLevel);
 	}
 
 	@Override
@@ -54,6 +54,6 @@ public class SummaryListener implements SqlListener {
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
 		Object[] args = { count, sources, size, time, rate };
-		LoggerUtils.logMsg("[SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args, logger, loggerLevel);
+		LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args, logger, loggerLevel);
 	}
 }
