@@ -180,10 +180,12 @@ public class DefaultJdbcServiceTest {
 			int i = 0;
 			for (ExecutionContext ec : data) {
 				i++;
-				if (i != 3) {
+				if (i == 3) {
 					ec.setExecute(execute);
+					ec.setThreads(new Integer(dataThreads));
+				} else {
+					ec.setThreads(1);
 				}
-				ec.setThreads(new Integer(dataThreads));
 			}
 			constraints.setExecute(true);
 
