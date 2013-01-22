@@ -29,8 +29,9 @@ public class DefaultJdbcServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcServiceTest.class);
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
-	String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
+	String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
 	String dataThreads = System.getProperty("data.threads") == null ? "1" : System.getProperty("data.threads");
+	boolean mysqlRice = Boolean.getBoolean("mysql.rice");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
 	JdbcContext jdbcContext = getJdbc();
@@ -58,8 +59,11 @@ public class DefaultJdbcServiceTest {
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
-		mysqlLocalhost(properties);
-		mysqlRice(properties);
+		if (mysqlRice) {
+			mysqlRice(properties);
+		} else {
+			mysqlLocalhost(properties);
+		}
 		return properties;
 	}
 
