@@ -32,7 +32,7 @@ public class DefaultJdbcServiceTest {
 	String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
 	String dataThreads = System.getProperty("data.threads") == null ? "5" : System.getProperty("data.threads");
 	boolean mysqlRice = Boolean.getBoolean("mysql.rice");
-	Properties properties = getOleProperties();
+	Properties properties = getProperties();
 	JdbcContext jdbcDba = getJdbcDba();
 	JdbcContext jdbcContext = getJdbc();
 
@@ -41,18 +41,7 @@ public class DefaultJdbcServiceTest {
 		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
-		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2);
-		properties.setProperty("db.vendor", vendor);
-		properties.setProperty("jdbc.username", "JDBCTEST");
-		return properties;
-	}
-
-	protected Properties getOleProperties() {
-		Properties sql1 = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
-		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
-		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
-		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
-		Properties ole = PropertyUtils.load("classpath:org/kuali/ole/ole-fs.properties");
+		Properties ole = PropertyUtils.load("classpath:ole-fs.properties");
 		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
