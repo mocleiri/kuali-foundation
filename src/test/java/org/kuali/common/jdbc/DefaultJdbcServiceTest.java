@@ -30,6 +30,7 @@ public class DefaultJdbcServiceTest {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
 	String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
+	String dataThreads = System.getProperty("data.threads") == null ? "1" : System.getProperty("data.threads");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
 	JdbcContext jdbcContext = getJdbc();
@@ -160,9 +161,11 @@ public class DefaultJdbcServiceTest {
 			logger.info(getValue("jdbc.dba.username"));
 			logger.info(getValue("jdbc.dba.password"));
 
+			int threads = new Integer(dataThreads);
+
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getThreadSafeDMLContext("sql.schema.loc");
-			ExecutionContext data1 = getThreadSafeDataContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), 5);
+			ExecutionContext data1 = getThreadSafeDataContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
 			ExecutionContext data2 = getSequentialDataContext(Arrays.asList("sql.data.loc.list.3"));
 			ExecutionContext constraints = getThreadSafeDMLContext("sql.constraints.loc");
 
