@@ -277,8 +277,8 @@ public class DefaultJdbcService implements JdbcService {
 			context.getListener().beforeExecuteSql(sql);
 			if (context.isExecute()) {
 				String token = "ROURKE - BIOLOGY";
-				if (StringUtils.contains(sql, token)) {
-					logger.info("\n\n********\n\n" + sql + "\n\n**********\n\n");
+				if (StringUtils.contains(sql, "\\'")) {
+					logger.info("\n\n**********\n\n" + sql + "\n\n**********\n\n");
 				}
 				statement.execute(sql);
 			}
