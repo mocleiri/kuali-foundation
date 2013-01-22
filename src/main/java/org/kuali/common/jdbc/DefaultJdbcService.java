@@ -265,10 +265,6 @@ public class DefaultJdbcService implements JdbcService {
 			executeSql(statement, sql, context);
 			sql = reader.getSqlStatement(in);
 		}
-		if (context.getJdbcContext().getCommitMode().equals(CommitMode.PER_SOURCE)) {
-			logger.debug("Invoking conn.commit()");
-			conn.commit();
-		}
 	}
 
 	protected boolean skip(String sql) {
