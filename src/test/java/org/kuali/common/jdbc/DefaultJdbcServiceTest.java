@@ -172,7 +172,7 @@ public class DefaultJdbcServiceTest {
 
 			ExecutionContext dba = getDbaContext();
 			ExecutionContext schemas = getThreadSafeDDLContext("sql.schema.loc");
-			schemas.setMessage("Executing schema creation DDL");
+			schemas.setMessage("Executing schema DDL");
 			ExecutionContext data1 = getThreadSafeDMLContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
 			data1.setMessage("Executing concurrent DML");
 			ExecutionContext data2 = getSequentialDMLContext(Arrays.asList("sql.data.loc.list.3"));
