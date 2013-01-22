@@ -31,7 +31,6 @@ public class DefaultJdbcServiceTest {
 	String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
 	String dataThreads = System.getProperty("data.threads") == null ? "1" : System.getProperty("data.threads");
 	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
-	String schemaNumber = System.getProperty("schema") == null ? "1" : System.getProperty("schema");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
 	JdbcContext jdbcContext = getJdbc();
@@ -106,7 +105,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		// ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setLocations(getLocations("sql.schema.loc." + schemaNumber));
+		ec.setLocations(getLocations("sql.schema.loc"));
 		ec.setThreads(ec.getLocations().size());
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -138,7 +137,7 @@ public class DefaultJdbcServiceTest {
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		// ec.setLocations(getConstraintsLocations(vendor, schemas));
-		ec.setLocations(getLocations("sql.constraints.loc." + schemaNumber));
+		ec.setLocations(getLocations("sql.constraints.loc"));
 		ec.setThreads(ec.getLocations().size());
 		ec.setListener(getDefaultListener());
 		return ec;
