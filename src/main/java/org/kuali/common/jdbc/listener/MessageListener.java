@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 public class MessageListener implements SqlListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(MessageListener.class);
+
 	public MessageListener() {
 		this(null);
 	}
@@ -17,7 +19,6 @@ public class MessageListener implements SqlListener {
 		this.beforeMetaData = beforeMetaData;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(MessageListener.class);
 	LoggerLevel level = LoggerLevel.INFO;
 	String beforeMetaData;
 	String beforeExecution;
