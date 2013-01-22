@@ -17,6 +17,7 @@ import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,6 @@ public class DefaultJdbcServiceTest {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
 	String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
-	String dataThreads = System.getProperty("data.threads") == null ? "1" : System.getProperty("data.threads");
-	List<String> schemas = Arrays.asList("rice-impex-server-bootstrap");
 	Properties properties = getOleProperties();
 	JdbcContext jdbcDba = getJdbcDba();
 	JdbcContext jdbcContext = getJdbc();
@@ -58,15 +57,23 @@ public class DefaultJdbcServiceTest {
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
-		properties.setProperty("mysql.dba.url", "jdbc:mysql://mysql.rice.kuali.org");
-		properties.setProperty("mysql.dba.username", "master");
-		properties.setProperty("mysql.dba.password", "gw570229");
+		// properties.setProperty("mysql.dba.url", "jdbc:mysql://mysql.rice.kuali.org");
+		// properties.setProperty("mysql.dba.username", "master");
+		// properties.setProperty("mysql.dba.password", "gw570229");
+		properties.setProperty("mysql.dba.url", "jdbc:mysql://localhost");
+		properties.setProperty("mysql.dba.username", "root");
+		properties.setProperty("mysql.dba.password", "NONE");
 		return properties;
 	}
 
 	protected String getValue(String key) {
-		String value = properties.getProperty(key);
-		return helper.replacePlaceholders(value, properties);
+		String original = properties.getProperty(key);
+		String resolved = helper.replacePlaceholders(original, properties);
+		if (NullUtils.isNullOrNone(resolved)) {
+			return null;
+		} else {
+			return resolved;
+		}
 	}
 
 	protected JdbcContext getJdbcDba() {
@@ -100,44 +107,29 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getSchemasContext() {
+	protected ExecutionContext getSequentialDataContext(List<String> keys) {
+		return getThreadSafeDataContext(keys, 1);
+	}
+
+	protected ExecutionContext getThreadSafeDataContext(List<String> keys, int threads) {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
-		// ec.setLocations(getSchemaLocations(vendor, schemas));
-		ec.setLocations(getLocations("sql.schema.loc"));
-		ec.setThreads(ec.getLocations().size());
+		List<String> locations = new ArrayList<String>();
+		for (String key : keys) {
+			locations.addAll(getLocations(key));
+		}
+		ec.setLocations(locations);
+		ec.setThreads(threads);
 		ec.setListener(getDefaultListener());
 		return ec;
 	}
 
-	protected List<ExecutionContext> getDataContexts() {
-		String prefix = "sql.data.loc";
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
-		List<ExecutionContext> dataContexts = new ArrayList<ExecutionContext>();
-		for (String key : keys) {
-			ExecutionContext dataContext = getDataContext(key);
-			dataContexts.add(dataContext);
-		}
-		return dataContexts;
-	}
-
-	protected ExecutionContext getDataContext(String key) {
+	protected ExecutionContext getThreadSafeDMLContext(String key) {
 		ExecutionContext ec = new ExecutionContext();
 		ec.setJdbcContext(jdbcContext);
 		ec.setReader(reader);
 		ec.setLocations(getLocations(key));
-		ec.setThreads(10);
-		ec.setListener(getDefaultListener());
-		return ec;
-	}
-
-	protected ExecutionContext getConstraintsContext() {
-		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(jdbcContext);
-		ec.setReader(reader);
-		// ec.setLocations(getConstraintsLocations(vendor, schemas));
-		ec.setLocations(getLocations("sql.constraints.loc"));
 		ec.setThreads(ec.getLocations().size());
 		ec.setListener(getDefaultListener());
 		return ec;
@@ -169,33 +161,22 @@ public class DefaultJdbcServiceTest {
 			logger.info(getValue("jdbc.dba.password"));
 
 			ExecutionContext dba = getDbaContext();
-			ExecutionContext schemas = getSchemasContext();
-			List<ExecutionContext> data = getDataContexts();
-			ExecutionContext constraints = getConstraintsContext();
+			ExecutionContext schemas = getThreadSafeDMLContext("sql.schema.loc");
+			ExecutionContext data1 = getThreadSafeDataContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), 5);
+			ExecutionContext data2 = getSequentialDataContext(Arrays.asList("sql.data.loc.list.3"));
+			ExecutionContext constraints = getThreadSafeDMLContext("sql.constraints.loc");
 
-			boolean execute = true;
+			List<ExecutionContext> contexts = Arrays.asList(schemas, data1, data2, constraints);
 
-			dba.setExecute(execute);
-			schemas.setExecute(execute);
-			int i = 0;
-			for (ExecutionContext ec : data) {
-				i++;
-				if (i == 3) {
-					ec.setThreads(1);
-				} else {
-					ec.setThreads(new Integer(dataThreads));
-				}
-			}
-			constraints.setExecute(true);
+			boolean execute = false;
 
 			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
 			service.executeSql(dba);
-			service.executeSql(schemas);
-			for (ExecutionContext ec : data) {
-				service.executeSql(ec);
+			for (ExecutionContext context : contexts) {
+				context.setExecute(execute);
+				service.executeSql(context);
 			}
-			service.executeSql(constraints);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Throwable e) {
