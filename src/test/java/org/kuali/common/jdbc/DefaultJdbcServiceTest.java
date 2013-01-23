@@ -120,25 +120,7 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getSequentialDMLContext(List<String> keys) {
-		return getThreadSafeDMLContext(keys, 1);
-	}
-
-	protected ExecutionContext getThreadSafeDMLContext(List<String> keys, int threads) {
-		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(jdbcContext);
-		ec.setReader(reader);
-		List<String> locations = new ArrayList<String>();
-		for (String key : keys) {
-			locations.addAll(getLocations(key));
-		}
-		ec.setLocations(locations);
-		ec.setThreads(threads);
-		ec.setListener(getDefaultListener());
-		return ec;
-	}
-
-	protected List<ExecutionContext> getYeOldeExecutionContexts(String prefix, int threads) {
+	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads) {
 
 		String concurrent = getValue(prefix + ".concurrent");
 		String sequential = getValue(prefix + ".sequential");
@@ -244,20 +226,6 @@ public class DefaultJdbcServiceTest {
 		return locations;
 	}
 
-	protected ExecutionContext getThreadSafeDDLContext(String prefix) {
-
-		String csv = getValue("sql.schemas.concurrent");
-		List<String> properties = CollectionUtils.getTrimmedListFromCSV(csv);
-
-		ExecutionContext ec = new ExecutionContext();
-		ec.setJdbcContext(jdbcContext);
-		ec.setReader(reader);
-		// ec.setLocations(getLocations(key));
-		ec.setThreads(ec.getLocations().size());
-		ec.setListener(getDefaultListener());
-		return ec;
-	}
-
 	protected NotifyingListener getDefaultListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new ProgressListener());
@@ -285,9 +253,9 @@ public class DefaultJdbcServiceTest {
 
 			int threads = new Integer(dataThreads);
 
-			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schema", threads);
-			List<ExecutionContext> data = getYeOldeExecutionContexts("sql.data", threads);
-			List<ExecutionContext> constraints = getYeOldeExecutionContexts("sql.constraints", threads);
+			List<ExecutionContext> schemas = getExecutionContexts("sql.schema", threads);
+			List<ExecutionContext> data = getExecutionContexts("sql.data", threads);
+			List<ExecutionContext> constraints = getExecutionContexts("sql.constraints", threads);
 
 			List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
 			contexts.addAll(schemas);
@@ -317,19 +285,5 @@ public class DefaultJdbcServiceTest {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-	}
-
-	protected List<String> getLocations(String prefix) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
-		List<String> locations = new ArrayList<String>();
-		for (String key : keys) {
-			String value = getValue(key);
-			if (StringUtils.contains(key, ".loc.list")) {
-				locations.addAll(LocationUtils.getLocations(value));
-			} else {
-				locations.add(value);
-			}
-		}
-		return locations;
 	}
 }
