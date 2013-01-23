@@ -139,8 +139,8 @@ public class DefaultJdbcServiceTest {
 		String concurrent = getValue(prefix + ".concurrent");
 		String sequential = getValue(prefix + ".sequential");
 
-		List<String> concurrentLocations = getLocations(concurrent);
-		List<String> sequentialLocations = getLocations(sequential);
+		List<String> concurrentLocations = getLocationsFromCSV(concurrent);
+		List<String> sequentialLocations = getLocationsFromCSV(sequential);
 
 		String order = getValue(prefix + ".order");
 		List<String> orderings = CollectionUtils.getTrimmedListFromCSV(order);
@@ -175,9 +175,15 @@ public class DefaultJdbcServiceTest {
 			context2.setMessage(ccMsg);
 		}
 
-		// Add the contexts to the list
-		contexts.add(context1);
-		contexts.add(context2);
+		// Add context1 to the list (if it has any locations)
+		if (!CollectionUtils.isEmpty(context1.getLocations())) {
+			contexts.add(context1);
+		}
+
+		// Add context2 to the list (if it has any locations)
+		if (!CollectionUtils.isEmpty(context2.getLocations())) {
+			contexts.add(context2);
+		}
 
 		// Return the list
 		return contexts;
@@ -269,25 +275,31 @@ public class DefaultJdbcServiceTest {
 
 			int threads = new Integer(dataThreads);
 
-			ExecutionContext dba = getDbaContext();
-			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schema", "Executing schema DDL", "Execution schema DDL", threads);
+			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schemas", "Executing schema DDL", "Executing schema DDL", threads);
 			List<ExecutionContext> data = getYeOldeExecutionContexts("sql.data", "Executing concurrent DML", "Executing sequential DML", threads);
 			List<ExecutionContext> constraints = getYeOldeExecutionContexts("sql.constraints", "Executing constraints DDL", "Executing constraints DDL", threads);
 
 			List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
-			contexts.add(dba);
 			contexts.addAll(schemas);
 			contexts.addAll(data);
 			contexts.addAll(constraints);
 
 			boolean skip = Boolean.getBoolean("sql.skip") || true;
 
-			long start = System.currentTimeMillis();
 			JdbcService service = new DefaultJdbcService();
+			ExecutionContext dba = getDbaContext();
+			dba.setExecute(!skip);
+
+			long start = System.currentTimeMillis();
+			service.executeSql(dba);
 			for (ExecutionContext context : contexts) {
 				if (skip) {
 					context.setExecute(false);
 				}
+				context.setEncoding("UTF-8");
+				context.setReader(reader);
+				context.setJdbcContext(jdbcContext);
+				context.setListener(getDefaultListener());
 				service.executeSql(context);
 			}
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
