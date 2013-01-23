@@ -31,19 +31,20 @@ public class DefaultJdbcServiceTest {
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	SqlReader reader = new DefaultSqlReader();
 	String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
-	String dataThreads = System.getProperty("data.threads") == null ? "5" : System.getProperty("data.threads");
 	boolean mysqlRice = Boolean.getBoolean("mysql.rice");
 	Properties properties = getProperties();
 	JdbcContext jdbcDba = getJdbcDba();
 	JdbcContext jdbcContext = getJdbc();
+	String dataThreads = System.getProperty("sql.threads") == null ? getValue("sql.threads") : System.getProperty("sql.threads");
 
 	protected Properties getProperties() {
 		Properties sql1 = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
 		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
+		Properties msgs = PropertyUtils.load("classpath:org/kuali/common/jdbc/service.properties");
 		Properties ole = PropertyUtils.load("classpath:ole-fs.properties");
-		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole);
+		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole, msgs);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
@@ -134,10 +135,13 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected List<ExecutionContext> getYeOldeExecutionContexts(String prefix, String ccMsg, String seqMsg, int threads) {
+	protected List<ExecutionContext> getYeOldeExecutionContexts(String prefix, int threads) {
 
 		String concurrent = getValue(prefix + ".concurrent");
 		String sequential = getValue(prefix + ".sequential");
+
+		String concurrentMsg = getValue(prefix + ".concurrent.message");
+		String sequentialMsg = getValue(prefix + ".sequential.message");
 
 		List<String> concurrentLocations = getLocationsFromCSV(concurrent);
 		List<String> sequentialLocations = getLocationsFromCSV(sequential);
@@ -161,18 +165,18 @@ public class DefaultJdbcServiceTest {
 
 		if (one.equals(ExecutionMode.CONCURRENT)) {
 			// Concurrent first, then sequential
-			context1.setMessage(ccMsg);
 			context1.setLocations(concurrentLocations);
 			context1.setThreads(threads);
-			context2.setMessage(seqMsg);
+			context1.setMessage(concurrentMsg);
 			context2.setLocations(sequentialLocations);
+			context2.setMessage(sequentialMsg);
 		} else {
 			// Sequential first, then concurrent
 			context1.setLocations(sequentialLocations);
-			context1.setMessage(seqMsg);
+			context1.setMessage(sequentialMsg);
 			context2.setLocations(concurrentLocations);
+			context2.setMessage(concurrentMsg);
 			context2.setThreads(threads);
-			context2.setMessage(ccMsg);
 		}
 
 		// Add context1 to the list (if it has any locations)
@@ -275,9 +279,9 @@ public class DefaultJdbcServiceTest {
 
 			int threads = new Integer(dataThreads);
 
-			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schemas", "Executing schema DDL", "Executing schema DDL", threads);
-			List<ExecutionContext> data = getYeOldeExecutionContexts("sql.data", "Executing concurrent DML", "Executing sequential DML", threads);
-			List<ExecutionContext> constraints = getYeOldeExecutionContexts("sql.constraints", "Executing constraints DDL", "Executing constraints DDL", threads);
+			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schemas", threads);
+			List<ExecutionContext> data = getYeOldeExecutionContexts("sql.data", threads);
+			List<ExecutionContext> constraints = getYeOldeExecutionContexts("sql.constraints", threads);
 
 			List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
 			contexts.addAll(schemas);
