@@ -120,6 +120,14 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
+	protected void validateExists(List<String> locations) {
+		for (String location : locations) {
+			if (!LocationUtils.exists(location)) {
+				throw new IllegalArgumentException(location + " does not exist");
+			}
+		}
+	}
+
 	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads) {
 
 		String concurrent = getValue(prefix + ".concurrent");
@@ -130,6 +138,9 @@ public class DefaultJdbcServiceTest {
 
 		List<String> concurrentLocations = getLocationsFromCSV(concurrent);
 		List<String> sequentialLocations = getLocationsFromCSV(sequential);
+
+		validateExists(concurrentLocations);
+		validateExists(sequentialLocations);
 
 		String order = getValue(prefix + ".order");
 		if (order == null) {
