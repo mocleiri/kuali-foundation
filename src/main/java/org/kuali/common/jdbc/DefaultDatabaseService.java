@@ -42,6 +42,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	private static final String SEQUENTIAL = "sequential";
 	private static final String MESSAGE = "message";
 	private static final String LIST_SUFFIX = ".list";
+	private static final String ORDER = "order";
 
 	@Override
 	public void reset(DatabaseResetContext context) {
@@ -143,21 +144,21 @@ public class DefaultDatabaseService implements DatabaseService {
 
 	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads, Properties properties) {
 
-		String concurrent = properties.getProperty(prefix + ".concurrent");
-		String sequential = properties.getProperty(prefix + ".sequential");
+		String concurrent = properties.getProperty(prefix + "." + CONCURRENT);
+		String sequential = properties.getProperty(prefix + "." + SEQUENTIAL);
 
-		String concurrentMsg = properties.getProperty(prefix + ".concurrent.message");
-		String sequentialMsg = properties.getProperty(prefix + ".sequential.message");
+		String concurrentMsg = properties.getProperty(prefix + "." + CONCURRENT + "." + MESSAGE);
+		String sequentialMsg = properties.getProperty(prefix + "." + SEQUENTIAL + "." + MESSAGE);
 
-		List<String> concurrentLocations = getLocationsFromCSV(concurrent, ".list", properties);
-		List<String> sequentialLocations = getLocationsFromCSV(sequential, ".list", properties);
+		List<String> concurrentLocations = getLocationsFromCSV(concurrent, LIST_SUFFIX, properties);
+		List<String> sequentialLocations = getLocationsFromCSV(sequential, LIST_SUFFIX, properties);
 
 		validateExists(concurrentLocations);
 		validateExists(sequentialLocations);
 
-		String order = properties.getProperty(prefix + ".order");
+		String order = properties.getProperty(prefix + "." + ORDER);
 		if (order == null) {
-			order = "concurrent,sequential";
+			order = CONCURRENT + "," + SEQUENTIAL;
 		}
 		List<String> orderings = CollectionUtils.getTrimmedListFromCSV(order);
 		if (orderings.size() != ExecutionMode.values().length) {
