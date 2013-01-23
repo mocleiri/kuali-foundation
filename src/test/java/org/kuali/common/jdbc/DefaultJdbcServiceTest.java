@@ -72,6 +72,9 @@ public class DefaultJdbcServiceTest {
 
 	protected String getValue(String key) {
 		String original = properties.getProperty(key);
+		if (NullUtils.isNullOrNone(original)) {
+			return null;
+		}
 		String resolved = helper.replacePlaceholders(original, properties);
 		if (NullUtils.isNullOrNone(resolved)) {
 			return null;
@@ -147,6 +150,9 @@ public class DefaultJdbcServiceTest {
 		List<String> sequentialLocations = getLocationsFromCSV(sequential);
 
 		String order = getValue(prefix + ".order");
+		if (order == null) {
+			order = "concurrent,sequential";
+		}
 		List<String> orderings = CollectionUtils.getTrimmedListFromCSV(order);
 		if (orderings.size() != ExecutionMode.values().length) {
 			throw new IllegalArgumentException("Only valid values for ordering are " + ExecutionMode.CONCURRENT + " and " + ExecutionMode.SEQUENTIAL);
@@ -279,7 +285,7 @@ public class DefaultJdbcServiceTest {
 
 			int threads = new Integer(dataThreads);
 
-			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schemas", threads);
+			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schema", threads);
 			List<ExecutionContext> data = getYeOldeExecutionContexts("sql.data", threads);
 			List<ExecutionContext> constraints = getYeOldeExecutionContexts("sql.constraints", threads);
 
@@ -288,7 +294,7 @@ public class DefaultJdbcServiceTest {
 			contexts.addAll(data);
 			contexts.addAll(constraints);
 
-			boolean skip = Boolean.getBoolean("sql.skip") || true;
+			boolean skip = Boolean.getBoolean("sql.skip") || false;
 
 			JdbcService service = new DefaultJdbcService();
 			ExecutionContext dba = getDbaContext();
