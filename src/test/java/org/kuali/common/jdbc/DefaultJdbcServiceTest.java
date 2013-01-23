@@ -42,9 +42,9 @@ public class DefaultJdbcServiceTest {
 		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
-		Properties msgs = PropertyUtils.load("classpath:org/kuali/common/jdbc/service.properties");
+		Properties service = PropertyUtils.load("classpath:org/kuali/common/jdbc/service.properties");
 		Properties ole = PropertyUtils.load("classpath:ole-fs.properties");
-		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole, msgs);
+		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, ole, service);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
