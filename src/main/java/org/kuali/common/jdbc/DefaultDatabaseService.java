@@ -30,6 +30,7 @@ import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.nullify.NullUtils;
@@ -86,6 +87,9 @@ public class DefaultDatabaseService implements DatabaseService {
 			ec.setListener(getDefaultListener());
 			service.executeSql(ec);
 		}
+		logger.info("---------------- Database Completed ----------------");
+		logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
+		logger.info("---------------- Database Completed ----------------");
 	}
 
 	protected ExecutionContext getDbaContext(DatabaseResetContext context) {
