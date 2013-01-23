@@ -134,7 +134,101 @@ public class DefaultJdbcServiceTest {
 		return ec;
 	}
 
-	protected ExecutionContext getThreadSafeDDLContext() {
+	protected List<ExecutionContext> getYeOldeExecutionContexts(String prefix, String ccMsg, String seqMsg, int threads) {
+
+		String concurrent = getValue(prefix + ".concurrent");
+		String sequential = getValue(prefix + ".sequential");
+
+		List<String> concurrentLocations = getLocations(concurrent);
+		List<String> sequentialLocations = getLocations(sequential);
+
+		String order = getValue(prefix + ".order");
+		List<String> orderings = CollectionUtils.getTrimmedListFromCSV(order);
+		if (orderings.size() != ExecutionMode.values().length) {
+			throw new IllegalArgumentException("Only valid values for ordering are " + ExecutionMode.CONCURRENT + " and " + ExecutionMode.SEQUENTIAL);
+		}
+
+		ExecutionMode one = ExecutionMode.valueOf(orderings.get(0).toUpperCase());
+		ExecutionMode two = ExecutionMode.valueOf(orderings.get(1).toUpperCase());
+
+		if (one.equals(two)) {
+			throw new IllegalArgumentException(getInvalidOrderingMessage(order));
+		}
+
+		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
+		ExecutionContext context1 = new ExecutionContext();
+		ExecutionContext context2 = new ExecutionContext();
+
+		if (one.equals(ExecutionMode.CONCURRENT)) {
+			// Concurrent first, then sequential
+			context1.setMessage(ccMsg);
+			context1.setLocations(concurrentLocations);
+			context1.setThreads(threads);
+			context2.setMessage(seqMsg);
+			context2.setLocations(sequentialLocations);
+		} else {
+			// Sequential first, then concurrent
+			context1.setLocations(sequentialLocations);
+			context1.setMessage(seqMsg);
+			context2.setLocations(concurrentLocations);
+			context2.setThreads(threads);
+			context2.setMessage(ccMsg);
+		}
+
+		// Add the contexts to the list
+		contexts.add(context1);
+		contexts.add(context2);
+
+		// Return the list
+		return contexts;
+	}
+
+	protected String getInvalidOrderingMessage(String order) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Ordering [" + order + "] is invalid.  ");
+		sb.append("Ordering must be provided as either [" + ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL + "] or ");
+		sb.append("[" + ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL + "]");
+		return sb.toString();
+	}
+
+	protected List<String> getLocationsFromCSV(String csv) {
+		// Parse the CSV into a list
+		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
+
+		// Allocate some storage for the locations we find
+		List<String> locations = new ArrayList<String>();
+
+		// Iterate through the keys
+		for (String key : keys) {
+
+			// Extract the value associated with the key
+			String value = getValue(key);
+
+			// The properties file is not configured correctly
+			if (value == null) {
+				throw new IllegalArgumentException("Could not locate a value for [" + key + "]");
+			}
+
+			// This key has a value but has been explicitly configured to NONE
+			if (NullUtils.isNullOrNone(value)) {
+				continue;
+			}
+
+			// Are we dealing with a SQL file or a list of SQL files
+			if (StringUtils.endsWith(key, ".list")) {
+				// If the key we used to look up the value ends with ".list", the value is a resource containing a list of SQL locations
+				locations.addAll(LocationUtils.getLocations(value));
+			} else {
+				// Otherwise, it is a SQL location itself
+				locations.add(value);
+			}
+		}
+
+		// Return the locations we found
+		return locations;
+	}
+
+	protected ExecutionContext getThreadSafeDDLContext(String prefix) {
 
 		String csv = getValue("sql.schemas.concurrent");
 		List<String> properties = CollectionUtils.getTrimmedListFromCSV(csv);
@@ -176,16 +270,15 @@ public class DefaultJdbcServiceTest {
 			int threads = new Integer(dataThreads);
 
 			ExecutionContext dba = getDbaContext();
-			ExecutionContext schemas = getThreadSafeDDLContext(properties);
-			schemas.setMessage("Executing schema DDL");
-			ExecutionContext data1 = getThreadSafeDMLContext(Arrays.asList("sql.data.loc.list.1", "sql.data.loc.list.2"), threads);
-			data1.setMessage("Executing concurrent DML");
-			ExecutionContext data2 = getSequentialDMLContext(Arrays.asList("sql.data.loc.list.3"));
-			data2.setMessage("Executing sequential DML");
-			ExecutionContext constraints = getThreadSafeDDLContext("sql.constraints.loc");
-			constraints.setMessage("Executing constraints DDL");
+			List<ExecutionContext> schemas = getYeOldeExecutionContexts("sql.schema", "Executing schema DDL", "Execution schema DDL", threads);
+			List<ExecutionContext> data = getYeOldeExecutionContexts("sql.data", "Executing concurrent DML", "Executing sequential DML", threads);
+			List<ExecutionContext> constraints = getYeOldeExecutionContexts("sql.constraints", "Executing constraints DDL", "Executing constraints DDL", threads);
 
-			List<ExecutionContext> contexts = Arrays.asList(dba, schemas, data1, data2, constraints);
+			List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
+			contexts.add(dba);
+			contexts.addAll(schemas);
+			contexts.addAll(data);
+			contexts.addAll(constraints);
 
 			boolean skip = Boolean.getBoolean("sql.skip") || true;
 
