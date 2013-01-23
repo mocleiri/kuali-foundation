@@ -154,6 +154,7 @@ public class DefaultJdbcServiceTest {
 		ExecutionMode one = ExecutionMode.valueOf(orderings.get(0).toUpperCase());
 		ExecutionMode two = ExecutionMode.valueOf(orderings.get(1).toUpperCase());
 
+		// They can't be the same
 		if (one.equals(two)) {
 			throw new IllegalArgumentException(getInvalidOrderingMessage(order));
 		}
