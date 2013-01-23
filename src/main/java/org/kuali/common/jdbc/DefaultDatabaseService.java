@@ -15,14 +15,33 @@
  */
 package org.kuali.common.jdbc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
+import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.listener.LogSqlListener;
+import org.kuali.common.jdbc.listener.NotifyingListener;
+import org.kuali.common.jdbc.listener.ProgressListener;
+import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.listener.SummaryListener;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultDatabaseService implements DatabaseService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseService.class);
+	private static final String CONCURRENT = "concurrent";
+	private static final String SEQUENTIAL = "sequential";
+	private static final String MESSAGE = "message";
+	private static final String LIST_SUFFIX = ".list";
 
 	@Override
 	public void reset(DatabaseResetContext context) {
@@ -43,6 +62,171 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		logger.info("------------------------------------------------");
+
+		int threads = context.getThreads();
+		List<ExecutionContext> schemas = getExecutionContexts(context.getSchemaPropertyPrefix(), threads, context.getProperties());
+		List<ExecutionContext> data = getExecutionContexts(context.getDataPropertyPrefix(), threads, context.getProperties());
+		List<ExecutionContext> constraints = getExecutionContexts(context.getConstraintPropertyPrefix(), threads, context.getProperties());
+
+		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
+		contexts.addAll(schemas);
+		contexts.addAll(data);
+		contexts.addAll(constraints);
+
+		JdbcService service = new DefaultJdbcService();
+		ExecutionContext dba = getDbaContext(context);
+
+		long start = System.currentTimeMillis();
+		service.executeSql(dba);
+		for (ExecutionContext ec : contexts) {
+			ec.setEncoding(context.getEncoding());
+			ec.setReader(context.getReader());
+			ec.setJdbcContext(context.getNormalJdbcContext());
+			ec.setListener(getDefaultListener());
+			service.executeSql(ec);
+		}
+	}
+
+	protected ExecutionContext getDbaContext(DatabaseResetContext context) {
+		ExecutionContext ec = new ExecutionContext();
+		ec.setMessage("Executing DBA SQL");
+		ec.setJdbcContext(context.getDbaJdbcContext());
+		ec.setReader(context.getReader());
+		ec.setSql(Arrays.asList(context.getDbaSql()));
+		ec.setListener(getDbaListener());
+		return ec;
+	}
+
+	protected NotifyingListener getDefaultListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new ProgressListener());
+		listeners.add(new SummaryListener());
+		return new NotifyingListener(listeners);
+	}
+
+	protected List<String> getLocationsFromCSV(String csv, String listSuffixPattern, Properties properties) {
+		// Parse the CSV into a list
+		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
+
+		// Allocate some storage for the locations we find
+		List<String> locations = new ArrayList<String>();
+
+		// Iterate through the keys
+		for (String key : keys) {
+
+			// Extract the value associated with the key
+			String value = properties.getProperty(key);
+
+			// The properties file is not configured correctly
+			if (value == null) {
+				throw new IllegalArgumentException("Could not locate a value for [" + key + "]");
+			}
+
+			// This key has a value but has been explicitly configured to NONE
+			if (NullUtils.isNullOrNone(value)) {
+				continue;
+			}
+
+			// Are we dealing with a SQL file or a list of SQL files
+			if (StringUtils.endsWith(key, listSuffixPattern)) {
+				// If the key we used to look up the value ends with ".list", the value is a resource containing a list of SQL locations
+				locations.addAll(LocationUtils.getLocations(value));
+			} else {
+				// Otherwise, it is a SQL location itself
+				locations.add(value);
+			}
+		}
+
+		// Return the locations we found
+		return locations;
+	}
+
+	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads, Properties properties) {
+
+		String concurrent = properties.getProperty(prefix + ".concurrent");
+		String sequential = properties.getProperty(prefix + ".sequential");
+
+		String concurrentMsg = properties.getProperty(prefix + ".concurrent.message");
+		String sequentialMsg = properties.getProperty(prefix + ".sequential.message");
+
+		List<String> concurrentLocations = getLocationsFromCSV(concurrent, ".list", properties);
+		List<String> sequentialLocations = getLocationsFromCSV(sequential, ".list", properties);
+
+		validateExists(concurrentLocations);
+		validateExists(sequentialLocations);
+
+		String order = properties.getProperty(prefix + ".order");
+		if (order == null) {
+			order = "concurrent,sequential";
+		}
+		List<String> orderings = CollectionUtils.getTrimmedListFromCSV(order);
+		if (orderings.size() != ExecutionMode.values().length) {
+			throw new IllegalArgumentException("Only valid values for ordering are " + ExecutionMode.CONCURRENT + " and " + ExecutionMode.SEQUENTIAL);
+		}
+
+		ExecutionMode one = ExecutionMode.valueOf(orderings.get(0).toUpperCase());
+		ExecutionMode two = ExecutionMode.valueOf(orderings.get(1).toUpperCase());
+
+		// They can't be the same
+		if (one.equals(two)) {
+			throw new IllegalArgumentException(getInvalidOrderingMessage(order));
+		}
+
+		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
+		ExecutionContext context1 = new ExecutionContext();
+		ExecutionContext context2 = new ExecutionContext();
+
+		if (one.equals(ExecutionMode.CONCURRENT)) {
+			// Concurrent first, then sequential
+			context1.setLocations(concurrentLocations);
+			context1.setThreads(threads);
+			context1.setMessage(concurrentMsg);
+			context2.setLocations(sequentialLocations);
+			context2.setMessage(sequentialMsg);
+		} else {
+			// Sequential first, then concurrent
+			context1.setLocations(sequentialLocations);
+			context1.setMessage(sequentialMsg);
+			context2.setLocations(concurrentLocations);
+			context2.setMessage(concurrentMsg);
+			context2.setThreads(threads);
+		}
+
+		// Add context1 to the list (if it has any locations)
+		if (!CollectionUtils.isEmpty(context1.getLocations())) {
+			contexts.add(context1);
+		}
+
+		// Add context2 to the list (if it has any locations)
+		if (!CollectionUtils.isEmpty(context2.getLocations())) {
+			contexts.add(context2);
+		}
+
+		// Return the list
+		return contexts;
+	}
+
+	protected NotifyingListener getDbaListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new LogSqlListener());
+		listeners.add(new SummaryListener());
+		return new NotifyingListener(listeners);
+	}
+
+	protected void validateExists(List<String> locations) {
+		for (String location : locations) {
+			if (!LocationUtils.exists(location)) {
+				throw new IllegalArgumentException(location + " does not exist");
+			}
+		}
+	}
+
+	protected String getInvalidOrderingMessage(String order) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Ordering [" + order + "] is invalid.  ");
+		sb.append("Ordering must be provided as either [" + ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL + "] or ");
+		sb.append("[" + ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL + "]");
+		return sb.toString();
 	}
 
 }

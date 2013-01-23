@@ -18,7 +18,9 @@ package org.kuali.common.jdbc.context;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.DefaultJdbcService;
+import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcService;
+import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.SimpleFormatter;
 
 public class DatabaseResetContext {
@@ -30,10 +32,12 @@ public class DatabaseResetContext {
 
 	JdbcService service = new DefaultJdbcService();
 	SimpleFormatter formatter = new SimpleFormatter();
+	SqlReader reader = new DefaultSqlReader();
 	String locationListPattern = DEFAULT_LOCATION_LIST_PATTERN;
 	String schemaPropertyPrefix = DEFAULT_SCHEMA_PROPERTY_PREFIX;
 	String dataPropertyPrefix = DEFAULT_DATA_PROPERTY_PREFIX;
 	String constraintPropertyPrefix = DEFAULT_CONSTRAINT_PROPERTY_PREFIX;
+	int threads = 5;
 
 	String encoding;
 	Properties properties;
@@ -136,6 +140,22 @@ public class DatabaseResetContext {
 
 	public void setDbaSql(String dbaSql) {
 		this.dbaSql = dbaSql;
+	}
+
+	public SqlReader getReader() {
+		return reader;
+	}
+
+	public void setReader(SqlReader reader) {
+		this.reader = reader;
+	}
+
+	public int getThreads() {
+		return threads;
+	}
+
+	public void setThreads(int threads) {
+		this.threads = threads;
 	}
 
 }
