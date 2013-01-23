@@ -87,9 +87,9 @@ public class DefaultDatabaseService implements DatabaseService {
 			ec.setListener(getDefaultListener());
 			service.executeSql(ec);
 		}
-		logger.info("---------------- Database Completed ----------------");
+		logger.info("---------------- Database Reset Completed ----------------");
 		logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
-		logger.info("---------------- Database Completed ----------------");
+		logger.info("---------------- Database Reset Completed ----------------");
 	}
 
 	protected ExecutionContext getDbaContext(DatabaseResetContext context) {
