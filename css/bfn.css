@@ -2,7 +2,7 @@
 
 .thischanged
 {
-	color:#F00;
+	/*color:#F00;*/
 }
 
 .changedfieldsnote
@@ -14,3 +14,12 @@
 	border:1px solid #000;*/
 }
 
+.bluebackground
+{
+	background-image:url("../images/th-back1_blue.png");
+}
+
+.orangebackground
+{
+	background-image:url("../images/th-back1_orange.png");
+}
