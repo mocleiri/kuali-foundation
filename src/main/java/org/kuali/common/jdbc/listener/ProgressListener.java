@@ -48,6 +48,7 @@ public class ProgressListener implements SqlListener {
 		// Increment the counter
 		this.count++;
 
+		// Print a dot anytime we make 1% progress
 		int percentComplete = (int) ((count * 100) / total);
 		if (enoughProgress(percentComplete)) {
 			this.percentCompletePrevious = percentComplete;
