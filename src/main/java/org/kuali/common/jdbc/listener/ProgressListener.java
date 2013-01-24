@@ -5,6 +5,9 @@ import java.io.PrintStream;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 
+/**
+ * Print a dot to the console each time 1% of the SQL finishes executing
+ */
 public class ProgressListener implements SqlListener {
 
 	PrintStream out = System.out;
