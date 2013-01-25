@@ -27,8 +27,11 @@ public class LogSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecuteSql(String sql) {
-		String msg = (flatten) ? Str.flatten(sql) : sql;
-		LoggerUtils.logMsg("[" + msg + "]", logger, level);
+		String msg = sql;
+		if (flatten) {
+			msg = "[" + Str.flatten(sql) + "]";
+		}
+		LoggerUtils.logMsg(msg, logger, level);
 	}
 
 	@Override
