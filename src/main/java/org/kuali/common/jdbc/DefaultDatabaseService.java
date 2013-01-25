@@ -84,10 +84,10 @@ public class DefaultDatabaseService implements DatabaseService {
 			ec.setEncoding(context.getEncoding());
 			ec.setReader(context.getReader());
 			ec.setJdbcContext(context.getNormalJdbcContext());
-			ec.setListener(getDefaultListener());
+			ec.setListener(getDefaultListener(true));
+			ec.setExecute(false);
 			service.executeSql(ec);
 		}
-		logger.info("---------------- Database Reset Completed ----------------");
 		logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 		logger.info("---------------- Database Reset Completed ----------------");
 	}
@@ -102,10 +102,10 @@ public class DefaultDatabaseService implements DatabaseService {
 		return ec;
 	}
 
-	protected NotifyingListener getDefaultListener() {
+	protected NotifyingListener getDefaultListener(boolean showRate) {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new ProgressListener());
-		listeners.add(new SummaryListener());
+		listeners.add(new SummaryListener(showRate));
 		return new NotifyingListener(listeners);
 	}
 
@@ -214,7 +214,7 @@ public class DefaultDatabaseService implements DatabaseService {
 	protected NotifyingListener getDbaListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new LogSqlListener());
-		listeners.add(new SummaryListener());
+		listeners.add(new SummaryListener(false));
 		return new NotifyingListener(listeners);
 	}
 

@@ -12,6 +12,15 @@ public class SummaryListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(SummaryListener.class);
 
+	public SummaryListener() {
+		this(true);
+	}
+
+	public SummaryListener(boolean showRate) {
+		super();
+		this.showRate = showRate;
+	}
+
 	long startMillis;
 	long count;
 	long size;
