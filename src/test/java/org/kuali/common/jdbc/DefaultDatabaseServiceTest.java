@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
@@ -131,6 +132,7 @@ public class DefaultDatabaseServiceTest {
 	}
 
 	@Test
+	@Ignore
 	public void execute() {
 		try {
 			Properties original = loadProperties();
