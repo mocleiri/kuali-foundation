@@ -89,6 +89,7 @@ public class DefaultDatabaseService implements DatabaseService {
 
 		JdbcService service = new DefaultJdbcService();
 		ExecutionContext dba = getDbaContext(context);
+		dba.setExecute(context.isExecuteSql());
 
 		long start = System.currentTimeMillis();
 		service.executeSql(dba);
@@ -96,7 +97,7 @@ public class DefaultDatabaseService implements DatabaseService {
 			ec.setEncoding(context.getEncoding());
 			ec.setReader(context.getReader());
 			ec.setJdbcContext(context.getNormalJdbcContext());
-			ec.setExecute(false);
+			ec.setExecute(context.isExecuteSql());
 			service.executeSql(ec);
 		}
 		logger.info("------------------------------------------------------------------------");

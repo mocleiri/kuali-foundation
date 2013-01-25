@@ -38,6 +38,7 @@ public class DatabaseResetContext {
 	String dataPropertyPrefix = DEFAULT_DATA_PROPERTY_PREFIX;
 	String constraintPropertyPrefix = DEFAULT_CONSTRAINT_PROPERTY_PREFIX;
 	int threads = 5;
+	boolean executeSql = true;
 
 	String encoding;
 	Properties properties;
@@ -156,6 +157,14 @@ public class DatabaseResetContext {
 
 	public void setThreads(int threads) {
 		this.threads = threads;
+	}
+
+	public boolean isExecuteSql() {
+		return executeSql;
+	}
+
+	public void setExecuteSql(boolean executeSql) {
+		this.executeSql = executeSql;
 	}
 
 }
