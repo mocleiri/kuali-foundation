@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This listener will print statistics related to how the SQL is being divided up into different buckets for execution Only useful when
+ * This listener will print statistics related to how the SQL is being divided up into different buckets for execution. Only useful when
  * concurrent SQL execution is being performed.
  */
 public class BucketListener implements SqlListener {
@@ -45,7 +45,7 @@ public class BucketListener implements SqlListener {
 			argsList.add(args);
 		}
 		List<String> columns = Arrays.asList("Bucket", "SQL Count", "Sources", "Size");
-		LoggerUtils.logTable(columns, argsList, LoggerLevel.INFO, logger);
+		LoggerUtils.logTable(columns, argsList, level, logger);
 	}
 
 	@Override
