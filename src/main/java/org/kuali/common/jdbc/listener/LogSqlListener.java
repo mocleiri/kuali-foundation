@@ -50,4 +50,12 @@ public class LogSqlListener implements SqlListener {
 		this.level = level;
 	}
 
+	public boolean isFlatten() {
+		return flatten;
+	}
+
+	public void setFlatten(boolean flatten) {
+		this.flatten = flatten;
+	}
+
 }

@@ -34,6 +34,7 @@ import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
@@ -239,8 +240,11 @@ public class DefaultDatabaseService implements DatabaseService {
 	}
 
 	protected NotifyingListener getDbaListener() {
+		LogSqlListener lsl = new LogSqlListener();
+		lsl.setLevel(LoggerLevel.INFO);
+		lsl.setFlatten(true);
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(new LogSqlListener());
+		listeners.add(lsl);
 		listeners.add(new SummaryListener(false));
 		return new NotifyingListener(listeners);
 	}
