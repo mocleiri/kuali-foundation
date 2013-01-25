@@ -23,6 +23,9 @@ public class DefaultDatabaseServiceTest {
 	protected Properties loadProperties() {
 		String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
 		boolean mysqlRice = Boolean.getBoolean("mysql.rice");
+		if (mysqlRice) {
+			logger.info("Connecting to MySQL Rice");
+		}
 		Properties sql1 = PropertyUtils.load("classpath:org/kuali/common/sql/mysql.xml");
 		Properties sql2 = PropertyUtils.load("classpath:org/kuali/common/sql/oracle.xml");
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
