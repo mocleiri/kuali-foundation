@@ -62,4 +62,12 @@ public class NotifyingListener implements SqlListener {
 			listener.afterExecution(event);
 		}
 	}
+
+	public List<SqlListener> getListeners() {
+		return listeners;
+	}
+
+	public void setListeners(List<SqlListener> listeners) {
+		this.listeners = listeners;
+	}
 }

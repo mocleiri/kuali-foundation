@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.listener.BucketListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
@@ -130,7 +131,9 @@ public class DefaultDatabaseService implements DatabaseService {
 	}
 
 	protected NotifyingListener getDMLListener() {
-		return getDefaultListener(true);
+		NotifyingListener listener = getDefaultListener(true);
+		listener.getListeners().add(new BucketListener());
+		return listener;
 	}
 
 	protected List<String> getLocationsFromCSV(String csv, String listSuffixPattern, Properties properties) {

@@ -19,6 +19,11 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class DefaultDatabaseServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseServiceTest.class);
+	static {
+		System.setProperty("sql.execute", Boolean.FALSE.toString());
+		System.setProperty("kuali.db", "ole-fs");
+		System.setProperty("kuali.db", "ks-app-db");
+	}
 
 	protected Properties loadProperties() {
 		String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
@@ -137,7 +142,6 @@ public class DefaultDatabaseServiceTest {
 			nullify(normal);
 			DatabaseResetContext drc = new DatabaseResetContext();
 			drc.setExecuteSql(new Boolean(properties.getProperty("sql.execute")));
-			drc.setExecuteSql(false);
 			drc.setDatabaseProcessContext(dpc);
 			drc.setDbaJdbcContext(dba);
 			drc.setNormalJdbcContext(normal);
