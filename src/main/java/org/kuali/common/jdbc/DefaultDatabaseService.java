@@ -17,6 +17,7 @@ package org.kuali.common.jdbc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -48,7 +49,9 @@ public class DefaultDatabaseService implements DatabaseService {
 	@Override
 	public void reset(DatabaseResetContext context) {
 		DatabaseProcessContext dpc = context.getDatabaseProcessContext();
-		logger.info("---------------- Reset Database ----------------");
+		logger.info("------------------------------------------------------------------------");
+		logger.info("Reset Database - {}", context.getDatabaseProcessContext().getUrl());
+		logger.info("------------------------------------------------------------------------");
 		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("User - {}", LoggerUtils.getUsername(dpc.getUsername()));
@@ -63,7 +66,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("Driver Name - {}", metadata.getDriverName());
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
 		logger.info("SQL Encoding - {}", context.getEncoding());
-		logger.info("------------------------------------------------");
+		logger.info("------------------------------------------------------------------------");
 
 		int threads = context.getThreads();
 		List<ExecutionContext> schemas = getExecutionContexts(context.getSchemaPropertyPrefix(), threads, context.getProperties());
@@ -72,8 +75,17 @@ public class DefaultDatabaseService implements DatabaseService {
 
 		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
 		contexts.addAll(schemas);
+		for (ExecutionContext schema : schemas) {
+			schema.setListener(getDDLListener());
+		}
 		contexts.addAll(data);
+		for (ExecutionContext ec : data) {
+			ec.setListener(getDMLListener());
+		}
 		contexts.addAll(constraints);
+		for (ExecutionContext ec : constraints) {
+			ec.setListener(getDDLListener());
+		}
 
 		JdbcService service = new DefaultJdbcService();
 		ExecutionContext dba = getDbaContext(context);
@@ -84,12 +96,15 @@ public class DefaultDatabaseService implements DatabaseService {
 			ec.setEncoding(context.getEncoding());
 			ec.setReader(context.getReader());
 			ec.setJdbcContext(context.getNormalJdbcContext());
-			ec.setListener(getDefaultListener(true));
 			ec.setExecute(false);
 			service.executeSql(ec);
 		}
+		logger.info("------------------------------------------------------------------------");
+		logger.info("Database Reset Completed");
+		logger.info("------------------------------------------------------------------------");
 		logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
-		logger.info("---------------- Database Reset Completed ----------------");
+		logger.info("Finished at: {}", new Date());
+		logger.info("------------------------------------------------------------------------");
 	}
 
 	protected ExecutionContext getDbaContext(DatabaseResetContext context) {
@@ -107,6 +122,14 @@ public class DefaultDatabaseService implements DatabaseService {
 		listeners.add(new ProgressListener());
 		listeners.add(new SummaryListener(showRate));
 		return new NotifyingListener(listeners);
+	}
+
+	protected NotifyingListener getDDLListener() {
+		return getDefaultListener(false);
+	}
+
+	protected NotifyingListener getDMLListener() {
+		return getDefaultListener(true);
 	}
 
 	protected List<String> getLocationsFromCSV(String csv, String listSuffixPattern, Properties properties) {
