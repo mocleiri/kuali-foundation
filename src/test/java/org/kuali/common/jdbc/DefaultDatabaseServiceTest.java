@@ -21,12 +21,13 @@ public class DefaultDatabaseServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseServiceTest.class);
 	static {
 		System.setProperty("sql.execute", Boolean.TRUE.toString());
-		System.setProperty("kuali.db", "ole-fs");
 		System.setProperty("kuali.db", "ks-app-db");
+		System.setProperty("kuali.db", "ole-fs");
+		System.setProperty("db.vendor", "mysql");
 	}
 
 	protected Properties loadProperties() {
-		String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
+		String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
 		String application = System.getProperty("kuali.db") == null ? "ole-fs" : System.getProperty("kuali.db");
 		String execute = System.getProperty("sql.execute") == null ? "true" : System.getProperty("sql.execute");
 		boolean mysqlRice = Boolean.getBoolean("mysql.rice");
@@ -43,7 +44,7 @@ public class DefaultDatabaseServiceTest {
 		properties.setProperty("oracle.drop", properties.getProperty("oracle.killAndDrop.rds"));
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
-		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@10.118.69.74:1521:ORACLE");
+		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
 		properties.setProperty("sql.execute", execute);
