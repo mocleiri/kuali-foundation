@@ -22,6 +22,8 @@ public class DefaultDatabaseServiceTest {
 
 	protected Properties loadProperties() {
 		String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
+		String application = System.getProperty("kuali.app") == null ? "ole-fs" : System.getProperty("kuali-app");
+		String execute = System.getProperty("sql.execute") == null ? "true" : System.getProperty("sql.execute");
 		boolean mysqlRice = Boolean.getBoolean("mysql.rice");
 		if (mysqlRice) {
 			logger.info("Connecting to MySQL Rice");
@@ -31,14 +33,14 @@ public class DefaultDatabaseServiceTest {
 		Properties jdbc1 = PropertyUtils.load("classpath:org/kuali/common/jdbc/jdbc.properties");
 		Properties jdbc2 = PropertyUtils.load("classpath:org/kuali/common/deploy/jdbc.properties");
 		Properties service = PropertyUtils.load("classpath:org/kuali/common/jdbc/service.properties");
-		// Properties ole = PropertyUtils.load("classpath:ole-fs.properties");
-		Properties app = PropertyUtils.load("classpath:ks-app-db.properties");
+		Properties app = PropertyUtils.load("classpath:" + application + ".properties");
 		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, app, service);
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
+		properties.setProperty("sql.execute", execute);
 		if (mysqlRice) {
 			mysqlRice(properties);
 		} else {
@@ -134,6 +136,7 @@ public class DefaultDatabaseServiceTest {
 			nullify(dba);
 			nullify(normal);
 			DatabaseResetContext drc = new DatabaseResetContext();
+			drc.setExecuteSql(new Boolean(properties.getProperty("sql.execute")));
 			drc.setDatabaseProcessContext(dpc);
 			drc.setDbaJdbcContext(dba);
 			drc.setNormalJdbcContext(normal);
