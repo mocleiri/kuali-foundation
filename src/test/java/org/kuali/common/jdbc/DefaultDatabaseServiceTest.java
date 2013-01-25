@@ -22,7 +22,7 @@ public class DefaultDatabaseServiceTest {
 
 	protected Properties loadProperties() {
 		String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
-		String application = System.getProperty("kuali.app") == null ? "ole-fs" : System.getProperty("kuali-app");
+		String application = System.getProperty("kuali.db") == null ? "ole-fs" : System.getProperty("kuali.db");
 		String execute = System.getProperty("sql.execute") == null ? "true" : System.getProperty("sql.execute");
 		boolean mysqlRice = Boolean.getBoolean("mysql.rice");
 		if (mysqlRice) {
