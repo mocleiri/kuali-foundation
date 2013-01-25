@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class BucketListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(BucketListener.class);
-	LoggerLevel level = LoggerLevel.INFO;
+	LoggerLevel level = LoggerLevel.DEBUG;
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
