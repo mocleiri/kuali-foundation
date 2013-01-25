@@ -149,7 +149,7 @@ public class DefaultDatabaseServiceTest {
 			drc.setDbaJdbcContext(dba);
 			drc.setNormalJdbcContext(normal);
 			drc.setProperties(properties);
-			drc.setThreads(10);
+			drc.setThreads(5);
 			drc.setEncoding("UTF-8");
 			String dbaSql = properties.getProperty("sql.drop") + properties.getProperty("sql.create");
 			drc.setDbaSql(dbaSql);
