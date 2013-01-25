@@ -40,6 +40,7 @@ public class DefaultDatabaseServiceTest {
 		Properties service = PropertyUtils.load("classpath:org/kuali/common/jdbc/service.properties");
 		Properties app = PropertyUtils.load("classpath:" + application + ".properties");
 		Properties properties = PropertyUtils.combine(sql1, sql2, jdbc1, jdbc2, app, service);
+		properties.setProperty("oracle.drop", properties.getProperty("oracle.killAndDrop.rds"));
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
 		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
