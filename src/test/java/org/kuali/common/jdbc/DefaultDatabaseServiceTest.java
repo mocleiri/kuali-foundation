@@ -3,6 +3,7 @@ package org.kuali.common.jdbc;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.Test;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
@@ -57,17 +58,15 @@ public class DefaultDatabaseServiceTest {
 			String resolvedValue = helper.replacePlaceholders(originalValue, properties);
 			newProperties.setProperty(key, resolvedValue);
 		}
-		return new Properties();
+		return newProperties;
 	}
 
-	public static void main(String[] args) {
-		new DefaultDatabaseServiceTest().execute(args);
-	}
-
-	protected void execute(String[] args) {
+	@Test
+	public void execute() {
 		try {
 			Properties original = loadProperties();
 			Properties properties = getResolvedProperties(original);
+			PropertyUtils.info(properties);
 			logger.info("db.vendor=" + properties.getProperty("db.vendor"));
 		} catch (Throwable e) {
 			e.printStackTrace();
