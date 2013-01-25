@@ -43,7 +43,7 @@ public class DefaultDatabaseServiceTest {
 		properties.setProperty("oracle.drop", properties.getProperty("oracle.killAndDrop.rds"));
 		properties.setProperty("db.vendor", vendor);
 		properties.setProperty("jdbc.username", "JDBCTEST");
-		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
+		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@10.118.69.74:1521:ORACLE");
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
 		properties.setProperty("sql.execute", execute);
