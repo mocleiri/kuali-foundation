@@ -1,13 +1,19 @@
 package org.kuali.common.jdbc;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.junit.Test;
+import org.kuali.common.jdbc.context.DatabaseProcessContext;
+import org.kuali.common.jdbc.context.DatabaseResetContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.nullify.DefaultBeanNullifier;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultDatabaseServiceTest {
@@ -61,13 +67,79 @@ public class DefaultDatabaseServiceTest {
 		return newProperties;
 	}
 
+	protected DatabaseProcessContext getDatbaseProcessContext(Properties p) {
+		DatabaseProcessContext dpc = new DatabaseProcessContext();
+		dpc.setDbaPassword(p.getProperty("jdbc.dba.password"));
+		dpc.setDbaUsername(p.getProperty("jdbc.dba.username"));
+		dpc.setPassword(p.getProperty("jdbc.password"));
+		dpc.setUsername(p.getProperty("jdbc.username"));
+		dpc.setDriver(p.getProperty("jdbc.driver"));
+		dpc.setVendor(p.getProperty("jdbc.vendor"));
+		dpc.setUrl(p.getProperty("jdbc.url"));
+		dpc.setDbaUrl(p.getProperty("jdbc.dba.url"));
+		dpc.setVendor(p.getProperty("db.vendor"));
+		return dpc;
+	}
+
+	protected JdbcContext getDba(Properties p) {
+		String url = p.getProperty("jdbc.dba.url");
+		String driver = p.getProperty("jdbc.driver");
+		String username = p.getProperty("jdbc.dba.username");
+		String password = p.getProperty("jdbc.dba.password");
+
+		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, username, password);
+		dataSource.setDriverClassName(driver);
+
+		JdbcContext context = new JdbcContext();
+		context.setDataSource(dataSource);
+		return context;
+	}
+
+	protected JdbcContext getNormal(Properties p) {
+
+		String url = p.getProperty("jdbc.url");
+		String driver = p.getProperty("jdbc.driver");
+		String username = p.getProperty("jdbc.username");
+		String password = p.getProperty("jdbc.password");
+
+		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, username, password);
+		dataSource.setDriverClassName(driver);
+
+		JdbcContext context = new JdbcContext();
+		context.setDataSource(dataSource);
+		return context;
+	}
+
+	protected void nullify(JdbcContext context) {
+		DriverManagerDataSource dmds = (DriverManagerDataSource) context.getDataSource();
+		DefaultBeanNullifier nullifier = new DefaultBeanNullifier();
+		nullifier.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
+		nullifier.setProperties(Arrays.asList("password"));
+		nullifier.setBean(dmds);
+		nullifier.nullify();
+	}
+
 	@Test
 	public void execute() {
 		try {
 			Properties original = loadProperties();
 			Properties properties = getResolvedProperties(original);
-			PropertyUtils.info(properties);
-			logger.info("db.vendor=" + properties.getProperty("db.vendor"));
+			DatabaseProcessContext dpc = getDatbaseProcessContext(properties);
+			JdbcContext dba = getDba(properties);
+			JdbcContext normal = getNormal(properties);
+			nullify(dba);
+			nullify(normal);
+			DatabaseResetContext drc = new DatabaseResetContext();
+			drc.setDatabaseProcessContext(dpc);
+			drc.setDbaJdbcContext(dba);
+			drc.setNormalJdbcContext(normal);
+			drc.setProperties(properties);
+			drc.setEncoding("UTF-8");
+			String dbaSql = properties.getProperty("sql.drop") + properties.getProperty("sql.create");
+			drc.setDbaSql(dbaSql);
+			DatabaseService service = new DefaultDatabaseService();
+			service.reset(drc);
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -16,6 +16,7 @@ public class SummaryListener implements SqlListener {
 	long count;
 	long size;
 	LoggerLevel loggerLevel = LoggerLevel.INFO;
+	boolean showRate = true;
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
@@ -53,7 +54,20 @@ public class SummaryListener implements SqlListener {
 		String size = FormatUtils.getSize(this.size);
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
-		Object[] args = { count, sources, size, time, rate };
-		LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args, logger, loggerLevel);
+		if (showRate) {
+			Object[] args = { count, sources, size, time, rate };
+			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args, logger, loggerLevel);
+		} else {
+			Object[] args = { count, sources, size, time, rate };
+			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}]", args, logger, loggerLevel);
+		}
+	}
+
+	public boolean isShowRate() {
+		return showRate;
+	}
+
+	public void setShowRate(boolean showRate) {
+		this.showRate = showRate;
 	}
 }
