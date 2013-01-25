@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
@@ -21,13 +20,13 @@ public class DefaultDatabaseServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseServiceTest.class);
 	static {
-		System.setProperty("sql.execute", Boolean.FALSE.toString());
+		System.setProperty("sql.execute", Boolean.TRUE.toString());
 		System.setProperty("kuali.db", "ole-fs");
 		System.setProperty("kuali.db", "ks-app-db");
 	}
 
 	protected Properties loadProperties() {
-		String vendor = System.getProperty("db.vendor") == null ? "mysql" : System.getProperty("db.vendor");
+		String vendor = System.getProperty("db.vendor") == null ? "oracle" : System.getProperty("db.vendor");
 		String application = System.getProperty("kuali.db") == null ? "ole-fs" : System.getProperty("kuali.db");
 		String execute = System.getProperty("sql.execute") == null ? "true" : System.getProperty("sql.execute");
 		boolean mysqlRice = Boolean.getBoolean("mysql.rice");
@@ -132,7 +131,7 @@ public class DefaultDatabaseServiceTest {
 	}
 
 	@Test
-	@Ignore
+	// @Ignore
 	public void execute() {
 		try {
 			Properties original = loadProperties();
