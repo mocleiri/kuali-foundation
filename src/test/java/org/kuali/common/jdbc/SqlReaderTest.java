@@ -31,6 +31,26 @@ public class SqlReaderTest {
 	final Logger logger = LoggerFactory.getLogger(SqlReaderTest.class);
 
 	@Test
+	public void mySQLDumpTest() throws IOException {
+		try {
+			DefaultSqlReader sqlReader = new DefaultSqlReader();
+			sqlReader.setDelimiter(";");
+			sqlReader.setDelimiterMode(DelimiterMode.END_OF_LINE);
+			sqlReader.setIgnoreComments(false);
+			sqlReader.setTrim(false);
+
+			BufferedReader reader = LocationUtils.getBufferedReader("classpath:mysqldump.sql");
+			String sql = sqlReader.getSqlStatement(reader);
+			while (sql != null) {
+				logger.info(sql);
+				sql = sqlReader.getSqlStatement(reader);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void simpleWayToBreakThingsTest() throws IOException {
 		SqlReader sqlReader = new DefaultSqlReader();
 		BufferedReader reader = LocationUtils.getBufferedReaderFromString(getSql4());
