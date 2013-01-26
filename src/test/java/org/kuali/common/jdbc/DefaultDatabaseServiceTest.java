@@ -38,6 +38,7 @@ public class DefaultDatabaseServiceTest {
 		System.setProperty("sql.execute", Boolean.TRUE.toString());
 		System.setProperty("kuali.db", "ole-fs");
 		System.setProperty("kuali.db", "ks-app-db");
+		System.setProperty("kuali.db", "ks-with-rice-bundled");
 		System.setProperty("db.vendor", "mysql");
 	}
 
