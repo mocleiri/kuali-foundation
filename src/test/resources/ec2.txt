@@ -1,0 +1,13 @@
+Instance Id = i-69f3c318
+Volume Id = vol-e8571396
+Root Volume:  /dev/sda1
+
+ec2-stop-instances i-69f3c318
+ec2-detach-volume vol-e8571396
+ec2-create-snapshot vol-e8571396
+ec2-describe-snapshots snap-1213ff53
+ec2-create-volume --availability-zone us-east-1d  --size 100 --snapshot snap-1213ff53
+ec2-describe-volumes vol-6f343611
+ec2-attach-volume --instance i-69f3c318 --device /dev/sda1 vol-6f343611
+ec2-start-instances i-69f3c318
+resize2fs /dev/sda1
