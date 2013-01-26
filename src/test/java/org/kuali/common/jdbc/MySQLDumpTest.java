@@ -41,6 +41,7 @@ public class MySQLDumpTest {
 		System.setProperty("kuali.db", "ks-app-db");
 		System.setProperty("kuali.db", "ole-fs");
 		System.setProperty("kuali.db", "ks-with-rice-bundled");
+		System.setProperty("kuali.db", "mysqldump");
 		System.setProperty("db.vendor", "mysql");
 	}
 
