@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import org.junit.Test;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
@@ -140,11 +142,11 @@ public class DefaultDatabaseServiceTest {
 	}
 
 	protected void nullify(JdbcContext context) {
-		DriverManagerDataSource dmds = (DriverManagerDataSource) context.getDataSource();
+		DataSource ds = context.getDataSource();
 		DefaultBeanNullifier nullifier = new DefaultBeanNullifier();
 		nullifier.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
 		nullifier.setProperties(Arrays.asList("password"));
-		nullifier.setBean(dmds);
+		nullifier.setBean(ds);
 		nullifier.nullify();
 	}
 
