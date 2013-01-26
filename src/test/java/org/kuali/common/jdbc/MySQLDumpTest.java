@@ -161,12 +161,17 @@ public class MySQLDumpTest {
 			JdbcContext normal = getNormal(properties);
 			nullify(dba);
 			nullify(normal);
+			DefaultSqlReader reader = new DefaultSqlReader();
+			reader.setDelimiterMode(DelimiterMode.END_OF_LINE);
+			reader.setDelimiter(";");
+			reader.setIgnoreComments(false);
 			DatabaseResetContext drc = new DatabaseResetContext();
 			drc.setExecuteSql(new Boolean(properties.getProperty("sql.execute")));
 			drc.setDatabaseProcessContext(dpc);
 			drc.setDbaJdbcContext(dba);
 			drc.setNormalJdbcContext(normal);
 			drc.setProperties(properties);
+			drc.setReader(reader);
 			drc.setThreads(5);
 			drc.setEncoding("UTF-8");
 			String dbaSql = properties.getProperty("sql.drop") + properties.getProperty("sql.create");
