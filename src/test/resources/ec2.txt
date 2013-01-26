@@ -11,3 +11,17 @@ ec2-describe-volumes vol-6f343611
 ec2-attach-volume --instance i-69f3c318 --device /dev/sda1 vol-6f343611
 ec2-start-instances i-69f3c318
 resize2fs /dev/sda1
+
+
+yum install mysql
+yum install mysql-server
+
+vi /etc/my.cnf
+
+[mysqld]
+max_allowed_packet=20M
+transaction-isolation=READ-COMMITTED
+lower_case_table_names=1
+max_connections=1000
+
+/etc/init.d/mysqld restart
