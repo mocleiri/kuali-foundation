@@ -12,7 +12,6 @@ ec2-attach-volume --instance i-69f3c318 --device /dev/sda1 vol-6f343611
 ec2-start-instances i-69f3c318
 resize2fs /dev/sda1
 
-
 yum install mysql
 yum install mysql-server
 
