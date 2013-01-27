@@ -36,8 +36,6 @@ public class DefaultSqlReaderTest {
 			DefaultSqlReader sqlReader = new DefaultSqlReader();
 			sqlReader.setDelimiter(";");
 			sqlReader.setDelimiterMode(DelimiterMode.END_OF_LINE);
-			sqlReader.setIgnoreComments(true);
-			sqlReader.setTrim(false);
 
 			BufferedReader reader = LocationUtils.getBufferedReader("classpath:mysqldump.sql");
 			String sql = sqlReader.getSqlStatement(reader);

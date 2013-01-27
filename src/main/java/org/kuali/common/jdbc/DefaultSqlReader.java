@@ -45,7 +45,10 @@ public class DefaultSqlReader implements SqlReader {
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
-		while (proceed(line, trimmedLine, delimiter, delimiterMode)) {
+		while (line != null) {
+			if (isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode)) {
+				return getReturnValue(sb.toString() + line, trim, lineSeparator);
+			}
 			if (!ignore(ignoreComments, sb, trimmedLine, commentTokens)) {
 				sb.append(line + lineSeparator.getValue());
 			}
@@ -81,11 +84,22 @@ public class DefaultSqlReader implements SqlReader {
 	}
 
 	protected boolean proceed(String line, String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
-		return line != null && !isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode);
+		if (line == null) {
+			return false;
+		}
+		boolean endOfSqlStatement = isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode);
+		return !endOfSqlStatement;
 	}
 
 	protected boolean ignore(boolean ignoreComments, StringBuilder sql, String trimmedLine, List<String> commentTokens) {
-		return ignoreComments && StringUtils.isBlank(sql.toString()) && isSqlComment(trimmedLine, commentTokens);
+		if (!ignoreComments) {
+			return false;
+		}
+		if (!StringUtils.isBlank(sql.toString())) {
+			return false;
+		}
+		boolean isComment = isSqlComment(trimmedLine, commentTokens);
+		return isComment;
 	}
 
 	protected boolean isSqlComment(String trimmedLine, List<String> commentTokens) {
