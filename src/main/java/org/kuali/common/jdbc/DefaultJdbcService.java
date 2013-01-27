@@ -258,7 +258,6 @@ public class DefaultJdbcService implements JdbcService {
 	protected void executeLocation(Connection conn, Statement statement, ExecutionContext context, String location) {
 		BufferedReader in = null;
 		try {
-			logger.info("Loading [{}]", location);
 			in = LocationUtils.getBufferedReader(location, context.getEncoding());
 			executeSql(conn, statement, context, in);
 		} catch (Exception e) {
