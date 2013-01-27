@@ -67,6 +67,9 @@ public class DefaultSqlReader implements SqlReader {
 		} else if (StringUtils.endsWith(sql, lineSeparator.getValue())) {
 			int endIndex = sql.length() - lineSeparator.getValue().length();
 			return StringUtils.substring(sql, 0, endIndex);
+		} else if (StringUtils.endsWith(sql, delimiter)) {
+			int endIndex = sql.length() - delimiter.length();
+			return StringUtils.substring(sql, 0, endIndex);
 		} else {
 			return sql;
 		}
