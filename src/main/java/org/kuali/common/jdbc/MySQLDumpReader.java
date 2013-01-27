@@ -31,15 +31,24 @@ public class MySQLDumpReader extends DefaultSqlReader {
 		String trimmedLine = StringUtils.trimToNull(line);
 
 		while (line != null) {
+			// Empty line, ignore
 			if (trimmedLine == null) {
 				continue;
 			}
+			// SQL comment, ignore
+			// Note this only ignores lines that start with -- and #
+			// mysqldump puts pseudo comments that are actually executable SQL in the dump file
+			// For example:
+			// /*!40103 SET TIME_ZONE='+00:00' */;
+			// This allows those type of pseudo-comments to pass through as is
 			if (isSqlComment(trimmedLine, commentTokens)) {
 				continue;
 			}
+			// The line is terminated with a semi-colon. It is an executable SQL statement
 			if (StringUtils.endsWith(line, delimiter)) {
 				return line;
 			}
+			// Move to the next line
 			line = reader.readLine();
 			trimmedLine = StringUtils.trimToNull(line);
 		}
