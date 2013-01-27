@@ -26,9 +26,9 @@ import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SqlReaderTest {
+public class DefaultSqlReaderTest {
 
-	final Logger logger = LoggerFactory.getLogger(SqlReaderTest.class);
+	final Logger logger = LoggerFactory.getLogger(DefaultSqlReaderTest.class);
 
 	@Test
 	public void mySQLDumpTest() throws IOException {
