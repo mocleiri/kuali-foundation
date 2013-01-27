@@ -33,9 +33,7 @@ public class DefaultSqlReaderTest {
 	@Test
 	public void mySQLDumpTest() throws IOException {
 		try {
-			DefaultSqlReader sqlReader = new DefaultSqlReader();
-			sqlReader.setDelimiter(";");
-			sqlReader.setDelimiterMode(DelimiterMode.END_OF_LINE);
+			SqlReader sqlReader = new MySQLDumpReader();
 
 			BufferedReader reader = LocationUtils.getBufferedReader("classpath:mysqldump.sql");
 			String sql = sqlReader.getSqlStatement(reader);

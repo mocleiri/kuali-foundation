@@ -27,10 +27,14 @@ public class MySQLDumpReader extends DefaultSqlReader {
 	@Override
 	public String getSqlStatement(BufferedReader reader) throws IOException {
 		Assert.notNull(delimiter, "delimiter is null");
-		String line = reader.readLine();
-		String trimmedLine = StringUtils.trimToNull(line);
 
-		while (line != null) {
+		for (;;) {
+			String line = reader.readLine();
+			String trimmedLine = StringUtils.trimToNull(line);
+			// EOF, we are done
+			if (line == null) {
+				break;
+			}
 			// Empty line, ignore
 			if (trimmedLine == null) {
 				continue;
@@ -48,9 +52,6 @@ public class MySQLDumpReader extends DefaultSqlReader {
 			if (StringUtils.endsWith(line, delimiter)) {
 				return line;
 			}
-			// Move to the next line
-			line = reader.readLine();
-			trimmedLine = StringUtils.trimToNull(line);
 		}
 		return null;
 	}
