@@ -163,7 +163,7 @@ public class MySQLDumpTest {
 			nullify(dba);
 			nullify(normal);
 			DatabaseResetContext drc = new DatabaseResetContext();
-			drc.setExecuteSql(new Boolean(properties.getProperty("sql.execute")));
+			drc.setExecuteSql(false);
 			drc.setDatabaseProcessContext(dpc);
 			drc.setDbaJdbcContext(dba);
 			drc.setNormalJdbcContext(normal);
