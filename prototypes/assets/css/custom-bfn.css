@@ -1,0 +1,26 @@
+#content {
+   min-height: 600px;
+}
+
+#sidebar > ul ul li {
+    padding-left: 35px;
+}
+
+#sidebar > ul ul li a {
+    color: #777777;
+    display: block;
+    padding: 6px 0 6px 15px;
+}
+
+#sidebar > ul ul li.active > a {
+    background: url("../img/leftnav-active.png") no-repeat scroll right center #1b1b1b !important;
+}
+
+#sidebar > ul ul li a:hover {
+    background-color: #4A4A4A;
+}
+
+#sidebar > ul > li.nopointer > a {
+	background-image:none;
+	background-color:#000;
+}
