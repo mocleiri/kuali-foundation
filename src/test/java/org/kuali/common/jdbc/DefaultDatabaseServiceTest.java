@@ -38,10 +38,10 @@ public class DefaultDatabaseServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseServiceTest.class);
 	static {
 		System.setProperty("sql.execute", Boolean.TRUE.toString());
-		System.setProperty("kuali.db", "ks-app-db");
 		System.setProperty("kuali.db", "ole-fs");
 		System.setProperty("kuali.db", "ks-with-rice-bundled");
-		System.setProperty("db.vendor", "mysql");
+		System.setProperty("kuali.db", "ks-app-db");
+		System.setProperty("db.vendor", "oracle");
 	}
 
 	protected Properties loadProperties() {
