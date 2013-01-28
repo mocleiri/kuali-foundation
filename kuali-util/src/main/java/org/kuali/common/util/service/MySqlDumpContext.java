@@ -5,16 +5,16 @@ import java.util.List;
 
 public class MySqlDumpContext {
 
+	String skipLinePrefix;
+	String skipLineSuffix;
 	String executable = MySqlDumpService.DEFAULT_EXECUTABLE;
-	int port = MySqlDumpService.DEFAULT_PORT;
-	String skipLinePrefix = MySqlDumpService.SKIP_LINE_PREFIX;
-	String skipLineSuffix = MySqlDumpService.SKIP_LINE_SUFFIX;
 	String username;
 	String password;
 	String hostname;
+	int port = MySqlDumpService.DEFAULT_PORT;
+	List<String> options;
 	String database;
 	List<String> tables;
-	List<String> options;
 	File outputFile;
 
 	public String getUsername() {

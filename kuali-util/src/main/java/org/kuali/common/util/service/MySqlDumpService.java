@@ -14,6 +14,6 @@ public interface MySqlDumpService extends ExecService {
 
 	void dump(String username, String password, String hostname, String database, File outputFile);
 
-	void dump(List<String> options, File outputFile);
+	void dump(List<String> options, String database, File outputFile);
 
 }

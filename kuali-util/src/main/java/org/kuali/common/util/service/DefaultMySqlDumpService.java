@@ -22,8 +22,8 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	public void dump(MySqlDumpContext context) {
 		Assert.notNull(context.getDatabase(), "database is null");
 		Assert.notNull(context.getOutputFile(), "output file is null");
-		List<String> args = getMySqlDumpArgs(context);
-		ExecContext ec = getExecContext(context.getExecutable(), args, context.getOutputFile());
+		List<String> options = getOptions(context);
+		ExecContext ec = getExecContext(context.getExecutable(), options, context.getOutputFile());
 		logDump(context);
 		dump(ec, context.getOutputFile());
 	}
@@ -51,8 +51,8 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	}
 
 	@Override
-	public void dump(List<String> args, File outputFile) {
-		ExecContext context = getExecContext(DEFAULT_EXECUTABLE, args, outputFile);
+	public void dump(List<String> options, String database, File outputFile) {
+		ExecContext context = getExecContext(DEFAULT_EXECUTABLE, options, outputFile);
 		dump(context, outputFile);
 	}
 
@@ -70,37 +70,31 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
 	}
 
-	protected ExecContext getExecContext(String executable, List<String> args, File outputFile) {
+	protected ExecContext getExecContext(String executable, List<String> options, File outputFile) {
 		PrintStream out = LocationUtils.openPrintStream(outputFile);
 		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
 		DefaultExecContext context = new DefaultExecContext();
 		context.setExecutable(executable);
-		context.setArgs(args);
+		context.setArgs(options);
 		context.setStandardOutConsumer(standardOutConsumer);
 		return context;
 	}
 
-	protected List<String> getMySqlDumpArgs(MySqlDumpContext context) {
-		List<String> args = new ArrayList<String>();
+	protected List<String> getOptions(MySqlDumpContext context) {
+		List<String> options = new ArrayList<String>();
 		if (!StringUtils.isBlank(context.getUsername())) {
-			args.add("--user=" + context.getUsername());
+			options.add("--user=" + context.getUsername());
 		}
 		if (!StringUtils.isBlank(context.getPassword())) {
-			args.add("--password=" + context.getPassword());
+			options.add("--password=" + context.getPassword());
 		}
 		if (!StringUtils.isBlank(context.getHostname())) {
-			args.add("--host=" + context.getHostname());
+			options.add("--host=" + context.getHostname());
 		}
-		args.add("--port=" + context.getPort());
+		options.add("--port=" + context.getPort());
 		for (String option : CollectionUtils.toEmptyList(context.getOptions())) {
-			args.add(option);
+			options.add(option);
 		}
-		if (!StringUtils.isBlank(context.getDatabase())) {
-			args.add(context.getDatabase());
-		}
-		for (String table : CollectionUtils.toEmptyList(context.getTables())) {
-			args.add(table);
-		}
-		return args;
+		return options;
 	}
 }
