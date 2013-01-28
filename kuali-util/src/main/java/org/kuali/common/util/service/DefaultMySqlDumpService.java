@@ -34,7 +34,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	}
 
 	@Override
-    public void dump(List<String> args, File outputFile) {
+	public void dump(List<String> args, File outputFile) {
 		ExecContext context = getExecContext(DEFAULT_EXECUTABLE, args, outputFile);
 		dump(context);
 	}
@@ -49,11 +49,11 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	protected ExecContext getExecContext(String executable, List<String> args, File outputFile) {
 		PrintStream out = LocationUtils.openPrintStream(outputFile);
 		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
-		DefaultExecContext ec = new DefaultExecContext();
-		ec.setExecutable(executable);
-		ec.setArgs(args);
-		ec.setStandardOutConsumer(standardOutConsumer);
-		return ec;
+		DefaultExecContext context = new DefaultExecContext();
+		context.setExecutable(executable);
+		context.setArgs(args);
+		context.setStandardOutConsumer(standardOutConsumer);
+		return context;
 	}
 
 	protected List<String> getMySqlDumpArgs(MySqlDumpContext context) {
