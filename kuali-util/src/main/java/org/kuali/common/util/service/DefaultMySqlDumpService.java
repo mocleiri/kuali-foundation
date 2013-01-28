@@ -73,16 +73,18 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	protected List<String> getMySqlDumpArgs(MySqlDumpContext context) {
 		List<String> args = new ArrayList<String>();
 		if (!StringUtils.isBlank(context.getUsername())) {
-			args.add("--username");
+			args.add("--username=");
 			args.add(context.getUsername());
 		}
 		if (!StringUtils.isBlank(context.getPassword())) {
-			args.add("--password" + context.getPassword());
+			args.add("--password=" + context.getPassword());
 		}
 		if (!StringUtils.isBlank(context.getHostname())) {
-			args.add("--host");
+			args.add("--host=");
 			args.add(context.getHostname());
 		}
+		args.add("--port=");
+		args.add(context.getPort() + "");
 		if (!StringUtils.isBlank(context.getDatabase())) {
 			args.add(context.getDatabase());
 		}

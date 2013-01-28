@@ -1,6 +1,7 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
+import java.util.List;
 
 public class MySqlDumpContext {
 
@@ -10,6 +11,8 @@ public class MySqlDumpContext {
 	String password;
 	String hostname;
 	String database;
+	List<String> tables;
+	List<String> options;
 	File outputFile;
 
 	public String getUsername() {
@@ -66,6 +69,22 @@ public class MySqlDumpContext {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public List<String> getTables() {
+		return tables;
+	}
+
+	public void setTables(List<String> tables) {
+		this.tables = tables;
+	}
+
+	public List<String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<String> options) {
+		this.options = options;
 	}
 
 }
