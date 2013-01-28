@@ -49,6 +49,7 @@ public class DefaultDatabaseServiceTest {
 		String application = System.getProperty("kuali.db") == null ? "ole-fs" : System.getProperty("kuali.db");
 		String execute = System.getProperty("sql.execute") == null ? "true" : System.getProperty("sql.execute");
 		boolean mysqlRice = Boolean.getBoolean("mysql.rice");
+		boolean ksperf = Boolean.getBoolean("ks.perf");
 		if (mysqlRice) {
 			logger.info("Connecting to MySQL Rice");
 		}
@@ -66,6 +67,9 @@ public class DefaultDatabaseServiceTest {
 		properties.setProperty("oracle.dba.username", "master");
 		properties.setProperty("oracle.dba.password", "gw570229");
 		properties.setProperty("sql.execute", execute);
+		if (ksperf) {
+			ksperf(properties);
+		}
 		if (mysqlRice) {
 			mysqlRice(properties);
 		} else {
@@ -78,6 +82,12 @@ public class DefaultDatabaseServiceTest {
 		properties.setProperty("mysql.dba.url", "jdbc:mysql://localhost");
 		properties.setProperty("mysql.dba.username", "root");
 		properties.setProperty("mysql.dba.password", "NONE");
+	}
+
+	protected void ksperf(Properties properties) {
+		properties.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oraperf.ks.kuali.org:1521:ORAPERF");
+		properties.setProperty("oracle.dba.username", "master");
+		properties.setProperty("oracle.dba.password", "gw570229");
 	}
 
 	protected void mysqlRice(Properties properties) {
