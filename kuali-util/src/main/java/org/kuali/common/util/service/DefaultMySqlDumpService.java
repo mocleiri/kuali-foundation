@@ -19,12 +19,12 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		Assert.notNull(context.getDatabase(), "database is null");
 		touch(context.getOutputFile());
 		List<String> args = getMySqlDumpArgs(context);
+		PrintStream out = getPrintStream(context.getOutputFile());
+		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
 		DefaultExecContext ec = new DefaultExecContext();
 		ec.setExecutable(context.getExecutable());
 		ec.setArgs(args);
-		PrintStream out = getPrintStream(context.getOutputFile());
-		PrintlnStreamConsumer psc = new PrintlnStreamConsumer(out);
-		ec.setStandardOutConsumer(psc);
+		ec.setStandardOutConsumer(standardOutConsumer);
 		int result = execute(ec);
 		if (result != 0) {
 			throw new IllegalStateException("Non-zero exit value - " + result);
@@ -32,7 +32,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	}
 
 	@Override
-    public void dump(String username, String password, String hostname, String database, File outputFile) {
+	public void dump(String username, String password, String hostname, String database, File outputFile) {
 		MySqlDumpContext context = new MySqlDumpContext();
 		context.setUsername(username);
 		context.setPassword(password);
