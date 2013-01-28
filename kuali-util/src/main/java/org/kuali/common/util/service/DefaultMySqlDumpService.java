@@ -19,17 +19,6 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	private static final Logger logger = LoggerFactory.getLogger(DefaultMySqlDumpService.class);
 
 	@Override
-	public void dump(MySqlDumpContext context) {
-		Assert.notNull(context.getDatabase(), "database is null");
-		Assert.notNull(context.getOutputFile(), "output file is null");
-		Assert.notNull(context.getExecutable(), "executable is null");
-		fillInOptions(context);
-		ExecContext ec = getExecContext(context);
-		log(context);
-		dump(ec, context.getOutputFile());
-	}
-
-	@Override
 	public void dump(String username, String password, String hostname, String database, File outputFile) {
 		MySqlDumpContext context = new MySqlDumpContext();
 		context.setExecutable(DEFAULT_EXECUTABLE);
@@ -49,6 +38,17 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		context.setDatabase(database);
 		context.setOutputFile(outputFile);
 		dump(context);
+	}
+
+	@Override
+	public void dump(MySqlDumpContext context) {
+		Assert.notNull(context.getDatabase(), "database is null");
+		Assert.notNull(context.getOutputFile(), "output file is null");
+		Assert.notNull(context.getExecutable(), "executable is null");
+		fillInOptions(context);
+		ExecContext ec = getExecContext(context);
+		log(context);
+		dump(ec, context.getOutputFile());
 	}
 
 	protected void log(MySqlDumpContext context) {
