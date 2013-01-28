@@ -54,4 +54,12 @@ public class DefaultMySqlService implements MySqlService {
 		}
 	}
 
+	public ExecService getService() {
+		return service;
+	}
+
+	public void setService(ExecService service) {
+		this.service = service;
+	}
+
 }
