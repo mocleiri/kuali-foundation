@@ -43,6 +43,7 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	PrintStream printStream;
 	long lineCount = 0;
+	long skipCount = 0;
 	String skipPrefix;
 	String skipSuffix;
 
@@ -50,7 +51,9 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 	public void consumeLine(String line) {
 		lineCount++;
 		if (isMatch(line, skipPrefix, skipSuffix)) {
-			logger.info("Skipping line {} [{}]", lineCount, line);
+			skipCount++;
+			Object[] args = { skipCount, lineCount, line };
+			logger.debug("{} Skipping line {} [{}]", args);
 		} else {
 			printStream.println(line);
 		}
@@ -84,6 +87,22 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	public void setSkipSuffix(String skipSuffix) {
 		this.skipSuffix = skipSuffix;
+	}
+
+	public long getLineCount() {
+		return lineCount;
+	}
+
+	public void setLineCount(long lineCount) {
+		this.lineCount = lineCount;
+	}
+
+	public long getSkipCount() {
+		return skipCount;
+	}
+
+	public void setSkipCount(long skipCount) {
+		this.skipCount = skipCount;
 	}
 
 }
