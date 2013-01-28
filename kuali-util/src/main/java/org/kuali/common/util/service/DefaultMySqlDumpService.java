@@ -91,7 +91,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		String lines = FormatUtils.getCount(lineCount);
 		String skipped = FormatUtils.getCount(skippedCount);
 		Object[] args = { time, size, rate, lines, skipped };
-		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}, Lines:{}, Skipped:{}]", args);
+		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}, Lines:{}  Skipped:{}]", args);
 	}
 
 	protected DefaultExecContext getExecContext(MySqlDumpContext context) {
