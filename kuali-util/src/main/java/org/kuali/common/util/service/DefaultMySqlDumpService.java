@@ -22,20 +22,10 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	public void dump(MySqlDumpContext context) {
 		Assert.notNull(context.getDatabase(), "database is null");
 		Assert.notNull(context.getOutputFile(), "output file is null");
-		List<String> options = getOptions(context);
-		ExecContext ec = getExecContext(context.getExecutable(), options, context.getOutputFile());
+		updateOptions(context);
+		ExecContext ec = getExecContext(context);
 		logDump(context);
 		dump(ec, context.getOutputFile());
-	}
-
-	protected void logDump(MySqlDumpContext context) {
-		String username = context.getUsername();
-		String hostname = context.getHostname();
-		int port = context.getPort();
-		String database = context.getDatabase();
-		String path = LocationUtils.getCanonicalPath(context.getOutputFile());
-		Object[] args = { username, hostname, port, database, path };
-		logger.info("Dumping [{}@{}:{}/{}] to [{}]", args);
 	}
 
 	@Override
@@ -52,8 +42,22 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 
 	@Override
 	public void dump(List<String> options, String database, File outputFile) {
-		ExecContext context = getExecContext(DEFAULT_EXECUTABLE, options, outputFile);
-		dump(context, outputFile);
+		MySqlDumpContext context = new MySqlDumpContext();
+		context.setExecutable(DEFAULT_EXECUTABLE);
+		context.setOptions(options);
+		context.setDatabase(database);
+		context.setOutputFile(outputFile);
+		dump(context);
+	}
+
+	protected void logDump(MySqlDumpContext context) {
+		String username = StringUtils.trimToEmpty(context.getUsername());
+		String hostname = StringUtils.trimToEmpty(context.getHostname());
+		int port = context.getPort();
+		String database = context.getDatabase();
+		String path = LocationUtils.getCanonicalPath(context.getOutputFile());
+		Object[] args = { username, hostname, port, database, path };
+		logger.info("Dumping [{}@{}:{}/{}] to [{}]", args);
 	}
 
 	protected void dump(ExecContext context, File outputFile) {
@@ -70,31 +74,48 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
 	}
 
-	protected ExecContext getExecContext(String executable, List<String> options, File outputFile) {
-		PrintStream out = LocationUtils.openPrintStream(outputFile);
+	protected ExecContext getExecContext(MySqlDumpContext context) {
+		PrintStream out = LocationUtils.openPrintStream(context.getOutputFile());
 		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
-		DefaultExecContext context = new DefaultExecContext();
-		context.setExecutable(executable);
-		context.setArgs(options);
-		context.setStandardOutConsumer(standardOutConsumer);
-		return context;
+		List<String> args = getArgs(context);
+
+		DefaultExecContext dec = new DefaultExecContext();
+		dec.setExecutable(context.getExecutable());
+		dec.setArgs(args);
+		dec.setStandardOutConsumer(standardOutConsumer);
+		return dec;
 	}
 
-	protected List<String> getOptions(MySqlDumpContext context) {
-		List<String> options = new ArrayList<String>();
+	/**
+	 * <code>mysqldump</code> invocation looks like this:
+	 *
+	 * <pre>
+	 * mysqldump [OPTIONS] database [tables]
+	 * </pre>
+	 */
+	protected List<String> getArgs(MySqlDumpContext context) {
+		List<String> args = new ArrayList<String>();
+		args.addAll(CollectionUtils.toEmptyList(context.getOptions()));
+		args.add(context.getDatabase());
+		args.addAll(CollectionUtils.toEmptyList(context.getTables()));
+		return args;
+	}
+
+	protected void updateOptions(MySqlDumpContext context) {
+		List<String> options = context.getOptions() == null ? new ArrayList<String>() : context.getOptions();
 		if (!StringUtils.isBlank(context.getUsername())) {
-			options.add("--user=" + context.getUsername());
+			options.add(0, "--user=" + context.getUsername());
 		}
 		if (!StringUtils.isBlank(context.getPassword())) {
-			options.add("--password=" + context.getPassword());
+			options.add(1, "--password=" + context.getPassword());
 		}
 		if (!StringUtils.isBlank(context.getHostname())) {
-			options.add("--host=" + context.getHostname());
+			options.add(2, "--host=" + context.getHostname());
 		}
-		options.add("--port=" + context.getPort());
+		options.add(3, "--port=" + context.getPort());
 		for (String option : CollectionUtils.toEmptyList(context.getOptions())) {
-			options.add(option);
+			options.add(4, option);
 		}
-		return options;
+		context.setOptions(options);
 	}
 }
