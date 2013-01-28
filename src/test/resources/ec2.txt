@@ -33,7 +33,7 @@ yum install mysql-server
 
 vi /etc/my.cnf
 
-[mysqld
+[mysqld]
 max_allowed_packet=20M
 transaction-isolation=READ-COMMITTED
 lower_case_table_names=1
