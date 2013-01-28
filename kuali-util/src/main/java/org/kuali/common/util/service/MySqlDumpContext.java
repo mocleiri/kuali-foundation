@@ -7,6 +7,8 @@ public class MySqlDumpContext {
 
 	String executable = MySqlDumpService.DEFAULT_EXECUTABLE;
 	int port = MySqlDumpService.DEFAULT_PORT;
+	String skipLinePrefix = MySqlDumpService.SKIP_LINE_PREFIX;
+	String skipLineSuffix = MySqlDumpService.SKIP_LINE_SUFFIX;
 	String username;
 	String password;
 	String hostname;
@@ -14,8 +16,6 @@ public class MySqlDumpContext {
 	List<String> tables;
 	List<String> options;
 	File outputFile;
-	String skipLinePrefix;
-	String skipLineSuffix;
 
 	public String getUsername() {
 		return username;
