@@ -10,11 +10,11 @@ public class DefaultMySqlServiceTest {
 	public void test() {
 		try {
 			MySqlDumpContext context = new MySqlDumpContext();
-			context.setDatabase("jdbctest");
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
 			context.setHostname("localhost");
-			context.setOutputFile(new File("/tmp/mysqldump/jtest.sql"));
+			context.setDatabase("jdbctest");
+			context.setOutputFile(new File("/tmp/mysqldump/x/y/z/jtest.sql"));
 			MySqlDumpService service = new DefaultMySqlDumpService();
 			service.dump(context);
 		} catch (Exception e) {
