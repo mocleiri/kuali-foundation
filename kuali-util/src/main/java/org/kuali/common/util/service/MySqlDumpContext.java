@@ -4,6 +4,7 @@ import java.io.File;
 
 public class MySqlDumpContext {
 
+	String executable = "mysqldump";
 	String username;
 	String password;
 	String hostname;
@@ -48,6 +49,14 @@ public class MySqlDumpContext {
 
 	public void setOutputFile(File outputFile) {
 		this.outputFile = outputFile;
+	}
+
+	public String getExecutable() {
+		return executable;
+	}
+
+	public void setExecutable(String executable) {
+		this.executable = executable;
 	}
 
 }
