@@ -17,11 +17,19 @@ package org.kuali.common.util;
 
 import java.io.PrintStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PrintlnStreamConsumer implements StreamConsumer {
 
+	private static final Logger logger = LoggerFactory.getLogger(PrintlnStreamConsumer.class);
+
 	PrintStream printStream;
+	long lineCount = 0;
+	String skipPrefix;
+	String skipSuffix;
 
 	public PrintlnStreamConsumer() {
 		this(null);
@@ -34,7 +42,18 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	@Override
 	public void consumeLine(String line) {
-		printStream.println(line);
+		lineCount++;
+		if (isMatch(line, skipPrefix, skipSuffix)) {
+			logger.info("Skipping line {} [{}]", lineCount, line);
+		} else {
+			printStream.println(line);
+		}
+	}
+
+	protected boolean isMatch(String line, String prefix, String suffix) {
+		boolean startsWith = StringUtils.startsWith(line, prefix);
+		boolean endsWith = StringUtils.endsWith(line, suffix);
+		return (startsWith && endsWith);
 	}
 
 	public PrintStream getPrintStream() {
@@ -43,6 +62,22 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	public void setPrintStream(PrintStream printStream) {
 		this.printStream = printStream;
+	}
+
+	public String getSkipPrefix() {
+		return skipPrefix;
+	}
+
+	public void setSkipPrefix(String skipPrefix) {
+		this.skipPrefix = skipPrefix;
+	}
+
+	public String getSkipSuffix() {
+		return skipSuffix;
+	}
+
+	public void setSkipSuffix(String skipSuffix) {
+		this.skipSuffix = skipSuffix;
 	}
 
 }
