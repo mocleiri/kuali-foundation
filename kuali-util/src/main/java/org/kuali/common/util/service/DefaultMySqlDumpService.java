@@ -76,17 +76,21 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 			if (result != 0) {
 				throw new IllegalStateException("Non-zero exit value - " + result);
 			}
-			long length = msdc.getOutputFile().length();
-			String time = FormatUtils.getTime(elapsed);
-			String size = FormatUtils.getSize(length);
-			String rate = FormatUtils.getRate(elapsed, length);
-			Object[] args = { time, size, rate };
-			logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
+			logComplete(elapsed, msdc.getOutputFile());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
+
+	protected void logComplete(long elapsed, File outputFile) {
+		long length = outputFile.length();
+		String time = FormatUtils.getTime(elapsed);
+		String size = FormatUtils.getSize(length);
+		String rate = FormatUtils.getRate(elapsed, length);
+		Object[] args = { time, size, rate };
+		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
 	}
 
 	protected DefaultExecContext getExecContext(MySqlDumpContext context) {
