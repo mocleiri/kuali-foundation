@@ -92,7 +92,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		JdbcService service = new DefaultJdbcService();
 		ExecutionContext dba = getDbaContext(context);
 		dba.setExecute(context.isExecuteSql());
-		dba.setReader(new DefaultSqlReader());
+		dba.setReader(context.getDbaReader());
 
 		long start = System.currentTimeMillis();
 		service.executeSql(dba);

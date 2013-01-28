@@ -33,6 +33,7 @@ public class DatabaseResetContext {
 	JdbcService service = new DefaultJdbcService();
 	SimpleFormatter formatter = new SimpleFormatter();
 	SqlReader reader = new DefaultSqlReader();
+	SqlReader dbaReader = new DefaultSqlReader();
 	String locationListPattern = DEFAULT_LOCATION_LIST_PATTERN;
 	String schemaPropertyPrefix = DEFAULT_SCHEMA_PROPERTY_PREFIX;
 	String dataPropertyPrefix = DEFAULT_DATA_PROPERTY_PREFIX;
@@ -165,6 +166,14 @@ public class DatabaseResetContext {
 
 	public void setExecuteSql(boolean executeSql) {
 		this.executeSql = executeSql;
+	}
+
+	public SqlReader getDbaReader() {
+		return dbaReader;
+	}
+
+	public void setDbaReader(SqlReader dbaReader) {
+		this.dbaReader = dbaReader;
 	}
 
 }
