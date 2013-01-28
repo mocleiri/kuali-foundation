@@ -2,7 +2,9 @@
 <!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
 <!--[if IE 7]><html class="ie7" lang="en"><![endif]-->
 <!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en">
+<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <title>Kuali</title>
@@ -14,6 +16,7 @@
 <style type="text/css"></style>
 <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="../assets/css/custom.css" rel="stylesheet">
+<link href="../assets/css/custom-bfn.css" rel="stylesheet">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
@@ -23,8 +26,6 @@
 </head>
 <body>
 <div id="brand"> <span>Kuali Coeus</span></div>
-
-
 <div id="header">
   <h1> Proposal Development</h1>
 </div>
@@ -37,7 +38,18 @@
     <li><a href="customdata.html"><i class="icon icon-star"></i><span>Custom Data</span></a></li>
     <li><a href="abstracts.html"><i class="icon icon-file"></i><span>Abstracts &amp; Attachments</span></a></li>
     <li><a href="questions.html"><i class="icon icon-ok"></i><span>Questions</span></a></li>
-    <li class=" active"><a href="budgets.html"><i class="icon icon-leaf"></i><span>Budgets</span></a> </li>
+    <li class="submenu nopointer"><a href="#"><i class="icon icon-leaf"></i><span>Budget <small style="margin-left:8px;">(version 3)</small></span></a>
+      <ul style="display:block;">
+        <li style="line-height:14px;"><a href="budgets-b1-summary.html"><!--<i class="icon icon-leaf"></i>--><span>Summary</span></a></li>
+        <li style="line-height:14px;"><a href="budgets-b1-param.html"><!--<i class="icon icon-leaf"></i>--><span>Parameters</span></a></li>
+        <li style="line-height:14px;"><a href="budgets-b1-rates.html"><!--<i class="icon icon-leaf"></i>--><span>Rates</span></a></li>
+        <li style="line-height:14px;"><a href="budgets-b1-personnel.html"><!--<i class="icon icon-leaf"></i>--><span>Personnel</span></a></li>
+        <li style="line-height:14px;"><a href="budgets-b1-nonpersonnel.html"><!--<i class="icon icon-leaf"></i>--><span>Non-Personnel</span></a></li>
+        <li style="line-height:14px;"><a href="budgets-b1-distincome.html"><!--<i class="icon icon-leaf"></i>--><span>Distribution &amp; Income</span></a></li>        <li style="line-height:14px;"><a href="budgets-b1-modular.html"><!--<i class="icon icon-leaf"></i>--><span>Modular</span></a></li> 
+<li style="line-height:14px;"><a href="budgets-b1-budgetactions.html"><!--<i class="icon icon-leaf"></i>--><span>Actions</span></a></li>
+
+      </ul>
+    </li>
     <li><a href="permissions.html"><i class="icon icon-check"></i><span>Permissions</span></a></li>
     <li><a href="propactions.html"><i class="icon icon-cog"></i><span>Proposal Actions</span></a></li>
     <li><a href="medusa.html"><i class="icon icon-road"></i><span>Medusa</span></a></li>
@@ -46,7 +58,8 @@
 <div id="content" >
   <form class="form-horizontal">
     <div class="row-fluid">
-      <div class="span12 content"><ul class="breadcrumb">
+      <div class="span12 content">
+        <ul class="breadcrumb">
           <li><a href="budgets.html">Budget Home</a></li>
         </ul>
         <div class="box">
@@ -73,10 +86,7 @@
             </fieldset>
             <div class="boxSubheader">
               <h4> Budget 1</h4>
-              
-
-
-<div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
+              <div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
             </div>
             <div id="dl1" style="">
               <dl class="table-display" style="margin-top:-13px;">
@@ -96,16 +106,11 @@
                 <dd>&nbsp;</dd>
               </dl>
               <div class="clearfix"></div>
-              
             </div>
             <div class="boxSubheader">
               <h4> Budget 2</h4>
-              
-
-
-<div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
+              <div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
             </div>
-            
             <div id="dl1" style="">
               <dl class="table-display" style="margin-top:-13px;">
                 <dt>Residual Funds</dt>
@@ -124,17 +129,11 @@
                 <dd>&nbsp;</dd>
               </dl>
               <div class="clearfix"></div>
-              
             </div>
-            
             <div class="boxSubheader">
               <h4> Budget 3</h4>
-              
-
-
-<div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
+              <div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
             </div>
-            
             <div id="dl1" style="">
               <dl class="table-display" style="margin-top:-13px;">
                 <dt>Residual Funds</dt>
@@ -153,16 +152,11 @@
                 <dd>&nbsp;</dd>
               </dl>
               <div class="clearfix"></div>
-              
             </div>
             <div class="boxSubheader">
               <h4> Budget 4</h4>
-              
-
-
-<div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
+              <div class="boxControls"> <a href="#">copy</a> | <a href="budgets-b1-param.html" class="">open</a></div>
             </div>
-            
             <div id="dl1" style="">
               <dl class="table-display" style="margin-top:-13px;">
                 <dt>Residual Funds</dt>
@@ -181,7 +175,6 @@
                 <dd>&nbsp;</dd>
               </dl>
               <div class="clearfix"></div>
-              
             </div>
           </div>
         </div>
@@ -211,7 +204,7 @@
   <script src="../assets/js/bootstrap-typeahead.js"></script> 
   <script src="../assets/js/bootstrap-editable.js"></script> 
   <script src="../assets/js/application.js"></script> 
-  <script src="../assets/js/custom.js?v=0.1"></script>
+  <script src="../assets/js/custom.js?v=0.1"></script> 
   <script type="text/javascript">
     $(document).ready(function () {
   
