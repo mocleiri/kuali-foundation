@@ -27,7 +27,7 @@ import com.amazonaws.services.ec2.model.Filter;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 
-public class cibackuppaulatestTest {
+public class EC2CIBackup {
 
 	AmazonEC2Client ec2client;
 	//public static void setUpBeforeClass() throws Exception {
