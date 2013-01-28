@@ -102,8 +102,13 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		return args;
 	}
 
+	/**
+	 * Create (or update) the list of options for this context
+	 */
 	protected void fillInOptions(MySqlDumpContext context) {
+		// Get a handle to the existing options list, or create new one
 		List<String> options = context.getOptions() == null ? new ArrayList<String>() : context.getOptions();
+		// Insert the options we are explicitly managing at the front of the list
 		options.add(0, "--port=" + context.getPort());
 		if (!StringUtils.isBlank(context.getHostname())) {
 			options.add(0, "--host=" + context.getHostname());
@@ -114,6 +119,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		if (!StringUtils.isBlank(context.getUsername())) {
 			options.add(0, "--user=" + context.getUsername());
 		}
+		// Just in case there were no options to begin with
 		context.setOptions(options);
 	}
 }
