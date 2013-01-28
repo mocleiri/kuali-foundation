@@ -25,6 +25,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	@Override
 	public void dump(String username, String password, String hostname, String database, File outputFile) {
 		MySqlDumpContext context = new MySqlDumpContext();
+		context.setExecutable(DEFAULT_EXECUTABLE);
 		context.setUsername(username);
 		context.setPassword(password);
 		context.setHostname(hostname);
