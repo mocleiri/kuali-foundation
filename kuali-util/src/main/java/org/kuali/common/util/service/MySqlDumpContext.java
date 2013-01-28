@@ -14,6 +14,8 @@ public class MySqlDumpContext {
 	List<String> tables;
 	List<String> options;
 	File outputFile;
+	String skipLinePrefix;
+	String skipLineSuffix;
 
 	public String getUsername() {
 		return username;

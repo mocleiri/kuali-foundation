@@ -7,6 +7,8 @@ public interface MySqlDumpService extends ExecService {
 
 	public static final String DEFAULT_EXECUTABLE = "mysqldump";
 	public static final int DEFAULT_PORT = 3306;
+	public static final String SKIP_LINE_PREFIX = "/*!50013 DEFINER=";
+	public static final String SKIP_LINE_SUFFIX = "SQL SECURITY DEFINER */";
 
 	void dump(MySqlDumpContext context);
 
