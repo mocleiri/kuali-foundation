@@ -16,7 +16,7 @@
 package org.kuali.common.jdbc;
 
 /**
- *
+ * This works because the data written to disk by mysqldump escapes carriage returns and linefeeds
  */
 public class MySQLDumpReader extends DefaultSqlReader {
 
