@@ -18,6 +18,7 @@ package org.kuali.common.util.property.processor;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
@@ -46,7 +47,9 @@ public class OverrideProcessor implements PropertyProcessor {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String newValue = overrideProperties.getProperty(key);
-			PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
+			if (!StringUtils.isBlank(newValue)) {
+				PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
+			}
 		}
 	}
 
