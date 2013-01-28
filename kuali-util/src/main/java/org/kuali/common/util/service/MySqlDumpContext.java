@@ -1,6 +1,7 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.List;
 
 public class MySqlDumpContext {
@@ -16,6 +17,7 @@ public class MySqlDumpContext {
 	String database;
 	List<String> tables;
 	File outputFile;
+	PrintStream out;
 
 	public String getUsername() {
 		return username;
@@ -87,6 +89,30 @@ public class MySqlDumpContext {
 
 	public void setOptions(List<String> options) {
 		this.options = options;
+	}
+
+	public String getSkipLinePrefix() {
+		return skipLinePrefix;
+	}
+
+	public void setSkipLinePrefix(String skipLinePrefix) {
+		this.skipLinePrefix = skipLinePrefix;
+	}
+
+	public String getSkipLineSuffix() {
+		return skipLineSuffix;
+	}
+
+	public void setSkipLineSuffix(String skipLineSuffix) {
+		this.skipLineSuffix = skipLineSuffix;
+	}
+
+	public PrintStream getOut() {
+		return out;
+	}
+
+	public void setOut(PrintStream out) {
+		this.out = out;
 	}
 
 }

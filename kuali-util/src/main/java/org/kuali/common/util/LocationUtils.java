@@ -79,12 +79,8 @@ public class LocationUtils {
 	 * @throws IOException
 	 *             if a parent directory needs creating but that fails
 	 */
-	public static final PrintStream openPrintStream(File file) {
-		try {
-			return new PrintStream(FileUtils.openOutputStream(file));
-		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
-		}
+	public static final PrintStream openPrintStream(File file) throws IOException {
+		return new PrintStream(FileUtils.openOutputStream(file));
 	}
 
 	public static final void copyLocationsToFiles(List<String> locations, List<File> files) {

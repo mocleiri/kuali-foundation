@@ -1,11 +1,14 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -46,9 +49,9 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		Assert.notNull(context.getOutputFile(), "output file is null");
 		Assert.notNull(context.getExecutable(), "executable is null");
 		fillInOptions(context);
-		ExecContext ec = getExecContext(context);
+		DefaultExecContext dec = getExecContext(context);
 		log(context);
-		dump(ec, context.getOutputFile());
+		dump(dec, context);
 	}
 
 	protected void log(MySqlDumpContext context) {
@@ -61,29 +64,36 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		logger.info("Dumping [{}@{}:{}/{}] -> [{}]", args);
 	}
 
-	protected void dump(ExecContext context, File outputFile) {
-		long start = System.currentTimeMillis();
-		int result = execute(context);
-		long elapsed = System.currentTimeMillis() - start;
-		if (result != 0) {
-			throw new IllegalStateException("Non-zero exit value - " + result);
+	protected void dump(DefaultExecContext context, MySqlDumpContext msdc) {
+		PrintStream out = null;
+		try {
+			out = LocationUtils.openPrintStream(msdc.getOutputFile());
+			StreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out, msdc.getSkipLinePrefix(), msdc.getSkipLineSuffix());
+			context.setStandardOutConsumer(standardOutConsumer);
+			long start = System.currentTimeMillis();
+			int result = execute(context);
+			long elapsed = System.currentTimeMillis() - start;
+			if (result != 0) {
+				throw new IllegalStateException("Non-zero exit value - " + result);
+			}
+			long length = msdc.getOutputFile().length();
+			String time = FormatUtils.getTime(elapsed);
+			String size = FormatUtils.getSize(length);
+			String rate = FormatUtils.getRate(elapsed, length);
+			Object[] args = { time, size, rate };
+			logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(out);
 		}
-		String time = FormatUtils.getTime(elapsed);
-		String size = FormatUtils.getSize(outputFile.length());
-		String rate = FormatUtils.getRate(elapsed, outputFile.length());
-		Object[] args = { time, size, rate };
-		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
 	}
 
-	protected ExecContext getExecContext(MySqlDumpContext context) {
-		PrintStream out = LocationUtils.openPrintStream(context.getOutputFile());
-		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
+	protected DefaultExecContext getExecContext(MySqlDumpContext context) {
 		List<String> args = getArgs(context);
-
 		DefaultExecContext dec = new DefaultExecContext();
 		dec.setExecutable(context.getExecutable());
 		dec.setArgs(args);
-		dec.setStandardOutConsumer(standardOutConsumer);
 		return dec;
 	}
 

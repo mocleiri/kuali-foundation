@@ -26,19 +26,25 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	private static final Logger logger = LoggerFactory.getLogger(PrintlnStreamConsumer.class);
 
-	PrintStream printStream;
-	long lineCount = 0;
-	String skipPrefix;
-	String skipSuffix;
-
 	public PrintlnStreamConsumer() {
 		this(null);
 	}
 
 	public PrintlnStreamConsumer(PrintStream printStream) {
+		this(printStream, null, null);
+	}
+
+	public PrintlnStreamConsumer(PrintStream printStream, String skipPrefix, String skipSuffix) {
 		super();
 		this.printStream = printStream;
+		this.skipPrefix = skipPrefix;
+		this.skipSuffix = skipSuffix;
 	}
+
+	PrintStream printStream;
+	long lineCount = 0;
+	String skipPrefix;
+	String skipSuffix;
 
 	@Override
 	public void consumeLine(String line) {
