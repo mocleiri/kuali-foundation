@@ -22,9 +22,9 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	public void dump(MySqlDumpContext context) {
 		Assert.notNull(context.getDatabase(), "database is null");
 		Assert.notNull(context.getOutputFile(), "output file is null");
-		updateOptions(context);
+		fillInOptions(context);
 		ExecContext ec = getExecContext(context);
-		logDump(context);
+		log(context);
 		dump(ec, context.getOutputFile());
 	}
 
@@ -50,7 +50,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		dump(context);
 	}
 
-	protected void logDump(MySqlDumpContext context) {
+	protected void log(MySqlDumpContext context) {
 		String username = StringUtils.trimToEmpty(context.getUsername());
 		String hostname = StringUtils.trimToEmpty(context.getHostname());
 		int port = context.getPort();
@@ -101,20 +101,17 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		return args;
 	}
 
-	protected void updateOptions(MySqlDumpContext context) {
+	protected void fillInOptions(MySqlDumpContext context) {
 		List<String> options = context.getOptions() == null ? new ArrayList<String>() : context.getOptions();
-		if (!StringUtils.isBlank(context.getUsername())) {
-			options.add(0, "--user=" + context.getUsername());
+		options.add(0, "--port=" + context.getPort());
+		if (!StringUtils.isBlank(context.getHostname())) {
+			options.add(0, "--host=" + context.getHostname());
 		}
 		if (!StringUtils.isBlank(context.getPassword())) {
-			options.add(1, "--password=" + context.getPassword());
+			options.add(0, "--password=" + context.getPassword());
 		}
-		if (!StringUtils.isBlank(context.getHostname())) {
-			options.add(2, "--host=" + context.getHostname());
-		}
-		options.add(3, "--port=" + context.getPort());
-		for (String option : CollectionUtils.toEmptyList(context.getOptions())) {
-			options.add(4, option);
+		if (!StringUtils.isBlank(context.getUsername())) {
+			options.add(0, "--user=" + context.getUsername());
 		}
 		context.setOptions(options);
 	}
