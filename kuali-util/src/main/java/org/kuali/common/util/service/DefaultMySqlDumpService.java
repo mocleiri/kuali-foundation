@@ -50,11 +50,11 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		Assert.notNull(context.getExecutable(), "executable is null");
 		fillInOptions(context);
 		DefaultExecContext dec = getExecContext(context);
-		log(context);
+		beforeDump(context);
 		dump(dec, context);
 	}
 
-	protected void log(MySqlDumpContext context) {
+	protected void beforeDump(MySqlDumpContext context) {
 		String username = StringUtils.trimToEmpty(context.getUsername());
 		String hostname = StringUtils.trimToEmpty(context.getHostname());
 		int port = context.getPort();
@@ -76,7 +76,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 			if (result != 0) {
 				throw new IllegalStateException("Non-zero exit value - " + result);
 			}
-			logComplete(elapsed, msdc.getOutputFile());
+			afterDump(msdc, elapsed);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -84,8 +84,8 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		}
 	}
 
-	protected void logComplete(long elapsed, File outputFile) {
-		long length = outputFile.length();
+	protected void afterDump(MySqlDumpContext context, long elapsed) {
+		long length = context.getOutputFile().length();
 		String time = FormatUtils.getTime(elapsed);
 		String size = FormatUtils.getSize(length);
 		String rate = FormatUtils.getRate(elapsed, length);
