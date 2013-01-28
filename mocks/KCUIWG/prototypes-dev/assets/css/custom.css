@@ -9,14 +9,30 @@
 	outline: none !important;
 	-moz-outline: none !important;
 }
+
+html {
+	height: 100%;
+	min-height: 100%;
+}
+
 body {
 	background-color: #CCCCCC;
 	background-image: url(../img/back.png);
 	font-size: 12px;
+	position: relative;
+	z-index: 1;
+	height: 100%;
+	min-height: 100%;
 }
 /* Main */
 a:hover {
 	text-decoration: none;
+}
+a:focus {
+	border: 1px solid red;
+}
+a:active {
+	border: none;
 }
 #brand {
 	height: 33px;
@@ -26,6 +42,8 @@ a:hover {
 	background-position: left, right;
 	-webkit-box-shadow: 0px 0px 8px 8px rgba(00, 00, 00, .1);
 	box-shadow: 0px 0px 8px 8px rgba(00, 00, 00, .1);
+	position: relative;
+	z-index: 3;
 }
 #brand span {
 	display: none;
@@ -34,17 +52,9 @@ a:hover {
 #header {
 	height: 50px;
 	position: relative;
+	z-index: 2;
 	width: 100%;
-	z-index: -9;
-	/* [disabled]box-shadow: 0 1px 0 #333333;
-*/
 	background-color: #585858;
-	/* [disabled]border-bottom: 1px solid #555555;
-*/
-	/* [disabled]-webkit-box-shadow: inset 0px 0px 18px 18px rgba(00, 00, 00, .3);
-*/
-	/* [disabled]box-shadow: inset 0px 0px 18px 18px rgba(00, 00, 00, .3);
-*/
 }
 #header h1 {
 	margin: 0px;
@@ -55,9 +65,31 @@ a:hover {
 	color: #FFFFFF;
 	text-shadow: 1px 1px 2px #000000;
 	letter-spacing: .11em;
+	width: 65%;
+	float: left;
 }
 #header h1 a {
 	display: block;
+}
+#header .toolset {
+	float: right;
+	width: 25%;
+}
+#header .toolset ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#header .toolset ul li {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	float: right;
+}
+#header .toolset a {
+	color: #f2f2f2;
+	display: inline-block;
+	padding: 1.2em;
 }
 /* Table of Contents Navigation */
 #ToC {
@@ -69,13 +101,7 @@ a:hover {
 	z-index: 16;
 }
 
-/* clrux@bu.edu */
-#ToC.fixed {
-	position: fixed;
-	z-index: 9999;
-	top: 0;
-	left: 0;
-}
+
 
 #ToC li a i {
 	vertical-align: top;
@@ -86,7 +112,6 @@ a:hover {
 #ToC > ul {
 	list-style: none;
 	padding: 0px;
-	position: absolute;
 	width: 200px;
 	margin: 0px 0 0;
 	border-bottom: 1px solid #414141;

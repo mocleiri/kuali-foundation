@@ -1,0 +1,151 @@
+/*
+	Custom scripting for additional functionality
+	Author: Chris Rodriguez, clrux@bu.edu
+	Created: 29 Jan 2012, 12:09 PM
+	Version: 0.1
+*/
+
+html {
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	background-color: #CCCCCC;
+	background-image: url(../img/back.png);
+	font-size: 12px;
+	position: relative;
+	z-index: 1;
+	height: 100%;
+	min-height: 100%;
+}
+
+a:hover {
+	text-decoration: none;
+}
+a:focus {
+	border: 1px solid red;
+}
+a:active {
+	border: none;
+}
+
+#header {
+	height: 50px;
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	background-color: #585858;
+
+	h1 {
+		margin: 0px;
+		margin-left: 20px;
+		padding-top: 4px;
+		font-weight: lighter;
+		font-size: 1.6em;
+		color: #FFFFFF;
+		text-shadow: 1px 1px 2px #000000;
+		letter-spacing: .11em;
+		width: 65%;
+		float: left;
+
+		a {
+			display: block;
+		}
+	}
+
+	.toolset {
+		float: right;
+		width: 25%;
+
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
+			li {
+				margin: 0;
+				padding: 0;
+				display: inline;
+				float: right;
+			}
+		}
+
+		a {
+			color: #f2f2f2;
+			display: inline-block;
+			padding: 1.2em;
+		}
+	}
+}
+
+#ToC {
+
+	.meta {
+		clear: left;
+		margin-top: 1.5em;
+		padding: 1.25em;
+
+		p {
+			margin: 0 0 .75em 0;
+			line-height: 140%;
+			font-size: 1.3em;
+			font-weight: 400;
+			opacity: .99;
+			color: #aaa;
+
+			span {
+				display: block;
+				width: 100%;
+				text-transform: uppercase;
+				font-weight: 400;
+				font-size: .70em;
+				line-height: 1;
+				color: #888;
+			}
+		}
+	}
+}
+
+#ToC.fixed {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	left: 0;
+}
+
+.sticky-panel {
+	position: fixed;
+	z-index: 9999;
+	bottom: -1px;
+	right: 1.2em;
+	width: 26.4%;
+	height: 50%;
+	border: 1px solid #ccc;
+	box-shadow: 0 6px 10px 6px #ccc;
+	background: white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 1.5em;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
