@@ -14,7 +14,7 @@ public class DefaultMySqlDumpServiceTest {
 			context.setSkipLineSuffix(MySqlDumpService.SKIP_LINE_SUFFIX);
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
-			context.setHostname("localhost");
+			context.setHostname("mysql.rice.kuali.org");
 			context.setDatabase("JDBCTEST");
 			context.setOutputFile(new File("/tmp/mysqldump/jtest.sql"));
 			MySqlDumpService service = new DefaultMySqlDumpService();
