@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PrintlnStreamConsumer;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		List<String> args = getMySqlDumpArgs(context);
 		ExecContext ec = getExecContext(context.getExecutable(), args, context.getOutputFile());
 		logDump(context);
-		dump(ec);
+		dump(ec, context.getOutputFile());
 	}
 
 	protected void logDump(MySqlDumpContext context) {
@@ -52,14 +53,21 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	@Override
 	public void dump(List<String> args, File outputFile) {
 		ExecContext context = getExecContext(DEFAULT_EXECUTABLE, args, outputFile);
-		dump(context);
+		dump(context, outputFile);
 	}
 
-	protected void dump(ExecContext context) {
+	protected void dump(ExecContext context, File outputFile) {
+		long start = System.currentTimeMillis();
 		int result = execute(context);
+		long elapsed = System.currentTimeMillis() - start;
 		if (result != 0) {
 			throw new IllegalStateException("Non-zero exit value - " + result);
 		}
+		String time = FormatUtils.getTime(elapsed);
+		String size = FormatUtils.getSize(outputFile.length());
+		String rate = FormatUtils.getRate(elapsed, outputFile.length());
+		Object[] args = { time, size, rate };
+		logger.info("Dump completed. [Time: {}, Size:{}, Rate: {}]", args);
 	}
 
 	protected ExecContext getExecContext(String executable, List<String> args, File outputFile) {
