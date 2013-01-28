@@ -22,6 +22,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	public void dump(MySqlDumpContext context) {
 		Assert.notNull(context.getDatabase(), "database is null");
 		Assert.notNull(context.getOutputFile(), "output file is null");
+		Assert.notNull(context.getExecutable(), "executable is null");
 		fillInOptions(context);
 		ExecContext ec = getExecContext(context);
 		log(context);
