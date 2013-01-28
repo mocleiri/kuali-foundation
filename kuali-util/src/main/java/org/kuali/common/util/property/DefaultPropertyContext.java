@@ -34,6 +34,7 @@ import org.kuali.common.util.property.processor.AddPrefixProcessor;
 import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
 import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
+import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
@@ -56,6 +57,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	String prefix;
 	List<PropertyProcessor> processors;
 	Properties properties;
+	Properties buildProperties;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
@@ -74,6 +76,11 @@ public class DefaultPropertyContext implements PropertyContext {
 		 * Having a reference to this bean no longer does them any good, they'll have to search around in memory to find it.<br>
 		 */
 		this.encryptionPassword = null;
+
+		// If this context is being loaded as part of a build process, build properties win over properties from .properties files
+		if (buildProperties != null) {
+			processors.add(new OverrideProcessor(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, buildProperties));
+		}
 
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 
@@ -310,5 +317,13 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setObscurer(Obscurer obscurer) {
 		this.obscurer = obscurer;
+	}
+
+	public Properties getBuildProperties() {
+		return buildProperties;
+	}
+
+	public void setBuildProperties(Properties buildProperties) {
+		this.buildProperties = buildProperties;
 	}
 }
