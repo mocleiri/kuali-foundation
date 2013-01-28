@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PrintlnStreamConsumer;
 
-public class DefaultMySqlService extends DefaultExecService implements MySqlDumpService {
+public class DefaultMySqlDumpService extends DefaultExecService implements MySqlDumpService {
 
 	@Override
 	public void dump(MySqlDumpContext context) {
