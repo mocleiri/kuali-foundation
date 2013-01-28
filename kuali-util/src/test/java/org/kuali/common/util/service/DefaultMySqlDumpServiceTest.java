@@ -10,6 +10,8 @@ public class DefaultMySqlDumpServiceTest {
 	public void test() {
 		try {
 			MySqlDumpContext context = new MySqlDumpContext();
+			context.setSkipLinePrefix(MySqlDumpService.SKIP_LINE_PREFIX);
+			context.setSkipLineSuffix(MySqlDumpService.SKIP_LINE_SUFFIX);
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
 			context.setHostname("localhost");
