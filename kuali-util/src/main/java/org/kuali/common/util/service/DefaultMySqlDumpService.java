@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PrintlnStreamConsumer;
 import org.slf4j.Logger;
@@ -29,10 +30,11 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	protected void logDump(MySqlDumpContext context) {
 		String username = context.getUsername();
 		String hostname = context.getHostname();
+		int port = context.getPort();
 		String database = context.getDatabase();
 		String path = LocationUtils.getCanonicalPath(context.getOutputFile());
-		Object[] args = { username, hostname, database, path };
-		logger.info("Dumping {}@{}:{} to {}", args);
+		Object[] args = { username, hostname, port, database, path };
+		logger.info("Dumping {}@{}:{}/{} to {}", args);
 	}
 
 	@Override
@@ -73,20 +75,23 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 	protected List<String> getMySqlDumpArgs(MySqlDumpContext context) {
 		List<String> args = new ArrayList<String>();
 		if (!StringUtils.isBlank(context.getUsername())) {
-			args.add("--username=");
-			args.add(context.getUsername());
+			args.add("--user=" + context.getUsername());
 		}
 		if (!StringUtils.isBlank(context.getPassword())) {
 			args.add("--password=" + context.getPassword());
 		}
 		if (!StringUtils.isBlank(context.getHostname())) {
-			args.add("--host=");
-			args.add(context.getHostname());
+			args.add("--host=" + context.getHostname());
 		}
-		args.add("--port=");
-		args.add(context.getPort() + "");
+		args.add("--port=" + context.getPort());
+		for (String option : CollectionUtils.toEmptyList(context.getOptions())) {
+			args.add(option);
+		}
 		if (!StringUtils.isBlank(context.getDatabase())) {
 			args.add(context.getDatabase());
+		}
+		for (String table : CollectionUtils.toEmptyList(context.getTables())) {
+			args.add(table);
 		}
 		return args;
 	}
