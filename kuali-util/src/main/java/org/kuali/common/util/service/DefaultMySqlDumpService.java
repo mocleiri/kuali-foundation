@@ -35,7 +35,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		String database = context.getDatabase();
 		String path = LocationUtils.getCanonicalPath(context.getOutputFile());
 		Object[] args = { username, hostname, port, database, path };
-		logger.info("Dumping {}@{}:{}/{} to {}", args);
+		logger.info("Dumping [{}@{}:{}/{}] to [{}]", args);
 	}
 
 	@Override
