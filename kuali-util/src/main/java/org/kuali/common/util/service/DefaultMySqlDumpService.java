@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -68,7 +67,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		PrintStream out = null;
 		try {
 			out = LocationUtils.openPrintStream(msdc.getOutputFile());
-			StreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out, msdc.getSkipLinePrefix(), msdc.getSkipLineSuffix());
+			PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out, msdc.getSkipLinePrefix(), msdc.getSkipLineSuffix());
 			context.setStandardOutConsumer(standardOutConsumer);
 			long start = System.currentTimeMillis();
 			int result = execute(context);
@@ -76,7 +75,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 			if (result != 0) {
 				throw new IllegalStateException("Non-zero exit value - " + result);
 			}
-			afterDump(msdc, elapsed);
+			afterDump(msdc, elapsed, standardOutConsumer.getLineCount(), standardOutConsumer.getSkipCount());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -84,13 +83,15 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		}
 	}
 
-	protected void afterDump(MySqlDumpContext context, long elapsed) {
+	protected void afterDump(MySqlDumpContext context, long elapsed, long lineCount, long skippedCount) {
 		long length = context.getOutputFile().length();
 		String time = FormatUtils.getTime(elapsed);
 		String size = FormatUtils.getSize(length);
 		String rate = FormatUtils.getRate(elapsed, length);
-		Object[] args = { time, size, rate };
-		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
+		String lines = FormatUtils.getCount(lineCount);
+		String skipped = FormatUtils.getCount(skippedCount);
+		Object[] args = { time, size, rate, lines, skipped };
+		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}, Lines:{}, Skipped:{}]", args);
 	}
 
 	protected DefaultExecContext getExecContext(MySqlDumpContext context) {
