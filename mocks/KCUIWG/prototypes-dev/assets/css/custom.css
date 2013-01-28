@@ -68,6 +68,15 @@ a:hover {
 	width: 200px;
 	z-index: 16;
 }
+
+/* clrux@bu.edu */
+#ToC.fixed {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	left: 0;
+}
+
 #ToC li a i {
 	vertical-align: top;
 	background-image: url('../img/glyphicons-halflings-white.png');
