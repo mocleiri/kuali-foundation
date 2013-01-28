@@ -15,7 +15,7 @@ public class DefaultMySqlDumpServiceTest {
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
 			context.setHostname("localhost");
-			context.setDatabase("jdbctest");
+			context.setDatabase("JDBCTEST");
 			context.setOutputFile(new File("/tmp/mysqldump/jtest.sql"));
 			MySqlDumpService service = new DefaultMySqlDumpService();
 			service.dump(context);
