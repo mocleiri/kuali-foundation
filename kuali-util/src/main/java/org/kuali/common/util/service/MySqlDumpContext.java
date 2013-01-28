@@ -4,7 +4,8 @@ import java.io.File;
 
 public class MySqlDumpContext {
 
-	String executable = DefaultMySqlDumpService.DEFAULT_EXECUTABLE;
+	String executable = MySqlDumpService.DEFAULT_EXECUTABLE;
+	int port = MySqlDumpService.DEFAULT_PORT;
 	String username;
 	String password;
 	String hostname;
@@ -57,6 +58,14 @@ public class MySqlDumpContext {
 
 	public void setExecutable(String executable) {
 		this.executable = executable;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
 	}
 
 }

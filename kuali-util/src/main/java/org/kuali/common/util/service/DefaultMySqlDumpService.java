@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 public class DefaultMySqlDumpService extends DefaultExecService implements MySqlDumpService {
 
-	public static final String DEFAULT_EXECUTABLE = "mysqldump";
 	private static final Logger logger = LoggerFactory.getLogger(DefaultMySqlDumpService.class);
 
 	@Override
