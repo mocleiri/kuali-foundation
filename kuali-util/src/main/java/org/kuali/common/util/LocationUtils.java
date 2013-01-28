@@ -18,11 +18,13 @@ package org.kuali.common.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
@@ -55,6 +57,35 @@ public class LocationUtils {
 	private static final String DOT_DOT_SLASH = "../";
 	private static final String SLASH_DOT_DOT = "/..";
 	private static final String CLASSPATH = "classpath:";
+
+	/**
+	 * Opens a {@link FileOutputStream} for the specified file, checking and creating the parent directory if it does not exist.
+	 * <p>
+	 * At the end of the method either the stream will be successfully opened, or an exception will have been thrown.
+	 * <p>
+	 * The parent directory will be created if it does not exist. The file will be created if it does not exist. An exception is thrown if
+	 * the file object exists but is a directory. An exception is thrown if the file exists but cannot be written to. An exception is thrown
+	 * if the parent directory cannot be created.
+	 *
+	 * @param file
+	 *            the file to open for output, must not be {@code null}
+	 * @param append
+	 *            if {@code true}, then bytes will be added to the end of the file rather than overwriting
+	 * @return a new {@link FileOutputStream} for the specified file
+	 * @throws IOException
+	 *             if the file object is a directory
+	 * @throws IOException
+	 *             if the file cannot be written to
+	 * @throws IOException
+	 *             if a parent directory needs creating but that fails
+	 */
+	public static final PrintStream openPrintStream(File file) {
+		try {
+			return new PrintStream(FileUtils.openOutputStream(file));
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
 
 	public static final void copyLocationsToFiles(List<String> locations, List<File> files) {
 		Assert.isTrue(locations.size() == files.size());

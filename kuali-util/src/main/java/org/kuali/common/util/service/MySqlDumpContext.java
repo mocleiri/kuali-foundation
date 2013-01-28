@@ -4,7 +4,7 @@ import java.io.File;
 
 public class MySqlDumpContext {
 
-	String executable = "mysqldump";
+	String executable = DefaultMySqlDumpService.DEFAULT_EXECUTABLE;
 	String username;
 	String password;
 	String hostname;

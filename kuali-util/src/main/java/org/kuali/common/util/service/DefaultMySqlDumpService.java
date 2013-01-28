@@ -1,34 +1,25 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PrintlnStreamConsumer;
 
 public class DefaultMySqlDumpService extends DefaultExecService implements MySqlDumpService {
 
+	public static final String DEFAULT_EXECUTABLE = "mysqldump";
+
 	@Override
 	public void dump(MySqlDumpContext context) {
 		Assert.notNull(context.getDatabase(), "database is null");
-		touch(context.getOutputFile());
 		List<String> args = getMySqlDumpArgs(context);
-		PrintStream out = getPrintStream(context.getOutputFile());
-		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
-		DefaultExecContext ec = new DefaultExecContext();
-		ec.setExecutable(context.getExecutable());
-		ec.setArgs(args);
-		ec.setStandardOutConsumer(standardOutConsumer);
-		int result = execute(ec);
-		if (result != 0) {
-			throw new IllegalStateException("Non-zero exit value - " + result);
-		}
+		ExecContext ec = getExecContext(context.getExecutable(), args, context.getOutputFile());
+		dump(ec);
 	}
 
 	@Override
@@ -42,12 +33,27 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		dump(context);
 	}
 
-	protected PrintStream getPrintStream(File file) {
-		try {
-			return new PrintStream(file);
-		} catch (FileNotFoundException e) {
-			throw new IllegalArgumentException(e);
+	@Override
+    public void dump(List<String> args, File outputFile) {
+		ExecContext context = getExecContext(DEFAULT_EXECUTABLE, args, outputFile);
+		dump(context);
+	}
+
+	protected void dump(ExecContext context) {
+		int result = execute(context);
+		if (result != 0) {
+			throw new IllegalStateException("Non-zero exit value - " + result);
 		}
+	}
+
+	protected ExecContext getExecContext(String executable, List<String> args, File outputFile) {
+		PrintStream out = LocationUtils.openPrintStream(outputFile);
+		PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out);
+		DefaultExecContext ec = new DefaultExecContext();
+		ec.setExecutable(executable);
+		ec.setArgs(args);
+		ec.setStandardOutConsumer(standardOutConsumer);
+		return ec;
 	}
 
 	protected List<String> getMySqlDumpArgs(MySqlDumpContext context) {
@@ -68,13 +74,4 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		}
 		return args;
 	}
-
-	protected void touch(File file) {
-		try {
-			FileUtils.touch(file);
-		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
-		}
-	}
-
 }
