@@ -67,7 +67,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		String size = FormatUtils.getSize(outputFile.length());
 		String rate = FormatUtils.getRate(elapsed, outputFile.length());
 		Object[] args = { time, size, rate };
-		logger.info("Dump completed. [Time: {}, Size:{}, Rate: {}]", args);
+		logger.info("Dump completed. [Time:{}, Size:{}, Rate:{}]", args);
 	}
 
 	protected ExecContext getExecContext(String executable, List<String> args, File outputFile) {
