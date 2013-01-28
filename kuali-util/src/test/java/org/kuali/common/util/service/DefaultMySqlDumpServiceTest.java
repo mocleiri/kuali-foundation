@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-public class DefaultMySqlServiceTest {
+public class DefaultMySqlDumpServiceTest {
 
 	@Test
 	public void test() {
