@@ -223,6 +223,7 @@ public class DefaultJdbcService implements JdbcService {
 			sources.add(source);
 		}
 		for (String location : CollectionUtils.toEmptyList(context.getLocations())) {
+			logger.info("Getting metadata for {}", location);
 			SqlSource source = new SqlSource();
 			source.setLocation(location);
 			source.setEncoding(context.getEncoding());

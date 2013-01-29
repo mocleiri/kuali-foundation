@@ -22,4 +22,6 @@ public interface SqlReader {
 
 	String getSqlStatement(BufferedReader reader) throws IOException;
 
+	SqlMetaData getSqlMetaData(BufferedReader reader) throws IOException;
+
 }

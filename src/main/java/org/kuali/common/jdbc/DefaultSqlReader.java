@@ -40,6 +40,25 @@ public class DefaultSqlReader implements SqlReader {
 	List<String> commentTokens = DEFAULT_COMMENT_TOKENS;
 
 	@Override
+	public SqlMetaData getSqlMetaData(BufferedReader reader) throws IOException {
+		Assert.notNull(delimiter, "delimiter is null");
+		long count = 0;
+		long size = 0;
+		String line = reader.readLine();
+		String trimmedLine = StringUtils.trimToNull(line);
+		while (line != null) {
+			size += line.length();
+			if (isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode)) {
+				count++;
+			}
+		}
+		SqlMetaData smd = new SqlMetaData();
+		smd.setCount(count);
+		smd.setSize(size);
+		return smd;
+	}
+
+	@Override
 	public String getSqlStatement(BufferedReader reader) throws IOException {
 		Assert.notNull(delimiter, "delimiter is null");
 		String line = reader.readLine();
