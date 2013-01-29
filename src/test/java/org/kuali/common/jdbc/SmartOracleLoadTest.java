@@ -78,7 +78,7 @@ public class SmartOracleLoadTest {
 		boolean insertStatement = isInsert(trimmed);
 		int length = sb.length();
 		while (insertStatement && sql != null) {
-			String token = "  " + trimmed + LF;
+			String token = "  " + trimmed + LF + LF;
 			length += token.length();
 			if (length > maxSize) {
 				sb.append(close);
@@ -89,9 +89,6 @@ public class SmartOracleLoadTest {
 			sql = reader.getSqlStatement(in);
 			trimmed = StringUtils.trimToNull(sql);
 			insertStatement = isInsert(trimmed);
-			if (insertStatement) {
-				sb.append(LF);
-			}
 		}
 		sb.append(close);
 
