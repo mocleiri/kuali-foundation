@@ -82,6 +82,9 @@ public class MorphOracleSqlTest {
 	protected List<MorphResult> convert(String location, File file) throws IOException {
 		SqlReader reader = new DefaultSqlReader();
 		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
+		SqlMetaData smd = reader.getSqlMetaData(in);
+		in.close();
+		in = LocationUtils.getBufferedReader(location, UTF8);
 		String sql = reader.getSqlStatement(in);
 		StringBuilder sb = new StringBuilder();
 		OutputStream out = FileUtils.openOutputStream(file);
