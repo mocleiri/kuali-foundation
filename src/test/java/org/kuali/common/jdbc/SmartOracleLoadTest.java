@@ -48,6 +48,7 @@ public class SmartOracleLoadTest {
 					}
 					sql = StringUtils.substring(sql, INSERT.length());
 					sql = StringUtils.trim(sql);
+					sb.append("  ");
 					sb.append(sql);
 					sb.append("\n");
 				} else {
@@ -58,7 +59,6 @@ public class SmartOracleLoadTest {
 				}
 				sql = reader.getSqlStatement(in);
 			}
-			sb.append("\n");
 			sb.append("SELECT * FROM DUAL\n");
 			sb.append("/\n");
 			String filename = "/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql";
