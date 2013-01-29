@@ -90,7 +90,7 @@ public class MorphOracleSqlTest {
 			String trimmed = StringUtils.trim(sql);
 			boolean insertStatement = isInsert(trimmed);
 			if (insertStatement) {
-				ParseContext context = new ParseContext();
+				MorphContext context = new MorphContext();
 				context.setSql(sql);
 				context.setReader(reader);
 				context.setInput(in);
@@ -109,7 +109,7 @@ public class MorphOracleSqlTest {
 		return results;
 	}
 
-	protected MorphResult combineInserts(ParseContext context) throws IOException {
+	protected MorphResult combineInserts(MorphContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		sb.append(context.getOpen());
@@ -151,7 +151,7 @@ public class MorphOracleSqlTest {
 		return trimmed;
 	}
 
-	protected boolean proceed(String sql, int count, int length, ParseContext context) {
+	protected boolean proceed(String sql, int count, int length, MorphContext context) {
 		if (sql == null) {
 			return false;
 		}
@@ -171,7 +171,7 @@ public class MorphOracleSqlTest {
 		return StringUtils.startsWith(sql, INSERT);
 	}
 
-	protected boolean isQuitCombiningSql(ParseContext context, int count, long length) {
+	protected boolean isQuitCombiningSql(MorphContext context, int count, long length) {
 		if (count > context.getMaxCount()) {
 			return true;
 		}

@@ -2,7 +2,7 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 
-public class ParseContext {
+public class MorphContext {
 
 	private static final int MAX_LENGTH = 1024 * 1024;
 	private static final int MAX_COUNT = 3;
