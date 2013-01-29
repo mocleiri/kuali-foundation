@@ -50,7 +50,7 @@ public class SmartOracleLoadTest {
 					sql = StringUtils.trim(sql);
 					sb.append("  ");
 					sb.append(sql);
-					sb.append("\n");
+					sb.append("\n\n");
 				} else {
 					sb.append(sql);
 					sb.append("\n");
