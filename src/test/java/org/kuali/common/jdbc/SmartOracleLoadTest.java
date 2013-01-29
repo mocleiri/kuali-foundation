@@ -40,6 +40,7 @@ public class SmartOracleLoadTest {
 			String sql = reader.getSqlStatement(in);
 			StringBuilder sb = new StringBuilder();
 			boolean firstInsert = true;
+			int insertMax = 25;
 			int insertCount = 0;
 			while (sql != null) {
 				if (StringUtils.startsWith(sql, INSERT)) {
@@ -53,7 +54,15 @@ public class SmartOracleLoadTest {
 					sb.append("  ");
 					sb.append(sql);
 					sb.append("\n\n");
+					if (insertCount % insertMax == 0) {
+						insertCount = 0;
+						sb.append("SELECT * FROM DUAL\n");
+						sb.append("/\n");
+						sb.append("INSERT ALL\n");
+						firstInsert = false;
+					}
 				} else {
+					firstInsert = true;
 					sb.append(sql);
 					sb.append("\n");
 					sb.append("/");
@@ -61,8 +70,10 @@ public class SmartOracleLoadTest {
 				}
 				sql = reader.getSqlStatement(in);
 			}
-			sb.append("SELECT * FROM DUAL\n");
-			sb.append("/\n");
+			if (!firstInsert) {
+				sb.append("SELECT * FROM DUAL\n");
+				sb.append("/\n");
+			}
 			String filename = "/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql";
 			File file = new File(filename);
 			FileUtils.writeStringToFile(file, sb.toString());
