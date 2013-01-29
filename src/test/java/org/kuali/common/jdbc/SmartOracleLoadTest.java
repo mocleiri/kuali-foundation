@@ -17,6 +17,7 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,10 +30,14 @@ public class SmartOracleLoadTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(SmartOracleLoadTest.class);
 	private static final String INSERT = "INSERT";
+	private static final String DELIMITER = "/";
+	private static final String LF = "\n";
+	private static final String DELIMITER_PLUS_LF = DELIMITER + LF;
 
 	@Test
 	public void parseSql() {
 		try {
+			String delimiter = "/";
 			logger.info("Parsing Old School SQL");
 			String s = LocationUtils.toString("classpath:KSEN_ATP.sql");
 			SqlReader reader = new DefaultSqlReader();
@@ -41,10 +46,13 @@ public class SmartOracleLoadTest {
 			StringBuilder sb = new StringBuilder();
 			while (sql != null) {
 				String trimmed = StringUtils.trim(sql);
-				boolean insertStatement = StringUtils.startsWith(trimmed, INSERT);
+				boolean insertStatement = isInsert(trimmed);
 				if (insertStatement) {
-					String batchInsert = getBatchInsert(sql, reader, in);
+					String batchInsert = getBatchInsert(sql, reader, in, delimiter);
 					sb.append(batchInsert);
+				} else {
+					// Add the sql followed by a linefeed + the delimiter on it's own line
+					sb.append(sql + LF + DELIMITER_PLUS_LF);
 				}
 				sql = reader.getSqlStatement(in);
 			}
@@ -56,14 +64,25 @@ public class SmartOracleLoadTest {
 		}
 	}
 
-	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in) {
+	protected boolean isInsert(String sql) {
+		return StringUtils.startsWith(sql, INSERT);
+	}
+
+	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in, String delimiter) throws IOException {
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO\n");
-		sb.append("  ");
-		sb.append(StringUtils.trim(sql));
-		sb.append("\n");
-		sb.append("SELECT * FROM DUAL\n");
-		sb.append("/\n");
+		sb.append("INSERT INTO" + LF + LF);
+		String trimmed = StringUtils.trimToNull(sql);
+		boolean insertStatement = isInsert(trimmed);
+		while (insertStatement && sql != null) {
+			sb.append("  " + trimmed + LF + LF);
+			sql = reader.getSqlStatement(in);
+			trimmed = StringUtils.trimToNull(sql);
+			insertStatement = isInsert(trimmed);
+		}
+		sb.append("SELECT * FROM DUAL" + LF + DELIMITER_PLUS_LF);
+		if (sql != null) {
+			sb.append(sql + LF + DELIMITER_PLUS_LF);
+		}
 		return sb.toString();
 	}
 }
