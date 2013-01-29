@@ -349,18 +349,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected SqlMetaData getSqlMetaData(SqlReader reader, BufferedReader in) throws IOException {
-		long count = 0;
-		long size = 0;
-		String sql = reader.getSqlStatement(in);
-		while (sql != null) {
-			count++;
-			size += sql.length();
-			sql = reader.getSqlStatement(in);
-		}
-		SqlMetaData smd = new SqlMetaData();
-		smd.setCount(count);
-		smd.setSize(size);
-		return smd;
+		return reader.getSqlMetaData(in);
 	}
 
 	protected JdbcMetaData getJdbcMetaData(DatabaseMetaData dbmd) throws SQLException {

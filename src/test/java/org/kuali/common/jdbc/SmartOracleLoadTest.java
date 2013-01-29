@@ -34,12 +34,12 @@ import org.slf4j.LoggerFactory;
 public class SmartOracleLoadTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(SmartOracleLoadTest.class);
-	private static final String INSERT = "INSERT";
-	private static final String DELIMITER = "/";
-	private static final String LF = "\n";
-	private static final String CLASSPATH = "classpath:";
-	private static final String INITIAL_DB = "initial-db";
-	private static final String UTF8 = "UTF-8";
+	public static final String INSERT = "INSERT";
+	public static final String DELIMITER = "/";
+	public static final String LF = "\n";
+	public static final String CLASSPATH = "classpath:";
+	public static final String INITIAL_DB = "initial-db";
+	public static final String UTF8 = "UTF-8";
 
 	@Test
 	public void parseSql() {
@@ -48,8 +48,8 @@ public class SmartOracleLoadTest {
 			String ws = "/Users/jeffcaddel/ws/spring-db-jc";
 			long start = System.currentTimeMillis();
 			convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
-			convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
-			convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
+			// convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
+			// convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info("Total Time: {}", FormatUtils.getTime(elapsed));
 		} catch (Exception e) {
@@ -65,11 +65,76 @@ public class SmartOracleLoadTest {
 		for (String location : locations) {
 			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
 			File file = new File(filename);
-			String canonical = file.getCanonicalPath();
-			String display = StringUtils.remove(canonical, System.getProperty("user.home") + "/sts/3.0.0-e4.2/workspace/");
-			System.out.println(display);
+			System.out.println(file.getCanonicalPath());
 			convert(location, file);
+			break;
 		}
+	}
+
+	protected List<ParseResult> convert(String location, File file) throws IOException {
+		SqlReader reader = new DefaultSqlReader();
+		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
+		String sql = reader.getSqlStatement(in);
+		StringBuilder sb = new StringBuilder();
+		OutputStream out = FileUtils.openOutputStream(file);
+		List<ParseResult> results = new ArrayList<ParseResult>();
+		while (sql != null) {
+			String trimmed = StringUtils.trim(sql);
+			boolean insertStatement = isInsert(trimmed);
+			if (insertStatement) {
+				ParseContext context = new ParseContext();
+				context.setSql(sql);
+				context.setReader(reader);
+				context.setInput(in);
+				ParseResult result = parse(context);
+				results.add(result);
+				sb.append(result.getSql());
+			} else {
+				// Add the sql followed by a linefeed + the delimiter on it's own line
+				sb.append(sql + LF + DELIMITER + LF);
+			}
+			out.write(sb.toString().getBytes(UTF8));
+			sb = new StringBuilder();
+			sql = reader.getSqlStatement(in);
+		}
+		IOUtils.closeQuietly(out);
+		return results;
+	}
+
+	protected ParseResult parse(ParseContext context) throws IOException {
+		String sql = context.getSql();
+		StringBuilder sb = new StringBuilder();
+		sb.append(context.getOpen());
+		String trimmed = StringUtils.trimToNull(sql);
+		int length = sb.length();
+		int count = 0;
+		boolean proceed = proceed(trimmed);
+		while (proceed) {
+			String token = "  " + trimmed + LF + LF;
+			count++;
+			length += token.length();
+			if (isQuitCombiningSql(context, count, length)) {
+				break;
+			} else {
+				sb.append(token);
+				sql = context.getReader().getSqlStatement(context.getInput());
+				trimmed = StringUtils.trimToNull(sql);
+				proceed = proceed(trimmed);
+			}
+		}
+		sb.append(context.getClose());
+
+		// There is a trailing SQL statement that is not an INSERT
+		if (sql != null) {
+			sb.append(sql + LF + DELIMITER + LF);
+			count++;
+		}
+
+		ParseResult result = new ParseResult();
+		result.setSql(sb.toString());
+		result.setCount(count);
+		result.setLength(sb.length());
+		return result;
 	}
 
 	protected List<String> getStartsWith(List<String> locations, String token) {
@@ -82,63 +147,33 @@ public class SmartOracleLoadTest {
 		return trimmed;
 	}
 
-	protected void convert(String location, File file) throws IOException {
-		SqlReader reader = new DefaultSqlReader();
-		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
-		String sql = reader.getSqlStatement(in);
-		StringBuilder sb = new StringBuilder();
-		OutputStream out = FileUtils.openOutputStream(file);
-		while (sql != null) {
-			String trimmed = StringUtils.trim(sql);
-			boolean insertStatement = isInsert(trimmed);
-			if (insertStatement) {
-				String batchInsert = getBatchInsert(sql, reader, in);
-				sb.append(batchInsert);
-			} else {
-				// Add the sql followed by a linefeed + the delimiter on it's own line
-				sb.append(sql + LF + DELIMITER + LF);
-			}
-			out.write(sb.toString().getBytes(UTF8));
-			sb = new StringBuilder();
-			sql = reader.getSqlStatement(in);
+	protected boolean proceed(String sql) {
+		if (sql == null) {
+			return false;
 		}
-		IOUtils.closeQuietly(out);
-	}
-
-	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in) throws IOException {
-		String open = "INSERT ALL" + LF + LF;
-		String close = "SELECT * FROM DUAL" + LF + DELIMITER + LF;
-		int maxLength = 1024 * 1024;
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(open);
-		String trimmed = StringUtils.trimToNull(sql);
-		boolean insertStatement = isInsert(trimmed);
-		int length = sb.length();
-		while (insertStatement && sql != null) {
-			String token = "  " + trimmed + LF + LF;
-			length = checkLength(token, maxLength, length, sb, open, close);
-			sb.append(token);
-			sql = reader.getSqlStatement(in);
-			trimmed = StringUtils.trimToNull(sql);
-			insertStatement = isInsert(trimmed);
+		if (!isInsert(sql)) {
+			return false;
 		}
-		sb.append(close);
-
-		// There is a trailing SQL statement that is not an INSERT
-		if (sql != null) {
-			sb.append(sql + LF + DELIMITER + LF);
-		}
-		return sb.toString();
+		return true;
 	}
 
 	protected boolean isInsert(String sql) {
 		return StringUtils.startsWith(sql, INSERT);
 	}
 
-	protected int checkLength(String token, int maxLength, int currentLength, StringBuilder sb, String open, String close) {
+	protected boolean isQuitCombiningSql(ParseContext context, int count, long length) {
+		if (count > context.getMaxCount()) {
+			return true;
+		}
+		if (length > context.getMaxLength()) {
+			return true;
+		}
+		return false;
+	}
+
+	protected int checkLength(String token, int maxLength, int currentLength, StringBuilder sb, String open, String close, int count, int maxCount) {
 		int totalLength = currentLength + token.length();
-		if (totalLength > maxLength) {
+		if (totalLength > maxLength || count > maxCount) {
 			sb.append(close);
 			sb.append(open);
 			return open.length();

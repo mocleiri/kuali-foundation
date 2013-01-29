@@ -51,6 +51,8 @@ public class DefaultSqlReader implements SqlReader {
 			if (isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode)) {
 				count++;
 			}
+			line = reader.readLine();
+			trimmedLine = StringUtils.trimToNull(line);
 		}
 		SqlMetaData smd = new SqlMetaData();
 		smd.setCount(count);
