@@ -71,7 +71,7 @@ public class SmartOracleLoadTest {
 	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in, String delimiter) throws IOException {
 		String open = "INSERT ALL" + LF + LF;
 		String close = "SELECT * FROM DUAL" + LF + DELIMITER_PLUS_LF;
-		int maxSize = 1024 * 3;// * 1024;
+		int maxSize = 1024 * 1024; // * 1024;
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(open);
