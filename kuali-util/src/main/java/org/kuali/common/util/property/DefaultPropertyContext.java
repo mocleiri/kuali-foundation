@@ -64,6 +64,18 @@ public class DefaultPropertyContext implements PropertyContext {
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
+		// If this context is being loaded as part of a build process, build properties win over properties from .properties files
+		if (buildProperties != null) {
+			OverrideProcessor overrideProcessor = new OverrideProcessor(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, buildProperties);
+			if (buildPropertyIncludes != null) {
+				overrideProcessor.setIncludes(buildPropertyIncludes);
+			}
+			if (buildPropertyExcludes != null) {
+				overrideProcessor.setExcludes(buildPropertyExcludes);
+			}
+			processors.add(overrideProcessor);
+		}
+
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
 			EncryptionMode mode = EncryptionMode.valueOf(encryptionMode);
@@ -78,18 +90,6 @@ public class DefaultPropertyContext implements PropertyContext {
 		 * Having a reference to this bean no longer does them any good, they'll have to search around in memory to find it.<br>
 		 */
 		this.encryptionPassword = null;
-
-		// If this context is being loaded as part of a build process, build properties win over properties from .properties files
-		if (buildProperties != null) {
-			OverrideProcessor overrideProcessor = new OverrideProcessor(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, buildProperties);
-			if (buildPropertyIncludes != null) {
-				overrideProcessor.setIncludes(buildPropertyIncludes);
-			}
-			if (buildPropertyExcludes != null) {
-				overrideProcessor.setExcludes(buildPropertyExcludes);
-			}
-			processors.add(overrideProcessor);
-		}
 
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 
