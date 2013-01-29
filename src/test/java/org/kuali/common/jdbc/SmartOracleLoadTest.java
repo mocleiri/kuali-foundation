@@ -39,40 +39,14 @@ public class SmartOracleLoadTest {
 			BufferedReader in = LocationUtils.getBufferedReaderFromString(s);
 			String sql = reader.getSqlStatement(in);
 			StringBuilder sb = new StringBuilder();
-			boolean firstInsert = true;
-			int insertMax = 25;
-			int insertCount = 0;
 			while (sql != null) {
-				if (StringUtils.startsWith(sql, INSERT)) {
-					insertCount++;
-					if (firstInsert) {
-						sb.append("INSERT ALL\n");
-						firstInsert = false;
-					}
-					sql = StringUtils.substring(sql, INSERT.length());
-					sql = StringUtils.trim(sql);
-					sb.append("  ");
-					sb.append(sql);
-					sb.append("\n\n");
-					if (insertCount % insertMax == 0) {
-						insertCount = 0;
-						sb.append("SELECT * FROM DUAL\n");
-						sb.append("/\n");
-						sb.append("INSERT ALL\n");
-						firstInsert = false;
-					}
-				} else {
-					firstInsert = true;
-					sb.append(sql);
-					sb.append("\n");
-					sb.append("/");
-					sb.append("\n");
+				String trimmed = StringUtils.trim(sql);
+				boolean insertStatement = StringUtils.startsWith(trimmed, INSERT);
+				if (insertStatement) {
+					String batchInsert = getBatchInsert(sql, reader, in);
+					sb.append(batchInsert);
 				}
 				sql = reader.getSqlStatement(in);
-			}
-			if (!firstInsert) {
-				sb.append("SELECT * FROM DUAL\n");
-				sb.append("/\n");
 			}
 			String filename = "/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql";
 			File file = new File(filename);
@@ -80,5 +54,16 @@ public class SmartOracleLoadTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO\n");
+		sb.append("  ");
+		sb.append(StringUtils.trim(sql));
+		sb.append("\n");
+		sb.append("SELECT * FROM DUAL\n");
+		sb.append("/\n");
+		return sb.toString();
 	}
 }
