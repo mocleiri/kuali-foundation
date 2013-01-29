@@ -26,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,23 +45,30 @@ public class SmartOracleLoadTest {
 	public void parseSql() {
 		try {
 			logger.info("Parsing Old School SQL");
-			String locationListing = "classpath:META-INF/sql/oracle/ks-core-sql-data.resources";
-			String basedir = "/Users/jeffcaddel/ws/spring-db-jc/ks-core/ks-core-sql/src/main/resources";
-			List<String> all = LocationUtils.getLocations(locationListing);
-			String token = CLASSPATH + INITIAL_DB;
-			List<String> locations = getStartsWith(all, token);
-			logger.info(locations.size() + "");
-			for (String location : locations) {
-				String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
-				if (StringUtils.contains(filename, "KSEN_SCHED")) {
-					System.out.print("");
-				}
-				File file = new File(filename);
-				logger.info(file.getCanonicalPath());
-				convert(location, file);
-			}
+			String ws = "/Users/jeffcaddel/ws/spring-db-jc";
+			long start = System.currentTimeMillis();
+			convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
+			convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
+			convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
+			long elapsed = System.currentTimeMillis() - start;
+			logger.info("Total Time: {}", FormatUtils.getTime(elapsed));
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void convert(String locationListing, String basedir) throws IOException {
+		List<String> all = LocationUtils.getLocations(locationListing);
+		String token = CLASSPATH + INITIAL_DB;
+		List<String> locations = getStartsWith(all, token);
+		logger.info(locations.size() + "");
+		for (String location : locations) {
+			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
+			File file = new File(filename);
+			String canonical = file.getCanonicalPath();
+			String display = StringUtils.remove(canonical, System.getProperty("user.home") + "/sts/3.0.0-e4.2/workspace/");
+			System.out.println(display);
+			convert(location, file);
 		}
 	}
 
