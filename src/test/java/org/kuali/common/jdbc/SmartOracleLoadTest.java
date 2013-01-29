@@ -69,7 +69,7 @@ public class SmartOracleLoadTest {
 	}
 
 	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in, String delimiter) throws IOException {
-		String open = "INSERT ALL" + LF + LF;
+		String open = "INSERT ALL" + LF;
 		String close = "SELECT * FROM DUAL" + LF + DELIMITER_PLUS_LF;
 		int maxSize = 1024 * 1024;
 
@@ -79,7 +79,7 @@ public class SmartOracleLoadTest {
 		boolean insertStatement = isInsert(trimmed);
 		int length = sb.length();
 		while (insertStatement && sql != null) {
-			String token = "  " + trimmed + LF + LF;
+			String token = "  " + trimmed + LF;
 			length += token.length();
 			if (length > maxSize) {
 				sb.append(close);
@@ -90,6 +90,9 @@ public class SmartOracleLoadTest {
 			sql = reader.getSqlStatement(in);
 			trimmed = StringUtils.trimToNull(sql);
 			insertStatement = isInsert(trimmed);
+			if (insertStatement) {
+				sb.append(LF);
+			}
 		}
 		sb.append(close);
 
