@@ -18,7 +18,6 @@ package org.kuali.common.util.property.processor;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
@@ -27,6 +26,8 @@ public class OverrideProcessor implements PropertyProcessor {
 
 	Mode propertyOverwriteMode;
 	Properties overrideProperties;
+	List<String> includes;
+	List<String> excludes;
 
 	public OverrideProcessor() {
 		this(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE);
@@ -44,12 +45,10 @@ public class OverrideProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		List<String> keys = PropertyUtils.getSortedKeys(overrideProperties, includes, excludes);
 		for (String key : keys) {
 			String newValue = overrideProperties.getProperty(key);
-			if (!StringUtils.isBlank(newValue)) {
-				PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
-			}
+			PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
 		}
 	}
 
@@ -67,6 +66,22 @@ public class OverrideProcessor implements PropertyProcessor {
 
 	public void setOverrideProperties(Properties overrideProperties) {
 		this.overrideProperties = overrideProperties;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 }
