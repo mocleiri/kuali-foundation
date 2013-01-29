@@ -36,34 +36,37 @@ public class SmartOracleLoadTest {
 	@Test
 	public void parseSql() {
 		try {
-			String delimiter = "/";
 			logger.info("Parsing Old School SQL");
-			String s = LocationUtils.toString("classpath:KSEN_ATP.sql");
-			SqlReader reader = new DefaultSqlReader();
-			BufferedReader in = LocationUtils.getBufferedReaderFromString(s);
-			String sql = reader.getSqlStatement(in);
-			StringBuilder sb = new StringBuilder();
-			while (sql != null) {
-				String trimmed = StringUtils.trim(sql);
-				boolean insertStatement = isInsert(trimmed);
-				if (insertStatement) {
-					String batchInsert = getBatchInsert(sql, reader, in, delimiter);
-					sb.append(batchInsert);
-				} else {
-					// Add the sql followed by a linefeed + the delimiter on it's own line
-					sb.append(sql + LF + DELIMITER + LF);
-				}
-				sql = reader.getSqlStatement(in);
-			}
+			String location = "classpath:KSEN_ATP.sql";
 			String filename = "/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql";
 			File file = new File(filename);
-			FileUtils.writeStringToFile(file, sb.toString());
+			convert(location, file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in, String delimiter) throws IOException {
+	protected void convert(String location, File file) throws IOException {
+		SqlReader reader = new DefaultSqlReader();
+		BufferedReader in = LocationUtils.getBufferedReader(location);
+		String sql = reader.getSqlStatement(in);
+		StringBuilder sb = new StringBuilder();
+		while (sql != null) {
+			String trimmed = StringUtils.trim(sql);
+			boolean insertStatement = isInsert(trimmed);
+			if (insertStatement) {
+				String batchInsert = getBatchInsert(sql, reader, in);
+				sb.append(batchInsert);
+			} else {
+				// Add the sql followed by a linefeed + the delimiter on it's own line
+				sb.append(sql + LF + DELIMITER + LF);
+			}
+			sql = reader.getSqlStatement(in);
+		}
+		FileUtils.writeStringToFile(file, sb.toString());
+	}
+
+	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in) throws IOException {
 		String open = "INSERT ALL" + LF + LF;
 		String close = "SELECT * FROM DUAL" + LF + DELIMITER + LF;
 		int maxLength = 1024 * 1024;
