@@ -318,7 +318,7 @@ public class DefaultJdbcService implements JdbcService {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(location, encoding);
-			return getSqlMetaData(reader, in);
+			return reader.getSqlMetaData(in);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO exception");
 		} finally {
@@ -340,16 +340,12 @@ public class DefaultJdbcService implements JdbcService {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReaderFromString(sql);
-			return getSqlMetaData(reader, in);
+			return reader.getSqlMetaData(in);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO exception");
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
-	}
-
-	protected SqlMetaData getSqlMetaData(SqlReader reader, BufferedReader in) throws IOException {
-		return reader.getSqlMetaData(in);
 	}
 
 	protected JdbcMetaData getJdbcMetaData(DatabaseMetaData dbmd) throws SQLException {
