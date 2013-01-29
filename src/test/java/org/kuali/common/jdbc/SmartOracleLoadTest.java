@@ -32,7 +32,6 @@ public class SmartOracleLoadTest {
 	private static final String INSERT = "INSERT";
 	private static final String DELIMITER = "/";
 	private static final String LF = "\n";
-	private static final String DELIMITER_PLUS_LF = DELIMITER + LF;
 
 	@Test
 	public void parseSql() {
@@ -52,7 +51,7 @@ public class SmartOracleLoadTest {
 					sb.append(batchInsert);
 				} else {
 					// Add the sql followed by a linefeed + the delimiter on it's own line
-					sb.append(sql + LF + DELIMITER_PLUS_LF);
+					sb.append(sql + LF + DELIMITER + LF);
 				}
 				sql = reader.getSqlStatement(in);
 			}
@@ -69,8 +68,8 @@ public class SmartOracleLoadTest {
 	}
 
 	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in, String delimiter) throws IOException {
-		String open = "INSERT ALL" + LF;
-		String close = "SELECT * FROM DUAL" + LF + DELIMITER_PLUS_LF;
+		String open = "INSERT ALL" + LF + LF;
+		String close = "SELECT * FROM DUAL" + LF + DELIMITER + LF;
 		int maxSize = 1024 * 1024;
 
 		StringBuilder sb = new StringBuilder();
@@ -98,7 +97,7 @@ public class SmartOracleLoadTest {
 
 		// There is a trailing SQL statement that is not an INSERT
 		if (sql != null) {
-			sb.append(sql + LF + DELIMITER_PLUS_LF);
+			sb.append(sql + LF + DELIMITER + LF);
 		}
 		return sb.toString();
 	}
