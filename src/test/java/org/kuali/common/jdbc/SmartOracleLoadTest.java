@@ -40,8 +40,10 @@ public class SmartOracleLoadTest {
 			String sql = reader.getSqlStatement(in);
 			StringBuilder sb = new StringBuilder();
 			boolean firstInsert = true;
+			int insertCount = 0;
 			while (sql != null) {
 				if (StringUtils.startsWith(sql, INSERT)) {
+					insertCount++;
 					if (firstInsert) {
 						sb.append("INSERT ALL\n");
 						firstInsert = false;
