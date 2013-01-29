@@ -12,8 +12,8 @@ public class ParseContext {
 	BufferedReader input;
 	int maxLength = MAX_LENGTH;
 	int maxCount = MAX_COUNT;
-	String open = "INSERT ALL" + ParseOracleSqlTest.LF + ParseOracleSqlTest.LF;
-	String close = "SELECT * FROM DUAL" + ParseOracleSqlTest.LF + ParseOracleSqlTest.DELIMITER + ParseOracleSqlTest.LF;
+	String open = "INSERT ALL" + MorphOracleSqlTest.LF + MorphOracleSqlTest.LF;
+	String close = "SELECT * FROM DUAL" + MorphOracleSqlTest.LF + MorphOracleSqlTest.DELIMITER + MorphOracleSqlTest.LF;
 
 	public String getSql() {
 		return sql;

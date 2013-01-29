@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc;
 
-public class ParseResult {
+public class MorphResult {
 
 	String sql;
 	int count;

@@ -31,9 +31,9 @@ import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ParseOracleSqlTest {
+public class MorphOracleSqlTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(ParseOracleSqlTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(MorphOracleSqlTest.class);
 	public static final String INSERT = "INSERT";
 	public static final String DELIMITER = "/";
 	public static final String LF = "\n";
@@ -65,27 +65,27 @@ public class ParseOracleSqlTest {
 		for (String location : locations) {
 			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
 			File file = new File(filename);
-			List<ParseResult> results = convert(location, file);
+			List<MorphResult> results = convert(location, file);
 			show(file, results);
 			break;
 		}
 	}
 
-	public void show(File file, List<ParseResult> results) {
+	public void show(File file, List<MorphResult> results) {
 		int count = 0;
-		for (ParseResult result : results) {
+		for (MorphResult result : results) {
 			count += result.getCount();
 		}
 		logger.info(count + " - " + file.getName());
 	}
 
-	protected List<ParseResult> convert(String location, File file) throws IOException {
+	protected List<MorphResult> convert(String location, File file) throws IOException {
 		SqlReader reader = new DefaultSqlReader();
 		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
 		String sql = reader.getSqlStatement(in);
 		StringBuilder sb = new StringBuilder();
 		OutputStream out = FileUtils.openOutputStream(file);
-		List<ParseResult> results = new ArrayList<ParseResult>();
+		List<MorphResult> results = new ArrayList<MorphResult>();
 		while (sql != null) {
 			String trimmed = StringUtils.trim(sql);
 			boolean insertStatement = isInsert(trimmed);
@@ -94,7 +94,7 @@ public class ParseOracleSqlTest {
 				context.setSql(sql);
 				context.setReader(reader);
 				context.setInput(in);
-				ParseResult result = combineInserts(context);
+				MorphResult result = combineInserts(context);
 				results.add(result);
 				sb.append(result.getSql());
 			} else {
@@ -109,7 +109,7 @@ public class ParseOracleSqlTest {
 		return results;
 	}
 
-	protected ParseResult combineInserts(ParseContext context) throws IOException {
+	protected MorphResult combineInserts(ParseContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		sb.append(context.getOpen());
@@ -134,7 +134,7 @@ public class ParseOracleSqlTest {
 			count++;
 		}
 
-		ParseResult result = new ParseResult();
+		MorphResult result = new MorphResult();
 		result.setSql(sb.toString());
 		result.setCount(count);
 		result.setLength(sb.length());
