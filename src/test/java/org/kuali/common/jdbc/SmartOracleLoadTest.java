@@ -18,8 +18,12 @@ package org.kuali.common.jdbc;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
@@ -32,25 +36,50 @@ public class SmartOracleLoadTest {
 	private static final String INSERT = "INSERT";
 	private static final String DELIMITER = "/";
 	private static final String LF = "\n";
+	private static final String CLASSPATH = "classpath:";
+	private static final String INITIAL_DB = "initial-db";
+	private static final String UTF8 = "UTF-8";
 
 	@Test
 	public void parseSql() {
 		try {
 			logger.info("Parsing Old School SQL");
-			String location = "classpath:KSEN_ATP.sql";
-			String filename = "/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql";
-			File file = new File(filename);
-			convert(location, file);
+			String locationListing = "classpath:META-INF/sql/oracle/ks-core-sql-data.resources";
+			String basedir = "/Users/jeffcaddel/ws/spring-db-jc/ks-core/ks-core-sql/src/main/resources";
+			List<String> all = LocationUtils.getLocations(locationListing);
+			String token = CLASSPATH + INITIAL_DB;
+			List<String> locations = getStartsWith(all, token);
+			logger.info(locations.size() + "");
+			for (String location : locations) {
+				String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
+				if (StringUtils.contains(filename, "KSEN_SCHED")) {
+					System.out.print("");
+				}
+				File file = new File(filename);
+				logger.info(file.getCanonicalPath());
+				convert(location, file);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	protected List<String> getStartsWith(List<String> locations, String token) {
+		List<String> trimmed = new ArrayList<String>();
+		for (String location : locations) {
+			if (StringUtils.startsWith(location, token)) {
+				trimmed.add(location);
+			}
+		}
+		return trimmed;
+	}
+
 	protected void convert(String location, File file) throws IOException {
 		SqlReader reader = new DefaultSqlReader();
-		BufferedReader in = LocationUtils.getBufferedReader(location);
+		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
 		String sql = reader.getSqlStatement(in);
 		StringBuilder sb = new StringBuilder();
+		OutputStream out = FileUtils.openOutputStream(file);
 		while (sql != null) {
 			String trimmed = StringUtils.trim(sql);
 			boolean insertStatement = isInsert(trimmed);
@@ -61,9 +90,11 @@ public class SmartOracleLoadTest {
 				// Add the sql followed by a linefeed + the delimiter on it's own line
 				sb.append(sql + LF + DELIMITER + LF);
 			}
+			out.write(sb.toString().getBytes(UTF8));
+			sb = new StringBuilder();
 			sql = reader.getSqlStatement(in);
 		}
-		FileUtils.writeStringToFile(file, sb.toString());
+		IOUtils.closeQuietly(out);
 	}
 
 	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in) throws IOException {
