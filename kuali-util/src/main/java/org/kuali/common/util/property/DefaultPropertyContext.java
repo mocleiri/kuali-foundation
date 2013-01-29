@@ -58,6 +58,8 @@ public class DefaultPropertyContext implements PropertyContext {
 	List<PropertyProcessor> processors;
 	Properties properties;
 	Properties buildProperties;
+	List<String> buildPropertyIncludes;
+	List<String> buildPropertyExcludes;
 
 	protected List<PropertyProcessor> getDefaultProcessors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
@@ -79,7 +81,14 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		// If this context is being loaded as part of a build process, build properties win over properties from .properties files
 		if (buildProperties != null) {
-			processors.add(new OverrideProcessor(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, buildProperties));
+			OverrideProcessor overrideProcessor = new OverrideProcessor(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, buildProperties);
+			if (buildPropertyIncludes != null) {
+				overrideProcessor.setIncludes(buildPropertyIncludes);
+			}
+			if (buildPropertyExcludes != null) {
+				overrideProcessor.setExcludes(buildPropertyExcludes);
+			}
+			processors.add(overrideProcessor);
 		}
 
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
@@ -325,5 +334,21 @@ public class DefaultPropertyContext implements PropertyContext {
 
 	public void setBuildProperties(Properties buildProperties) {
 		this.buildProperties = buildProperties;
+	}
+
+	public List<String> getBuildPropertyIncludes() {
+		return buildPropertyIncludes;
+	}
+
+	public void setBuildPropertyIncludes(List<String> buildPropertyIncludes) {
+		this.buildPropertyIncludes = buildPropertyIncludes;
+	}
+
+	public List<String> getBuildPropertyExcludes() {
+		return buildPropertyExcludes;
+	}
+
+	public void setBuildPropertyExcludes(List<String> buildPropertyExcludes) {
+		this.buildPropertyExcludes = buildPropertyExcludes;
 	}
 }
