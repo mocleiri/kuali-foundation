@@ -94,7 +94,7 @@ public class ParseOracleSqlTest {
 				context.setSql(sql);
 				context.setReader(reader);
 				context.setInput(in);
-				ParseResult result = parse(context);
+				ParseResult result = combineInserts(context);
 				results.add(result);
 				sb.append(result.getSql());
 			} else {
@@ -109,31 +109,27 @@ public class ParseOracleSqlTest {
 		return results;
 	}
 
-	protected ParseResult parse(ParseContext context) throws IOException {
+	protected ParseResult combineInserts(ParseContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		sb.append(context.getOpen());
 		String trimmed = StringUtils.trimToNull(sql);
 		int length = sb.length();
 		int count = 0;
-		boolean proceed = proceed(trimmed);
+		boolean proceed = proceed(trimmed, count, length, context);
 		while (proceed) {
 			String token = "  " + trimmed + LF + LF;
 			count++;
 			length += token.length();
-			if (isQuitCombiningSql(context, count, length)) {
-				break;
-			} else {
-				sb.append(token);
-				sql = context.getReader().getSqlStatement(context.getInput());
-				trimmed = StringUtils.trimToNull(sql);
-				proceed = proceed(trimmed);
-			}
+			sb.append(token);
+			sql = context.getReader().getSqlStatement(context.getInput());
+			trimmed = StringUtils.trimToNull(sql);
+			proceed = proceed(trimmed, count, length, context);
 		}
 		sb.append(context.getClose());
 
 		// There is a trailing SQL statement that is not an INSERT
-		if (sql != null) {
+		if (trimmed != null && !isInsert(trimmed)) {
 			sb.append(sql + LF + DELIMITER + LF);
 			count++;
 		}
@@ -155,11 +151,17 @@ public class ParseOracleSqlTest {
 		return trimmed;
 	}
 
-	protected boolean proceed(String sql) {
+	protected boolean proceed(String sql, int count, int length, ParseContext context) {
 		if (sql == null) {
 			return false;
 		}
 		if (!isInsert(sql)) {
+			return false;
+		}
+		if (count >= context.getMaxCount()) {
+			return false;
+		}
+		if (length >= context.getMaxLength()) {
 			return false;
 		}
 		return true;
