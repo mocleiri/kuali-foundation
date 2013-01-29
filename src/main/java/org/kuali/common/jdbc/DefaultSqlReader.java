@@ -59,6 +59,10 @@ public class DefaultSqlReader implements SqlReader {
 	}
 
 	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {
+		if (StringUtils.endsWith(sql, delimiter)) {
+			int endIndex = sql.length() - delimiter.length();
+			sql = StringUtils.substring(sql, 0, endIndex);
+		}
 		if (trim) {
 			sql = StringUtils.trimToNull(sql);
 		}
@@ -66,9 +70,6 @@ public class DefaultSqlReader implements SqlReader {
 			return null;
 		} else if (StringUtils.endsWith(sql, lineSeparator.getValue())) {
 			int endIndex = sql.length() - lineSeparator.getValue().length();
-			return StringUtils.substring(sql, 0, endIndex);
-		} else if (StringUtils.endsWith(sql, delimiter)) {
-			int endIndex = sql.length() - delimiter.length();
 			return StringUtils.substring(sql, 0, endIndex);
 		} else {
 			return sql;
