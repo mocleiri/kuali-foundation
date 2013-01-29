@@ -69,8 +69,11 @@ public class SmartOracleLoadTest {
 	}
 
 	protected String getBatchInsert(String sql, SqlReader reader, BufferedReader in, String delimiter) throws IOException {
+		String open = "INSERT INTO" + LF + LF;
+		String close = "SELECT * FROM DUAL" + LF + DELIMITER_PLUS_LF;
+
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO" + LF + LF);
+		sb.append(open);
 		String trimmed = StringUtils.trimToNull(sql);
 		boolean insertStatement = isInsert(trimmed);
 		while (insertStatement && sql != null) {
@@ -79,7 +82,9 @@ public class SmartOracleLoadTest {
 			trimmed = StringUtils.trimToNull(sql);
 			insertStatement = isInsert(trimmed);
 		}
-		sb.append("SELECT * FROM DUAL" + LF + DELIMITER_PLUS_LF);
+		sb.append(close);
+
+		// There is a trailing SQL statement that is not an INSERT
 		if (sql != null) {
 			sb.append(sql + LF + DELIMITER_PLUS_LF);
 		}
