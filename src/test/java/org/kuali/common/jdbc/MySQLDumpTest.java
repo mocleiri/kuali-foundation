@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
@@ -152,7 +153,7 @@ public class MySQLDumpTest {
 	}
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void execute() {
 		try {
 			Properties original = loadProperties();
