@@ -31,9 +31,9 @@ import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SmartOracleLoadTest {
+public class ParseOracleSqlTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(SmartOracleLoadTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(ParseOracleSqlTest.class);
 	public static final String INSERT = "INSERT";
 	public static final String DELIMITER = "/";
 	public static final String LF = "\n";
@@ -65,10 +65,18 @@ public class SmartOracleLoadTest {
 		for (String location : locations) {
 			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
 			File file = new File(filename);
-			System.out.println(file.getCanonicalPath());
-			convert(location, file);
+			List<ParseResult> results = convert(location, file);
+			show(file, results);
 			break;
 		}
+	}
+
+	public void show(File file, List<ParseResult> results) {
+		int count = 0;
+		for (ParseResult result : results) {
+			count += result.getCount();
+		}
+		logger.info(count + " - " + file.getName());
 	}
 
 	protected List<ParseResult> convert(String location, File file) throws IOException {
