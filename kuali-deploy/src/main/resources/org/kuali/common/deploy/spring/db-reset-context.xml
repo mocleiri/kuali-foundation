@@ -29,7 +29,10 @@
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>${kuali.group.home}/${project.artifactId}.properties</value>
     <value>classpath:org/kuali/common/sql/sql.xml</value>
-    <value>classpath:org/kuali/common/sql/${db.vendor}.xml</value>
+    <value>classpath:org/kuali/common/sql/mysql.xml</value>
+    <value>classpath:org/kuali/common/sql/oracle.xml</value>
+    <value>classpath:org/kuali/common/sql/h2.xml</value>
+    <value>classpath:org/kuali/common/sql/derby.xml</value>
   </util:list>
 
   <util:list id="deploy.locationHelperIncludes" value-type="java.lang.String">
@@ -39,19 +42,28 @@
     <value>project.artifactId</value>
     <value>project.version</value>
     <value>project.classifier</value>
-    <value>db.vendor</value>
     <value>kuali.enc.*</value>
+  </util:list>
+
+  <util:list id="deploy.buildPropertyIncludes" value-type="java.lang.String">
+    <value>db.vendor</value>
     <value>jdbc.*</value>
+    <value>oracle.*</value>
+    <value>mysql.*</value>
+    <value>h2.*</value>
+    <value>sql.*</value>
   </util:list>
 
   <bean id="deploy.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations" ref="deploy.locations" />
     <property name="locationHelperProperties" ref="deploy.mavenProperties" />
+    <property name="buildProperties" ref="deploy.mavenProperties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encoding" value="${kuali.encoding}" />
     <property name="locationHelperIncludes" ref="deploy.locationHelperIncludes" />
+    <property name="buildPropertyIncludes" ref="deploy.buildPropertyIncludes" />
   </bean>
 
   <bean id="deploy.dbaSql" class="java.lang.String">
