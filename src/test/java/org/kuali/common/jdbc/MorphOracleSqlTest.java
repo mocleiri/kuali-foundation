@@ -42,7 +42,7 @@ public class MorphOracleSqlTest {
 	public static final String CLASSPATH = "classpath:";
 	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
-	String ws = "/Users/jeffcaddel/ws/spring-db-jc";
+	String ws = System.getProperty("ws") == null ? "/Users/jeffcaddel/ws/spring-db-jc" : System.getProperty("ws");
 	int oldCount = 0;
 	int newCount = 0;
 
