@@ -59,8 +59,8 @@ public class MorphOracleSqlTest {
 			long start = System.currentTimeMillis();
 			convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
 			convert("classpath:META-INF/sql/oracle/ks-rice-sql-data.resources", ws + "/ks-core/ks-rice-sql/src/main/resources");
-			convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
-			convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
+			// convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
+			// convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info("Total Time: {}", FormatUtils.getTime(elapsed));
 			System.out.println("oldCount= " + oldCount + " newCount=" + newCount);
