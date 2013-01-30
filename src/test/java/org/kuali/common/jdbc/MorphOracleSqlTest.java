@@ -41,6 +41,8 @@ public class MorphOracleSqlTest {
 	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
 	String ws = "/Users/jeffcaddel/ws/spring-db-jc";
+	int oldCount = 0;
+	int newCount = 0;
 
 	@Test
 	public void parseSql() {
@@ -52,6 +54,7 @@ public class MorphOracleSqlTest {
 			convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info("Total Time: {}", FormatUtils.getTime(elapsed));
+			System.out.println("oldCount= " + oldCount + " newCount=" + newCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,16 +68,13 @@ public class MorphOracleSqlTest {
 		System.out.println("Converting " + locations.size() + " locations from [" + locationListing + "]");
 		System.out.println("-----------------------------------------------------------------------------------------------");
 		for (String location : locations) {
-			String locationToken = "data/KSEN_LPR.sql";
-			if (!StringUtils.contains(location, locationToken)) {
-				continue;
-			}
 			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
 			File file = new File(filename);
 			ConversionResult result = convert(location, file);
+			oldCount += result.getBefore().getCount();
+			newCount += result.getAfter().getCount();
 			show(file, result);
 		}
-		System.out.println();
 	}
 
 	public void show(File file, ConversionResult result) throws IOException {
@@ -85,9 +85,7 @@ public class MorphOracleSqlTest {
 		int pos = path.indexOf(token);
 		path = path.substring(pos + token.length());
 		String filename = StringUtils.rightPad(path, 55, " ");
-		// Object[] args = { filename, before, after };
 		System.out.println(filename + " - " + before + " -> " + after);
-		// logger.info("{} - {} -> {}", args);
 	}
 
 	protected ConversionResult convert(String location, File file) throws IOException {
