@@ -35,7 +35,7 @@ public class MorphOracleSqlTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MorphOracleSqlTest.class);
 	public static final int MAX_LENGTH = 1024 * 50;
-	public static final int MAX_COUNT = 100000;
+	public static final int MAX_COUNT = 1000000;
 	public static final String INSERT = "INSERT";
 	public static final String DELIMITER = "/";
 	public static final String LF = "\n";
