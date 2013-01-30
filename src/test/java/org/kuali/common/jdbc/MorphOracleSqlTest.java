@@ -34,17 +34,21 @@ import org.slf4j.LoggerFactory;
 public class MorphOracleSqlTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MorphOracleSqlTest.class);
-	public static final int MAX_LENGTH = 1024 * 50;
-	public static final int MAX_COUNT = 1000000;
+	public static final int MAX_LENGTH = new Integer(getProperty("max.length", 1024 * 50 + ""));
+	public static final int MAX_COUNT = new Integer(getProperty("max.count", 1000000 + ""));;
 	public static final String INSERT = "INSERT";
 	public static final String DELIMITER = "/";
 	public static final String LF = "\n";
 	public static final String CLASSPATH = "classpath:";
 	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
-	String ws = System.getProperty("ws") == null ? "/Users/jeffcaddel/ws/spring-db-jc" : System.getProperty("ws");
+	String ws = getProperty("ws", "/Users/jeffcaddel/ws/spring-db-jc");
 	int oldCount = 0;
 	int newCount = 0;
+
+	protected static String getProperty(String key, String defaultValue) {
+		return System.getProperty(key) == null ? defaultValue : System.getProperty(key);
+	}
 
 	@Test
 	public void parseSql() {
