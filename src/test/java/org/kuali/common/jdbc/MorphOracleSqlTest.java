@@ -32,16 +32,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MorphOracleSqlTest {
-
 	private static final Logger logger = LoggerFactory.getLogger(MorphOracleSqlTest.class);
 	public static final int MAX_LENGTH = new Integer(getProperty("max.length", 1024 * 50 + ""));
-	public static final int MAX_COUNT = new Integer(getProperty("max.count", 1000000 + ""));;
+	public static final int MAX_COUNT = new Integer(getProperty("max.count", 10 + ""));;
 	public static final String INSERT = "INSERT";
 	public static final String DELIMITER = "/";
 	public static final String LF = "\n";
 	public static final String CLASSPATH = "classpath:";
 	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
+	public static final String OPEN = "INSERT ALL" + LF;
+	public static final String CLOSE = "SELECT * FROM DUAL" + LF + DELIMITER + LF;
 	String ws = getProperty("ws", "/Users/jeffcaddel/ws/spring-db-jc");
 	int oldCount = 0;
 	int newCount = 0;
@@ -54,6 +55,10 @@ public class MorphOracleSqlTest {
 	public void parseSql() {
 		try {
 			logger.info("Parsing Old School SQL");
+			convert("classpath:KSEN_ATP.sql", new File("/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql"));
+			if (true) {
+				return;
+			}
 			long start = System.currentTimeMillis();
 			convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
 			convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
@@ -134,6 +139,10 @@ public class MorphOracleSqlTest {
 		return cr;
 	}
 
+	protected String getIntoStatement(String trimmed) {
+		return "  " + StringUtils.trim(StringUtils.substring(trimmed, INSERT.length())) + LF;
+	}
+
 	protected MorphResult combineInserts(MorphContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
@@ -143,17 +152,18 @@ public class MorphOracleSqlTest {
 		int count = 1;
 		boolean proceed = proceed(trimmed, count, length, context);
 		while (proceed) {
-			String token = "  " + trimmed + LF + LF;
+			String into = getIntoStatement(trimmed);
 			count++;
-			length += token.length();
-			sb.append(token);
+			length += into.length();
+			sb.append(into);
 			sql = context.getReader().getSqlStatement(context.getInput());
 			trimmed = StringUtils.trimToNull(sql);
 			proceed = proceed(trimmed, count, length, context);
 		}
 		// The last SQL statement we read was an insert
 		if (isInsert(trimmed)) {
-			sb.append("  " + trimmed + LF + LF);
+			String into = getIntoStatement(trimmed);
+			sb.append(into);
 			count++;
 		}
 		sb.append(context.getClose());

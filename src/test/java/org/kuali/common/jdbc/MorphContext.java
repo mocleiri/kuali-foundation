@@ -24,8 +24,8 @@ public class MorphContext {
 	BufferedReader input;
 	int maxLength = MorphOracleSqlTest.MAX_LENGTH;
 	int maxCount = MorphOracleSqlTest.MAX_COUNT;
-	String open = "INSERT ALL" + MorphOracleSqlTest.LF + MorphOracleSqlTest.LF;
-	String close = "SELECT * FROM DUAL" + MorphOracleSqlTest.LF + MorphOracleSqlTest.DELIMITER + MorphOracleSqlTest.LF;
+	String open = MorphOracleSqlTest.OPEN;
+	String close = MorphOracleSqlTest.CLOSE;
 
 	public String getSql() {
 		return sql;
