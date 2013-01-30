@@ -19,7 +19,7 @@ import java.io.BufferedReader;
 
 public class MorphContext {
 
-	private static final int MAX_LENGTH = 1024 * 100;
+	private static final int MAX_LENGTH = 1024 * 1024;
 	private static final int MAX_COUNT = 100;
 
 	String sql;

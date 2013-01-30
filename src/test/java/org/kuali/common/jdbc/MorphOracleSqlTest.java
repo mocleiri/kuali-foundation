@@ -65,6 +65,10 @@ public class MorphOracleSqlTest {
 		System.out.println("Converting " + locations.size() + " locations from [" + locationListing + "]");
 		System.out.println("-----------------------------------------------------------------------------------------------");
 		for (String location : locations) {
+			String locationToken = "data/KSEN_LPR.sql";
+			if (!StringUtils.contains(location, locationToken)) {
+				continue;
+			}
 			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
 			File file = new File(filename);
 			ConversionResult result = convert(location, file);
@@ -132,7 +136,7 @@ public class MorphOracleSqlTest {
 		sb.append(context.getOpen());
 		String trimmed = StringUtils.trimToNull(sql);
 		int length = sb.length();
-		int count = 0;
+		int count = 1;
 		boolean proceed = proceed(trimmed, count, length, context);
 		while (proceed) {
 			String token = "  " + trimmed + LF + LF;
@@ -142,6 +146,11 @@ public class MorphOracleSqlTest {
 			sql = context.getReader().getSqlStatement(context.getInput());
 			trimmed = StringUtils.trimToNull(sql);
 			proceed = proceed(trimmed, count, length, context);
+		}
+		// The last SQL statement we read was an insert
+		if (isInsert(trimmed)) {
+			sb.append("  " + trimmed + LF + LF);
+			count++;
 		}
 		sb.append(context.getClose());
 
