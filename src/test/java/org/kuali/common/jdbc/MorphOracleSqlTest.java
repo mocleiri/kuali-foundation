@@ -47,10 +47,6 @@ public class MorphOracleSqlTest {
 	int oldCount = 0;
 	int newCount = 0;
 
-	protected static String getProperty(String key, String defaultValue) {
-		return System.getProperty(key) == null ? defaultValue : System.getProperty(key);
-	}
-
 	@Test
 	public void parseSql() {
 		try {
@@ -209,24 +205,8 @@ public class MorphOracleSqlTest {
 		return StringUtils.startsWith(sql, INSERT);
 	}
 
-	protected boolean isQuitCombiningSql(MorphContext context, int count, long length) {
-		if (count > context.getMaxCount()) {
-			return true;
-		}
-		if (length > context.getMaxLength()) {
-			return true;
-		}
-		return false;
-	}
-
-	protected int checkLength(String token, int maxLength, int currentLength, StringBuilder sb, String open, String close, int count, int maxCount) {
-		int totalLength = currentLength + token.length();
-		if (totalLength > maxLength || count > maxCount) {
-			sb.append(close);
-			sb.append(open);
-			return open.length();
-		}
-		return totalLength;
+	protected static String getProperty(String key, String defaultValue) {
+		return System.getProperty(key) == null ? defaultValue : System.getProperty(key);
 	}
 
 }
