@@ -15,7 +15,7 @@ public class DeployTest {
 	public void test() {
 		try {
 			logger.trace("");
-			ss.load("classpath:org/kuali/common/deploy/spring/deploy-context-test.xml");
+			ss.load("classpath:org/kuali/common/deploy/spring/db-reset-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
