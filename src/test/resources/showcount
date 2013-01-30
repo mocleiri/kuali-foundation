@@ -1,0 +1,3 @@
+echo $(date)
+sqlplus smartload/smartload@oracle.ks.kuali.org < showcount.sql
+echo $(date)
