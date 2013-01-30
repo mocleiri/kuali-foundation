@@ -40,16 +40,16 @@ public class MorphOracleSqlTest {
 	public static final String CLASSPATH = "classpath:";
 	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
+	String ws = "/Users/jeffcaddel/ws/spring-db-jc";
 
 	@Test
 	public void parseSql() {
 		try {
 			logger.info("Parsing Old School SQL");
-			String ws = "/Users/jeffcaddel/ws/spring-db-jc";
 			long start = System.currentTimeMillis();
 			convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
-			// convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
-			// convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
+			convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
+			convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
 			long elapsed = System.currentTimeMillis() - start;
 			logger.info("Total Time: {}", FormatUtils.getTime(elapsed));
 		} catch (Exception e) {
@@ -61,28 +61,35 @@ public class MorphOracleSqlTest {
 		List<String> all = LocationUtils.getLocations(locationListing);
 		String token = CLASSPATH + INITIAL_DB;
 		List<String> locations = getStartsWith(all, token);
-		logger.info(locations.size() + "");
+		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.println("Converting " + locations.size() + " locations from [" + locationListing + "]");
+		System.out.println("-----------------------------------------------------------------------------------------------");
 		for (String location : locations) {
 			String filename = basedir + "/" + StringUtils.substring(location, CLASSPATH.length());
 			File file = new File(filename);
-			List<MorphResult> results = convert(location, file);
-			show(file, results);
-			break;
+			ConversionResult result = convert(location, file);
+			show(file, result);
 		}
+		System.out.println();
 	}
 
-	public void show(File file, List<MorphResult> results) {
-		int count = 0;
-		for (MorphResult result : results) {
-			count += result.getCount();
-		}
-		logger.info(count + " - " + file.getName());
+	public void show(File file, ConversionResult result) throws IOException {
+		String before = StringUtils.leftPad(FormatUtils.getCount(result.getBefore().getCount()), 15, " ");
+		String after = StringUtils.leftPad(FormatUtils.getCount(result.getAfter().getCount()), 15, " ");
+		String token = "initial-db";
+		String path = file.getCanonicalPath();
+		int pos = path.indexOf(token);
+		path = path.substring(pos + token.length());
+		String filename = StringUtils.rightPad(path, 55, " ");
+		// Object[] args = { filename, before, after };
+		System.out.println(filename + " - " + before + " -> " + after);
+		// logger.info("{} - {} -> {}", args);
 	}
 
-	protected List<MorphResult> convert(String location, File file) throws IOException {
+	protected ConversionResult convert(String location, File file) throws IOException {
 		SqlReader reader = new DefaultSqlReader();
 		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
-		SqlMetaData smd = reader.getSqlMetaData(in);
+		SqlMetaData before = reader.getSqlMetaData(in);
 		in.close();
 		in = LocationUtils.getBufferedReader(location, UTF8);
 		String sql = reader.getSqlStatement(in);
@@ -109,7 +116,14 @@ public class MorphOracleSqlTest {
 			sql = reader.getSqlStatement(in);
 		}
 		IOUtils.closeQuietly(out);
-		return results;
+		in = LocationUtils.getBufferedReader(file.getAbsolutePath());
+		SqlMetaData after = reader.getSqlMetaData(in);
+		in.close();
+		ConversionResult cr = new ConversionResult();
+		cr.setAfter(after);
+		cr.setBefore(before);
+		cr.setMorphResults(results);
+		return cr;
 	}
 
 	protected MorphResult combineInserts(MorphContext context) throws IOException {
