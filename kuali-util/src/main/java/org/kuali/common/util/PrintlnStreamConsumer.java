@@ -16,9 +16,10 @@
 package org.kuali.common.util;
 
 import java.io.PrintStream;
+import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.kuali.common.util.ignore.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,26 +32,23 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 	}
 
 	public PrintlnStreamConsumer(PrintStream printStream) {
-		this(printStream, null, null);
+		this(printStream, null);
 	}
 
-	public PrintlnStreamConsumer(PrintStream printStream, String skipPrefix, String skipSuffix) {
-		super();
+	public PrintlnStreamConsumer(PrintStream printStream, List<Ignore> ignorers) {
 		this.printStream = printStream;
-		this.skipPrefix = skipPrefix;
-		this.skipSuffix = skipSuffix;
+		this.ignorers = ignorers;
 	}
 
 	PrintStream printStream;
 	long lineCount = 0;
 	long skipCount = 0;
-	String skipPrefix;
-	String skipSuffix;
+	List<Ignore> ignorers;
 
 	@Override
 	public void consumeLine(String line) {
 		lineCount++;
-		if (isMatch(line, skipPrefix, skipSuffix)) {
+		if (ignore(line, ignorers)) {
 			skipCount++;
 			Object[] args = { skipCount, lineCount, line };
 			logger.debug("{} Skipping line {} [{}]", args);
@@ -59,10 +57,16 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 		}
 	}
 
-	protected boolean isMatch(String line, String prefix, String suffix) {
-		boolean startsWith = StringUtils.startsWith(line, prefix);
-		boolean endsWith = StringUtils.endsWith(line, suffix);
-		return (startsWith && endsWith);
+	protected boolean ignore(String line, List<Ignore> ignorers) {
+		if (ignorers == null) {
+			return false;
+		}
+		for (Ignore ignorer : ignorers) {
+			if (ignorer.ignore(line)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public PrintStream getPrintStream() {
@@ -71,22 +75,6 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	public void setPrintStream(PrintStream printStream) {
 		this.printStream = printStream;
-	}
-
-	public String getSkipPrefix() {
-		return skipPrefix;
-	}
-
-	public void setSkipPrefix(String skipPrefix) {
-		this.skipPrefix = skipPrefix;
-	}
-
-	public String getSkipSuffix() {
-		return skipSuffix;
-	}
-
-	public void setSkipSuffix(String skipSuffix) {
-		this.skipSuffix = skipSuffix;
 	}
 
 	public long getLineCount() {
@@ -103,6 +91,14 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	public void setSkipCount(long skipCount) {
 		this.skipCount = skipCount;
+	}
+
+	public List<Ignore> getIgnorers() {
+		return ignorers;
+	}
+
+	public void setIgnorers(List<Ignore> ignorers) {
+		this.ignorers = ignorers;
 	}
 
 }

@@ -1,20 +1,23 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.ignore.Ignore;
 
 public class DefaultMySqlDumpServiceTest {
 
 	@Test
 	public void test() {
 		try {
+			List<Ignore> ignorers = MySqlDumpUtils.getDefaultIgnorers();
+
 			MySqlDumpContext context = new MySqlDumpContext();
-			context.setSkipLinePrefix(MySqlDumpService.SKIP_LINE_PREFIX);
-			context.setSkipLineSuffix(MySqlDumpService.SKIP_LINE_SUFFIX);
+			context.setIgnorers(ignorers);
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
-			context.setHostname("mysql.rice.kuali.org");
+			context.setHostname("localhost");
 			context.setDatabase("JDBCTEST");
 			context.setOutputFile(new File("/tmp/mysqldump/jtest.sql"));
 			MySqlDumpService service = new DefaultMySqlDumpService();

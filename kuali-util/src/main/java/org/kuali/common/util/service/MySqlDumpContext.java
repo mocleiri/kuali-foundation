@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.List;
 
+import org.kuali.common.util.ignore.Ignore;
+
 public class MySqlDumpContext {
 
-	String skipLinePrefix;
-	String skipLineSuffix;
+	List<Ignore> ignorers;
 	String executable = MySqlDumpService.DEFAULT_EXECUTABLE;
 	String username;
 	String password;
@@ -91,28 +92,20 @@ public class MySqlDumpContext {
 		this.options = options;
 	}
 
-	public String getSkipLinePrefix() {
-		return skipLinePrefix;
-	}
-
-	public void setSkipLinePrefix(String skipLinePrefix) {
-		this.skipLinePrefix = skipLinePrefix;
-	}
-
-	public String getSkipLineSuffix() {
-		return skipLineSuffix;
-	}
-
-	public void setSkipLineSuffix(String skipLineSuffix) {
-		this.skipLineSuffix = skipLineSuffix;
-	}
-
 	public PrintStream getOut() {
 		return out;
 	}
 
 	public void setOut(PrintStream out) {
 		this.out = out;
+	}
+
+	public List<Ignore> getIgnorers() {
+		return ignorers;
+	}
+
+	public void setIgnorers(List<Ignore> ignorers) {
+		this.ignorers = ignorers;
 	}
 
 }

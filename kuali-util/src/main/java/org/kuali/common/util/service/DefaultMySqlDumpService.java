@@ -67,7 +67,7 @@ public class DefaultMySqlDumpService extends DefaultExecService implements MySql
 		PrintStream out = null;
 		try {
 			out = LocationUtils.openPrintStream(msdc.getOutputFile());
-			PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out, msdc.getSkipLinePrefix(), msdc.getSkipLineSuffix());
+			PrintlnStreamConsumer standardOutConsumer = new PrintlnStreamConsumer(out, msdc.getIgnorers());
 			context.setStandardOutConsumer(standardOutConsumer);
 			long start = System.currentTimeMillis();
 			int result = execute(context);

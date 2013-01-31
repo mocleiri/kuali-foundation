@@ -7,6 +7,16 @@ public class PrefixSuffixIgnorer implements Ignore {
 	String prefix;
 	String suffix;
 
+	public PrefixSuffixIgnorer() {
+		this(null, null);
+	}
+
+	public PrefixSuffixIgnorer(String prefix, String suffix) {
+		super();
+		this.prefix = prefix;
+		this.suffix = suffix;
+	}
+
 	@Override
 	public boolean ignore(String line) {
 		return StringUtils.startsWith(line, prefix) && StringUtils.endsWith(line, suffix);

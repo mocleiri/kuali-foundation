@@ -6,6 +6,11 @@ public class StartsWithIgnorer implements Ignore {
 
 	String prefix;
 
+	public StartsWithIgnorer(String prefix) {
+	    super();
+	    this.prefix = prefix;
+    }
+
 	@Override
 	public boolean ignore(String line) {
 		return StringUtils.startsWith(line, prefix);
