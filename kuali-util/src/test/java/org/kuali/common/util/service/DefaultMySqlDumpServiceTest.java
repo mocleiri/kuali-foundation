@@ -1,20 +1,19 @@
 package org.kuali.common.util.service;
 
 import java.io.File;
-import java.util.List;
 
 import org.junit.Test;
-import org.kuali.common.util.ignore.Ignore;
 
 public class DefaultMySqlDumpServiceTest {
 
 	@Test
 	public void test() {
 		try {
-			List<Ignore> ignorers = MySqlDumpUtils.getDefaultIgnorers();
 
 			MySqlDumpContext context = new MySqlDumpContext();
-			context.setIgnorers(ignorers);
+			// The default ignorers strip out lines that cause 'noise' in the file
+			// eg metadata lines inserted by mysqldump that do not represent changes in the actual data
+			context.setIgnorers(MySqlDumpUtils.getDefaultIgnorers());
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
 			context.setHostname("localhost");
