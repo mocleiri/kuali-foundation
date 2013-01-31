@@ -15,7 +15,7 @@ public class ManualContextLoaderTest {
 	public void test() {
 		try {
 			logger.trace("");
-			ss.load("classpath:org/kuali/common/deploy/spring/db-reset-context.xml");
+			ss.load("classpath:org/kuali/common/util/mysqldump-wrapper-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
