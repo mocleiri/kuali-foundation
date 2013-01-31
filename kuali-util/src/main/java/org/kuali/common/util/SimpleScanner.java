@@ -49,7 +49,7 @@ public class SimpleScanner extends DirectoryScanner {
 	}
 
 	/**
-	 * This method returns files that match an include pattern but do not match an exclude pattern
+	 * This method scans the file system starting at <code>basedir</code> and returns files matching the provided include/exclude patterns
 	 */
 	public List<File> getFiles() {
 		scan();
