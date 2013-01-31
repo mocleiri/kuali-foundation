@@ -147,7 +147,7 @@ public class LoadMojo extends AbstractMojo {
 
 	/**
 	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. Set this
-	 * parameter to <code>true</code> to skip the execution of this mojo explicitly.
+	 * parameter to <code>true</code> to explicitly skip executing this mojo.
 	 *
 	 * @parameter expression="${spring.skip}" default-value="false"
 	 */
