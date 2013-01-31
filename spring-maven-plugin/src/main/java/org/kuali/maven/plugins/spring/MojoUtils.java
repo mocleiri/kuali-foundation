@@ -17,41 +17,37 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.kuali.common.util.service.SpringService;
 
-public class MavenUtils {
+public class MojoUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
-
-	public static final String POM = "pom";
-
-	/**
-	 * Always return <code>false</code> if <code>forceMojoExecution</code> is <code>false</code>, otherwise return <code>true</code> only if
-	 * <code>skip</code> is <code>true</code> or <code>packaging</code> is <code>pom</code>.
-	 */
-	public static final boolean skip(boolean forceMojoExecution, boolean skip, String packaging) {
-		if (forceMojoExecution) {
-			logger.info("Forced mojo execution");
-			return false;
-		}
-		if (skip) {
-			logger.info("Skipping mojo execution");
-			return true;
-		}
-		if (StringUtils.equalsIgnoreCase(packaging, POM)) {
-			logger.info("Skipping mojo execution for project with packaging type '{}'", POM);
-			return true;
-		} else {
-			return false;
+	public static SpringService getService(String serviceClassname) {
+		try {
+			Class<?> serviceClass = Class.forName(serviceClassname);
+			return (SpringService) serviceClass.newInstance();
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Unexpected error", e);
+		} catch (InstantiationException e) {
+			throw new IllegalStateException("Unexpected error", e);
 		}
 	}
 
-	public static final Properties getInternalProperties(MavenProject project) {
+	public static Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
+		// Get internal Maven config as a properties object
+		Properties internal = MojoUtils.getInternalProperties(project);
+		// The ordering here is significant.
+		// Properties supplied directly to the mojo override properties from project.getProperties()
+		// But, internal Maven properties need to always win.
+		// ${project.artifactId} needs to always faithfully represent the correct artifactId
+		return PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
+	}
+
+	public static Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
 		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());

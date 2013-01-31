@@ -23,6 +23,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.SpringService;
 
@@ -162,7 +163,7 @@ public class LoadMojo extends AbstractMojo {
 		}
 
 		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = getMavenProperties(project, properties);
+		Properties mavenProperties = MojoUtils.getMavenProperties(project, properties);
 
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(location, locations);
@@ -176,18 +177,8 @@ public class LoadMojo extends AbstractMojo {
 		logConfiguration(mavenProperties, contextLocations);
 
 		// Invoke the service to load the context and inject it with beans as appropriate
-		SpringService service = getService(serviceClassname);
+		SpringService service = MojoUtils.getService(serviceClassname);
 		service.load(contextLocations, beanNames, beans);
-	}
-
-	protected Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
-		// Get internal Maven config as a properties object
-		Properties internal = MavenUtils.getInternalProperties(project);
-		// The ordering here is significant.
-		// Properties supplied directly to the mojo override properties from project.getProperties()
-		// But, internal Maven properties need to always win.
-		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		return PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
 	}
 
 	protected void logConfiguration(Properties props, List<String> contextLocations) {
@@ -203,19 +194,6 @@ public class LoadMojo extends AbstractMojo {
 		}
 		if (contextLocations.size() > 1) {
 			getLog().info("Loading " + contextLocations.size() + " Spring context files");
-		}
-	}
-
-	protected SpringService getService(String serviceClassname) {
-		try {
-			Class<?> serviceClass = Class.forName(serviceClassname);
-			return (SpringService) serviceClass.newInstance();
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("Unexpected error", e);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException("Unexpected error", e);
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Unexpected error", e);
 		}
 	}
 
