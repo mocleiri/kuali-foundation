@@ -17,10 +17,39 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MavenUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
+
+	public static final String POM = "pom";
+
+	/**
+	 * Always return <code>false</code> if <code>forceMojoExecution</code> is <code>false</code>, otherwise return <code>true</code> only if
+	 * <code>skip</code> is <code>true</code> or <code>packaging</code> is <code>pom</code>.
+	 */
+	public static final boolean skip(boolean forceMojoExecution, boolean skip, String packaging) {
+		if (forceMojoExecution) {
+			logger.info("Forced mojo execution");
+			return false;
+		}
+		if (skip) {
+			logger.info("Skipping mojo execution");
+			return true;
+		}
+		if (StringUtils.equalsIgnoreCase(packaging, POM)) {
+			logger.info("Skipping mojo execution for project with packaging type '{}'", POM);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public static final Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();

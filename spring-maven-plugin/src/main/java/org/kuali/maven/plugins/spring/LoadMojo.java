@@ -136,8 +136,26 @@ public class LoadMojo extends AbstractMojo {
 	 */
 	private String serviceClassname;
 
+	/**
+	 * If <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides <code>skip</code>.
+	 *
+	 * @parameter expression="${spring.forceMojoExecution}" default-value="false"
+	 */
+	private boolean forceMojoExecution;
+
+	/**
+	 * If <code>true</code> this mojo execution will be skipped.
+	 *
+	 * @parameter expression="${spring.skip}" default-value="false"
+	 */
+	private boolean skip;
+
 	@Override
 	public void execute() throws MojoExecutionException {
+		// Might be skipping execution altogether
+		if (MavenUtils.skip(forceMojoExecution, skip, project.getPackaging())) {
+			return;
+		}
 
 		// Combine mojo properties, project properties and internal maven properties into a Properties object
 		Properties mavenProperties = getMavenProperties(project, properties);
@@ -279,6 +297,22 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setMojoBeanName(String mojoBeanName) {
 		this.mojoBeanName = mojoBeanName;
+	}
+
+	public boolean isForceMojoExecution() {
+		return forceMojoExecution;
+	}
+
+	public void setForceMojoExecution(boolean forceMojoExecution) {
+		this.forceMojoExecution = forceMojoExecution;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
