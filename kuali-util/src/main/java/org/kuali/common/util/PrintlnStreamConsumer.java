@@ -27,6 +27,12 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 
 	private static final Logger logger = LoggerFactory.getLogger(PrintlnStreamConsumer.class);
 
+	PrintStream printStream;
+	long lineCount = 0;
+	long skipCount = 0;
+	List<Ignore> ignorers;
+	boolean enableIgnorers = true;
+
 	public PrintlnStreamConsumer() {
 		this(null);
 	}
@@ -40,15 +46,10 @@ public class PrintlnStreamConsumer implements StreamConsumer {
 		this.ignorers = ignorers;
 	}
 
-	PrintStream printStream;
-	long lineCount = 0;
-	long skipCount = 0;
-	List<Ignore> ignorers;
-
 	@Override
 	public void consumeLine(String line) {
 		lineCount++;
-		if (ignore(line, ignorers)) {
+		if (enableIgnorers && ignore(line, ignorers)) {
 			skipCount++;
 			Object[] args = { skipCount, lineCount, line };
 			logger.debug("{} Skipping line {} [{}]", args);
