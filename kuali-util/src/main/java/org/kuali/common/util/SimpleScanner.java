@@ -44,7 +44,7 @@ public class SimpleScanner extends DirectoryScanner {
 			setIncludes(CollectionUtils.toStringArray(includes));
 		}
 		if (!CollectionUtils.isEmpty(excludes)) {
-			setIncludes(CollectionUtils.toStringArray(excludes));
+			setExcludes(CollectionUtils.toStringArray(excludes));
 		}
 	}
 
