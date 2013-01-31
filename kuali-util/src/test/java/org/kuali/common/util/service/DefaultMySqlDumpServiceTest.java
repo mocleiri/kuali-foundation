@@ -12,7 +12,8 @@ public class DefaultMySqlDumpServiceTest {
 
 			MySqlDumpContext context = new MySqlDumpContext();
 			// The default ignorers strip out lines that cause 'noise' in the file
-			// eg metadata lines inserted by mysqldump that do not represent changes in the actual data
+			// eg dump timestamps, server/client versions, etc
+			// Anything that might change even though the data is the same
 			context.setIgnorers(MySqlDumpUtils.getDefaultIgnorers());
 			context.setUsername("JDBCTEST");
 			context.setPassword("JDBCTEST");
