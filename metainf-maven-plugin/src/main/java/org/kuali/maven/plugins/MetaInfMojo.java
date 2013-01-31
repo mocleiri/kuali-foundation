@@ -17,14 +17,15 @@ package org.kuali.maven.plugins;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.maven.project.MavenProject;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.MavenUtils;
+import org.kuali.common.util.MetaInfContext;
+import org.kuali.common.util.MetaInfUtils;
 
 /**
  * Create a file in META-INF that lists resources bundled into a jar file
@@ -34,10 +35,19 @@ import org.codehaus.plexus.util.StringUtils;
  * @goal metainf
  * @phase prepare-package
  */
-public class MetaInfMojo extends AbstractMojo {
+public class MetaInfMojo extends AbstractMojo implements MetaInfContext {
 
 	/**
-	 * Regular expression pattern for files to include
+	 * Maven project
+	 *
+	 * @parameter default-value="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
+
+	/**
+	 * Comma separated list of regular expression patterns for files to include
 	 *
 	 * @parameter expression="${metainf.include}" default-value="\*\*\/*"
 	 * @required
@@ -45,7 +55,7 @@ public class MetaInfMojo extends AbstractMojo {
 	private String include;
 
 	/**
-	 * Regular expression pattern for files to exclude
+	 * Comma separated list of regular expression patterns for files to exclude
 	 *
 	 * @parameter expression="${metainf.exclude}" default-value="\*\*\/META-INF/*"
 	 */
@@ -82,40 +92,41 @@ public class MetaInfMojo extends AbstractMojo {
 	 */
 	private boolean sort;
 
+	/**
+	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. If
+	 * <code>forceMojoExecution</code> is <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides
+	 * <code>skip</code>.
+	 *
+	 * @parameter expression="${spring.forceMojoExecution}" default-value="false"
+	 */
+	private boolean forceMojoExecution;
+
+	/**
+	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. Set this
+	 * parameter to <code>true</code> to explicitly skip executing this mojo in other scenarios. NOTE: <code>forceMojoExecution</code>
+	 * overrides <code>skip</code>.
+	 *
+	 * @parameter expression="${spring.skip}" default-value="false"
+	 */
+	private boolean skip;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		try {
-			getLog().info("Examining - " + baseDir.getCanonicalPath());
-			getLog().info("Include - " + include);
-			getLog().info("Exclude - " + exclude);
-			SimpleScanner scanner = new SimpleScanner(baseDir, include, exclude);
-			List<File> files = scanner.getFiles();
-			getLog().info("Located " + files.size() + " files");
-			List<String> locations = getLocations(baseDir, files, prefix);
-			if (sort) {
-				Collections.sort(locations);
+			// Might be skipping execution altogether
+			if (MavenUtils.skip(forceMojoExecution, skip, project.getPackaging())) {
+				return;
 			}
-			getLog().info("Creating " + outputFile.getCanonicalPath());
-			FileUtils.writeLines(outputFile, locations);
-		} catch (Exception e) {
+
+			// Convert CSV to List<String>
+			List<String> includes = CollectionUtils.getTrimmedListFromCSV(include);
+			List<String> excludes = CollectionUtils.getTrimmedListFromCSV(exclude);
+
+			// Scan the directory and create the list of locations that are found
+			MetaInfUtils.scanAndCreateFile(this, includes, excludes);
+		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
-	}
-
-	protected List<String> getLocations(File baseDir, List<File> files, String prefix) throws IOException {
-		List<String> locations = new ArrayList<String>();
-		for (int i = 0; i < files.size(); i++) {
-			String location = getLocation(baseDir, files.get(i), prefix);
-			locations.add(location);
-		}
-		return locations;
-	}
-
-	protected String getLocation(File baseDir, File file, String prefix) throws IOException {
-		String dir = baseDir.getCanonicalPath();
-		String path = file.getCanonicalPath();
-		int pos = dir.length() + 1;
-		return prefix + StringUtils.substring(path, pos);
 	}
 
 	public String getInclude() {
@@ -134,6 +145,7 @@ public class MetaInfMojo extends AbstractMojo {
 		this.exclude = exclude;
 	}
 
+	@Override
 	public File getBaseDir() {
 		return baseDir;
 	}
@@ -142,6 +154,7 @@ public class MetaInfMojo extends AbstractMojo {
 		this.baseDir = baseDir;
 	}
 
+	@Override
 	public File getOutputFile() {
 		return outputFile;
 	}
@@ -150,6 +163,7 @@ public class MetaInfMojo extends AbstractMojo {
 		this.outputFile = outputFile;
 	}
 
+	@Override
 	public String getPrefix() {
 		return prefix;
 	}
@@ -158,12 +172,29 @@ public class MetaInfMojo extends AbstractMojo {
 		this.prefix = prefix;
 	}
 
+	@Override
 	public boolean isSort() {
 		return sort;
 	}
 
 	public void setSort(boolean sort) {
 		this.sort = sort;
+	}
+
+	public boolean isForceMojoExecution() {
+		return forceMojoExecution;
+	}
+
+	public void setForceMojoExecution(boolean forceMojoExecution) {
+		this.forceMojoExecution = forceMojoExecution;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
