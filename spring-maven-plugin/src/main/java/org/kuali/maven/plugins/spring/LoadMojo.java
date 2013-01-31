@@ -38,7 +38,7 @@ import org.kuali.common.util.service.SpringService;
  * One common use of the injected Maven properties in a Spring context is for replacing property placeholders.
  * </p>
  * <p>
- * For example, this configuration injects the Maven version number into a Spring context:
+ * For example, to inject the Maven version number into a Spring context:
  * </p>
  *
  * <pre>
@@ -176,8 +176,10 @@ public class LoadMojo extends AbstractMojo {
 		// Show what we are up to
 		logConfiguration(mavenProperties, contextLocations);
 
-		// Invoke the service to load the context and inject it with beans as appropriate
+		// Instantiate the implementation of SpringService we will be using
 		SpringService service = MojoUtils.getService(serviceClassname);
+
+		// Invoke the service to load the context and inject it with beans as appropriate
 		service.load(contextLocations, beanNames, beans);
 	}
 
