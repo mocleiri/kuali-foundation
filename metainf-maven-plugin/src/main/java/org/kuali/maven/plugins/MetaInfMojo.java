@@ -97,7 +97,7 @@ public class MetaInfMojo extends AbstractMojo implements MetaInfContext {
 	 * <code>forceMojoExecution</code> is <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides
 	 * <code>skip</code>.
 	 *
-	 * @parameter expression="${spring.forceMojoExecution}" default-value="false"
+	 * @parameter expression="${metainf.forceMojoExecution}" default-value="false"
 	 */
 	private boolean forceMojoExecution;
 
@@ -106,7 +106,7 @@ public class MetaInfMojo extends AbstractMojo implements MetaInfContext {
 	 * parameter to <code>true</code> to explicitly skip executing this mojo in other scenarios. NOTE: <code>forceMojoExecution</code>
 	 * overrides <code>skip</code>.
 	 *
-	 * @parameter expression="${spring.skip}" default-value="false"
+	 * @parameter expression="${metainf.skip}" default-value="false"
 	 */
 	private boolean skip;
 
