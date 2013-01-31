@@ -37,14 +37,14 @@ import org.kuali.common.util.service.SpringService;
  * One common use of the injected Maven properties in a Spring context is for replacing property placeholders.
  * </p>
  * <p>
- * For example:
+ * For example, this configuration injects the Maven version number into a Spring context:
  * </p>
  *
  * <pre>
  *  &lt;beans&gt;
  *   &lt;context:property-placeholder properties-ref="mavenProperties" /&gt;
- *   &lt;bean id="artifactId" class="java.lang.String"&gt;
- *    &lt;constructor-arg value="${project.artifactId}" /&gt;
+ *   &lt;bean id="version" class="java.lang.String"&gt;
+ *    &lt;constructor-arg value="${project.version}" /&gt;
  *   &lt;/bean&gt;
  *  &lt;/beans&gt;
  * </pre>
@@ -137,7 +137,9 @@ public class LoadMojo extends AbstractMojo {
 	private String serviceClassname;
 
 	/**
-	 * If <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides <code>skip</code>.
+	 * By default, execution of this mojo is skipped for Maven projects with a packaging of type <code>pom</code>. If
+	 * <code>forceMojoExecution</code> is <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides
+	 * <code>skip</code>.
 	 *
 	 * @parameter expression="${spring.forceMojoExecution}" default-value="false"
 	 */
