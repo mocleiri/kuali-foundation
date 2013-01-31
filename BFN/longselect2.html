@@ -1,0 +1,512 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Kuali</title>
+<LINK REL="SHORTCUT ICON" HREF="../images/icon.ico">
+<meta http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<link href="../css/kuali_application.css" rel=stylesheet type="text/css">
+<link href="../css/kuali.css" rel=stylesheet type="text/css">
+<link href="../css/bfn.css" rel=stylesheet type="text/css">
+<script language=javascript src="../scripts/my_bm_inc.js"></script>
+<script language=javascript1.2 src="../scripts/my_explorer.js"></script>
+<script language=JavaScript1.2 src="../scripts/my_wap_bkmrk_fix.js"></script>
+<script language=JavaScript src="../scripts/CalendarPopup.js"></script>
+<script language=JavaScript type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+
+// Unload
+function setConfirmUnload(on) {    
+	window.onbeforeunload = (on) ? unloadMessage : null;	
+}
+
+function unloadMessage() {
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	return "You have changed data on at least one add row without adding the record. If you navigate away from this page without first adding your data, the information will be lost.";
+}
+
+// count all changed fields
+function count_allchanged()
+{
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//setConfirmUnload(true);
+	}
+	else
+	{
+		//setConfirmUnload(false);
+	}
+}
+
+// save button
+function savebutton()
+{
+	var x=0;
+	$(".thischanged").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//alert("You have changed data on at least one add row without adding the record. If you navigate away from this page without first adding your data, the information will be lost.");
+		//setConfirmUnload(true);
+	}
+	else
+	{
+		//alert("This would save changes were this not a lowly mock.");
+		//setConfirmUnload(false);
+	}
+}
+
+// count changed fields: changed_participanttypes
+function count_participanttypes()
+{
+	var x=0;
+	$(".changed_participanttypes").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//$("#changedfields_participanttypes").html("Unsaved: " + x);
+		$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
+		$("#changedfields_participanttypes2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		//$("#changedfields_participanttypes").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		//$("#changedfields_participanttypes2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		$("#changedfields_participanttypes").show();
+		$("#changedfields_participanttypes2").show();
+	}
+	else
+	{
+		$("#changedfields_participanttypes").html("");
+		$("#changedfields_participanttypes").hide();
+		$("#changedfields_participanttypes2").html("");
+		$("#changedfields_participanttypes2").hide();
+	}
+}
+
+// count changed fields: changed_statusdates
+function count_organizations()
+{
+	var x=0;
+	$(".changed_organizations").each(function() {
+		x++;
+	});
+	if(x>0)
+	{
+		//$("#changed_organizations").html("Unsaved: " + x);
+		//$("#changed_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' />");
+		//$("#changed_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /' />");
+		$("#changedfields_organizations").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /> ");
+		$("#changedfields_organizations2").html("<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /> ");
+		$("#changedfields_organizations").show();
+		$("#changedfields_organizations2").show();
+		$("#changedfields_organizations3").slideDown(300);
+		$("#resetOrg").slideDown(300);
+		$(".addline01").removeClass("infoline");
+		$(".addline01").addClass("orangebackground");
+		$("#addbutton01").attr("src","../images/tinybutton-add_splat.gif");
+	}
+	else
+	{
+		$("#changedfields_organizations").html("");
+		$("#changedfields_organizations2").hide();
+		$("#changedfields_organizations").html("");
+		$("#changedfields_organizations2").hide();
+		$("#changedfields_organizations3").slideUp(300);
+		$("#resetOrg").slideUp(300);
+		$(".addline01").removeClass("orangebackground");
+		$(".addline01").addClass("infoline");
+		$("#addbutton01").attr("src","../images/tinybutton-add1.gif");
+	}
+}
+
+
+//-->
+</script>
+
+<!-- jQuery -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" language="javascript"></script>
+<script type="text/javascript" language="javascript">
+	$(document).ready(function() {
+		
+		/*function setConfirmUnload(on) {    
+			window.onbeforeunload = (on) ? unloadMessage : null;	
+		}
+		
+		function unloadMessage() {
+			return 'You have entered new data on this page. If you navigate away from this page without first saving your data, the changes will be lost.';
+		}
+		
+		
+		$(':input',document.kualiform).bind("change", function() { 
+				setConfirmUnload(true);
+			}
+		);*/
+
+		
+	});
+</script>
+<link href="../css/bfn.css" rel=stylesheet type="text/css">
+</head>
+<body style="position:relative;">
+<div id="grayout" style="position:absolute; top:0px; left:0px; width:100%; height:100%; background-image:url('images/black20.png'); z-index:0; display:none;"> </div>
+<form name="example" id="kualiform"  method="post" action="">
+<div class="headerarea-kra" id="headerarea">
+  <h1>Bart's Sandbox <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('../kra-coeus-irb/help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></h1>
+  <div class="headerbox">
+    <table cellpadding=0 cellspacing=0 summary="document header: general information" style="border-bottom:#A0A0A0; border-bottom-style:solid; border-bottom-width:1px">
+      <tr>
+        <th scope=row><div align=right>Document Id:</div></th>
+        <td>291607</td>
+        <th scope=row><div align=right>Status:</div></th>
+        <td>new</td>
+      </tr>
+      <tr>
+        <th scope=row><div align=right>Initiator:</div></th>
+        <td>&lt;user name&gt;</td>
+        <th scope=row><div align=right>Last Updated:</div></th>
+        <td>10:06 AM 03/30/2005</td>
+      </tr>
+      <tr>
+          <th class="bord-l" scope=row><div align=right>Protocol #:</div></th>
+          <td class="datacell-l">000235</td>
+          <th class="bord-l" scope=row><div align=right>Expiration Date:</div></th>
+          <td class="datacell-l">10/24/2009</td>
+        </tr>
+    </table>
+  </div>
+</div>
+<!--TABBED TOP NAVIGATION-->
+<div class="horz-links-bkgrnd" id="horz-links">
+  <div id="tabs">
+    <dl class="tabul"> <dt class="licurrent" ><span class="tabright tabcurrent">
+        <input name="Submit" type="submit" onClick="MM_goToURL('parent','longselect.html');return document.MM_returnValue" value="Long Select Example" class="globalsave">
+        </span></dt>
+    </dl>
+    <script type="text/javascript" language="javascript">
+		$(document).ready(function() {
+
+			$('.globalsave').click(function() {
+				count_allchanged();
+			});
+			
+		});
+	</script>
+  </div>
+</div>
+<div class="msg-excol">
+  <div class="left-errmsg">
+    <div class=""><span class="excol">
+    	
+        <div id="changedfields_organizations3" style="display:none; margin:auto; width:300px; text-align:left; padding-bottom:10px;">
+            <img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px; float:left;' />
+            <div style="margin-left:18px;">Unsaved changes will be lost.<br />Do you wish to continue with Reload?</div>
+        </div>
+        
+    </span></div>
+  </div>
+  <div class="right">
+    <div class="excol">
+      <input name="imageField" type="image" class="tinybutton" src="../images/tinybutton1-siteindex.gif">
+      <input name="imageField" type="image" class="tinybutton" src="../images/tinybutton-expandall.gif" alt="expand all">
+      <input name="imageField" type="image" class="tinybutton" src="../images/tinybutton-collapseall.gif" alt="collapse all">
+      <br>
+    </div>
+  </div>
+</div>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="column-left"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+    <td><div  align="center">
+        <div id="workarea">
+        
+        
+        
+        
+        
+        <table width="100%" cellpadding="0"  cellspacing="0" class="tab" summary="">
+            <tr>
+                <td class="tabtable1-left"><img src="../images/tab-topleft.gif" alt="" width="12" height="29" align="absmiddle">Document Overview</td>
+                <td class="tabtable1-mid"><a id="A262" onclick="rend(this, false)"><img src="../images/tinybutton-show.gif" alt="show/hide this panel" width=45 height=15 border=0 id="F262" vspace=6></a> </td>
+                <td class="tabtable1-right"><img src="../images/tab-topright.gif" alt="" width="12" height="29" align="absmiddle"></td>
+            </tr>
+        </table>
+        <div class="tab-container" align="center" id="G262" style="display:none;">
+        	
+            <div class="tab-container-error"> </div>
+        	<div class="h2-container">
+        		<h2>Bart's Sandbox</h2>
+        	</div>
+        
+        	<table class="datatable" summary="view/edit document overview information" cellpadding="0" cellspacing="0">
+        		<tbody>
+        			<tr>
+        				<th colspan="1" rowspan="2" align="right" valign="top">&nbsp; <font color="">*&nbsp;</font>
+        					<label for="document.documentHeader.financialDocumentDescription"><a href="https://test.kuali.org/kuali-reg/help.do?methodToCall=getAttributeHelpText&amp;businessObjectClassName=org.kuali.core.document.DocumentHeader&amp;attributeName=financialDocumentDescription" tabindex="32767" target="helpWindow">Description: </a> </label>
+        				</th>
+        				<td rowspan="2" align="left" valign="top">
+        					<input name="document.documentHeader.financialDocumentDescription" maxlength="40" size="45" tabindex="0" value="" onchange="" onblur="" style="" id="document.documentHeader.financialDocumentDescription" type="text">
+        				</td>
+        			</tr>
+        		</tbody>
+        	</table>
+            
+            <table cellspacing="0" cellpadding="0" border="0" summary="">
+                <tbody>
+                    <tr>
+                        <th class="darkInfoline"><div align="center">&nbsp;</div></th> 
+                        <th class="darkInfoline">
+                            <div align="center">
+                                <font color="">*&nbsp;</font>Object Code Name
+                            </div>
+                        </th>
+                        <th class="darkInfoline">
+                            <div align="center">
+                                Description
+                            </div>
+                        </th>
+                        <th class="darkInfoline">
+                            <div align="center">
+                                Quantity
+                            </div>
+                        </th>
+                        <th class="darkInfoline">
+                            <div align="center">
+                                Total Base Cost
+                            </div>
+                        </th>          		
+                        <th class="darkInfoline">
+                            <div align="center">Action</div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="darkInfoline">
+                            Add:
+                        </th>
+                        <td valign="middle" nowrap="true" class="darkInfoline">
+                            <div align="center">
+                                <select tabindex="0" name="newBudgetLineItems[3].costElement" style="width:200px;">
+                                
+                                    <option value="">select</option>
+                                    
+                                    <option value="420102">Animal Care</option>
+                                    
+                                    <option value="420103">Animal Care - Off</option>
+                                    
+                                    <option value="420104">Animal Purchases</option>
+                                    
+                                    <option value="420106">Audio Visual Expense</option>
+                                    
+                                    <option value="420800">Books</option>
+                                                            
+                                    <option value="1234">CE less than 6</option>
+                                    
+                                    <option value="420128">Chemicals</option>
+                                    
+                                    <option value="421900">Computer Supplies and Peripherals</option>
+                                    
+                                    <option value="1111112">Computer Time</option>
+                                    
+                                    <option value="420140">Conference Expenses</option>
+                                    
+                                    <option value="420710">Consultants</option>
+                                    
+                                    <option value="420720">Contract Services</option>
+                                    
+                                    <option value="421510">Educational Video Resources</option>
+                                    
+                                    <option value="420160">Electrical Components</option>
+                                    
+                                    <option value="420162">Electrical System</option>
+                                    
+                                    <option value="421827">Equipment Minor</option>
+                                    
+                                    <option value="421572">Experimental Subjects </option>
+                                    
+                                    <option value="420172">Fellowship Expense</option>
+                                    
+                                    <option value="420174">Field Expense</option>
+                                    
+                                    <option value="421200">Food</option>
+                                    
+                                    <option value="420198">Insurance Premiums</option>
+                                    
+                                    <option value="420825">Journals</option>
+                                    
+                                    <option value="420220">Maintenance and Repairs</option>
+                                    
+                                    <option value="420226">Materials and Services</option>
+                                    
+                                    <option value="420232">Mechanical Components</option>
+                                    
+                                    <option value="421010">Meetings Allowable</option>
+                                    
+                                    <option value="421000">Meetings-Food and Beverages</option>
+                                    
+                                    <option value="421586">Memberships and Dues</option>
+                                    
+                                    <option value="421588">Miscellaneous</option>
+                                    
+                                    <option value="421590">Moving</option>
+                                    
+                                    <option value="420258">Office Supplies</option>
+                                    
+                                    <option value="420316">Other Sponsor Funded Costs - Not MTDC</option>
+                                                            
+                                    <option value="420726">Outpatient Services</option>
+                                    
+                                    <option value="420920">Postage Mailing and Shipping</option>
+                                    
+                                    <option value="420840">Printing</option>
+                                    
+                                    <option value="420131">Professional Development and Training</option>
+                                    
+                                    <option value="420298">Professional Services</option>
+                                    
+                                    <option value="420875">Publication Charges</option>
+                                    
+                                    <option value="420310">Raw Materials</option>
+                                    
+                                    <option value="420320">Renovations</option>
+                                    
+                                    <option value="421598">Research Patient Care</option>
+                                    
+                                    <option value="421503">Sequencing Services-not MTDC</option>
+                                    
+                                    <option value="420338">Service Contracts</option>
+                                    
+                                    <option value="421500">Service Facilities</option>
+                                    
+                                    <option value="421502">Service Facilities - Broad SSF F&amp;A</option>
+                                    
+                                    <option value="420346">Shop Expense</option>
+                                    
+                                    <option value="421925">Software</option>
+                                    
+                                    <option value="420350">Space Rental - Not MTDC</option>
+                                    
+                                    <option value="420630">Subcontractor's F&amp;A (NIH only)-no MIT F&amp;A</option>
+                                    
+                                    <option value="420610">Subcontractor's F&amp;A-subject to MIT F&amp;A</option>
+                                    
+                                    <option value="420620">Subcontracts (beyond first 25K) - No F&amp;A</option>
+                                    
+                                    <option value="420600">Subcontracts (first 25K) - Subject to F&amp;A</option>
+                                    
+                                    <option value="420890">Subscriptions</option>
+                                    
+                                    <option value="400000">Summary Budget</option>
+                                    
+                                    <option value="421766">Telecommunications - Consolidated Charges</option>
+                                    
+                                    <option value="421753">Telephone - Basic Monthly Service</option>
+                                    
+                                    <option value="421762">Telephone - Data Facilities</option>
+                                    
+                                    <option value="421765">Telephone - Moves and Installations</option>
+                                    
+                                    <option value="421759">Telephone - Toll Calls</option>
+                                    
+                                    <option value="999">Test of Object Code with extra long text much longer than the normal length of text in this area abcdabcdabcabcda bcdabcdabcdabcd</option>
+                                    
+                                    <option value="422311">Tuition - Other - Not MTDC </option>
+                                    
+                                    <option value="422310">Tuition - RA - Not MTDC</option>
+                                    
+                                    <option value="422320">Undergrad Student Fees - No Overhead</option>
+                                    
+                                    <option value="420376">Use of Facilities</option>
+                                    
+                                    <option value="420392">Xerox Expense</option>
+                                </select>
+                                <input type="hidden" value="O" name="document.budget.budgetCategoryType[3]">  
+                                <input src="../images/searchicon.gif" onclick="javascript: alert('This would open the search dialog.'); return false" align="top" alt="Search " title="Search " style="border:none;" type="image" />
+                                <input name="x" src="../images/book_open.png" onclick="javascript: alert('This would show the direct inquiry dialog.'); return false" align="top" alt="Direct Inquiry" title="Direct Inquiry" style="border:none;" type="image" />
+                            </div>
+                        </td>
+                        <td valign="middle" class="darkInfoline">
+                            <div align="center">
+                                <textarea title="Description" class="" style="" id="newBudgetLineItems[3].lineItemDescription" onkeyup="textLimit(this, 80);" rows="3" cols="30" tabindex="28" name="newBudgetLineItems[3].lineItemDescription"></textarea>
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('pop-up here'); return false" class="tinybutton" alt="Expanded Text Area" type="image" />
+                            </div>
+                        </td>
+                        <td valign="middle" class="darkInfoline">
+                            <div align="center">
+                                <input type="text" title="Quantity" class="amount" style="" id="newBudgetLineItems[3].quantity" onblur="" onchange="" value="" tabindex="29" size="4" maxlength="4" name="newBudgetLineItems[3].quantity">
+                            </div>
+                        </td>
+                        <td valign="middle" class="darkInfoline">                	
+                            <div align="center">
+                                <input type="text" title="Total Base Cost" class="amount" style="" id="newBudgetLineItems[3].lineItemCost" onblur="" onchange="" value="0.00" tabindex="30" size="13" maxlength="15" name="newBudgetLineItems[3].lineItemCost">
+                            </div>
+                        </td>
+                        <td class="darkInfoline">
+                            <div align="center">
+                                <input src="../images/tinybutton-add1.gif" onclick="javascript: alert('Please let Bart or Tom know what this button does so we can add a description of the functionality here.'); return false" style="border:none;" alt="sync" title="Sync" type="image" />
+                            </div>
+                        </td>			
+                    </tr>
+                </tbody>
+    		</table>
+            
+		</div>
+          
+          
+
+          
+          
+          
+          
+          
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="b3" summary="">
+            <tr>
+              <td align="left" class="footer"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="bl3"></td>
+              <td align="right" class="footer-right"><img src="../images/pixel_clear.gif" alt="" width="12" height="14" class="br3"></td>
+            </tr>
+          </table>
+        </div>
+        <div align="right"><br>
+          * required </div>
+        <div class="globalbuttons">
+        	<div id="changedfields_organizations3" style="display:none; margin:auto; width:200px; text-align:center; padding-bottom:3px;">
+            	<img src='../images/asterisk_orange.png' title='data changed but not added' alt='changed' style='width:13px; height:12px;' /> Unsaved changes will be lost. Do you wish to continue with Reload?
+            </div>
+            <img id="globalsave" src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" style="cursor:pointer;">
+            <script type="text/javascript" language="javascript">
+				$(document).ready(function() {
+		
+					$('#globalsave').click(function() {
+						savebutton();
+					});
+					
+				});
+			</script>
+            
+            <a href="#"><img src="../images/buttonsmall_close.gif" alt="cancel" width="48" height="18" hspace="5" border="0"></a><a href="#"><img src="../images/buttonsmall_cancel.gif" alt="cancel" width="66" height="18" hspace="5" border="0"></a> </div>
+      </div></td>
+    <td class="column-right"><img src="../images/pixel_clear.gif" alt="" width="20" height="20"></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><span class="tab-container" style="display: none;"><img src="../kra-irb-dev/images/prot-research-premium.jpg" alt="Premium" width="649" height="396"><br>
+  <br>
+  <img src="../kra-irb-dev/images/prot-research-lite.jpg" alt="Lite" width="771" height="190"><span class="tab-container" style="display: none;"><img src="../kra-irb-dev/images/protocol-fundsource.jpg" alt="Premium" width="678" height="424"><br>
+  <br>
+  <img src="../kra-irb-dev/images/prot-funding-lite.jpg" alt="Lite" width="770" height="297"></span></span></p>
+
+</form>
+
+</body>
+</html>

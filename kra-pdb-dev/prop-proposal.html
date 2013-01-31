@@ -233,6 +233,9 @@ function addLoadEvent(func) {
               </tbody>
             </table>
           </div>
+          
+          
+          
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Required Fields for Saving Document</td>
@@ -246,17 +249,66 @@ function addLoadEvent(func) {
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
             <table cellpadding=0 cellspacing=0 summary="">
               <tr>
-                <th><div align=right>*Proposal #:</div></th>
+                <th style="width:120px;"><div align=right>*Proposal #:</div></th>
                 <td>12351253</td>
+                <th rowspan="3" style="vertical-align:top; width:140px;">
+                	<div align=right>Status</div>
+                </th>
+                <td rowspan="3" align=left valign=middle>
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none; text-align:right; width:120px;">
+                                Overall:
+                            </td>
+                            <td style="border:none; background:none;">
+                                In Progress
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fineprint" style="color:#000; border:none; background:none; text-align:right;">
+                                Proposal Hierarchy:
+                            </td>
+                            <td class="fineprint" style="color:#000; border:none; background:none;">
+                                In Route
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fineprint" style="color:#000; border:none; background:none; text-align:right;">
+                                Narrative:
+                            </td>
+                            <td class="fineprint" style="color:#000; border:none; background:none;">
+                                Complete
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fineprint" style="color:#000; border:none; background:none; text-align:right;">
+                                Budget:
+                            </td>
+                            <td class="fineprint" style="color:#000; border:none; background:none;">
+                                Paused
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+              </tr>
+              <tr>
                 <th><div align=right>*Sponsor ID:</div></th>
-                <td align=left valign=middle><input name="startDate3" type=text onchange="dataChanged()" value="" size=12 />
-                  <input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
-                  <input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
-                  <br></td>
+                <td>
+                	<input name="startDate3" type=text onchange="dataChanged()" value="" size=12 />
+                  	<input type="image" class="nobord" src="../images/searchicon.gif" alt="lookup">
+                  	<input type="image" class="nobord" onClick="MM_openBrWindow('prop-sponsor-inquiry.html','','scrollbars=yes,resizable=yes,width=600,height=400')" src="../images/book_open.png" alt="inquiry">
+                </td>
+                <!--<th><div align=right>xxx</div></th>
+                <td align=left valign=middle>
+                	xxx
+                </td>-->
               </tr>
               <tr>
                 <th><div align=right >*Proposal Type:</div></th>
-                <td><select size=1 name="numberofreg" id="numberofreg" onChange="showDivs(this)">
+                <td>
+                	<select size=1 name="numberofreg" id="numberofreg" onChange="showDivs(this)">
                     <option value=0 selected>select</option>
                     <option value=01>Continuation</option>
                     <option value=02>New</option>
@@ -265,49 +317,79 @@ function addLoadEvent(func) {
                     <option value=05>Revision</option>
                     <option value=06>Task Orde</option>
                   </select></td>
-                <th><div align=right>*Project Start Date:</div></th>
-                <td><span>
-                  <input name="date1" type=text size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date1,'anchor1','MM/dd/yyyy'); return false;" name="anchor1" id="anchor2"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                <!--<th><div align=right>xxx</div></th>
+                <td>
+                	xxxz
+                </td>-->
               </tr>
               <tr>
                 <th><div align=right>
                     <label for=leadunit>*Lead Unit:</label>
                   </div></th>
-                <td align=left valign=middle><select name="leadunit" id="leadunit">
-                    <option selected>select</option>
-                    <option>IN-PEDS</option>
-                    <option>BL-IidC</option>
-                  </select></td>
-                <th><div align=right>*Project End Date:</div></th>
-                <td align=left valign=middle><span>
-                  <input name="date2" type=text size=12>
-                  </span><span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span></td>
+                <td align=left valign=middle>
+                	<select name="leadunit" id="leadunit">
+                        <option selected>select</option>
+                        <option>IN-PEDS</option>
+                        <option>BL-IidC</option>
+                      </select></td>
+                <th>
+                	<div align=right>*Project Start Date:</div>
+                </th>
+                <td align=left valign=middle>
+                	<span>
+                  	<input name="date2" type=text size=12>
+                  	</span><span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span>
+                </td>
               </tr>
               <tr>
-                <th><div align=right>*Activity Type:</div></th>
-                <td><select onchange="dataChanged()" name="activityType">
-                    <option selected>select</option>
-                    <option value=1>Organized Research</option>
-                    <option value=2>Instruction</option>
-                    <option value=3>Fellowship - Pre-Doctoral</option>
-                    <option value=4>Public Service</option>
-                    <option value=5>Student Services</option>
-                    <option value=6>Other</option>
-                    <option value=7>Fellowship - Post-Doctoral</option>
-                    <option value=8>Clinical Trial</option>
-                    <option value=9>Construction</option>
-                  </select></td>
-                <th>&nbsp;</th>
-                <td align=left valign=middle>&nbsp;</td>
+                <th>
+                	<div align=right>*Activity Type:</div>
+                </th>
+                <td>
+                	<select onchange="dataChanged()" name="activityType">
+                        <option selected>select</option>
+                        <option value=1>Organized Research</option>
+                        <option value=2>Instruction</option>
+                        <option value=3>Fellowship - Pre-Doctoral</option>
+                        <option value=4>Public Service</option>
+                        <option value=5>Student Services</option>
+                        <option value=6>Other</option>
+                        <option value=7>Fellowship - Post-Doctoral</option>
+                        <option value=8>Clinical Trial</option>
+                        <option value=9>Construction</option>
+                  	</select>
+                </td>
+                <th>
+                	<div align=right>*Project End Date:</div>
+                </th>
+                <td align=left valign=middle>
+                	<span>
+                  	<input name="date2" type=text size=12>
+                  	</span><span><a href="#" onClick="cal.select(document.forms['example'].date2,'anchor2','MM/dd/yyyy'); return false;" name="anchor2" id="anchor3"> <img src="../images/cal.gif" alt="select date" width=16 height=16 align=absmiddle></a></span>
+                </td>
               </tr>
               <tr>
                 <th><div align=right>*Project Title:</div></th>
-                <td colspan=3 align=left valign=middle><textarea name="newPurchasingItemLine.itemDescription" tabindex=0 cols=80 rows=3 id="newPurchasingItemLine.itemDescription"></textarea>
-                  <input type="image" class="nobord" onClick="MM_openBrWindow('../global/expandedtext.html','','width=700,height=300')" src="../images/pencil_add.png" alt="expand textarea"></td>
+                <td colspan=3 align=left valign=middle>
+                	
+                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="border:none; background:none;">
+                                <textarea name="z" style="width:100%; text-align:left;" rows="4"></textarea>
+                            </td>
+                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
               </tr>
             </table>
             <br>
+            
+            
+            
             <div class="h2-container"><span class="subhead-left">
               <h2><span class="tabtable1-left">Institutional Fields Conditionally Required</span></h2>
               </span><span class="subhead-right"> <a href="#"> <img src="../images/my_cp_inf.gif" alt="help" width=15 height=14 border=0 align=absmiddle onClick="MM_openBrWindow('help-pop.html','','scrollbars=yes,resizable=yes,width=500,height=500')"></a></span></div>
@@ -326,6 +408,9 @@ function addLoadEvent(func) {
               </tr>
             </table>
           </div>
+          
+          
+          
           <table width="100%" cellpadding=0 cellspacing=0 class="tab" summary="">
             <tr>
               <td class="tabtable1-left"><img src="../images/tab-topleft1.gif" alt="" width=12 height=29 align=absmiddle>Sponsor &amp; Program Information</td>
