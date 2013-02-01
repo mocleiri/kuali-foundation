@@ -90,6 +90,11 @@ public class DefaultDatabaseService implements DatabaseService {
 			ec.setListener(getDDLListener());
 		}
 
+		contexts.addAll(other);
+		for (ExecutionContext ec : other) {
+			ec.setListener(getDDLListener());
+		}
+
 		JdbcService service = new DefaultJdbcService();
 		ExecutionContext dba = getDbaContext(context);
 		dba.setExecute(context.isExecuteSql());
