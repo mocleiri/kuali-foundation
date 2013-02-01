@@ -9,18 +9,19 @@ a:active{border:none;}
 #header #global .toolset{float:right;text-align:right;margin-top:1em;}#header #global .toolset ul{list-style:none;}#header #global .toolset ul li{float:right;}
 #header #global .toolset a{padding:1.2em;color:#ffffff;}
 #header #document{width:100%;border-top:1px dotted rgba(255, 255, 255, 0.25);padding-bottom:.25em;}#header #document .title{width:auto;float:left;}#header #document .title h1{font-size:1.5em;color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);margin:0;padding:0 .75em;}
-#header #document .toolset{float:right;text-align:right;margin:.75em 1em 0 0;}#header #document .toolset .dropdown-menu{left:auto !important;right:0 !important;}
+#header #document .toolset{float:right;text-align:right;margin:.75em 1em 0 0;}
 #header #document .meta{float:right;margin:1em 0 0 0;}#header #document .meta ul{list-style:none;margin:0;padding:0;}#header #document .meta ul li{min-width:100px;float:left;}#header #document .meta ul li p{margin:0;color:#f2f2f2;padding:0 1.2em;}#header #document .meta ul li p span{display:inline-block;margin-right:16px;color:#4a0000;}
 #header #document .meta ul li .progress{max-width:200px;height:3px;margin-top:.65em;}#header #document .meta ul li .progress .bar{background:#FFC400;}
 #header #document .meta a{color:#ffffff;}
 #document.fixed{background:#960000;top:0;left:0;}
-#ToC{float:left;}
-#ToC.fixed{top:48px;left:0;}
-.fixed{position:fixed !important;z-index:9999 !important;}
+#ToC{margin-top:5px;}
+#ToC.fixed{top:44px;left:0;}
+.fixed{position:fixed !important;z-index:9000 !important;}
 .sticky-panel{position:fixed;z-index:9999;bottom:-1px;left:0;width:100%;height:50%;border:1px solid #cccccc;box-shadow:0 6px 10px 6px rgba(0, 0, 0, 0.25);background:#ffffff;}.sticky-panel a.close{opacity:1.0;margin:1.2em;}
 .sticky-panel .actions-padded{padding:1em 3em 3em 3em;}
 .sticky-panel iframe{border:0;width:100%;height:90%;padding:0;margin:-4.5em 0 0 0;}
 body.ajaxed{background:#ffffff;background-image:none;}body.ajaxed h1{font-size:1.5em;}
+.dropdown-menu{left:auto !important;right:0 !important;}.dropdown-menu a{font-size:0.9em;}
 .clearfix:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
 .clearfix{display:inline-block;}
 html[xmlns] .clearfix{display:block;}

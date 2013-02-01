@@ -122,11 +122,6 @@ a:active {
 			float: right;
 			text-align: right;
 			margin: .75em 1em 0 0;
-
-			.dropdown-menu {
-				left: auto !important;
-				right: 0 !important;
-			}
 		}
 
 		.meta {
@@ -180,17 +175,17 @@ a:active {
 }
 
 #ToC {
-	float: left;
+	margin-top: 5px;
 }
 
 #ToC.fixed {
-	top: 48px;
+	top: 44px;
 	left: 0;
 }
 
 .fixed {
 	position: fixed !important;
-	z-index: 9999 !important;
+	z-index: 9000 !important;
 }
 
 .sticky-panel {
@@ -228,6 +223,16 @@ body.ajaxed {
 
 	h1 {
 		font-size: 1.5em;
+	}
+}
+
+.dropdown-menu {
+	left: auto !important;
+	right: 0 !important;
+
+	a {
+		font-size: .90em
+		text-align: left;
 	}
 }
 

@@ -52,7 +52,7 @@ a:active {
 #ToC {
 	display: block;
 	float: left;
-	position: relative;
+	/*position: relative;*/
 	width: 220px;
 	width: 200px;
 	z-index: 16;
