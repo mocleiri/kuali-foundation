@@ -74,6 +74,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		List<ExecutionContext> schemas = getExecutionContexts(context.getSchemaPropertyPrefix(), threads, context.getProperties());
 		List<ExecutionContext> data = getExecutionContexts(context.getDataPropertyPrefix(), threads, context.getProperties());
 		List<ExecutionContext> constraints = getExecutionContexts(context.getConstraintPropertyPrefix(), threads, context.getProperties());
+		List<ExecutionContext> other = getExecutionContexts(context.getOtherPropertyPrefix(), threads, context.getProperties());
 
 		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
 		contexts.addAll(schemas);
