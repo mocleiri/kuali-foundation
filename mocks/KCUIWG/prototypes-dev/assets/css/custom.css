@@ -48,49 +48,6 @@ a:active {
 #brand span {
 	display: none;
 }
-/* Header */
-#header {
-	height: 50px;
-	position: relative;
-	z-index: 2;
-	width: 100%;
-	background-color: #585858;
-}
-#header h1 {
-	margin: 0px;
-	margin-left: 20px;
-	padding-top: 4px;
-	font-weight: lighter;
-	font-size: 1.6em;
-	color: #FFFFFF;
-	text-shadow: 1px 1px 2px #000000;
-	letter-spacing: .11em;
-	width: 65%;
-	float: left;
-}
-#header h1 a {
-	display: block;
-}
-#header .toolset {
-	float: right;
-	width: 25%;
-}
-#header .toolset ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-#header .toolset ul li {
-	margin: 0;
-	padding: 0;
-	display: inline;
-	float: right;
-}
-#header .toolset a {
-	color: #f2f2f2;
-	display: inline-block;
-	padding: 1.2em;
-}
 /* Table of Contents Navigation */
 #ToC {
 	display: block;

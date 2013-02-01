@@ -1,9 +1,23 @@
 /*
-	Custom scripting for additional functionality
-	Author: Chris Rodriguez, clrux@bu.edu
-	Created: 29 Jan 2012, 12:09 PM
-	Version: 0.1
-*/
+	Custom styles
+	Author: 	Chris Rodriguez, clrux@bu.edu
+	Created:	29 Jan 2012, 12:09
+	Last Mod:	2 Feb 2013, 11:05
+	Version: 	0.1
+
+
+LESS Variables:
+--------------------------------------------- */
+@bodyBackground:						#ccc;
+@headerBackground:						#960000;
+@smokeGray:								#aaa;
+@lightGray:								#f2f2f2;
+@lightest:								#fff;
+@darkest:								#000;
+@defaultFontSize:						13px;
+@defaultGutterSize:						16px;
+
+
 
 html {
 	height: 100%;
@@ -11,9 +25,9 @@ html {
 }
 
 body {
-	background-color: #CCCCCC;
+	background-color: @bodyBackground;
 	background-image: url(../img/back.png);
-	font-size: 12px;
+	font-size: @defaultFontSize;
 	position: relative;
 	z-index: 1;
 	height: 100%;
@@ -31,102 +45,183 @@ a:active {
 }
 
 #header {
-	height: 50px;
+	background: @headerBackground;
+	width: 100%;
+	height: 88px;
 	position: relative;
 	z-index: 2;
-	width: 100%;
-	background-color: #585858;
+	margin-bottom: -6px;
 
-	h1 {
-		margin: 0px;
-		margin-left: 20px;
-		padding-top: 4px;
-		font-weight: lighter;
-		font-size: 1.6em;
-		color: #FFFFFF;
-		text-shadow: 1px 1px 2px #000000;
-		letter-spacing: .11em;
-		width: 65%;
-		float: left;
+	#global {
+		width: 100%;
 
-		a {
-			display: block;
-		}
-	}
+		.brand {
+			float: left;
+			padding-left: 1.2em;
+			margin-top: 1em;
 
-	.toolset {
-		float: right;
-		width: 25%;
+			.major {
+				font-size: 1.4em;
+				color: @darkest;
+				display: inline-block;
+			}
 
-		ul {
-			margin: 0;
-			padding: 0;
-			list-style: none;
-
-			li {
-				margin: 0;
-				padding: 0;
-				display: inline;
-				float: right;
+			.minor {
+				font-size: 1.4em;
+				color: @lightest;
+				display: inline-block;
 			}
 		}
 
-		a {
-			color: #f2f2f2;
-			display: inline-block;
-			padding: 1.2em;
+		.toolset {
+			float: right;
+			text-align: right;
+			margin-top: 1em;
+
+			ul {
+				list-style: none;
+
+				li {
+					float: right;
+				}
+			}
+
+			a {
+				padding: 1.2em;
+				color: @lightest;
+			}
 		}
 	}
+
+	#document {
+		width: 100%;
+		border-top: 1px dotted rgba(255, 255, 255, .25);
+		padding-bottom: .25em;
+
+		.title {
+			width: auto;
+			float: left;
+
+			h1 {
+				font-size: 1.5em;
+				color: @lightest;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+				margin: 0;
+				padding: 0 .75em;
+			}
+		}
+
+		.toolset {
+			float: right;
+			text-align: right;
+			margin: .75em 1em 0 0;
+
+			.dropdown-menu {
+				left: auto !important;
+				right: 0 !important;
+			}
+		}
+
+		.meta {
+			float: right;
+			margin: 1em 0 0 0;
+
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				li {
+					min-width: 100px;
+					float: left;
+
+					p {
+						margin: 0;
+						color: @lightGray;
+						padding: 0 1.2em;
+
+						span {
+							display: inline-block;
+							margin-right: @defaultGutterSize;
+							color: darken(@headerBackground, 15%);
+						}
+					}
+
+					.progress {
+						max-width: 200px;
+						height: 3px;
+						margin-top: .65em;
+
+						.bar {
+							background: #FFC400;
+						}
+					}
+				}
+			}
+
+			a {
+				color: @lightest;
+			}
+		}
+	}
+}
+
+#document.fixed {
+	background: @headerBackground;
+	top: 0;
+	left: 0;
 }
 
 #ToC {
-
-	.meta {
-		clear: left;
-		margin-top: 1.5em;
-		padding: 1.25em;
-
-		p {
-			margin: 0 0 .75em 0;
-			line-height: 140%;
-			font-size: 1.3em;
-			font-weight: 400;
-			opacity: .99;
-			color: #aaa;
-
-			span {
-				display: block;
-				width: 100%;
-				text-transform: uppercase;
-				font-weight: 400;
-				font-size: .70em;
-				line-height: 1;
-				color: #888;
-			}
-		}
-	}
+	float: left;
 }
 
 #ToC.fixed {
-	position: fixed;
-	z-index: 9999;
-	top: 0;
+	top: 48px;
 	left: 0;
+}
+
+.fixed {
+	position: fixed !important;
+	z-index: 9999 !important;
 }
 
 .sticky-panel {
 	position: fixed;
 	z-index: 9999;
 	bottom: -1px;
-	right: 1.2em;
-	width: 26.4%;
+	left: 0;
+	width: 100%;
 	height: 50%;
-	border: 1px solid #ccc;
-	box-shadow: 0 6px 10px 6px #ccc;
-	background: white;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	padding: 1.5em;
+	border: 1px solid @bodyBackground;
+	box-shadow: 0 6px 10px 6px rgba(0,0,0,.25);
+	background: @lightest;
+
+	a.close {
+		opacity: 1.0;
+		margin: 1.2em;
+	}
+
+	.actions-padded {
+		padding: 1em 3em 3em 3em;
+	}
+
+	iframe {
+		border: 0;
+		width: 100%;
+		height: 90%;
+		padding: 0;
+		margin: -4.5em 0 0 0;
+	}
+}
+
+body.ajaxed {
+	background: @lightest;
+	background-image: none;
+
+	h1 {
+		font-size: 1.5em;
+	}
 }
 
 .clearfix:after {
