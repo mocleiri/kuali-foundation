@@ -75,7 +75,7 @@ a:active {
 }
 #ToC > ul > li {
 	display: block;
-	position: relative;
+	/*position: relative;*/
 	border-top: 1px solid #424242 !important;
 	border-bottom: 1px solid #282828 !important;
 	color: #d1d0d0 !important;
