@@ -28,6 +28,7 @@ public class DatabaseResetContext {
 	public static final String DEFAULT_SCHEMA_PROPERTY_PREFIX = "sql.schema";
 	public static final String DEFAULT_DATA_PROPERTY_PREFIX = "sql.data";
 	public static final String DEFAULT_CONSTRAINT_PROPERTY_PREFIX = "sql.constraints";
+	public static final String DEFAULT_OTHER_PROPERTY_PREFIX = "sql.other";
 	public static final String DEFAULT_LOCATION_LIST_PATTERN = ".list";
 
 	JdbcService service = new DefaultJdbcService();
@@ -38,6 +39,7 @@ public class DatabaseResetContext {
 	String schemaPropertyPrefix = DEFAULT_SCHEMA_PROPERTY_PREFIX;
 	String dataPropertyPrefix = DEFAULT_DATA_PROPERTY_PREFIX;
 	String constraintPropertyPrefix = DEFAULT_CONSTRAINT_PROPERTY_PREFIX;
+	String otherPropertyPrefix = DEFAULT_OTHER_PROPERTY_PREFIX;
 	int threads = 5;
 	boolean executeSql = true;
 
@@ -174,6 +176,14 @@ public class DatabaseResetContext {
 
 	public void setDbaReader(SqlReader dbaReader) {
 		this.dbaReader = dbaReader;
+	}
+
+	public String getOtherPropertyPrefix() {
+		return otherPropertyPrefix;
+	}
+
+	public void setOtherPropertyPrefix(String otherPropertyPrefix) {
+		this.otherPropertyPrefix = otherPropertyPrefix;
 	}
 
 }
