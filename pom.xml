@@ -112,6 +112,7 @@
       <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- 
     <dependency>
       <groupId>org.kuali.student.core</groupId>
       <artifactId>ks-core-sql</artifactId>
@@ -164,6 +165,7 @@
       <version>${ole.version}</version>
       <scope>test</scope>
     </dependency>
+     -->
   </dependencies>
   <build>
     <testResources>
