@@ -1,6 +1,3 @@
-#--------------------------------------------- test styles, not yet adopted {
-/* TC - marker for dreamweaver css manager */
-}
 .sortable #sortable1 {
 	list-style-type: none;
 	margin: 0;
@@ -88,4 +85,78 @@ dl.table-display dd {
 }
 .controls.controls-row.datepicker .input-append input {
 	width: 55%;
+}
+.btn.lookup {
+	background: none;
+	background-image: url(../img/icon-lookup.png);
+	border: none;
+	width: 30px;
+	height: 30px;
+	padding: 0px;
+}
+.btn.lookup span {
+	display: none;
+}
+h4 {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	margin-bottom: 12px;
+	padding-bottom: 6px;
+	color: #000;
+ font-weight:;
+	font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.boxContent {
+	padding: 14px;
+}
+.boxContent h4 {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	margin-bottom: 12px;
+	padding-bottom: 6px;
+	color: #000;
+ font-weight:;
+	font-size: 12px;
+}
+.boxContent .boxSubheader {
+	position: relative;
+}
+.boxContent .boxSubheader .boxControls {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+.boxContent .boxSubheader .question legend {
+ margin-left:;
+	width: inherit;
+	font-size: inherit;
+	height: inherit;
+	border: none;
+	line-height: inherit;
+ position:;
+}
+.boxContent .boxSubheader .question .questionControls {
+	margin-bottom: 20px;
+ margin-left:;
+}
+.boxContent .boxSubheader .question .questionControls .radio.inline {
+	padding-top: 3px;
+	padding-right: 4px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	vertical-align: top;
 }
