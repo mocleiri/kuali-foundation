@@ -27,7 +27,7 @@
   <artifactId>metainf-maven-plugin</artifactId>
   <version>2.0.3-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>META-INF Maven Plugin</name>
+  <name>MetaInf Maven Plugin</name>
   <description>Tools for working with META-INF files</description>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <scm>
