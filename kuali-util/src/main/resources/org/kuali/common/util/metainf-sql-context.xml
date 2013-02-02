@@ -57,10 +57,10 @@
 
   <!-- Aggregate MetaInfContext beans into a list -->
   <util:list id="metaInfContexts">
-    <ref>metainfContextSchema</ref>
-    <ref>metainfContextData</ref>
-    <ref>metainfContextConstraints</ref>
-    <ref>metainfContextUpgrades</ref>
+    <ref bean="metainfContextSchema" />
+    <ref bean="metainfContextData" />
+    <ref bean="metainfContextConstraints" />
+    <ref bean="metainfContextUpgrades" />
   </util:list>
 
   <!-- Invoke MetaInfUtils -->
@@ -73,7 +73,7 @@
     </property>
     <property name="arguments">
       <list>
-        <ref>metaInfContexts</ref>
+        <ref bean="metaInfContexts" />
       </list>
     </property>
   </bean>
