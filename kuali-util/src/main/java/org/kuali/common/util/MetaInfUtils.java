@@ -15,7 +15,9 @@ public class MetaInfUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfUtils.class);
 
-	public static void scanAndCreateFile(MetaInfContext context, List<String> includes, List<String> excludes) throws IOException {
+	public static void scanAndCreateFile(MetaInfContext context) throws IOException {
+		List<String> includes = context.getIncludes();
+		List<String> excludes = context.getExcludes();
 		logger.info("Examining - " + context.getBaseDir().getCanonicalPath());
 		logger.info("Include - " + CollectionUtils.getSpaceSeparatedString(includes));
 		logger.info("Exclude - " + CollectionUtils.getSpaceSeparatedString(excludes));

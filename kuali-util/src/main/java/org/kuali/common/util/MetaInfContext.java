@@ -1,6 +1,7 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.util.List;
 
 public interface MetaInfContext {
 
@@ -11,5 +12,9 @@ public interface MetaInfContext {
 	String getPrefix();
 
 	boolean isSort();
+
+	List<String> getIncludes();
+
+	List<String> getExcludes();
 
 }
