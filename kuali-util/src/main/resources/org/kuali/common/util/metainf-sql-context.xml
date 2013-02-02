@@ -45,21 +45,25 @@
     <property name="outputFile" value="${metainf.output.schema}" />
     <property name="includes" ref="metainfIncludesSchema" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
+    <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
   <bean id="metainfContextData" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.data}" />
     <property name="includes" ref="metainfIncludesData" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
+    <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
   <bean id="metainfContextConstraints" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.constraints}" />
     <property name="includes" ref="metainfIncludesConstraints" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
+    <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
   <bean id="metainfContextOther" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.other}" />
     <property name="includes" ref="metainfIncludesOther" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
+    <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
 
   <!-- Aggregate MetaInfContext beans into a list -->
