@@ -7,13 +7,13 @@ public class DefaultMetaInfContext implements MetaInfContext {
 
 	File baseDir;
 	File outputFile;
-	String prefix;
-	boolean sort;
+	String prefix = DEFAULT_PREFIX_VALUE;
+	boolean sort = DEFAULT_SORT_VALUE;
 	List<String> includes;
 	List<String> excludes;
 
 	@Override
-    public File getBaseDir() {
+	public File getBaseDir() {
 		return baseDir;
 	}
 
@@ -22,7 +22,7 @@ public class DefaultMetaInfContext implements MetaInfContext {
 	}
 
 	@Override
-    public File getOutputFile() {
+	public File getOutputFile() {
 		return outputFile;
 	}
 
@@ -31,7 +31,7 @@ public class DefaultMetaInfContext implements MetaInfContext {
 	}
 
 	@Override
-    public String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 
@@ -40,7 +40,7 @@ public class DefaultMetaInfContext implements MetaInfContext {
 	}
 
 	@Override
-    public boolean isSort() {
+	public boolean isSort() {
 		return sort;
 	}
 
@@ -49,7 +49,7 @@ public class DefaultMetaInfContext implements MetaInfContext {
 	}
 
 	@Override
-    public List<String> getIncludes() {
+	public List<String> getIncludes() {
 		return includes;
 	}
 
@@ -58,7 +58,7 @@ public class DefaultMetaInfContext implements MetaInfContext {
 	}
 
 	@Override
-    public List<String> getExcludes() {
+	public List<String> getExcludes() {
 		return excludes;
 	}
 
