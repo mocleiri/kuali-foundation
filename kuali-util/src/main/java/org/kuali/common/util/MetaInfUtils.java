@@ -18,6 +18,8 @@ public class MetaInfUtils {
 
 	public static void scanAndCreateFiles(List<MetaInfContext> contexts) throws IOException {
 		for (MetaInfContext context : contexts) {
+			Assert.notNull(context.getBaseDir(), "baseDir is null");
+			Assert.notNull(context.getOutputFile(), "outputFile is null");
 			List<String> includes = context.getIncludes();
 			List<String> excludes = context.getExcludes();
 			logger.info("Examining - " + context.getBaseDir().getCanonicalPath());

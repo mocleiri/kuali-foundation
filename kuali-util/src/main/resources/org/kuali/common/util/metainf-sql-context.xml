@@ -44,18 +44,22 @@
   <bean id="metainfContextSchema" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.schema}" />
     <property name="includes" ref="metainfIncludesSchema" />
+    <property name="baseDir" value="${project.build.outputDirectory}" />
   </bean>
   <bean id="metainfContextData" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.data}" />
     <property name="includes" ref="metainfIncludesData" />
+    <property name="baseDir" value="${project.build.outputDirectory}" />
   </bean>
   <bean id="metainfContextConstraints" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.constraints}" />
     <property name="includes" ref="metainfIncludesConstraints" />
+    <property name="baseDir" value="${project.build.outputDirectory}" />
   </bean>
   <bean id="metainfContextUpgrades" class="org.kuali.common.util.DefaultMetaInfContext">
     <property name="outputFile" value="${metainf.output.upgrades}" />
     <property name="includes" ref="metainfIncludesUpgrades" />
+    <property name="baseDir" value="${project.build.outputDirectory}" />
   </bean>
 
   <!-- Aggregate MetaInfContext beans into a list -->
