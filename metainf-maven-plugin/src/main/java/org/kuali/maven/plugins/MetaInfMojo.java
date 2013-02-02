@@ -118,15 +118,21 @@ public class MetaInfMojo extends AbstractMojo implements MetaInfContext {
 				return;
 			}
 
-			// Convert CSV to List<String>
-			List<String> includes = CollectionUtils.getTrimmedListFromCSV(include);
-			List<String> excludes = CollectionUtils.getTrimmedListFromCSV(exclude);
-
-			// Scan the directory and create the list of locations that are found
-			MetaInfUtils.scanAndCreateFile(this, includes, excludes);
+			// Scan the directory and create a .resources file containing the list of locations we find
+			MetaInfUtils.scanAndCreateFile(this);
 		} catch (IOException e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		}
+	}
+
+	@Override
+	public List<String> getIncludes() {
+		return CollectionUtils.getTrimmedListFromCSV(include);
+	}
+
+	@Override
+	public List<String> getExcludes() {
+		return CollectionUtils.getTrimmedListFromCSV(exclude);
 	}
 
 	public String getInclude() {
