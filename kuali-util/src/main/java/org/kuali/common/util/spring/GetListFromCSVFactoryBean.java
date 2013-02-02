@@ -30,8 +30,8 @@ public class GetListFromCSVFactoryBean implements FactoryBean<List<String>> {
 	}
 
 	@Override
-	public Class<List> getObjectType() {
-		return List.class;
+	public Class<?> getObjectType() {
+		return null;
 	}
 
 	@Override
