@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.springframework.beans.factory.FactoryBean;
 
-public class GetListFromCSVFactoryBean implements FactoryBean<List> {
+public class GetListFromCSVFactoryBean implements FactoryBean<List<String>> {
 
 	String csv;
 
