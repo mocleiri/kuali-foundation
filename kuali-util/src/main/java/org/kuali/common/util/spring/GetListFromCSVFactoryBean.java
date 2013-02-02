@@ -38,4 +38,12 @@ public class GetListFromCSVFactoryBean implements FactoryBean<List> {
 	public boolean isSingleton() {
 		return false;
 	}
+
+	public String getCsv() {
+		return csv;
+	}
+
+	public void setCsv(String csv) {
+		this.csv = csv;
+	}
 }
