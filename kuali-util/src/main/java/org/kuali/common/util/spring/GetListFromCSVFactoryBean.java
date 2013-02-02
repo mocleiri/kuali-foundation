@@ -34,7 +34,7 @@ public class GetListFromCSVFactoryBean implements FactoryBean<List<String>> {
 		return null;
 	}
 
-	// TODO Something along these lines that does not also stain the code with compiler warning messages would be better
+	// TODO Fix getObjectType() with something along these lines, but without introducing compiler warnings
 	// @Override
 	// public Class<List> getObjectType() {
 	// return List.class;
