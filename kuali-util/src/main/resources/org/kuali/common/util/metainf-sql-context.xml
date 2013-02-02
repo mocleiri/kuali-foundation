@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!-- Resolve placeholder using Maven properties -->
+  <!-- Resolve placeholders using Maven properties -->
   <context:property-placeholder properties-ref="mavenProperties" />
 
   <!-- Convert CSV to List<String> -->
