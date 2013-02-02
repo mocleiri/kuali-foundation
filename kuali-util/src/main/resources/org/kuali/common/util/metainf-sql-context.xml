@@ -36,8 +36,8 @@
   <bean id="metainfIncludesConstraints" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
     <property name="csv" value="${metainf.include.constraints}" />
   </bean>
-  <bean id="metainfIncludesUpgrades" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.include.upgrades}" />
+  <bean id="metainfIncludesOther" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+    <property name="csv" value="${metainf.include.other}" />
   </bean>
 
   <!-- Create MetaInfContext beans -->
@@ -56,9 +56,9 @@
     <property name="includes" ref="metainfIncludesConstraints" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
   </bean>
-  <bean id="metainfContextUpgrades" class="org.kuali.common.util.DefaultMetaInfContext">
-    <property name="outputFile" value="${metainf.output.upgrades}" />
-    <property name="includes" ref="metainfIncludesUpgrades" />
+  <bean id="metainfContextOther" class="org.kuali.common.util.DefaultMetaInfContext">
+    <property name="outputFile" value="${metainf.output.other}" />
+    <property name="includes" ref="metainfIncludesOther" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
   </bean>
 
@@ -67,7 +67,7 @@
     <ref bean="metainfContextSchema" />
     <ref bean="metainfContextData" />
     <ref bean="metainfContextConstraints" />
-    <ref bean="metainfContextUpgrades" />
+    <ref bean="metainfContextOther" />
   </util:list>
 
   <!-- Invoke MetaInfUtils -->
