@@ -77,7 +77,7 @@
   <!-- Invoke metaInfUtils -->
   <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="targetClass">
-      <value>org.kuali.common.util.metaInfUtils</value>
+      <value>org.kuali.common.util.MetaInfUtils</value>
     </property>
     <property name="targetMethod">
       <value>scanAndCreateFiles</value>
