@@ -34,6 +34,12 @@ public class GetListFromCSVFactoryBean implements FactoryBean<List<String>> {
 		return null;
 	}
 
+	// TODO Something along these lines that does not also stain the code with compiler warning messages would be better
+	// @Override
+	// public Class<List> getObjectType() {
+	// return List.class;
+	// }
+
 	@Override
 	public boolean isSingleton() {
 		return false;
