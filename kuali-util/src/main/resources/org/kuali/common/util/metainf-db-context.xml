@@ -63,4 +63,19 @@
     <ref>metainfContextUpgrades</ref>
   </util:list>
 
+  <!-- Invoke MetaInfUtils -->
+  <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="targetClass">
+      <value>org.kuali.common.util.MetaInfUtils</value>
+    </property>
+    <property name="targetMethod">
+      <value>scanAndCreateFiles</value>
+    </property>
+    <property name="arguments">
+      <list>
+        <ref>metaInfContexts</ref>
+      </list>
+    </property>
+  </bean>
+
 </beans>
