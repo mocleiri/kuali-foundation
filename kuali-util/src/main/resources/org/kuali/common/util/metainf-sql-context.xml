@@ -28,33 +28,33 @@
 
   <!-- Convert CSV to List<String> -->
   <bean id="metainfIncludesSchema" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.schema.include}" />
+    <property name="csv" value="${metainf.include.schema}" />
   </bean>
   <bean id="metainfIncludesData" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.data.include}" />
+    <property name="csv" value="${metainf.include.data}" />
   </bean>
   <bean id="metainfIncludesConstraints" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.constraints.include}" />
+    <property name="csv" value="${metainf.include.constraints}" />
   </bean>
   <bean id="metainfIncludesUpgrades" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.upgrades.include}" />
+    <property name="csv" value="${metainf.include.upgrades}" />
   </bean>
 
   <!-- Create MetaInfContext beans -->
   <bean id="metainfContextSchema" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.schema.output}" />
+    <property name="outputFile" value="${metainf.output.schema}" />
     <property name="includes" ref="metainfIncludesSchema" />
   </bean>
   <bean id="metainfContextData" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.data.output}" />
+    <property name="outputFile" value="${metainf.output.data}" />
     <property name="includes" ref="metainfIncludesData" />
   </bean>
   <bean id="metainfContextConstraints" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.constraints.output}" />
+    <property name="outputFile" value="${metainf.output.constraints}" />
     <property name="includes" ref="metainfIncludesConstraints" />
   </bean>
   <bean id="metainfContextUpgrades" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.upgrades.output}" />
+    <property name="outputFile" value="${metainf.output.upgrades}" />
     <property name="includes" ref="metainfIncludesUpgrades" />
   </bean>
 
