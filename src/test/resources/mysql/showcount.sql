@@ -14,4 +14,4 @@
 -- limitations under the License.
 --
 
-select count(*) from KRMS_PROP_PARM_T;
+select count(*) as 'Row Count' from KRMS_PROP_PARM_T;
