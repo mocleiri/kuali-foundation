@@ -35,14 +35,15 @@ public class MorphMySqlTest {
 	private static final Logger logger = LoggerFactory.getLogger(MorphMySqlTest.class);
 	public static final int MAX_LENGTH = new Integer(getProperty("max.length", 1024 * 50 + ""));
 	public static final int MAX_COUNT = new Integer(getProperty("max.count", 50 + ""));;
-	public static final String INSERT = "INSERT";
-	public static final String DELIMITER = "/";
+	public static final String INSERT = "INSERT INTO";
+	public static final String DELIMITER = ";";
 	public static final String LF = "\n";
 	public static final String CLASSPATH = "classpath:";
 	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
 	public static final String OPEN = "INSERT ALL" + LF;
 	public static final String CLOSE = "SELECT * FROM DUAL" + LF + DELIMITER + LF;
+	public static final String VALUES_TOKEN = ")\n  VALUES (";
 	String ws = getProperty("ws", "/Users/jeffcaddel/ws/spring-db-jc");
 	int oldCount = 0;
 	int newCount = 0;
@@ -53,8 +54,9 @@ public class MorphMySqlTest {
 			logger.info("Parsing Old School SQL");
 			// convert("classpath:KSEN_ATP.sql", new File("/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql"));
 			long start = System.currentTimeMillis();
-			File oldFile = new File("/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/mysql/KRMS_PROP_PARM_T.sql");
-			File newFile = new File(oldFile.getAbsolutePath() + ".combined");
+			String fragment = "/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/mysql/KRMS_PROP_PARM_T";
+			File oldFile = new File(fragment + ".sql");
+			File newFile = new File(fragment + "-smartly.sql");
 			// convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-rice-sql-data.resources", ws + "/ks-core/ks-rice-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
@@ -98,7 +100,7 @@ public class MorphMySqlTest {
 
 	protected ConversionResult convert(File oldFile, File newFile) throws IOException {
 		DefaultSqlReader reader = new DefaultSqlReader();
-		reader.setDelimiter(";");
+		reader.setDelimiter(DELIMITER);
 		BufferedReader in = LocationUtils.getBufferedReader(oldFile, UTF8);
 		SqlMetaData before = reader.getSqlMetaData(in);
 		in.close();
@@ -141,30 +143,49 @@ public class MorphMySqlTest {
 		return "  " + StringUtils.trim(StringUtils.substring(trimmed, INSERT.length())) + LF;
 	}
 
+	protected String getInsertIntoValuesClause(String trimmed) {
+		int pos = StringUtils.indexOf(trimmed, VALUES_TOKEN);
+		String s = StringUtils.substring(trimmed, 0, pos);
+		return s + ") VALUES ";
+	}
+
+	protected String getValues(String trimmed) {
+		int pos = StringUtils.indexOf(trimmed, VALUES_TOKEN);
+		if (pos == -1) {
+			throw new IllegalArgumentException("Unable to parse INSERT statement");
+		}
+		return "(" + StringUtils.substring(trimmed, pos + VALUES_TOKEN.length());
+	}
+
 	protected MorphResult combineInserts(MorphContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
-		sb.append(context.getOpen());
 		String trimmed = StringUtils.trimToNull(sql);
-		int length = sb.length();
+		String insertIntoValues = getInsertIntoValuesClause(trimmed);
+		sb.append(insertIntoValues);
 		int count = 1;
-		boolean proceed = proceed(trimmed, count, length, context);
+		boolean proceed = proceed(trimmed, count, sb.length(), context);
 		while (proceed) {
-			String into = getIntoStatement(trimmed);
+			String values = getValues(trimmed);
+			if (count > 1) {
+				sb.append(",");
+			}
+			sb.append(values);
 			count++;
-			length += into.length();
-			sb.append(into);
 			sql = context.getReader().getSqlStatement(context.getInput());
 			trimmed = StringUtils.trimToNull(sql);
-			proceed = proceed(trimmed, count, length, context);
+			proceed = proceed(trimmed, count, sb.length(), context);
 		}
 		// The last SQL statement we read was an insert
 		if (isInsert(trimmed)) {
-			String into = getIntoStatement(trimmed);
-			sb.append(into);
+			if (count > 1) {
+				sb.append(",");
+			}
+			String values = getValues(trimmed);
+			sb.append(values);
 			count++;
 		}
-		sb.append(context.getClose());
+		sb.append(LF + DELIMITER + LF);
 
 		// There is a trailing SQL statement that is not an INSERT
 		if (trimmed != null && !isInsert(trimmed)) {
