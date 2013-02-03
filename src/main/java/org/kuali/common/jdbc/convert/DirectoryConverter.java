@@ -36,7 +36,7 @@ public class DirectoryConverter {
 	protected List<File> getNewFiles(File baseDir, List<File> oldFiles) {
 		List<File> newFiles = new ArrayList<File>();
 		for (File oldFile : oldFiles) {
-			File newFile = new File(oldFile.getAbsolutePath() + ".combined");
+			File newFile = new File(oldFile.getAbsolutePath() + ".converted");
 			newFiles.add(newFile);
 		}
 		return newFiles;
