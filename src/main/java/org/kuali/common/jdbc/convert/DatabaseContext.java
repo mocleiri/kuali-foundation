@@ -4,6 +4,7 @@ import java.io.File;
 
 public class DatabaseContext {
 
+	String database;
 	File oldDir;
 	File newDir;
 	String artifactId;
@@ -39,6 +40,14 @@ public class DatabaseContext {
 
 	public void setConverter(SqlConverter converter) {
 		this.converter = converter;
+	}
+
+	public String getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(String database) {
+		this.database = database;
 	}
 
 }
