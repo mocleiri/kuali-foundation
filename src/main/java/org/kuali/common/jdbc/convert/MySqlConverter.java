@@ -56,20 +56,7 @@ public class MySqlConverter implements SqlConverter {
 			OutputStream out = FileUtils.openOutputStream(newFile);
 			List<MorphResult> results = new ArrayList<MorphResult>();
 			while (sql != null) {
-				String trimmed = StringUtils.trim(sql);
-				boolean insertStatement = isInsert(trimmed);
-				if (insertStatement) {
-					MorphContext mc = new MorphContext();
-					mc.setSql(sql);
-					mc.setReader(reader);
-					mc.setInput(in);
-					MorphResult result = combineInserts(context, mc);
-					results.add(result);
-					sb.append(result.getSql());
-				} else {
-					// Add the sql followed by linefeed->delimiter->linefeed
-					sb.append(sql + LF + context.getDelimiter() + LF);
-				}
+				handleSql(context, sb, out, in, sql, reader, results);
 				out.write(sb.toString().getBytes(context.getEncoding()));
 				sb = new StringBuilder();
 				sql = reader.getSqlStatement(in);
@@ -79,6 +66,24 @@ public class MySqlConverter implements SqlConverter {
 			return new ConversionResult(oldFile, newFile, before, after);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
+		}
+	}
+
+	protected void handleSql(ConversionContext context, StringBuilder sb, OutputStream out, BufferedReader in, String sql, SqlReader reader, List<MorphResult> results)
+	        throws IOException {
+		String trimmed = StringUtils.trim(sql);
+		boolean insertStatement = isInsert(trimmed);
+		if (insertStatement) {
+			MorphContext mc = new MorphContext();
+			mc.setSql(sql);
+			mc.setReader(reader);
+			mc.setInput(in);
+			MorphResult result = combineInserts(context, mc);
+			results.add(result);
+			sb.append(result.getSql());
+		} else {
+			// Add the sql followed by linefeed->delimiter->linefeed
+			sb.append(sql + LF + context.getDelimiter() + LF);
 		}
 	}
 
