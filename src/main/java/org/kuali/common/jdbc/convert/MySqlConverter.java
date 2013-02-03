@@ -50,18 +50,6 @@ public class MySqlConverter implements SqlConverter {
 	int oldCount = 0;
 	int newCount = 0;
 
-	protected SqlMetaData getMetaData(File file, SqlReader reader) {
-		BufferedReader in = null;
-		try {
-			in = LocationUtils.getBufferedReader(file, UTF8);
-			return reader.getSqlMetaData(in);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error");
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
 	@Override
 	public ConversionResult convert(File oldFile, File newFile) {
 		logger.debug("Converting {}", LocationUtils.getCanonicalPath(oldFile));
@@ -196,4 +184,17 @@ public class MySqlConverter implements SqlConverter {
 	protected boolean isInsert(String sql) {
 		return StringUtils.startsWith(sql, INSERT);
 	}
+
+	protected SqlMetaData getMetaData(File file, SqlReader reader) {
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReader(file, UTF8);
+			return reader.getSqlMetaData(in);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error");
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 }
