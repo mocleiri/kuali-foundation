@@ -32,42 +32,49 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MySqlConverter implements SqlConverter {
-	private static final Logger logger = LoggerFactory.getLogger(MySqlConverter.class);
-	public static final String INSERT = "INSERT INTO";
-	public static final String VALUES_TOKEN = ")\n  VALUES (";
 
-	public static final String LF = "\n";
+	private static final Logger logger = LoggerFactory.getLogger(MySqlConverter.class);
+	private static final String INSERT = "INSERT INTO";
+	private static final String VALUES_TOKEN = ")\n  VALUES (";
+
+	private static final String LF = "\n";
 
 	@Override
 	public ConversionResult convert(ConversionContext context) {
+		logger.debug("Converting {}", LocationUtils.getCanonicalPath(context.getOldFile()));
 		File newFile = context.getNewFile();
 		File oldFile = context.getOldFile();
 		DefaultSqlReader reader = new DefaultSqlReader();
 		reader.setDelimiter(context.getDelimiter());
-		SqlMetaData before = getMetaData(oldFile, reader, context.getEncoding());
-		logger.debug("Converting {}", LocationUtils.getCanonicalPath(oldFile));
 
 		BufferedReader in = null;
 		OutputStream out = null;
 		try {
 			in = LocationUtils.getBufferedReader(oldFile, context.getEncoding());
 			out = FileUtils.openOutputStream(newFile);
-			String sql = reader.getSqlStatement(in);
-			StringBuilder sb = new StringBuilder();
-			while (sql != null) {
-				handleSql(context, sb, out, in, sql, reader);
-				out.write(sb.toString().getBytes(context.getEncoding()));
-				sb = new StringBuilder();
-				sql = reader.getSqlStatement(in);
-			}
-			SqlMetaData after = getMetaData(newFile, reader, context.getEncoding());
-			return new ConversionResult(oldFile, newFile, before, after);
+			return convert(context, reader, in, out);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
 		} finally {
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(out);
 		}
+	}
+
+	protected ConversionResult convert(ConversionContext context, SqlReader reader, BufferedReader in, OutputStream out) throws IOException {
+		File newFile = context.getNewFile();
+		File oldFile = context.getOldFile();
+		String sql = reader.getSqlStatement(in);
+		StringBuilder sb = new StringBuilder();
+		while (sql != null) {
+			handleSql(context, sb, out, in, sql, reader);
+			out.write(sb.toString().getBytes(context.getEncoding()));
+			sb = new StringBuilder();
+			sql = reader.getSqlStatement(in);
+		}
+		SqlMetaData before = getMetaData(oldFile, reader, context.getEncoding());
+		SqlMetaData after = getMetaData(newFile, reader, context.getEncoding());
+		return new ConversionResult(oldFile, newFile, before, after);
 	}
 
 	protected void handleSql(ConversionContext context, StringBuilder sb, OutputStream out, BufferedReader in, String sql, SqlReader reader) throws IOException {
@@ -84,10 +91,6 @@ public class MySqlConverter implements SqlConverter {
 			// Add the sql followed by linefeed->delimiter->linefeed
 			sb.append(sql + LF + context.getDelimiter() + LF);
 		}
-	}
-
-	protected String getIntoStatement(String trimmed) {
-		return "  " + StringUtils.trim(StringUtils.substring(trimmed, INSERT.length())) + LF;
 	}
 
 	protected String getInsertIntoValuesClause(String trimmed) {
