@@ -1,0 +1,3 @@
+echo $(date)
+mysql -u smartload -psmartload -h mysql.rice.kuali.org smartload < KRCR_STYLE_T.sql
+echo $(date)
