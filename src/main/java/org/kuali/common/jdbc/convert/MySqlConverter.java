@@ -103,6 +103,7 @@ public class MySqlConverter implements SqlConverter {
 
 	protected void appendValues(StringBuilder sb, int count, String trimmed) {
 		String values = getValues(trimmed);
+		// This is the exact same thing mysqldump does when dumping a db
 		String escaped = StringUtils.replace(values, "\n", "\\n");
 		if (count > 1) {
 			sb.append(",");
