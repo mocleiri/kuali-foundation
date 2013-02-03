@@ -5,25 +5,24 @@ import java.io.File;
 public class DatabaseContext {
 
 	String database;
-	File oldDir;
-	File newDir;
+	File directory;
 	String artifactId;
 	SqlConverter converter;
 
-	public File getOldDir() {
-		return oldDir;
+	public String getDatabase() {
+		return database;
 	}
 
-	public void setOldDir(File oldDir) {
-		this.oldDir = oldDir;
+	public void setDatabase(String database) {
+		this.database = database;
 	}
 
-	public File getNewDir() {
-		return newDir;
+	public File getDirectory() {
+		return directory;
 	}
 
-	public void setNewDir(File newDir) {
-		this.newDir = newDir;
+	public void setDirectory(File directory) {
+		this.directory = directory;
 	}
 
 	public String getArtifactId() {
@@ -40,14 +39,6 @@ public class DatabaseContext {
 
 	public void setConverter(SqlConverter converter) {
 		this.converter = converter;
-	}
-
-	public String getDatabase() {
-		return database;
-	}
-
-	public void setDatabase(String database) {
-		this.database = database;
 	}
 
 }

@@ -11,10 +11,10 @@ public class DatabaseConverter {
 	public void convert(DatabaseContext context) {
 		String includes = "*.sql";
 		String excludes = context.getArtifactId() + "*.sql";
-		SimpleScanner scanner = new SimpleScanner(context.getOldDir(), includes, excludes);
+		SimpleScanner scanner = new SimpleScanner(context.getDirectory(), includes, excludes);
 
 		List<File> oldFiles = scanner.getFiles();
-		List<File> newFiles = getNewFiles(context.getNewDir(), oldFiles);
+		List<File> newFiles = getNewFiles(context.getDirectory(), oldFiles);
 		convert(context, oldFiles, newFiles);
 	}
 
@@ -36,7 +36,7 @@ public class DatabaseConverter {
 	protected List<File> getNewFiles(File baseDir, List<File> oldFiles) {
 		List<File> newFiles = new ArrayList<File>();
 		for (File oldFile : oldFiles) {
-			File newFile = new File(baseDir, oldFile.getName());
+			File newFile = new File(oldFile.getAbsolutePath() + ".combined");
 			newFiles.add(newFile);
 		}
 		return newFiles;
