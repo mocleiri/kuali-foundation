@@ -15,10 +15,13 @@
  */
 package org.kuali.common.jdbc;
 
+import java.io.File;
 import java.util.List;
 
 public class ConversionResult {
 
+	File oldFile;
+	File newFile;
 	SqlMetaData before;
 	SqlMetaData after;
 	List<MorphResult> morphResults;
@@ -45,6 +48,22 @@ public class ConversionResult {
 
 	public void setMorphResults(List<MorphResult> morphResults) {
 		this.morphResults = morphResults;
+	}
+
+	public File getOldFile() {
+		return oldFile;
+	}
+
+	public void setOldFile(File oldFile) {
+		this.oldFile = oldFile;
+	}
+
+	public File getNewFile() {
+		return newFile;
+	}
+
+	public void setNewFile(File newFile) {
+		this.newFile = newFile;
 	}
 
 }
