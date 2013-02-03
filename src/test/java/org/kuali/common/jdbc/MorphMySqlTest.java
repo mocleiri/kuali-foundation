@@ -53,7 +53,7 @@ public class MorphMySqlTest {
 			logger.info("Parsing Old School SQL");
 			// convert("classpath:KSEN_ATP.sql", new File("/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/KSEN_ATP-smart.sql"));
 			long start = System.currentTimeMillis();
-			File oldFile = new File("/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/mysql-raw-small.sql");
+			File oldFile = new File("/Users/jeffcaddel/ws/kuali-jdbc-2.0/src/test/resources/mysql/KRMS_PROP_PARM_T.sql");
 			File newFile = new File(oldFile.getAbsolutePath() + ".combined");
 			// convert("classpath:META-INF/sql/oracle/ks-core-sql-data.resources", ws + "/ks-core/ks-core-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-rice-sql-data.resources", ws + "/ks-core/ks-rice-sql/src/main/resources");
