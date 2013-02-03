@@ -61,7 +61,7 @@ public class MorphMySqlTest {
 			// convert("classpath:META-INF/sql/oracle/ks-rice-sql-data.resources", ws + "/ks-core/ks-rice-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
-			ConversionResult result = convert(oldFile, newFile);
+			ConversionResult result = convert(oldFile.getAbsolutePath(), newFile);
 			long elapsed = System.currentTimeMillis() - start;
 			oldCount += result.getBefore().getCount();
 			newCount += result.getAfter().getCount();
@@ -100,16 +100,16 @@ public class MorphMySqlTest {
 		System.out.println(filename + " - " + before + " -> " + after);
 	}
 
-	protected ConversionResult convert(File oldFile, File newFile) throws IOException {
+	protected ConversionResult convert(String location, File outputFile) throws IOException {
 		DefaultSqlReader reader = new DefaultSqlReader();
 		reader.setDelimiter(DELIMITER);
-		BufferedReader in = LocationUtils.getBufferedReader(oldFile, UTF8);
+		BufferedReader in = LocationUtils.getBufferedReader(location, UTF8);
 		SqlMetaData before = reader.getSqlMetaData(in);
 		in.close();
-		in = LocationUtils.getBufferedReader(oldFile, UTF8);
+		in = LocationUtils.getBufferedReader(location, UTF8);
 		String sql = reader.getSqlStatement(in);
 		StringBuilder sb = new StringBuilder();
-		OutputStream out = FileUtils.openOutputStream(newFile);
+		OutputStream out = FileUtils.openOutputStream(outputFile);
 		List<MorphResult> results = new ArrayList<MorphResult>();
 		while (sql != null) {
 			String trimmed = StringUtils.trim(sql);
@@ -131,7 +131,7 @@ public class MorphMySqlTest {
 			sql = reader.getSqlStatement(in);
 		}
 		IOUtils.closeQuietly(out);
-		in = LocationUtils.getBufferedReader(newFile.getAbsolutePath());
+		in = LocationUtils.getBufferedReader(outputFile.getAbsolutePath());
 		SqlMetaData after = reader.getSqlMetaData(in);
 		in.close();
 		ConversionResult cr = new ConversionResult();
