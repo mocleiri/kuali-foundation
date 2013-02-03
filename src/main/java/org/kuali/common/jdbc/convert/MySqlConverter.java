@@ -39,11 +39,7 @@ public class MySqlConverter implements SqlConverter {
 	public static final String INSERT = "INSERT INTO";
 	public static final String VALUES_TOKEN = ")\n  VALUES (";
 
-	public static final int MAX_LENGTH = 50 * 1024;
-	public static final int MAX_COUNT = 50;
-	public static final String DELIMITER = ";";
 	public static final String LF = "\n";
-	public static final String UTF8 = "UTF-8";
 
 	@Override
 	public ConversionResult convert(ConversionContext context) {
@@ -53,7 +49,7 @@ public class MySqlConverter implements SqlConverter {
 		logger.debug("Converting {}", LocationUtils.getCanonicalPath(oldFile));
 		try {
 			reader.setDelimiter(context.getDelimiter());
-			SqlMetaData before = getMetaData(oldFile, reader);
+			SqlMetaData before = getMetaData(oldFile, reader, context.getEncoding());
 			BufferedReader in = LocationUtils.getBufferedReader(oldFile, context.getEncoding());
 			String sql = reader.getSqlStatement(in);
 			StringBuilder sb = new StringBuilder();
@@ -67,7 +63,7 @@ public class MySqlConverter implements SqlConverter {
 					mc.setSql(sql);
 					mc.setReader(reader);
 					mc.setInput(in);
-					MorphResult result = combineInserts(mc);
+					MorphResult result = combineInserts(context, mc);
 					results.add(result);
 					sb.append(result.getSql());
 				} else {
@@ -79,7 +75,7 @@ public class MySqlConverter implements SqlConverter {
 				sql = reader.getSqlStatement(in);
 			}
 			IOUtils.closeQuietly(out);
-			SqlMetaData after = getMetaData(newFile, reader);
+			SqlMetaData after = getMetaData(newFile, reader, context.getEncoding());
 			return new ConversionResult(oldFile, newFile, before, after);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
@@ -112,7 +108,7 @@ public class MySqlConverter implements SqlConverter {
 		sb.append(values);
 	}
 
-	protected MorphResult combineInserts(MorphContext context) throws IOException {
+	protected MorphResult combineInserts(ConversionContext cc, MorphContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		String trimmed = StringUtils.trimToNull(sql);
@@ -132,11 +128,11 @@ public class MySqlConverter implements SqlConverter {
 			appendValues(sb, count, trimmed);
 			count++;
 		}
-		sb.append(LF + DELIMITER + LF);
+		sb.append(LF + cc.getDelimiter() + LF);
 
 		// There is a trailing SQL statement that is not an INSERT
 		if (trimmed != null && !isInsert(trimmed)) {
-			sb.append(sql + LF + DELIMITER + LF);
+			sb.append(sql + LF + cc.getDelimiter() + LF);
 			count++;
 		}
 
@@ -177,10 +173,10 @@ public class MySqlConverter implements SqlConverter {
 		return StringUtils.startsWith(sql, INSERT);
 	}
 
-	protected SqlMetaData getMetaData(File file, SqlReader reader) {
+	protected SqlMetaData getMetaData(File file, SqlReader reader, String encoding) {
 		BufferedReader in = null;
 		try {
-			in = LocationUtils.getBufferedReader(file, UTF8);
+			in = LocationUtils.getBufferedReader(file, encoding);
 			return reader.getSqlMetaData(in);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
