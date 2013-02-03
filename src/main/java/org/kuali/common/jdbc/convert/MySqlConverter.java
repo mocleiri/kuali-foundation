@@ -36,19 +36,14 @@ import org.slf4j.LoggerFactory;
 
 public class MySqlConverter implements SqlConverter {
 	private static final Logger logger = LoggerFactory.getLogger(MySqlConverter.class);
+	public static final String INSERT = "INSERT INTO";
+	public static final String VALUES_TOKEN = ")\n  VALUES (";
+
 	public static final int MAX_LENGTH = 50 * 1024;
 	public static final int MAX_COUNT = 50;
-	public static final String INSERT = "INSERT INTO";
 	public static final String DELIMITER = ";";
 	public static final String LF = "\n";
-	public static final String CLASSPATH = "classpath:";
-	public static final String INITIAL_DB = "initial-db";
 	public static final String UTF8 = "UTF-8";
-	public static final String OPEN = "INSERT ALL" + LF;
-	public static final String CLOSE = "SELECT * FROM DUAL" + LF + DELIMITER + LF;
-	public static final String VALUES_TOKEN = ")\n  VALUES (";
-	int oldCount = 0;
-	int newCount = 0;
 
 	@Override
 	public ConversionResult convert(File oldFile, File newFile) {
