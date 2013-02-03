@@ -42,6 +42,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <ole.version>0.8.1-s-SNAPSHOT</ole.version>
+    <impex.version>1.1.1</impex.version>
   </properties>
   <developers>
     <developer>
@@ -53,6 +54,21 @@
     </developer>
   </developers>
   <dependencies>
+    <dependency>
+      <groupId>org.kuali.db.impex</groupId>
+      <artifactId>torque-generator</artifactId>
+      <version>${impex.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.db.impex</groupId>
+      <artifactId>jdbc-support</artifactId>
+      <version>${impex.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.db.impex</groupId>
+      <artifactId>torque-templates</artifactId>
+      <version>${impex.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-threads</artifactId>
