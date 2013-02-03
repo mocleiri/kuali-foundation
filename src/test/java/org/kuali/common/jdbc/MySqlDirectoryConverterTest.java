@@ -17,14 +17,18 @@ public class MySqlDirectoryConverterTest {
 	public void testConvert() {
 		try {
 			logger.info("");
-			String basedir = "/Users/jeffcaddel/ws/spring-db-jc/ks-deployments/ks-cfg-dbs/ks-rice-db";
-			String resourceDir = "src/main/resources/impex/sql/mysql";
-			String filename = basedir + "/" + resourceDir;
+			String base = "/Users/jeffcaddel/ws/spring-db-jc/ks-deployments/ks-cfg-dbs/ks-rice-db";
+			String subdir = "src/main/resources/impex/sql/mysql";
+			String dirname = base + "/" + subdir;
+			File directory = new File(dirname);
+
+			String include = "*.sql";
+			String exclude = "ks-rice-db*.sql";
 			DirectoryContext context = new DirectoryContext();
-			context.setArtifactId("ks-rice-db");
 			context.setConverter(new MySqlConverter());
-			context.setDatabase("mysql");
-			context.setDirectory(new File(filename));
+			context.setDirectory(directory);
+			context.setInclude(include);
+			context.setExclude(exclude);
 			DirectoryConverter dc = new DirectoryConverter();
 			dc.convert(context);
 		} catch (Exception e) {

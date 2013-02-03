@@ -10,10 +10,7 @@ import org.kuali.common.util.SimpleScanner;
 public class DirectoryConverter {
 
 	public void convert(DirectoryContext context) {
-		String includes = "*.sql";
-		String excludes = context.getArtifactId() + "*.sql";
-		SimpleScanner scanner = new SimpleScanner(context.getDirectory(), includes, excludes);
-
+		SimpleScanner scanner = new SimpleScanner(context.getDirectory(), context.getInclude(), context.getExclude());
 		List<File> oldFiles = scanner.getFiles();
 		List<File> newFiles = getNewFiles(context.getDirectory(), oldFiles);
 		convert(context, oldFiles, newFiles);

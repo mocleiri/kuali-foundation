@@ -4,18 +4,10 @@ import java.io.File;
 
 public class DirectoryContext {
 
-	String database;
 	File directory;
-	String artifactId;
 	SqlConverter converter;
-
-	public String getDatabase() {
-		return database;
-	}
-
-	public void setDatabase(String database) {
-		this.database = database;
-	}
+	String include;
+	String exclude;
 
 	public File getDirectory() {
 		return directory;
@@ -25,20 +17,28 @@ public class DirectoryContext {
 		this.directory = directory;
 	}
 
-	public String getArtifactId() {
-		return artifactId;
-	}
-
-	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
-	}
-
 	public SqlConverter getConverter() {
 		return converter;
 	}
 
 	public void setConverter(SqlConverter converter) {
 		this.converter = converter;
+	}
+
+	public String getInclude() {
+		return include;
+	}
+
+	public void setInclude(String include) {
+		this.include = include;
+	}
+
+	public String getExclude() {
+		return exclude;
+	}
+
+	public void setExclude(String exclude) {
+		this.exclude = exclude;
 	}
 
 }
