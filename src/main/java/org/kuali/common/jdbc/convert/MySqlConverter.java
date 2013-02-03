@@ -24,7 +24,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.DefaultSqlReader;
-import org.kuali.common.jdbc.MorphContext;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
@@ -122,13 +121,13 @@ public class MySqlConverter implements SqlConverter {
 		String insertIntoValues = getInsertIntoValuesClause(trimmed);
 		sb.append(insertIntoValues);
 		int count = 1;
-		boolean proceed = proceed(trimmed, count, sb.length(), context);
+		boolean proceed = proceed(trimmed, count, sb.length(), cc);
 		while (proceed) {
 			appendValues(sb, count, trimmed);
 			count++;
 			sql = context.getReader().getSqlStatement(context.getInput());
 			trimmed = StringUtils.trimToNull(sql);
-			proceed = proceed(trimmed, count, sb.length(), context);
+			proceed = proceed(trimmed, count, sb.length(), cc);
 		}
 		// The last SQL statement we read was an insert
 		if (isInsert(trimmed)) {
@@ -145,7 +144,7 @@ public class MySqlConverter implements SqlConverter {
 		return sb.toString();
 	}
 
-	protected boolean proceed(String sql, int count, int length, MorphContext context) {
+	protected boolean proceed(String sql, int count, int length, ConversionContext context) {
 		if (sql == null) {
 			return false;
 		}
