@@ -26,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.jdbc.convert.ConversionResult;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
@@ -139,7 +140,6 @@ public class MorphMySqlTest {
 		cr.setOldFile(oldFile);
 		cr.setAfter(after);
 		cr.setBefore(before);
-		cr.setMorphResults(results);
 		return cr;
 	}
 

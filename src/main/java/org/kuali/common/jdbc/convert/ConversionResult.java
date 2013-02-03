@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.convert;
 
 import java.io.File;
-import java.util.List;
+
+import org.kuali.common.jdbc.SqlMetaData;
 
 public class ConversionResult {
 
@@ -24,7 +25,6 @@ public class ConversionResult {
 	File newFile;
 	SqlMetaData before;
 	SqlMetaData after;
-	List<MorphResult> morphResults;
 
 	public SqlMetaData getBefore() {
 		return before;
@@ -40,14 +40,6 @@ public class ConversionResult {
 
 	public void setAfter(SqlMetaData after) {
 		this.after = after;
-	}
-
-	public List<MorphResult> getMorphResults() {
-		return morphResults;
-	}
-
-	public void setMorphResults(List<MorphResult> morphResults) {
-		this.morphResults = morphResults;
 	}
 
 	public File getOldFile() {
