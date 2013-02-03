@@ -61,10 +61,12 @@ public class MorphMySqlTest {
 			// convert("classpath:META-INF/sql/oracle/ks-rice-sql-data.resources", ws + "/ks-core/ks-rice-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-lum-sql-data.resources", ws + "/ks-lum/ks-lum-sql/src/main/resources");
 			// convert("classpath:META-INF/sql/oracle/ks-enroll-sql-data.resources", ws + "/ks-enroll/ks-enroll-sql/src/main/resources");
-			convert(oldFile, newFile);
+			ConversionResult result = convert(oldFile, newFile);
 			long elapsed = System.currentTimeMillis() - start;
+			oldCount += result.getBefore().getCount();
+			newCount += result.getAfter().getCount();
 			logger.info("Total Time: {}", FormatUtils.getTime(elapsed));
-			System.out.println("oldCount= " + oldCount + " newCount=" + newCount);
+			System.out.println("oldCount=" + oldCount + " newCount=" + newCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
