@@ -61,22 +61,18 @@ public class MySqlConverter implements SqlConverter {
 	}
 
 	protected ConversionResult convert(ConversionContext context, SqlReader reader, BufferedReader in, OutputStream out) throws IOException {
-		File newFile = context.getNewFile();
-		File oldFile = context.getOldFile();
 		String sql = reader.getSqlStatement(in);
-		StringBuilder sb = new StringBuilder();
 		while (sql != null) {
-			handleSql(context, sb, out, in, sql, reader);
-			out.write(sb.toString().getBytes(context.getEncoding()));
-			sb = new StringBuilder();
+			String outputSql = getOutputSql(context, out, in, sql, reader);
+			out.write(outputSql.getBytes(context.getEncoding()));
 			sql = reader.getSqlStatement(in);
 		}
-		SqlMetaData before = getMetaData(oldFile, reader, context.getEncoding());
-		SqlMetaData after = getMetaData(newFile, reader, context.getEncoding());
-		return new ConversionResult(oldFile, newFile, before, after);
+		SqlMetaData before = getMetaData(context.getOldFile(), reader, context.getEncoding());
+		SqlMetaData after = getMetaData(context.getNewFile(), reader, context.getEncoding());
+		return new ConversionResult(context.getOldFile(), context.getNewFile(), before, after);
 	}
 
-	protected void handleSql(ConversionContext context, StringBuilder sb, OutputStream out, BufferedReader in, String sql, SqlReader reader) throws IOException {
+	protected String getOutputSql(ConversionContext context, OutputStream out, BufferedReader in, String sql, SqlReader reader) throws IOException {
 		String trimmed = StringUtils.trim(sql);
 		boolean insertStatement = isInsert(trimmed);
 		if (insertStatement) {
@@ -84,11 +80,10 @@ public class MySqlConverter implements SqlConverter {
 			mc.setSql(sql);
 			mc.setReader(reader);
 			mc.setInput(in);
-			String combined = combineInserts(context, mc);
-			sb.append(combined);
+			return combineInserts(context, mc);
 		} else {
 			// Add the sql followed by linefeed->delimiter->linefeed
-			sb.append(sql + LF + context.getDelimiter() + LF);
+			return sql + LF + context.getDelimiter() + LF;
 		}
 	}
 
