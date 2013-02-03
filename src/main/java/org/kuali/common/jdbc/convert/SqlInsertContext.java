@@ -19,7 +19,7 @@ import java.io.BufferedReader;
 
 import org.kuali.common.jdbc.SqlReader;
 
-public class MorphContext {
+public class SqlInsertContext {
 
 	String sql;
 	SqlReader reader;

@@ -80,7 +80,7 @@ public class MySqlConverter implements SqlConverter {
 		String trimmed = StringUtils.trim(sql);
 		boolean insertStatement = isInsert(trimmed);
 		if (insertStatement) {
-			MorphContext mc = new MorphContext();
+			SqlInsertContext mc = new SqlInsertContext();
 			mc.setSql(sql);
 			mc.setReader(reader);
 			mc.setInput(in);
@@ -114,7 +114,7 @@ public class MySqlConverter implements SqlConverter {
 		sb.append(values);
 	}
 
-	protected String combineInserts(ConversionContext cc, MorphContext context) throws IOException {
+	protected String combineInserts(ConversionContext cc, SqlInsertContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		String trimmed = StringUtils.trimToNull(sql);
