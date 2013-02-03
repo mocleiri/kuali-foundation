@@ -19,15 +19,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.MorphContext;
-import org.kuali.common.jdbc.MorphResult;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
@@ -46,31 +43,34 @@ public class MySqlConverter implements SqlConverter {
 		File newFile = context.getNewFile();
 		File oldFile = context.getOldFile();
 		DefaultSqlReader reader = new DefaultSqlReader();
+		reader.setDelimiter(context.getDelimiter());
+		SqlMetaData before = getMetaData(oldFile, reader, context.getEncoding());
 		logger.debug("Converting {}", LocationUtils.getCanonicalPath(oldFile));
+
+		BufferedReader in = null;
+		OutputStream out = null;
 		try {
-			reader.setDelimiter(context.getDelimiter());
-			SqlMetaData before = getMetaData(oldFile, reader, context.getEncoding());
-			BufferedReader in = LocationUtils.getBufferedReader(oldFile, context.getEncoding());
+			in = LocationUtils.getBufferedReader(oldFile, context.getEncoding());
+			out = FileUtils.openOutputStream(newFile);
 			String sql = reader.getSqlStatement(in);
 			StringBuilder sb = new StringBuilder();
-			OutputStream out = FileUtils.openOutputStream(newFile);
-			List<MorphResult> results = new ArrayList<MorphResult>();
 			while (sql != null) {
-				handleSql(context, sb, out, in, sql, reader, results);
+				handleSql(context, sb, out, in, sql, reader);
 				out.write(sb.toString().getBytes(context.getEncoding()));
 				sb = new StringBuilder();
 				sql = reader.getSqlStatement(in);
 			}
-			IOUtils.closeQuietly(out);
 			SqlMetaData after = getMetaData(newFile, reader, context.getEncoding());
 			return new ConversionResult(oldFile, newFile, before, after);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
+		} finally {
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
 		}
 	}
 
-	protected void handleSql(ConversionContext context, StringBuilder sb, OutputStream out, BufferedReader in, String sql, SqlReader reader, List<MorphResult> results)
-	        throws IOException {
+	protected void handleSql(ConversionContext context, StringBuilder sb, OutputStream out, BufferedReader in, String sql, SqlReader reader) throws IOException {
 		String trimmed = StringUtils.trim(sql);
 		boolean insertStatement = isInsert(trimmed);
 		if (insertStatement) {
@@ -78,9 +78,8 @@ public class MySqlConverter implements SqlConverter {
 			mc.setSql(sql);
 			mc.setReader(reader);
 			mc.setInput(in);
-			MorphResult result = combineInserts(context, mc);
-			results.add(result);
-			sb.append(result.getSql());
+			String combined = combineInserts(context, mc);
+			sb.append(combined);
 		} else {
 			// Add the sql followed by linefeed->delimiter->linefeed
 			sb.append(sql + LF + context.getDelimiter() + LF);
@@ -113,7 +112,7 @@ public class MySqlConverter implements SqlConverter {
 		sb.append(values);
 	}
 
-	protected MorphResult combineInserts(ConversionContext cc, MorphContext context) throws IOException {
+	protected String combineInserts(ConversionContext cc, MorphContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		String trimmed = StringUtils.trimToNull(sql);
@@ -140,22 +139,7 @@ public class MySqlConverter implements SqlConverter {
 			sb.append(sql + LF + cc.getDelimiter() + LF);
 			count++;
 		}
-
-		MorphResult result = new MorphResult();
-		result.setSql(sb.toString());
-		result.setCount(count);
-		result.setLength(sb.length());
-		return result;
-	}
-
-	protected List<String> getStartsWith(List<String> locations, String token) {
-		List<String> trimmed = new ArrayList<String>();
-		for (String location : locations) {
-			if (StringUtils.startsWith(location, token)) {
-				trimmed.add(location);
-			}
-		}
-		return trimmed;
+		return sb.toString();
 	}
 
 	protected boolean proceed(String sql, int count, int length, MorphContext context) {
