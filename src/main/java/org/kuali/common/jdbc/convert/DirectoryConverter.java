@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.SimpleScanner;
 
 public class DirectoryConverter {
@@ -19,6 +20,9 @@ public class DirectoryConverter {
 	}
 
 	protected List<ConversionResult> convert(DirectoryContext context, List<File> oldFiles, List<File> newFiles) {
+		// The lists must be the same size
+		Assert.isTrue(oldFiles.size() == newFiles.size());
+
 		SqlConverter converter = context.getConverter();
 		List<ConversionResult> results = new ArrayList<ConversionResult>();
 		for (int i = 0; i < oldFiles.size(); i++) {
