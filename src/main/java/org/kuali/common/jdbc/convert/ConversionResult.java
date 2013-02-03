@@ -26,6 +26,18 @@ public class ConversionResult {
 	SqlMetaData before;
 	SqlMetaData after;
 
+	public ConversionResult() {
+		this(null, null, null, null);
+	}
+
+	public ConversionResult(File oldFile, File newFile, SqlMetaData before, SqlMetaData after) {
+		super();
+		this.oldFile = oldFile;
+		this.newFile = newFile;
+		this.before = before;
+		this.after = after;
+	}
+
 	public SqlMetaData getBefore() {
 		return before;
 	}

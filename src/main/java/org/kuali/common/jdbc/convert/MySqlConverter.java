@@ -46,13 +46,15 @@ public class MySqlConverter implements SqlConverter {
 	public static final String UTF8 = "UTF-8";
 
 	@Override
-	public ConversionResult convert(File oldFile, File newFile) {
+	public ConversionResult convert(ConversionContext context) {
+		File newFile = context.getNewFile();
+		File oldFile = context.getOldFile();
+		DefaultSqlReader reader = new DefaultSqlReader();
 		logger.debug("Converting {}", LocationUtils.getCanonicalPath(oldFile));
 		try {
-			DefaultSqlReader reader = new DefaultSqlReader();
-			reader.setDelimiter(DELIMITER);
+			reader.setDelimiter(context.getDelimiter());
 			SqlMetaData before = getMetaData(oldFile, reader);
-			BufferedReader in = LocationUtils.getBufferedReader(oldFile, UTF8);
+			BufferedReader in = LocationUtils.getBufferedReader(oldFile, context.getEncoding());
 			String sql = reader.getSqlStatement(in);
 			StringBuilder sb = new StringBuilder();
 			OutputStream out = FileUtils.openOutputStream(newFile);
@@ -61,29 +63,24 @@ public class MySqlConverter implements SqlConverter {
 				String trimmed = StringUtils.trim(sql);
 				boolean insertStatement = isInsert(trimmed);
 				if (insertStatement) {
-					MorphContext context = new MorphContext();
-					context.setSql(sql);
-					context.setReader(reader);
-					context.setInput(in);
-					MorphResult result = combineInserts(context);
+					MorphContext mc = new MorphContext();
+					mc.setSql(sql);
+					mc.setReader(reader);
+					mc.setInput(in);
+					MorphResult result = combineInserts(mc);
 					results.add(result);
 					sb.append(result.getSql());
 				} else {
-					// Add the sql followed by a linefeed + the delimiter on it's own line
-					sb.append(sql + LF + DELIMITER + LF);
+					// Add the sql followed by linefeed->delimiter->linefeed
+					sb.append(sql + LF + context.getDelimiter() + LF);
 				}
-				out.write(sb.toString().getBytes(UTF8));
+				out.write(sb.toString().getBytes(context.getEncoding()));
 				sb = new StringBuilder();
 				sql = reader.getSqlStatement(in);
 			}
 			IOUtils.closeQuietly(out);
 			SqlMetaData after = getMetaData(newFile, reader);
-			ConversionResult cr = new ConversionResult();
-			cr.setNewFile(newFile);
-			cr.setOldFile(oldFile);
-			cr.setAfter(after);
-			cr.setBefore(before);
-			return cr;
+			return new ConversionResult(oldFile, newFile, before, after);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
 		}

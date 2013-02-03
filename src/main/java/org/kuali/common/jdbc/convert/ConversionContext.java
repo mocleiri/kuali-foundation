@@ -1,8 +1,6 @@
 package org.kuali.common.jdbc.convert;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.OutputStream;
 
 public class ConversionContext {
 
@@ -12,23 +10,13 @@ public class ConversionContext {
 	int maxCount = 50;
 	File oldFile;
 	File newFile;
-	BufferedReader in;
-	OutputStream out;
 
-	public File getOldFile() {
-		return oldFile;
+	public String getDelimiter() {
+		return delimiter;
 	}
 
-	public void setOldFile(File oldFile) {
-		this.oldFile = oldFile;
-	}
-
-	public File getNewFile() {
-		return newFile;
-	}
-
-	public void setNewFile(File newFile) {
-		this.newFile = newFile;
+	public void setDelimiter(String delimiter) {
+		this.delimiter = delimiter;
 	}
 
 	public String getEncoding() {
@@ -55,28 +43,20 @@ public class ConversionContext {
 		this.maxCount = maxCount;
 	}
 
-	public BufferedReader getIn() {
-		return in;
+	public File getOldFile() {
+		return oldFile;
 	}
 
-	public void setIn(BufferedReader in) {
-		this.in = in;
+	public void setOldFile(File oldFile) {
+		this.oldFile = oldFile;
 	}
 
-	public OutputStream getOut() {
-		return out;
+	public File getNewFile() {
+		return newFile;
 	}
 
-	public void setOut(OutputStream out) {
-		this.out = out;
-	}
-
-	public String getDelimiter() {
-		return delimiter;
-	}
-
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
+	public void setNewFile(File newFile) {
+		this.newFile = newFile;
 	}
 
 }
