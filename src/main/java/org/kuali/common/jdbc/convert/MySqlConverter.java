@@ -103,10 +103,11 @@ public class MySqlConverter implements SqlConverter {
 
 	protected void appendValues(StringBuilder sb, int count, String trimmed) {
 		String values = getValues(trimmed);
+		String escaped = StringUtils.replace(values, "\n", "\\n");
 		if (count > 1) {
 			sb.append(",");
 		}
-		sb.append(values);
+		sb.append(escaped);
 	}
 
 	protected String combineInserts(ConversionContext cc, SqlInsertContext context) throws IOException {
