@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.junit.Test;
 import org.kuali.common.jdbc.convert.DirectoryContext;
+import org.kuali.common.jdbc.convert.DirectoryConverter;
 import org.kuali.common.jdbc.convert.MySqlConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ public class MySqlDirectoryConverterTest {
 			context.setConverter(new MySqlConverter());
 			context.setDatabase("mysql");
 			context.setDirectory(new File(filename));
+			DirectoryConverter dc = new DirectoryConverter();
+			dc.convert(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
