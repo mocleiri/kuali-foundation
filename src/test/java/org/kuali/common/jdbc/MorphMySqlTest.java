@@ -157,6 +157,14 @@ public class MorphMySqlTest {
 		return "(" + StringUtils.substring(trimmed, pos + VALUES_TOKEN.length());
 	}
 
+	protected void appendValues(StringBuilder sb, int count, String trimmed) {
+		String values = getValues(trimmed);
+		if (count > 1) {
+			sb.append(",");
+		}
+		sb.append(values);
+	}
+
 	protected MorphResult combineInserts(MorphContext context) throws IOException {
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
@@ -166,11 +174,7 @@ public class MorphMySqlTest {
 		int count = 1;
 		boolean proceed = proceed(trimmed, count, sb.length(), context);
 		while (proceed) {
-			String values = getValues(trimmed);
-			if (count > 1) {
-				sb.append(",");
-			}
-			sb.append(values);
+			appendValues(sb, count, trimmed);
 			count++;
 			sql = context.getReader().getSqlStatement(context.getInput());
 			trimmed = StringUtils.trimToNull(sql);
@@ -178,11 +182,7 @@ public class MorphMySqlTest {
 		}
 		// The last SQL statement we read was an insert
 		if (isInsert(trimmed)) {
-			if (count > 1) {
-				sb.append(",");
-			}
-			String values = getValues(trimmed);
-			sb.append(values);
+			appendValues(sb, count, trimmed);
 			count++;
 		}
 		sb.append(LF + DELIMITER + LF);
