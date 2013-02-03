@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.convert;
 
 import java.io.File;
 
-public class DatabaseContext {
+public class DirectoryContext {
 
 	String database;
 	File directory;

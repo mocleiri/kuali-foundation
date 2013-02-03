@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.kuali.common.util.SimpleScanner;
 
-public class DatabaseConverter {
+public class DirectoryConverter {
 
-	public void convert(DatabaseContext context) {
+	public void convert(DirectoryContext context) {
 		String includes = "*.sql";
 		String excludes = context.getArtifactId() + "*.sql";
 		SimpleScanner scanner = new SimpleScanner(context.getDirectory(), includes, excludes);
@@ -18,7 +18,7 @@ public class DatabaseConverter {
 		convert(context, oldFiles, newFiles);
 	}
 
-	protected List<ConversionResult> convert(DatabaseContext context, List<File> oldFiles, List<File> newFiles) {
+	protected List<ConversionResult> convert(DirectoryContext context, List<File> oldFiles, List<File> newFiles) {
 		SqlConverter converter = context.getConverter();
 		List<ConversionResult> results = new ArrayList<ConversionResult>();
 		for (int i = 0; i < oldFiles.size(); i++) {
