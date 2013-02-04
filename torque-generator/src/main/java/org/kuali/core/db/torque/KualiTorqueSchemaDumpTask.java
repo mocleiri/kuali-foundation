@@ -122,8 +122,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData dbMetaData, String curTable) throws SQLException {
-		List<String> primKeys = platform.getPrimaryKeys(dbMetaData, schema, curTable);
+	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData metaData, String table, String schema) throws SQLException {
+		List<String> primKeys = platform.getPrimaryKeys(metaData, schema, table);
 
 		// Set the primary keys.
 		Map<String, String> primaryKeys = new HashMap<String, String>();
@@ -252,7 +252,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected void processTable(String tableName, Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
+	protected void processTable(String tableName, Platform platform, DatabaseMetaData metaData) throws SQLException {
 		long start = System.currentTimeMillis();
 
 		Element table = doc.createElement("table");
@@ -260,16 +260,16 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		table.setAttribute("name", tableName);
 
 		// Setup the primary keys.
-		Map<String, String> primaryKeys = getPrimaryKeys(platform, dbMetaData, tableName);
+		Map<String, String> primaryKeys = getPrimaryKeys(platform, metaData, tableName, schema);
 
 		// Process columns
-		processColumns(dbMetaData, tableName, table, primaryKeys);
+		processColumns(metaData, tableName, table, primaryKeys);
 
 		// Process foreign keys
-		processForeignKeys(dbMetaData, tableName, table);
+		processForeignKeys(metaData, tableName, table);
 
 		// Process indexes
-		processIndexes(dbMetaData, tableName, table);
+		processIndexes(metaData, tableName, table);
 
 		// Add this table to the XML
 		databaseNode.appendChild(table);
