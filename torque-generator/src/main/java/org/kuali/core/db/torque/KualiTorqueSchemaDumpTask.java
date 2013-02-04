@@ -199,16 +199,16 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return defValue;
 	}
 
-	protected void processColumns(DatabaseMetaData dbMetaData, String curTable, Element table, Map<String, String> primaryKeys) throws SQLException {
-		List<Column> columns = getColumns(dbMetaData, curTable);
+	protected void processColumns(DatabaseMetaData dbMetaData, String curTable, String schema, Element table, Map<String, String> primaryKeys) throws SQLException {
+		List<Column> columns = getColumns(dbMetaData, curTable, schema);
 		for (Column column : columns) {
 			Element columnElement = getColumnElement(column, curTable, primaryKeys);
 			table.appendChild(columnElement);
 		}
 	}
 
-	protected void processForeignKeys(DatabaseMetaData dbMetaData, String curTable, Element table) throws SQLException {
-		Map<String, ForeignKey> foreignKeys = getForeignKeys(dbMetaData, curTable);
+	protected void processForeignKeys(DatabaseMetaData dbMetaData, String curTable, String schema, Element table) throws SQLException {
+		Map<String, ForeignKey> foreignKeys = getForeignKeys(dbMetaData, curTable, schema);
 
 		// Foreign keys for this table.
 		for (String fkName : foreignKeys.keySet()) {
@@ -238,8 +238,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return fk;
 	}
 
-	protected void processIndexes(DatabaseMetaData dbMetaData, String curTable, Element table) throws SQLException {
-		for (Index idx : getIndexes(dbMetaData, curTable)) {
+	protected void processIndexes(DatabaseMetaData dbMetaData, String curTable, String schema, Element table) throws SQLException {
+		List<Index> indexes = getIndexes(dbMetaData, curTable, schema);
+		for (Index idx : indexes) {
 			String tagName = idx.isUnique() ? "unique" : "index";
 			Element index = doc.createElement(tagName);
 			index.setAttribute("name", idx.getName());
@@ -255,24 +256,24 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	protected void processTable(String tableName, Platform platform, DatabaseMetaData metaData) throws SQLException {
 		long start = System.currentTimeMillis();
 
-		Element table = doc.createElement("table");
+		Element tableElement = doc.createElement("table");
 
-		table.setAttribute("name", tableName);
+		tableElement.setAttribute("name", tableName);
 
 		// Setup the primary keys.
 		Map<String, String> primaryKeys = getPrimaryKeys(platform, metaData, tableName, schema);
 
 		// Process columns
-		processColumns(metaData, tableName, table, primaryKeys);
+		processColumns(metaData, tableName, schema, tableElement, primaryKeys);
 
 		// Process foreign keys
-		processForeignKeys(metaData, tableName, table);
+		processForeignKeys(metaData, tableName, schema, tableElement);
 
 		// Process indexes
-		processIndexes(metaData, tableName, table);
+		processIndexes(metaData, tableName, schema, tableElement);
 
 		// Add this table to the XML
-		databaseNode.appendChild(table);
+		databaseNode.appendChild(tableElement);
 
 		logger.info(utils.pad("Processed " + tableName, System.currentTimeMillis() - start));
 	}
@@ -395,7 +396,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * @return The list of columns in <code>tableName</code>.
 	 * @throws SQLException
 	 */
-	protected List<Column> getColumns(DatabaseMetaData dbMeta, String tableName) throws SQLException {
+	protected List<Column> getColumns(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
 		List<Column> columns = new ArrayList<Column>();
 		ResultSet columnSet = null;
 		try {
@@ -476,7 +477,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * @return A list of foreign keys in <code>tableName</code>.
 	 * @throws SQLException
 	 */
-	protected Map<String, ForeignKey> getForeignKeys(DatabaseMetaData dbMeta, String tableName) throws SQLException {
+	protected Map<String, ForeignKey> getForeignKeys(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
 		Map<String, ForeignKey> fks = new HashMap<String, ForeignKey>();
 		ResultSet foreignKeys = null;
 		try {
@@ -529,7 +530,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	public List<Index> getIndexes(DatabaseMetaData dbMeta, String tableName) throws SQLException {
+	public List<Index> getIndexes(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
 		List<Index> indexes = new ArrayList<Index>();
 
 		// need to ensure that the PK is not returned as an index

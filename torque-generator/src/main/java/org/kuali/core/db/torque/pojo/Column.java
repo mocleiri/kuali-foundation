@@ -1,6 +1,7 @@
 package org.kuali.core.db.torque.pojo;
 
 public class Column {
+
 	String name;
 	Integer sqlType;
 	Integer size;
