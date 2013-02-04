@@ -5,10 +5,12 @@ import java.util.Map;
 
 public class TableContext implements Comparable<TableContext> {
 
+	String name;
 	int sequence;
 	Map<String, String> primaryKeys;
 	List<Column> columns;
 	Map<String, ForeignKey> foreignKeys;
+	List<Index> indexes;
 
 	@Override
 	public int compareTo(TableContext other) {
@@ -47,6 +49,22 @@ public class TableContext implements Comparable<TableContext> {
 
 	public void setForeignKeys(Map<String, ForeignKey> foreignKeys) {
 		this.foreignKeys = foreignKeys;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Index> getIndexes() {
+		return indexes;
+	}
+
+	public void setIndexes(List<Index> indexes) {
+		this.indexes = indexes;
 	}
 
 }

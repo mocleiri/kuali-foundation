@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,11 +30,14 @@ import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.kuali.core.db.torque.pojo.Column;
+import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
 import org.kuali.core.db.torque.pojo.Reference;
+import org.kuali.core.db.torque.pojo.TableContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.w3c.dom.Element;
 
 public class KualiTorqueSchemaDumpTask extends DumpTask {
@@ -57,6 +62,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * The document root element.
 	 */
 	Element databaseNode;
+
+	DataSource dataSource;
 
 	@Override
 	protected void showConfiguration() {
@@ -93,6 +100,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 			updateConfiguration(platform);
 			showConfiguration();
+
+			List<TableContext> tables = getTableList(platform, dataSource, schema, tableIncludes, tableExcludes);
+
 			doc = getDocumentImpl();
 			generateXML(platform);
 			serialize();
@@ -254,7 +264,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 		tableElement.setAttribute("name", tableName);
 
-		// Setup the primary keys.
+		// Getthe primary keys.
 		Map<String, String> primaryKeys = getPrimaryKeys(platform, metaData, tableName, schema);
 
 		// Process columns
@@ -272,18 +282,48 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		logger.info(utils.pad("Processed " + tableName, System.currentTimeMillis() - start));
 	}
 
-	protected void processTables(Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
+	protected void processTables(Platform platform, DatabaseMetaData metaData) throws SQLException {
 		if (!processTables) {
 			return;
 		}
 
-		List<String> tables = platform.getTableNames(dbMetaData, schema);
+		List<String> tables = platform.getTableNames(metaData, schema);
 
 		doFilter(tables, tableIncludes, tableExcludes, "tables");
 
 		for (String table : tables) {
-			processTable(table, platform, dbMetaData);
+			processTable(table, platform, metaData);
 		}
+	}
+
+	protected void fillInMetaData(DatabaseContext dbc, List<TableContext> contexts) throws SQLException {
+		for (TableContext context : contexts) {
+			fillInMetaData(dbc, context);
+		}
+	}
+
+	protected void fillInMetaData(DatabaseContext db, TableContext table) throws SQLException {
+		// Get the primary keys.
+		Map<String, String> primaryKeys = getPrimaryKeys(db.getPlatform(), db.getMetaData(), table.getName(), db.getSchema());
+		Map<String, ForeignKey> foreignKeys = getForeignKeys(db.getMetaData(), table.getName(), db.getSchema());
+		List<Index> indexes = getIndexes(db.getMetaData(), table.getName(), db.getSchema());
+		List<Column> columns = getColumns(db.getMetaData(), table.getName(), db.getSchema());
+
+		table.setPrimaryKeys(primaryKeys);
+		table.setColumns(columns);
+		table.setIndexes(indexes);
+		table.setForeignKeys(foreignKeys);
+	}
+
+	protected List<TableContext> getTableContexts(List<String> tables) {
+		List<TableContext> contexts = new ArrayList<TableContext>();
+		for (int i = 0; i < tables.size(); i++) {
+			TableContext context = new TableContext();
+			context.setSequence(i + 1);
+			context.setName(tables.get(i));
+			contexts.add(context);
+		}
+		return contexts;
 	}
 
 	protected void processViews(Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
@@ -328,6 +368,22 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	/**
+	 * Connect to a db and retrieve a list of all the tables for a given schema.
+	 */
+	protected List<TableContext> getTableList(Platform platform, DataSource dataSource, String schema, List<String> includes, List<String> excludes) throws Exception {
+		Connection conn = null;
+		try {
+			conn = DataSourceUtils.doGetConnection(dataSource);
+			DatabaseMetaData metaData = conn.getMetaData();
+			List<String> tables = platform.getTableNames(metaData, schema);
+			doFilter(tables, includes, excludes, "tables");
+			return getTableContexts(tables);
+		} finally {
+			DataSourceUtils.doCloseConnection(conn, dataSource);
+		}
+	}
+
+	/**
 	 * Generates an XML database schema from JDBC metadata.
 	 *
 	 * @throws Exception
@@ -351,6 +407,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			processTables(platform, dbMetaData);
 			processViews(platform, dbMetaData);
 			processSequences(platform, dbMetaData);
+
 		} finally {
 			closeQuietly(connection);
 		}
@@ -611,5 +668,13 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	public void setProcessSequences(boolean processSequences) {
 		this.processSequences = processSequences;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 }

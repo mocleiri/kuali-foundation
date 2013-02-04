@@ -8,6 +8,9 @@
   <artifactId>torque-generator</artifactId>
   <name>Torque Generator</name>
   <description>This is the Kuali version of ASF's torque generator</description>
+  <properties>
+    <spring.version>3.2.0.RELEASE</spring.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -32,6 +35,17 @@
       <groupId>antlr</groupId>
       <artifactId>antlr</artifactId>
       <version>2.7.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!--
       <dependency>
