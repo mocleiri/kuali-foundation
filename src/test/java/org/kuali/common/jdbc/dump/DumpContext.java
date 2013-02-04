@@ -28,6 +28,8 @@ public class DumpContext {
 	boolean processViews = true;
 	boolean printMetaInfLists = true;
 	File contextProperties;
+	String controlTemplate;
+	String reportFile;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -203,6 +205,22 @@ public class DumpContext {
 
 	public void setContextProperties(File contextProperties) {
 		this.contextProperties = contextProperties;
+	}
+
+	public String getControlTemplate() {
+		return controlTemplate;
+	}
+
+	public void setControlTemplate(String controlTemplate) {
+		this.controlTemplate = controlTemplate;
+	}
+
+	public String getReportFile() {
+		return reportFile;
+	}
+
+	public void setReportFile(String reportFile) {
+		this.reportFile = reportFile;
 	}
 
 }
