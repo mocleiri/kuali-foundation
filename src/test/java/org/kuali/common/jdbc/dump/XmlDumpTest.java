@@ -51,16 +51,18 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
-		String includes = "KRCR_CMPNT.*";
+		String tableIncludes = "KRCR_CMPNT.*";
+		String viewIncludes = "KR.*";
+		String sequenceIncludes = "KR.*";
 
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
 		p.setProperty("project.build.directory", p.getProperty("project.basedir") + "/target");
 		p.setProperty("project.artifactId", "ks-rice-db");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
-		p.setProperty("impex.table.includes", includes);
-		p.setProperty("impex.view.includes", "KR.*");
-		p.setProperty("impex.sequence.includes", "KR.*");
+		p.setProperty("impex.table.includes", tableIncludes);
+		p.setProperty("impex.view.includes", viewIncludes);
+		p.setProperty("impex.sequence.includes", sequenceIncludes);
 		p.setProperty("impex.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 		p.setProperty("impex.driver", "oracle.jdbc.driver.OracleDriver");
 		p.setProperty("impex.username", "KS_SOURCE_DB_SPRING");
