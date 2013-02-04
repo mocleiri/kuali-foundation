@@ -62,23 +62,6 @@ public class XmlDumpTest {
 		}
 	}
 
-	protected DumpContext getDumpContext(Properties p) {
-		DumpContext context = new DumpContext();
-		context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
-		context.setSchemaName(p.getProperty("impex.schema"));
-		context.setDriver(p.getProperty("impex.driver"));
-		context.setUrl(p.getProperty("impex.url"));
-		context.setArtifactId(p.getProperty("project.artifactId"));
-		context.setVendor(p.getProperty("impex.targetDatabase"));
-		context.setIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.includes")));
-		context.setExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.excludes")));
-		context.setComment(p.getProperty("impex.comment"));
-		context.setDateFormat(p.getProperty("impex.dateFormat"));
-		context.setDataXMLDir(new File(p.getProperty("impex.workingDir")));
-		context.setBuildDirectory(new File(p.getProperty("impex.workingDir")));
-		return context;
-	}
-
 	protected Task getSchemaDumpTask(DumpContext context, Project project) {
 		KualiTorqueSchemaDumpTask task = new KualiTorqueSchemaDumpTask();
 		task.setProject(project);
@@ -97,6 +80,23 @@ public class XmlDumpTest {
 		task.setProcessSequences(true);
 		task.setProcessViews(true);
 		return task;
+	}
+
+	protected DumpContext getDumpContext(Properties p) {
+		DumpContext context = new DumpContext();
+		context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
+		context.setSchemaName(p.getProperty("impex.schema"));
+		context.setDriver(p.getProperty("impex.driver"));
+		context.setUrl(p.getProperty("impex.url"));
+		context.setArtifactId(p.getProperty("project.artifactId"));
+		context.setVendor(p.getProperty("impex.targetDatabase"));
+		context.setIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.includes")));
+		context.setExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.excludes")));
+		context.setComment(p.getProperty("impex.comment"));
+		context.setDateFormat(p.getProperty("impex.dateFormat"));
+		context.setDataXMLDir(new File(p.getProperty("impex.workingDir")));
+		context.setBuildDirectory(new File(p.getProperty("impex.workingDir")));
+		return context;
 	}
 
 	protected Project getInitializedAntProject() {
