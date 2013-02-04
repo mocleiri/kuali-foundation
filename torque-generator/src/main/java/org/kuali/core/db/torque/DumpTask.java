@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.Task;
-import org.apache.torque.engine.platform.Platform;
 import org.kuali.db.ConnectionHandler;
 import org.kuali.db.Credentials;
 import org.slf4j.Logger;
@@ -33,18 +31,6 @@ public class DumpTask extends Task {
 			logger.info("Encoding: " + System.getProperty("file.encoding"));
 		} else {
 			logger.info("Encoding: " + getEncoding());
-		}
-	}
-
-	protected void updateConfiguration(Platform platform) {
-		if (StringUtils.isEmpty(schema)) {
-			schema = platform.getSchemaName(artifactId);
-		}
-		if (StringUtils.isEmpty(username)) {
-			username = schema;
-		}
-		if (StringUtils.isEmpty(password)) {
-			password = schema;
 		}
 	}
 
