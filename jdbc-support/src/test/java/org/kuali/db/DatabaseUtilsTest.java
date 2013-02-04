@@ -26,6 +26,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DatabaseUtilsTest extends TestCase {
+
 	public static void main(String[] args) {
 		TestRunner.run(DatabaseUtilsTest.class);
 	}
