@@ -26,6 +26,7 @@ public class DumpContext {
 	boolean processTables = true;
 	boolean processSequences = true;
 	boolean processViews = true;
+	boolean printMetaInfLists = true;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -193,6 +194,14 @@ public class DumpContext {
 
 	public void setProcessViews(boolean processViews) {
 		this.processViews = processViews;
+	}
+
+	public boolean isPrintMetaInfLists() {
+		return printMetaInfLists;
+	}
+
+	public void setPrintMetaInfLists(boolean printMetaInfLists) {
+		this.printMetaInfLists = printMetaInfLists;
 	}
 
 }

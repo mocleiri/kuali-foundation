@@ -42,7 +42,7 @@ public class XmlDumpTest {
 			DumpContext context = getDumpContext(p);
 			Task schemaDump = getSchemaDumpTask(context, project);
 			Task dataDump = getDataDumpTask(context, project);
-			schemaDump.execute();
+			// schemaDump.execute();
 			dataDump.execute();
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
@@ -77,6 +77,7 @@ public class XmlDumpTest {
 		p.setProperty("impex.processTables", "true");
 		p.setProperty("impex.processSequences", "true");
 		p.setProperty("impex.processViews", "true");
+		p.setProperty("impex.printMetaInfLists", "true");
 		return p;
 	}
 
@@ -86,6 +87,7 @@ public class XmlDumpTest {
 		task.setBuildDirectory(context.getBuildDirectory());
 		task.setDataXMLDir(context.getDataXMLDir());
 		task.setDateFormat(context.getDateFormat());
+		task.setPrintMetaInfLists(context.isPrintMetaInfLists());
 		return task;
 	}
 
@@ -140,6 +142,7 @@ public class XmlDumpTest {
 		context.setProcessTables(new Boolean(p.getProperty("impex.processTables")));
 		context.setProcessSequences(new Boolean(p.getProperty("impex.processSequences")));
 		context.setProcessViews(new Boolean(p.getProperty("impex.processViews")));
+		context.setPrintMetaInfLists(new Boolean(p.getProperty("impex.printMetaInfLists")));
 		return context;
 	}
 
