@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.torque.task.TorqueDataModelTask;
@@ -26,12 +28,14 @@ import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class XmlDumpTest {
 
@@ -44,18 +48,43 @@ public class XmlDumpTest {
 			Project project = getInitializedAntProject();
 			Properties p = getProperties();
 			DumpContext context = getDumpContext(p);
+			log(context);
 			prepareFileSystem(context);
 			Task schemaDump = getSchemaDumpTask(context, project);
 			Task dataDump = getDataDumpTask(context, project);
 			Task generateDtd = getGenerateDtdTask(context, project);
-			schemaDump.execute();
-			dataDump.execute();
-			generateDtd.execute();
+			// schemaDump.execute();
+			// dataDump.execute();
+			// generateDtd.execute();
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void log(DumpContext context) {
+		logger.info("--------------------------------------------------");
+		logger.info("Kuali Database XML Dumper");
+		logger.info("--------------------------------------------------");
+		logger.info("Database Vendor - {}", context.getDatabaseVendor());
+		logger.info("Url - {}", context.getUrl());
+		logger.info("Schema - {}", context.getSchemaName());
+		logger.info("Username - {}", context.getUsername());
+		logger.info("Password - {}", LoggerUtils.getPassword(context.getUsername(), context.getPassword()));
+		logger.info("Driver - {}", context.getDriver());
+		logger.info("Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableIncludes()));
+		logger.info("Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableExcludes()));
+		logger.info("--------------------------------------------------");
+	}
+
+	protected DataSource getDataSource(Properties p) {
+		DriverManagerDataSource dmds = new DriverManagerDataSource();
+		dmds.setDriverClassName(p.getProperty("impex.driver"));
+		dmds.setPassword(p.getProperty("impex.password"));
+		dmds.setUsername(p.getProperty("impex.username"));
+		dmds.setUrl(p.getProperty("impex.url"));
+		return dmds;
 	}
 
 	protected void prepareFileSystem(DumpContext context) throws IOException {
@@ -66,7 +95,7 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KR.*";
+		String tableIncludes = "KRSB_Q.*";
 		String viewIncludes = ".*"; // tableIncludes; // "KRCR_CMPNT.*";
 		String sequenceIncludes = ".*"; // tableIncludes; // "KRCR_CMPNT.*";
 
@@ -128,6 +157,7 @@ public class XmlDumpTest {
 		task.setProcessTables(context.isProcessTables());
 		task.setProcessSequences(context.isProcessSequences());
 		task.setProcessViews(context.isProcessViews());
+		task.setDataSource(context.getDataSource());
 		return task;
 	}
 
@@ -175,6 +205,7 @@ public class XmlDumpTest {
 		context.setContextProperties(new File(p.getProperty("impex.contextProperties")));
 		context.setControlTemplate(p.getProperty("impex.controlTemplate"));
 		context.setReportFile(p.getProperty("impex.reportFile"));
+		context.setDataSource(getDataSource(p));
 		return context;
 	}
 

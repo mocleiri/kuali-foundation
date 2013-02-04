@@ -3,6 +3,8 @@ package org.kuali.common.jdbc.dump;
 import java.io.File;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 public class DumpContext {
 
 	File schemaXmlFile;
@@ -30,6 +32,7 @@ public class DumpContext {
 	File contextProperties;
 	String controlTemplate;
 	String reportFile;
+	DataSource dataSource;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -221,6 +224,14 @@ public class DumpContext {
 
 	public void setReportFile(String reportFile) {
 		this.reportFile = reportFile;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 }
