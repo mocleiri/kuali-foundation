@@ -536,9 +536,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// if has the same name as the PK, don't add it to the index list
 		if (pkName == null || !pkName.equals(index.getName())) {
 			indexes.add(index);
-			logger.info("Added " + index.getName() + " to index list", Project.MSG_DEBUG);
+			logger.debug("Added " + index.getName() + " to index list");
 		} else {
-			logger.info("Skipping PK: " + index.getName(), Project.MSG_DEBUG);
+			logger.debug("Skipping PK: " + index.getName());
 		}
 	}
 
