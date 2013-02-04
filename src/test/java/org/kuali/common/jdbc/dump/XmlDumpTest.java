@@ -27,9 +27,9 @@ import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DumpTaskTest {
+public class XmlDumpTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(DumpTaskTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(XmlDumpTest.class);
 
 	@Test
 	public void test() {
