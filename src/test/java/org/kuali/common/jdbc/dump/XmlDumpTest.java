@@ -66,9 +66,9 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KRSB_QRTZ_CALENDARS";
-		String viewIncludes = tableIncludes; // "KRCR_CMPNT.*";
-		String sequenceIncludes = tableIncludes; // "KRCR_CMPNT.*";
+		String tableIncludes = "KR.*";
+		String viewIncludes = ".*"; // tableIncludes; // "KRCR_CMPNT.*";
+		String sequenceIncludes = ".*"; // tableIncludes; // "KRCR_CMPNT.*";
 
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
