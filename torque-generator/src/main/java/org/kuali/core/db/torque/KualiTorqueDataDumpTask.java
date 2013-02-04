@@ -74,6 +74,11 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 	 */
 	private SimpleDateFormat dateFormatter;
 
+	/**
+	 * If true 2 text files are created in META-INF listing names of tables. First list is exported tables, second list is skipped tables.
+	 */
+	private boolean printMetaInfLists = true;
+
 	@Override
 	protected void showConfiguration() {
 		super.showConfiguration();
@@ -381,11 +386,13 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		logger.info(utils.pad("Processed " + helper.getTableNames().size() + " tables", elapsed));
 		logger.info("Exported data from " + exportCount + " tables to XML");
 		logger.info("Skipped " + skipCount + " tables that had zero rows");
-		String base = buildDirectory.getCanonicalPath();
-		String skipped = base + FS + "/impex/skipped-tables.txt";
-		String exported = base + FS + "/impex/exported-tables.txt";
-		printTables("Skipped", skipped, skippedTables);
-		printTables("Exported", exported, exportedTables);
+		if (printMetaInfLists) {
+			String base = buildDirectory.getCanonicalPath();
+			String skipped = base + FS + "/META-INF/impex-skipped-tables.txt";
+			String exported = base + FS + "/META-INF/impex-exported-tables.txt";
+			printTables("Skipped", skipped, skippedTables);
+			printTables("Exported", exported, exportedTables);
+		}
 	}
 
 	protected void printTables(String msg, String filename, List<String> skippedTables) {
@@ -536,5 +543,13 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 
 	public void setBuildDirectory(File buildDirectory) {
 		this.buildDirectory = buildDirectory;
+	}
+
+	public boolean isPrintMetaInfLists() {
+		return printMetaInfLists;
+	}
+
+	public void setPrintMetaInfLists(boolean printMetaInfLists) {
+		this.printMetaInfLists = printMetaInfLists;
 	}
 }
