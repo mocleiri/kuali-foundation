@@ -396,13 +396,13 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		}
 	}
 
-	protected void printTables(String msg, String filename, List<String> skippedTables) {
-		if (skippedTables.size() == 0) {
+	protected void printTables(String msg, String filename, List<String> tables) {
+		if (tables.size() == 0) {
 			return;
 		}
 		StringBuilder sb = new StringBuilder();
-		for (String skippedTable : skippedTables) {
-			sb.append(skippedTable + "\n");
+		for (String table : tables) {
+			sb.append(table + "\n");
 		}
 		OutputStream out = null;
 		try {
