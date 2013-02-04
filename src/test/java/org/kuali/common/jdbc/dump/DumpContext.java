@@ -17,6 +17,9 @@ public class DumpContext {
 	String dateFormat;
 	File dataXMLDir;
 	File buildDirectory;
+	boolean processTables = true;
+	boolean processSequences = true;
+	boolean processViews = true;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -112,5 +115,29 @@ public class DumpContext {
 
 	public void setBuildDirectory(File buildDirectory) {
 		this.buildDirectory = buildDirectory;
+	}
+
+	public boolean isProcessTables() {
+		return processTables;
+	}
+
+	public void setProcessTables(boolean processTables) {
+		this.processTables = processTables;
+	}
+
+	public boolean isProcessSequences() {
+		return processSequences;
+	}
+
+	public void setProcessSequences(boolean processSequences) {
+		this.processSequences = processSequences;
+	}
+
+	public boolean isProcessViews() {
+		return processViews;
+	}
+
+	public void setProcessViews(boolean processViews) {
+		this.processViews = processViews;
 	}
 }
