@@ -51,12 +51,16 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
+		String includes = "KRCR_CMPNT.*";
+
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
 		p.setProperty("project.build.directory", p.getProperty("project.basedir") + "/target");
 		p.setProperty("project.artifactId", "ks-rice-db");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
-		p.setProperty("impex.includes", "KRCR_CMPNT.*");
+		p.setProperty("impex.table.includes", includes);
+		p.setProperty("impex.view.includes", includes);
+		p.setProperty("impex.sequence.includes", includes);
 		p.setProperty("impex.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 		p.setProperty("impex.driver", "oracle.jdbc.driver.OracleDriver");
 		p.setProperty("impex.username", "KS_SOURCE_DB_SPRING");
@@ -91,8 +95,8 @@ public class XmlDumpTest {
 		task.setUsername(context.getUsername());
 		task.setPassword(context.getPassword());
 		task.setComment(context.getComment());
-		task.setIncludePatterns(context.getIncludes());
-		task.setExcludePatterns(context.getExcludes());
+		task.setTableIncludes(null);
+		task.setTableExcludes(null);
 	}
 
 	protected Task getSchemaDumpTask(DumpContext context, Project project) {
@@ -115,8 +119,12 @@ public class XmlDumpTest {
 		context.setPassword(p.getProperty("impex.password"));
 		context.setArtifactId(p.getProperty("project.artifactId"));
 		context.setVendor(p.getProperty("impex.targetDatabase"));
-		context.setIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.includes")));
-		context.setExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.excludes")));
+		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
+		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
+		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
+		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
+		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
+		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
 		context.setComment(p.getProperty("impex.comment"));
 		context.setDateFormat(p.getProperty("impex.dateFormat"));
 		context.setDataXMLDir(new File(p.getProperty("impex.workingDir")));

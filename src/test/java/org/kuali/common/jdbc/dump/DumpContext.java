@@ -13,8 +13,12 @@ public class DumpContext {
 	String url;
 	String artifactId;
 	String vendor;
-	List<String> includes;
-	List<String> excludes;
+	List<String> tableIncludes;
+	List<String> tableExcludes;
+	List<String> viewIncludes;
+	List<String> viewExcludes;
+	List<String> sequenceIncludes;
+	List<String> sequenceExcludes;
 	String comment;
 	String dateFormat;
 	File dataXMLDir;
@@ -37,6 +41,22 @@ public class DumpContext {
 
 	public void setSchemaName(String schemaName) {
 		this.schemaName = schemaName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getDriver() {
@@ -71,20 +91,52 @@ public class DumpContext {
 		this.vendor = vendor;
 	}
 
-	public List<String> getIncludes() {
-		return includes;
+	public List<String> getTableIncludes() {
+		return tableIncludes;
 	}
 
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
+	public void setTableIncludes(List<String> tableIncludes) {
+		this.tableIncludes = tableIncludes;
 	}
 
-	public List<String> getExcludes() {
-		return excludes;
+	public List<String> getTableExcludes() {
+		return tableExcludes;
 	}
 
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
+	public void setTableExcludes(List<String> tableExcludes) {
+		this.tableExcludes = tableExcludes;
+	}
+
+	public List<String> getViewIncludes() {
+		return viewIncludes;
+	}
+
+	public void setViewIncludes(List<String> viewIncludes) {
+		this.viewIncludes = viewIncludes;
+	}
+
+	public List<String> getViewExcludes() {
+		return viewExcludes;
+	}
+
+	public void setViewExcludes(List<String> viewExcludes) {
+		this.viewExcludes = viewExcludes;
+	}
+
+	public List<String> getSequenceIncludes() {
+		return sequenceIncludes;
+	}
+
+	public void setSequenceIncludes(List<String> sequenceIncludes) {
+		this.sequenceIncludes = sequenceIncludes;
+	}
+
+	public List<String> getSequenceExcludes() {
+		return sequenceExcludes;
+	}
+
+	public void setSequenceExcludes(List<String> sequenceExcludes) {
+		this.sequenceExcludes = sequenceExcludes;
 	}
 
 	public String getComment() {
@@ -143,19 +195,4 @@ public class DumpContext {
 		this.processViews = processViews;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }
