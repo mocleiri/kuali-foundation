@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc.dump;
 
 import java.io.File;
+import java.util.List;
 
 public class DumpContext {
 
@@ -10,8 +11,12 @@ public class DumpContext {
 	String url;
 	String artifactId;
 	String vendor;
-	String include;
+	List<String> includes;
+	List<String> excludes;
 	String comment;
+	String dateFormat;
+	File dataXMLDir;
+	File buildDirectory;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -61,12 +66,20 @@ public class DumpContext {
 		this.vendor = vendor;
 	}
 
-	public String getInclude() {
-		return include;
+	public List<String> getIncludes() {
+		return includes;
 	}
 
-	public void setInclude(String include) {
-		this.include = include;
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 	public String getComment() {
@@ -77,4 +90,27 @@ public class DumpContext {
 		this.comment = comment;
 	}
 
+	public String getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+
+	public File getDataXMLDir() {
+		return dataXMLDir;
+	}
+
+	public void setDataXMLDir(File dataXMLDir) {
+		this.dataXMLDir = dataXMLDir;
+	}
+
+	public File getBuildDirectory() {
+		return buildDirectory;
+	}
+
+	public void setBuildDirectory(File buildDirectory) {
+		this.buildDirectory = buildDirectory;
+	}
 }
