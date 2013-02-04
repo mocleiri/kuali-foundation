@@ -6,8 +6,6 @@ import static java.sql.Types.TIMESTAMP;
 import static org.kuali.db.JDBCUtils.closeQuietly;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -359,7 +357,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 
 			// Process the tables
 			processTables(helper);
-		} catch (Exception e) {
+		} finally {
 			closeQuietly(connection);
 		}
 	}
@@ -445,10 +443,10 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 	/**
 	 * This is where the XML will be written to
 	 */
-	protected Writer getWriter(final String tableName) throws FileNotFoundException {
+	protected Writer getWriter(final String tableName) throws IOException {
 		String filename = getDataXMLDir() + FS + tableName + ".xml";
 		logger.debug("filename:" + filename);
-		return new PrintWriter(new FileOutputStream(filename));
+		return new PrintWriter(FileUtils.openOutputStream(new File(filename)));
 	}
 
 	/**
