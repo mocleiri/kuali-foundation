@@ -326,15 +326,13 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 		List<String> sequenceNames = platform.getSequenceNames(dbMetaData, schema);
 
+		logger.info("Found {} sequences", sequenceNames.size());
+
 		for (String sequenceName : sequenceNames) {
 			Element sequence = doc.createElement("sequence");
 			sequence.setAttribute("name", sequenceName);
-			/*
-			 * <view name="" nextval="" />
-			 */
 			Long nextVal = platform.getSequenceNextVal(dbMetaData.getConnection(), schema, sequenceName);
 			sequence.setAttribute("nextval", nextVal.toString());
-
 			databaseNode.appendChild(sequence);
 		}
 		doc.appendChild(databaseNode);
@@ -374,7 +372,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	public List<String> getViewNames(DatabaseMetaData dbMeta) throws SQLException {
-		logger.info("Getting view list...");
 		List<String> tables = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
