@@ -68,7 +68,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	@Override
 	protected void showConfiguration() {
 		super.showConfiguration();
-		log("Exporting to: " + schemaXMLFile.getAbsolutePath());
+		logger.info("Exporting to: " + schemaXMLFile.getAbsolutePath());
 	}
 
 	protected String getSystemId() {
@@ -92,10 +92,10 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	@Override
 	public void execute() throws BuildException {
 		try {
-			log("--------------------------------------");
-			log("Impex - Schema Export");
-			log("--------------------------------------");
-			log("Loading platform for " + getTargetDatabase());
+			logger.info("--------------------------------------");
+			logger.info("Impex - Schema Export");
+			logger.info("--------------------------------------");
+			logger.info("Loading platform for " + getTargetDatabase());
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
 
 			updateConfiguration(platform);
@@ -106,7 +106,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}
-		log("Impex - Schema Export finished");
+		logger.info("Impex - Schema Export finished");
 	}
 
 	protected void serialize() throws BuildException {
@@ -172,7 +172,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			// JHK: protect MySQL from excessively long column in the PK
 			// System.out.println( curTable + "." + name + " / " + size );
 			if (column.getAttribute("size") != null && size > 765) {
-				log("updating column " + curTable + "." + name + " length from " + size + " to 255");
+				logger.info("updating column " + curTable + "." + name + " length from " + size + " to 255");
 				column.setAttribute("size", "255");
 			}
 		} else {
@@ -282,7 +282,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// Add this table to the XML
 		databaseNode.appendChild(table);
 
-		log(utils.pad("Processed " + curTable, System.currentTimeMillis() - start));
+		logger.info(utils.pad("Processed " + curTable, System.currentTimeMillis() - start));
 	}
 
 	protected void processTables(Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
@@ -291,10 +291,10 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 
 		List<String> tableList = platform.getTableNames(dbMetaData, schema);
-		log("Found " + tableList.size() + " tables");
+		logger.info("Found " + tableList.size() + " tables");
 		StringFilter filterer = new StringFilter(includePatterns, excludePatterns);
 		filterer.filter(tableList.iterator());
-		log("Processing " + tableList.size() + " tables after filtering is applied");
+		logger.info("Processing " + tableList.size() + " tables after filtering is applied");
 
 		for (String curTable : tableList) {
 			processTable(curTable, platform, dbMetaData);
@@ -374,7 +374,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	public List<String> getViewNames(DatabaseMetaData dbMeta) throws SQLException {
-		log("Getting view list...");
+		logger.info("Getting view list...");
 		List<String> tables = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
@@ -390,7 +390,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				tableNames.close();
 			}
 		}
-		log("Found " + tables.size() + " views.");
+		logger.info("Found " + tables.size() + " views.");
 		return tables;
 	}
 
@@ -503,7 +503,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		} catch (SQLException e) {
 			// this seems to be happening in some db drivers (sybase)
 			// when retrieving foreign keys from views.
-			log("Could not read foreign keys for Table " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
+			logger.info("Could not read foreign keys for Table " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
 		} finally {
 			closeQuietly(foreignKeys);
 		}
@@ -518,7 +518,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				return pkInfo.getString("PK_NAME");
 			}
 		} catch (SQLException e) {
-			log("Could not locate primary key info for " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
+			logger.info("Could not locate primary key info for " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
 		} finally {
 			closeQuietly(pkInfo);
 		}
@@ -536,9 +536,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// if has the same name as the PK, don't add it to the index list
 		if (pkName == null || !pkName.equals(index.getName())) {
 			indexes.add(index);
-			log("Added " + index.getName() + " to index list", Project.MSG_DEBUG);
+			logger.info("Added " + index.getName() + " to index list", Project.MSG_DEBUG);
 		} else {
-			log("Skipping PK: " + index.getName(), Project.MSG_DEBUG);
+			logger.info("Skipping PK: " + index.getName(), Project.MSG_DEBUG);
 		}
 	}
 
@@ -576,7 +576,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				currIndex.getColumns().add(indexInfo.getString("COLUMN_NAME"));
 			}
 		} catch (SQLException e) {
-			log("Could not read indexes for Table " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
+			logger.info("Could not read indexes for Table " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
 		} finally {
 			closeQuietly(indexInfo);
 		}
