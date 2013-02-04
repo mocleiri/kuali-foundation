@@ -3,7 +3,6 @@ package org.kuali.core.db.torque;
 import static org.kuali.db.JDBCUtils.closeQuietly;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.sql.Connection;
@@ -16,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
@@ -112,15 +111,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	protected void serialize() throws BuildException {
 		Writer out = null;
 		try {
-			File file = new File(FilenameUtils.getFullPath(getSchemaXMLFile().getCanonicalPath()));
-			File parentDirectory = file.getParentFile();
-			if (!parentDirectory.exists()) {
-				boolean mkdirs = parentDirectory.mkdirs();
-				if (!mkdirs) {
-					throw new BuildException("Unable to create " + parentDirectory.getAbsolutePath());
-				}
-			}
-			out = new PrintWriter(new FileOutputStream(getSchemaXMLFile()));
+			out = new PrintWriter(FileUtils.openOutputStream(getSchemaXMLFile()));
 			OutputFormat format = new OutputFormat(Method.XML, getEncoding(), true);
 			XMLSerializer xmlSerializer = new XMLSerializer(out, format);
 			xmlSerializer.serialize(doc);
