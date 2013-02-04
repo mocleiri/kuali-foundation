@@ -62,7 +62,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	/**
 	 * Map of columns that have primary keys.
 	 */
-	Map<String, String> primaryKeys;
+	// Map<String, String> primaryKeys;
 
 	@Override
 	protected void showConfiguration() {
@@ -134,7 +134,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return primaryKeys;
 	}
 
-	protected Element getColumnElement(Column col, String curTable) {
+	protected Element getColumnElement(Column col, String curTable, Map<String, String> primaryKeys) {
 		String name = col.getName();
 		Integer type = col.getSqlType();
 		int size = col.getSize();
@@ -199,10 +199,10 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return defValue;
 	}
 
-	protected void processColumns(DatabaseMetaData dbMetaData, String curTable, Element table) throws SQLException {
+	protected void processColumns(DatabaseMetaData dbMetaData, String curTable, Element table, Map<String, String> primaryKeys) throws SQLException {
 		List<Column> columns = getColumns(dbMetaData, curTable);
 		for (Column column : columns) {
-			Element columnElement = getColumnElement(column, curTable);
+			Element columnElement = getColumnElement(column, curTable, primaryKeys);
 			table.appendChild(columnElement);
 		}
 	}
@@ -252,28 +252,29 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected void processTable(String curTable, Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
+	protected void processTable(String tableName, Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
 		long start = System.currentTimeMillis();
 
 		Element table = doc.createElement("table");
-		table.setAttribute("name", curTable);
+
+		table.setAttribute("name", tableName);
 
 		// Setup the primary keys.
-		primaryKeys = getPrimaryKeys(platform, dbMetaData, curTable);
+		Map<String, String> primaryKeys = getPrimaryKeys(platform, dbMetaData, tableName);
 
 		// Process columns
-		processColumns(dbMetaData, curTable, table);
+		processColumns(dbMetaData, tableName, table, primaryKeys);
 
 		// Process foreign keys
-		processForeignKeys(dbMetaData, curTable, table);
+		processForeignKeys(dbMetaData, tableName, table);
 
 		// Process indexes
-		processIndexes(dbMetaData, curTable, table);
+		processIndexes(dbMetaData, tableName, table);
 
 		// Add this table to the XML
 		databaseNode.appendChild(table);
 
-		logger.info(utils.pad("Processed " + curTable, System.currentTimeMillis() - start));
+		logger.info(utils.pad("Processed " + tableName, System.currentTimeMillis() - start));
 	}
 
 	protected void processTables(Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
@@ -281,11 +282,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			return;
 		}
 
-		List<String> tableList = platform.getTableNames(dbMetaData, schema);
-		doFilter(tableList, tableIncludes, tableExcludes, "tables");
+		List<String> tables = platform.getTableNames(dbMetaData, schema);
 
-		for (String curTable : tableList) {
-			processTable(curTable, platform, dbMetaData);
+		doFilter(tables, tableIncludes, tableExcludes, "tables");
+
+		for (String table : tables) {
+			processTable(table, platform, dbMetaData);
 		}
 	}
 
@@ -582,14 +584,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	public void setDatabaseNode(Element databaseNode) {
 		this.databaseNode = databaseNode;
-	}
-
-	public Map<String, String> getPrimaryKeys() {
-		return primaryKeys;
-	}
-
-	public void setPrimaryKeys(Map<String, String> primaryKeys) {
-		this.primaryKeys = primaryKeys;
 	}
 
 	public boolean isProcessTables() {
