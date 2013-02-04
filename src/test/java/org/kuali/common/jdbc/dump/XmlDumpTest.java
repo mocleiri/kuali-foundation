@@ -20,9 +20,11 @@ import java.util.Properties;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.torque.task.TorqueDataModelTask;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
@@ -78,14 +80,31 @@ public class XmlDumpTest {
 		p.setProperty("impex.processSequences", "true");
 		p.setProperty("impex.processViews", "true");
 		p.setProperty("impex.printMetaInfLists", "false");
+		p.setProperty("impex.contextProperties", p.getProperty("project.build.directory") + "/reports/context.datadtd.properties");
 		return p;
+	}
+
+	protected Task getGenerateDtdTask(DumpContext context, Project project) {
+		TorqueDataModelTask task = new TorqueDataModelTask();
+		task.setProject(project);
+		task.setOutputDirectory(context.getWorkingDir());
+		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
+		task.setTargetDatabase(context.getDatabaseVendor());
+		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
+		task.setUseClasspath(true);
+		try {
+			task.setTemplatePath("");
+		} catch (Exception e) {
+			throw new IllegalStateException("Error setting template path", e);
+		}
+		return task;
 	}
 
 	protected Task getDataDumpTask(DumpContext context, Project project) {
 		KualiTorqueDataDumpTask task = new KualiTorqueDataDumpTask();
 		fillInTask(task, context, project);
-		task.setBuildDirectory(context.getBuildDirectory());
-		task.setDataXMLDir(context.getDataXMLDir());
+		task.setBuildDirectory(context.getWorkingDir());
+		task.setDataXMLDir(context.getWorkingDir());
 		task.setDateFormat(context.getDateFormat());
 		task.setPrintMetaInfLists(context.isPrintMetaInfLists());
 		return task;
@@ -103,7 +122,7 @@ public class XmlDumpTest {
 
 	protected void fillInTask(DumpTask task, DumpContext context, Project project) {
 		task.setProject(project);
-		task.setTargetDatabase(context.getVendor());
+		task.setTargetDatabase(context.getDatabaseVendor());
 		task.setArtifactId(context.getArtifactId());
 		task.setSchema(context.getSchemaName());
 		task.setDriver(context.getDriver());
@@ -121,14 +140,14 @@ public class XmlDumpTest {
 
 	protected DumpContext getDumpContext(Properties p) {
 		DumpContext context = new DumpContext();
+		context.setArtifactId(p.getProperty("project.artifactId"));
 		context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
 		context.setSchemaName(p.getProperty("impex.schema"));
 		context.setDriver(p.getProperty("impex.driver"));
 		context.setUrl(p.getProperty("impex.url"));
 		context.setUsername(p.getProperty("impex.username"));
 		context.setPassword(p.getProperty("impex.password"));
-		context.setArtifactId(p.getProperty("project.artifactId"));
-		context.setVendor(p.getProperty("impex.targetDatabase"));
+		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
 		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
 		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
 		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
@@ -137,12 +156,12 @@ public class XmlDumpTest {
 		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
 		context.setComment(p.getProperty("impex.comment"));
 		context.setDateFormat(p.getProperty("impex.dateFormat"));
-		context.setDataXMLDir(new File(p.getProperty("impex.workingDir")));
-		context.setBuildDirectory(new File(p.getProperty("impex.workingDir")));
+		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
 		context.setProcessTables(new Boolean(p.getProperty("impex.processTables")));
 		context.setProcessSequences(new Boolean(p.getProperty("impex.processSequences")));
 		context.setProcessViews(new Boolean(p.getProperty("impex.processViews")));
 		context.setPrintMetaInfLists(new Boolean(p.getProperty("impex.printMetaInfLists")));
+		context.setContextProperties(new File(p.getProperty("impex.contextProperties")));
 		return context;
 	}
 

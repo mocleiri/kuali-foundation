@@ -12,7 +12,8 @@ public class DumpContext {
 	String driver;
 	String url;
 	String artifactId;
-	String vendor;
+	// oracle, mysql, etc
+	String databaseVendor;
 	List<String> tableIncludes;
 	List<String> tableExcludes;
 	List<String> viewIncludes;
@@ -21,12 +22,12 @@ public class DumpContext {
 	List<String> sequenceExcludes;
 	String comment;
 	String dateFormat;
-	File dataXMLDir;
-	File buildDirectory;
+	File workingDir;
 	boolean processTables = true;
 	boolean processSequences = true;
 	boolean processViews = true;
 	boolean printMetaInfLists = true;
+	File contextProperties;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -84,12 +85,12 @@ public class DumpContext {
 		this.artifactId = artifactId;
 	}
 
-	public String getVendor() {
-		return vendor;
+	public String getDatabaseVendor() {
+		return databaseVendor;
 	}
 
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
+	public void setDatabaseVendor(String vendor) {
+		this.databaseVendor = vendor;
 	}
 
 	public List<String> getTableIncludes() {
@@ -156,20 +157,12 @@ public class DumpContext {
 		this.dateFormat = dateFormat;
 	}
 
-	public File getDataXMLDir() {
-		return dataXMLDir;
+	public File getWorkingDir() {
+		return workingDir;
 	}
 
-	public void setDataXMLDir(File dataXMLDir) {
-		this.dataXMLDir = dataXMLDir;
-	}
-
-	public File getBuildDirectory() {
-		return buildDirectory;
-	}
-
-	public void setBuildDirectory(File buildDirectory) {
-		this.buildDirectory = buildDirectory;
+	public void setWorkingDir(File workingDir) {
+		this.workingDir = workingDir;
 	}
 
 	public boolean isProcessTables() {
@@ -202,6 +195,14 @@ public class DumpContext {
 
 	public void setPrintMetaInfLists(boolean printMetaInfLists) {
 		this.printMetaInfLists = printMetaInfLists;
+	}
+
+	public File getContextProperties() {
+		return contextProperties;
+	}
+
+	public void setContextProperties(File contextProperties) {
+		this.contextProperties = contextProperties;
 	}
 
 }
