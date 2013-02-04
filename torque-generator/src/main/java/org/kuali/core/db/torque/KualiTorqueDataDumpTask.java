@@ -414,7 +414,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 	 * Process one table. Only create an XML file if there is at least one row of data
 	 */
 	protected boolean processTable(final TableHelper helper, final String tableName) throws SQLException, IOException {
-		logger.info("Processing: " + tableName);
+		logger.debug("Processing: " + tableName);
 		long ts1 = System.currentTimeMillis();
 		DocumentImpl doc = getDocument(helper, tableName);
 		long ts2 = System.currentTimeMillis();
@@ -427,9 +427,9 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		long ts3 = System.currentTimeMillis();
 		logger.debug(utils.pad("Serializing: " + tableName + " ", ts3 - ts2));
 		if (!exported) {
-			logger.debug(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 5) + " " + tableName, (ts3 - ts1)));
+			logger.info(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 5) + " " + tableName, (ts3 - ts1)));
 		} else {
-			logger.debug(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 5) + " " + tableName, (ts3 - ts1)));
+			logger.info(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 5) + " " + tableName, (ts3 - ts1)));
 		}
 		return exported;
 	}
