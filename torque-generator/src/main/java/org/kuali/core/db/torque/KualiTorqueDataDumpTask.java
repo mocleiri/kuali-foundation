@@ -387,7 +387,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		logger.info("Skipped " + skipCount + " tables that had zero rows");
 		if (printMetaInfLists) {
 			String base = buildDirectory.getCanonicalPath();
-			String skipped = base + FS + "/META-INF/impex-skipped-tables.txt";
+			String skipped = base + FS + "/META-INF/impex-tables-with-no-rows.txt";
 			String exported = base + FS + "/META-INF/impex-exported-tables.txt";
 			printTables("Skipped", skipped, skippedTables);
 			printTables("Exported", exported, exportedTables);
