@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +18,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
-import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
@@ -29,6 +26,7 @@ import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.kuali.common.util.Assert;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
@@ -47,28 +45,26 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	boolean processTables = true;
 	boolean processViews = true;
 	boolean processSequences = true;
-
-	/**
-	 * The file XML will be written to
-	 */
 	File schemaXMLFile;
-
-	/**
-	 * DOM document produced.
-	 */
-	DocumentImpl doc;
-
-	/**
-	 * The document root element.
-	 */
-	Element databaseNode;
-
 	DataSource dataSource;
 
+	/**
+	 * Execute the task
+	 */
 	@Override
-	protected void showConfiguration() {
-		super.showConfiguration();
-		logger.info("Exporting to: " + schemaXMLFile.getAbsolutePath());
+	public void execute() throws BuildException {
+		Assert.notNull(targetDatabase, "targetDatabase is null");
+		Assert.notNull(dataSource, "dataSource is null");
+		Assert.notBlank(schema, "schema is null");
+		Assert.notNull(schemaXMLFile, "schemaXMLFile is null");
+		try {
+			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
+			List<TableContext> tables = getTableList(platform, dataSource, schema, tableIncludes, tableExcludes);
+			DatabaseContext db = new DatabaseContext(platform, schema);
+			fillInMetaData(tables, dataSource, db);
+		} catch (Exception e) {
+			throw new BuildException(e);
+		}
 	}
 
 	protected String getSystemId() {
@@ -86,41 +82,15 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return doc;
 	}
 
-	/**
-	 * Execute the task
-	 */
-	@Override
-	public void execute() throws BuildException {
-		try {
-			logger.info("--------------------------------------");
-			logger.info("Impex - Schema Export");
-			logger.info("--------------------------------------");
-			logger.info("Loading platform for " + getTargetDatabase());
-			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
-
-			updateConfiguration(platform);
-			showConfiguration();
-
-			List<TableContext> tables = getTableList(platform, dataSource, schema, tableIncludes, tableExcludes);
-
-			doc = getDocumentImpl();
-			generateXML(platform);
-			serialize();
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-		logger.info("Impex - Schema Export finished");
-	}
-
-	protected void serialize() throws BuildException {
+	protected void serialize(DocumentImpl document, File file, String encoding) {
 		Writer out = null;
 		try {
-			out = new PrintWriter(FileUtils.openOutputStream(getSchemaXMLFile()));
-			OutputFormat format = new OutputFormat(Method.XML, getEncoding(), true);
+			out = new PrintWriter(FileUtils.openOutputStream(file));
+			OutputFormat format = new OutputFormat(Method.XML, encoding, true);
 			XMLSerializer xmlSerializer = new XMLSerializer(out, format);
-			xmlSerializer.serialize(doc);
+			xmlSerializer.serialize(document);
 		} catch (Exception e) {
-			throw new BuildException("Error serializing", e);
+			throw new IllegalStateException("Error serializing", e);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
@@ -138,176 +108,25 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return primaryKeys;
 	}
 
-	protected Element getColumnElement(Column col, String curTable, Map<String, String> primaryKeys) {
-		String name = col.getName();
-		Integer type = col.getSqlType();
-		int size = col.getSize();
-		int scale = col.getDecimalDigits();
-
-		Integer nullType = col.getNullType();
-		String defValue = col.getDefValue();
-
-		Element column = doc.createElement("column");
-		column.setAttribute("name", name);
-
-		column.setAttribute("type", TypeMap.getTorqueType(type).getName());
-
-		if (size > 0
-		        && (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type
-		                .intValue() == Types.NUMERIC)) {
-			column.setAttribute("size", String.valueOf(size));
-		}
-
-		if (scale > 0 && (type.intValue() == Types.DECIMAL || type.intValue() == Types.NUMERIC)) {
-			column.setAttribute("scale", String.valueOf(scale));
-		}
-
-		if (primaryKeys.containsKey(name)) {
-			column.setAttribute("primaryKey", "true");
-			// JHK: protect MySQL from excessively long column in the PK
-			// System.out.println( curTable + "." + name + " / " + size );
-			if (column.getAttribute("size") != null && size > 765) {
-				logger.info("updating column " + curTable + "." + name + " length from " + size + " to 255");
-				column.setAttribute("size", "255");
+	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = DataSourceUtils.getConnection(dataSource);
+			DatabaseMetaData metaData = conn.getMetaData();
+			for (TableContext context : contexts) {
+				fillInMetaData(context, db, metaData);
 			}
-		} else {
-			if (nullType.intValue() == DatabaseMetaData.columnNoNulls) {
-				column.setAttribute("required", "true");
-			}
-		}
-
-		if (StringUtils.isNotBlank(defValue)) {
-			defValue = getDefaultValue(defValue);
-			column.setAttribute("default", defValue);
-		}
-		return column;
-	}
-
-	protected String getDefaultValue(String defValue) {
-		if (StringUtils.isBlank(defValue)) {
-			return null;
-		}
-		defValue = defValue.trim();
-		// trim out parens & quotes out of def value.
-		// makes sense for MSSQL. not sure about others.
-		if (defValue.startsWith("(") && defValue.endsWith(")")) {
-			defValue = defValue.substring(1, defValue.length() - 1);
-		}
-
-		if (defValue.startsWith("'") && defValue.endsWith("'")) {
-			defValue = defValue.substring(1, defValue.length() - 1);
-		}
-		if (defValue.equals("NULL")) {
-			defValue = "";
-		}
-		return defValue;
-	}
-
-	protected void processColumns(DatabaseMetaData dbMetaData, String curTable, String schema, Element table, Map<String, String> primaryKeys) throws SQLException {
-		List<Column> columns = getColumns(dbMetaData, curTable, schema);
-		for (Column column : columns) {
-			Element columnElement = getColumnElement(column, curTable, primaryKeys);
-			table.appendChild(columnElement);
+		} finally {
+			DataSourceUtils.releaseConnection(conn, dataSource);
 		}
 	}
 
-	protected void processForeignKeys(DatabaseMetaData dbMetaData, String curTable, String schema, Element table) throws SQLException {
-		Map<String, ForeignKey> foreignKeys = getForeignKeys(dbMetaData, curTable, schema);
-
-		// Foreign keys for this table.
-		for (String fkName : foreignKeys.keySet()) {
-			Element fk = getForeignKeyElement(fkName, foreignKeys);
-			table.appendChild(fk);
-		}
-	}
-
-	protected Element getForeignKeyElement(String fkName, Map<String, ForeignKey> foreignKeys) {
-		Element fk = doc.createElement("foreign-key");
-		fk.setAttribute("name", fkName);
-		ForeignKey forKey = foreignKeys.get(fkName);
-		String foreignKeyTable = forKey.getRefTableName();
-		List<Reference> refs = forKey.getReferences();
-		fk.setAttribute("foreignTable", foreignKeyTable);
-		String onDelete = forKey.getOnDelete();
-		// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
-		if (onDelete == "cascade") {
-			fk.setAttribute("onDelete", onDelete);
-		}
-		for (Reference refData : refs) {
-			Element ref = doc.createElement("reference");
-			ref.setAttribute("local", refData.getLocalColumn());
-			ref.setAttribute("foreign", refData.getForeignColumn());
-			fk.appendChild(ref);
-		}
-		return fk;
-	}
-
-	protected void processIndexes(DatabaseMetaData dbMetaData, String curTable, String schema, Element table) throws SQLException {
-		List<Index> indexes = getIndexes(dbMetaData, curTable, schema);
-		for (Index idx : indexes) {
-			String tagName = idx.isUnique() ? "unique" : "index";
-			Element index = doc.createElement(tagName);
-			index.setAttribute("name", idx.getName());
-			for (String colName : idx.getColumns()) {
-				Element col = doc.createElement(tagName + "-column");
-				col.setAttribute("name", colName);
-				index.appendChild(col);
-			}
-			table.appendChild(index);
-		}
-	}
-
-	protected void processTable(String tableName, Platform platform, DatabaseMetaData metaData) throws SQLException {
-		long start = System.currentTimeMillis();
-
-		Element tableElement = doc.createElement("table");
-
-		tableElement.setAttribute("name", tableName);
-
-		// Getthe primary keys.
-		Map<String, String> primaryKeys = getPrimaryKeys(platform, metaData, tableName, schema);
-
-		// Process columns
-		processColumns(metaData, tableName, schema, tableElement, primaryKeys);
-
-		// Process foreign keys
-		processForeignKeys(metaData, tableName, schema, tableElement);
-
-		// Process indexes
-		processIndexes(metaData, tableName, schema, tableElement);
-
-		// Add this table to the XML
-		databaseNode.appendChild(tableElement);
-
-		logger.info(utils.pad("Processed " + tableName, System.currentTimeMillis() - start));
-	}
-
-	protected void processTables(Platform platform, DatabaseMetaData metaData) throws SQLException {
-		if (!processTables) {
-			return;
-		}
-
-		List<String> tables = platform.getTableNames(metaData, schema);
-
-		doFilter(tables, tableIncludes, tableExcludes, "tables");
-
-		for (String table : tables) {
-			processTable(table, platform, metaData);
-		}
-	}
-
-	protected void fillInMetaData(DatabaseContext dbc, List<TableContext> contexts) throws SQLException {
-		for (TableContext context : contexts) {
-			fillInMetaData(dbc, context);
-		}
-	}
-
-	protected void fillInMetaData(DatabaseContext db, TableContext table) throws SQLException {
+	protected void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
 		// Get the primary keys.
-		Map<String, String> primaryKeys = getPrimaryKeys(db.getPlatform(), db.getMetaData(), table.getName(), db.getSchema());
-		Map<String, ForeignKey> foreignKeys = getForeignKeys(db.getMetaData(), table.getName(), db.getSchema());
-		List<Index> indexes = getIndexes(db.getMetaData(), table.getName(), db.getSchema());
-		List<Column> columns = getColumns(db.getMetaData(), table.getName(), db.getSchema());
+		Map<String, String> primaryKeys = getPrimaryKeys(db.getPlatform(), metaData, table.getName(), db.getSchema());
+		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), db.getSchema());
+		List<Index> indexes = getIndexes(metaData, table.getName(), db.getSchema());
+		List<Column> columns = getColumns(metaData, table.getName(), db.getSchema());
 
 		table.setPrimaryKeys(primaryKeys);
 		table.setColumns(columns);
@@ -324,43 +143,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			contexts.add(context);
 		}
 		return contexts;
-	}
-
-	protected void processViews(Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
-		if (!processViews) {
-			return;
-		}
-		List<String> viewNames = getViewNames(dbMetaData);
-		for (String viewName : viewNames) {
-			Element view = doc.createElement("view");
-			view.setAttribute("name", viewName);
-			/**
-			 * <view name="" viewdefinition="" />
-			 */
-			String definition = platform.getViewDefinition(dbMetaData.getConnection(), schema, viewName);
-			definition = definition.replaceAll("\0", "");
-			view.setAttribute("viewdefinition", definition);
-			databaseNode.appendChild(view);
-		}
-	}
-
-	protected void processSequences(Platform platform, DatabaseMetaData dbMetaData) throws SQLException {
-		if (!processSequences) {
-			return;
-		}
-
-		List<String> sequenceNames = platform.getSequenceNames(dbMetaData, schema);
-
-		doFilter(sequenceNames, sequenceIncludes, sequenceExcludes, "sequences");
-
-		for (String sequenceName : sequenceNames) {
-			Element sequence = doc.createElement("sequence");
-			sequence.setAttribute("name", sequenceName);
-			Long nextVal = platform.getSequenceNextVal(dbMetaData.getConnection(), schema, sequenceName);
-			sequence.setAttribute("nextval", nextVal.toString());
-			databaseNode.appendChild(sequence);
-		}
-		doc.appendChild(databaseNode);
 	}
 
 	protected String getName() {
@@ -383,34 +165,17 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	/**
-	 * Generates an XML database schema from JDBC metadata.
-	 *
-	 * @throws Exception
-	 *             a generic exception.
-	 */
-	protected void generateXML(Platform platform) throws Exception {
+	protected void generateXML(DocumentImpl document, Element databaseNode, Platform platform, List<TableContext> tables) throws Exception {
 
-		Connection connection = null;
-		try {
-			// Attempt to connect to a database.
-			connection = getConnection();
+		databaseNode = document.createElement("database");
+		databaseNode.setAttribute("name", getName());
+		// JHK added naming method
+		databaseNode.setAttribute("defaultJavaNamingMethod", "nochange");
 
-			// Get the database Metadata.
-			DatabaseMetaData dbMetaData = connection.getMetaData();
+		// processTables(platform, dbMetaData);
+		// processViews(platform, dbMetaData);
+		// processSequences(platform, dbMetaData);
 
-			databaseNode = doc.createElement("database");
-			databaseNode.setAttribute("name", getName());
-			// JHK added naming method
-			databaseNode.setAttribute("defaultJavaNamingMethod", "nochange");
-
-			processTables(platform, dbMetaData);
-			processViews(platform, dbMetaData);
-			processSequences(platform, dbMetaData);
-
-		} finally {
-			closeQuietly(connection);
-		}
 	}
 
 	public List<String> getViewNames(DatabaseMetaData dbMeta) throws SQLException {
@@ -620,22 +385,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			closeQuietly(indexInfo);
 		}
 		return indexes;
-	}
-
-	public DocumentImpl getDoc() {
-		return doc;
-	}
-
-	public void setDoc(DocumentImpl doc) {
-		this.doc = doc;
-	}
-
-	public Element getDatabaseNode() {
-		return databaseNode;
-	}
-
-	public void setDatabaseNode(Element databaseNode) {
-		this.databaseNode = databaseNode;
 	}
 
 	public boolean isProcessTables() {

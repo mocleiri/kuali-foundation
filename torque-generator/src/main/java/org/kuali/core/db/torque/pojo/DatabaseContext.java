@@ -1,14 +1,21 @@
 package org.kuali.core.db.torque.pojo;
 
-import java.sql.DatabaseMetaData;
-
 import org.apache.torque.engine.platform.Platform;
 
 public class DatabaseContext {
 
 	Platform platform;
 	String schema;
-	DatabaseMetaData metaData;
+
+	public DatabaseContext() {
+		this(null, null);
+	}
+
+	public DatabaseContext(Platform platform, String schema) {
+		super();
+		this.platform = platform;
+		this.schema = schema;
+	}
 
 	public Platform getPlatform() {
 		return platform;
@@ -24,14 +31,6 @@ public class DatabaseContext {
 
 	public void setSchema(String schema) {
 		this.schema = schema;
-	}
-
-	public DatabaseMetaData getMetaData() {
-		return metaData;
-	}
-
-	public void setMetaData(DatabaseMetaData metaData) {
-		this.metaData = metaData;
 	}
 
 }
