@@ -36,7 +36,6 @@ public class XmlDumpTest {
 	@Test
 	public void test() {
 		try {
-
 			long start = System.currentTimeMillis();
 			Project project = getInitializedAntProject();
 			Properties p = getProperties();
