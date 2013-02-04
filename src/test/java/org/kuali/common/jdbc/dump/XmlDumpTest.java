@@ -88,8 +88,8 @@ public class XmlDumpTest {
 		task.setSchema(context.getSchemaName());
 		task.setDriver(context.getDriver());
 		task.setUrl(context.getUrl());
-		task.setUsername(context.getSchemaName());
-		task.setPassword(context.getSchemaName());
+		task.setUsername(context.getUsername());
+		task.setPassword(context.getPassword());
 		task.setComment(context.getComment());
 		task.setIncludePatterns(context.getIncludes());
 		task.setExcludePatterns(context.getExcludes());
@@ -111,6 +111,8 @@ public class XmlDumpTest {
 		context.setSchemaName(p.getProperty("impex.schema"));
 		context.setDriver(p.getProperty("impex.driver"));
 		context.setUrl(p.getProperty("impex.url"));
+		context.setUsername(p.getProperty("impex.username"));
+		context.setPassword(p.getProperty("impex.password"));
 		context.setArtifactId(p.getProperty("project.artifactId"));
 		context.setVendor(p.getProperty("impex.targetDatabase"));
 		context.setIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.includes")));
