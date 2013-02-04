@@ -427,9 +427,9 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		long ts3 = System.currentTimeMillis();
 		logger.debug(utils.pad("Serializing: " + tableName + " ", ts3 - ts2));
 		if (!exported) {
-			logger.info(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 5) + " " + tableName, (ts3 - ts1)));
+			logger.info(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 6) + " " + tableName, (ts3 - ts1)));
 		} else {
-			logger.info(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 5) + " " + tableName, (ts3 - ts1)));
+			logger.info(utils.pad("Rows: " + StringUtils.leftPad(helper.getRowCount() + "", 6) + " " + tableName, (ts3 - ts1)));
 		}
 		return exported;
 	}
