@@ -51,7 +51,7 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KRCR_CMPNT.*";
+		String tableIncludes = "KR.*";
 		String viewIncludes = "KR.*";
 		String sequenceIncludes = "KR.*";
 
