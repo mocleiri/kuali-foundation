@@ -19,11 +19,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DatabaseUtilsTest extends TestCase {
 	public static void main(String[] args) {
@@ -32,6 +32,7 @@ public class DatabaseUtilsTest extends TestCase {
 
 	@SuppressWarnings("unchecked")
 	public void test1() {
+		@SuppressWarnings("resource")
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(JDBCUtils.JDBC_CONTEXT);
 		List<JDBCConfiguration> databaseConfigs = (List<JDBCConfiguration>) ctx.getBean(JDBCUtils.JDBC_CONFIGURATIONS);
 		assertNotNull(databaseConfigs);
@@ -39,6 +40,7 @@ public class DatabaseUtilsTest extends TestCase {
 
 	@SuppressWarnings("unchecked")
 	public void test2() {
+		@SuppressWarnings("resource")
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(JDBCUtils.JDBC_CONTEXT);
 		List<JDBCConfiguration> databaseConfigs = (List<JDBCConfiguration>) ctx.getBean(JDBCUtils.JDBC_CONFIGURATIONS);
 		assertNotNull(databaseConfigs);
