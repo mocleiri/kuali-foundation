@@ -87,6 +87,16 @@ public class XmlDumpTest {
 		return task;
 	}
 
+	protected Task getSchemaDumpTask(DumpContext context, Project project) {
+		KualiTorqueSchemaDumpTask task = new KualiTorqueSchemaDumpTask();
+		fillInTask(task, context, project);
+		task.setSchemaXMLFile(context.getSchemaXmlFile());
+		task.setProcessTables(context.isProcessTables());
+		task.setProcessSequences(context.isProcessSequences());
+		task.setProcessViews(context.isProcessViews());
+		return task;
+	}
+
 	protected void fillInTask(DumpTask task, DumpContext context, Project project) {
 		task.setProject(project);
 		task.setTargetDatabase(context.getVendor());
@@ -103,16 +113,6 @@ public class XmlDumpTest {
 		task.setSequenceExcludes(context.getSequenceExcludes());
 		task.setViewIncludes(context.getViewIncludes());
 		task.setViewExcludes(context.getViewExcludes());
-	}
-
-	protected Task getSchemaDumpTask(DumpContext context, Project project) {
-		KualiTorqueSchemaDumpTask task = new KualiTorqueSchemaDumpTask();
-		fillInTask(task, context, project);
-		task.setSchemaXMLFile(context.getSchemaXmlFile());
-		task.setProcessTables(context.isProcessTables());
-		task.setProcessSequences(context.isProcessSequences());
-		task.setProcessViews(context.isProcessViews());
-		return task;
 	}
 
 	protected DumpContext getDumpContext(Properties p) {
