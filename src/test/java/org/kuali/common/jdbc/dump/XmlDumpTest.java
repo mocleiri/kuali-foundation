@@ -59,8 +59,8 @@ public class XmlDumpTest {
 		p.setProperty("project.artifactId", "ks-rice-db");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
 		p.setProperty("impex.table.includes", includes);
-		p.setProperty("impex.view.includes", includes);
-		p.setProperty("impex.sequence.includes", includes);
+		p.setProperty("impex.view.includes", "KR.*");
+		p.setProperty("impex.sequence.includes", "KR.*");
 		p.setProperty("impex.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 		p.setProperty("impex.driver", "oracle.jdbc.driver.OracleDriver");
 		p.setProperty("impex.username", "KS_SOURCE_DB_SPRING");
@@ -95,8 +95,12 @@ public class XmlDumpTest {
 		task.setUsername(context.getUsername());
 		task.setPassword(context.getPassword());
 		task.setComment(context.getComment());
-		task.setTableIncludes(null);
-		task.setTableExcludes(null);
+		task.setTableIncludes(context.getTableIncludes());
+		task.setTableExcludes(context.getTableExcludes());
+		task.setSequenceIncludes(context.getSequenceIncludes());
+		task.setSequenceExcludes(context.getSequenceExcludes());
+		task.setViewIncludes(context.getViewIncludes());
+		task.setViewExcludes(context.getViewExcludes());
 	}
 
 	protected Task getSchemaDumpTask(DumpContext context, Project project) {
