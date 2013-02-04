@@ -339,9 +339,10 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 
 		try {
 			connection = getConnection();
-			// Get metadata about the database
 
+			// Get metadata about the database
 			DatabaseMetaData dbMetaData = connection.getMetaData();
+
 			// Get the correct platform (oracle, mysql etc)
 			// Get ALL the table names
 			Set<String> tableNames = getSet(getJDBCTableNames(dbMetaData));
