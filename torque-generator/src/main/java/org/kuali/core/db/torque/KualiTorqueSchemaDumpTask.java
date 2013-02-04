@@ -19,7 +19,6 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.spi.LoggerFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.TypeMap;
@@ -34,6 +33,8 @@ import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
 import org.kuali.core.db.torque.pojo.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 public class KualiTorqueSchemaDumpTask extends DumpTask {
@@ -65,7 +66,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	Map<String, String> primaryKeys;
 
 	@Override
-    protected void showConfiguration() {
+	protected void showConfiguration() {
 		super.showConfiguration();
 		log("Exporting to: " + schemaXMLFile.getAbsolutePath());
 	}
@@ -89,7 +90,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * Execute the task
 	 */
 	@Override
-    public void execute() throws BuildException {
+	public void execute() throws BuildException {
 		try {
 			log("--------------------------------------");
 			log("Impex - Schema Export");
@@ -130,8 +131,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData dbMetaData, String curTable)
-			throws SQLException {
+	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData dbMetaData, String curTable) throws SQLException {
 		List<String> primKeys = platform.getPrimaryKeys(dbMetaData, schema, curTable);
 
 		// Set the primary keys.
@@ -158,8 +158,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		column.setAttribute("type", TypeMap.getTorqueType(type).getName());
 
 		if (size > 0
-				&& (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR
-						|| type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type.intValue() == Types.NUMERIC)) {
+		        && (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type
+		                .intValue() == Types.NUMERIC)) {
 			column.setAttribute("size", String.valueOf(size));
 		}
 
@@ -395,11 +395,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	/**
-	 * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each
-	 * element of the returned List is a List with:
+	 * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each element of the
+	 * returned List is a List with:
 	 *
-	 * element 0 => a String object for the column name. element 1 => an Integer object for the column type. element 2
-	 * => size of the column. element 3 => null type.
+	 * element 0 => a String object for the column name. element 1 => an Integer object for the column type. element 2 => size of the
+	 * column. element 3 => null type.
 	 *
 	 * @param dbMeta
 	 *            JDBC metadata.
@@ -466,8 +466,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return fk;
 	}
 
-	protected void addForeignKey(Map<String, ForeignKey> fks, String fkName, String refTableName, String onDelete,
-			ResultSet foreignKeys) throws SQLException {
+	protected void addForeignKey(Map<String, ForeignKey> fks, String fkName, String refTableName, String onDelete, ResultSet foreignKeys) throws SQLException {
 		ForeignKey fk = (ForeignKey) fks.get(fkName);
 		if (fk == null) {
 			fk = getNewKualiForeignKey(refTableName, onDelete);
