@@ -40,8 +40,10 @@ public class XmlDumpTest {
 			Project project = getInitializedAntProject();
 			Properties p = getProperties();
 			DumpContext context = getDumpContext(p);
-			Task schemaDumpTask = getSchemaDumpTask(context, project);
-			schemaDumpTask.execute();
+			Task schemaDump = getSchemaDumpTask(context, project);
+			Task dataDump = getDataDumpTask(context, project);
+			schemaDump.execute();
+			dataDump.execute();
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
@@ -50,9 +52,9 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KR.*";
-		String viewIncludes = "KR.*";
-		String sequenceIncludes = "KR.*";
+		String tableIncludes = "KRCR_CMPNT.*";
+		String viewIncludes = "KRCR_CMPNT.*";
+		String sequenceIncludes = "KRCR_CMPNT.*";
 
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
@@ -83,6 +85,7 @@ public class XmlDumpTest {
 		fillInTask(task, context, project);
 		task.setBuildDirectory(context.getBuildDirectory());
 		task.setDataXMLDir(context.getDataXMLDir());
+		task.setDateFormat(context.getDateFormat());
 		return task;
 	}
 
