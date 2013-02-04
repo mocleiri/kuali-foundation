@@ -335,30 +335,23 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		try {
 			connection = getConnection();
 			// Get metadata about the database
+
 			DatabaseMetaData dbMetaData = connection.getMetaData();
 			// Get the correct platform (oracle, mysql etc)
 			// Get ALL the table names
 			Set<String> tableNames = getSet(getJDBCTableNames(dbMetaData));
-			logger.info("Table Count: " + tableNames.size());
-			int completeSize = tableNames.size();
 
-			StringFilter filterer = new StringFilter(includePatterns, excludePatterns);
-			filterer.filter(tableNames.iterator());
+			// Filter out tables as appropriate
+			doFilter(tableNames, tableIncludes, tableExcludes, "tables");
 
-			int filteredSize = tableNames.size();
-
-			if (filteredSize != completeSize) {
-				logger.info("Filtered table count: " + tableNames.size());
-			} else {
-				logger.info("No tables were filtered out.  Exporting all tables.");
-			}
-
+			// Aggregate some context
 			TableHelper helper = new TableHelper();
 			helper.setConnection(connection);
 			helper.setPlatform(platform);
 			helper.setDbMetaData(dbMetaData);
 			helper.setTableNames(tableNames);
 
+			// Process the tables
 			processTables(helper);
 		} catch (Exception e) {
 			closeQuietly(connection);
@@ -410,7 +403,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 			out = FileUtils.openOutputStream(file);
 			out.write(sb.toString().getBytes());
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}

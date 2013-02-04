@@ -282,10 +282,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 
 		List<String> tableList = platform.getTableNames(dbMetaData, schema);
-		logger.info("Found " + tableList.size() + " tables");
-		StringFilter filterer = new StringFilter(includePatterns, excludePatterns);
-		filterer.filter(tableList.iterator());
-		logger.info("Processing " + tableList.size() + " tables after filtering is applied");
+		doFilter(tableList, tableIncludes, tableExcludes, "tables");
 
 		for (String curTable : tableList) {
 			processTable(curTable, platform, dbMetaData);
@@ -317,7 +314,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 		List<String> sequenceNames = platform.getSequenceNames(dbMetaData, schema);
 
-		logger.info("Found {} sequences", sequenceNames.size());
+		doFilter(sequenceNames, sequenceIncludes, sequenceExcludes, "sequences");
 
 		for (String sequenceName : sequenceNames) {
 			Element sequence = doc.createElement("sequence");
@@ -363,7 +360,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	public List<String> getViewNames(DatabaseMetaData dbMeta) throws SQLException {
-		List<String> tables = new ArrayList<String>();
+		List<String> views = new ArrayList<String>();
 		ResultSet tableNames = null;
 		// these are the entity types we want from the database
 		String[] types = { "VIEW" }; // JHK: removed views from list
@@ -371,15 +368,15 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			tableNames = dbMeta.getTables(null, schema, null, types);
 			while (tableNames.next()) {
 				String name = tableNames.getString(3);
-				tables.add(name);
+				views.add(name);
 			}
 		} finally {
 			if (tableNames != null) {
 				tableNames.close();
 			}
 		}
-		logger.info("Found " + tables.size() + " views.");
-		return tables;
+		doFilter(views, viewIncludes, viewExcludes, "views");
+		return views;
 	}
 
 	/**
