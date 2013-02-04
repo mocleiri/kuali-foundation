@@ -14,7 +14,7 @@
       <artifactId>junit</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.kuali.db.impex</groupId>
+      <groupId>org.kuali.common</groupId>
       <artifactId>jdbc-support</artifactId>
       <version>${project.version}</version>
     </dependency>
