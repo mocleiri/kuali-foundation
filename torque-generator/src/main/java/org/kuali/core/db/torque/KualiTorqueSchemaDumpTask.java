@@ -19,7 +19,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
@@ -58,11 +57,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * The document root element.
 	 */
 	Element databaseNode;
-
-	/**
-	 * Map of columns that have primary keys.
-	 */
-	// Map<String, String> primaryKeys;
 
 	@Override
 	protected void showConfiguration() {
@@ -491,7 +485,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		} catch (SQLException e) {
 			// this seems to be happening in some db drivers (sybase)
 			// when retrieving foreign keys from views.
-			logger.info("Could not read foreign keys for Table " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
+			logger.warn("Could not read foreign keys for Table " + tableName + " : " + e.getMessage());
 		} finally {
 			closeQuietly(foreignKeys);
 		}
@@ -506,7 +500,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				return pkInfo.getString("PK_NAME");
 			}
 		} catch (SQLException e) {
-			logger.info("Could not locate primary key info for " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
+			logger.warn("Could not locate primary key info for " + tableName + " : " + e.getMessage());
 		} finally {
 			closeQuietly(pkInfo);
 		}
@@ -564,7 +558,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				currIndex.getColumns().add(indexInfo.getString("COLUMN_NAME"));
 			}
 		} catch (SQLException e) {
-			logger.info("Could not read indexes for Table " + tableName + " : " + e.getMessage(), Project.MSG_WARN);
+			logger.warn("Could not read indexes for Table " + tableName + " : " + e.getMessage());
 		} finally {
 			closeQuietly(indexInfo);
 		}
