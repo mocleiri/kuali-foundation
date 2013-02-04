@@ -84,9 +84,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		logger.info("Date format: \"" + dateFormat + "\" - " + dateFormatter.format(new Date()));
 	}
 
-	@Override
 	protected void updateConfiguration(final Platform platform) {
-		super.updateConfiguration(platform);
 		dateFormatter = new SimpleDateFormat(dateFormat);
 	}
 
