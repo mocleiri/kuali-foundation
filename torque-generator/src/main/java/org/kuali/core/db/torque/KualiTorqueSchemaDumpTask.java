@@ -1,5 +1,7 @@
 package org.kuali.core.db.torque;
 
+import static org.kuali.db.JDBCUtils.closeQuietly;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -17,6 +19,7 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.spi.LoggerFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.TypeMap;
@@ -27,15 +30,15 @@ import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
-import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Column;
-import org.kuali.core.db.torque.pojo.Reference;
+import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
-
-import static org.kuali.db.JDBCUtils.*;
+import org.kuali.core.db.torque.pojo.Reference;
 import org.w3c.dom.Element;
 
 public class KualiTorqueSchemaDumpTask extends DumpTask {
+
+	private static final Logger logger = LoggerFactory.getLogger(KualiTorqueSchemaDumpTask.class);
 
 	boolean processTables = true;
 	boolean processViews = true;
@@ -61,7 +64,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 */
 	Map<String, String> primaryKeys;
 
-	protected void showConfiguration() {
+	@Override
+    protected void showConfiguration() {
 		super.showConfiguration();
 		log("Exporting to: " + schemaXMLFile.getAbsolutePath());
 	}
@@ -84,14 +88,15 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	/**
 	 * Execute the task
 	 */
-	public void execute() throws BuildException {
+	@Override
+    public void execute() throws BuildException {
 		try {
 			log("--------------------------------------");
 			log("Impex - Schema Export");
 			log("--------------------------------------");
 			log("Loading platform for " + getTargetDatabase());
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
-			
+
 			updateConfiguration(platform);
 			showConfiguration();
 			doc = getDocumentImpl();
@@ -318,9 +323,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		if (!processSequences) {
 			return;
 		}
-		
+
 		List<String> sequenceNames = platform.getSequenceNames(dbMetaData, schema);
-		
+
 		for (String sequenceName : sequenceNames) {
 			Element sequence = doc.createElement("sequence");
 			sequence.setAttribute("name", sequenceName);
@@ -341,7 +346,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	/**
 	 * Generates an XML database schema from JDBC metadata.
-	 * 
+	 *
 	 * @throws Exception
 	 *             a generic exception.
 	 */
@@ -392,10 +397,10 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	/**
 	 * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each
 	 * element of the returned List is a List with:
-	 * 
+	 *
 	 * element 0 => a String object for the column name. element 1 => an Integer object for the column type. element 2
 	 * => size of the column. element 3 => null type.
-	 * 
+	 *
 	 * @param dbMeta
 	 *            JDBC metadata.
 	 * @param tableName
@@ -477,7 +482,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	/**
 	 * Retrieves a list of foreign key columns for a given table.
-	 * 
+	 *
 	 * @param dbMeta
 	 *            JDBC metadata.
 	 * @param tableName

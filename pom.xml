@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.0.8</version>
+    <version>2.1.52</version>
   </parent>
   <groupId>org.kuali.db.impex</groupId>
   <artifactId>impex</artifactId>
@@ -31,8 +31,9 @@
   <properties>
     <!-- The test-javadoc report is throwing a NullPointerException -->
     <kuali.javadoc.report.2>javadoc</kuali.javadoc.report.2>
-    <spring.version>3.0.5.RELEASE</spring.version>
-    <junit.version>4.8.1</junit.version>
+    <spring.version>3.2.0.RELEASE</spring.version>
+    <junit.version>4.10</junit.version>
+    <slf4j.version>1.6.4</slf4j.version>
   </properties>
   <developers>
     <developer>
@@ -57,10 +58,26 @@
       <type>jar</type>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/branches/impex-1.0</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/branches/impex-1.0</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/branches/impex-2.0</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/impex-2.0</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/branches/impex-2.0</url>
   </scm>
 </project>
