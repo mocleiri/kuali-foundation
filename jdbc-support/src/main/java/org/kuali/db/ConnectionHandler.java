@@ -21,11 +21,12 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.kuali.common.util.LoggerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionHandler {
-	private static final Log log = LogFactory.getLog(ConnectionHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionHandler.class);
 
 	public static final String DRIVER_INFO_PROPERTIES_USER = "user";
 	public static final String DRIVER_INFO_PROPERTIES_PASSWORD = "password";
@@ -42,28 +43,24 @@ public class ConnectionHandler {
 	boolean showPassword = false;
 
 	protected void showConnectionInfo(Properties properties) {
-		log.info("------------------------------------------------------------------------");
-		log.info("JDBC Connection Information");
-		log.info("------------------------------------------------------------------------");
-		log.info("URL: " + getUrl());
+		logger.info("------------------------------------------------------------------------");
+		logger.info("JDBC Connection Information");
+		logger.info("------------------------------------------------------------------------");
+		logger.info("URL: " + getUrl());
 		String username = properties.getProperty(DRIVER_INFO_PROPERTIES_USER);
 		String password = properties.getProperty(DRIVER_INFO_PROPERTIES_PASSWORD);
 		if (StringUtils.isEmpty(username)) {
-			log.info("Username: <no username was supplied>");
+			logger.info("Username: <no username was supplied>");
 		} else {
-			log.info("Username: " + username);
+			logger.info("Username: " + username);
 		}
 		if (isShowPassword()) {
-			log.info("Password: " + password);
+			logger.info("Password: " + password);
 		} else {
-			if (StringUtils.isEmpty(password)) {
-				log.info("Password: <no password was supplied>");
-			} else {
-				log.info("Password: " + StringUtils.repeat("*", password.length()));
-			}
+			logger.info("Password: {}", LoggerUtils.getPassword(username, password));
 		}
-		log.info("Driver: " + getDriver());
-		log.info("------------------------------------------------------------------------");
+		logger.info("Driver: " + getDriver());
+		logger.info("------------------------------------------------------------------------");
 	}
 
 	protected Driver getDriverInstance() throws SQLException {
@@ -95,10 +92,12 @@ public class ConnectionHandler {
 		String username = credentials.getUsername();
 		String password = credentials.getPassword();
 		if (!enableAnonymousUsername && StringUtils.isBlank(username)) {
-			throw new SQLException("\n\nNo username was supplied.\nYou can supply a username in the plugin configuration or provide it as a system property.\n\nFor example:\n-Dusername=myuser\n\n.");
+			throw new SQLException(
+			        "\n\nNo username was supplied.\nYou can supply a username in the plugin configuration or provide it as a system property.\n\nFor example:\n-Dusername=myuser\n\n.");
 		}
 		if (!enableAnonymousPassword && StringUtils.isBlank(password)) {
-			throw new SQLException("\n\nNo password was supplied.\nYou can supply a password in the plugin configuration or provide it as a system property.\n\nFor example:\n-Dpassword=mypassword\n\n.");
+			throw new SQLException(
+			        "\n\nNo password was supplied.\nYou can supply a password in the plugin configuration or provide it as a system property.\n\nFor example:\n-Dpassword=mypassword\n\n.");
 		}
 		// Convert null to the empty string if needed
 		if (StringUtils.isBlank(username)) {
