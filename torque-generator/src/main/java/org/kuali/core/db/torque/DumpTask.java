@@ -26,13 +26,13 @@ public class DumpTask extends Task {
 	boolean antCompatibilityMode;
 
 	protected void showConfiguration() {
-		log("Schema: " + schema);
-		log("Artifact Id: " + artifactId);
-		log("Database Vendor: " + getTargetDatabase());
+		logger.info("Schema: " + schema);
+		logger.info("Artifact Id: " + artifactId);
+		logger.info("Database Vendor: " + getTargetDatabase());
 		if (getEncoding() == null) {
-			log("Encoding: " + System.getProperty("file.encoding"));
+			logger.info("Encoding: " + System.getProperty("file.encoding"));
 		} else {
-			log("Encoding: " + getEncoding());
+			logger.info("Encoding: " + getEncoding());
 		}
 	}
 
