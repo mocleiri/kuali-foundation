@@ -77,7 +77,7 @@ public class XmlDumpTest {
 		p.setProperty("impex.processTables", "true");
 		p.setProperty("impex.processSequences", "true");
 		p.setProperty("impex.processViews", "true");
-		p.setProperty("impex.printMetaInfLists", "true");
+		p.setProperty("impex.printMetaInfLists", "false");
 		return p;
 	}
 
