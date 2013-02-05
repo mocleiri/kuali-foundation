@@ -32,5 +32,4 @@ public class DatabaseContext {
 	public void setSchema(String schema) {
 		this.schema = schema;
 	}
-
 }

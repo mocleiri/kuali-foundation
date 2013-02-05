@@ -26,6 +26,8 @@ import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.kuali.common.threads.ThreadHandlerContext;
+import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.core.db.torque.pojo.Column;
@@ -34,6 +36,7 @@ import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
 import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.TableBucket;
+import org.kuali.core.db.torque.pojo.TableBucketHandler;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +50,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	boolean processTables = true;
 	boolean processViews = true;
 	boolean processSequences = true;
+	int threads = 15;
 	File schemaXMLFile;
 	DataSource dataSource;
 
@@ -63,7 +67,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
 			List<TableContext> tables = getTableList(platform, dataSource, schema, tableIncludes, tableExcludes);
 			DatabaseContext db = new DatabaseContext(platform, schema);
-			fillInMetaData(tables, dataSource, db);
+			fillInMetaData(tables, dataSource, db, threads);
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}
@@ -110,8 +114,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return primaryKeys;
 	}
 
-	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db) throws SQLException {
-		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(contexts, 5);
+	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db, int threads) throws SQLException {
+		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(contexts, threads);
 		List<TableBucket> buckets = new ArrayList<TableBucket>();
 		for (List<TableContext> list : listOfLists) {
 			TableBucket bucket = new TableBucket();
@@ -121,6 +125,19 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			bucket.setDatabaseContext(db);
 			buckets.add(bucket);
 		}
+
+		// Store some context for the thread handler
+		ThreadHandlerContext<TableBucket> thc = new ThreadHandlerContext<TableBucket>();
+		thc.setList(buckets);
+		thc.setHandler(new TableBucketHandler());
+		thc.setMax(buckets.size());
+		thc.setMin(buckets.size());
+		thc.setDivisor(1);
+
+		// Start threads to acquire table metadata concurrently
+		ThreadInvoker invoker = new ThreadInvoker();
+		invoker.invokeThreads(thc);
+		System.out.println();
 	}
 
 	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
@@ -427,5 +444,13 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
+	}
+
+	public int getThreads() {
+		return threads;
+	}
+
+	public void setThreads(int threads) {
+		this.threads = threads;
 	}
 }
