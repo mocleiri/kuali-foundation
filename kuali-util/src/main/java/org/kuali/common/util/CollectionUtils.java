@@ -59,7 +59,6 @@ public class CollectionUtils {
 		int offset = 0;
 		for (int i = 0; i < lengths.length; i++) {
 			int length = lengths[i];
-
 			Bucket<T> bucket = new Bucket<T>();
 			List<T> bucketElements = new ArrayList<T>();
 			bucket.setElements(bucketElements);
