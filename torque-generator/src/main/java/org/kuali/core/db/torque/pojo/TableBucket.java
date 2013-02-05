@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 
 public class TableBucket {
@@ -12,6 +13,7 @@ public class TableBucket {
 	DataSource dataSource;
 	KualiTorqueSchemaDumpTask task;
 	DatabaseContext databaseContext;
+	PercentCompleteInformer progressTracker;
 
 	public List<TableContext> getTables() {
 		return tables;
@@ -43,6 +45,14 @@ public class TableBucket {
 
 	public void setDatabaseContext(DatabaseContext databaseContext) {
 		this.databaseContext = databaseContext;
+	}
+
+	public PercentCompleteInformer getProgressTracker() {
+		return progressTracker;
+	}
+
+	public void setProgressTracker(PercentCompleteInformer progressTracker) {
+		this.progressTracker = progressTracker;
 	}
 
 }

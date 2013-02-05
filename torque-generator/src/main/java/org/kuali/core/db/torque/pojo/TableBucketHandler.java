@@ -25,7 +25,7 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 			DatabaseMetaData metaData = conn.getMetaData();
 			for (TableContext table : tables) {
 				task.fillInMetaData(table, db, metaData);
-				System.out.print(".");
+				element.getProgressTracker().progressOccurred();
 			}
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);

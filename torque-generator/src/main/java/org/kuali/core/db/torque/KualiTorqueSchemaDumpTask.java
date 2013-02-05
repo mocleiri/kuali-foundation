@@ -30,6 +30,7 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
@@ -116,9 +117,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db, int threads) throws SQLException {
 		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(contexts, threads);
+		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
+		progressTracker.setTotal(contexts.size());
 		List<TableBucket> buckets = new ArrayList<TableBucket>();
 		for (List<TableContext> list : listOfLists) {
 			TableBucket bucket = new TableBucket();
+			bucket.setProgressTracker(progressTracker);
 			bucket.setDataSource(dataSource);
 			bucket.setTables(list);
 			bucket.setTask(this);
@@ -137,7 +141,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// Start threads to acquire table metadata concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		invoker.invokeThreads(thc);
-		System.out.println();
 	}
 
 	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
