@@ -27,11 +27,13 @@ import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
 import org.kuali.core.db.torque.pojo.Reference;
+import org.kuali.core.db.torque.pojo.TableBucket;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,19 +111,19 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db) throws SQLException {
-		Connection conn = null;
-		try {
-			conn = DataSourceUtils.getConnection(dataSource);
-			DatabaseMetaData metaData = conn.getMetaData();
-			for (TableContext context : contexts) {
-				fillInMetaData(context, db, metaData);
-			}
-		} finally {
-			DataSourceUtils.releaseConnection(conn, dataSource);
+		List<List<TableContext>> listOfTableLists = CollectionUtils.splitEvenly(contexts, 5);
+		List<TableBucket> buckets = new ArrayList<TableBucket>();
+		for (List<TableContext> tableList : listOfTableLists) {
+			TableBucket bucket = new TableBucket();
+			bucket.setDataSource(dataSource);
+			bucket.setTables(tableList);
+			bucket.setTask(this);
+			bucket.setDatabaseContext(db);
+			buckets.add(bucket);
 		}
 	}
 
-	protected void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
+	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
 		// Get the primary keys.
 		Map<String, String> primaryKeys = getPrimaryKeys(db.getPlatform(), metaData, table.getName(), db.getSchema());
 		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), db.getSchema());
@@ -150,7 +152,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	/**
-	 * Connect to a db and retrieve a list of all the tables for a given schema.
+	 * Connect to a database and retrieve a list of all the tables for a given schema.
 	 */
 	protected List<TableContext> getTableList(Platform platform, DataSource dataSource, String schema, List<String> includes, List<String> excludes) throws Exception {
 		Connection conn = null;

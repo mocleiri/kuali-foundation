@@ -10,6 +10,8 @@
   <description>This is the Kuali version of ASF's torque generator</description>
   <properties>
     <spring.version>3.2.0.RELEASE</spring.version>
+    <kuali-threads.version>1.0.9</kuali-threads.version>
+    <kuali-util.version>3.0.10-SNAPSHOT</kuali-util.version>
   </properties>
   <dependencies>
     <dependency>
@@ -20,6 +22,16 @@
       <groupId>org.kuali.common</groupId>
       <artifactId>jdbc-support</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-threads</artifactId>
+      <version>${kuali-threads.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-util</artifactId>
+      <version>${kuali-util.version}</version>
     </dependency>
     <dependency>
       <groupId>ant</groupId>
@@ -47,23 +59,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!--
-      <dependency>
-      <groupId>avalon-logkit</groupId>
-      <artifactId>avalon-logkit</artifactId>
-      <version>2.1</version>
-      <exclusions>
-      <exclusion>
-      <groupId>avalon-logkit</groupId>
-      <artifactId>avalon-logkit</artifactId>
-      </exclusion>
-      <exclusion>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      </exclusion>
-      </exclusions>
-      </dependency>
-    -->
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
