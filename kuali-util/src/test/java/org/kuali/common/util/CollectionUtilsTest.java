@@ -34,10 +34,10 @@ public class CollectionUtilsTest {
 			for (int i = 0; i < 100; i++) {
 				elements.add(i + "");
 			}
-			List<Bucket<String>> buckets = CollectionUtils.splitEvenly(elements, 7);
-			logger.info("buckets.size()=" + buckets.size());
-			for (Bucket<String> bucket : buckets) {
-				logger.info(bucket.getElements().size() + "");
+			List<List<String>> listOfLists = CollectionUtils.splitEvenly(elements, 7);
+			logger.info("listOfStringLists.size()=" + listOfLists.size());
+			for (List<String> strings : listOfLists) {
+				logger.info(strings.size() + "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

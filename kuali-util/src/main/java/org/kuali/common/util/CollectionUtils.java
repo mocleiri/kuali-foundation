@@ -54,24 +54,22 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Split <code>elements</code> evenly into buckets divided up <code>howManyWays</code>
+	 * Split <code>elements</code> evenly into separate lists divided up <code>howManyWays</code>
 	 */
-	public static final <T> List<Bucket<T>> splitEvenly(List<T> elements, int howManyWays) {
+	public static final <T> List<List<T>> splitEvenly(List<T> elements, int howManyWays) {
 		int[] lengths = getDivideEvenly(elements.size(), howManyWays);
-		List<Bucket<T>> buckets = new ArrayList<Bucket<T>>();
 		int offset = 0;
+		List<List<T>> listOfLists = new ArrayList<List<T>>();
 		for (int i = 0; i < lengths.length; i++) {
 			int length = lengths[i];
-			Bucket<T> bucket = new Bucket<T>();
-			List<T> bucketElements = new ArrayList<T>();
-			bucket.setElements(bucketElements);
+			List<T> sublist = new ArrayList<T>();
 			for (int j = offset; j < offset + length; j++) {
-				bucketElements.add(elements.get(j));
+				sublist.add(elements.get(j));
 			}
-			buckets.add(bucket);
+			listOfLists.add(sublist);
 			offset += length;
 		}
-		return buckets;
+		return listOfLists;
 	}
 
 	/**
