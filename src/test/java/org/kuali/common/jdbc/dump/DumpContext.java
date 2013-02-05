@@ -7,6 +7,12 @@ import javax.sql.DataSource;
 
 public class DumpContext {
 
+	boolean processTables = true;
+	boolean processSequences = true;
+	boolean processViews = true;
+	boolean printMetaInfLists = false;
+	int threads = 15;
+	String controlTemplate = "data/Control.vm";
 	File schemaXmlFile;
 	String schemaName;
 	String username;
@@ -25,12 +31,7 @@ public class DumpContext {
 	String comment;
 	String dateFormat;
 	File workingDir;
-	boolean processTables = true;
-	boolean processSequences = true;
-	boolean processViews = true;
-	boolean printMetaInfLists = true;
 	File contextProperties;
-	String controlTemplate;
 	String reportFile;
 	DataSource dataSource;
 
@@ -232,6 +233,14 @@ public class DumpContext {
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
+	}
+
+	public int getThreads() {
+		return threads;
+	}
+
+	public void setThreads(int threads) {
+		this.threads = threads;
 	}
 
 }
