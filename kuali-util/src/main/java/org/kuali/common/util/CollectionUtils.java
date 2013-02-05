@@ -53,6 +53,9 @@ public class CollectionUtils {
 		return lengths;
 	}
 
+	/**
+	 * Split <code>elements</code> evenly into buckets divided up <code>howManyWays</code>
+	 */
 	public static final <T> List<Bucket<T>> splitEvenly(List<T> elements, int howManyWays) {
 		int[] lengths = getDivideEvenly(elements.size(), howManyWays);
 		List<Bucket<T>> buckets = new ArrayList<Bucket<T>>();
