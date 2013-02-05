@@ -57,6 +57,10 @@ public class CollectionUtils {
 	 * Split <code>elements</code> evenly into separate lists divided up <code>howManyWays</code>
 	 */
 	public static final <T> List<List<T>> splitEvenly(List<T> elements, int howManyWays) {
+		// Can't split 2 things 3 ways
+		if (howManyWays > elements.size()) {
+			howManyWays = elements.size();
+		}
 		int[] lengths = getDivideEvenly(elements.size(), howManyWays);
 		int offset = 0;
 		List<List<T>> listOfLists = new ArrayList<List<T>>();
