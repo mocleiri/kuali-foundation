@@ -45,6 +45,8 @@ import org.kuali.db.JDBCUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class KualiTorqueSchemaDumpTask extends DumpTask {
@@ -77,15 +79,22 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			// Store the platform and schema
 			DatabaseContext db = new DatabaseContext(platform, schema);
 
-			// Use multiple threads to divide and conquer the task of getting metadata about each table
+			// Use multiple threads to divide and conquer the task of getting metadata from the db about each table
 			fillInMetaData(tables, dataSource, db, threads);
 
-			// Convert the metadata to XML
-			DocumentImpl document = getDocumentImpl();
+			// Get the top level document object
+			Document document = getDocument();
+
+			// Use it to help create the top level datbase node
 			Element databaseNode = getDatabaseNode(document);
+
+			// Populate the document with metadata about the tables
 			processTables(tables, document, databaseNode);
 
-			// Write the XML to a file on the local file system
+			// Append the database node to the document
+			document.appendChild(databaseNode);
+
+			// Serialize the document object as XML to the file system
 			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(schemaXMLFile));
 			serialize(document, schemaXMLFile, encoding);
 		} catch (Exception e) {
@@ -93,13 +102,13 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected void processTables(List<TableContext> tables, DocumentImpl document, Element databaseNode) {
+	protected void processTables(List<TableContext> tables, Document document, Element databaseNode) {
 		for (TableContext table : tables) {
 			processTable(table, document, databaseNode);
 		}
 	}
 
-	protected void processTable(TableContext table, DocumentImpl document, Element databaseNode) {
+	protected void processTable(TableContext table, Document document, Element databaseNode) {
 		Element tableElement = document.createElement("table");
 		tableElement.setAttribute("name", table.getName());
 		processColumns(table, document, tableElement);
@@ -108,14 +117,14 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		databaseNode.appendChild(tableElement);
 	}
 
-	protected void processColumns(TableContext context, DocumentImpl document, Element tableElement) {
+	protected void processColumns(TableContext context, Document document, Element tableElement) {
 		for (Column column : context.getColumns()) {
 			Element columnElement = getColumnElement(column, context, document);
 			tableElement.appendChild(columnElement);
 		}
 	}
 
-	protected Element getColumnElement(Column col, TableContext context, DocumentImpl document) {
+	protected Element getColumnElement(Column col, TableContext context, Document document) {
 		String name = col.getName();
 		Integer type = col.getSqlType();
 		int size = col.getSize();
@@ -160,14 +169,14 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return column;
 	}
 
-	protected void processForeignKeys(TableContext context, DocumentImpl document, Element tableElement) {
+	protected void processForeignKeys(TableContext context, Document document, Element tableElement) {
 		for (String fkName : context.getForeignKeys().keySet()) {
 			Element fk = getForeignKeyElement(fkName, context.getForeignKeys(), document);
 			tableElement.appendChild(fk);
 		}
 	}
 
-	protected void processIndexes(TableContext context, DocumentImpl document, Element tableElement) {
+	protected void processIndexes(TableContext context, Document document, Element tableElement) {
 		for (Index idx : context.getIndexes()) {
 			String tagName = idx.isUnique() ? "unique" : "index";
 			Element index = document.createElement(tagName);
@@ -181,7 +190,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected Element getForeignKeyElement(String fkName, Map<String, ForeignKey> foreignKeys, DocumentImpl document) {
+	protected Element getForeignKeyElement(String fkName, Map<String, ForeignKey> foreignKeys, Document document) {
 		Element fk = document.createElement("foreign-key");
 		fk.setAttribute("name", fkName);
 		ForeignKey forKey = foreignKeys.get(fkName);
@@ -222,10 +231,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return defValue;
 	}
 
-	protected Element getDatabaseNode(DocumentImpl document) {
+	/**
+	 * Create the top level database node
+	 */
+	protected Element getDatabaseNode(Document document) {
 		Element databaseNode = document.createElement("database");
 		databaseNode.setAttribute("name", getName());
-		// JHK added naming method
 		databaseNode.setAttribute("defaultJavaNamingMethod", "nochange");
 		return databaseNode;
 	}
@@ -238,18 +249,22 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected DocumentImpl getDocumentImpl() {
+	/**
+	 * Create and return the top level Document object
+	 */
+	protected Document getDocument() {
 		DocumentTypeImpl docType = new DocumentTypeImpl(null, "database", null, getSystemId());
-		DocumentImpl doc = new DocumentImpl(docType);
-		doc.appendChild(doc.createComment(" " + getComment() + " "));
-		return doc;
+		Document document = new DocumentImpl(docType);
+		Comment comment = document.createComment(" " + getComment() + " ");
+		document.appendChild(comment);
+		return document;
 	}
 
-	protected void serialize(DocumentImpl document, File file, String encoding) {
+	protected void serialize(Document document, File file, String encoding) {
 		Writer out = null;
 		try {
 			out = new PrintWriter(FileUtils.openOutputStream(file));
-			OutputFormat format = new OutputFormat(Method.XML, "UTF-8", true);
+			OutputFormat format = new OutputFormat(Method.XML, encoding, true);
 			XMLSerializer serializer = new XMLSerializer(out, format);
 			serializer.serialize(document);
 		} catch (Exception e) {
@@ -272,9 +287,15 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db, int threads) throws SQLException {
+
+		// Divide the tables up as evenly as possible
 		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(contexts, threads);
+
+		// Print a dot every time 1% of the tables finish being processed
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
 		progressTracker.setTotal(contexts.size());
+
+		// One table bucket per thread, each bucket holds a bunch of tables
 		List<TableBucket> buckets = new ArrayList<TableBucket>();
 		for (List<TableContext> list : listOfLists) {
 			TableBucket bucket = new TableBucket();
@@ -286,6 +307,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			buckets.add(bucket);
 		}
 
+		// Create and invoke threads to fill in the metadata
+		invokeThreads(buckets);
+	}
+
+	protected void invokeThreads(List<TableBucket> buckets) {
 		// Store some context for the thread handler
 		ThreadHandlerContext<TableBucket> thc = new ThreadHandlerContext<TableBucket>();
 		thc.setList(buckets);
@@ -331,7 +357,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * Connect to a database and retrieve a list of all the tables for a given schema.
 	 */
 	protected List<TableContext> getTableList(Platform platform, DataSource dataSource, String schema, List<String> includes, List<String> excludes) throws SQLException {
-		logger.info("Connecting to the database in order to extract the table listing");
+		logger.info("Connecting to the database to extract the table listing");
 		Connection conn = null;
 		try {
 			conn = DataSourceUtils.getConnection(dataSource);
@@ -350,7 +376,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
-	protected void generateXML(DocumentImpl document, Element databaseNode, Platform platform, List<TableContext> tables) throws Exception {
+	protected void generateXML(Document document, Element databaseNode, Platform platform, List<TableContext> tables) throws Exception {
 
 		databaseNode = document.createElement("database");
 		databaseNode.setAttribute("name", getName());
