@@ -111,12 +111,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db) throws SQLException {
-		List<List<TableContext>> listOfTableLists = CollectionUtils.splitEvenly(contexts, 5);
+		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(contexts, 5);
 		List<TableBucket> buckets = new ArrayList<TableBucket>();
-		for (List<TableContext> tableList : listOfTableLists) {
+		for (List<TableContext> list : listOfLists) {
 			TableBucket bucket = new TableBucket();
 			bucket.setDataSource(dataSource);
-			bucket.setTables(tableList);
+			bucket.setTables(list);
 			bucket.setTask(this);
 			bucket.setDatabaseContext(db);
 			buckets.add(bucket);
