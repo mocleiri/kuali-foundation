@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,9 @@ import javax.sql.DataSource;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
+import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.xerces.dom.DocumentImpl;
@@ -28,6 +31,7 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
@@ -64,13 +68,166 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		Assert.notBlank(schema, "schema is null");
 		Assert.notNull(schemaXMLFile, "schemaXMLFile is null");
 		try {
+			// Oracle, mysql, etc
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
+
+			// Query the db to obtain the list of tables we are dumping
 			List<TableContext> tables = getTableList(platform, dataSource, schema, tableIncludes, tableExcludes);
+
+			// Store the platform and schema
 			DatabaseContext db = new DatabaseContext(platform, schema);
+
+			// Use multiple threads to divide and conquer the task of getting metadata about each table
 			fillInMetaData(tables, dataSource, db, threads);
+
+			// Convert the metadata to XML
+			DocumentImpl document = getDocumentImpl();
+			Element databaseNode = getDatabaseNode(document);
+			processTables(tables, document, databaseNode);
+
+			// Write the XML to a file on the local file system
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(schemaXMLFile));
+			serialize(document, schemaXMLFile, encoding);
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}
+	}
+
+	protected void processTables(List<TableContext> tables, DocumentImpl document, Element databaseNode) {
+		for (TableContext table : tables) {
+			processTable(table, document, databaseNode);
+		}
+	}
+
+	protected void processTable(TableContext table, DocumentImpl document, Element databaseNode) {
+		Element tableElement = document.createElement("table");
+		tableElement.setAttribute("name", table.getName());
+		processColumns(table, document, tableElement);
+		processForeignKeys(table, document, tableElement);
+		processIndexes(table, document, tableElement);
+		databaseNode.appendChild(tableElement);
+	}
+
+	protected void processColumns(TableContext context, DocumentImpl document, Element tableElement) {
+		for (Column column : context.getColumns()) {
+			Element columnElement = getColumnElement(column, context, document);
+			tableElement.appendChild(columnElement);
+		}
+	}
+
+	protected Element getColumnElement(Column col, TableContext context, DocumentImpl document) {
+		String name = col.getName();
+		Integer type = col.getSqlType();
+		int size = col.getSize();
+		int scale = col.getDecimalDigits();
+
+		Integer nullType = col.getNullType();
+		String defValue = col.getDefValue();
+
+		Element column = document.createElement("column");
+		column.setAttribute("name", name);
+
+		column.setAttribute("type", TypeMap.getTorqueType(type).getName());
+
+		if (size > 0
+		        && (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type
+		                .intValue() == Types.NUMERIC)) {
+			column.setAttribute("size", String.valueOf(size));
+		}
+
+		if (scale > 0 && (type.intValue() == Types.DECIMAL || type.intValue() == Types.NUMERIC)) {
+			column.setAttribute("scale", String.valueOf(scale));
+		}
+
+		if (context.getPrimaryKeys().containsKey(name)) {
+			column.setAttribute("primaryKey", "true");
+			// JHK: protect MySQL from excessively long column in the PK
+			// System.out.println( curTable + "." + name + " / " + size );
+			if (column.getAttribute("size") != null && size > 765) {
+				logger.debug("updating column " + context.getName() + "." + name + " length from " + size + " to 255");
+				column.setAttribute("size", "255");
+			}
+		} else {
+			if (nullType.intValue() == DatabaseMetaData.columnNoNulls) {
+				column.setAttribute("required", "true");
+			}
+		}
+
+		if (StringUtils.isNotBlank(defValue)) {
+			defValue = getDefaultValue(defValue);
+			column.setAttribute("default", defValue);
+		}
+		return column;
+	}
+
+	protected void processForeignKeys(TableContext context, DocumentImpl document, Element tableElement) {
+		for (String fkName : context.getForeignKeys().keySet()) {
+			Element fk = getForeignKeyElement(fkName, context.getForeignKeys(), document);
+			tableElement.appendChild(fk);
+		}
+	}
+
+	protected void processIndexes(TableContext context, DocumentImpl document, Element tableElement) {
+		for (Index idx : context.getIndexes()) {
+			String tagName = idx.isUnique() ? "unique" : "index";
+			Element index = document.createElement(tagName);
+			index.setAttribute("name", idx.getName());
+			for (String colName : idx.getColumns()) {
+				Element col = document.createElement(tagName + "-column");
+				col.setAttribute("name", colName);
+				index.appendChild(col);
+			}
+			tableElement.appendChild(index);
+		}
+	}
+
+	protected Element getForeignKeyElement(String fkName, Map<String, ForeignKey> foreignKeys, DocumentImpl document) {
+		Element fk = document.createElement("foreign-key");
+		fk.setAttribute("name", fkName);
+		ForeignKey forKey = foreignKeys.get(fkName);
+		String foreignKeyTable = forKey.getRefTableName();
+		List<Reference> refs = forKey.getReferences();
+		fk.setAttribute("foreignTable", foreignKeyTable);
+		String onDelete = forKey.getOnDelete();
+		// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
+		if (onDelete == "cascade") {
+			fk.setAttribute("onDelete", onDelete);
+		}
+		for (Reference refData : refs) {
+			Element ref = document.createElement("reference");
+			ref.setAttribute("local", refData.getLocalColumn());
+			ref.setAttribute("foreign", refData.getForeignColumn());
+			fk.appendChild(ref);
+		}
+		return fk;
+	}
+
+	protected String getDefaultValue(String defValue) {
+		if (StringUtils.isBlank(defValue)) {
+			return null;
+		}
+		defValue = defValue.trim();
+		// trim out parens & quotes out of def value.
+		// makes sense for MSSQL. not sure about others.
+		if (defValue.startsWith("(") && defValue.endsWith(")")) {
+			defValue = defValue.substring(1, defValue.length() - 1);
+		}
+
+		if (defValue.startsWith("'") && defValue.endsWith("'")) {
+			defValue = defValue.substring(1, defValue.length() - 1);
+		}
+		if (defValue.equals("NULL")) {
+			defValue = "";
+		}
+		return defValue;
+	}
+
+	protected Element getDatabaseNode(DocumentImpl document) {
+		Element databaseNode = document.createElement("database");
+		databaseNode.setAttribute("name", getName());
+		// JHK added naming method
+		databaseNode.setAttribute("defaultJavaNamingMethod", "nochange");
+		return databaseNode;
 	}
 
 	protected String getSystemId() {
@@ -92,9 +249,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		Writer out = null;
 		try {
 			out = new PrintWriter(FileUtils.openOutputStream(file));
-			OutputFormat format = new OutputFormat(Method.XML, encoding, true);
-			XMLSerializer xmlSerializer = new XMLSerializer(out, format);
-			xmlSerializer.serialize(document);
+			OutputFormat format = new OutputFormat(Method.XML, "UTF-8", true);
+			XMLSerializer serializer = new XMLSerializer(out, format);
+			serializer.serialize(document);
 		} catch (Exception e) {
 			throw new IllegalStateException("Error serializing", e);
 		} finally {
@@ -173,10 +330,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	/**
 	 * Connect to a database and retrieve a list of all the tables for a given schema.
 	 */
-	protected List<TableContext> getTableList(Platform platform, DataSource dataSource, String schema, List<String> includes, List<String> excludes) throws Exception {
+	protected List<TableContext> getTableList(Platform platform, DataSource dataSource, String schema, List<String> includes, List<String> excludes) throws SQLException {
+		logger.info("Connecting to the database in order to extract the table listing");
 		Connection conn = null;
 		try {
-			conn = DataSourceUtils.doGetConnection(dataSource);
+			conn = DataSourceUtils.getConnection(dataSource);
 			DatabaseMetaData metaData = conn.getMetaData();
 			List<String> tables = platform.getTableNames(metaData, schema);
 			doFilter(tables, includes, excludes, "tables");
@@ -187,10 +345,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	public void closeQuietly(Connection conn, DataSource dataSource) {
-		if (conn == null) {
-			return;
+		if (conn != null) {
+			DataSourceUtils.releaseConnection(conn, dataSource);
 		}
-		DataSourceUtils.releaseConnection(conn, dataSource);
 	}
 
 	protected void generateXML(DocumentImpl document, Element databaseNode, Platform platform, List<TableContext> tables) throws Exception {
