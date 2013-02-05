@@ -35,7 +35,7 @@ public class CollectionUtilsTest {
 				elements.add(i + "");
 			}
 			List<List<String>> listOfLists = CollectionUtils.splitEvenly(elements, 7);
-			logger.info("listOfStringLists.size()=" + listOfLists.size());
+			logger.info("listOfLists.size()=" + listOfLists.size());
 			for (List<String> strings : listOfLists) {
 				logger.info(strings.size() + "");
 			}
