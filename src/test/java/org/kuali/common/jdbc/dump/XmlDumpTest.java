@@ -53,7 +53,7 @@ public class XmlDumpTest {
 			Task schemaDump = getSchemaDumpTask(context, project);
 			Task dataDump = getDataDumpTask(context, project);
 			Task generateDtd = getGenerateDtdTask(context, project);
-			// schemaDump.execute();
+			schemaDump.execute();
 			// dataDump.execute();
 			// generateDtd.execute();
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
@@ -64,9 +64,9 @@ public class XmlDumpTest {
 	}
 
 	protected void log(DumpContext context) {
-		logger.info("--------------------------------------------------");
-		logger.info("Kuali Database XML Dumper");
-		logger.info("--------------------------------------------------");
+		logger.info("---------------------------------------------------------------");
+		logger.info("Kuali Database Dump");
+		logger.info("---------------------------------------------------------------");
 		logger.info("Database Vendor - {}", context.getDatabaseVendor());
 		logger.info("Url - {}", context.getUrl());
 		logger.info("Schema - {}", context.getSchemaName());
@@ -75,7 +75,7 @@ public class XmlDumpTest {
 		logger.info("Driver - {}", context.getDriver());
 		logger.info("Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableIncludes()));
 		logger.info("Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableExcludes()));
-		logger.info("--------------------------------------------------");
+		logger.info("---------------------------------------------------------------");
 	}
 
 	protected DataSource getDataSource(Properties p) {
@@ -95,7 +95,7 @@ public class XmlDumpTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KRSB_Q.*";
+		String tableIncludes = "KRLC.*";
 		String viewIncludes = ".*"; // tableIncludes; // "KRCR_CMPNT.*";
 		String sequenceIncludes = ".*"; // tableIncludes; // "KRCR_CMPNT.*";
 
