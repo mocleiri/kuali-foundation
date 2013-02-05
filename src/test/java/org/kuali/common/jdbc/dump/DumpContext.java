@@ -11,8 +11,10 @@ public class DumpContext {
 	boolean processSequences = true;
 	boolean processViews = true;
 	boolean printMetaInfLists = false;
+	boolean antCompatibilityMode = true;
 	int threads = 15;
 	String controlTemplate = "data/Control.vm";
+	String encoding;
 	File schemaXmlFile;
 	String schemaName;
 	String username;
@@ -241,6 +243,22 @@ public class DumpContext {
 
 	public void setThreads(int threads) {
 		this.threads = threads;
+	}
+
+	public boolean isAntCompatibilityMode() {
+		return antCompatibilityMode;
+	}
+
+	public void setAntCompatibilityMode(boolean antCompatibilityMode) {
+		this.antCompatibilityMode = antCompatibilityMode;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
