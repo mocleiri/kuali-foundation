@@ -33,6 +33,46 @@ import org.springframework.util.Assert;
 public class CollectionUtils {
 
 	/**
+	 * Return an array of int's that represents as even of a split as possible
+	 *
+	 * For example: passing in 100,7 returns 15, 15, 14, 14, 14, 14, 14
+	 *
+	 * @param numerator
+	 * @param denominator
+	 * @return
+	 */
+	public static int[] getDivideEvenly(int number, int howManyWays) {
+		int quotient = number / howManyWays;
+		int remainder = number % howManyWays;
+
+		int[] lengths = new int[howManyWays];
+		for (int i = 0; i < howManyWays; i++) {
+			int length = i < remainder ? quotient + 1 : quotient;
+			lengths[i] = length;
+		}
+		return lengths;
+	}
+
+	public static final <T> List<Bucket<T>> splitEvenly(List<T> elements, int howManyWays) {
+		int[] lengths = getDivideEvenly(elements.size(), howManyWays);
+		List<Bucket<T>> buckets = new ArrayList<Bucket<T>>();
+		int offset = 0;
+		for (int i = 0; i < lengths.length; i++) {
+			int length = lengths[i];
+
+			Bucket<T> bucket = new Bucket<T>();
+			List<T> bucketElements = new ArrayList<T>();
+			bucket.setElements(bucketElements);
+			for (int j = offset; j < offset + length; j++) {
+				bucketElements.add(elements.get(j));
+			}
+			buckets.add(bucket);
+			offset += length;
+		}
+		return buckets;
+	}
+
+	/**
 	 * Prefix the strings passed in with their position in the list (left padded with zero's). The padding is the number of digits in the
 	 * size of the list. A list with 100 elements will return strings prefixed with 000, 001, etc.
 	 */
