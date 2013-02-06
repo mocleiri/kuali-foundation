@@ -82,15 +82,15 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			// Connect to the database and get a list of tables/views to process
 			DatabaseContext database = getInitialMetaData(platform, this);
 
-			// Use multiple threads to divide and conquer the task of getting the full set of metadata
+			// Use multiple threads to pull in metadata concurrently
 			fillInMetaData(database, dataSource, threads);
 
 			// Create a document object from the metadata
-			Document document = getDocument(database, this);
+			// Document document = getDocument(database, this);
 
 			// Serialize the document object as XML to the file system
 			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(schemaXMLFile));
-			serialize(document, schemaXMLFile, encoding);
+			// serialize(document, schemaXMLFile, encoding);
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}
@@ -321,7 +321,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// Aggregate into a single list all of the tables, views, and sequences we need to acquire info about
 		List<JdbcRequest> requests = getJdbcContexts(database);
 
-		logger.info("Filling in metadata for {} database objects", requests.size());
+		logger.info("Acquiring metadata for {} database objects", requests.size());
+
+		// Nothing to do
+		if (CollectionUtils.isEmpty(requests)) {
+			return;
+		}
 
 		// We want each thread to have approximately the same mix of tables/views/sequences to deal with
 		Collections.shuffle(requests);
@@ -382,7 +387,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
 		String time = FormatUtils.getTime(stats.getExecutionTime());
-		logger.info("Acquired all necessary metadata.  Disconnecting from database.  Time: {}", time);
+		logger.info("Metadata acquisition completed.  Disconnecting from database.  Time: {}", time);
 	}
 
 	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
