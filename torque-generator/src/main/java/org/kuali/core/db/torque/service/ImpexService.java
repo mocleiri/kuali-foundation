@@ -34,7 +34,7 @@ public class ImpexService {
 
 		// Add in tables and views
 		long start = System.currentTimeMillis();
-		// fillInDatabaseMetaData(database, context);
+		fillInDatabaseObjectLists(database, context);
 		logger.info("Database object lists created.  Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 		return database;
@@ -67,7 +67,7 @@ public class ImpexService {
 	/**
 	 * Connect to a database and retrieve tables/views
 	 */
-	protected void fillInDatabase(DatabaseContext database, ImpexContext context) throws SQLException {
+	protected void fillInDatabaseObjectLists(DatabaseContext database, ImpexContext context) throws SQLException {
 		logger.info("Opening database connection.");
 
 		Connection conn = null;
