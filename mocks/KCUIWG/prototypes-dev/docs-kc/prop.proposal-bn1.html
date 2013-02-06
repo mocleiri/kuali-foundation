@@ -78,190 +78,55 @@
       <div class="span12 content"> 
                 
                 
-        <div>
-        	<span id="control-panel">panel</span>
-            <span id="control-help">heavy help</span>
-            
-            <span id="control-required" style="border:1px solid #C00;">show required only</span>
+        <div style="margin-bottom:15px;">
+        	<a class="control-panel" style="margin-left:15px;">single panel view</a>
+            <a class="control-required" style="margin-left:15px;">show required fields only</a>
             <script type="text/javascript">
 				$(document).ready(function() {
-					
-					$("#control-required").click(
+				  
+					$('.control-required').on('click', function() {
 						
-						function()
-						{
-							alert("hit1");
-							$(".view_notrequired").slideUp(400);
-							$("#control-required").html("show all fields");
+						if( $("#testview01").css('display') == "block" ) {
+							$('.view_notrequired').slideUp(400);
+							$(this).addClass('required-only');
+							$('.view_showingxofy').slideDown(600);
+							$('.control-required').html("show all fields");
+						} else {
+							$('.view_notrequired').slideDown(600);
+							$(this).removeClass('required-only');
+							$('.view_showingxofy').slideUp(400);
+							$('.control-required').html("show required fields only");
 						}
+						
+						
+					});
 					
-					);
+					$('.control-panel').on('click', function() {
+						
+						if( $("#panelview01").css('display') == "block" ) {
+							$('.panel_notrequired').slideUp(400);
+							$(this).addClass('required-only');
+							$('.control-panel').html("multiple panel view");
+						} else {
+							$('.panel_notrequired').slideDown(600);
+							$(this).removeClass('required-only');
+							$('.control-panel').html("single panel view");
+						}
+						
+						
+					});
+				  
 				});
 			</script>
             
-            <span id="control-aoc">area of concern</span>
+            <span id="control-aoc" style="margin-left:15px;">area of concern</span>
+            <span id="control-help" style="margin-left:15px;">heavy help</span>
         </div>
                 
                 
         <div class="box">
           <div class="boxHeader">
-            <h3>Required Fields for Saving Document</h3>
-          </div>
-          <div class="boxContent" style="display:block" >
-            <div class="boxSubheader">
-              <h4>Required</h4>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="ProposalType">Proposal Type</label>
-              <div class="controls">
-                <select name="ProposalType" class="input-xlarge" id="ProposalType">
-                  <option value="">select</option>
-                  <option value="4">Continuation</option>
-                  <option value="1">New</option>
-                  <option value="3">Renewal</option>
-                  <option value="2">Resubmission</option>
-                  <option value="5">Revision</option>
-                  <option value="6">Task Order</option>
-                </select>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="asdf">Lead Unit</label>
-              <div class="controls">
-                <select name="select" class="input-xlarge" title="* Lead Unit">
-                  <option value="">select</option>
-                  <option value="000001">000001 - University</option>
-                  <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
-                  <option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
-                  <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
-                </select>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="asdf">Activity Type</label>
-              <div class="controls">
-                <select name="select" class="input-xlarge" title="* Activity Type">
-                  <option value="">select</option>
-                  <option value="4">Clinical Trial</option>
-                  <option value="9">Construction</option>
-                  <option value="7">Fellowship - Post-Doctoral</option>
-                  <option value="6">Fellowship - Pre-Doctoral</option>
-                  <option value="2">Instruction</option>
-                  <option value="3">Public Service</option>
-                  <option value="1">Research</option>
-                  <option value="8">Student Services</option>
-                  <option value="5">other</option>
-                </select>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="Text Field2">Start/End Dates</label>
-              <div class="controls controls-row datepicker">
-                <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="from...">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
-                <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="to...">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="orgdocnum2">Sponsor Code</label>
-              <div class="controls">
-                <div class="input-append">
-                  <input class="input-xlarge" id="asdf" type="text">
-                  <button type="submit" class="btn"> <i class="icon-search"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="control-group">
-              <!-- Textarea -->
-              <label class="control-label">Project Title</label>
-              <div class="controls">
-                <div class="textarea">
-                  <textarea name="textarea" class="input-xlarge"> </textarea>
-                </div>
-              </div>
-            </div>
-            <div class="boxSubheader">
-              <h4> Conditionally Required Institutional Fields</h4>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="orgdocnum4">Award ID</label>
-              <div class="controls">
-                <div class="input-append">
-                  <input class="input-xlarge" id="asdf2" type="text">
-                  <button type="submit" class="btn"> <i class="icon-search"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="orgdocnum5">Original Institutional Prop ID</label>
-              <div class="controls">
-                <div class="input-append">
-                  <input class="input-xlarge" id="asdf7" type="text">
-                  <button type="submit" class="btn"> <i class="icon-search"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="box">
-  <div class="boxHeader">
-    <h3> Grants.gov </h3>
-  </div>
-  <div class="boxContent" style=" display:none" >
-    <h4>Opportunity Search</h4>
-    <div class="control-group">
-      <label class="control-label" for="Description">Opportunity ID</label>
-      <div class="controls">
-        <input type="text" id="Description" placeholder="" class="input-xlarge">
-      </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="Description">CFDA Number</label>
-      <div class="controls">
-        <input type="text" id="Description" placeholder="" class="input-xlarge">
-      </div>
-    </div>
-    <div class="control-group" style="text-align: right; width:405px;">
-      <button class="btn btn-mini" >Search </button>
-    </div>
-    <h4>Opportunity</h4>
-    <div class="clearfix">
-      <dl class="table-display" style="margin-top:-13px;">
-        <dt> Opportunity ID</dt>
-        <dd></dd>
-        <dt>Opportunity Title</dt>
-        <dd></dd>
-        <dt>Submission Type</dt>
-        <dd></dd>
-        <dt>S2S Revision Type</dt>
-        <dd></dd>
-        <dt> CFDA Number</dt>
-        <dd></dd>
-        <dt>Competition Id</dt>
-        <dd></dd>
-        <dt>Opening Date</dt>
-        <dd></dd>
-        <dt>Closing Date</dt>
-        <dd></dd>
-        <dt>Instruction Page</dt>
-        <dd></dd>
-        <dt>Schema URL</dt>
-        <dd></dd>
-      </dl>
-    </div>
-    <h4>Submission Details</h4>
-    Submission details will be available after the proposal is submitted.
-    <h4>Forms</h4>
-    No forms are currently available for the Grants.gov opportunity selected. </div>
-</div>
-        
-        <div class="box">
-          <div class="boxHeader">
-            <h3> Sponsor &amp; Program Information </h3>
+            <h3> Some Panel 1</h3>
           </div>
           <div class="boxContent" style="display:none" >
             <div class="control-group view_notrequired">
@@ -273,7 +138,7 @@
                 </div>
               </div>
             </div>
-            <div class="control-group view_notrequired">
+            <div class="control-group view_notrequired" id="testview01">
               <label class="control-label" for="ProposalType4">Notice of Opportunity</label>
               <div class="controls">
                 <select name="select2" class="input-xlarge" title="Notice of Opportunity" >
@@ -404,133 +269,83 @@
                 </div>
               </div>
             </div>
+            
+            <!--<div class="control-group view_showingxofy" style="display:none;">
+              <small>showing 4 of 13 elements: <a href="#" class="control-required">show all</a></small>
+            </div>-->
+            
+            <div class="control-group view_showingxofy" style="display:none;">
+              <label class="control-label" for="Description11"><small>Showing 4 of 13 elements:</small></label>
+              <div class="controls" style="padding-top:5px;">
+                <small><a href="#" class="control-required">show all</a></small>
+              </div>
+            </div>
+            
           </div>
         </div>
         
-        <div class="box">
+        <div class="box panel_notrequired" id="panelview01">
           <div class="boxHeader">
-            <h3> Organization/Location </h3>
+            <h3> Some Panel 2</h3>
           </div>
           <div class="boxContent" style="display:none" >
-            <div class="boxSubheader">
-              <h4>Applicant Organization</h4>
-              <div class="boxControls"><a href="../asdf.html" class="btn btn-mini">change</a></div>
+            <div class="control-group view_notrequired">
+              <label class="control-label" for="orgdocnum3">Sponsor Deadline Date </label>
+              <div class="controls">
+                <div class="input-append">
+                  <input class=" input-small" id="asdf6" type="text">
+                  <button type="submit" class="btn"> <i class="icon-calendar"></i></button>
+                </div>
+              </div>
             </div>
-            <dl class="table-display" style="margin-top:-13px;">
-              <dt>Organization</dt>
-              <dd>UNIVERSITY OF MICHIGAN</dd>
-              <dt>Address 1</dt>
-              <dd>2044 Wolverine Tower</dd>
-              <dt>Address 2</dt>
-              <dd>3003 State Street</dd>
-              <dt> City</dt>
-              <dd>ANN ARBOR</dd>
-              <dt>State</dt>
-              <dd>MI</dd>
-              <dt>Zip</dt>
-              <dd>48109-1273</dd>
-              <dt>Congressional District</dt>
-              <dd>MI-302 <a href="#">(delete)</a></dd>
-              <dt>Congressional District</dt>
-              <dd>MI-307 <a href="#">(delete)</a></dd>
-              <dt>Congressional District</dt>
-              <dd><a href="#">+ add</a></dd>
-            </dl>
-            <div class="clearfix"></div>
-            <div class="boxSubheader">
-              <h4>Performing Organization</h4>
-              <div class="boxControls"><a href="../asdf.html" class="btn btn-mini">change</a></div>
+            <div class="control-group">
+              <label class="control-label" for="ProposalType5">Sponsor Deadline Type</label>
+              <div class="controls">
+                <select class="input-xlarge" title="Sponsor Deadline Type">
+                  <option value="">select</option>
+                  <option value="P">Postmark</option>
+                  <option value="R">Receipt</option>
+                  <option value="T">Target</option>
+                </select>
+              </div>
             </div>
-            <dl class="table-display" style="margin-top:-13px;">
-              <dt>Organization</dt>
-              <dd>UNIVERSITY OF MICHIGAN</dd>
-              <dt>Address 1</dt>
-              <dd>2044 Wolverine Tower</dd>
-              <dt>Address 2</dt>
-              <dd>3003 State Street</dd>
-              <dt> City</dt>
-              <dd>ANN ARBOR</dd>
-              <dt>State</dt>
-              <dd>MI</dd>
-              <dt>Zip</dt>
-              <dd>48109-1273</dd>
-              <dt>Congressional District</dt>
-              <dd>MI-302 <a href="#">(delete)</a></dd>
-              <dt>Congressional District</dt>
-              <dd>MI-307 <a href="#">(delete)</a></dd>
-              <dt>Congressional District</dt>
-              <dd><a href="#">+ add</a></dd>
-            </dl>
-            <div class="clearfix"></div>
-            <div class="boxSubheader">
-              <h4>Performance Site Locations (optional)</h4>
-              <div class="boxControls"><a href="../asdf.html" class="btn btn-mini">add</a></div>
-            </div>
-            <div class="boxSubheader">
-              <h4>Other Organizations (optional)</h4>
-              <div class="boxControls"><a href="../asdf.html" class="btn btn-mini">add</a></div>
+            <div class="control-group view_notrequired">
+              <label class="control-label" for="Description5">Opportunity ID</label>
+              <div class="controls">
+                <input type="text" id="Description5" placeholder="" class="input-xlarge">
+              </div>
             </div>
           </div>
         </div>
         
-        <div class="box">
+        <div class="box panel_notrequired">
           <div class="boxHeader">
-            <h3> Delivery Info </h3>
+            <h3> Some Panel 3</h3>
           </div>
           <div class="boxContent" style="display:none" >
-            <div class="boxSubheader">
-              <h4>Recipient </h4>
-              <div class="boxControls"><a href="../asdf.html" class="btn btn-mini">change</a></div>
-            </div>
-            <dl class="table-display" style="margin-top:-13px;">
-              <dt>Organization</dt>
-              <dd>UNIVERSITY OF MICHIGAN</dd>
-              <dt>Address 1</dt>
-              <dd>2044 Wolverine Tower</dd>
-              <dt>Address 2</dt>
-              <dd>3003 State Street</dd>
-              <dt> City</dt>
-              <dd>ANN ARBOR</dd>
-              <dt>State</dt>
-              <dd>MI</dd>
-              <dt>Zip</dt>
-              <dd>48109-1273</dd>
-            </dl>
-            <div class="clearfix"></div>
-            <div class="boxSubheader">
-              <h4>Delivery Details </h4>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="ProposalType4">Mail By</label>
+            <div class="control-group view_notrequired">
+              <label class="control-label" for="ProposalType7">Subawards</label>
               <div class="controls">
-                <select name="select2" class="input-xlarge" title="Notice of Opportunity" >
-                  <option value="">select</option>
-                </select>
+                <label class="checkbox">
+                  <input type="checkbox" value="">
+                  Does this proposal include subaward(s)?</label>
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="ProposalType4">Type</label>
+            <div class="control-group view_notrequired">
+              <label class="control-label" for="Description9">Sponsor Div Code</label>
               <div class="controls">
-                <select name="select2" class="input-xlarge" title="Notice of Opportunity" >
-                  <option value="">select</option>
-                </select>
+                <input type="text" id="Description9" placeholder="" class="input-xlarge">
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="Description3">Mail Account ID</label>
+            <div class="control-group view_notrequired">
+              <label class="control-label" for="Description10">Sponsor Program Code</label>
               <div class="controls">
-                <input type="text" id="Description3" placeholder="" class="input-xlarge">
+                <input type="text" id="Description10" placeholder="" class="input-xlarge">
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="Description3">Number of Copies</label>
-              <div class="controls">
-                <input type="text" id="Description3" placeholder="" class="input-xlarge">
-              </div>
-            </div>
-            <div class="control-group"> 
+            <div class="control-group view_notrequired"> 
               <!-- Textarea -->
-              <label class="control-label">Mail Description</label>
+              <label class="control-label">Opportunity Title</label>
               <div class="controls">
                 <div class="textarea">
                   <textarea name="textarea2" class="input-xlarge"> </textarea>
@@ -540,22 +355,7 @@
           </div>
         </div>
         
-        <div class="box">
-          <div class="boxHeader">
-            <h3> Keywords </h3>
-          </div>
-          <div class="boxContent" style="display:none" >
-            <dl class="table-display" style="margin-top:;">
-              <dt>1</dt>
-              <dd>Carbon <a href="#">(delete)</a></dd>
-              <dt>2</dt>
-              <dd>Heat <a href="#">(delete)</a></dd>
-              <dt>3</dt>
-              <dd><a href="#">+ add</a></dd>
-            </dl>
-            <div class="clearfix"></div>
-          </div>
-        </div>
+        <div style=" padd12px; text-align:center"> <a href="index.html" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn">save</a> <a href="prop.keypersonnel.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
         
       </div>
     </div>
@@ -578,7 +378,7 @@
     <script src="../assets/js/bootstrap-carousel.js"></script> 
     <script src="../assets/js/bootstrap-typeahead.js"></script> 
     <script src="../assets/js/bootstrap-editable.js"></script> 
-    <!--<script src="../assets/js/application.js"></script>
-    <script src="../assets/js/custom.js?v=0.1"></script>-->
+    <script src="../assets/js/application.js"></script>
+    <script src="../assets/js/custom.js?v=0.1"></script>
 </body>
 </html>
