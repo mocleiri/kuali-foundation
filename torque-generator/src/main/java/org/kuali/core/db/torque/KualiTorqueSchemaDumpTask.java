@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +39,13 @@ import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
-import org.kuali.core.db.torque.pojo.JdbcContext;
+import org.kuali.core.db.torque.pojo.JdbcRequest;
+import org.kuali.core.db.torque.pojo.JdbcRequestBucket;
+import org.kuali.core.db.torque.pojo.JdbcRequestHandler;
 import org.kuali.core.db.torque.pojo.Reference;
-import org.kuali.core.db.torque.pojo.TableBucket;
-import org.kuali.core.db.torque.pojo.TableBucketHandler;
+import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
+import org.kuali.core.db.torque.pojo.View;
 import org.kuali.db.JDBCUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -314,23 +317,26 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	protected void fillInMetaData(DatabaseContext database, DataSource dataSource, int threads) throws SQLException {
 
-		// Get our list of tables
-		List<TableContext> tables = database.getTables();
+		// Aggregate into a single list all of the tables, views, and sequences we need to acquire info about
+		List<JdbcRequest> requests = getJdbcContexts(database);
 
-		// Divide the tables up as evenly as possible
-		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, threads);
+		// We want each thread to have approximately the same mix of tables/views/sequences to deal with
+		Collections.shuffle(requests);
 
-		// Print a dot every time 1% of the tables finish being processed
+		// Divide the list up as evenly as possible
+		List<List<JdbcRequest>> listOfLists = CollectionUtils.splitEvenly(requests, threads);
+
+		// Print a dot any time we complete 1% of our requests
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		progressTracker.setTotal(tables.size());
+		progressTracker.setTotal(requests.size());
 
-		// Each bucket holds a bunch of tables
-		List<TableBucket> buckets = new ArrayList<TableBucket>();
-		for (List<TableContext> list : listOfLists) {
-			TableBucket bucket = new TableBucket();
+		// Each bucket holds a bunch of requests
+		List<JdbcRequestBucket> buckets = new ArrayList<JdbcRequestBucket>();
+		for (List<JdbcRequest> list : listOfLists) {
+			JdbcRequestBucket bucket = new JdbcRequestBucket();
 			bucket.setProgressTracker(progressTracker);
 			bucket.setDataSource(dataSource);
-			bucket.setTables(list);
+			bucket.setRequests(list);
 			bucket.setTask(this);
 			bucket.setDatabaseContext(database);
 			buckets.add(bucket);
@@ -340,31 +346,31 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		invokeThreads(buckets);
 	}
 
-	protected List<JdbcContext> getJdbcContexts(DatabaseContext database) {
-		List<JdbcContext> contexts = new ArrayList<JdbcContext>();
+	protected List<JdbcRequest> getJdbcContexts(DatabaseContext database) {
+		List<JdbcRequest> contexts = new ArrayList<JdbcRequest>();
 		for (TableContext table : CollectionUtils.toEmptyList(database.getTables())) {
-			JdbcContext jc = new JdbcContext();
+			JdbcRequest jc = new JdbcRequest();
 			jc.setTable(table);
 			contexts.add(jc);
 		}
-		for (String view : CollectionUtils.toEmptyList(database.getViews())) {
-			JdbcContext jc = new JdbcContext();
+		for (View view : CollectionUtils.toEmptyList(database.getViews())) {
+			JdbcRequest jc = new JdbcRequest();
 			jc.setView(view);
 			contexts.add(jc);
 		}
-		for (String sequence : CollectionUtils.toEmptyList(database.getSequences())) {
-			JdbcContext jc = new JdbcContext();
+		for (Sequence sequence : CollectionUtils.toEmptyList(database.getSequences())) {
+			JdbcRequest jc = new JdbcRequest();
 			jc.setSequence(sequence);
 			contexts.add(jc);
 		}
 		return contexts;
 	}
 
-	protected void invokeThreads(List<TableBucket> buckets) {
+	protected void invokeThreads(List<JdbcRequestBucket> buckets) {
 		// Store some context for the thread handler
-		ThreadHandlerContext<TableBucket> thc = new ThreadHandlerContext<TableBucket>();
+		ThreadHandlerContext<JdbcRequestBucket> thc = new ThreadHandlerContext<JdbcRequestBucket>();
 		thc.setList(buckets);
-		thc.setHandler(new TableBucketHandler());
+		thc.setHandler(new JdbcRequestHandler());
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
@@ -420,13 +426,15 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 			// Convert JDBC metadata into a list of view names
 			if (task.isProcessViews()) {
-				List<String> views = getViewNames(metaData);
+				List<String> names = getViewNames(metaData);
+				List<View> views = getViews(names);
 				context.setViews(views);
 			}
 
 			// Acquire a list of sequence names (invokes platform specific logic)
 			if (task.isProcessSequences()) {
-				List<String> sequences = getSequences(context, metaData, task);
+				List<String> names = getSequences(context, metaData, task);
+				List<Sequence> sequences = getSequences(names);
 				context.setSequences(sequences);
 			}
 		} finally {
@@ -435,11 +443,31 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		}
 	}
 
+	protected List<Sequence> getSequences(List<String> names) {
+		List<Sequence> sequences = new ArrayList<Sequence>();
+		for (String name : names) {
+			Sequence sequence = new Sequence();
+			sequence.setName(name);
+			sequences.add(sequence);
+		}
+		return sequences;
+	}
+
+	protected List<View> getViews(List<String> names) {
+		List<View> views = new ArrayList<View>();
+		for (String name : names) {
+			View view = new View();
+			view.setName(name);
+			views.add(view);
+		}
+		return views;
+	}
+
 	protected List<String> getSequences(DatabaseContext context, DatabaseMetaData metaData, KualiTorqueSchemaDumpTask task) throws SQLException {
 		Platform platform = context.getPlatform();
 		String schema = context.getSchema();
 		List<String> sequences = platform.getSequenceNames(metaData, schema);
-		doFilter(sequences, task.getSequenceExcludes(), task.getSequenceExcludes(), "sequences");
+		doFilter(sequences, task.getSequenceIncludes(), task.getSequenceExcludes(), "sequences");
 		return sequences;
 	}
 
