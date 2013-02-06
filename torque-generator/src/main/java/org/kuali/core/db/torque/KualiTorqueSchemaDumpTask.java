@@ -412,7 +412,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
 		String time = FormatUtils.getTime(stats.getExecutionTime());
-		logger.info("Metadata acquisition completed.  Disconnecting from database.  Time: {}", time);
+		logger.info("Metadata acquired.  Time: {}", time);
+		logger.info("Disconnecting from database.");
 	}
 
 	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
@@ -450,7 +451,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			// Connect to the database
 			conn = DataSourceUtils.getConnection(dataSource);
 
-			logger.info("Creating database object lists.");
+			logger.info("Generating database object lists.");
 
 			// Extract JDBC's metadata object
 			DatabaseMetaData metaData = conn.getMetaData();
