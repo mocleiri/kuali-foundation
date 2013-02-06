@@ -73,26 +73,14 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			// Oracle, mysql, etc
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
 
-			// Query the db to obtain the list of tables we are dumping
-			List<TableContext> tables = getTableList(platform, dataSource, schema, tableIncludes, tableExcludes);
+			// Connect to the database and get a list of tables/views to process
+			DatabaseContext database = getInitialMetaData(platform, this);
 
-			// Store the platform and schema
-			DatabaseContext db = new DatabaseContext(platform, schema);
+			// Use multiple threads to divide and conquer the task of getting the full set of metadata
+			fillInMetaData(database, dataSource, threads);
 
-			// Use multiple threads to divide and conquer the task of getting metadata from the db about each table
-			fillInMetaData(tables, dataSource, db, threads);
-
-			// Get the top level document object
-			Document document = getDocument();
-
-			// Use it to help create the top level datbase node
-			Element databaseNode = getDatabaseNode(document);
-
-			// Populate the document with metadata about the tables
-			processTables(tables, document, databaseNode);
-
-			// Append the database node to the document
-			document.appendChild(databaseNode);
+			// Create a document object from the metadata
+			Document document = getDocument(database, this);
 
 			// Serialize the document object as XML to the file system
 			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(schemaXMLFile));
@@ -100,6 +88,34 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}
+	}
+
+	protected Document getDocument(DatabaseContext database, KualiTorqueSchemaDumpTask task) {
+		// Get the top level document object
+		Document document = getDocument();
+
+		// Use the document to help create the top level database node
+		Element databaseNode = getDatabaseNode(document);
+
+		// Populate the document with metadata about the tables
+		if (task.isProcessTables()) {
+			processTables(database.getTables(), document, databaseNode);
+		}
+
+		// Append the database node to the document
+		document.appendChild(databaseNode);
+		return document;
+	}
+
+	protected DatabaseContext getInitialMetaData(Platform platform, KualiTorqueSchemaDumpTask task) throws SQLException {
+		DatabaseContext context = new DatabaseContext();
+		context.setPlatform(platform);
+		context.setSchema(task.getSchema());
+
+		// Add in tables and views
+		fillInContext(context, task);
+
+		return context;
 	}
 
 	protected void processTables(List<TableContext> tables, Document document, Element databaseNode) {
@@ -286,16 +302,19 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return primaryKeys;
 	}
 
-	protected void fillInMetaData(List<TableContext> contexts, DataSource dataSource, DatabaseContext db, int threads) throws SQLException {
+	protected void fillInMetaData(DatabaseContext database, DataSource dataSource, int threads) throws SQLException {
+
+		// Get our list of tables
+		List<TableContext> tables = database.getTables();
 
 		// Divide the tables up as evenly as possible
-		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(contexts, threads);
+		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, threads);
 
 		// Print a dot every time 1% of the tables finish being processed
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		progressTracker.setTotal(contexts.size());
+		progressTracker.setTotal(tables.size());
 
-		// One table bucket per thread, each bucket holds a bunch of tables
+		// Each bucket holds a bunch of tables
 		List<TableBucket> buckets = new ArrayList<TableBucket>();
 		for (List<TableContext> list : listOfLists) {
 			TableBucket bucket = new TableBucket();
@@ -303,7 +322,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			bucket.setDataSource(dataSource);
 			bucket.setTables(list);
 			bucket.setTask(this);
-			bucket.setDatabaseContext(db);
+			bucket.setDatabaseContext(database);
 			buckets.add(bucket);
 		}
 
@@ -349,25 +368,58 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		return contexts;
 	}
 
-	protected String getName() {
-		return artifactId;
+	/**
+	 * Connect to a database and retrieve tables/views
+	 */
+	protected void fillInContext(DatabaseContext context, KualiTorqueSchemaDumpTask task) throws SQLException {
+		logger.info("Connecting to the database to extract schema metadata");
+
+		Connection conn = null;
+		try {
+			// Connect to the database
+			conn = DataSourceUtils.getConnection(dataSource);
+
+			// Extract JDBC's metadata object
+			DatabaseMetaData metaData = conn.getMetaData();
+
+			// Convert JDBC metadata into a list of tables names
+			if (task.isProcessTables()) {
+				List<TableContext> tables = getTableList(metaData, context.getPlatform(), task);
+				context.setTables(tables);
+			}
+
+			// Convert JDBC metadata into a list of view names
+			if (task.isProcessViews()) {
+				List<String> views = getViewNames(metaData);
+				context.setViews(views);
+			}
+
+			// Acquire a list of sequence names (invokes platform specific logic)
+			if (task.isProcessSequences()) {
+				List<String> sequences = getSequences(context, metaData, task);
+				context.setSequences(sequences);
+			}
+		} finally {
+			// Close the connection
+			closeQuietly(conn, dataSource);
+		}
+	}
+
+	protected List<String> getSequences(DatabaseContext context, DatabaseMetaData metaData, KualiTorqueSchemaDumpTask task) throws SQLException {
+		Platform platform = context.getPlatform();
+		String schema = context.getSchema();
+		List<String> sequences = platform.getSequenceNames(metaData, schema);
+		doFilter(sequences, task.getSequenceExcludes(), task.getSequenceExcludes(), "sequences");
+		return sequences;
 	}
 
 	/**
 	 * Connect to a database and retrieve a list of all the tables for a given schema.
 	 */
-	protected List<TableContext> getTableList(Platform platform, DataSource dataSource, String schema, List<String> includes, List<String> excludes) throws SQLException {
-		logger.info("Connecting to the database to extract the table listing");
-		Connection conn = null;
-		try {
-			conn = DataSourceUtils.getConnection(dataSource);
-			DatabaseMetaData metaData = conn.getMetaData();
-			List<String> tables = platform.getTableNames(metaData, schema);
-			doFilter(tables, includes, excludes, "tables");
-			return getTableContexts(tables);
-		} finally {
-			closeQuietly(conn, dataSource);
-		}
+	protected List<TableContext> getTableList(DatabaseMetaData metaData, Platform platform, DumpTask task) throws SQLException {
+		List<String> tables = platform.getTableNames(metaData, task.getSchema());
+		doFilter(tables, task.getTableIncludes(), task.getTableExcludes(), "tables");
+		return getTableContexts(tables);
 	}
 
 	public void closeQuietly(Connection conn, DataSource dataSource) {
@@ -596,6 +648,10 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			JDBCUtils.closeQuietly(indexInfo);
 		}
 		return indexes;
+	}
+
+	protected String getName() {
+		return artifactId;
 	}
 
 	public boolean isProcessTables() {
