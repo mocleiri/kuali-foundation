@@ -127,7 +127,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// Add in tables and views
 		long start = System.currentTimeMillis();
 		fillInContext(context, task);
-		logger.info("Metadata lists acquired.  Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
+		logger.info("Database object lists created.  Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 		return context;
 	}
@@ -418,12 +418,14 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * Connect to a database and retrieve tables/views
 	 */
 	protected void fillInContext(DatabaseContext context, KualiTorqueSchemaDumpTask task) throws SQLException {
-		logger.info("Connecting to the database to extract metadata lists");
+		logger.info("Opening database connection.");
 
 		Connection conn = null;
 		try {
 			// Connect to the database
 			conn = DataSourceUtils.getConnection(dataSource);
+
+			logger.info("Creating database object lists.");
 
 			// Extract JDBC's metadata object
 			DatabaseMetaData metaData = conn.getMetaData();
