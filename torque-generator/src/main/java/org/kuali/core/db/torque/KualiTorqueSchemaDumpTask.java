@@ -86,11 +86,11 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			fillInMetaData(database, dataSource, threads);
 
 			// Create a document object from the metadata
-			// Document document = getDocument(database, this);
+			Document document = getDocument(database, this);
 
 			// Serialize the document object as XML to the file system
 			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(schemaXMLFile));
-			// serialize(document, schemaXMLFile, encoding);
+			serialize(document, schemaXMLFile, encoding);
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}
@@ -108,15 +108,40 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			processTables(database.getTables(), document, databaseNode);
 		}
 
+		// and views
 		if (task.isProcessViews()) {
+			processViews(database.getViews(), document, databaseNode);
 		}
 
+		// and sequences
 		if (task.isProcessSequences()) {
+			processSequences(database.getSequences(), document, databaseNode);
 		}
 
 		// Append the database node to the document
 		document.appendChild(databaseNode);
+
+		// Return the fully constructed document object
 		return document;
+	}
+
+	protected void processSequences(List<Sequence> sequences, Document document, Element databaseNode) {
+		for (Sequence sequence : sequences) {
+			Element sequenceElement = document.createElement("sequence");
+			sequenceElement.setAttribute("name", sequence.getName());
+			sequenceElement.setAttribute("nextval", sequence.getNextVal());
+			databaseNode.appendChild(sequenceElement);
+		}
+	}
+
+	protected void processViews(List<View> views, Document document, Element databaseNode) {
+		for (View view : views) {
+			Element viewElement = document.createElement("view");
+			viewElement.setAttribute("name", view.getName());
+			String definition = view.getDefinition().replaceAll("\0", "");
+			viewElement.setAttribute("viewdefinition", definition);
+			databaseNode.appendChild(viewElement);
+		}
 	}
 
 	protected DatabaseContext getInitialMetaData(Platform platform, KualiTorqueSchemaDumpTask task) throws SQLException {
