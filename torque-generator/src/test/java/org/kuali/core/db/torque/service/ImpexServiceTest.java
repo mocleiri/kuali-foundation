@@ -37,6 +37,7 @@ import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.w3c.dom.Document;
 
 public class ImpexServiceTest {
 
@@ -53,6 +54,9 @@ public class ImpexServiceTest {
 			ImpexService service = new DefaultImpexService();
 			DatabaseContext database = service.getDatabaseObjectLists(context);
 			service.fillInMetaData(context, database);
+			Document document = service.getDocument(context, database);
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
+			service.serialize(document, context.getSchemaXmlFile(), context.getEncoding());
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
@@ -96,7 +100,7 @@ public class ImpexServiceTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KR.*,TR.*";
+		String tableIncludes = "TR.*";
 		String viewIncludes = tableIncludes;
 		String sequenceIncludes = tableIncludes;
 		int threads = 15;
