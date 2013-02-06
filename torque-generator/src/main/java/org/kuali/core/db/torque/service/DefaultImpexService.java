@@ -27,10 +27,10 @@ import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
+import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.SchemaRequest;
 import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
 import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
-import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.kuali.core.db.torque.pojo.View;
@@ -276,31 +276,31 @@ public class DefaultImpexService implements ImpexService {
 		return database;
 	}
 
-	protected List<SchemaRequest> getJdbcContexts(DatabaseContext database) {
-		List<SchemaRequest> contexts = new ArrayList<SchemaRequest>();
+	protected List<SchemaRequest> getSchemaRequests(DatabaseContext database) {
+		List<SchemaRequest> requests = new ArrayList<SchemaRequest>();
 		for (TableContext table : CollectionUtils.toEmptyList(database.getTables())) {
-			SchemaRequest jc = new SchemaRequest();
-			jc.setTable(table);
-			contexts.add(jc);
+			SchemaRequest request = new SchemaRequest();
+			request.setTable(table);
+			requests.add(request);
 		}
 		for (View view : CollectionUtils.toEmptyList(database.getViews())) {
-			SchemaRequest jc = new SchemaRequest();
-			jc.setView(view);
-			contexts.add(jc);
+			SchemaRequest request = new SchemaRequest();
+			request.setView(view);
+			requests.add(request);
 		}
 		for (Sequence sequence : CollectionUtils.toEmptyList(database.getSequences())) {
-			SchemaRequest jc = new SchemaRequest();
-			jc.setSequence(sequence);
-			contexts.add(jc);
+			SchemaRequest request = new SchemaRequest();
+			request.setSequence(sequence);
+			requests.add(request);
 		}
-		return contexts;
+		return requests;
 	}
 
 	@Override
 	public void fillInMetaData(ImpexContext context, DatabaseContext database) throws SQLException {
 
 		// Aggregate into a single list all of the tables, views, and sequences we need to acquire info about
-		List<SchemaRequest> requests = getJdbcContexts(database);
+		List<SchemaRequest> requests = getSchemaRequests(database);
 
 		logger.info("Acquiring metadata for {} database objects", requests.size());
 
