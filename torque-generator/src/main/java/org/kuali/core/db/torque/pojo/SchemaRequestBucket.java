@@ -8,19 +8,19 @@ import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.service.ImpexContext;
 import org.kuali.core.db.torque.service.ImpexService;
 
-public class JdbcRequestBucket {
+public class SchemaRequestBucket {
 
-	List<JdbcRequest> requests;
+	List<SchemaRequest> requests;
 	DataSource dataSource;
 	ImpexContext impexContext;
 	PercentCompleteInformer progressTracker;
 	ImpexService impexService;
 
-	public List<JdbcRequest> getRequests() {
+	public List<SchemaRequest> getRequests() {
 		return requests;
 	}
 
-	public void setRequests(List<JdbcRequest> requests) {
+	public void setRequests(List<SchemaRequest> requests) {
 		this.requests = requests;
 	}
 

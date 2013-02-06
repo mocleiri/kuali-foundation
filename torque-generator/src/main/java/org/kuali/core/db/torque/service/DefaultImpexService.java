@@ -27,9 +27,9 @@ import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
-import org.kuali.core.db.torque.pojo.JdbcRequest;
-import org.kuali.core.db.torque.pojo.JdbcRequestBucket;
-import org.kuali.core.db.torque.pojo.JdbcRequestHandler;
+import org.kuali.core.db.torque.pojo.SchemaRequest;
+import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
+import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
 import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
@@ -276,20 +276,20 @@ public class DefaultImpexService implements ImpexService {
 		return database;
 	}
 
-	protected List<JdbcRequest> getJdbcContexts(DatabaseContext database) {
-		List<JdbcRequest> contexts = new ArrayList<JdbcRequest>();
+	protected List<SchemaRequest> getJdbcContexts(DatabaseContext database) {
+		List<SchemaRequest> contexts = new ArrayList<SchemaRequest>();
 		for (TableContext table : CollectionUtils.toEmptyList(database.getTables())) {
-			JdbcRequest jc = new JdbcRequest();
+			SchemaRequest jc = new SchemaRequest();
 			jc.setTable(table);
 			contexts.add(jc);
 		}
 		for (View view : CollectionUtils.toEmptyList(database.getViews())) {
-			JdbcRequest jc = new JdbcRequest();
+			SchemaRequest jc = new SchemaRequest();
 			jc.setView(view);
 			contexts.add(jc);
 		}
 		for (Sequence sequence : CollectionUtils.toEmptyList(database.getSequences())) {
-			JdbcRequest jc = new JdbcRequest();
+			SchemaRequest jc = new SchemaRequest();
 			jc.setSequence(sequence);
 			contexts.add(jc);
 		}
@@ -300,7 +300,7 @@ public class DefaultImpexService implements ImpexService {
 	public void fillInMetaData(ImpexContext context, DatabaseContext database) throws SQLException {
 
 		// Aggregate into a single list all of the tables, views, and sequences we need to acquire info about
-		List<JdbcRequest> requests = getJdbcContexts(database);
+		List<SchemaRequest> requests = getJdbcContexts(database);
 
 		logger.info("Acquiring metadata for {} database objects", requests.size());
 
@@ -313,16 +313,16 @@ public class DefaultImpexService implements ImpexService {
 		Collections.shuffle(requests);
 
 		// Divide the list up as evenly as possible
-		List<List<JdbcRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getThreads());
+		List<List<SchemaRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getThreads());
 
 		// Print a dot any time we complete 1% of our requests
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
 		progressTracker.setTotal(requests.size());
 
 		// Each bucket holds a bunch of requests
-		List<JdbcRequestBucket> buckets = new ArrayList<JdbcRequestBucket>();
-		for (List<JdbcRequest> list : listOfLists) {
-			JdbcRequestBucket bucket = new JdbcRequestBucket();
+		List<SchemaRequestBucket> buckets = new ArrayList<SchemaRequestBucket>();
+		for (List<SchemaRequest> list : listOfLists) {
+			SchemaRequestBucket bucket = new SchemaRequestBucket();
 			bucket.setProgressTracker(progressTracker);
 			bucket.setDataSource(context.getDataSource());
 			bucket.setRequests(list);
@@ -335,11 +335,11 @@ public class DefaultImpexService implements ImpexService {
 		invokeThreads(buckets);
 	}
 
-	protected void invokeThreads(List<JdbcRequestBucket> buckets) {
+	protected void invokeThreads(List<SchemaRequestBucket> buckets) {
 		// Store some context for the thread handler
-		ThreadHandlerContext<JdbcRequestBucket> thc = new ThreadHandlerContext<JdbcRequestBucket>();
+		ThreadHandlerContext<SchemaRequestBucket> thc = new ThreadHandlerContext<SchemaRequestBucket>();
 		thc.setList(buckets);
-		thc.setHandler(new JdbcRequestHandler());
+		thc.setHandler(new SchemaRequestHandler());
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);

@@ -1,6 +1,6 @@
 package org.kuali.core.db.torque.pojo;
 
-public class JdbcRequest {
+public class SchemaRequest {
 
 	TableContext table;
 	View view;

@@ -13,11 +13,11 @@ import org.kuali.core.db.torque.service.ImpexContext;
 import org.kuali.core.db.torque.service.ImpexService;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
-public class JdbcRequestHandler implements ElementHandler<JdbcRequestBucket> {
+public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket> {
 
 	@Override
-	public void handleElement(ListIteratorContext<JdbcRequestBucket> context, int index, JdbcRequestBucket element) {
-		List<JdbcRequest> requests = element.getRequests();
+	public void handleElement(ListIteratorContext<SchemaRequestBucket> context, int index, SchemaRequestBucket element) {
+		List<SchemaRequest> requests = element.getRequests();
 		DataSource dataSource = element.getDataSource();
 		ImpexContext impex = element.getImpexContext();
 		Platform platform = impex.getPlatform();
@@ -27,7 +27,7 @@ public class JdbcRequestHandler implements ElementHandler<JdbcRequestBucket> {
 		try {
 			conn = DataSourceUtils.getConnection(dataSource);
 			DatabaseMetaData metaData = conn.getMetaData();
-			for (JdbcRequest request : requests) {
+			for (SchemaRequest request : requests) {
 				if (request.getTable() != null) {
 					service.fillInMetaData(impex, request.getTable(), metaData);
 				}
