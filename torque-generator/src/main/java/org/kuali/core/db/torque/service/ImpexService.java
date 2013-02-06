@@ -1,10 +1,12 @@
 package org.kuali.core.db.torque.service;
 
+import java.io.File;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.TableContext;
+import org.w3c.dom.Document;
 
 public interface ImpexService {
 
@@ -23,4 +25,15 @@ public interface ImpexService {
 	 * Fill in the full set of metadata for this table
 	 */
 	void fillInMetaData(ImpexContext context, TableContext table, DatabaseMetaData metaData) throws SQLException;
+
+	/**
+	 * Populate a document object with the database metadata
+	 */
+	Document getDocument(ImpexContext context, DatabaseContext database);
+
+	/**
+	 * Serialize the document object to disk
+	 */
+	void serialize(Document document, File file, String encoding);
+
 }

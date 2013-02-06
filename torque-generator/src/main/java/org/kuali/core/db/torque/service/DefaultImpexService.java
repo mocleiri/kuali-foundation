@@ -1,9 +1,13 @@
 package org.kuali.core.db.torque.service;
 
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,8 +17,16 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
+import org.apache.xerces.dom.DocumentImpl;
+import org.apache.xerces.dom.DocumentTypeImpl;
+import org.apache.xml.serialize.Method;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
@@ -38,10 +50,221 @@ import org.kuali.db.JDBCUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+
+	@Override
+	public void serialize(Document document, File file, String encoding) {
+		Writer out = null;
+		try {
+			out = new PrintWriter(FileUtils.openOutputStream(file));
+			OutputFormat format = new OutputFormat(Method.XML, encoding, true);
+			XMLSerializer serializer = new XMLSerializer(out, format);
+			serializer.serialize(document);
+		} catch (Exception e) {
+			throw new IllegalStateException("Error serializing document to [" + file + "]", e);
+		} finally {
+			IOUtils.closeQuietly(out);
+		}
+	}
+
+	/**
+	 * Create the top level database node
+	 */
+	protected Element getDatabaseNode(ImpexContext context, Document document) {
+		Element databaseNode = document.createElement("database");
+		databaseNode.setAttribute("name", context.getArtifactId());
+		databaseNode.setAttribute("defaultJavaNamingMethod", "nochange");
+		return databaseNode;
+	}
+
+	/**
+	 * Create and return the top level Document object
+	 */
+	protected Document getDocument(ImpexContext context) {
+		DocumentTypeImpl docType = new DocumentTypeImpl(null, "database", null, context.getSystemId());
+		Document document = new DocumentImpl(docType);
+		Comment comment = document.createComment(" " + context.getComment() + " ");
+		document.appendChild(comment);
+		return document;
+	}
+
+	@Override
+	public Document getDocument(ImpexContext context, DatabaseContext database) {
+		// Get the top level document object
+		Document document = getDocument(context);
+
+		// Use the document to help create the top level database node
+		Element databaseNode = getDatabaseNode(context, document);
+
+		// Populate the document with metadata about the tables
+		processTables(database.getTables(), document, databaseNode);
+
+		// Populate the document with metadata about the views
+		processViews(database.getViews(), document, databaseNode);
+
+		// Populate the document with metadata about the sequences
+		processSequences(database.getSequences(), document, databaseNode);
+
+		// Append the database node to the document
+		document.appendChild(databaseNode);
+
+		// Return the fully constructed document object
+		return document;
+	}
+
+	protected void processSequences(List<Sequence> sequences, Document document, Element databaseNode) {
+		for (Sequence sequence : sequences) {
+			Element sequenceElement = document.createElement("sequence");
+			sequenceElement.setAttribute("name", sequence.getName());
+			sequenceElement.setAttribute("nextval", sequence.getNextVal());
+			databaseNode.appendChild(sequenceElement);
+		}
+	}
+
+	protected void processViews(List<View> views, Document document, Element databaseNode) {
+		for (View view : views) {
+			Element viewElement = document.createElement("view");
+			viewElement.setAttribute("name", view.getName());
+			String definition = view.getDefinition().replaceAll("\0", "");
+			viewElement.setAttribute("viewdefinition", definition);
+			databaseNode.appendChild(viewElement);
+		}
+	}
+
+	protected void processTables(List<TableContext> tables, Document document, Element databaseNode) {
+		for (TableContext table : tables) {
+			processTable(table, document, databaseNode);
+		}
+	}
+
+	protected void processTable(TableContext table, Document document, Element databaseNode) {
+		Element tableElement = document.createElement("table");
+		tableElement.setAttribute("name", table.getName());
+		processColumns(table, document, tableElement);
+		processForeignKeys(table, document, tableElement);
+		processIndexes(table, document, tableElement);
+		databaseNode.appendChild(tableElement);
+	}
+
+	protected void processColumns(TableContext context, Document document, Element tableElement) {
+		for (Column column : context.getColumns()) {
+			Element columnElement = getColumnElement(column, context, document);
+			tableElement.appendChild(columnElement);
+		}
+	}
+
+	protected void processForeignKeys(TableContext context, Document document, Element tableElement) {
+		for (String fkName : context.getForeignKeys().keySet()) {
+			Element fk = getForeignKeyElement(fkName, context.getForeignKeys(), document);
+			tableElement.appendChild(fk);
+		}
+	}
+
+	protected void processIndexes(TableContext context, Document document, Element tableElement) {
+		for (Index idx : context.getIndexes()) {
+			String tagName = idx.isUnique() ? "unique" : "index";
+			Element index = document.createElement(tagName);
+			index.setAttribute("name", idx.getName());
+			for (String colName : idx.getColumns()) {
+				Element col = document.createElement(tagName + "-column");
+				col.setAttribute("name", colName);
+				index.appendChild(col);
+			}
+			tableElement.appendChild(index);
+		}
+	}
+
+	protected Element getForeignKeyElement(String fkName, Map<String, ForeignKey> foreignKeys, Document document) {
+		Element fk = document.createElement("foreign-key");
+		fk.setAttribute("name", fkName);
+		ForeignKey forKey = foreignKeys.get(fkName);
+		String foreignKeyTable = forKey.getRefTableName();
+		List<Reference> refs = forKey.getReferences();
+		fk.setAttribute("foreignTable", foreignKeyTable);
+		String onDelete = forKey.getOnDelete();
+		// gmcgrego - just adding onDelete if it's cascade so as not to affect kfs behavior
+		if (onDelete == "cascade") {
+			fk.setAttribute("onDelete", onDelete);
+		}
+		for (Reference refData : refs) {
+			Element ref = document.createElement("reference");
+			ref.setAttribute("local", refData.getLocalColumn());
+			ref.setAttribute("foreign", refData.getForeignColumn());
+			fk.appendChild(ref);
+		}
+		return fk;
+	}
+
+	protected Element getColumnElement(Column col, TableContext context, Document document) {
+		String name = col.getName();
+		Integer type = col.getSqlType();
+		int size = col.getSize();
+		int scale = col.getDecimalDigits();
+
+		Integer nullType = col.getNullType();
+		String defValue = col.getDefValue();
+
+		Element column = document.createElement("column");
+		column.setAttribute("name", name);
+
+		column.setAttribute("type", TypeMap.getTorqueType(type).getName());
+
+		if (size > 0
+		        && (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type
+		                .intValue() == Types.NUMERIC)) {
+			column.setAttribute("size", String.valueOf(size));
+		}
+
+		if (scale > 0 && (type.intValue() == Types.DECIMAL || type.intValue() == Types.NUMERIC)) {
+			column.setAttribute("scale", String.valueOf(scale));
+		}
+
+		if (context.getPrimaryKeys().containsKey(name)) {
+			column.setAttribute("primaryKey", "true");
+			// JHK: protect MySQL from excessively long column in the PK
+			// System.out.println( curTable + "." + name + " / " + size );
+			if (column.getAttribute("size") != null && size > 765) {
+				logger.debug("updating column " + context.getName() + "." + name + " length from " + size + " to 255");
+				column.setAttribute("size", "255");
+			}
+		} else {
+			if (nullType.intValue() == DatabaseMetaData.columnNoNulls) {
+				column.setAttribute("required", "true");
+			}
+		}
+
+		if (StringUtils.isNotBlank(defValue)) {
+			defValue = getDefaultValue(defValue);
+			column.setAttribute("default", defValue);
+		}
+		return column;
+	}
+
+	protected String getDefaultValue(String defValue) {
+		if (StringUtils.isBlank(defValue)) {
+			return null;
+		}
+		defValue = defValue.trim();
+		// trim out parens & quotes out of def value.
+		// makes sense for MSSQL. not sure about others.
+		if (defValue.startsWith("(") && defValue.endsWith(")")) {
+			defValue = defValue.substring(1, defValue.length() - 1);
+		}
+
+		if (defValue.startsWith("'") && defValue.endsWith("'")) {
+			defValue = defValue.substring(1, defValue.length() - 1);
+		}
+		if (defValue.equals("NULL")) {
+			defValue = "";
+		}
+		return defValue;
+	}
 
 	@Override
 	public void fillInMetaData(ImpexContext context, TableContext table, DatabaseMetaData metaData) throws SQLException {
