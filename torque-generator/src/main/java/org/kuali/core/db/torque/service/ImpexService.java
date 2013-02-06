@@ -59,7 +59,7 @@ public class ImpexService {
 	 * Connect to a database and retrieve a list of all the tables for a given schema.
 	 */
 	protected List<TableContext> getTableList(DatabaseMetaData metaData, Platform platform, ImpexContext context) throws SQLException {
-		List<String> tables = platform.getTableNames(metaData, context.getSchemaName());
+		List<String> tables = platform.getTableNames(metaData, context.getSchema());
 		doFilter(tables, context.getTableIncludes(), context.getTableExcludes(), "tables");
 		return getTableContexts(tables);
 	}
@@ -116,7 +116,7 @@ public class ImpexService {
 	}
 
 	protected List<String> getSequences(DatabaseContext database, DatabaseMetaData metaData, ImpexContext context) throws SQLException {
-		List<String> sequences = context.getPlatform().getSequenceNames(metaData, context.getSchemaName());
+		List<String> sequences = context.getPlatform().getSequenceNames(metaData, context.getSchema());
 		doFilter(sequences, context.getSequenceIncludes(), context.getSequenceExcludes(), "sequences");
 		return sequences;
 	}
@@ -133,7 +133,7 @@ public class ImpexService {
 		// these are the entity types we want from the database
 		String[] types = { "VIEW" }; // JHK: removed views from list
 		try {
-			tableNames = metaData.getTables(null, context.getSchemaName(), null, types);
+			tableNames = metaData.getTables(null, context.getSchema(), null, types);
 			while (tableNames.next()) {
 				String name = tableNames.getString(3);
 				views.add(name);
