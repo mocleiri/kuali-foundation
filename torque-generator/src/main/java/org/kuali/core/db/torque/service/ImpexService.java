@@ -27,7 +27,7 @@ public class ImpexService {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexService.class);
 
 	/**
-	 * Use jdbc to obtain the list of tables/views/sequences for a given schema
+	 * Use JDBC calls to obtain the list of table names, view names, and sequence names for a given schema
 	 */
 	public DatabaseContext getDatabaseObjectLists(ImpexContext context) throws SQLException {
 		DatabaseContext database = new DatabaseContext();
@@ -50,9 +50,9 @@ public class ImpexService {
 		logger.info("{} - {}, filtered out - {}, remaining - {}", args);
 	}
 
-	// Left pad numbers with 4 digits or less
+	// Left pad numbers with 5 digits or less
 	protected String lpad(int smallNumber) {
-		return StringUtils.leftPad(smallNumber + "", 4, " ");
+		return StringUtils.leftPad(smallNumber + "", 5, " ");
 	}
 
 	/**
