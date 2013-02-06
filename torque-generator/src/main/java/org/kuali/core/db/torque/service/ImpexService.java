@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.torque.engine.platform.Platform;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.core.db.torque.StringFilter;
@@ -58,8 +57,8 @@ public class ImpexService {
 	/**
 	 * Connect to a database and retrieve a list of all the tables for a given schema.
 	 */
-	protected List<TableContext> getTableList(DatabaseMetaData metaData, Platform platform, ImpexContext context) throws SQLException {
-		List<String> tables = platform.getTableNames(metaData, context.getSchema());
+	protected List<TableContext> getTableList(DatabaseMetaData metaData, ImpexContext context) throws SQLException {
+		List<String> tables = context.getPlatform().getTableNames(metaData, context.getSchema());
 		doFilter(tables, context.getTableIncludes(), context.getTableExcludes(), "tables");
 		return getTableContexts(tables);
 	}
@@ -82,7 +81,7 @@ public class ImpexService {
 
 			// Convert JDBC metadata into a list of tables names
 			if (context.isProcessTables()) {
-				List<TableContext> tables = getTableList(metaData, context.getPlatform(), context);
+				List<TableContext> tables = getTableList(metaData, context);
 				database.setTables(tables);
 			}
 
