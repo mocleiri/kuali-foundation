@@ -29,7 +29,7 @@ public class JdbcRequestHandler implements ElementHandler<JdbcRequestBucket> {
 			DatabaseMetaData metaData = conn.getMetaData();
 			for (JdbcRequest request : requests) {
 				if (request.getTable() != null) {
-					service.fillInMetaData(request.getTable(), impex, metaData);
+					service.fillInMetaData(impex, request.getTable(), metaData);
 				}
 				if (request.getView() != null) {
 					View view = request.getView();

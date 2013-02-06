@@ -52,7 +52,7 @@ public class ImpexServiceTest {
 			prepareFileSystem(context);
 			ImpexService service = new DefaultImpexService();
 			DatabaseContext database = service.getDatabaseObjectLists(context);
-			service.fillInMetaData(database, context);
+			service.fillInMetaData(context, database);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
