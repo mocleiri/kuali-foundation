@@ -7,20 +7,20 @@ import javax.sql.DataSource;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 
-public class TableBucket {
+public class JdbcRequestBucket {
 
-	List<TableContext> tables;
+	List<JdbcRequest> requests;
 	DataSource dataSource;
 	KualiTorqueSchemaDumpTask task;
 	DatabaseContext databaseContext;
 	PercentCompleteInformer progressTracker;
 
-	public List<TableContext> getTables() {
-		return tables;
+	public List<JdbcRequest> getRequests() {
+		return requests;
 	}
 
-	public void setTables(List<TableContext> tables) {
-		this.tables = tables;
+	public void setRequests(List<JdbcRequest> requests) {
+		this.requests = requests;
 	}
 
 	public DataSource getDataSource() {
