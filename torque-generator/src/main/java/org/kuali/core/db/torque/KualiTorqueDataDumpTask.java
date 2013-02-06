@@ -110,6 +110,39 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 	}
 
 	/**
+	 * Generate XML from the data in the tables in the database
+	 */
+	protected void generateXML(final Platform platform) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = dataSource.getConnection();
+
+			// Get metadata about the database
+			DatabaseMetaData dbMetaData = connection.getMetaData();
+
+			// Get the correct platform (oracle, mysql etc)
+			// Get ALL the table names
+			Set<String> tableNames = getSet(getJDBCTableNames(dbMetaData));
+
+			// Filter out tables as appropriate
+			doFilter(tableNames, tableIncludes, tableExcludes, "tables");
+
+			// Aggregate some context
+			TableHelper helper = new TableHelper();
+			helper.setConnection(connection);
+			helper.setPlatform(platform);
+			helper.setDbMetaData(dbMetaData);
+			helper.setTableNames(tableNames);
+
+			// Process the tables
+			processTables(helper);
+		} finally {
+			closeQuietly(connection);
+		}
+	}
+
+	/**
 	 * Generate a SQL statement that selects all data from the table
 	 */
 	protected String getDataSelectStatement(final TableHelper helper, final String tableName) throws SQLException {
@@ -325,39 +358,6 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 		Set<String> set = new TreeSet<String>();
 		set.addAll(list);
 		return set;
-	}
-
-	/**
-	 * Generate XML from the data in the tables in the database
-	 */
-	protected void generateXML(final Platform platform) throws Exception {
-		Connection connection = null;
-
-		try {
-			connection = getConnection();
-
-			// Get metadata about the database
-			DatabaseMetaData dbMetaData = connection.getMetaData();
-
-			// Get the correct platform (oracle, mysql etc)
-			// Get ALL the table names
-			Set<String> tableNames = getSet(getJDBCTableNames(dbMetaData));
-
-			// Filter out tables as appropriate
-			doFilter(tableNames, tableIncludes, tableExcludes, "tables");
-
-			// Aggregate some context
-			TableHelper helper = new TableHelper();
-			helper.setConnection(connection);
-			helper.setPlatform(platform);
-			helper.setDbMetaData(dbMetaData);
-			helper.setTableNames(tableNames);
-
-			// Process the tables
-			processTables(helper);
-		} finally {
-			closeQuietly(connection);
-		}
 	}
 
 	/**

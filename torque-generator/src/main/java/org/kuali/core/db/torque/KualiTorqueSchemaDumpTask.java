@@ -64,7 +64,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	boolean processSequences = true;
 	int threads = 15;
 	File schemaXMLFile;
-	DataSource dataSource;
 
 	/**
 	 * Execute the task
@@ -780,14 +779,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	public void setProcessSequences(boolean processSequences) {
 		this.processSequences = processSequences;
-	}
-
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
 	}
 
 	public int getThreads() {

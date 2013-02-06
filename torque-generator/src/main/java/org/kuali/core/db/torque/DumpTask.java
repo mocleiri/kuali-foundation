@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import org.apache.tools.ant.Task;
 import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ public class DumpTask extends Task {
 	Utils utils = new Utils();
 
 	boolean antCompatibilityMode;
+	DataSource dataSource;
 
 	protected void showConfiguration() {
 		logger.info("Schema: " + schema);
@@ -236,6 +239,14 @@ public class DumpTask extends Task {
 
 	public void setSequenceExcludes(List<String> sequenceExcludes) {
 		this.sequenceExcludes = sequenceExcludes;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 }
