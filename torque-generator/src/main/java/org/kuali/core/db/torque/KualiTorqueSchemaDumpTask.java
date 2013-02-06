@@ -28,6 +28,7 @@ import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.Assert;
@@ -320,6 +321,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		// Aggregate into a single list all of the tables, views, and sequences we need to acquire info about
 		List<JdbcRequest> requests = getJdbcContexts(database);
 
+		logger.info("Filling in metadata for {} database objects", requests.size());
+
 		// We want each thread to have approximately the same mix of tables/views/sequences to deal with
 		Collections.shuffle(requests);
 
@@ -377,7 +380,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 		// Start threads to acquire table metadata concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
-		invoker.invokeThreads(thc);
+		ExecutionStatistics stats = invoker.invokeThreads(thc);
+		String time = FormatUtils.getTime(stats.getExecutionTime());
+		logger.info("Acquired all necessary metadata.  Disconnecting from database.  Time: {}", time);
 	}
 
 	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
