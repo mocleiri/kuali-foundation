@@ -11,6 +11,7 @@ public class TableContext implements Comparable<TableContext> {
 	List<Column> columns;
 	Map<String, ForeignKey> foreignKeys;
 	List<Index> indexes;
+	Long rowCount;
 
 	@Override
 	public int compareTo(TableContext other) {
@@ -65,6 +66,14 @@ public class TableContext implements Comparable<TableContext> {
 
 	public void setIndexes(List<Index> indexes) {
 		this.indexes = indexes;
+	}
+
+	public Long getRowCount() {
+		return rowCount;
+	}
+
+	public void setRowCount(Long rowCount) {
+		this.rowCount = rowCount;
 	}
 
 }
