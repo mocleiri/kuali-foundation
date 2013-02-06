@@ -31,12 +31,14 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
+import org.kuali.core.db.torque.pojo.JdbcContext;
 import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.TableBucket;
 import org.kuali.core.db.torque.pojo.TableBucketHandler;
@@ -102,6 +104,12 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			processTables(database.getTables(), document, databaseNode);
 		}
 
+		if (task.isProcessViews()) {
+		}
+
+		if (task.isProcessSequences()) {
+		}
+
 		// Append the database node to the document
 		document.appendChild(databaseNode);
 		return document;
@@ -113,7 +121,9 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		context.setSchema(task.getSchema());
 
 		// Add in tables and views
+		long start = System.currentTimeMillis();
 		fillInContext(context, task);
+		logger.info("Metadata lists acquired.  Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 		return context;
 	}
@@ -330,6 +340,26 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		invokeThreads(buckets);
 	}
 
+	protected List<JdbcContext> getJdbcContexts(DatabaseContext database) {
+		List<JdbcContext> contexts = new ArrayList<JdbcContext>();
+		for (TableContext table : CollectionUtils.toEmptyList(database.getTables())) {
+			JdbcContext jc = new JdbcContext();
+			jc.setTable(table);
+			contexts.add(jc);
+		}
+		for (String view : CollectionUtils.toEmptyList(database.getViews())) {
+			JdbcContext jc = new JdbcContext();
+			jc.setView(view);
+			contexts.add(jc);
+		}
+		for (String sequence : CollectionUtils.toEmptyList(database.getSequences())) {
+			JdbcContext jc = new JdbcContext();
+			jc.setSequence(sequence);
+			contexts.add(jc);
+		}
+		return contexts;
+	}
+
 	protected void invokeThreads(List<TableBucket> buckets) {
 		// Store some context for the thread handler
 		ThreadHandlerContext<TableBucket> thc = new ThreadHandlerContext<TableBucket>();
@@ -372,7 +402,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * Connect to a database and retrieve tables/views
 	 */
 	protected void fillInContext(DatabaseContext context, KualiTorqueSchemaDumpTask task) throws SQLException {
-		logger.info("Connecting to the database to extract schema metadata");
+		logger.info("Connecting to the database to extract metadata lists");
 
 		Connection conn = null;
 		try {

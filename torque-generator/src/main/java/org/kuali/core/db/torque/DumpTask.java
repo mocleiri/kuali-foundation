@@ -1,15 +1,11 @@
 package org.kuali.core.db.torque;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.tools.ant.Task;
-import org.kuali.db.ConnectionHandler;
-import org.kuali.db.Credentials;
+import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +14,6 @@ public class DumpTask extends Task {
 	private static final Logger logger = LoggerFactory.getLogger(DumpTask.class);
 
 	Utils utils = new Utils();
-
-	ConnectionHandler connectionHandler = new ConnectionHandler();
 
 	boolean antCompatibilityMode;
 
@@ -34,22 +28,19 @@ public class DumpTask extends Task {
 		}
 	}
 
-	protected Connection getConnection() throws SQLException {
-		try {
-			BeanUtils.copyProperties(connectionHandler, this);
-		} catch (Exception e) {
-			throw new SQLException("Error copying properties", e);
-		}
-		Credentials credentials = new Credentials(username, password);
-		connectionHandler.setCredentials(credentials);
-		return connectionHandler.getConnection();
-	}
-
 	protected void doFilter(Collection<String> elements, List<String> includes, List<String> excludes, String label) {
-		logger.info("Found {} {}", elements.size(), label);
+		int all = elements.size();
 		StringFilter filterer = new StringFilter(includes, excludes);
 		filterer.filter(elements.iterator());
-		logger.info("Processing {} {} after filtering is applied", elements.size(), label);
+		int remaining = elements.size();
+		int diff = all - remaining;
+		Object[] args = { StringUtils.rightPad(label, 12, " "), lpad(all), lpad(diff), lpad(remaining) };
+		logger.info("{} - {}, filtered out - {}, remaining - {}", args);
+	}
+
+	// Left pad numbers with 4 digits or less
+	protected String lpad(int smallNumber) {
+		return StringUtils.leftPad(smallNumber + "", 4, " ");
 	}
 
 	/**
@@ -173,14 +164,6 @@ public class DumpTask extends Task {
 
 	public void setTargetDatabase(String targetDatabase) {
 		this.targetDatabase = targetDatabase;
-	}
-
-	public ConnectionHandler getConnectionHandler() {
-		return connectionHandler;
-	}
-
-	public void setConnectionHandler(ConnectionHandler connectionHandler) {
-		this.connectionHandler = connectionHandler;
 	}
 
 	public String getArtifactId() {
