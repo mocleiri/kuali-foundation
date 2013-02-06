@@ -20,7 +20,7 @@ import java.io.File;
 import org.junit.Test;
 import org.kuali.common.jdbc.convert.DirectoryContext;
 import org.kuali.common.jdbc.convert.DirectoryConverter;
-import org.kuali.common.jdbc.convert.MySqlConverter;
+import org.kuali.common.jdbc.convert.ImpexMySqlInsertMerge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,15 +32,13 @@ public class MySqlDirectoryConverterTest {
 	public void testConvert() {
 		try {
 			logger.info("");
-			String base = "/Users/jeffcaddel/ws/spring-db-jc/ks-deployments/ks-cfg-dbs/ks-rice-db";
-			String subdir = "src/main/resources/impex/sql/mysql";
-			String dirname = base + "/" + subdir;
+			String dirname = "src/test/resources/converter/insertMerge/mysql";
 			File directory = new File(dirname);
 
 			String include = "*.sql";
 			String exclude = "ks-rice-db*.sql";
 			DirectoryContext context = new DirectoryContext();
-			context.setConverter(new MySqlConverter());
+			context.setConverter(new ImpexMySqlInsertMerge());
 			context.setDirectory(directory);
 			context.setInclude(include);
 			context.setExclude(exclude);
