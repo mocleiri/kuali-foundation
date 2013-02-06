@@ -45,7 +45,9 @@ public class JdbcRequestHandler implements ElementHandler<JdbcRequestBucket> {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
-			DataSourceUtils.releaseConnection(conn, dataSource);
+			if (conn != null) {
+				DataSourceUtils.releaseConnection(conn, dataSource);
+			}
 		}
 	}
 
