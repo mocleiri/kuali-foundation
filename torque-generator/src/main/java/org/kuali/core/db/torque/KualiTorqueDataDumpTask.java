@@ -95,14 +95,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 	public void execute() throws BuildException {
 
 		try {
-			logger.info("--------------------------------------");
-			logger.info("Impex - Data Export");
-			logger.info("--------------------------------------");
 			Platform platform = PlatformFactory.getPlatformFor(targetDatabase);
-			updateConfiguration(platform);
-			showConfiguration();
-
-			// Generate the XML
 			generateXML(platform);
 		} catch (Exception e) {
 			throw new BuildException(e);
