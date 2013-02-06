@@ -42,6 +42,9 @@ public class CollectionUtils {
 	 * @return
 	 */
 	public static int[] getDivideEvenly(int number, int howManyWays) {
+		if (howManyWays < 1) {
+			throw new IllegalArgumentException("howManyWays must be a positive integer greater than zero");
+		}
 		int quotient = number / howManyWays;
 		int remainder = number % howManyWays;
 
