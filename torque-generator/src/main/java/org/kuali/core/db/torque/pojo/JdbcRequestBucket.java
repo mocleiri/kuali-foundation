@@ -5,15 +5,16 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.util.PercentCompleteInformer;
-import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
+import org.kuali.core.db.torque.service.ImpexContext;
+import org.kuali.core.db.torque.service.ImpexService;
 
 public class JdbcRequestBucket {
 
 	List<JdbcRequest> requests;
 	DataSource dataSource;
-	KualiTorqueSchemaDumpTask task;
-	DatabaseContext databaseContext;
+	ImpexContext impexContext;
 	PercentCompleteInformer progressTracker;
+	ImpexService impexService;
 
 	public List<JdbcRequest> getRequests() {
 		return requests;
@@ -31,20 +32,12 @@ public class JdbcRequestBucket {
 		this.dataSource = dataSource;
 	}
 
-	public KualiTorqueSchemaDumpTask getTask() {
-		return task;
+	public ImpexContext getImpexContext() {
+		return impexContext;
 	}
 
-	public void setTask(KualiTorqueSchemaDumpTask task) {
-		this.task = task;
-	}
-
-	public DatabaseContext getDatabaseContext() {
-		return databaseContext;
-	}
-
-	public void setDatabaseContext(DatabaseContext databaseContext) {
-		this.databaseContext = databaseContext;
+	public void setImpexContext(ImpexContext impexContext) {
+		this.impexContext = impexContext;
 	}
 
 	public PercentCompleteInformer getProgressTracker() {
@@ -53,6 +46,14 @@ public class JdbcRequestBucket {
 
 	public void setProgressTracker(PercentCompleteInformer progressTracker) {
 		this.progressTracker = progressTracker;
+	}
+
+	public ImpexService getImpexService() {
+		return impexService;
+	}
+
+	public void setImpexService(ImpexService impexService) {
+		this.impexService = impexService;
 	}
 
 }

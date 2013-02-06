@@ -12,8 +12,17 @@
     <spring.version>3.2.0.RELEASE</spring.version>
     <kuali-threads.version>1.0.9</kuali-threads.version>
     <kuali-util.version>3.0.10-SNAPSHOT</kuali-util.version>
+    <mysql.version>5.1.22</mysql.version>
+    <oracle.version>11.2.0.2</oracle.version>
+    <slf4j.version>1.6.4</slf4j.version>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -22,6 +31,17 @@
       <groupId>org.kuali.common</groupId>
       <artifactId>jdbc-support</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
@@ -104,6 +124,18 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6_g</artifactId>
+      <version>${oracle.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
