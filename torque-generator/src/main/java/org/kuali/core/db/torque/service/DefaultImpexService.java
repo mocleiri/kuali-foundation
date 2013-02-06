@@ -44,7 +44,7 @@ public class DefaultImpexService implements ImpexService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
 
 	@Override
-	public void fillInMetaData(TableContext table, ImpexContext context, DatabaseMetaData metaData) throws SQLException {
+	public void fillInMetaData(ImpexContext context, TableContext table, DatabaseMetaData metaData) throws SQLException {
 		// Get the primary keys.
 		Map<String, String> primaryKeys = getPrimaryKeys(context.getPlatform(), metaData, table.getName(), context.getSchema());
 		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), context.getSchema());
@@ -297,7 +297,7 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	@Override
-	public void fillInMetaData(DatabaseContext database, ImpexContext context) throws SQLException {
+	public void fillInMetaData(ImpexContext context, DatabaseContext database) throws SQLException {
 
 		// Aggregate into a single list all of the tables, views, and sequences we need to acquire info about
 		List<JdbcRequest> requests = getJdbcContexts(database);
