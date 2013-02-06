@@ -128,18 +128,17 @@ public class ImpexService {
 
 	public List<String> getViewNames(DatabaseMetaData metaData, ImpexContext context) throws SQLException {
 		List<String> views = new ArrayList<String>();
-		ResultSet tableNames = null;
-		// these are the entity types we want from the database
-		String[] types = { "VIEW" }; // JHK: removed views from list
+		ResultSet viewNames = null;
+		String[] types = { "VIEW" };
 		try {
-			tableNames = metaData.getTables(null, context.getSchema(), null, types);
-			while (tableNames.next()) {
-				String name = tableNames.getString(3);
+			viewNames = metaData.getTables(null, context.getSchema(), null, types);
+			while (viewNames.next()) {
+				String name = viewNames.getString(3);
 				views.add(name);
 			}
 		} finally {
-			if (tableNames != null) {
-				tableNames.close();
+			if (viewNames != null) {
+				viewNames.close();
 			}
 		}
 		doFilter(views, context.getViewIncludes(), context.getViewExcludes(), "views");
