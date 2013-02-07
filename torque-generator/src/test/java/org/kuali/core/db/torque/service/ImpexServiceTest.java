@@ -49,18 +49,18 @@ public class ImpexServiceTest {
 		try {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
-			ImpexContext ks = getImpexContext(p);
-			log(ks);
-			prepareFileSystem(ks);
+			ImpexContext sourceContext = getImpexContext(p);
+			log(sourceContext);
+			prepareFileSystem(sourceContext);
 
-			ImpexContext bundled = ImpexUtils.clone(ks, "KS.*,KR.*", "ks-bundled-db");
-			ImpexContext rice = ImpexUtils.clone(ks, "KR.*", "ks-rice-db");
-			ImpexContext app = ImpexUtils.clone(ks, "KS.*", "ks-app-db");
+			ImpexContext bundledContext = ImpexUtils.clone(sourceContext, "KS.*,KR.*", "ks-bundled-db");
+			ImpexContext riceContext = ImpexUtils.clone(sourceContext, "KR.*", "ks-rice-db");
+			ImpexContext appContext = ImpexUtils.clone(sourceContext, "KS.*", "ks-app-db");
 
 			ImpexService service = new DefaultImpexService();
-			DatabaseContext database = service.getDatabaseObjectLists(ks);
-			service.fillInMetaData(ks, database);
-			service.serializeSchemas(Arrays.asList(bundled, rice, app), database);
+			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
+			service.fillInMetaData(sourceContext, database);
+			service.serializeSchemas(Arrays.asList(bundledContext, riceContext, appContext), database);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
