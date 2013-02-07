@@ -81,6 +81,33 @@
         <div style="margin-bottom:15px;">
         	<a class="control-panel" style="margin-left:15px;">single panel view</a>
             <a class="control-required" style="margin-left:15px;">show required fields only</a>
+<<<<<<< .mine
+
+            <script>
+            $(document).ready(function() {
+              // The new '.on' replaces deprecated '.live'
+              // It listens for ('event', ...) and then runs (..., 'some function')
+
+              $('#control-required').on('click', function() {
+
+                // Toggle took care of the "checking" but we have to do it now
+                // We'll check to see if the clicked item has a specific class
+                // If not, we'll run the first function
+                if(!$(this).hasClass('required-only')) {
+                  $('.view_notrequired').slideUp(400);
+                  $(this).addClass('required-only');
+                  alert('hit1');
+
+                // If it does, we'll run the second function
+                } else {
+                  $('.view_notrequired').slideDown(200);
+                  $(this).removeClass('required-only');
+                  alert('hit2');
+                }
+              });
+            });
+            </script>
+=======
             <script type="text/javascript">
 				$(document).ready(function() {
 				  
@@ -118,6 +145,7 @@
 				  
 				});
 			</script>
+>>>>>>> .r16353
             
             <!--<span id="control-aoc" style="margin-left:15px;">area of concern</span>-->
             <span id="control-help" style="margin-left:15px;">heavy help</span>
@@ -377,9 +405,27 @@
     </div>
   </form>
 </div>
-<!-- Le javascript
-    ================================================== --><!-- Placed at the end of the document so the pages load faster -->
+
 	
+<<<<<<< .mine
+<script src="../assets/js/bootstrap-transition.js"></script>   
+<script src="../assets/js/bootstrap-fileupload.js"></script>
+<script src="../assets/js/bootstrap-alert.js"></script> 
+<script src="../assets/js/bootstrap-modal.js"></script> 
+<script src="../assets/js/bootstrap-dropdown.js"></script> 
+<script src="../assets/js/bootstrap-scrollspy.js"></script> 
+<script src="../assets/js/bootstrap-tab.js"></script> 
+<script src="../assets/js/bootstrap-tooltip.js"></script> 
+<script src="../assets/js/bootstrap-popover.js"></script> 
+<script src="../assets/js/bootstrap-button.js"></script> 
+<script src="../assets/js/bootstrap-collapse.js"></script> 
+<script src="../assets/js/bootstrap-carousel.js"></script> 
+<script src="../assets/js/bootstrap-typeahead.js"></script> 
+<script src="../assets/js/bootstrap-editable.js"></script> 
+<script src="../assets/js/application.js"></script>
+<script src="../assets/js/custom.js?v=0.1"></script>
+
+=======
     <script src="../assets/js/bootstrap-transition.js"></script>   
     <script src="../assets/js/bootstrap-fileupload.js"></script>
     <script src="../assets/js/bootstrap-alert.js"></script> 
@@ -396,5 +442,6 @@
     <script src="../assets/js/bootstrap-editable.js"></script> 
     <script src="../assets/js/application.js"></script>
     <script src="../assets/js/custom.js?v=0.1"></script>
+>>>>>>> .r16353
 </body>
 </html>

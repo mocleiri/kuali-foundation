@@ -22,9 +22,11 @@ Global variables
 var $header 	= $('#header'),
 	$document 	= $('#document'),
 	$toc 		= $('#ToC'),
+	$sec		= $('#secondary'),
 	$window 	= $(window),
 	$dOffset	= $document.offset(),
-	$tOffset 	= $toc.offset();
+	$tOffset 	= $toc.offset(),
+	$sOffset	= $sec.offset();
 
 
 
@@ -36,9 +38,11 @@ function init_sticky_elems() {
 		if ($window.scrollTop() > $dOffset.top) {
 			$document.addClass('fixed');
 			$toc.addClass('fixed');
+			$sec.addClass('fixed');
 		} else {
 			$document.removeClass('fixed');
 			$toc.removeClass('fixed');
+			$sec.removeClass('fixed');
 		}
 	}
 }
@@ -52,8 +56,18 @@ $(document).ready(function() {
 	$window.bind("resize", function() {
 		init_sticky_elems();
 	});
-	
+
 	$window.bind("scroll", function() {
 		init_sticky_elems();
 	});
+
+
+	/*
+	Tooltips and Popovers
+	------------------------------ */
+	$('.show-popover').popover({
+		trigger: 'hover',
+		html: true
+	});
+	
 });
