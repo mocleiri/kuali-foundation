@@ -23,20 +23,23 @@ public interface ImpexService {
 	void fillInMetaData(ImpexContext context, DatabaseContext database) throws SQLException;
 
 	/**
-	 * Fill in the full set of metadata for this table
+	 * Fill in the full set of metadata for this table.
 	 */
 	void fillInMetaData(ImpexContext context, TableContext table, DatabaseMetaData metaData) throws SQLException;
 
 	/**
-	 * Populate a document object with the database metadata
+	 * Populate a document object with the database metadata.
 	 */
 	Document getSchemaDocument(ImpexContext context, DatabaseContext database);
 
 	/**
-	 * Serialize the document object to disk
+	 * Serialize the document object to disk.
 	 */
 	void serialize(Document document, File file, String encoding);
 
+	/**
+	 * Create schema documents for each context and serialize them to disk.
+	 */
 	void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database);
 
 }
