@@ -199,7 +199,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			column.setAttribute("scale", String.valueOf(scale));
 		}
 
-		if (context.getPrimaryKeys().containsKey(name)) {
+		if (context.getPrimaryKeys().contains(name)) {
 			column.setAttribute("primaryKey", "true");
 			// JHK: protect MySQL from excessively long column in the PK
 			// System.out.println( curTable + "." + name + " / " + size );
