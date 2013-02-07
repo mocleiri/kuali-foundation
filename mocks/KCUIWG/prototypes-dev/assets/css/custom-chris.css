@@ -14,7 +14,7 @@ i{margin-right:.35em;}
 #header #global .btn-group a{margin:1em 0 0 1em;}
 #header #global .toolset{float:right;text-align:right;margin-top:1em;margin-right:.6em;}#header #global .toolset ul{list-style:none;}#header #global .toolset ul li{float:right;}
 #header #global .toolset a{padding:1.2em;color:#960000;}
-#header #document{width:100%;border-bottom:1px solid #870000;padding-bottom:1.4em;}#header #document .title{width:auto;max-width:60%;float:left;margin:0.65em 0 -5px 0.85em;font-size:1.5em;color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);}#header #document .title .title-name{max-width:85%;float:left;margin-right:.2em;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+#header #document{width:100%;border-bottom:1px solid #870000;padding-bottom:1.4em;}#header #document .title{width:auto;max-width:60%;float:left;margin:0.55em 0 -5px 0.85em;font-size:1.5em;color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);}#header #document .title .title-name{max-width:85%;float:left;margin-right:.2em;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;padding-bottom:.1em;}
 #header #document .title .title-author{float:left;}
 #header #document .title a{color:#ffffff;}
 #header #document .title a:hover{color:#ffffff;}
