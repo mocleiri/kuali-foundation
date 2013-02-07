@@ -1,9 +1,8 @@
-package org.kuali.core.db.torque.pojo;
+package org.kuali.core.db.torque.service;
 
 import java.io.File;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.core.db.torque.service.ImpexContext;
 import org.springframework.beans.BeanUtils;
 
 public class ImpexUtils {
