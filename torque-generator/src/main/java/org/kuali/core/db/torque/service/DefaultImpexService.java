@@ -421,7 +421,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Dump the contents of the indicated table to disk
 	 */
-	public DumpTableResult dumpTable(ImpexContext context, Connection conn, TableContext table) throws SQLException {
+	public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
