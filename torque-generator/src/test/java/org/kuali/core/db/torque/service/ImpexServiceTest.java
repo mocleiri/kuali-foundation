@@ -16,7 +16,6 @@
 package org.kuali.core.db.torque.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -24,13 +23,10 @@ import javax.sql.DataSource;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-import org.apache.torque.task.TorqueDataModelTask;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
@@ -49,6 +45,7 @@ public class ImpexServiceTest {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
 			ImpexContext sourceContext = getImpexContext(p);
+			initialize(sourceContext);
 			log(sourceContext);
 			prepareFileSystem(sourceContext);
 
@@ -95,13 +92,6 @@ public class ImpexServiceTest {
 		return dmds;
 	}
 
-	protected void prepareFileSystem(ImpexContext context) throws IOException {
-		Properties properties = new Properties();
-		properties.setProperty("project", "impex");
-		properties.setProperty("version", "2.0");
-		PropertyUtils.store(properties, context.getContextProperties());
-	}
-
 	protected Properties getProperties() {
 		String tableIncludes = "";
 		String viewIncludes = tableIncludes;
@@ -135,19 +125,6 @@ public class ImpexServiceTest {
 		// p.setProperty("impex.controlTemplate", "data/Control.vm");
 		// p.setProperty("impex.printMetaInfLists", "false");
 		return p;
-	}
-
-	protected Task getGenerateDtdTask(ImpexContext context, Project project) {
-		TorqueDataModelTask task = new TorqueDataModelTask();
-		task.setProject(project);
-		task.setOutputDirectory(context.getWorkingDir());
-		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
-		task.setTargetDatabase(context.getDatabaseVendor());
-		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
-		task.setUseClasspath(true);
-		task.setControlTemplate(context.getControlTemplate());
-		task.setOutputFile(context.getReportFile());
-		return task;
 	}
 
 	protected Task getDataDumpTask(ImpexContext context, Project project) {
@@ -209,11 +186,7 @@ public class ImpexServiceTest {
 		context.setDateFormat(p.getProperty("impex.dateFormat"));
 		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
 
-		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
-
-		// Don't mess with these two
-		context.setContextProperties(new File(context.getWorkingDir(), "/reports/context.datadtd.properties"));
-		context.setReportFile("../reports/report." + context.getArtifactId() + ".datadtd.generation");
+		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
 
 		// Setup the datasource
 		context.setDataSource(getDataSource(p));
@@ -240,4 +213,5 @@ public class ImpexServiceTest {
 		// context.setPrintMetaInfLists(new Boolean(p.getProperty("impex.printMetaInfLists")));
 		return context;
 	}
+
 }

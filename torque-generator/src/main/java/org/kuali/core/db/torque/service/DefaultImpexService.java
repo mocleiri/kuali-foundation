@@ -19,15 +19,18 @@ import javax.sql.DataSource;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Task;
 import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
+import org.apache.torque.task.TorqueDataModelTask;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -60,6 +63,34 @@ import org.w3c.dom.Element;
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+
+	@Override
+	public void generateDataDtds(List<ImpexContext> contexts) {
+		Project antProject = getInitializedAntProject();
+		for (ImpexContext context : contexts) {
+			Task task = getGenerateDtdTask(context, antProject);
+			task.execute();
+		}
+	}
+
+	protected Project getInitializedAntProject() {
+		Project antProject = new Project();
+		antProject.init();
+		return antProject;
+	}
+
+	protected Task getGenerateDtdTask(ImpexContext context, Project project) {
+		TorqueDataModelTask task = new TorqueDataModelTask();
+		task.setProject(project);
+		task.setOutputDirectory(context.getWorkingDir());
+		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
+		task.setTargetDatabase(context.getDatabaseVendor());
+		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
+		task.setUseClasspath(true);
+		task.setControlTemplate(context.getControlTemplate());
+		task.setOutputFile(context.getReportFile());
+		return task;
+	}
 
 	@Override
 	public void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database) {

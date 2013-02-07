@@ -42,4 +42,6 @@ public interface ImpexService {
 	 */
 	void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database);
 
+	void generateDataDtds(List<ImpexContext> contexts);
+
 }
