@@ -382,11 +382,13 @@ public class DefaultImpexService implements ImpexService {
 		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), context.getSchema());
 		List<Index> indexes = getIndexes(metaData, table.getName(), context.getSchema());
 		List<Column> columns = getColumns(metaData, table.getName(), context.getSchema());
+		String selectQuery = getSelectQuery(table.getName(), primaryKeys);
 
 		table.setPrimaryKeys(primaryKeys);
 		table.setColumns(columns);
 		table.setIndexes(indexes);
 		table.setForeignKeys(foreignKeys);
+		table.setSelectQuery(selectQuery);
 	}
 
 	/**
@@ -816,12 +818,11 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Generate a SQL statement that selects all data from the table
 	 */
-	protected String getSelectQuery(TableContext table) throws SQLException {
+	protected String getSelectQuery(String tableName, List<String> primaryKeys) throws SQLException {
 		StringBuffer sb = new StringBuffer("SELECT * FROM ");
-		sb.append(table.getName());
+		sb.append(tableName);
 		sb.append(" ORDER BY 'x'");
 		// Order by primary keys (if any) so the data always comes out in a deterministic order
-		List<String> primaryKeys = table.getPrimaryKeys();
 		for (String primaryKey : primaryKeys) {
 			sb.append(", ").append(primaryKey);
 		}
