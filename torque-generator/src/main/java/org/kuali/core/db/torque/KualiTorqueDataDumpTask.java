@@ -3,7 +3,6 @@ package org.kuali.core.db.torque;
 import static java.sql.Types.CLOB;
 import static java.sql.Types.DATE;
 import static java.sql.Types.TIMESTAMP;
-import static org.kuali.db.JDBCUtils.closeQuietly;
 
 import java.io.File;
 import java.io.IOException;
@@ -131,7 +130,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 			// Process the tables
 			processTables(helper);
 		} finally {
-			closeQuietly(connection);
+			// closeQuietly(connection);
 		}
 	}
 
@@ -288,8 +287,8 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 			throw new SQLException(e);
 		} finally {
 			// Clean up
-			closeQuietly(rs);
-			closeQuietly(stmt);
+			// closeQuietly(rs);
+			// closeQuietly(stmt);
 		}
 		return datasetNode;
 	}
@@ -506,7 +505,7 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 				tables.add(name);
 			}
 		} finally {
-			closeQuietly(tableNames);
+			// closeQuietly(tableNames);
 		}
 		return tables;
 	}

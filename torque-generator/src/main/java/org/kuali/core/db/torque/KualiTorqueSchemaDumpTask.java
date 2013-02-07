@@ -40,14 +40,13 @@ import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
+import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.SchemaRequest;
 import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
 import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
-import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.kuali.core.db.torque.pojo.View;
-import org.kuali.db.JDBCUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -145,8 +144,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 	protected DatabaseContext getInitialMetaData(Platform platform, KualiTorqueSchemaDumpTask task) throws SQLException {
 		DatabaseContext context = new DatabaseContext();
-		context.setPlatform(platform);
-		context.setSchema(task.getSchema());
 
 		// Add in tables and views
 		long start = System.currentTimeMillis();
@@ -369,8 +366,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			bucket.setProgressTracker(progressTracker);
 			bucket.setDataSource(dataSource);
 			bucket.setRequests(list);
-			bucket.setTask(this);
-			bucket.setDatabaseContext(database);
 			buckets.add(bucket);
 		}
 
@@ -416,16 +411,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	public void fillInMetaData(TableContext table, DatabaseContext db, DatabaseMetaData metaData) throws SQLException {
-		// Get the primary keys.
-		Map<String, String> primaryKeys = getPrimaryKeys(db.getPlatform(), metaData, table.getName(), db.getSchema());
-		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), db.getSchema());
-		List<Index> indexes = getIndexes(metaData, table.getName(), db.getSchema());
-		List<Column> columns = getColumns(metaData, table.getName(), db.getSchema());
-
-		table.setPrimaryKeys(primaryKeys);
-		table.setColumns(columns);
-		table.setIndexes(indexes);
-		table.setForeignKeys(foreignKeys);
 	}
 
 	protected List<TableContext> getTableContexts(List<String> tables) {
@@ -457,8 +442,6 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 
 			// Convert JDBC metadata into a list of tables names
 			if (task.isProcessTables()) {
-				List<TableContext> tables = getTableList(metaData, context.getPlatform(), task);
-				context.setTables(tables);
 			}
 
 			// Convert JDBC metadata into a list of view names
@@ -501,11 +484,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	protected List<String> getSequences(DatabaseContext context, DatabaseMetaData metaData, KualiTorqueSchemaDumpTask task) throws SQLException {
-		Platform platform = context.getPlatform();
-		String schema = context.getSchema();
-		List<String> sequences = platform.getSequenceNames(metaData, schema);
-		doFilter(sequences, task.getSequenceIncludes(), task.getSequenceExcludes(), "sequences");
-		return sequences;
+		return null;
 	}
 
 	/**
@@ -593,7 +572,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				columns.add(col);
 			}
 		} finally {
-			JDBCUtils.closeQuietly(columnSet);
+			// JDBCUtils.closeQuietly(columnSet);
 		}
 		return columns;
 	}
@@ -667,7 +646,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 			// when retrieving foreign keys from views.
 			logger.warn("Could not read foreign keys for Table " + tableName + " : " + e.getMessage());
 		} finally {
-			JDBCUtils.closeQuietly(foreignKeys);
+			// JDBCUtils.closeQuietly(foreignKeys);
 		}
 		return fks;
 	}
@@ -682,7 +661,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		} catch (SQLException e) {
 			logger.warn("Could not locate primary key info for " + tableName + " : " + e.getMessage());
 		} finally {
-			JDBCUtils.closeQuietly(pkInfo);
+			// JDBCUtils.closeQuietly(pkInfo);
 		}
 		return null;
 	}
@@ -740,7 +719,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 		} catch (SQLException e) {
 			logger.warn("Could not read indexes for Table " + tableName + " : " + e.getMessage());
 		} finally {
-			JDBCUtils.closeQuietly(indexInfo);
+			// JDBCUtils.closeQuietly(indexInfo);
 		}
 		return indexes;
 	}
