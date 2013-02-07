@@ -51,7 +51,7 @@ import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
 import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
-import org.kuali.core.db.torque.pojo.TableDumpResult;
+import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -422,7 +422,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Dump the contents of the indicated table to disk
 	 */
-	public TableDumpResult dumpTable(ImpexContext context, TableContext table) throws SQLException {
+	public DumpTableResult dumpTable(ImpexContext context, TableContext table) throws SQLException {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -442,10 +442,10 @@ public class DefaultImpexService implements ImpexService {
 		}
 	}
 
-	protected TableDumpResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
+	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		org.apache.torque.engine.database.model.Column[] columns = getColumns(md);
-		TableDumpResult result = new TableDumpResult();
+		DumpTableResult result = new DumpTableResult();
 		return result;
 	}
 

@@ -3,7 +3,7 @@ package org.kuali.core.db.torque.pojo;
 import java.io.File;
 import java.util.List;
 
-public class TableDumpResult {
+public class DumpTableResult {
 
 	long rows;
 	long size;
