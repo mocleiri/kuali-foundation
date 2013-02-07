@@ -66,7 +66,7 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
     protected ConversionResult convert(ConversionContext context, SqlReader reader, BufferedReader in, OutputStream out) throws IOException {
         String sql = reader.getSqlStatement(in);
         while (sql != null) {
-            String outputSql = getOutputSql(context, out, in, sql, reader);
+            String outputSql = getOutputSql(context, in, sql, reader);
             out.write(outputSql.getBytes(context.getEncoding()));
             sql = reader.getSqlStatement(in);
         }
@@ -75,7 +75,7 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
         return new ConversionResult(context.getOldFile(), context.getNewFile(), before, after);
     }
 
-    protected String getOutputSql(ConversionContext context, OutputStream out, BufferedReader in, String sql, SqlReader reader) throws IOException {
+    protected String getOutputSql(ConversionContext context, BufferedReader in, String sql, SqlReader reader) throws IOException {
         boolean insertStatement = isInsert(sql);
         if (insertStatement) {
             SqlInsertContext mc = new SqlInsertContext();
@@ -96,13 +96,13 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
      *
      * @param conversionContext reference to meta data for this conversion process
      * @param sqlInsertContext contains the sql to convert and IO objects to write conversion results
-     * @return
+     * @return converted sql
      */
     protected abstract String combineInserts(ConversionContext conversionContext, SqlInsertContext sqlInsertContext) throws IOException;
 
     protected boolean isInsert(String sql) {
         String trimmed = StringUtils.trim(sql);
-        return StringUtils.startsWith(sql, getInsertPrefix());
+        return StringUtils.startsWith(trimmed, getInsertPrefix());
     }
 
     /**

@@ -18,7 +18,6 @@ package org.kuali.common.jdbc;
 import org.junit.Test;
 import org.kuali.common.jdbc.convert.DirectoryContext;
 import org.kuali.common.jdbc.convert.DirectoryConverter;
-import org.kuali.common.jdbc.convert.ImpexMySqlInsertMerge;
 import org.kuali.common.jdbc.convert.ImpexOracleInsertMerge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
