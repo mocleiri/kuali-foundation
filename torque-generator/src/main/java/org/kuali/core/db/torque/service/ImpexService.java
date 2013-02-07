@@ -11,8 +11,8 @@ import org.w3c.dom.Document;
 public interface ImpexService {
 
 	/**
-	 * Get the list of table names, view names, and sequence names. This is usually pretty quick even for databases with hundreds of tables,
-	 * since only names are being extracted. No relationships, indexes, primary keys, etc.
+	 * Get the list of table names, view names, and sequence names. This is usually pretty quick even for databases with hundreds of tables.
+	 * The only thing extracted from the database are the names. No detailed metadata like relationships, indexes, primary keys, etc.
 	 */
 	DatabaseContext getDatabaseObjectLists(ImpexContext context) throws SQLException;
 

@@ -100,7 +100,7 @@ public class ImpexServiceTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "TR.*";
+		String tableIncludes = "";
 		String viewIncludes = tableIncludes;
 		String sequenceIncludes = tableIncludes;
 		int threads = 15;
