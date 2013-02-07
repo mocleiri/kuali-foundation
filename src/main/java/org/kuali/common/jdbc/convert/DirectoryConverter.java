@@ -24,11 +24,16 @@ import org.kuali.common.util.SimpleScanner;
 
 public class DirectoryConverter {
 
-	public void convert(DirectoryContext context) {
+    public static final String CONVERTED_EXTENSION = ".converted";
+
+    public void convert(DirectoryContext context) {
 		SimpleScanner scanner = new SimpleScanner(context.getDirectory(), context.getInclude(), context.getExclude());
 		List<File> oldFiles = scanner.getFiles();
-		List<File> newFiles = getNewFiles(context.getDirectory(), oldFiles);
-		convert(context, oldFiles, newFiles);
+		List<File> newFiles = getNewFiles(oldFiles);
+        List<ConversionResult> results = convert(context, oldFiles, newFiles);
+        if(context.getPostProcessor() != null) {
+            context.getPostProcessor().process(results);
+        }
 	}
 
 	protected List<ConversionResult> convert(DirectoryContext context, List<File> oldFiles, List<File> newFiles) {
@@ -49,10 +54,10 @@ public class DirectoryConverter {
 		return results;
 	}
 
-	protected List<File> getNewFiles(File baseDir, List<File> oldFiles) {
+	protected List<File> getNewFiles(List<File> oldFiles) {
 		List<File> newFiles = new ArrayList<File>();
 		for (File oldFile : oldFiles) {
-			File newFile = new File(oldFile.getAbsolutePath() + ".converted");
+			File newFile = new File(oldFile.getAbsolutePath() + CONVERTED_EXTENSION);
 			newFiles.add(newFile);
 		}
 		return newFiles;

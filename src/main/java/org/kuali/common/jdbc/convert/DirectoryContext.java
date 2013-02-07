@@ -23,8 +23,9 @@ public class DirectoryContext {
 	SqlConverter converter;
 	String include;
 	String exclude;
+    private PostConversionProcessor postProcessor;
 
-	public File getDirectory() {
+    public File getDirectory() {
 		return directory;
 	}
 
@@ -56,4 +57,11 @@ public class DirectoryContext {
 		this.exclude = exclude;
 	}
 
+    public PostConversionProcessor getPostProcessor() {
+        return postProcessor;
+    }
+
+    public void setPostProcessor(PostConversionProcessor postProcessor) {
+        this.postProcessor = postProcessor;
+    }
 }

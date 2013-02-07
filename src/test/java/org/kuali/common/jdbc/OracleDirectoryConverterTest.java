@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.kuali.common.jdbc.convert.DirectoryContext;
 import org.kuali.common.jdbc.convert.DirectoryConverter;
 import org.kuali.common.jdbc.convert.ImpexOracleInsertMerge;
+import org.kuali.common.jdbc.convert.ReplaceWithConvertedProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,7 @@ public class OracleDirectoryConverterTest {
             context.setDirectory(directory);
             context.setInclude(include);
             context.setExclude(exclude);
+            context.setPostProcessor(new ReplaceWithConvertedProcessor());
             DirectoryConverter dc = new DirectoryConverter();
             dc.convert(context);
         } catch (Exception e) {
