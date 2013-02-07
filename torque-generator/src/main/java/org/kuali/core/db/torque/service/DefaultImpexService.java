@@ -391,22 +391,21 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void fillInMetaData(ImpexContext context, TableContext table, DatabaseMetaData metaData) throws SQLException {
-		// Get the primary keys.
 		List<String> primaryKeys = context.getPlatform().getPrimaryKeys(metaData, context.getSchema(), table.getName());
 		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), context.getSchema());
 		List<Index> indexes = getIndexes(metaData, table.getName(), context.getSchema());
 		List<Column> columns = getColumns(metaData, table.getName(), context.getSchema());
-		String selectQuery = getSelectQuery(table.getName(), primaryKeys);
+		String selectAllQuery = getSelectAllQuery(table.getName(), primaryKeys);
 
 		table.setPrimaryKeys(primaryKeys);
 		table.setColumns(columns);
 		table.setIndexes(indexes);
 		table.setForeignKeys(foreignKeys);
-		table.setSelectQuery(selectQuery);
+		table.setSelectAllQuery(selectAllQuery);
 	}
 
 	/**
-	 * Return the XML Document object that we will serialize to disk
+	 * Generate a new dataset Document object
 	 */
 	protected Document getDatasetDocument(ImpexContext context, TableContext table) throws SQLException {
 		// Generate the document type
@@ -422,15 +421,11 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Dump the contents of the indicated table to disk
 	 */
-	public DumpTableResult dumpTable(ImpexContext context, TableContext table) throws SQLException {
-		Connection conn = null;
+	public DumpTableResult dumpTable(ImpexContext context, Connection conn, TableContext table) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			DataSource dataSource = context.getDataSource();
-			conn = DataSourceUtils.getConnection(dataSource);
-			// This query selects everything from the table
-			String query = table.getSelectQuery();
+			String query = table.getSelectAllQuery();
 			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			rs = stmt.executeQuery(query);
 			return dumpTable(context, table, rs);
@@ -900,7 +895,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Generate a SQL statement that selects all data from the table
 	 */
-	protected String getSelectQuery(String tableName, List<String> primaryKeys) throws SQLException {
+	protected String getSelectAllQuery(String tableName, List<String> primaryKeys) throws SQLException {
 		StringBuffer sb = new StringBuffer("SELECT * FROM ");
 		sb.append(tableName);
 		sb.append(" ORDER BY 'x'");

@@ -11,7 +11,7 @@ public class TableContext implements Comparable<TableContext> {
 	List<Column> columns;
 	Map<String, ForeignKey> foreignKeys;
 	List<Index> indexes;
-	String selectQuery;
+	String selectAllQuery;
 	Long rowCount;
 	Long size;
 
@@ -78,12 +78,12 @@ public class TableContext implements Comparable<TableContext> {
 		this.rowCount = rowCount;
 	}
 
-	public String getSelectQuery() {
-		return selectQuery;
+	public String getSelectAllQuery() {
+		return selectAllQuery;
 	}
 
-	public void setSelectQuery(String selectQuery) {
-		this.selectQuery = selectQuery;
+	public void setSelectAllQuery(String selectQuery) {
+		this.selectAllQuery = selectQuery;
 	}
 
 	public Long getSize() {
