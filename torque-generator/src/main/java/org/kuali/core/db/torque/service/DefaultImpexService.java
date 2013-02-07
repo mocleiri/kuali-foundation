@@ -460,7 +460,8 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Dump the contents of the indicated table to disk
 	 */
-	public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
+	@Override
+    public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -479,6 +480,7 @@ public class DefaultImpexService implements ImpexService {
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		org.apache.torque.engine.database.model.Column[] columns = getColumns(md);
+		logger.info("Column count {}", columns.length);
 		DumpTableResult result = new DumpTableResult();
 		return result;
 	}

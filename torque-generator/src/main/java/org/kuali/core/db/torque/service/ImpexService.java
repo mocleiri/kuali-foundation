@@ -1,11 +1,13 @@
 package org.kuali.core.db.torque.service;
 
 import java.io.File;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.kuali.core.db.torque.pojo.DatabaseContext;
+import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.w3c.dom.Document;
 
@@ -47,4 +49,8 @@ public interface ImpexService {
 	 */
 	void generateDataDtds(List<ImpexContext> contexts);
 
+	/**
+	 * Dump all of the data from this table to disk
+	 */
+	DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException;
 }
