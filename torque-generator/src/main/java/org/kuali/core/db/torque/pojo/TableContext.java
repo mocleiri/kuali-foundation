@@ -7,17 +7,27 @@ public class TableContext implements Comparable<TableContext> {
 
 	String name;
 	int sequence;
-	Map<String, String> primaryKeys;
+	List<String> primaryKeys;
 	List<Column> columns;
 	Map<String, ForeignKey> foreignKeys;
 	List<Index> indexes;
+	String selectQuery;
 	Long rowCount;
+	Long size;
 
 	@Override
 	public int compareTo(TableContext other) {
 		Integer one = sequence;
 		Integer two = other.getSequence();
 		return one.compareTo(two);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getSequence() {
@@ -28,11 +38,11 @@ public class TableContext implements Comparable<TableContext> {
 		this.sequence = sequence;
 	}
 
-	public Map<String, String> getPrimaryKeys() {
+	public List<String> getPrimaryKeys() {
 		return primaryKeys;
 	}
 
-	public void setPrimaryKeys(Map<String, String> primaryKeys) {
+	public void setPrimaryKeys(List<String> primaryKeys) {
 		this.primaryKeys = primaryKeys;
 	}
 
@@ -52,14 +62,6 @@ public class TableContext implements Comparable<TableContext> {
 		this.foreignKeys = foreignKeys;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public List<Index> getIndexes() {
 		return indexes;
 	}
@@ -74,6 +76,22 @@ public class TableContext implements Comparable<TableContext> {
 
 	public void setRowCount(Long rowCount) {
 		this.rowCount = rowCount;
+	}
+
+	public String getSelectQuery() {
+		return selectQuery;
+	}
+
+	public void setSelectQuery(String selectQuery) {
+		this.selectQuery = selectQuery;
+	}
+
+	public Long getSize() {
+		return size;
+	}
+
+	public void setSize(Long size) {
+		this.size = size;
 	}
 
 }

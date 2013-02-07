@@ -332,7 +332,7 @@ public class DefaultImpexService implements ImpexService {
 			column.setAttribute("scale", String.valueOf(scale));
 		}
 
-		if (context.getPrimaryKeys().containsKey(name)) {
+		if (context.getPrimaryKeys().contains(name)) {
 			column.setAttribute("primaryKey", "true");
 			// JHK: protect MySQL from excessively long column in the PK
 			// System.out.println( curTable + "." + name + " / " + size );
@@ -376,7 +376,7 @@ public class DefaultImpexService implements ImpexService {
 	@Override
 	public void fillInMetaData(ImpexContext context, TableContext table, DatabaseMetaData metaData) throws SQLException {
 		// Get the primary keys.
-		Map<String, String> primaryKeys = getPrimaryKeys(context.getPlatform(), metaData, table.getName(), context.getSchema());
+		List<String> primaryKeys = context.getPlatform().getPrimaryKeys(metaData, context.getSchema(), table.getName());
 		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), context.getSchema());
 		List<Index> indexes = getIndexes(metaData, table.getName(), context.getSchema());
 		List<Column> columns = getColumns(metaData, table.getName(), context.getSchema());
@@ -528,16 +528,8 @@ public class DefaultImpexService implements ImpexService {
 		return null;
 	}
 
-	protected Map<String, String> getPrimaryKeys(Platform platform, DatabaseMetaData metaData, String table, String schema) throws SQLException {
-		List<String> primKeys = platform.getPrimaryKeys(metaData, schema, table);
-
-		// Set the primary keys.
-		Map<String, String> primaryKeys = new HashMap<String, String>();
-		for (int k = 0; k < primKeys.size(); k++) {
-			String curPrimaryKey = (String) primKeys.get(k);
-			primaryKeys.put(curPrimaryKey, curPrimaryKey);
-		}
-		return primaryKeys;
+	protected List<String> getPrimaryKeys(Platform platform, DatabaseMetaData metaData, String table, String schema) throws SQLException {
+		return platform.getPrimaryKeys(metaData, schema, table);
 	}
 
 	protected Index getTableIndex(ResultSet indexInfo, String pkName) throws SQLException {
@@ -819,4 +811,18 @@ public class DefaultImpexService implements ImpexService {
 		return views;
 	}
 
+	/**
+	 * Generate a SQL statement that selects all data from the table
+	 */
+	protected String getSelectQuery(TableContext table) throws SQLException {
+		StringBuffer sb = new StringBuffer("SELECT * FROM ");
+		sb.append(table.getName());
+		sb.append(" ORDER BY 'x'");
+		// Order by primary keys (if any) so the data always comes out in a deterministic order
+		List<String> primaryKeys = table.getPrimaryKeys();
+		for (String primaryKey : primaryKeys) {
+			sb.append(", ").append(primaryKey);
+		}
+		return sb.toString();
+	}
 }

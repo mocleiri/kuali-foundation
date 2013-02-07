@@ -29,7 +29,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.platform.Platform;
@@ -192,8 +191,8 @@ public class KualiTorqueDataDumpTask extends DumpTask {
 			// Don't let an issue extracting a value from one column in one row
 			// stop the process
 			// Log the row/column and continue
-			logger.info("Problem reading row " + rowCount + " column " + column.getName() + " from " + tableName, Project.MSG_ERR);
-			logger.info(e.getClass().getName() + " : " + e.getMessage(), Project.MSG_ERR);
+			logger.warn("Problem reading row " + rowCount + " column " + column.getName() + " from " + tableName);
+			logger.error(e.getClass().getName() + " : " + e.getMessage());
 
 		}
 		return null;
