@@ -42,6 +42,9 @@ public interface ImpexService {
 	 */
 	void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database);
 
+	/**
+	 * Parse schema xml files and produce corresponding data.dtd files
+	 */
 	void generateDataDtds(List<ImpexContext> contexts);
 
 }
