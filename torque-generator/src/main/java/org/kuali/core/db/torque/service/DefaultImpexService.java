@@ -50,6 +50,7 @@ import org.kuali.db.JDBCUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.util.Assert;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -77,6 +78,7 @@ public class DefaultImpexService implements ImpexService {
 	 * Create the top level database node
 	 */
 	protected Element getDatabaseNode(ImpexContext context, Document document) {
+		Assert.notNull(context.getArtifactId(), "artifact id is null");
 		Element databaseNode = document.createElement("database");
 		databaseNode.setAttribute("name", context.getArtifactId());
 		databaseNode.setAttribute("defaultJavaNamingMethod", "nochange");
@@ -87,10 +89,13 @@ public class DefaultImpexService implements ImpexService {
 	 * Create and return the top level Document object
 	 */
 	protected Document getDocument(ImpexContext context) {
+		Assert.notNull(context.getSystemId(), "system id is null");
 		DocumentTypeImpl docType = new DocumentTypeImpl(null, "database", null, context.getSystemId());
 		Document document = new DocumentImpl(docType);
-		Comment comment = document.createComment(" " + context.getComment() + " ");
-		document.appendChild(comment);
+		if (!StringUtils.isBlank(context.getComment())) {
+			Comment comment = document.createComment(" " + context.getComment() + " ");
+			document.appendChild(comment);
+		}
 		return document;
 	}
 
@@ -109,12 +114,12 @@ public class DefaultImpexService implements ImpexService {
 
 		// Populate the document with metadata about the views
 		if (context.isProcessViews()) {
-			processViews(database.getViews(), document, databaseNode);
+			processViews(context, database.getViews(), document, databaseNode);
 		}
 
 		// Populate the document with metadata about the sequences
 		if (context.isProcessSequences()) {
-			processSequences(database.getSequences(), document, databaseNode);
+			processSequences(context, database.getSequences(), document, databaseNode);
 		}
 
 		// Append the database node to the document
@@ -124,33 +129,61 @@ public class DefaultImpexService implements ImpexService {
 		return document;
 	}
 
-	protected void processSequences(List<Sequence> sequences, Document document, Element databaseNode) {
+	protected void processSequences(ImpexContext context, List<Sequence> sequences, Document document, Element databaseNode) {
+		int excludedCount = 0;
+		StringFilter filter = new StringFilter(context.getSequenceIncludes(), context.getSequenceExcludes());
 		for (Sequence sequence : sequences) {
-			Element sequenceElement = document.createElement("sequence");
-			sequenceElement.setAttribute("name", sequence.getName());
-			sequenceElement.setAttribute("nextval", sequence.getNextVal());
-			databaseNode.appendChild(sequenceElement);
+			String sequenceName = sequence.getName();
+			boolean include = filter.isInclude(sequenceName);
+			if (include) {
+				Element sequenceElement = document.createElement("sequence");
+				sequenceElement.setAttribute("name", sequence.getName());
+				sequenceElement.setAttribute("nextval", sequence.getNextVal());
+				databaseNode.appendChild(sequenceElement);
+			} else {
+				excludedCount++;
+			}
+		}
+		if (excludedCount > 0) {
+			logger.info("Filtered out {} sequences", excludedCount);
 		}
 	}
 
-	protected void processViews(List<View> views, Document document, Element databaseNode) {
+	protected void processViews(ImpexContext context, List<View> views, Document document, Element databaseNode) {
+		int excludedCount = 0;
+		StringFilter filter = new StringFilter(context.getViewIncludes(), context.getViewExcludes());
 		for (View view : views) {
-			Element viewElement = document.createElement("view");
-			viewElement.setAttribute("name", view.getName());
-			String definition = view.getDefinition().replaceAll("\0", "");
-			viewElement.setAttribute("viewdefinition", definition);
-			databaseNode.appendChild(viewElement);
+			String viewName = view.getName();
+			boolean include = filter.isInclude(viewName);
+			if (include) {
+				Element viewElement = document.createElement("view");
+				viewElement.setAttribute("name", view.getName());
+				String definition = view.getDefinition().replaceAll("\0", "");
+				viewElement.setAttribute("viewdefinition", definition);
+				databaseNode.appendChild(viewElement);
+			} else {
+				excludedCount++;
+			}
+		}
+		if (excludedCount > 0) {
+			logger.info("Filtered out {} views", excludedCount);
 		}
 	}
 
 	protected void processTables(ImpexContext context, List<TableContext> tables, Document document, Element databaseNode) {
 		StringFilter filter = new StringFilter(context.getTableIncludes(), context.getTableExcludes());
+		int excludedCount = 0;
 		for (TableContext table : tables) {
 			String tableName = table.getName();
 			boolean include = filter.isInclude(tableName);
 			if (include) {
 				processTable(table, document, databaseNode);
+			} else {
+				excludedCount++;
 			}
+		}
+		if (excludedCount > 0) {
+			logger.info("Filtered out {} table definitions", excludedCount);
 		}
 	}
 
