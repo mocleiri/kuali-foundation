@@ -155,7 +155,18 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	/**
-	 * Create and return the top level Document object
+	 * Return the systemId to use
+	 */
+	protected String getDatasetSystemId(ImpexContext context) {
+		if (context.isAntCompatibilityMode()) {
+			return "data.dtd";
+		} else {
+			return context.getArtifactId() + ".dtd";
+		}
+	}
+
+	/**
+	 * Create and return the top level schema document object
 	 */
 	protected Document getSchemaDocument(ImpexContext context) {
 		DocumentTypeImpl docType = new DocumentTypeImpl(null, "database", null, getSchemaSystemId(context));
@@ -389,6 +400,20 @@ public class DefaultImpexService implements ImpexService {
 		table.setIndexes(indexes);
 		table.setForeignKeys(foreignKeys);
 		table.setSelectQuery(selectQuery);
+	}
+
+	/**
+	 * Return the XML Document object that we will serialize to disk
+	 */
+	protected Document getDatasetDocument(ImpexContext context, TableContext table) throws SQLException {
+		// Generate the document type
+		DocumentTypeImpl docType = new DocumentTypeImpl(null, "dataset", null, getDatasetSystemId(context));
+		// Generate an empty document
+		DocumentImpl document = new DocumentImpl(docType);
+		// Append a comment
+		document.appendChild(document.createComment(" " + context.getComment() + " "));
+		// Return the document
+		return document;
 	}
 
 	/**
