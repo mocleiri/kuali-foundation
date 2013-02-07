@@ -72,7 +72,7 @@ public class DefaultImpexService implements ImpexService {
 		for (ImpexContext context : contexts) {
 			if (context.isAntCompatibilityMode()) {
 				// The Ant task requires database.dtd to be on the file system in the same directory as schema.xml if schema.xml
-				// was generated with antCompatiblityMode turned on
+				// was generated with antCompatibilityMode turned on
 				File databaseDTD = new File(context.getWorkingDir() + "/database.dtd");
 				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(databaseDTD));
 				LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
