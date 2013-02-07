@@ -32,6 +32,7 @@ import org.apache.xerces.dom.DocumentTypeImpl;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -51,6 +52,8 @@ import org.kuali.core.db.torque.pojo.SchemaRequest;
 import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
 import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
 import org.kuali.core.db.torque.pojo.Sequence;
+import org.kuali.core.db.torque.pojo.TableBucket;
+import org.kuali.core.db.torque.pojo.TableBucketHandler;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.kuali.core.db.torque.pojo.View;
 import org.slf4j.Logger;
@@ -419,6 +422,42 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	/**
+	 * Dump tables as appropriate to disk.
+	 */
+	public List<DumpTableResult> dumpTables(ImpexContext context, DatabaseContext database) {
+
+		List<TableContext> tables = database.getTables();
+
+		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, 5);
+
+		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
+
+		// Print a dot any time we complete 1% of our requests
+		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
+		progressTracker.setTotal(tables.size());
+
+		// Each bucket holds a bunch of requests
+		List<TableBucket> buckets = new ArrayList<TableBucket>();
+		for (List<TableContext> tableList : listOfLists) {
+			TableBucket bucket = new TableBucket();
+			bucket.setProgressTracker(progressTracker);
+			bucket.setContext(context);
+			bucket.setService(this);
+			bucket.setTables(tableList);
+			bucket.setResults(results);
+			buckets.add(bucket);
+		}
+
+		// Create and invoke threads to fill in the metadata
+		ExecutionStatistics stats = invokeThreads(buckets, new TableBucketHandler());
+		String time = FormatUtils.getTime(stats.getExecutionTime());
+		logger.info("Dump tables completed.  Time: {}", time);
+		logger.info("Disconnecting from database.");
+		return results;
+
+	}
+
+	/**
 	 * Dump the contents of the indicated table to disk
 	 */
 	public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
@@ -745,24 +784,24 @@ public class DefaultImpexService implements ImpexService {
 		}
 
 		// Create and invoke threads to fill in the metadata
-		invokeThreads(buckets);
+		ExecutionStatistics stats = invokeThreads(buckets, new SchemaRequestHandler());
+		String time = FormatUtils.getTime(stats.getExecutionTime());
+		logger.info("Metadata acquired.  Time: {}", time);
+		logger.info("Disconnecting from database.");
 	}
 
-	protected void invokeThreads(List<SchemaRequestBucket> buckets) {
+	protected <T> ExecutionStatistics invokeThreads(List<T> buckets, ElementHandler<T> handler) {
 		// Store some context for the thread handler
-		ThreadHandlerContext<SchemaRequestBucket> thc = new ThreadHandlerContext<SchemaRequestBucket>();
+		ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
 		thc.setList(buckets);
-		thc.setHandler(new SchemaRequestHandler());
+		thc.setHandler(handler);
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
 
 		// Start threads to acquire table metadata concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
-		ExecutionStatistics stats = invoker.invokeThreads(thc);
-		String time = FormatUtils.getTime(stats.getExecutionTime());
-		logger.info("Metadata acquired.  Time: {}", time);
-		logger.info("Disconnecting from database.");
+		return invoker.invokeThreads(thc);
 	}
 
 	protected void doFilter(Collection<String> elements, List<String> includes, List<String> excludes, String label) {

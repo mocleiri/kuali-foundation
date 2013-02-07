@@ -8,6 +8,7 @@ public class DumpTableResult {
 	long rows;
 	long size;
 	List<File> files;
+	TableContext table;
 
 	public long getRows() {
 		return rows;
@@ -31,6 +32,14 @@ public class DumpTableResult {
 
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+
+	public TableContext getTable() {
+		return table;
+	}
+
+	public void setTable(TableContext table) {
+		this.table = table;
 	}
 
 }
