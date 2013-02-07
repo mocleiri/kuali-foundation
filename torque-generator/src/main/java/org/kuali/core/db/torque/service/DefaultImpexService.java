@@ -6,7 +6,9 @@ import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,6 +51,7 @@ import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
 import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
+import org.kuali.core.db.torque.pojo.TableDumpResult;
 import org.kuali.core.db.torque.pojo.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -414,6 +417,60 @@ public class DefaultImpexService implements ImpexService {
 		document.appendChild(document.createComment(" " + context.getComment() + " "));
 		// Return the document
 		return document;
+	}
+
+	/**
+	 * Dump the contents of the indicated table to disk
+	 */
+	public TableDumpResult dumpTable(ImpexContext context, TableContext table) throws SQLException {
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			DataSource dataSource = context.getDataSource();
+			conn = DataSourceUtils.getConnection(dataSource);
+			// This query selects everything from the table
+			String query = table.getSelectQuery();
+			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+			rs = stmt.executeQuery(query);
+			return dumpTable(context, table, rs);
+		} catch (Exception e) {
+			throw new SQLException(e);
+		} finally {
+			closeQuietly(rs);
+			closeQuietly(stmt);
+		}
+	}
+
+	protected TableDumpResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
+		ResultSetMetaData md = rs.getMetaData();
+		org.apache.torque.engine.database.model.Column[] columns = getColumns(md);
+		TableDumpResult result = new TableDumpResult();
+		return result;
+	}
+
+	protected void closeQuietly(Statement stmt) {
+		if (stmt != null) {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				throw new IllegalStateException(e);
+			}
+		}
+	}
+
+	/**
+	 * Generate an array of Column objects from the result set metadata
+	 */
+	protected org.apache.torque.engine.database.model.Column[] getColumns(final ResultSetMetaData md) throws SQLException {
+		org.apache.torque.engine.database.model.Column[] columns = new org.apache.torque.engine.database.model.Column[md.getColumnCount() + 1];
+		for (int i = 1; i <= md.getColumnCount(); i++) {
+			org.apache.torque.engine.database.model.Column column = new org.apache.torque.engine.database.model.Column();
+			column.setName(md.getColumnName(i));
+			column.setJdbcType(md.getColumnType(i));
+			columns[i] = column;
+		}
+		return columns;
 	}
 
 	/**
