@@ -53,13 +53,13 @@ public class ImpexServiceTest {
 			log(ks);
 			prepareFileSystem(ks);
 
-			ImpexContext bundled = ImpexUtils.clone(ks, ".*", "ks-bundled-db");
+			ImpexContext bundled = ImpexUtils.clone(ks, "KS.*,KR.*", "ks-bundled-db");
 			ImpexContext rice = ImpexUtils.clone(ks, "KR.*", "ks-rice-db");
 			ImpexContext app = ImpexUtils.clone(ks, "KS.*", "ks-app-db");
 
 			ImpexService service = new DefaultImpexService();
-			DatabaseContext database = service.getDatabaseObjectLists(bundled);
-			service.fillInMetaData(bundled, database);
+			DatabaseContext database = service.getDatabaseObjectLists(ks);
+			service.fillInMetaData(ks, database);
 			service.serializeSchemas(Arrays.asList(bundled, rice, app), database);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);

@@ -163,9 +163,7 @@ public class DefaultImpexService implements ImpexService {
 				excludedCount++;
 			}
 		}
-		if (excludedCount > 0) {
-			logger.info("Filtered out {} sequences", excludedCount);
-		}
+		logger.debug("Filtered out {} sequences", excludedCount);
 	}
 
 	protected void processViews(ImpexContext context, List<View> views, Document document, Element databaseNode) {
@@ -185,9 +183,7 @@ public class DefaultImpexService implements ImpexService {
 				excludedCount++;
 			}
 		}
-		if (excludedCount > 0) {
-			logger.info("Filtered out {} views", excludedCount);
-		}
+		logger.debug("Filtered out {} views", excludedCount);
 	}
 
 	protected void processTables(ImpexContext context, List<TableContext> tables, Document document, Element databaseNode) {
@@ -203,9 +199,7 @@ public class DefaultImpexService implements ImpexService {
 				excludedCount++;
 			}
 		}
-		if (excludedCount > 0) {
-			logger.info("Filtered out {} table definitions", excludedCount);
-		}
+		logger.debug("Filtered out {} table definitions", excludedCount);
 	}
 
 	protected void processTable(TableContext table, Document document, Element databaseNode) {
