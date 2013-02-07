@@ -104,7 +104,7 @@ public class DefaultImpexService implements ImpexService {
 
 		// Populate the document with metadata about the tables
 		if (context.isProcessTables()) {
-			processTables(database.getTables(), document, databaseNode);
+			processTables(context, database.getTables(), document, databaseNode);
 		}
 
 		// Populate the document with metadata about the views
@@ -143,9 +143,14 @@ public class DefaultImpexService implements ImpexService {
 		}
 	}
 
-	protected void processTables(List<TableContext> tables, Document document, Element databaseNode) {
+	protected void processTables(ImpexContext context, List<TableContext> tables, Document document, Element databaseNode) {
+		StringFilter filter = new StringFilter(context.getTableIncludes(), context.getTableExcludes());
 		for (TableContext table : tables) {
-			processTable(table, document, databaseNode);
+			String tableName = table.getName();
+			boolean include = filter.isInclude(tableName);
+			if (include) {
+				processTable(table, document, databaseNode);
+			}
 		}
 	}
 
