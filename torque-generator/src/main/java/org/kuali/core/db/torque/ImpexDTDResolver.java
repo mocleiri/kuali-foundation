@@ -10,12 +10,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Kuali customized Torque's database.dtd by adding sequence and view. Thus we need to use our custom dtd instead of the
- * latest one from Torque. At the moment the Kuali database.dtd is stored in many different spots inside Subversion.
- * This is because the impex was not set up such that XML parsing/generation was able to read Kuali's customized
- * database.dtd off of the classpath. Thus, database.dtd has to be present on the file system in the same directory as
- * any schema.xml files that are being parsed.
- * 
+ * Kuali customized Torque's database.dtd by adding sequence and view. Thus we need to use the Kuali DTD instead of the DTD from Torque. At
+ * the moment, the Kuali database.dtd is stored in many different locations inside Subversion. This is because Impex was originally set up
+ * such that XML parsing/generation was not able to read Kuali's customized database.dtd off of the classpath. Thus, database.dtd has to be
+ * present on the file system in the same directory as any schema.xml files that are being parsed.
+ *
  * This class allows a single copy of database.dtd to be bundled into a .jar and shared by everyone at Kuali.
  */
 public class ImpexDTDResolver extends DTDResolver {
