@@ -17,7 +17,7 @@ public class ImpexUtils {
 		return target;
 	}
 
-	public static ImpexContext clone(ImpexContext source, String include, String artifactId) {
+	public static ImpexContext cloneAndInitialize(ImpexContext source, String include, String artifactId) {
 		ImpexContext clone = clone(source);
 		clone.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(include));
 		clone.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(include));
@@ -25,6 +25,7 @@ public class ImpexUtils {
 		clone.setArtifactId(artifactId);
 		clone.setWorkingDir(new File(clone.getWorkingDir() + FS + artifactId));
 		clone.setSchemaXmlFile(new File(clone.getWorkingDir() + FS + "schema.xml"));
+		initialize(clone);
 		return clone;
 	}
 

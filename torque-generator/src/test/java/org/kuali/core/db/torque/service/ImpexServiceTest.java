@@ -17,6 +17,7 @@ package org.kuali.core.db.torque.service;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -45,18 +46,20 @@ public class ImpexServiceTest {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
 			ImpexContext sourceContext = getImpexContext(p);
-			initialize(sourceContext);
+			sourceContext.setAntCompatibilityMode(false);
 			log(sourceContext);
-			prepareFileSystem(sourceContext);
 
-			ImpexContext bundledContext = ImpexUtils.clone(sourceContext, "KS.*,KR.*", "ks-bundled-db");
-			ImpexContext riceContext = ImpexUtils.clone(sourceContext, "KR.*", "ks-rice-db");
-			ImpexContext appContext = ImpexUtils.clone(sourceContext, "KS.*", "ks-app-db");
+			ImpexContext bundledContext = ImpexUtils.cloneAndInitialize(sourceContext, "KS.*,KR.*", "ks-bundled-db");
+			ImpexContext riceContext = ImpexUtils.cloneAndInitialize(sourceContext, "KR.*", "ks-rice-db");
+			ImpexContext appContext = ImpexUtils.cloneAndInitialize(sourceContext, "KS.*", "ks-app-db");
+
+			List<ImpexContext> contexts = Arrays.asList(bundledContext, riceContext, appContext);
 
 			ImpexService service = new DefaultImpexService();
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
 			service.fillInMetaData(sourceContext, database);
-			service.serializeSchemas(Arrays.asList(bundledContext, riceContext, appContext), database);
+			service.serializeSchemas(contexts, database);
+			service.generateDataDtds(contexts);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
@@ -93,7 +96,7 @@ public class ImpexServiceTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "";
+		String tableIncludes = "KRIM.*";
 		String viewIncludes = tableIncludes;
 		String sequenceIncludes = tableIncludes;
 		int threads = 15;
