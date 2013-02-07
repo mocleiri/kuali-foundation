@@ -36,7 +36,6 @@ import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.Column;
@@ -50,7 +49,6 @@ import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
 import org.kuali.core.db.torque.pojo.View;
-import org.kuali.db.JDBCUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -413,9 +411,19 @@ public class DefaultImpexService implements ImpexService {
 				columns.add(col);
 			}
 		} finally {
-			JDBCUtils.closeQuietly(columnSet);
+			closeQuietly(columnSet);
 		}
 		return columns;
+	}
+
+	protected void closeQuietly(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				throw new IllegalStateException(e);
+			}
+		}
 	}
 
 	protected String getForeignKeyName(ResultSet foreignKeys, String refTableName) throws SQLException {
@@ -466,7 +474,7 @@ public class DefaultImpexService implements ImpexService {
 			// when retrieving foreign keys from views.
 			logger.warn("Could not read foreign keys for Table " + tableName + " : " + e.getMessage());
 		} finally {
-			JDBCUtils.closeQuietly(foreignKeys);
+			closeQuietly(foreignKeys);
 		}
 		return fks;
 	}
@@ -502,7 +510,7 @@ public class DefaultImpexService implements ImpexService {
 		} catch (SQLException e) {
 			logger.warn("Could not locate primary key info for " + tableName + " : " + e.getMessage());
 		} finally {
-			JDBCUtils.closeQuietly(pkInfo);
+			closeQuietly(pkInfo);
 		}
 		return null;
 	}
@@ -562,7 +570,7 @@ public class DefaultImpexService implements ImpexService {
 		} catch (SQLException e) {
 			logger.warn("Could not read indexes for Table " + tableName + " : " + e.getMessage());
 		} finally {
-			JDBCUtils.closeQuietly(indexInfo);
+			closeQuietly(indexInfo);
 		}
 		return indexes;
 	}
@@ -635,14 +643,14 @@ public class DefaultImpexService implements ImpexService {
 		List<List<SchemaRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getThreads());
 
 		// Print a dot any time we complete 1% of our requests
-		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		progressTracker.setTotal(requests.size());
+		// PercentCompleteInformer progressTracker = new PercentCompleteInformer();
+		// progressTracker.setTotal(requests.size());
 
 		// Each bucket holds a bunch of requests
 		List<SchemaRequestBucket> buckets = new ArrayList<SchemaRequestBucket>();
 		for (List<SchemaRequest> list : listOfLists) {
 			SchemaRequestBucket bucket = new SchemaRequestBucket();
-			bucket.setProgressTracker(progressTracker);
+			// bucket.setProgressTracker(progressTracker);
 			bucket.setDataSource(context.getDataSource());
 			bucket.setRequests(list);
 			bucket.setImpexContext(context);
