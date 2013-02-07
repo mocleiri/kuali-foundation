@@ -64,7 +64,9 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void generateDataDtds(List<ImpexContext> contexts) {
-		// Data .dtd generation has some funky requirements
+		// Generating the data.dtd is currently coupled to Ant via the task "TexenTask".
+		// That task has some funky local file system requirements.
+		// It requires the presence of 2 files in specific directories relative to where the data.dtd is being generated
 		ImpexUtils.prepareFileSystem(contexts);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
@@ -78,8 +80,8 @@ public class DefaultImpexService implements ImpexService {
 			if (context.isAntCompatibilityMode()) {
 				File oldDtd = new File(context.getWorkingDir() + "/" + context.getArtifactId() + ".dtd");
 				File newDtd = new File(context.getWorkingDir() + "/data.dtd");
-				oldDtd.renameTo(newDtd);
 				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(newDtd));
+				oldDtd.renameTo(newDtd);
 			}
 		}
 	}
