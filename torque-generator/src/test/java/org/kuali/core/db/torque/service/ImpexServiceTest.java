@@ -96,7 +96,7 @@ public class ImpexServiceTest {
 	}
 
 	protected Properties getProperties() {
-		String tableIncludes = "KRIM.*";
+		String tableIncludes = "KR.*,KS.*";
 		String viewIncludes = tableIncludes;
 		String sequenceIncludes = tableIncludes;
 		int threads = 15;
@@ -173,6 +173,7 @@ public class ImpexServiceTest {
 
 	protected ImpexContext getImpexContext(Properties p) {
 		ImpexContext context = new ImpexContext();
+		// simple property copying
 		context.setArtifactId(p.getProperty("project.artifactId"));
 		context.setSchema(p.getProperty("impex.schema"));
 		context.setDriver(p.getProperty("impex.driver"));
@@ -180,20 +181,22 @@ public class ImpexServiceTest {
 		context.setUsername(p.getProperty("impex.username"));
 		context.setPassword(p.getProperty("impex.password"));
 		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
+		context.setDateFormat(p.getProperty("impex.dateFormat"));
+		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
+
+		// properties that need to be processed in some way
 		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
 		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
 		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
 		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
 		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
 		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
-		context.setDateFormat(p.getProperty("impex.dateFormat"));
-		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
-
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
 
 		// Setup the datasource
 		context.setDataSource(getDataSource(p));
 
+		// Properties that already have default values, don't override unless the corresponding property is explicitly set
 		if (p.getProperty("impex.comment") != null) {
 			context.setComment(p.getProperty("impex.comment"));
 		}
