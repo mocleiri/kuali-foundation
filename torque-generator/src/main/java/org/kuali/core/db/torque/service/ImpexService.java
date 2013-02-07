@@ -33,7 +33,7 @@ public interface ImpexService {
 	Document getSchemaDocument(ImpexContext context, DatabaseContext database);
 
 	/**
-	 * Serialize the document object to disk.
+	 * Serialize a document object to disk.
 	 */
 	void serialize(Document document, File file, String encoding);
 
