@@ -21,7 +21,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
 import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
@@ -66,9 +65,16 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void generateDataDtds(List<ImpexContext> contexts) {
+		// Data .dtd generation has some funky requirements
+		ImpexUtils.prepareFileSystem(contexts);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
-			Task task = getGenerateDtdTask(context, antProject);
+			if (context.isAntCompatibilityMode()) {
+				File databaseDTD = new File(context.getWorkingDir() + "/database.dtd");
+				logger.info("Creating [{}]", databaseDTD);
+				LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
+			}
+			TorqueDataModelTask task = getGenerateDtdTask(context, antProject);
 			task.execute();
 		}
 	}
@@ -79,7 +85,7 @@ public class DefaultImpexService implements ImpexService {
 		return antProject;
 	}
 
-	protected Task getGenerateDtdTask(ImpexContext context, Project project) {
+	protected TorqueDataModelTask getGenerateDtdTask(ImpexContext context, Project project) {
 		TorqueDataModelTask task = new TorqueDataModelTask();
 		task.setProject(project);
 		task.setOutputDirectory(context.getWorkingDir());

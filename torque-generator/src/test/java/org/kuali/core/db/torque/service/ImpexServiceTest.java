@@ -46,12 +46,12 @@ public class ImpexServiceTest {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
 			ImpexContext sourceContext = getImpexContext(p);
-			sourceContext.setAntCompatibilityMode(false);
+			sourceContext.setAntCompatibilityMode(true);
 			log(sourceContext);
 
-			ImpexContext bundledContext = ImpexUtils.cloneAndInitialize(sourceContext, "KS.*,KR.*", "ks-bundled-db");
-			ImpexContext riceContext = ImpexUtils.cloneAndInitialize(sourceContext, "KR.*", "ks-rice-db");
-			ImpexContext appContext = ImpexUtils.cloneAndInitialize(sourceContext, "KS.*", "ks-app-db");
+			ImpexContext bundledContext = ImpexUtils.clone(sourceContext, "KS.*,KR.*", "ks-bundled-db");
+			ImpexContext riceContext = ImpexUtils.clone(sourceContext, "KR.*", "ks-rice-db");
+			ImpexContext appContext = ImpexUtils.clone(sourceContext, "KS.*", "ks-app-db");
 
 			List<ImpexContext> contexts = Arrays.asList(bundledContext, riceContext, appContext);
 

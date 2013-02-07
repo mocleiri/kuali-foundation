@@ -2,6 +2,7 @@ package org.kuali.core.db.torque.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -11,6 +12,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.Assert;
 
 public class ImpexUtils {
 
@@ -24,7 +26,7 @@ public class ImpexUtils {
 		return target;
 	}
 
-	public static ImpexContext cloneAndInitialize(ImpexContext source, String include, String artifactId) throws IOException {
+	public static ImpexContext clone(ImpexContext source, String include, String artifactId) throws IOException {
 		ImpexContext clone = clone(source);
 		clone.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(include));
 		clone.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(include));
@@ -32,30 +34,41 @@ public class ImpexUtils {
 		clone.setArtifactId(artifactId);
 		clone.setWorkingDir(new File(clone.getWorkingDir() + FS + artifactId));
 		clone.setSchemaXmlFile(new File(clone.getWorkingDir() + FS + "schema.xml"));
-		initialize(clone);
 		return clone;
+	}
+
+	public static void prepareFileSystem(List<ImpexContext> contexts) {
+		try {
+			for (ImpexContext context : contexts) {
+				prepareFileSystem(context);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error");
+		}
 	}
 
 	/**
 	 * Working dir must be set before invoking this method
 	 */
-	public static void initialize(ImpexContext context) throws IOException {
-		initReportFile(context);
-		initContextPropertiesFile(context);
+	public static void prepareFileSystem(ImpexContext context) throws IOException {
+		Assert.notNull(context.getWorkingDir(), "workingDir is null");
+		// The Texen velocity template requires these 2 files to be present or parsing will fail
+		createReportFile(context);
+		createContextPropertiesFile(context);
 	}
 
-	protected static void initReportFile(ImpexContext context) throws IOException {
+	protected static void createReportFile(ImpexContext context) throws IOException {
 		String relativePath = "../reports/" + context.getArtifactId() + "/context.datadtd.generation";
-		String absolutePath = context.getWorkingDir() + "/" + relativePath;
+		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
 		File canonicalFile = new File(canonicalPath);
-		logger.debug("Touching report file [{}]", canonicalPath);
+		logger.debug("Create file  [{}]", canonicalPath);
 		FileUtils.touch(canonicalFile);
 		context.setReportFile(relativePath);
 	}
 
-	protected static void initContextPropertiesFile(ImpexContext context) {
+	protected static void createContextPropertiesFile(ImpexContext context) {
 		String path = context.getWorkingDir() + "/../reports/" + context.getArtifactId() + "/context.datadtd.properties";
 		String canonicalPath = LocationUtils.getCanonicalPath(new File(path));
 		File file = new File(canonicalPath);
