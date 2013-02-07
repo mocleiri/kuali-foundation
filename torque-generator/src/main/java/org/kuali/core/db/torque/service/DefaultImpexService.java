@@ -64,8 +64,8 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void generateDataDtds(List<ImpexContext> contexts) {
-		// Generating the data.dtd is currently coupled to Ant via the task "TexenTask".
-		// That task has some funky local file system requirements.
+		// Generating the data.dtd is currently coupled to Ant because the logic is inside TorqueDataModelTask which extends TexenTask
+		// That task has some very specific local file system requirements.
 		// It requires the presence of 2 files in specific directories relative to where the data.dtd is being generated
 		ImpexUtils.prepareFileSystem(contexts);
 		Project antProject = getInitializedAntProject();
