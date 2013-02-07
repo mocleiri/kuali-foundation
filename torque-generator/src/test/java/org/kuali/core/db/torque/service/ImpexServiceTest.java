@@ -18,6 +18,7 @@ package org.kuali.core.db.torque.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -51,24 +52,26 @@ public class ImpexServiceTest {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
 			ImpexContext bundled = getImpexContext(p);
+			ImpexContext rice = ImpexUtils.clone(bundled, "KR.*", "ks-rice-db");
+			ImpexContext app = ImpexUtils.clone(bundled, "KS.*", "ks-app-db");
 			log(bundled);
 			prepareFileSystem(bundled);
-
-			ImpexContext rice = ImpexUtils.clone(bundled);
-			rice.setTableIncludes(Arrays.asList("KR.*"));
-			rice.setViewIncludes(Arrays.asList("KR.*"));
-			rice.setSequenceIncludes(Arrays.asList("KR.*"));
-
 			ImpexService service = new DefaultImpexService();
 			DatabaseContext database = service.getDatabaseObjectLists(bundled);
 			service.fillInMetaData(bundled, database);
-			Document document = service.getDocument(bundled, database);
-			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(bundled.getSchemaXmlFile()));
-			service.serialize(document, bundled.getSchemaXmlFile(), bundled.getEncoding());
+			dumpSchemas(Arrays.asList(bundled, rice, app), database, service);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void dumpSchemas(List<ImpexContext> contexts, DatabaseContext database, ImpexService service) {
+		for (ImpexContext context : contexts) {
+			Document document = service.getSchemaDocument(context, database);
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
+			service.serialize(document, context.getSchemaXmlFile(), context.getEncoding());
 		}
 	}
 
@@ -116,7 +119,7 @@ public class ImpexServiceTest {
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
 		p.setProperty("project.build.directory", p.getProperty("project.basedir") + "/target");
-		p.setProperty("project.artifactId", "ks-rice-db");
+		p.setProperty("project.artifactId", "ks-bundled-db");
 		p.setProperty("impex.table.includes", tableIncludes);
 		p.setProperty("impex.view.includes", viewIncludes);
 		p.setProperty("impex.sequence.includes", sequenceIncludes);
@@ -214,7 +217,7 @@ public class ImpexServiceTest {
 		context.setDateFormat(p.getProperty("impex.dateFormat"));
 		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
 
-		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
+		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
 
 		// Don't mess with these two
 		context.setContextProperties(new File(context.getWorkingDir(), "/reports/context.datadtd.properties"));

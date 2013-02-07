@@ -41,7 +41,6 @@ public class ImpexContext {
 	String reportFile;
 	DataSource dataSource;
 	Platform platform;
-	String systemId;
 
 	public File getSchemaXmlFile() {
 		return schemaXmlFile;
@@ -273,14 +272,6 @@ public class ImpexContext {
 
 	public void setPlatform(Platform platform) {
 		this.platform = platform;
-	}
-
-	public String getSystemId() {
-		return systemId;
-	}
-
-	public void setSystemId(String systemId) {
-		this.systemId = systemId;
 	}
 
 }

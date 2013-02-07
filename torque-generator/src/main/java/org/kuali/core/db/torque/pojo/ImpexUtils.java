@@ -1,7 +1,7 @@
 package org.kuali.core.db.torque.pojo;
 
+import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 
 import org.kuali.core.db.torque.service.ImpexContext;
 import org.springframework.beans.BeanUtils;
@@ -14,15 +14,13 @@ public class ImpexUtils {
 		return target;
 	}
 
-	public static ImpexContext clone(ImpexContext source, String include) {
-		return clone(source, Arrays.asList(include));
-	}
-
-	public static ImpexContext clone(ImpexContext source, List<String> includes) {
+	public static ImpexContext clone(ImpexContext source, String include, String artifactId) {
 		ImpexContext clone = clone(source);
-		clone.setTableIncludes(includes);
-		clone.setViewIncludes(includes);
-		clone.setSequenceIncludes(includes);
+		clone.setTableIncludes(Arrays.asList(include));
+		clone.setViewIncludes(Arrays.asList(include));
+		clone.setSequenceIncludes(Arrays.asList(include));
+		clone.setArtifactId(artifactId);
+		clone.setSchemaXmlFile(new File(clone.getWorkingDir() + "/" + artifactId + ".xml"));
 		return clone;
 	}
 

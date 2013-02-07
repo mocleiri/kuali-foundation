@@ -34,6 +34,7 @@ import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
@@ -85,12 +86,19 @@ public class DefaultImpexService implements ImpexService {
 		return databaseNode;
 	}
 
+	protected String getSchemaSystemId(ImpexContext context) {
+		if (context.isAntCompatibilityMode()) {
+			return "database.dtd";
+		} else {
+			return ImpexDTDResolver.DTD_LOCATION;
+		}
+	}
+
 	/**
 	 * Create and return the top level Document object
 	 */
-	protected Document getDocument(ImpexContext context) {
-		Assert.notNull(context.getSystemId(), "system id is null");
-		DocumentTypeImpl docType = new DocumentTypeImpl(null, "database", null, context.getSystemId());
+	protected Document getSchemaDocument(ImpexContext context) {
+		DocumentTypeImpl docType = new DocumentTypeImpl(null, "database", null, getSchemaSystemId(context));
 		Document document = new DocumentImpl(docType);
 		if (!StringUtils.isBlank(context.getComment())) {
 			Comment comment = document.createComment(" " + context.getComment() + " ");
@@ -100,9 +108,9 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	@Override
-	public Document getDocument(ImpexContext context, DatabaseContext database) {
+	public Document getSchemaDocument(ImpexContext context, DatabaseContext database) {
 		// Get the top level document object
-		Document document = getDocument(context);
+		Document document = getSchemaDocument(context);
 
 		// Use the document to help create the top level database node
 		Element databaseNode = getDatabaseNode(context, document);

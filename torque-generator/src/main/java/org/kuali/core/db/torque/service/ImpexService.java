@@ -29,7 +29,7 @@ public interface ImpexService {
 	/**
 	 * Populate a document object with the database metadata
 	 */
-	Document getDocument(ImpexContext context, DatabaseContext database);
+	Document getSchemaDocument(ImpexContext context, DatabaseContext database);
 
 	/**
 	 * Serialize the document object to disk
