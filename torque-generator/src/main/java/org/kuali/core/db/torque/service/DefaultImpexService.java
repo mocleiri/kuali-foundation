@@ -62,7 +62,7 @@ public class DefaultImpexService implements ImpexService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
 
 	@Override
-    public void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database) {
+	public void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database) {
 		for (ImpexContext context : contexts) {
 			Document document = getSchemaDocument(context, database);
 			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
@@ -150,6 +150,7 @@ public class DefaultImpexService implements ImpexService {
 	protected void processSequences(ImpexContext context, List<Sequence> sequences, Document document, Element databaseNode) {
 		int excludedCount = 0;
 		StringFilter filter = new StringFilter(context.getSequenceIncludes(), context.getSequenceExcludes());
+		filter.compilePatterns();
 		for (Sequence sequence : sequences) {
 			String sequenceName = sequence.getName();
 			boolean include = filter.isInclude(sequenceName);
@@ -170,6 +171,7 @@ public class DefaultImpexService implements ImpexService {
 	protected void processViews(ImpexContext context, List<View> views, Document document, Element databaseNode) {
 		int excludedCount = 0;
 		StringFilter filter = new StringFilter(context.getViewIncludes(), context.getViewExcludes());
+		filter.compilePatterns();
 		for (View view : views) {
 			String viewName = view.getName();
 			boolean include = filter.isInclude(viewName);
@@ -190,6 +192,7 @@ public class DefaultImpexService implements ImpexService {
 
 	protected void processTables(ImpexContext context, List<TableContext> tables, Document document, Element databaseNode) {
 		StringFilter filter = new StringFilter(context.getTableIncludes(), context.getTableExcludes());
+		filter.compilePatterns();
 		int excludedCount = 0;
 		for (TableContext table : tables) {
 			String tableName = table.getName();

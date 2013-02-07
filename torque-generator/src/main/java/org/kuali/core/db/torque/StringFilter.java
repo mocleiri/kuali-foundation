@@ -43,7 +43,7 @@ public class StringFilter {
 	/**
 	 * Compile the string patterns into Pattern objects
 	 */
-	protected void compilePatterns() {
+	public void compilePatterns() {
 		includes = getPatterns(includePatterns);
 		excludes = getPatterns(excludePatterns);
 	}

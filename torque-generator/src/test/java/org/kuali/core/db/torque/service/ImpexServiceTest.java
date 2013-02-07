@@ -53,7 +53,7 @@ public class ImpexServiceTest {
 			log(ks);
 			prepareFileSystem(ks);
 
-			ImpexContext bundled = ImpexUtils.clone(ks, "T.*", "ks-bundled-db");
+			ImpexContext bundled = ImpexUtils.clone(ks, ".*", "ks-bundled-db");
 			ImpexContext rice = ImpexUtils.clone(ks, "KR.*", "ks-rice-db");
 			ImpexContext app = ImpexUtils.clone(ks, "KS.*", "ks-app-db");
 
