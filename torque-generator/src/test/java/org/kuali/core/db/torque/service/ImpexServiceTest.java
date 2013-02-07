@@ -18,7 +18,6 @@ package org.kuali.core.db.torque.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -40,7 +39,6 @@ import org.kuali.core.db.torque.pojo.ImpexUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.w3c.dom.Document;
 
 public class ImpexServiceTest {
 
@@ -51,27 +49,22 @@ public class ImpexServiceTest {
 		try {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
-			ImpexContext bundled = getImpexContext(p);
-			ImpexContext rice = ImpexUtils.clone(bundled, "KR.*", "ks-rice-db");
-			ImpexContext app = ImpexUtils.clone(bundled, "KS.*", "ks-app-db");
-			log(bundled);
-			prepareFileSystem(bundled);
+			ImpexContext ks = getImpexContext(p);
+			log(ks);
+			prepareFileSystem(ks);
+
+			ImpexContext bundled = ImpexUtils.clone(ks, "T.*", "ks-bundled-db");
+			ImpexContext rice = ImpexUtils.clone(ks, "KR.*", "ks-rice-db");
+			ImpexContext app = ImpexUtils.clone(ks, "KS.*", "ks-app-db");
+
 			ImpexService service = new DefaultImpexService();
 			DatabaseContext database = service.getDatabaseObjectLists(bundled);
 			service.fillInMetaData(bundled, database);
-			dumpSchemas(Arrays.asList(bundled, rice, app), database, service);
+			service.serializeSchemas(Arrays.asList(bundled, rice, app), database);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	protected void dumpSchemas(List<ImpexContext> contexts, DatabaseContext database, ImpexService service) {
-		for (ImpexContext context : contexts) {
-			Document document = service.getSchemaDocument(context, database);
-			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
-			service.serialize(document, context.getSchemaXmlFile(), context.getEncoding());
 		}
 	}
 

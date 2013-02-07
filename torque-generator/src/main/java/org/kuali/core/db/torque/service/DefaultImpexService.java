@@ -33,6 +33,7 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
@@ -59,6 +60,15 @@ import org.w3c.dom.Element;
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+
+	@Override
+    public void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database) {
+		for (ImpexContext context : contexts) {
+			Document document = getSchemaDocument(context, database);
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
+			serialize(document, context.getSchemaXmlFile(), context.getEncoding());
+		}
+	}
 
 	@Override
 	public void serialize(Document document, File file, String encoding) {

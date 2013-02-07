@@ -3,6 +3,7 @@ package org.kuali.core.db.torque.service;
 import java.io.File;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.TableContext;
@@ -35,5 +36,7 @@ public interface ImpexService {
 	 * Serialize the document object to disk
 	 */
 	void serialize(Document document, File file, String encoding);
+
+	void serializeSchemas(List<ImpexContext> contexts, DatabaseContext database);
 
 }
