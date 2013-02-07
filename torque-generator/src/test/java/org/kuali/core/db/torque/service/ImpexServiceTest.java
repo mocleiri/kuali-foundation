@@ -44,7 +44,7 @@ public class ImpexServiceTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			Properties p = getProperties();
+			Properties p = getProperties("KRIM.*", 15);
 			ImpexContext sourceContext = getImpexContext(p);
 			sourceContext.setAntCompatibilityMode(true);
 			log(sourceContext);
@@ -60,6 +60,7 @@ public class ImpexServiceTest {
 			service.fillInMetaData(sourceContext, database);
 			service.serializeSchemas(contexts, database);
 			service.generateDataDtds(contexts);
+			service.dumpTables(sourceContext, database);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
@@ -95,11 +96,10 @@ public class ImpexServiceTest {
 		return dmds;
 	}
 
-	protected Properties getProperties() {
-		String tableIncludes = "KR.*,KS.*";
-		String viewIncludes = tableIncludes;
-		String sequenceIncludes = tableIncludes;
-		int threads = 15;
+	protected Properties getProperties(String includes, int threads) {
+		String tableIncludes = includes;
+		String viewIncludes = includes;
+		String sequenceIncludes = includes;
 
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
