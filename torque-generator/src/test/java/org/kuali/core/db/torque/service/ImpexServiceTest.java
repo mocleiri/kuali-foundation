@@ -17,6 +17,7 @@ package org.kuali.core.db.torque.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -34,6 +35,7 @@ import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
+import org.kuali.core.db.torque.pojo.ImpexUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -48,15 +50,21 @@ public class ImpexServiceTest {
 		try {
 			long start = System.currentTimeMillis();
 			Properties p = getProperties();
-			ImpexContext context = getImpexContext(p);
-			log(context);
-			prepareFileSystem(context);
+			ImpexContext bundled = getImpexContext(p);
+			log(bundled);
+			prepareFileSystem(bundled);
+
+			ImpexContext rice = ImpexUtils.clone(bundled);
+			rice.setTableIncludes(Arrays.asList("KR.*"));
+			rice.setViewIncludes(Arrays.asList("KR.*"));
+			rice.setSequenceIncludes(Arrays.asList("KR.*"));
+
 			ImpexService service = new DefaultImpexService();
-			DatabaseContext database = service.getDatabaseObjectLists(context);
-			service.fillInMetaData(context, database);
-			Document document = service.getDocument(context, database);
-			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
-			service.serialize(document, context.getSchemaXmlFile(), context.getEncoding());
+			DatabaseContext database = service.getDatabaseObjectLists(bundled);
+			service.fillInMetaData(bundled, database);
+			Document document = service.getDocument(bundled, database);
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(bundled.getSchemaXmlFile()));
+			service.serialize(document, bundled.getSchemaXmlFile(), bundled.getEncoding());
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
