@@ -52,7 +52,7 @@ public class ImpexUtils {
 	 */
 	public static void prepareFileSystem(ImpexContext context) throws IOException {
 		Assert.notNull(context.getWorkingDir(), "workingDir is null");
-		// The Texen velocity template requires these 2 files to be present or parsing will fail
+		// The Texen ant task requires these 2 files to be present or the parsing of schema.xml will fail
 		createReportFile(context);
 		createContextPropertiesFile(context);
 	}

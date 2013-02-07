@@ -71,17 +71,21 @@ public class DefaultImpexService implements ImpexService {
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
 			if (context.isAntCompatibilityMode()) {
+				// The Ant task requires database.dtd to be on the file system in the same directory as schema.xml if schema.xml
+				// was generated with antCompatiblityMode turned on
 				File databaseDTD = new File(context.getWorkingDir() + "/database.dtd");
 				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(databaseDTD));
 				LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
 			}
 			TorqueDataModelTask task = getGenerateDtdTask(context, antProject);
 			task.execute();
+			File oldDtd = new File(context.getWorkingDir() + "/" + context.getArtifactId() + ".dtd");
 			if (context.isAntCompatibilityMode()) {
-				File oldDtd = new File(context.getWorkingDir() + "/" + context.getArtifactId() + ".dtd");
 				File newDtd = new File(context.getWorkingDir() + "/data.dtd");
 				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(newDtd));
 				oldDtd.renameTo(newDtd);
+			} else {
+				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(oldDtd));
 			}
 		}
 	}
