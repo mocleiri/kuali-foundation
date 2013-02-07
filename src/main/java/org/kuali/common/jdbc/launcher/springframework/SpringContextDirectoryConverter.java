@@ -19,6 +19,7 @@ import org.kuali.common.jdbc.convert.DirectoryContext;
 import org.kuali.common.jdbc.convert.DirectoryConverter;
 import org.kuali.common.jdbc.convert.PostConversionProcessor;
 import org.kuali.common.jdbc.convert.SqlConverter;
+import org.kuali.common.util.execute.Executable;
 
 import java.io.File;
 
@@ -27,7 +28,7 @@ import java.io.File;
  *
  * @author andrewlubbers
  */
-public class SpringContextDirectoryConverter {
+public class SpringContextDirectoryConverter implements Executable {
 
     private String inputSqlFolder;
 
@@ -39,7 +40,7 @@ public class SpringContextDirectoryConverter {
 
     private SqlConverter sqlConverter;
 
-    public void start() {
+    public void execute() {
         File directory = new File(inputSqlFolder);
 
         DirectoryContext context = new DirectoryContext();
