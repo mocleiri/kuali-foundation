@@ -36,6 +36,7 @@ import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.Column;
@@ -69,11 +70,17 @@ public class DefaultImpexService implements ImpexService {
 		for (ImpexContext context : contexts) {
 			if (context.isAntCompatibilityMode()) {
 				File databaseDTD = new File(context.getWorkingDir() + "/database.dtd");
-				logger.info("Creating [{}]", databaseDTD);
+				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(databaseDTD));
 				LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
 			}
 			TorqueDataModelTask task = getGenerateDtdTask(context, antProject);
 			task.execute();
+			if (context.isAntCompatibilityMode()) {
+				File oldDtd = new File(context.getWorkingDir() + "/" + context.getArtifactId() + ".dtd");
+				File newDtd = new File(context.getWorkingDir() + "/data.dtd");
+				oldDtd.renameTo(newDtd);
+				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(newDtd));
+			}
 		}
 	}
 
@@ -643,14 +650,14 @@ public class DefaultImpexService implements ImpexService {
 		List<List<SchemaRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getThreads());
 
 		// Print a dot any time we complete 1% of our requests
-		// PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		// progressTracker.setTotal(requests.size());
+		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
+		progressTracker.setTotal(requests.size());
 
 		// Each bucket holds a bunch of requests
 		List<SchemaRequestBucket> buckets = new ArrayList<SchemaRequestBucket>();
 		for (List<SchemaRequest> list : listOfLists) {
 			SchemaRequestBucket bucket = new SchemaRequestBucket();
-			// bucket.setProgressTracker(progressTracker);
+			bucket.setProgressTracker(progressTracker);
 			bucket.setDataSource(context.getDataSource());
 			bucket.setRequests(list);
 			bucket.setImpexContext(context);
