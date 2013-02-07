@@ -4,7 +4,7 @@ a:hover{text-decoration:none;}
 a:focus{border:1px solid red;}
 a:active{border:none;}
 .show-popover,.show-tooltip{border-bottom:1px dotted;}
-.show-popover:hover,.show-tooltip:hover{text-decoration:none !important;}
+.show-popover:hover,.show-tooltip:hover{text-decoration:none !important;cursor:pointer;}
 i{margin-right:.35em;}
 #header{background:#960000;width:100%;height:150px;position:relative;z-index:2;margin-bottom:-6px;}#header #global{width:100%;}#header #global .brand{float:left;padding-left:1.2em;margin-top:1em;}#header #global .brand .major{font-size:1.4em;color:#000000;display:inline-block;}
 #header #global .brand .minor{font-size:1.4em;color:#ffffff;display:inline-block;}
