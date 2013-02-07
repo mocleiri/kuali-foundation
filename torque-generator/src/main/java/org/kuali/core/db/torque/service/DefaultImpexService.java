@@ -43,6 +43,7 @@ import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.Column;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
+import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
 import org.kuali.core.db.torque.pojo.Reference;
@@ -51,7 +52,6 @@ import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
 import org.kuali.core.db.torque.pojo.SchemaRequestHandler;
 import org.kuali.core.db.torque.pojo.Sequence;
 import org.kuali.core.db.torque.pojo.TableContext;
-import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,13 +84,13 @@ public class DefaultImpexService implements ImpexService {
 			}
 			TorqueDataModelTask task = getGenerateDtdTask(context, antProject);
 			task.execute();
-			File oldDtd = new File(context.getWorkingDir() + "/" + context.getArtifactId() + ".dtd");
+			File dtd = new File(context.getWorkingDir() + "/" + context.getArtifactId() + ".dtd");
 			if (context.isAntCompatibilityMode()) {
 				File newDtd = new File(context.getWorkingDir() + "/data.dtd");
 				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(newDtd));
-				oldDtd.renameTo(newDtd);
+				dtd.renameTo(newDtd);
 			} else {
-				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(oldDtd));
+				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(dtd));
 			}
 		}
 	}
