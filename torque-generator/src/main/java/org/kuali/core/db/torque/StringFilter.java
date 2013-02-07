@@ -11,9 +11,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class provides logic for filtering strings based on regular expressions. Given a list of includePatterns and
- * excludePatterns the filter method will remove strings from an Iterator<String> if there is no match on an inclusion
- * pattern or there is a match on an exclusion pattern
+ * This class provides logic for filtering strings based on regular expressions. Given a list of includePatterns and excludePatterns the
+ * filter method will remove strings from an Iterator<String> if there is no match on an inclusion pattern or there is a match on an
+ * exclusion pattern
  */
 public class StringFilter {
 	private static final Log log = LogFactory.getLog(StringFilter.class);
@@ -105,7 +105,7 @@ public class StringFilter {
 	 * Return true if there have been inclusion patterns specified and there is a match on at least one of them<br>
 	 * Return false otherwise.<br>
 	 */
-	protected boolean isInclude(String s) {
+	public boolean isInclude(String s) {
 		return isEmpty(includePatterns) || isMatch(s, includes);
 	}
 

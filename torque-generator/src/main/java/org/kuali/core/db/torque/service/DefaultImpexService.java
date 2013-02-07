@@ -103,13 +103,19 @@ public class DefaultImpexService implements ImpexService {
 		Element databaseNode = getDatabaseNode(context, document);
 
 		// Populate the document with metadata about the tables
-		processTables(database.getTables(), document, databaseNode);
+		if (context.isProcessTables()) {
+			processTables(database.getTables(), document, databaseNode);
+		}
 
 		// Populate the document with metadata about the views
-		processViews(database.getViews(), document, databaseNode);
+		if (context.isProcessViews()) {
+			processViews(database.getViews(), document, databaseNode);
+		}
 
 		// Populate the document with metadata about the sequences
-		processSequences(database.getSequences(), document, databaseNode);
+		if (context.isProcessSequences()) {
+			processSequences(database.getSequences(), document, databaseNode);
+		}
 
 		// Append the database node to the document
 		document.appendChild(databaseNode);
