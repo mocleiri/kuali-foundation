@@ -93,7 +93,7 @@ public class DefaultImpexService implements ImpexService {
 			// Extract the column we are working with
 			Column column = columns[i];
 
-			// ResultSet indexes start at 1 not zero
+			// ResultSet indexes are one based not zero based
 			int resultSetIndex = i + 1;
 
 			// Use JDBC to turn the value being held by the database into a Java object
@@ -193,7 +193,7 @@ public class DefaultImpexService implements ImpexService {
 			}
 		} catch (Exception e) {
 			// Don't let an issue extracting one value from one column in one row stop the process
-			// Log the row/column and continue
+			// Log the table/row/column and continue
 			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
 			logger.error(e.getClass().getName() + " : " + e.getMessage());
 
