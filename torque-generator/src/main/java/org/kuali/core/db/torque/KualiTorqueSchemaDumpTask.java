@@ -36,7 +36,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
-import org.kuali.core.db.torque.pojo.Column;
+import org.kuali.core.db.torque.pojo.ColumnContext;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
@@ -169,13 +169,13 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	}
 
 	protected void processColumns(TableContext context, Document document, Element tableElement) {
-		for (Column column : context.getColumns()) {
+		for (ColumnContext column : context.getColumns()) {
 			Element columnElement = getColumnElement(column, context, document);
 			tableElement.appendChild(columnElement);
 		}
 	}
 
-	protected Element getColumnElement(Column col, TableContext context, Document document) {
+	protected Element getColumnElement(ColumnContext col, TableContext context, Document document) {
 		String name = col.getName();
 		Integer type = col.getSqlType();
 		int size = col.getSize();
@@ -549,8 +549,8 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 	 * @return The list of columns in <code>tableName</code>.
 	 * @throws SQLException
 	 */
-	protected List<Column> getColumns(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
-		List<Column> columns = new ArrayList<Column>();
+	protected List<ColumnContext> getColumns(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
+		List<ColumnContext> columns = new ArrayList<ColumnContext>();
 		ResultSet columnSet = null;
 		try {
 			columnSet = dbMeta.getColumns(null, schema, tableName, null);
@@ -562,7 +562,7 @@ public class KualiTorqueSchemaDumpTask extends DumpTask {
 				Integer nullType = new Integer(columnSet.getInt(11));
 				String defValue = columnSet.getString(13);
 
-				Column col = new Column();
+				ColumnContext col = new ColumnContext();
 				col.setName(name);
 				col.setSqlType(sqlType);
 				col.setSize(size);

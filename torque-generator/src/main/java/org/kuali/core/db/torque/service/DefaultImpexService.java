@@ -51,7 +51,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
-import org.kuali.core.db.torque.pojo.Column;
+import org.kuali.core.db.torque.pojo.ColumnContext;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.ForeignKey;
@@ -424,7 +424,7 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected void processColumns(TableContext context, Document document, Element tableElement) {
-		for (Column column : context.getColumns()) {
+		for (ColumnContext column : context.getColumns()) {
 			Element columnElement = getColumnElement(column, context, document);
 			tableElement.appendChild(columnElement);
 		}
@@ -472,7 +472,7 @@ public class DefaultImpexService implements ImpexService {
 		return fk;
 	}
 
-	protected Element getColumnElement(Column col, TableContext context, Document document) {
+	protected Element getColumnElement(ColumnContext col, TableContext context, Document document) {
 		String name = col.getName();
 		Integer type = col.getSqlType();
 		int size = col.getSize();
@@ -542,7 +542,7 @@ public class DefaultImpexService implements ImpexService {
 		List<String> primaryKeys = context.getPlatform().getPrimaryKeys(metaData, context.getSchema(), table.getName());
 		Map<String, ForeignKey> foreignKeys = getForeignKeys(metaData, table.getName(), context.getSchema());
 		List<Index> indexes = getIndexes(metaData, table.getName(), context.getSchema());
-		List<Column> columns = getColumns(metaData, table.getName(), context.getSchema());
+		List<ColumnContext> columns = getColumns(metaData, table.getName(), context.getSchema());
 		String selectAllQuery = getSelectAllQuery(table.getName(), primaryKeys);
 
 		table.setPrimaryKeys(primaryKeys);
@@ -669,8 +669,8 @@ public class DefaultImpexService implements ImpexService {
 	 * @return The list of columns in <code>tableName</code>.
 	 * @throws SQLException
 	 */
-	protected List<Column> getColumns(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
-		List<Column> columns = new ArrayList<Column>();
+	protected List<ColumnContext> getColumns(DatabaseMetaData dbMeta, String tableName, String schema) throws SQLException {
+		List<ColumnContext> columns = new ArrayList<ColumnContext>();
 		ResultSet columnSet = null;
 		try {
 			columnSet = dbMeta.getColumns(null, schema, tableName, null);
@@ -682,7 +682,7 @@ public class DefaultImpexService implements ImpexService {
 				Integer nullType = new Integer(columnSet.getInt(11));
 				String defValue = columnSet.getString(13);
 
-				Column col = new Column();
+				ColumnContext col = new ColumnContext();
 				col.setName(name);
 				col.setSqlType(sqlType);
 				col.setSize(size);

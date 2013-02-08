@@ -8,7 +8,7 @@ public class TableContext implements Comparable<TableContext> {
 	String name;
 	int sequence;
 	List<String> primaryKeys;
-	List<Column> columns;
+	List<ColumnContext> columns;
 	Map<String, ForeignKey> foreignKeys;
 	List<Index> indexes;
 	String selectAllQuery;
@@ -46,11 +46,11 @@ public class TableContext implements Comparable<TableContext> {
 		this.primaryKeys = primaryKeys;
 	}
 
-	public List<Column> getColumns() {
+	public List<ColumnContext> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(List<Column> columns) {
+	public void setColumns(List<ColumnContext> columns) {
 		this.columns = columns;
 	}
 
