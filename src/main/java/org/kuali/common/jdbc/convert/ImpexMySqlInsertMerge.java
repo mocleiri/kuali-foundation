@@ -51,7 +51,9 @@ public class ImpexMySqlInsertMerge extends AbstractInsertMergeSqlConverter {
 		sb.append(escaped);
 	}
 
-	protected String combineInserts(ConversionContext cc, SqlInsertContext context) throws IOException {
+	@Override
+    protected String combineInserts(ConversionContext cc, SqlInsertContext context) throws IOException {
+		logger.debug("Combining insert statements");
 		String sql = context.getSql();
 		StringBuilder sb = new StringBuilder();
 		String trimmed = StringUtils.trimToNull(sql);
@@ -81,13 +83,14 @@ public class ImpexMySqlInsertMerge extends AbstractInsertMergeSqlConverter {
 		return sb.toString();
 	}
 
-	protected boolean continueBatch(String sql, int count, int length, ConversionContext context) {
-        return super.continueBatch(sql, count, length, context);
+	@Override
+    protected boolean continueBatch(String sql, int count, int length, ConversionContext context) {
+		return super.continueBatch(sql, count, length, context);
 	}
 
-    @Override
-    public String getInsertPrefix() {
-        return INSERT;
-    }
+	@Override
+	public String getInsertPrefix() {
+		return INSERT;
+	}
 
 }
