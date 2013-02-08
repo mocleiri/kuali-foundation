@@ -609,31 +609,35 @@ public class DefaultImpexService implements ImpexService {
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		Column[] columns = getColumns(rs.getMetaData());
 		long totalTableSize = 0;
-		long rowCount = 0;
-		long dataSize = 0;
+		long totalRowCount = 0;
+		long currentRowCount = 0;
+		long currentDataSize = 0;
 		List<String[]> data = new ArrayList<String[]>();
 		while (rs.next()) {
-			rowCount++;
-			String[] rowData = getRowData(context.getDateFormatter(), table.getName(), rs, columns, rowCount);
+			currentRowCount++;
+			totalRowCount++;
+			String[] rowData = getRowData(context.getDateFormatter(), table.getName(), rs, columns, totalRowCount);
 			data.add(rowData);
-			dataSize += getSize(rowData);
-			totalTableSize += dataSize;
-			if (rowCount % 50 == 0 || dataSize > 50 * 1024) {
+			currentDataSize += getSize(rowData);
+			totalTableSize += currentDataSize;
+			if (currentRowCount % 50 == 0 || currentDataSize > 50 * 1024) {
 				DumpTableContext dtc = new DumpTableContext();
 				dtc.setColumns(columns);
 				dtc.setCurrentData(data);
-				dtc.setCurrentDataSize(dataSize);
+				dtc.setCurrentDataSize(currentDataSize);
 				dtc.setImpexContext(context);
-				dtc.setRowCount(rowCount);
+				dtc.setCurrentRowCount(currentRowCount);
+				dtc.setTotalRowCount(totalRowCount);
 				dtc.setTableContext(table);
 				dtc.setTotalDataSize(totalTableSize);
 				handleData(dtc);
-				dataSize = 0;
+				currentDataSize = 0;
+				currentRowCount = 0;
 				data = new ArrayList<String[]>();
 			}
 		}
 		DumpTableResult result = new DumpTableResult();
-		result.setRows(rowCount);
+		result.setRows(totalRowCount);
 		result.setSize(totalTableSize);
 		return result;
 	}

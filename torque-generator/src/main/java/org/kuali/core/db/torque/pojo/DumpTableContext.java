@@ -8,12 +8,13 @@ import org.kuali.core.db.torque.service.ImpexContext;
 public class DumpTableContext {
 
 	ImpexContext impexContext;
+	TableContext tableContext;
+	Column[] columns;
 	List<String[]> currentData;
 	long currentDataSize;
-	TableContext tableContext;
-	long rowCount;
 	long totalDataSize;
-	Column[] columns;
+	long currentRowCount;
+	long totalRowCount;
 
 	public ImpexContext getImpexContext() {
 		return impexContext;
@@ -21,6 +22,22 @@ public class DumpTableContext {
 
 	public void setImpexContext(ImpexContext impexContext) {
 		this.impexContext = impexContext;
+	}
+
+	public TableContext getTableContext() {
+		return tableContext;
+	}
+
+	public void setTableContext(TableContext tableContext) {
+		this.tableContext = tableContext;
+	}
+
+	public Column[] getColumns() {
+		return columns;
+	}
+
+	public void setColumns(Column[] columns) {
+		this.columns = columns;
 	}
 
 	public List<String[]> getCurrentData() {
@@ -39,22 +56,6 @@ public class DumpTableContext {
 		this.currentDataSize = currentDataSize;
 	}
 
-	public TableContext getTableContext() {
-		return tableContext;
-	}
-
-	public void setTableContext(TableContext tableContext) {
-		this.tableContext = tableContext;
-	}
-
-	public long getRowCount() {
-		return rowCount;
-	}
-
-	public void setRowCount(long rowCount) {
-		this.rowCount = rowCount;
-	}
-
 	public long getTotalDataSize() {
 		return totalDataSize;
 	}
@@ -63,11 +64,19 @@ public class DumpTableContext {
 		this.totalDataSize = totalDataSize;
 	}
 
-	public Column[] getColumns() {
-		return columns;
+	public long getCurrentRowCount() {
+		return currentRowCount;
 	}
 
-	public void setColumns(Column[] columns) {
-		this.columns = columns;
+	public void setCurrentRowCount(long currentRowCount) {
+		this.currentRowCount = currentRowCount;
+	}
+
+	public long getTotalRowCount() {
+		return totalRowCount;
+	}
+
+	public void setTotalRowCount(long totalRowCount) {
+		this.totalRowCount = totalRowCount;
 	}
 }
