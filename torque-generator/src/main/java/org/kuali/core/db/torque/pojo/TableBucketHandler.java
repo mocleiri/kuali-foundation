@@ -28,6 +28,7 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 				synchronized (results) {
 					results.add(result);
 				}
+				System.out.println("Rows - " + result.getRows() + ", Size - " + result.getSize());
 				element.getProgressTracker().progressOccurred();
 			}
 		} catch (Exception e) {

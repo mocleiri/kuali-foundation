@@ -82,7 +82,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Convert a row from the result set into an Element
 	 */
-	protected ProcessRowResult getRow(ImpexContext context, Document document, String tableName, ResultSetMetaData md, ResultSet rs, Column[] columns, long rowCount)
+	protected ProcessRowResult processRow(ImpexContext context, Document document, String tableName, ResultSetMetaData md, ResultSet rs, Column[] columns, long rowCount)
 	        throws SQLException {
 
 		// <TABLE_NAME/>
@@ -626,9 +626,17 @@ public class DefaultImpexService implements ImpexService {
 
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
-		org.apache.torque.engine.database.model.Column[] columns = getColumns(md);
-		logger.info("Column count {}", columns.length);
+		Column[] columns = getColumns(md);
+		long size = 0;
+		long count = 0;
+		while (rs.next()) {
+			count++;
+			ProcessRowResult result = processRow(context, null, table.getName(), md, rs, columns, count);
+			size += result.getSize();
+		}
 		DumpTableResult result = new DumpTableResult();
+		result.setRows(count);
+		result.setSize(size);
 		return result;
 	}
 
