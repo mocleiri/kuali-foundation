@@ -7,11 +7,16 @@ import javax.sql.DataSource;
 
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.core.db.torque.service.ImpexContext;
 import org.kuali.core.db.torque.service.ImpexService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 public class TableBucketHandler implements ElementHandler<TableBucket> {
+
+	private static final Logger logger = LoggerFactory.getLogger(TableBucketHandler.class);
 
 	@Override
 	public void handleElement(ListIteratorContext<TableBucket> context, int index, TableBucket element) {
@@ -28,7 +33,12 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 				synchronized (results) {
 					results.add(result);
 				}
-				System.out.println("Rows - " + result.getRows() + ", Size - " + result.getSize());
+				String rows = FormatUtils.getCount(result.getRows());
+				String size = FormatUtils.getSize(result.getSize());
+				String rate = FormatUtils.getRate(result.getElapsed(), result.getSize());
+				String time = FormatUtils.getTime(result.getElapsed());
+				Object[] args = { table.getName(), rows, size, time, rate };
+				logger.info("Table: {} Rows: {} Size: {} Time: {} Rate: {}", args);
 				element.getProgressTracker().progressOccurred();
 			}
 		} catch (Exception e) {
@@ -39,5 +49,4 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 			}
 		}
 	}
-
 }

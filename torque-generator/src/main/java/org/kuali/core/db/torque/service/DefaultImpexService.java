@@ -593,11 +593,17 @@ public class DefaultImpexService implements ImpexService {
 	public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
+		long start = System.currentTimeMillis();
 		try {
 			String query = table.getSelectAllQuery();
 			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			rs = stmt.executeQuery(query);
-			return dumpTable(context, table, rs);
+			DumpTableResult result = dumpTable(context, table, rs);
+			long finish = System.currentTimeMillis();
+			result.setStart(start);
+			result.setFinish(finish);
+			result.setElapsed(finish - start);
+			return result;
 		} catch (Exception e) {
 			throw new SQLException(e);
 		} finally {
@@ -608,7 +614,7 @@ public class DefaultImpexService implements ImpexService {
 
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		Column[] columns = getColumns(rs.getMetaData());
-		long totalTableSize = 0;
+		long totalDataSize = 0;
 		long totalRowCount = 0;
 		long currentRowCount = 0;
 		long currentDataSize = 0;
@@ -618,32 +624,47 @@ public class DefaultImpexService implements ImpexService {
 			totalRowCount++;
 			String[] rowData = getRowData(context.getDateFormatter(), table.getName(), rs, columns, totalRowCount);
 			data.add(rowData);
-			currentDataSize += getSize(rowData);
-			totalTableSize += currentDataSize;
-			if (currentRowCount % 50 == 0 || currentDataSize > 50 * 1024) {
-				DumpTableContext dtc = new DumpTableContext();
-				dtc.setColumns(columns);
-				dtc.setCurrentData(data);
-				dtc.setCurrentDataSize(currentDataSize);
-				dtc.setImpexContext(context);
-				dtc.setCurrentRowCount(currentRowCount);
-				dtc.setTotalRowCount(totalRowCount);
-				dtc.setTableContext(table);
-				dtc.setTotalDataSize(totalTableSize);
+			long rowSize = getSize(rowData);
+			currentDataSize += rowSize;
+			totalDataSize += rowSize;
+			if (currentRowCount % 50 == 0 || currentDataSize > 10 * 1024) {
+				DumpTableContext dtc = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
 				handleData(dtc);
 				currentDataSize = 0;
 				currentRowCount = 0;
 				data = new ArrayList<String[]>();
 			}
 		}
+		if (data.size() > 0) {
+			DumpTableContext dtc = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+			handleData(dtc);
+		}
 		DumpTableResult result = new DumpTableResult();
 		result.setRows(totalRowCount);
-		result.setSize(totalTableSize);
+		result.setSize(totalDataSize);
 		return result;
 	}
 
-	protected void handleData(DumpTableContext context) {
+	protected DumpTableContext getDumpTableContext(Column[] columns, List<String[]> data, long cds, ImpexContext context, long crc, long trc, TableContext table, long tds) {
+		DumpTableContext dtc = new DumpTableContext();
+		dtc.setColumns(columns);
+		dtc.setCurrentData(data);
+		dtc.setCurrentDataSize(cds);
+		dtc.setImpexContext(context);
+		dtc.setCurrentRowCount(crc);
+		dtc.setTotalRowCount(trc);
+		dtc.setTableContext(table);
+		dtc.setTotalDataSize(tds);
+		return dtc;
+	}
 
+	protected void handleData(DumpTableContext context) {
+		String crc = FormatUtils.getCount(context.getCurrentRowCount());
+		String trc = FormatUtils.getCount(context.getTotalRowCount());
+		String cds = FormatUtils.getSize(context.getCurrentDataSize());
+		String tds = FormatUtils.getSize(context.getTotalDataSize());
+		Object[] args = { crc, trc, cds, tds };
+		logger.info("Current Rows: {} Total Rows: {} Current Size: {} Total Size: {}", args);
 	}
 
 	protected long getSize(String[] data) {
