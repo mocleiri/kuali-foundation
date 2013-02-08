@@ -2,8 +2,8 @@
 	Custom scripting for additional functionality
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created: 	29 Jan 2013, 12:09
-	Last Mod: 	1 Feb 2013, 11:05
-	Version: 	0.2
+	Last Mod: 	8 Feb 2013, 09:39
+	Version: 	0.3
 */
 
 
@@ -50,9 +50,26 @@ function init_sticky_elems() {
 
 
 /*
+Add required marks to all required fields' parents
+---------------------------------- */
+function init_required_elems() {
+	$('body').find('input, textarea, select').each(function() {
+		if ($(this).is(':required') || $(this).attr('required') == "required") {
+			$('body').find($('label[for="' + $(this).attr('id') + '"]')).append('<span class="req"><i class="icon icon-asterisk"></i><span>required</span></span>');
+			console.log('required');
+		}
+	});
+}
+
+
+
+/*
 Document ready
 ---------------------------------- */
 $(document).ready(function() {
+	
+	init_required_elems();
+
 	$window.bind("resize", function() {
 		init_sticky_elems();
 	});

@@ -57,7 +57,7 @@
     <div id="document" class="clearfix">
       <div class="title">
         <div class="title-name">
-          <a href="#">Proposals</a> &raquo; #3341 Testing a very long name that should automatically get cutoff at some point
+          <a href="#"><i class="icon-white icon-home"></i>Portal</a> &raquo; Proposal #3341 Testing a very long name that should automatically get cutoff at some point
         </div>
         <div class="title-author">
           by quickstart
@@ -113,7 +113,7 @@
             <li>
               <strong>Key Personnel</strong>
               <div class='progress'>
-                <div class='bar' style='width: 2%;'></div>
+                <div class='bar complete' style='width: 100%;'></div>
               </div>
             </li>
             <li>
@@ -131,7 +131,7 @@
             <li>
               <strong>Abstracts &amp; Attachments</strong>
               <div class='progress'>
-                <div class='bar' style='width: 100%;'></div>
+                <div class='bar complete' style='width: 100%;'></div>
               </div>
             </li>
             <li>
@@ -173,12 +173,12 @@
 </div>
 <div id="ToC"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
   <ul style="display: block; ">
-    <li class="active complete"><a href="prop.proposal.html"><i class="icon icon-home"></i><span>Proposal</span></a></li>
-    <li class="complete"><a href="prop.keypersonnel.html"><i class="icon icon-user"></i><span>Key Personnel</span></a></li>
+    <li class="active complete"><a href="prop.proposal.html"><i class="icon-green icon-ok"></i><span>Proposal</span></a></li>
+    <li class="complete"><a href="prop.keypersonnel.html"><i class="icon-green icon-ok"></i><span>Key Personnel</span></a></li>
     <li><a href="prop.specialreview.html"><i class="icon icon-eye-open"></i><span>Special Review</span></a></li>
     <li><a href="prop.customdata.html"><i class="icon icon-star"></i><span>Custom Data</span></a></li>
-    <li class="complete"><a href="prop.abstracts.html"><i class="icon icon-file"></i><span>Abstracts &amp; Attachments</span></a></li>
-    <li><a href="prop.questions.html"><i class="icon icon-ok"></i><span>Questions</span></a></li>
+    <li class="complete"><a href="prop.abstracts.html"><i class="icon-green icon-ok"></i><span>Abstracts &amp; Attachments</span></a></li>
+    <li><a href="prop.questions.html"><i class="icon icon-search"></i><span>Questions</span></a></li>
     <li class="submenu"><a href="#"><i class="icon icon-leaf"></i><span>Budget <small style="margin-left:8px;">(version 3)</small></span></a>
       <ul>
         <li style="line-height:14px;"><a href="prop.budget.summary.html"><!--<i class="icon icon-leaf"></i>--><span>Summary</span></a></li>
@@ -211,7 +211,7 @@
             <div class="control-group">
               <label class="control-label" for="ProposalType">Proposal Type</label>
               <div class="controls">
-                <select name="ProposalType" class="input-xlarge" id="ProposalType">
+                <select name="ProposalType" class="input-xlarge" id="ProposalType" required="required">
                   <option value="">select</option>
                   <option value="4">Continuation</option>
                   <option value="1">New</option>
@@ -223,9 +223,9 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="asdf">Lead Unit</label>
+              <label class="control-label" for="leadUnit">Lead Unit</label>
               <div class="controls">
-                <select name="select" class="input-xlarge" title="* Lead Unit">
+                <select name="select" id="leadUnit" class="input-xlarge" title="* Lead Unit" required="required">
                   <option value="">select</option>
                   <option value="000001">000001 - University</option>
                   <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
@@ -235,9 +235,9 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="asdf">Activity Type</label>
+              <label class="control-label" for="activityType">Activity Type</label>
               <div class="controls">
-                <select name="select" class="input-xlarge" title="* Activity Type">
+                <select name="select" id="activityType" class="input-xlarge" title="* Activity Type" required="required">
                   <option value="">select</option>
                   <option value="4">Clinical Trial</option>
                   <option value="9">Construction</option>
@@ -252,10 +252,10 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="Text Field2">Start/End Dates</label>
+              <label class="control-label" for="startDate">Start/End Dates</label>
               <div class="controls controls-row datepicker">
                 <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="from...">
+                  <input type="text" class="" id="startDate" name="input" placeholder="from..." required="required">
                   <span class="add-on"><i class="icon-calendar"></i></span></div>
                 <div class="input-append">
                   <input type="text" class="" id="input" name="input" placeholder="to...">
@@ -265,20 +265,20 @@
             <div class="control-group">
               <label class="control-label" for="orgdocnum2">Sponsor Code</label>
               <div class="controls">
-                <input type="text" id="Description" placeholder="" class=" input-small">
+                <input type="text" id="orgdocnum2" placeholder="" class=" input-small" required="required">
                 <a href="#" class="btn lookup"><span>lookup</span></a> </div>
             </div>
             <div class="control-group"> 
               <!-- Textarea -->
-              <label class="control-label">Project Title</label>
+              <label class="control-label" for="projectTitle">Project Title</label>
               <div class="controls">
                 <div class="textarea">
-                  <textarea name="textarea" class="input-xlarge"> </textarea>
+                  <textarea name="textarea" id="projectTitle" class="input-xlarge" required="required"></textarea>
                 </div>
               </div>
             </div>
             <div class="boxSubheader">
-              <h4> Conditionally Required Institutional Fields</h4>
+              <h4>Conditionally Required Institutional Fields</h4>
             </div>
             <div class="control-group">
               <label class="control-label" for="orgdocnum4">Award ID</label>
@@ -296,7 +296,7 @@
         </div>
         <div class="box">
           <div class="boxHeader">
-            <h3> Grants.gov </h3>
+            <h3>Grants.gov</h3>
           </div>
           <div class="boxContent" style=" display:none" >
             <h4>Opportunity Search</h4>
@@ -669,7 +669,7 @@
   <script src="../assets/js/bootstrap-typeahead.js"></script> 
   <script src="../assets/js/bootstrap-editable.js"></script> 
   <script src="../assets/js/application.js"></script> 
-  <script src="../assets/js/custom.js?v=0.1"></script>
+  <script src="../assets/js/custom.js"></script>
 
 
   <!--

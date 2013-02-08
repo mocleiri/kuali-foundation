@@ -2,19 +2,21 @@
 	Custom styles
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created:	29 Jan 2012, 12:09
-	Last Mod:	2 Feb 2013, 11:05
-	Version: 	0.1
+	Last Mod:	8 Feb 2013, 16:06;
 
 
 LESS Variables:
 --------------------------------------------- */
 @bodyBackground:						#ccc;
 @headerBackground:						#960000;
+@headerBackgroundDarker:				darken(@headerBackground, 20%);
+@compliment:							#81a255;
+@complete:								#5c9b0a;
 @smokeGray:								#aaa;
 @lightGray:								#f2f2f2;
 @lightest:								#fff;
-@darkest:								#000;
-@gold:									#ffc400;
+@darkest:								#222;
+@inProgress:							#5398c8;
 @defaultFontSize:						13px;
 @defaultGutterSize:						16px;
 
@@ -33,6 +35,12 @@ body {
 	z-index: 1;
 	height: 100%;
 	min-height: 100%;
+	color: @darkest;
+}
+
+* {
+	outline: none !important;
+	-moz-outline: none !important;
 }
 
 a:hover {
@@ -40,7 +48,13 @@ a:hover {
 }
 
 a:focus {
-	border: 1px solid red;
+	background: yellow !important;
+	color: black !important;
+	border: none !important;
+	text-shadow: none !important;
+	box-shadow: inset 0px 0px 2px red !important;
+	-moz-box-shadow: inset 0px 0px 2px red !important;
+	-o-box-shadow: inset 0px 0px 2px red !important;
 }
 
 a:active {
@@ -99,9 +113,13 @@ i {
 					}
 
 					a:hover {
-						background: @gold;
-						color: darken(@gold, 50%);
+						background: @darkest;
+						color: @lightest;
 					}
+				}
+
+				li.active a {
+					background: @headerBackground;
 				}
 
 				li.active a:hover {
@@ -161,6 +179,11 @@ i {
 				white-space: nowrap;
 				overflow: hidden;
 				padding-bottom: .1em;
+
+				i {
+					float: left;
+					margin-top: 3px;
+				}
 			}
 
 			.title-author {
@@ -307,7 +330,12 @@ i {
 				margin-right: 1em;
 
 				.bar {
-					background: @gold;
+					background: @inProgress;
+					opacity: 1 !important;
+				}
+
+				.bar.complete {
+					background: @complete;
 				}
 			}
 
@@ -354,7 +382,7 @@ i {
 		li.complete, li.active.complete {
 
 			a {
-				// background-color: #4a4a4a !important;
+				color: @compliment;
 			}
 		}
 	}
@@ -463,6 +491,20 @@ body.ajaxed {
 		li:first-child {
 			border-top: none;
 		}
+	}
+}
+
+.req {
+	display: inline-block;
+
+	.icon {
+		background-image: url('../img/glyphicons-halflings-red.png');
+		margin: 0 0 0 3px;
+	}
+
+	span {
+		position: absolute;
+		left: -9999em;
 	}
 }
 

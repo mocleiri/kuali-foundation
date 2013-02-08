@@ -25,7 +25,7 @@ a:hover {
 	text-decoration: none;
 }
 a:focus {
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 }
 a:active {
 	border: none;
@@ -86,6 +86,12 @@ a:active {
 	vertical-align: top;
 	background-image: url('../img/glyphicons-halflings-white.png');
 	opacity: .5;
+	margin-top: 2px;
+}
+#ToC li a i.icon-green {
+	vertical-align: top;
+	background-image: url('../img/glyphicons-halflings-green.png');
+	opacity: 1;
 	margin-top: 2px;
 }
 #ToC > ul {
