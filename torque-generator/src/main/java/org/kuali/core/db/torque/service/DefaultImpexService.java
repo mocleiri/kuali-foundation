@@ -55,6 +55,7 @@ import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.ColumnContext;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
+import org.kuali.core.db.torque.pojo.DumpTableContext;
 import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
@@ -618,7 +619,15 @@ public class DefaultImpexService implements ImpexService {
 			dataSize += getSize(rowData);
 			totalTableSize += dataSize;
 			if (rowCount % 50 == 0 || dataSize > 50 * 1024) {
-				handleData(context, table, columns, data);
+				DumpTableContext dtc = new DumpTableContext();
+				dtc.setColumns(columns);
+				dtc.setCurrentData(data);
+				dtc.setCurrentDataSize(dataSize);
+				dtc.setImpexContext(context);
+				dtc.setRowCount(rowCount);
+				dtc.setTableContext(table);
+				dtc.setTotalDataSize(totalTableSize);
+				handleData(dtc);
 				dataSize = 0;
 				data = new ArrayList<String[]>();
 			}
@@ -629,7 +638,7 @@ public class DefaultImpexService implements ImpexService {
 		return result;
 	}
 
-	protected void handleData(ImpexContext context, TableContext table, Column[] columns, List<String[]> rows) {
+	protected void handleData(DumpTableContext context) {
 
 	}
 
