@@ -21,17 +21,28 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.SimpleScanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DirectoryConverter {
 
     public static final String CONVERTED_EXTENSION = ".converted";
 
+    private static final Logger logger = LoggerFactory.getLogger(DirectoryConverter.class);
+
     public void convert(DirectoryContext context) {
+        logger.info("Scanning directory " + context.getDirectory().getAbsolutePath());
+        logger.info("Included file pattern: " + context.getInclude());
+        logger.info("Excluded file pattern: " + context.getExclude());
 		SimpleScanner scanner = new SimpleScanner(context.getDirectory(), context.getInclude(), context.getExclude());
 		List<File> oldFiles = scanner.getFiles();
+        logger.info("Found " + oldFiles.size() + " files for conversion");
 		List<File> newFiles = getNewFiles(oldFiles);
         List<ConversionResult> results = convert(context, oldFiles, newFiles);
+
+        logger.info("Conversion complete");
         if(context.getPostProcessor() != null) {
+            logger.info("Initiating post conversion processor of type: " + context.getPostProcessor().getClass().getName());
             context.getPostProcessor().process(results);
         }
 	}
