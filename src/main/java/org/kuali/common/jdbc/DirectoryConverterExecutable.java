@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.jdbc.launcher.springframework;
+package org.kuali.common.jdbc;
 
 import org.kuali.common.jdbc.convert.DirectoryContext;
 import org.kuali.common.jdbc.convert.DirectoryConverter;
@@ -28,7 +28,7 @@ import java.io.File;
  *
  * @author andrewlubbers
  */
-public class SpringContextDirectoryConverter implements Executable {
+public class DirectoryConverterExecutable implements Executable {
 
     private String inputSqlFolder;
 
