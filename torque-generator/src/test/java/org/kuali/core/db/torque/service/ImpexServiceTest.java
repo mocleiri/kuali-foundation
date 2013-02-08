@@ -103,7 +103,7 @@ public class ImpexServiceTest {
 		String sequenceIncludes = includes;
 
 		Properties p = new Properties();
-		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/kuali-jdbc-2.0");
+		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/impex-2.0/torque-generator");
 		p.setProperty("project.build.directory", p.getProperty("project.basedir") + "/target");
 		p.setProperty("project.artifactId", "ks-bundled-db");
 		p.setProperty("impex.table.includes", tableIncludes);
@@ -117,7 +117,8 @@ public class ImpexServiceTest {
 		p.setProperty("impex.databaseVendor", "oracle");
 		p.setProperty("impex.dateFormat", "yyyyMMddHHmmss");
 		p.setProperty("impex.antCompatibilityMode", "true");
-		p.setProperty("impex.threads", threads + "");
+		p.setProperty("impex.data.threads", threads + "");
+		p.setProperty("impex.metadata.threads", threads + "");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
 		// p.setProperty("impex.schemaXMLFile", p.getProperty("impex.workingDir") + "/xml/schema.xml");
 		// p.setProperty("impex.reportFile", "../reports/report." + p.getProperty("project.artifactId") + ".datadtd.generation");
@@ -149,7 +150,7 @@ public class ImpexServiceTest {
 		task.setProcessSequences(context.isProcessSequences());
 		task.setProcessViews(context.isProcessViews());
 		task.setDataSource(context.getDataSource());
-		task.setThreads(context.getThreads());
+		task.setThreads(context.getMetaDataThreads());
 		return task;
 	}
 
@@ -200,8 +201,11 @@ public class ImpexServiceTest {
 		if (p.getProperty("impex.schemaXMLFile") != null) {
 			context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
 		}
-		if (p.getProperty("impex.threads") != null) {
-			context.setThreads(new Integer(p.getProperty("impex.threads")));
+		if (p.getProperty("impex.metadata.threads") != null) {
+			context.setMetaDataThreads(new Integer(p.getProperty("impex.metadata.threads")));
+		}
+		if (p.getProperty("impex.data.threads") != null) {
+			context.setDataThreads(new Integer(p.getProperty("impex.data.threads")));
 		}
 		if (p.getProperty("impex.antCompatibilityMode") != null) {
 			context.setAntCompatibilityMode(new Boolean(p.getProperty("impex.antCompatibilityMode")));

@@ -556,7 +556,7 @@ public class DefaultImpexService implements ImpexService {
 
 		List<TableContext> tables = database.getTables();
 
-		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, 5);
+		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, context.getDataThreads());
 
 		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
 
@@ -904,7 +904,7 @@ public class DefaultImpexService implements ImpexService {
 		Collections.shuffle(requests);
 
 		// Divide the list up as evenly as possible
-		List<List<SchemaRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getThreads());
+		List<List<SchemaRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getMetaDataThreads());
 
 		// Print a dot any time we complete 1% of our requests
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
