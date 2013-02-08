@@ -45,7 +45,7 @@ public class ImpexServiceTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			Properties p = getProperties("KRIM.*", 15);
+			Properties p = getProperties("KRSB_QRTZ_LOCKS", 1);
 			ImpexContext sourceContext = getImpexContext(p);
 			sourceContext.setAntCompatibilityMode(true);
 			log(sourceContext);
