@@ -96,25 +96,14 @@ public class DefaultImpexService implements ImpexService {
 			// ResultSet column indexes are one based not zero based
 			int resultSetColumnIndex = i + 1;
 
-			// Use JDBC to turn the value being held by the database into a Java object
-			// TODO Refactor things into a Converter API of some kind
-			// TODO Need a richer API for dealing with the conversion of database values to Java objects
-			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			Object columnObject = getColumnObject(formatter, rs, resultSetColumnIndex, column, rowCount, tableName);
-
-			// Convert the object to a String suitable for dumping to a file
+			// Use JDBC to turn the value being held by the database into a Java string
 			// The import side of Impex must be able to convert this string back into the native value without losing data
-			String columnString = getColumnString(columnObject);
-
-			// Store the string in our data array
-			data[i] = columnString;
-
+			// TODO Refactor things into a Converter API of some kind
+			// TODO Need a richer API for dealing with the conversion of database values to Java strings
+			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
+			data[i] = getColumnValueAsString(formatter, rs, resultSetColumnIndex, column, rowCount, tableName);
 		}
 		return data;
-	}
-
-	protected String getColumnString(Object columnObject) {
-		return columnObject == null ? null : columnObject.toString();
 	}
 
 	/**
@@ -165,13 +154,15 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	/**
-	 * Extract a column value from the result set, converting as needed
+	 * Use JDBC to extract the data held by the database into a Java string suitable for dumping to disk. The Java object returned by this
+	 * method must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying
+	 * ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is forbidden.
 	 */
-	protected Object getColumnObject2(ResultSet rs, int resultSetIndex, Column column, long rowCount, String tableName) {
+	protected String getColumnValueAsString(SimpleDateFormat formatter, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		Object columnObject = null;
 		try {
 			// Extract a raw object
-			columnObject = rs.getObject(resultSetIndex);
+			columnObject = rs.getObject(index);
 
 			// If it is null we're done
 			if (columnObject == null) {
@@ -186,47 +177,10 @@ public class DefaultImpexService implements ImpexService {
 			case (DATE):
 			case (TIMESTAMP):
 				// Extract dates and timestamps
-				return rs.getTimestamp(resultSetIndex);
+				return getDate(formatter, rs, index);
 			default:
 				// Otherwise return the raw object
-				return columnObject;
-			}
-		} catch (Exception e) {
-			// Don't let an issue extracting one value from one column in one row stop the process
-			// Log the table/row/column and continue
-			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
-			logger.error(e.getClass().getName() + " : " + e.getMessage());
-
-		}
-		return null;
-	}
-
-	/**
-	 * Extract a column value from the result set, converting as needed
-	 */
-	protected Object getColumnObject(SimpleDateFormat formatter, ResultSet rs, int resultSetColumnIndex, Column column, long rowCount, String tableName) {
-		Object columnObject = null;
-		try {
-			// Extract a raw object
-			columnObject = rs.getObject(resultSetColumnIndex);
-
-			// If it is null we're done
-			if (columnObject == null) {
-				return null;
-			}
-
-			// Handle special types
-			switch (column.getJdbcType()) {
-			case (CLOB):
-				// Extract a CLOB
-				return getClob((Clob) columnObject);
-			case (DATE):
-			case (TIMESTAMP):
-				// Extract dates and timestamps
-				return getDate(formatter, rs, resultSetColumnIndex);
-			default:
-				// Otherwise return the raw object
-				return columnObject;
+				return columnObject.toString();
 			}
 		} catch (Exception e) {
 			// Don't let an issue extracting one value from one column in one row stop the process
