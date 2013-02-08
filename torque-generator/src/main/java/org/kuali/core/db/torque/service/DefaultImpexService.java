@@ -607,19 +607,38 @@ public class DefaultImpexService implements ImpexService {
 
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		Column[] columns = getColumns(rs.getMetaData());
-		long tableSize = 0;
+		long totalTableSize = 0;
 		long rowCount = 0;
+		long dataSize = 0;
+		List<String[]> data = new ArrayList<String[]>();
 		while (rs.next()) {
 			rowCount++;
-			String[] data = getRowData(context.getDateFormatter(), table.getName(), rs, columns, rowCount);
-			for (String s : data) {
-				tableSize += ((s == null) ? 0 : s.length());
+			String[] rowData = getRowData(context.getDateFormatter(), table.getName(), rs, columns, rowCount);
+			data.add(rowData);
+			dataSize += getSize(rowData);
+			totalTableSize += dataSize;
+			if (rowCount % 50 == 0 || dataSize > 50 * 1024) {
+				handleData(context, table, columns, data);
+				dataSize = 0;
+				data = new ArrayList<String[]>();
 			}
 		}
 		DumpTableResult result = new DumpTableResult();
 		result.setRows(rowCount);
-		result.setSize(tableSize);
+		result.setSize(totalTableSize);
 		return result;
+	}
+
+	protected void handleData(ImpexContext context, TableContext table, Column[] columns, List<String[]> rows) {
+
+	}
+
+	protected long getSize(String[] data) {
+		long size = 0;
+		for (String s : data) {
+			size += ((s == null) ? 0 : s.length());
+		}
+		return size;
 	}
 
 	protected void closeQuietly(Statement stmt) {
