@@ -19,24 +19,24 @@ import java.io.File;
 import java.util.List;
 
 /**
- * This post conversion processor deletes each file used as input for the conversion,
- * and renames the newly created file by removing the ".converted" extension
+ * This post conversion processor deletes each file used as input for the conversion, and renames the newly created file by removing the
+ * ".converted" extension
  *
  * @author andrewlubbers
  */
 public class ReplaceWithConvertedProcessor implements PostConversionProcessor {
-    @Override
-    public void process(List<ConversionResult> conversionResults) {
-        for (ConversionResult result : conversionResults) {
-            if(!result.getOldFile().delete()) {
-                throw new RuntimeException("Unable to delete file " + result.getOldFile().getAbsolutePath());
-            }
+	@Override
+	public void process(List<ConversionResult> conversionResults) {
+		for (ConversionResult result : conversionResults) {
+			if (!result.getOldFile().delete()) {
+				throw new IllegalStateException("Unable to delete file " + result.getOldFile().getAbsolutePath());
+			}
 
-            String newFilePath = result.getNewFile().getAbsolutePath().replace(DirectoryConverter.CONVERTED_EXTENSION, "");
+			String newFilePath = result.getNewFile().getAbsolutePath().replace(DirectoryConverter.CONVERTED_EXTENSION, "");
 
-            if(!result.getNewFile().renameTo(new File(newFilePath))) {
-                throw new RuntimeException("Unable to rename file " + result.getNewFile().getAbsolutePath());
-            }
-        }
-    }
+			if (!result.getNewFile().renameTo(new File(newFilePath))) {
+				throw new IllegalStateException("Unable to rename file " + result.getNewFile().getAbsolutePath());
+			}
+		}
+	}
 }
