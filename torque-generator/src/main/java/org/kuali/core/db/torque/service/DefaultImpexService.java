@@ -87,14 +87,14 @@ public class DefaultImpexService implements ImpexService {
 		String[] data = new String[columns.length];
 
 		// Cycle through the columns
-		for (int i = 1; i <= columns.length; i++) {
+		for (int i = 0; i < columns.length; i++) {
 
 			// Extract a column value
-			Object columnValue = getColumnValue(formatter, rs, i, columns[i], rowCount, tableName);
+			Object columnValue = getColumnValue(formatter, rs, i + 1, columns[i], rowCount, tableName);
 
 			// If the value isn't null convert to string form
 			if (columnValue != null) {
-				data[i - 1] = columnValue.toString();
+				data[i] = columnValue.toString();
 			}
 		}
 		return data;
@@ -629,12 +629,12 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Generate an array of Column objects from the result set metadata
 	 */
-	protected Column[] getColumns(final ResultSetMetaData md) throws SQLException {
-		Column[] columns = new Column[md.getColumnCount() + 1];
-		for (int i = 1; i <= md.getColumnCount(); i++) {
+	protected Column[] getColumns(ResultSetMetaData md) throws SQLException {
+		Column[] columns = new Column[md.getColumnCount()];
+		for (int i = 0; i < columns.length; i++) {
 			Column column = new Column();
-			column.setName(md.getColumnName(i));
-			column.setJdbcType(md.getColumnType(i));
+			column.setName(md.getColumnName(i + 1));
+			column.setJdbcType(md.getColumnType(i + 1));
 			columns[i] = column;
 		}
 		return columns;
