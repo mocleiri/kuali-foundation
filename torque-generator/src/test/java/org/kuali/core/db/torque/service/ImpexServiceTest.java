@@ -16,6 +16,7 @@
 package org.kuali.core.db.torque.service;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -181,22 +182,18 @@ public class ImpexServiceTest {
 		context.setUsername(p.getProperty("impex.username"));
 		context.setPassword(p.getProperty("impex.password"));
 		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
-		context.setDateFormat(p.getProperty("impex.dateFormat"));
 		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
 
-		// properties that need to be processed in some way
-		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
-		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
-		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
-		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
-		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
-		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
+		// Default to schema.xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
 
 		// Setup the datasource
 		context.setDataSource(getDataSource(p));
 
 		// Properties that already have default values, don't override unless the corresponding property is explicitly set
+		if (p.getProperty("impex.dateFormat") != null) {
+			context.setDateFormat(p.getProperty("impex.dateFormat"));
+		}
 		if (p.getProperty("impex.comment") != null) {
 			context.setComment(p.getProperty("impex.comment"));
 		}
@@ -212,6 +209,15 @@ public class ImpexServiceTest {
 		if (p.getProperty("impex.encoding") != null) {
 			context.setEncoding(p.getProperty("impex.encoding"));
 		}
+
+		// Properties that need processing in some way
+		context.setDateFormatter(new SimpleDateFormat(context.getDateFormat()));
+		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
+		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
+		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
+		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
+		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
+		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
 		// context.setProcessTables(new Boolean(p.getProperty("impex.processTables")));
 		// context.setProcessSequences(new Boolean(p.getProperty("impex.processSequences")));
 		// context.setProcessViews(new Boolean(p.getProperty("impex.processViews")));

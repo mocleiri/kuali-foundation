@@ -1,14 +1,22 @@
 package org.kuali.core.db.torque.service;
 
+import static java.sql.Types.CLOB;
+import static java.sql.Types.DATE;
+import static java.sql.Types.TIMESTAMP;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.Writer;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +37,7 @@ import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.torque.task.TorqueDataModelTask;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xerces.dom.DocumentTypeImpl;
+import org.apache.xerces.util.XMLChar;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -47,6 +56,7 @@ import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
+import org.kuali.core.db.torque.pojo.ProcessRowResult;
 import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.SchemaRequest;
 import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
@@ -67,6 +77,141 @@ import org.w3c.dom.Element;
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+
+	/**
+	 * Convert a row from the result set into an Element
+	 */
+	protected ProcessRowResult getRow(ImpexContext context, Document document, String tableName, ResultSetMetaData md, ResultSet rs,
+	        org.apache.torque.engine.database.model.Column[] columns, long rowCount) throws SQLException {
+
+		// <TABLE_NAME/>
+		long size = tableName.length() + 3; // less than symbol + forward slash + greater than symbol
+
+		// Generate a row object
+		Element row = document.createElement(tableName);
+
+		// Cycle through the columns
+		for (int i = 1; i <= md.getColumnCount(); i++) {
+
+			// Extract a column value
+			Object columnValue = getColumnValue(context, rs, i, columns[i], rowCount, tableName);
+
+			// Null values can be omitted from the XML
+			if (columnValue == null) {
+				continue;
+			}
+
+			// Extract the column name
+			String name = columns[i].getName();
+
+			// Escape the string value of the object
+			String escaped = xmlEscape(columnValue.toString());
+
+			// Add the name and value to the attribute
+			row.setAttribute(name, escaped);
+
+			// FIELD="VALUE"
+			size += name.length() + escaped.length() + 4; // space + equals sign + two double quotes
+		}
+
+		// Return the element we just created along with its size
+		ProcessRowResult result = new ProcessRowResult();
+		result.setElement(row);
+		result.setSize(size);
+		return result;
+	}
+
+	/**
+	 * Escape characters that would cause issues for XML parsers
+	 */
+	protected String xmlEscape(final String st) {
+		StringBuffer buff = new StringBuffer();
+		char[] block = st.toCharArray();
+		String stEntity = null;
+		int i, last;
+
+		for (i = 0, last = 0; i < block.length; i++) {
+			if (XMLChar.isInvalid(block[i])) {
+				stEntity = " ";
+			}
+			if (stEntity != null) {
+				buff.append(block, last, i - last);
+				buff.append(stEntity);
+				stEntity = null;
+				last = i + 1;
+			}
+		}
+		if (last < block.length) {
+			buff.append(block, last, i - last);
+		}
+		return buff.toString();
+	}
+
+	/**
+	 * Convert a CLOB to a String
+	 */
+	protected String getClob(Clob clob) throws SQLException {
+		Reader r = null;
+		StringBuffer sb = new StringBuffer();
+		try {
+			r = clob.getCharacterStream();
+			char[] buffer = new char[4096];
+			int len;
+			while ((len = r.read(buffer)) != -1) {
+				sb.append(buffer, 0, len);
+			}
+		} catch (IOException e) {
+			throw new SQLException(e);
+		} finally {
+			IOUtils.closeQuietly(r);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Extract a column value from the result set, converting as needed
+	 */
+	protected Object getColumnValue(ImpexContext context, ResultSet rs, int index, org.apache.torque.engine.database.model.Column column, long rowCount, String tableName) {
+		// Extract a raw object
+		Object columnValue = null;
+		try {
+			columnValue = rs.getObject(index);
+
+			// If it is null we're done
+			if (columnValue == null) {
+				return null;
+			}
+			// Handle special types
+			switch (column.getJdbcType()) {
+			case (CLOB):
+				// Extract a CLOB
+				return getClob((Clob) columnValue);
+			case (DATE):
+			case (TIMESTAMP):
+				// Extract dates and timestamps
+				return getDate(context, rs, index);
+			default:
+				// Otherwise return the raw object
+				return columnValue;
+			}
+		} catch (Exception e) {
+			// Don't let an issue extracting a value from one column in one row
+			// stop the process
+			// Log the row/column and continue
+			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
+			logger.error(e.getClass().getName() + " : " + e.getMessage());
+
+		}
+		return null;
+	}
+
+	/**
+	 * Convert a JDBC Timestamp into a java.util.Date using the specified format
+	 */
+	protected String getDate(ImpexContext context, ResultSet rs, int index) throws SQLException {
+		Timestamp date = rs.getTimestamp(index);
+		return context.getDateFormatter().format(date);
+	}
 
 	@Override
 	public void generateDataDtds(List<ImpexContext> contexts) {
@@ -424,6 +569,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Dump tables as appropriate to disk.
 	 */
+	@Override
 	public List<DumpTableResult> dumpTables(ImpexContext context, DatabaseContext database) {
 
 		List<TableContext> tables = database.getTables();
@@ -461,7 +607,7 @@ public class DefaultImpexService implements ImpexService {
 	 * Dump the contents of the indicated table to disk
 	 */
 	@Override
-    public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
+	public DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
