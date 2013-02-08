@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -57,7 +58,6 @@ import org.kuali.core.db.torque.pojo.DatabaseContext;
 import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.kuali.core.db.torque.pojo.ForeignKey;
 import org.kuali.core.db.torque.pojo.Index;
-import org.kuali.core.db.torque.pojo.ProcessRowResult;
 import org.kuali.core.db.torque.pojo.Reference;
 import org.kuali.core.db.torque.pojo.SchemaRequest;
 import org.kuali.core.db.torque.pojo.SchemaRequestBucket;
@@ -80,46 +80,24 @@ public class DefaultImpexService implements ImpexService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
 
 	/**
-	 * Convert a row from the result set into an Element
+	 * Convert the data from the row into String form
 	 */
-	protected ProcessRowResult processRow(ImpexContext context, Document document, String tableName, ResultSetMetaData md, ResultSet rs, Column[] columns, long rowCount)
-	        throws SQLException {
-
-		// <TABLE_NAME/>
-		long size = tableName.length() + 3; // less than symbol + forward slash + greater than symbol
-
-		// Generate a row object
-		Element row = document.createElement(tableName);
+	protected String[] getRowData(SimpleDateFormat formatter, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
+		// Allocate some storage
+		String[] data = new String[columns.length];
 
 		// Cycle through the columns
-		for (int i = 1; i <= md.getColumnCount(); i++) {
+		for (int i = 1; i <= columns.length; i++) {
 
 			// Extract a column value
-			Object columnValue = getColumnValue(context, rs, i, columns[i], rowCount, tableName);
+			Object columnValue = getColumnValue(formatter, rs, i, columns[i], rowCount, tableName);
 
-			// Null values can be omitted from the XML
-			if (columnValue == null) {
-				continue;
+			// If the value isn't null convert to string form
+			if (columnValue != null) {
+				data[i - 1] = columnValue.toString();
 			}
-
-			// Extract the column name
-			String name = columns[i].getName();
-
-			// Escape the string value of the object
-			String escaped = xmlEscape(columnValue.toString());
-
-			// Add the name and value to the attribute
-			row.setAttribute(name, escaped);
-
-			// FIELD="VALUE"
-			size += name.length() + escaped.length() + 4; // space + equals sign + two double quotes
 		}
-
-		// Return the element we just created along with its size
-		ProcessRowResult result = new ProcessRowResult();
-		result.setElement(row);
-		result.setSize(size);
-		return result;
+		return data;
 	}
 
 	/**
@@ -172,16 +150,17 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Extract a column value from the result set, converting as needed
 	 */
-	protected Object getColumnValue(ImpexContext context, ResultSet rs, int index, org.apache.torque.engine.database.model.Column column, long rowCount, String tableName) {
-		// Extract a raw object
+	protected Object getColumnValue(SimpleDateFormat formatter, ResultSet rs, int resultSetIndex, Column column, long rowCount, String tableName) {
 		Object columnValue = null;
 		try {
-			columnValue = rs.getObject(index);
+			// Extract a raw object
+			columnValue = rs.getObject(resultSetIndex);
 
 			// If it is null we're done
 			if (columnValue == null) {
 				return null;
 			}
+
 			// Handle special types
 			switch (column.getJdbcType()) {
 			case (CLOB):
@@ -190,14 +169,13 @@ public class DefaultImpexService implements ImpexService {
 			case (DATE):
 			case (TIMESTAMP):
 				// Extract dates and timestamps
-				return getDate(context, rs, index);
+				return getDate(formatter, rs, resultSetIndex);
 			default:
 				// Otherwise return the raw object
 				return columnValue;
 			}
 		} catch (Exception e) {
-			// Don't let an issue extracting a value from one column in one row
-			// stop the process
+			// Don't let an issue extracting one value from one column in one row stop the process
 			// Log the row/column and continue
 			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
 			logger.error(e.getClass().getName() + " : " + e.getMessage());
@@ -209,9 +187,9 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Convert a JDBC Timestamp into a java.util.Date using the specified format
 	 */
-	protected String getDate(ImpexContext context, ResultSet rs, int index) throws SQLException {
+	protected String getDate(SimpleDateFormat formatter, ResultSet rs, int index) throws SQLException {
 		Timestamp date = rs.getTimestamp(index);
-		return context.getDateFormatter().format(date);
+		return formatter.format(date);
 	}
 
 	@Override
@@ -625,18 +603,16 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
-		ResultSetMetaData md = rs.getMetaData();
-		Column[] columns = getColumns(md);
-		long size = 0;
-		long count = 0;
+		Column[] columns = getColumns(rs.getMetaData());
+		long tableSize = 0;
+		long rowCount = 0;
 		while (rs.next()) {
-			count++;
-			ProcessRowResult result = processRow(context, null, table.getName(), md, rs, columns, count);
-			size += result.getSize();
+			rowCount++;
+			String[] data = getRowData(context.getDateFormatter(), table.getName(), rs, columns, rowCount);
 		}
 		DumpTableResult result = new DumpTableResult();
-		result.setRows(count);
-		result.setSize(size);
+		result.setRows(rowCount);
+		result.setSize(tableSize);
 		return result;
 	}
 
@@ -653,10 +629,10 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Generate an array of Column objects from the result set metadata
 	 */
-	protected org.apache.torque.engine.database.model.Column[] getColumns(final ResultSetMetaData md) throws SQLException {
-		org.apache.torque.engine.database.model.Column[] columns = new org.apache.torque.engine.database.model.Column[md.getColumnCount() + 1];
+	protected Column[] getColumns(final ResultSetMetaData md) throws SQLException {
+		Column[] columns = new Column[md.getColumnCount() + 1];
 		for (int i = 1; i <= md.getColumnCount(); i++) {
-			org.apache.torque.engine.database.model.Column column = new org.apache.torque.engine.database.model.Column();
+			Column column = new Column();
 			column.setName(md.getColumnName(i));
 			column.setJdbcType(md.getColumnType(i));
 			columns[i] = column;
