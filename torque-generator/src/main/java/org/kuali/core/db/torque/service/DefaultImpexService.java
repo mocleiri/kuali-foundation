@@ -90,18 +90,31 @@ public class DefaultImpexService implements ImpexService {
 		// Cycle through the columns
 		for (int i = 0; i < columns.length; i++) {
 
-			// Extract a column value
+			// Extract the column we are working with
+			Column column = columns[i];
+
+			// ResultSet indexes start at 1 not zero
+			int resultSetIndex = i + 1;
+
+			// Use JDBC to turn the value being held by the database into a Java object
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java objects
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			Object columnValue = getColumnValue(formatter, rs, i + 1, columns[i], rowCount, tableName);
+			Object columnObject = getColumnObject(formatter, rs, resultSetIndex, column, rowCount, tableName);
 
-			// If the value isn't null convert to string form
-			if (columnValue != null) {
-				data[i] = columnValue.toString();
-			}
+			// Convert the object to a String suitable for dumping to a file
+			// The import side of Impex must be able to convert this string back into the native value without losing data
+			String columnString = getColumnString(columnObject);
+
+			// Store the string in our data array
+			data[i] = columnString;
+
 		}
 		return data;
+	}
+
+	protected String getColumnString(Object columnObject) {
+		return columnObject == null ? null : columnObject.toString();
 	}
 
 	/**
@@ -154,14 +167,14 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Extract a column value from the result set, converting as needed
 	 */
-	protected Object getColumnValue(SimpleDateFormat formatter, ResultSet rs, int resultSetIndex, Column column, long rowCount, String tableName) {
-		Object columnValue = null;
+	protected Object getColumnObject(SimpleDateFormat formatter, ResultSet rs, int resultSetIndex, Column column, long rowCount, String tableName) {
+		Object columnObject = null;
 		try {
 			// Extract a raw object
-			columnValue = rs.getObject(resultSetIndex);
+			columnObject = rs.getObject(resultSetIndex);
 
 			// If it is null we're done
-			if (columnValue == null) {
+			if (columnObject == null) {
 				return null;
 			}
 
@@ -169,14 +182,14 @@ public class DefaultImpexService implements ImpexService {
 			switch (column.getJdbcType()) {
 			case (CLOB):
 				// Extract a CLOB
-				return getClob((Clob) columnValue);
+				return getClob((Clob) columnObject);
 			case (DATE):
 			case (TIMESTAMP):
 				// Extract dates and timestamps
 				return getDate(formatter, rs, resultSetIndex);
 			default:
 				// Otherwise return the raw object
-				return columnValue;
+				return columnObject;
 			}
 		} catch (Exception e) {
 			// Don't let an issue extracting one value from one column in one row stop the process
