@@ -25,7 +25,7 @@
     <!-- Resolve placeholders using Maven properties -->
     <context:property-placeholder properties-ref="mavenProperties" />
 
-    <bean id="conversion.launcher.oracle" class="org.kuali.common.jdbc.DirectoryConverterExecutable">
+    <bean id="conversion.launcher.oracle" class="org.kuali.common.jdbc.convert.DirectoryConverterExecutable">
         <property name="inputSqlFolder" value="${project.basedir}/src/main/resources/impex/sql/oracle"/>
         <property name="includedFilePattern" value="*.sql"/>
         <property name="excludedFilePattern" value="${project.artifactId}-*.sql"/>
@@ -35,7 +35,7 @@
 
     <bean id="converter.oracle" class="org.kuali.common.jdbc.convert.ImpexOracleInsertMerge"/>
 
-    <bean id="conversion.launcher.mysql" class="org.kuali.common.jdbc.DirectoryConverterExecutable">
+    <bean id="conversion.launcher.mysql" class="org.kuali.common.jdbc.convert.DirectoryConverterExecutable">
         <property name="inputSqlFolder" value="${project.basedir}/src/main/resources/impex/sql/mysql"/>
         <property name="includedFilePattern" value="*.sql"/>
         <property name="excludedFilePattern" value="${project.artifactId}-*.sql"/>
