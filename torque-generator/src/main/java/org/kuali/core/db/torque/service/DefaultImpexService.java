@@ -626,7 +626,7 @@ public class DefaultImpexService implements ImpexService {
 			long rowSize = getSize(rowData);
 			currentDataSize += rowSize;
 			totalDataSize += rowSize;
-			if (currentRowCount % 50 == 0 || currentDataSize > 10 * 1024) {
+			if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
 				DumpTableContext dtc = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
 				handleData(dtc);
 				currentDataSize = 0;
