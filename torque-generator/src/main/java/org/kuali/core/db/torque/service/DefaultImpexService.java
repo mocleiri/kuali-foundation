@@ -31,6 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.Project;
+import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
@@ -81,8 +82,8 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Convert a row from the result set into an Element
 	 */
-	protected ProcessRowResult getRow(ImpexContext context, Document document, String tableName, ResultSetMetaData md, ResultSet rs,
-	        org.apache.torque.engine.database.model.Column[] columns, long rowCount) throws SQLException {
+	protected ProcessRowResult getRow(ImpexContext context, Document document, String tableName, ResultSetMetaData md, ResultSet rs, Column[] columns, long rowCount)
+	        throws SQLException {
 
 		// <TABLE_NAME/>
 		long size = tableName.length() + 3; // less than symbol + forward slash + greater than symbol
