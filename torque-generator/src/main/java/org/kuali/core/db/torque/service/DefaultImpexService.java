@@ -90,6 +90,9 @@ public class DefaultImpexService implements ImpexService {
 		for (int i = 0; i < columns.length; i++) {
 
 			// Extract a column value
+			// TODO Refactor things into a Converter API of some kind
+			// TODO Need a richer API for dealing with the conversion of database values to Java objects
+			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters
 			Object columnValue = getColumnValue(formatter, rs, i + 1, columns[i], rowCount, tableName);
 
 			// If the value isn't null convert to string form
@@ -609,6 +612,9 @@ public class DefaultImpexService implements ImpexService {
 		while (rs.next()) {
 			rowCount++;
 			String[] data = getRowData(context.getDateFormatter(), table.getName(), rs, columns, rowCount);
+			for (String s : data) {
+				tableSize += ((s == null) ? 0 : s.length());
+			}
 		}
 		DumpTableResult result = new DumpTableResult();
 		result.setRows(rowCount);
