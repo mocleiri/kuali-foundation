@@ -93,7 +93,7 @@ public class DefaultImpexService implements ImpexService {
 			// Extract a column value
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java objects
-			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters
+			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
 			Object columnValue = getColumnValue(formatter, rs, i + 1, columns[i], rowCount, tableName);
 
 			// If the value isn't null convert to string form

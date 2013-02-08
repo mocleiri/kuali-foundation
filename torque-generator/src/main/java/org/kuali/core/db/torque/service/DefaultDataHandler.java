@@ -25,7 +25,7 @@ public class DefaultDataHandler implements DataHandler {
 		String cds = FormatUtils.getSize(context.getCurrentDataSize());
 		String tds = FormatUtils.getSize(context.getTotalDataSize());
 		Object[] args = { crc, trc, cds, tds };
-		logger.info("Current Rows: {} Total Rows: {} Current Size: {} Total Size: {}", args);
+		logger.info("Current Rows: {}  Total Rows: {}  Current Size: {}  Total Size: {}", args);
 	}
 
 }
