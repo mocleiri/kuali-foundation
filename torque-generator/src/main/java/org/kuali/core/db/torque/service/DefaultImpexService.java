@@ -93,14 +93,14 @@ public class DefaultImpexService implements ImpexService {
 			// Extract the column we are working with
 			Column column = columns[i];
 
-			// ResultSet indexes are one based not zero based
-			int resultSetIndex = i + 1;
+			// ResultSet column indexes are one based not zero based
+			int resultSetColumnIndex = i + 1;
 
 			// Use JDBC to turn the value being held by the database into a Java object
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java objects
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			Object columnObject = getColumnObject(formatter, rs, resultSetIndex, column, rowCount, tableName);
+			Object columnObject = getColumnObject(formatter, rs, resultSetColumnIndex, column, rowCount, tableName);
 
 			// Convert the object to a String suitable for dumping to a file
 			// The import side of Impex must be able to convert this string back into the native value without losing data
@@ -167,7 +167,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Extract a column value from the result set, converting as needed
 	 */
-	protected Object getColumnObject(SimpleDateFormat formatter, ResultSet rs, int resultSetIndex, Column column, long rowCount, String tableName) {
+	protected Object getColumnObject2(ResultSet rs, int resultSetIndex, Column column, long rowCount, String tableName) {
 		Object columnObject = null;
 		try {
 			// Extract a raw object
@@ -186,7 +186,44 @@ public class DefaultImpexService implements ImpexService {
 			case (DATE):
 			case (TIMESTAMP):
 				// Extract dates and timestamps
-				return getDate(formatter, rs, resultSetIndex);
+				return rs.getTimestamp(resultSetIndex);
+			default:
+				// Otherwise return the raw object
+				return columnObject;
+			}
+		} catch (Exception e) {
+			// Don't let an issue extracting one value from one column in one row stop the process
+			// Log the table/row/column and continue
+			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
+			logger.error(e.getClass().getName() + " : " + e.getMessage());
+
+		}
+		return null;
+	}
+
+	/**
+	 * Extract a column value from the result set, converting as needed
+	 */
+	protected Object getColumnObject(SimpleDateFormat formatter, ResultSet rs, int resultSetColumnIndex, Column column, long rowCount, String tableName) {
+		Object columnObject = null;
+		try {
+			// Extract a raw object
+			columnObject = rs.getObject(resultSetColumnIndex);
+
+			// If it is null we're done
+			if (columnObject == null) {
+				return null;
+			}
+
+			// Handle special types
+			switch (column.getJdbcType()) {
+			case (CLOB):
+				// Extract a CLOB
+				return getClob((Clob) columnObject);
+			case (DATE):
+			case (TIMESTAMP):
+				// Extract dates and timestamps
+				return getDate(formatter, rs, resultSetColumnIndex);
 			default:
 				// Otherwise return the raw object
 				return columnObject;
