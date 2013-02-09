@@ -622,6 +622,8 @@ public class DefaultImpexService implements ImpexService {
 		long currentRowCount = 0;
 		long currentDataSize = 0;
 		List<String[]> data = new ArrayList<String[]>();
+		DumpTableContext startContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+		context.getDataHandler().startData(startContext);
 		while (rs.next()) {
 			currentRowCount++;
 			totalRowCount++;
@@ -631,16 +633,16 @@ public class DefaultImpexService implements ImpexService {
 			currentDataSize += rowSize;
 			totalDataSize += rowSize;
 			if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
-				DumpTableContext dtc = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-				handleData(dtc);
+				DumpTableContext doDataContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+				context.getDataHandler().doData(doDataContext);
 				currentDataSize = 0;
 				currentRowCount = 0;
 				data = new ArrayList<String[]>();
 			}
 		}
 		if (data.size() > 0) {
-			DumpTableContext dtc = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-			handleData(dtc);
+			DumpTableContext finishDataContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+			context.getDataHandler().finishData(finishDataContext);
 		}
 		DumpTableResult result = new DumpTableResult();
 		result.setRows(totalRowCount);
