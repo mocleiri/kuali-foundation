@@ -4,8 +4,10 @@ import org.kuali.core.db.torque.pojo.DumpTableContext;
 
 public interface DataHandler {
 
-	void handleData(DumpTableContext context);
+	void startData(DumpTableContext context);
 
-	void finalizeData(DumpTableContext context);
+	void doData(DumpTableContext context);
+
+	void finishData(DumpTableContext context);
 
 }

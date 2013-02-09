@@ -10,12 +10,17 @@ public class DefaultDataHandler implements DataHandler {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDataHandler.class);
 
 	@Override
-	public void handleData(DumpTableContext context) {
+	public void startData(DumpTableContext context) {
 		handle(context);
 	}
 
 	@Override
-	public void finalizeData(DumpTableContext context) {
+	public void doData(DumpTableContext context) {
+		handle(context);
+	}
+
+	@Override
+	public void finishData(DumpTableContext context) {
 		handle(context);
 	}
 
