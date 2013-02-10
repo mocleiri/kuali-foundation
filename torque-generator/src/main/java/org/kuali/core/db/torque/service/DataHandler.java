@@ -1,13 +1,19 @@
 package org.kuali.core.db.torque.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.kuali.core.db.torque.pojo.DumpTableContext;
 
 public interface DataHandler {
 
-	void startData(DumpTableContext context);
+	OutputStream openOutputStream(File workingDir, String tableName) throws IOException;
 
-	void doData(DumpTableContext context);
+	void startData(DumpTableContext context) throws IOException;
 
-	void finishData(DumpTableContext context);
+	void doData(DumpTableContext context) throws IOException;
+
+	void finishData(DumpTableContext context) throws IOException;
 
 }

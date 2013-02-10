@@ -1,5 +1,6 @@
 package org.kuali.core.db.torque.pojo;
 
+import java.io.OutputStream;
 import java.util.List;
 
 import org.apache.torque.engine.database.model.Column;
@@ -15,6 +16,7 @@ public class DumpTableContext {
 	long totalDataSize;
 	long currentRowCount;
 	long totalRowCount;
+	OutputStream outputStream;
 
 	public ImpexContext getImpexContext() {
 		return impexContext;
@@ -78,5 +80,13 @@ public class DumpTableContext {
 
 	public void setTotalRowCount(long totalRowCount) {
 		this.totalRowCount = totalRowCount;
+	}
+
+	public OutputStream getOutputStream() {
+		return outputStream;
+	}
+
+	public void setOutputStream(OutputStream outputStream) {
+		this.outputStream = outputStream;
 	}
 }

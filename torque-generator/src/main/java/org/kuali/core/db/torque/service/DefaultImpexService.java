@@ -6,6 +6,7 @@ import static java.sql.Types.TIMESTAMP;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -658,42 +659,52 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
-		Column[] columns = getColumns(rs.getMetaData());
-		long totalDataSize = 0;
-		long totalRowCount = 0;
-		long currentRowCount = 0;
-		long currentDataSize = 0;
-		List<String[]> data = new ArrayList<String[]>();
-		DumpTableContext startContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-		context.getDataHandler().startData(startContext);
-		FastDateFormat dateFormatter = FastDateFormat.getInstance(context.getDateFormat());
-		while (rs.next()) {
-			currentRowCount++;
-			totalRowCount++;
-			String[] rowData = getRowData(dateFormatter, table.getName(), rs, columns, totalRowCount);
-			data.add(rowData);
-			long rowSize = getSize(rowData);
-			currentDataSize += rowSize;
-			totalDataSize += rowSize;
-			if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
-				DumpTableContext doDataContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-				context.getDataHandler().doData(doDataContext);
-				currentDataSize = 0;
-				currentRowCount = 0;
-				data = new ArrayList<String[]>();
+		OutputStream out = null;
+		try {
+			out = context.getDataHandler().openOutputStream(context.getWorkingDir(), table.getName());
+			Column[] columns = getColumns(rs.getMetaData());
+			long totalDataSize = 0;
+			long totalRowCount = 0;
+			long currentRowCount = 0;
+			long currentDataSize = 0;
+			List<String[]> data = new ArrayList<String[]>();
+			DumpTableContext startContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+			context.getDataHandler().startData(startContext);
+			FastDateFormat dateFormatter = FastDateFormat.getInstance(context.getDateFormat());
+			while (rs.next()) {
+				currentRowCount++;
+				totalRowCount++;
+				String[] rowData = getRowData(dateFormatter, table.getName(), rs, columns, totalRowCount);
+				data.add(rowData);
+				long rowSize = getSize(rowData);
+				currentDataSize += rowSize;
+				totalDataSize += rowSize;
+				if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
+					DumpTableContext doDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+					context.getDataHandler().doData(doDataContext);
+					currentDataSize = 0;
+					currentRowCount = 0;
+					data = new ArrayList<String[]>();
+				}
 			}
+			DumpTableContext finishDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+			context.getDataHandler().finishData(finishDataContext);
+			DumpTableResult result = new DumpTableResult();
+			result.setTable(table);
+			result.setRows(totalRowCount);
+			result.setSize(totalDataSize);
+			return result;
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(out);
 		}
-		DumpTableContext finishDataContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-		context.getDataHandler().finishData(finishDataContext);
-		DumpTableResult result = new DumpTableResult();
-		result.setTable(table);
-		result.setRows(totalRowCount);
-		result.setSize(totalDataSize);
-		return result;
 	}
 
-	protected DumpTableContext getDumpTableContext(Column[] columns, List<String[]> data, long cds, ImpexContext context, long crc, long trc, TableContext table, long tds) {
+	protected DumpTableContext getDumpTableContext(OutputStream out, Column[] columns, List<String[]> data, long cds, ImpexContext context, long crc, long trc, TableContext table,
+	        long tds) {
 		DumpTableContext dtc = new DumpTableContext();
+		dtc.setOutputStream(out);
 		dtc.setColumns(columns);
 		dtc.setCurrentData(data);
 		dtc.setCurrentDataSize(cds);
