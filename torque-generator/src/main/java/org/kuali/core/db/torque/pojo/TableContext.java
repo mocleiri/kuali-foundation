@@ -6,7 +6,6 @@ import java.util.Map;
 public class TableContext implements Comparable<TableContext> {
 
 	String name;
-	int sequence;
 	List<String> primaryKeys;
 	List<ColumnContext> columns;
 	Map<String, ForeignKey> foreignKeys;
@@ -17,8 +16,8 @@ public class TableContext implements Comparable<TableContext> {
 
 	@Override
 	public int compareTo(TableContext other) {
-		Integer one = sequence;
-		Integer two = other.getSequence();
+		Long one = rowCount == null ? 0 : rowCount;
+		Long two = other.getRowCount() == null ? 0 : other.getRowCount();
 		return one.compareTo(two);
 	}
 
@@ -28,14 +27,6 @@ public class TableContext implements Comparable<TableContext> {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
 	}
 
 	public List<String> getPrimaryKeys() {

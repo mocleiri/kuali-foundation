@@ -1129,7 +1129,6 @@ public class DefaultImpexService implements ImpexService {
 		List<TableContext> contexts = new ArrayList<TableContext>();
 		for (int i = 0; i < tables.size(); i++) {
 			TableContext context = new TableContext();
-			context.setSequence(i + 1);
 			context.setName(tables.get(i));
 			contexts.add(context);
 		}
