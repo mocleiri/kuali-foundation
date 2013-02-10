@@ -67,7 +67,7 @@ public class ImpexServiceTest {
 			// service.serializeSchemas(contexts, database);
 			// service.generateDataDtds(contexts);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
-			ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesFile(), results);
+			ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesLocation(), results);
 			ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
@@ -153,7 +153,7 @@ public class ImpexServiceTest {
 		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
 		context.setBaseDir(new File(p.getProperty("project.basedir")));
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
-		context.setDatabaseTablePropertiesFile(new File(p.getProperty("impex.databaseTablePropertiesFile")));
+		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
 
 		// Default to schema.xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
@@ -185,9 +185,9 @@ public class ImpexServiceTest {
 		}
 
 		// Properties that need processing in some way
-		Assert.notNull(context.getDatabaseTablePropertiesFile());
-		if (LocationUtils.exists(context.getDatabaseTablePropertiesFile())) {
-			context.setDatabaseTableProperties(PropertyUtils.load(context.getDatabaseTablePropertiesFile()));
+		Assert.notNull(context.getDatabaseTablePropertiesLocation());
+		if (LocationUtils.exists(context.getDatabaseTablePropertiesLocation())) {
+			context.setDatabaseTableProperties(PropertyUtils.load(context.getDatabaseTablePropertiesLocation()));
 		} else {
 			context.setDatabaseTableProperties(new Properties());
 		}

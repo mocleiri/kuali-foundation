@@ -613,10 +613,10 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected void fillInTableMetaData(ImpexContext context, List<TableContext> tables) {
-		if (!LocationUtils.exists(context.getDatabaseTablePropertiesFile())) {
+		if (!LocationUtils.exists(context.getDatabaseTablePropertiesLocation())) {
 			return;
 		}
-		Properties props = PropertyUtils.load(context.getDatabaseTablePropertiesFile());
+		Properties props = PropertyUtils.load(context.getDatabaseTablePropertiesLocation());
 		for (TableContext table : tables) {
 			String name = table.getName();
 			String key = name.toLowerCase();
