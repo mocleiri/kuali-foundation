@@ -36,20 +36,25 @@ public class ImpexUtils {
 
 	public static void doStats(List<DumpTableResult> results) {
 		long totalTime = 0;
+		long wallTimeStart = Long.MAX_VALUE;
+		long wallTimeStop = Long.MIN_VALUE;
 		long totalSize = 0;
 		long totalRows = 0;
-		logger.info("Results.size()=" + results.size());
 		for (DumpTableResult result : results) {
 			totalTime += result.getElapsed();
 			totalSize += result.getSize();
 			totalRows += result.getRows();
+			wallTimeStart = Math.min(wallTimeStart, result.getStart());
+			wallTimeStop = Math.max(wallTimeStop, result.getFinish());
 		}
+		long wallTimeElapsed = wallTimeStop - wallTimeStart;
 		String rows = FormatUtils.getCount(totalRows);
 		String size = FormatUtils.getSize(totalSize);
-		String time = FormatUtils.getTime(totalTime);
-		String rate = FormatUtils.getRate(totalTime, totalSize);
-		Object[] args = { rows, size, time, rate };
-		logger.info("Dump Summary - Rows: {} Size: {} Time: {} Rate: {}", args);
+		String time = FormatUtils.getTime(wallTimeElapsed);
+		String rate = FormatUtils.getRate(totalTime, wallTimeElapsed);
+		String benefit = FormatUtils.getTime(totalTime - wallTimeElapsed);
+		Object[] args = { rows, size, time, rate, benefit };
+		logger.info("Dump Summary - Rows: {}  Size: {}  Time: {}  Rate: {}  Threads effect: {}", args);
 	}
 
 	public static ImpexContext clone(ImpexContext source) {
