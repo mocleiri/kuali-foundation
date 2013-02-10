@@ -607,8 +607,8 @@ public class DefaultImpexService implements ImpexService {
 			bucket.setContext(context);
 			bucket.setService(this);
 			bucket.setResults(results);
-			// Fewest rows to most rows
-			Collections.sort(bucket.getTables());
+			// Randomize the order in which tables get dumped
+			Collections.shuffle(bucket.getTables());
 		}
 		return buckets;
 	}

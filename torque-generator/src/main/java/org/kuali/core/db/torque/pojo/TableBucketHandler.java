@@ -34,7 +34,7 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 				synchronized (results) {
 					results.add(result);
 				}
-				element.getProgressTracker().progressOccurred();
+				// element.getProgressTracker().progressOccurred();
 			}
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
