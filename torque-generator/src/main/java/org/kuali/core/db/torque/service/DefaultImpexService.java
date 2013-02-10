@@ -646,8 +646,8 @@ public class DefaultImpexService implements ImpexService {
 			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			rs = stmt.executeQuery(query);
 			DumpTableResult result = dumpTable(context, table, rs);
-			result.setStart(start);
 			result.setFinish(System.currentTimeMillis());
+			result.setStart(start);
 			result.setElapsed(result.getFinish() - start);
 			return result;
 		} catch (Exception e) {
