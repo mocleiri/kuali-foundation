@@ -1,18 +1,28 @@
 package org.kuali.core.db.torque.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.service.ImpexContext;
 import org.kuali.core.db.torque.service.ImpexService;
 
-public class TableBucket {
+public class TableBucket implements Comparable<TableBucket> {
 
 	ImpexContext context;
 	ImpexService service;
-	List<TableContext> tables;
+	List<TableContext> tables = new ArrayList<TableContext>();
 	PercentCompleteInformer progressTracker;
 	List<DumpTableResult> results;
+	long rowCount;
+	long size;
+
+	@Override
+	public int compareTo(TableBucket other) {
+		Long one = new Long(rowCount);
+		Long two = new Long(other.getRowCount());
+		return one.compareTo(two);
+	}
 
 	public List<TableContext> getTables() {
 		return tables;
@@ -52,6 +62,22 @@ public class TableBucket {
 
 	public void setResults(List<DumpTableResult> results) {
 		this.results = results;
+	}
+
+	public long getRowCount() {
+		return rowCount;
+	}
+
+	public void setRowCount(long rowCount) {
+		this.rowCount = rowCount;
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
 	}
 
 }

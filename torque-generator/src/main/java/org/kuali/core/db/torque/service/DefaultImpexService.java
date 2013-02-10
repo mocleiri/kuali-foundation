@@ -561,7 +561,7 @@ public class DefaultImpexService implements ImpexService {
 
 		fillInTableMetaData(context, tables);
 
-		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, context.getDataThreads());
+		// List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, context.getDataThreads());
 
 		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
 
@@ -570,16 +570,7 @@ public class DefaultImpexService implements ImpexService {
 		progressTracker.setTotal(tables.size());
 
 		// Each bucket holds a bunch of requests
-		List<TableBucket> buckets = new ArrayList<TableBucket>();
-		for (List<TableContext> tableList : listOfLists) {
-			TableBucket bucket = new TableBucket();
-			bucket.setProgressTracker(progressTracker);
-			bucket.setContext(context);
-			bucket.setService(this);
-			bucket.setTables(tableList);
-			bucket.setResults(results);
-			buckets.add(bucket);
-		}
+		List<TableBucket> buckets = getTableBuckets(tables, context, results, progressTracker);
 
 		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = invokeThreads(buckets, new TableBucketHandler());
@@ -588,6 +579,35 @@ public class DefaultImpexService implements ImpexService {
 		logger.info("Disconnecting from database.");
 		return results;
 
+	}
+
+	protected List<TableBucket> getTableBuckets(List<TableContext> tables, ImpexContext context, List<DumpTableResult> results, PercentCompleteInformer progressTracker) {
+		// number of buckets equals thread count, unless thread count > total number of sources
+		int bucketCount = Math.min(context.getDataThreads(), tables.size());
+		// Sort the sources by size
+		Collections.sort(tables);
+		// Largest to smallest instead of smallest to largest
+		Collections.reverse(tables);
+		// Allocate some buckets to hold the sql
+		List<TableBucket> buckets = CollectionUtils.getNewList(TableBucket.class, bucketCount);
+		// Distribute the sources into buckets as evenly as possible
+		// "Evenly" in this case means each bucket should be roughly the same size
+		for (TableContext table : tables) {
+			// Sort the buckets by size
+			Collections.sort(buckets);
+			// First bucket in the list is the smallest
+			TableBucket smallest = buckets.get(0);
+			// Add this source to the bucket
+			smallest.getTables().add(table);
+			// Update the bucket metadata holding overall size
+			smallest.setRowCount(smallest.getRowCount() + table.getRowCount());
+			smallest.setSize(smallest.getSize() + table.getSize());
+			smallest.setProgressTracker(progressTracker);
+			smallest.setContext(context);
+			smallest.setService(this);
+			smallest.setResults(results);
+		}
+		return buckets;
 	}
 
 	protected void fillInTableMetaData(ImpexContext context, List<TableContext> tables) {
