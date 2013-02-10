@@ -3,7 +3,9 @@ package org.kuali.core.db.torque.pojo;
 import java.util.List;
 import java.util.Map;
 
-public class TableContext implements Comparable<TableContext> {
+import org.kuali.common.util.Weighted;
+
+public class TableContext implements Comparable<TableContext>, Weighted {
 
 	String name;
 	List<String> primaryKeys;
@@ -13,6 +15,11 @@ public class TableContext implements Comparable<TableContext> {
 	String selectAllQuery;
 	Long rowCount;
 	Long size;
+
+	@Override
+    public double getWeight() {
+		return rowCount == null ? 0 : new Double(rowCount);
+	}
 
 	@Override
 	public int compareTo(TableContext other) {
