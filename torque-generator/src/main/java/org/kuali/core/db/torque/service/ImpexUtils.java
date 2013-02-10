@@ -46,8 +46,8 @@ public class ImpexUtils {
 		}
 		String rows = FormatUtils.getCount(totalRows);
 		String size = FormatUtils.getSize(totalSize);
-		String rate = FormatUtils.getRate(totalTime, totalSize);
 		String time = FormatUtils.getTime(totalTime);
+		String rate = FormatUtils.getRate(totalTime, totalSize);
 		Object[] args = { rows, size, time, rate };
 		logger.info("Dump Summary - Rows: {} Size: {} Time: {} Rate: {}", args);
 	}
