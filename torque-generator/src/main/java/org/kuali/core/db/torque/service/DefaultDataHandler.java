@@ -32,7 +32,7 @@ public class DefaultDataHandler implements DataHandler {
 		String trc = FormatUtils.getCount(context.getTotalRowCount());
 		String tds = FormatUtils.getSize(context.getTotalDataSize());
 		Object[] args = { threadId, tableName, trc, tds };
-		logger.info("{} - Dump completed [{}] Total Rows: {}  Total Size: {}", args);
+		logger.info("{} - Dumped [{}] Total Rows: {}  Total Size: {}", args);
 	}
 
 }
