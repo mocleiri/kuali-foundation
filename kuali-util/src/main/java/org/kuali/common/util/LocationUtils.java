@@ -472,6 +472,22 @@ public class LocationUtils {
 	/**
 	 * Null safe method for determining if <code>location</code> exists.
 	 */
+	public static final boolean exists(File file) {
+		if (file == null) {
+			return false;
+		}
+		String location = getCanonicalPath(file);
+		if (isExistingFile(location)) {
+			return true;
+		} else {
+			Resource resource = getResource(location);
+			return resource.exists();
+		}
+	}
+
+	/**
+	 * Null safe method for determining if <code>location</code> exists.
+	 */
 	public static final boolean exists(String location) {
 		if (location == null) {
 			return false;
