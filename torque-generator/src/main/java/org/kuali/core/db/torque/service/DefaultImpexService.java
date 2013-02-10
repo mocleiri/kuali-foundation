@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,6 +31,7 @@ import javax.sql.DataSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.TypeMap;
@@ -173,13 +173,14 @@ public class DefaultImpexService implements ImpexService {
 				}
 			case (DATE):
 			case (TIMESTAMP):
-				Object timestampObject = rs.getObject(index);
-				if (timestampObject == null) {
-					return null;
-				}
 				Timestamp date = rs.getTimestamp(index);
-				SimpleDateFormat formatter = new SimpleDateFormat(dateformat);
-				return formatter.format(date);
+				if (date == null) {
+					return null;
+				} else {
+					// Only reason a new SimpleDateFormat is create here is because it isn't thread safe
+					FastDateFormat formatter = FastDateFormat.getInstance(dateformat);
+					return formatter.format(date);
+				}
 			default:
 				// Otherwise just invoke toString() on the method
 				Object object = rs.getObject(index);
