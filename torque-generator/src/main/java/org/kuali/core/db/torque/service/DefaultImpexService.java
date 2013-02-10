@@ -602,10 +602,12 @@ public class DefaultImpexService implements ImpexService {
 			// Update the bucket metadata holding overall size
 			smallest.setRowCount(smallest.getRowCount() + table.getRowCount());
 			smallest.setSize(smallest.getSize() + table.getSize());
-			smallest.setProgressTracker(progressTracker);
-			smallest.setContext(context);
-			smallest.setService(this);
-			smallest.setResults(results);
+		}
+		for (TableBucket bucket : buckets) {
+			bucket.setProgressTracker(progressTracker);
+			bucket.setContext(context);
+			bucket.setService(this);
+			bucket.setResults(results);
 		}
 		return buckets;
 	}

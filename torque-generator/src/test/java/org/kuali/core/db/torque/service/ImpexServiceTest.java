@@ -17,7 +17,6 @@ package org.kuali.core.db.torque.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -60,13 +59,13 @@ public class ImpexServiceTest {
 			ImpexContext riceContext = ImpexUtils.clone(sourceContext, "KR.*", "ks-rice-db");
 			ImpexContext appContext = ImpexUtils.clone(sourceContext, "KS.*", "ks-app-db");
 
-			List<ImpexContext> contexts = Arrays.asList(bundledContext, riceContext, appContext);
+			// List<ImpexContext> contexts = Arrays.asList(bundledContext, riceContext, appContext);
 
 			ImpexService service = new DefaultImpexService();
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
 			service.fillInMetaData(sourceContext, database);
-			service.serializeSchemas(contexts, database);
-			service.generateDataDtds(contexts);
+			// service.serializeSchemas(contexts, database);
+			// service.generateDataDtds(contexts);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesFile(), results);
 			ImpexUtils.doStats(results);
