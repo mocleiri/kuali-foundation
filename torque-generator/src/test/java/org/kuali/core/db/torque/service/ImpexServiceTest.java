@@ -78,7 +78,7 @@ public class ImpexServiceTest {
 
 	protected void log(ImpexContext context) {
 		logger.info("---------------------------------------------------------------");
-		logger.info("Impex XML Dump");
+		logger.info("Impex Database Dump");
 		logger.info("---------------------------------------------------------------");
 		logger.info("Database Vendor - {}", context.getDatabaseVendor());
 		logger.info("Url - {}", context.getUrl());
