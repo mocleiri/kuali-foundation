@@ -85,7 +85,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Convert the data from the row into String form
 	 */
-	protected String[] getRowData(String dateformat, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
+	protected String[] getRowData(FastDateFormat dateFormatter, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
 		// Allocate some storage
 		String[] data = new String[columns.length];
 
@@ -103,7 +103,7 @@ public class DefaultImpexService implements ImpexService {
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java strings
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			data[i] = getColumnValueAsString(dateformat, rs, resultSetColumnIndex, column, rowCount, tableName);
+			data[i] = getColumnValueAsString(dateFormatter, rs, resultSetColumnIndex, column, rowCount, tableName);
 		}
 		return data;
 	}
@@ -161,7 +161,7 @@ public class DefaultImpexService implements ImpexService {
 	 * on the underlying ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is
 	 * forbidden.
 	 */
-	protected String getColumnValueAsString(String dateformat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
+	protected String getColumnValueAsString(FastDateFormat dateFormatter, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
 			// Clob's and Date's need special handling
 			switch (column.getJdbcType()) {
@@ -178,8 +178,7 @@ public class DefaultImpexService implements ImpexService {
 				if (date == null) {
 					return null;
 				} else {
-					FastDateFormat formatter = FastDateFormat.getInstance(dateformat);
-					return formatter.format(date);
+					return dateFormatter.format(date);
 				}
 			default:
 				// Otherwise just invoke toString() on the method
@@ -665,10 +664,11 @@ public class DefaultImpexService implements ImpexService {
 		List<String[]> data = new ArrayList<String[]>();
 		DumpTableContext startContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
 		context.getDataHandler().startData(startContext);
+		FastDateFormat dateFormatter = FastDateFormat.getInstance(context.getDateFormat());
 		while (rs.next()) {
 			currentRowCount++;
 			totalRowCount++;
-			String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
+			String[] rowData = getRowData(dateFormatter, table.getName(), rs, columns, totalRowCount);
 			data.add(rowData);
 			long rowSize = getSize(rowData);
 			currentDataSize += rowSize;
