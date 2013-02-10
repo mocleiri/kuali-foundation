@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.torque.engine.database.model.Column;
 import org.codehaus.plexus.util.StringUtils;
@@ -23,8 +24,13 @@ public class DefaultDataHandler implements DataHandler {
 
 	@Override
 	public OutputStream openOutputStream(File workingDir, String tableName) throws IOException {
-		File outputFile = new File(workingDir.getAbsolutePath() + FS + tableName + ".csv");
+		String filename = getFilename(workingDir, tableName);
+		File outputFile = new File(filename);
 		return new BufferedOutputStream(FileUtils.openOutputStream(outputFile));
+	}
+
+	protected String getFilename(File workingDir, String tableName) {
+		return workingDir.getAbsolutePath() + FS + tableName + ".csv";
 	}
 
 	@Override
@@ -37,9 +43,47 @@ public class DefaultDataHandler implements DataHandler {
 	}
 
 	@Override
-	public void doData(DumpTableContext context) {
-		List<String[]> rows = context.getCurrentData();
+	public void doData(DumpTableContext context) throws IOException {
+		String encoding = context.getImpexContext().getEncoding();
+		writeRows(context.getCurrentData(), encoding, context.getOutputStream());
+	}
+
+	protected void writeRows(List<String[]> rows, String encoding, OutputStream out) throws IOException {
 		convert(rows);
+		for (String[] row : rows) {
+			String line = getLine(row);
+			byte[] bytes = line.getBytes(encoding);
+			out.write(bytes);
+		}
+	}
+
+	protected String getLine(String[] row) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < row.length; i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			sb.append('"');
+			sb.append(row[i]);
+			sb.append('"');
+		}
+		sb.append(LF);
+		return sb.toString();
+	}
+
+	@Override
+	public void finishData(DumpTableContext context) {
+		if (!CollectionUtils.isEmpty(context.getCurrentData())) {
+
+		}
+		if (context.getTotalRowCount() > 0) {
+			long threadId = Thread.currentThread().getId();
+			String tableName = context.getTableContext().getName();
+			String trc = FormatUtils.getCount(context.getTotalRowCount());
+			String tds = FormatUtils.getSize(context.getTotalDataSize());
+			Object[] args = { threadId, tableName, trc, tds };
+			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
+		}
 	}
 
 	protected void convert(List<String[]> rows) {
@@ -62,18 +106,6 @@ public class DefaultDataHandler implements DataHandler {
 		converted = StringUtils.replace(s, "\n", "${lf}");
 		converted = StringUtils.replace(s, "\"", "${quote}");
 		return converted;
-	}
-
-	@Override
-	public void finishData(DumpTableContext context) {
-		if (context.getTotalRowCount() > 0) {
-			long threadId = Thread.currentThread().getId();
-			String tableName = context.getTableContext().getName();
-			String trc = FormatUtils.getCount(context.getTotalRowCount());
-			String tds = FormatUtils.getSize(context.getTotalDataSize());
-			Object[] args = { threadId, tableName, trc, tds };
-			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
-		}
 	}
 
 	protected String getColumnsHeader(Column[] columns) {
