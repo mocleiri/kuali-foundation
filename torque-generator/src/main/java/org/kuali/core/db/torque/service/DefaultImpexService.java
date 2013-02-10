@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -51,6 +52,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.ColumnContext;
@@ -557,6 +559,8 @@ public class DefaultImpexService implements ImpexService {
 
 		List<TableContext> tables = database.getTables();
 
+		fillInTableMetaData(context, tables);
+
 		List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, context.getDataThreads());
 
 		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
@@ -584,6 +588,25 @@ public class DefaultImpexService implements ImpexService {
 		logger.info("Disconnecting from database.");
 		return results;
 
+	}
+
+	protected void fillInTableMetaData(ImpexContext context, List<TableContext> tables) {
+		if (!LocationUtils.exists(context.getDatabaseTablePropertiesFile())) {
+			return;
+		}
+		Properties props = PropertyUtils.load(context.getDatabaseTablePropertiesFile());
+		for (TableContext table : tables) {
+			String name = table.getName();
+			String key = name.toLowerCase();
+			String sizeKey = key + ".size";
+			String rowsKey = key + ".rows";
+			String sizeValue = props.getProperty(sizeKey);
+			String rowsValue = props.getProperty(rowsKey);
+			if (sizeValue != null) {
+				table.setSize(new Long(sizeValue));
+				table.setRowCount(new Long(rowsValue));
+			}
+		}
 	}
 
 	/**
