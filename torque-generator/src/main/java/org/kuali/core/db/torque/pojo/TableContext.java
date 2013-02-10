@@ -68,27 +68,27 @@ public class TableContext implements Comparable<TableContext>, Weighted {
 		this.indexes = indexes;
 	}
 
-	public Long getRowCount() {
-		return rowCount;
-	}
-
-	public void setRowCount(Long rowCount) {
-		this.rowCount = rowCount;
-	}
-
 	public String getSelectAllQuery() {
 		return selectAllQuery;
 	}
 
-	public void setSelectAllQuery(String selectQuery) {
-		this.selectAllQuery = selectQuery;
+	public void setSelectAllQuery(String selectAllQuery) {
+		this.selectAllQuery = selectAllQuery;
 	}
 
-	public Long getSize() {
+	public long getRowCount() {
+		return rowCount;
+	}
+
+	public void setRowCount(long rowCount) {
+		this.rowCount = rowCount;
+	}
+
+	public long getSize() {
 		return size;
 	}
 
-	public void setSize(Long size) {
+	public void setSize(long size) {
 		this.size = size;
 	}
 
