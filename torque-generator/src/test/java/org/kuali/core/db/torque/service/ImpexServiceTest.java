@@ -48,7 +48,8 @@ public class ImpexServiceTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			Properties p = getProperties("KR.*,KS.*", 10, 20);
+			// For the current default KS dataset, going beyond 5/15 for the metadata/date threads doesn't improve things much
+			Properties p = getProperties("KR.*,KS.*", 5, 15);
 			// Properties p = getProperties("KRIM.*", 5, 15);
 			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
