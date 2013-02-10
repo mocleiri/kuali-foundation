@@ -563,8 +563,6 @@ public class DefaultImpexService implements ImpexService {
 
 		fillInTableMetaData(context, tables);
 
-		// List<List<TableContext>> listOfLists = CollectionUtils.splitEvenly(tables, context.getDataThreads());
-
 		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
 
 		// Print a dot any time we complete 1% of our requests
