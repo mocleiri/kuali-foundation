@@ -67,7 +67,9 @@ public class ImpexServiceTest {
 			// service.serializeSchemas(contexts, database);
 			// service.generateDataDtds(contexts);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
-			ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesLocation(), results);
+			if (sourceContext.isStoreDatabaseTableProperties()) {
+				ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesLocation(), results);
+			}
 			ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
