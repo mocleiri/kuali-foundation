@@ -192,7 +192,7 @@ public class DefaultImpexService implements ImpexService {
 			// Don't let an issue extracting one value from one column in one row stop the process
 			// Log the table/row/column and continue
 			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
-			logger.error(e.getClass().getName() + " : " + e.getMessage());
+			e.printStackTrace();
 
 		}
 		return null;
