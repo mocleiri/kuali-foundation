@@ -43,12 +43,6 @@ public class ImpexUtils {
 			totalTime += result.getElapsed();
 			totalSize += result.getSize();
 			totalRows += result.getRows();
-			String rows = FormatUtils.getCount(result.getRows());
-			String size = FormatUtils.getSize(result.getSize());
-			String rate = FormatUtils.getRate(result.getElapsed(), result.getSize());
-			String time = FormatUtils.getTime(result.getElapsed());
-			Object[] args = { result.getTable().getName(), rows, size, time, rate };
-			logger.info("Table: {} Rows: {} Size: {} Time: {} Rate: {}", args);
 		}
 		String rows = FormatUtils.getCount(totalRows);
 		String size = FormatUtils.getSize(totalSize);
