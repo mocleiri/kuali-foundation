@@ -13,18 +13,18 @@ public class TableContext implements Comparable<TableContext>, Weighted {
 	Map<String, ForeignKey> foreignKeys;
 	List<Index> indexes;
 	String selectAllQuery;
-	Long rowCount;
-	Long size;
+	long rowCount;
+	long size;
 
 	@Override
-    public double getWeight() {
-		return rowCount == null ? 0 : new Double(rowCount);
+	public double getWeight() {
+		return new Double(rowCount);
 	}
 
 	@Override
 	public int compareTo(TableContext other) {
-		Long one = rowCount == null ? 0 : rowCount;
-		Long two = other.getRowCount() == null ? 0 : other.getRowCount();
+		Long one = new Long(rowCount);
+		Long two = new Long(other.getRowCount());
 		return one.compareTo(two);
 	}
 
