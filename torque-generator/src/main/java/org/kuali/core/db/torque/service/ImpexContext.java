@@ -51,6 +51,7 @@ public class ImpexContext {
 	Platform platform;
 	SimpleDateFormat dateFormatter;
 	Properties databaseTableProperties;
+	File databaseTablePropertiesFile;
 
 	public boolean isProcessTables() {
 		return processTables;
@@ -346,5 +347,13 @@ public class ImpexContext {
 
 	public void setDatabaseTableProperties(Properties databaseTableProperties) {
 		this.databaseTableProperties = databaseTableProperties;
+	}
+
+	public File getDatabaseTablePropertiesFile() {
+		return databaseTablePropertiesFile;
+	}
+
+	public void setDatabaseTablePropertiesFile(File databaseTablePropertiesFile) {
+		this.databaseTablePropertiesFile = databaseTablePropertiesFile;
 	}
 }

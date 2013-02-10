@@ -22,7 +22,7 @@ public class ImpexUtils {
 
 	private static final String FS = File.separator;
 
-	public static void storeDatabaseTableProperties(ImpexContext context, List<DumpTableResult> results) {
+	public static void storeDatabaseTableProperties(File file, List<DumpTableResult> results) {
 		Properties p = new Properties();
 		for (DumpTableResult result : results) {
 			String sizeKey = result.getTable().getName() + ".size";
@@ -32,7 +32,6 @@ public class ImpexUtils {
 			p.setProperty(sizeKey.toLowerCase(), sizeValue);
 			p.setProperty(rowKey.toLowerCase(), rowValue);
 		}
-		File file = new File(context.getBuildDir() + "/src/main/resources/" + context.getArtifactId() + ".properties");
 		PropertyUtils.store(p, file);
 	}
 

@@ -137,7 +137,7 @@ public class DefaultImpexService implements ImpexService {
 	 */
 	protected String getClob(Clob clob) throws SQLException {
 		Reader r = null;
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
 			r = clob.getCharacterStream();
 			char[] buffer = new char[4096];
@@ -154,33 +154,37 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	/**
-	 * Use JDBC to extract the data held by the database into a Java string suitable for dumping to disk. The Java object returned by this
-	 * method must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying
+	 * Use JDBC to extract the data held by the database into a Java string suitable for dumping to disk. The String returned by this method
+	 * must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying
 	 * ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is forbidden.
 	 */
 	protected String getColumnValueAsString(SimpleDateFormat formatter, ResultSet rs, int index, Column column, long rowCount, String tableName) {
-		Object columnObject = null;
 		try {
-			// Extract a raw object
-			columnObject = rs.getObject(index);
-
-			// If it is null we're done
-			if (columnObject == null) {
-				return null;
-			}
-
-			// Handle special types
+			// Clob's and Date's need special handling
 			switch (column.getJdbcType()) {
 			case (CLOB):
-				// Extract a CLOB
-				return getClob((Clob) columnObject);
+				Clob clob = rs.getClob(index);
+				if (clob == null) {
+					return null;
+				} else {
+					return getClob(clob);
+				}
 			case (DATE):
 			case (TIMESTAMP):
-				// Extract dates and timestamps
-				return getDate(formatter, rs, index);
+				Timestamp date = rs.getTimestamp(index);
+				if (date == null) {
+					return null;
+				} else {
+					return formatter.format(date);
+				}
 			default:
-				// Otherwise return the raw object
-				return columnObject.toString();
+				// Otherwise just invoke toString() on the method
+				Object object = rs.getObject(index);
+				if (object == null) {
+					return null;
+				} else {
+					return object.toString();
+				}
 			}
 		} catch (Exception e) {
 			// Don't let an issue extracting one value from one column in one row stop the process
@@ -190,14 +194,6 @@ public class DefaultImpexService implements ImpexService {
 
 		}
 		return null;
-	}
-
-	/**
-	 * Convert a JDBC Timestamp into a java.util.Date using the specified format
-	 */
-	protected String getDate(SimpleDateFormat formatter, ResultSet rs, int index) throws SQLException {
-		Timestamp date = rs.getTimestamp(index);
-		return formatter.format(date);
 	}
 
 	@Override

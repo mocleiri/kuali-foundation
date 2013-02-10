@@ -28,7 +28,9 @@ import org.apache.tools.ant.Task;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
@@ -37,6 +39,7 @@ import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.util.Assert;
 
 public class ImpexServiceTest {
 
@@ -64,7 +67,7 @@ public class ImpexServiceTest {
 			service.serializeSchemas(contexts, database);
 			service.generateDataDtds(contexts);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
-			ImpexUtils.storeDatabaseTableProperties(sourceContext, results);
+			ImpexUtils.storeDatabaseTableProperties(sourceContext.getDatabaseTablePropertiesFile(), results);
 			ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
@@ -124,6 +127,7 @@ public class ImpexServiceTest {
 		p.setProperty("impex.metadata.threads", metaDataThreads + "");
 		p.setProperty("impex.data.threads", dataThreads + "");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
+		p.setProperty("impex.databaseTablePropertiesFile", p.getProperty("project.basedir") + "/src/main/resources/" + p.getProperty("project.artifactId") + ".properties");
 		// p.setProperty("impex.schemaXMLFile", p.getProperty("impex.workingDir") + "/xml/schema.xml");
 		// p.setProperty("impex.reportFile", "../reports/report." + p.getProperty("project.artifactId") + ".datadtd.generation");
 		// p.setProperty("impex.contextProperties", p.getProperty("impex.workingDir") + "/reports/context.datadtd.properties");
@@ -134,6 +138,70 @@ public class ImpexServiceTest {
 		// p.setProperty("impex.controlTemplate", "data/Control.vm");
 		// p.setProperty("impex.printMetaInfLists", "false");
 		return p;
+	}
+
+	protected ImpexContext getImpexContext(Properties p) {
+		ImpexContext context = new ImpexContext();
+		// simple property copying
+		context.setArtifactId(p.getProperty("project.artifactId"));
+		context.setSchema(p.getProperty("impex.schema"));
+		context.setDriver(p.getProperty("impex.driver"));
+		context.setUrl(p.getProperty("impex.url"));
+		context.setUsername(p.getProperty("impex.username"));
+		context.setPassword(p.getProperty("impex.password"));
+		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
+		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
+		context.setBaseDir(new File(p.getProperty("project.basedir")));
+		context.setBuildDir(new File(p.getProperty("project.build.directory")));
+		context.setDatabaseTablePropertiesFile(new File(p.getProperty("impex.databaseTablePropertiesFile")));
+
+		// Default to schema.xml
+		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
+
+		// Setup the datasource
+		context.setDataSource(getDataSource(p));
+
+		// Properties that already have default values, don't override unless the corresponding property is explicitly set
+		if (p.getProperty("impex.dateFormat") != null) {
+			context.setDateFormat(p.getProperty("impex.dateFormat"));
+		}
+		if (p.getProperty("impex.comment") != null) {
+			context.setComment(p.getProperty("impex.comment"));
+		}
+		if (p.getProperty("impex.schemaXMLFile") != null) {
+			context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
+		}
+		if (p.getProperty("impex.metadata.threads") != null) {
+			context.setMetaDataThreads(new Integer(p.getProperty("impex.metadata.threads")));
+		}
+		if (p.getProperty("impex.data.threads") != null) {
+			context.setDataThreads(new Integer(p.getProperty("impex.data.threads")));
+		}
+		if (p.getProperty("impex.antCompatibilityMode") != null) {
+			context.setAntCompatibilityMode(new Boolean(p.getProperty("impex.antCompatibilityMode")));
+		}
+		if (p.getProperty("impex.encoding") != null) {
+			context.setEncoding(p.getProperty("impex.encoding"));
+		}
+
+		// Properties that need processing in some way
+		Assert.notNull(context.getDatabaseTablePropertiesFile());
+		if (LocationUtils.exists(context.getDatabaseTablePropertiesFile())) {
+			context.setDatabaseTableProperties(PropertyUtils.load(context.getDatabaseTablePropertiesFile()));
+		}
+		context.setDateFormatter(new SimpleDateFormat(context.getDateFormat()));
+		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
+		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
+		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
+		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
+		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
+		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
+		// context.setProcessTables(new Boolean(p.getProperty("impex.processTables")));
+		// context.setProcessSequences(new Boolean(p.getProperty("impex.processSequences")));
+		// context.setProcessViews(new Boolean(p.getProperty("impex.processViews")));
+		// context.setControlTemplate(p.getProperty("impex.controlTemplate"));
+		// context.setPrintMetaInfLists(new Boolean(p.getProperty("impex.printMetaInfLists")));
+		return context;
 	}
 
 	protected Task getDataDumpTask(ImpexContext context, Project project) {
@@ -175,65 +243,6 @@ public class ImpexServiceTest {
 		task.setViewIncludes(context.getViewIncludes());
 		task.setViewExcludes(context.getViewExcludes());
 		task.setAntCompatibilityMode(context.isAntCompatibilityMode());
-	}
-
-	protected ImpexContext getImpexContext(Properties p) {
-		ImpexContext context = new ImpexContext();
-		// simple property copying
-		context.setArtifactId(p.getProperty("project.artifactId"));
-		context.setSchema(p.getProperty("impex.schema"));
-		context.setDriver(p.getProperty("impex.driver"));
-		context.setUrl(p.getProperty("impex.url"));
-		context.setUsername(p.getProperty("impex.username"));
-		context.setPassword(p.getProperty("impex.password"));
-		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
-		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
-		context.setBaseDir(new File(p.getProperty("project.basedir")));
-		context.setBuildDir(new File(p.getProperty("project.build.directory")));
-
-		// Default to schema.xml
-		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
-
-		// Setup the datasource
-		context.setDataSource(getDataSource(p));
-
-		// Properties that already have default values, don't override unless the corresponding property is explicitly set
-		if (p.getProperty("impex.dateFormat") != null) {
-			context.setDateFormat(p.getProperty("impex.dateFormat"));
-		}
-		if (p.getProperty("impex.comment") != null) {
-			context.setComment(p.getProperty("impex.comment"));
-		}
-		if (p.getProperty("impex.schemaXMLFile") != null) {
-			context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
-		}
-		if (p.getProperty("impex.metadata.threads") != null) {
-			context.setMetaDataThreads(new Integer(p.getProperty("impex.metadata.threads")));
-		}
-		if (p.getProperty("impex.data.threads") != null) {
-			context.setDataThreads(new Integer(p.getProperty("impex.data.threads")));
-		}
-		if (p.getProperty("impex.antCompatibilityMode") != null) {
-			context.setAntCompatibilityMode(new Boolean(p.getProperty("impex.antCompatibilityMode")));
-		}
-		if (p.getProperty("impex.encoding") != null) {
-			context.setEncoding(p.getProperty("impex.encoding"));
-		}
-
-		// Properties that need processing in some way
-		context.setDateFormatter(new SimpleDateFormat(context.getDateFormat()));
-		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
-		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
-		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
-		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
-		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
-		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
-		// context.setProcessTables(new Boolean(p.getProperty("impex.processTables")));
-		// context.setProcessSequences(new Boolean(p.getProperty("impex.processSequences")));
-		// context.setProcessViews(new Boolean(p.getProperty("impex.processViews")));
-		// context.setControlTemplate(p.getProperty("impex.controlTemplate"));
-		// context.setPrintMetaInfLists(new Boolean(p.getProperty("impex.printMetaInfLists")));
-		return context;
 	}
 
 }
