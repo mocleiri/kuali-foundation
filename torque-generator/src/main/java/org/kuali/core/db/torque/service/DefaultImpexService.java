@@ -156,9 +156,10 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	/**
-	 * Use JDBC to extract the data held by the database into a Java string suitable for dumping to disk. The String returned by this method
-	 * must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying
-	 * ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is forbidden.
+	 * Use JDBC to extract the data held by the database into a <code>java.lang.String</code> suitable for dumping to disk. The String
+	 * returned by this method must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method
+	 * on the underlying ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is
+	 * forbidden.
 	 */
 	protected String getColumnValueAsString(String dateformat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
