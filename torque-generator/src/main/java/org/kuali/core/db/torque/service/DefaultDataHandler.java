@@ -15,7 +15,6 @@ public class DefaultDataHandler implements DataHandler {
 
 	@Override
 	public void doData(DumpTableContext context) {
-		// System.out.print(".");
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class DefaultDataHandler implements DataHandler {
 			String trc = FormatUtils.getCount(context.getTotalRowCount());
 			String tds = FormatUtils.getSize(context.getTotalDataSize());
 			Object[] args = { threadId, tableName, trc, tds };
-			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
+			logger.debug("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
 		}
 	}
 
