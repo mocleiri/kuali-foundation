@@ -22,17 +22,16 @@ public class ImpexUtils {
 
 	private static final String FS = File.separator;
 
-	public static void storeDatabaseTableProperties(File file, List<DumpTableResult> results) {
-		Properties p = new Properties();
+	public static void updateAndStoreDatabaseProperties(Properties properties, File file, List<DumpTableResult> results) {
 		for (DumpTableResult result : results) {
 			String sizeKey = result.getTable().getName() + ".size";
 			String sizeValue = result.getSize() + "";
 			String rowKey = result.getTable().getName() + ".rows";
 			String rowValue = result.getRows() + "";
-			p.setProperty(sizeKey.toLowerCase(), sizeValue);
-			p.setProperty(rowKey.toLowerCase(), rowValue);
+			properties.setProperty(sizeKey.toLowerCase(), sizeValue);
+			properties.setProperty(rowKey.toLowerCase(), rowValue);
 		}
-		PropertyUtils.store(p, file);
+		PropertyUtils.store(properties, file);
 	}
 
 	public static void doStats(List<DumpTableResult> results) {
