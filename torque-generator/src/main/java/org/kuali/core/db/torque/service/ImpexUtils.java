@@ -52,7 +52,7 @@ public class ImpexUtils {
 		String size = FormatUtils.getSize(totalSize);
 		String time = FormatUtils.getTime(wallTimeElapsed);
 		String rate = FormatUtils.getRate(totalTime, totalSize);
-		String benefit = FormatUtils.getTime(wallTimeElapsed - wallTimeElapsed);
+		String benefit = FormatUtils.getTime(totalTime - wallTimeElapsed);
 		Object[] args = { rows, size, time, rate, benefit };
 		logger.info("Dump Summary - Rows: {}  Size: {}  Time: {}  Rate: {}  Threads effect: {}", args);
 	}
