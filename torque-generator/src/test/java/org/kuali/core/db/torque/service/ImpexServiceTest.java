@@ -188,6 +188,8 @@ public class ImpexServiceTest {
 		Assert.notNull(context.getDatabaseTablePropertiesFile());
 		if (LocationUtils.exists(context.getDatabaseTablePropertiesFile())) {
 			context.setDatabaseTableProperties(PropertyUtils.load(context.getDatabaseTablePropertiesFile()));
+		} else {
+			context.setDatabaseTableProperties(new Properties());
 		}
 		context.setDateFormatter(new SimpleDateFormat(context.getDateFormat()));
 		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
