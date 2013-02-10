@@ -28,7 +28,6 @@ import java.util.TreeSet;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
 
 public class CollectionUtils {
 
@@ -42,9 +41,7 @@ public class CollectionUtils {
 	 * @return
 	 */
 	public static int[] getDivideEvenly(int number, int howManyWays) {
-		if (howManyWays < 1) {
-			throw new IllegalArgumentException("howManyWays must be a positive integer greater than zero");
-		}
+		Assert.isTrue(howManyWays > 0, "howManyWays must be a positive integer");
 		int quotient = number / howManyWays;
 		int remainder = number % howManyWays;
 
