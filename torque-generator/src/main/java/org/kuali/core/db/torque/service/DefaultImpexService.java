@@ -85,7 +85,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Convert the data from the row into String form
 	 */
-	protected String[] getRowData(SimpleDateFormat formatter, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
+	protected String[] getRowData(String dateformat, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
 		// Allocate some storage
 		String[] data = new String[columns.length];
 
@@ -103,7 +103,7 @@ public class DefaultImpexService implements ImpexService {
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java strings
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			data[i] = getColumnValueAsString(formatter, rs, resultSetColumnIndex, column, rowCount, tableName);
+			data[i] = getColumnValueAsString(dateformat, rs, resultSetColumnIndex, column, rowCount, tableName);
 		}
 		return data;
 	}
@@ -160,7 +160,7 @@ public class DefaultImpexService implements ImpexService {
 	 * must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying
 	 * ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is forbidden.
 	 */
-	protected String getColumnValueAsString(SimpleDateFormat formatter, ResultSet rs, int index, Column column, long rowCount, String tableName) {
+	protected String getColumnValueAsString(String dateformat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
 			// Clob's and Date's need special handling
 			switch (column.getJdbcType()) {
@@ -178,6 +178,7 @@ public class DefaultImpexService implements ImpexService {
 					return null;
 				}
 				Timestamp date = rs.getTimestamp(index);
+				SimpleDateFormat formatter = new SimpleDateFormat(dateformat);
 				return formatter.format(date);
 			default:
 				// Otherwise just invoke toString() on the method
@@ -666,7 +667,7 @@ public class DefaultImpexService implements ImpexService {
 		while (rs.next()) {
 			currentRowCount++;
 			totalRowCount++;
-			String[] rowData = getRowData(context.getDateFormatter(), table.getName(), rs, columns, totalRowCount);
+			String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
 			data.add(rowData);
 			long rowSize = getSize(rowData);
 			currentDataSize += rowSize;
