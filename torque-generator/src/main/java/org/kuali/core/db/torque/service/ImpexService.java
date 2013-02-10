@@ -20,7 +20,7 @@ public interface ImpexService {
 	DatabaseContext getDatabaseObjectLists(ImpexContext context) throws SQLException;
 
 	/**
-	 * Fill in the full set of schema metadata. The full set of metadata is acquired using multiple threads.
+	 * Fill in the full set of schema metadata. The full set of metadata can take a while and is acquired using multiple threads.
 	 */
 	void fillInMetaData(ImpexContext context, DatabaseContext database) throws SQLException;
 
