@@ -640,11 +640,10 @@ public class DefaultImpexService implements ImpexService {
 				data = new ArrayList<String[]>();
 			}
 		}
-		if (data.size() > 0) {
-			DumpTableContext finishDataContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-			context.getDataHandler().finishData(finishDataContext);
-		}
+		DumpTableContext finishDataContext = getDumpTableContext(columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+		context.getDataHandler().finishData(finishDataContext);
 		DumpTableResult result = new DumpTableResult();
+		result.setTable(table);
 		result.setRows(totalRowCount);
 		result.setSize(totalDataSize);
 		return result;

@@ -7,8 +7,10 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +21,43 @@ public class ImpexUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexUtils.class);
 
 	private static final String FS = File.separator;
+
+	public static void storeDatabaseTableProperties(ImpexContext context, List<DumpTableResult> results) {
+		Properties p = new Properties();
+		for (DumpTableResult result : results) {
+			String sizeKey = result.getTable().getName() + ".size";
+			String sizeValue = result.getSize() + "";
+			String rowKey = result.getTable().getName() + ".rows";
+			String rowValue = result.getRows() + "";
+			p.setProperty(sizeKey.toLowerCase(), sizeValue);
+			p.setProperty(rowKey.toLowerCase(), rowValue);
+		}
+		File file = new File(context.getBuildDir() + "/src/main/resources/" + context.getArtifactId() + ".properties");
+		PropertyUtils.store(p, file);
+	}
+
+	public static void doStats(List<DumpTableResult> results) {
+		long totalTime = 0;
+		long totalSize = 0;
+		long totalRows = 0;
+		for (DumpTableResult result : results) {
+			totalTime += result.getElapsed();
+			totalSize += result.getSize();
+			totalRows += result.getRows();
+			String rows = FormatUtils.getCount(result.getRows());
+			String size = FormatUtils.getSize(result.getSize());
+			String rate = FormatUtils.getRate(result.getElapsed(), result.getSize());
+			String time = FormatUtils.getTime(result.getElapsed());
+			Object[] args = { result.getTable().getName(), rows, size, time, rate };
+			logger.info("Table: {} Rows: {} Size: {} Time: {} Rate: {}", args);
+		}
+		String rows = FormatUtils.getCount(totalRows);
+		String size = FormatUtils.getSize(totalSize);
+		String rate = FormatUtils.getRate(totalTime, totalSize);
+		String time = FormatUtils.getTime(totalTime);
+		Object[] args = { rows, size, time, rate };
+		logger.info("Dump Summary - Rows: {} Size: {} Time: {} Rate: {}", args);
+	}
 
 	public static ImpexContext clone(ImpexContext source) {
 		ImpexContext target = new ImpexContext();

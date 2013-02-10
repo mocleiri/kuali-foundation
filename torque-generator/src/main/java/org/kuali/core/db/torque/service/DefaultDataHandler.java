@@ -1,5 +1,7 @@
 package org.kuali.core.db.torque.service;
 
+import java.io.File;
+
 import org.kuali.common.util.FormatUtils;
 import org.kuali.core.db.torque.pojo.DumpTableContext;
 import org.slf4j.Logger;
@@ -11,26 +13,26 @@ public class DefaultDataHandler implements DataHandler {
 
 	@Override
 	public void startData(DumpTableContext context) {
-		handle(context);
+		long threadId = Thread.currentThread().getId();
+		String tableName = context.getTableContext().getName();
+		File dumpFile = new File(context.getImpexContext().getWorkingDir() + "/" + tableName + ".csv");
+		Object[] args = { threadId, tableName, dumpFile };
+		logger.info("{} - Dumping [{}] -> [{}]", args);
 	}
 
 	@Override
 	public void doData(DumpTableContext context) {
-		handle(context);
+		// System.out.print(".");
 	}
 
 	@Override
 	public void finishData(DumpTableContext context) {
-		handle(context);
-	}
-
-	protected void handle(DumpTableContext context) {
-		String crc = FormatUtils.getCount(context.getCurrentRowCount());
+		long threadId = Thread.currentThread().getId();
+		String tableName = context.getTableContext().getName();
 		String trc = FormatUtils.getCount(context.getTotalRowCount());
-		String cds = FormatUtils.getSize(context.getCurrentDataSize());
 		String tds = FormatUtils.getSize(context.getTotalDataSize());
-		Object[] args = { crc, trc, cds, tds };
-		logger.info("Current Rows: {}  Total Rows: {}  Current Size: {}  Total Size: {}", args);
+		Object[] args = { threadId, tableName, trc, tds };
+		logger.info("{} - Dump completed [{}] Total Rows: {}  Total Size: {}", args);
 	}
 
 }

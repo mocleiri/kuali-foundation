@@ -33,6 +33,7 @@ import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
+import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -45,7 +46,8 @@ public class ImpexServiceTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			Properties p = getProperties("KSEN_MSTONE", 1);
+			// Properties p = getProperties("KRIM.*", 5, 15);
+			Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
 			sourceContext.setAntCompatibilityMode(true);
 			log(sourceContext);
@@ -61,7 +63,9 @@ public class ImpexServiceTest {
 			service.fillInMetaData(sourceContext, database);
 			service.serializeSchemas(contexts, database);
 			service.generateDataDtds(contexts);
-			service.dumpTables(sourceContext, database);
+			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
+			ImpexUtils.storeDatabaseTableProperties(sourceContext, results);
+			ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
@@ -97,7 +101,7 @@ public class ImpexServiceTest {
 		return dmds;
 	}
 
-	protected Properties getProperties(String includes, int threads) {
+	protected Properties getProperties(String includes, int metaDataThreads, int dataThreads) {
 		String tableIncludes = includes;
 		String viewIncludes = includes;
 		String sequenceIncludes = includes;
@@ -105,7 +109,7 @@ public class ImpexServiceTest {
 		Properties p = new Properties();
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/impex-2.0/torque-generator");
 		p.setProperty("project.build.directory", p.getProperty("project.basedir") + "/target");
-		p.setProperty("project.artifactId", "ks-bundled-db");
+		p.setProperty("project.artifactId", "ks-source-db");
 		p.setProperty("impex.table.includes", tableIncludes);
 		p.setProperty("impex.view.includes", viewIncludes);
 		p.setProperty("impex.sequence.includes", sequenceIncludes);
@@ -117,8 +121,8 @@ public class ImpexServiceTest {
 		p.setProperty("impex.databaseVendor", "oracle");
 		p.setProperty("impex.dateFormat", "yyyyMMddHHmmss");
 		p.setProperty("impex.antCompatibilityMode", "true");
-		p.setProperty("impex.data.threads", threads + "");
-		p.setProperty("impex.metadata.threads", threads + "");
+		p.setProperty("impex.metadata.threads", metaDataThreads + "");
+		p.setProperty("impex.data.threads", dataThreads + "");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
 		// p.setProperty("impex.schemaXMLFile", p.getProperty("impex.workingDir") + "/xml/schema.xml");
 		// p.setProperty("impex.reportFile", "../reports/report." + p.getProperty("project.artifactId") + ".datadtd.generation");
@@ -184,6 +188,8 @@ public class ImpexServiceTest {
 		context.setPassword(p.getProperty("impex.password"));
 		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
 		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
+		context.setBaseDir(new File(p.getProperty("project.basedir")));
+		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 
 		// Default to schema.xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));

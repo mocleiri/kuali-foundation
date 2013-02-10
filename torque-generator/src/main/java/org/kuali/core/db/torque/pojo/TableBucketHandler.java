@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.core.db.torque.service.ImpexContext;
 import org.kuali.core.db.torque.service.ImpexService;
 import org.slf4j.Logger;
@@ -29,17 +28,12 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 		try {
 			conn = DataSourceUtils.getConnection(dataSource);
 			for (TableContext table : tables) {
+				logger.debug("Dumping {}", table.getName());
 				DumpTableResult result = service.dumpTable(impex, table, conn);
 				synchronized (results) {
 					results.add(result);
 				}
-				String rows = FormatUtils.getCount(result.getRows());
-				String size = FormatUtils.getSize(result.getSize());
-				String rate = FormatUtils.getRate(result.getElapsed(), result.getSize());
-				String time = FormatUtils.getTime(result.getElapsed());
-				Object[] args = { table.getName(), rows, size, time, rate };
-				logger.info("Table: {} Rows: {} Size: {} Time: {} Rate: {}", args);
-				element.getProgressTracker().progressOccurred();
+				// element.getProgressTracker().progressOccurred();
 			}
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
