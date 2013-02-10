@@ -3,6 +3,7 @@ package org.kuali.core.db.torque.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -49,6 +50,7 @@ public class ImpexContext {
 	DataSource dataSource;
 	Platform platform;
 	SimpleDateFormat dateFormatter;
+	Properties databaseTableProperties;
 
 	public boolean isProcessTables() {
 		return processTables;
@@ -336,5 +338,13 @@ public class ImpexContext {
 
 	public void setBaseDir(File baseDir) {
 		this.baseDir = baseDir;
+	}
+
+	public Properties getDatabaseTableProperties() {
+		return databaseTableProperties;
+	}
+
+	public void setDatabaseTableProperties(Properties databaseTableProperties) {
+		this.databaseTableProperties = databaseTableProperties;
 	}
 }
