@@ -177,7 +177,6 @@ public class DefaultImpexService implements ImpexService {
 				if (date == null) {
 					return null;
 				} else {
-					// Only reason a new SimpleDateFormat is create here is because it isn't thread safe
 					FastDateFormat formatter = FastDateFormat.getInstance(dateformat);
 					return formatter.format(date);
 				}
