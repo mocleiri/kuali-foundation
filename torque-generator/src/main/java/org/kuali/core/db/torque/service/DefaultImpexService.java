@@ -173,12 +173,12 @@ public class DefaultImpexService implements ImpexService {
 				}
 			case (DATE):
 			case (TIMESTAMP):
-				Timestamp date = rs.getTimestamp(index);
-				if (date == null) {
+				Object timestampObject = rs.getObject(index);
+				if (timestampObject == null) {
 					return null;
-				} else {
-					return formatter.format(date);
 				}
+				Timestamp date = rs.getTimestamp(index);
+				return formatter.format(date);
 			default:
 				// Otherwise just invoke toString() on the method
 				Object object = rs.getObject(index);
