@@ -25,9 +25,7 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 			List<TableContext> tables = element.getTables();
 			ImpexService service = element.getService();
 			ImpexContext impex = element.getContext();
-			logger.info("impex=" + impex);
 			dataSource = impex.getDataSource();
-			logger.info("dataSource=" + dataSource);
 			List<DumpTableResult> results = element.getResults();
 			conn = DataSourceUtils.getConnection(dataSource);
 			for (TableContext table : tables) {
