@@ -45,11 +45,11 @@ public class DefaultDataHandler implements DataHandler {
 	@Override
 	public void doData(DumpTableContext context) throws IOException {
 		String encoding = context.getImpexContext().getEncoding();
+		format(context.getCurrentData());
 		writeRows(context.getCurrentData(), encoding, context.getOutputStream());
 	}
 
 	protected void writeRows(List<String[]> rows, String encoding, OutputStream out) throws IOException {
-		convert(rows);
 		for (String[] row : rows) {
 			String line = getLine(row);
 			byte[] bytes = line.getBytes(encoding);
@@ -86,13 +86,13 @@ public class DefaultDataHandler implements DataHandler {
 		}
 	}
 
-	protected void convert(List<String[]> rows) {
+	protected void format(List<String[]> rows) {
 		for (String[] row : rows) {
-			convert(row);
+			format(row);
 		}
 	}
 
-	protected void convert(String[] row) {
+	protected void format(String[] row) {
 		for (int i = 0; i < row.length; i++) {
 			row[i] = getConvertedString(row[i]);
 		}
