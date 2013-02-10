@@ -19,13 +19,14 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 
 	@Override
 	public void handleElement(ListIteratorContext<TableBucket> context, int index, TableBucket element) {
-		List<TableContext> tables = element.getTables();
-		ImpexService service = element.getService();
-		ImpexContext impex = element.getContext();
-		DataSource dataSource = element.getContext().getDataSource();
-		List<DumpTableResult> results = element.getResults();
+		DataSource dataSource = null;
 		Connection conn = null;
 		try {
+			List<TableContext> tables = element.getTables();
+			ImpexService service = element.getService();
+			ImpexContext impex = element.getContext();
+			dataSource = element.getContext().getDataSource();
+			List<DumpTableResult> results = element.getResults();
 			conn = DataSourceUtils.getConnection(dataSource);
 			for (TableContext table : tables) {
 				logger.debug("Dumping {}", table.getName());
@@ -38,7 +39,7 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
-			if (conn != null) {
+			if (conn != null && dataSource != null) {
 				DataSourceUtils.releaseConnection(conn, dataSource);
 			}
 		}

@@ -38,6 +38,7 @@ public class ImpexUtils {
 		long totalTime = 0;
 		long totalSize = 0;
 		long totalRows = 0;
+		logger.info("Results.size()=" + results.size());
 		for (DumpTableResult result : results) {
 			totalTime += result.getElapsed();
 			totalSize += result.getSize();

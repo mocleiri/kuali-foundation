@@ -49,7 +49,8 @@ public class ImpexServiceTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			Properties p = getProperties("KRIM.*", 5, 15);
+			Properties p = getProperties("KREN.*", 5, 15);
+			// Properties p = getProperties("KRIM.*", 5, 15);
 			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
 			sourceContext.setAntCompatibilityMode(true);
