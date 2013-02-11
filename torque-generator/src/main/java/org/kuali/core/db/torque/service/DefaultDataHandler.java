@@ -72,9 +72,11 @@ public class DefaultDataHandler implements DataHandler {
 	}
 
 	@Override
-	public void finishData(DumpTableContext context) {
+	public void finishData(DumpTableContext context) throws IOException {
 		if (!CollectionUtils.isEmpty(context.getCurrentData())) {
-
+			String encoding = context.getImpexContext().getEncoding();
+			format(context.getCurrentData());
+			writeRows(context.getCurrentData(), encoding, context.getOutputStream());
 		}
 		if (context.getTotalRowCount() > 0) {
 			long threadId = Thread.currentThread().getId();
