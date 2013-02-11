@@ -25,7 +25,6 @@ import javax.sql.DataSource;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -47,7 +46,7 @@ public class ImpexServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexServiceTest.class);
 
 	@Test
-	@Ignore
+	// @Ignore
 	public void test1() {
 		try {
 			ImpexContext context = new ImpexContext();

@@ -24,22 +24,22 @@ public class ImpexUtils {
 	private static final String FS = File.separator;
 
 	public static String unformat(String s) {
-		if (StringUtils.equals(s, "${impex.null}")) {
+		if (StringUtils.equals(s, "${mpx.null}")) {
 			return null;
 		}
-		String converted = StringUtils.replace(s, "${impex.cr}", "\r");
-		converted = StringUtils.replace(converted, "${impex.lf}", "\n");
-		converted = StringUtils.replace(converted, "${impex.quote}", "\"");
+		String converted = StringUtils.replace(s, "${mpx.cr}", "\r");
+		converted = StringUtils.replace(converted, "${mpx.lf}", "\n");
+		converted = StringUtils.replace(converted, "${mpx.quote}", "\"");
 		return converted;
 	}
 
 	public static String format(String s) {
 		if (s == null) {
-			return "${impex.null}";
+			return "${mpx.null}";
 		}
-		String converted = StringUtils.replace(s, "\r", "${impex.cr}");
-		converted = StringUtils.replace(converted, "\n", "${impex.lf}");
-		converted = StringUtils.replace(converted, "\"", "${impex.quote}");
+		String converted = StringUtils.replace(s, "\r", "${mpx.cr}");
+		converted = StringUtils.replace(converted, "\n", "${mpx.lf}");
+		converted = StringUtils.replace(converted, "\"", "${mpx.quote}");
 		return converted;
 	}
 
