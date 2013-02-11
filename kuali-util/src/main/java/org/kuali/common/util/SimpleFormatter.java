@@ -41,7 +41,6 @@ public class SimpleFormatter {
 	NumberFormat timeFormatter = NumberFormat.getInstance();
 	NumberFormat rateFormatter = NumberFormat.getInstance();
 	NumberFormat countFormatter = NumberFormat.getInstance();
-	SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
 
 	public SimpleFormatter() {
 		super();
@@ -60,7 +59,7 @@ public class SimpleFormatter {
 		countFormatter.setGroupingUsed(true);
 		countFormatter.setMaximumFractionDigits(0);
 		countFormatter.setMinimumFractionDigits(0);
-		dateFormatter.setLenient(false);
+		// dateFormatter.setLenient(false);
 	}
 
 	/**
@@ -68,7 +67,8 @@ public class SimpleFormatter {
 	 */
 	public Date parseDate(String date) {
 		try {
-			return dateFormatter.parse(date);
+			SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+			return sdf.parse(date);
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("Can't parse [" + date + "]", e);
 		}
@@ -85,7 +85,8 @@ public class SimpleFormatter {
 	 * Return a formatted date
 	 */
 	public String getDate(Date date) {
-		return dateFormatter.format(date);
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		return sdf.format(date);
 	}
 
 	/**
@@ -225,11 +226,4 @@ public class SimpleFormatter {
 		this.countFormatter = countFormatter;
 	}
 
-	public SimpleDateFormat getDateFormatter() {
-		return dateFormatter;
-	}
-
-	public void setDateFormatter(SimpleDateFormat dateFormatter) {
-		this.dateFormatter = dateFormatter;
-	}
 }
