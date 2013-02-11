@@ -120,7 +120,7 @@ public class DefaultImpexService implements ImpexService {
 				if (s == null) {
 					break;
 				}
-				String[] tokens = StringUtils.split(s, "\",\"");
+				String[] tokens = StringUtils.splitByWholeSeparator(s, "\",\"");
 				if (tokens.length != columns.length) {
 					logger.info(s);
 				}
