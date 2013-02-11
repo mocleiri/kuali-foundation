@@ -121,6 +121,9 @@ public class DefaultImpexService implements ImpexService {
 					break;
 				}
 				String[] tokens = StringUtils.split(s, "\",\"");
+				if (tokens.length != columns.length) {
+					logger.info(s);
+				}
 				Assert.isTrue(tokens.length == columns.length, "[" + line + "] columns.length=" + columns.length + " tokens.length=" + tokens.length);
 				unformat(tokens);
 			}
