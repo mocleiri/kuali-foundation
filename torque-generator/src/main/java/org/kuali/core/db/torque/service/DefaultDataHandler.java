@@ -108,9 +108,9 @@ public class DefaultDataHandler implements DataHandler {
 		if (s == null) {
 			return "NULL";
 		}
-		String converted = StringUtils.replace(s, "\r", "${cr}");
-		converted = StringUtils.replace(s, "\n", "${lf}");
-		converted = StringUtils.replace(s, "\"", "${quote}");
+		String converted = StringUtils.replace(s, "\r", "${impex.cr}");
+		converted = StringUtils.replace(s, "\n", "${impex.lf}");
+		converted = StringUtils.replace(s, "\"", "${impex.quote}");
 		return converted;
 	}
 
