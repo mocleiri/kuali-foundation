@@ -109,8 +109,8 @@ public class DefaultDataHandler implements DataHandler {
 			return null;
 		}
 		String converted = StringUtils.replace(s, "${impex.cr}", "\r");
-		converted = StringUtils.replace(s, "${impex.lf}", "\n");
-		converted = StringUtils.replace(s, "${impex.quote}", "\"");
+		converted = StringUtils.replace(converted, "${impex.lf}", "\n");
+		converted = StringUtils.replace(converted, "${impex.quote}", "\"");
 		return converted;
 	}
 
@@ -119,8 +119,8 @@ public class DefaultDataHandler implements DataHandler {
 			return "NULL";
 		}
 		String converted = StringUtils.replace(s, "\r", "${impex.cr}");
-		converted = StringUtils.replace(s, "\n", "${impex.lf}");
-		converted = StringUtils.replace(s, "\"", "${impex.quote}");
+		converted = StringUtils.replace(converted, "\n", "${impex.lf}");
+		converted = StringUtils.replace(converted, "\"", "${impex.quote}");
 		return converted;
 	}
 
