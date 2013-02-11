@@ -89,7 +89,7 @@ public class DefaultImpexService implements ImpexService {
 		List<Table> tables = getTables(context);
 		SimpleScanner scanner = new SimpleScanner();
 		scanner.setBasedir(context.getWorkingDir());
-		scanner.setIncludes(new String[] { "*.csv" });
+		scanner.setIncludes(new String[] { "*.mpx" });
 		List<File> files = scanner.getFiles();
 		for (File file : files) {
 			String filename = file.getName();
