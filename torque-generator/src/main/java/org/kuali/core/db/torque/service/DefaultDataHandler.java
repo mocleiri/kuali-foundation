@@ -100,11 +100,21 @@ public class DefaultDataHandler implements DataHandler {
 
 	protected void format(String[] row) {
 		for (int i = 0; i < row.length; i++) {
-			row[i] = getConvertedString(row[i]);
+			row[i] = format(row[i]);
 		}
 	}
 
-	protected String getConvertedString(String s) {
+	public static String unformat(String s) {
+		if (StringUtils.equals(s, "NULL")) {
+			return null;
+		}
+		String converted = StringUtils.replace(s, "${impex.cr}", "\r");
+		converted = StringUtils.replace(s, "${impex.lf}", "\n");
+		converted = StringUtils.replace(s, "${impex.quote}", "\"");
+		return converted;
+	}
+
+	protected String format(String s) {
 		if (s == null) {
 			return "NULL";
 		}

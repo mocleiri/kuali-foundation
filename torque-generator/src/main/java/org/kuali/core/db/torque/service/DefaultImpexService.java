@@ -4,6 +4,7 @@ import static java.sql.Types.CLOB;
 import static java.sql.Types.DATE;
 import static java.sql.Types.TIMESTAMP;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -97,8 +98,53 @@ public class DefaultImpexService implements ImpexService {
 		for (File file : files) {
 			String filename = file.getName();
 			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
-			logger.info("filename: {} tablename: {}", filename, tableName);
+			Table table = getTableDefinition(tableName, tables);
+			convertFile(file, table, context.getEncoding());
 		}
+	}
+
+	protected void convertFile(File file, Table table, String encoding) {
+		BufferedReader reader = null;
+		try {
+			int line = 0;
+			reader = LocationUtils.getBufferedReader(file, encoding);
+			// This is always the line with the column headers
+			String s = reader.readLine();
+			line++;
+			String[] columns = StringUtils.split(s, ",");
+			logger.info("columns=" + columns.length + " " + file.getAbsolutePath());
+
+			for (;;) {
+				s = reader.readLine();
+				line++;
+				if (s == null) {
+					break;
+				}
+				String[] tokens = StringUtils.split(s, "\",\"");
+				Assert.isTrue(tokens.length == columns.length, "[" + line + "] columns.length=" + columns.length + " tokens.length=" + tokens.length);
+				unformat(tokens);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(reader);
+		}
+	}
+
+	protected void unformat(String[] tokens) {
+		for (int i = 0; i < tokens.length; i++) {
+			tokens[i] = DefaultDataHandler.unformat(tokens[i]);
+		}
+	}
+
+	protected Table getTableDefinition(String tableName, List<Table> tables) {
+		for (Table table : tables) {
+			boolean matches = StringUtils.equalsIgnoreCase(tableName, table.getName());
+			if (matches) {
+				return table;
+			}
+		}
+		throw new IllegalArgumentException("Cannot locate table definition " + tableName);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -51,6 +51,7 @@ public class ImpexServiceTest {
 		try {
 			ImpexContext context = new ImpexContext();
 			context.setDatabaseVendor("oracle");
+			context.setEncoding("UTF-8");
 			context.setWorkingDir(new File("/Users/jeffcaddel/ws/impex-2.0/torque-generator/target/impex"));
 			long start = System.currentTimeMillis();
 			ImpexService service = new DefaultImpexService();
