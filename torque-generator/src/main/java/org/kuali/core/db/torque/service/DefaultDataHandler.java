@@ -114,7 +114,7 @@ public class DefaultDataHandler implements DataHandler {
 			if (i != 0) {
 				sb.append(",");
 			}
-			sb.append(columns[i]);
+			sb.append(columns[i].getName());
 		}
 		return sb.toString();
 	}
