@@ -106,25 +106,17 @@ public class DefaultImpexService implements ImpexService {
 	protected void convertFile(File file, Table table, String encoding) {
 		BufferedReader reader = null;
 		try {
-			int line = 0;
 			reader = LocationUtils.getBufferedReader(file, encoding);
-			// This is always the line with the column headers
+			// First line is always the column headers
 			String s = reader.readLine();
-			line++;
 			String[] columns = StringUtils.split(s, ",");
-			logger.info("columns=" + columns.length + " " + file.getAbsolutePath());
-
 			for (;;) {
 				s = reader.readLine();
-				line++;
 				if (s == null) {
 					break;
 				}
 				String[] tokens = StringUtils.splitByWholeSeparator(s, "\",\"");
-				if (tokens.length != columns.length) {
-					logger.info(s);
-				}
-				Assert.isTrue(tokens.length == columns.length, "[" + line + "] columns.length=" + columns.length + " tokens.length=" + tokens.length);
+				Assert.isTrue(tokens.length == columns.length);
 				unformat(tokens);
 			}
 		} catch (IOException e) {
