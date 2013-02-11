@@ -85,6 +85,10 @@ public class DefaultDataHandler implements DataHandler {
 			String tds = FormatUtils.getSize(context.getTotalDataSize());
 			Object[] args = { threadId, tableName, trc, tds };
 			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
+		} else {
+			String filename = getFilename(context.getImpexContext().getWorkingDir(), context.getTableContext().getName());
+			File emptyFile = new File(filename);
+			FileUtils.forceDelete(emptyFile);
 		}
 	}
 
