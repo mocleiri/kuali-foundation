@@ -35,6 +35,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.Column;
+import org.apache.torque.engine.database.model.Database;
+import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
@@ -56,6 +58,7 @@ import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.core.db.torque.ImpexDTDResolver;
+import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.ColumnContext;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
@@ -86,10 +89,32 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void convertCsvToSql(ImpexContext context) {
-		File workingDir = context.getWorkingDir();
-		SimpleScanner scanner = new SimpleScanner(workingDir, "*.csv", null);
-		List<File> csvFiles = scanner.getFiles();
-		logger.info("CSV Files: " + csvFiles.size() + "");
+		List<Table> tables = getTables(context);
+		SimpleScanner scanner = new SimpleScanner();
+		scanner.setBasedir(context.getWorkingDir());
+		scanner.setIncludes(new String[] { "*.csv" });
+		List<File> files = scanner.getFiles();
+		for (File file : files) {
+			String filename = file.getName();
+			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
+			logger.info("filename: {} tablename: {}", filename, tableName);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Table> getTables(ImpexContext context) {
+		try {
+			// Get an xml parser for schema.xml
+			KualiXmlToAppData xmlParser = new KualiXmlToAppData(context.getDatabaseVendor(), "");
+
+			// Parse schema.xml into a database object
+			String location = context.getWorkingDir() + "/ks-bundled-db/schema.xml";
+			Database database = xmlParser.parseResource(location);
+
+			return database.getTables();
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	/**

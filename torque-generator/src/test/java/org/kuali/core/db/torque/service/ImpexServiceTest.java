@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -46,6 +47,23 @@ public class ImpexServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexServiceTest.class);
 
 	@Test
+	public void test1() {
+		try {
+			ImpexContext context = new ImpexContext();
+			context.setDatabaseVendor("oracle");
+			context.setWorkingDir(new File("/Users/jeffcaddel/ws/impex-2.0/torque-generator/target/impex"));
+			long start = System.currentTimeMillis();
+			ImpexService service = new DefaultImpexService();
+			service.convertCsvToSql(context);
+			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
+			logger.info("Total time: {}", time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
