@@ -139,7 +139,7 @@ public class DefaultImpexService implements ImpexService {
 				return table;
 			}
 		}
-		throw new IllegalArgumentException("Cannot locate table definition " + tableName);
+		throw new IllegalArgumentException("Cannot locate table definition for [" + tableName + "]");
 	}
 
 	@SuppressWarnings("unchecked")
