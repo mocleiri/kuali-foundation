@@ -1,5 +1,6 @@
 package org.kuali.maven.ec2;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -28,6 +29,9 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 
 public class EC2CIBackup {
+	   
+	
+
 
 	AmazonEC2Client ec2client;
 	//public static void setUpBeforeClass() throws Exception {
@@ -35,9 +39,10 @@ public class EC2CIBackup {
     
 //	private static final String ACCESSKEY = "AKIAJFD5IM7IPVVUEBNA";
 //	private static final String SECRETYKEY = System.getProperty("secret.key");
+	private static final String TagstoBackup  = System.getProperty("tags");  //arguments to pass
 	
-	 public static final String ACCESS_KEY = "AKIAIZFPMJVCNOYYAZ2Q";
-	    public static final String SECRET_KEY_ENCRYPTED = "CUdUkYyNwfLUlNutPESFSI27k87kUiyMfmvdWyS4vsM2vH8UUms40LDmNi02qZiJmCP+cRCvsCQ=";
+	public static final String ACCESS_KEY = "AKIAIZFPMJVCNOYYAZ2Q";
+	public static final String SECRET_KEY_ENCRYPTED = "CUdUkYyNwfLUlNutPESFSI27k87kUiyMfmvdWyS4vsM2vH8UUms40LDmNi02qZiJmCP+cRCvsCQ=";
 	
 //	protected AWSCredentials getCredentials() {
 //		//log.debug("access key: " + ACCESSKEY);
@@ -59,6 +64,7 @@ public class EC2CIBackup {
 	        BasicTextEncryptor bte = new BasicTextEncryptor();
 	        bte.setPassword(System.getProperty("kuali.master.password"));
 	        String secretKey = bte.decrypt(SECRET_KEY_ENCRYPTED);
+	        System.out.println("secretKey: "+secretKey);
 	        return EC2Utils.getEC2Client(ACCESS_KEY, secretKey);
 	    }
 
@@ -131,7 +137,6 @@ public class EC2CIBackup {
 				
 		  
 	       public String CreateBackUpSnapshot(String CI_volume, String Current_Snapshot_Description){
-			//	ec2client = getEC2Client();
 		        CreateSnapshotRequest NewSnapshotRequest = new CreateSnapshotRequest();
 		        NewSnapshotRequest.setDescription(Current_Snapshot_Description);
 		        NewSnapshotRequest.setVolumeId(CI_volume);
@@ -143,15 +148,13 @@ public class EC2CIBackup {
 	        }
 	       
 	       public void DeleteCIBackup02(String OldSnapshot){
-			//	ec2client = getEC2Client();
 		        DeleteSnapshotRequest deleteSnapshotRequest = new DeleteSnapshotRequest();
 		        deleteSnapshotRequest.setSnapshotId(OldSnapshot);
 		        ec2client.deleteSnapshot(deleteSnapshotRequest);
 		        System.out.println("Deleting Old Snapshot "+OldSnapshot);
 	        }
 	       
-	       public String  GetCI_RiceVolumeID(Filter ci_riceFilter){
-		//	 ec2client = getEC2Client();
+	       public String  GetCIVolumeID(Filter ci_riceFilter){
 	   	     int ThereCanBeOnlyOne= 0; //There is only one instance which has this tag
 	         DescribeInstancesRequest request = new DescribeInstancesRequest();
 	         DescribeInstancesResult result = ec2client.describeInstances(request.withFilters(ci_riceFilter));
@@ -166,44 +169,61 @@ public class EC2CIBackup {
 	           }
 	        
 	@Test
-	public void test() {
-			
+	public void execute(  ) {
+		
 		ec2client = getEC2Client();
+		
+	String args[] = TagstoBackup.split(",");  //This is the number of directories returned.
+    String tag;
+    String CIBACKUP;
+
+	for (String arg : args) {
+       tag = arg;   // name tag value
+       //CIBACKUP = arg.toUpperCase(); //CIBACKUP TAG value
+       CIBACKUP = "Backup";
+       System.out.println("tag: "+tag);
+       System.out.println("CIBACKUP: " +CIBACKUP);
+	
 		
 	 //Get the Week of the Year value.  Used in NewSnapshot Description
 	 Calendar now = Calendar.getInstance();
      int WOY = now.get(Calendar.WEEK_OF_YEAR);
-     System.out.println("Current week of month is : " + now.get(Calendar.WEEK_OF_YEAR));
+     System.out.println("Current week of year is : " + now.get(Calendar.WEEK_OF_YEAR));
       
-     String  Current_Snapshot_Description = "ci.rice.backup - week "+WOY; 
+    // String  Current_Snapshot_Description = "ci.rice.backup - week "+WOY; 
+     String  Current_Snapshot_Description = tag + ".backup - week "+WOY; 
     // String  Current_Snapshot_Description = "test only-ci.rice.backup - week "+WOY; 
 
       //Tag Names or Keys
 		
-      String  TagName  = "CI.Backup";     
-      String  W0Value = "CI.Backup.0";     
-      String  W1Value = "CI.Backup.1";     
-      String  W2Value = "CI.Backup.2";
+      //String  TagName  = CIBACKUP+".Backup";     
+      String  TagName  = CIBACKUP;   
+      String  W0Value  = CIBACKUP+".Backup.0";     
+      String  W1Value  = CIBACKUP+".Backup.1";     
+      String  W2Value  = CIBACKUP+".Backup.2";
+      
       Tag W0Tag = CreateTag(TagName , W0Value);
       Tag W1Tag = CreateTag(TagName , W1Value);
       Tag W2Tag = CreateTag(TagName , W2Value);
      
       String CIName = "Name";
-      String CIValue = "ci.rice";
+  //    String CIValue = "ci.rice"; replaced with arg
+      String CIValue = tag;
+
       Tag CITag = CreateTag(CIName, CIValue);
       Filter CIFilter = getFilterFromTag(CITag);
 	
 	  System.out.println("filter1 "+CIFilter.toString());	
-      String CI_volume = GetCI_RiceVolumeID(CIFilter); 
-        
+      String CI_volume = GetCIVolumeID(CIFilter); 
+      System.out.println(CI_volume); 
        //Testing purpose, remove after tests.. its a 25G volume 
        // CI_volume =  "vol-eb506a81";  //Test purpose
-        String NewSnapshotID = CreateBackUpSnapshot(CI_volume,  Current_Snapshot_Description);
-        String NewSnapshotTagName = "Name";
- 		String NewSnapshotNameValue = Current_Snapshot_Description;
- 		System.out.println(NewSnapshotTagName +" "+ NewSnapshotNameValue +" "+ NewSnapshotID );
+       String NewSnapshotID = CreateBackUpSnapshot(CI_volume,  Current_Snapshot_Description);
+       String NewSnapshotTagName = "Name";
+ 	   String NewSnapshotNameValue = Current_Snapshot_Description;
+ 	   System.out.println(NewSnapshotTagName +" "+ NewSnapshotNameValue +" "+ NewSnapshotID );
         //addTagtoSnapshot( NewSnapshotTagName, NewSnapshotNameValue,NewSnapshotID );
-        addTagtoSnapshot( NewSnapshotID, CITag );
+       addTagtoSnapshot( NewSnapshotID, CITag );
 
 
 	   
@@ -250,8 +270,9 @@ public class EC2CIBackup {
 	    System.out.println("addTagtoSnapshot( "+NewSnapshotID+","+ W0Tag );
 	    addTagtoSnapshot(NewSnapshotID,W0Tag );
 	    System.out.println("Done. Monitor Snapshot Progress." );
+	 
 
+	} // each instance to back up 
+  }  //execute
 
-	}
-
-}
+} //class
