@@ -29,7 +29,7 @@ public class DefaultDataHandler implements DataHandler {
 	}
 
 	protected String getFilename(File workingDir, String tableName) {
-		return workingDir.getAbsolutePath() + FS + tableName + ".csv";
+		return workingDir.getAbsolutePath() + FS + tableName + ".mpx";
 	}
 
 	@Override
