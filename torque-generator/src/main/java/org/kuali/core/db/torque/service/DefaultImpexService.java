@@ -89,7 +89,7 @@ public class DefaultImpexService implements ImpexService {
 		File workingDir = context.getWorkingDir();
 		SimpleScanner scanner = new SimpleScanner(workingDir, "*.csv", null);
 		List<File> csvFiles = scanner.getFiles();
-		logger.info(csvFiles.size() + "");
+		logger.info("CSV Files: " + csvFiles.size() + "");
 	}
 
 	/**
