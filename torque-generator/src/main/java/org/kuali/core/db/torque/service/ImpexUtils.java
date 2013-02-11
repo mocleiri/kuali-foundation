@@ -24,7 +24,7 @@ public class ImpexUtils {
 	private static final String FS = File.separator;
 
 	public static String unformat(String s) {
-		if (StringUtils.equals(s, "NULL")) {
+		if (StringUtils.equals(s, "${impex.null}")) {
 			return null;
 		}
 		String converted = StringUtils.replace(s, "${impex.cr}", "\r");
@@ -35,7 +35,7 @@ public class ImpexUtils {
 
 	public static String format(String s) {
 		if (s == null) {
-			return "NULL";
+			return "${impex.null}";
 		}
 		String converted = StringUtils.replace(s, "\r", "${impex.cr}");
 		converted = StringUtils.replace(converted, "\n", "${impex.lf}");

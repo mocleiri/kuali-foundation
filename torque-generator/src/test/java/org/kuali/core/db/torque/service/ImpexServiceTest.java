@@ -47,7 +47,7 @@ public class ImpexServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexServiceTest.class);
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void test1() {
 		try {
 			ImpexContext context = new ImpexContext();
@@ -65,14 +65,13 @@ public class ImpexServiceTest {
 	}
 
 	@Test
-	@Ignore
+	// @Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
 			// For the current default KS dataset, going beyond 5/15 for the metadata/data threads doesn't improve things much
-			Properties p = getProperties("KR.*", 5, 15);
 			// Properties p = getProperties("KR.*,KS.*", 5, 15);
-			// Properties p = getProperties("KRIM.*", 5, 15);
+			Properties p = getProperties("KRIM.*", 5, 15);
 			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
 			sourceContext.setAntCompatibilityMode(true);
