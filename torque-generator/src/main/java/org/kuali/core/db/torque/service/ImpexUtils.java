@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -21,6 +22,26 @@ public class ImpexUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexUtils.class);
 
 	private static final String FS = File.separator;
+
+	public static String unformat(String s) {
+		if (StringUtils.equals(s, "NULL")) {
+			return null;
+		}
+		String converted = StringUtils.replace(s, "${impex.cr}", "\r");
+		converted = StringUtils.replace(converted, "${impex.lf}", "\n");
+		converted = StringUtils.replace(converted, "${impex.quote}", "\"");
+		return converted;
+	}
+
+	public static String format(String s) {
+		if (s == null) {
+			return "NULL";
+		}
+		String converted = StringUtils.replace(s, "\r", "${impex.cr}");
+		converted = StringUtils.replace(converted, "\n", "${impex.lf}");
+		converted = StringUtils.replace(converted, "\"", "${impex.quote}");
+		return converted;
+	}
 
 	public static void updateAndStoreDatabaseProperties(Properties properties, String location, List<DumpTableResult> results) {
 		for (DumpTableResult result : results) {
