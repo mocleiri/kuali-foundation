@@ -58,4 +58,9 @@ public interface ImpexService {
 	 * Dump all of the data from this table to disk
 	 */
 	List<DumpTableResult> dumpTables(ImpexContext context, DatabaseContext database);
+
+	/**
+	 * Convert data from CSV into SQL statements
+	 */
+	void convertCsvToSql(ImpexContext context);
 }

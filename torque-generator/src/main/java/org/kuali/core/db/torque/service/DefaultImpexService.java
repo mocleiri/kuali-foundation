@@ -54,6 +54,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.SimpleScanner;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.StringFilter;
 import org.kuali.core.db.torque.pojo.ColumnContext;
@@ -82,6 +83,14 @@ import org.w3c.dom.Element;
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+
+	@Override
+	public void convertCsvToSql(ImpexContext context) {
+		File workingDir = context.getWorkingDir();
+		SimpleScanner scanner = new SimpleScanner(workingDir, "*.csv", null);
+		List<File> csvFiles = scanner.getFiles();
+		logger.info(csvFiles.size() + "");
+	}
 
 	/**
 	 * Convert the data from the row into String form
