@@ -1,9 +1,5 @@
 package org.kuali.core.db.torque.service;
 
-import static java.sql.Types.CLOB;
-import static java.sql.Types.DATE;
-import static java.sql.Types.TIMESTAMP;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -241,15 +237,15 @@ public class DefaultImpexService implements ImpexService {
 		try {
 			// Clob's and Date's need special handling
 			switch (column.getJdbcType()) {
-			case (CLOB):
+			case (Types.CLOB):
 				Clob clob = rs.getClob(index);
 				if (clob == null) {
 					return null;
 				} else {
 					return getClob(clob);
 				}
-			case (DATE):
-			case (TIMESTAMP):
+			case (Types.DATE):
+			case (Types.TIMESTAMP):
 				Timestamp date = rs.getTimestamp(index);
 				if (date == null) {
 					return null;
