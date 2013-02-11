@@ -716,15 +716,6 @@ public class DefaultImpexService implements ImpexService {
 		return dtc;
 	}
 
-	protected void handleData(DumpTableContext context) {
-		String crc = FormatUtils.getCount(context.getCurrentRowCount());
-		String trc = FormatUtils.getCount(context.getTotalRowCount());
-		String cds = FormatUtils.getSize(context.getCurrentDataSize());
-		String tds = FormatUtils.getSize(context.getTotalDataSize());
-		Object[] args = { crc, trc, cds, tds };
-		logger.info("Current Rows: {} Total Rows: {} Current Size: {} Total Size: {}", args);
-	}
-
 	protected long getSize(String[] data) {
 		long size = 0;
 		for (String s : data) {
