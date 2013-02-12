@@ -18,6 +18,7 @@ package org.kuali.core.db.torque.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,6 +26,7 @@ import javax.sql.DataSource;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -49,6 +51,7 @@ public class ImpexServiceTest {
 	// @Ignore
 	public void test1() {
 		try {
+			logger.info(FormatUtils.getDate(new Date()));
 			ImpexContext context = new ImpexContext();
 			context.setDatabaseVendor("oracle");
 			context.setEncoding("UTF-8");
@@ -64,7 +67,7 @@ public class ImpexServiceTest {
 	}
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
