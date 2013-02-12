@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2013 The Kuali Foundation
+ * Copyright 2004-2012 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,10 @@
 package org.kuali.common.aws.s3;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -93,9 +96,6 @@ public class s3Metrics {
 
              //If the file already exists, start writing at the end of it.
              pw = new PrintWriter(new FileWriter(filename, true));
-         	
-
-           
 
            }
            else {
@@ -127,53 +127,9 @@ public class s3Metrics {
 	
 	}
 	
-	public void SumGroupTotals(Long[][] SubAreaValue, int size)
-	{
-		
-
-	      
-	     long KeepValue  = 0L;
-		 long ExpireValue= 0L;
-		 long lineValue  = 0L;
-		 long expireValueGB = 0L;
-		 long keepValueGB   = 0L;
-		 long KeepTotalGB = 0L;
-		 long ExpireTotalGB   = 0L;
-		 
-		 long  ReleaseAreaTotal     = 0L;  
-		  long  ReleaseAreaTotalE    = 0L;          
-		  long  ReleaseAreaTotalK    = 0L; 
-		  long  ReleaseAreaTotalGB   = 0L;  
-		  long  ReleaseAreaTotalEGB  = 0L;          
-		  long  ReleaseAreaTotalKGB  = 0L;        
-		 
-		//for each sub group Total the Keep and Expired Values
-		for (int keyx = 0; keyx <= size; keyx++)
-		{ 	 
-			  	             
-			KeepValue   = SubAreaValue[keyx][1];
-			ExpireValue = SubAreaValue[keyx][0];
-			lineValue   = KeepValue+ExpireValue;
-			ReleaseAreaTotal = ReleaseAreaTotal + lineValue;
-			ReleaseAreaTotalE = ReleaseAreaTotalE + ExpireValue;
-			ReleaseAreaTotalK = ReleaseAreaTotalK + KeepValue;
-			//relAreaName = SubAreaName[keyx];
-			             
-
-			// Put in GBs
-			expireValueGB    = ExpireValue/1000/1000L;
-			keepValueGB      = KeepValue/1000/1000L;
-			//lineValueGB      = lineValue/1000/1000L;
-			ReleaseAreaTotalGB = ReleaseAreaTotal/1000/1000L;
-		   ReleaseAreaTotalEGB = ReleaseAreaTotalE/1000/1000L;
-			ReleaseAreaTotalKGB  = ReleaseAreaTotalK/1000/1000L;
-			             
-
-		} //for loop to sum and print info
-	}
-	
 	@Test
-    public void execute() throws InterruptedException {
+	
+	public void execute() throws InterruptedException {
 		String bucketName = "maven.kuali.org";
 	
 		AmazonS3Client client = getClient();
@@ -187,6 +143,8 @@ public class s3Metrics {
 		
 		long cmpdate=nowmm - yearmm;
 	
+	   	List<S3Types> dataArray = new ArrayList<S3Types>();
+
 		
 		String BucketChart01  = "/tmp/BucketChart1.cvs";   //metric for Build,Release,Snapshot
 		String BucketChart01a = "/tmp/BucketChart1a.cvs";  //Metric for Maven
@@ -231,6 +189,8 @@ public class s3Metrics {
 		 String PolicyLine = RuleName+","+DirName+","+RulesExpiration+","+RulesStatus;
 		 writeLinesToFile( BucketListD, PolicyLine, false);
 		 System.out.println(PolicyLine);
+		 
+
 
 	     String PrintLine;
 	     long Total = 0L;     
@@ -257,6 +217,11 @@ public class s3Metrics {
 		 //BucketListE - Total of the build Areas
 		 PrintLine =  ( "Area,CandidateExpire GB,KeepSpace GB");
 		 writeLinesToFile(BucketListE,  PrintLine, true);
+		 int build    = 0;
+		 int release  = 1;
+		 int external = 2;
+		 int privatex = 3;
+		 int snapshot = 4;
 		 
 	    String relAreaArray[] = { 
 	      "builds/", 
@@ -265,60 +230,77 @@ public class s3Metrics {
 	      "private/",
 	      "snapshot/"
 	    }; 
-           
-for ( String relArea : relAreaArray){   
+	    
+	     
+	    
+	    String[] SubAreaName = new String[1000];  
+	     long[][][] SubAreaValue = new long[relAreaArray.length][1000][100]; 
+
+   int bindex = 0;	    
+   for ( String relArea : relAreaArray){   
 	 System.out.println(relArea);
-  String delimiter = "/";
-  int expireindex = 0;
-  int keepindex   = 1;
-  long[][] SubAreaValue = new long[1000][100]; 
-  
-  for ( int i = 0; i<1000; i++){ SubAreaValue[i][expireindex] = 0L; SubAreaValue[i][keepindex] = 0L; }  //default the SubAreas
-  
-  String[] SubAreaName = new String[1000];
-  String dirfile;
-  String previous = "";
-  int key = -1;             
-  int i = 0;
-  
-              
-  ObjectListing listing = client.listObjects(bucketName, relArea);
-  List<S3ObjectSummary> list = listing.getObjectSummaries();	
-    
-  S3ObjectSummary file;
+     String delimiter = "/";
+     int expireindex = 0;
+     int keepindex   = 1;
+     //long[][] SubAreaValue = new long[1000][100]; 
+    // TotalTypes TotalLine = new TotalTypes(build, TE, TK);
+     for ( int i = 0; i<1000; i++)
+       { SubAreaValue[bindex][i][expireindex] = 0L; SubAreaValue[bindex][i][keepindex] = 0L; }  //default the SubAreas
+     
+     //String[] SubAreaName = new String[1000];
+     String dirfile;
+     String previous = "";
+     int key = -1;             
+     int i = 0;
+     
+                 
+     ObjectListing listing = client.listObjects(bucketName, relArea);
+     List<S3ObjectSummary> list = listing.getObjectSummaries();	
+       
+     S3ObjectSummary file;
 	 int SizeList = list.size();
 
-  while ( listing.isTruncated() || (!list.isEmpty())) // loop until the relArea index is exhausted, next index is introduced
-  { 
-   	
-	   file = list.get(i);
-	   i = i + 1;  //reset after 1000 records or end of the list
-	   dirfile = file.getKey();
-	   String tmpdir[] = dirfile.split(delimiter, 0);
-	   int NoOfDirs = tmpdir.length;
-	   NoOfDirs--; //re adjusted for size
+     while ( listing.isTruncated() || (!list.isEmpty())) // loop until the relArea index is exhausted, next index is introduced
+     { 
+      	
+  	   file = list.get(i);
+  	   i = i + 1;  //reset after 1000 records or end of the list
+  	   dirfile = file.getKey();
+  	   String tmpdir[] = dirfile.split(delimiter, 0);  //This is the number of directories returned.
+  	   int NoOfDirs = tmpdir.length;
+  	   NoOfDirs--; //re adjusted for size
 
 
-	    if ( NoOfDirs > 2 ){   //don't do unless the the tree structure is at least 3 dirs deep, which is the sub-area value, if it exists.
+  	    if ( NoOfDirs > 2 ){   //don't do unless the the tree structure is at least 3 dirs deep, which is the sub-area value, if it exists.
 		  String lastdir = tmpdir[3];
-		  if ( ! (lastdir.equals(previous)) ){ key = key + 1; SubAreaName[key] = lastdir; previous = lastdir;} // gets the next major directory
+		  if ( ! (lastdir.equals(previous)) ){ key = key + 1; SubAreaName[key] = lastdir; previous = lastdir;} // lastdir == previous? nothings changed;already recorded group
+		                                                                                                       // lastdir != previous? somethings changed: new group
+		                                                                                                       // catches first group because key inits -1
 		  	                
 		  	 Date fileLastModified= file.getLastModified();
 		     long filemm = fileLastModified.getTime();
 		     long fileSize = file.getSize();
 			 if ( filemm < cmpdate)
 			 { 
-			  	  SubAreaValue[key][expireindex] =  SubAreaValue[key][expireindex] + fileSize; // used in Charts to collect details under Snapshot, Release 
-			  	                                                                               // for directories such as rice, student, ole
+			  	  SubAreaValue[bindex][key][expireindex] =  SubAreaValue[bindex][key][expireindex] + fileSize; // used in Charts to collect details under Snapshot, Release 
 			 	 //BucketListListExpired        
 			   	 PrintLine =  ( dirfile);
 			   	 writeLinesToFile(BucketListExpired,  PrintLine, false); 
-			  	  
+			   	 
+			   
+
+			    //TotalTypes TotalLine = new TotalTypes();
+			    //TotalTypes TotalLine = new TotalTypes(build, TE, TK);
+			    //String x = TotalLine.getra();
+			    //System.out.println(x);
+			   
+			    
 			  			  
 			  	      
 			  	}  //if
 			  	else { 
-			  		SubAreaValue[key][keepindex] =  SubAreaValue[key][keepindex] + fileSize; }    	
+				  	    SubAreaValue[bindex][key][keepindex] =  SubAreaValue[bindex][key][keepindex] + fileSize; 
+				  	       }    	
 		   }//if directories are deeper than 2
 
 		 if ( (i == SizeList)) {  // get the next bundle of listings
@@ -330,12 +312,20 @@ for ( String relArea : relAreaArray){
 		  //System.out.println("Size of List: "+SizeList);
 		  i = 0;  //reset record counter
 	     }
-} // until the area is exhausted
-	 
-	
-	               
+      } // until the area is exhausted - while
+  	 
+     S3Types ThisRelease = new S3Types(relArea, SubAreaValue, key, bindex); //ThisRelease is data structure
+     System.out.println("Build Area: "+ThisRelease.build);
+     dataArray.add(ThisRelease);
+ //  }
+   
+     System.out.println("build: "+dataArray.get(bindex).build);
+     System.out.println("dataArray size: "+dataArray.size());
+     System.out.println("dataArray getTotal: "+dataArray.get(bindex).ReleaseAreaTotalGB);
+     
+  	               
 	  //Zero out for each RelArea	             
-	  int size = key;
+	/*  int size = key;
 	  String TitleK = "";
 	  String ValueK = "";
 	  String commaK = "";
@@ -347,104 +337,123 @@ for ( String relArea : relAreaArray){
 	  long  ReleaseAreaTotalK    = 0L; 
 	  long  ReleaseAreaTotalGB   = 0L;  
 	  long  ReleaseAreaTotalEGB  = 0L;          
-	  long  ReleaseAreaTotalKGB  = 0L;        
-
-
-	 
+	  long  ReleaseAreaTotalKGB  = 0L; 
+	   
 	  
-//for each sub group Total the Keep and Expired Values
-	  SumGroupTotals(SubAreaValue, size);
-	  
-for (int keyx = 0; keyx <= size; keyx++)
-{ 	 
+
+  //for each sub group Total the Keep and Expired Values
+  for (int keyx = 0; keyx <= size; keyx++)
+  { 	 
 	  	             
-	KeepValue   = SubAreaValue[keyx][1];
-	ExpireValue = SubAreaValue[keyx][0];
-	lineValue   = KeepValue+ExpireValue;
+  	KeepValue   = SubAreaValue[keyx][1];
+  	ExpireValue = SubAreaValue[keyx][0];
+  	lineValue   = KeepValue+ExpireValue;
 	ReleaseAreaTotal = ReleaseAreaTotal + lineValue;
 	ReleaseAreaTotalE = ReleaseAreaTotalE + ExpireValue;
 	ReleaseAreaTotalK = ReleaseAreaTotalK + KeepValue;
-	relAreaName = SubAreaName[keyx];
-	             
+  	relAreaName = SubAreaName[keyx];
+  	             
 
-	// Put in GBs
-	expireValueGB    = ExpireValue/1000/1000L;
-	keepValueGB      = KeepValue/1000/1000L;
-	//lineValueGB      = lineValue/1000/1000L;
-	ReleaseAreaTotalGB = ReleaseAreaTotal/1000/1000L;
- ReleaseAreaTotalEGB = ReleaseAreaTotalE/1000/1000L;
-	ReleaseAreaTotalKGB  = ReleaseAreaTotalK/1000/1000L;
-	             
-
-} //for loop to sum and print info
-
-Total = Total + lineValue;
-
-//Null all these 
-TitleK = "";
-ValueK = "";
-commaK = "";
-TitleE = "";
-ValueE = "";
-commaE = "";  
-
-	            
-// Fall through here after the summary, and lets do totals and printing for each major area  
-
-// Add up the Total for all Areas for Keep and Expire data
-KeepTotalGB = KeepTotalGB + ReleaseAreaTotalKGB;
-ExpireTotalGB   = ExpireTotalGB + ReleaseAreaTotalEGB;
+  	// Put in GBs
+  	expireValueGB    = ExpireValue/1000/1000L;
+  	keepValueGB      = KeepValue/1000/1000L;
+  	//lineValueGB      = lineValue/1000/1000L;
+  	ReleaseAreaTotalGB = ReleaseAreaTotal/1000/1000L;
+    ReleaseAreaTotalEGB = ReleaseAreaTotalE/1000/1000L;
+  	ReleaseAreaTotalKGB  = ReleaseAreaTotalK/1000/1000L;
+  	             
+   
+   } //for loop to sum and print info
+  
+  Total = Total + lineValue;
+  
+ */
+     String TitleK = "";
+	  String ValueK = "";
+	  String commaK = "";
+	  String TitleE = "";
+	  String ValueE = "";
+	  String commaE = "";
+  //Null all these 
+  TitleK = "";
+  ValueK = "";
+  commaK = "";
+  TitleE = "";
+  ValueE = "";
+  commaE = "";  
+  
+  	            
+   // Fall through here after the summary, and lets do totals and printing for each major area  
+  
+  // Add up the Total for all Areas for Keep and Expire data
+  KeepTotalGB = KeepTotalGB + ThisRelease.getReleaseAreaTotalKGB();
+  ExpireTotalGB   = ExpireTotalGB + ThisRelease.getReleaseAreaTotalEGB();
 	 
-if (relArea == "builds/")
-	{
-	 //BucketChart03
-	 PrintLine =  ( " A, Expire-GB, Keep-GB");
-	 writeLinesToFile(BucketChart03,PrintLine,true);
-	 PrintLine =  ( "builds"+","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB));
-	 writeLinesToFile(BucketChart03,PrintLine,false);
-	                
-	 //BucketListA
-	 PrintLine  = ("builds" +","+ Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB)+","+Long.toString(ReleaseAreaTotalGB));
+  //BucketListA
+  PrintLine  = (relArea +","+ Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB())+","+Long.toString(ThisRelease.getReleaseAreaTotalGB()));
   writeLinesToFile(BucketListA,  PrintLine, false);
   
- 
-	//For Totals
-	sbuildtotalGB   = Long.toString(ReleaseAreaTotalGB);
- System.out.println(relArea+" "+sbuildtotalGB);
+  
+   //if (relArea == "builds/")
+	//{
+  	 //BucketChart03
+  	// PrintLine =  ( " A, Expire-GB, Keep-GB");
+  //	 writeLinesToFile(BucketChart03,PrintLine,true);
+  //	 PrintLine =  ( "builds"+","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB()));
+  //	 writeLinesToFile(BucketChart03,PrintLine,false);
+  	                
+  	 //BucketListA
+  	// PrintLine  = ("builds" +","+ Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB())+","+Long.toString(ThisRelease.getReleaseAreaTotalGB()));
+   //  writeLinesToFile(BucketListA,  PrintLine, false);
+     
+    
+  	//For Totals
+  //	sbuildtotalGB   = Long.toString(ThisRelease.getReleaseAreaTotalGB());
+  //  System.out.println(relArea+" "+sbuildtotalGB);
 	             
-	 }
-           
-	            
-	if (relArea == "release/")
+	// }
+              
+  	            
+  	if (relArea == "release/")
 	{
-		  	  
-	//BucketChart04
-	 PrintLine =  ( " A, Expire-GB, Keep-GB");
-	 writeLinesToFile(BucketChart04,PrintLine,true);
-	 PrintLine =  ( "release"+","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB));
-	 writeLinesToFile(BucketChart04,PrintLine,false);
+  		  	  
+  	//BucketChart04
+	// PrintLine =  ( " A, Expire-GB, Keep-GB");
+	// writeLinesToFile(BucketChart04,PrintLine,true);
+	// PrintLine =  ( "release"+","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB()));
+	// writeLinesToFile(BucketChart04,PrintLine,false);
 	                
 	          
 	 //BucketListA
-	 PrintLine  = ("release" +","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB)+","+Long.toString(ReleaseAreaTotalGB));		  	        
-	 writeLinesToFile(BucketListA,  PrintLine, false);
+  	// PrintLine  = ("release" +","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB())+","+Long.toString(ThisRelease.getReleaseAreaTotalGB()));		  	        
+  	// writeLinesToFile(BucketListA,  PrintLine, false);
 	          
 	//For Totals
-	sreleasetotalGB = Long.toString(ReleaseAreaTotalGB);
- System.out.println(relArea+" "+sreleasetotalGB);
+	//sreleasetotalGB = Long.toString(ThisRelease.getReleaseAreaTotalGB());
+    System.out.println(relArea+" "+sreleasetotalGB);
 
 	
 	 //BucketListC        
-	 PrintLine =  ( "Date,RelArea,CandidateExpire,KeepSpace,Total");
-	 writeLinesToFile(BucketListC,  PrintLine, true); 
+  	 PrintLine =  ( "Date,RelArea,CandidateExpire,KeepSpace,Total");
+  	 writeLinesToFile(BucketListC,  PrintLine, true); 
+  	 /* String TitleK = "";
+	  String ValueK = "";
+	  String commaK = "";
+	  String TitleE = "";
+	  String ValueE = "";
+	  String commaE = ""; */
+	  TitleK = "";
+	  ValueK = "";
+	  commaK = "";
+	  TitleE = "";
+	  ValueE = "";
+	  commaE = "";  
 	
-	 
-	
-	 for (int keyx = 0; keyx <= size; keyx++)
+	 for (int keyx = 0; keyx <= key; keyx++)
 	  { 
 	  	
-		 KeepValue   = SubAreaValue[keyx][1];
-		 ExpireValue = SubAreaValue[keyx][0];
+		 KeepValue   = SubAreaValue[bindex][keyx][1];
+		 ExpireValue = SubAreaValue[bindex][keyx][0];
 		 lineValue   = KeepValue+ExpireValue;
 	
 		 relAreaName = SubAreaName[keyx];
@@ -476,39 +485,39 @@ if (relArea == "builds/")
 	 
 	 
 	 writeLinesToFile(BucketChart05a,  TitleK, true); 
-  writeLinesToFile(BucketChart06a,  TitleE, true); 
-  writeLinesToFile(BucketChart05a,  ValueK, false); 
-  writeLinesToFile(BucketChart06a,  ValueE, false); 
+     writeLinesToFile(BucketChart06a,  TitleE, true); 
+     writeLinesToFile(BucketChart05a,  ValueK, false); 
+     writeLinesToFile(BucketChart06a,  ValueE, false); 
 	 }
-              
+                 
 	if (relArea == "snapshot/")
-     {
+        {
 	//BucketChart02
-	PrintLine =  ( " A, Expire-GB, Keep-GB");
-	writeLinesToFile(BucketChart02,PrintLine,true);
-	PrintLine =  ( "snapshot"+","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB));
-	writeLinesToFile(BucketChart02,PrintLine,false);
+	//PrintLine =  ( " A, Expire-GB, Keep-GB");
+	//writeLinesToFile(BucketChart02,PrintLine,true);
+	//PrintLine =  ( "snapshot"+","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB()));
+	//writeLinesToFile(BucketChart02,PrintLine,false);
 		                
 		          
 	//BucketListA - details
-	PrintLine  = ("snapshots" +","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB)+","+Long.toString(ReleaseAreaTotalGB));
- writeLinesToFile(BucketListA,  PrintLine, false);
+	//PrintLine  = ("snapshots" +","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB())+","+Long.toString(ThisRelease.getReleaseAreaTotalGB()));
+  //  writeLinesToFile(BucketListA,  PrintLine, false);
 		          
 	//For Totals
-	ssnapshottotalGB = Long.toString(ReleaseAreaTotalGB);
- System.out.println(relArea+" "+ssnapshottotalGB);
+	//ssnapshottotalGB = Long.toString(ThisRelease.getReleaseAreaTotalGB());
+   // System.out.println(relArea+" "+ssnapshottotalGB);
 
 			  	        
 	//BucketListB          
 	PrintLine =  ( "Date,RelArea,CandidateExpire,KeepSpace,Total");
 	writeLinesToFile(BucketListB,  PrintLine, true); 
-	
-	
-	 for (int keyx = 0; keyx <= size; keyx++)
+ 	
+ 	
+ 	 for (int keyx = 0; keyx <= key; keyx++)
 	  { 
 	  	      
-		 KeepValue   = SubAreaValue[keyx][1];
-		 ExpireValue = SubAreaValue[keyx][0];
+ 		 KeepValue   = SubAreaValue[bindex][keyx][1];
+		 ExpireValue = SubAreaValue[bindex][keyx][0];
 		 lineValue   = KeepValue+ExpireValue;
 			
 		 relAreaName = SubAreaName[keyx];
@@ -547,66 +556,114 @@ if (relArea == "builds/")
 	
 	 }
 	                        	        
-
-  if (relArea == "private/")
-   {
-   //BucketChart02b
-   PrintLine =  ( " A, Expire-GB, Keep-GB");
-   writeLinesToFile(BucketChart02b,PrintLine,true);
-   PrintLine =  ( "private"+","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB));
-   writeLinesToFile(BucketChart02b,PrintLine,false);
-                   
-   //BucketListA
-   PrintLine  = ("private" +","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB)+","+Long.toString(ReleaseAreaTotalGB));
-	  writeLinesToFile(BucketListA,  PrintLine, false);
-  
+   
+     //if (relArea == "private/")
+     // {
+      //BucketChart02b
+     // PrintLine =  ( " A, Expire-GB, Keep-GB");
+      //writeLinesToFile(BucketChart02b,PrintLine,true);
+      //PrintLine =  ( "private"+","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB()));
+      //writeLinesToFile(BucketChart02b,PrintLine,false);
+                      
+      //BucketListA
+    //  PrintLine  = ("private" +","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB())+","+Long.toString(ThisRelease.getReleaseAreaTotalGB()));
+ 	//  writeLinesToFile(BucketListA,  PrintLine, false);
+     
+ 	  //For Totals
+ 	 // sprivatetotalGB = Long.toString(ThisRelease.getReleaseAreaTotalGB());
+	//  System.out.println(relArea+" "+sprivatetotalGB);
+     // }
+     
+     //if (relArea == "external/")
+    // {
+      //BucketChart02a
+     // PrintLine =  ( " A, Expire-GB, Keep-GB");
+     // writeLinesToFile(BucketChart02a,PrintLine,true);
+     // PrintLine =  ( "external"+","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB()));
+     // writeLinesToFile(BucketChart02a,PrintLine,false);
+             
+      //BucketListA
+  //    PrintLine  = ("external" +","+Long.toString(ThisRelease.getReleaseAreaTotalEGB()) +","+Long.toString(ThisRelease.getReleaseAreaTotalKGB())+","+Long.toString(ThisRelease.getReleaseAreaTotalGB()));
+  //	  writeLinesToFile(BucketListA,  PrintLine, false);
+       
 	  //For Totals
-	  sprivatetotalGB = Long.toString(ReleaseAreaTotalGB);
-	  System.out.println(relArea+" "+sprivatetotalGB);
-   }
-  
-  if (relArea == "external/")
-  {
-   //BucketChart02a
-   PrintLine =  ( " A, Expire-GB, Keep-GB");
-   writeLinesToFile(BucketChart02a,PrintLine,true);
-   PrintLine =  ( "external"+","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB));
-   writeLinesToFile(BucketChart02a,PrintLine,false);
-          
-   //BucketListA
-   PrintLine  = ("external" +","+Long.toString(ReleaseAreaTotalEGB) +","+Long.toString(ReleaseAreaTotalKGB)+","+Long.toString(ReleaseAreaTotalGB));
-	  writeLinesToFile(BucketListA,  PrintLine, false);
-    
-	  //For Totals
-	  sexternaltotalGB = Long.toString(ReleaseAreaTotalGB);
-	  System.out.println(relArea+" "+sexternaltotalGB);
+	 // sexternaltotalGB = Long.toString(ThisRelease.getReleaseAreaTotalGB());
+	 // System.out.println(relArea+" "+sexternaltotalGB);
 
 	    
- } //if external
+   // } //if external
 
-} //for each major area
-	  	       
-//Chart01
-	PrintLine =  ( " RelArea, Builds, Snapshot, Release");
-	writeLinesToFile(BucketChart01,  PrintLine, true);
-	PrintLine  = ("A, "+sbuildtotalGB +","+ssnapshottotalGB +","+sreleasetotalGB);
-	writeLinesToFile(BucketChart01,  PrintLine, false);
-       
-	  	 
-//Chart01a
-	PrintLine =  ( " RelArea, Builds, Snapshot, Release, External, Private");
-	writeLinesToFile(BucketChart01a,  PrintLine, true);
-	PrintLine  = ("A, "+sbuildtotalGB +","+ssnapshottotalGB +","+sreleasetotalGB+","+sexternaltotalGB +","+sprivatetotalGB);
-	writeLinesToFile(BucketChart01a,  PrintLine, false);
+    bindex++;
+   } //for each major area
+
+  // System.out.println("build: "+dataArray.get(1).build);
+ // System.out.println("dataArray size: "+dataArray.size());
+  // System.out.println("dataArray getTotal: "+dataArray.get(1).ReleaseAreaTotalGB);
+   
+ 	sbuildtotalGB     = Long.toString(dataArray.get(build).ReleaseAreaTotalGB);
+ 	sreleasetotalGB   = Long.toString(dataArray.get(release).ReleaseAreaTotalGB);
+ 	sexternaltotalGB  = Long.toString(dataArray.get(external).ReleaseAreaTotalGB);
+ 	sprivatetotalGB   = Long.toString(dataArray.get(privatex).ReleaseAreaTotalGB);
+ 	ssnapshottotalGB  = Long.toString(dataArray.get(snapshot).ReleaseAreaTotalGB);
+
+ 	 PrintLine =  ( " A, Expire-GB, Keep-GB");
+  	 writeLinesToFile(BucketChart03,PrintLine,true);
+  	 PrintLine =  ( "builds"+","+Long.toString(dataArray.get(build).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(build).ReleaseAreaTotalKGB));
+  	 writeLinesToFile(BucketChart03,PrintLine,false);
+  	 
+  	 
+  	//Chart01
+ 	PrintLine =  ( " RelArea, Builds, Snapshot, Release");
+ 	writeLinesToFile(BucketChart01,  PrintLine, true);
+ 	PrintLine  = ("A, "+sbuildtotalGB +","+ssnapshottotalGB +","+sreleasetotalGB);
+ 	writeLinesToFile(BucketChart01,  PrintLine, false);
+           
+ 	  	 
+   //Chart01a
+ 	PrintLine =  ( " RelArea, Builds, Snapshot, Release, External, Private");
+ 	writeLinesToFile(BucketChart01a,  PrintLine, true);
+ 	PrintLine  = ("A, "+sbuildtotalGB +","+ssnapshottotalGB +","+sreleasetotalGB+","+sexternaltotalGB +","+sprivatetotalGB);
+ 	writeLinesToFile(BucketChart01a,  PrintLine, false);
+
+ 	System.out.println("BucketChart01a: "+ PrintLine);
+ 	
+	//BucketChart02
+	PrintLine =  ( " A, Expire-GB, Keep-GB");
+	writeLinesToFile(BucketChart02,PrintLine,true);
+	PrintLine =  ( "snapshot"+","+Long.toString(dataArray.get(snapshot).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(snapshot).ReleaseAreaTotalKGB));
+	writeLinesToFile(BucketChart02,PrintLine,false);
+		                
+		          
+	//BucketListA - details
+	//PrintLine  = ("snapshots" +","+Long.toString(dataArray.get(snapshot).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(snapshot).ReleaseAreaTotalKGB)+","+Long.toString(dataArray.get(snapshot).ReleaseAreaTotalGB));
+   // writeLinesToFile(BucketListA,  PrintLine, false);
+    
+  	//BucketChart04
+	 PrintLine =  ( " A, Expire-GB, Keep-GB");
+	 writeLinesToFile(BucketChart04,PrintLine,true);
+	 PrintLine =  ( "release"+","+Long.toString(dataArray.get(release).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(release).ReleaseAreaTotalKGB));
+	 writeLinesToFile(BucketChart04,PrintLine,false);
+	 
+	 //BucketChart02a
+	 PrintLine =  ( " A, Expire-GB, Keep-GB");
+    writeLinesToFile(BucketChart02b,PrintLine,true);
+    PrintLine =  ( "external"+","+Long.toString(dataArray.get(external).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(external).ReleaseAreaTotalKGB));
+    writeLinesToFile(BucketChart02a,PrintLine,false);
+ 	
+ 	 //BucketChart02b
+ 	 PrintLine =  ( " A, Expire-GB, Keep-GB");
+     writeLinesToFile(BucketChart02b,PrintLine,true);
+     PrintLine =  ( "private"+","+Long.toString(dataArray.get(privatex).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(privatex).ReleaseAreaTotalKGB));
+     writeLinesToFile(BucketChart02b,PrintLine,false);
 
 	System.out.println("BucketChart01a: "+ PrintLine);
 	
 	 //BucketListE
-	 PrintLine  = ("A ,"+ Long.toString(ExpireTotalGB) +","+Long.toString(KeepTotalGB));
-  writeLinesToFile(BucketListE,  PrintLine, false);
- 
+ 	 PrintLine  = ("A ,"+ Long.toString(ExpireTotalGB) +","+Long.toString(KeepTotalGB));
+     writeLinesToFile(BucketListE,  PrintLine, false);
+    
 	  	
- 
+    
 	 try{
 		 
 		 String report[] = { 
@@ -636,27 +693,26 @@ if (relArea == "builds/")
 		  { 
 		  	
 			filetocopy = report[r]; 
-	        cmdlinux = "scp /tmp/"+filetocopy+" root"+ "@" +"ec2-50-19-200-109.compute-1.amazonaws.com" +":"+  "/usr/local/tomcat";
-	      	Runtime runtime = Runtime.getRuntime();
-	        setProcess(runtime.exec(cmdlinux));
-	        Thread.sleep(1000);
-         System.out.println(cmdlinux);
+ 	        cmdlinux = "scp /tmp/"+filetocopy+" root"+ "@" +"ec2-50-19-200-109.compute-1.amazonaws.com" +":"+  "/usr/local/tomcat";
+ 	      	Runtime runtime = Runtime.getRuntime();
+ 	        setProcess(runtime.exec(cmdlinux));
+ 	        Thread.sleep(1000);
+            System.out.println(cmdlinux);
 		  }
-}
-catch(IOException ex){
-   System.out.println (ex.toString());
-		System.out.println("Could not find file" );
-}
+  }
+  catch(IOException ex){
+      System.out.println (ex.toString());
+		System.out.println("Could not find file " );
+  
 	
 	
-	};	
-
 	
-	
+	    
+	}; //testDateListing
 	
 	 
 
-     
+	}
 	
 	
 }; //subroutine
