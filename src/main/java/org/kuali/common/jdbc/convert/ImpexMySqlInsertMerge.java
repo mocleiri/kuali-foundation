@@ -36,7 +36,7 @@ public class ImpexMySqlInsertMerge extends AbstractInsertMergeSqlConverter {
 	protected String getValues(String trimmed) {
 		int pos = StringUtils.indexOf(trimmed, VALUES_TOKEN);
 		if (pos == -1) {
-			throw new IllegalArgumentException("Unable to parse INSERT statement");
+			throw new IllegalArgumentException("Unable to parse INSERT statement: " + trimmed);
 		}
 		return "(" + StringUtils.substring(trimmed, pos + VALUES_TOKEN.length());
 	}
