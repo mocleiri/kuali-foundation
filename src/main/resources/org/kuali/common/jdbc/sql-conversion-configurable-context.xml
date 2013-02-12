@@ -16,6 +16,10 @@
   limitations under the License.
 
 -->
+
+<!-- Using this context requires the following parameters be set in the maven properties:
+        sql.convert.vendor:  the database vendor.  Only "oracle" and "mysql" are supported.
+ -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -25,13 +29,15 @@
     <!-- Resolve placeholders using Maven properties -->
     <context:property-placeholder properties-ref="mavenProperties" />
 
-    <bean id="conversion.launcher.mysql" class="org.kuali.common.jdbc.convert.DirectoryConverterExecutable" init-method="execute">
-        <property name="inputSqlFolder" value="${project.basedir}/src/main/resources/impex/sql/mysql"/>
+    <bean id="conversion.launcher" class="org.kuali.common.jdbc.convert.DirectoryConverterExecutable" init-method="execute">
+        <property name="inputSqlFolder" value="${project.basedir}/src/main/resources/impex/sql/${sql.convert.vendor}"/>
         <property name="includedFilePattern" value="*.sql"/>
         <property name="excludedFilePattern" value="${project.artifactId}-*.sql"/>
-        <property name="sqlConverter" ref="converter.mysql"/>
+        <property name="sqlConverter" ref="converter.${sql.convert.vendor}"/>
         <property name="postConversionProcessor" ref="replacingPostProcessor"/>
     </bean>
+
+    <bean id="converter.oracle" class="org.kuali.common.jdbc.convert.ImpexOracleInsertMerge"/>
 
     <bean id="converter.mysql" class="org.kuali.common.jdbc.convert.ImpexMySqlInsertMerge"/>
 
