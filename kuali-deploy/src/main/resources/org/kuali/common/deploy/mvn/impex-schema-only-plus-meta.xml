@@ -54,6 +54,7 @@
     <impex.mvn.dtd>${impex.mvn.dir}/${impex.schema.name}.dtd</impex.mvn.dtd>
     <impex.context.path>${impex.basedir}/target/reports/context.datadtd.properties</impex.context.path>
     <impex.report.file>../reports/report.${impex.schema.name}.datadtd.generation</impex.report.file>
+    <antCompatibilityMode>false</antCompatibilityMode>
   </properties>
   <build>
     <pluginManagement>
@@ -66,15 +67,12 @@
             <artifactId>${impex.schema.name}</artifactId>
             <oldSchemaXMLFile>${impex.ant.schema}</oldSchemaXMLFile>
             <newSchemaXMLFile>${impex.mvn.schema}</newSchemaXMLFile>
-            <oldDataXMLDir>${impex.ant.dir}</oldDataXMLDir>
-            <newDataOutputDir>${impex.mvn.xml}</newDataOutputDir>
             <includeVersionInComment>false</includeVersionInComment>
-            <antCompatibilityMode>false</antCompatibilityMode>
+            <antCompatibilityMode>${antCompatibilityMode}</antCompatibilityMode>
             <schemaXMLFile>${impex.mvn.schema}</schemaXMLFile>
             <schemaIncludes>${impex.schema.name}.xml</schemaIncludes>
             <schemaDir>${impex.mvn.dir}</schemaDir>
             <dataDTD>${impex.mvn.dtd}</dataDTD>
-            <dataXMLDir>${impex.mvn.xml}</dataXMLDir>
             <baseDir>${impex.mvn.dir}</baseDir>
           </configuration>
           <executions>
