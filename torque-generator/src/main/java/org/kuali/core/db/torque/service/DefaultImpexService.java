@@ -113,12 +113,29 @@ public class DefaultImpexService implements ImpexService {
 				}
 				String[] tokens = StringUtils.splitByWholeSeparator(s, "\",\"");
 				Assert.isTrue(tokens.length == columns.length);
+				// Remove leading and trailing double quotes inserted there when the .mpx file was written to disk
+				trimQuotes(tokens);
+				// Replace mpx tokens eg ${mpx.lf} with the actual value
 				unformat(tokens);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(reader);
+		}
+	}
+
+	protected void trimQuotes(String[] tokens) {
+		for (int i = 0; i < tokens.length; i++) {
+			String token = tokens[i];
+			int length = token.length();
+			if (StringUtils.startsWith(token, "\"")) {
+				token = StringUtils.substring(token, 1);
+			}
+			if (StringUtils.endsWith(token, "\"")) {
+				token = StringUtils.substring(token, 0, length - 1);
+			}
+			tokens[i] = token;
 		}
 	}
 
