@@ -55,7 +55,7 @@ public interface ImpexService {
 	DumpTableResult dumpTable(ImpexContext context, TableContext table, Connection conn) throws SQLException;
 
 	/**
-	 * Dump all of the data from this table to disk
+	 * Dump one or more tables from a database to disk
 	 */
 	List<DumpTableResult> dumpTables(ImpexContext context, DatabaseContext database);
 
