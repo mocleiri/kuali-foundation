@@ -646,7 +646,7 @@ public class s3Metrics {
 	 
 	 //BucketChart02a
 	 PrintLine =  ( " A, Expire-GB, Keep-GB");
-    writeLinesToFile(BucketChart02b,PrintLine,true);
+    writeLinesToFile(BucketChart02a,PrintLine,true);
     PrintLine =  ( "external"+","+Long.toString(dataArray.get(external).ReleaseAreaTotalEGB) +","+Long.toString(dataArray.get(external).ReleaseAreaTotalKGB));
     writeLinesToFile(BucketChart02a,PrintLine,false);
  	
