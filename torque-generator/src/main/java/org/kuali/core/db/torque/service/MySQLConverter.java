@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.torque.engine.database.model.Column;
+import org.codehaus.plexus.util.StringUtils;
 
 public class MySQLConverter implements SqlConverter {
 
@@ -19,8 +20,12 @@ public class MySQLConverter implements SqlConverter {
 		if (isDate(column)) {
 			return getSqlDateValue(token);
 		}
-
-		return null;
+		if (column.needEscapedValue()) {
+			String escaped1 = StringUtils.replace(token, "\\", "\\\\");
+			String escaped2 = StringUtils.replace(escaped1, "'", "\\'");
+			return "'" + escaped2 + "'";
+		}
+		return token;
 	}
 
 	protected String getSqlDateValue(String token) {
