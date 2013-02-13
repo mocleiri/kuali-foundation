@@ -82,6 +82,8 @@ import org.w3c.dom.Element;
 
 public class DefaultImpexService implements ImpexService {
 
+	long count = 0;
+
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
 
 	@Override
@@ -97,6 +99,7 @@ public class DefaultImpexService implements ImpexService {
 			Table table = getTableDefinition(tableName, tables);
 			convertFile(context, file, table);
 		}
+		logger.info("Converted {} values", FormatUtils.getCount(count));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -142,6 +145,7 @@ public class DefaultImpexService implements ImpexService {
 
 				SqlConverter sc = context.getPlatform().getSqlConverter();
 				List<String> sqlValues = sc.getSqlValues(getColumns(table), tokens);
+				count += sqlValues.size();
 
 			}
 		} catch (IOException e) {
