@@ -11,12 +11,16 @@ public class MySQLConverter implements SqlConverter {
 
 	private static final String DATE = "DATE";
 	private static final String TIMESTAMP = "TIMESTAMP";
+	private static final String NULL = "NULL";
 
 	String srcDateFormat = ImpexContext.MPX_DATE_FORMAT;
 	String sqlDateFormat = "yyyyMMddHHmmss";
 
 	@Override
 	public String getSqlValue(Column column, String token) {
+		if (token == null) {
+			return NULL;
+		}
 		if (isDate(column)) {
 			return getSqlDateValue(token);
 		}
