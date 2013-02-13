@@ -18,6 +18,7 @@ package org.kuali.core.db.torque.service;
 import java.io.File;
 import java.util.Date;
 
+import org.apache.torque.engine.platform.PlatformFactory;
 import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
@@ -33,9 +34,10 @@ public class ImpexServiceTest {
 		try {
 			logger.info(FormatUtils.getDate(new Date()));
 			ImpexContext context = new ImpexContext();
-			context.setDatabaseVendor("oracle");
+			context.setDatabaseVendor("mysql");
 			context.setEncoding("UTF-8");
 			context.setWorkingDir(new File("/Users/jeffcaddel/ws/impex-2.0/torque-generator/target/impex"));
+			context.setPlatform(PlatformFactory.getPlatformFor(context.getDatabaseVendor()));
 			long start = System.currentTimeMillis();
 			ImpexService service = new DefaultImpexService();
 			service.convertCsvToSql(context);

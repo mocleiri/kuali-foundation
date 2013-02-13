@@ -12,7 +12,7 @@ import org.apache.torque.engine.platform.Platform;
 public class ImpexContext {
 
 	public static final String DATA_CONTROL_TEMPLATE = "data/Control.vm";
-	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZZ";
 
 	boolean processTables = true;
 	boolean processSequences = true;

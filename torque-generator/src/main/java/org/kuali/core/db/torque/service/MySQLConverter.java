@@ -59,7 +59,7 @@ public class MySQLConverter implements SqlConverter {
 		try {
 			return sdf.parse(token);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Cannot parse " + token);
+			throw new IllegalArgumentException("Cannot parse " + token + " using format [" + srcDateFormat + "]");
 		}
 	}
 
