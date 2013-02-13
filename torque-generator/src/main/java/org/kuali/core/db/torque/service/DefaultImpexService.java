@@ -108,23 +108,6 @@ public class DefaultImpexService implements ImpexService {
 		return table.getColumns();
 	}
 
-	protected String[] getSqlValues(Table table, String[] tokens) {
-		List<Column> columns = getColumns(table);
-		Assert.isTrue(columns.size() == tokens.length);
-		String[] sqlValues = new String[tokens.length];
-		for (int i = 0; i < tokens.length; i++) {
-			Column column = columns.get(i);
-			String token = tokens[i];
-			String sqlValue = getSqlValue(column, token);
-			sqlValues[i] = getSqlValue(column, token);
-		}
-		return sqlValues;
-	}
-
-	protected String getSqlValue(Column column, String token) {
-		return null;
-	}
-
 	protected void convertFile(ImpexContext context, File file, Table table) {
 		BufferedReader reader = null;
 		try {
@@ -141,11 +124,12 @@ public class DefaultImpexService implements ImpexService {
 				Assert.isTrue(tokens.length == columns.length);
 				// Remove leading and trailing double quotes inserted there when the .mpx file was written to disk
 				trimQuotes(tokens);
-				// Replace mpx tokens eg ${mpx.lf} with the original value
+				// Replace mpx tokens eg ${mpx.lf} -> \n
 				unformat(tokens);
 
 				SqlConverter sc = context.getPlatform().getSqlConverter();
-				List<String> sqlValues = sc.getSqlValues(getColumns(table), tokens);
+				List<Column> columnList = getColumns(table);
+				List<String> sqlValues = sc.getSqlValues(columnList, tokens);
 				count += sqlValues.size();
 
 			}
