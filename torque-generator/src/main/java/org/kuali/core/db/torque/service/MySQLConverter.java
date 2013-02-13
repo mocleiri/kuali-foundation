@@ -2,10 +2,13 @@ package org.kuali.core.db.torque.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.torque.engine.database.model.Column;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.Assert;
 
 public class MySQLConverter implements SqlConverter {
 
@@ -17,6 +20,18 @@ public class MySQLConverter implements SqlConverter {
 	String sqlDateFormat = "yyyyMMddHHmmss";
 
 	@Override
+	public List<String> getSqlValues(Column[] columns, String[] tokens) {
+		Assert.isTrue(columns.length == tokens.length);
+		List<String> values = new ArrayList<String>();
+		for (int i = 0; i < columns.length; i++) {
+			Column column = columns[i];
+			String token = tokens[i];
+			String value = getSqlValue(column, token);
+			values.add(value);
+		}
+		return values;
+	}
+
 	public String getSqlValue(Column column, String token) {
 		if (token == null) {
 			return NULL;
