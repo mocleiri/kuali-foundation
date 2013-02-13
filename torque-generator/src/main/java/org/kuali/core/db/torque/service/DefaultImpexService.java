@@ -95,6 +95,7 @@ public class DefaultImpexService implements ImpexService {
 		List<File> files = scanner.getFiles();
 		for (File file : files) {
 			String filename = file.getName();
+			logger.info("Converting " + filename);
 			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 			Table table = getTableDefinition(tableName, tables);
 			convertFile(context, file, table);
