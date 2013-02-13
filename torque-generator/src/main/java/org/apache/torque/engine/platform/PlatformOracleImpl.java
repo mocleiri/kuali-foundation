@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
+import org.kuali.core.db.torque.service.OracleConverter;
 import org.kuali.core.db.torque.service.SqlConverter;
 
 /**
@@ -160,8 +161,7 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 
 	@Override
 	public SqlConverter getSqlConverter() {
-		// TODO Create an OracleSqlConverter
-		throw new IllegalStateException("not implemented yet");
+		return new OracleConverter();
 	}
 
 }
