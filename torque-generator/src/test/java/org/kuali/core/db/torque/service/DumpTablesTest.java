@@ -81,7 +81,7 @@ public class DumpTablesTest {
 		}
 	}
 
-	protected void log(ImpexContext context) {
+	protected static void log(ImpexContext context) {
 		logger.info("---------------------------------------------------------------");
 		logger.info("Impex Database Dump");
 		logger.info("---------------------------------------------------------------");
@@ -100,7 +100,7 @@ public class DumpTablesTest {
 		logger.info("---------------------------------------------------------------");
 	}
 
-	protected DataSource getDataSource(Properties p) {
+	protected static DataSource getDataSource(Properties p) {
 		DriverManagerDataSource dmds = new DriverManagerDataSource();
 		dmds.setDriverClassName(p.getProperty("impex.driver"));
 		dmds.setPassword(p.getProperty("impex.password"));
@@ -109,7 +109,7 @@ public class DumpTablesTest {
 		return dmds;
 	}
 
-	protected Properties getProperties(String includes, int metaDataThreads, int dataThreads) {
+	protected static Properties getProperties(String includes, int metaDataThreads, int dataThreads) {
 		String tableIncludes = includes;
 		String viewIncludes = includes;
 		String sequenceIncludes = includes;
@@ -127,12 +127,12 @@ public class DumpTablesTest {
 		p.setProperty("impex.password", p.getProperty("impex.username"));
 		p.setProperty("impex.schema", p.getProperty("impex.username"));
 		p.setProperty("impex.databaseVendor", "oracle");
-		p.setProperty("impex.dateFormat", "yyyyMMddHHmmss");
 		p.setProperty("impex.antCompatibilityMode", "true");
 		p.setProperty("impex.metadata.threads", metaDataThreads + "");
 		p.setProperty("impex.data.threads", dataThreads + "");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
 		p.setProperty("impex.databaseTablePropertiesFile", p.getProperty("project.basedir") + "/src/main/resources/" + p.getProperty("project.artifactId") + ".properties");
+		// p.setProperty("impex.dateFormat", "yyyyMMddHHmmss");
 		// p.setProperty("impex.schemaXMLFile", p.getProperty("impex.workingDir") + "/xml/schema.xml");
 		// p.setProperty("impex.reportFile", "../reports/report." + p.getProperty("project.artifactId") + ".datadtd.generation");
 		// p.setProperty("impex.contextProperties", p.getProperty("impex.workingDir") + "/reports/context.datadtd.properties");
@@ -145,7 +145,7 @@ public class DumpTablesTest {
 		return p;
 	}
 
-	protected ImpexContext getImpexContext(Properties p) {
+	protected static ImpexContext getImpexContext(Properties p) {
 		ImpexContext context = new ImpexContext();
 		// simple property copying
 		context.setArtifactId(p.getProperty("project.artifactId"));
