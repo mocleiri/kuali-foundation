@@ -1,12 +1,12 @@
 package org.kuali.core.db.torque.service;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.torque.engine.platform.Platform;
 
 public class ImpexContext {
@@ -49,7 +49,7 @@ public class ImpexContext {
 	String reportFile;
 	DataSource dataSource;
 	Platform platform;
-	SimpleDateFormat dateFormatter;
+	FastDateFormat dateFormatter;
 	Properties databaseTableProperties;
 	String databaseTablePropertiesLocation;
 	boolean storeDatabaseTableProperties;
@@ -294,14 +294,6 @@ public class ImpexContext {
 		this.platform = platform;
 	}
 
-	public SimpleDateFormat getDateFormatter() {
-		return dateFormatter;
-	}
-
-	public void setDateFormatter(SimpleDateFormat dateFormatter) {
-		this.dateFormatter = dateFormatter;
-	}
-
 	public DataHandler getDataHandler() {
 		return dataHandler;
 	}
@@ -364,5 +356,13 @@ public class ImpexContext {
 
 	public void setStoreDatabaseTableProperties(boolean storeDatabaseTableProperties) {
 		this.storeDatabaseTableProperties = storeDatabaseTableProperties;
+	}
+
+	public FastDateFormat getDateFormatter() {
+		return dateFormatter;
+	}
+
+	public void setDateFormatter(FastDateFormat dateFormatter) {
+		this.dateFormatter = dateFormatter;
 	}
 }

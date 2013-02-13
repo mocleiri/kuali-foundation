@@ -16,7 +16,6 @@
 package org.kuali.core.db.torque.service;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +23,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.junit.Ignore;
@@ -217,7 +217,7 @@ public class ImpexServiceTest {
 		} else {
 			context.setDatabaseTableProperties(new Properties());
 		}
-		context.setDateFormatter(new SimpleDateFormat(context.getDateFormat()));
+		context.setDateFormatter(FastDateFormat.getInstance(context.getDateFormat()));
 		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
 		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
 		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
