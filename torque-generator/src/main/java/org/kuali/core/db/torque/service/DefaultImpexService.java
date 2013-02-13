@@ -99,6 +99,28 @@ public class DefaultImpexService implements ImpexService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	protected List<Column> getColumns(Table table) {
+		return table.getColumns();
+	}
+
+	protected String[] getSqlValues(Table table, String[] tokens) {
+		List<Column> columns = getColumns(table);
+		Assert.isTrue(columns.size() == tokens.length);
+		String[] sqlValues = new String[tokens.length];
+		for (int i = 0; i < tokens.length; i++) {
+			Column column = columns.get(i);
+			String token = tokens[i];
+			String sqlValue = getSqlValue(column, token);
+			sqlValues[i] = getSqlValue(column, token);
+		}
+		return sqlValues;
+	}
+
+	protected String getSqlValue(Column column, String token) {
+		return null;
+	}
+
 	protected void convertFile(File file, Table table, String encoding) {
 		BufferedReader reader = null;
 		try {
@@ -110,6 +132,9 @@ public class DefaultImpexService implements ImpexService {
 				s = reader.readLine();
 				if (s == null) {
 					break;
+				}
+				if (StringUtils.contains(s, "${mpx.}")) {
+					System.out.print("");
 				}
 				String[] tokens = StringUtils.splitByWholeSeparator(s, "\",\"");
 				Assert.isTrue(tokens.length == columns.length);
