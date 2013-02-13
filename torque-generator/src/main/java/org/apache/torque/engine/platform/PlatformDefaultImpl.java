@@ -35,11 +35,11 @@ import org.apache.torque.engine.database.model.SchemaType;
 
 /**
  * Default implementation for the Platform interface.
- * 
+ *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: PlatformDefaultImpl.java,v 1.1.6.2 2008-04-18 17:04:37 jkeller Exp $
  */
-public class PlatformDefaultImpl implements Platform {
+public abstract class PlatformDefaultImpl implements Platform {
 	private Map<SchemaType, Domain> schemaDomainMap;
 
 	/**
@@ -64,12 +64,14 @@ public class PlatformDefaultImpl implements Platform {
 		schemaDomainMap.put(domain.getType(), domain);
 	}
 
-	public String getServerUrl(String url) {
+	@Override
+    public String getServerUrl(String url) {
 		// By default just return the existing url
 		return url;
 	}
 
-	public String getSchemaName(String artifactId) {
+	@Override
+    public String getSchemaName(String artifactId) {
 		String suffix = "-db";
 		if (artifactId.endsWith(suffix)) {
 			int length = artifactId.length();
@@ -81,21 +83,24 @@ public class PlatformDefaultImpl implements Platform {
 	/**
 	 * @see Platform#getMaxColumnNameLength()
 	 */
-	public int getMaxColumnNameLength() {
+	@Override
+    public int getMaxColumnNameLength() {
 		return 64;
 	}
 
 	/**
 	 * @see Platform#getNativeIdMethod()
 	 */
-	public String getNativeIdMethod() {
+	@Override
+    public String getNativeIdMethod() {
 		return Platform.IDENTITY;
 	}
 
 	/**
 	 * @see Platform#getDomainForSchemaType(SchemaType)
 	 */
-	public Domain getDomainForSchemaType(SchemaType jdbcType) {
+	@Override
+    public Domain getDomainForSchemaType(SchemaType jdbcType) {
 		return schemaDomainMap.get(jdbcType);
 	}
 
@@ -103,7 +108,8 @@ public class PlatformDefaultImpl implements Platform {
 	 * @return Only produces a SQL fragment if null values are disallowed.
 	 * @see Platform#getNullString(boolean)
 	 */
-	public String getNullString(boolean notNull) {
+	@Override
+    public String getNullString(boolean notNull) {
 		// TODO: Check whether this is true for all DBs. Also verify
 		// the old Sybase templates.
 		return (notNull ? "NOT NULL" : "");
@@ -112,50 +118,58 @@ public class PlatformDefaultImpl implements Platform {
 	/**
 	 * @see Platform#getAutoIncrement()
 	 */
-	public String getAutoIncrement() {
+	@Override
+    public String getAutoIncrement() {
 		return "IDENTITY";
 	}
 
 	/**
 	 * @see Platform#hasScale(String) TODO collect info for all platforms
 	 */
-	public boolean hasScale(String sqlType) {
+	@Override
+    public boolean hasScale(String sqlType) {
 		return true;
 	}
 
 	/**
 	 * @see Platform#hasSize(String) TODO collect info for all platforms
 	 */
-	public boolean hasSize(String sqlType) {
+	@Override
+    public boolean hasSize(String sqlType) {
 		return true;
 	}
 
 	/**
 	 * @see Platform#createNotNullBeforeAutoincrement()
 	 */
-	public boolean createNotNullBeforeAutoincrement() {
+	@Override
+    public boolean createNotNullBeforeAutoincrement() {
 		return true;
 	}
 
-	public String filterInvalidDefaultValues(String defaultValue) {
+	@Override
+    public String filterInvalidDefaultValues(String defaultValue) {
 		return defaultValue;
 	}
 
-	public boolean isSpecialDefault(String defaultValue) {
+	@Override
+    public boolean isSpecialDefault(String defaultValue) {
 		return false;
 	}
 
-	public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
+	@Override
+    public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
 		throw new UnsupportedOperationException("getSequenceDefinition");
 	}
 
-	public String getViewDefinition(Connection con, String schema, String viewName) {
+	@Override
+    public String getViewDefinition(Connection con, String schema, String viewName) {
 		throw new UnsupportedOperationException("getViewDefinition");
 	}
 
 	/**
 	 * Retrieves a list of the columns composing the primary key for a given table.
-	 * 
+	 *
 	 * @param dbMeta
 	 *            JDBC metadata.
 	 * @param tableName
@@ -163,7 +177,8 @@ public class PlatformDefaultImpl implements Platform {
 	 * @return A list of the primary key parts for <code>tableName</code>.
 	 * @throws SQLException
 	 */
-	public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
+	@Override
+    public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
 		List<String> pk = new ArrayList<String>();
 		ResultSet parts = null;
 		try {
@@ -179,39 +194,42 @@ public class PlatformDefaultImpl implements Platform {
 		return pk;
 	}
 
-	protected List<String>getTableNames (DatabaseMetaData dbMeta, String databaseSchema, String tableType) throws SQLException {
+	protected List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema, String tableType) throws SQLException {
 		// System.out.println("Getting table list...");
-				List<String> tables = new ArrayList<String>();
-				ResultSet tableNames = null;
-				// these are the entity types we want from the database
-				String[] types = { tableType }; // JHK: removed views from list
-				try {
-					tableNames = dbMeta.getTables(null, databaseSchema, null, types);
-					while (tableNames.next()) {
-						String name = tableNames.getString(3);
-						tables.add(name);
-					}
-				} finally {
-					if (tableNames != null) {
-						tableNames.close();
-					}
-				}
-				// System.out.println("Found " + tables.size() + " tables.");
-				return tables;
+		List<String> tables = new ArrayList<String>();
+		ResultSet tableNames = null;
+		// these are the entity types we want from the database
+		String[] types = { tableType }; // JHK: removed views from list
+		try {
+			tableNames = dbMeta.getTables(null, databaseSchema, null, types);
+			while (tableNames.next()) {
+				String name = tableNames.getString(3);
+				tables.add(name);
+			}
+		} finally {
+			if (tableNames != null) {
+				tableNames.close();
+			}
+		}
+		// System.out.println("Found " + tables.size() + " tables.");
+		return tables;
 	}
+
 	/**
 	 * Get all the table names in the current database that are not system tables.
-	 * 
+	 *
 	 * @param dbMeta
 	 *            JDBC database metadata.
 	 * @return The list of all the tables in a database.
 	 * @throws SQLException
 	 */
-	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+	@Override
+    public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return this.getTableNames(dbMeta, databaseSchema, "TABLE");
 	}
-	
-	public List<String>getSequenceNames (DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+
+	@Override
+    public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return this.getTableNames(dbMeta, databaseSchema, "SEQUENCE");
 	}
 }

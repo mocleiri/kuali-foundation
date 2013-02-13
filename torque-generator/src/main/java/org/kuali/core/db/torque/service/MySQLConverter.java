@@ -20,11 +20,11 @@ public class MySQLConverter implements SqlConverter {
 	String sqlDateFormat = "yyyyMMddHHmmss";
 
 	@Override
-	public List<String> getSqlValues(Column[] columns, String[] tokens) {
-		Assert.isTrue(columns.length == tokens.length);
+	public List<String> getSqlValues(List<Column> columns, String[] tokens) {
+		Assert.isTrue(columns.size() == tokens.length);
 		List<String> values = new ArrayList<String>();
-		for (int i = 0; i < columns.length; i++) {
-			Column column = columns[i];
+		for (int i = 0; i < columns.size(); i++) {
+			Column column = columns.get(i);
 			String token = tokens[i];
 			String value = getSqlValue(column, token);
 			values.add(value);

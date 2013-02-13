@@ -26,10 +26,11 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
+import org.kuali.core.db.torque.service.SqlConverter;
 
 /**
  * Interface for RDBMS platform specific behaviour.
- * 
+ *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: Platform.java,v 1.1.6.2 2008-04-18 17:04:37 jkeller Exp $
  */
@@ -51,21 +52,21 @@ public interface Platform {
 
 	/**
 	 * Returns the native IdMethod (sequence|identity)
-	 * 
+	 *
 	 * @return the native IdMethod
 	 */
 	String getNativeIdMethod();
 
 	/**
 	 * Returns the max column length supported by the db.
-	 * 
+	 *
 	 * @return the max column length
 	 */
 	int getMaxColumnNameLength();
 
 	/**
 	 * Returns the db specific domain for a jdbcType.
-	 * 
+	 *
 	 * @param jdbcType
 	 *            the jdbcType name
 	 * @return the db specific domain
@@ -84,7 +85,7 @@ public interface Platform {
 
 	/**
 	 * Returns if the RDBMS-specific SQL type has a size attribute.
-	 * 
+	 *
 	 * @param sqlType
 	 *            the SQL type
 	 * @return true if the type has a size attribute
@@ -93,7 +94,7 @@ public interface Platform {
 
 	/**
 	 * Returns if the RDBMS-specific SQL type has a scale attribute.
-	 * 
+	 *
 	 * @param sqlType
 	 *            the SQL type
 	 * @return true if the type has a scale attribute
@@ -101,11 +102,10 @@ public interface Platform {
 	boolean hasScale(String sqlType);
 
 	/**
-	 * Returns whether the "not null part" of the definition of a column should be generated before the
-	 * "autoincrement part" in a "create table" statement.
-	 * 
-	 * @return true if the "not null part" should be first, false if the "autoincrement part" should be first in a
-	 *         "create table" statement.
+	 * Returns whether the "not null part" of the definition of a column should be generated before the "autoincrement part" in a
+	 * "create table" statement.
+	 *
+	 * @return true if the "not null part" should be first, false if the "autoincrement part" should be first in a "create table" statement.
 	 */
 	boolean createNotNullBeforeAutoincrement();
 
@@ -123,11 +123,13 @@ public interface Platform {
 
 	/**
 	 * Get the list of sequences defined in the database schema given.
-	 * 
+	 *
 	 * @param dbMetaData
 	 * @param databaseSchema
 	 * @return A list of sequences that exist in the database.
 	 * @throws SQLException
 	 */
 	public List<String> getSequenceNames(DatabaseMetaData dbMetaData, String databaseSchema) throws SQLException;
+
+	SqlConverter getSqlConverter();
 }

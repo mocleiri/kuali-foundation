@@ -30,10 +30,12 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
+import org.kuali.core.db.torque.service.MySQLConverter;
+import org.kuali.core.db.torque.service.SqlConverter;
 
 /**
  * MySql Platform implementation.
- * 
+ *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: PlatformMysqlImpl.java,v 1.1.6.1 2008-04-18 17:04:37 jkeller Exp $
  */
@@ -64,14 +66,16 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 	/**
 	 * @see Platform#getAutoIncrement()
 	 */
-	public String getAutoIncrement() {
+	@Override
+    public String getAutoIncrement() {
 		return "AUTO_INCREMENT";
 	}
 
 	/**
 	 * @see Platform#hasSize(String)
 	 */
-	public boolean hasSize(String sqlType) {
+	@Override
+    public boolean hasSize(String sqlType) {
 		return !("MEDIUMTEXT".equals(sqlType) || "LONGTEXT".equals(sqlType) || "BLOB".equals(sqlType) || "MEDIUMBLOB".equals(sqlType) || "LONGBLOB".equals(sqlType));
 	}
 
@@ -171,32 +175,32 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 			return "";
 		}
 	}
-	
+
 	private boolean isSequence(String sequenceName) {
-		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_")
-				|| sequenceName.toUpperCase().endsWith("_SEQ") || sequenceName.toUpperCase().endsWith("_SEQUENCE")
-				|| sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
+		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_") || sequenceName.toUpperCase().endsWith("_SEQ")
+		        || sequenceName.toUpperCase().endsWith("_SEQUENCE") || sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
 	}
 
-
 	@Override
-	public List<String> getSequenceNames(DatabaseMetaData dbMetaData,
-			String databaseSchema) throws SQLException {
+	public List<String> getSequenceNames(DatabaseMetaData dbMetaData, String databaseSchema) throws SQLException {
 		// intentionally not calling the super implementation.
-		
+
 		List<String> sequenceList = new ArrayList<String>();
-		
+
 		List<String> tableList = getTableNames(dbMetaData, databaseSchema);
-		
+
 		for (String tableName : tableList) {
-			
+
 			if (isSequence(tableName))
 				sequenceList.add(tableName);
-			
+
 		}
 		return sequenceList;
 	}
-	
-	
+
+	@Override
+    public SqlConverter getSqlConverter() {
+		return new MySQLConverter();
+	}
 
 }

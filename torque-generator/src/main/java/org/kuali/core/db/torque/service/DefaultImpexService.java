@@ -95,7 +95,7 @@ public class DefaultImpexService implements ImpexService {
 			String filename = file.getName();
 			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 			Table table = getTableDefinition(tableName, tables);
-			convertFile(file, table, context.getEncoding());
+			convertFile(context, file, table);
 		}
 	}
 
@@ -121,10 +121,10 @@ public class DefaultImpexService implements ImpexService {
 		return null;
 	}
 
-	protected void convertFile(File file, Table table, String encoding) {
+	protected void convertFile(ImpexContext context, File file, Table table) {
 		BufferedReader reader = null;
 		try {
-			reader = LocationUtils.getBufferedReader(file, encoding);
+			reader = LocationUtils.getBufferedReader(file, context.getEncoding());
 			// First line is always the column headers
 			String s = reader.readLine();
 			String[] columns = StringUtils.split(s, ",");
@@ -133,15 +133,16 @@ public class DefaultImpexService implements ImpexService {
 				if (s == null) {
 					break;
 				}
-				if (StringUtils.contains(s, "${mpx.}")) {
-					System.out.print("");
-				}
 				String[] tokens = StringUtils.splitByWholeSeparator(s, "\",\"");
 				Assert.isTrue(tokens.length == columns.length);
 				// Remove leading and trailing double quotes inserted there when the .mpx file was written to disk
 				trimQuotes(tokens);
-				// Replace mpx tokens eg ${mpx.lf} with the actual value
+				// Replace mpx tokens eg ${mpx.lf} with the original value
 				unformat(tokens);
+
+				SqlConverter sc = context.getSqlConverter();
+				List<String> sqlValues = sc.getSqlValues(getColumns(table), tokens);
+
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

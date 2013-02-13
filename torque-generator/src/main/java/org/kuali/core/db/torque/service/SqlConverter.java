@@ -9,6 +9,6 @@ public interface SqlConverter {
 	/**
 	 * Return a value usable in an SQL insert statement
 	 */
-	List<String> getSqlValues(Column[] columns, String[] tokens);
+	List<String> getSqlValues(List<Column> columns, String[] tokens);
 
 }

@@ -31,12 +31,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.torque.engine.EngineException;
 import org.apache.torque.engine.platform.Platform;
-import org.apache.torque.engine.platform.PlatformDefaultImpl;
 import org.xml.sax.Attributes;
 
 /**
  * A Class for holding data about a column used in an Application.
- * 
+ *
  * @author <a href="mailto:leon@opticode.co.za">Leon Messerschmidt</a>
  * @author <a href="mailto:jvanzyl@apache.org">Jason van Zyl</a>
  * @author <a href="mailto:jon@latchkey.com">Jon S. Stevens</a>
@@ -94,7 +93,7 @@ public class Column {
 
 	/**
 	 * Creates a new column and set the name
-	 * 
+	 *
 	 * @param name
 	 *            column name
 	 */
@@ -105,10 +104,9 @@ public class Column {
 
 	/**
 	 * Return a comma delimited string listing the specified columns.
-	 * 
+	 *
 	 * @param columns
-	 *            Either a list of <code>Column</code> objects, or a list of <code>String</code> objects with column
-	 *            names.
+	 *            Either a list of <code>Column</code> objects, or a list of <code>String</code> objects with column names.
 	 */
 	public static String makeList(List columns) {
 		Object obj = columns.get(0);
@@ -176,7 +174,8 @@ public class Column {
 		// and the idMethod is native
 		// and the platform's default id Method is identity
 		// and autoIncrement is not excplicitly set to false
-		isAutoIncrement = ("true".equals(autoIncrement) || (isPrimaryKey() && IDMethod.NATIVE.equals(getTable().getIdMethod()) && Platform.IDENTITY.equals(getPlatform().getNativeIdMethod()) && (!"false".equals(autoIncrement))));
+		isAutoIncrement = ("true".equals(autoIncrement) || (isPrimaryKey() && IDMethod.NATIVE.equals(getTable().getIdMethod())
+		        && Platform.IDENTITY.equals(getPlatform().getNativeIdMethod()) && (!"false".equals(autoIncrement))));
 		// Default column value.
 		domain.replaceDefaultValue(attrib.getValue("default"));
 
@@ -222,7 +221,7 @@ public class Column {
 
 	/**
 	 * Set the description for the Table
-	 * 
+	 *
 	 * @param newDescription
 	 *            description for the Table
 	 */
@@ -232,7 +231,7 @@ public class Column {
 
 	/**
 	 * Get name to use in Java sources to build method names.
-	 * 
+	 *
 	 * @return the capitalised javaName
 	 */
 	public String getJavaName() {
@@ -251,7 +250,7 @@ public class Column {
 
 	/**
 	 * Returns the name for the getter method to retrieve the value of this column
-	 * 
+	 *
 	 * @return A getter method name for this column.
 	 * @since 3.2
 	 */
@@ -265,7 +264,7 @@ public class Column {
 
 	/**
 	 * Returns the name for the setter method to set the value of this column
-	 * 
+	 *
 	 * @return A setter method name for this column.
 	 * @since 3.2
 	 */
@@ -281,12 +280,12 @@ public class Column {
 	}
 
 	/**
-	 * Returns the name of the constant that is used for the column in the Peer class, e.g., RecordPeer.COLVARNAME.
-	 * Generally this will be a straight conversion to upper case. But if the column name is equals to TABLE_NAME or
-	 * DATABASE_NAME (Torque predefined vars), the column name will have an _ prefixed, e.g. _TABLE_NAME.
+	 * Returns the name of the constant that is used for the column in the Peer class, e.g., RecordPeer.COLVARNAME. Generally this will be a
+	 * straight conversion to upper case. But if the column name is equals to TABLE_NAME or DATABASE_NAME (Torque predefined vars), the
+	 * column name will have an _ prefixed, e.g. _TABLE_NAME.
 	 * <p>
 	 * TODO: Handle delimited column names that have non-Java identifier characters in them.
-	 * 
+	 *
 	 * @return The name to use in defining the Peer class column variable.
 	 */
 	public String getPeerJavaName() {
@@ -313,7 +312,7 @@ public class Column {
 
 	/**
 	 * Get the location of this column within the table (one-based).
-	 * 
+	 *
 	 * @return value of position.
 	 */
 	public int getPosition() {
@@ -322,7 +321,7 @@ public class Column {
 
 	/**
 	 * Get the location of this column within the table (one-based).
-	 * 
+	 *
 	 * @param v
 	 *            Value to assign to position.
 	 */
@@ -363,8 +362,7 @@ public class Column {
 	}
 
 	/**
-	 * Adds a new inheritance definition to the inheritance list and set the parent column of the inheritance to the
-	 * current column
+	 * Adds a new inheritance definition to the inheritance list and set the parent column of the inheritance to the current column
 	 */
 	public void addInheritance(Inheritance inh) {
 		inh.setColumn(this);
@@ -383,8 +381,7 @@ public class Column {
 	}
 
 	/**
-	 * Determine if this column is a normal property or specifies a the classes that are represented in the table
-	 * containing this column.
+	 * Determine if this column is a normal property or specifies a the classes that are represented in the table containing this column.
 	 */
 	public boolean isInheritance() {
 		return isInheritance;
@@ -413,7 +410,7 @@ public class Column {
 
 	/**
 	 * Return NOT NULL String for this column
-	 * 
+	 *
 	 * @return "NOT NULL" if null values are not allowed or an empty String.
 	 */
 	public String getNotNullString() {
@@ -477,8 +474,7 @@ public class Column {
 	}
 
 	/**
-	 * Determine if this column is a foreign key that refers to the same table as another foreign key column in this
-	 * table.
+	 * Determine if this column is a foreign key that refers to the same table as another foreign key column in this table.
 	 */
 	public boolean isMultipleFK() {
 		ForeignKey fk = getForeignKey();
@@ -512,8 +508,7 @@ public class Column {
 	}
 
 	/**
-	 * Utility method to get the related column of this local column if this column is a foreign key or part of a
-	 * foreign key.
+	 * Utility method to get the related column of this local column if this column is a foreign key or part of a foreign key.
 	 */
 	public String getRelatedColumnName() {
 		ForeignKey fk = getForeignKey();
@@ -568,10 +563,11 @@ public class Column {
 
 	/**
 	 * Returns the column jdbc type as an object
-	 * 
+	 *
 	 * @deprecated the type conversion is handled by the platform package (since torque 3.2)
 	 */
-	public Object getType() {
+	@Deprecated
+    public Object getType() {
 		return TypeMap.getJdbcType(domain.getType()).getName();
 	}
 
@@ -584,28 +580,31 @@ public class Column {
 
 	/**
 	 * Utility method to see if the column is a string
-	 * 
+	 *
 	 * @deprecated will be removed after the 3.3 release
 	 */
-	public boolean isString() {
+	@Deprecated
+    public boolean isString() {
 		return (domain.getType().getName().indexOf("CHAR") != -1);
 	}
 
 	/**
-	 * Utility method to return the value as an element to be usable in an SQL insert statement. This is used from the
-	 * SQL loader task
+	 * Utility method to return the value as an element to be usable in an SQL insert statement. This is used from the SQL loader task
 	 */
 	public boolean needEscapedValue() {
 		String torqueType = domain.getType().getName();
-		return (torqueType != null) && (torqueType.equals("VARCHAR") || torqueType.equals("LONGVARCHAR") || torqueType.equals("DATE") || torqueType.equals("DATETIME") || torqueType.equals("TIMESTAMP") || torqueType.equals("TIME") || torqueType.equals("CHAR") || torqueType.equals("CLOB"));
+		return (torqueType != null)
+		        && (torqueType.equals("VARCHAR") || torqueType.equals("LONGVARCHAR") || torqueType.equals("DATE") || torqueType.equals("DATETIME")
+		                || torqueType.equals("TIMESTAMP") || torqueType.equals("TIME") || torqueType.equals("CHAR") || torqueType.equals("CLOB"));
 	}
 
 	/**
 	 * String representation of the column. This is an xml representation.
-	 * 
+	 *
 	 * @return string representation in xml
 	 */
-	public String toString() {
+	@Override
+    public String toString() {
 		StringBuffer result = new StringBuffer();
 		result.append("    <column name=\"").append(name).append('"');
 
@@ -662,12 +661,12 @@ public class Column {
 	}
 
 	/**
-	 * Try to determine the precision of the field from the size attribute. If size attribute is an integer number, it
-	 * will be returned. If size attribute is of the format "Precision,Scale", then Precision will be returned. If size
-	 * is null or the size value is not an valid integer, null is returned.
+	 * Try to determine the precision of the field from the size attribute. If size attribute is an integer number, it will be returned. If
+	 * size attribute is of the format "Precision,Scale", then Precision will be returned. If size is null or the size value is not an valid
+	 * integer, null is returned.
 	 * <p>
 	 * Note: Unparseable values will be logged as a warning.
-	 * 
+	 *
 	 * @return The precision portion of the size attribute.
 	 */
 	public String getPrecision() {
@@ -689,12 +688,12 @@ public class Column {
 	}
 
 	/**
-	 * Try to determine the scale of the field from the scale and size attribute. If scale attribute is an integer
-	 * number, it will be returned. If size attribute is of the format "Precision,Scale", then Scale will be returned.
-	 * If scale and size attributes are null or the scale value found is not an valid integer, a null value is returned.
+	 * Try to determine the scale of the field from the scale and size attribute. If scale attribute is an integer number, it will be
+	 * returned. If size attribute is of the format "Precision,Scale", then Scale will be returned. If scale and size attributes are null or
+	 * the scale value found is not an valid integer, a null value is returned.
 	 * <p>
 	 * Note: Unparseable values will be logged as a warning.
-	 * 
+	 *
 	 * @return The precision portion of the size attribute.
 	 */
 	public String getScale() {
@@ -733,7 +732,7 @@ public class Column {
 
 	/**
 	 * Return the size and scale in brackets for use in an sql schema.
-	 * 
+	 *
 	 * @return size and scale or an empty String if there are no values available.
 	 */
 	public String printSize() {
@@ -742,10 +741,11 @@ public class Column {
 
 	/**
 	 * Return a string that will give this column a default value.
-	 * 
+	 *
 	 * @deprecated
 	 */
-	public String getDefaultSetting() {
+	@Deprecated
+    public String getDefaultSetting() {
 		return domain.getDefaultSetting();
 	}
 
@@ -771,8 +771,7 @@ public class Column {
 	}
 
 	/**
-	 * Return auto increment/sequence string for the target database. We need to pass in the props for the target
-	 * database!
+	 * Return auto increment/sequence string for the target database. We need to pass in the props for the target database!
 	 */
 	public boolean isAutoIncrement() {
 		return isAutoIncrement;
@@ -821,8 +820,8 @@ public class Column {
 	}
 
 	/**
-	 * Return a string representation of the Java object which corresponds to the JDBC type of this column. Use in the
-	 * generation of MapBuilders.
+	 * Return a string representation of the Java object which corresponds to the JDBC type of this column. Use in the generation of
+	 * MapBuilders.
 	 */
 	public String getJavaObject() {
 		return TypeMap.getJavaObject(domain.getType());
@@ -830,7 +829,7 @@ public class Column {
 
 	/**
 	 * Return a string representation of the primitive java type which corresponds to the JDBC type of this column.
-	 * 
+	 *
 	 * @return string representation of the primitive java type
 	 */
 	public String getJavaPrimitive() {
@@ -838,10 +837,9 @@ public class Column {
 	}
 
 	/**
-	 * Return a string representation of the native java type which corresponds to the JDBC type of this column. Use in
-	 * the generation of Base objects. This method is used by torque, so it returns Key types for primaryKey and
-	 * foreignKey columns
-	 * 
+	 * Return a string representation of the native java type which corresponds to the JDBC type of this column. Use in the generation of
+	 * Base objects. This method is used by torque, so it returns Key types for primaryKey and foreignKey columns
+	 *
 	 * @return java datatype used by torque
 	 */
 	public String getJavaNative() {
@@ -925,9 +923,8 @@ public class Column {
 		try {
 			return getTable().getDatabase().getPlatform();
 		} catch (Exception ex) {
-			log.warn("could not load platform implementation");
+			throw new IllegalStateException(ex);
 		}
-		return new PlatformDefaultImpl();
 	}
 
 	public String getSqlString() {
@@ -972,7 +969,7 @@ public class Column {
 
 	/**
 	 * Return the correctGetters property of the column
-	 * 
+	 *
 	 * @return The currentValue of the correctGetters property.
 	 * @since 3.2
 	 */
@@ -981,9 +978,9 @@ public class Column {
 	}
 
 	/**
-	 * Set the correctGetters property of the column. If set to true, the column returns is&lt;xxx&gt; as the getter
-	 * name which is correct for the Bean Specs but incompatible to pre-3.2 releases.
-	 * 
+	 * Set the correctGetters property of the column. If set to true, the column returns is&lt;xxx&gt; as the getter name which is correct
+	 * for the Bean Specs but incompatible to pre-3.2 releases.
+	 *
 	 * @param correctGetters
 	 *            The new value of the correctGetters property.
 	 * @since 3.2
@@ -994,7 +991,7 @@ public class Column {
 
 	/**
 	 * Get the value of the inheritance attribute defined in the schema XML.
-	 * 
+	 *
 	 * @return Returns the inheritanceType.
 	 */
 	public String getInheritanceType() {
@@ -1003,7 +1000,7 @@ public class Column {
 
 	/**
 	 * Add an XML Specified option key/value pair to this element's option set.
-	 * 
+	 *
 	 * @param key
 	 *            the key of the option.
 	 * @param value
@@ -1015,7 +1012,7 @@ public class Column {
 
 	/**
 	 * Get the value that was associated with this key in an XML option element.
-	 * 
+	 *
 	 * @param key
 	 *            the key of the option.
 	 * @return The value for the key or a null.
@@ -1027,10 +1024,10 @@ public class Column {
 	/**
 	 * Gets the full ordered hashtable array of items specified by XML option statements under this element.
 	 * <p>
-	 * 
-	 * Note, this is not thread save but since it's only used for generation which is single threaded, there should be
-	 * minimum danger using this in Velocity.
-	 * 
+	 *
+	 * Note, this is not thread save but since it's only used for generation which is single threaded, there should be minimum danger using
+	 * this in Velocity.
+	 *
 	 * @return An Map of all options. Will not be null but may be empty.
 	 */
 	public Map getOptions() {

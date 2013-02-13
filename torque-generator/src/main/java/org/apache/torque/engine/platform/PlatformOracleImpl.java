@@ -28,10 +28,11 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
+import org.kuali.core.db.torque.service.SqlConverter;
 
 /**
  * Oracle Platform implementation.
- * 
+ *
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: PlatformOracleImpl.java,v 1.1.6.1 2008-04-18 17:04:37 jkeller Exp $
  */
@@ -75,6 +76,7 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 	/**
 	 * @see Platform#getMaxColumnNameLength()
 	 */
+	@Override
 	public int getMaxColumnNameLength() {
 		return 30;
 	}
@@ -82,6 +84,7 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 	/**
 	 * @see Platform#getNativeIdMethod()
 	 */
+	@Override
 	public String getNativeIdMethod() {
 		return Platform.SEQUENCE;
 	}
@@ -89,6 +92,7 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 	/**
 	 * @see Platform#getAutoIncrement()
 	 */
+	@Override
 	public String getAutoIncrement() {
 		return "";
 	}
@@ -98,6 +102,7 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 		return super.getPrimaryKeys(dbMeta, dbSchema.toUpperCase(), tableName);
 	}
 
+	@Override
 	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return super.getTableNames(dbMeta, databaseSchema.toUpperCase());
 	}
@@ -151,6 +156,12 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 			ex.printStackTrace();
 			return "";
 		}
+	}
+
+	@Override
+	public SqlConverter getSqlConverter() {
+		// TODO Create an OracleSqlConverter
+		throw new IllegalStateException("not implemented yet");
 	}
 
 }

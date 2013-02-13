@@ -34,7 +34,7 @@ public class PlatformFactory {
 
 	/**
 	 * Returns the Platform for a platform name.
-	 * 
+	 *
 	 * @param dbms
 	 *            name of the platform
 	 */
@@ -48,12 +48,8 @@ public class PlatformFactory {
 				platformName = getClassnameFor(dbms);
 				Class<?> platformClass = Class.forName(platformName);
 				result = (Platform) platformClass.newInstance();
-
-			} catch (Throwable t) {
-				log.warn("problems with platform " + platformName + ": " + t.getMessage());
-				log.warn("Torque will use PlatformDefaultImpl instead");
-
-				result = new PlatformDefaultImpl();
+			} catch (Exception e) {
+				throw new IllegalStateException(e);
 			}
 			getPlatforms().put(dbms, result); // cache the Platform
 		}
@@ -62,7 +58,7 @@ public class PlatformFactory {
 
 	/**
 	 * compute the name of the concrete Class representing the Platform specified by <code>platform</code>
-	 * 
+	 *
 	 * @param platform
 	 *            the name of the platform as specified in the repository
 	 */
@@ -76,7 +72,7 @@ public class PlatformFactory {
 
 	/**
 	 * Gets the platforms.
-	 * 
+	 *
 	 * @return Returns a HashMap
 	 */
 	private static Map<String, Platform> getPlatforms() {
