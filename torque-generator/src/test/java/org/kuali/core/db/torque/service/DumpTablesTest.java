@@ -22,7 +22,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.junit.Test;
@@ -196,7 +195,6 @@ public class DumpTablesTest {
 		} else {
 			context.setDatabaseTableProperties(new Properties());
 		}
-		context.setDateFormatter(FastDateFormat.getInstance(context.getDateFormat()));
 		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
 		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
 		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));

@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +30,6 @@ import javax.sql.DataSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.Database;
@@ -200,7 +200,7 @@ public class DefaultImpexService implements ImpexService {
 	/**
 	 * Convert the data from the row into String form
 	 */
-	protected String[] getRowData(FastDateFormat dateFormatter, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
+	protected String[] getRowData(String dateFormat, String tableName, ResultSet rs, Column[] columns, long rowCount) throws SQLException {
 		// Allocate some storage
 		String[] data = new String[columns.length];
 
@@ -218,7 +218,7 @@ public class DefaultImpexService implements ImpexService {
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java strings
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			data[i] = getColumnValueAsString(dateFormatter, rs, resultSetColumnIndex, column, rowCount, tableName);
+			data[i] = getColumnValueAsString(dateFormat, rs, resultSetColumnIndex, column, rowCount, tableName);
 		}
 		return data;
 	}
@@ -276,7 +276,7 @@ public class DefaultImpexService implements ImpexService {
 	 * on the underlying ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is
 	 * forbidden.
 	 */
-	protected String getColumnValueAsString(FastDateFormat dateFormatter, ResultSet rs, int index, Column column, long rowCount, String tableName) {
+	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
 			// Clob's and Date's need special handling
 			switch (column.getJdbcType()) {
@@ -293,7 +293,13 @@ public class DefaultImpexService implements ImpexService {
 				if (date == null) {
 					return null;
 				} else {
-					return dateFormatter.format(date);
+					// New instance every single time because
+					// 1 - SimpleDateFormat is not threadsafe AND
+					// 2 - FasteDateFormat does not format UTC offset the same way SimpleDateFormat does
+					// That combo of things makes it impossible to use a single pattern to express how dates should be both formatted
+					// and parsed
+					SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+					return sdf.format(date);
 				}
 			default:
 				// Otherwise just invoke toString() on the method
@@ -784,11 +790,10 @@ public class DefaultImpexService implements ImpexService {
 			List<String[]> data = new ArrayList<String[]>();
 			DumpTableContext startContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
 			context.getDataHandler().startData(startContext);
-			FastDateFormat dateFormatter = FastDateFormat.getInstance(context.getDateFormat());
 			while (rs.next()) {
 				currentRowCount++;
 				totalRowCount++;
-				String[] rowData = getRowData(dateFormatter, table.getName(), rs, columns, totalRowCount);
+				String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
 				data.add(rowData);
 				long rowSize = getSize(rowData);
 				currentDataSize += rowSize;

@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.torque.engine.platform.Platform;
 
 public class ImpexContext {
@@ -50,7 +49,6 @@ public class ImpexContext {
 	String reportFile;
 	DataSource dataSource;
 	Platform platform;
-	FastDateFormat dateFormatter;
 	Properties databaseTableProperties;
 	String databaseTablePropertiesLocation;
 	boolean storeDatabaseTableProperties;
@@ -358,13 +356,4 @@ public class ImpexContext {
 	public void setStoreDatabaseTableProperties(boolean storeDatabaseTableProperties) {
 		this.storeDatabaseTableProperties = storeDatabaseTableProperties;
 	}
-
-	public FastDateFormat getDateFormatter() {
-		return dateFormatter;
-	}
-
-	public void setDateFormatter(FastDateFormat dateFormatter) {
-		this.dateFormatter = dateFormatter;
-	}
-
 }
