@@ -11,8 +11,8 @@ public class MySQLConverter implements SqlConverter {
 	private static final String DATE = "DATE";
 	private static final String TIMESTAMP = "TIMESTAMP";
 
-	String srcDateFormat;
-	String sqlDateFormat;
+	String srcDateFormat = ImpexContext.MPX_DATE_FORMAT;
+	String sqlDateFormat = "yyyyMMddHHmmss";
 
 	@Override
 	public String getSqlValue(Column column, String token) {
@@ -24,13 +24,13 @@ public class MySQLConverter implements SqlConverter {
 	}
 
 	protected String getSqlDateValue(String token) {
-		Date date = getDateFromMpx(token);
+		Date date = getDateFromSource(token);
 		SimpleDateFormat sqlDateFormatter = new SimpleDateFormat(sqlDateFormat);
 		String sqlValue = sqlDateFormatter.format(date);
 		return "STR_TO_DATE( '" + sqlValue + "', '%Y%m%d%H%i%s' )";
 	}
 
-	protected Date getDateFromMpx(String token) {
+	protected Date getDateFromSource(String token) {
 		SimpleDateFormat sdf = new SimpleDateFormat(srcDateFormat);
 		try {
 			return sdf.parse(token);
