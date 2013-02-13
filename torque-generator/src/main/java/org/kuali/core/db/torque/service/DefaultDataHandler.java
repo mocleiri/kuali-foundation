@@ -56,6 +56,9 @@ public class DefaultDataHandler implements DataHandler {
 		}
 	}
 
+	/**
+	 * Comma separated, all values enclosed in double quotes, always terminated by a linefeed
+	 */
 	protected String getLine(String[] row) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < row.length; i++) {
