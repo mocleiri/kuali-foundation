@@ -140,7 +140,7 @@ public class DefaultImpexService implements ImpexService {
 				// Replace mpx tokens eg ${mpx.lf} with the original value
 				unformat(tokens);
 
-				SqlConverter sc = context.getSqlConverter();
+				SqlConverter sc = context.getPlatform().getSqlConverter();
 				List<String> sqlValues = sc.getSqlValues(getColumns(table), tokens);
 
 			}

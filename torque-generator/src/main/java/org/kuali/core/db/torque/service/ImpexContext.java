@@ -54,7 +54,6 @@ public class ImpexContext {
 	Properties databaseTableProperties;
 	String databaseTablePropertiesLocation;
 	boolean storeDatabaseTableProperties;
-	SqlConverter sqlConverter;
 
 	public boolean isProcessTables() {
 		return processTables;
@@ -368,11 +367,4 @@ public class ImpexContext {
 		this.dateFormatter = dateFormatter;
 	}
 
-	public SqlConverter getSqlConverter() {
-		return sqlConverter;
-	}
-
-	public void setSqlConverter(SqlConverter sqlConverter) {
-		this.sqlConverter = sqlConverter;
-	}
 }
