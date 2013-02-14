@@ -23,16 +23,19 @@ public class MySQLImpexReader implements ImpexReader {
 
 	String srcDateFormat = ImpexContext.MPX_DATE_FORMAT;
 	String sqlDateFormat = "yyyyMMddHHmmss";
+	int maxRows = 50;
+	int maxLength = 50 * 1024;
 
 	@Override
 	public String getInsertSql(Table table, BufferedReader reader) throws IOException {
+
+		// Extract the columns into a list
 		List<Column> columns = getColumns(table);
-		String line = reader.readLine();
 
-		if (ImpexUtils.isHeaderLine(line)) {
-			line = reader.readLine();
-		}
+		// Extract the next line from the reader
+		String line = getNextLine(reader);
 
+		// We hit the end of the .mpx file
 		if (line == null) {
 			return null;
 		}
@@ -47,6 +50,15 @@ public class MySQLImpexReader implements ImpexReader {
 		sb.append(csv);
 		sb.append(")");
 		return sb.toString();
+	}
+
+	protected String getNextLine(BufferedReader reader) throws IOException {
+		String line = reader.readLine();
+		if (ImpexUtils.isHeaderLine(line)) {
+			return reader.readLine();
+		} else {
+			return line;
+		}
 	}
 
 	protected String getSqlCsvFromLine(List<Column> columns, String line) {
@@ -158,6 +170,38 @@ public class MySQLImpexReader implements ImpexReader {
 
 	protected boolean isHeaderLine(String s) {
 		return StringUtils.startsWith(s, QUOTE);
+	}
+
+	public String getSrcDateFormat() {
+		return srcDateFormat;
+	}
+
+	public void setSrcDateFormat(String srcDateFormat) {
+		this.srcDateFormat = srcDateFormat;
+	}
+
+	public String getSqlDateFormat() {
+		return sqlDateFormat;
+	}
+
+	public void setSqlDateFormat(String sqlDateFormat) {
+		this.sqlDateFormat = sqlDateFormat;
+	}
+
+	public int getMaxRows() {
+		return maxRows;
+	}
+
+	public void setMaxRows(int maxRows) {
+		this.maxRows = maxRows;
+	}
+
+	public int getMaxLength() {
+		return maxLength;
+	}
+
+	public void setMaxLength(int maxLength) {
+		this.maxLength = maxLength;
 	}
 
 }
