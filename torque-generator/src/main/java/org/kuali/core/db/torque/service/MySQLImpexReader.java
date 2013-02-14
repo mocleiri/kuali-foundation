@@ -77,7 +77,7 @@ public class MySQLImpexReader implements ImpexReader {
 		}
 
 		if (rows > 0) {
-			// If we found some rows to convert into SQL return the SQL
+			// We found at least one row to turn into SQL
 			return sb.toString();
 		} else {
 			// Otherwise return null, indicating there is nothing more to process for this ImpexReader
