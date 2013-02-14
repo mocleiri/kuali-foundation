@@ -32,24 +32,61 @@ public class MySQLImpexReader implements ImpexReader {
 		// Extract the columns into a list
 		List<Column> columns = getColumns(table);
 
-		// Extract the next line from the reader
-		String line = getNextLine(reader);
-
-		// We hit the end of the .mpx file
-		if (line == null) {
-			return null;
-		}
-
-		//
-		String csv = getSqlCsvFromLine(columns, line);
-
 		//
 		StringBuilder sb = new StringBuilder();
+
+		// INSERT INTO FOO (BAR1,BAR2) VALUES
 		sb.append(getPrefix(table));
-		sb.append("(");
-		sb.append(csv);
-		sb.append(")");
-		return sb.toString();
+
+		// Track rows processed and total SQL length
+		int rows = 0;
+		int length = sb.length();
+
+		// Iterate through the .mpx file
+		for (;;) {
+
+			// Extract the next line from the reader
+			String line = getNextLine(reader);
+
+			// We hit the end of the .mpx file
+			if (line == null) {
+				break;
+			}
+
+			// Convert the tokens from the .mpx file into what MySQL needs
+			String csv = getSqlCsvFromLine(columns, line);
+
+			// Need to add a comma, unless this is the first set of values
+			if (rows != 0) {
+				sb.append(",");
+			}
+
+			// Enclose the CSV in parenthesis
+			sb.append("(");
+			sb.append(csv);
+			sb.append(")");
+
+			// increment our counters
+			rows++;
+			length += csv.length() + 2;
+
+			// Have we exceeded any of our limits?
+			if (!isProceed(rows, length, maxRows, maxLength)) {
+				break;
+			}
+		}
+
+		if (rows > 0) {
+			// If we found some rows to convert into SQL return the SQL
+			return sb.toString();
+		} else {
+			// Otherwise return null, indicating there is nothing more to process for this ImpexReader
+			return null;
+		}
+	}
+
+	protected boolean isProceed(int rows, int length, int maxRows, int maxLength) {
+		return false;
 	}
 
 	protected String getNextLine(BufferedReader reader) throws IOException {
