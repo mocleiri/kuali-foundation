@@ -32,7 +32,7 @@ public class MySQLImpexReader implements ImpexReader {
 		// Extract the columns into a list
 		List<Column> columns = getColumns(table);
 
-		//
+		// Setup some storage
 		StringBuilder sb = new StringBuilder();
 
 		// INSERT INTO FOO (BAR1,BAR2) VALUES
@@ -86,7 +86,13 @@ public class MySQLImpexReader implements ImpexReader {
 	}
 
 	protected boolean isProceed(int rows, int length, int maxRows, int maxLength) {
-		return false;
+		if (rows > maxRows) {
+			return false;
+		}
+		if (length > maxLength) {
+			return false;
+		}
+		return true;
 	}
 
 	protected String getNextLine(BufferedReader reader) throws IOException {
