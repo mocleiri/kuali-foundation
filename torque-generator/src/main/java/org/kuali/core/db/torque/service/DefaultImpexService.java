@@ -113,18 +113,23 @@ public class DefaultImpexService implements ImpexService {
 	protected void executeSql(ImpexContext context, Table table, String location) {
 		ImpexReader impexReader = context.getPlatform().getImpexReader();
 		BufferedReader reader = null;
+		OutputStream out = null;
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
+			out = FileUtils.openOutputStream(new File(context.getWorkingDir() + "/" + table.getName() + ".sql"));
 			String insertSql = impexReader.getInsertSql(table, reader);
 			while (insertSql != null) {
+				byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
+				out.write(bytes);
 				count++;
-				length += insertSql.length();
+				length += insertSql.length() + 3;
 				insertSql = impexReader.getInsertSql(table, reader);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(reader);
+			IOUtils.closeQuietly(out);
 		}
 	}
 

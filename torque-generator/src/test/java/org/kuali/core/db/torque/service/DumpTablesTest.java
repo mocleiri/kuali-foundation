@@ -67,7 +67,7 @@ public class DumpTablesTest {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
 			service.fillInMetaData(sourceContext, database);
 			service.serializeSchemas(contexts, database);
-			service.generateDataDtds(contexts);
+			// service.generateDataDtds(contexts);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			if (sourceContext.isStoreDatabaseTableProperties()) {
 				ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesLocation(), results);

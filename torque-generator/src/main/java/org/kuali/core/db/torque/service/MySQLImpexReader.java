@@ -143,7 +143,8 @@ public class MySQLImpexReader implements ImpexReader {
 		if (column.needEscapedValue()) {
 			String escaped1 = StringUtils.replace(token, "\\", "\\\\");
 			String escaped2 = StringUtils.replace(escaped1, "'", "\\'");
-			return "'" + escaped2 + "'";
+			String escaped3 = StringUtils.replace(escaped2, "\n", "\\n");
+			return "'" + escaped3 + "'";
 		}
 		return token;
 	}
