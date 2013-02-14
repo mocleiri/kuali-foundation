@@ -50,9 +50,9 @@ public class MySQLImpexReader implements ImpexReader {
 	}
 
 	protected String getSqlCsvFromLine(List<Column> columns, String line) {
-		// Split up the values from the .mpx file
+		// Remove the .mpx formatting and split the values up into individual tokens
 		String[] tokens = ImpexUtils.getOriginalValues(line);
-		// Convert them into the form they need to be in for SQL
+		// Format the raw tokens into SQL appropriate values
 		List<String> sqlValues = getSqlValues(columns, tokens);
 		// Turn them into a comma separated list
 		return CollectionUtils.getCSV(sqlValues);
