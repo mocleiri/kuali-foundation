@@ -32,14 +32,15 @@ public class MySQLImpexReader implements ImpexReader {
 		if (ImpexUtils.isHeaderLine(line)) {
 			line = reader.readLine();
 		}
+
 		if (line == null) {
 			return null;
 		}
 
-		String[] tokens = ImpexUtils.getOriginalValues(line);
-		List<String> sqlValues = getSqlValues(columns, tokens);
-		String csv = CollectionUtils.getCSV(sqlValues);
+		//
+		String csv = getSqlCsvFromLine(columns, line);
 
+		//
 		StringBuilder sb = new StringBuilder();
 		sb.append(getPrefix(table));
 		sb.append("(");
@@ -48,6 +49,19 @@ public class MySQLImpexReader implements ImpexReader {
 		return sb.toString();
 	}
 
+	protected String getSqlCsvFromLine(List<Column> columns, String line) {
+		// Split up the values from the .mpx file
+		String[] tokens = ImpexUtils.getOriginalValues(line);
+		// Convert them into the form they need to be in for SQL
+		List<String> sqlValues = getSqlValues(columns, tokens);
+		// Turn them into a comma separated list
+		return CollectionUtils.getCSV(sqlValues);
+	}
+
+	/**
+	 * The strings returned by this method must be suitable for use in an SQL "INSERT INTO" statement without needing any modification. All
+	 * characters that need to be escaped must be escaped already, any text values must be enclosed with quotes as appropriate.
+	 */
 	protected List<String> getSqlValues(List<Column> columns, String[] tokens) {
 		Assert.isTrue(columns.size() == tokens.length);
 		List<String> values = new ArrayList<String>();
