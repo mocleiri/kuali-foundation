@@ -83,8 +83,6 @@ import org.w3c.dom.Element;
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
-	long count = 0;
-	long length = 0;
 
 	@Override
 	public void convertCsvToSql(ImpexContext context) {
@@ -100,9 +98,6 @@ public class DefaultImpexService implements ImpexService {
 			Table table = getTableDefinition(tableName, tables);
 			executeSql(context, table, LocationUtils.getCanonicalPath(file));
 		}
-		String c = FormatUtils.getCount(count);
-		String l = FormatUtils.getSize(length);
-		logger.info("Count: {}  Length: {}", c, l);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -121,8 +116,6 @@ public class DefaultImpexService implements ImpexService {
 			while (insertSql != null) {
 				byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
 				out.write(bytes);
-				count++;
-				length += insertSql.length() + 3;
 				insertSql = impexReader.getInsertSql(table, reader);
 			}
 		} catch (IOException e) {
