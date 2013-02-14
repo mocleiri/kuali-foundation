@@ -66,7 +66,7 @@ public class MySQLImpexReader implements ImpexReader {
 			return NULL;
 		}
 		if (isDate(column)) {
-			return getSqlDateValue(token);
+			return getSqlDateValue(token, srcDateFormat, sqlDateFormat);
 		}
 		if (column.needEscapedValue()) {
 			String escaped1 = StringUtils.replace(token, "\\", "\\\\");
@@ -76,19 +76,19 @@ public class MySQLImpexReader implements ImpexReader {
 		return token;
 	}
 
-	protected String getSqlDateValue(String token) {
-		Date date = getDateFromSource(token);
+	protected String getSqlDateValue(String token, String srcDateFormat, String sqlDateFormat) {
+		Date date = getDateFromSource(token, srcDateFormat);
 		SimpleDateFormat sqlDateFormatter = new SimpleDateFormat(sqlDateFormat);
 		String sqlValue = sqlDateFormatter.format(date);
 		return "STR_TO_DATE( '" + sqlValue + "', '%Y%m%d%H%i%s' )";
 	}
 
-	protected Date getDateFromSource(String token) {
-		SimpleDateFormat sdf = new SimpleDateFormat(srcDateFormat);
+	protected Date getDateFromSource(String token, String dateFormat) {
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		try {
 			return sdf.parse(token);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Cannot parse " + token + " using format [" + srcDateFormat + "]");
+			throw new IllegalArgumentException("Cannot parse " + token + " using format [" + dateFormat + "]");
 		}
 	}
 
@@ -124,7 +124,7 @@ public class MySQLImpexReader implements ImpexReader {
 		return names;
 	}
 
-	// INSERT INTO FOO (BAR1,BAR2) VALUES ('1','2'),('3','4')
+	// INSERT INTO FOO (BAR1,BAR2) VALUES
 	protected String getPrefix(Table table) {
 		List<Column> columns = getColumns(table);
 		List<String> names = getColumnNames(columns);
