@@ -27,7 +27,8 @@ public class MySQLImpexReader implements ImpexReader {
 	int maxLength = 50 * 1024;
 
 	/**
-	 * Read lines from the .mpx file and combine them into batched up, INSERT INTO sql statements
+	 * Read data lines from the .mpx file and combine them into batched up, INSERT INTO sql statements. Individual data lines are merged
+	 * together into SQL statements 50 lines at a time or 50K in length whichever comes first.
 	 */
 	@Override
 	public String getInsertSql(Table table, BufferedReader reader) throws IOException {
