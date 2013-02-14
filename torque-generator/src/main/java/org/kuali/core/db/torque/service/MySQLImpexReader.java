@@ -20,32 +20,31 @@ public class MySQLImpexReader implements ImpexReader {
 	private static final String DATE = "DATE";
 	private static final String TIMESTAMP = "TIMESTAMP";
 	private static final String NULL = "NULL";
-	private static final String LF = "\n";
 
 	String srcDateFormat = ImpexContext.MPX_DATE_FORMAT;
 	String sqlDateFormat = "yyyyMMddHHmmss";
-	String delimiter = "/";
 
 	@Override
 	public String getInsertSql(Table table, BufferedReader reader) throws IOException {
 		List<Column> columns = getColumns(table);
 		String line = reader.readLine();
+
 		if (ImpexUtils.isHeaderLine(line)) {
 			line = reader.readLine();
 		}
 		if (line == null) {
 			return null;
 		}
+
 		String[] tokens = ImpexUtils.getOriginalValues(line);
 		List<String> sqlValues = getSqlValues(columns, tokens);
+		String csv = CollectionUtils.getCSV(sqlValues);
+
 		StringBuilder sb = new StringBuilder();
 		sb.append(getPrefix(table));
 		sb.append("(");
-		sb.append(CollectionUtils.getCSV(sqlValues));
+		sb.append(csv);
 		sb.append(")");
-		sb.append(LF);
-		sb.append(delimiter);
-		sb.append(LF);
 		return sb.toString();
 	}
 
