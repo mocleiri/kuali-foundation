@@ -2,8 +2,8 @@
 	Custom scripting for additional functionality
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created: 	29 Jan 2013, 12:09
-	Last Mod: 	8 Feb 2013, 09:39
-	Version: 	0.3
+	Last Mod: 	13 Feb 2013, 15:45
+	Version: 	0.4
 */
 
 
@@ -20,10 +20,10 @@ $.fn.scrollBottom=function(){return $(document).height()-this.scrollTop()-this.h
 Global variables
 ---------------------------------- */
 var $header 	= $('#header'),
+	$window 	= $(window),
 	$document 	= $('#document'),
 	$toc 		= $('#ToC'),
 	$sec		= $('#secondary'),
-	$window 	= $(window),
 	$dOffset	= $document.offset(),
 	$tOffset 	= $toc.offset(),
 	$sOffset	= $sec.offset();
@@ -50,13 +50,52 @@ function init_sticky_elems() {
 
 
 /*
+Form field validation
+*** For example only. KRAD will probably have something already in place.
+---------------------------------- */
+// If there is a '#' in the URL (someone linking directly to a page with an anchor), go directly to that area and focus is
+// Thanks to WebAIM.org for this idea
+if (document.location.hash) {
+	var anchorUponArrival = document.location.hash;
+	setTimeout(function() {
+		$(anchorUponArrival).focus();
+	}, 100);
+}
+
+// Focuses on the correct section of the page if we're page linking
+// Thanks to WebAIM.org for this idea
+$('a[href^="#"]').click(function(event) {
+	var inPageAnchor = "#" + this.href.split('#')[1];
+	setTimeout(function() {
+		$(inPageAnchor).focus();
+	}, 100);
+	return false;
+});
+
+$('#error_message_container').hide();
+
+$('#validate_data').on('click', function() {
+	var fields_with_errors = ['ProposalType', 'leadUnit', 'activityType', 'startDate', 'endDate', 'orgdocnum2', 'projectTitle'];
+
+	$.each(fields_with_errors, function() {
+		if( $('#' + this).is(':empty') || !$('#' + this).val()) {
+			$('#' + this).parent().parent().addClass('error');
+			$('#' + this).parent().parent().parent().addClass('error');
+		}
+	});
+
+	$('#error_message_container').show().focus();
+});
+
+
+
+/*
 Add required marks to all required fields' parents
 ---------------------------------- */
 function init_required_elems() {
 	$('body').find('input, textarea, select').each(function() {
 		if ($(this).is(':required') || $(this).attr('required') == "required") {
-			$('body').find($('label[for="' + $(this).attr('id') + '"]')).append('<span class="req"><i class="icon icon-asterisk"></i><span>required</span></span>');
-			console.log('required');
+			$('body').find($('label[for="' + $(this).attr('id') + '"]')).append('<span class="req">*<span>required</span></span>');
 		}
 	});
 }

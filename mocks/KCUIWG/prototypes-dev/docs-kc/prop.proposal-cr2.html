@@ -28,7 +28,7 @@
 <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
 <link rel="shortcut icon" href="../assets/ico/favicon.png">
 </head>
-<body>
+<body role="application">
 <!-- Header (sticky) -->
 <div id="header" class="header" role="header">
   <header> 
@@ -57,7 +57,7 @@
     <div id="document" class="clearfix">
       <div class="title">
         <div class="title-name">
-          <a href="#"><i class="icon-white icon-home"></i>Portal</a> &raquo; Proposal #3341 Testing a very long name that should automatically get cutoff at some point
+          <a href="#"><i class="icon-white icon-home"></i>Portal</a> &raquo; Doc #3289 Testing a very long name that should automatically get cutoff at some point
         </div>
         <div class="title-author">
           by quickstart
@@ -72,15 +72,15 @@
       
       <div class="meta">
         <ul>
-          <li><span>Created:</span>2 Feb 2013 by quickstart</li>
+          <li><span>Created:</span>2 Feb 2013</li>
           <li><span>Updated:</span>6 Feb 2013 by Geoff McGregor</li>
           <li>
-            <a href="#" class="show-popover" rel="popover" data-placement="bottom" data-original-title="Document information" data-content="
+            <a href="#" class="show-popover" rel="popover" data-placement="bottom" data-original-title="Document meta information" data-content="
             <ul>
-              <li><p><span>Doc Number:</span>3289</p></li>
-              <li><p><span>Initiator:</span></p></li>
-              <li><p><span>PI:</span></p></li>
-              <li><p><span>Sponsor:</span></p></li>
+              <li><p><span>Proposal Number:</span>3341</p></li>
+              <li><p><span>Initiator:</span>Megatron</p></li>
+              <li><p><span>PI:</span>Sam Witwicky</p></li>
+              <li><p><span>Sponsor:</span>Optimus Prime</p></li>
             </ul>
             ">See more</a>
           </li>
@@ -172,34 +172,49 @@
   </header>
 </div>
 <div id="ToC"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
-  <ul style="display: block; ">
-    <li class="active complete"><a href="prop.proposal.html"><i class="icon-green icon-ok"></i><span>Proposal</span></a></li>
-    <li class="complete"><a href="prop.keypersonnel.html"><i class="icon-green icon-ok"></i><span>Key Personnel</span></a></li>
-    <li><a href="prop.specialreview.html"><i class="icon icon-eye-open"></i><span>Special Review</span></a></li>
-    <li><a href="prop.customdata.html"><i class="icon icon-star"></i><span>Custom Data</span></a></li>
-    <li class="complete"><a href="prop.abstracts.html"><i class="icon-green icon-ok"></i><span>Abstracts &amp; Attachments</span></a></li>
-    <li><a href="prop.questions.html"><i class="icon icon-search"></i><span>Questions</span></a></li>
-    <li class="submenu"><a href="#"><i class="icon icon-leaf"></i><span>Budget <small style="margin-left:8px;">(version 3)</small></span></a>
-      <ul>
-        <li style="line-height:14px;"><a href="prop.budget.summary.html"><!--<i class="icon icon-leaf"></i>--><span>Summary</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.paramaters.html"><!--<i class="icon icon-leaf"></i>--><span>Parameters</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.rates.html"><!--<i class="icon icon-leaf"></i>--><span>Rates</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.personnel.html"><!--<i class="icon icon-leaf"></i>--><span>Personnel</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.nonpersonnel.html"><!--<i class="icon icon-leaf"></i>--><span>Non-Personnel</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.distincome.html"><!--<i class="icon icon-leaf"></i>--><span>Distribution &amp; Income</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.modular.html"><!--<i class="icon icon-leaf"></i>--><span>Modular</span></a></li>
-        <li style="line-height:14px;"><a href="prop.budget.actions.html"><!--<i class="icon icon-leaf"></i>--><span>Actions</span></a></li>
-      </ul>
-    </li>
-    <li><a href="prop.permissions.html"><i class="icon icon-check"></i><span>Permissions</span></a></li>
-    <!--<li><a href="prop.actions.html"><i class="icon icon-cog"></i><span>Proposal Actions</span></a></li>-->
-    <li><a href="prop.medusa.html"><i class="icon icon-road"></i><span>Medusa</span></a></li>
-  </ul>
+    <ul style="display: block; ">
+      <li class="active complete"><a href="prop.proposal.html"><i class="icon-green icon-ok"></i><span>Proposal</span></a></li>
+      <li class="complete"><a href="prop.keypersonnel.html"><i class="icon-green icon-ok"></i><span>Key Personnel</span></a></li>
+      <li><a href="prop.specialreview.html"><i class="icon icon-eye-open"></i><span>Special Review</span></a></li>
+      <li><a href="prop.customdata.html"><i class="icon icon-star"></i><span>Custom Data</span></a></li>
+      <li class="complete"><a href="prop.abstracts.html"><i class="icon-green icon-ok"></i><span>Abstracts &amp; Attachments</span></a></li>
+      <li><a href="prop.questions.html"><i class="icon icon-search"></i><span>Questions</span></a></li>
+      <li class="submenu"><a href="#"><i class="icon icon-leaf"></i><span>Budget <small style="margin-left:8px;">(version 3)</small></span></a>
+        <ul>
+          <li style="line-height:14px;"><a href="prop.budget.summary.html"><span>Summary</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.paramaters.html"><span>Parameters</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.rates.html"><span>Rates</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.personnel.html"><span>Personnel</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.nonpersonnel.html"><span>Non-Personnel</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.distincome.html"><span>Distribution &amp; Income</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.modular.html"><span>Modular</span></a></li>
+          <li style="line-height:14px;"><a href="prop.budget.actions.html"><span>Actions</span></a></li>
+        </ul>
+      </li>
+      <li><a href="prop.permissions.html"><i class="icon icon-check"></i><span>Permissions</span></a></li>
+      <li><a href="prop.medusa.html"><i class="icon icon-road"></i><span>Medusa</span></a></li>
+    </ul>
 </div>
 <div id="content" role="application">
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12 content">
+
+        <!-- Examples of error messages -->
+        <div id="error_message_container" class="alert alert-error" tabindex="-1">
+          <h3><i class="icon icon-alert"></i>We found the following <span id="error_total">7</span> errors when submitting this form:</h3>
+          <ul>
+            <li><a href="#ProposalType">Proposal Type: This field cannot be empty.</a></li>
+            <li><a href="#leadUnit">Lead Unit: This field cannot be empty.</a></li>
+            <li><a href="#activityType">Activity Type: This field cannot be empty.</a></li>
+            <li><a href="#startDate">Proposal Start Date: You must select a date when this proposal begins.</a></li>
+            <li><a href="#endDate">Proposal End Date: You must select a date when this propsal is due.</a></li>
+            <li><a href="#orgdocnum2">Sponsor Code: You must enter your sponsor code.</a></li>
+            <li><a href="#projectTitle">Project Title: You must supply a title for this project.</a></li>
+          </ul>
+        </div>
+        <!-- // -->
+
         <div class="box">
           <div class="boxHeader">
             <h3>Start a Proposal</h3>
@@ -252,13 +267,16 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="startDate">Start/End Dates</label>
+              <span class="control-label" for="startDate">Project Dates <span class="req">*<span>required</span></span></span>
               <div class="controls controls-row datepicker">
                 <div class="input-append">
+                  <label for="startDate" class="hidden">Start date</label>
                   <input type="text" class="" id="startDate" name="input" placeholder="from..." required="required">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
+                  <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
                 <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="to...">
+                  <label for="endDate" class="hidden">End date</label>
+                  <input type="text" class="" id="endDate" name="input" placeholder="to..." required="required">
                   <span class="add-on"><i class="icon-calendar"></i></span></div>
               </div>
             </div>
@@ -272,9 +290,7 @@
               <!-- Textarea -->
               <label class="control-label" for="projectTitle">Project Title</label>
               <div class="controls">
-                <div class="textarea">
-                  <textarea name="textarea" id="projectTitle" class="input-xlarge" required="required"></textarea>
-                </div>
+                <textarea name="textarea" id="projectTitle" class="input-xlarge" required="required"></textarea>
               </div>
             </div>
             <div class="boxSubheader">
@@ -641,22 +657,21 @@
           </div>
         </div>
         
-        <!--<div class="box">
-          <div class="boxHeader">
-            <h3> asdfasdfasdf </h3>
-          </div>
-          <div class="boxContent"> asdfasdfasdf </div>
-          <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
-        </div>-->
-        
-        <div style=" padd12px; text-align:center"> <a href="index.html" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn">save</a> <a href="prop.keypersonnel.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+        <div style=" padd12px; text-align:center">
+          <a href="#" class="btn btn-mini"><i class="icon-chevron-left"></i> back</a>
+          <a href="#" class="btn btn-mini">save</a>
+          <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
       </div>
     </div>
   </form>
 </div>
-<p><!-- Le javascript
-    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="../assets/js/jquery.js"></script> <script src="../assets/js/bootstrap-transition.js"></script> 
-  <script src="../assets/js/bootstrap-fileupload.js"></script> <script src="../assets/js/bootstrap-alert.js"></script> 
+<p>
+<!-- Le javascript ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+  <script src="../assets/js/jquery.js"></script>
+  <script src="../assets/js/bootstrap-transition.js"></script> 
+  <script src="../assets/js/bootstrap-fileupload.js"></script>
+  <script src="../assets/js/bootstrap-alert.js"></script> 
   <script src="../assets/js/bootstrap-modal.js"></script> 
   <script src="../assets/js/bootstrap-dropdown.js"></script> 
   <script src="../assets/js/bootstrap-scrollspy.js"></script> 
