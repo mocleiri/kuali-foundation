@@ -82,8 +82,6 @@ import org.w3c.dom.Element;
 
 public class DefaultImpexService implements ImpexService {
 
-	long count = 0;
-
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
 
 	@Override
@@ -98,9 +96,8 @@ public class DefaultImpexService implements ImpexService {
 			logger.info("Converting " + filename);
 			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 			Table table = getTableDefinition(tableName, tables);
-			convertFile(context, file, table);
+			executeSql(context, table, LocationUtils.getCanonicalPath(file));
 		}
-		logger.info("Converted {} values", FormatUtils.getCount(count));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -108,30 +105,14 @@ public class DefaultImpexService implements ImpexService {
 		return table.getColumns();
 	}
 
-	protected void convertFile(ImpexContext context, File file, Table table) {
+	protected void executeSql(ImpexContext context, Table table, String location) {
+		ImpexReader impexReader = context.getPlatform().getImpexReader();
 		BufferedReader reader = null;
 		try {
-			reader = LocationUtils.getBufferedReader(file, context.getEncoding());
-			// First line is always the column headers
-			String s = reader.readLine();
-			String[] columns = StringUtils.split(s, ",");
-			for (;;) {
-				s = reader.readLine();
-				if (s == null) {
-					break;
-				}
-				String[] tokens = StringUtils.splitByWholeSeparator(s, "\",\"");
-				Assert.isTrue(tokens.length == columns.length);
-				// Remove leading and trailing double quotes inserted there when the .mpx file was written to disk
-				trimQuotes(tokens);
-				// Replace mpx tokens eg ${mpx.lf} -> \n
-				unformat(tokens);
-
-				SqlConverter sc = context.getPlatform().getSqlConverter();
-				List<Column> columnList = getColumns(table);
-				List<String> sqlValues = sc.getSqlValues(columnList, tokens);
-				count += sqlValues.size();
-
+			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
+			String insertSql = impexReader.getInsertSql(table, reader);
+			while (insertSql != null) {
+				insertSql = impexReader.getInsertSql(table, reader);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

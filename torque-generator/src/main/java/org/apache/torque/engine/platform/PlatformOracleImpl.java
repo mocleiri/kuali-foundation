@@ -28,8 +28,8 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.OracleConverter;
-import org.kuali.core.db.torque.service.SqlConverter;
+import org.kuali.core.db.torque.service.ImpexReader;
+import org.kuali.core.db.torque.service.OracleImpexReader;
 
 /**
  * Oracle Platform implementation.
@@ -160,8 +160,8 @@ public class PlatformOracleImpl extends PlatformDefaultImpl {
 	}
 
 	@Override
-	public SqlConverter getSqlConverter() {
-		return new OracleConverter();
+	public ImpexReader getImpexReader() {
+		return new OracleImpexReader();
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -22,6 +22,46 @@ public class ImpexUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ImpexUtils.class);
 
 	private static final String FS = File.separator;
+	private static final String QUOTE = "\"";
+	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
+
+	/**
+	 * Split the line up into individual values and remove any .mpx related formatting
+	 */
+	public static String[] getOriginalValues(String line) {
+		// Remove trailing/leading quotes
+		String trimmed = trimQuotes(line);
+		// Split the line up into individual values
+		String[] values = getValues(trimmed);
+		// Convert ${mpx.lf} -> \n
+		for (int i = 0; i < values.length; i++) {
+			values[i] = unformat(values[i]);
+		}
+		// These are the original string values with all of the .mpx related formatting removed
+		return values;
+	}
+
+	public static String[] getValues(String line) {
+		return StringUtils.splitByWholeSeparator(line, SPLIT_TOKEN);
+	}
+
+	/**
+	 * Remove leading and trailing quotes (if any)
+	 */
+	public static String trimQuotes(String line) {
+		if (StringUtils.startsWith(line, QUOTE)) {
+			line = StringUtils.substring(line, QUOTE.length());
+		}
+		int length = line.length();
+		if (StringUtils.endsWith(line, QUOTE)) {
+			line = StringUtils.substring(line, 0, length - QUOTE.length());
+		}
+		return line;
+	}
+
+	public static boolean isHeaderLine(String line) {
+		return !StringUtils.isBlank(line) && !StringUtils.startsWith(line, QUOTE);
+	}
 
 	public static String unformat(String s) {
 		if (StringUtils.equals(s, "${mpx.null}")) {

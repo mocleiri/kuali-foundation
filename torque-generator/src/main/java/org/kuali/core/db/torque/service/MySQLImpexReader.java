@@ -1,26 +1,55 @@
 package org.kuali.core.db.torque.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Column;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
-public class MySQLConverter implements SqlConverter {
+public class MySQLImpexReader implements ImpexReader {
 
+	private static final String QUOTE = "\"";
 	private static final String DATE = "DATE";
 	private static final String TIMESTAMP = "TIMESTAMP";
 	private static final String NULL = "NULL";
+	private static final String LF = "\n";
 
 	String srcDateFormat = ImpexContext.MPX_DATE_FORMAT;
 	String sqlDateFormat = "yyyyMMddHHmmss";
+	String delimiter = "/";
 
 	@Override
-	public List<String> getSqlValues(List<Column> columns, String[] tokens) {
+	public String getInsertSql(Table table, BufferedReader reader) throws IOException {
+		List<Column> columns = getColumns(table);
+		String line = reader.readLine();
+		if (ImpexUtils.isHeaderLine(line)) {
+			line = reader.readLine();
+		}
+		if (line == null) {
+			return null;
+		}
+		String[] tokens = ImpexUtils.getOriginalValues(line);
+		List<String> sqlValues = getSqlValues(columns, tokens);
+		StringBuilder sb = new StringBuilder();
+		sb.append(getPrefix(table));
+		sb.append("(");
+		sb.append(CollectionUtils.getCSV(sqlValues));
+		sb.append(")");
+		sb.append(LF);
+		sb.append(delimiter);
+		sb.append(LF);
+		return sb.toString();
+	}
+
+	protected List<String> getSqlValues(List<Column> columns, String[] tokens) {
 		Assert.isTrue(columns.size() == tokens.length);
 		List<String> values = new ArrayList<String>();
 		for (int i = 0; i < columns.size(); i++) {
@@ -82,20 +111,40 @@ public class MySQLConverter implements SqlConverter {
 		return torqueType.toString();
 	}
 
-	public String getSqlDateFormat() {
-		return sqlDateFormat;
+	@SuppressWarnings("unchecked")
+	protected List<Column> getColumns(Table table) {
+		return table.getColumns();
 	}
 
-	public void setSqlDateFormat(String sqlDateFormat) {
-		this.sqlDateFormat = sqlDateFormat;
+	protected List<String> getColumnNames(List<Column> columns) {
+		List<String> names = new ArrayList<String>();
+		for (Column column : columns) {
+			names.add(column.getName());
+		}
+		return names;
 	}
 
-	public String getSrcDateFormat() {
-		return srcDateFormat;
+	// INSERT INTO FOO (BAR1,BAR2) VALUES ('1','2'),('3','4')
+	protected String getPrefix(Table table) {
+		List<Column> columns = getColumns(table);
+		List<String> names = getColumnNames(columns);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO");
+		sb.append(" ");
+		sb.append(table.getName());
+		sb.append(" ");
+		sb.append("(");
+		sb.append(CollectionUtils.getCSV(names));
+		sb.append(")");
+		sb.append(" ");
+		sb.append("VALUES");
+		sb.append(" ");
+		return sb.toString();
 	}
 
-	public void setSrcDateFormat(String srcDateFormat) {
-		this.srcDateFormat = srcDateFormat;
+	protected boolean isHeaderLine(String s) {
+		return StringUtils.startsWith(s, QUOTE);
 	}
 
 }

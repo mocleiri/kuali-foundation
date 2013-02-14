@@ -30,8 +30,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.MySQLConverter;
-import org.kuali.core.db.torque.service.SqlConverter;
+import org.kuali.core.db.torque.service.ImpexReader;
+import org.kuali.core.db.torque.service.MySQLImpexReader;
 
 /**
  * MySql Platform implementation.
@@ -67,7 +67,7 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 	 * @see Platform#getAutoIncrement()
 	 */
 	@Override
-    public String getAutoIncrement() {
+	public String getAutoIncrement() {
 		return "AUTO_INCREMENT";
 	}
 
@@ -75,7 +75,7 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 	 * @see Platform#hasSize(String)
 	 */
 	@Override
-    public boolean hasSize(String sqlType) {
+	public boolean hasSize(String sqlType) {
 		return !("MEDIUMTEXT".equals(sqlType) || "LONGTEXT".equals(sqlType) || "BLOB".equals(sqlType) || "MEDIUMBLOB".equals(sqlType) || "LONGBLOB".equals(sqlType));
 	}
 
@@ -199,8 +199,8 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 	}
 
 	@Override
-    public SqlConverter getSqlConverter() {
-		return new MySQLConverter();
+	public ImpexReader getImpexReader() {
+		return new MySQLImpexReader();
 	}
 
 }
