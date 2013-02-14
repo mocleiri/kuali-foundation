@@ -58,7 +58,7 @@ public class MySQLImpexReader implements ImpexReader {
 			}
 
 			// Convert the tokens from the .mpx file into what MySQL needs
-			String fragment = getSqlFragment(columns, line);
+			String fragment = getSqlFragment(columns, line, srcDateFormat, sqlDateFormat);
 
 			// Need to add a comma, unless this is the first set of values
 			if (rows != 0) {
@@ -108,7 +108,7 @@ public class MySQLImpexReader implements ImpexReader {
 		}
 	}
 
-	protected String getSqlFragment(List<Column> columns, String line) {
+	protected String getSqlFragment(List<Column> columns, String line, String srcDateFormat, String sqlDateFormat) {
 		// Remove the .mpx formatting and split the values up into individual tokens
 		String[] tokens = ImpexUtils.getOriginalValues(line);
 		// Format the raw tokens into SQL appropriate values
