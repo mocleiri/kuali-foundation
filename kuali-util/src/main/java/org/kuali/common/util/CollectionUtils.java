@@ -257,6 +257,17 @@ public class CollectionUtils {
 		}
 	}
 
+	public static final String getCSV(List<String> strings) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < toEmptyList(strings).size(); i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			sb.append(strings.get(i));
+		}
+		return sb.toString();
+	}
+
 	public static final String getSpaceSeparatedString(List<?> list) {
 		list = toEmptyList(list);
 		StringBuilder sb = new StringBuilder();
