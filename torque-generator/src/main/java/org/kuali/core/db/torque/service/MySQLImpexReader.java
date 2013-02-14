@@ -112,7 +112,7 @@ public class MySQLImpexReader implements ImpexReader {
 		// Remove the .mpx formatting and split the values up into individual tokens
 		String[] tokens = ImpexUtils.getOriginalValues(line);
 		// Format the raw tokens into SQL appropriate values
-		List<String> sqlValues = getSqlValues(columns, tokens);
+		List<String> sqlValues = getSqlValues(columns, tokens, srcDateFormat, sqlDateFormat);
 		// Turn them into a comma separated list
 		return CollectionUtils.getCSV(sqlValues);
 	}
@@ -121,19 +121,19 @@ public class MySQLImpexReader implements ImpexReader {
 	 * The strings returned by this method must be suitable for use in an SQL "INSERT INTO" statement without needing any modification. All
 	 * characters that need to be escaped must be escaped already, any text values must be enclosed with quotes as appropriate.
 	 */
-	protected List<String> getSqlValues(List<Column> columns, String[] tokens) {
+	protected List<String> getSqlValues(List<Column> columns, String[] tokens, String srcDateFormat, String sqlDateFormat) {
 		Assert.isTrue(columns.size() == tokens.length);
 		List<String> values = new ArrayList<String>();
 		for (int i = 0; i < columns.size(); i++) {
 			Column column = columns.get(i);
 			String token = tokens[i];
-			String value = getSqlValue(column, token);
+			String value = getSqlValue(column, token, srcDateFormat, sqlDateFormat);
 			values.add(value);
 		}
 		return values;
 	}
 
-	public String getSqlValue(Column column, String token) {
+	public String getSqlValue(Column column, String token, String srcDateFormat, String sqlDateFormat) {
 		if (token == null) {
 			return NULL;
 		}
