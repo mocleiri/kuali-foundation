@@ -230,7 +230,7 @@ final class JRobin {
 			endTime = Math.min(range.getEndDate().getTime() / 1000, Util.getTime());
 			startTime = range.getStartDate().getTime() / 1000;
 		} else {
-			if (range.getValue().equals("hour")) {
+			if (range.getValue().equals("hour")) { // kuali patch1
 				endTime = Util.getTime();
 				startTime = Util.getTime() - 3600; //3600 seconds in a hour 3 600 000 ms in an hour
 			} else {
