@@ -58,21 +58,21 @@ public class MySQLImpexReader implements ImpexReader {
 			}
 
 			// Convert the tokens from the .mpx file into what MySQL needs
-			String csv = getSqlCsvFromLine(columns, line);
+			String fragment = getSqlFragment(columns, line);
 
 			// Need to add a comma, unless this is the first set of values
 			if (rows != 0) {
 				sb.append(",");
 			}
 
-			// Enclose the CSV in parenthesis
+			// Enclose the fragment in parenthesis
 			sb.append("(");
-			sb.append(csv);
+			sb.append(fragment);
 			sb.append(")");
 
 			// increment our counters
 			rows++;
-			length += csv.length() + 2;
+			length += fragment.length() + 3; // 2 parenthesis and a comma
 
 			// Have we exceeded any of our limits?
 			if (!isProceed(rows, length, maxRows, maxLength)) {
@@ -108,7 +108,7 @@ public class MySQLImpexReader implements ImpexReader {
 		}
 	}
 
-	protected String getSqlCsvFromLine(List<Column> columns, String line) {
+	protected String getSqlFragment(List<Column> columns, String line) {
 		// Remove the .mpx formatting and split the values up into individual tokens
 		String[] tokens = ImpexUtils.getOriginalValues(line);
 		// Format the raw tokens into SQL appropriate values
