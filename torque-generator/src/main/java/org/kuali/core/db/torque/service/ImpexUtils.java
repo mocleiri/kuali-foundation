@@ -167,12 +167,12 @@ public class ImpexUtils {
 	}
 
 	protected static void createReportFile(ImpexContext context, String databaseVendor) throws IOException {
-		String relativePath = "../../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
+		String relativePath = "../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
 		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
 		File canonicalFile = new File(canonicalPath);
-		logger.debug("Create file  [{}]", canonicalPath);
+		logger.info("Create file  [{}]", canonicalPath);
 		FileUtils.touch(canonicalFile);
 		context.setReportFile(relativePath);
 	}
@@ -184,7 +184,7 @@ public class ImpexUtils {
 	}
 
 	protected static void createContextPropertiesFile(ImpexContext context, String databaseVendor) {
-		String path = context.getWorkingDir() + "/../../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.properties";
+		String path = context.getWorkingDir() + "/../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.properties";
 		String canonicalPath = LocationUtils.getCanonicalPath(new File(path));
 		File file = new File(canonicalPath);
 		context.setContextProperties(file);

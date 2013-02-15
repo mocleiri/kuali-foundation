@@ -358,7 +358,7 @@ public class DefaultImpexService implements ImpexService {
 		task.setProject(project);
 		task.setOutputDirectory(new File(context.getWorkingDir() + FS + databaseVendor));
 		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
-		task.setTargetDatabase(context.getDatabaseVendor());
+		task.setTargetDatabase(databaseVendor);
 		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
 		task.setUseClasspath(true);
 		task.setControlTemplate("sql/base/Control.vm");
