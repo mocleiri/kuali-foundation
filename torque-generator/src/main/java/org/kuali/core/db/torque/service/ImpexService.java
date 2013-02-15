@@ -14,6 +14,11 @@ import org.w3c.dom.Document;
 public interface ImpexService {
 
 	/**
+	 *
+	 */
+	void generateSchemaSql(List<ImpexContext> contexts);
+
+	/**
 	 * Get the list of table names, view names, and sequence names. This is usually pretty quick (a few seconds) even for databases with
 	 * hundreds of tables. The only thing extracted from the database are the names. No detailed metadata like relationships, indexes,
 	 * primary keys, etc.
