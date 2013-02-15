@@ -357,15 +357,22 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
+
+		ReportFile rf = ImpexUtils.getReportFile(context, databaseVendor);
+		File contextPropertiesFile = ImpexUtils.getContextPropertiesFile(context, databaseVendor);
+		String contextPropertiesPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
+		File outputDirectory = new File(context.getWorkingDir() + FS + databaseVendor);
+
 		TorqueDataModelTask task = new TorqueDataModelTask();
 		task.setProject(project);
-		task.setOutputDirectory(new File(context.getWorkingDir() + FS + databaseVendor));
+		task.setOutputDirectory(outputDirectory);
 		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
 		task.setTargetDatabase(databaseVendor);
-		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
+
+		task.setContextProperties(contextPropertiesPath);
 		task.setUseClasspath(true);
 		task.setControlTemplate("sql/base/Control.vm");
-		task.setOutputFile(context.getReportFile());
+		task.setOutputFile(rf.getRelativePath());
 		return task;
 	}
 
@@ -375,10 +382,10 @@ public class DefaultImpexService implements ImpexService {
 		task.setOutputDirectory(context.getWorkingDir());
 		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
 		task.setTargetDatabase(context.getDatabaseVendor());
-		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
+		// task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
 		task.setUseClasspath(true);
 		task.setControlTemplate(context.getControlTemplate());
-		task.setOutputFile(context.getReportFile());
+		// task.setOutputFile(context.getReportFile());
 		return task;
 	}
 
