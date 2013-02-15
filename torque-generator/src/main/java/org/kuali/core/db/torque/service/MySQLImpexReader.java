@@ -57,13 +57,13 @@ public class MySQLImpexReader implements ImpexReader {
 				break;
 			}
 
-			// Convert the line from the mpx file into what MySQL needs
-			String fragment = getSqlFragment(columns, line, srcDateFormat, sqlDateFormat);
-
 			// Need to add a comma, unless this is the first set of values
 			if (rows != 0) {
 				sb.append(",");
 			}
+
+			// Convert the line from the mpx file into what MySQL needs
+			String fragment = getSqlFragment(columns, line, srcDateFormat, sqlDateFormat);
 
 			// Enclose the fragment in parenthesis
 			sb.append("(");
