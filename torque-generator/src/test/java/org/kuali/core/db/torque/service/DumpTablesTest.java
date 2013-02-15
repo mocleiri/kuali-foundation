@@ -34,7 +34,6 @@ import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
-import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -54,7 +53,7 @@ public class DumpTablesTest {
 			// Properties p = getProperties("KRIM.*", 5, 15);
 			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
-			sourceContext.setAntCompatibilityMode(true);
+			sourceContext.setAntCompatibilityMode(false);
 			log(sourceContext);
 
 			ImpexContext bundledContext = ImpexUtils.clone(sourceContext, "KS.*,KR.*", "ks-bundled-db");
@@ -68,11 +67,13 @@ public class DumpTablesTest {
 			service.fillInMetaData(sourceContext, database);
 			service.serializeSchemas(contexts, database);
 			// service.generateDataDtds(contexts);
-			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
+			service.generateSchemaSql(contexts);
+			// List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			if (sourceContext.isStoreDatabaseTableProperties()) {
-				ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesLocation(), results);
+				// ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(),
+				// sourceContext.getDatabaseTablePropertiesLocation(), results);
 			}
-			ImpexUtils.doStats(results);
+			// ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
@@ -114,6 +115,7 @@ public class DumpTablesTest {
 		String sequenceIncludes = includes;
 
 		Properties p = new Properties();
+		p.setProperty("impex.antCompatibilityMode", "false");
 		p.setProperty("project.basedir", System.getProperty("user.home") + "/ws/impex-2.0/torque-generator");
 		p.setProperty("project.build.directory", p.getProperty("project.basedir") + "/target");
 		p.setProperty("project.artifactId", "ks-source-db");
@@ -126,7 +128,6 @@ public class DumpTablesTest {
 		p.setProperty("impex.password", p.getProperty("impex.username"));
 		p.setProperty("impex.schema", p.getProperty("impex.username"));
 		p.setProperty("impex.databaseVendor", "oracle");
-		p.setProperty("impex.antCompatibilityMode", "true");
 		p.setProperty("impex.metadata.threads", metaDataThreads + "");
 		p.setProperty("impex.data.threads", dataThreads + "");
 		p.setProperty("impex.workingDir", p.getProperty("project.build.directory") + "/impex");
