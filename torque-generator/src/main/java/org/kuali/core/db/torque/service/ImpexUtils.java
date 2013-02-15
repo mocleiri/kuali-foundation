@@ -27,9 +27,9 @@ public class ImpexUtils {
 	private static final String FS = File.separator;
 	private static final String QUOTE = "\"";
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
-    private static final SchemaType[] COLUMN_DATE_TYPES = {SchemaType.DATE, SchemaType.TIMESTAMP};
+	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
 
-    /**
+	/**
 	 * Split the line up into individual values and remove any .mpx related formatting
 	 */
 	public static String[] getOriginalValues(String line) {
@@ -140,10 +140,10 @@ public class ImpexUtils {
 		return clone;
 	}
 
-	public static void prepareFileSystem(List<ImpexContext> contexts) {
+	public static void prepareFileSystem(List<ImpexContext> contexts, List<String> databaseVendors) {
 		try {
 			for (ImpexContext context : contexts) {
-				prepareFileSystem(context);
+				prepareFileSystem(context, databaseVendors);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
@@ -153,15 +153,21 @@ public class ImpexUtils {
 	/**
 	 * Working dir must be set before invoking this method
 	 */
-	public static void prepareFileSystem(ImpexContext context) throws IOException {
+	public static void prepareFileSystem(ImpexContext context, List<String> databaseVendors) throws IOException {
 		Assert.notNull(context.getWorkingDir(), "workingDir is null");
 		// The Texen ant task requires these 2 files to be present or the parsing of schema.xml will fail
-		createReportFile(context);
-		createContextPropertiesFile(context);
+		createReportFiles(context, databaseVendors);
+		createContextPropertiesFiles(context, databaseVendors);
 	}
 
-	protected static void createReportFile(ImpexContext context) throws IOException {
-		String relativePath = "../reports/" + context.getArtifactId() + "/context.datadtd.generation";
+	protected static void createReportFiles(ImpexContext context, List<String> databaseVendors) throws IOException {
+		for (String databaseVendor : databaseVendors) {
+			createReportFile(context, databaseVendor);
+		}
+	}
+
+	protected static void createReportFile(ImpexContext context, String databaseVendor) throws IOException {
+		String relativePath = "../../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
 		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
@@ -171,8 +177,14 @@ public class ImpexUtils {
 		context.setReportFile(relativePath);
 	}
 
-	protected static void createContextPropertiesFile(ImpexContext context) {
-		String path = context.getWorkingDir() + "/../reports/" + context.getArtifactId() + "/context.datadtd.properties";
+	protected static void createContextPropertiesFiles(ImpexContext context, List<String> databaseVendors) {
+		for (String databaseVendor : databaseVendors) {
+			createContextPropertiesFile(context, databaseVendor);
+		}
+	}
+
+	protected static void createContextPropertiesFile(ImpexContext context, String databaseVendor) {
+		String path = context.getWorkingDir() + "/../../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.properties";
 		String canonicalPath = LocationUtils.getCanonicalPath(new File(path));
 		File file = new File(canonicalPath);
 		context.setContextProperties(file);
@@ -183,30 +195,30 @@ public class ImpexUtils {
 		PropertyUtils.store(properties, context.getContextProperties());
 	}
 
-    @SuppressWarnings("unchecked")
-    /**
-     * Gets the parameterized version of the columns list from a @Table
-     *
-     * @return the List&lt;Column&gt; of columns from the table
-     */
-    public static List<Column> getColumns(Table table) {
-        return table.getColumns();
-    }
+	@SuppressWarnings("unchecked")
+	/**
+	 * Gets the parameterized version of the columns list from a @Table
+	 *
+	 * @return the List&lt;Column&gt; of columns from the table
+	 */
+	public static List<Column> getColumns(Table table) {
+		return table.getColumns();
+	}
 
-    public static boolean isColumnDateType(Column column) {
-        SchemaType columnType = getColumnType(column);
+	public static boolean isColumnDateType(Column column) {
+		SchemaType columnType = getColumnType(column);
 
-        boolean result = false;
-        for(SchemaType dateType : COLUMN_DATE_TYPES) {
-            if(dateType.equals(columnType)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
+		boolean result = false;
+		for (SchemaType dateType : COLUMN_DATE_TYPES) {
+			if (dateType.equals(columnType)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
 
-    public static SchemaType getColumnType(Column column) {
-        return SchemaType.getEnum((String) column.getTorqueType());
-    }
+	public static SchemaType getColumnType(Column column) {
+		return SchemaType.getEnum((String) column.getTorqueType());
+	}
 }

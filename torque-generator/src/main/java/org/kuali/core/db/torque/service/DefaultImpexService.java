@@ -83,6 +83,7 @@ import org.w3c.dom.Element;
 public class DefaultImpexService implements ImpexService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+	private static final String FS = File.separator;
 
 	@Override
 	public void convertCsvToSql(ImpexContext context) {
@@ -294,19 +295,25 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void generateSchemaSql(List<ImpexContext> contexts, List<String> databaseVendors) {
-		ImpexUtils.prepareFileSystem(contexts);
+		ImpexUtils.prepareFileSystem(contexts, databaseVendors);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
-			if (context.isAntCompatibilityMode()) {
-				// The Ant task requires database.dtd to be on the file system in the same directory as schema.xml if schema.xml
-				// was generated with antCompatibilityMode turned on
-				File databaseDTD = new File(context.getWorkingDir() + "/database.dtd");
-				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(databaseDTD));
-				LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
+			// doAntCompatibilityMode(context);
+			for (String databaseVendor : databaseVendors) {
+				logger.info("Generating {} schema + constraints SQL for {}", databaseVendor, context.getArtifactId());
+				TorqueDataModelTask task = getGenerateSchemaSqlTask(context, antProject, databaseVendor);
+				task.execute();
 			}
-			logger.info("Generating schema + constraints SQL for {}", context.getArtifactId());
-			TorqueDataModelTask task = getGenerateSchemaSqlTask(context, antProject);
-			task.execute();
+		}
+	}
+
+	protected void doAntCompatibilityMode(ImpexContext context) {
+		if (context.isAntCompatibilityMode()) {
+			// The Ant task requires database.dtd to be on the file system in the same directory as schema.xml if schema.xml
+			// was generated with antCompatibilityMode turned on
+			File databaseDTD = new File(context.getWorkingDir() + "/database.dtd");
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(databaseDTD));
+			LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
 		}
 	}
 
@@ -317,7 +324,7 @@ public class DefaultImpexService implements ImpexService {
 		// It requires the presence of 2 files in specific directories relative to where the data.dtd is being generated
 		// Would be highly awesome to de-couple this stuff from Ant entirely
 		// The source code of TexenTask doesn't look very complicated, few days work would probably do it
-		ImpexUtils.prepareFileSystem(contexts);
+		// ImpexUtils.prepareFileSystem(contexts);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
 			if (context.isAntCompatibilityMode()) {
@@ -346,10 +353,10 @@ public class DefaultImpexService implements ImpexService {
 		return antProject;
 	}
 
-	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project) {
+	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
 		TorqueDataModelTask task = new TorqueDataModelTask();
 		task.setProject(project);
-		task.setOutputDirectory(context.getWorkingDir());
+		task.setOutputDirectory(new File(context.getWorkingDir() + FS + databaseVendor));
 		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
 		task.setTargetDatabase(context.getDatabaseVendor());
 		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
