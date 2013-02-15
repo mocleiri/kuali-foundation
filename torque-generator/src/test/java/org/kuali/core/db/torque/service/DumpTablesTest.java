@@ -160,8 +160,8 @@ public class DumpTablesTest {
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
 
-		// Default to schema.xml
-		context.setSchemaXmlFile(new File(context.getWorkingDir(), "schema.xml"));
+		// Default to [artifactId].xml
+		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
 
 		// Setup the datasource
 		context.setDataSource(getDataSource(p));
