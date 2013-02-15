@@ -30,10 +30,10 @@ public class MySQLImpexReader implements ImpexReader {
 	 * together into SQL statements 50 lines at a time or 50K in length whichever comes first.
 	 */
 	@Override
-	public String getInsertSql(Table table, BufferedReader reader) throws IOException {
+	public String getInsertSql(Table table, BufferedReader reader, ImpexContext context) throws IOException {
 
 		// Extract the columns into a list
-		List<Column> columns = getColumns(table);
+		List<Column> columns = ImpexUtils.getColumns(table);
 
 		// Setup some storage
 		StringBuilder sb = new StringBuilder();
@@ -183,11 +183,6 @@ public class MySQLImpexReader implements ImpexReader {
 		return torqueType.toString();
 	}
 
-	@SuppressWarnings("unchecked")
-	protected List<Column> getColumns(Table table) {
-		return table.getColumns();
-	}
-
 	protected List<String> getColumnNames(List<Column> columns) {
 		List<String> names = new ArrayList<String>();
 		for (Column column : columns) {
@@ -198,7 +193,7 @@ public class MySQLImpexReader implements ImpexReader {
 
 	// INSERT INTO FOO (BAR1,BAR2) VALUES
 	protected String getPrefix(Table table) {
-		List<Column> columns = getColumns(table);
+		List<Column> columns = ImpexUtils.getColumns(table);
 		List<String> names = getColumnNames(columns);
 
 		StringBuilder sb = new StringBuilder();

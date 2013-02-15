@@ -7,6 +7,9 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.torque.engine.database.model.Column;
+import org.apache.torque.engine.database.model.SchemaType;
+import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -24,8 +27,9 @@ public class ImpexUtils {
 	private static final String FS = File.separator;
 	private static final String QUOTE = "\"";
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
+    private static final SchemaType[] COLUMN_DATE_TYPES = {SchemaType.DATE, SchemaType.TIMESTAMP};
 
-	/**
+    /**
 	 * Split the line up into individual values and remove any .mpx related formatting
 	 */
 	public static String[] getOriginalValues(String line) {
@@ -179,4 +183,30 @@ public class ImpexUtils {
 		PropertyUtils.store(properties, context.getContextProperties());
 	}
 
+    @SuppressWarnings("unchecked")
+    /**
+     * Gets the parameterized version of the columns list from a @Table
+     *
+     * @return the List&lt;Column&gt; of columns from the table
+     */
+    public static List<Column> getColumns(Table table) {
+        return table.getColumns();
+    }
+
+    public static boolean isColumnDateType(Column column) {
+        SchemaType columnType = getColumnType(column);
+
+        boolean result = false;
+        for(SchemaType dateType : COLUMN_DATE_TYPES) {
+            if(dateType.equals(columnType)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public static SchemaType getColumnType(Column column) {
+        return SchemaType.getEnum((String) column.getTorqueType());
+    }
 }
