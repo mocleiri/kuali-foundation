@@ -293,7 +293,7 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	@Override
-	public void generateSchemaSql(List<ImpexContext> contexts) {
+	public void generateSchemaSql(List<ImpexContext> contexts, List<String> databaseVendors) {
 		ImpexUtils.prepareFileSystem(contexts);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {

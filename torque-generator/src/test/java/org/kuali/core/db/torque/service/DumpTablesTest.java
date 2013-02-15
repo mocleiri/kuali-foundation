@@ -53,7 +53,6 @@ public class DumpTablesTest {
 			// Properties p = getProperties("KRIM.*", 5, 15);
 			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
-			sourceContext.setAntCompatibilityMode(false);
 			log(sourceContext);
 
 			ImpexContext bundledContext = ImpexUtils.clone(sourceContext, "KS.*,KR.*", "ks-bundled-db");
@@ -67,7 +66,7 @@ public class DumpTablesTest {
 			service.fillInMetaData(sourceContext, database);
 			service.serializeSchemas(contexts, database);
 			// service.generateDataDtds(contexts);
-			service.generateSchemaSql(contexts);
+			service.generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			if (sourceContext.isStoreDatabaseTableProperties()) {
 				ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(), sourceContext.getDatabaseTablePropertiesLocation(), results);

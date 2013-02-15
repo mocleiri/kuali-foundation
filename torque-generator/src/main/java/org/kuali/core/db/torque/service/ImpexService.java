@@ -16,7 +16,7 @@ public interface ImpexService {
 	/**
 	 *
 	 */
-	void generateSchemaSql(List<ImpexContext> contexts);
+	void generateSchemaSql(List<ImpexContext> contexts, List<String> databaseVendors);
 
 	/**
 	 * Get the list of table names, view names, and sequence names. This is usually pretty quick (a few seconds) even for databases with
