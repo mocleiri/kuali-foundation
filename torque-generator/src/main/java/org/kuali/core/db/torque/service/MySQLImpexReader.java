@@ -152,7 +152,7 @@ public class MySQLImpexReader implements ImpexReader {
 		Date date = getDateFromSource(token, srcDateFormat);
 		SimpleDateFormat sqlDateFormatter = new SimpleDateFormat(sqlDateFormat);
 		String sqlValue = sqlDateFormatter.format(date);
-		return "STR_TO_DATE( '" + sqlValue + "', '%Y%m%d%H%i%s' )";
+		return "STR_TO_DATE('" + sqlValue + "','%Y%m%d%H%i%s')";
 	}
 
 	protected Date getDateFromSource(String token, String dateFormat) {
