@@ -15,11 +15,8 @@
 
 package org.kuali.core.db.torque.service;
 
-import org.apache.torque.engine.database.model.Table;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author andrewlubbers
@@ -29,16 +26,6 @@ public abstract class AbstractImpexReader implements ImpexReader {
     private MpxParser mpxParser;
 
     protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
-
-    @Override
-    public String getInsertSql(Table table, BufferedReader reader, ImpexContext context) throws IOException {
-
-        List<RowData> rows = mpxParser.parseMpx(ImpexUtils.getColumns(table), reader);
-
-        return getInsertSql(table, rows, context);
-    }
-
-    protected abstract String getInsertSql(Table table, List<RowData> rows, ImpexContext context);
 
     public MpxParser getMpxParser() {
         return mpxParser;
@@ -50,12 +37,23 @@ public abstract class AbstractImpexReader implements ImpexReader {
 
     protected boolean batchLimitReached(int rows, int length, ImpexContext context) {
         if (rows > context.getRowCountInterval()) {
-            return false;
+            return true;
         }
         else if (length > context.getDataSizeInterval()) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    protected String readLineSkipHeader(BufferedReader reader) throws IOException {
+        // First check to see if the reader is at the Header line.
+        // If it is, skip that line
+        String line = reader.readLine();
+        if (ImpexUtils.isHeaderLine(line)) {
+            line = reader.readLine();
+        }
+
+        return line;
     }
 }

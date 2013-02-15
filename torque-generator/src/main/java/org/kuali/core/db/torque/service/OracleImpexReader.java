@@ -6,9 +6,13 @@ import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.CollectionUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OracleImpexReader extends AbstractImpexReader {
 
@@ -42,78 +46,105 @@ public class OracleImpexReader extends AbstractImpexReader {
     private static final String CLOB_CHUNKS_COMMENT = "-- Chunks: ";
 
     @Override
-	public String getInsertSql(Table table, List<RowData> rows, ImpexContext context) {
-
-        // if there is now row data, return no SQL
-        if(rows == null || rows.isEmpty()) {
-            return "";
-        }
-
+    public String getInsertSql(Table table, BufferedReader reader, ImpexContext context) throws IOException {
         boolean hasClobColumns = false;
-        RowData sampleRow = rows.get(0);
-        for(DataBean db : sampleRow.getDataBeans()) {
-            if(isColumnClobType(db.getColumn())) {
+        List<Column> columns = ImpexUtils.getColumns(table);
+        for(Column col : columns) {
+            if(isColumnClobType(col)) {
                 hasClobColumns = true;
             }
         }
 
-        StringBuilder result = buildBatchSql(table, rows, context);
-
+        Map<RowData, List<DataBean>> longClobMap = null;
         if(hasClobColumns) {
-            result.append(buildClobBatches(table, rows));
+            longClobMap = new HashMap<RowData, List<DataBean>>();
         }
 
-        return result.toString();
+        StringBuilder sqlBuilder = new StringBuilder();
+        String line = readLineSkipHeader(reader);
+        int rowCount = 0;
+        int insertSqlLength = 0;
+        // Iterate through the .mpx file
+        for (;;) {
 
-	}
+            // We hit the end of the .mpx file
+            if (line == null) {
+                break;
+            }
+
+            // Convert the tokens from the .mpx file into RowData
+            RowData row = getMpxParser().parseMpxLine(columns, line);
+
+            sqlBuilder.append(buildBatchSql(table, row));
+
+            rowCount++;
+            insertSqlLength += sqlBuilder.length();
+
+            if(hasClobColumns) {
+                List<DataBean> longClobs = new ArrayList<DataBean>();
+                for(DataBean data : row.getDataBeans()) {
+                    // if the column is a CLOB type, and it is long enough,
+                    // add the data bean to the list of clobs that need to be split up
+                    if (isColumnClobType(data.getColumn()) && data.getValue().length() > CLOB_BATCH_SIZE) {
+                        longClobs.add(data);
+                    }
+                }
+                longClobMap.put(row, longClobs);
+            }
+
+            if(batchLimitReached(rowCount, insertSqlLength, context)) {
+                break;
+            }
+
+            // read the next line and start the loop over
+            line = reader.readLine();
+        }
+
+        sqlBuilder.append(BATCH_SEPARATOR);
+
+        if(hasClobColumns && !longClobMap.isEmpty()) {
+            sqlBuilder.append(buildClobBatches(table, longClobMap));
+        }
+
+        return sqlBuilder.toString();
+    }
 
     private boolean isColumnClobType(Column column) {
         return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
     }
 
-    private String buildClobBatches(Table table, List<RowData> rows) {
+    private String buildClobBatches(Table table, Map<RowData, List<DataBean>> longClobMap) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
         StringBuilder sqlBuilder = new StringBuilder();
 
-        for(RowData row : rows) {
-            List<DataBean> longClobs = new ArrayList<DataBean>();
-            for(DataBean data : row.getDataBeans()) {
-                // if the column is a CLOB type, and it is long enough,
-                // add the data bean to the list of clobs that need to be split up
-                if (isColumnClobType(data.getColumn()) && data.getValue().length() > CLOB_BATCH_SIZE) {
-                    longClobs.add(data);
-                }
-            }
+        // handle the clob data that is too long
+        for(Map.Entry<RowData, List<DataBean>> entry: longClobMap.entrySet()) {
+            RowData row = entry.getKey();
+            List<DataBean> primaryKeys = row.findPrimaryKeyBeans();
+            List<DataBean> longClobs = entry.getValue();
 
-            // handle the clob data that is too long
-            if(!longClobs.isEmpty()) {
+            for(DataBean data : longClobs) {
 
-                List<DataBean> primaryKeys = row.findPrimaryKeyBeans();
+                // the number of 4000 charachter chunks in the data
+                List<String> dataChunks = chunkClob(data.getValue());
+                sqlBuilder.append(buildClobHeader(dataChunks, data));
 
-                for(DataBean data : longClobs) {
+                // for each chunk, write sql that will append the chunk into the clob column
+                for (String chunk : dataChunks) {
+                    sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(data.getColumn().getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName()).append(CLOB_BATCH_HEADER_SUFFIX);
 
-                    // the number of 4000 charachter chunks in the data
-                    List<String> dataChunks = chunkClob(data.getValue());
-                    sqlBuilder.append(buildClobHeader(dataChunks, data));
+                    String clauseDelimiter = "";
+                    for (DataBean pk : primaryKeys) {
+                        sqlBuilder.append(clauseDelimiter);
+                        sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getStringValue(pk, dateFormat));
 
-                    // for each chunk, write sql that will append the chunk into the clob column
-                    for(String chunk : dataChunks) {
-                        sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(data.getColumn().getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName()).append(CLOB_BATCH_HEADER_SUFFIX);
-
-                        String clauseDelimiter = "";
-                        for(DataBean pk : primaryKeys) {
-                            sqlBuilder.append(clauseDelimiter);
-                            sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getStringValue(pk, dateFormat));
-
-                            clauseDelimiter = WHERE_CLAUSE_DELIMITER;
-                        }
-
-                        sqlBuilder.append(CLOB_DATA_PREFIX).append(chunk).append(CLOB_DATA_SUFFIX);
-
-
+                        clauseDelimiter = WHERE_CLAUSE_DELIMITER;
                     }
-                }
 
+                    sqlBuilder.append(CLOB_DATA_PREFIX).append(chunk).append(CLOB_DATA_SUFFIX);
+
+
+                }
             }
         }
 
@@ -158,37 +189,24 @@ public class OracleImpexReader extends AbstractImpexReader {
         return results;
     }
 
-    private StringBuilder buildBatchSql(Table table, List<RowData> rows, ImpexContext context) {
+    private String buildBatchSql(Table table, RowData row) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append(INSERT_PREFIX);
-        int rowCount = 0;
-        int insertSqlLength = 0;
-        for(RowData row : rows) {
 
-            List<String> values = new ArrayList<String>(row.getDataBeans().size());
-            for(DataBean data : row.getDataBeans()) {
-                values.add(getStringValue(data, dateFormat));
-            }
-
-            // output looks like "  INSERT INTO FOO_BAR_T (FOO, BAR, BAZ)"
-            sqlBuilder.append(INDENT).append(INTO_PREFIX).append(table.getName()).append(SPACE).append(ARG_LIST_START).append(CollectionUtils.getCSV(row.findColumnNames())).append(ARG_LIST_END);
-            sqlBuilder.append(LF);
-            // output looks like "  VALUES ('Test', 1, 2)"
-            sqlBuilder.append(INDENT).append(VALUES_PREFIX).append(ARG_LIST_START).append(CollectionUtils.getCSV(values)).append(ARG_LIST_END);
-            sqlBuilder.append(LF);
-
-            rowCount++;
-            insertSqlLength += sqlBuilder.length();
-
-            // Have we exceeded any of our limits for this insert statement?
-            if(!batchLimitReached(rowCount, insertSqlLength, context)) {
-                sqlBuilder.append(BATCH_SEPARATOR);
-                sqlBuilder.append(INSERT_PREFIX);
-            }
+        List<String> values = new ArrayList<String>(row.getDataBeans().size());
+        for(DataBean data : row.getDataBeans()) {
+            values.add(getStringValue(data, dateFormat));
         }
 
-        return sqlBuilder;
+        // output looks like "  INSERT INTO FOO_BAR_T (FOO, BAR, BAZ)"
+        sqlBuilder.append(INDENT).append(INTO_PREFIX).append(table.getName()).append(SPACE).append(ARG_LIST_START).append(CollectionUtils.getCSV(row.findColumnNames())).append(ARG_LIST_END);
+        sqlBuilder.append(LF);
+        // output looks like "  VALUES ('Test', 1, 2)"
+        sqlBuilder.append(INDENT).append(VALUES_PREFIX).append(ARG_LIST_START).append(CollectionUtils.getCSV(values)).append(ARG_LIST_END);
+        sqlBuilder.append(LF);
+
+        return sqlBuilder.toString();
     }
 
     private String getStringValue(DataBean data, SimpleDateFormat dateFormat) {

@@ -19,8 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Column;
 import org.kuali.common.util.Assert;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,37 +32,7 @@ import java.util.List;
  */
 public class MpxParser {
 
-    public List<RowData> parseMpx(List<Column> columns, BufferedReader reader) throws IOException {
-
-        List<RowData> results = new ArrayList<RowData>();
-
-        // First check to see if the reader is at the Header line.
-        // If it is, skip that line
-        String line = reader.readLine();
-        if (ImpexUtils.isHeaderLine(line)) {
-            line = reader.readLine();
-        }
-
-        // Iterate through the .mpx file
-        for (;;) {
-
-            // We hit the end of the .mpx file
-            if (line == null) {
-                break;
-            }
-
-            // Convert the tokens from the .mpx file into RowData
-            RowData data = getRowData(columns, line);
-            results.add(data);
-
-            // read the next line and start the loop over
-            line = reader.readLine();
-        }
-
-        return results;
-    }
-
-    private RowData getRowData(List<Column> columns, String line) {
+    public RowData parseMpxLine(List<Column> columns, String line) {
         RowData result = new RowData();
 
         String[] tokens = ImpexUtils.getOriginalValues(line);
@@ -96,7 +64,7 @@ public class MpxParser {
         }
         if (ImpexUtils.isColumnDateType(column)) {
             SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
-            Date parsedDate = null;
+            Date parsedDate;
             try {
                 parsedDate = sdf.parse(token);
             } catch (ParseException e) {

@@ -113,9 +113,12 @@ public class DefaultImpexService implements ImpexService {
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
 			out = FileUtils.openOutputStream(new File(context.getWorkingDir() + "/" + table.getName() + ".sql"));
-			String insertSql = impexReader.getInsertSql(table, reader, context);
-			byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
-			out.write(bytes);
+            String insertSql = impexReader.getInsertSql(table, reader, context);
+            while (insertSql != null) {
+                byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
+                out.write(bytes);
+                insertSql = impexReader.getInsertSql(table, reader, context);
+            }
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
