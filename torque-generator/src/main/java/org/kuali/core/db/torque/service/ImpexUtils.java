@@ -155,7 +155,7 @@ public class ImpexUtils {
 	 */
 	public static void prepareFileSystem(ImpexContext context, List<String> databaseVendors) throws IOException {
 		Assert.notNull(context.getWorkingDir(), "workingDir is null");
-		// The Texen ant task requires these 2 files to be present or the parsing of schema.xml will fail
+		// The Texen ant task requires these 2 files to be present before TorqueDataModelTask executes
 		createReportFiles(context, databaseVendors);
 		createContextPropertiesFiles(context, databaseVendors);
 	}
@@ -167,7 +167,7 @@ public class ImpexUtils {
 	}
 
 	public static ReportFile getReportFile(ImpexContext context, String databaseVendor) {
-		String relativePath = "../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
+		String relativePath = ".." + FS + "reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
 		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
