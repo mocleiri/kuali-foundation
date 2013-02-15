@@ -30,7 +30,7 @@ public class MySQLImpexReader implements ImpexReader {
 	 * together into SQL statements 50 lines at a time or 50K in length whichever comes first.
 	 */
 	@Override
-	public String getInsertSql(Table table, BufferedReader reader, ImpexContext context) throws IOException {
+	public String getSql(Table table, BufferedReader reader) throws IOException {
 
 		// Extract the columns into a list
 		List<Column> columns = ImpexUtils.getColumns(table);

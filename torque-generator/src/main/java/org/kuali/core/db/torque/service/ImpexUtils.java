@@ -67,6 +67,7 @@ public class ImpexUtils {
 		return !StringUtils.isBlank(line) && !StringUtils.startsWith(line, QUOTE);
 	}
 
+    // TODO rename? something like unformatMpx? or parseMpx?
 	public static String unformat(String s) {
 		if (StringUtils.equals(s, "${mpx.null}")) {
 			return null;

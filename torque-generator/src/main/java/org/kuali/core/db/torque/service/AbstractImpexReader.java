@@ -15,8 +15,15 @@
 
 package org.kuali.core.db.torque.service;
 
+import org.apache.torque.engine.database.model.Column;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author andrewlubbers
@@ -27,6 +34,9 @@ public abstract class AbstractImpexReader implements ImpexReader {
 
     protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
 
+    private int batchRowCountLimit;
+    private int batchDataSizeLimit;
+
     public MpxParser getMpxParser() {
         return mpxParser;
     }
@@ -35,11 +45,11 @@ public abstract class AbstractImpexReader implements ImpexReader {
         this.mpxParser = mpxParser;
     }
 
-    protected boolean batchLimitReached(int rows, int length, ImpexContext context) {
-        if (rows > context.getRowCountInterval()) {
+    protected boolean batchLimitReached(int rows, int length) {
+        if (rows > getBatchRowCountLimit()) {
             return true;
         }
-        else if (length > context.getDataSizeInterval()) {
+        else if (length > getBatchDataSizeLimit()) {
             return true;
         }
 
@@ -55,5 +65,62 @@ public abstract class AbstractImpexReader implements ImpexReader {
         }
 
         return line;
+    }
+
+    protected abstract String getEscapedValue(String token);
+
+    protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
+        List<DataBean> result = new ArrayList<DataBean>();
+
+        for(int i = 0; i < tokens.length; i++) {
+            result.add(processToken(columns.get(i), tokens[i]));
+        }
+
+        return result;
+    }
+
+    public DataBean processToken(Column column, String token) {
+        DataBean result = new DataBean();
+
+        result.setColumn(column);
+
+        if (token == null) {
+            result.setValue(null);
+            result.setDateValue(null);
+        }
+        if (ImpexUtils.isColumnDateType(column)) {
+            SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
+            Date parsedDate;
+            try {
+                parsedDate = sdf.parse(token);
+            } catch (ParseException e) {
+                throw new IllegalArgumentException("Cannot parse " + token + " using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
+            }
+
+            result.setValue(null);
+            result.setDateValue(parsedDate);
+        }
+        if (column.needEscapedValue()) {
+            result.setValue(getEscapedValue(token));
+            result.setDateValue(null);
+        }
+
+        return result;
+    }
+
+    public int getBatchRowCountLimit() {
+        return batchRowCountLimit;
+    }
+
+    public int getBatchDataSizeLimit() {
+        return batchDataSizeLimit;
+    }
+
+    public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+        this.batchDataSizeLimit = batchDataSizeLimit;
+    }
+
+    public void setBatchRowCountLimit(int batchRowCountLimit) {
+        this.batchRowCountLimit = batchRowCountLimit;
     }
 }

@@ -16,14 +16,6 @@
 package org.kuali.core.db.torque.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.torque.engine.database.model.Column;
-import org.kuali.common.util.Assert;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This class parses a .mpx file and creates an in-memory representation of the data
@@ -32,56 +24,37 @@ import java.util.List;
  */
 public class MpxParser {
 
-    public RowData parseMpxLine(List<Column> columns, String line) {
-        RowData result = new RowData();
+    private static final String QUOTE = "\"";
+    private static final String TOKEN_DELIMITER = QUOTE + "," + QUOTE;
 
-        String[] tokens = ImpexUtils.getOriginalValues(line);
-        // make really sure that the tokens we parsed have the same size
-        Assert.isTrue(columns.size() == tokens.length);
+    /**
+     * Split the line up into individual values and remove any .mpx related formatting
+     */
+    public String[] parseMpxLine(String line) {
+        // Remove trailing/leading quotes
+        String trimmed = trimQuotes(line);
+        // Split the line up into individual values
+        String[] values = StringUtils.splitByWholeSeparator(trimmed, TOKEN_DELIMITER);
 
-        List<DataBean> dataBeans = new ArrayList<DataBean>(tokens.length);
-        int i = 0;
-        for (; i < tokens.length; i++) {
-            String token = tokens[i];
-            Column column = columns.get(i);
-            DataBean bean = processToken(column, token);
-            dataBeans.add(bean);
+        // Convert mpx special characters (i.e. ${mpx.lf} -> \n )
+        for (int i = 0; i < values.length; i++) {
+            values[i] = ImpexUtils.unformat(values[i]);
         }
-
-        result.setDataBeans(dataBeans);
-
-        return result;
+        // These are the original string values with all of the .mpx related formatting removed
+        return values;
     }
 
-    public DataBean processToken(Column column, String token) {
-        DataBean result = new DataBean();
-
-        result.setColumn(column);
-
-        if (token == null) {
-            result.setValue(null);
-            result.setDateValue(null);
+    /**
+     * Remove leading and trailing quotes (if any)
+     */
+    public String trimQuotes(String line) {
+        if (StringUtils.startsWith(line, QUOTE)) {
+            line = StringUtils.substring(line, QUOTE.length());
         }
-        if (ImpexUtils.isColumnDateType(column)) {
-            SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
-            Date parsedDate;
-            try {
-                parsedDate = sdf.parse(token);
-            } catch (ParseException e) {
-                throw new IllegalArgumentException("Cannot parse " + token + " using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
-            }
-
-            result.setValue(null);
-            result.setDateValue(parsedDate);
+        int length = line.length();
+        if (StringUtils.endsWith(line, QUOTE)) {
+            line = StringUtils.substring(line, 0, length - QUOTE.length());
         }
-        if (column.needEscapedValue()) {
-            String escaped1 = StringUtils.replace(token, "\\", "\\\\");
-            String escaped2 = StringUtils.replace(escaped1, "'", "\\'");
-            String escaped3 = StringUtils.replace(escaped2, "\n", "\\n");
-            result.setValue("'" + escaped3 + "'");
-            result.setDateValue(null);
-        }
-
-        return result;
+        return line;
     }
 }

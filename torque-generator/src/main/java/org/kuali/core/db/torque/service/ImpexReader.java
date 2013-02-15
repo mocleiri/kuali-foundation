@@ -7,6 +7,6 @@ import org.apache.torque.engine.database.model.Table;
 
 public interface ImpexReader {
 
-	public String getInsertSql(Table table, BufferedReader reader, ImpexContext context) throws IOException;
+	public String getSql(Table table, BufferedReader reader) throws IOException;
 
 }
