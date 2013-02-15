@@ -331,6 +331,19 @@ public class DefaultImpexService implements ImpexService {
 		return antProject;
 	}
 
+	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project) {
+		TorqueDataModelTask task = new TorqueDataModelTask();
+		task.setProject(project);
+		task.setOutputDirectory(context.getWorkingDir());
+		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
+		task.setTargetDatabase(context.getDatabaseVendor());
+		task.setContextProperties(LocationUtils.getCanonicalPath(context.getContextProperties()));
+		task.setUseClasspath(true);
+		task.setControlTemplate("sql/base/Control.vm");
+		task.setOutputFile(context.getReportFile());
+		return task;
+	}
+
 	protected TorqueDataModelTask getGenerateDtdTask(ImpexContext context, Project project) {
 		TorqueDataModelTask task = new TorqueDataModelTask();
 		task.setProject(project);
