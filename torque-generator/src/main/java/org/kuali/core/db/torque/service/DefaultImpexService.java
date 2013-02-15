@@ -295,12 +295,8 @@ public class DefaultImpexService implements ImpexService {
 		return null;
 	}
 
+	@Override
 	public void generateSchemaSql(List<ImpexContext> contexts) {
-		// Generating the data.dtd is currently coupled to Ant because the logic is inside TorqueDataModelTask which extends TexenTask
-		// That task has some very specific local file system requirements.
-		// It requires the presence of 2 files in specific directories relative to where the data.dtd is being generated
-		// Would be highly awesome to de-couple this stuff from Ant entirely
-		// The source code of TexenTask doesn't look very complicated, few days work would probably do it
 		ImpexUtils.prepareFileSystem(contexts);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
