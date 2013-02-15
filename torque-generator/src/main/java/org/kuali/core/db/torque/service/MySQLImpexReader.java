@@ -57,7 +57,7 @@ public class MySQLImpexReader implements ImpexReader {
 				break;
 			}
 
-			// Convert the tokens from the .mpx file into what MySQL needs
+			// Convert the line from the mpx file into what MySQL needs
 			String fragment = getSqlFragment(columns, line, srcDateFormat, sqlDateFormat);
 
 			// Need to add a comma, unless this is the first set of values
