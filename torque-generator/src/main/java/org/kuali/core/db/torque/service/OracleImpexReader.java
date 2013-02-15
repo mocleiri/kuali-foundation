@@ -61,7 +61,6 @@ public class OracleImpexReader extends AbstractImpexReader {
         StringBuilder sqlBuilder = new StringBuilder();
         String line = readLineSkipHeader(reader);
         int rowCount = 0;
-        int insertSqlLength = 0;
         // Iterate through the .mpx file
         for (;;) {
 
@@ -74,9 +73,7 @@ public class OracleImpexReader extends AbstractImpexReader {
             List<DataBean> rowBeans = buildRowData(columns, getMpxParser().parseMpxLine(line));
 
             sqlBuilder.append(buildBatchSql(table, rowBeans));
-
             rowCount++;
-            insertSqlLength += sqlBuilder.length();
 
             if(hasClobColumns) {
                 List<DataBean> clobs = new ArrayList<DataBean>();
@@ -99,7 +96,9 @@ public class OracleImpexReader extends AbstractImpexReader {
                 longClobs.add(longClob);
             }
 
-            if(batchLimitReached(rowCount, insertSqlLength)) {
+            // include the length of the batch separator to the total length of sql so far,
+            // to determine if we have reached the end of a batch
+            if(batchLimitReached(rowCount, (sqlBuilder.length() + BATCH_SEPARATOR.length()))) {
                 break;
             }
 
@@ -113,7 +112,13 @@ public class OracleImpexReader extends AbstractImpexReader {
             sqlBuilder.append(buildClobBatches(table, longClobs));
         }
 
-        return sqlBuilder.toString();
+        // return null to indicate no rows were processed
+        if(rowCount == 0) {
+            return null;
+        }
+        else {
+            return sqlBuilder.toString();
+        }
     }
 
     @Override
@@ -148,7 +153,7 @@ public class OracleImpexReader extends AbstractImpexReader {
                     String clauseDelimiter = "";
                     for (DataBean pk : primaryKeys) {
                         sqlBuilder.append(clauseDelimiter);
-                        sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getStringValue(pk, dateFormat));
+                        sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getSqlValue(pk, dateFormat));
 
                         clauseDelimiter = WHERE_CLAUSE_DELIMITER;
                     }
@@ -208,11 +213,11 @@ public class OracleImpexReader extends AbstractImpexReader {
 
         List<String> values = new ArrayList<String>(dataBeans.size());
         for(DataBean data : dataBeans) {
-            values.add(getStringValue(data, dateFormat));
+            values.add(getSqlValue(data, dateFormat));
         }
 
         // output looks like "  INSERT INTO FOO_BAR_T (FOO, BAR, BAZ)"
-        sqlBuilder.append(INDENT).append(INTO_PREFIX).append(table.getName()).append(SPACE).append(ARG_LIST_START).append(getColumnNamesCSV(dataBeans)).append(ARG_LIST_END);
+        sqlBuilder.append(INDENT).append(INTO_PREFIX).append(table.getName()).append(SPACE).append(ARG_LIST_START).append(getColumnNamesCSV(table)).append(ARG_LIST_END);
         sqlBuilder.append(LF);
         // output looks like "  VALUES ('Test', 1, 2)"
         sqlBuilder.append(INDENT).append(VALUES_PREFIX).append(ARG_LIST_START).append(CollectionUtils.getCSV(values)).append(ARG_LIST_END);
@@ -221,16 +226,7 @@ public class OracleImpexReader extends AbstractImpexReader {
         return sqlBuilder.toString();
     }
 
-    private String getColumnNamesCSV(List<DataBean> dataBeans) {
-        List<String> colNames = new ArrayList<String>(dataBeans.size());
-        for(DataBean d : dataBeans) {
-            colNames.add(d.getColumn().getName());
-        }
-
-        return CollectionUtils.getCSV(colNames);
-    }
-
-    private String getStringValue(DataBean data, SimpleDateFormat dateFormat) {
+    private String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
         StringBuilder result = new StringBuilder();
 
         if(data.getDateValue() != null) {

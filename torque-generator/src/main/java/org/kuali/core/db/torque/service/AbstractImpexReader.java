@@ -16,6 +16,8 @@
 package org.kuali.core.db.torque.service;
 
 import org.apache.torque.engine.database.model.Column;
+import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.util.CollectionUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -122,5 +124,15 @@ public abstract class AbstractImpexReader implements ImpexReader {
 
     public void setBatchRowCountLimit(int batchRowCountLimit) {
         this.batchRowCountLimit = batchRowCountLimit;
+    }
+
+    protected String getColumnNamesCSV(Table table) {
+        List<Column> columns = ImpexUtils.getColumns(table);
+        List<String> colNames = new ArrayList<String>(columns.size());
+        for (Column col : columns) {
+            colNames.add(col.getName());
+        }
+
+        return CollectionUtils.getCSV(colNames);
     }
 }
