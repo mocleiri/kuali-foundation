@@ -109,7 +109,7 @@ public class MySQLImpexReader implements ImpexReader {
 	}
 
 	protected String getSqlFragment(List<Column> columns, String line, String srcDateFormat, String sqlDateFormat) {
-		// Remove the .mpx formatting and split the values up into individual tokens
+		// Remove the mpx formatting and split the values up into individual tokens
 		String[] tokens = ImpexUtils.getOriginalValues(line);
 		// Format the raw tokens into SQL appropriate values
 		List<String> sqlValues = getSqlValues(columns, tokens, srcDateFormat, sqlDateFormat);
