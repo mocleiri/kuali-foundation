@@ -45,7 +45,6 @@ public class DumpTablesTest {
 	private static final Logger logger = LoggerFactory.getLogger(DumpTablesTest.class);
 
 	@Test
-	// @Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
