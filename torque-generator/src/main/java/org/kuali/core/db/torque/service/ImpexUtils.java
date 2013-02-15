@@ -166,15 +166,24 @@ public class ImpexUtils {
 		}
 	}
 
-	protected static void createReportFile(ImpexContext context, String databaseVendor) throws IOException {
+	public static ReportFile getReportFile(ImpexContext context, String databaseVendor) {
 		String relativePath = "../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
 		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
 		File canonicalFile = new File(canonicalPath);
-		logger.info("Create file  [{}]", canonicalPath);
-		FileUtils.touch(canonicalFile);
-		context.setReportFile(relativePath);
+
+		ReportFile rf = new ReportFile();
+		rf.setBaseDir(context.getWorkingDir());
+		rf.setRelativePath(relativePath);
+		rf.setActualFile(canonicalFile);
+		return rf;
+	}
+
+	public static void createReportFile(ImpexContext context, String databaseVendor) throws IOException {
+		ReportFile rf = getReportFile(context, databaseVendor);
+		logger.info("Create file  [{}]", rf.getActualFile());
+		FileUtils.touch(rf.getActualFile());
 	}
 
 	protected static void createContextPropertiesFiles(ImpexContext context, List<String> databaseVendors) {
@@ -183,16 +192,18 @@ public class ImpexUtils {
 		}
 	}
 
-	protected static void createContextPropertiesFile(ImpexContext context, String databaseVendor) {
+	public static File getContextPropertiesFile(ImpexContext context, String databaseVendor) {
 		String path = context.getWorkingDir() + "/../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.properties";
 		String canonicalPath = LocationUtils.getCanonicalPath(new File(path));
-		File file = new File(canonicalPath);
-		context.setContextProperties(file);
+		return new File(canonicalPath);
+	}
 
+	public static void createContextPropertiesFile(ImpexContext context, String databaseVendor) {
+		File file = getContextPropertiesFile(context, databaseVendor);
 		Properties properties = new Properties();
 		properties.setProperty("project", "impex");
 		properties.setProperty("version", "2.0");
-		PropertyUtils.store(properties, context.getContextProperties());
+		PropertyUtils.store(properties, file);
 	}
 
 	@SuppressWarnings("unchecked")

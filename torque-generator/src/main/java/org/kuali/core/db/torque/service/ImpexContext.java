@@ -45,8 +45,6 @@ public class ImpexContext {
 	File workingDir;
 	File buildDir;
 	File baseDir;
-	File contextProperties;
-	String reportFile;
 	DataSource dataSource;
 	Platform platform;
 	Properties databaseTableProperties;
@@ -259,22 +257,6 @@ public class ImpexContext {
 
 	public void setWorkingDir(File workingDir) {
 		this.workingDir = workingDir;
-	}
-
-	public File getContextProperties() {
-		return contextProperties;
-	}
-
-	public void setContextProperties(File contextProperties) {
-		this.contextProperties = contextProperties;
-	}
-
-	public String getReportFile() {
-		return reportFile;
-	}
-
-	public void setReportFile(String reportFile) {
-		this.reportFile = reportFile;
 	}
 
 	public DataSource getDataSource() {
