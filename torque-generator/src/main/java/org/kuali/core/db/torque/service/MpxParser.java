@@ -38,7 +38,7 @@ public class MpxParser {
 
         // Convert mpx special characters (i.e. ${mpx.lf} -> \n )
         for (int i = 0; i < values.length; i++) {
-            values[i] = ImpexUtils.unformat(values[i]);
+            values[i] = ImpexUtils.parse(values[i]);
         }
         // These are the original string values with all of the .mpx related formatting removed
         return values;

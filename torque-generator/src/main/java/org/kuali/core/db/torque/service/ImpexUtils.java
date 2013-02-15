@@ -39,7 +39,7 @@ public class ImpexUtils {
 		String[] values = getValues(trimmed);
 		// Convert ${mpx.lf} -> \n
 		for (int i = 0; i < values.length; i++) {
-			values[i] = unformat(values[i]);
+			values[i] = parse(values[i]);
 		}
 		// These are the original string values with all of the .mpx related formatting removed
 		return values;
@@ -67,8 +67,7 @@ public class ImpexUtils {
 		return !StringUtils.isBlank(line) && !StringUtils.startsWith(line, QUOTE);
 	}
 
-    // TODO rename? something like unformatMpx? or parseMpx?
-	public static String unformat(String s) {
+	public static String parse(String s) {
 		if (StringUtils.equals(s, "${mpx.null}")) {
 			return null;
 		}

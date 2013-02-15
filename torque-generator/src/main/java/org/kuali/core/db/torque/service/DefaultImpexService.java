@@ -143,7 +143,7 @@ public class DefaultImpexService implements ImpexService {
 
 	protected void unformat(String[] tokens) {
 		for (int i = 0; i < tokens.length; i++) {
-			tokens[i] = ImpexUtils.unformat(tokens[i]);
+			tokens[i] = ImpexUtils.parse(tokens[i]);
 		}
 	}
 
