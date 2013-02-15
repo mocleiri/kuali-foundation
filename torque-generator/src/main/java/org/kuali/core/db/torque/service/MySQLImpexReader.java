@@ -16,7 +16,6 @@ import org.kuali.common.util.CollectionUtils;
 
 public class MySQLImpexReader implements ImpexReader {
 
-	private static final String QUOTE = "\"";
 	private static final String DATE = "DATE";
 	private static final String TIMESTAMP = "TIMESTAMP";
 	private static final String NULL = "NULL";
@@ -214,10 +213,6 @@ public class MySQLImpexReader implements ImpexReader {
 		sb.append("VALUES");
 		sb.append(" ");
 		return sb.toString();
-	}
-
-	protected boolean isHeaderLine(String s) {
-		return StringUtils.startsWith(s, QUOTE);
 	}
 
 	public String getSrcDateFormat() {
