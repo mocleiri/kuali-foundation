@@ -132,8 +132,7 @@ public class ImpexUtils {
 		clone.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(include));
 		clone.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(include));
 		clone.setArtifactId(artifactId);
-		clone.setWorkingDir(new File(clone.getWorkingDir() + FS + artifactId));
-		clone.setSchemaXmlFile(new File(clone.getWorkingDir() + FS + "schema.xml"));
+		clone.setSchemaXmlFile(new File(clone.getWorkingDir() + FS + artifactId + ".xml"));
 		return clone;
 	}
 
