@@ -307,6 +307,7 @@ public class DefaultImpexService implements ImpexService {
 				logger.info("Creating [{}]", LocationUtils.getCanonicalPath(databaseDTD));
 				LocationUtils.copyLocationToFile("classpath:database.dtd", databaseDTD);
 			}
+			logger.info("Generating schema + constraints SQL for {}", context.getArtifactId());
 			TorqueDataModelTask task = getGenerateSchemaSqlTask(context, antProject);
 			task.execute();
 		}
