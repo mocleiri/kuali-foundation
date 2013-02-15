@@ -16,7 +16,6 @@
 package org.kuali.core.db.torque.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,19 +42,6 @@ public class RowData {
         for(DataBean d : dataBeans) {
             results.add(d.getColumn().getName());
         }
-        return results;
-    }
-
-    public List<String> findValues() {
-        if(dataBeans == null) {
-            return null;
-        }
-
-        List<String> results = new ArrayList<String>(dataBeans.size());
-        for(DataBean d : dataBeans) {
-            results.add(d.getValue());
-        }
-
         return results;
     }
 

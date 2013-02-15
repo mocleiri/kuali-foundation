@@ -28,11 +28,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: andy
- * Date: 2/14/13
- * Time: 3:11 PM
- * To change this template use File | Settings | File Templates.
+ * This class parses a .mpx file and creates an in-memory representation of the data
+ *
+ * @author andrewlubbers
  */
 public class MpxParser {
 
@@ -67,16 +65,15 @@ public class MpxParser {
     }
 
     private RowData getRowData(List<Column> columns, String line) {
-        RowData result = null;
+        RowData result = new RowData();
 
         String[] tokens = ImpexUtils.getOriginalValues(line);
         // make really sure that the tokens we parsed have the same size
         Assert.isTrue(columns.size() == tokens.length);
 
-        result = new RowData();
         List<DataBean> dataBeans = new ArrayList<DataBean>(tokens.length);
         int i = 0;
-        for(; i < tokens.length; i++) {
+        for (; i < tokens.length; i++) {
             String token = tokens[i];
             Column column = columns.get(i);
             DataBean bean = processToken(column, token);

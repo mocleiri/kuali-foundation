@@ -20,11 +20,7 @@ import org.apache.torque.engine.database.model.Column;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: andy
- * Date: 2/14/13
- * Time: 4:42 PM
- * To change this template use File | Settings | File Templates.
+ * @author andrewlubbers
  */
 public class DataBean {
 

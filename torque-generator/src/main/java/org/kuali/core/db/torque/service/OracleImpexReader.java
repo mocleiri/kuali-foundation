@@ -16,7 +16,6 @@ public class OracleImpexReader extends AbstractImpexReader {
     private static final String INDENT = "  ";
     private static final String INTO_PREFIX = "INTO ";
     private static final String VALUES_PREFIX = "VALUES ";
-    private static final String DELIMITER = ", ";
     private static final String SPACE = " ";
     private static final String LF = "\n";
     private static final String ARG_LIST_START = "(";
@@ -61,7 +60,7 @@ public class OracleImpexReader extends AbstractImpexReader {
         StringBuilder result = buildBatchSql(table, rows, context);
 
         if(hasClobColumns) {
-            result.append(buildClobBatches(table, rows, context));
+            result.append(buildClobBatches(table, rows));
         }
 
         return result.toString();
@@ -72,7 +71,7 @@ public class OracleImpexReader extends AbstractImpexReader {
         return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
     }
 
-    private String buildClobBatches(Table table, List<RowData> rows, ImpexContext context) {
+    private String buildClobBatches(Table table, List<RowData> rows) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
         StringBuilder sqlBuilder = new StringBuilder();
 
@@ -95,7 +94,7 @@ public class OracleImpexReader extends AbstractImpexReader {
 
                     // the number of 4000 charachter chunks in the data
                     List<String> dataChunks = chunkClob(data.getValue());
-                    sqlBuilder.append(buildClobHeader(dataChunks, data, sqlBuilder));
+                    sqlBuilder.append(buildClobHeader(dataChunks, data));
 
                     // for each chunk, write sql that will append the chunk into the clob column
                     for(String chunk : dataChunks) {
@@ -122,7 +121,7 @@ public class OracleImpexReader extends AbstractImpexReader {
 
     }
 
-    private String buildClobHeader(List<String> dataChunks, DataBean data, StringBuilder sqlBuilder) {
+    private String buildClobHeader(List<String> dataChunks, DataBean data) {
         StringBuilder headerBuilder = new StringBuilder();
         headerBuilder.append(CLOB_LENGTH_COMMENT).append(data.getValue().length()).append(LF);
         headerBuilder.append(CLOB_CHUNKS_COMMENT).append(dataChunks.size()).append(LF);

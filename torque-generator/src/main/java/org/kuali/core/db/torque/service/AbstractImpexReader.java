@@ -22,11 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: andy
- * Date: 2/14/13
- * Time: 6:34 PM
- * To change this template use File | Settings | File Templates.
+ * @author andrewlubbers
  */
 public abstract class AbstractImpexReader implements ImpexReader {
 
@@ -56,9 +52,10 @@ public abstract class AbstractImpexReader implements ImpexReader {
         if (rows > context.getRowCountInterval()) {
             return false;
         }
-        if (length > context.getDataSizeInterval()) {
+        else if (length > context.getDataSizeInterval()) {
             return false;
         }
+
         return true;
     }
 }
