@@ -113,12 +113,12 @@ public class DefaultImpexService implements ImpexService {
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
 			out = FileUtils.openOutputStream(new File(context.getWorkingDir() + "/" + table.getName() + ".sql"));
-            String insertSql = impexReader.getSql(table, reader);
-            while (insertSql != null) {
-                byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
-                out.write(bytes);
-                insertSql = impexReader.getSql(table, reader);
-            }
+			String insertSql = impexReader.getSql(table, reader);
+			while (insertSql != null) {
+				byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
+				out.write(bytes);
+				insertSql = impexReader.getSql(table, reader);
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -298,12 +298,10 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void generateSchemaSql(List<ImpexContext> contexts, List<String> databaseVendors) {
-		ImpexUtils.prepareFileSystem(contexts, databaseVendors);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
-			// doAntCompatibilityMode(context);
 			for (String databaseVendor : databaseVendors) {
-				logger.info("Generating {} schema + constraints SQL for {}", databaseVendor, context.getArtifactId());
+				logger.info("{} - generating schema + constraints SQL for {}", databaseVendor, context.getArtifactId());
 				TorqueDataModelTask task = getGenerateSchemaSqlTask(context, antProject, databaseVendor);
 				task.execute();
 			}
@@ -357,23 +355,38 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
+		try {
+			File taskDirectory = new File(context.getWorkingDir() + FS + databaseVendor);
+			File newSchemaXmlFile = new File(taskDirectory, context.getSchemaXmlFile().getName());
+			FileUtils.copyFile(context.getSchemaXmlFile(), newSchemaXmlFile);
 
-		ReportFile rf = ImpexUtils.getReportFile(context, databaseVendor);
-		File contextPropertiesFile = ImpexUtils.getContextPropertiesFile(context, databaseVendor);
-		String contextPropertiesPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
-		File outputDirectory = new File(context.getWorkingDir() + FS + databaseVendor);
+			String relativePath = "./" + context.getArtifactId() + "-context.generation";
+			String absolutePath = taskDirectory + relativePath;
+			File file = new File(absolutePath);
+			String canonicalPath = LocationUtils.getCanonicalPath(file);
+			File canonicalFile = new File(canonicalPath);
+			FileUtils.touch(canonicalFile);
 
-		TorqueDataModelTask task = new TorqueDataModelTask();
-		task.setProject(project);
-		task.setOutputDirectory(outputDirectory);
-		task.setXmlFile(LocationUtils.getCanonicalPath(context.getSchemaXmlFile()));
-		task.setTargetDatabase(databaseVendor);
+			File contextPropertiesFile = new File(taskDirectory, context.getArtifactId() + "-context.properties");
+			String contextPropertiesPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
+			Properties properties = ImpexUtils.getVelocityProperties();
+			PropertyUtils.store(properties, contextPropertiesFile);
 
-		task.setContextProperties(contextPropertiesPath);
-		task.setUseClasspath(true);
-		task.setControlTemplate("sql/base/Control.vm");
-		task.setOutputFile(rf.getRelativePath());
-		return task;
+			TorqueDataModelTask task = new TorqueDataModelTask();
+			task.setProject(project);
+			task.setOutputDirectory(taskDirectory);
+			task.setXmlFile(LocationUtils.getCanonicalPath(newSchemaXmlFile));
+			task.setTargetDatabase(databaseVendor);
+
+			task.setContextProperties(contextPropertiesPath);
+			task.setUseClasspath(true);
+			task.setControlTemplate("sql/base/Control.vm");
+			task.setOutputFile(relativePath);
+			return task;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	protected TorqueDataModelTask getGenerateDtdTask(ImpexContext context, Project project) {

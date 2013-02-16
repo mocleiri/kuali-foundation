@@ -200,10 +200,15 @@ public class ImpexUtils {
 
 	public static void createContextPropertiesFile(ImpexContext context, String databaseVendor) {
 		File file = getContextPropertiesFile(context, databaseVendor);
+		Properties properties = getVelocityProperties();
+		PropertyUtils.store(properties, file);
+	}
+
+	public static Properties getVelocityProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("project", "impex");
 		properties.setProperty("version", "2.0");
-		PropertyUtils.store(properties, file);
+		return properties;
 	}
 
 	@SuppressWarnings("unchecked")
