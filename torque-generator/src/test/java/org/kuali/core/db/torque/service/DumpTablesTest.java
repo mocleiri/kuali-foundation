@@ -48,7 +48,7 @@ public class DumpTablesTest {
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
-			// For the current default KS dataset, going beyond 5/15 for the metadata/data threads doesn't improve things much
+			// Going beyond 5/15 for the metadata/data threads doesn't improve things much
 			Properties p = getProperties("T.*", 5, 15);
 			// Properties p = getProperties("KR.*,KS.*", 5, 15);
 			// Properties p = getProperties("KRIM.*", 5, 15);
