@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.apache.torque.engine.database.model.Table;
 
-public interface ImpexReader {
+public interface SqlProducer {
 
 	public String getSql(Table table, BufferedReader reader) throws IOException;
 

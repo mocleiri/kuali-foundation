@@ -12,7 +12,7 @@ import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.CollectionUtils;
 
-public class OracleImpexReader extends AbstractImpexReader {
+public class OracleProducer extends AbstractSqlProducer {
 
 	private static final String INSERT_PREFIX = "INSERT ALL\n";
 	private static final String INDENT = "  ";

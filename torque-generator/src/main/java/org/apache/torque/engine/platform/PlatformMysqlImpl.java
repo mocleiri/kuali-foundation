@@ -30,8 +30,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.ImpexReader;
-import org.kuali.core.db.torque.service.MySQLImpexReader;
+import org.kuali.core.db.torque.service.SqlProducer;
+import org.kuali.core.db.torque.service.MySqlProducer;
 
 /**
  * MySql Platform implementation.
@@ -199,8 +199,8 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 	}
 
 	@Override
-	public ImpexReader getImpexReader() {
-		return new MySQLImpexReader();
+	public SqlProducer getImpexReader() {
+		return new MySqlProducer();
 	}
 
 }

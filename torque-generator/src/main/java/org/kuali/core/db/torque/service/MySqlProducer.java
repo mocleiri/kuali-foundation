@@ -11,7 +11,7 @@ import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.CollectionUtils;
 
-public class MySQLImpexReader extends AbstractImpexReader {
+public class MySqlProducer extends AbstractSqlProducer {
 
 	private static final String BATCH_SEPARATOR = ",";
 	private static final String ARG_LIST_START = "(";

@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.ImpexReader;
+import org.kuali.core.db.torque.service.SqlProducer;
 
 /**
  * Interface for RDBMS platform specific behaviour.
@@ -131,5 +131,5 @@ public interface Platform {
 	 */
 	public List<String> getSequenceNames(DatabaseMetaData dbMetaData, String databaseSchema) throws SQLException;
 
-	ImpexReader getImpexReader();
+	SqlProducer getImpexReader();
 }

@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * @author andrewlubbers
  */
-public abstract class AbstractImpexReader implements ImpexReader {
+public abstract class AbstractSqlProducer implements SqlProducer {
 
     private MpxParser mpxParser;
 

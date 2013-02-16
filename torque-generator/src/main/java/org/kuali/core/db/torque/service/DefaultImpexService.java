@@ -107,7 +107,7 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected void executeSql(ImpexContext context, Table table, String location) {
-		ImpexReader impexReader = context.getPlatform().getImpexReader();
+		SqlProducer impexReader = context.getPlatform().getImpexReader();
 		BufferedReader reader = null;
 		OutputStream out = null;
 		try {
