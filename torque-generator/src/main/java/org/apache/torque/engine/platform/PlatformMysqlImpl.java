@@ -30,8 +30,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.SqlProducer;
-import org.kuali.core.db.torque.service.MySqlProducer;
+import org.kuali.common.impex.service.MySqlProducer;
+import org.kuali.common.impex.service.SqlProducer;
 
 /**
  * MySql Platform implementation.

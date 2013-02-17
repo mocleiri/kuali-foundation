@@ -3,7 +3,7 @@ package org.kuali.core.db.torque;
 import static junit.framework.TestCase.*;
 
 import org.junit.Test;
-import org.kuali.core.db.torque.pojo.ForeignKey;
+import org.kuali.common.impex.ForeignKey;
 
 public class FilteredPropertyCopierTest {
 

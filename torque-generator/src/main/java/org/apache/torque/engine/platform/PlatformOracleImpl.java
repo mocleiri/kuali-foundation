@@ -28,8 +28,8 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.SqlProducer;
-import org.kuali.core.db.torque.service.OracleProducer;
+import org.kuali.common.impex.service.OracleProducer;
+import org.kuali.common.impex.service.SqlProducer;
 
 /**
  * Oracle Platform implementation.

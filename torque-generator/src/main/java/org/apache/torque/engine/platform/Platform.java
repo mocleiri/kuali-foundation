@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
-import org.kuali.core.db.torque.service.SqlProducer;
+import org.kuali.common.impex.service.SqlProducer;
 
 /**
  * Interface for RDBMS platform specific behaviour.
