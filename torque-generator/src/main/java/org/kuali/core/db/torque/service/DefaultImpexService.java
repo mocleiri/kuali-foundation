@@ -301,7 +301,7 @@ public class DefaultImpexService implements ImpexService {
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
 			for (String databaseVendor : databaseVendors) {
-				logger.info("{} - generating schema + constraints SQL for {}", databaseVendor, context.getArtifactId());
+				logger.info("{} - Generating DDL (schema + constraints) for {}", databaseVendor, context.getArtifactId());
 				TorqueDataModelTask task = getGenerateSchemaSqlTask(context, antProject, databaseVendor);
 				task.execute();
 			}
