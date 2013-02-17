@@ -414,9 +414,8 @@ public class DefaultImpexService implements ImpexService {
 			task.setControlTemplate("sql/base/Control.vm");
 			return task;
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new IllegalStateException("Unexpected IO error", e);
 		}
-		return null;
 	}
 
 	protected TorqueDataModelTask getGenerateDtdTask(ImpexContext context, Project project) {
