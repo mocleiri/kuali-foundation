@@ -278,7 +278,7 @@ public class DefaultImpexService implements ImpexService {
 					return sdf.format(date);
 				}
 			default:
-				// Otherwise just invoke toString() on the method
+				// Otherwise just invoke toString() on the object
 				Object object = rs.getObject(index);
 				if (object == null) {
 					return null;
@@ -357,46 +357,50 @@ public class DefaultImpexService implements ImpexService {
 	protected VelocityCrap getVelocityCrap(ImpexContext context, String databaseVendor) {
 		File outputDir = new File(context.getWorkingDir() + FS + databaseVendor);
 		File schemaFile = context.getSchemaXmlFile();
+		String schemaFileCanonicalPath = LocationUtils.getCanonicalPath(schemaFile);
 
 		String reportFileRelativePath = context.getArtifactId() + "-context.generation";
-		File reportFileAbsoluteFile = new File(outputDir, reportFileRelativePath);
-		String reportFileCanonicalPath = LocationUtils.getCanonicalPath(reportFileAbsoluteFile);
+		File reportFileActualFile = new File(outputDir, reportFileRelativePath);
+		String reportFileCanonicalPath = LocationUtils.getCanonicalPath(reportFileActualFile);
 		File reportFileCanonicalFile = new File(reportFileCanonicalPath);
 
-
+		File contextPropertiesFile = new File(outputDir, context.getArtifactId() + "-context.properties");
+		String contextPropertiesCanonicalPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
 
 		VelocityCrap vc = new VelocityCrap();
+		vc.setSchemaFile(schemaFile);
+		vc.setWorkingDir(outputDir);
+		vc.setContextPropertiesCanonicalPath(contextPropertiesCanonicalPath);
+		vc.setContextPropertiesFile(contextPropertiesFile);
+		vc.setReportFileCanonicalPath(reportFileCanonicalPath);
+		vc.setReportFileActualFile(reportFileActualFile);
+		vc.setReportFileRelativePath(reportFileRelativePath);
+		vc.setReportFileCanonicalPath(reportFileCanonicalPath);
+		vc.setReportFileCanonicalFile(reportFileCanonicalFile);
+		vc.setSchemaFileCanonicalPath(schemaFileCanonicalPath);
 		return vc;
 	}
 
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
 		try {
-			File taskDirectory = new File(context.getWorkingDir() + FS + databaseVendor);
-			File newSchemaXmlFile = new File(taskDirectory, context.getSchemaXmlFile().getName());
-			FileUtils.copyFile(context.getSchemaXmlFile(), newSchemaXmlFile);
+			VelocityCrap vc = getVelocityCrap(context, databaseVendor);
 
-			String relativePath = "./" + context.getArtifactId() + "-context.generation";
-			String absolutePath = taskDirectory + relativePath;
-			File file = new File(absolutePath);
-			String canonicalPath = LocationUtils.getCanonicalPath(file);
-			File canonicalFile = new File(canonicalPath);
-			FileUtils.touch(canonicalFile);
+			logger.info("Touching {}", vc.getReportFileCanonicalFile());
+			FileUtils.touch(vc.getReportFileCanonicalFile());
 
-			File contextPropertiesFile = new File(taskDirectory, context.getArtifactId() + "-context.properties");
-			String contextPropertiesPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
 			Properties properties = ImpexUtils.getVelocityProperties();
-			PropertyUtils.store(properties, contextPropertiesFile);
+			PropertyUtils.store(properties, vc.getContextPropertiesFile());
 
 			TorqueDataModelTask task = new TorqueDataModelTask();
 			task.setProject(project);
-			task.setOutputDirectory(taskDirectory);
-			task.setXmlFile(LocationUtils.getCanonicalPath(newSchemaXmlFile));
+			task.setOutputDirectory(vc.getWorkingDir());
+			task.setXmlFile(vc.getSchemaFileCanonicalPath());
 			task.setTargetDatabase(databaseVendor);
 
-			task.setContextProperties(contextPropertiesPath);
+			task.setContextProperties(vc.getContextPropertiesCanonicalPath());
 			task.setUseClasspath(true);
 			task.setControlTemplate("sql/base/Control.vm");
-			task.setOutputFile(relativePath);
+			task.setOutputFile(vc.getReportFileRelativePath());
 			return task;
 		} catch (IOException e) {
 			e.printStackTrace();
