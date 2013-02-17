@@ -16,13 +16,18 @@
 package org.kuali.common.impex;
 
 import org.kuali.common.impex.service.ImpexContext;
+import org.kuali.common.impex.service.ImpexUtils;
 import org.springframework.beans.factory.FactoryBean;
 
 public class ImpexContextFactoryBean implements FactoryBean<ImpexContext> {
 
+	ImpexContext sourceContext;
+	String include;
+	String artifactId;
+
 	@Override
 	public ImpexContext getObject() throws Exception {
-		return null;
+		return ImpexUtils.clone(sourceContext, include, artifactId);
 	}
 
 	@Override
@@ -33,5 +38,29 @@ public class ImpexContextFactoryBean implements FactoryBean<ImpexContext> {
 	@Override
 	public boolean isSingleton() {
 		return false;
+	}
+
+	public ImpexContext getSourceContext() {
+		return sourceContext;
+	}
+
+	public void setSourceContext(ImpexContext sourceContext) {
+		this.sourceContext = sourceContext;
+	}
+
+	public String getInclude() {
+		return include;
+	}
+
+	public void setInclude(String include) {
+		this.include = include;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
 	}
 }
