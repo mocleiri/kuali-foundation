@@ -34,6 +34,7 @@ import org.kuali.core.db.torque.DumpTask;
 import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
 import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.kuali.core.db.torque.pojo.DatabaseContext;
+import org.kuali.core.db.torque.pojo.DumpTableResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -67,12 +68,12 @@ public class DumpTablesTest {
 			service.serializeSchemas(contexts, database);
 			// service.generateDataDtds(contexts);
 			service.generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
-			// List<DumpTableResult> results = service.dumpTables(sourceContext, database);
+			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			if (sourceContext.isStoreDatabaseTableProperties()) {
 				// ImpexUtils.updateAndStoreDatabaseProperties(sourceContext.getDatabaseTableProperties(),
 				// sourceContext.getDatabaseTablePropertiesLocation(), results);
 			}
-			// ImpexUtils.doStats(results);
+			ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
