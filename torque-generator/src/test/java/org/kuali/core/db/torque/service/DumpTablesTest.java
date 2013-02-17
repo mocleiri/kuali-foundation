@@ -22,8 +22,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
 import org.junit.Test;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
@@ -36,9 +34,6 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.core.db.torque.DumpTask;
-import org.kuali.core.db.torque.KualiTorqueDataDumpTask;
-import org.kuali.core.db.torque.KualiTorqueSchemaDumpTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -198,46 +193,4 @@ public class DumpTablesTest {
 		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
 		return context;
 	}
-
-	protected Task getDataDumpTask(ImpexContext context, Project project) {
-		KualiTorqueDataDumpTask task = new KualiTorqueDataDumpTask();
-		fillInTask(task, context, project);
-		task.setBuildDirectory(context.getWorkingDir());
-		task.setDataXMLDir(context.getWorkingDir());
-		task.setDateFormat(context.getDateFormat());
-		task.setPrintMetaInfLists(context.isPrintMetaInfLists());
-		return task;
-	}
-
-	protected Task getSchemaDumpTask(ImpexContext context, Project project) {
-		KualiTorqueSchemaDumpTask task = new KualiTorqueSchemaDumpTask();
-		fillInTask(task, context, project);
-		task.setSchemaXMLFile(context.getSchemaXmlFile());
-		task.setProcessTables(context.isProcessTables());
-		task.setProcessSequences(context.isProcessSequences());
-		task.setProcessViews(context.isProcessViews());
-		task.setDataSource(context.getDataSource());
-		task.setThreads(context.getMetaDataThreads());
-		return task;
-	}
-
-	protected void fillInTask(DumpTask task, ImpexContext context, Project project) {
-		task.setProject(project);
-		task.setTargetDatabase(context.getDatabaseVendor());
-		task.setArtifactId(context.getArtifactId());
-		task.setSchema(context.getSchema());
-		task.setDriver(context.getDriver());
-		task.setUrl(context.getUrl());
-		task.setUsername(context.getUsername());
-		task.setPassword(context.getPassword());
-		task.setComment(context.getComment());
-		task.setTableIncludes(context.getTableIncludes());
-		task.setTableExcludes(context.getTableExcludes());
-		task.setSequenceIncludes(context.getSequenceIncludes());
-		task.setSequenceExcludes(context.getSequenceExcludes());
-		task.setViewIncludes(context.getViewIncludes());
-		task.setViewExcludes(context.getViewExcludes());
-		task.setAntCompatibilityMode(context.isAntCompatibilityMode());
-	}
-
 }
