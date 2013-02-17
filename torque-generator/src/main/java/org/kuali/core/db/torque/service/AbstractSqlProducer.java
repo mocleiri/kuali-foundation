@@ -15,10 +15,6 @@
 
 package org.kuali.core.db.torque.service;
 
-import org.apache.torque.engine.database.model.Column;
-import org.apache.torque.engine.database.model.Table;
-import org.kuali.common.util.CollectionUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,112 +23,115 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.torque.engine.database.model.Column;
+import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.util.CollectionUtils;
+
 /**
  * @author andrewlubbers
  */
 public abstract class AbstractSqlProducer implements SqlProducer {
 
-    private MpxParser mpxParser;
+	private MpxParser mpxParser;
 
-    protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
+	protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
 
-    private int batchRowCountLimit;
-    private int batchDataSizeLimit;
+	private int batchRowCountLimit;
+	private int batchDataSizeLimit;
 
-    public MpxParser getMpxParser() {
-        return mpxParser;
-    }
+	public MpxParser getMpxParser() {
+		return mpxParser;
+	}
 
-    public void setMpxParser(MpxParser mpxParser) {
-        this.mpxParser = mpxParser;
-    }
+	public void setMpxParser(MpxParser mpxParser) {
+		this.mpxParser = mpxParser;
+	}
 
-    protected boolean batchLimitReached(int rows, int length) {
-        if (rows > getBatchRowCountLimit()) {
-            return true;
-        }
-        else if (length > getBatchDataSizeLimit()) {
-            return true;
-        }
+	protected boolean batchLimitReached(int rows, int length) {
+		if (rows > getBatchRowCountLimit()) {
+			return true;
+		} else if (length > getBatchDataSizeLimit()) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    protected String readLineSkipHeader(BufferedReader reader) throws IOException {
-        // First check to see if the reader is at the Header line.
-        // If it is, skip that line
-        String line = reader.readLine();
-        if (ImpexUtils.isHeaderLine(line)) {
-            line = reader.readLine();
-        }
+	protected String readLineSkipHeader(BufferedReader reader) throws IOException {
+		// First check to see if the reader is at the Header line.
+		// If it is, skip that line
+		String line = reader.readLine();
+		if (ImpexUtils.isHeaderLine(line)) {
+			line = reader.readLine();
+		}
 
-        return line;
-    }
+		return line;
+	}
 
-    protected abstract String getEscapedValue(String token);
+	protected abstract String getEscapedValue(String token);
 
-    protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
-        List<DataBean> result = new ArrayList<DataBean>();
+	protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
+		List<DataBean> result = new ArrayList<DataBean>();
 
-        for(int i = 0; i < tokens.length; i++) {
-            result.add(processToken(columns.get(i), tokens[i]));
-        }
+		for (int i = 0; i < tokens.length; i++) {
+			result.add(processToken(columns.get(i), tokens[i]));
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public DataBean processToken(Column column, String token) {
-        DataBean result = new DataBean();
+	public DataBean processToken(Column column, String token) {
+		DataBean result = new DataBean();
 
-        result.setColumn(column);
+		result.setColumn(column);
 
-        if (token == null) {
-            result.setValue(null);
-            result.setDateValue(null);
-        }
-        if (ImpexUtils.isColumnDateType(column)) {
-            SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
-            Date parsedDate;
-            try {
-                parsedDate = sdf.parse(token);
-            } catch (ParseException e) {
-                throw new IllegalArgumentException("Cannot parse " + token + " using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
-            }
+		if (token == null) {
+			result.setValue(null);
+			result.setDateValue(null);
+		}
+		if (ImpexUtils.isColumnDateType(column)) {
+			SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
+			Date parsedDate;
+			try {
+				parsedDate = sdf.parse(token);
+			} catch (ParseException e) {
+				throw new IllegalArgumentException("Cannot parse " + token + " using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
+			}
 
-            result.setValue(null);
-            result.setDateValue(parsedDate);
-        }
-        if (column.needEscapedValue()) {
-            result.setValue(getEscapedValue(token));
-            result.setDateValue(null);
-        }
+			result.setValue(null);
+			result.setDateValue(parsedDate);
+		}
+		if (column.needEscapedValue()) {
+			result.setValue(getEscapedValue(token));
+			result.setDateValue(null);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public int getBatchRowCountLimit() {
-        return batchRowCountLimit;
-    }
+	public int getBatchRowCountLimit() {
+		return batchRowCountLimit;
+	}
 
-    public int getBatchDataSizeLimit() {
-        return batchDataSizeLimit;
-    }
+	public int getBatchDataSizeLimit() {
+		return batchDataSizeLimit;
+	}
 
-    public void setBatchDataSizeLimit(int batchDataSizeLimit) {
-        this.batchDataSizeLimit = batchDataSizeLimit;
-    }
+	public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+		this.batchDataSizeLimit = batchDataSizeLimit;
+	}
 
-    public void setBatchRowCountLimit(int batchRowCountLimit) {
-        this.batchRowCountLimit = batchRowCountLimit;
-    }
+	public void setBatchRowCountLimit(int batchRowCountLimit) {
+		this.batchRowCountLimit = batchRowCountLimit;
+	}
 
-    protected String getColumnNamesCSV(Table table) {
-        List<Column> columns = ImpexUtils.getColumns(table);
-        List<String> colNames = new ArrayList<String>(columns.size());
-        for (Column col : columns) {
-            colNames.add(col.getName());
-        }
+	protected String getColumnNamesCSV(Table table) {
+		List<Column> columns = ImpexUtils.getColumns(table);
+		List<String> colNames = new ArrayList<String>(columns.size());
+		for (Column col : columns) {
+			colNames.add(col.getName());
+		}
 
-        return CollectionUtils.getCSV(colNames);
-    }
+		return CollectionUtils.getCSV(colNames);
+	}
 }
