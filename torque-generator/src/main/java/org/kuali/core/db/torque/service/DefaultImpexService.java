@@ -354,6 +354,21 @@ public class DefaultImpexService implements ImpexService {
 		return antProject;
 	}
 
+	protected VelocityCrap getVelocityCrap(ImpexContext context, String databaseVendor) {
+		File outputDir = new File(context.getWorkingDir() + FS + databaseVendor);
+		File schemaFile = context.getSchemaXmlFile();
+
+		String reportFileRelativePath = context.getArtifactId() + "-context.generation";
+		File reportFileAbsoluteFile = new File(outputDir, reportFileRelativePath);
+		String reportFileCanonicalPath = LocationUtils.getCanonicalPath(reportFileAbsoluteFile);
+		File reportFileCanonicalFile = new File(reportFileCanonicalPath);
+
+
+
+		VelocityCrap vc = new VelocityCrap();
+		return vc;
+	}
+
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
 		try {
 			File taskDirectory = new File(context.getWorkingDir() + FS + databaseVendor);

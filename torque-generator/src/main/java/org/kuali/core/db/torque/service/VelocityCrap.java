@@ -7,7 +7,9 @@ public class VelocityCrap {
 	File workingDir;
 	String reportFileRelativePath;
 	File reportFileActualFile;
+	String reportFileCanonicalPath;
 	File contextPropertiesFile;
+	String contextPropertiesCanonicalPath;
 	File schemaFile;
 
 	public File getWorkingDir() {
@@ -48,5 +50,21 @@ public class VelocityCrap {
 
 	public void setSchemaFile(File schemaFile) {
 		this.schemaFile = schemaFile;
+	}
+
+	public String getReportFileCanonicalPath() {
+		return reportFileCanonicalPath;
+	}
+
+	public void setReportFileCanonicalPath(String reportFileCanonicalPath) {
+		this.reportFileCanonicalPath = reportFileCanonicalPath;
+	}
+
+	public String getContextPropertiesCanonicalPath() {
+		return contextPropertiesCanonicalPath;
+	}
+
+	public void setContextPropertiesCanonicalPath(String contextPropertiesCanonicalPath) {
+		this.contextPropertiesCanonicalPath = contextPropertiesCanonicalPath;
 	}
 }
