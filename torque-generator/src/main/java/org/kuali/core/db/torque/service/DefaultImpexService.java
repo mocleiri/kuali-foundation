@@ -399,15 +399,19 @@ public class DefaultImpexService implements ImpexService {
 
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
 		try {
+			// The velocity ant task expects certain files to be present on the local file system relative to it's output dir
 			VelocityAntTaskContext vc = getVelocityAntTaskContext(context, databaseVendor);
 
+			// The report file doesn't need any content, but the file must be there (lame!)
 			logger.debug("Touch {}", vc.getReportFileCanonicalFile());
 			FileUtils.touch(vc.getReportFileCanonicalFile());
 
+			// The properties file needs a couple properties in it (also quite lame)
 			Properties properties = ImpexUtils.getVelocityProperties();
 			logger.debug("Store {}", vc.getContextPropertiesFile());
 			store(properties, vc.getContextPropertiesFile());
 
+			// Create an Ant task based on the ImpexContext
 			TorqueDataModelTask task = new TorqueDataModelTask();
 			task.setProject(project);
 			task.setOutputDirectory(vc.getWorkingDir());
