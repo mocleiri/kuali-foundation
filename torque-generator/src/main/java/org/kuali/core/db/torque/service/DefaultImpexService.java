@@ -298,6 +298,9 @@ public class DefaultImpexService implements ImpexService {
 
 	@Override
 	public void generateSchemaSql(List<ImpexContext> contexts, List<String> databaseVendors) {
+		long start = System.currentTimeMillis();
+		Object[] args = { contexts.size(), databaseVendors.size(), contexts.size() * databaseVendors.size() };
+		logger.info("Generating DDL for {} db's and {} database vendors.  {} sets of DDL total", args);
 		Project antProject = getInitializedAntProject();
 		for (ImpexContext context : contexts) {
 			for (String databaseVendor : databaseVendors) {
@@ -306,6 +309,8 @@ public class DefaultImpexService implements ImpexService {
 				task.execute();
 			}
 		}
+		String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
+		logger.info("DDL generation complete.  Time: {}", elapsed);
 	}
 
 	protected void doAntCompatibilityMode(ImpexContext context) {
