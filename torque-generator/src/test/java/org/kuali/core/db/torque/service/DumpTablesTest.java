@@ -49,9 +49,9 @@ public class DumpTablesTest {
 			long start = System.currentTimeMillis();
 			// Going beyond 5/15 for the metadata/data threads doesn't improve things much
 			// Properties p = getProperties("T.*", 5, 15);
-			// Properties p = getProperties("KR.*,KS.*", 5, 15);
+			Properties p = getProperties("KR.*,KS.*", 5, 15);
 			// Properties p = getProperties("KRIM.*", 5, 15);
-			Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
+			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
 			log(sourceContext);
 

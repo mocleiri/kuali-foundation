@@ -359,19 +359,20 @@ public class DefaultImpexService implements ImpexService {
 		File schemaFile = context.getSchemaXmlFile();
 		String schemaFileCanonicalPath = LocationUtils.getCanonicalPath(schemaFile);
 
-		String reportFileRelativePath = context.getArtifactId() + "-context.generation";
+		String reportFileRelativePath = "../../reports/" + context.getArtifactId() + "-context.generation";
 		File reportFileActualFile = new File(outputDir, reportFileRelativePath);
 		String reportFileCanonicalPath = LocationUtils.getCanonicalPath(reportFileActualFile);
 		File reportFileCanonicalFile = new File(reportFileCanonicalPath);
 
-		File contextPropertiesFile = new File(outputDir, context.getArtifactId() + "-context.properties");
+		File contextPropertiesFile = new File(outputDir, "../../reports/" + context.getArtifactId() + "-context.properties");
 		String contextPropertiesCanonicalPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
+		File contextPropertiesCanonicalFile = new File(contextPropertiesCanonicalPath);
 
 		VelocityCrap vc = new VelocityCrap();
 		vc.setSchemaFile(schemaFile);
 		vc.setWorkingDir(outputDir);
 		vc.setContextPropertiesCanonicalPath(contextPropertiesCanonicalPath);
-		vc.setContextPropertiesFile(contextPropertiesFile);
+		vc.setContextPropertiesFile(contextPropertiesCanonicalFile);
 		vc.setReportFileCanonicalPath(reportFileCanonicalPath);
 		vc.setReportFileActualFile(reportFileActualFile);
 		vc.setReportFileRelativePath(reportFileRelativePath);
@@ -381,26 +382,36 @@ public class DefaultImpexService implements ImpexService {
 		return vc;
 	}
 
+	protected void store(Properties properties, File file) {
+		OutputStream out = null;
+		try {
+			out = FileUtils.openOutputStream(file);
+			properties.store(out, null);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
 		try {
 			VelocityCrap vc = getVelocityCrap(context, databaseVendor);
 
-			logger.info("Touching {}", vc.getReportFileCanonicalFile());
+			logger.debug("Touch {}", vc.getReportFileCanonicalFile());
 			FileUtils.touch(vc.getReportFileCanonicalFile());
 
 			Properties properties = ImpexUtils.getVelocityProperties();
-			PropertyUtils.store(properties, vc.getContextPropertiesFile());
+			logger.debug("Store {}", vc.getContextPropertiesFile());
+			store(properties, vc.getContextPropertiesFile());
 
 			TorqueDataModelTask task = new TorqueDataModelTask();
 			task.setProject(project);
 			task.setOutputDirectory(vc.getWorkingDir());
 			task.setXmlFile(vc.getSchemaFileCanonicalPath());
 			task.setTargetDatabase(databaseVendor);
-
 			task.setContextProperties(vc.getContextPropertiesCanonicalPath());
+			task.setOutputFile(vc.getReportFileRelativePath());
 			task.setUseClasspath(true);
 			task.setControlTemplate("sql/base/Control.vm");
-			task.setOutputFile(vc.getReportFileRelativePath());
 			return task;
 		} catch (IOException e) {
 			e.printStackTrace();
