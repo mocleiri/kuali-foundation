@@ -354,7 +354,7 @@ public class DefaultImpexService implements ImpexService {
 		return antProject;
 	}
 
-	protected VelocityCrap getVelocityCrap(ImpexContext context, String databaseVendor) {
+	protected VelocityAntTaskContext getVelocityAntTaskContext(ImpexContext context, String databaseVendor) {
 		File outputDir = new File(context.getWorkingDir() + FS + databaseVendor);
 		File schemaFile = context.getSchemaXmlFile();
 		String schemaFileCanonicalPath = LocationUtils.getCanonicalPath(schemaFile);
@@ -368,7 +368,7 @@ public class DefaultImpexService implements ImpexService {
 		String contextPropertiesCanonicalPath = LocationUtils.getCanonicalPath(contextPropertiesFile);
 		File contextPropertiesCanonicalFile = new File(contextPropertiesCanonicalPath);
 
-		VelocityCrap vc = new VelocityCrap();
+		VelocityAntTaskContext vc = new VelocityAntTaskContext();
 		vc.setSchemaFile(schemaFile);
 		vc.setWorkingDir(outputDir);
 		vc.setContextPropertiesCanonicalPath(contextPropertiesCanonicalPath);
@@ -394,7 +394,7 @@ public class DefaultImpexService implements ImpexService {
 
 	protected TorqueDataModelTask getGenerateSchemaSqlTask(ImpexContext context, Project project, String databaseVendor) {
 		try {
-			VelocityCrap vc = getVelocityCrap(context, databaseVendor);
+			VelocityAntTaskContext vc = getVelocityAntTaskContext(context, databaseVendor);
 
 			logger.debug("Touch {}", vc.getReportFileCanonicalFile());
 			FileUtils.touch(vc.getReportFileCanonicalFile());

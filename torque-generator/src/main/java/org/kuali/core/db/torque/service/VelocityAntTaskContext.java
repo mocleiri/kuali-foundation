@@ -2,7 +2,7 @@ package org.kuali.core.db.torque.service;
 
 import java.io.File;
 
-public class VelocityCrap {
+public class VelocityAntTaskContext {
 
 	File workingDir;
 	String reportFileRelativePath;
