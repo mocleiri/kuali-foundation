@@ -23,13 +23,17 @@ public class DumpExecutable implements Executable {
 			service.serializeSchemas(contexts, database);
 			service.generateSchemaSql(contexts, databaseVendors);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
-			if (sourceContext.isStoreDatabaseTableProperties()) {
-				Properties properties = sourceContext.getDatabaseTableProperties();
-				String location = sourceContext.getDatabaseTablePropertiesLocation();
-				ImpexUtils.updateAndStoreDatabaseProperties(properties, location, results);
-			}
+			updateSourceDatabaseProperties(sourceContext, results);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
+		}
+	}
+
+	protected void updateSourceDatabaseProperties(ImpexContext sourceContext, List<DumpTableResult> results) {
+		if (sourceContext.isStoreDatabaseTableProperties()) {
+			Properties properties = sourceContext.getDatabaseTableProperties();
+			String location = sourceContext.getDatabaseTablePropertiesLocation();
+			ImpexUtils.updateAndStoreDatabaseProperties(properties, location, results);
 		}
 	}
 
