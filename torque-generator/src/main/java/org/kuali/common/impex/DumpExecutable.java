@@ -25,12 +25,12 @@ public class DumpExecutable implements Executable {
 		long start = System.currentTimeMillis();
 		try {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
-			service.fillInMetaData(sourceContext, database);
-			service.serializeSchemas(contexts, database);
-			service.generateSchemaSql(contexts, databaseVendors);
-			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
-			updateSourceDatabaseProperties(sourceContext, results);
-			ImpexUtils.doStats(results);
+			// service.fillInMetaData(sourceContext, database);
+			// service.serializeSchemas(contexts, database);
+			// service.generateSchemaSql(contexts, databaseVendors);
+			// List<DumpTableResult> results = service.dumpTables(sourceContext, database);
+			// updateSourceDatabaseProperties(sourceContext, results);
+			// ImpexUtils.doStats(results);
 			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 			logger.info("Total time: {}", time);
 		} catch (Exception e) {
