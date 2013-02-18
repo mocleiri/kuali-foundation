@@ -6,9 +6,14 @@ import java.util.Properties;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexService;
 import org.kuali.common.impex.service.ImpexUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DumpExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(DumpExecutable.class);
 
 	ImpexContext sourceContext;
 	List<ImpexContext> contexts;
@@ -17,6 +22,7 @@ public class DumpExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		long start = System.currentTimeMillis();
 		try {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
 			service.fillInMetaData(sourceContext, database);
@@ -24,6 +30,9 @@ public class DumpExecutable implements Executable {
 			service.generateSchemaSql(contexts, databaseVendors);
 			List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			updateSourceDatabaseProperties(sourceContext, results);
+			ImpexUtils.doStats(results);
+			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
+			logger.info("Total time: {}", time);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
