@@ -2,8 +2,8 @@
 	Custom scripting for additional functionality
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created: 	29 Jan 2013, 12:09
-	Last Mod: 	13 Feb 2013, 15:45
-	Version: 	0.4
+	Last Mod: 	19 Feb 2013, 14:04
+	Version: 	0.4.1
 */
 
 
@@ -19,14 +19,14 @@ $.fn.scrollBottom=function(){return $(document).height()-this.scrollTop()-this.h
 /*
 Global variables
 ---------------------------------- */
-var $header 	= $('#header'),
-	$window 	= $(window),
-	$document 	= $('#document'),
-	$toc 		= $('#ToC'),
-	$sec		= $('#secondary'),
-	$dOffset	= $document.offset(),
-	$tOffset 	= $toc.offset(),
-	$sOffset	= $sec.offset();
+var $kuali_header 	= $('#header'),
+	$kuali_window 	= $(window),
+	$kuali_document = $('#document'),
+	$kuali_toc 		= $('#ToC'),
+	$kuali_sec		= $('#secondary'),
+	$kuali_dOffset	= $kuali_document.offset(),
+	$kuali_tOffset 	= $kuali_toc.offset(),
+	$kuali_sOffset	= $kuali_sec.offset();
 
 
 
@@ -34,15 +34,15 @@ var $header 	= $('#header'),
 Sticky table of contents
 ---------------------------------- */
 function init_sticky_elems() {
-	if ($toc.length && $document.length) {
-		if ($window.scrollTop() > $dOffset.top) {
-			$document.addClass('fixed');
-			$toc.addClass('fixed');
-			$sec.addClass('fixed');
+	if ($kuali_toc.length && $kuali_document.length) {
+		if ($kuali_window.scrollTop() > $kuali_dOffset.top) {
+			$kuali_document.addClass('fixed');
+			$kuali_toc.addClass('fixed');
+			$kuali_sec.addClass('fixed');
 		} else {
-			$document.removeClass('fixed');
-			$toc.removeClass('fixed');
-			$sec.removeClass('fixed');
+			$kuali_document.removeClass('fixed');
+			$kuali_toc.removeClass('fixed');
+			$kuali_sec.removeClass('fixed');
 		}
 	}
 }
@@ -55,7 +55,7 @@ Form field validation
 ---------------------------------- */
 // If there is a '#' in the URL (someone linking directly to a page with an anchor), go directly to that area and focus is
 // Thanks to WebAIM.org for this idea
-if (document.location.hash) {
+if( document.location.hash ) {
 	var anchorUponArrival = document.location.hash;
 	setTimeout(function() {
 		$(anchorUponArrival).focus();
@@ -79,6 +79,7 @@ $('#validate_data').on('click', function() {
 
 	$.each(fields_with_errors, function() {
 		if( $('#' + this).is(':empty') || !$('#' + this).val()) {
+			$('#' + this).parent().append('<span class="help-inline">This field is required.</span>');
 			$('#' + this).parent().parent().addClass('error');
 			$('#' + this).parent().parent().parent().addClass('error');
 		}
@@ -109,11 +110,11 @@ $(document).ready(function() {
 	
 	init_required_elems();
 
-	$window.bind("resize", function() {
+	$kuali_window.bind("resize", function() {
 		init_sticky_elems();
 	});
 
-	$window.bind("scroll", function() {
+	$kuali_window.bind("scroll", function() {
 		init_sticky_elems();
 	});
 

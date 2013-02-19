@@ -30,7 +30,7 @@
 </head>
 <body role="application">
 <!-- Header (sticky) -->
-<div id="header" class="header" role="header">
+<div id="header" class="header" role="banner">
   <header> 
     
     <!-- Global items -->
@@ -89,7 +89,7 @@
 
       <!-- Tools --> 
       <div class="btn-group">
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="">Actions<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#"><i class="icon-ok"></i>Data validation</a></li>
           <li><a href="#"><i class="icon-list-alt"></i>Proposal hierarchy</a></li>
@@ -171,7 +171,8 @@
     <!-- // --> 
   </header>
 </div>
-<div id="ToC"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
+<div id="ToC">
+  <a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
     <ul style="display: block; ">
       <li class="active complete"><a href="prop.proposal.html"><i class="icon-green icon-ok"></i><span>Proposal</span></a></li>
       <li class="complete"><a href="prop.keypersonnel.html"><i class="icon-green icon-ok"></i><span>Key Personnel</span></a></li>
@@ -221,7 +222,7 @@
           </div>
           <div class="boxContent" style="display:block" >
             <div class="boxSubheader">
-              <h4>Required</h4>
+              <h4><span class="req">*<span>required</span></span>Required</h4>
             </div>
             <div class="control-group">
               <label class="control-label" for="ProposalType">Proposal Type</label>
@@ -240,7 +241,7 @@
             <div class="control-group">
               <label class="control-label" for="leadUnit">Lead Unit</label>
               <div class="controls">
-                <select name="select" id="leadUnit" class="input-xlarge" title="* Lead Unit" required="required">
+                <select name="select" id="leadUnit" class="input-xlarge" title="Lead Unit" required="required">
                   <option value="">select</option>
                   <option value="000001">000001 - University</option>
                   <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
@@ -252,7 +253,7 @@
             <div class="control-group">
               <label class="control-label" for="activityType">Activity Type</label>
               <div class="controls">
-                <select name="select" id="activityType" class="input-xlarge" title="* Activity Type" required="required">
+                <select name="select" id="activityType" class="input-xlarge" title="Activity Type" required="required">
                   <option value="">select</option>
                   <option value="4">Clinical Trial</option>
                   <option value="9">Construction</option>
@@ -659,7 +660,7 @@
         
         <div style=" padd12px; text-align:center">
           <a href="#" class="btn btn-mini"><i class="icon-chevron-left"></i> back</a>
-          <a href="#" class="btn btn-mini">save</a>
+          <a href="#" class="btn btn">save</a>
           <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
       </div>
     </div>
@@ -668,23 +669,23 @@
 <p>
 <!-- Le javascript ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-  <script src="../assets/js/jquery.js"></script>
-  <script src="../assets/js/bootstrap-transition.js"></script> 
-  <script src="../assets/js/bootstrap-fileupload.js"></script>
-  <script src="../assets/js/bootstrap-alert.js"></script> 
-  <script src="../assets/js/bootstrap-modal.js"></script> 
-  <script src="../assets/js/bootstrap-dropdown.js"></script> 
-  <script src="../assets/js/bootstrap-scrollspy.js"></script> 
-  <script src="../assets/js/bootstrap-tab.js"></script> 
-  <script src="../assets/js/bootstrap-tooltip.js"></script> 
-  <script src="../assets/js/bootstrap-popover.js"></script> 
-  <script src="../assets/js/bootstrap-button.js"></script> 
-  <script src="../assets/js/bootstrap-collapse.js"></script> 
-  <script src="../assets/js/bootstrap-carousel.js"></script> 
-  <script src="../assets/js/bootstrap-typeahead.js"></script> 
-  <script src="../assets/js/bootstrap-editable.js"></script> 
-  <script src="../assets/js/application.js"></script> 
-  <script src="../assets/js/custom.js"></script>
+<script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/bootstrap-transition.js"></script> 
+<script src="../assets/js/bootstrap-fileupload.js"></script>
+<script src="../assets/js/bootstrap-alert.js"></script> 
+<script src="../assets/js/bootstrap-modal.js"></script> 
+<script src="../assets/js/bootstrap-dropdown.js"></script> 
+<script src="../assets/js/bootstrap-scrollspy.js"></script>
+<script src="../assets/js/bootstrap-tab.js"></script> 
+<script src="../assets/js/bootstrap-tooltip.js"></script>
+<script src="../assets/js/bootstrap-popover.js"></script> 
+<script src="../assets/js/bootstrap-button.js"></script> 
+<script src="../assets/js/bootstrap-collapse.js"></script> 
+<script src="../assets/js/bootstrap-carousel.js"></script> 
+<script src="../assets/js/bootstrap-typeahead.js"></script> 
+<script src="../assets/js/bootstrap-editable.js"></script> 
+<script src="../assets/js/application.js"></script> 
+<script src="../assets/js/custom.js"></script>
 
 
   <!--
