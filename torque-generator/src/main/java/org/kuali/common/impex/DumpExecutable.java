@@ -3,6 +3,7 @@ package org.kuali.common.impex;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.impex.service.DefaultImpexService;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexService;
 import org.kuali.common.impex.service.ImpexUtils;
@@ -10,6 +11,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class DumpExecutable implements Executable {
 
@@ -17,11 +19,15 @@ public class DumpExecutable implements Executable {
 
 	ImpexContext sourceContext;
 	List<ImpexContext> contexts;
-	ImpexService service;
+	ImpexService service = new DefaultImpexService();
 	List<String> databaseVendors;
 
 	@Override
 	public void execute() {
+		Assert.notNull(sourceContext);
+		Assert.notNull(contexts);
+		Assert.notNull(service);
+		Assert.notNull(databaseVendors);
 		long start = System.currentTimeMillis();
 		try {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
