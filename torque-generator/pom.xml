@@ -151,6 +151,13 @@
           <include>**/mpxTests/build-db-context.xml</include>
         </includes>
       </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/mpxTests/build-db-context.xml</exclude>
+        </excludes>
+      </testResource>
     </testResources>
   </build>
 </project>
