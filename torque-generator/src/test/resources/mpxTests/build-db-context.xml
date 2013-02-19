@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2004-2013 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
+
+    <!-- The following properties are populated by maven when the test resources are processed -->
+    <util:properties id="deploy.mavenProperties">
+        <prop key="db.vendor">oracle</prop>
+        <prop key="kuali.encoding">${kuali.encoding}</prop>
+        <prop key="project.groupId">${project.groupId}</prop>
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.version">${project.version}</prop>
+
+        <prop key="project.basedir">${project.basedir}</prop>
+        <prop key="project.build.directory">${project.build.directory}</prop>
+        <prop key="kuali.groupId">${kuali.groupId}</prop>
+
+        <prop key="jdbc.username">TORQUE_GENERATOR_TEST_DB</prop>
+
+        <prop key="oracle.dba.password">${oracle.dba.password}</prop>
+
+        <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
+        <prop key="sql.data.1">classpath:mpxTests/FOO_T.sql</prop>
+    </util:properties>
+
+    <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+
+    <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
+
+    <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
+        <property name="executable" ref="deploy.databaseResetExecutable" />
+    </bean>
+
+</beans>
