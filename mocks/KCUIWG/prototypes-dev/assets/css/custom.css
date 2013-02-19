@@ -118,7 +118,7 @@ a:active {
 	padding-left: 15px;
 }
 #ToC > ul > li > a:hover {
-	background-color: #4A4A4A;
+	background-color: #353535;
 }
 #ToC > ul > li > a > i {
 	margin-right: 10px;
@@ -168,12 +168,16 @@ a:active {
 	background-color: #272727;
 }
 #ToC > ul ul li {
-	padding-left: 35px;
+	padding-left: 0px;
 }
 #ToC > ul ul li a {
 	color: #777777;
 	display: block;
-	padding: 6px 0 6px 15px;
+	padding-top: 6px;
+	padding-right: 0;
+	padding-bottom: 6px;
+	padding-left: 50px;
+	font-size:12px;
 }
 #ToC > ul ul li.active > a {
 	background-attachment: scroll;
@@ -183,7 +187,7 @@ a:active {
 	background-position: right center;
 }
 #ToC > ul ul li a:hover {
-	background-color: #4A4A4A;
+	background-color: #353535;
 }
 #ToC > ul > li.nopointer > a {
 	background-image: none;
@@ -273,7 +277,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ebebeb', EndC
 	right: 0px;
 	top: 0px;
 }
-.box .boxContent .boxSubheader .question legend {
+.box .boxContent .question legend {
  margin-left:;
 	width: inherit;
 	font-size: inherit;
@@ -282,14 +286,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ebebeb', EndC
 	line-height: inherit;
  position:;
 }
-.box .boxContent .boxSubheader .question .questionControls {
-	margin-bottom: 20px;
- margin-left:;
+.box .boxContent .question .questionControls {
+	margin-bottom: 10px;
+ margin-left:2px;
 }
-.box .boxContent .boxSubheader .question .questionControls .radio.inline {
+.box .boxContent .question .questionControls .radio.inline {
 	padding-top: 3px;
 	padding-right: 4px;
-	padding-bottom: 0px;
+	padding-bottom: 22px;
 	padding-left: 0px;
 	vertical-align: top;
 }
@@ -376,7 +380,7 @@ dl.table-display dd {
 .nav-tabs {
 	border-bottom: 1px solid #A8A8A8;
 }
-.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+.nav-tabs.page > .active > a, .nav-tabs.page > .active > a:hover {
 	color: #555555;
 	cursor: default;
 	background-color: #E0E0E0;
@@ -419,6 +423,11 @@ body {
 #header { height:50px}
 
 #header header #document .btn-group { display:none}
+
+
+#header header #document .proposal-stats { display:none}
+
+
 
 
 #header h1 {
@@ -507,11 +516,14 @@ body {
 
 #header { height:50px}
 
-
+#header header #document .proposal-stats { display:none}
 
 #header h1 {
 	top: 3px;
 }
+
+#ToC { position:absolute}
+
 #ToC, #ToC > ul {
 	width: 43px;
 }
@@ -619,7 +631,9 @@ body {
 
 }
 
-
+#---------------------------------------------end responsive {
+/* TC - marker for dreamweaver css manager */
+}
 
 html {
 	height: 100%;
@@ -812,3 +826,45 @@ html[xmlns] .clearfix {
 * html .clearfix {
 	height: 1%;
 }
+
+
+.tabs-left .nav.nav-tabs.panel li a {
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 4px;
+	padding-left: 12px;
+}
+
+
+
+.box .boxHeader.expandControl h3 {
+	padding-left: 26px;
+	background-image: url(../img/icon-arrow-down.png);
+	background-repeat: no-repeat;
+	background-position: 10px 9px;
+}
+
+
+.box .boxHeader.expandControl.closed h3 {
+
+	background-image: url(../img/icon-arrow-right.png);
+	
+}
+
+
+
+
+.box .expandControl h4 {
+	padding-left: 18px;
+	background-image: url(../img/icon-arrow-down.png);
+	background-repeat: no-repeat;
+	background-position: 2px 4px;
+}
+
+
+.box .expandControl.closed h4 {
+
+	background-image: url(../img/icon-arrow-right.png);
+	
+}
+

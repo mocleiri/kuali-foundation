@@ -129,7 +129,7 @@ h4 {
 
 
 #header header #global {
-	height: 65px;
+	height: 64px;
 	background-color: #F3F3F3;
 	background-image: url(../img/brand-coeus.png), url(../img/brand-back.png);
 	background-repeat: no-repeat, repeat;
@@ -174,4 +174,100 @@ h4 {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
+}
+.box .navbar .navbar-inner .container .brand {
+	color: #333333;
+	float: left;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 30px;
+	padding: 0px;
+	text-shadow: 0 1px 0 #fff;
+	margin: 0px;
+}
+.box .navbar .navbar-inner .container .nav-collapse .nav a {
+	padding: 4px;
+}
+.box .navbar .navbar-inner {
+		
+	  min-height: 30px;
+  padding-right: 20px;
+  padding-left: 14px;
+  background-color: #fafafa;
+  background-image: none;
+  background: #e5e5e5;
+
+  border: 1px solid #d4d4d4;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  
+  *zoom: 1;
+  -webkit-box-shadow:none;
+     -moz-box-shadow:none;
+          box-shadow:none;
+	
+	
+
+border-top: 1px solid #fafafa;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius:0px;
+-webkit-border-top-left-radius: 3px;
+-webkit-border-top-right-radius: 3px;
+-moz-border-radius-topleft: 3px;
+-moz-border-radius-topright: 3px;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+height: 30px;
+cursor: pointer;
+	
+	
+	
+	
+	
+}
+.box .boxContent .tabbable.tabs-left.clearfix .nav.nav-tabs .active a {
+	background:#fafafa;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#header .meta ul li div{color:#333 !important;}
+#header .meta ul li ul li{display:block;width:100%;}
+#header .toolset{float:right;text-align:right;margin:.75em 1em 0 0;}
+#header .document-meta{float:right;margin-right:2em;}#header .document-meta a{color:#ffffff;display:inline-block;margin-top:.88em;}
+#header .btn-group{float:right;margin:1em 0 0 0;padding-top:6px;padding-right:10px;}#header .btn-group .btn.dropdown-toggle{background:none;border:none;color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);font-size:12px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}#header .btn-group .btn.dropdown-toggle .caret{border-top:4px solid #ffffff;}
+#header .btn-group .dropdown-menu{color:#222222;}#header .btn-group .dropdown-menu a{color:#222222;}
+#header .btn-group .dropdown-menu a:hover{color:#ffffff;}
+#header .proposal-stats{min-width:210px;float:right;margin-right:2em;}#header .proposal-stats span{color:#ffffff;display:inline-block;float:left;margin-top:.88em;margin-right:.5em;}
+#header .proposal-stats .progress{float:left;width:30%;max-width:100px;height:3px;margin-top:1.5em;margin-right:1em;}#header .proposal-stats .progress .bar{background:#5398c8;opacity:1 !important;}
+#header .proposal-stats .progress .bar.complete{background:#5c9b0a;}
+#header .proposal-stats a{display:inline-block;float:left;margin-top:.88em;color:#ffffff;}
+
+#document.fixed{background:#960000;top:0;left:0;z-index:999 !important;}
+
+.dropdown-menu{left:auto !important;right:0 !important;}.dropdown-menu a{font-size:.90em;text-align:left;}
+.popover{color:#222222 !important;}.popover ul{list-style:none;margin:0;padding:0;width:100%;}.popover ul li{display:block !important;clear:both;border-top:1px solid #f9f9f9 !important;width:100%;}.popover ul li .progress{width:100% !important;max-width:100% !important;float:none !important;margin-top:0 !important;}
+.popover ul li span{display:inline-block;margin-right:.35em;}
+.popover ul li:first-child{border-top:none;}
+.req{display:inline-block;}.req .icon{background-image:url('../img/glyphicons-halflings-red.png');margin:0 0 0 3px;}
+.req span{position:absolute;left:-9999em;}
+
+
+#header header #global .toolset ul li a {
+	color: #900;
 }

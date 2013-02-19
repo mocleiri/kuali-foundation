@@ -1,16 +1,12 @@
 $(document).ready(function () {
     // inline editing 
     //$.fn.editable.defaults.mode = 'inline';
-	
-	
-	
-	
     $.fn.editable.defaults.mode = 'popup';
     // box show hide
-    $('div.boxHeader').click(function (accordian) {
-        $(accordian.target).next('div').siblings('div.boxContent').slideUp(600);
-        $(accordian.target).next('div').slideToggle(600);
-    });
+    // $('div.boxHeader').click(function (accordian) {
+    //   $(accordian.target).next('div').siblings('div.boxContent').slideUp(600);
+    // $(accordian.target).next('div').slideToggle(600);
+    //  });
     // === Table of Contents navigation === //
     $('.submenu > a').click(function (e) {
         e.preventDefault();
@@ -89,7 +85,19 @@ $(document).ready(function () {
             'display': 'block'
         });
     }
- 
-
+    $(".expandControl").toggle
+		(function () 
+		{    	$(this).removeClass("closed");
+			$(this).next(".expandTarget").slideDown(600);
+        	
+    },
+		 function () {
+    
+			
+			
+			$(this).addClass("closed");
+			$(this).next(".expandTarget").slideUp(600);
+    });
+	
 
 });
