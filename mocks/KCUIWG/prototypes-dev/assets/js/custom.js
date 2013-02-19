@@ -66,10 +66,11 @@ if( document.location.hash ) {
 // Thanks to WebAIM.org for this idea
 $('a[href^="#"]').click(function(event) {
 	var inPageAnchor = "#" + this.href.split('#')[1];
-	setTimeout(function() {
-		$(inPageAnchor).focus();
-	}, 100);
-	return false;
+	if(inPageAnchor.length > 1) {
+		setTimeout(function() {
+			$(inPageAnchor).focus();
+		}, 100);
+	}
 });
 
 $('#error_message_container').hide();
