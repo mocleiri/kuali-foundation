@@ -32,7 +32,6 @@ import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,7 @@ public class DumpTablesTest {
 			// Properties p = getProperties("KRIM.*", 5, 15);
 			// Properties p = getProperties("KSEN_MSTONE.*", 5, 15);
 			ImpexContext sourceContext = getImpexContext(p);
-			log(sourceContext);
+			ImpexUtils.log(sourceContext);
 
 			ImpexContext bundledContext = ImpexUtils.clone(sourceContext, "KS.*,KR.*", "ks-bundled-db");
 			ImpexContext riceContext = ImpexUtils.clone(sourceContext, "KR.*", "ks-rice-db");
@@ -78,25 +77,6 @@ public class DumpTablesTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	protected static void log(ImpexContext context) {
-		logger.info("---------------------------------------------------------------");
-		logger.info("Impex Database Dump");
-		logger.info("---------------------------------------------------------------");
-		logger.info("Database Vendor - {}", context.getDatabaseVendor());
-		logger.info("Url - {}", context.getUrl());
-		logger.info("Schema - {}", context.getSchema());
-		logger.info("Username - {}", context.getUsername());
-		logger.info("Password - {}", LoggerUtils.getPassword(context.getUsername(), context.getPassword()));
-		logger.info("Driver - {}", context.getDriver());
-		logger.info("Table Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableIncludes()));
-		logger.info("Table Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableExcludes()));
-		logger.info("View Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getViewIncludes()));
-		logger.info("View Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getViewExcludes()));
-		logger.info("Sequence Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getSequenceIncludes()));
-		logger.info("Sequence Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getSequenceExcludes()));
-		logger.info("---------------------------------------------------------------");
 	}
 
 	protected static DataSource getDataSource(Properties p) {
