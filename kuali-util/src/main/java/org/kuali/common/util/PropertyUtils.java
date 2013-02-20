@@ -559,6 +559,7 @@ public class PropertyUtils {
 		try {
 			Properties properties = new Properties();
 			boolean xml = isXml(location);
+			location = getCanonicalLocation(location);
 			if (xml) {
 				in = LocationUtils.getInputStream(location);
 				logger.info("Loading XML properties - [{}]", location);
@@ -574,6 +575,14 @@ public class PropertyUtils {
 		} finally {
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(reader);
+		}
+	}
+
+	protected static String getCanonicalLocation(String location) {
+		if (LocationUtils.isExistingFile(location)) {
+			return LocationUtils.getCanonicalPath(new File(location));
+		} else {
+			return location;
 		}
 	}
 
