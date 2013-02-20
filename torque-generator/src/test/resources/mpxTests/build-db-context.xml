@@ -23,34 +23,29 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
+  <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-    <!-- The following properties are populated by maven when the test resources are processed -->
-    <util:properties id="deploy.mavenProperties">
-        <prop key="db.vendor">oracle</prop>
-        <prop key="kuali.encoding">${kuali.encoding}</prop>
-        <prop key="project.groupId">${project.groupId}</prop>
-        <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="project.version">${project.version}</prop>
+  <!-- The following properties are populated by maven when the test resources are processed -->
+  <util:properties id="deploy.mavenProperties">
+    <prop key="db.vendor">oracle</prop>
+    <prop key="kuali.encoding">${kuali.encoding}</prop>
+    <prop key="project.groupId">${project.groupId}</prop>
+    <prop key="project.artifactId">${project.artifactId}</prop>
+    <prop key="project.version">${project.version}</prop>
+    <prop key="project.basedir">${project.basedir}</prop>
+    <prop key="project.build.directory">${project.build.directory}</prop>
+    <prop key="kuali.groupId">${kuali.groupId}</prop>
+    <prop key="jdbc.username">TORQUE_GENERATOR_TEST_DB</prop>
+    <prop key="oracle.dba.password">${oracle.dba.password}</prop>
+    <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
+    <prop key="sql.data.1">classpath:mpxTests/FOO_T.sql</prop>
+  </util:properties>
 
-        <prop key="project.basedir">${project.basedir}</prop>
-        <prop key="project.build.directory">${project.build.directory}</prop>
-        <prop key="kuali.groupId">${kuali.groupId}</prop>
+  <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+  <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
 
-        <prop key="jdbc.username">TORQUE_GENERATOR_TEST_DB</prop>
-
-        <prop key="oracle.dba.password">${oracle.dba.password}</prop>
-
-        <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
-        <prop key="sql.data.1">classpath:mpxTests/FOO_T.sql</prop>
-    </util:properties>
-
-    <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
-
-    <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
-
-    <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-        <property name="executable" ref="deploy.databaseResetExecutable" />
-    </bean>
+  <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
+    <property name="executable" ref="deploy.databaseResetExecutable" />
+  </bean>
 
 </beans>
