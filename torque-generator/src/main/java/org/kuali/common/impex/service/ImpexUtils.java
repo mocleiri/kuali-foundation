@@ -46,6 +46,7 @@ public class ImpexUtils {
 		logger.info("View Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getViewExcludes()));
 		logger.info("Sequence Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getSequenceIncludes()));
 		logger.info("Sequence Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getSequenceExcludes()));
+		logger.info("Working Directory - {}", LocationUtils.getCanonicalPath(context.getWorkingDir()));
 		logger.info("---------------------------------------------------------------");
 	}
 
