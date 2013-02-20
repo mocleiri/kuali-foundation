@@ -65,4 +65,21 @@
 
   <import resource="classpath:org/kuali/common/impex/impex-dump-context.xml" />
 
+  <bean id="riceDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
+    <property name="artifactId" value="ks-rice-db" />
+    <property name="includes" value="KR.*" />
+    <property name="sourceContext" ref="sourceContext" />
+  </bean>
+
+  <bean id="appDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
+    <property name="artifactId" value="ks-app-db" />
+    <property name="includes" value="KS.*" />
+    <property name="sourceContext" ref="sourceContext" />
+  </bean>
+
+  <util:list id="dumpContexts">
+    <ref bean="riceDumpContext" />
+    <ref bean="appDumpContext" />
+  </util:list>
+
 </beans>
