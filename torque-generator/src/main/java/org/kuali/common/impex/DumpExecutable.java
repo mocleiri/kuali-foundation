@@ -77,4 +77,12 @@ public class DumpExecutable implements Executable {
 		this.databaseVendors = databaseVendors;
 	}
 
+	public List<ImpexContext> getContexts() {
+		return contexts;
+	}
+
+	public void setContexts(List<ImpexContext> contexts) {
+		this.contexts = contexts;
+	}
+
 }
