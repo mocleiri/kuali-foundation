@@ -28,7 +28,7 @@ public class DumpExecutable implements Executable {
 		Assert.notNull(service);
 		ImpexUtils.log(sourceContext);
 		// Assert.notNull(contexts);
-		// Assert.notNull(databaseVendors);
+		Assert.notNull(databaseVendors);
 		long start = System.currentTimeMillis();
 		try {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);

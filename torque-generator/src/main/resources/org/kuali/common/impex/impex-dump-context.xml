@@ -63,6 +63,11 @@
 
   <context:property-placeholder properties-ref="mavenProperties" />
 
+  <util:list id="databaseVendors">
+    <value>oracle</value>
+    <value>mysql</value>
+  </util:list>
+
   <bean id="dumpDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${impex.driver}" />
     <property name="url" value="${impex.url}" />
@@ -77,6 +82,7 @@
 
   <bean id="dumpExecutable" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
     <property name="sourceContext" ref="sourceContext" />
+    <property name="databaseVendors" ref="databaseVendors" />
   </bean>
 
 </beans>
