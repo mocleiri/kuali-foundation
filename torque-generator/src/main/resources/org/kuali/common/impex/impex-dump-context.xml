@@ -55,12 +55,12 @@
   </bean>
 
   <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
-    <property name="dataSource" ref="#{dumpDataSource}" />
-    <property name="properties" ref="#{mavenProperties}" />
+    <property name="dataSource" ref="dumpDataSource" />
+    <property name="properties" ref="mavenProperties" />
   </bean>
 
   <bean id="dumpExecutable" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
-    <property name="sourceContext" ref="#{sourceContext}" />
+    <property name="sourceContext" ref="sourceContext" />
   </bean>
 
 </beans>
