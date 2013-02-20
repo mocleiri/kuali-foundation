@@ -43,11 +43,9 @@
     <prop key="impex.databaseTablePropertiesFile">${project.basedir}/src/main/resources/${project.artifactId}.properties</prop>
   </util:properties>
 
+  <context:property-placeholder properties-ref="mavenProperties" />
+
   <bean id="databaseVendors" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
-  </bean>
-
-
-  <bean id="dumpExecutable" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
   </bean>
 
 </beans>
