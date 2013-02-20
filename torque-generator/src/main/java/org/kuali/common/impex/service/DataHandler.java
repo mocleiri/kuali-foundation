@@ -8,12 +8,11 @@ import org.kuali.common.impex.DumpTableContext;
 
 public interface DataHandler {
 
-	OutputStream openOutputStream(File workingDir, String tableName) throws IOException;
-
 	void startData(DumpTableContext context) throws IOException;
 
 	void doData(DumpTableContext context) throws IOException;
 
 	void finishData(DumpTableContext context) throws IOException;
 
+    File getFileForTable(ImpexContext context, String tableName);
 }

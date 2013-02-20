@@ -21,12 +21,11 @@ public class DefaultDataHandler implements DataHandler {
 	private static final String FS = File.separator;
 	private static final String LF = "\n";
 
-	@Override
-	public OutputStream openOutputStream(File workingDir, String tableName) throws IOException {
-		String filename = getFilename(workingDir, tableName);
-		File outputFile = new File(filename);
-		return new BufferedOutputStream(FileUtils.openOutputStream(outputFile));
-	}
+    @Override
+    public File getFileForTable(ImpexContext context, String tableName) {
+        String filename = getFilename(context.getWorkingDir(), tableName);
+        return new File(filename);
+    }
 
 	protected String getFilename(File workingDir, String tableName) {
 		return workingDir.getAbsolutePath() + FS + tableName + ".mpx";
@@ -94,7 +93,7 @@ public class DefaultDataHandler implements DataHandler {
 		}
 	}
 
-	protected void format(List<String[]> rows) {
+    protected void format(List<String[]> rows) {
 		for (String[] row : rows) {
 			format(row);
 		}

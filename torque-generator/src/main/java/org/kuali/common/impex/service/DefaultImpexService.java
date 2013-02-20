@@ -56,6 +56,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.sql.DataSource;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -855,7 +856,9 @@ public class DefaultImpexService implements ImpexService {
 	protected DumpTableResult dumpTable(ImpexContext context, TableContext table, ResultSet rs) throws SQLException {
 		OutputStream out = null;
 		try {
-			out = context.getDataHandler().openOutputStream(context.getWorkingDir(), table.getName());
+			File outFile = context.getDataHandler().getFileForTable(context, table.getName());
+            out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
+
 			Column[] columns = getColumns(rs.getMetaData());
 			long totalDataSize = 0;
 			long totalRowCount = 0;
@@ -886,6 +889,14 @@ public class DefaultImpexService implements ImpexService {
 			result.setTable(table);
 			result.setRows(totalRowCount);
 			result.setSize(totalDataSize);
+            // set the file reference if a file was actually created
+            if(totalRowCount > 0) {
+                result.setFiles(Collections.singletonList(outFile));
+            }
+            else {
+                List<File> empty = Collections.emptyList();
+                result.setFiles(empty);
+            }
 			return result;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
@@ -963,9 +974,9 @@ public class DefaultImpexService implements ImpexService {
 			while (columnSet.next()) {
 				String name = columnSet.getString(4);
 				Integer sqlType = new Integer(columnSet.getString(5));
-				Integer size = new Integer(columnSet.getInt(7));
-				Integer decimalDigits = new Integer(columnSet.getInt(9));
-				Integer nullType = new Integer(columnSet.getInt(11));
+				Integer size = columnSet.getInt(7);
+				Integer decimalDigits = columnSet.getInt(9);
+				Integer nullType = columnSet.getInt(11);
 				String defValue = columnSet.getString(13);
 
 				ColumnContext col = new ColumnContext();
@@ -1047,7 +1058,7 @@ public class DefaultImpexService implements ImpexService {
 	}
 
 	protected void addForeignKey(Map<String, ForeignKey> fks, String fkName, String refTableName, String onDelete, ResultSet foreignKeys) throws SQLException {
-		ForeignKey fk = (ForeignKey) fks.get(fkName);
+		ForeignKey fk = fks.get(fkName);
 		if (fk == null) {
 			fk = getNewKualiForeignKey(refTableName, onDelete);
 			fks.put(fkName, fk);
@@ -1346,9 +1357,9 @@ public class DefaultImpexService implements ImpexService {
 
 	protected List<TableContext> getTableContexts(List<String> tables) {
 		List<TableContext> contexts = new ArrayList<TableContext>();
-		for (int i = 0; i < tables.size(); i++) {
+		for(String table : tables) {
 			TableContext context = new TableContext();
-			context.setName(tables.get(i));
+			context.setName(table);
 			contexts.add(context);
 		}
 		return contexts;
@@ -1368,7 +1379,7 @@ public class DefaultImpexService implements ImpexService {
 	 * Generate a SQL statement that selects all data from the table
 	 */
 	protected String getSelectAllQuery(String tableName, List<String> primaryKeys) throws SQLException {
-		StringBuffer sb = new StringBuffer("SELECT * FROM ");
+		StringBuilder sb = new StringBuilder("SELECT * FROM ");
 		sb.append(tableName);
 		sb.append(" ORDER BY 'x'");
 		// Order by primary keys (if any) so the data always comes out in a deterministic order
