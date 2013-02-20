@@ -23,7 +23,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-
   <util:list id="databaseVendors">
     <value>oracle</value>
     <value>mysql</value>
