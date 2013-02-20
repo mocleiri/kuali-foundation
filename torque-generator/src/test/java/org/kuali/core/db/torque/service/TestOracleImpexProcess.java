@@ -81,7 +81,7 @@ public class TestOracleImpexProcess {
     private ExecutionContext sqlExecutionContext;
 
     @Test
-    public void testOracle() throws Exception {
+    public void test() throws Exception {
         logger.info("Starting database dump");
 
         log(impexContext);
