@@ -17,7 +17,7 @@ public class ImpexContext {
 	boolean processSequences = true;
 	boolean processViews = true;
 	boolean printMetaInfLists = false;
-	boolean antCompatibilityMode = true;
+	boolean antCompatibilityMode = false;
 	int metaDataThreads = 5;
 	int dataThreads = 15;
 	String controlTemplate = DATA_CONTROL_TEMPLATE;

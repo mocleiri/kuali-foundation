@@ -24,6 +24,7 @@ import org.kuali.common.impex.service.DefaultImpexService;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexService;
 import org.kuali.common.impex.service.ImpexUtils;
+import org.kuali.common.jdbc.context.DatabaseResetContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -65,6 +66,9 @@ public class TestImpexProcess {
     @Resource
     private ImpexContext impexContext;
 
+    @Resource(name = "deploy.databaseResetContext")
+    private DatabaseResetContext resetContext;
+
     @Test
     public void test() throws Exception {
         logger.info("Starting database dump");
@@ -82,8 +86,6 @@ public class TestImpexProcess {
         List<DumpTableResult> results = service.dumpTables(impexContext, database);
 
         ImpexUtils.doStats(results);
-
-
     }
 
     protected void log(ImpexContext context) {
