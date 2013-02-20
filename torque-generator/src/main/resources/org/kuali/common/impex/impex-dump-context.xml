@@ -45,7 +45,14 @@
 
   <context:property-placeholder properties-ref="mavenProperties" />
 
-  <bean id="databaseVendors" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
+  <bean id="dumpDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${impex.driver}" />
+    <property name="url" value="${impex.url}" />
+    <property name="username" value="${impex.username}" />
+    <property name="password" value="${impex.password}" />
+  </bean>
+
+  <bean id="dumpExecutable" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
   </bean>
 
 </beans>
