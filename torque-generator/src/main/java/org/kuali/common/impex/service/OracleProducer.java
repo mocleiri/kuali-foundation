@@ -121,16 +121,21 @@ public class OracleProducer extends AbstractSqlProducer {
 	}
 
 	@Override
-	protected String getEscapedValue(String token) {
-		String escaped = StringUtils.replace(token, "'", "''");
-		return "'" + escaped + "'";
+	protected String getEscapedValue(Column column, String token) {
+        if(isColumnClobType(column)) {
+            return token;
+        }
+        else {
+		    String escaped = StringUtils.replace(token, "'", "''");
+		    return "'" + escaped + "'";
+        }
 	}
 
-	private boolean isColumnClobType(Column column) {
+	protected boolean isColumnClobType(Column column) {
 		return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
 	}
 
-	private String buildClobBatches(Table table, List<LongClobRow> longClobRows) {
+    protected String buildClobBatches(Table table, List<LongClobRow> longClobRows) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
 
@@ -168,7 +173,7 @@ public class OracleProducer extends AbstractSqlProducer {
 
 	}
 
-	private String buildClobHeader(List<String> dataChunks, DataBean data) {
+    protected String buildClobHeader(List<String> dataChunks, DataBean data) {
 		StringBuilder headerBuilder = new StringBuilder();
 		headerBuilder.append(CLOB_LENGTH_COMMENT).append(data.getValue().length()).append(LF);
 		headerBuilder.append(CLOB_CHUNKS_COMMENT).append(dataChunks.size()).append(LF);
@@ -184,7 +189,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	 *            the full data string
 	 * @return a list of strings representing the full data split into chunks
 	 */
-	private List<String> chunkClob(String value) {
+    protected List<String> chunkClob(String value) {
 		List<String> results = new ArrayList<String>();
 
 		String currentValue = value;
@@ -198,13 +203,13 @@ public class OracleProducer extends AbstractSqlProducer {
 		}
 
 		if (StringUtils.isNotEmpty(currentValue)) {
-			results.add(currentValue);
+			results.add(currentValue.replace("'", "''"));
 		}
 
 		return results;
 	}
 
-	private String buildBatchSql(Table table, List<DataBean> dataBeans) {
+    protected String buildBatchSql(Table table, List<DataBean> dataBeans) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
 
@@ -223,7 +228,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		return sqlBuilder.toString();
 	}
 
-	private String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
+    protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
 		StringBuilder result = new StringBuilder();
 
 		if (data.getDateValue() != null) {
@@ -241,7 +246,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		return result.toString();
 	}
 
-	private class LongClobRow {
+    protected class LongClobRow {
 		List<DataBean> longClobs;
 		List<DataBean> primaryKeys;
 	}

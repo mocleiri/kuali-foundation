@@ -58,7 +58,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		return line;
 	}
 
-	protected abstract String getEscapedValue(String token);
+	protected abstract String getEscapedValue(Column column, String token);
 
 	protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
 		List<DataBean> result = new ArrayList<DataBean>();
@@ -92,7 +92,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 			result.setDateValue(parsedDate);
 		}
 		else if (column.needEscapedValue()) {
-			result.setValue(getEscapedValue(token));
+			result.setValue(getEscapedValue(column, token));
 			result.setDateValue(null);
 		}
         else {

@@ -36,8 +36,9 @@
         <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
         <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
         <prop key="sql.data.1">classpath:mpxTests/${db.vendor}/FOO_T.sql</prop>
+        <prop key="sql.data.2">classpath:mpxTests/${db.vendor}/BAZ_T.sql</prop>
         <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent">sql.data.1</prop>
+        <prop key="sql.data.concurrent">sql.data.1, sql.data.2</prop>
     </util:properties>
 
     <util:properties id="cleanDatabaseProperties">

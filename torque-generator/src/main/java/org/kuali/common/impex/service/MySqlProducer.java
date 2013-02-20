@@ -83,7 +83,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 		}
 	}
 
-	private String buildBatchSql(List<DataBean> rowBeans) {
+    protected String buildBatchSql(List<DataBean> rowBeans) {
 		StringBuilder batchBuilder = new StringBuilder();
 		SimpleDateFormat sqlDateFormatter = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		List<String> sqlValues = new ArrayList<String>(rowBeans.size());
@@ -95,7 +95,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 		return batchBuilder.toString();
 	}
 
-	private String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
+    protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
 		StringBuilder result = new StringBuilder();
 
 		if (data.getDateValue() != null) {
@@ -121,7 +121,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 	}
 
 	@Override
-	protected String getEscapedValue(String token) {
+	protected String getEscapedValue(Column column, String token) {
 		String escaped1 = StringUtils.replace(token, "\\", "\\\\");
 		String escaped2 = StringUtils.replace(escaped1, "'", "\\'");
 		String escaped3 = StringUtils.replace(escaped2, "\n", "\\n");

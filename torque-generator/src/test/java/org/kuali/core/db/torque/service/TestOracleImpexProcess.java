@@ -40,6 +40,7 @@ import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -124,10 +125,12 @@ public class TestOracleImpexProcess {
     private byte[] getDataBytes(List<DumpTableResult> results) throws IOException {
         StringBuilder dataBuilder = new StringBuilder();
         for(DumpTableResult result : results) {
-            for (File f : result.getFiles()) {
+            List<File> sortedFiles = new ArrayList<File>(result.getFiles());
+            Collections.sort(sortedFiles);
+            for (File f : sortedFiles) {
                 BufferedReader reader = LocationUtils.getBufferedReader(f.getAbsolutePath());
                 String line = reader.readLine();
-                while(line != null) {
+                while (line != null) {
                     dataBuilder.append(line).append(LF);
                     line = reader.readLine();
                 }
