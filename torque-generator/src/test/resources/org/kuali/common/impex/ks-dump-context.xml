@@ -67,13 +67,13 @@
 
   <bean id="riceDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
     <property name="artifactId" value="ks-rice-db" />
-    <property name="includes" value="KR.*" />
+    <property name="include" value="KR.*" />
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
   <bean id="appDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
     <property name="artifactId" value="ks-app-db" />
-    <property name="includes" value="KS.*" />
+    <property name="include" value="KS.*" />
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
