@@ -1,6 +1,5 @@
 package org.kuali.common.impex.service;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,11 +20,11 @@ public class DefaultDataHandler implements DataHandler {
 	private static final String FS = File.separator;
 	private static final String LF = "\n";
 
-    @Override
-    public File getFileForTable(ImpexContext context, String tableName) {
-        String filename = getFilename(context.getWorkingDir(), tableName);
-        return new File(filename);
-    }
+	@Override
+	public File getFileForTable(ImpexContext context, String tableName) {
+		String filename = getFilename(context.getWorkingDir(), tableName);
+		return new File(filename);
+	}
 
 	protected String getFilename(File workingDir, String tableName) {
 		return workingDir.getAbsolutePath() + FS + tableName + ".mpx";
@@ -93,7 +92,7 @@ public class DefaultDataHandler implements DataHandler {
 		}
 	}
 
-    protected void format(List<String[]> rows) {
+	protected void format(List<String[]> rows) {
 		for (String[] row : rows) {
 			format(row);
 		}

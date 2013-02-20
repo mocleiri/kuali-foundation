@@ -2,7 +2,6 @@ package org.kuali.common.impex.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import org.kuali.common.impex.DumpTableContext;
 
@@ -14,5 +13,5 @@ public interface DataHandler {
 
 	void finishData(DumpTableContext context) throws IOException;
 
-    File getFileForTable(ImpexContext context, String tableName);
+	File getFileForTable(ImpexContext context, String tableName);
 }
