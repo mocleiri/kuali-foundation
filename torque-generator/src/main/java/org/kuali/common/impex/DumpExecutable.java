@@ -32,9 +32,9 @@ public class DumpExecutable implements Executable {
 		long start = System.currentTimeMillis();
 		try {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
-			// service.fillInMetaData(sourceContext, database);
-			// service.serializeSchemas(contexts, database);
-			// service.generateSchemaSql(contexts, databaseVendors);
+			service.fillInMetaData(sourceContext, database);
+			service.serializeSchemas(contexts, database);
+			service.generateSchemaSql(contexts, databaseVendors);
 			// List<DumpTableResult> results = service.dumpTables(sourceContext, database);
 			// updateSourceDatabaseProperties(sourceContext, results);
 			// ImpexUtils.doStats(results);
