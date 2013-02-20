@@ -237,4 +237,64 @@ public class ImpexUtils {
 	public static SchemaType getColumnType(Column column) {
 		return SchemaType.getEnum((String) column.getTorqueType());
 	}
+
+	public static ImpexContext getImpexContext(Properties p) {
+		ImpexContext context = new ImpexContext();
+		// simple property copying
+		context.setArtifactId(p.getProperty("project.artifactId"));
+		context.setSchema(p.getProperty("impex.schema"));
+		context.setDriver(p.getProperty("impex.driver"));
+		context.setUrl(p.getProperty("impex.url"));
+		context.setUsername(p.getProperty("impex.username"));
+		context.setPassword(p.getProperty("impex.password"));
+		context.setDatabaseVendor(p.getProperty("impex.databaseVendor"));
+		context.setWorkingDir(new File(p.getProperty("impex.workingDir")));
+		context.setBaseDir(new File(p.getProperty("project.basedir")));
+		context.setBuildDir(new File(p.getProperty("project.build.directory")));
+		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
+
+		// Default to [artifactId].xml
+		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
+
+		// Setup the datasource
+		// context.setDataSource(getDataSource(p));
+
+		// Properties that already have default values, don't override unless the corresponding property is explicitly set
+		if (p.getProperty("impex.dateFormat") != null) {
+			context.setDateFormat(p.getProperty("impex.dateFormat"));
+		}
+		if (p.getProperty("impex.comment") != null) {
+			context.setComment(p.getProperty("impex.comment"));
+		}
+		if (p.getProperty("impex.schemaXMLFile") != null) {
+			context.setSchemaXmlFile(new File(p.getProperty("impex.schemaXMLFile")));
+		}
+		if (p.getProperty("impex.metadata.threads") != null) {
+			context.setMetaDataThreads(new Integer(p.getProperty("impex.metadata.threads")));
+		}
+		if (p.getProperty("impex.data.threads") != null) {
+			context.setDataThreads(new Integer(p.getProperty("impex.data.threads")));
+		}
+		if (p.getProperty("impex.antCompatibilityMode") != null) {
+			context.setAntCompatibilityMode(new Boolean(p.getProperty("impex.antCompatibilityMode")));
+		}
+		if (p.getProperty("impex.encoding") != null) {
+			context.setEncoding(p.getProperty("impex.encoding"));
+		}
+
+		// Properties that need processing in some way
+		Assert.notNull(context.getDatabaseTablePropertiesLocation());
+		if (LocationUtils.exists(context.getDatabaseTablePropertiesLocation())) {
+			context.setDatabaseTableProperties(PropertyUtils.load(context.getDatabaseTablePropertiesLocation()));
+		} else {
+			context.setDatabaseTableProperties(new Properties());
+		}
+		context.setTableIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.includes")));
+		context.setTableExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.table.excludes")));
+		context.setSequenceIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.includes")));
+		context.setSequenceExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.sequence.excludes")));
+		context.setViewIncludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.includes")));
+		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
+		return context;
+	}
 }

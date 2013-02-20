@@ -20,7 +20,9 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.service.ImpexContext;
+import org.kuali.common.impex.service.ImpexUtils;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.util.Assert;
 
 public class ImpexContextFactoryBean implements FactoryBean<ImpexContext> {
 
@@ -29,7 +31,11 @@ public class ImpexContextFactoryBean implements FactoryBean<ImpexContext> {
 
 	@Override
 	public ImpexContext getObject() throws Exception {
-		return null;
+		Assert.notNull(properties);
+		Assert.notNull(dataSource);
+		ImpexContext context = ImpexUtils.getImpexContext(properties);
+		context.setDataSource(dataSource);
+		return context;
 	}
 
 	@Override
