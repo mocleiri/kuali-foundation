@@ -67,7 +67,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			}
 
 			// Convert the tokens from the .mpx file into RowData
-			List<DataBean> rowBeans = buildRowData(columns, getMpxParser().parseMpxLine(line));
+			List<DataBean> rowBeans = buildRowData(columns, MpxParser.parseMpxLine(line));
 
 			sqlBuilder.append(buildBatchSql(table, rowBeans));
 			rowCount++;

@@ -131,5 +131,5 @@ public interface Platform {
 	 */
 	public List<String> getSequenceNames(DatabaseMetaData dbMetaData, String databaseSchema) throws SQLException;
 
-	SqlProducer getImpexReader();
+	SqlProducer getSqlProducer();
 }

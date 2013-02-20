@@ -30,7 +30,7 @@ public class MpxParser {
     /**
      * Split the line up into individual values and remove any .mpx related formatting
      */
-    public String[] parseMpxLine(String line) {
+    public static String[] parseMpxLine(String line) {
         // Remove trailing/leading quotes
         String trimmed = trimQuotes(line);
         // Split the line up into individual values
@@ -47,7 +47,7 @@ public class MpxParser {
     /**
      * Remove leading and trailing quotes (if any)
      */
-    public String trimQuotes(String line) {
+    public static String trimQuotes(String line) {
         if (StringUtils.startsWith(line, QUOTE)) {
             line = StringUtils.substring(line, QUOTE.length());
         }

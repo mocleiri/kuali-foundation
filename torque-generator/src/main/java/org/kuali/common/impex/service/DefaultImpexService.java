@@ -1,32 +1,5 @@
 package org.kuali.common.impex.service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -59,6 +32,8 @@ import org.kuali.common.impex.TableBucket;
 import org.kuali.common.impex.TableBucketHandler;
 import org.kuali.common.impex.TableContext;
 import org.kuali.common.impex.View;
+import org.kuali.common.jdbc.JdbcService;
+import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
@@ -80,13 +55,43 @@ import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 public class DefaultImpexService implements ImpexService {
+
+    protected JdbcService jdbcService;
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
 	private static final String FS = File.separator;
 
 	@Override
-	public void convertCsvToSql(ImpexContext context) {
+	public void importData(ImpexContext context, ExecutionContext sqlExecutionContext) {
+        Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
 		List<Table> tables = getTables(context);
 		SimpleScanner scanner = new SimpleScanner();
 		scanner.setBasedir(context.getWorkingDir());
@@ -97,7 +102,7 @@ public class DefaultImpexService implements ImpexService {
 			logger.info("Converting " + filename);
 			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 			Table table = getTableDefinition(tableName, tables);
-			executeSql(context, table, LocationUtils.getCanonicalPath(file));
+			executeSql(context, table, LocationUtils.getCanonicalPath(file), sqlExecutionContext);
 		}
 	}
 
@@ -106,24 +111,22 @@ public class DefaultImpexService implements ImpexService {
 		return table.getColumns();
 	}
 
-	protected void executeSql(ImpexContext context, Table table, String location) {
-		SqlProducer impexReader = context.getPlatform().getImpexReader();
+	protected void executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {
+		SqlProducer sqlProducer = context.getPlatform().getSqlProducer();
 		BufferedReader reader = null;
-		OutputStream out = null;
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
-			out = FileUtils.openOutputStream(new File(context.getWorkingDir() + "/" + table.getName() + ".sql"));
-			String insertSql = impexReader.getSql(table, reader);
-			while (insertSql != null) {
-				byte[] bytes = (insertSql + "\n/\n").getBytes(context.getEncoding());
-				out.write(bytes);
-				insertSql = impexReader.getSql(table, reader);
+
+			String sql = sqlProducer.getSql(table, reader);
+			while (sql != null) {
+                sqlExecutionContext.setSql(Arrays.asList(sql));
+                jdbcService.executeSql(sqlExecutionContext);
+				sql = sqlProducer.getSql(table, reader);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(reader);
-			IOUtils.closeQuietly(out);
 		}
 	}
 
@@ -164,7 +167,7 @@ public class DefaultImpexService implements ImpexService {
 			KualiXmlToAppData xmlParser = new KualiXmlToAppData(context.getDatabaseVendor(), "");
 
 			// Parse schema.xml into a database object
-			String location = context.getWorkingDir() + "/ks-bundled-db/schema.xml";
+			String location = context.getWorkingDir() + "/" + context.getArtifactId() + ".xml";
 			Database database = xmlParser.parseResource(location);
 
 			return database.getTables();
@@ -1374,4 +1377,12 @@ public class DefaultImpexService implements ImpexService {
 		}
 		return sb.toString();
 	}
+
+    public JdbcService getJdbcService() {
+        return jdbcService;
+    }
+
+    public void setJdbcService(JdbcService jdbcService) {
+        this.jdbcService = jdbcService;
+    }
 }

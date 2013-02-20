@@ -71,4 +71,27 @@
         <property name="dataSource" ref="deploy.dataSource"/>
     </bean>
 
+    <util:properties id="cleanDatabaseProperties">
+        <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
+        <prop key="sql.data.1"></prop>
+        <prop key="sql.schema.concurrent">sql.schema.1</prop>
+        <prop key="sql.data.concurrent"></prop>
+    </util:properties>
+
+    <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexService">
+        <property name="jdbcService" ref="jdbcService"/>
+    </bean>
+
+    <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService"/>
+
+    <bean id="jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="deploy.dataSource"/>
+    </bean>
+
+    <bean id="sqlExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+        <property name="jdbcContext" ref="jdbcContext"/>
+        <property name="reader">
+            <bean class="org.kuali.common.jdbc.DefaultSqlReader"/>
+        </property>
+    </bean>
 </beans>

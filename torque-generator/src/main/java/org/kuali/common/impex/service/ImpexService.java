@@ -9,6 +9,7 @@ import java.util.List;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.impex.TableContext;
+import org.kuali.common.jdbc.context.ExecutionContext;
 import org.w3c.dom.Document;
 
 public interface ImpexService {
@@ -66,7 +67,9 @@ public interface ImpexService {
 	List<DumpTableResult> dumpTables(ImpexContext context, DatabaseContext database);
 
 	/**
-	 * Convert data from CSV into SQL statements
+	 * Import data from MPX into database defined in given context
+     *
+     * @param context contains the database connection context and other meta information
 	 */
-	void convertCsvToSql(ImpexContext context);
+	void importData(ImpexContext context, ExecutionContext sqlExectuionContext);
 }

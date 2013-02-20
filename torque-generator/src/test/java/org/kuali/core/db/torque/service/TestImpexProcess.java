@@ -19,11 +19,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
-import org.kuali.common.impex.service.DefaultImpexService;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexService;
 import org.kuali.common.impex.service.ImpexUtils;
-import org.kuali.common.jdbc.context.DatabaseResetContext;
+import org.kuali.common.jdbc.DatabaseResetExecutable;
+import org.kuali.common.jdbc.JdbcService;
+import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -57,26 +59,48 @@ public class TestImpexProcess {
     @Resource
     private ImpexContext impexContext;
 
-    @Resource(name = "deploy.databaseResetContext")
-    private DatabaseResetContext resetContext;
+    @Resource(name = "deploy.databaseResetExecutable")
+    private DatabaseResetExecutable resetExec;
+
+    @Resource
+    private Properties cleanDatabaseProperties;
+
+    @Resource
+    private JdbcService jdbcService;
+
+    @Resource
+    private ImpexService impexService;
+
+    @Resource
+    private ExecutionContext sqlExecutionContext;
 
     @Test
-    public void test() throws Exception {
+    public void testOracle() throws Exception {
         logger.info("Starting database dump");
 
         log(impexContext);
 
         List<ImpexContext> contexts = Collections.singletonList(impexContext);
 
-        ImpexService service = new DefaultImpexService();
-        DatabaseContext database = service.getDatabaseObjectLists(impexContext);
-        service.fillInMetaData(impexContext, database);
-        service.serializeSchemas(contexts, database);
+        DatabaseContext database = impexService.getDatabaseObjectLists(impexContext);
+        impexService.fillInMetaData(impexContext, database);
+        impexService.serializeSchemas(contexts, database);
         // service.generateDataDtds(contexts);
-        service.generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
-        List<DumpTableResult> results = service.dumpTables(impexContext, database);
+        impexService.generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
+        List<DumpTableResult> results = impexService.dumpTables(impexContext, database);
 
         ImpexUtils.doStats(results);
+
+        // update the database reset context to clean the database of any data
+        Collection<String> cleanPropNames = cleanDatabaseProperties.stringPropertyNames();
+        for (String name : cleanPropNames) {
+            resetExec.getContext().getProperties().setProperty(name, cleanDatabaseProperties.getProperty(name));
+        }
+
+        // clear db of data
+        resetExec.execute();
+
+        impexService.importData(impexContext, sqlExecutionContext);
     }
 
     protected void log(ImpexContext context) {

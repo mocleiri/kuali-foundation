@@ -32,20 +32,10 @@ import org.kuali.common.util.CollectionUtils;
  */
 public abstract class AbstractSqlProducer implements SqlProducer {
 
-	private MpxParser mpxParser;
-
 	protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
 
 	private int batchRowCountLimit;
 	private int batchDataSizeLimit;
-
-	public MpxParser getMpxParser() {
-		return mpxParser;
-	}
-
-	public void setMpxParser(MpxParser mpxParser) {
-		this.mpxParser = mpxParser;
-	}
 
 	protected boolean batchLimitReached(int rows, int length) {
 		if (rows > getBatchRowCountLimit()) {
@@ -89,7 +79,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 			result.setValue(null);
 			result.setDateValue(null);
 		}
-		if (ImpexUtils.isColumnDateType(column)) {
+		else if (ImpexUtils.isColumnDateType(column)) {
 			SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
 			Date parsedDate;
 			try {
@@ -101,10 +91,14 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 			result.setValue(null);
 			result.setDateValue(parsedDate);
 		}
-		if (column.needEscapedValue()) {
+		else if (column.needEscapedValue()) {
 			result.setValue(getEscapedValue(token));
 			result.setDateValue(null);
 		}
+        else {
+            result.setDateValue(null);
+            result.setValue(token);
+        }
 
 		return result;
 	}

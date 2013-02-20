@@ -199,7 +199,7 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 	}
 
 	@Override
-	public SqlProducer getImpexReader() {
+	public SqlProducer getSqlProducer() {
 		return new MySqlProducer();
 	}
 

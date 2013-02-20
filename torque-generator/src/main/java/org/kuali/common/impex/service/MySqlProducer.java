@@ -54,7 +54,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 				break;
 			}
 
-			List<DataBean> rowBeans = buildRowData(columns, getMpxParser().parseMpxLine(line));
+			List<DataBean> rowBeans = buildRowData(columns, MpxParser.parseMpxLine(line));
 
 			if (rows != 0) {
 				// Need to add a comma, unless this is the first set of values
