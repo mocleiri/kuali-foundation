@@ -21,14 +21,17 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <!-- These will be pumped into the context by spring-maven-plugin once things are tightened up a bit -->
   <util:properties id="mavenProperties">
     <prop key="project.basedir">${user.home}/ws/impex-2.0/torque-generator</prop>
     <prop key="project.build.directory">${project.basedir}/target</prop>
     <prop key="project.artifactId">ks-source-db</prop>
+    <prop key="impex.workingDir">${project.build.directory}/impex</prop>
     <prop key="impex.antCompatibilityMode">false</prop>
-    <prop key="impex.table.includes">KR.*,KS.*</prop>
-    <prop key="impex.view.includes">KR.*,KS.*</prop>
-    <prop key="impex.sequence.includes">KR.*,KS.*</prop>
+    <prop key="impex.includes">KR.*,KS.*</prop>
+    <prop key="impex.table.includes">${impex.includes}</prop>
+    <prop key="impex.view.includes">${impex.includes}</prop>
+    <prop key="impex.sequence.includes">${impex.includes}</prop>
     <prop key="impex.url">jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</prop>
     <prop key="impex.driver">oracle.jdbc.driver.OracleDriver</prop>
     <prop key="impex.username">KS_SOURCE_DB_SPRING</prop>
@@ -37,7 +40,6 @@
     <prop key="impex.databaseVendor">oracle</prop>
     <prop key="impex.metadata.threads">5</prop>
     <prop key="impex.data.threads">15</prop>
-    <prop key="impex.workingDir">${project.build.directory}/impex</prop>
     <prop key="impex.databaseTablePropertiesFile">${project.basedir}/src/main/resources/${project.artifactId}.properties</prop>
   </util:properties>
 
