@@ -100,7 +100,7 @@ public class DefaultImpexService implements ImpexService {
 		List<File> files = scanner.getFiles();
 		for (File file : files) {
 			String filename = file.getName();
-			logger.info("Converting " + filename);
+			logger.info("Importing " + filename);
 			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 			Table table = getTableDefinition(tableName, tables);
 			executeSql(context, table, LocationUtils.getCanonicalPath(file), sqlExecutionContext);
@@ -114,6 +114,9 @@ public class DefaultImpexService implements ImpexService {
 
 	protected void executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {
 		SqlProducer sqlProducer = context.getPlatform().getSqlProducer();
+        sqlProducer.setBatchDataSizeLimit(context.getDataSizeInterval());
+        sqlProducer.setBatchRowCountLimit(context.getRowCountInterval());
+
 		BufferedReader reader = null;
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());

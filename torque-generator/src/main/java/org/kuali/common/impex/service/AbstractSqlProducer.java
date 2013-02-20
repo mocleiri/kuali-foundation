@@ -111,11 +111,13 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		return batchDataSizeLimit;
 	}
 
-	public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+	@Override
+    public void setBatchDataSizeLimit(int batchDataSizeLimit) {
 		this.batchDataSizeLimit = batchDataSizeLimit;
 	}
 
-	public void setBatchRowCountLimit(int batchRowCountLimit) {
+	@Override
+    public void setBatchRowCountLimit(int batchRowCountLimit) {
 		this.batchRowCountLimit = batchRowCountLimit;
 	}
 

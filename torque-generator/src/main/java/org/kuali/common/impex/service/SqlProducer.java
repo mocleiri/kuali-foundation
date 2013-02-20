@@ -9,4 +9,7 @@ public interface SqlProducer {
 
 	public String getSql(Table table, BufferedReader reader) throws IOException;
 
+    void setBatchDataSizeLimit(int batchDataSizeLimit);
+
+    void setBatchRowCountLimit(int batchRowCountLimit);
 }

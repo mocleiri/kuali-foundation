@@ -58,6 +58,8 @@ public class OracleProducer extends AbstractSqlProducer {
 		StringBuilder sqlBuilder = new StringBuilder();
 		String line = readLineSkipHeader(reader);
 		int rowCount = 0;
+        sqlBuilder.append(INSERT_PREFIX);
+
 		// Iterate through the .mpx file
 		for (;;) {
 
@@ -205,7 +207,6 @@ public class OracleProducer extends AbstractSqlProducer {
 	private String buildBatchSql(Table table, List<DataBean> dataBeans) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
-		sqlBuilder.append(INSERT_PREFIX);
 
 		List<String> values = new ArrayList<String>(dataBeans.size());
 		for (DataBean data : dataBeans) {
