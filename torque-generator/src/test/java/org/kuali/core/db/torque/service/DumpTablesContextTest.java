@@ -28,9 +28,10 @@ public class DumpTablesContextTest {
 	@Test
 	public void test() {
 		try {
-			logger.debug("hello world");
+			String location = "classpath:org/kuali/common/impex/impex-dump-context.xml";
+			logger.info("Loading {}", location);
 			SpringService ss = new DefaultSpringService();
-			ss.load("classpath:org/kuali/common/impex/impex-dump-context.xml");
+			ss.load(location);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
