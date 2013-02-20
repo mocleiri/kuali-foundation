@@ -54,7 +54,7 @@
     <property name="password" value="${impex.password}" />
   </bean>
 
-  <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactorybean">
+  <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
     <property name="dataSource" ref="#{dumpDataSource}" />
     <property name="properties" ref="#{mavenProperties}" />
   </bean>
