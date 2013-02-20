@@ -46,7 +46,6 @@
   </developers>
   <url>http://${kuali.site.hostname}/db/impex/${project.version}</url>
   <modules>
-    <module>jdbc-support</module>
     <module>torque-generator</module>
     <module>torque-templates</module>
   </modules>
