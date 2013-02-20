@@ -44,7 +44,7 @@
   </bean>
 
   <!-- These will be pumped into the context by spring-maven-plugin once things are tightened up a bit -->
-  <util:properties id="mavenProperties">
+  <util:properties id="dumpProperties">
     <prop key="project.artifactId">ks-source-db</prop>
     <prop key="impex.url">jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE</prop>
     <prop key="impex.driver">oracle.jdbc.driver.OracleDriver</prop>
