@@ -15,6 +15,7 @@
  */
 package org.kuali.core.db.torque.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
@@ -26,6 +27,7 @@ public class DumpTablesContextTest {
 	private static final Logger logger = LoggerFactory.getLogger(DumpTablesContextTest.class);
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			String location = "classpath:org/kuali/common/impex/ks-dump-context.xml";

@@ -22,6 +22,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
@@ -43,6 +44,7 @@ public class DumpTablesTest {
 	private static final Logger logger = LoggerFactory.getLogger(DumpTablesTest.class);
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			long start = System.currentTimeMillis();
