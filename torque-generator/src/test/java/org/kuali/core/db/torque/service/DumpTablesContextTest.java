@@ -28,7 +28,7 @@ public class DumpTablesContextTest {
 	@Test
 	public void test() {
 		try {
-			String location = "classpath:org/kuali/common/impex/impex-dump-context.xml";
+			String location = "classpath:org/kuali/common/impex/ks-dump-context.xml";
 			logger.info("Loading {}", location);
 			SpringService ss = new DefaultSpringService();
 			ss.load(location);
