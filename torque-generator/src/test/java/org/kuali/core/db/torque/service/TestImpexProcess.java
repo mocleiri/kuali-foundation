@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
-import org.kuali.common.impex.ImpexContextFactoryBean;
+import org.kuali.common.impex.ImpexContextCloningFactoryBean;
 import org.kuali.common.impex.service.DefaultImpexService;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexService;

@@ -19,7 +19,7 @@ import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.springframework.beans.factory.FactoryBean;
 
-public class ImpexContextFactoryBean implements FactoryBean<ImpexContext> {
+public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext> {
 
 	ImpexContext sourceContext;
 	String include;
