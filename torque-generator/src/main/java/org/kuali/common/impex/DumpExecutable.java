@@ -26,6 +26,7 @@ public class DumpExecutable implements Executable {
 	public void execute() {
 		Assert.notNull(sourceContext);
 		Assert.notNull(service);
+		ImpexUtils.log(sourceContext);
 		// Assert.notNull(contexts);
 		// Assert.notNull(databaseVendors);
 		long start = System.currentTimeMillis();
