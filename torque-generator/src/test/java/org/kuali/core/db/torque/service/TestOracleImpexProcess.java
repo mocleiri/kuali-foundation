@@ -55,18 +55,12 @@ import java.util.Set;
  * @author andrewlubbers
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:mpxTests/build-db-context.xml"})
-public class TestImpexProcess {
+@ContextConfiguration(locations = {"classpath:mpxTests/oracle-impex-context.xml"})
+public class TestOracleImpexProcess {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestImpexProcess.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestOracleImpexProcess.class);
 
     private static final String LF = "\n";
-
-    @Resource(name = "deploy.mavenProperties")
-    private Properties mavenProperties;
-
-    @Resource(name = "deploy.properties")
-    private Properties dbProperties;
 
     @Resource
     private ImpexContext impexContext;

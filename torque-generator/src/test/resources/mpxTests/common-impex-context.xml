@@ -23,11 +23,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
-
     <!-- The following properties are populated by maven when the test resources are processed -->
     <util:properties id="deploy.mavenProperties">
-        <prop key="db.vendor">oracle</prop>
+        <prop key="db.vendor">#{vendorSpecificProperties.vendor}</prop>
         <prop key="kuali.encoding">${kuali.encoding}</prop>
         <prop key="project.groupId">${project.groupId}</prop>
         <prop key="project.artifactId">${project.artifactId}</prop>
@@ -36,16 +34,24 @@
         <prop key="project.build.directory">${project.build.directory}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
         <prop key="jdbc.username">TORQUE_GENERATOR_TEST_DB</prop>
-        <prop key="oracle.dba.password">${oracle.dba.password}</prop>
-        <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
-        <prop key="sql.data.1">classpath:mpxTests/FOO_T.sql</prop>
+        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
+        <prop key="sql.data.1">classpath:mpxTests/${db.vendor}/FOO_T.sql</prop>
         <prop key="sql.schema.concurrent">sql.schema.1</prop>
         <prop key="sql.data.concurrent">sql.data.1</prop>
+    </util:properties>
+
+    <util:properties id="cleanDatabaseProperties">
+        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
+        <prop key="sql.data.1"></prop>
+        <prop key="sql.schema.concurrent">sql.schema.1</prop>
+        <prop key="sql.data.concurrent"></prop>
     </util:properties>
 
     <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
 
     <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
+
+    <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
     <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
         <property name="executable" ref="deploy.databaseResetExecutable" />
@@ -71,13 +77,6 @@
         <property name="dataSource" ref="deploy.dataSource"/>
     </bean>
 
-    <util:properties id="cleanDatabaseProperties">
-        <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
-        <prop key="sql.data.1"></prop>
-        <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent"></prop>
-    </util:properties>
-
     <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexService">
         <property name="jdbcService" ref="jdbcService"/>
     </bean>
@@ -94,4 +93,5 @@
             <bean class="org.kuali.common.jdbc.DefaultSqlReader"/>
         </property>
     </bean>
+
 </beans>

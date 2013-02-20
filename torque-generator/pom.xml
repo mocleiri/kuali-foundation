@@ -153,14 +153,14 @@
         <directory>src/test/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/mpxTests/build-db-context.xml</include>
+          <include>**/mpxTests/common-impex-context.xml</include>
         </includes>
       </testResource>
       <testResource>
         <directory>src/test/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>**/mpxTests/build-db-context.xml</exclude>
+          <exclude>**/mpxTests/common-impex-context.xml</exclude>
         </excludes>
       </testResource>
     </testResources>
