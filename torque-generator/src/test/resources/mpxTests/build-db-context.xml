@@ -23,29 +23,59 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
+    <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
 
-  <!-- The following properties are populated by maven when the test resources are processed -->
-  <util:properties id="deploy.mavenProperties">
-    <prop key="db.vendor">oracle</prop>
-    <prop key="kuali.encoding">${kuali.encoding}</prop>
-    <prop key="project.groupId">${project.groupId}</prop>
-    <prop key="project.artifactId">${project.artifactId}</prop>
-    <prop key="project.version">${project.version}</prop>
-    <prop key="project.basedir">${project.basedir}</prop>
-    <prop key="project.build.directory">${project.build.directory}</prop>
-    <prop key="kuali.groupId">${kuali.groupId}</prop>
-    <prop key="jdbc.username">TORQUE_GENERATOR_TEST_DB</prop>
-    <prop key="oracle.dba.password">${oracle.dba.password}</prop>
-    <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
-    <prop key="sql.data.1">classpath:mpxTests/FOO_T.sql</prop>
-  </util:properties>
+    <!-- The following properties are populated by maven when the test resources are processed -->
+    <util:properties id="deploy.mavenProperties">
+        <prop key="db.vendor">oracle</prop>
+        <prop key="kuali.encoding">${kuali.encoding}</prop>
+        <prop key="project.groupId">${project.groupId}</prop>
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.version">${project.version}</prop>
+        <prop key="project.basedir">${project.basedir}</prop>
+        <prop key="project.build.directory">${project.build.directory}</prop>
+        <prop key="kuali.groupId">${kuali.groupId}</prop>
+        <prop key="jdbc.username">TORQUE_GENERATOR_TEST_DB</prop>
+        <prop key="oracle.dba.password">${oracle.dba.password}</prop>
+        <prop key="sql.schema.1">classpath:mpxTests/test-db-schema.sql</prop>
+        <prop key="sql.data.1">classpath:mpxTests/FOO_T.sql</prop>
+        <prop key="sql.schema.concurrent">sql.schema.1</prop>
+        <prop key="sql.data.concurrent">sql.data.1</prop>
+    </util:properties>
 
-  <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
-  <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
+    <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
 
-  <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-    <property name="executable" ref="deploy.databaseResetExecutable" />
-  </bean>
+    <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
+
+    <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
+        <property name="executable" ref="deploy.databaseResetExecutable" />
+    </bean>
+
+    <bean id="impexContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
+        <property name="artifactId" value="${project.artifactId}"/>
+        <property name="include" value=".*"/>
+        <property name="sourceContext" ref="impexContextSource"/>
+    </bean>
+
+    <bean id="impexContextSource" class="org.kuali.common.impex.service.ImpexContext">
+        <property name="antCompatibilityMode" value="false"/>
+        <property name="schema" value="#{deployDatabaseProcessContext.username}"/>
+        <property name="driver" value="#{deployDatabaseProcessContext.driver}"/>
+        <property name="url" value="#{deployDatabaseProcessContext.url}"/>
+        <property name="username" value="#{deployDatabaseProcessContext.username}"/>
+        <property name="password" value="#{deployDatabaseProcessContext.username}"/>
+        <property name="databaseVendor" value="#{deployDatabaseProcessContext.vendor}"/>
+        <property name="workingDir" value="${project.build.directory}/impex"/>
+        <property name="baseDir" value="${project.basedir}"/>
+        <property name="buildDir" value="${project.build.directory}"/>
+        <property name="dataSource" ref="deploy.dataSource"/>
+        <property name="tableIncludes">
+            <util:list value-type="java.lang.String">
+                <value>.*</value>
+            </util:list>
+        </property>
+    </bean>
+
+
 
 </beans>
