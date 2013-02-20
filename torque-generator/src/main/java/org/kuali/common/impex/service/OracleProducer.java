@@ -72,11 +72,12 @@ public class OracleProducer extends AbstractSqlProducer {
 			sqlBuilder.append(buildBatchSql(table, rowBeans));
 			rowCount++;
 
+            // if the table has any CLOB columns, we need to handle those separately
 			if (hasClobColumns) {
 				List<DataBean> clobs = new ArrayList<DataBean>();
 				List<DataBean> primaryKeys = new ArrayList<DataBean>();
 				for (DataBean data : rowBeans) {
-					// if the column is a CLOB type, and it is long enough,
+					// if the column is a CLOB type, and the data string is long enough,
 					// add the data bean to the list of clobs that need to be split up
 					if (isColumnClobType(data.getColumn()) && data.getValue().length() > CLOB_BATCH_SIZE) {
 						clobs.add(data);
