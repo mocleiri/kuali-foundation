@@ -17,17 +17,17 @@ public class DumpExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(DumpExecutable.class);
 
+	ImpexService service = new DefaultImpexService();
 	ImpexContext sourceContext;
 	List<ImpexContext> contexts;
-	ImpexService service = new DefaultImpexService();
 	List<String> databaseVendors;
 
 	@Override
 	public void execute() {
 		Assert.notNull(sourceContext);
-		Assert.notNull(service);
 		ImpexUtils.log(sourceContext);
-		// Assert.notNull(contexts);
+		Assert.notNull(service);
+		Assert.notNull(contexts);
 		Assert.notNull(databaseVendors);
 		long start = System.currentTimeMillis();
 		try {
