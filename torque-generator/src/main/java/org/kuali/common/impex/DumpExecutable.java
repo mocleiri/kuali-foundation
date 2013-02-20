@@ -25,9 +25,9 @@ public class DumpExecutable implements Executable {
 	@Override
 	public void execute() {
 		Assert.notNull(sourceContext);
-		Assert.notNull(contexts);
 		Assert.notNull(service);
-		Assert.notNull(databaseVendors);
+		// Assert.notNull(contexts);
+		// Assert.notNull(databaseVendors);
 		long start = System.currentTimeMillis();
 		try {
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
