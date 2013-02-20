@@ -30,8 +30,14 @@
   <bean id="projectBuildDirectory" class="java.lang.String">
     <constructor-arg value="${user.home}/ws/impex-2.0/torque-generator/target" />
   </bean>
+  <bean id="riceIncludes" class="java.lang.String">
+    <constructor-arg value="KR.*" />
+  </bean>
+  <bean id="studentIncludes" class="java.lang.String">
+    <constructor-arg value="KS.*" />
+  </bean>
   <bean id="impexIncludes" class="java.lang.String">
-    <constructor-arg value="KR.*,KS.*" />
+    <constructor-arg value="#{riceIncludes},#{studentIncludes}" />
   </bean>
 
   <!-- These will be pumped into the context by spring-maven-plugin once things are tightened up a bit -->
