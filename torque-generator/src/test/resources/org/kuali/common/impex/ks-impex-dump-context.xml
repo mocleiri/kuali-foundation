@@ -63,4 +63,6 @@
 
   <context:property-placeholder properties-ref="mavenProperties" />
 
+  <import resource="classpath:org/kuali/common/impex/impex-dump-context.xml" />
+
 </beans>
