@@ -24,11 +24,14 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+  <bean id="userHome" class="java.lang.String">
+    <constructor-arg value="/Users/jeffcaddel" />
+  </bean>
   <bean id="projectBasedir" class="java.lang.String">
-    <constructor-arg value="${user.home}/ws/impex-2.0/torque-generator" />
+    <constructor-arg value="#{userHome}/ws/impex-2.0/torque-generator" />
   </bean>
   <bean id="projectBuildDirectory" class="java.lang.String">
-    <constructor-arg value="${user.home}/ws/impex-2.0/torque-generator/target" />
+    <constructor-arg value="#{userHome}/ws/impex-2.0/torque-generator/target" />
   </bean>
   <bean id="riceIncludes" class="java.lang.String">
     <constructor-arg value="KR.*" />
@@ -67,19 +70,19 @@
 
   <bean id="riceDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
     <property name="artifactId" value="ks-rice-db" />
-    <property name="include" value="KR.*" />
+    <property name="include" value="#{riceIncludes}" />
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
   <bean id="appDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
     <property name="artifactId" value="ks-app-db" />
-    <property name="include" value="KS.*" />
+    <property name="include" value="#{studentIncludes}" />
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
   <bean id="bundledDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
     <property name="artifactId" value="ks-bundled-db" />
-    <property name="include" value="KS.*,KR.*" />
+    <property name="include" value="#{studentIncludes},#{riceIncludes}" />
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
