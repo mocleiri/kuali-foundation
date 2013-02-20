@@ -58,6 +58,7 @@
   </bean>
 
   <bean id="dumpExecutable" class="org.kuali.common.impex.DumpExecutable" init-method="execute">
+    <property name="sourceContext" ref="#{sourceContext}" />
   </bean>
 
 </beans>
