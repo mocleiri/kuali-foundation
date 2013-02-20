@@ -65,7 +65,7 @@
     <prop key="impex.data.threads">15</prop>
   </util:properties>
 
-  <context:property-placeholder properties-ref="mavenProperties" />
+  <context:property-placeholder properties-ref="dumpProperties" />
 
   <import resource="classpath:org/kuali/common/impex/impex-dump-context.xml" />
 
