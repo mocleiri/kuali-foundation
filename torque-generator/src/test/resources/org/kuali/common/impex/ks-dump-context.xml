@@ -77,9 +77,16 @@
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
+  <bean id="bundledDumpContext" class="org.kuali.common.impex.ImpexContextCloningFactoryBean">
+    <property name="artifactId" value="ks-bundled-db" />
+    <property name="include" value="KS.*,KR.*" />
+    <property name="sourceContext" ref="sourceContext" />
+  </bean>
+
   <util:list id="dumpContexts">
     <ref bean="riceDumpContext" />
     <ref bean="appDumpContext" />
+    <ref bean="bundledDumpContext" />
   </util:list>
 
 </beans>
