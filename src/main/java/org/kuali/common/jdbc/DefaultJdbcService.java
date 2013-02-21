@@ -32,6 +32,7 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
+import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.threads.SqlBucket;
@@ -279,11 +280,12 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
 		try {
-			context.getListener().beforeExecuteSql(sql);
+			long start = System.currentTimeMillis();
+			context.getListener().beforeExecuteSql(new SqlEvent(sql, start, 0));
 			if (context.isExecute()) {
 				statement.execute(sql);
 			}
-			context.getListener().afterExecuteSql(sql);
+			context.getListener().afterExecuteSql(new SqlEvent(sql, start, System.currentTimeMillis()));
 		} catch (SQLException e) {
 			throw new SQLException("Error executing SQL [" + Str.flatten(sql) + "]", e);
 		}

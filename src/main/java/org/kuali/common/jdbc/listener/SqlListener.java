@@ -25,9 +25,9 @@ public interface SqlListener {
 
 	void bucketsCreated(BucketEvent event);
 
-	void beforeExecuteSql(String sql);
+	void beforeExecuteSql(SqlEvent event);
 
-	void afterExecuteSql(String sql);
+	void afterExecuteSql(SqlEvent event);
 
 	void afterExecution(SqlExecutionEvent event);
 

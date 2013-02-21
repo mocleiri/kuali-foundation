@@ -64,14 +64,14 @@ public class MessageListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeExecuteSql(String sql) {
+	public void beforeExecuteSql(SqlEvent event) {
 		if (beforeExecuteSql != null) {
 			LoggerUtils.logMsg(beforeExecuteSql, logger, level);
 		}
 	}
 
 	@Override
-	public void afterExecuteSql(String sql) {
+	public void afterExecuteSql(SqlEvent event) {
 		if (afterExecuteSql != null) {
 			LoggerUtils.logMsg(afterExecuteSql, logger, level);
 		}

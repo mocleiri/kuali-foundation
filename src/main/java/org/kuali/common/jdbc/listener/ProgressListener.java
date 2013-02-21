@@ -53,11 +53,11 @@ public class ProgressListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeExecuteSql(String sql) {
+	public void beforeExecuteSql(SqlEvent event) {
 	}
 
 	@Override
-	public synchronized void afterExecuteSql(String sql) {
+	public synchronized void afterExecuteSql(SqlEvent event) {
 		// The first SQL statement was just executed
 		if (count == 0) {
 			out.print(startToken);

@@ -18,16 +18,18 @@ package org.kuali.common.jdbc.listener;
 public class SqlEvent {
 
 	String sql;
-	long currentTimeMillis;
+	long startTimeMillis;
+	long stopTimeMillis;
 
 	public SqlEvent() {
-		this(null, 0);
+		this(null, 0, 0);
 	}
 
-	public SqlEvent(String sql, long currentTimeMillis) {
+	public SqlEvent(String sql, long startTimeMillis, long stopTimeMillis) {
 		super();
 		this.sql = sql;
-		this.currentTimeMillis = currentTimeMillis;
+		this.startTimeMillis = startTimeMillis;
+		this.stopTimeMillis = stopTimeMillis;
 	}
 
 	public String getSql() {
@@ -38,12 +40,20 @@ public class SqlEvent {
 		this.sql = sql;
 	}
 
-	public long getCurrentTimeMillis() {
-		return currentTimeMillis;
+	public long getStartTimeMillis() {
+		return startTimeMillis;
 	}
 
-	public void setCurrentTimeMillis(long currentTimeMillis) {
-		this.currentTimeMillis = currentTimeMillis;
+	public void setStartTimeMillis(long startTimeMillis) {
+		this.startTimeMillis = startTimeMillis;
+	}
+
+	public long getStopTimeMillis() {
+		return stopTimeMillis;
+	}
+
+	public void setStopTimeMillis(long stopTimeMillis) {
+		this.stopTimeMillis = stopTimeMillis;
 	}
 
 }

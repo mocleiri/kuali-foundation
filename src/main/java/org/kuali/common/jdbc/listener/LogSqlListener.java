@@ -27,6 +27,7 @@ public class LogSqlListener implements SqlListener {
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
 	LoggerLevel level = LoggerLevel.DEBUG;
 	boolean flatten = true;
+	boolean showTiming = false;
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
@@ -41,16 +42,16 @@ public class LogSqlListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeExecuteSql(String sql) {
-		String msg = sql;
+	public void beforeExecuteSql(SqlEvent event) {
+		String msg = event.getSql();
 		if (flatten) {
-			msg = "[" + Str.flatten(sql) + "]";
+			msg = "[" + Str.flatten(event.getSql()) + "]";
 		}
 		LoggerUtils.logMsg(msg, logger, level);
 	}
 
 	@Override
-	public void afterExecuteSql(String sql) {
+	public void afterExecuteSql(SqlEvent event) {
 	}
 
 	@Override

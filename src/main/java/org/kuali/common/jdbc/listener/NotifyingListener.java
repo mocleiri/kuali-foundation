@@ -58,16 +58,16 @@ public class NotifyingListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeExecuteSql(String sql) {
+	public void beforeExecuteSql(SqlEvent event) {
 		for (SqlListener listener : listeners) {
-			listener.beforeExecuteSql(sql);
+			listener.beforeExecuteSql(event);
 		}
 	}
 
 	@Override
-	public void afterExecuteSql(String sql) {
+	public void afterExecuteSql(SqlEvent event) {
 		for (SqlListener listener : listeners) {
-			listener.afterExecuteSql(sql);
+			listener.afterExecuteSql(event);
 		}
 	}
 

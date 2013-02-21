@@ -63,11 +63,11 @@ public class SummaryListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeExecuteSql(String sql) {
+	public void beforeExecuteSql(SqlEvent event) {
 	}
 
 	@Override
-	public void afterExecuteSql(String sql) {
+	public void afterExecuteSql(SqlEvent event) {
 	}
 
 	@Override
