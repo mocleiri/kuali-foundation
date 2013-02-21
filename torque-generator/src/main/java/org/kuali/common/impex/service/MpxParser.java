@@ -24,37 +24,39 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class MpxParser {
 
-    private static final String QUOTE = "\"";
-    private static final String TOKEN_DELIMITER = QUOTE + "," + QUOTE;
+	private static final String QUOTE = "\"";
+	private static final String TOKEN_DELIMITER = QUOTE + "," + QUOTE;
 
-    /**
-     * Split the line up into individual values and remove any .mpx related formatting
-     */
-    public static String[] parseMpxLine(String line) {
-        // Remove trailing/leading quotes
-        String trimmed = trimQuotes(line);
-        // Split the line up into individual values
-        String[] values = StringUtils.splitByWholeSeparator(trimmed, TOKEN_DELIMITER);
+	/**
+	 * Split the line up into individual values and remove any .mpx related formatting
+	 */
+	public static String[] parseMpxLine(String line) {
+		// Remove trailing/leading quotes
+		String trimmed = trimQuotes(line);
 
-        // Convert mpx special characters (i.e. ${mpx.lf} -> \n )
-        for (int i = 0; i < values.length; i++) {
-            values[i] = ImpexUtils.parse(values[i]);
-        }
-        // These are the original string values with all of the .mpx related formatting removed
-        return values;
-    }
+		// Split the line up into individual values
+		String[] values = StringUtils.splitByWholeSeparator(trimmed, TOKEN_DELIMITER);
 
-    /**
-     * Remove leading and trailing quotes (if any)
-     */
-    public static String trimQuotes(String line) {
-        if (StringUtils.startsWith(line, QUOTE)) {
-            line = StringUtils.substring(line, QUOTE.length());
-        }
-        int length = line.length();
-        if (StringUtils.endsWith(line, QUOTE)) {
-            line = StringUtils.substring(line, 0, length - QUOTE.length());
-        }
-        return line;
-    }
+		// Convert mpx special values (i.e. ${mpx.lf} -> \n )
+		for (int i = 0; i < values.length; i++) {
+			values[i] = ImpexUtils.parse(values[i]);
+		}
+
+		// These are the original string values with all of the .mpx related formatting removed
+		return values;
+	}
+
+	/**
+	 * Remove leading and trailing quotes (if any)
+	 */
+	public static String trimQuotes(String line) {
+		if (StringUtils.startsWith(line, QUOTE)) {
+			line = StringUtils.substring(line, QUOTE.length());
+		}
+		int length = line.length();
+		if (StringUtils.endsWith(line, QUOTE)) {
+			line = StringUtils.substring(line, 0, length - QUOTE.length());
+		}
+		return line;
+	}
 }
