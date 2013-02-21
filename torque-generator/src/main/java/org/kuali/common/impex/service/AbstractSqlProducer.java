@@ -78,8 +78,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		if (token == null) {
 			result.setValue(null);
 			result.setDateValue(null);
-		}
-		else if (ImpexUtils.isColumnDateType(column)) {
+		} else if (ImpexUtils.isColumnDateType(column)) {
 			SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
 			Date parsedDate;
 			try {
@@ -90,15 +89,13 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 
 			result.setValue(null);
 			result.setDateValue(parsedDate);
-		}
-		else if (column.needEscapedValue()) {
+		} else if (column.needEscapedValue()) {
 			result.setValue(getEscapedValue(column, token));
 			result.setDateValue(null);
+		} else {
+			result.setDateValue(null);
+			result.setValue(token);
 		}
-        else {
-            result.setDateValue(null);
-            result.setValue(token);
-        }
 
 		return result;
 	}
@@ -112,12 +109,12 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 	}
 
 	@Override
-    public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+	public void setBatchDataSizeLimit(int batchDataSizeLimit) {
 		this.batchDataSizeLimit = batchDataSizeLimit;
 	}
 
 	@Override
-    public void setBatchRowCountLimit(int batchRowCountLimit) {
+	public void setBatchRowCountLimit(int batchRowCountLimit) {
 		this.batchRowCountLimit = batchRowCountLimit;
 	}
 
