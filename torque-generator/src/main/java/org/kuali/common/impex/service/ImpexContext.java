@@ -50,6 +50,8 @@ public class ImpexContext {
 	Properties databaseTableProperties;
 	String databaseTablePropertiesLocation;
 	boolean storeDatabaseTableProperties;
+	File finalDirectory;
+	boolean copyDataFiles = true;
 
 	public boolean isProcessTables() {
 		return processTables;
@@ -337,5 +339,21 @@ public class ImpexContext {
 
 	public void setStoreDatabaseTableProperties(boolean storeDatabaseTableProperties) {
 		this.storeDatabaseTableProperties = storeDatabaseTableProperties;
+	}
+
+	public File getFinalDirectory() {
+		return finalDirectory;
+	}
+
+	public void setFinalDirectory(File finalDirectory) {
+		this.finalDirectory = finalDirectory;
+	}
+
+	public boolean isCopyDataFiles() {
+		return copyDataFiles;
+	}
+
+	public void setCopyDataFiles(boolean copyDataFiles) {
+		this.copyDataFiles = copyDataFiles;
 	}
 }

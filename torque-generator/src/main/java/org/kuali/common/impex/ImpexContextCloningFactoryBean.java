@@ -15,6 +15,10 @@
  */
 package org.kuali.common.impex;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -24,10 +28,24 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 	ImpexContext sourceContext;
 	String include;
 	String artifactId;
+	File scmBaseDirectory;
+	boolean copyDataFiles;
 
 	@Override
 	public ImpexContext getObject() throws Exception {
-		return ImpexUtils.clone(sourceContext, include, artifactId);
+		ImpexContext context = ImpexUtils.clone(sourceContext, include, artifactId);
+		copyProperties(context, this);
+		return context;
+	}
+
+	protected void copyProperties(ImpexContext dest, ImpexContextCloningFactoryBean orig) {
+		try {
+			BeanUtils.copyProperties(dest, orig);
+		} catch (IllegalAccessException e) {
+			throw new IllegalArgumentException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	@Override
@@ -62,5 +80,13 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 
 	public void setArtifactId(String artifactId) {
 		this.artifactId = artifactId;
+	}
+
+	public File getScmBaseDirectory() {
+		return scmBaseDirectory;
+	}
+
+	public void setScmBaseDirectory(File scmBaseDirectory) {
+		this.scmBaseDirectory = scmBaseDirectory;
 	}
 }

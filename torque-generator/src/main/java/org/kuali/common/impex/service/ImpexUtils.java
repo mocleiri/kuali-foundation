@@ -281,6 +281,9 @@ public class ImpexUtils {
 		// context.setDataSource(getDataSource(p));
 
 		// Properties that already have default values, don't override unless the corresponding property is explicitly set
+		if (p.getProperty("impex.storeDatabaseTableProperties") != null) {
+			context.setStoreDatabaseTableProperties(new Boolean(p.getProperty("impex.storeDatabaseTableProperties")));
+		}
 		if (p.getProperty("impex.dateFormat") != null) {
 			context.setDateFormat(p.getProperty("impex.dateFormat"));
 		}
