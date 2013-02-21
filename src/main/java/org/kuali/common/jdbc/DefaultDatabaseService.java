@@ -92,7 +92,7 @@ public class DefaultDatabaseService implements DatabaseService {
 
 		contexts.addAll(other);
 		for (ExecutionContext ec : other) {
-			ec.setListener(getDDLListener());
+			ec.setListener(getOtherListener(true));
 		}
 
 		JdbcService service = new DefaultJdbcService();
@@ -141,6 +141,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		LogSqlListener lsl = new LogSqlListener();
 		lsl.setFlatten(true);
 		lsl.setLevel(LoggerLevel.INFO);
+		listeners.add(lsl);
 		return new NotifyingListener(listeners);
 	}
 
