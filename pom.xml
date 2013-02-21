@@ -77,7 +77,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>3.0.10-SNAPSHOT</version>
+      <version>3.0.11</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>

@@ -26,7 +26,6 @@ import org.apache.tools.ant.Task;
 import org.apache.torque.task.TorqueDataModelTask;
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -43,24 +42,6 @@ public class XmlDumpTest {
 
 	@Test
 	public void test() {
-		try {
-			long start = System.currentTimeMillis();
-			Project project = getInitializedAntProject();
-			Properties p = getProperties();
-			DumpContext context = getDumpContext(p);
-			log(context);
-			prepareFileSystem(context);
-			Task schemaDump = getSchemaDumpTask(context, project);
-			Task dataDump = getDataDumpTask(context, project);
-			Task generateDtd = getGenerateDtdTask(context, project);
-			schemaDump.execute();
-			// dataDump.execute();
-			// generateDtd.execute();
-			String time = FormatUtils.getTime(System.currentTimeMillis() - start);
-			logger.info("Total time: {}", time);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	protected void log(DumpContext context) {
