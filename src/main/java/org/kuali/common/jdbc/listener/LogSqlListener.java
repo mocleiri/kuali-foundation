@@ -16,6 +16,7 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Str;
@@ -43,15 +44,26 @@ public class LogSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecuteSql(SqlEvent event) {
-		String msg = event.getSql();
-		if (flatten) {
-			msg = "[" + Str.flatten(event.getSql()) + "]";
-		}
-		LoggerUtils.logMsg(msg, logger, level);
 	}
 
 	@Override
 	public void afterExecuteSql(SqlEvent event) {
+		String sql = getSql(event.getSql(), flatten);
+		if (showTiming) {
+			long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
+			String time = FormatUtils.getTime(millis);
+			Object[] args = { time };
+			String msg = "Elapsed: {} " + sql;
+			LoggerUtils.logMsg(msg, args, logger, level);
+		}
+	}
+
+	protected String getSql(String sql, boolean flatten) {
+		if (flatten) {
+			return "[" + Str.flatten(sql) + "]";
+		} else {
+			return sql;
+		}
 	}
 
 	@Override
