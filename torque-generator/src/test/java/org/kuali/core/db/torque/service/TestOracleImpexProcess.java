@@ -124,16 +124,18 @@ public class TestOracleImpexProcess {
 
     private byte[] getDataBytes(List<DumpTableResult> results) throws IOException {
         StringBuilder dataBuilder = new StringBuilder();
+        List<File> allFiles = new ArrayList<File>();
         for(DumpTableResult result : results) {
-            List<File> sortedFiles = new ArrayList<File>(result.getFiles());
-            Collections.sort(sortedFiles);
-            for (File f : sortedFiles) {
-                BufferedReader reader = LocationUtils.getBufferedReader(f.getAbsolutePath());
-                String line = reader.readLine();
-                while (line != null) {
-                    dataBuilder.append(line).append(LF);
-                    line = reader.readLine();
-                }
+            allFiles.addAll(result.getFiles());
+        }
+
+        Collections.sort(allFiles);
+        for (File f : allFiles) {
+            BufferedReader reader = LocationUtils.getBufferedReader(f.getAbsolutePath());
+            String line = reader.readLine();
+            while (line != null) {
+                dataBuilder.append(line).append(LF);
+                line = reader.readLine();
             }
         }
 

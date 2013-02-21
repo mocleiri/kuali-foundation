@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
+import org.kuali.common.impex.MpxImportResult;
 import org.kuali.common.impex.TableContext;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.w3c.dom.Document;
@@ -71,5 +72,7 @@ public interface ImpexService {
      *
      * @param context contains the database connection context and other meta information
 	 */
-	void importData(ImpexContext context, ExecutionContext sqlExectuionContext);
+	List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExectuionContext);
+
+    MpxImportResult importDataFile(File file, ImpexContext context, ExecutionContext sqlExecutionContext);
 }

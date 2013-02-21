@@ -23,6 +23,9 @@ import org.kuali.common.impex.DumpTableContext;
 import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.impex.ForeignKey;
 import org.kuali.common.impex.Index;
+import org.kuali.common.impex.MpxBucket;
+import org.kuali.common.impex.MpxBucketHandler;
+import org.kuali.common.impex.MpxImportResult;
 import org.kuali.common.impex.Reference;
 import org.kuali.common.impex.SchemaRequest;
 import org.kuali.common.impex.SchemaRequestBucket;
@@ -91,33 +94,91 @@ public class DefaultImpexService implements ImpexService {
 	private static final String FS = File.separator;
 
 	@Override
-	public void importData(ImpexContext context, ExecutionContext sqlExecutionContext) {
+	public List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExecutionContext) {
         Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
 		List<Table> tables = getTables(context);
 		SimpleScanner scanner = new SimpleScanner();
 		scanner.setBasedir(context.getWorkingDir());
 		scanner.setIncludes(new String[] { "*.mpx" });
 		List<File> files = scanner.getFiles();
-		for (File file : files) {
-			String filename = file.getName();
-			logger.info("Importing " + filename);
-			String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
-			Table table = getTableDefinition(tableName, tables);
-			executeSql(context, table, LocationUtils.getCanonicalPath(file), sqlExecutionContext);
-		}
+
+        // Print a dot any time we complete 1% of our requests
+        PercentCompleteInformer progressTracker = new PercentCompleteInformer();
+        progressTracker.setTotal(files.size());
+
+        List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
+        List<MpxBucket> mpxBuckets = getMpxBuckets(files, context, sqlExecutionContext, importResults, progressTracker);
+
+        // Create and invoke threads to fill in the metadata
+        ExecutionStatistics stats = invokeThreads(mpxBuckets, new MpxBucketHandler());
+        String time = FormatUtils.getTime(stats.getExecutionTime());
+        logger.info("Data import completed.  Time: {}", time);
+
+        return importResults;
 	}
+
+    @Override
+    public MpxImportResult importDataFile(File file, ImpexContext context, ExecutionContext sqlExecutionContext) {
+        List<Table> tables = getTables(context);
+        String filename = file.getName();
+        logger.info("Importing " + filename);
+        String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
+        Table table = getTableDefinition(tableName, tables);
+        return executeSql(context, table, LocationUtils.getCanonicalPath(file), sqlExecutionContext);
+    }
+
+    protected List<MpxBucket> getMpxBuckets(List<File> files, ImpexContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results, PercentCompleteInformer progressTracker) {
+        // number of buckets equals thread count, unless thread count > total number of sources
+        int bucketCount = Math.min(context.getDataThreads(), files.size());
+        // Sort the sources by size
+        Collections.sort(files);
+        // Largest to smallest instead of smallest to largest
+        Collections.reverse(files);
+
+        // Allocate some buckets to hold the files
+        List<MpxBucket> buckets = new ArrayList<MpxBucket>(bucketCount);
+        for(int i = 0; i < bucketCount; i++) {
+            MpxBucket bucket = new MpxBucket();
+            bucket.setProgressTracker(progressTracker);
+            bucket.setContext(context);
+            bucket.setService(this);
+            bucket.setResults(results);
+            bucket.setExecutionContext(sqlExecutionContext);
+
+            buckets.add(bucket);
+        }
+
+        // Distribute the sources into buckets as evenly as possible
+        // "Evenly" in this case means each bucket should be roughly the same size
+        for (File file : files) {
+            // Sort the buckets by size, so the smallest is at the top, which is the bucket that should be filled next
+            Collections.sort(buckets);
+            // First bucket in the list is the smallest
+            MpxBucket smallest = buckets.get(0);
+            // Add this source to the bucket
+            smallest.getFiles().add(file);
+            // Update the bucket metadata holding overall size
+            smallest.setAllFilesSize(smallest.getAllFilesSize() + FileUtils.sizeOf(file));
+        }
+
+        return buckets;
+    }
 
 	@SuppressWarnings("unchecked")
 	protected List<Column> getColumns(Table table) {
 		return table.getColumns();
 	}
 
-	protected void executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {
+	protected MpxImportResult executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {
 		SqlProducer sqlProducer = context.getPlatform().getSqlProducer();
         sqlProducer.setBatchDataSizeLimit(context.getDataSizeInterval());
         sqlProducer.setBatchRowCountLimit(context.getRowCountInterval());
 
 		BufferedReader reader = null;
+        MpxImportResult result = new MpxImportResult();
+        result.setTableName(table.getName());
+        result.setMpxPath(location);
+        result.setStart(System.currentTimeMillis());
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
 
@@ -125,6 +186,9 @@ public class DefaultImpexService implements ImpexService {
 			while (sql != null) {
                 sqlExecutionContext.setSql(Arrays.asList(sql));
                 jdbcService.executeSql(sqlExecutionContext);
+
+                // after executing sql, add byte lenth to results
+                result.setSize(result.getSize() + sql.getBytes().length);
 				sql = sqlProducer.getSql(table, reader);
 			}
 		} catch (IOException e) {
@@ -132,6 +196,11 @@ public class DefaultImpexService implements ImpexService {
 		} finally {
 			IOUtils.closeQuietly(reader);
 		}
+
+        result.setFinish(System.currentTimeMillis());
+        result.setElapsed(result.getStart() - result.getFinish());
+
+        return result;
 	}
 
 	protected void trimQuotes(String[] tokens) {
