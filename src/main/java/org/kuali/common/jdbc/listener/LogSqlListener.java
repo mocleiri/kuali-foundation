@@ -28,7 +28,6 @@ public class LogSqlListener implements SqlListener {
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
 	LoggerLevel level = LoggerLevel.DEBUG;
 	boolean flatten = true;
-	boolean showTiming = false;
 
 	@Override
 	public void beforeMetaData(ExecutionContext context) {
@@ -49,13 +48,11 @@ public class LogSqlListener implements SqlListener {
 	@Override
 	public void afterExecuteSql(SqlEvent event) {
 		String sql = getSql(event.getSql(), flatten);
-		if (showTiming) {
-			long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
-			String time = FormatUtils.getTime(millis);
-			Object[] args = { time };
-			String msg = "Elapsed: {} " + sql;
-			LoggerUtils.logMsg(msg, args, logger, level);
-		}
+		long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
+		String time = FormatUtils.getTime(millis);
+		Object[] args = { time };
+		String msg = "Elapsed: {} " + sql;
+		LoggerUtils.logMsg(msg, args, logger, level);
 	}
 
 	protected String getSql(String sql, boolean flatten) {

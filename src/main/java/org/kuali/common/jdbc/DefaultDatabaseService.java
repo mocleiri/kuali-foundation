@@ -134,6 +134,16 @@ public class DefaultDatabaseService implements DatabaseService {
 		return new NotifyingListener(listeners);
 	}
 
+	protected NotifyingListener getOtherListener(boolean showRate) {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new ProgressListener());
+		listeners.add(new SummaryListener(showRate));
+		LogSqlListener lsl = new LogSqlListener();
+		lsl.setFlatten(true);
+		lsl.setLevel(LoggerLevel.INFO);
+		return new NotifyingListener(listeners);
+	}
+
 	protected NotifyingListener getDDLListener() {
 		return getDefaultListener(false);
 	}
