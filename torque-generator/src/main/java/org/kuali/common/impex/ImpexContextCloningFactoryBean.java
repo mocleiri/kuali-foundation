@@ -28,7 +28,7 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 	ImpexContext sourceContext;
 	String include;
 	String artifactId;
-	File scmBaseDirectory;
+	File finalDirectory;
 	boolean copyDataFiles;
 
 	@Override
@@ -82,11 +82,11 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 		this.artifactId = artifactId;
 	}
 
-	public File getScmBaseDirectory() {
-		return scmBaseDirectory;
+	public File getFinalDirectory() {
+		return finalDirectory;
 	}
 
-	public void setScmBaseDirectory(File scmBaseDirectory) {
-		this.scmBaseDirectory = scmBaseDirectory;
+	public void setFinalDirectory(File scmBaseDirectory) {
+		this.finalDirectory = scmBaseDirectory;
 	}
 }
