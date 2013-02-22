@@ -717,6 +717,16 @@ public class PropertyUtils {
 		}
 	}
 
+    /**
+     * Set properties in the given Properties to CSV versions of the lists in the ComparisonResults
+     *
+     * @param properties the Properties to populate
+     * @param listComparison the ComparisonResults to use for data
+     * @param propertyNames the list of property keys to set. Exactly 3 names are required, and the assumed order is:
+     *                      index 0: key for the ADDED list
+     *                      index 1: key for the SAME list
+     *                      index 2: key for the DELETED list
+     */
     public static final void addListComparisonProperties(Properties properties, ComparisonResults listComparison, List<String> propertyNames) {
         // make sure that there are three names in the list of property names
         Assert.isTrue(propertyNames.size() == 3);
