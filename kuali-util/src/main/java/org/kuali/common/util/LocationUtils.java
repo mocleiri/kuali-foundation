@@ -531,39 +531,38 @@ public class LocationUtils {
 		}
 	}
 
-    public static final List<String> getAbsolutePaths(List<File> files) {
-        List<String> results = new ArrayList<String>(files.size());
+	public static final List<String> getAbsolutePaths(List<File> files) {
+		List<String> results = new ArrayList<String>(files.size());
 
-        for(File f : files) {
-            results.add(f.getAbsolutePath());
-        }
+		for (File f : files) {
+			results.add(f.getAbsolutePath());
+		}
 
-        return results;
-    }
+		return results;
+	}
 
-    public static final ComparisonResults getLocationListComparison(List<String> newLocations, List<String> originalLocations) {
-        ComparisonResults result = new ComparisonResults();
+	public static final ComparisonResults getLocationListComparison(List<String> newLocations, List<String> originalLocations) {
+		ComparisonResults result = new ComparisonResults();
 
-        result.setAdded(new ArrayList<String>());
-        result.setSame(new ArrayList<String>());
-        result.setDeleted(new ArrayList<String>());
+		result.setAdded(new ArrayList<String>());
+		result.setSame(new ArrayList<String>());
+		result.setDeleted(new ArrayList<String>());
 
-        for (String newLocation : newLocations) {
-            // if a location is in both lists, add it to the "same" list
-            if(originalLocations.contains(newLocation)) {
-                result.getSame().add(newLocation);
-            }
-            // if a location is only in the new list, add it to the "added" list
-            else {
-                result.getAdded().add(newLocation);
-            }
-        }
+		for (String newLocation : newLocations) {
+			if (originalLocations.contains(newLocation)) {
+				// if a location is in both lists, add it to the "same" list
+				result.getSame().add(newLocation);
+			} else {
+				// if a location is only in the new list, add it to the "added" list
+				result.getAdded().add(newLocation);
+			}
+		}
 
-        // the "deleted" list will contain all locations from the original list that are NOT in the new list
-        result.getDeleted().addAll(originalLocations);
-        result.getDeleted().removeAll(newLocations);
+		// the "deleted" list will contain all locations from the original list that are NOT in the new list
+		result.getDeleted().addAll(originalLocations);
+		result.getDeleted().removeAll(newLocations);
 
-        return result;
-    }
+		return result;
+	}
 
 }
