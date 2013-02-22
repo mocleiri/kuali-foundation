@@ -15,6 +15,7 @@
 
 package org.kuali.common.util.execute;
 
+import org.kuali.common.util.ComparisonResults;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
@@ -60,7 +61,7 @@ public class FileListComparisonExecutable implements Executable {
 
         List<String> originalLocations = LocationUtils.getAbsolutePaths(scanner.getFiles());
 
-        LocationUtils.ListComparison comparison = LocationUtils.getLocationListComparison(newLocations, originalLocations);
+        ComparisonResults comparison = LocationUtils.getLocationListComparison(newLocations, originalLocations);
 
         PropertyUtils.addListComparisonProperties(mavenProperties, comparison, propertyNames);
     }

@@ -541,33 +541,27 @@ public class LocationUtils {
         return results;
     }
 
-    public static class ListComparison {
-        public List<String> added;
-        public List<String> same;
-        public List<String> deleted;
-    }
+    public static final ComparisonResults getLocationListComparison(List<String> newLocations, List<String> originalLocations) {
+        ComparisonResults result = new ComparisonResults();
 
-    public static final ListComparison getLocationListComparison(List<String> newLocations, List<String> originalLocations) {
-        ListComparison result = new ListComparison();
-
-        result.added = new ArrayList<String>();
-        result.same = new ArrayList<String>();
-        result.deleted = new ArrayList<String>();
+        result.setAdded(new ArrayList<String>());
+        result.setSame(new ArrayList<String>());
+        result.setDeleted(new ArrayList<String>());
 
         for (String newLocation : newLocations) {
             // if a location is in both lists, add it to the "same" list
             if(originalLocations.contains(newLocation)) {
-                result.same.add(newLocation);
+                result.getSame().add(newLocation);
             }
             // if a location is only in the new list, add it to the "added" list
             else {
-                result.added.add(newLocation);
+                result.getAdded().add(newLocation);
             }
         }
 
         // the "deleted" list will contain all locations from the original list that are NOT in the new list
-        result.deleted.addAll(originalLocations);
-        result.deleted.removeAll(newLocations);
+        result.getDeleted().addAll(originalLocations);
+        result.getDeleted().removeAll(newLocations);
 
         return result;
     }
