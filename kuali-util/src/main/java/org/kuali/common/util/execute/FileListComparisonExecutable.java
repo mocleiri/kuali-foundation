@@ -20,7 +20,6 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.springframework.util.Assert;
 
-import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
