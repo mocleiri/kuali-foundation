@@ -717,7 +717,7 @@ public class PropertyUtils {
 		}
 	}
 
-    private static final void addListComparisonProperties(Properties properties, LocationUtils.ListComparison listComparison, List<String> propertyNames) {
+    public static final void addListComparisonProperties(Properties properties, LocationUtils.ListComparison listComparison, List<String> propertyNames) {
         // make sure that there are three names in the list of property names
         Assert.isTrue(propertyNames.size() == 3);
 
