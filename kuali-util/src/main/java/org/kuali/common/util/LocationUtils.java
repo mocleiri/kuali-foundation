@@ -531,6 +531,16 @@ public class LocationUtils {
 		}
 	}
 
+    public static final List<String> getAbsolutePaths(List<File> files) {
+        List<String> results = new ArrayList<String>(files.size());
+
+        for(File f : files) {
+            results.add(f.getAbsolutePath());
+        }
+
+        return results;
+    }
+
     public static class ListComparison {
         public List<String> added;
         public List<String> same;
