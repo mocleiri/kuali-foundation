@@ -69,8 +69,6 @@ public class LocationUtils {
 	 *
 	 * @param file
 	 *            the file to open for output, must not be {@code null}
-	 * @param append
-	 *            if {@code true}, then bytes will be added to the end of the file rather than overwriting
 	 * @return a new {@link FileOutputStream} for the specified file
 	 * @throws IOException
 	 *             if the file object is a directory
@@ -532,5 +530,36 @@ public class LocationUtils {
 			return resource.getFilename();
 		}
 	}
+
+    public static class ListComparison {
+        public List<String> added;
+        public List<String> same;
+        public List<String> deleted;
+    }
+
+    public static final ListComparison getLocationListComparison(List<String> newLocations, List<String> originalLocations) {
+        ListComparison result = new ListComparison();
+
+        result.added = new ArrayList<String>();
+        result.same = new ArrayList<String>();
+        result.deleted = new ArrayList<String>();
+
+        for (String newLocation : newLocations) {
+            // if a location is in both lists, add it to the "same" list
+            if(originalLocations.contains(newLocation)) {
+                result.same.add(newLocation);
+            }
+            // if a location is only in the new list, add it to the "added" list
+            else {
+                result.added.add(newLocation);
+            }
+        }
+
+        // the "deleted" list will contain all locations from the original list that are NOT in the new list
+        result.deleted.addAll(originalLocations);
+        result.deleted.removeAll(newLocations);
+
+        return result;
+    }
 
 }

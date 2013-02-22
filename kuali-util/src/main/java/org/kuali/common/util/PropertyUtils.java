@@ -717,4 +717,13 @@ public class PropertyUtils {
 		}
 	}
 
+    private static final void addListComparisonProperties(Properties properties, LocationUtils.ListComparison listComparison, List<String> propertyNames) {
+        // make sure that there are three names in the list of property names
+        Assert.isTrue(propertyNames.size() == 3);
+
+        properties.setProperty(propertyNames.get(0), CollectionUtils.getCSV(listComparison.added));
+        properties.setProperty(propertyNames.get(1), CollectionUtils.getCSV(listComparison.same));
+        properties.setProperty(propertyNames.get(2), CollectionUtils.getCSV(listComparison.deleted));
+    }
+
 }
