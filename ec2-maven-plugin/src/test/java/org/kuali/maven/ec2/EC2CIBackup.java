@@ -63,6 +63,7 @@ public class EC2CIBackup {
 	    protected AmazonEC2Client getEC2Client() {
 	        BasicTextEncryptor bte = new BasicTextEncryptor();
 	        bte.setPassword(System.getProperty("kuali.master.password"));
+	       
 	        String secretKey = bte.decrypt(SECRET_KEY_ENCRYPTED);
 	        System.out.println("secretKey: "+secretKey);
 	        return EC2Utils.getEC2Client(ACCESS_KEY, secretKey);
@@ -179,8 +180,8 @@ public class EC2CIBackup {
 
 	for (String arg : args) {
        tag = arg;   // name tag value
-       //CIBACKUP = arg.toUpperCase(); //CIBACKUP TAG value
-       CIBACKUP = "Backup";
+       CIBACKUP = arg.toUpperCase(); //CIBACKUP TAG value
+       //CIBACKUP = "Backup";
        System.out.println("tag: "+tag);
        System.out.println("CIBACKUP: " +CIBACKUP);
 	
@@ -197,7 +198,8 @@ public class EC2CIBackup {
       //Tag Names or Keys
 		
       //String  TagName  = CIBACKUP+".Backup";     
-      String  TagName  = CIBACKUP;   
+      //String  TagName  = CIBACKUP;   
+      String  TagName  = "Backup";   
       String  W0Value  = CIBACKUP+".Backup.0";     
       String  W1Value  = CIBACKUP+".Backup.1";     
       String  W2Value  = CIBACKUP+".Backup.2";
