@@ -15,10 +15,13 @@
 
 package org.kuali.common.util.execute;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ComparisonResults;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -32,6 +35,7 @@ import java.util.Properties;
  */
 public class FileListComparisonExecutable implements Executable {
 
+    private static final Logger logger = LoggerFactory.getLogger(FileListComparisonExecutable.class);
 
     private String newFilesBaseDir;
     private String filePattern;
@@ -47,21 +51,35 @@ public class FileListComparisonExecutable implements Executable {
         Assert.notNull(originalFilesBaseDir);
         Assert.notNull(filePattern);
 
-        String[] includesArray = new String[]{filePattern};
+        logger.info("Starting File List Comparison");
+        logger.info("Original files dir: " + originalFilesBaseDir);
+        logger.info("New files dir: " + newFilesBaseDir);
+        logger.info("File pattern: " + filePattern);
+        logger.info("Property names: " + propertyNames);
+
+        List<String> filePatterns = CollectionUtils.getTrimmedListFromCSV(filePattern);
+        String[] includesArray = filePatterns.toArray(new String[filePatterns.size()]);
 
         SimpleScanner scanner = new SimpleScanner();
         scanner.setBasedir(newFilesBaseDir);
         scanner.setIncludes(includesArray);
 
         List<String> newLocations = LocationUtils.getAbsolutePaths(scanner.getFiles());
+        List<String> newFileNames = LocationUtils.getFilenames(newLocations);
 
         scanner = new SimpleScanner();
         scanner.setBasedir(originalFilesBaseDir);
         scanner.setIncludes(includesArray);
 
         List<String> originalLocations = LocationUtils.getAbsolutePaths(scanner.getFiles());
+        List<String> originalFileNames = LocationUtils.getFilenames(originalLocations);
 
-        ComparisonResults comparison = LocationUtils.getLocationListComparison(newLocations, originalLocations);
+        ComparisonResults comparison = LocationUtils.getLocationListComparison(newFileNames, originalFileNames);
+
+        logger.info("Comparison finished.  Results:");
+        logger.info("Added: " + comparison.getAdded());
+        logger.info("Same " + comparison.getSame());
+        logger.info("Deleted " + comparison.getDeleted());
 
         PropertyUtils.addListComparisonProperties(mavenProperties, comparison, propertyNames);
     }
