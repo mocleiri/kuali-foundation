@@ -15,13 +15,10 @@
 
 package org.kuali.common.impex;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
-import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +38,7 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 
     @Override
     public void handleElement(ListIteratorContext<MpxBucket> mpxBucketListIteratorContext, int i, MpxBucket mpxBucket) {
-        ImpexService service = mpxBucket.getService();
+        ImpexGeneratorService service = mpxBucket.getService();
         ImpexContext context = mpxBucket.getContext();
 
         List<MpxImportResult> results = mpxBucket.getResults();

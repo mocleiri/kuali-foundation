@@ -5,7 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.util.PercentCompleteInformer;
 
 public class SchemaRequestBucket {
@@ -14,7 +14,7 @@ public class SchemaRequestBucket {
 	DataSource dataSource;
 	ImpexContext impexContext;
 	PercentCompleteInformer progressTracker;
-	ImpexService impexService;
+	ImpexGeneratorService impexService;
 
 	public List<SchemaRequest> getRequests() {
 		return requests;
@@ -48,11 +48,11 @@ public class SchemaRequestBucket {
 		this.progressTracker = progressTracker;
 	}
 
-	public ImpexService getImpexService() {
+	public ImpexGeneratorService getImpexService() {
 		return impexService;
 	}
 
-	public void setImpexService(ImpexService impexService) {
+	public void setImpexService(ImpexGeneratorService impexService) {
 		this.impexService = impexService;
 	}
 

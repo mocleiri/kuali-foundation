@@ -6,7 +6,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class TableBucketHandler implements ElementHandler<TableBucket> {
 		Connection conn = null;
 		try {
 			List<TableContext> tables = element.getTables();
-			ImpexService service = element.getService();
+			ImpexGeneratorService service = element.getService();
 			ImpexContext impex = element.getContext();
 			dataSource = impex.getDataSource();
 			List<DumpTableResult> results = element.getResults();

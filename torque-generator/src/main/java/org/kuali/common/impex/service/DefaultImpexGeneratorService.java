@@ -86,11 +86,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class DefaultImpexService implements ImpexService {
+public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 
     protected JdbcService jdbcService;
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexGeneratorService.class);
 	private static final String FS = File.separator;
 
 	@Override

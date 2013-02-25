@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 
 import org.apache.torque.engine.platform.Platform;
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -22,7 +22,7 @@ public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket>
 		ImpexContext impex = element.getImpexContext();
 		Platform platform = impex.getPlatform();
 		String schema = impex.getSchema();
-		ImpexService service = element.getImpexService();
+		ImpexGeneratorService service = element.getImpexService();
 		Connection conn = null;
 		try {
 			conn = DataSourceUtils.getConnection(dataSource);

@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
 import org.kuali.common.jdbc.JdbcService;
@@ -76,7 +76,7 @@ public class TestOracleImpexProcess {
     private JdbcService jdbcService;
 
     @Resource
-    private ImpexService impexService;
+    private ImpexGeneratorService impexService;
 
     @Resource
     private ExecutionContext sqlExecutionContext;

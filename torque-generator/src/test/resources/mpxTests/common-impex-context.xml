@@ -78,7 +78,7 @@
         <property name="dataSource" ref="deploy.dataSource"/>
     </bean>
 
-    <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexService">
+    <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexGeneratorService">
         <property name="jdbcService" ref="jdbcService"/>
     </bean>
 

@@ -16,7 +16,7 @@
 package org.kuali.common.impex;
 
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.PercentCompleteInformer;
 
@@ -30,7 +30,7 @@ import java.util.List;
 public class MpxBucket implements Comparable<MpxBucket> {
 
     ImpexContext context;
-    ImpexService service;
+    ImpexGeneratorService service;
     List<File> files = new ArrayList<File>();
     PercentCompleteInformer progressTracker;
     List<MpxImportResult> results;
@@ -82,11 +82,11 @@ public class MpxBucket implements Comparable<MpxBucket> {
         this.results = results;
     }
 
-    public ImpexService getService() {
+    public ImpexGeneratorService getService() {
         return service;
     }
 
-    public void setService(ImpexService service) {
+    public void setService(ImpexGeneratorService service) {
         this.service = service;
     }
 

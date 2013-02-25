@@ -15,17 +15,14 @@
 
 package org.kuali.common.impex;
 
-import org.kuali.common.impex.service.DefaultImpexService;
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-
-import java.util.List;
 
 /**
  * @author andrewlubbers
@@ -34,7 +31,7 @@ public class ImportExecutable implements Executable {
 
     private static final Logger logger = LoggerFactory.getLogger(ImportExecutable.class);
 
-    ImpexService service;
+    ImpexGeneratorService service;
     ImpexContext sourceContext;
     ExecutionContext sqlExecutionContext;
 
@@ -52,11 +49,11 @@ public class ImportExecutable implements Executable {
         logger.info("Import Complete");
     }
 
-    public ImpexService getService() {
+    public ImpexGeneratorService getService() {
         return service;
     }
 
-    public void setService(ImpexService service) {
+    public void setService(ImpexGeneratorService service) {
         this.service = service;
     }
 

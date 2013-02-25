@@ -3,9 +3,9 @@ package org.kuali.common.impex;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.impex.service.DefaultImpexService;
+import org.kuali.common.impex.service.DefaultImpexGeneratorService;
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
@@ -17,7 +17,7 @@ public class DumpExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(DumpExecutable.class);
 
-	ImpexService service = new DefaultImpexService();
+	ImpexGeneratorService service = new DefaultImpexGeneratorService();
 	ImpexContext sourceContext;
 	List<ImpexContext> contexts;
 	List<String> databaseVendors;
@@ -61,11 +61,11 @@ public class DumpExecutable implements Executable {
 		this.sourceContext = sourceContext;
 	}
 
-	public ImpexService getService() {
+	public ImpexGeneratorService getService() {
 		return service;
 	}
 
-	public void setService(ImpexService service) {
+	public void setService(ImpexGeneratorService service) {
 		this.service = service;
 	}
 

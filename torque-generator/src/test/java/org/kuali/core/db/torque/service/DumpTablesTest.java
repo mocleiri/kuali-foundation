@@ -26,9 +26,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
-import org.kuali.common.impex.service.DefaultImpexService;
+import org.kuali.common.impex.service.DefaultImpexGeneratorService;
 import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexService;
+import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -62,7 +62,7 @@ public class DumpTablesTest {
 
 			List<ImpexContext> contexts = Arrays.asList(bundledContext, riceContext, appContext);
 
-			ImpexService service = new DefaultImpexService();
+			ImpexGeneratorService service = new DefaultImpexGeneratorService();
 			DatabaseContext database = service.getDatabaseObjectLists(sourceContext);
 			service.fillInMetaData(sourceContext, database);
 			service.serializeSchemas(contexts, database);

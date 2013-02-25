@@ -13,7 +13,7 @@ import org.kuali.common.impex.TableContext;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.w3c.dom.Document;
 
-public interface ImpexService {
+public interface ImpexGeneratorService {
 
 	/**
 	 *
