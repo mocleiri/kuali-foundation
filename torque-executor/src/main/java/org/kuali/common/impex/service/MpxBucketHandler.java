@@ -13,10 +13,11 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex;
+package org.kuali.common.impex.service;
 
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexGeneratorService;
+import org.kuali.common.impex.service.MpxMetaData;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 import org.slf4j.Logger;
@@ -43,8 +44,8 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 
         List<MpxImportResult> results = mpxBucket.getResults();
 
-        for (File file : mpxBucket.getFiles()) {
-            MpxImportResult result = service.importDataFile(file, context, mpxBucket.getExecutionContext());
+        for (MpxMetaData metaData: mpxBucket.getMpxBeans()) {
+            MpxImportResult result = service.importDataFile(metaData, context, mpxBucket.getExecutionContext());
             synchronized (results) {
                 results.add(result);
             }

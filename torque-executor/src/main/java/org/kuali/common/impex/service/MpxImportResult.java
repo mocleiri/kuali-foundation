@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex;
+package org.kuali.common.impex.service;
 
 import org.apache.torque.engine.database.model.Table;
 

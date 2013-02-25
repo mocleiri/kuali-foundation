@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex;
+package org.kuali.common.impex.service;
 
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexGeneratorService;
@@ -24,6 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+import java.io.IOException;
+
 /**
  * @author andrewlubbers
  */
@@ -31,7 +33,7 @@ public class ImportExecutable implements Executable {
 
     private static final Logger logger = LoggerFactory.getLogger(ImportExecutable.class);
 
-    ImpexGeneratorService service;
+    ImpexExecutorService service;
     ImpexContext sourceContext;
     ExecutionContext sqlExecutionContext;
 
@@ -45,15 +47,19 @@ public class ImportExecutable implements Executable {
         ImpexUtils.log(sourceContext);
 
         // import the data from the generated mpx files
-        service.importData(sourceContext, sqlExecutionContext);
+        try {
+            service.importData(sourceContext, sqlExecutionContext);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
         logger.info("Import Complete");
     }
 
-    public ImpexGeneratorService getService() {
+    public ImpexExecutorService getService() {
         return service;
     }
 
-    public void setService(ImpexGeneratorService service) {
+    public void setService(ImpexExecutorService service) {
         this.service = service;
     }
 

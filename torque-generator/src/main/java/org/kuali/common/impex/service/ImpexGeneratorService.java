@@ -1,6 +1,7 @@
 package org.kuali.common.impex.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
@@ -67,12 +68,4 @@ public interface ImpexGeneratorService {
 	 */
 	List<DumpTableResult> dumpTables(ImpexContext context, DatabaseContext database);
 
-	/**
-	 * Import data from MPX into database defined in given context
-     *
-     * @param context contains the database connection context and other meta information
-	 */
-	List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExectuionContext);
-
-    MpxImportResult importDataFile(File file, ImpexContext context, ExecutionContext sqlExecutionContext);
 }

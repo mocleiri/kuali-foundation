@@ -11,6 +11,10 @@ import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.impex.DumpTableResult;
+import org.kuali.common.threads.ElementHandler;
+import org.kuali.common.threads.ExecutionStatistics;
+import org.kuali.common.threads.ThreadHandlerContext;
+import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -273,6 +277,7 @@ public class ImpexUtils {
 		context.setBaseDir(new File(p.getProperty("project.basedir")));
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
+        context.setDataLocations(p.getProperty("impex.dataLocations"));
 
 		// Default to [artifactId].xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
@@ -321,4 +326,19 @@ public class ImpexUtils {
 		context.setViewExcludes(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.view.excludes")));
 		return context;
 	}
+
+    public static <T> ExecutionStatistics invokeThreads(List<T> buckets, ElementHandler<T> handler) {
+        // Store some context for the thread handler
+        ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
+        thc.setList(buckets);
+        thc.setHandler(handler);
+        thc.setMax(buckets.size());
+        thc.setMin(buckets.size());
+        thc.setDivisor(1);
+
+        // Start threads to acquire table metadata concurrently
+        ThreadInvoker invoker = new ThreadInvoker();
+        return invoker.invokeThreads(thc);
+    }
+
 }

@@ -23,9 +23,6 @@ import org.kuali.common.impex.DumpTableContext;
 import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.impex.ForeignKey;
 import org.kuali.common.impex.Index;
-import org.kuali.common.impex.MpxBucket;
-import org.kuali.common.impex.MpxBucketHandler;
-import org.kuali.common.impex.MpxImportResult;
 import org.kuali.common.impex.Reference;
 import org.kuali.common.impex.SchemaRequest;
 import org.kuali.common.impex.SchemaRequestBucket;
@@ -35,18 +32,12 @@ import org.kuali.common.impex.TableBucket;
 import org.kuali.common.impex.TableBucketHandler;
 import org.kuali.common.impex.TableContext;
 import org.kuali.common.impex.View;
-import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ExecutionStatistics;
-import org.kuali.common.threads.ThreadHandlerContext;
-import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.SimpleScanner;
 import org.kuali.core.db.torque.ImpexDTDResolver;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.kuali.core.db.torque.StringFilter;
@@ -60,7 +51,6 @@ import org.w3c.dom.Element;
 
 import javax.sql.DataSource;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -78,7 +68,6 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -88,119 +77,12 @@ import java.util.Properties;
 
 public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 
-    protected JdbcService jdbcService;
-
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexGeneratorService.class);
 	private static final String FS = File.separator;
-
-	@Override
-	public List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExecutionContext) {
-        Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
-		List<Table> tables = getTables(context);
-		SimpleScanner scanner = new SimpleScanner();
-		scanner.setBasedir(context.getWorkingDir());
-		scanner.setIncludes(new String[] { "*.mpx" });
-		List<File> files = scanner.getFiles();
-
-        // Print a dot any time we complete 1% of our requests
-        PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-        progressTracker.setTotal(files.size());
-
-        List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
-        List<MpxBucket> mpxBuckets = getMpxBuckets(files, context, sqlExecutionContext, importResults, progressTracker);
-
-        // Create and invoke threads to fill in the metadata
-        ExecutionStatistics stats = invokeThreads(mpxBuckets, new MpxBucketHandler());
-        String time = FormatUtils.getTime(stats.getExecutionTime());
-        logger.info("Data import completed.  Time: {}", time);
-
-        return importResults;
-	}
-
-    @Override
-    public MpxImportResult importDataFile(File file, ImpexContext context, ExecutionContext sqlExecutionContext) {
-        List<Table> tables = getTables(context);
-        String filename = file.getName();
-        logger.info("Importing " + filename);
-        String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
-        Table table = getTableDefinition(tableName, tables);
-        return executeSql(context, table, LocationUtils.getCanonicalPath(file), sqlExecutionContext);
-    }
-
-    protected List<MpxBucket> getMpxBuckets(List<File> files, ImpexContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results, PercentCompleteInformer progressTracker) {
-        // number of buckets equals thread count, unless thread count > total number of sources
-        int bucketCount = Math.min(context.getDataThreads(), files.size());
-        // Sort the sources by size
-        Collections.sort(files);
-        // Largest to smallest instead of smallest to largest
-        Collections.reverse(files);
-
-        // Allocate some buckets to hold the files
-        List<MpxBucket> buckets = new ArrayList<MpxBucket>(bucketCount);
-        for(int i = 0; i < bucketCount; i++) {
-            MpxBucket bucket = new MpxBucket();
-            bucket.setProgressTracker(progressTracker);
-            bucket.setContext(context);
-            bucket.setService(this);
-            bucket.setResults(results);
-            bucket.setExecutionContext(sqlExecutionContext);
-
-            buckets.add(bucket);
-        }
-
-        // Distribute the sources into buckets as evenly as possible
-        // "Evenly" in this case means each bucket should be roughly the same size
-        for (File file : files) {
-            // Sort the buckets by size, so the smallest is at the top, which is the bucket that should be filled next
-            Collections.sort(buckets);
-            // First bucket in the list is the smallest
-            MpxBucket smallest = buckets.get(0);
-            // Add this source to the bucket
-            smallest.getFiles().add(file);
-            // Update the bucket metadata holding overall size
-            smallest.setAllFilesSize(smallest.getAllFilesSize() + FileUtils.sizeOf(file));
-        }
-
-        return buckets;
-    }
 
 	@SuppressWarnings("unchecked")
 	protected List<Column> getColumns(Table table) {
 		return table.getColumns();
-	}
-
-	protected MpxImportResult executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {
-		SqlProducer sqlProducer = context.getPlatform().getSqlProducer();
-        sqlProducer.setBatchDataSizeLimit(context.getDataSizeInterval());
-        sqlProducer.setBatchRowCountLimit(context.getRowCountInterval());
-
-		BufferedReader reader = null;
-        MpxImportResult result = new MpxImportResult();
-        result.setTableName(table.getName());
-        result.setMpxPath(location);
-        result.setStart(System.currentTimeMillis());
-		try {
-			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
-
-			String sql = sqlProducer.getSql(table, reader);
-			while (sql != null) {
-                sqlExecutionContext.setSql(Arrays.asList(sql));
-                jdbcService.executeSql(sqlExecutionContext);
-
-                // after executing sql, add byte lenth to results
-                result.setSize(result.getSize() + sql.getBytes().length);
-				sql = sqlProducer.getSql(table, reader);
-			}
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		} finally {
-			IOUtils.closeQuietly(reader);
-		}
-
-        result.setFinish(System.currentTimeMillis());
-        result.setElapsed(result.getStart() - result.getFinish());
-
-        return result;
 	}
 
 	protected void trimQuotes(String[] tokens) {
@@ -221,16 +103,6 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		for (int i = 0; i < tokens.length; i++) {
 			tokens[i] = ImpexUtils.parse(tokens[i]);
 		}
-	}
-
-	protected Table getTableDefinition(String tableName, List<Table> tables) {
-		for (Table table : tables) {
-			boolean matches = StringUtils.equalsIgnoreCase(tableName, table.getName());
-			if (matches) {
-				return table;
-			}
-		}
-		throw new IllegalArgumentException("Cannot locate table definition for [" + tableName + "]");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -840,7 +712,7 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		List<TableBucket> buckets = getTableBuckets(tables, context, results, progressTracker);
 
 		// Create and invoke threads to fill in the metadata
-		ExecutionStatistics stats = invokeThreads(buckets, new TableBucketHandler());
+		ExecutionStatistics stats = ImpexUtils.invokeThreads(buckets, new TableBucketHandler());
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		logger.info("Dump tables completed.  Time: {}", time);
 		logger.info("Disconnecting from database.");
@@ -931,46 +803,45 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 			File outFile = context.getDataHandler().getFileForTable(context, table.getName());
             out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
 
-			Column[] columns = getColumns(rs.getMetaData());
-			long totalDataSize = 0;
-			long totalRowCount = 0;
-			long currentRowCount = 0;
-			long currentDataSize = 0;
-			List<String[]> data = new ArrayList<String[]>();
-			DumpTableContext startContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-			context.getDataHandler().startData(startContext);
-			while (rs.next()) {
-				currentRowCount++;
-				totalRowCount++;
-				String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
-				data.add(rowData);
-				long rowSize = getSize(rowData);
-				currentDataSize += rowSize;
-				totalDataSize += rowSize;
-				if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
-					DumpTableContext doDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-					context.getDataHandler().doData(doDataContext);
-					currentDataSize = 0;
-					currentRowCount = 0;
-					data = new ArrayList<String[]>();
-				}
-			}
-			DumpTableContext finishDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-			context.getDataHandler().finishData(finishDataContext);
-			DumpTableResult result = new DumpTableResult();
-			result.setTable(table);
-			result.setRows(totalRowCount);
-			result.setSize(totalDataSize);
-            // set the file reference if a file was actually created
-            if(totalRowCount > 0) {
-                result.setFiles(Collections.singletonList(outFile));
+            Column[] columns = getColumns(rs.getMetaData());
+            long totalDataSize = 0;
+            long totalRowCount = 0;
+            long currentRowCount = 0;
+            long currentDataSize = 0;
+            List<String[]> data = new ArrayList<String[]>();
+            DumpTableContext startContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+            context.getDataHandler().startData(startContext);
+            while (rs.next()) {
+                currentRowCount++;
+                totalRowCount++;
+                String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
+                data.add(rowData);
+                long rowSize = getSize(rowData);
+                currentDataSize += rowSize;
+                totalDataSize += rowSize;
+                if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
+                    DumpTableContext doDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+                    context.getDataHandler().doData(doDataContext);
+                    currentDataSize = 0;
+                    currentRowCount = 0;
+                    data = new ArrayList<String[]>();
+                }
             }
-            else {
+            DumpTableContext finishDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+            context.getDataHandler().finishData(finishDataContext);
+            DumpTableResult result = new DumpTableResult();
+            result.setTable(table);
+            result.setRows(totalRowCount);
+            result.setSize(totalDataSize);
+            // set the file reference if a file was actually created
+            if (totalRowCount > 0) {
+                result.setFiles(Collections.singletonList(outFile));
+            } else {
                 List<File> empty = Collections.emptyList();
                 result.setFiles(empty);
             }
-			return result;
-		} catch (IOException e) {
+            return result;
+        } catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(out);
@@ -1301,24 +1172,10 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		}
 
 		// Create and invoke threads to fill in the metadata
-		ExecutionStatistics stats = invokeThreads(buckets, new SchemaRequestHandler());
+		ExecutionStatistics stats = ImpexUtils.invokeThreads(buckets, new SchemaRequestHandler());
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		logger.info("Metadata acquired.  Time: {}", time);
 		logger.info("Disconnecting from database.");
-	}
-
-	protected <T> ExecutionStatistics invokeThreads(List<T> buckets, ElementHandler<T> handler) {
-		// Store some context for the thread handler
-		ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
-		thc.setList(buckets);
-		thc.setHandler(handler);
-		thc.setMax(buckets.size());
-		thc.setMin(buckets.size());
-		thc.setDivisor(1);
-
-		// Start threads to acquire table metadata concurrently
-		ThreadInvoker invoker = new ThreadInvoker();
-		return invoker.invokeThreads(thc);
 	}
 
 	protected void doFilter(Collection<String> elements, List<String> includes, List<String> excludes, String label) {
@@ -1461,11 +1318,4 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		return sb.toString();
 	}
 
-    public JdbcService getJdbcService() {
-        return jdbcService;
-    }
-
-    public void setJdbcService(JdbcService jdbcService) {
-        this.jdbcService = jdbcService;
-    }
 }

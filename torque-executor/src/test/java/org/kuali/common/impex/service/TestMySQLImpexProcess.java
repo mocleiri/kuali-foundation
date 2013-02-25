@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.core.db.torque.service;
+package org.kuali.common.impex.service;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

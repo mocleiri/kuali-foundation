@@ -13,14 +13,14 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex;
+package org.kuali.common.impex.service;
 
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexGeneratorService;
+import org.kuali.common.impex.service.MpxMetaData;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.PercentCompleteInformer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,16 +30,16 @@ import java.util.List;
 public class MpxBucket implements Comparable<MpxBucket> {
 
     ImpexContext context;
-    ImpexGeneratorService service;
-    List<File> files = new ArrayList<File>();
+    ImpexExecutorService service;
     PercentCompleteInformer progressTracker;
     List<MpxImportResult> results;
-    Long allFilesSize = 0l;
+    List<MpxMetaData> mpxBeans = new ArrayList<MpxMetaData>();
+    Long allRowCounts = 0l;
     private ExecutionContext executionContext;
 
     @Override
     public int compareTo(MpxBucket o) {
-        return allFilesSize.compareTo(o.getAllFilesSize());
+        return allRowCounts.compareTo(o.getAllRowCounts());
     }
 
     public ImpexContext getContext() {
@@ -50,20 +50,12 @@ public class MpxBucket implements Comparable<MpxBucket> {
         this.context = context;
     }
 
-    public List<File> getFiles() {
-        return files;
+    public long getAllRowCounts() {
+        return allRowCounts;
     }
 
-    public void setFiles(List<File> files) {
-        this.files = files;
-    }
-
-    public long getAllFilesSize() {
-        return allFilesSize;
-    }
-
-    public void setAllFilesSize(long allFilesSize) {
-        this.allFilesSize = allFilesSize;
+    public void setAllRowCounts(long allRowCounts) {
+        this.allRowCounts = allRowCounts;
     }
 
     public PercentCompleteInformer getProgressTracker() {
@@ -82,11 +74,11 @@ public class MpxBucket implements Comparable<MpxBucket> {
         this.results = results;
     }
 
-    public ImpexGeneratorService getService() {
+    public ImpexExecutorService getService() {
         return service;
     }
 
-    public void setService(ImpexGeneratorService service) {
+    public void setService(ImpexExecutorService service) {
         this.service = service;
     }
 
@@ -96,5 +88,13 @@ public class MpxBucket implements Comparable<MpxBucket> {
 
     public void setExecutionContext(ExecutionContext executionContext) {
         this.executionContext = executionContext;
+    }
+
+    public List<MpxMetaData> getMpxBeans() {
+        return mpxBeans;
+    }
+
+    public void setMpxBeans(List<MpxMetaData> mpxBeans) {
+        this.mpxBeans = mpxBeans;
     }
 }

@@ -27,8 +27,10 @@ public class DefaultDataHandler implements DataHandler {
 	}
 
 	protected String getFilename(File workingDir, String tableName) {
-		return workingDir.getAbsolutePath() + FS + tableName + ".mpx";
-	}
+        // to keep file names consistent, capitalize the name of the table before requesting a file name
+        tableName = tableName.toUpperCase();
+        return workingDir.getAbsolutePath() + FS + tableName + ".mpx";
+    }
 
 	@Override
 	public void startData(DumpTableContext context) throws IOException {

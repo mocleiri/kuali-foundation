@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.core.db.torque.service;
+package org.kuali.common.impex.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,15 +22,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
-import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexGeneratorService;
-import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -76,6 +71,9 @@ public class TestOracleImpexProcess {
     private JdbcService jdbcService;
 
     @Resource
+    private ImpexExecutorService impexExecutorService;
+
+    @Resource
     private ImpexGeneratorService impexService;
 
     @Resource
@@ -85,7 +83,7 @@ public class TestOracleImpexProcess {
     public void test() throws Exception {
         logger.info("Starting database dump");
 
-        log(impexContext);
+        ImpexUtils.log(impexContext);
 
         List<ImpexContext> contexts = Collections.singletonList(impexContext);
 
@@ -110,7 +108,7 @@ public class TestOracleImpexProcess {
         resetExec.execute();
 
         // import the data from the generated mpx files
-        impexService.importData(impexContext, sqlExecutionContext);
+        impexExecutorService.importData(impexContext, sqlExecutionContext);
 
         // dump the tables again to compare the results
         List<DumpTableResult> secondaryLoadResults = impexService.dumpTables(impexContext, database);
@@ -172,25 +170,6 @@ public class TestOracleImpexProcess {
         }
 
         return colMap;
-    }
-
-    protected void log(ImpexContext context) {
-        logger.info("---------------------------------------------------------------");
-        logger.info("Impex Database Dump");
-        logger.info("---------------------------------------------------------------");
-        logger.info("Database Vendor - {}", context.getDatabaseVendor());
-        logger.info("Url - {}", context.getUrl());
-        logger.info("Schema - {}", context.getSchema());
-        logger.info("Username - {}", context.getUsername());
-        logger.info("Password - {}", LoggerUtils.getPassword(context.getUsername(), context.getPassword()));
-        logger.info("Driver - {}", context.getDriver());
-        logger.info("Table Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableIncludes()));
-        logger.info("Table Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getTableExcludes()));
-        logger.info("View Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getViewIncludes()));
-        logger.info("View Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getViewExcludes()));
-        logger.info("Sequence Includes - {}", CollectionUtils.getSpaceSeparatedString(context.getSequenceIncludes()));
-        logger.info("Sequence Excludes - {}", CollectionUtils.getSpaceSeparatedString(context.getSequenceExcludes()));
-        logger.info("---------------------------------------------------------------");
     }
 
 }
