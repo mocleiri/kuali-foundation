@@ -15,15 +15,11 @@
 
 package org.kuali.common.impex.service;
 
-import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexGeneratorService;
-import org.kuali.common.impex.service.MpxMetaData;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -39,7 +35,7 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 
     @Override
     public void handleElement(ListIteratorContext<MpxBucket> mpxBucketListIteratorContext, int i, MpxBucket mpxBucket) {
-        ImpexGeneratorService service = mpxBucket.getService();
+        ImpexExecutorService service = mpxBucket.getService();
         ImpexContext context = mpxBucket.getContext();
 
         List<MpxImportResult> results = mpxBucket.getResults();
