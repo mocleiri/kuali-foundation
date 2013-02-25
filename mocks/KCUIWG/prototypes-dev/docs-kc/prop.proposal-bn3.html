@@ -240,31 +240,64 @@
             <span id="control-help" style="margin-left:15px;">heavy help</span>-->
         	
             <!--<span class="control-panelstate" style="display:none;">single panel view</span>-->
-            <div class="btn-group" data-toggle="buttons-radio">
+            <!--<div class="btn-group" data-toggle="buttons-radio">
               <button type="button" class="btn control-panel" id="mpv" style="font-size:10px">multiple panel</button>
               <button type="button" class="btn control-panel" style="font-size:10px">single panel</button>
-            </div>
+            </div>-->
             
             <!--<span class="control-requiredfieldstate" style="display:none;">single panel view</span>-->
-            <div class="btn-group" data-toggle="buttons-radio" style="margin-left:25px;">
+            <!--<div class="btn-group" data-toggle="buttons-radio" style="margin-left:25px;">
               <button type="button" class="btn control-required" id="saf" style="font-size:10px">all fields</button>
               <button type="button" class="btn control-required" style="font-size:10px">required only</button>
-            </div>
+            </div>-->
             
-            <div class="btn-group" data-toggle="buttons-radio" style="margin-left:25px;">
+            <!--<div class="btn-group" data-toggle="buttons-radio" style="margin-left:25px;">
               <button type="button" class="btn control-help" style="font-size:10px" onClick="alert('This would toggle the help to critical messages only.');">min help</button>
               <button type="button" class="btn control-help" id="ahelp" style="font-size:10px" onClick="alert('This would toggle the help to a moderate level of help.');">norm help</button>
               <button type="button" class="btn control-help" style="font-size:10px" onClick="alert('This would toggle the help to verbose-mode.');">max help</button>
-            </div>
+            </div>-->
             
-            <!--<div class="btn-group" data-toggle="buttons-radio">
+            <span class="control-terrystate" style="display:none;">full view</span>
+            <div class="btn-group" data-toggle="buttons-radio">
               <button type="button" class="btn control-terry" id="terry" style="font-size:10px">full view</button>
               <button type="button" class="btn control-terry" style="font-size:10px">guided view</button>
-            </div>-->
+            </div>
             
             
             <script type="text/javascript">
                 $(document).ready(function() {
+					
+					/* terry's toggle */
+					$("#terry").button('toggle');
+					$('.control-terry').on('click', function() {
+						if( $('.control-terrystate').html() == "full view" ) {
+                           	/* guided view */
+								/* panels */
+								$(".panel_startaproposal").slideUp(600);
+								$(".panel_grantsgov").slideDown(400);
+								$(".panel_sponsorandprograminfo").slideUp(400);
+								$(".panel_organizationlocation").slideUp(400);
+								$(".panel_deliveryinfo").slideUp(400);
+								$(".panel_keywords").slideUp(400);
+								$(".next_nextpage").slideUp(400);
+								$('.control-terrystate').html("guided view");
+								$(".panelContent").slideDown(400);
+								/* required */
+								$('.view_notrequired').slideUp(400);
+								$(this).addClass('required-only');
+								$('.view_showingxofy').slideDown(600);
+                        } else {
+							/* full view */
+								/* panels */
+								$(".apanel").slideDown(600);
+								$(".bpanel").slideUp(400);
+								$('.control-terrystate').html("full view");
+								/* required */
+								$('.view_notrequired').slideDown(600);
+								$(this).removeClass('required-only');
+								$('.view_showingxofy').slideUp(400);
+                        }
+                    });
 					
                     /* panel toggle */
 					$("#mpv").button('toggle');
@@ -887,7 +920,7 @@
         </div>
         
         <div class="panel_grantsgov bpanel" style="padd12px; text-align:center; display:none;">
-            <a href="#" class="to_startaproposal btn"><i class="icon-chevron-left"></i> back <small>(previous panel: start a proposal)</small></a>
+            <a href="#" class="to_startaproposal btn"><i class="icon-chevron-left"></i> back <small>(previous panel: basic proposal info)</small></a>
             <a href="#" class="btn" onclick="alert('this would save the document');">save</a>
             <a href="#" class="to_sponsorprograminfo btn btn-inverse">save and continue <small>(next panel: sponsor & program info)</small> <i class="icon-white icon-chevron-right"></i></a>
         </div>
