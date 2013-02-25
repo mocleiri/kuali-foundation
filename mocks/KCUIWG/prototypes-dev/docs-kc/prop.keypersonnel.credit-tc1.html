@@ -14,14 +14,7 @@
 
 <!-- Le styles -->
 <link href="../assets/css/bootstrap.css" rel="stylesheet">
-<style type="text/css">
-
-
-
-.jqplot-table-legend-swatch { width:10px; height:10px; margin-right:4px}
-
-
-</style>
+<style type="text/css"></style>
 <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="../assets/css/custom.css" rel="stylesheet">
 <link href="../assets/css/custom-tc.css" rel="stylesheet">
@@ -35,11 +28,8 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
 <link rel="shortcut icon" href="../assets/ico/favicon.png">
-
-
 </head>
 <body>
-
 <!-- Header (sticky) -->
 <div id="header" class="header" role="header">
   <header> 
@@ -197,7 +187,9 @@
             <h3> Credit Allocation</h3>
           </div>
           
-      
+          <!-- <div class="boxHeader expandControl">
+            <h3>Key Personnel</h3>
+          </div>-->
           <div class="boxContent expandTarget" style="" >
             <div class="tabbable  clearfix"> <!-- Only required for left/right tabs -->
               
@@ -207,23 +199,11 @@
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="intel">
-                
-                
-                
-          
                   <div class="boxSubheader">
-                    <h4>Intellectual Credit Split</h4>
+                    <h4>Intellectual Credit Allocation</h4>
+                    <div class="boxControls"> <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="res-modal" data-keyboard="true" url="prop.keypersonnel.credit.frame.html">edit allocation</a></div>
                   </div>
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                 
- <div  id="chart1" style="height:300px; width:500px; margin-left:auto; margin-right:auto"></div>  <div style=" text-align:center; margin-bottom:30px"><a href="#" class="ajax-modal btn btn-small" data-backdrop="true" data-controls-modal="res-modal" data-keyboard="true" url="prop.keypersonnel.credit.frame.html">edit allocation</a>
- </div>
+                  <div id="container" style="min-width: 300px; height: 300px;"></div>
                 </div>
                 <div class="tab-pane " id="fa">
                   <h4>F&amp;A Revenue</h4>
@@ -268,9 +248,8 @@
 
 <!-- Le javascript
     ================================================== --><!-- Placed at the end of the document so the pages load faster --> 
-    
 <script src="../assets/js/jquery.js"></script> 
-
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
 <script src="../assets/js/bootstrap-transition.js"></script> 
 <script src="../assets/js/bootstrap-fileupload.js"></script> <script src="../assets/js/bootstrap-alert.js"></script> 
 <script src="../assets/js/bootstrap-modal.js"></script> 
@@ -287,19 +266,113 @@
 <script src="../assets/js/application.js"></script> 
 <script src="../assets/js/custom.js?v=0.1"></script> 
 <script src="../assets/js/highcharts.js"></script> 
-
-
-<script type="text/javascript" src="../assets/js/jquery.jqplot.min.js"></script>
-
-
-<script type="text/javascript" src="../assets/js/jqplot.pieRenderer.min.js"></script>
-
-
-
-
 <script type="text/javascript">
     $(document).ready(function () {
 		
+		
+	
+	$(function () {
+    var chart;
+    $(document).ready(function () {
+        var colors = Highcharts.getOptions().colors,
+            categories = ['Durkin, T', 'Hopf, J', 'Johnson, N'],
+            name = 'Browser brands',
+            data = [{
+                y: 50,
+                color: colors[0],
+                drilldown: {
+                    name: 'Durkin, T',
+                    categories: ['UA-VPIT', 'BL-CEDP'],
+                    data: [30, 20],
+                    color: colors[0]
+                }
+            }, {
+                y: 25,
+                color: colors[1],
+                drilldown: {
+                    name: 'Hopf, J',
+                    categories: ['UA-VPIT'],
+                    data: [25],
+                    color: colors[1]
+                }
+            }, {
+                y: 25,
+                color: colors[2],
+                drilldown: {
+                    name: 'Johnson, N',
+                      categories: ['UA-SPEA'],
+                    data: [25],
+                    color: colors[1]
+                }
+            }];
+        // Build the data arrays
+        var browserData = [];
+        var versionsData = [];
+        for (var i = 0; i < data.length; i++) {
+            // add browser data
+            browserData.push({
+                name: categories[i],
+                y: data[i].y,
+                color: data[i].color
+            });
+            // add version data
+            for (var j = 0; j < data[i].drilldown.data.length; j++) {
+                var brightness = 0.2 - (j / data[i].drilldown.data.length) / 5;
+                versionsData.push({
+                    name: data[i].drilldown.categories[j],
+                    y: data[i].drilldown.data[j],
+                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                });
+            }
+        }
+        // Create the chart
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false
+                }
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            series: [{
+                name: 'credit',
+                data: browserData,
+                size: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        return this.y > 5 ? this.point.name : null;
+                    },
+                    color: 'white',
+                    distance: -30
+                }
+            }, {
+                name: 'sub-credit',
+                data: versionsData,
+                innerSize: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        // display only if larger than 1
+                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+                    }
+                }
+            }]
+        });
+    });
+});
+	
 	
 });
 
@@ -310,31 +383,5 @@
         $("#" + modal_id).load(url).modal('show');
     });
 </script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-  var data = [
-    ['Durkin, T (BL-CEDP)', 25],['Durkin, T (UA-VPIT)', 25], ['Hopf, J', 25], 
-    ['Johnson, N', 25]
-  ];
-  var plot1 = jQuery.jqplot ('chart1', [data], 
-    { 
-      seriesDefaults: {
-        // Make this a pie chart.
-        renderer: jQuery.jqplot.PieRenderer, 
-        rendererOptions: {
-          // Put data labels on the pie slices.
-          // By default, labels show the percentage of the slice.
-          showDataLabels: true
-        }
-      }, 
-      legend: { show:true, location: 'e' }
-    }
-  );
-});
-</script>
-
-
-
 </body>
 </html>
