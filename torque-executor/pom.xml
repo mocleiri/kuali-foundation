@@ -14,12 +14,16 @@
     <kuali-util.version>3.0.11</kuali-util.version>
     <mysql.version>5.1.22</mysql.version>
     <oracle.version>11.2.0.2</oracle.version>
-    <slf4j.version>1.6.4</slf4j.version>
   </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>torque-generator</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
