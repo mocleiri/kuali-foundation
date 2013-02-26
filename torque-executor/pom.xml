@@ -87,6 +87,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>**/mpxTests/common-impex-context.xml</include>
+                    <include>**/impex/common-impex-bigdata-context.xml</include>
                     <include>**/mpxTests/mpxLocations.properties</include>
                 </includes>
             </testResource>
@@ -95,6 +96,7 @@
                 <filtering>false</filtering>
                 <excludes>
                     <exclude>**/mpxTests/common-impex-context.xml</exclude>
+                    <exclude>**/impex/common-impex-bigdata-context.xml</exclude>
                     <exclude>**/mpxTests/mpxLocations.properties</exclude>
                 </excludes>
             </testResource>

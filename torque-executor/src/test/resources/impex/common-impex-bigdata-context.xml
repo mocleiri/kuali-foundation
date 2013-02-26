@@ -33,22 +33,10 @@
         <prop key="project.basedir">${project.basedir}</prop>
         <prop key="project.build.directory">${project.build.directory}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
-        <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
-        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
-        <prop key="sql.data.1">classpath:mpxTests/${db.vendor}/FOO_T.sql</prop>
-        <prop key="sql.data.2">classpath:mpxTests/${db.vendor}/BAZ_T.sql</prop>
+        <prop key="jdbc.username">TRQ_BIG_TEST_DB</prop>
+        <prop key="sql.schema.1">classpath:impex/${db.vendor}/ks-impex-bundled-db.sql</prop>
         <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent">sql.data.1, sql.data.2</prop>
     </util:properties>
-
-    <util:properties id="cleanDatabaseProperties">
-        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
-        <prop key="sql.data.1"></prop>
-        <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent"></prop>
-    </util:properties>
-
-    <context:property-placeholder properties-ref="mavenProperties" system-properties-mode="NEVER" />
 
     <util:list id="locations" value-type="java.lang.String">
         <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
@@ -104,6 +92,8 @@
         <property name="dbaPassword" value="#{commonProperties['jdbc.dba.password']}" />
     </bean>
 
+    <context:property-placeholder properties-ref="mavenProperties" system-properties-mode="NEVER" />
+
     <util:list id="deploy.nullableProperties" value-type="java.lang.String">
         <value>dbaUsername</value>
         <value>dbaPassword</value>
@@ -147,10 +137,6 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="dbaSql" class="java.lang.String">
-        <constructor-arg value="#{commonProperties['sql.validate']} #{commonProperties['sql.drop']} #{commonProperties['sql.create']}" />
-    </bean>
-
     <bean id="databaseResetContext" class="org.kuali.common.jdbc.context.DatabaseResetContext">
         <property name="normalJdbcContext" ref="normalJdbcContext" />
         <property name="dbaJdbcContext" ref="dbaJdbcContext" />
@@ -177,11 +163,11 @@
         <prop key="impex.username">#{databaseProcessContext.username}</prop>
         <prop key="impex.password">#{databaseProcessContext.username}</prop>
         <prop key="impex.databaseVendor">#{databaseProcessContext.vendor}</prop>
-        <prop key="impex.workingDir">${project.build.directory}/impex</prop>
+        <prop key="impex.workingDir">${project.basedir}/src/test/resources/impex</prop>
         <prop key="impex.table.includes">.*</prop>
-        <prop key="impex.databaseTablePropertiesFile">${project.basedir}/src/main/resources/${project.artifactId}.properties</prop>
-        <prop key="impex.dataLocations">classpath:mpxTests/mpxLocations.properties</prop>
-        <prop key="impex.tablesXmlLocation">${project.build.directory}/impex/${project.artifactId}.xml</prop>
+        <prop key="impex.databaseTablePropertiesFile">none.properties</prop>
+        <prop key="impex.dataLocations">classpath:impex/mpxLocations.properties</prop>
+        <prop key="impex.tablesXmlLocation">classpath:impex/ks-impex-bundled-db.xml</prop>
     </util:properties>
 
     <bean id="impexContext" class="org.kuali.common.impex.ImpexContextFactoryBean">

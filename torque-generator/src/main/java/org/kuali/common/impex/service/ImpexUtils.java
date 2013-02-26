@@ -285,6 +285,7 @@ public class ImpexUtils {
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
 		context.setDataLocations(p.getProperty("impex.dataLocations"));
+        context.setTablesXmlLocation(p.getProperty("impex.tablesXmlLocation"));
 
 		// Default to [artifactId].xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));

@@ -178,7 +178,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
             KualiXmlToAppData xmlParser = new KualiXmlToAppData(context.getDatabaseVendor(), "");
 
             // Parse schema.xml into a database object
-            String location = context.getWorkingDir() + "/" + context.getArtifactId() + ".xml";
+            String location = context.getTablesXmlLocation();
             Database database = xmlParser.parseResource(location);
 
             return database.getTables();
