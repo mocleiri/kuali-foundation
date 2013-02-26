@@ -1,10 +1,13 @@
 package org.kuali.common.impex;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexUtils;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SyncResult;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
@@ -17,6 +20,9 @@ public class SyncFilesExecutable implements Executable {
 	List<ImpexContext> contexts;
 	Properties properties;
 	boolean skip;
+	String addsProperty = "impex.scm.adds";
+	String updatesProperty = "impex.scm.updates";
+	String deletesProperty = "impex.scm.deletes";
 
 	@Override
 	public void execute() {
@@ -24,8 +30,25 @@ public class SyncFilesExecutable implements Executable {
 			logger.info("Skipping impex file sync");
 			return;
 		}
+
+		List<String> adds = new ArrayList<String>();
+		List<String> updates = new ArrayList<String>();
+		List<String> deletes = new ArrayList<String>();
+
 		List<SyncResult> results = ImpexUtils.syncFiles(contexts);
-		System.out.println(results);
+		for (SyncResult result : results) {
+			adds.addAll(LocationUtils.getCanonicalPaths(result.getAdds()));
+			updates.addAll(LocationUtils.getCanonicalPaths(result.getUpdates()));
+			deletes.addAll(LocationUtils.getCanonicalPaths(result.getDeletes()));
+		}
+
+		String addsProp = CollectionUtils.getCSV(adds);
+		String updatesProp = CollectionUtils.getCSV(updates);
+		String deletesProp = CollectionUtils.getCSV(deletes);
+
+		properties.setProperty(addsProperty, addsProp);
+		properties.setProperty(updatesProperty, updatesProp);
+		properties.setProperty(deletesProperty, deletesProp);
 	}
 
 	public List<ImpexContext> getContexts() {
@@ -50,6 +73,30 @@ public class SyncFilesExecutable implements Executable {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
+	}
+
+	public String getAddsProperty() {
+		return addsProperty;
+	}
+
+	public void setAddsProperty(String addsProperty) {
+		this.addsProperty = addsProperty;
+	}
+
+	public String getUpdatesProperty() {
+		return updatesProperty;
+	}
+
+	public void setUpdatesProperty(String updatesProperty) {
+		this.updatesProperty = updatesProperty;
+	}
+
+	public String getDeletesProperty() {
+		return deletesProperty;
+	}
+
+	public void setDeletesProperty(String deletesProperty) {
+		this.deletesProperty = deletesProperty;
 	}
 
 }
