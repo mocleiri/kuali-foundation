@@ -56,6 +56,16 @@ public class SyncFilesExecutable implements Executable {
 		String updatesCSV = CollectionUtils.getCSV(updates);
 		String deletesCSV = CollectionUtils.getCSV(deletes);
 
+		if (adds.size() == 0) {
+			properties.setProperty("impex.scm.adds.phase", "none");
+		}
+		if (updates.size() == 0) {
+			properties.setProperty("impex.scm.updates.phase", "none");
+		}
+		if (deletes.size() == 0) {
+			properties.setProperty("impex.scm.deletes.phase", "none");
+		}
+
 		properties.setProperty(addsProperty, addsCSV);
 		properties.setProperty(updatesProperty, updatesCSV);
 		properties.setProperty(deletesProperty, deletesCSV);
