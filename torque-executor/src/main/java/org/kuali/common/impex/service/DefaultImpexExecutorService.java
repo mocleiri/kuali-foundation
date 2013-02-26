@@ -108,14 +108,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
         // Allocate some buckets to hold the files
         List<MpxBucket> buckets = new ArrayList<MpxBucket>(bucketCount);
         for(int i = 0; i < bucketCount; i++) {
-            MpxBucket bucket = new MpxBucket();
-            bucket.setProgressTracker(progressTracker);
-            bucket.setContext(context);
-            bucket.setService(this);
-            bucket.setResults(results);
-            bucket.setExecutionContext(sqlExecutionContext);
-
-            buckets.add(bucket);
+            buckets.add(new MpxBucket());
         }
 
         // Distribute the sources into buckets as evenly as possible
@@ -129,6 +122,16 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
             smallest.getMpxBeans().add(metaData);
             // Update the bucket metadata holding overall size
             smallest.setAllRowCounts(smallest.getAllRowCounts() + metaData.getRowCount());
+        }
+
+        for(MpxBucket bucket : buckets) {
+            bucket.setProgressTracker(progressTracker);
+            bucket.setContext(context);
+            bucket.setService(this);
+            bucket.setResults(results);
+            bucket.setExecutionContext(sqlExecutionContext);
+            // Randomize the order in which tables get populated
+            Collections.shuffle(bucket.getMpxBeans());
         }
 
         return buckets;
@@ -163,7 +166,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
         }
 
         result.setFinish(System.currentTimeMillis());
-        result.setElapsed(result.getStart() - result.getFinish());
+        result.setElapsed(result.getFinish() - result.getStart());
 
         return result;
     }
