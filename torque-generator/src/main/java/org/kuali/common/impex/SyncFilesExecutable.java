@@ -46,6 +46,10 @@ public class SyncFilesExecutable implements Executable {
 			deletes.addAll(LocationUtils.getCanonicalPaths(result.getDeletes()));
 		}
 
+		logger.info("Files added - {}", adds.size());
+		logger.info("Files updated - {}", updates.size());
+		logger.info("Files deleted - {}", deletes.size());
+
 		String addsProp = CollectionUtils.getCSV(adds);
 		String updatesProp = CollectionUtils.getCSV(updates);
 		String deletesProp = CollectionUtils.getCSV(deletes);
