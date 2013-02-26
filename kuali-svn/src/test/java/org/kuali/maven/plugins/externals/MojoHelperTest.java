@@ -24,6 +24,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.kuali.common.svn.BuildTag;
+import org.kuali.common.svn.GAV;
+import org.kuali.common.svn.Mapping;
+import org.kuali.common.svn.MojoHelper;
+import org.kuali.common.svn.SVNExternal;
+import org.kuali.common.svn.SVNUtils;
+import org.kuali.common.svn.TagStyle;
 import org.kuali.common.util.Version;
 import org.kuali.common.util.VersionUtils;
 import org.slf4j.Logger;

@@ -13,48 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.common.svn;
 
-import java.io.File;
+public class BuildTag {
 
-/**
- *
- * 
- * 
- */
-public class SVNExternal implements Comparable<SVNExternal> {
+	String sourceUrl;
+	long sourceRevision;
+	String tagUrl;
+	boolean skipped;
 
-	String url;
-	String path;
-	File workingCopyPath;
-
-	@Override
-	public int compareTo(SVNExternal other) {
-		return path.compareTo(other.getPath());
+	public String getSourceUrl() {
+		return sourceUrl;
 	}
 
-	public String getUrl() {
-		return url;
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public long getSourceRevision() {
+		return sourceRevision;
 	}
 
-	public File getWorkingCopyPath() {
-		return workingCopyPath;
+	public void setSourceRevision(long sourceRevision) {
+		this.sourceRevision = sourceRevision;
 	}
 
-	public void setWorkingCopyPath(File workingCopyPath) {
-		this.workingCopyPath = workingCopyPath;
+	public String getTagUrl() {
+		return tagUrl;
 	}
 
-	public String getPath() {
-		return path;
+	public void setTagUrl(String tagUrl) {
+		this.tagUrl = tagUrl;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public boolean isSkipped() {
+		return skipped;
 	}
 
+	public void setSkipped(boolean skipped) {
+		this.skipped = skipped;
+	}
 }

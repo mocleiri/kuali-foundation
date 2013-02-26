@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.common.svn;
 
 import org.apache.maven.plugin.MojoExecutionException;
 

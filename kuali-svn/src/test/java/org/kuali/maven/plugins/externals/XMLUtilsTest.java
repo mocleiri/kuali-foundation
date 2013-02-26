@@ -21,6 +21,9 @@ import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.commons.io.FileUtils;
+import org.kuali.common.svn.GAV;
+import org.kuali.common.svn.MojoHelper;
+import org.kuali.common.svn.POMUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
