@@ -16,35 +16,41 @@
 package org.kuali.common.impex.service;
 
 /**
- * Created with IntelliJ IDEA.
- * User: andy
- * Date: 2/25/13
- * Time: 11:57 AM
- * To change this template use File | Settings | File Templates.
+ * Created with IntelliJ IDEA. User: andy Date: 2/25/13 Time: 11:57 AM To change
+ * this template use File | Settings | File Templates.
  */
 public class MpxMetaData implements Comparable<MpxMetaData> {
 
-    Integer rowCount;
-    String location;
+	Integer rowCount;
+	long size;
+	String location;
 
-    public String getLocation() {
-        return location;
-    }
+	public String getLocation() {
+		return location;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public Integer getRowCount() {
-        return rowCount;
-    }
+	public Integer getRowCount() {
+		return rowCount;
+	}
 
-    public void setRowCount(Integer rowCount) {
-        this.rowCount = rowCount;
-    }
+	public void setRowCount(Integer rowCount) {
+		this.rowCount = rowCount;
+	}
 
-    @Override
-    public int compareTo(MpxMetaData o) {
-        return rowCount.compareTo(o.getRowCount());
-    }
+	@Override
+	public int compareTo(MpxMetaData o) {
+		return rowCount.compareTo(o.getRowCount());
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
+	}
 }

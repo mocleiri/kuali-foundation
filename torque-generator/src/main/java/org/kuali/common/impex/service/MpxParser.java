@@ -15,17 +15,18 @@
 
 package org.kuali.common.impex.service;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.LocationUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.LocationUtils;
+
 /**
- * This class parses a .mpx file and creates an in-memory representation of the data
- *
+ * This class parses a .mpx file and creates an in-memory representation of the
+ * data
+ * 
  * @author andrewlubbers
  */
 public class MpxParser {
@@ -34,21 +35,24 @@ public class MpxParser {
 	private static final String TOKEN_DELIMITER = QUOTE + "," + QUOTE;
 
 	/**
-	 * Split the line up into individual values and remove any .mpx related formatting
+	 * Split the line up into individual values and remove any .mpx related
+	 * formatting
 	 */
 	public static String[] parseMpxLine(String line) {
 		// Remove trailing/leading quotes
 		String trimmed = trimQuotes(line);
 
 		// Split the line up into individual values
-		String[] values = StringUtils.splitByWholeSeparator(trimmed, TOKEN_DELIMITER);
+		String[] values = StringUtils.splitByWholeSeparator(trimmed,
+				TOKEN_DELIMITER);
 
 		// Convert mpx special values (i.e. ${mpx.lf} -> \n )
 		for (int i = 0; i < values.length; i++) {
 			values[i] = ImpexUtils.parse(values[i]);
 		}
 
-		// These are the original string values with all of the .mpx related formatting removed
+		// These are the original string values with all of the .mpx related
+		// formatting removed
 		return values;
 	}
 
@@ -66,40 +70,48 @@ public class MpxParser {
 		return line;
 	}
 
-    /**
-     * Very simple meta data calculator.  Defines row count of an mpx location by the number
-     * of data lines in the file
-     *
-     * @param locations list of mpx file locations
-     * @return calculated meta data for all given mpx files
-     * @throws IOException
-     */
-    public static List<MpxMetaData> getMpxMetaDatas(List<String> locations) throws IOException {
+	/**
+	 * Very simple meta data calculator. Defines row count of an mpx location by
+	 * the number of data lines in the file
+	 * 
+	 * @param locations
+	 *            list of mpx file locations
+	 * @return calculated meta data for all given mpx files
+	 * @throws IOException
+	 */
+	public static List<MpxMetaData> getMpxMetaDatas(List<String> locations)
+			throws IOException {
 
-        List<MpxMetaData> results = new ArrayList<MpxMetaData>(locations.size());
+		List<MpxMetaData> results = new ArrayList<MpxMetaData>(locations.size());
 
-        for (String location : locations) {
-            MpxMetaData metaData = new MpxMetaData();
-            metaData.setLocation(location);
+		for (String location : locations) {
+			MpxMetaData metaData = new MpxMetaData();
+			metaData.setLocation(location);
 
-            BufferedReader reader = LocationUtils.getBufferedReader(location);
-            String line = reader.readLine();
+			BufferedReader reader = LocationUtils.getBufferedReader(location);
+			String line = reader.readLine();
 
-            // skip the first header line to get an accurate row count
-            if(ImpexUtils.isHeaderLine(line)) {
-                line = reader.readLine();
-            }
+			// skip the first header line to get an accurate row count
+			if (ImpexUtils.isHeaderLine(line)) {
+				line = reader.readLine();
+			}
 
-            int rowCount = 0;
-            do {
-                rowCount++;
-            } while (reader.readLine() != null);
+			int rowCount = 0;
+			long size = 0;
+			do {
+				rowCount++;
+				if (line != null) {
+					size += line.length();
+				}
+				line = reader.readLine();
+			} while (line != null);
 
-            metaData.setRowCount(rowCount);
+			metaData.setRowCount(rowCount);
+			metaData.setSize(size);
 
-            results.add(metaData);
-        }
+			results.add(metaData);
+		}
 
-        return results;
-    }
+		return results;
+	}
 }
