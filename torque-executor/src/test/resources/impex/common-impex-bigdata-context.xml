@@ -33,8 +33,8 @@
         <prop key="project.basedir">${project.basedir}</prop>
         <prop key="project.build.directory">${project.build.directory}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
-        <prop key="jdbc.username">TRQ_BIG_TEST_DB</prop>
-        <prop key="sql.schema.1">classpath:impex/${db.vendor}/ks-impex-bundled-db.sql</prop>
+        <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
+        <prop key="sql.schema.1">classpath:impex/${db.vendor}/ks-impex-app-db.sql</prop>
         <prop key="sql.schema.concurrent">sql.schema.1</prop>
     </util:properties>
 
@@ -166,8 +166,8 @@
         <prop key="impex.workingDir">${project.basedir}/src/test/resources/impex</prop>
         <prop key="impex.table.includes">.*</prop>
         <prop key="impex.databaseTablePropertiesFile">none.properties</prop>
-        <prop key="impex.dataLocations">classpath:impex/mpxLocations.properties</prop>
-        <prop key="impex.tablesXmlLocation">classpath:impex/ks-impex-bundled-db.xml</prop>
+        <prop key="impex.dataLocations">classpath:impex/ks-impex-app-db-dataLocations.properties</prop>
+        <prop key="impex.tablesXmlLocation">classpath:impex/ks-impex-app-db.xml</prop>
     </util:properties>
 
     <bean id="impexContext" class="org.kuali.common.impex.ImpexContextFactoryBean">

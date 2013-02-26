@@ -1,18 +1,22 @@
 package org.kuali.common.impex.service;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.torque.engine.database.model.Column;
+import org.apache.torque.engine.database.model.SchemaType;
+import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.torque.engine.database.model.Column;
-import org.apache.torque.engine.database.model.SchemaType;
-import org.apache.torque.engine.database.model.Table;
-import org.kuali.common.util.CollectionUtils;
-
 public class OracleProducer extends AbstractSqlProducer {
+
+    private static final Logger logger = LoggerFactory.getLogger(OracleProducer.class);
 
 	private static final String INSERT_PREFIX = "INSERT ALL\n";
 	private static final String INDENT = "  ";
@@ -81,7 +85,7 @@ public class OracleProducer extends AbstractSqlProducer {
 				for (DataBean data : rowBeans) {
 					// if the column is a CLOB type, and the data string is long enough,
 					// add the data bean to the list of clobs that need to be split up
-					if (isColumnClobType(data.getColumn()) && data.getValue().length() > CLOB_BATCH_SIZE) {
+					if (isDataBigClob(data.getValue(), data.getColumn())) {
 						clobs.add(data);
 					}
 
@@ -237,7 +241,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			result.append(DATE_VALUE_SUFFIX);
 		}
 		// if the data type is CLOB, and the data is longer than the batch size, the value should be handled by the CLOB-splitting code
-		else if (isColumnClobType(data.getColumn()) && data.getValue().length() > CLOB_BATCH_SIZE) {
+		else if (isDataBigClob(data.getValue(), data.getColumn())) {
 			result.append(CLOB_PLACEHOLDER);
 		} else {
 			result.append(data.getValue());
@@ -250,4 +254,12 @@ public class OracleProducer extends AbstractSqlProducer {
 		List<DataBean> longClobs;
 		List<DataBean> primaryKeys;
 	}
+
+    protected boolean isDataBigClob(String value, Column column) {
+        if(value == null) {
+            return false;
+        }
+
+        return isColumnClobType(column) && value.length() > CLOB_BATCH_SIZE;
+    }
 }

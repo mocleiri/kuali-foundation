@@ -82,7 +82,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
         logger.info("Importing " + filename);
         String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
         Table table = getTableDefinition(tableName, tables);
-        return executeSql(context, table, metaData.getLocation(), sqlExecutionContext);
+        return executeSql(context, table, metaData, sqlExecutionContext);
     }
 
     protected Table getTableDefinition(String tableName, List<Table> tables) {
@@ -137,10 +137,12 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
         return buckets;
     }
 
-    protected MpxImportResult executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {
+    protected MpxImportResult executeSql(ImpexContext context, Table table, MpxMetaData metaData, ExecutionContext sqlExecutionContext) {
         SqlProducer sqlProducer = context.getPlatform().getSqlProducer();
         sqlProducer.setBatchDataSizeLimit(context.getDataSizeInterval());
         sqlProducer.setBatchRowCountLimit(context.getRowCountInterval());
+
+        String location = metaData.getLocation();
 
         BufferedReader reader = null;
         MpxImportResult result = new MpxImportResult();
@@ -150,15 +152,22 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
         try {
             reader = LocationUtils.getBufferedReader(location, context.getEncoding());
 
+            List<String> sqlStrings = new ArrayList<String>(metaData.getRowCount() / context.getRowCountInterval());
+
             String sql = sqlProducer.getSql(table, reader);
             while (sql != null) {
-                sqlExecutionContext.setSql(Arrays.asList(sql));
-                jdbcService.executeSql(sqlExecutionContext);
+                sqlStrings.add(sql);
 
-                // after executing sql, add byte lenth to results
+                // after executing sql, add byte length to results
                 result.setSize(result.getSize() + sql.getBytes().length);
+
                 sql = sqlProducer.getSql(table, reader);
             }
+
+            // execute the sql as a batch
+            sqlExecutionContext.setSql(sqlStrings);
+            jdbcService.executeSql(sqlExecutionContext);
+
         } catch (IOException e) {
             throw new IllegalStateException(e);
         } finally {
