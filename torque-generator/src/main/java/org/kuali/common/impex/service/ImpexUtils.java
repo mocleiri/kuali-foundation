@@ -36,7 +36,7 @@ public class ImpexUtils {
 
 	public static void log(ImpexContext context) {
 		logger.info("---------------------------------------------------------------");
-		logger.info("Impex Database Dump");
+		logger.info("Impex Context Properties");
 		logger.info("---------------------------------------------------------------");
 		logger.info("Database Vendor - {}", context.getDatabaseVendor());
 		logger.info("Url - {}", context.getUrl());
