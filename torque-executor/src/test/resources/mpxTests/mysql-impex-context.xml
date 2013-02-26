@@ -45,6 +45,7 @@
     <context:property-placeholder properties-ref="mysqlBaseProperties" system-properties-mode="NEVER" />
 
     <bean id="mysqlProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+        <property name="singleton" value="false"/>
         <property name="locations" ref="locations" />
         <property name="locationHelperProperties" ref="mysqlBaseProperties" />
         <property name="buildProperties" ref="mysqlBaseProperties" />

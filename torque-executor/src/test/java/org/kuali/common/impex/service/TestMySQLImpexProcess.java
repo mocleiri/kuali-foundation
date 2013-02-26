@@ -35,10 +35,10 @@ import java.util.Properties;
 @ContextConfiguration(locations = {"classpath:mpxTests/mysql-impex-context.xml"})
 public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
 
-    @Resource
+    @Resource(name = "mysql.impexContext")
     protected ImpexContext impexContext;
 
-    @Resource
+    @Resource(name = "mysql.databaseResetExecutable")
     protected DatabaseResetExecutable resetExec;
 
     @Resource
@@ -53,7 +53,7 @@ public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
     @Resource
     protected ImpexGeneratorService impexService;
 
-    @Resource
+    @Resource(name = "mysql.sqlExecutionContext")
     protected ExecutionContext sqlExecutionContext;
 
     private static final Logger logger = LoggerFactory.getLogger(TestMySQLImpexProcess.class);

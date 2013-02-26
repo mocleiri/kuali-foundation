@@ -45,6 +45,7 @@
     <context:property-placeholder properties-ref="oracleBaseProperties" system-properties-mode="NEVER" />
 
     <bean id="oracleProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+        <property name="singleton" value="false"/>
         <property name="locations" ref="locations" />
         <property name="locationHelperProperties" ref="oracleBaseProperties" />
         <property name="buildProperties" ref="oracleBaseProperties" />
