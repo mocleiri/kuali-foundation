@@ -20,31 +20,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tmatesoft.svn.core.SVNCommitInfo;
-import org.tmatesoft.svn.core.SVNDepth;
-import org.tmatesoft.svn.core.SVNDirEntry;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNPropertyValue;
-import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
-import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
-import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
-import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
-import org.tmatesoft.svn.core.io.SVNRepository;
-import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
-import org.tmatesoft.svn.core.wc.SVNClientManager;
-import org.tmatesoft.svn.core.wc.SVNCommitClient;
-import org.tmatesoft.svn.core.wc.SVNCopyClient;
-import org.tmatesoft.svn.core.wc.SVNCopySource;
-import org.tmatesoft.svn.core.wc.SVNInfo;
-import org.tmatesoft.svn.core.wc.SVNPropertyData;
-import org.tmatesoft.svn.core.wc.SVNRevision;
-import org.tmatesoft.svn.core.wc.SVNUpdateClient;
-import org.tmatesoft.svn.core.wc.SVNWCClient;
-import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 public class SVNUtils {
 
@@ -90,32 +68,32 @@ public class SVNUtils {
 	}
 
 	/**
-	 * Copy <code>src</code> to <code>dst</code> creating parent directories as needed. An exception is thrown if <code>dst</code> already
-	 * exists.
+	 * Copy <code>src</code> to <code>dst</code> creating parent directories as needed. An exception is thrown if
+	 * <code>dst</code> already exists.
 	 */
 	public SVNCommitInfo copy(String src, String dst) {
 		return copy(src, null, dst, null);
 	}
 
 	/**
-	 * Copy <code>src</code> to <code>dst</code> creating parent directories as needed. An exception is thrown if <code>dst</code> already
-	 * exists.
+	 * Copy <code>src</code> to <code>dst</code> creating parent directories as needed. An exception is thrown if
+	 * <code>dst</code> already exists.
 	 */
 	public SVNCommitInfo copy(String src, String dst, String msg) {
 		return copy(src, null, dst, msg);
 	}
 
 	/**
-	 * Copy <code>src</code> at the indicated revision to <code>dst</code> creating parent directories as needed. An exception is thrown if
-	 * <code>dst</code> already exists.
+	 * Copy <code>src</code> at the indicated revision to <code>dst</code> creating parent directories as needed. An
+	 * exception is thrown if <code>dst</code> already exists.
 	 */
 	public SVNCommitInfo copy(String src, Long revision, String dst) {
 		return copy(src, revision, dst, null);
 	}
 
 	/**
-	 * Copy <code>src</code> at the indicated revision to <code>dst</code> creating parent directories as needed. An exception is thrown if
-	 * <code>dst</code> already exists.
+	 * Copy <code>src</code> at the indicated revision to <code>dst</code> creating parent directories as needed. An
+	 * exception is thrown if <code>dst</code> already exists.
 	 */
 	public SVNCommitInfo copy(String src, Long revision, String dst, String msg) {
 		Copy copy = new Copy();
@@ -134,7 +112,8 @@ public class SVNUtils {
 		return setExternals(url, externals, message, null, null);
 	}
 
-	public SVNCommitInfo setExternals(String url, List<SVNExternal> externals, String message, String username, String password) {
+	public SVNCommitInfo setExternals(String url, List<SVNExternal> externals, String message, String username,
+			String password) {
 		SVNClientManager manager = SVNClientManager.newInstance(null, username, password);
 		SVNWCClient client = manager.getWCClient();
 		String commitMessage = StringUtils.isBlank(message) ? CREATE_EXTERNALS_COMMIT_MESSAGE : message;
@@ -145,7 +124,8 @@ public class SVNUtils {
 		}
 		SVNPropertyValue value = SVNPropertyValue.create(sb.toString());
 		try {
-			return client.doSetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, value, SVNRevision.HEAD, commitMessage, null, true, null);
+			return client.doSetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, value, SVNRevision.HEAD, commitMessage, null,
+					true, null);
 		} catch (SVNException e) {
 			throw new IllegalStateException(e);
 		}
@@ -165,7 +145,8 @@ public class SVNUtils {
 		String commitMessage = StringUtils.isBlank(message) ? DELETE_EXTERNALS_COMMIT_MESSAGE : message;
 		SVNURL svnUrl = getSvnUrl(url);
 		try {
-			return client.doSetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, null, SVNRevision.HEAD, commitMessage, null, true, null);
+			return client.doSetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, null, SVNRevision.HEAD, commitMessage, null,
+					true, null);
 		} catch (SVNException e) {
 			throw new IllegalStateException(e);
 		}
@@ -236,13 +217,15 @@ public class SVNUtils {
 	}
 
 	/**
-	 * Return any svn:externals associated with the given url. Returns an empty list if there are none. Never returns null.
+	 * Return any svn:externals associated with the given url. Returns an empty list if there are none. Never returns
+	 * null.
 	 */
 	public List<SVNExternal> getExternals(String url) {
 		try {
 			SVNWCClient client = getSVNWCClient();
 			SVNURL svnUrl = getSvnUrl(url);
-			SVNPropertyData data = client.doGetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, SVNRevision.HEAD, SVNRevision.HEAD);
+			SVNPropertyData data = client.doGetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, SVNRevision.HEAD,
+					SVNRevision.HEAD);
 			return getExternals(data, null);
 		} catch (SVNException e) {
 			throw new IllegalStateException(e);
@@ -282,12 +265,14 @@ public class SVNUtils {
 	}
 
 	/**
-	 * Return any svn:externals associated with the working copy. Returns an empty list if there are none. Never returns null.
+	 * Return any svn:externals associated with the working copy. Returns an empty list if there are none. Never returns
+	 * null.
 	 */
 	public List<SVNExternal> getExternals(File workingCopyPath) {
 		try {
 			SVNWCClient client = getSVNWCClient();
-			SVNPropertyData data = client.doGetProperty(workingCopyPath, EXTERNALS_PROPERTY_NAME, SVNRevision.WORKING, SVNRevision.WORKING);
+			SVNPropertyData data = client.doGetProperty(workingCopyPath, EXTERNALS_PROPERTY_NAME, SVNRevision.WORKING,
+					SVNRevision.WORKING);
 			return getExternals(data, workingCopyPath);
 		} catch (SVNException e) {
 			throw new IllegalStateException(e);
@@ -311,8 +296,9 @@ public class SVNUtils {
 	}
 
 	/**
-	 * Convert the svn:externals definitions into a <code>List</code> of <code>SVNExternal</code> objects. This method never returns
-	 * <code>null</code>. If there are no svn:externals definitions an empty <code>List</code> is returned.
+	 * Convert the svn:externals definitions into a <code>List</code> of <code>SVNExternal</code> objects. This method
+	 * never returns <code>null</code>. If there are no svn:externals definitions an empty <code>List</code> is
+	 * returned.
 	 */
 	protected List<SVNExternal> getExternals(SVNPropertyData data, File workingCopyPath) {
 
@@ -351,7 +337,8 @@ public class SVNUtils {
 
 			// If we don't have exactly 2 non-blank tokens there is trouble
 			if (values.length != 2) {
-				throw new IllegalStateException("Unparseable svn:externals definition - [" + token + ", " + workingCopyPath + "]");
+				throw new IllegalStateException("Unparseable svn:externals definition - [" + token + ", "
+						+ workingCopyPath + "]");
 			}
 
 			// Extract the 2 values we are interested in
@@ -440,7 +427,8 @@ public class SVNUtils {
 			SVNURL svnUrl = getSvnUrl(url);
 			SVNRepository repository = SVNRepositoryFactory.create(svnUrl, null);
 			if (!StringUtils.isBlank(username) && !StringUtils.isBlank(password)) {
-				ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(username, password);
+				ISVNAuthenticationManager authManager = SVNWCUtil
+						.createDefaultAuthenticationManager(username, password);
 				repository.setAuthenticationManager(authManager);
 			}
 			return repository;
