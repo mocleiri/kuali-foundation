@@ -48,6 +48,7 @@ public class MojoUtils {
 		Properties properties = PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
 		// Explicitly override internal Maven props with system/env props (simulates the default maven behavior)
 		PropertyUtils.overrideWithGlobalValues(properties, GlobalPropertiesMode.BOTH);
+		// Return the overridden properties
 		return properties;
 	}
 
