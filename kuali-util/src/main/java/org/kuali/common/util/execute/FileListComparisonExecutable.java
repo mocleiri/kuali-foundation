@@ -15,6 +15,7 @@
 
 package org.kuali.common.util.execute;
 
+import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
@@ -53,7 +54,7 @@ public class FileListComparisonExecutable implements Executable {
 
 		logger.info("Starting File List Comparison");
 		logger.info("Original files dir: " + originalFilesBaseDir);
-		logger.info("New files dir: " + newFilesBaseDir);
+		logger.info("New files dir: " + LocationUtils.getCanonicalPath(new File(newFilesBaseDir)));
 		logger.info("File pattern: " + filePattern);
 		logger.info("Property names: " + propertyNames);
 
