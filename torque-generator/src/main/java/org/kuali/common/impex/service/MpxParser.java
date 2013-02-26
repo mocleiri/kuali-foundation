@@ -24,8 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 
 /**
- * This class parses a .mpx file and creates an in-memory representation of the
- * data
+ * This class parses a .mpx file and creates an in-memory representation of the data
  * 
  * @author andrewlubbers
  */
@@ -35,16 +34,14 @@ public class MpxParser {
 	private static final String TOKEN_DELIMITER = QUOTE + "," + QUOTE;
 
 	/**
-	 * Split the line up into individual values and remove any .mpx related
-	 * formatting
+	 * Split the line up into individual values and remove any .mpx related formatting
 	 */
 	public static String[] parseMpxLine(String line) {
 		// Remove trailing/leading quotes
 		String trimmed = trimQuotes(line);
 
 		// Split the line up into individual values
-		String[] values = StringUtils.splitByWholeSeparator(trimmed,
-				TOKEN_DELIMITER);
+		String[] values = StringUtils.splitByWholeSeparator(trimmed, TOKEN_DELIMITER);
 
 		// Convert mpx special values (i.e. ${mpx.lf} -> \n )
 		for (int i = 0; i < values.length; i++) {
@@ -71,16 +68,14 @@ public class MpxParser {
 	}
 
 	/**
-	 * Very simple meta data calculator. Defines row count of an mpx location by
-	 * the number of data lines in the file
+	 * Very simple meta data calculator. Defines row count of an mpx location by the number of data lines in the file
 	 * 
 	 * @param locations
 	 *            list of mpx file locations
 	 * @return calculated meta data for all given mpx files
 	 * @throws IOException
 	 */
-	public static List<MpxMetaData> getMpxMetaDatas(List<String> locations)
-			throws IOException {
+	public static List<MpxMetaData> getMpxMetaDatas(List<String> locations) throws IOException {
 
 		List<MpxMetaData> results = new ArrayList<MpxMetaData>(locations.size());
 
