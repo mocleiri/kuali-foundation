@@ -79,102 +79,6 @@ public class SVNUtils {
 		return instance;
 	}
 
-	public void showExternals(List<SVNExternal> externals) {
-		for (SVNExternal e : externals) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("[" + e.getPath());
-			sb.append(", " + e.getWorkingCopyPath());
-			sb.append(", " + e.getUrl());
-			sb.append("]");
-			LOGGER.info(sb.toString());
-		}
-	}
-
-	/**
-	 * Copy <code>src</code> to <code>dst</code> creating parent directories as needed. An exception is thrown if
-	 * <code>dst</code> already exists.
-	 */
-	public SVNCommitInfo copy(String src, String dst) {
-		return copy(src, null, dst, null);
-	}
-
-	/**
-	 * Copy <code>src</code> to <code>dst</code> creating parent directories as needed. An exception is thrown if
-	 * <code>dst</code> already exists.
-	 */
-	public SVNCommitInfo copy(String src, String dst, String msg) {
-		return copy(src, null, dst, msg);
-	}
-
-	/**
-	 * Copy <code>src</code> at the indicated revision to <code>dst</code> creating parent directories as needed. An
-	 * exception is thrown if <code>dst</code> already exists.
-	 */
-	public SVNCommitInfo copy(String src, Long revision, String dst) {
-		return copy(src, revision, dst, null);
-	}
-
-	/**
-	 * Copy <code>src</code> at the indicated revision to <code>dst</code> creating parent directories as needed. An
-	 * exception is thrown if <code>dst</code> already exists.
-	 */
-	public SVNCommitInfo copy(String src, Long revision, String dst, String msg) {
-		Copy copy = new Copy();
-		copy.setSource(src);
-		copy.setRevision(revision);
-		copy.setDestination(dst);
-		copy.setMessage(msg);
-		return copy(copy);
-	}
-
-	public SVNCommitInfo setExternals(String url, List<SVNExternal> externals) {
-		return setExternals(url, externals, null);
-	}
-
-	public SVNCommitInfo setExternals(String url, List<SVNExternal> externals, String message) {
-		return setExternals(url, externals, message, null, null);
-	}
-
-	public SVNCommitInfo setExternals(String url, List<SVNExternal> externals, String message, String username,
-			String password) {
-		SVNClientManager manager = SVNClientManager.newInstance(null, username, password);
-		SVNWCClient client = manager.getWCClient();
-		String commitMessage = StringUtils.isBlank(message) ? CREATE_EXTERNALS_COMMIT_MESSAGE : message;
-		SVNURL svnUrl = getSvnUrl(url);
-		StringBuilder sb = new StringBuilder();
-		for (SVNExternal external : externals) {
-			sb.append(external.getPath() + " " + external.getUrl() + "\n");
-		}
-		SVNPropertyValue value = SVNPropertyValue.create(sb.toString());
-		try {
-			return client.doSetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, value, SVNRevision.HEAD, commitMessage, null,
-					true, null);
-		} catch (SVNException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	public SVNCommitInfo deleteExternals(String url) {
-		return deleteExternals(url, null);
-	}
-
-	public SVNCommitInfo deleteExternals(String url, String message) {
-		return deleteExternals(url, message, null, null);
-	}
-
-	public SVNCommitInfo deleteExternals(String url, String message, String username, String password) {
-		SVNClientManager manager = SVNClientManager.newInstance(null, username, password);
-		SVNWCClient client = manager.getWCClient();
-		String commitMessage = StringUtils.isBlank(message) ? DELETE_EXTERNALS_COMMIT_MESSAGE : message;
-		SVNURL svnUrl = getSvnUrl(url);
-		try {
-			return client.doSetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, null, SVNRevision.HEAD, commitMessage, null,
-					true, null);
-		} catch (SVNException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
 	public void markForDeletion(List<File> files) {
 		SVNWCClient client = getSVNWCClient();
 		try {
@@ -208,51 +112,12 @@ public class SVNUtils {
 		markForDeletion(Collections.singletonList(file));
 	}
 
-	public SVNCommitInfo copy(Copy copy) {
-		SVNClientManager manager = SVNClientManager.newInstance(null, copy.getUsername(), copy.getPassword());
-		SVNCopyClient client = manager.getCopyClient();
-		SVNURL dstUrl = getSvnUrl(copy.getDestination());
-		SVNURL srcUrl = getSvnUrl(copy.getSource());
-		SVNRevision revision = SVNRevision.HEAD;
-		if (copy.getRevision() != null) {
-			revision = SVNRevision.create(copy.getRevision());
-		}
-		String msg = copy.getMessage();
-		if (StringUtils.isBlank(msg)) {
-			String r = (copy.getRevision() != null) ? "@" + revision : "";
-			msg = "Copy " + copy.getSource() + r + " to " + copy.getDestination();
-		}
-		SVNCopySource svnCopySource = new SVNCopySource(SVNRevision.HEAD, revision, srcUrl);
-		SVNCopySource[] sources = new SVNCopySource[] { svnCopySource };
-		try {
-			return client.doCopy(sources, dstUrl, false, true, true, msg, null);
-		} catch (SVNException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
 	/**
 	 * Return the Subversion url that corresponds with the local working copy
 	 */
 	public String getUrl(File workingCopyPath) {
 		SVNInfo info = getInfo(workingCopyPath);
 		return info.getURL().toDecodedString();
-	}
-
-	/**
-	 * Return any svn:externals associated with the given url. Returns an empty list if there are none. Never returns
-	 * null.
-	 */
-	public List<SVNExternal> getExternals(String url) {
-		try {
-			SVNWCClient client = getSVNWCClient();
-			SVNURL svnUrl = getSvnUrl(url);
-			SVNPropertyData data = client.doGetProperty(svnUrl, EXTERNALS_PROPERTY_NAME, SVNRevision.HEAD,
-					SVNRevision.HEAD);
-			return getExternals(data, null);
-		} catch (SVNException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	public long checkout(String url, File dstPath, String username, String password) {
@@ -288,21 +153,6 @@ public class SVNUtils {
 	}
 
 	/**
-	 * Return any svn:externals associated with the working copy. Returns an empty list if there are none. Never returns
-	 * null.
-	 */
-	public List<SVNExternal> getExternals(File workingCopyPath) {
-		try {
-			SVNWCClient client = getSVNWCClient();
-			SVNPropertyData data = client.doGetProperty(workingCopyPath, EXTERNALS_PROPERTY_NAME, SVNRevision.WORKING,
-					SVNRevision.WORKING);
-			return getExternals(data, workingCopyPath);
-		} catch (SVNException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	/**
 	 * Return the revision of the last commit for the working copy.
 	 */
 	public long getLastRevision(File workingCopyPath) {
@@ -316,77 +166,6 @@ public class SVNUtils {
 	public long getLastRevision(String url) {
 		SVNRepository repository = getRepository(url);
 		return getLastRevision(repository);
-	}
-
-	/**
-	 * Convert the svn:externals definitions into a <code>List</code> of <code>SVNExternal</code> objects. This method
-	 * never returns <code>null</code>. If there are no svn:externals definitions an empty <code>List</code> is
-	 * returned.
-	 */
-	protected List<SVNExternal> getExternals(SVNPropertyData data, File workingCopyPath) {
-
-		// The property svn:externals is not set on this directory
-		if (data == null) {
-			return new ArrayList<SVNExternal>();
-		}
-
-		// Extract the property value
-		SVNPropertyValue value = data.getValue();
-
-		// Convert the value to a String
-		String s = SVNPropertyValue.getPropertyAsString(value);
-
-		// Split the string up into lines
-		String[] tokens = StringUtils.split(s, LINEFEED);
-
-		// Iterate through the lines looking for externals
-		List<SVNExternal> externals = new ArrayList<SVNExternal>();
-		for (String token : tokens) {
-
-			// Trim whitespace
-			token = token.trim();
-
-			// Ignore comments and blank lines
-			if (token.startsWith(EXTERNALS_COMMENT) || StringUtils.isBlank(token)) {
-				continue;
-			}
-
-			// We've located a non-blank, non-comment line
-			// We've already trimmed off leading and trailing whitespace
-			// Split up the remaining portion of the string using space as a delimiter
-			// The split method skips all spaces in the line (even adjacent spaces)
-			// The String[] returned by split() will only contain tokens with non-space characters
-			String[] values = StringUtils.split(token, SPACE);
-
-			// If we don't have exactly 2 non-blank tokens there is trouble
-			if (values.length != 2) {
-				throw new IllegalStateException("Unparseable svn:externals definition - [" + token + ", "
-						+ workingCopyPath + "]");
-			}
-
-			// Extract the 2 values we are interested in
-			String value1 = values[0];
-			String value2 = values[1];
-
-			// Some SVN clients store svn:externals as <module> <location>, others store it as <location> <module>
-			String url = getUrl(value1, value2);
-			String path = getPath(value1, value2);
-
-			// Get the file representing the local working copy of the svn:external
-			File externalsPath = getExternalWorkingCopyPath(workingCopyPath, path);
-
-			// Store the info we've accumulated into an object
-			SVNExternal external = new SVNExternal();
-			external.setUrl(url);
-			external.setPath(path);
-			external.setWorkingCopyPath(externalsPath);
-
-			// Add our object to the list
-			externals.add(external);
-		}
-
-		// Return the list we've found
-		return externals;
 	}
 
 	protected boolean isUrl(String s) {
