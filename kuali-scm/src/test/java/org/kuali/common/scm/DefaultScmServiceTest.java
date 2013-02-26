@@ -17,14 +17,12 @@ package org.kuali.common.scm;
 
 import java.io.File;
 
-import org.kuali.common.scm.DefaultScmService;
-import org.kuali.common.scm.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SVNUtilsTest {
+public class DefaultScmServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(SVNUtilsTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultScmServiceTest.class);
 	ScmService service = new DefaultScmService();
 	String username = "jcaddel";
 	String password = System.getProperty("svn.password");
@@ -34,6 +32,7 @@ public class SVNUtilsTest {
 		logger.info("");
 		try {
 			File workingCopyPath = new File("/Users/jeffcaddel/ws/aggregate");
+			System.out.println(workingCopyPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
