@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface ScmService {
 
-	void add(List<File> files);
+	void add(List<File> files, String message);
 
-	void update(List<File> files);
+	void update(List<File> files, String message);
 
-	void delete(List<File> files);
+	void delete(List<File> files, String message);
 
 }

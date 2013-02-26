@@ -35,21 +35,21 @@ public class DefaultScmService implements ScmService {
 	}
 
 	@Override
-	public void delete(List<File> files) {
+	public void delete(List<File> files, String message) {
 		doDelete(files);
-		commit(files, "Automated delete", null, null);
+		commit(files, message, null, null);
 	}
 
 	@Override
-	public void add(List<File> files) {
+	public void add(List<File> files, String message) {
 		doAdd(files);
-		commit(files, "Automated add", null, null);
+		commit(files, message, null, null);
 	}
 
 	@Override
-	public void update(List<File> files) {
+	public void update(List<File> files, String message) {
 		doAdd(files);
-		commit(files, "Automated update", null, null);
+		commit(files, message, null, null);
 	}
 
 	protected void doAdd(List<File> files) {
