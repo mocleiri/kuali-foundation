@@ -20,6 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.Database;
 import org.apache.torque.engine.database.model.Table;
+import org.apache.torque.engine.platform.Platform;
+import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.ExecutionStatistics;
@@ -52,7 +54,9 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
     @Override
     public List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExecutionContext) throws IOException {
         Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
-        List<Table> tables = getTables(context);
+
+        Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
+        context.setPlatform(platform);
 
         List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 
@@ -72,7 +76,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
     }
 
     @Override
-    public MpxImportResult importDataFile(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext) {
+    public MpxImportResult importDataLocation(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext) {
         List<Table> tables = getTables(context);
         String filename = LocationUtils.getFilename(metaData.getLocation());
         logger.info("Importing " + filename);
@@ -128,11 +132,6 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
         }
 
         return buckets;
-    }
-
-    @SuppressWarnings("unchecked")
-    protected List<Column> getColumns(Table table) {
-        return table.getColumns();
     }
 
     protected MpxImportResult executeSql(ImpexContext context, Table table, String location, ExecutionContext sqlExecutionContext) {

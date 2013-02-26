@@ -18,7 +18,6 @@ package org.kuali.common.impex.service;
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
-import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.LocationUtils;
 
@@ -146,8 +145,6 @@ public abstract class AbstractTestImpexProcess {
     public abstract ImpexExecutorService getImpexExecutorService();
 
     public abstract ImpexGeneratorService getImpexService();
-
-    public abstract JdbcService getJdbcService();
 
     public abstract DatabaseResetExecutable getResetExec();
 

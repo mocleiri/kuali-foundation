@@ -17,34 +17,15 @@ package org.kuali.common.impex.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.impex.DatabaseContext;
-import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
-import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * This class tests the impex process from a sample db
@@ -65,9 +46,6 @@ public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 
     @Resource
     protected Properties cleanDatabaseProperties;
-
-    @Resource
-    protected JdbcService jdbcService;
 
     @Resource
     protected ImpexExecutorService impexExecutorService;
@@ -115,14 +93,6 @@ public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 
     public void setImpexService(ImpexGeneratorService impexService) {
         this.impexService = impexService;
-    }
-
-    public JdbcService getJdbcService() {
-        return jdbcService;
-    }
-
-    public void setJdbcService(JdbcService jdbcService) {
-        this.jdbcService = jdbcService;
     }
 
     public DatabaseResetExecutable getResetExec() {

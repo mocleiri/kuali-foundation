@@ -18,7 +18,6 @@ package org.kuali.common.impex.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
-import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +42,6 @@ public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
 
     @Resource
     protected Properties cleanDatabaseProperties;
-
-    @Resource
-    protected JdbcService jdbcService;
 
     @Resource
     protected ImpexExecutorService impexExecutorService;
@@ -95,14 +91,6 @@ public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
 
     public void setImpexService(ImpexGeneratorService impexService) {
         this.impexService = impexService;
-    }
-
-    public JdbcService getJdbcService() {
-        return jdbcService;
-    }
-
-    public void setJdbcService(JdbcService jdbcService) {
-        this.jdbcService = jdbcService;
     }
 
     public DatabaseResetExecutable getResetExec() {

@@ -19,6 +19,6 @@ public interface ImpexExecutorService {
      */
     List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExectuionContext) throws IOException;
 
-    MpxImportResult importDataFile(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext);
+    MpxImportResult importDataLocation(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext);
 
 }
