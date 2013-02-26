@@ -34,7 +34,7 @@ public class ImpexUtils {
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
 	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
 
-	public static void copyFiles(ImpexContext context) {
+	public static void syncFiles(ImpexContext context) {
 		System.out.println("Hello world");
 	}
 
