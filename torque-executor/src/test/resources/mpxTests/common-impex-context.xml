@@ -23,60 +23,51 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- The following properties are populated by maven when the test resources are processed -->
-    <util:properties id="deploy.mavenProperties">
-        <prop key="db.vendor">#{vendorSpecificProperties.vendor}</prop>
-        <prop key="kuali.encoding">${kuali.encoding}</prop>
-        <prop key="project.groupId">${project.groupId}</prop>
-        <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="project.version">${project.version}</prop>
-        <prop key="project.basedir">${project.basedir}</prop>
-        <prop key="project.build.directory">${project.build.directory}</prop>
-        <prop key="kuali.groupId">${kuali.groupId}</prop>
-        <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
-        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
-        <prop key="sql.data.1">classpath:mpxTests/${db.vendor}/FOO_T.sql</prop>
-        <prop key="sql.data.2">classpath:mpxTests/${db.vendor}/BAZ_T.sql</prop>
-        <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent">sql.data.1, sql.data.2</prop>
-    </util:properties>
+    <util:list id="locations" value-type="java.lang.String">
+        <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+        <value>classpath:org/kuali/common/jdbc/service.properties</value>
+        <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
+        <value>classpath:org/kuali/common/sql/sql.xml</value>
+        <value>classpath:org/kuali/common/sql/mysql.xml</value>
+        <value>classpath:org/kuali/common/sql/oracle.xml</value>
+        <value>classpath:org/kuali/common/sql/h2.xml</value>
+        <value>classpath:org/kuali/common/sql/derby.xml</value>
+    </util:list>
 
-    <util:properties id="cleanDatabaseProperties">
-        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
-        <prop key="sql.data.1"></prop>
-        <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent"></prop>
-    </util:properties>
+    <util:list id="locationHelperIncludes" value-type="java.lang.String">
+        <value>kuali.encoding</value>
+        <value>kuali.groupId</value>
+        <value>project.groupId</value>
+        <value>project.artifactId</value>
+        <value>project.version</value>
+        <value>project.classifier</value>
+        <value>kuali.enc.*</value>
+    </util:list>
 
-    <context:property-placeholder properties-ref="deploy.properties" system-properties-mode="NEVER" />
+    <util:list id="buildPropertyIncludes" value-type="java.lang.String">
+        <value>db.vendor</value>
+        <value>jdbc.*</value>
+        <value>oracle.*</value>
+        <value>mysql.*</value>
+        <value>h2.*</value>
+        <value>sql.*</value>
+    </util:list>
 
-    <context:property-placeholder properties-ref="deploy.mavenProperties" system-properties-mode="NEVER" />
+    <util:list id="deploy.nullableProperties" value-type="java.lang.String">
+        <value>dbaUsername</value>
+        <value>dbaPassword</value>
+        <value>username</value>
+        <value>password</value>
+    </util:list>
 
-    <import resource="classpath:org/kuali/common/deploy/spring/db-reset-context.xml" />
+    <util:list id="deploy.nullTokens" value-type="java.lang.String">
+        <value>NONE</value>
+        <value>NULL</value>
+    </util:list>
 
-    <bean id="deploy.executable" class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-        <property name="executable" ref="deploy.databaseResetExecutable" />
-    </bean>
-
-    <bean id="impexContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
-        <property name="properties">
-            <util:properties>
-                <prop key="project.artifactId">${project.artifactId}</prop>
-                <prop key="project.basedir">${project.basedir}</prop>
-                <prop key="project.build.directory">${project.build.directory}</prop>
-                <prop key="impex.schema">#{deployDatabaseProcessContext.username}</prop>
-                <prop key="impex.driver">#{deployDatabaseProcessContext.driver}</prop>
-                <prop key="impex.url">#{deployDatabaseProcessContext.url}</prop>
-                <prop key="impex.username">#{deployDatabaseProcessContext.username}</prop>
-                <prop key="impex.password">#{deployDatabaseProcessContext.username}</prop>
-                <prop key="impex.databaseVendor">#{deployDatabaseProcessContext.vendor}</prop>
-                <prop key="impex.workingDir">${project.build.directory}/impex</prop>
-                <prop key="impex.table.includes">.*</prop>
-                <prop key="impex.databaseTablePropertiesFile">${project.basedir}/src/main/resources/${project.artifactId}.properties</prop>
-                <prop key="impex.dataLocations">classpath:mpxTests/mpxLocations.properties</prop>
-            </util:properties>
-        </property>
-        <property name="dataSource" ref="deploy.dataSource"/>
+    <bean id="common.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify" abstract="true">
+        <property name="properties" ref="deploy.nullableProperties" />
+        <property name="nullTokens" ref="deploy.nullTokens" />
     </bean>
 
     <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexGeneratorService"/>
@@ -86,16 +77,5 @@
     </bean>
 
     <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService"/>
-
-    <bean id="jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="deploy.dataSource"/>
-    </bean>
-
-    <bean id="sqlExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
-        <property name="jdbcContext" ref="jdbcContext"/>
-        <property name="reader">
-            <bean class="org.kuali.common.jdbc.DefaultSqlReader"/>
-        </property>
-    </bean>
 
 </beans>

@@ -23,10 +23,133 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <util:properties id="vendorSpecificProperties">
-        <prop key="vendor">oracle</prop>
+    <import resource="classpath:mpxTests/common-impex-context.xml"/>
+
+    <util:properties id="oracleBaseProperties">
+        <prop key="db.vendor">oracle</prop>
+        <prop key="kuali.encoding">${kuali.encoding}</prop>
+        <prop key="project.groupId">${project.groupId}</prop>
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.version">${project.version}</prop>
+        <prop key="project.basedir">${project.basedir}</prop>
+        <prop key="project.build.directory">${project.build.directory}</prop>
+        <prop key="kuali.groupId">${kuali.groupId}</prop>
+        <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
+        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
+        <prop key="sql.data.1">classpath:mpxTests/${db.vendor}/FOO_T.sql</prop>
+        <prop key="sql.data.2">classpath:mpxTests/${db.vendor}/BAZ_T.sql</prop>
+        <prop key="sql.schema.concurrent">sql.schema.1</prop>
+        <prop key="sql.data.concurrent">sql.data.1, sql.data.2</prop>
     </util:properties>
 
-    <import resource="classpath:mpxTests/common-impex-context.xml"/>
+    <context:property-placeholder properties-ref="oracleBaseProperties" system-properties-mode="NEVER" />
+
+    <bean id="oracleProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+        <property name="locations" ref="locations" />
+        <property name="locationHelperProperties" ref="oracleBaseProperties" />
+        <property name="buildProperties" ref="oracleBaseProperties" />
+        <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
+        <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
+        <property name="organizationGroupId" value="${kuali.groupId}" />
+        <property name="encoding" value="${kuali.encoding}" />
+        <property name="locationHelperIncludes" ref="locationHelperIncludes" />
+        <property name="buildPropertyIncludes" ref="buildPropertyIncludes" />
+    </bean>
+
+    <bean id="oracleDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
+        <property name="vendor" value="${db.vendor}" />
+        <property name="driver" value="#{oracleProperties['jdbc.driver']}" />
+        <property name="url" value="#{oracleProperties['jdbc.url']}" />
+        <property name="username" value="#{oracleProperties['jdbc.username']}" />
+        <property name="password" value="#{oracleProperties['jdbc.password']}" />
+        <property name="dbaUrl" value="#{oracleProperties['jdbc.dba.url']}" />
+        <property name="dbaUsername" value="#{oracleProperties['jdbc.dba.username']}" />
+        <property name="dbaPassword" value="#{oracleProperties['jdbc.dba.password']}" />
+    </bean>
+
+    <bean id="oracle.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify" parent="common.nullifier">
+        <property name="bean" ref="oracleDatabaseProcessContext" />
+    </bean>
+
+    <bean id="oracle.dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="oracle.nullifier">
+        <property name="driverClassName" value="#{oracleDatabaseProcessContext.driver}" />
+        <property name="url" value="#{oracleDatabaseProcessContext.url}" />
+        <property name="username" value="#{oracleDatabaseProcessContext.username}" />
+        <property name="password" value="#{oracleDatabaseProcessContext.password}" />
+    </bean>
+
+    <bean id="oracle.dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="oracle.nullifier">
+        <property name="driverClassName" value="#{oracleDatabaseProcessContext.driver}" />
+        <property name="url" value="#{oracleDatabaseProcessContext.dbaUrl}" />
+        <property name="username" value="#{oracleDatabaseProcessContext.dbaUsername}" />
+        <property name="password" value="#{oracleDatabaseProcessContext.dbaPassword}" />
+    </bean>
+
+    <bean id="oracle.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="oracle.dbaDataSource" />
+    </bean>
+
+    <bean id="oracle.normalJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="oracle.dataSource" />
+    </bean>
+
+    <bean id="oracle.dbaSql" class="java.lang.String">
+        <constructor-arg value="#{oracleProperties['sql.validate']} #{oracleProperties['sql.drop']} #{oracleProperties['sql.create']}" />
+    </bean>
+
+    <bean id="oracle.databaseResetContext" class="org.kuali.common.jdbc.context.DatabaseResetContext">
+        <property name="normalJdbcContext" ref="oracle.normalJdbcContext" />
+        <property name="dbaJdbcContext" ref="oracle.dbaJdbcContext" />
+        <property name="databaseProcessContext" ref="oracleDatabaseProcessContext" />
+        <property name="dbaSql" ref="oracle.dbaSql" />
+        <property name="properties" ref="oracleProperties" />
+        <property name="encoding" value="${kuali.encoding}" />
+    </bean>
+
+    <bean id="oracle.databaseService" class="org.kuali.common.jdbc.DefaultDatabaseService" />
+
+    <bean id="oracle.databaseResetExecutable" class="org.kuali.common.jdbc.DatabaseResetExecutable">
+        <property name="context" ref="oracle.databaseResetContext" />
+        <property name="service" ref="oracle.databaseService" />
+    </bean>
+
+    <util:properties id="oracle.impexContextProperties">
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.basedir">${project.basedir}</prop>
+        <prop key="project.build.directory">${project.build.directory}</prop>
+        <prop key="impex.schema">#{oracleDatabaseProcessContext.username}</prop>
+        <prop key="impex.driver">#{oracleDatabaseProcessContext.driver}</prop>
+        <prop key="impex.url">#{oracleDatabaseProcessContext.url}</prop>
+        <prop key="impex.username">#{oracleDatabaseProcessContext.username}</prop>
+        <prop key="impex.password">#{oracleDatabaseProcessContext.username}</prop>
+        <prop key="impex.databaseVendor">#{oracleDatabaseProcessContext.vendor}</prop>
+        <prop key="impex.workingDir">${project.build.directory}/impex</prop>
+        <prop key="impex.table.includes">.*</prop>
+        <prop key="impex.databaseTablePropertiesFile">${project.basedir}/src/main/resources/${project.artifactId}.properties</prop>
+        <prop key="impex.dataLocations">classpath:mpxTests/mpxLocations.properties</prop>
+    </util:properties>
+
+    <bean id="oracle.impexContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
+        <property name="properties" ref="oracle.impexContextProperties"/>
+        <property name="dataSource" ref="oracle.dataSource"/>
+    </bean>
+
+    <bean id="oracle.jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="oracle.dataSource"/>
+    </bean>
+
+    <bean id="oracle.sqlExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+        <property name="jdbcContext" ref="oracle.jdbcContext"/>
+        <property name="reader">
+            <bean class="org.kuali.common.jdbc.DefaultSqlReader"/>
+        </property>
+    </bean>
+
+    <util:properties id="cleanDatabaseProperties">
+        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
+        <prop key="sql.data.1"></prop>
+        <prop key="sql.schema.concurrent">sql.schema.1</prop>
+        <prop key="sql.data.concurrent"></prop>
+    </util:properties>
 
 </beans>

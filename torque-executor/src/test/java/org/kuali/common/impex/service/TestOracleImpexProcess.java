@@ -32,6 +32,7 @@ import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -52,124 +53,91 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:mpxTests/oracle-impex-context.xml"})
-public class TestOracleImpexProcess {
+public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 
     private static final Logger logger = LoggerFactory.getLogger(TestOracleImpexProcess.class);
 
-    private static final String LF = "\n";
+    @Resource
+    protected ImpexContext impexContext;
 
     @Resource
-    private ImpexContext impexContext;
-
-    @Resource(name = "deploy.databaseResetExecutable")
-    private DatabaseResetExecutable resetExec;
+    protected DatabaseResetExecutable resetExec;
 
     @Resource
-    private Properties cleanDatabaseProperties;
+    protected Properties cleanDatabaseProperties;
 
     @Resource
-    private JdbcService jdbcService;
+    protected JdbcService jdbcService;
 
     @Resource
-    private ImpexExecutorService impexExecutorService;
+    protected ImpexExecutorService impexExecutorService;
 
     @Resource
-    private ImpexGeneratorService impexService;
+    protected ImpexGeneratorService impexService;
 
     @Resource
-    private ExecutionContext sqlExecutionContext;
+    protected ExecutionContext sqlExecutionContext;
 
     @Test
     public void test() throws Exception {
         logger.info("Starting database dump");
 
-        ImpexUtils.log(impexContext);
-
-        List<ImpexContext> contexts = Collections.singletonList(impexContext);
-
-        DatabaseContext database = impexService.getDatabaseObjectLists(impexContext);
-        impexService.fillInMetaData(impexContext, database);
-        impexService.serializeSchemas(contexts, database);
-        // service.generateDataDtds(contexts);
-        impexService.generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
-        List<DumpTableResult> initialLoadResults = impexService.dumpTables(impexContext, database);
-
-        byte[] initialBytes = getDataBytes(initialLoadResults);
-
-        ImpexUtils.doStats(initialLoadResults);
-
-        // update the database reset context to clean the database of any data
-        Collection<String> cleanPropNames = cleanDatabaseProperties.stringPropertyNames();
-        for (String name : cleanPropNames) {
-            resetExec.getContext().getProperties().setProperty(name, cleanDatabaseProperties.getProperty(name));
-        }
-
-        // clear db of data
-        resetExec.execute();
-
-        // import the data from the generated mpx files
-        impexExecutorService.importData(impexContext, sqlExecutionContext);
-
-        // dump the tables again to compare the results
-        List<DumpTableResult> secondaryLoadResults = impexService.dumpTables(impexContext, database);
-
-        byte[] secondaryBytes = getDataBytes(secondaryLoadResults);
-
-        compareLoadResults(initialLoadResults, secondaryLoadResults);
-
-        assertTrue("Data files are not byte-for-byte equal", Arrays.equals(initialBytes, secondaryBytes));
+        doTest();
     }
 
-    private byte[] getDataBytes(List<DumpTableResult> results) throws IOException {
-        StringBuilder dataBuilder = new StringBuilder();
-        List<File> allFiles = new ArrayList<File>();
-        for(DumpTableResult result : results) {
-            allFiles.addAll(result.getFiles());
-        }
-
-        Collections.sort(allFiles);
-        for (File f : allFiles) {
-            BufferedReader reader = LocationUtils.getBufferedReader(f.getAbsolutePath());
-            String line = reader.readLine();
-            while (line != null) {
-                dataBuilder.append(line).append(LF);
-                line = reader.readLine();
-            }
-        }
-
-        return dataBuilder.toString().getBytes();
+    public Properties getCleanDatabaseProperties() {
+        return cleanDatabaseProperties;
     }
 
-    protected void compareLoadResults(List<DumpTableResult> initialLoadResults, List<DumpTableResult> secondaryLoadResults) {
-        assertEquals("Number of dump table results must be equal", initialLoadResults.size(), secondaryLoadResults.size());
-
-        // map the results by table name
-        Map<String, DumpTableResult> initialTableMap = createColumnMap(initialLoadResults);
-        Map<String, DumpTableResult> secondaryTableMap = createColumnMap(secondaryLoadResults);
-
-        // assert all tables are the same
-        Set<String> initialTableNames = initialTableMap.keySet();
-        Set<String> secondaryTableNames = secondaryTableMap.keySet();
-
-        assertTrue("Table names are not the same in each result set", initialTableNames.containsAll(secondaryTableNames) && secondaryTableNames.containsAll(initialTableNames));
-
-        for(String tableName : initialTableNames) {
-            DumpTableResult initialResult = initialTableMap.get(tableName);
-            DumpTableResult secondaryResult = secondaryTableMap.get(tableName);
-
-            assertEquals("Number of rows not equal", initialResult.getRows(), secondaryResult.getRows());
-            assertEquals("Number of created files not equal", initialResult.getFiles().size(), secondaryResult.getFiles().size());
-        }
+    public void setCleanDatabaseProperties(Properties cleanDatabaseProperties) {
+        this.cleanDatabaseProperties = cleanDatabaseProperties;
     }
 
-    private Map<String, DumpTableResult> createColumnMap(List<DumpTableResult> results) {
-        Map<String, DumpTableResult> colMap = new HashMap<String, DumpTableResult>(results.size());
-
-        for(DumpTableResult result : results) {
-            colMap.put(result.getTable().getName(), result);
-        }
-
-        return colMap;
+    public ImpexContext getImpexContext() {
+        return impexContext;
     }
 
+    public void setImpexContext(ImpexContext impexContext) {
+        this.impexContext = impexContext;
+    }
+
+    public ImpexExecutorService getImpexExecutorService() {
+        return impexExecutorService;
+    }
+
+    public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
+        this.impexExecutorService = impexExecutorService;
+    }
+
+    public ImpexGeneratorService getImpexService() {
+        return impexService;
+    }
+
+    public void setImpexService(ImpexGeneratorService impexService) {
+        this.impexService = impexService;
+    }
+
+    public JdbcService getJdbcService() {
+        return jdbcService;
+    }
+
+    public void setJdbcService(JdbcService jdbcService) {
+        this.jdbcService = jdbcService;
+    }
+
+    public DatabaseResetExecutable getResetExec() {
+        return resetExec;
+    }
+
+    public void setResetExec(DatabaseResetExecutable resetExec) {
+        this.resetExec = resetExec;
+    }
+
+    public ExecutionContext getSqlExecutionContext() {
+        return sqlExecutionContext;
+    }
+
+    public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
+        this.sqlExecutionContext = sqlExecutionContext;
+    }
 }

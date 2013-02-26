@@ -86,7 +86,8 @@
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/mpxTests/common-impex-context.xml</include>
+                    <include>**/mpxTests/oracle-impex-context.xml</include>
+                    <include>**/mpxTests/mysql-impex-context.xml</include>
                     <include>**/mpxTests/mpxLocations.properties</include>
                 </includes>
             </testResource>
@@ -94,7 +95,8 @@
                 <directory>src/test/resources</directory>
                 <filtering>false</filtering>
                 <excludes>
-                    <exclude>**/mpxTests/common-impex-context.xml</exclude>
+                    <exclude>**/mpxTests/oracle-impex-context.xml</exclude>
+                    <exclude>**/mpxTests/mysql-impex-context.xml</exclude>
                     <exclude>**/mpxTests/mpxLocations.properties</exclude>
                 </excludes>
             </testResource>
