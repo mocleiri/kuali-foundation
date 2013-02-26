@@ -15,10 +15,12 @@
 
 package org.kuali.common.impex.service;
 
+import java.io.IOException;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.impex.DatabaseContext;
-import org.kuali.common.impex.DumpTableResult;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.slf4j.Logger;
@@ -26,79 +28,72 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-
 /**
  * Test sql executor with big data set
- *
+ * 
  * @author andrewlubbers
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:impex/oracle-impex-context.xml"})
+@ContextConfiguration(locations = { "classpath:impex/oracle-impex-context.xml" })
 public class TestOracleBigDataImpex {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestOracleBigDataImpex.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestOracleBigDataImpex.class);
 
-    @Resource
-    protected ImpexContext impexContext;
+	@Resource
+	protected ImpexContext impexContext;
 
-    @Resource
-    protected DatabaseResetExecutable resetExec;
+	@Resource
+	protected DatabaseResetExecutable resetExec;
 
-    @Resource
-    protected ImpexExecutorService impexExecutorService;
+	@Resource
+	protected ImpexExecutorService impexExecutorService;
 
-    @Resource
-    protected ExecutionContext sqlExecutionContext;
+	@Resource
+	protected ExecutionContext sqlExecutionContext;
 
-    @Test
-    public void test() throws IOException {
-        ImpexUtils.log(getImpexContext());
+	@Test
+	public void test() throws IOException {
+		logger.debug("");
+		ImpexUtils.log(getImpexContext());
 
-        // clear db of data
-        getResetExec().execute();
+		// clear db of data
+		getResetExec().execute();
 
-        List<ImpexContext> contexts = Collections.singletonList(getImpexContext());
+		// List<ImpexContext> contexts = Collections.singletonList(getImpexContext());
 
-        // import the data from the generated mpx files
-        getImpexExecutorService().importData(getImpexContext(), getSqlExecutionContext());
-    }
+		// import the data from the generated mpx files
+		getImpexExecutorService().importData(getImpexContext(), getSqlExecutionContext());
+	}
 
-    public ImpexContext getImpexContext() {
-        return impexContext;
-    }
+	public ImpexContext getImpexContext() {
+		return impexContext;
+	}
 
-    public void setImpexContext(ImpexContext impexContext) {
-        this.impexContext = impexContext;
-    }
+	public void setImpexContext(ImpexContext impexContext) {
+		this.impexContext = impexContext;
+	}
 
-    public ImpexExecutorService getImpexExecutorService() {
-        return impexExecutorService;
-    }
+	public ImpexExecutorService getImpexExecutorService() {
+		return impexExecutorService;
+	}
 
-    public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
-        this.impexExecutorService = impexExecutorService;
-    }
+	public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
+		this.impexExecutorService = impexExecutorService;
+	}
 
-    public DatabaseResetExecutable getResetExec() {
-        return resetExec;
-    }
+	public DatabaseResetExecutable getResetExec() {
+		return resetExec;
+	}
 
-    public void setResetExec(DatabaseResetExecutable resetExec) {
-        this.resetExec = resetExec;
-    }
+	public void setResetExec(DatabaseResetExecutable resetExec) {
+		this.resetExec = resetExec;
+	}
 
-    public ExecutionContext getSqlExecutionContext() {
-        return sqlExecutionContext;
-    }
+	public ExecutionContext getSqlExecutionContext() {
+		return sqlExecutionContext;
+	}
 
-    public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
-        this.sqlExecutionContext = sqlExecutionContext;
-    }
+	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
+		this.sqlExecutionContext = sqlExecutionContext;
+	}
 }

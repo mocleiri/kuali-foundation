@@ -15,86 +15,83 @@
 
 package org.kuali.common.impex.service;
 
-import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexGeneratorService;
-import org.kuali.common.impex.service.MpxMetaData;
-import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.util.PercentCompleteInformer;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.util.PercentCompleteInformer;
 
 /**
  * @author andrewlubbers
  */
 public class MpxBucket implements Comparable<MpxBucket> {
 
-    ImpexContext context;
-    ImpexExecutorService service;
-    PercentCompleteInformer progressTracker;
-    List<MpxImportResult> results;
-    List<MpxMetaData> mpxBeans = new ArrayList<MpxMetaData>();
-    Long allRowCounts = 0l;
-    private ExecutionContext executionContext;
+	ImpexContext context;
+	ImpexExecutorService service;
+	PercentCompleteInformer progressTracker;
+	List<MpxImportResult> results;
+	List<MpxMetaData> mpxBeans = new ArrayList<MpxMetaData>();
+	Long allRowCounts = 0l;
+	private ExecutionContext executionContext;
 
-    @Override
-    public int compareTo(MpxBucket o) {
-        return allRowCounts.compareTo(o.getAllRowCounts());
-    }
+	@Override
+	public int compareTo(MpxBucket o) {
+		return allRowCounts.compareTo(o.getAllRowCounts());
+	}
 
-    public ImpexContext getContext() {
-        return context;
-    }
+	public ImpexContext getContext() {
+		return context;
+	}
 
-    public void setContext(ImpexContext context) {
-        this.context = context;
-    }
+	public void setContext(ImpexContext context) {
+		this.context = context;
+	}
 
-    public long getAllRowCounts() {
-        return allRowCounts;
-    }
+	public long getAllRowCounts() {
+		return allRowCounts;
+	}
 
-    public void setAllRowCounts(long allRowCounts) {
-        this.allRowCounts = allRowCounts;
-    }
+	public void setAllRowCounts(long allRowCounts) {
+		this.allRowCounts = allRowCounts;
+	}
 
-    public PercentCompleteInformer getProgressTracker() {
-        return progressTracker;
-    }
+	public PercentCompleteInformer getProgressTracker() {
+		return progressTracker;
+	}
 
-    public void setProgressTracker(PercentCompleteInformer progressTracker) {
-        this.progressTracker = progressTracker;
-    }
+	public void setProgressTracker(PercentCompleteInformer progressTracker) {
+		this.progressTracker = progressTracker;
+	}
 
-    public List<MpxImportResult> getResults() {
-        return results;
-    }
+	public List<MpxImportResult> getResults() {
+		return results;
+	}
 
-    public void setResults(List<MpxImportResult> results) {
-        this.results = results;
-    }
+	public void setResults(List<MpxImportResult> results) {
+		this.results = results;
+	}
 
-    public ImpexExecutorService getService() {
-        return service;
-    }
+	public ImpexExecutorService getService() {
+		return service;
+	}
 
-    public void setService(ImpexExecutorService service) {
-        this.service = service;
-    }
+	public void setService(ImpexExecutorService service) {
+		this.service = service;
+	}
 
-    public ExecutionContext getExecutionContext() {
-        return executionContext;
-    }
+	public ExecutionContext getExecutionContext() {
+		return executionContext;
+	}
 
-    public void setExecutionContext(ExecutionContext executionContext) {
-        this.executionContext = executionContext;
-    }
+	public void setExecutionContext(ExecutionContext executionContext) {
+		this.executionContext = executionContext;
+	}
 
-    public List<MpxMetaData> getMpxBeans() {
-        return mpxBeans;
-    }
+	public List<MpxMetaData> getMpxBeans() {
+		return mpxBeans;
+	}
 
-    public void setMpxBeans(List<MpxMetaData> mpxBeans) {
-        this.mpxBeans = mpxBeans;
-    }
+	public void setMpxBeans(List<MpxMetaData> mpxBeans) {
+		this.mpxBeans = mpxBeans;
+	}
 }

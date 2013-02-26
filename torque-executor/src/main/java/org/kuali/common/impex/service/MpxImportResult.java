@@ -15,68 +15,64 @@
 
 package org.kuali.common.impex.service;
 
-import org.apache.torque.engine.database.model.Table;
-
-import java.io.File;
-import java.util.List;
 
 /**
  * @author andrewlubbers
  */
 public class MpxImportResult {
 
-    long size;
-    long start;
-    long finish;
-    long elapsed;
-    String tableName;
-    String mpxPath;
+	long size;
+	long start;
+	long finish;
+	long elapsed;
+	String tableName;
+	String mpxPath;
 
-    public long getElapsed() {
-        return elapsed;
-    }
+	public long getElapsed() {
+		return elapsed;
+	}
 
-    public void setElapsed(long elapsed) {
-        this.elapsed = elapsed;
-    }
+	public void setElapsed(long elapsed) {
+		this.elapsed = elapsed;
+	}
 
-    public long getFinish() {
-        return finish;
-    }
+	public long getFinish() {
+		return finish;
+	}
 
-    public void setFinish(long finish) {
-        this.finish = finish;
-    }
+	public void setFinish(long finish) {
+		this.finish = finish;
+	}
 
-    public String getMpxPath() {
-        return mpxPath;
-    }
+	public String getMpxPath() {
+		return mpxPath;
+	}
 
-    public void setMpxPath(String mpxPath) {
-        this.mpxPath = mpxPath;
-    }
+	public void setMpxPath(String mpxPath) {
+		this.mpxPath = mpxPath;
+	}
 
-    public long getSize() {
-        return size;
-    }
+	public long getSize() {
+		return size;
+	}
 
-    public void setSize(long size) {
-        this.size = size;
-    }
+	public void setSize(long size) {
+		this.size = size;
+	}
 
-    public long getStart() {
-        return start;
-    }
+	public long getStart() {
+		return start;
+	}
 
-    public void setStart(long start) {
-        this.start = start;
-    }
+	public void setStart(long start) {
+		this.start = start;
+	}
 
-    public String getTableName() {
-        return tableName;
-    }
+	public String getTableName() {
+		return tableName;
+	}
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
 }

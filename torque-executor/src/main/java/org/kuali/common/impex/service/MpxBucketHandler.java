@@ -15,38 +15,36 @@
 
 package org.kuali.common.impex.service;
 
+import java.util.List;
+
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
- * Created with IntelliJ IDEA.
- * User: andy
- * Date: 2/21/13
- * Time: 1:50 PM
- * To change this template use File | Settings | File Templates.
+ * Created with IntelliJ IDEA. User: andy Date: 2/21/13 Time: 1:50 PM To change this template use File | Settings | File
+ * Templates.
  */
 public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 
-    private static final Logger logger = LoggerFactory.getLogger(MpxBucketHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(MpxBucketHandler.class);
 
-    @Override
-    public void handleElement(ListIteratorContext<MpxBucket> mpxBucketListIteratorContext, int i, MpxBucket mpxBucket) {
-        ImpexExecutorService service = mpxBucket.getService();
-        ImpexContext context = mpxBucket.getContext();
+	@Override
+	public void handleElement(ListIteratorContext<MpxBucket> mpxBucketListIteratorContext, int i, MpxBucket mpxBucket) {
+		ImpexExecutorService service = mpxBucket.getService();
+		ImpexContext context = mpxBucket.getContext();
 
-        List<MpxImportResult> results = mpxBucket.getResults();
+		List<MpxImportResult> results = mpxBucket.getResults();
 
-        for (MpxMetaData metaData: mpxBucket.getMpxBeans()) {
-            logger.debug("Importing data location: " + metaData.getLocation());
-            MpxImportResult result = service.importDataLocation(metaData, context, mpxBucket.getExecutionContext());
-            synchronized (results) {
-                results.add(result);
-            }
-            logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (secon: " + (result.getElapsed() / 1000.0));
-        }
-    }
+		for (MpxMetaData metaData : mpxBucket.getMpxBeans()) {
+			logger.debug("Importing data location: " + metaData.getLocation());
+			MpxImportResult result = service.importDataLocation(metaData, context, mpxBucket.getExecutionContext());
+			synchronized (results) {
+				results.add(result);
+			}
+			logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (secon: "
+					+ (result.getElapsed() / 1000.0));
+		}
+	}
 }

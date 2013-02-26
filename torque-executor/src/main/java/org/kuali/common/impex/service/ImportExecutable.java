@@ -15,67 +15,64 @@
 
 package org.kuali.common.impex.service;
 
-import org.kuali.common.impex.service.ImpexContext;
-import org.kuali.common.impex.service.ImpexGeneratorService;
-import org.kuali.common.impex.service.ImpexUtils;
+import java.io.IOException;
+
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import java.io.IOException;
-
 /**
  * @author andrewlubbers
  */
 public class ImportExecutable implements Executable {
 
-    private static final Logger logger = LoggerFactory.getLogger(ImportExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(ImportExecutable.class);
 
-    ImpexExecutorService service;
-    ImpexContext sourceContext;
-    ExecutionContext sqlExecutionContext;
+	ImpexExecutorService service;
+	ImpexContext sourceContext;
+	ExecutionContext sqlExecutionContext;
 
-    @Override
-    public void execute() {
-        Assert.notNull(sourceContext);
-        Assert.notNull(service);
-        Assert.notNull(sqlExecutionContext);
+	@Override
+	public void execute() {
+		Assert.notNull(sourceContext);
+		Assert.notNull(service);
+		Assert.notNull(sqlExecutionContext);
 
-        logger.info("Starting Import");
-        ImpexUtils.log(sourceContext);
+		logger.info("Starting Import");
+		ImpexUtils.log(sourceContext);
 
-        // import the data from the generated mpx files
-        try {
-            service.importData(sourceContext, sqlExecutionContext);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-        logger.info("Import Complete");
-    }
+		// import the data from the generated mpx files
+		try {
+			service.importData(sourceContext, sqlExecutionContext);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+		logger.info("Import Complete");
+	}
 
-    public ImpexExecutorService getService() {
-        return service;
-    }
+	public ImpexExecutorService getService() {
+		return service;
+	}
 
-    public void setService(ImpexExecutorService service) {
-        this.service = service;
-    }
+	public void setService(ImpexExecutorService service) {
+		this.service = service;
+	}
 
-    public ImpexContext getSourceContext() {
-        return sourceContext;
-    }
+	public ImpexContext getSourceContext() {
+		return sourceContext;
+	}
 
-    public void setSourceContext(ImpexContext sourceContext) {
-        this.sourceContext = sourceContext;
-    }
+	public void setSourceContext(ImpexContext sourceContext) {
+		this.sourceContext = sourceContext;
+	}
 
-    public ExecutionContext getSqlExecutionContext() {
-        return sqlExecutionContext;
-    }
+	public ExecutionContext getSqlExecutionContext() {
+		return sqlExecutionContext;
+	}
 
-    public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
-        this.sqlExecutionContext = sqlExecutionContext;
-    }
+	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
+		this.sqlExecutionContext = sqlExecutionContext;
+	}
 }
