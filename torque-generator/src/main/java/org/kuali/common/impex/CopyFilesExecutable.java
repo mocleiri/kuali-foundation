@@ -3,6 +3,7 @@ package org.kuali.common.impex;
 import java.util.List;
 
 import org.kuali.common.impex.service.ImpexContext;
+import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.util.execute.Executable;
 
 public class CopyFilesExecutable implements Executable {
@@ -11,6 +12,9 @@ public class CopyFilesExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		for (ImpexContext context : contexts) {
+			ImpexUtils.copyFiles(context);
+		}
 	}
 
 	public List<ImpexContext> getContexts() {
