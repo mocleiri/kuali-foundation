@@ -21,9 +21,14 @@ public class DumpExecutable implements Executable {
 	ImpexContext sourceContext;
 	List<ImpexContext> contexts;
 	List<String> databaseVendors;
+	boolean skip;
 
 	@Override
 	public void execute() {
+		if (skip) {
+			logger.info("Skipping db dump");
+			return;
+		}
 		Assert.notNull(sourceContext);
 		ImpexUtils.log(sourceContext);
 		Assert.notNull(service);
@@ -83,6 +88,14 @@ public class DumpExecutable implements Executable {
 
 	public void setContexts(List<ImpexContext> contexts) {
 		this.contexts = contexts;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
