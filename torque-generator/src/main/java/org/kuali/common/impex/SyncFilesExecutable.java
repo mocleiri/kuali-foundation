@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SyncResult;
@@ -30,6 +31,9 @@ public class SyncFilesExecutable implements Executable {
 			logger.info("Skipping impex file sync");
 			return;
 		}
+
+		Assert.notNull(contexts);
+		Assert.notNull(properties);
 
 		List<String> adds = new ArrayList<String>();
 		List<String> updates = new ArrayList<String>();
