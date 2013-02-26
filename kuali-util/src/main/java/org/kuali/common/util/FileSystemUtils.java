@@ -16,6 +16,7 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
-	public static void syncFiles(File srcDir, File dstDir) {
+	public static void syncFiles(File srcDir, List<File> srcFiles, File dstDir, List<File> dstFiles) {
 		logger.info("sync files");
 	}
 
