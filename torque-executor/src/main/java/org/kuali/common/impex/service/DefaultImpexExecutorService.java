@@ -79,7 +79,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
     public MpxImportResult importDataLocation(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext) {
         List<Table> tables = getTables(context);
         String filename = LocationUtils.getFilename(metaData.getLocation());
-        logger.info("Importing " + filename);
+        logger.debug("Importing " + filename);
         String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
         Table table = getTableDefinition(tableName, tables);
         return executeSql(context, table, metaData, sqlExecutionContext);
