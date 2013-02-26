@@ -34,6 +34,10 @@ public class ImpexUtils {
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
 	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
 
+	public static void copyFiles(ImpexContext context) {
+		System.out.println("Hello world");
+	}
+
 	public static void log(ImpexContext context) {
 		logger.info("---------------------------------------------------------------");
 		logger.info("Impex Context Properties");
@@ -112,7 +116,8 @@ public class ImpexUtils {
 		return converted;
 	}
 
-	public static void updateAndStoreDatabaseProperties(Properties properties, String location, List<DumpTableResult> results) {
+	public static void updateAndStoreDatabaseProperties(Properties properties, String location,
+			List<DumpTableResult> results) {
 		for (DumpTableResult result : results) {
 			String sizeKey = result.getTable().getName() + ".size";
 			String sizeValue = result.getSize() + "";
@@ -192,7 +197,8 @@ public class ImpexUtils {
 	}
 
 	public static ReportFile getReportFile(ImpexContext context, String databaseVendor) {
-		String relativePath = ".." + FS + "reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
+		String relativePath = ".." + FS + "reports" + FS + databaseVendor + FS + context.getArtifactId()
+				+ "-context.generation";
 		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
@@ -218,7 +224,8 @@ public class ImpexUtils {
 	}
 
 	public static File getContextPropertiesFile(ImpexContext context, String databaseVendor) {
-		String path = context.getWorkingDir() + "/../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.properties";
+		String path = context.getWorkingDir() + "/../reports" + FS + databaseVendor + FS + context.getArtifactId()
+				+ "-context.properties";
 		String canonicalPath = LocationUtils.getCanonicalPath(new File(path));
 		return new File(canonicalPath);
 	}
@@ -277,7 +284,7 @@ public class ImpexUtils {
 		context.setBaseDir(new File(p.getProperty("project.basedir")));
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
-        context.setDataLocations(p.getProperty("impex.dataLocations"));
+		context.setDataLocations(p.getProperty("impex.dataLocations"));
 
 		// Default to [artifactId].xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
@@ -285,7 +292,8 @@ public class ImpexUtils {
 		// Setup the datasource
 		// context.setDataSource(getDataSource(p));
 
-		// Properties that already have default values, don't override unless the corresponding property is explicitly set
+		// Properties that already have default values, don't override unless the corresponding property is explicitly
+		// set
 		if (p.getProperty("impex.storeDatabaseTableProperties") != null) {
 			context.setStoreDatabaseTableProperties(new Boolean(p.getProperty("impex.storeDatabaseTableProperties")));
 		}
@@ -327,18 +335,18 @@ public class ImpexUtils {
 		return context;
 	}
 
-    public static <T> ExecutionStatistics invokeThreads(List<T> buckets, ElementHandler<T> handler) {
-        // Store some context for the thread handler
-        ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
-        thc.setList(buckets);
-        thc.setHandler(handler);
-        thc.setMax(buckets.size());
-        thc.setMin(buckets.size());
-        thc.setDivisor(1);
+	public static <T> ExecutionStatistics invokeThreads(List<T> buckets, ElementHandler<T> handler) {
+		// Store some context for the thread handler
+		ThreadHandlerContext<T> thc = new ThreadHandlerContext<T>();
+		thc.setList(buckets);
+		thc.setHandler(handler);
+		thc.setMax(buckets.size());
+		thc.setMin(buckets.size());
+		thc.setDivisor(1);
 
-        // Start threads to acquire table metadata concurrently
-        ThreadInvoker invoker = new ThreadInvoker();
-        return invoker.invokeThreads(thc);
-    }
+		// Start threads to acquire table metadata concurrently
+		ThreadInvoker invoker = new ThreadInvoker();
+		return invoker.invokeThreads(thc);
+	}
 
 }
