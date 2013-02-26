@@ -15,8 +15,12 @@
  */
 package org.kuali.common.util;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,16 +28,79 @@ public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
-	public static SyncResult syncFiles(List<SyncRequest> requests) {
+	public static List<SyncResult> syncFiles(List<SyncRequest> requests) {
+		List<SyncResult> results = new ArrayList<SyncResult>();
 		for (SyncRequest request : requests) {
-			syncFiles(request);
+			SyncResult result = syncFiles(request);
+			results.add(result);
 		}
-		return null;
+		return results;
 	}
 
 	public static SyncResult syncFiles(SyncRequest request) {
-		logger.info("sync files");
-		return null;
+		logger.debug("Sync {} -> {}", request.getSrcDir(), request.getDstDir());
+		List<File> dstFiles = getAllFiles(request.getDstDir());
+		List<File> srcFiles = request.getSrcFiles();
+
+		List<String> dstPaths = getRelativePaths(request.getDstDir(), dstFiles);
+		List<String> srcPaths = getRelativePaths(request.getSrcDir(), srcFiles);
+
+		List<String> adds = new ArrayList<String>();
+		List<String> updates = new ArrayList<String>();
+		List<String> deletes = new ArrayList<String>();
+
+		for (String srcPath : srcPaths) {
+			boolean existing = dstPaths.contains(srcPath);
+			if (existing) {
+				updates.add(srcPath);
+			} else {
+				adds.add(srcPath);
+			}
+		}
+		for (String dstPath : dstPaths) {
+			boolean extra = !srcPaths.contains(dstPath);
+			if (extra) {
+				deletes.add(dstPath);
+			}
+		}
+
+		SyncResult result = new SyncResult();
+		result.setAdds(getFullPaths(request.getDstDir(), adds));
+		result.setUpdates(getFullPaths(request.getDstDir(), updates));
+		result.setDeletes(getFullPaths(request.getDstDir(), deletes));
+		return result;
+	}
+
+	protected static List<File> getFullPaths(File dir, List<String> relativePaths) {
+		List<File> files = new ArrayList<File>();
+		for (String relativePath : relativePaths) {
+			File file = new File(dir, relativePath);
+			files.add(file);
+		}
+		return files;
+	}
+
+	protected static List<String> getRelativePaths(File dir, List<File> files) {
+		List<String> relativePaths = new ArrayList<String>();
+		for (File file : files) {
+			String relativePath = getRelativePath(dir, file);
+			relativePaths.add(relativePath);
+		}
+		return relativePaths;
+	}
+
+	protected static String getRelativePath(File dir, File file) {
+		String dirPath = LocationUtils.getCanonicalPath(dir);
+		String filePath = LocationUtils.getCanonicalPath(file);
+		if (!StringUtils.contains(filePath, dirPath)) {
+			throw new IllegalArgumentException(file + " does not reside under " + dir);
+		}
+		return StringUtils.remove(filePath, dirPath);
+	}
+
+	protected static List<File> getAllFiles(File dir) {
+		SimpleScanner scanner = new SimpleScanner(dir, Arrays.asList("**/*"), null);
+		return scanner.getFiles();
 	}
 
 }
