@@ -2,6 +2,8 @@ package org.kuali.common.impex.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,10 +18,15 @@ import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.StringFilter;
+import org.kuali.common.util.SyncRequest;
+import org.kuali.common.util.SyncResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -34,8 +41,93 @@ public class ImpexUtils {
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
 	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
 
-	public static void syncFiles(ImpexContext context) {
-		System.out.println("Hello world");
+	public static SyncResult syncFiles(List<ImpexContext> contexts) {
+		logger.info("Syncing {} contexts", contexts.size());
+		List<SyncRequest> requests = getSyncRequests(contexts);
+		SyncResult result = FileSystemUtils.syncFiles(requests);
+		return result;
+	}
+
+	protected static List<SyncRequest> getSyncRequests(List<ImpexContext> contexts) {
+		List<SyncRequest> requests = new ArrayList<SyncRequest>();
+		for (ImpexContext context : contexts) {
+			SyncRequest request = getSyncRequest(context);
+			requests.add(request);
+		}
+		return requests;
+	}
+
+	protected static SyncRequest getSyncRequest(ImpexContext context) {
+		File workingDir = context.getWorkingDir();
+		File finalDir = context.getFinalDirectory();
+		List<String> includes = context.getTableIncludes();
+		String schemaIncludes = context.getSchemaFileInclude();
+		logger.info("Working Dir     - {}", LocationUtils.getCanonicalPath(workingDir));
+		logger.info("Final Dir       - {}", LocationUtils.getCanonicalPath(finalDir));
+		logger.info("Table includes  - {}", CollectionUtils.getSpaceSeparatedString(includes));
+		logger.info("Schema includes - {}", schemaIncludes);
+
+		List<File> schemaFiles = getSchemaFiles(workingDir, schemaIncludes);
+		List<File> dataFiles = getDataFiles(workingDir, context.getTableIncludes(), context.getFileExtensionInclude());
+		logger.info("Schema files    - {}", schemaFiles.size());
+
+		List<File> srcFiles = new ArrayList<File>();
+		srcFiles.addAll(schemaFiles);
+		if (context.isCopyDataFiles()) {
+			srcFiles.addAll(dataFiles);
+			logger.info("Data files      - {}", dataFiles.size());
+		} else {
+			logger.info("Copy data files - {}", context.isCopyDataFiles());
+		}
+
+		SyncRequest request = new SyncRequest();
+		request.setDstDir(context.getFinalDirectory());
+		request.setSrcDir(context.getWorkingDir());
+		request.setSrcFiles(srcFiles);
+		return request;
+	}
+
+	protected static List<File> getDataFiles(File workingDir, List<String> includes, String fileExtensionInclude) {
+		SimpleScanner scanner = new SimpleScanner(workingDir, Arrays.asList(fileExtensionInclude), null);
+		List<File> allImpexFiles = scanner.getFiles();
+		logger.info("All impex files - {}", allImpexFiles.size());
+		StringFilter filter = StringFilter.getInstance(includes, null);
+		List<String> filenames = getFilenames(allImpexFiles);
+		List<String> filtered = getFilteredFilenames(filter, filenames);
+		List<File> filteredFiles = new ArrayList<File>();
+		for (File file : allImpexFiles) {
+			String filename = file.getName();
+			boolean contains = filtered.contains(filename);
+			if (contains) {
+				filteredFiles.add(file);
+			}
+		}
+		return filteredFiles;
+	}
+
+	protected static List<String> getFilteredFilenames(StringFilter filter, List<String> filenames) {
+		List<String> filtered = new ArrayList<String>();
+		for (String filename : filenames) {
+			boolean include = filter.include(filename);
+			if (include) {
+				filtered.add(filename);
+			}
+		}
+		return filtered;
+	}
+
+	protected static List<String> getFilenames(List<File> files) {
+		List<String> filenames = new ArrayList<String>();
+		for (File file : files) {
+			String filename = file.getName();
+			filenames.add(filename);
+		}
+		return filenames;
+	}
+
+	protected static List<File> getSchemaFiles(File workingDir, String includes) {
+		SimpleScanner scanner = new SimpleScanner(workingDir, Arrays.asList(includes), null);
+		return scanner.getFiles();
 	}
 
 	public static void log(ImpexContext context) {

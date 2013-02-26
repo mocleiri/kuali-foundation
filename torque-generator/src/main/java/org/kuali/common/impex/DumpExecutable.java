@@ -26,7 +26,7 @@ public class DumpExecutable implements Executable {
 	@Override
 	public void execute() {
 		if (skip) {
-			logger.info("Skipping db dump");
+			logger.info("Skipping impex database dump");
 			return;
 		}
 		Assert.notNull(sourceContext);

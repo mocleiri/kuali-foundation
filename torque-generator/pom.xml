@@ -11,7 +11,7 @@
   <properties>
     <spring.version>3.2.0.RELEASE</spring.version>
     <kuali-threads.version>1.0.9</kuali-threads.version>
-    <kuali-util.version>3.0.11</kuali-util.version>
+    <kuali-util.version>3.0.12-SNAPSHOT</kuali-util.version>
     <mysql.version>5.1.22</mysql.version>
     <oracle.version>11.2.0.2</oracle.version>
     <slf4j.version>1.6.4</slf4j.version>

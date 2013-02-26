@@ -30,6 +30,7 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 	String artifactId;
 	File finalDirectory;
 	boolean copyDataFiles;
+	String schemaFileInclude;
 
 	@Override
 	public ImpexContext getObject() throws Exception {
@@ -96,5 +97,13 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 
 	public void setCopyDataFiles(boolean copyDataFiles) {
 		this.copyDataFiles = copyDataFiles;
+	}
+
+	public String getSchemaFileInclude() {
+		return schemaFileInclude;
+	}
+
+	public void setSchemaFileInclude(String schemaFileInclude) {
+		this.schemaFileInclude = schemaFileInclude;
 	}
 }
