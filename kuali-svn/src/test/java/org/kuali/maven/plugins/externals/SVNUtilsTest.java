@@ -17,14 +17,15 @@ package org.kuali.maven.plugins.externals;
 
 import java.io.File;
 
-import org.kuali.common.svn.SVNUtils;
+import org.kuali.common.svn.DefaultScmService;
+import org.kuali.common.svn.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SVNUtilsTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(SVNUtilsTest.class);
-	SVNUtils svnUtils = SVNUtils.getInstance();
+	ScmService service = new DefaultScmService();
 	String username = "jcaddel";
 	String password = System.getProperty("svn.password");
 
