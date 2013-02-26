@@ -25,6 +25,7 @@ public class SyncFilesExecutable implements Executable {
 			return;
 		}
 		SyncResult result = ImpexUtils.syncFiles(contexts);
+		result.getDeletes();
 	}
 
 	public List<ImpexContext> getContexts() {
