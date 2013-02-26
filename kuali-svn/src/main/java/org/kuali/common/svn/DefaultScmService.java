@@ -74,7 +74,7 @@ public class DefaultScmService implements ScmService {
 		}
 	}
 
-	public SVNCommitInfo commit(List<File> workingCopyPaths, String message, String username, String password) {
+	protected SVNCommitInfo commit(List<File> workingCopyPaths, String message, String username, String password) {
 		File[] fileArray = workingCopyPaths.toArray(new File[workingCopyPaths.size()]);
 		return commit(fileArray, message, username, password);
 	}
@@ -89,7 +89,4 @@ public class DefaultScmService implements ScmService {
 		}
 	}
 
-	public SVNCommitInfo commit(File workingCopyPath, String message, String username, String password) {
-		return commit(new File[] { workingCopyPath }, message, username, password);
-	}
 }
