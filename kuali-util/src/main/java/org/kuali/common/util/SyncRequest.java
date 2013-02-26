@@ -8,7 +8,6 @@ public class SyncRequest {
 	File srcDir;
 	List<File> srcFiles;
 	File dstDir;
-	List<File> dstFiles;
 
 	public File getSrcDir() {
 		return srcDir;
@@ -32,14 +31,6 @@ public class SyncRequest {
 
 	public void setDstDir(File dstDir) {
 		this.dstDir = dstDir;
-	}
-
-	public List<File> getDstFiles() {
-		return dstFiles;
-	}
-
-	public void setDstFiles(List<File> dstFiles) {
-		this.dstFiles = dstFiles;
 	}
 
 }
