@@ -44,10 +44,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
- * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from
- * any url Spring resource loading can understand. When storing and loading, locations ending in <code>.xml</code> are automatically handled
- * using <code>storeToXML()</code> and <code>loadFromXML()</code>, respectively. <code>Properties</code> are always stored in sorted order
- * with the <code>encoding</code> indicated via a comment.
+ * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code>
+ * can be loaded from any url Spring resource loading can understand. When storing and loading, locations ending in
+ * <code>.xml</code> are automatically handled using <code>storeToXML()</code> and <code>loadFromXML()</code>,
+ * respectively. <code>Properties</code> are always stored in sorted order with the <code>encoding</code> indicated via
+ * a comment.
  */
 public class PropertyUtils {
 
@@ -57,6 +58,17 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static void overrideWithGlobalValues(Properties properties, GlobalPropertiesMode mode) {
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		Properties global = PropertyUtils.getProperties(mode);
+		for (String key : keys) {
+			String globalValue = global.getProperty(key);
+			if (!StringUtils.isBlank(globalValue)) {
+				properties.setProperty(key, globalValue);
+			}
+		}
+	}
 
 	public static final Properties combine(List<Properties> properties) {
 		Properties combined = new Properties();
@@ -85,7 +97,8 @@ public class PropertyUtils {
 	}
 
 	public static final boolean isSingleUnresolvedPlaceholder(String string) {
-		return isSingleUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+		return isSingleUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX,
+				Constants.DEFAULT_PLACEHOLDER_SUFFIX);
 	}
 
 	public static final boolean isSingleUnresolvedPlaceholder(String string, String prefix, String suffix) {
@@ -97,7 +110,8 @@ public class PropertyUtils {
 	}
 
 	public static final boolean containsUnresolvedPlaceholder(String string) {
-		return containsUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX, Constants.DEFAULT_PLACEHOLDER_SUFFIX);
+		return containsUnresolvedPlaceholder(string, Constants.DEFAULT_PLACEHOLDER_PREFIX,
+				Constants.DEFAULT_PLACEHOLDER_SUFFIX);
 	}
 
 	public static final boolean containsUnresolvedPlaceholder(String string, String prefix, String suffix) {
@@ -109,34 +123,41 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
-	 * value. Using global properties to perform property resolution as indicated by <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is
+	 * different from the original value. Using global properties to perform property resolution as indicated by
+	 * <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
 	 */
 	public static final Properties getResolvedProperties(Properties properties) {
-		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
+		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER,
+				Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
 	/**
-	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
-	 * value. Using global properties to perform property resolution as indicated by <code>globalPropertiesMode</code>
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is
+	 * different from the original value. Using global properties to perform property resolution as indicated by
+	 * <code>globalPropertiesMode</code>
 	 */
-	public static final Properties getResolvedProperties(Properties properties, GlobalPropertiesMode globalPropertiesMode) {
+	public static final Properties getResolvedProperties(Properties properties,
+			GlobalPropertiesMode globalPropertiesMode) {
 		return getResolvedProperties(properties, Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER, globalPropertiesMode);
 	}
 
 	/**
-	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
-	 * value. Using global properties to perform property resolution as indicated by <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is
+	 * different from the original value. Using global properties to perform property resolution as indicated by
+	 * <code>Constants.DEFAULT_GLOBAL_PROPERTIES_MODE</code>
 	 */
 	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper) {
 		return getResolvedProperties(properties, helper, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
 	/**
-	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is different from the original
-	 * value. Using global properties to perform property resolution as indicated by <code>globalPropertiesMode</code>
+	 * Return a new <code>Properties</code> object containing only those properties where the resolved value is
+	 * different from the original value. Using global properties to perform property resolution as indicated by
+	 * <code>globalPropertiesMode</code>
 	 */
-	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
+	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper,
+			GlobalPropertiesMode globalPropertiesMode) {
 		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		Properties newProperties = new Properties();
@@ -144,7 +165,8 @@ public class PropertyUtils {
 			String originalValue = properties.getProperty(key);
 			String resolvedValue = helper.replacePlaceholders(originalValue, global);
 			if (!resolvedValue.equals(originalValue)) {
-				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue), Str.flatten(resolvedValue));
+				logger.debug("Resolved property '" + key + "' [{}] -> [{}]", Str.flatten(originalValue),
+						Str.flatten(resolvedValue));
 				newProperties.setProperty(key, resolvedValue);
 			}
 		}
@@ -177,8 +199,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Alter the <code>properties</code> passed in to contain only the desired property values. <code>includes</code> and
-	 * <code>excludes</code> are comma separated values.
+	 * Alter the <code>properties</code> passed in to contain only the desired property values. <code>includes</code>
+	 * and <code>excludes</code> are comma separated values.
 	 */
 	public static final void trim(Properties properties, String includesCSV, String excludesCSV) {
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
@@ -228,10 +250,11 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Match {@code value} against {@code pattern} where {@code pattern} can optionally contain a single wildcard {@code *}. If both are
-	 * {@code null} return {@code true}. If one of {@code value} or {@code pattern} is {@code null} but the other isn't, return
-	 * {@code false}. Any {@code pattern} containing more than a single wildcard throws {@code IllegalArgumentException}.
-	 *
+	 * Match {@code value} against {@code pattern} where {@code pattern} can optionally contain a single wildcard
+	 * {@code *}. If both are {@code null} return {@code true}. If one of {@code value} or {@code pattern} is
+	 * {@code null} but the other isn't, return {@code false}. Any {@code pattern} containing more than a single
+	 * wildcard throws {@code IllegalArgumentException}.
+	 * 
 	 * <pre>
 	 * PropertyUtils.isSingleWildcardMatch(null, null)          = true
 	 * PropertyUtils.isSingleWildcardMatch(null, *)             = false
@@ -257,7 +280,8 @@ public class PropertyUtils {
 			return true;
 		} else if (StringUtils.countMatches(pattern, Constants.WILDCARD) > 1) {
 			// More than one wildcard in the pattern is not supported
-			throw new IllegalArgumentException("Pattern [" + pattern + "] is not supported.  Only one wildcard is allowed in the pattern");
+			throw new IllegalArgumentException("Pattern [" + pattern
+					+ "] is not supported.  Only one wildcard is allowed in the pattern");
 		} else if (!StringUtils.contains(pattern, Constants.WILDCARD)) {
 			// Neither one is null and there is no wildcard in the pattern. They must match exactly
 			return StringUtils.equals(value, pattern);
@@ -369,7 +393,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Store the properties to the indicated file using the indicated encoding with the indicated comment appearing at the top of the file.
+	 * Store the properties to the indicated file using the indicated encoding with the indicated comment appearing at
+	 * the top of the file.
 	 */
 	public static final void store(Properties properties, File file, String encoding, String comment) {
 		OutputStream out = null;
@@ -381,7 +406,8 @@ public class PropertyUtils {
 			Properties sorted = getSortedProperties(properties);
 			comment = getComment(encoding, comment, xml);
 			if (xml) {
-				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				logger.info("Storing XML properties - [{}] encoding={}", path,
+						StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				if (encoding == null) {
 					sorted.storeToXML(out, comment);
 				} else {
@@ -389,7 +415,8 @@ public class PropertyUtils {
 				}
 			} else {
 				writer = LocationUtils.getWriter(out, encoding);
-				logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				logger.info("Storing properties - [{}] encoding={}", path,
+						StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				sorted.store(writer, comment);
 			}
 		} catch (IOException e) {
@@ -410,20 +437,22 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a new properties object containing the properties passed in, plus any properties returned by <code>getEnvAsProperties()</code>
-	 * and <code>System.getProperties()</code>. Properties from <code>getEnvAsProperties()</code> override <code>properties</code> and
-	 * properties from <code>System.getProperties()</code> override everything.
+	 * Return a new properties object containing the properties passed in, plus any properties returned by
+	 * <code>getEnvAsProperties()</code> and <code>System.getProperties()</code>. Properties from
+	 * <code>getEnvAsProperties()</code> override <code>properties</code> and properties from
+	 * <code>System.getProperties()</code> override everything.
 	 */
 	public static final Properties getGlobalProperties(Properties properties) {
 		return getProperties(properties, Constants.DEFAULT_GLOBAL_PROPERTIES_MODE);
 	}
 
 	/**
-	 * Return a new properties object containing the properties passed in, plus any global properties as requested. If <code>mode</code> is
-	 * <code>NONE</code> the new properties are a duplicate of the properties passed in. If <code>mode</code> is <code>ENVIRONMENT</code>
-	 * the new properties contain the original properties plus any properties returned by <code>getEnvProperties()</code>. If
-	 * <code>mode</code> is <code>SYSTEM</code> the new properties contain the original properties plus <code>System.getProperties()</code>.
-	 * If <code>mode</code> is <code>BOTH</code> the new properties contain the original properties plus <code>getEnvProperties()</code> and
+	 * Return a new properties object containing the properties passed in, plus any global properties as requested. If
+	 * <code>mode</code> is <code>NONE</code> the new properties are a duplicate of the properties passed in. If
+	 * <code>mode</code> is <code>ENVIRONMENT</code> the new properties contain the original properties plus any
+	 * properties returned by <code>getEnvProperties()</code>. If <code>mode</code> is <code>SYSTEM</code> the new
+	 * properties contain the original properties plus <code>System.getProperties()</code>. If <code>mode</code> is
+	 * <code>BOTH</code> the new properties contain the original properties plus <code>getEnvProperties()</code> and
 	 * <code>System.getProperties()</code>.
 	 */
 	public static final Properties getProperties(Properties properties, GlobalPropertiesMode mode) {
@@ -436,12 +465,13 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a new properties object containing global properties as requested. If <code>mode</code> is <code>NONE</code> the new
-	 * properties are empty. If <code>mode</code> is <code>ENVIRONMENT</code> the new properties contain the properties returned by
-	 * <code>getEnvProperties()</code>. If <code>mode</code> is <code>SYSTEM</code> the new properties contain
-	 * <code>System.getProperties()</code>. If <code>mode</code> is <code>BOTH</code> the new properties contain
-	 * <code>getEnvProperties</code> plus <code>System.getProperties()</code> with system properties overriding environment variables if the
-	 * same case sensitive property key is supplied in both places.
+	 * Return a new properties object containing global properties as requested. If <code>mode</code> is
+	 * <code>NONE</code> the new properties are empty. If <code>mode</code> is <code>ENVIRONMENT</code> the new
+	 * properties contain the properties returned by <code>getEnvProperties()</code>. If <code>mode</code> is
+	 * <code>SYSTEM</code> the new properties contain <code>System.getProperties()</code>. If <code>mode</code> is
+	 * <code>BOTH</code> the new properties contain <code>getEnvProperties</code> plus
+	 * <code>System.getProperties()</code> with system properties overriding environment variables if the same case
+	 * sensitive property key is supplied in both places.
 	 */
 	public static final Properties getProperties(GlobalPropertiesMode mode) {
 		return getProperties(new Properties(), mode);
@@ -455,8 +485,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Search <code>properties</code> plus global properties to find a value for <code>key</code> according to the mode passed in. If the
-	 * property is present in both, the value from the global properties is returned.
+	 * Search <code>properties</code> plus global properties to find a value for <code>key</code> according to the mode
+	 * passed in. If the property is present in both, the value from the global properties is returned.
 	 */
 	public static final String getProperty(String key, Properties properties, GlobalPropertiesMode mode) {
 		return getProperties(properties, mode).getProperty(key);
@@ -565,7 +595,8 @@ public class PropertyUtils {
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				logger.info("Loading properties - [{}] encoding={}", location,
+						StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
 				reader = LocationUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
@@ -587,8 +618,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a new <code>Properties</code> object containing properties prefixed with <code>prefix</code>. If <code>prefix</code> is blank,
-	 * the new properties object duplicates the properties passed in.
+	 * Return a new <code>Properties</code> object containing properties prefixed with <code>prefix</code>. If
+	 * <code>prefix</code> is blank, the new properties object duplicates the properties passed in.
 	 */
 	public static final Properties getPrefixedProperties(Properties properties, String prefix) {
 		if (StringUtils.isBlank(prefix)) {
@@ -604,7 +635,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return a new properties object where the keys have been converted to upper case and periods have been replaced with an underscore.
+	 * Return a new properties object where the keys have been converted to upper case and periods have been replaced
+	 * with an underscore.
 	 */
 	public static final Properties reformatKeysAsEnvVars(Properties properties) {
 		Properties newProperties = new Properties();
@@ -617,10 +649,12 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing value, add the
-	 * property. If there is a conflict, check <code>propertyOverwriteMode</code> to make sure we have permission to override the value.
+	 * Before setting the newValue, check to see if there is a conflict with an existing value. If there is no existing
+	 * value, add the property. If there is a conflict, check <code>propertyOverwriteMode</code> to make sure we have
+	 * permission to override the value.
 	 */
-	public static final void addOrOverrideProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode) {
+	public static final void addOrOverrideProperty(Properties properties, String key, String newValue,
+			Mode propertyOverwriteMode) {
 		String oldValue = properties.getProperty(key);
 		if (StringUtils.equals(newValue, oldValue)) {
 			// Nothing to do! New value is the same as old value.
@@ -640,7 +674,8 @@ public class PropertyUtils {
 			// This property already has a value, and it is different from the new value
 			// Check to make sure we are allowed to override the old value before doing so
 			Object[] args = new Object[] { key, Str.flatten(logNewValue), Str.flatten(logOldValue) };
-			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}={}] was [{}]", args, "Override of existing property [" + key + "] is not allowed.");
+			ModeUtils.validate(propertyOverwriteMode, "Overriding [{}={}] was [{}]", args,
+					"Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
 			logger.info("Adding [{}={}]", key, Str.flatten(logNewValue));
@@ -684,7 +719,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * This is private because <code>SortedProperties</code> does not fully honor the contract for <code>Properties</code>
+	 * This is private because <code>SortedProperties</code> does not fully honor the contract for
+	 * <code>Properties</code>
 	 */
 	private static final SortedProperties getSortedProperties(Properties properties) {
 		SortedProperties sp = new PropertyUtils().new SortedProperties();
@@ -693,8 +729,8 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * This is private since it does not honor the full contract for <code>Properties</code>. <code>PropertyUtils</code> uses it internally
-	 * to store properties in sorted order.
+	 * This is private since it does not honor the full contract for <code>Properties</code>. <code>PropertyUtils</code>
+	 * uses it internally to store properties in sorted order.
 	 */
 	private class SortedProperties extends Properties {
 
@@ -717,23 +753,25 @@ public class PropertyUtils {
 		}
 	}
 
-    /**
-     * Set properties in the given Properties to CSV versions of the lists in the ComparisonResults
-     *
-     * @param properties the Properties to populate
-     * @param listComparison the ComparisonResults to use for data
-     * @param propertyNames the list of property keys to set. Exactly 3 names are required, and the assumed order is:
-     *                      index 0: key for the ADDED list
-     *                      index 1: key for the SAME list
-     *                      index 2: key for the DELETED list
-     */
-    public static final void addListComparisonProperties(Properties properties, ComparisonResults listComparison, List<String> propertyNames) {
-        // make sure that there are three names in the list of property names
-        Assert.isTrue(propertyNames.size() == 3);
+	/**
+	 * Set properties in the given Properties to CSV versions of the lists in the ComparisonResults
+	 * 
+	 * @param properties
+	 *            the Properties to populate
+	 * @param listComparison
+	 *            the ComparisonResults to use for data
+	 * @param propertyNames
+	 *            the list of property keys to set. Exactly 3 names are required, and the assumed order is: index 0: key
+	 *            for the ADDED list index 1: key for the SAME list index 2: key for the DELETED list
+	 */
+	public static final void addListComparisonProperties(Properties properties, ComparisonResults listComparison,
+			List<String> propertyNames) {
+		// make sure that there are three names in the list of property names
+		Assert.isTrue(propertyNames.size() == 3);
 
-        properties.setProperty(propertyNames.get(0), CollectionUtils.getCSV(listComparison.getAdded()));
-        properties.setProperty(propertyNames.get(1), CollectionUtils.getCSV(listComparison.getSame()));
-        properties.setProperty(propertyNames.get(2), CollectionUtils.getCSV(listComparison.getDeleted()));
-    }
+		properties.setProperty(propertyNames.get(0), CollectionUtils.getCSV(listComparison.getAdded()));
+		properties.setProperty(propertyNames.get(1), CollectionUtils.getCSV(listComparison.getSame()));
+		properties.setProperty(propertyNames.get(2), CollectionUtils.getCSV(listComparison.getDeleted()));
+	}
 
 }
