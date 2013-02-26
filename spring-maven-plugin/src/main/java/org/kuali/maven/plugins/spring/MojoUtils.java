@@ -15,8 +15,10 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -44,7 +46,21 @@ public class MojoUtils {
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		return PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
+		Properties properties = PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
+		// Explicitly override internal Maven props with system/env props (simulates the default maven behavior)
+		override(properties);
+		return properties;
+	}
+
+	public static void override(Properties properties) {
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		Properties global = PropertyUtils.getGlobalProperties();
+		for (String key : keys) {
+			String globalValue = global.getProperty(key);
+			if (!StringUtils.isBlank(globalValue)) {
+				properties.setProperty(key, globalValue);
+			}
+		}
 	}
 
 	public static Properties getInternalProperties(MavenProject project) {
