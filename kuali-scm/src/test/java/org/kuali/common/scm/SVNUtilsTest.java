@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.externals;
+package org.kuali.common.scm;
 
 import java.io.File;
 
-import org.kuali.common.svn.DefaultScmService;
-import org.kuali.common.svn.ScmService;
+import org.kuali.common.scm.DefaultScmService;
+import org.kuali.common.scm.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

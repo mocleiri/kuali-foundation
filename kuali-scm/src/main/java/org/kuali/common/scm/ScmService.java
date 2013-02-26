@@ -1,4 +1,4 @@
-package org.kuali.common.svn;
+package org.kuali.common.scm;
 
 import java.io.File;
 import java.util.List;
