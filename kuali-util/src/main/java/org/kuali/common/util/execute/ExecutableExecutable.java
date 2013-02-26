@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.execute;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
@@ -22,10 +24,17 @@ import org.springframework.util.Assert;
  */
 public class ExecutableExecutable implements Executable {
 
+	private static final Logger logger = LoggerFactory.getLogger(ExecutableExecutable.class);
+
 	Executable executable;
+	boolean skip;
 
 	@Override
 	public void execute() {
+		if (skip) {
+			logger.info("Skipping execution - {}", executable.getClass());
+			return;
+		}
 		Assert.notNull(executable);
 		executable.execute();
 	}
@@ -36,5 +45,13 @@ public class ExecutableExecutable implements Executable {
 
 	public void setExecutable(Executable executable) {
 		this.executable = executable;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 }
