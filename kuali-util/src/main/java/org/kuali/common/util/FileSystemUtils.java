@@ -16,10 +16,12 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,7 @@ public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
-	public static List<SyncResult> syncFiles(List<SyncRequest> requests) {
+	public static List<SyncResult> syncFiles(List<SyncRequest> requests) throws IOException {
 		List<SyncResult> results = new ArrayList<SyncResult>();
 		for (SyncRequest request : requests) {
 			SyncResult result = syncFiles(request);
@@ -37,7 +39,7 @@ public class FileSystemUtils {
 		return results;
 	}
 
-	public static SyncResult syncFiles(SyncRequest request) {
+	public static SyncResult syncFiles(SyncRequest request) throws IOException {
 		logger.debug("Sync {} -> {}", request.getSrcDir(), request.getDstDir());
 		List<File> dstFiles = getAllFiles(request.getDstDir());
 		List<File> srcFiles = request.getSrcFiles();
@@ -64,11 +66,21 @@ public class FileSystemUtils {
 			}
 		}
 
+		copyFiles(request.getSrcDir(), request.getSrcFiles(), request.getDstDir());
+
 		SyncResult result = new SyncResult();
 		result.setAdds(getFullPaths(request.getDstDir(), adds));
 		result.setUpdates(getFullPaths(request.getDstDir(), updates));
 		result.setDeletes(getFullPaths(request.getDstDir(), deletes));
 		return result;
+	}
+
+	protected static void copyFiles(File srcDir, List<File> files, File dstDir) throws IOException {
+		for (File file : files) {
+			String relativePath = getRelativePath(srcDir, file);
+			File dstFile = new File(dstDir, relativePath);
+			FileUtils.copyFile(file, dstFile);
+		}
 	}
 
 	protected static List<File> getFullPaths(File dir, List<String> relativePaths) {
