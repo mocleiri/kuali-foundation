@@ -52,13 +52,13 @@ public class SyncFilesExecutable implements Executable {
 		logger.info("Files deleted - {}", deletes.size());
 		logger.info("---------- Sync results ----------");
 
-		String addsProp = CollectionUtils.getCSV(adds);
-		String updatesProp = CollectionUtils.getCSV(updates);
-		String deletesProp = CollectionUtils.getCSV(deletes);
+		String addsCSV = CollectionUtils.getCSV(adds);
+		String updatesCSV = CollectionUtils.getCSV(updates);
+		String deletesCSV = CollectionUtils.getCSV(deletes);
 
-		properties.setProperty(addsProperty, addsProp);
-		properties.setProperty(updatesProperty, updatesProp);
-		properties.setProperty(deletesProperty, deletesProp);
+		properties.setProperty(addsProperty, addsCSV);
+		properties.setProperty(updatesProperty, updatesCSV);
+		properties.setProperty(deletesProperty, deletesCSV);
 	}
 
 	public List<ImpexContext> getContexts() {
