@@ -24,8 +24,8 @@ public class SyncFilesExecutable implements Executable {
 			logger.info("Skipping impex file sync");
 			return;
 		}
-		SyncResult result = ImpexUtils.syncFiles(contexts);
-		System.out.println(result);
+		List<SyncResult> results = ImpexUtils.syncFiles(contexts);
+		System.out.println(results);
 	}
 
 	public List<ImpexContext> getContexts() {

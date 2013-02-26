@@ -41,11 +41,14 @@ public class ImpexUtils {
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
 	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
 
-	public static SyncResult syncFiles(List<ImpexContext> contexts) {
+	public static List<SyncResult> syncFiles(List<ImpexContext> contexts) {
 		logger.info("Syncing {} contexts", contexts.size());
 		List<SyncRequest> requests = getSyncRequests(contexts);
-		SyncResult result = FileSystemUtils.syncFiles(requests);
-		return result;
+		try {
+			return FileSystemUtils.syncFiles(requests);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
 	}
 
 	protected static List<SyncRequest> getSyncRequests(List<ImpexContext> contexts) {
@@ -377,7 +380,7 @@ public class ImpexUtils {
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
 		context.setDataLocations(p.getProperty("impex.dataLocations"));
-        context.setTablesXmlLocation(p.getProperty("impex.tablesXmlLocation"));
+		context.setTablesXmlLocation(p.getProperty("impex.tablesXmlLocation"));
 
 		// Default to [artifactId].xml
 		context.setSchemaXmlFile(new File(context.getWorkingDir(), context.getArtifactId() + ".xml"));
