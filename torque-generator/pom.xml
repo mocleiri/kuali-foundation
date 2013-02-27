@@ -128,11 +128,13 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
+    <!--
+      <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-deploy</artifactId>
       <scope>test</scope>
-    </dependency>
+      </dependency>
+    -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
