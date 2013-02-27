@@ -20,7 +20,7 @@ public class SubversionService extends DefaultExecService implements ScmService 
 		}
 		String command = "add";
 		List<String> cpaths = LocationUtils.getCanonicalPaths(paths);
-		List<String> options = Arrays.asList("--force", "--parents");
+		List<String> options = Arrays.asList("--force", "--parents", "--depth", "infinity");
 
 		List<String> arguments = new ArrayList<String>();
 		arguments.add(command);
