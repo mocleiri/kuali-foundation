@@ -17,7 +17,6 @@ package org.kuali.common.impex.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.SQLRecoverableException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,14 +27,11 @@ import org.apache.torque.engine.database.model.Database;
 import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
-import org.kuali.common.jdbc.JdbcException;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.ExecutionStatistics;
-import org.kuali.common.threads.listener.ProgressListener;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +39,7 @@ import org.springframework.util.Assert;
 
 /**
  * Default implementation of the ImpexExecutorService
- * 
+ *
  * @author andrewlubbers
  */
 public class DefaultImpexExecutorService implements ImpexExecutorService {
@@ -53,11 +49,10 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	private JdbcService jdbcService;
 
 	@Override
-	public List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExecutionContext)
-			throws IOException {
+	public List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExecutionContext) throws IOException {
 		Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
 
-        logger.info("Impex Executor data import started");
+		logger.info("Impex Executor data import started");
 
 		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
 		context.setPlatform(platform);
@@ -65,17 +60,16 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 
 		// Print a dot any time we complete 1% of our requests
-        MpxBucketProgressListener progressListener = new MpxBucketProgressListener();
+		MpxBucketProgressListener progressListener = new MpxBucketProgressListener();
 
 		List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
-		List<MpxBucket> mpxBuckets = getMpxBuckets(mpxLocations, context, sqlExecutionContext, importResults,
-				progressListener);
+		List<MpxBucket> mpxBuckets = getMpxBuckets(mpxLocations, context, sqlExecutionContext, importResults, progressListener);
 
 		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = ImpexUtils.invokeThreads(mpxBuckets, new MpxBucketHandler());
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 
-        progressListener.progressCompleted();
+		progressListener.progressCompleted();
 
 		logger.info("Data import completed.  Time: {}", time);
 
@@ -83,8 +77,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	}
 
 	@Override
-	public MpxImportResult importDataLocation(MpxMetaData metaData, ImpexContext context,
-			ExecutionContext sqlExecutionContext) {
+	public MpxImportResult importDataLocation(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext) {
 		List<Table> tables = getTables(context);
 		String filename = LocationUtils.getFilename(metaData.getLocation());
 		logger.debug("Importing " + filename);
@@ -102,9 +95,8 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		throw new IllegalArgumentException("Cannot locate table definition for [" + tableName + "]");
 	}
 
-	protected List<MpxBucket> getMpxBuckets(List<String> locations, ImpexContext context,
-			ExecutionContext sqlExecutionContext, List<MpxImportResult> results, MpxBucketProgressListener progressListener)
-			throws IOException {
+	protected List<MpxBucket> getMpxBuckets(List<String> locations, ImpexContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
+	        MpxBucketProgressListener progressListener) throws IOException {
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getDataThreads(), locations.size());
 
@@ -141,8 +133,8 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 			bucket.setResults(results);
 			bucket.setExecutionContext(sqlExecutionContext);
 
-            // set the progress tracker total to the sum of all row counts for all buckets
-            progressListener.setTotal(progressListener.getTotal() + bucket.getAllRowCounts());
+			// set the progress tracker total to the sum of all row counts for all buckets
+			progressListener.setTotal(progressListener.getTotal() + bucket.getAllRowCounts());
 
 			// Randomize the order in which tables get populated
 			Collections.shuffle(bucket.getMpxBeans());
@@ -151,8 +143,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return buckets;
 	}
 
-	protected MpxImportResult executeSql(ImpexContext context, Table table, MpxMetaData metaData,
-			ExecutionContext sqlExecutionContext) {
+	protected MpxImportResult executeSql(ImpexContext context, Table table, MpxMetaData metaData, ExecutionContext sqlExecutionContext) {
 		SqlProducer sqlProducer = context.getPlatform().getSqlProducer();
 		sqlProducer.setBatchDataSizeLimit(context.getDataSizeInterval());
 		sqlProducer.setBatchRowCountLimit(context.getRowCountInterval());
@@ -207,7 +198,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 			return database.getTables();
 		} catch (Exception e) {
-            logger.info("Execption thrown when processing xml location: " + context.getTablesXmlLocation());
+			logger.info("Execption thrown when processing xml location: " + context.getTablesXmlLocation());
 			throw new IllegalStateException(e);
 		}
 	}
