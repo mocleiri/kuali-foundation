@@ -13,32 +13,60 @@ public class SubversionService extends DefaultExecService implements ScmService 
 	private static final String SVN = "svn";
 
 	@Override
-	public void add(List<File> files) {
-		if (CollectionUtils.isEmpty(files)) {
+	public void add(List<File> paths) {
+		if (CollectionUtils.isEmpty(paths)) {
 			// Nothing to do
 			return;
 		}
 		String command = "add";
-		List<String> paths = LocationUtils.getCanonicalPaths(files);
+		List<String> cpaths = LocationUtils.getCanonicalPaths(paths);
 		List<String> options = Arrays.asList("--force", "--parents");
 
 		List<String> arguments = new ArrayList<String>();
 		arguments.add(command);
-		arguments.addAll(paths);
+		arguments.addAll(cpaths);
 		arguments.addAll(options);
 
 		int exitValue = execute(SVN, arguments);
-		if (exitValue != 0) {
-			throw new IllegalStateException("Non-zero exit value - " + exitValue);
+		validateExitValue(exitValue);
+	}
+
+	@Override
+	public void delete(List<File> paths) {
+		if (CollectionUtils.isEmpty(paths)) {
+			// Nothing to do
+			return;
 		}
+		String command = "delete";
+		List<String> cpaths = LocationUtils.getCanonicalPaths(paths);
+		List<String> options = Arrays.asList("--force");
+
+		List<String> arguments = new ArrayList<String>();
+		arguments.add(command);
+		arguments.addAll(cpaths);
+		arguments.addAll(options);
+
+		int exitValue = execute(SVN, arguments);
+		validateExitValue(exitValue);
 	}
 
 	@Override
-	public void delete(List<File> files) {
-	}
+	public void commit(List<File> paths, String message) {
+		if (CollectionUtils.isEmpty(paths)) {
+			// Nothing to do
+			return;
+		}
+		String command = "commit";
+		List<String> cpaths = LocationUtils.getCanonicalPaths(paths);
+		List<String> options = Arrays.asList("--depth", "infinity", "--message", message);
 
-	@Override
-	public void commit(List<File> paths) {
+		List<String> arguments = new ArrayList<String>();
+		arguments.add(command);
+		arguments.addAll(cpaths);
+		arguments.addAll(options);
+
+		int exitValue = execute(SVN, arguments);
+		validateExitValue(exitValue);
 	}
 
 }

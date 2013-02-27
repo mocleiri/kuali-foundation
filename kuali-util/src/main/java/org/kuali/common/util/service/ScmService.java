@@ -9,6 +9,6 @@ public interface ScmService {
 
 	void delete(List<File> files);
 
-	void commit(List<File> paths);
+	void commit(List<File> paths, String message);
 
 }

@@ -50,7 +50,8 @@ public class DefaultExecService implements ExecService {
 			logger.info("[{}]", cl);
 			StreamConsumer stdout = getStreamConsumer(context.getStandardOutConsumer(), logger, LoggerLevel.INFO);
 			StreamConsumer stderr = getStreamConsumer(context.getStandardErrConsumer(), logger, LoggerLevel.WARN);
-			return CommandLineUtils.executeCommandLine(cl, context.getInput(), stdout, stderr, context.getTimeoutInSeconds());
+			return CommandLineUtils.executeCommandLine(cl, context.getInput(), stdout, stderr,
+					context.getTimeoutInSeconds());
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
 		}
@@ -61,6 +62,12 @@ public class DefaultExecService implements ExecService {
 			return provided;
 		} else {
 			return new LoggingStreamConsumer(logger, level);
+		}
+	}
+
+	protected void validateExitValue(int exitValue) {
+		if (exitValue != 0) {
+			throw new IllegalStateException("Non-zero exit value - " + exitValue);
 		}
 	}
 
