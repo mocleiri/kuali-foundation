@@ -45,6 +45,12 @@ public class DefaultExecService implements ExecService {
 		return execute(context);
 	}
 
+	protected int executeAndValidate(String executable, List<String> args) {
+		int exitValue = execute(executable, args);
+		validateExitValue(exitValue);
+		return exitValue;
+	}
+
 	protected int execute(ExecContext context, Commandline cl) {
 		try {
 			logger.info("[{}]", cl);

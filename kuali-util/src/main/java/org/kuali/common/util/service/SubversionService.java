@@ -27,8 +27,7 @@ public class SubversionService extends DefaultExecService implements ScmService 
 		arguments.addAll(cpaths);
 		arguments.addAll(options);
 
-		int exitValue = execute(SVN, arguments);
-		validateExitValue(exitValue);
+		executeAndValidate(SVN, arguments);
 	}
 
 	@Override
@@ -46,8 +45,7 @@ public class SubversionService extends DefaultExecService implements ScmService 
 		arguments.addAll(cpaths);
 		arguments.addAll(options);
 
-		int exitValue = execute(SVN, arguments);
-		validateExitValue(exitValue);
+		executeAndValidate(SVN, arguments);
 	}
 
 	@Override
@@ -65,8 +63,7 @@ public class SubversionService extends DefaultExecService implements ScmService 
 		arguments.addAll(cpaths);
 		arguments.addAll(options);
 
-		int exitValue = execute(SVN, arguments);
-		validateExitValue(exitValue);
+		executeAndValidate(SVN, arguments);
 	}
 
 }
