@@ -111,7 +111,7 @@ public class FileSystemUtils {
 	}
 
 	protected static List<File> getAllFiles(File dir) {
-		SimpleScanner scanner = new SimpleScanner(dir, Arrays.asList("**/*"), Arrays.asList("**/.svn/*", "**/.git/*"));
+		SimpleScanner scanner = new SimpleScanner(dir, Arrays.asList("**/*"), Arrays.asList("**/.svn", "**/.git"));
 		return scanner.getFiles();
 	}
 
