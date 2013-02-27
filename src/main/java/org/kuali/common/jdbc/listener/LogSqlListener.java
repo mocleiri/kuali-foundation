@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
