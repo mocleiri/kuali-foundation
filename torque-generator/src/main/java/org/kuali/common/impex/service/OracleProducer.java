@@ -126,7 +126,7 @@ public class OracleProducer extends AbstractSqlProducer {
 
 	@Override
 	protected String getEscapedValue(Column column, String token) {
-        if(isColumnClobType(column)) {
+        if(isDataBigClob(token, column)) {
             return token;
         }
         else {
