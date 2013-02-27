@@ -33,7 +33,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>${kuali-util.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
