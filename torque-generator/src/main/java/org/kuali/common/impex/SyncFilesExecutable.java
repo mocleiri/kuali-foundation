@@ -1,16 +1,15 @@
 package org.kuali.common.impex;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SyncResult;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,11 +18,9 @@ public class SyncFilesExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(SyncFilesExecutable.class);
 
 	List<ImpexContext> contexts;
-	Properties properties;
 	boolean skip;
-	String addsProperty = "impex.scm.adds";
-	String updatesProperty = "impex.scm.updates";
-	String deletesProperty = "impex.scm.deletes";
+	ScmService service;
+	String message = "Automated Impex update";
 
 	@Override
 	public void execute() {
@@ -33,42 +30,29 @@ public class SyncFilesExecutable implements Executable {
 		}
 
 		Assert.notNull(contexts);
-		Assert.notNull(properties);
 
-		List<String> adds = new ArrayList<String>();
-		List<String> updates = new ArrayList<String>();
-		List<String> deletes = new ArrayList<String>();
+		List<File> adds = new ArrayList<File>();
+		List<File> deletes = new ArrayList<File>();
 
 		List<SyncResult> results = ImpexUtils.syncFiles(contexts);
 		for (SyncResult result : results) {
-			adds.addAll(LocationUtils.getCanonicalPaths(result.getAdds()));
-			updates.addAll(LocationUtils.getCanonicalPaths(result.getUpdates()));
-			deletes.addAll(LocationUtils.getCanonicalPaths(result.getDeletes()));
+			adds.addAll(result.getAdds());
+			deletes.addAll(result.getDeletes());
+		}
+
+		List<File> directories = new ArrayList<File>();
+		for (ImpexContext context : contexts) {
+			directories.add(context.getFinalDirectory());
 		}
 
 		logger.info("---------- Sync results ----------");
 		logger.info("Files added - {}", adds.size());
-		logger.info("Files updated - {}", updates.size());
 		logger.info("Files deleted - {}", deletes.size());
 		logger.info("---------- Sync results ----------");
 
-		String addsCSV = CollectionUtils.getCSV(adds);
-		String updatesCSV = CollectionUtils.getCSV(updates);
-		String deletesCSV = CollectionUtils.getCSV(deletes);
-
-		if (adds.size() == 0) {
-			properties.setProperty("impex.scm.adds.phase", "none");
-		}
-		if (updates.size() == 0) {
-			properties.setProperty("impex.scm.updates.phase", "none");
-		}
-		if (deletes.size() == 0) {
-			properties.setProperty("impex.scm.deletes.phase", "none");
-		}
-
-		properties.setProperty(addsProperty, addsCSV);
-		properties.setProperty(updatesProperty, updatesCSV);
-		properties.setProperty(deletesProperty, deletesCSV);
+		service.add(adds);
+		service.delete(deletes);
+		service.commit(directories, message);
 	}
 
 	public List<ImpexContext> getContexts() {
@@ -79,14 +63,6 @@ public class SyncFilesExecutable implements Executable {
 		this.contexts = contexts;
 	}
 
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-
 	public boolean isSkip() {
 		return skip;
 	}
@@ -95,28 +71,20 @@ public class SyncFilesExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public String getAddsProperty() {
-		return addsProperty;
+	public ScmService getService() {
+		return service;
 	}
 
-	public void setAddsProperty(String addsProperty) {
-		this.addsProperty = addsProperty;
+	public void setService(ScmService service) {
+		this.service = service;
 	}
 
-	public String getUpdatesProperty() {
-		return updatesProperty;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setUpdatesProperty(String updatesProperty) {
-		this.updatesProperty = updatesProperty;
-	}
-
-	public String getDeletesProperty() {
-		return deletesProperty;
-	}
-
-	public void setDeletesProperty(String deletesProperty) {
-		this.deletesProperty = deletesProperty;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }
