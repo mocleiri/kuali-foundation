@@ -1,22 +1,18 @@
 package org.kuali.common.impex.service;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.torque.engine.database.model.Column;
-import org.apache.torque.engine.database.model.SchemaType;
-import org.apache.torque.engine.database.model.Table;
-import org.kuali.common.util.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OracleProducer extends AbstractSqlProducer {
+import org.apache.commons.lang.StringUtils;
+import org.apache.torque.engine.database.model.Column;
+import org.apache.torque.engine.database.model.SchemaType;
+import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.util.CollectionUtils;
 
-    private static final Logger logger = LoggerFactory.getLogger(OracleProducer.class);
+public class OracleProducer extends AbstractSqlProducer {
 
 	private static final String INSERT_PREFIX = "INSERT ALL\n";
 	private static final String INDENT = "  ";
@@ -62,7 +58,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		StringBuilder sqlBuilder = new StringBuilder();
 		String line = readLineSkipHeader(reader);
 		int rowCount = 0;
-        sqlBuilder.append(INSERT_PREFIX);
+		sqlBuilder.append(INSERT_PREFIX);
 
 		// Iterate through the .mpx file
 		for (;;) {
@@ -78,7 +74,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			sqlBuilder.append(buildBatchSql(table, rowBeans));
 			rowCount++;
 
-            // if the table has any CLOB columns, we need to handle those separately
+			// if the table has any CLOB columns, we need to handle those separately
 			if (hasClobColumns) {
 				List<DataBean> clobs = new ArrayList<DataBean>();
 				List<DataBean> primaryKeys = new ArrayList<DataBean>();
@@ -126,20 +122,19 @@ public class OracleProducer extends AbstractSqlProducer {
 
 	@Override
 	protected String getEscapedValue(Column column, String token) {
-        if(isDataBigClob(token, column)) {
-            return token;
-        }
-        else {
-		    String escaped = StringUtils.replace(token, "'", "''");
-		    return "'" + escaped + "'";
-        }
+		if (isDataBigClob(token, column)) {
+			return token;
+		} else {
+			String escaped = StringUtils.replace(token, "'", "''");
+			return "'" + escaped + "'";
+		}
 	}
 
 	protected boolean isColumnClobType(Column column) {
 		return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
 	}
 
-    protected String buildClobBatches(Table table, List<LongClobRow> longClobRows) {
+	protected String buildClobBatches(Table table, List<LongClobRow> longClobRows) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
 
@@ -177,7 +172,7 @@ public class OracleProducer extends AbstractSqlProducer {
 
 	}
 
-    protected String buildClobHeader(List<String> dataChunks, DataBean data) {
+	protected String buildClobHeader(List<String> dataChunks, DataBean data) {
 		StringBuilder headerBuilder = new StringBuilder();
 		headerBuilder.append(CLOB_LENGTH_COMMENT).append(data.getValue().length()).append(LF);
 		headerBuilder.append(CLOB_CHUNKS_COMMENT).append(dataChunks.size()).append(LF);
@@ -193,7 +188,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	 *            the full data string
 	 * @return a list of strings representing the full data split into chunks
 	 */
-    protected List<String> chunkClob(String value) {
+	protected List<String> chunkClob(String value) {
 		List<String> results = new ArrayList<String>();
 
 		String currentValue = value;
@@ -213,7 +208,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		return results;
 	}
 
-    protected String buildBatchSql(Table table, List<DataBean> dataBeans) {
+	protected String buildBatchSql(Table table, List<DataBean> dataBeans) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
 
@@ -232,7 +227,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		return sqlBuilder.toString();
 	}
 
-    protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
+	protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
 		StringBuilder result = new StringBuilder();
 
 		if (data.getDateValue() != null) {
@@ -244,27 +239,27 @@ public class OracleProducer extends AbstractSqlProducer {
 		else if (isDataBigClob(data.getValue(), data.getColumn())) {
 			result.append(CLOB_PLACEHOLDER);
 		}
-        // if the data type is CLOB and the value is null, return the EMPTY_CLOB placeholder, since Oracle doesn't like NULL in a CLOB column
-        else if(isColumnClobType(data.getColumn()) && data.getValue() == null) {
-            result.append(CLOB_PLACEHOLDER);
-        }
-        else {
+		// if the data type is CLOB and the value is null, return the EMPTY_CLOB placeholder, since Oracle doesn't like NULL in a CLOB
+		// column
+		else if (isColumnClobType(data.getColumn()) && data.getValue() == null) {
+			result.append(CLOB_PLACEHOLDER);
+		} else {
 			result.append(data.getValue());
 		}
 
 		return result.toString();
 	}
 
-    protected class LongClobRow {
+	protected class LongClobRow {
 		List<DataBean> longClobs;
 		List<DataBean> primaryKeys;
 	}
 
-    protected boolean isDataBigClob(String value, Column column) {
-        if(value == null) {
-            return false;
-        }
+	protected boolean isDataBigClob(String value, Column column) {
+		if (value == null) {
+			return false;
+		}
 
-        return isColumnClobType(column) && value.length() > CLOB_BATCH_SIZE;
-    }
+		return isColumnClobType(column) && value.length() > CLOB_BATCH_SIZE;
+	}
 }
