@@ -39,7 +39,7 @@ public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 		case GIT:
 			throw new IllegalArgumentException("GIT support is coming soon!");
 		default:
-			throw new IllegalArgumentException("SCM type " + scmType + " is unknown");
+			throw new IllegalArgumentException("SCM type [" + scmType + "] is unknown");
 		}
 	}
 
