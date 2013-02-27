@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 
@@ -54,6 +55,7 @@ public class SubversionService extends DefaultExecService implements ScmService 
 			// Nothing to do
 			return;
 		}
+		Assert.notBlank(message, "Commit message is blank");
 		String command = "commit";
 		List<String> cpaths = LocationUtils.getCanonicalPaths(paths);
 		List<String> options = Arrays.asList("--depth", "infinity", "--message", message);
