@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SyncResult;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.service.ScmService;
@@ -40,9 +41,13 @@ public class SyncFilesExecutable implements Executable {
 			deletes.addAll(result.getDeletes());
 		}
 
-		List<File> directories = new ArrayList<File>();
+		List<File> paths = new ArrayList<File>();
 		for (ImpexContext context : contexts) {
-			directories.add(context.getFinalDirectory());
+			paths.add(context.getFinalDirectory());
+		}
+		File databasePropertiesFile = getDatabasePropertiesFile(contexts);
+		if (databasePropertiesFile != null) {
+			paths.add(databasePropertiesFile);
 		}
 
 		logger.info("---------- Sync results ----------");
@@ -52,7 +57,19 @@ public class SyncFilesExecutable implements Executable {
 
 		service.add(adds);
 		service.delete(deletes);
-		service.commit(directories, message);
+		service.commit(paths, message);
+	}
+
+	protected File getDatabasePropertiesFile(List<ImpexContext> contexts) {
+		for (ImpexContext context : contexts) {
+			if (context.isStoreDatabaseTableProperties()) {
+				String location = context.getDatabaseTablePropertiesLocation();
+				if (LocationUtils.isExistingFile(location)) {
+					return new File(location);
+				}
+			}
+		}
+		return null;
 	}
 
 	public List<ImpexContext> getContexts() {
