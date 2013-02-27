@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.threads.listener.ProgressListener;
 
 /**
  * @author andrewlubbers
@@ -28,7 +28,7 @@ public class MpxBucket implements Comparable<MpxBucket> {
 
 	ImpexContext context;
 	ImpexExecutorService service;
-	PercentCompleteInformer progressTracker;
+	ProgressListener<MpxBucket> progressListener;
 	List<MpxImportResult> results;
 	List<MpxMetaData> mpxBeans = new ArrayList<MpxMetaData>();
 	Long allRowCounts = 0l;
@@ -55,12 +55,12 @@ public class MpxBucket implements Comparable<MpxBucket> {
 		this.allRowCounts = allRowCounts;
 	}
 
-	public PercentCompleteInformer getProgressTracker() {
-		return progressTracker;
+	public ProgressListener<MpxBucket> getProgressListener() {
+		return progressListener;
 	}
 
-	public void setProgressTracker(PercentCompleteInformer progressTracker) {
-		this.progressTracker = progressTracker;
+	public void setProgressListener(ProgressListener<MpxBucket> progressListener) {
+		this.progressListener = progressListener;
 	}
 
 	public List<MpxImportResult> getResults() {

@@ -43,7 +43,10 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 			synchronized (results) {
 				results.add(result);
 			}
-			logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (secon: "
+
+            mpxBucket.getProgressListener().progressOccurred((int)metaData.getRowCount(), 0, null);
+
+			logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (seconds): "
 					+ (result.getElapsed() / 1000.0));
 		}
 	}
