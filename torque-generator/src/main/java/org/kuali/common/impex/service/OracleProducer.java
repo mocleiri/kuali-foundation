@@ -243,7 +243,12 @@ public class OracleProducer extends AbstractSqlProducer {
 		// if the data type is CLOB, and the data is longer than the batch size, the value should be handled by the CLOB-splitting code
 		else if (isDataBigClob(data.getValue(), data.getColumn())) {
 			result.append(CLOB_PLACEHOLDER);
-		} else {
+		}
+        // if the data type is CLOB and the value is null, return the EMPTY_CLOB placeholder, since Oracle doesn't like NULL in a CLOB column
+        else if(isColumnClobType(data.getColumn()) && data.getValue() == null) {
+            result.append(CLOB_PLACEHOLDER);
+        }
+        else {
 			result.append(data.getValue());
 		}
 
