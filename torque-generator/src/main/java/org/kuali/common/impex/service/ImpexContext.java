@@ -54,7 +54,7 @@ public class ImpexContext {
 	boolean storeDatabaseTableProperties;
 	File finalDirectory;
 	boolean copyDataFiles = true;
-	String dataLocations;
+	List<String> dataLocations;
     private String tablesXmlLocation;
 
     public boolean isProcessTables() {
@@ -361,11 +361,11 @@ public class ImpexContext {
 		this.copyDataFiles = copyDataFiles;
 	}
 
-	public String getDataLocations() {
+	public List<String> getDataLocations() {
 		return dataLocations;
 	}
 
-	public void setDataLocations(String dataLocations) {
+	public void setDataLocations(List<String> dataLocations) {
 		this.dataLocations = dataLocations;
 	}
 

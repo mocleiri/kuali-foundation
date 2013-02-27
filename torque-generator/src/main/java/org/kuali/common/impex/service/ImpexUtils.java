@@ -379,7 +379,7 @@ public class ImpexUtils {
 		context.setBaseDir(new File(p.getProperty("project.basedir")));
 		context.setBuildDir(new File(p.getProperty("project.build.directory")));
 		context.setDatabaseTablePropertiesLocation(p.getProperty("impex.databaseTablePropertiesFile"));
-		context.setDataLocations(p.getProperty("impex.dataLocations"));
+		context.setDataLocations(CollectionUtils.getTrimmedListFromCSV(p.getProperty("impex.dataLocations")));
 		context.setTablesXmlLocation(p.getProperty("impex.tablesXmlLocation"));
 
 		// Default to [artifactId].xml
