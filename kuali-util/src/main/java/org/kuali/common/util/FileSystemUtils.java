@@ -40,7 +40,7 @@ public class FileSystemUtils {
 	}
 
 	public static SyncResult syncFiles(SyncRequest request) throws IOException {
-		logger.debug("Sync {} -> {}", request.getSrcDir(), request.getDstDir());
+		logger.info("Sync {} -> {}", request.getSrcDir(), request.getDstDir());
 		List<File> dstFiles = getAllFiles(request.getDstDir());
 		List<File> srcFiles = request.getSrcFiles();
 
