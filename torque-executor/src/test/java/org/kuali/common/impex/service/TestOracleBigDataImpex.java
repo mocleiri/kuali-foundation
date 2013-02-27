@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
@@ -30,11 +31,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Test sql executor with big data set
- * 
+ *
  * @author andrewlubbers
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:impex/oracle-impex-context.xml" })
+@Ignore
 public class TestOracleBigDataImpex {
 
 	private static final Logger logger = LoggerFactory.getLogger(TestOracleBigDataImpex.class);

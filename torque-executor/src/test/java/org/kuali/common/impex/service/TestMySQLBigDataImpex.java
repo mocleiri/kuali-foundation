@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.service;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,9 +24,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author andrewlubbers
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:impex/mysql-impex-context.xml"})
+@ContextConfiguration(locations = { "classpath:impex/mysql-impex-context.xml" })
+@Ignore
 public class TestMySQLBigDataImpex extends TestOracleBigDataImpex {
-
-
 
 }

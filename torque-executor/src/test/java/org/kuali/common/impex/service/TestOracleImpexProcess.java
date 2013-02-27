@@ -15,6 +15,11 @@
 
 package org.kuali.common.impex.service;
 
+import java.util.Properties;
+
+import javax.annotation.Resource;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
@@ -24,90 +29,94 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-import java.util.Properties;
-
 /**
  * This class tests the impex process from a sample db
  *
  * @author andrewlubbers
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:mpxTests/oracle-impex-context.xml"})
+@ContextConfiguration(locations = { "classpath:mpxTests/oracle-impex-context.xml" })
+@Ignore
 public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestOracleImpexProcess.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestOracleImpexProcess.class);
 
-    @Resource
-    protected ImpexContext impexContext;
+	@Resource
+	protected ImpexContext impexContext;
 
-    @Resource
-    protected DatabaseResetExecutable resetExec;
+	@Resource
+	protected DatabaseResetExecutable resetExec;
 
-    @Resource
-    protected Properties cleanDatabaseProperties;
+	@Resource
+	protected Properties cleanDatabaseProperties;
 
-    @Resource
-    protected ImpexExecutorService impexExecutorService;
+	@Resource
+	protected ImpexExecutorService impexExecutorService;
 
-    @Resource
-    protected ImpexGeneratorService impexService;
+	@Resource
+	protected ImpexGeneratorService impexService;
 
-    @Resource
-    protected ExecutionContext sqlExecutionContext;
+	@Resource
+	protected ExecutionContext sqlExecutionContext;
 
-    @Test
-    public void test() throws Exception {
-        logger.info("Starting database dump");
+	@Test
+	public void test() throws Exception {
+		logger.info("Starting database dump");
 
-        doTest();
-    }
+		doTest();
+	}
 
+	@Override
     public Properties getCleanDatabaseProperties() {
-        return cleanDatabaseProperties;
-    }
+		return cleanDatabaseProperties;
+	}
 
-    public void setCleanDatabaseProperties(Properties cleanDatabaseProperties) {
-        this.cleanDatabaseProperties = cleanDatabaseProperties;
-    }
+	public void setCleanDatabaseProperties(Properties cleanDatabaseProperties) {
+		this.cleanDatabaseProperties = cleanDatabaseProperties;
+	}
 
+	@Override
     public ImpexContext getImpexContext() {
-        return impexContext;
-    }
+		return impexContext;
+	}
 
-    public void setImpexContext(ImpexContext impexContext) {
-        this.impexContext = impexContext;
-    }
+	public void setImpexContext(ImpexContext impexContext) {
+		this.impexContext = impexContext;
+	}
 
+	@Override
     public ImpexExecutorService getImpexExecutorService() {
-        return impexExecutorService;
-    }
+		return impexExecutorService;
+	}
 
-    public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
-        this.impexExecutorService = impexExecutorService;
-    }
+	public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
+		this.impexExecutorService = impexExecutorService;
+	}
 
+	@Override
     public ImpexGeneratorService getImpexService() {
-        return impexService;
-    }
+		return impexService;
+	}
 
-    public void setImpexService(ImpexGeneratorService impexService) {
-        this.impexService = impexService;
-    }
+	public void setImpexService(ImpexGeneratorService impexService) {
+		this.impexService = impexService;
+	}
 
+	@Override
     public DatabaseResetExecutable getResetExec() {
-        return resetExec;
-    }
+		return resetExec;
+	}
 
-    public void setResetExec(DatabaseResetExecutable resetExec) {
-        this.resetExec = resetExec;
-    }
+	public void setResetExec(DatabaseResetExecutable resetExec) {
+		this.resetExec = resetExec;
+	}
 
+	@Override
     public ExecutionContext getSqlExecutionContext() {
-        return sqlExecutionContext;
-    }
+		return sqlExecutionContext;
+	}
 
-    public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
-        this.sqlExecutionContext = sqlExecutionContext;
-    }
+	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
+		this.sqlExecutionContext = sqlExecutionContext;
+	}
 }
