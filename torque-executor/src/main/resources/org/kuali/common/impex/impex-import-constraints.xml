@@ -25,7 +25,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <util:properties id="import.constraints.properties">
-    <prop key="sql.constraints.1">${impex.import.constraintsql }</prop>
+    <prop key="sql.constraints.1">${impex.import.constraintsql}</prop>
     <prop key="sql.constraints.concurrent">sql.constraints.1</prop>
   </util:properties>
 
