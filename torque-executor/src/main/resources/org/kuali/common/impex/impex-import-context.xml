@@ -28,4 +28,27 @@
   <import resource="classpath:org/kuali/common/impex/impex-import-schema.xml" />
   <import resource="classpath:org/kuali/common/impex/impex-import-constraints.xml" />
 
+  <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexExecutorService">
+    <property name="jdbcService" ref="jdbcService" />
+  </bean>
+
+  <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService" />
+
+  <bean id="jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="import.dataSource" />
+  </bean>
+
+  <bean id="sqlExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+    <property name="jdbcContext" ref="jdbcContext" />
+    <property name="reader">
+      <bean class="org.kuali.common.jdbc.DefaultSqlReader" />
+    </property>
+  </bean>
+
+  <bean id="importExecutable" class="org.kuali.common.impex.service.ImportExecutable">
+    <property name="service" ref="impexService" />
+    <property name="sqlExecutionContext" ref="sqlExecutionContext" />
+    <property name="sourceContext" ref="sourceContext" />
+  </bean>
+
 </beans>
