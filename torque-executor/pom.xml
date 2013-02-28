@@ -83,7 +83,7 @@
         <includes>
           <include>**/mpxTests/common-impex-context.xml</include>
           <include>**/impex/common-impex-bigdata-context.xml</include>
-          <include>**/mpxTests/mpxLocations.properties</include>
+          <include>**/mpxTests/mpxLocations.resources</include>
         </includes>
       </testResource>
       <testResource>
@@ -92,7 +92,7 @@
         <excludes>
           <exclude>**/mpxTests/common-impex-context.xml</exclude>
           <exclude>**/impex/common-impex-bigdata-context.xml</exclude>
-          <exclude>**/mpxTests/mpxLocations.properties</exclude>
+          <exclude>**/mpxTests/mpxLocations.resources</exclude>
         </excludes>
       </testResource>
     </testResources>

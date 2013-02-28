@@ -17,8 +17,8 @@ public interface ImpexExecutorService {
      *
      * @param context contains the database connection context and other meta information
      */
-    List<MpxImportResult> importData(ImpexContext context, ExecutionContext sqlExectuionContext) throws IOException;
+    List<MpxImportResult> importData(ImportContext context, ExecutionContext sqlExectuionContext) throws IOException;
 
-    MpxImportResult importDataLocation(MpxMetaData metaData, ImpexContext context, ExecutionContext sqlExecutionContext);
+    MpxImportResult importDataLocation(MpxMetaData metaData, ImportContext context, ExecutionContext sqlExecutionContext);
 
 }

@@ -48,7 +48,13 @@
   <bean id="importExecutable" class="org.kuali.common.impex.service.ImportExecutable">
     <property name="service" ref="impexService" />
     <property name="sqlExecutionContext" ref="sqlExecutionContext" />
-    <property name="sourceContext" ref="sourceContext" />
+    <property name="context" ref="importContext" />
+  </bean>
+
+  <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
+    <property name="databaseVendor" value="${db.vendor}"/>
+    <property name="dataLocations" value="${impex.import.dataLocations}"/>
+    <property name="schemaXmlLocation" value="classpath:${project.artifactId}.xml"/>
   </bean>
 
   <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
@@ -62,8 +68,6 @@
         <prop key="impex.workingDir">${project.basedir}/src/main/resources</prop>
         <prop key="impex.table.includes">.*</prop>
         <prop key="impex.databaseTablePropertiesFile">none.properties</prop>
-        <prop key="impex.dataLocations">${impex.import.dataLocations}</prop>
-        <prop key="impex.tablesXmlLocation">${project.basedir}/src/main/resources/${project.artifactId}.xml</prop>
       </util:properties>
     </property>
   </bean>

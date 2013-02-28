@@ -5,7 +5,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.Project;
 import org.apache.torque.engine.database.model.Column;
-import org.apache.torque.engine.database.model.Database;
 import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.database.model.TypeMap;
 import org.apache.torque.engine.platform.Platform;
@@ -39,7 +38,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.core.db.torque.ImpexDTDResolver;
-import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.kuali.core.db.torque.StringFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,42 +83,6 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		return table.getColumns();
 	}
 
-	protected void trimQuotes(String[] tokens) {
-		for (int i = 0; i < tokens.length; i++) {
-			String token = tokens[i];
-			int length = token.length();
-			if (StringUtils.startsWith(token, "\"")) {
-				token = StringUtils.substring(token, 1);
-			}
-			if (StringUtils.endsWith(token, "\"")) {
-				token = StringUtils.substring(token, 0, length - 1);
-			}
-			tokens[i] = token;
-		}
-	}
-
-	protected void unformat(String[] tokens) {
-		for (int i = 0; i < tokens.length; i++) {
-			tokens[i] = ImpexUtils.parse(tokens[i]);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	protected List<Table> getTables(ImpexContext context) {
-		try {
-			// Get an xml parser for schema.xml
-			KualiXmlToAppData xmlParser = new KualiXmlToAppData(context.getDatabaseVendor(), "");
-
-			// Parse schema.xml into a database object
-			String location = context.getWorkingDir() + "/" + context.getArtifactId() + ".xml";
-			Database database = xmlParser.parseResource(location);
-
-			return database.getTables();
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
 	/**
 	 * Convert the data from the row into String form
 	 */
@@ -145,32 +107,6 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 			data[i] = getColumnValueAsString(dateFormat, rs, resultSetColumnIndex, column, rowCount, tableName);
 		}
 		return data;
-	}
-
-	/**
-	 * Escape characters that would cause issues for XML parsers
-	 */
-	protected String xmlEscape(final String st) {
-		StringBuffer buff = new StringBuffer();
-		char[] block = st.toCharArray();
-		String stEntity = null;
-		int i, last;
-
-		for (i = 0, last = 0; i < block.length; i++) {
-			if (XMLChar.isInvalid(block[i])) {
-				stEntity = " ";
-			}
-			if (stEntity != null) {
-				buff.append(block, last, i - last);
-				buff.append(stEntity);
-				stEntity = null;
-				last = i + 1;
-			}
-		}
-		if (last < block.length) {
-			buff.append(block, last, i - last);
-		}
-		return buff.toString();
 	}
 
 	/**
@@ -336,7 +272,7 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 	}
 
 	protected void store(Properties properties, File file) {
-		OutputStream out = null;
+		OutputStream out;
 		try {
 			out = FileUtils.openOutputStream(file);
 			properties.store(out, null);
@@ -1034,10 +970,6 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 			closeQuietly(pkInfo);
 		}
 		return null;
-	}
-
-	protected List<String> getPrimaryKeys(Platform platform, DatabaseMetaData metaData, String table, String schema) throws SQLException {
-		return platform.getPrimaryKeys(metaData, schema, table);
 	}
 
 	protected Index getTableIndex(ResultSet indexInfo, String pkName) throws SQLException {

@@ -42,7 +42,7 @@ public class TestOracleBigDataImpex {
 	private static final Logger logger = LoggerFactory.getLogger(TestOracleBigDataImpex.class);
 
 	@Resource
-	protected ImpexContext impexContext;
+	protected ImportContext importContext;
 
 	@Resource
 	protected DatabaseResetExecutable resetExec;
@@ -56,7 +56,6 @@ public class TestOracleBigDataImpex {
 	@Test
 	public void test() throws IOException {
 		logger.debug("");
-		ImpexUtils.log(getImpexContext());
 
 		// clear db of data
 		getResetExec().execute();
@@ -64,15 +63,15 @@ public class TestOracleBigDataImpex {
 		// List<ImpexContext> contexts = Collections.singletonList(getImpexContext());
 
 		// import the data from the generated mpx files
-		getImpexExecutorService().importData(getImpexContext(), getSqlExecutionContext());
+		getImpexExecutorService().importData(getImportContext(), getSqlExecutionContext());
 	}
 
-	public ImpexContext getImpexContext() {
-		return impexContext;
+	public ImportContext getImportContext() {
+		return importContext;
 	}
 
-	public void setImpexContext(ImpexContext impexContext) {
-		this.impexContext = impexContext;
+	public void setImportContext(ImportContext importContext) {
+		this.importContext = importContext;
 	}
 
 	public ImpexExecutorService getImpexExecutorService() {

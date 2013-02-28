@@ -55,6 +55,9 @@ public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
 	@Resource
 	protected ExecutionContext sqlExecutionContext;
 
+    @Resource
+    protected ImportContext importContext;
+
 	private static final Logger logger = LoggerFactory.getLogger(TestMySQLImpexProcess.class);
 
 	@Test
@@ -117,4 +120,13 @@ public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
 	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
 		this.sqlExecutionContext = sqlExecutionContext;
 	}
+
+    @Override
+    public ImportContext getImportContext() {
+        return importContext;
+    }
+
+    public void setImportContext(ImportContext importContext) {
+        this.importContext = importContext;
+    }
 }

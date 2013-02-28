@@ -26,7 +26,7 @@ import org.kuali.common.threads.listener.ProgressListener;
  */
 public class MpxBucket implements Comparable<MpxBucket> {
 
-	ImpexContext context;
+	ImportContext context;
 	ImpexExecutorService service;
 	ProgressListener<MpxBucket> progressListener;
 	List<MpxImportResult> results;
@@ -39,11 +39,11 @@ public class MpxBucket implements Comparable<MpxBucket> {
 		return allRowCounts.compareTo(o.getAllRowCounts());
 	}
 
-	public ImpexContext getContext() {
+	public ImportContext getContext() {
 		return context;
 	}
 
-	public void setContext(ImpexContext context) {
+	public void setContext(ImportContext context) {
 		this.context = context;
 	}
 

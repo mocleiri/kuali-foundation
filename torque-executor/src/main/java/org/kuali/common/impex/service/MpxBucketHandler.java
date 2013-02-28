@@ -33,7 +33,7 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 	@Override
 	public void handleElement(ListIteratorContext<MpxBucket> mpxBucketListIteratorContext, int i, MpxBucket mpxBucket) {
 		ImpexExecutorService service = mpxBucket.getService();
-		ImpexContext context = mpxBucket.getContext();
+        ImportContext context = mpxBucket.getContext();
 
 		List<MpxImportResult> results = mpxBucket.getResults();
 
@@ -44,7 +44,7 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 				results.add(result);
 			}
 
-            mpxBucket.getProgressListener().progressOccurred((int)metaData.getRowCount(), 0, null);
+            mpxBucket.getProgressListener().progressOccurred(metaData.getRowCount(), 0, null);
 
 			logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (seconds): "
 					+ (result.getElapsed() / 1000.0));

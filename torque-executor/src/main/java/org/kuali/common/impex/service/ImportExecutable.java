@@ -31,21 +31,20 @@ public class ImportExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(ImportExecutable.class);
 
 	ImpexExecutorService service;
-	ImpexContext sourceContext;
+	ImportContext context;
 	ExecutionContext sqlExecutionContext;
 
 	@Override
 	public void execute() {
-		Assert.notNull(sourceContext);
+		Assert.notNull(context);
 		Assert.notNull(service);
 		Assert.notNull(sqlExecutionContext);
 
 		logger.info("Starting Import");
-		ImpexUtils.log(sourceContext);
 
 		// import the data from the generated mpx files
 		try {
-			service.importData(sourceContext, sqlExecutionContext);
+			service.importData(context, sqlExecutionContext);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
@@ -60,12 +59,12 @@ public class ImportExecutable implements Executable {
 		this.service = service;
 	}
 
-	public ImpexContext getSourceContext() {
-		return sourceContext;
+	public ImportContext getContext() {
+		return context;
 	}
 
-	public void setSourceContext(ImpexContext sourceContext) {
-		this.sourceContext = sourceContext;
+	public void setContext(ImportContext context) {
+		this.context = context;
 	}
 
 	public ExecutionContext getSqlExecutionContext() {

@@ -180,13 +180,18 @@
         <prop key="impex.workingDir">${project.build.directory}/impex</prop>
         <prop key="impex.table.includes">.*</prop>
         <prop key="impex.databaseTablePropertiesFile">${project.basedir}/src/main/resources/${project.artifactId}.properties</prop>
-        <prop key="impex.dataLocations">classpath:mpxTests/mpxLocations.properties</prop>
         <prop key="impex.tablesXmlLocation">${project.build.directory}/impex/${project.artifactId}.xml</prop>
     </util:properties>
 
     <bean id="impexContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
         <property name="properties" ref="impexContextProperties"/>
         <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
+        <property name="databaseVendor" value="#{databaseProcessContext.vendor}"/>
+        <property name="dataLocations" value="classpath:mpxTests/mpxLocations.resources"/>
+        <property name="schemaXmlLocation" value="${project.build.directory}/impex/${project.artifactId}.xml"/>
     </bean>
 
     <bean id="jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">

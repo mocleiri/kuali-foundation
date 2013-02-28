@@ -126,7 +126,7 @@ public abstract class AbstractTestImpexProcess {
         getResetExec().execute();
 
         // import the data from the generated mpx files
-        getImpexExecutorService().importData(getImpexContext(), getSqlExecutionContext());
+        getImpexExecutorService().importData(getImportContext(), getSqlExecutionContext());
 
         // dump the tables again to compare the results
         List<DumpTableResult> secondaryLoadResults = getImpexService().dumpTables(getImpexContext(), database);
@@ -141,6 +141,8 @@ public abstract class AbstractTestImpexProcess {
     public abstract Properties getCleanDatabaseProperties();
 
     public abstract ImpexContext getImpexContext();
+
+    public abstract ImportContext getImportContext();
 
     public abstract ImpexExecutorService getImpexExecutorService();
 
