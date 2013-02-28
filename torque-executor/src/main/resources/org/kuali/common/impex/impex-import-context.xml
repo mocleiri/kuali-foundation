@@ -51,10 +51,14 @@
     <property name="context" ref="importContext" />
   </bean>
 
+  <bean id="importDataLocations" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+    <property name="csv" value="${impex.import.dataLocations}" />
+  </bean>
+
   <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
-    <property name="databaseVendor" value="${db.vendor}"/>
-    <property name="dataLocations" value="${impex.import.dataLocations}"/>
-    <property name="schemaXmlLocation" value="classpath:${project.artifactId}.xml"/>
+    <property name="databaseVendor" value="${db.vendor}" />
+    <property name="dataLocations" ref="importDataLocations" />
+    <property name="schemaXmlLocation" value="classpath:${project.artifactId}.xml" />
   </bean>
 
   <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
