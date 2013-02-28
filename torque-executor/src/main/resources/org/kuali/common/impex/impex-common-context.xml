@@ -52,6 +52,7 @@
     <value>mysql.*</value>
     <value>h2.*</value>
     <value>sql.*</value>
+    <value>impex.*</value>
   </util:list>
 
   <bean id="importCommonProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
