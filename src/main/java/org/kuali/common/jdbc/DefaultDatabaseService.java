@@ -41,8 +41,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultDatabaseService implements DatabaseService {
-	private static final Logger logger = LoggerFactory
-			.getLogger(DefaultDatabaseService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseService.class);
 	private static final String CONCURRENT = "concurrent";
 	private static final String SEQUENTIAL = "sequential";
 	private static final String MESSAGE = "message";
@@ -53,48 +52,29 @@ public class DefaultDatabaseService implements DatabaseService {
 	public void reset(DatabaseResetContext context) {
 		DatabaseProcessContext dpc = context.getDatabaseProcessContext();
 		logger.info("------------------------------------------------------------------------");
-		logger.info("Reset Database - {}", context.getDatabaseProcessContext()
-				.getUrl());
+		logger.info("Reset Database - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("------------------------------------------------------------------------");
-		logger.info("Vendor - {}", context.getDatabaseProcessContext()
-				.getVendor());
+		logger.info("Vendor - {}", context.getDatabaseProcessContext().getVendor());
 		logger.info("URL - {}", context.getDatabaseProcessContext().getUrl());
 		logger.info("User - {}", LoggerUtils.getUsername(dpc.getUsername()));
-		logger.info("Password - {}",
-				LoggerUtils.getPassword(dpc.getUsername(), dpc.getPassword()));
-		logger.info("DBA URL - {}", context.getDatabaseProcessContext()
-				.getDbaUrl());
-		logger.info("DBA User - {}",
-				LoggerUtils.getUsername(dpc.getDbaUsername()));
-		logger.info(
-				"DBA Password - {}",
-				LoggerUtils.getPassword(dpc.getDbaUsername(),
-						dpc.getDbaPassword()));
-		JdbcMetaData metadata = context.getService().getJdbcMetaData(
-				context.getDbaJdbcContext().getDataSource());
+		logger.info("Password - {}", LoggerUtils.getPassword(dpc.getUsername(), dpc.getPassword()));
+		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
+		logger.info("DBA User - {}", LoggerUtils.getUsername(dpc.getDbaUsername()));
+		logger.info("DBA Password - {}", LoggerUtils.getPassword(dpc.getDbaUsername(), dpc.getDbaPassword()));
+		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
-		logger.info("Product Version - {}",
-				metadata.getDatabaseProductVersion());
-		logger.info("Driver - {}", context.getDatabaseProcessContext()
-				.getDriver());
+		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
+		logger.info("Driver - {}", context.getDatabaseProcessContext().getDriver());
 		logger.info("Driver Name - {}", metadata.getDriverName());
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		logger.info("------------------------------------------------------------------------");
 
 		int threads = context.getThreads();
-		List<ExecutionContext> schemas = getExecutionContexts(
-				context.getSchemaPropertyPrefix(), threads,
-				context.getProperties());
-		List<ExecutionContext> data = getExecutionContexts(
-				context.getDataPropertyPrefix(), threads,
-				context.getProperties());
-		List<ExecutionContext> constraints = getExecutionContexts(
-				context.getConstraintPropertyPrefix(), threads,
-				context.getProperties());
-		List<ExecutionContext> other = getExecutionContexts(
-				context.getOtherPropertyPrefix(), threads,
-				context.getProperties());
+		List<ExecutionContext> schemas = getExecutionContexts(context.getSchemaPropertyPrefix(), threads, context.getProperties());
+		List<ExecutionContext> data = getExecutionContexts(context.getDataPropertyPrefix(), threads, context.getProperties());
+		List<ExecutionContext> constraints = getExecutionContexts(context.getConstraintPropertyPrefix(), threads, context.getProperties());
+		List<ExecutionContext> other = getExecutionContexts(context.getOtherPropertyPrefix(), threads, context.getProperties());
 
 		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
 		contexts.addAll(schemas);
@@ -132,8 +112,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("------------------------------------------------------------------------");
 		logger.info("Database Reset Completed");
 		logger.info("------------------------------------------------------------------------");
-		logger.info("Total time: {}",
-				FormatUtils.getTime(System.currentTimeMillis() - start));
+		logger.info("Total time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 		logger.info("Finished at: {}", new Date());
 		logger.info("------------------------------------------------------------------------");
 	}
@@ -176,8 +155,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		return listener;
 	}
 
-	protected List<String> getLocationsFromCSV(String csv,
-			String listSuffixPattern, Properties properties) {
+	protected List<String> getLocationsFromCSV(String csv, String listSuffixPattern, Properties properties) {
 		// Parse the CSV into a list
 		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
 
@@ -192,8 +170,7 @@ public class DefaultDatabaseService implements DatabaseService {
 
 			// The properties file is not configured correctly
 			if (value == null) {
-				throw new IllegalArgumentException(
-						"Could not locate a value for [" + key + "]");
+				throw new IllegalArgumentException("Could not locate a value for [" + key + "]");
 			}
 
 			// This key has a value but has been explicitly configured to NONE
@@ -216,21 +193,16 @@ public class DefaultDatabaseService implements DatabaseService {
 		return locations;
 	}
 
-	protected List<ExecutionContext> getExecutionContexts(String prefix,
-			int threads, Properties properties) {
+	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads, Properties properties) {
 
 		String concurrent = properties.getProperty(prefix + "." + CONCURRENT);
 		String sequential = properties.getProperty(prefix + "." + SEQUENTIAL);
 
-		String concurrentMsg = properties.getProperty(prefix + "." + CONCURRENT
-				+ "." + MESSAGE);
-		String sequentialMsg = properties.getProperty(prefix + "." + SEQUENTIAL
-				+ "." + MESSAGE);
+		String concurrentMsg = properties.getProperty(prefix + "." + CONCURRENT + "." + MESSAGE);
+		String sequentialMsg = properties.getProperty(prefix + "." + SEQUENTIAL + "." + MESSAGE);
 
-		List<String> concurrentLocations = getLocationsFromCSV(concurrent,
-				LIST_SUFFIX, properties);
-		List<String> sequentialLocations = getLocationsFromCSV(sequential,
-				LIST_SUFFIX, properties);
+		List<String> concurrentLocations = getLocationsFromCSV(concurrent, LIST_SUFFIX, properties);
+		List<String> sequentialLocations = getLocationsFromCSV(sequential, LIST_SUFFIX, properties);
 
 		validateExists(concurrentLocations);
 		validateExists(sequentialLocations);
@@ -241,16 +213,11 @@ public class DefaultDatabaseService implements DatabaseService {
 		}
 		List<String> orderings = CollectionUtils.getTrimmedListFromCSV(order);
 		if (orderings.size() != ExecutionMode.values().length) {
-			throw new IllegalArgumentException(
-					"Only valid values for ordering are "
-							+ ExecutionMode.CONCURRENT + " and "
-							+ ExecutionMode.SEQUENTIAL);
+			throw new IllegalArgumentException("Only valid values for ordering are " + ExecutionMode.CONCURRENT + " and " + ExecutionMode.SEQUENTIAL);
 		}
 
-		ExecutionMode one = ExecutionMode.valueOf(orderings.get(0)
-				.toUpperCase());
-		ExecutionMode two = ExecutionMode.valueOf(orderings.get(1)
-				.toUpperCase());
+		ExecutionMode one = ExecutionMode.valueOf(orderings.get(0).toUpperCase());
+		ExecutionMode two = ExecutionMode.valueOf(orderings.get(1).toUpperCase());
 
 		// They can't be the same
 		if (one.equals(two)) {
@@ -312,11 +279,8 @@ public class DefaultDatabaseService implements DatabaseService {
 	protected String getInvalidOrderingMessage(String order) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Ordering [" + order + "] is invalid.  ");
-		sb.append("Ordering must be provided as either ["
-				+ ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL
-				+ "] or ");
-		sb.append("[" + ExecutionMode.CONCURRENT + ","
-				+ ExecutionMode.SEQUENTIAL + "]");
+		sb.append("Ordering must be provided as either [" + ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL + "] or ");
+		sb.append("[" + ExecutionMode.CONCURRENT + "," + ExecutionMode.SEQUENTIAL + "]");
 		return sb.toString();
 	}
 
