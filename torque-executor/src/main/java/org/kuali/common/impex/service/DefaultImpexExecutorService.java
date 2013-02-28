@@ -15,6 +15,12 @@
 
 package org.kuali.common.impex.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Database;
@@ -30,12 +36,6 @@ import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Default implementation of the ImpexExecutorService
@@ -53,7 +53,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
 
 		logger.info("Impex Executor data import started");
-        logContext(context);
+		logContext(context);
 
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 
@@ -74,22 +74,22 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return importResults;
 	}
 
-    @Override
+	@Override
 	public MpxImportResult importDataLocation(MpxMetaData metaData, ImportContext context, ExecutionContext sqlExecutionContext) {
-        List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
-        String filename = LocationUtils.getFilename(metaData.getLocation());
-        logger.debug("Importing " + filename);
-        String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
-        Table table = getTableDefinition(tableName, tables);
+		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
+		String filename = LocationUtils.getFilename(metaData.getLocation());
+		logger.debug("Importing " + filename);
+		String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
+		Table table = getTableDefinition(tableName, tables);
 
-        Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
+		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
 
-        SqlProducer sqlProducer = platform.getSqlProducer();
-        sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
-        sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
+		SqlProducer sqlProducer = platform.getSqlProducer();
+		sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
+		sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
 
-        return executeSql(context, sqlProducer, table, metaData, sqlExecutionContext);
-    }
+		return executeSql(context, sqlProducer, table, metaData, sqlExecutionContext);
+	}
 
 	protected Table getTableDefinition(String tableName, List<Table> tables) {
 		for (Table table : tables) {
@@ -166,7 +166,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 				sqlStrings.add(sql);
 
 				// after executing sql, add byte length to results
-				result.setSize(result.getSize() + sql.getBytes().length);
+				result.setSize(result.getSize() + sql.length());
 
 				sql = sqlProducer.getSql(table, reader);
 			}
@@ -211,16 +211,16 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-    private void logContext(ImportContext context) {
-        logger.info("---------------------------------------------------------------");
-        logger.info("Import Context Properties");
-        logger.info("---------------------------------------------------------------");
-        logger.info("Database Vendor - {}", context.getDatabaseVendor());
-        logger.info("Data locations resource(s) - {}", context.getDataLocations());
-        logger.info("Schema xml location - {}", context.getSchemaXmlLocation());
-        logger.info("Encoding - {}", context.getEncoding());
-        logger.info("Max thread count - {}", context.getMaxThreadCount());
-        logger.info("Batch Data Size - {}", context.getBatchDataSize());
-        logger.info("Batch Row Count - {}", context.getBatchRowCount());
-    }
+	private void logContext(ImportContext context) {
+		logger.info("---------------------------------------------------------------");
+		logger.info("Import Context Properties");
+		logger.info("---------------------------------------------------------------");
+		logger.info("Database Vendor - {}", context.getDatabaseVendor());
+		logger.info("Data locations resource(s) - {}", context.getDataLocations());
+		logger.info("Schema xml location - {}", context.getSchemaXmlLocation());
+		logger.info("Encoding - {}", context.getEncoding());
+		logger.info("Max thread count - {}", context.getMaxThreadCount());
+		logger.info("Batch Data Size - {}", context.getBatchDataSize());
+		logger.info("Batch Row Count - {}", context.getBatchRowCount());
+	}
 }
