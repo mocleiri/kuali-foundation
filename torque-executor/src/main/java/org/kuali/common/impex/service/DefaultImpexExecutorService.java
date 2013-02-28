@@ -39,7 +39,7 @@ import org.springframework.util.Assert;
 
 /**
  * Default implementation of the ImpexExecutorService
- *
+ * 
  * @author andrewlubbers
  */
 public class DefaultImpexExecutorService implements ImpexExecutorService {
@@ -96,7 +96,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	}
 
 	protected List<MpxBucket> getMpxBuckets(List<String> locations, ImpexContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
-	        MpxBucketProgressListener progressListener) throws IOException {
+			MpxBucketProgressListener progressListener) throws IOException {
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getDataThreads(), locations.size());
 
