@@ -51,4 +51,31 @@
     <property name="sourceContext" ref="sourceContext" />
   </bean>
 
+  <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
+    <property name="dataSource" ref="import.dataSource" />
+    <property name="properties">
+      <util:properties>
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.basedir">${project.basedir}</prop>
+        <prop key="project.build.directory">${project.build.directory}</prop>
+        <prop key="impex.databaseVendor">${db.vendor}</prop>
+        <prop key="impex.workingDir">${project.basedir}/src/main/resources</prop>
+        <prop key="impex.table.includes">.*</prop>
+        <prop key="impex.databaseTablePropertiesFile">none.properties</prop>
+        <prop key="impex.dataLocations">${impex.import.dataLocations}</prop>
+        <prop key="impex.tablesXmlLocation">${project.basedir}/src/main/resources/${project.artifactId}.xml</prop>
+      </util:properties>
+    </property>
+  </bean>
+
+  <bean id="executable" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
+    <property name="executables">
+      <util:list>
+        <ref bean="import.schema.databaseResetExecutable" />
+        <ref bean="importExecutable" />
+        <ref bean="import.constraints.databaseResetExecutable" />
+      </util:list>
+    </property>
+  </bean>
+
 </beans>
