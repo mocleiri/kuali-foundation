@@ -61,17 +61,6 @@
     <property name="schemaXmlLocation" value="classpath:${project.artifactId}.xml" />
   </bean>
 
-  <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
-    <property name="dataSource" ref="import.dataSource" />
-    <property name="properties">
-      <util:properties>
-        <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="impex.databaseVendor">${db.vendor}</prop>
-        <prop key="impex.table.includes">.*</prop>
-      </util:properties>
-    </property>
-  </bean>
-
   <bean id="executable" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
     <property name="executables">
       <util:list>
