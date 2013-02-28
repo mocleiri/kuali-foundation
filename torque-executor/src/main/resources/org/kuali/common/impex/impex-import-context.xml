@@ -26,5 +26,6 @@
 
   <import resource="classpath:org/kuali/common/impex/impex-common-context.xml" />
   <import resource="classpath:org/kuali/common/impex/impex-import-schema.xml" />
+  <import resource="classpath:org/kuali/common/impex/impex-import-constraints.xml" />
 
 </beans>
