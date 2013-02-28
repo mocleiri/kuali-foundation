@@ -66,12 +66,8 @@
     <property name="properties">
       <util:properties>
         <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="project.basedir">${project.basedir}</prop>
-        <prop key="project.build.directory">${project.build.directory}</prop>
         <prop key="impex.databaseVendor">${db.vendor}</prop>
-        <prop key="impex.workingDir">${project.basedir}/src/main/resources</prop>
         <prop key="impex.table.includes">.*</prop>
-        <prop key="impex.databaseTablePropertiesFile">none.properties</prop>
       </util:properties>
     </property>
   </bean>
