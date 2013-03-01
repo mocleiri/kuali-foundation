@@ -2,7 +2,9 @@ package org.kuali.common.deploy;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
@@ -28,6 +30,8 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		Assert.notNull(service);
 		Assert.notNull(contextLocation);
 		logger.info("Database reset");
+		Properties properties = (Properties) beans.get(0);
+		PropertyUtils.info(properties);
 		service.load(Arrays.asList(contextLocation), beanNames, beans);
 	}
 
