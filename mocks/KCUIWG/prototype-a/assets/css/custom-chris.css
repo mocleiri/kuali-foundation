@@ -46,6 +46,7 @@ i {
 }
 #header #global {
   width: 100%;
+  background: url('../img/brand-coeus.png') 0 0 no-repeat #f3f3f3 !important;
 }
 #header #global .brand {
   float: left;
@@ -399,6 +400,21 @@ body.ajaxed h1 {
 .req span {
   position: absolute;
   left: -9999em;
+}
+.jump-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.jump-links ul li a {
+  position: absolute;
+  top: -100%;
+  padding: 1em;
+  z-index: 9999;
+}
+.jump-links ul li a:focus {
+  top: 0;
+  right: 10.5%;
 }
 .clearfix:after {
   content: ".";

@@ -26,7 +26,7 @@
     <div id="document" class="clearfix">
       <div class="title">
         <div class="title-name">
-          <a href="#"><i class="icon-white icon-home"></i>Portal</a> &raquo; Doc #3289 Testing a very long name that should automatically get cutoff at some point
+          <a href="#"><i class="icon-white icon-home"></i>Portal</a> &raquo; Doc #1234 Kuali Coeus Prototype A
         </div>
         <div class="title-author">
           by quickstart
@@ -74,7 +74,7 @@
         <span class="show-popover" rel="popover" data-placement="bottom" data-original-title="Proposal completion" data-content="
           <ul>
             <li>
-              <strong>Grants.gov</strong>
+              <strong>Basics</strong>
               <div class='progress'>
                 <div class='bar' style='width: 40%;'></div>
               </div>
@@ -82,49 +82,49 @@
             <li>
               <strong>Key Personnel</strong>
               <div class='progress'>
-                <div class='bar complete' style='width: 100%;'></div>
+                <div class='bar' style='width: 33%;'></div>
               </div>
             </li>
             <li>
-              <strong>Special Review</strong>
+              <strong>Access</strong>
               <div class='progress'>
-                <div class='bar' style='width: 50%;'></div>
+                <div class='bar' style='width: 66%;'></div>
               </div>
             </li>
             <li>
-              <strong>Custom Data</strong>
-              <div class='progress'>
-                <div class='bar' style='width: 40%;'></div>
-              </div>
-            </li>
-            <li>
-              <strong>Abstracts &amp; Attachments</strong>
+              <strong>Compliance</strong>
               <div class='progress'>
                 <div class='bar complete' style='width: 100%;'></div>
               </div>
             </li>
             <li>
-              <strong>Questions</strong>
+              <strong>Attachments</strong>
               <div class='progress'>
-                <div class='bar' style='width: 80%;'></div>
+                <div class='bar complete' style='width: 100%;'></div>
               </div>
             </li>
             <li>
-              <strong>Budgets</strong>
+              <strong>Questionnaire</strong>
               <div class='progress'>
-                <div class='bar' style='width: 10%;'></div>
+                <div class='bar' style='width: 41%;'></div>
               </div>
             </li>
             <li>
-              <strong>Permissions</strong>
+              <strong>Budget</strong>
               <div class='progress'>
-                <div class='bar' style='width: 40%;'></div>
+                <div class='bar' style='width: 23%;'></div>
+              </div>
+            </li>
+            <li>
+              <strong>Institution Specific Data</strong>
+              <div class='progress'>
+                <div class='bar' style='width: 12%;'></div>
               </div>
             </li>
             <li>
               <strong>Medusa</strong>
               <div class='progress'>
-                <div class='bar' style='width: 40%;'></div>
+                <div class='bar' style='width: 1%;'></div>
               </div>
             </li>
           </ul>
