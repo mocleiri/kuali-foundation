@@ -220,20 +220,18 @@
     <property name="group" value="${tomcat.group}" />
   </bean>
 
-  <util:list id="kdoMavenDbProfiles">
-    <value>import</value>
-    <value>${db.vendor}</value>
+  <util:list id="kdo.springBeans">
+    <ref bean="kdo.properties" />
   </util:list>
 
-  <bean id="kdoMavenDatabaseContext" class="org.kuali.common.util.service.MavenContext">
-    <property name="inheritMavenOpts" value="true" />
-    <property name="goals" value="initialize" />
-    <property name="profiles" ref="kdoMavenDbProfiles" />
-    <property name="workingDir" value="/Users/jcaddel/ws/aggregate/ks-deployments/ks-dbs/ks-impex/ks-impex-bundled-db" />
-  </bean>
+  <util:list id="kdo.springBeanNames">
+    <value>importProperties</value>
+  </util:list>
 
-  <bean id="kdo.databaseHandler" class="org.kuali.common.deploy.MavenDatabaseHandler">
-    <property name="context" ref="kdoMavenDatabaseContext" />
+  <bean id="kdo.databaseHandler" class="org.kuali.common.deploy.SpringDatabaseHandler">
+    <property name="contextLocation" value="classpath:org/kuali/common/impex/impex-import-context.xml" />
+    <property name="beans" ref="kdo.springBeans" />
+    <property name="beanNames" ref="kdo.springBeanNames" />
     <property name="skip" value="${kdo.db.skip:TRUE}" />
   </bean>
 
