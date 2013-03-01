@@ -14,6 +14,7 @@ public class DefaultDeployService implements DeployService {
 	AppServerController controller;
 	FileSystemHandler handler;
 	DeployContext context;
+	DatabaseHandler databaseHandler = new NoOpDatabaseHandler();
 
 	@Override
 	public void deploy() {
@@ -33,6 +34,7 @@ public class DefaultDeployService implements DeployService {
 			logger.info("----------------------------------------------------");
 			channel.open();
 			controller.stop();
+			databaseHandler.reset();
 			handler.clean();
 			handler.prepare();
 			controller.start();
