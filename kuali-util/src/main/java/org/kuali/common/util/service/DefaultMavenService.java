@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.springframework.util.CollectionUtils;
 
 public class DefaultMavenService extends DefaultExecService implements MavenService {
 
@@ -30,6 +30,11 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 			String cpath = LocationUtils.getCanonicalPath(context.getPom());
 			options.add("--file");
 			options.add(cpath);
+		}
+		if (!CollectionUtils.isEmpty(context.getProfiles())) {
+			String csv = CollectionUtils.getCSV(context.getProfiles());
+			options.add("----activate-profiles");
+			options.add(csv);
 		}
 		return options;
 	}
