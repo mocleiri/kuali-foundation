@@ -225,7 +225,7 @@
   </util:list>
 
   <bean id="kdoMavenDatabaseContext" class="org.kuali.common.util.service.MavenContext">
-    <property name="addSystemEnvironment" value="true" />
+    <property name="inheritMavenOpts" value="true" />
     <property name="goals" value="initialize" />
     <property name="profiles" ref="kdoMavenDbProfiles" />
   </bean>
@@ -239,6 +239,7 @@
     <property name="channel" ref="kdo.secureChannel" />
     <property name="controller" ref="kdo.controller" />
     <property name="handler" ref="kdo.handler" />
+    <property name="databaseHandler" ref="kdo.databaseHandler" />
     <property name="context" ref="kdoContext" />
   </bean>
 

@@ -77,4 +77,12 @@ public class DefaultDeployService implements DeployService {
 		this.context = context;
 	}
 
+	public DatabaseHandler getDatabaseHandler() {
+		return databaseHandler;
+	}
+
+	public void setDatabaseHandler(DatabaseHandler databaseHandler) {
+		this.databaseHandler = databaseHandler;
+	}
+
 }
