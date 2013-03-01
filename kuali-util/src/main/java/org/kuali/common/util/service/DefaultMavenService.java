@@ -15,7 +15,7 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		// Update options with MavenContext attributes
 		handleOptions(context);
 
-		// Convert options/goals/phases into an arg list
+		// Convert options/goals/phases into an args list
 		List<String> args = getArgs(context);
 
 		// Create an execution context
