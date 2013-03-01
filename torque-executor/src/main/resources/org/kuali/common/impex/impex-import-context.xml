@@ -58,7 +58,7 @@
   <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
     <property name="databaseVendor" value="${db.vendor}" />
     <property name="dataLocations" ref="importDataLocations" />
-    <property name="schemaXmlLocation" value="classpath:${project.artifactId}.xml" />
+    <property name="schemaXmlLocation" value="classpath:${impex.import.artifactId}.xml" />
   </bean>
 
   <bean id="executable" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
