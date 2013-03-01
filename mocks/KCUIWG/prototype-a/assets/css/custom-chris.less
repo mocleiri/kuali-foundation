@@ -386,12 +386,6 @@ i {
 	}
 }
 
-@-moz-document url-prefix() {
-	#ToC {
-		margin-top: 5px;
-	}
-}
-
 #ToC.fixed {
 	top: 80px;
 	left: 0;
@@ -405,14 +399,30 @@ i {
 	}
 }
 
+.fixed {
+	position: fixed !important;
+}
+
 @-moz-document url-prefix() {
+	#secondary {
+		margin-top: 0px;
+	}
+
+	#secondary.fixed {
+		top: 47px;
+	}
+
+	#ToC {
+		margin-top: 9px;
+	}
+
 	#ToC.fixed {
-		top: 86px;
+		top: 82px;
 	}
 }
 
-.fixed {
-	position: fixed !important;
+.ie7 #ToC, .ie8 #ToC {
+	margin-top: 5px;
 }
 
 #content {
