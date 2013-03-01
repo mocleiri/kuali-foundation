@@ -221,6 +221,7 @@
         <oracle.version>11.2.0.2</oracle.version>
         <deploy.env>NONE</deploy.env>
         <project.classifier>NONE</project.classifier>
+        <impex.version>2.0.3</impex.version>
       </properties>
       <build>
         <plugins>
@@ -245,6 +246,16 @@
                 <groupId>org.kuali.common</groupId>
                 <artifactId>kuali-deploy</artifactId>
                 <version>${kuali-deploy.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>torque-executor</artifactId>
+                <version>${impex.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>kuali-jdbc</artifactId>
+                <version>${kuali-jdbc.version}</version>
               </dependency>
               <dependency>
                 <groupId>org.kuali.common</groupId>
