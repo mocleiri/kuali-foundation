@@ -62,6 +62,7 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		dec.setExecutable(context.getExecutable());
 		dec.setWorkingDirectory(context.getWorkingDir());
 		dec.setArgs(args);
+		// TODO Re-factor things so only MAVEN_OPTS gets inherited instead of everything
 		if (context.isInheritMavenOpts()) {
 			dec.setAddSystemEnvironment(true);
 		}
