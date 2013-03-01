@@ -9,6 +9,39 @@ import org.kuali.common.util.LocationUtils;
 
 public class DefaultMavenService extends DefaultExecService implements MavenService {
 
+	@Override
+	public void execute(MavenContext context) {
+
+		// Update options with MavenContext attributes
+		handleOptions(context);
+
+		// Convert options/goals/phases into an arg list
+		List<String> args = getArgs(context);
+
+		// Create an execution context
+		DefaultExecContext dec = new DefaultExecContext();
+		dec.setExecutable(context.getExecutable());
+		dec.setWorkingDirectory(context.getWorkingDir());
+		dec.setArgs(args);
+		// TODO Re-factor things so only MAVEN_OPTS gets inherited instead of everything
+		if (context.isInheritMavenOpts()) {
+			dec.setAddSystemEnvironment(true);
+		}
+
+		// Execute Maven making sure we get 0 as a return value
+		executeAndValidate(dec);
+	}
+
+	@Override
+	public void execute(File workingDir, List<String> options, List<String> goals, List<String> phases) {
+		MavenContext context = new MavenContext();
+		context.setWorkingDir(workingDir);
+		context.setOptions(options);
+		context.setGoals(goals);
+		context.setPhases(phases);
+		execute(context);
+	}
+
 	protected List<String> getOptions(MavenContext context) {
 		List<String> options = new ArrayList<String>();
 		if (context.isBatchMode()) {
@@ -48,29 +81,6 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		}
 	}
 
-	@Override
-	public void execute(MavenContext context) {
-
-		// Update options with MavenContext attributes
-		handleOptions(context);
-
-		// Convert options/goals/phases into an arg list
-		List<String> args = getArgs(context);
-
-		// Create an execution context
-		DefaultExecContext dec = new DefaultExecContext();
-		dec.setExecutable(context.getExecutable());
-		dec.setWorkingDirectory(context.getWorkingDir());
-		dec.setArgs(args);
-		// TODO Re-factor things so only MAVEN_OPTS gets inherited instead of everything
-		if (context.isInheritMavenOpts()) {
-			dec.setAddSystemEnvironment(true);
-		}
-
-		// Execute Maven making sure we get 0 as a return value
-		executeAndValidate(dec);
-	}
-
 	protected List<String> getArgs(MavenContext context) {
 		List<String> args = new ArrayList<String>();
 		if (!CollectionUtils.isEmpty(context.getOptions())) {
@@ -83,16 +93,6 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 			args.addAll(context.getPhases());
 		}
 		return args;
-	}
-
-	@Override
-	public void execute(File workingDir, List<String> options, List<String> goals, List<String> phases) {
-		MavenContext context = new MavenContext();
-		context.setWorkingDir(workingDir);
-		context.setOptions(options);
-		context.setGoals(goals);
-		context.setPhases(phases);
-		execute(context);
 	}
 
 }
