@@ -29,6 +29,11 @@
     <value>classpath:org/kuali/common/deploy/driver.properties</value>
     <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+    <value>classpath:org/kuali/common/sql/sql.xml</value>
+    <value>classpath:org/kuali/common/sql/mysql.xml</value>
+    <value>classpath:org/kuali/common/sql/oracle.xml</value>
+    <value>classpath:org/kuali/common/sql/h2.xml</value>
+    <value>classpath:org/kuali/common/sql/derby.xml</value>
     <value>classpath:${project.groupId.path}/deploy.properties</value>
     <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
     <value>classpath:${project.groupId.path}/env${deploy.env}.properties</value>
