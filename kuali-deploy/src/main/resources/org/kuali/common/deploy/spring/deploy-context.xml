@@ -219,7 +219,15 @@
     <property name="group" value="${tomcat.group}" />
   </bean>
 
+  <util:list id="kdoMavenDbProfiles">
+    <value>db</value>
+    <value>${db.vendor}</value>
+  </util:list>
+
   <bean id="kdoMavenDatabaseContext" class="org.kuali.common.util.service.MavenContext">
+    <property name="addSystemEnvironment" value="true" />
+    <property name="goals" value="initialize" />
+    <property name="profiles" ref="kdoMavenDbProfiles" />
   </bean>
 
   <bean id="kdo.databaseHandler" class="org.kuali.common.deploy.MavenDatabaseHandler">
