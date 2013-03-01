@@ -17,6 +17,7 @@ public class MavenContext {
 	boolean batchMode;
 	boolean quiet;
 	boolean offline;
+	List<String> profiles;
 	List<String> options;
 	List<String> goals;
 	List<String> phases;
@@ -115,6 +116,14 @@ public class MavenContext {
 
 	public void setInheritMavenOpts(boolean inheritMavenOpts) {
 		this.inheritMavenOpts = inheritMavenOpts;
+	}
+
+	public List<String> getProfiles() {
+		return profiles;
+	}
+
+	public void setProfiles(List<String> profiles) {
+		this.profiles = profiles;
 	}
 
 }
