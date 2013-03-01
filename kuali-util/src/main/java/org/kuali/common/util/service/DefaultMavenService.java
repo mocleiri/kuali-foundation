@@ -33,7 +33,7 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		}
 		if (!CollectionUtils.isEmpty(context.getProfiles())) {
 			String csv = CollectionUtils.getCSV(context.getProfiles());
-			options.add("----activate-profiles");
+			options.add("--activate-profiles");
 			options.add(csv);
 		}
 		return options;
