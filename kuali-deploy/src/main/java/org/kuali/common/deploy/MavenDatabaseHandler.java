@@ -13,7 +13,7 @@ public class MavenDatabaseHandler implements DatabaseHandler {
 
 	MavenService service = new DefaultMavenService();
 	MavenContext context;
-	boolean skip = true;
+	boolean skip;
 
 	@Override
 	public void reset() {
