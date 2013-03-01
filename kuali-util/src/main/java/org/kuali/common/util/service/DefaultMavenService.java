@@ -2,10 +2,14 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
 
 public class DefaultMavenService extends DefaultExecService implements MavenService {
 
@@ -93,7 +97,32 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		if (!CollectionUtils.isEmpty(context.getPhases())) {
 			args.addAll(context.getPhases());
 		}
+		if (!CollectionUtils.isEmpty(context.getPassThroughPropertyKeys())) {
+			Properties p = getPassThroughProperties(context);
+			List<String> keys = PropertyUtils.getSortedKeys(p);
+			for (String key : keys) {
+				String value = p.getProperty(key);
+				String arg = "-D" + key + "=" + value;
+				args.add(arg);
+			}
+		}
 		return args;
+	}
+
+	protected Properties getPassThroughProperties(MavenContext context) {
+		List<String> keys = context.getPassThroughPropertyKeys();
+		Properties properties = new Properties();
+		Collections.sort(keys);
+		Properties internal = context.getProperties();
+		internal.putAll(PropertyUtils.getEnvAsProperties());
+		internal.putAll(System.getProperties());
+		for (String key : keys) {
+			String value = internal.getProperty(key);
+			if (!StringUtils.isBlank(value)) {
+				properties.setProperty(key, value);
+			}
+		}
+		return properties;
 	}
 
 }

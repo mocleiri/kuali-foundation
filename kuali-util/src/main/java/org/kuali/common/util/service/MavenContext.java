@@ -2,6 +2,7 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 public class MavenContext {
 
@@ -21,6 +22,8 @@ public class MavenContext {
 	List<String> options;
 	List<String> goals;
 	List<String> phases;
+	List<String> passThroughPropertyKeys;
+	Properties properties;
 
 	public String getExecutable() {
 		return executable;
@@ -124,6 +127,22 @@ public class MavenContext {
 
 	public void setProfiles(List<String> profiles) {
 		this.profiles = profiles;
+	}
+
+	public List<String> getPassThroughPropertyKeys() {
+		return passThroughPropertyKeys;
+	}
+
+	public void setPassThroughPropertyKeys(List<String> passThroughPropertyKeys) {
+		this.passThroughPropertyKeys = passThroughPropertyKeys;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }
