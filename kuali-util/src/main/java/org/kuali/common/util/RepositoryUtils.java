@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 public class RepositoryUtils {
@@ -48,7 +49,9 @@ public class RepositoryUtils {
 		sb.append(artifact.getArtifactId());
 		sb.append(":");
 		sb.append(artifact.getVersion());
-		if (!NullUtils.isNullOrNone(artifact.getClassifier())) {
+
+		boolean skipClassifier = StringUtils.isBlank(artifact.getClassifier()) || NullUtils.isNullOrNone(artifact.getClassifier());
+		if (!skipClassifier) {
 			sb.append(":");
 			sb.append(artifact.getClassifier());
 		}
