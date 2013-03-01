@@ -9,7 +9,7 @@ public class NoOpDatabaseHandler implements DatabaseHandler {
 
 	@Override
 	public void reset() {
-		logger.info("Database reset noop");
+		logger.info("No-op database reset.");
 	}
 
 }
