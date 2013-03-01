@@ -57,6 +57,9 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		dec.setExecutable(context.getExecutable());
 		dec.setWorkingDirectory(context.getWorkingDir());
 		dec.setArgs(args);
+		if (context.isInheritMavenOpts()) {
+			dec.setAddSystemEnvironment(true);
+		}
 
 		// Execute Maven making sure we get 0 as a return value
 		executeAndValidate(dec);
