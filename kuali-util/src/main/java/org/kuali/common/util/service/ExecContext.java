@@ -23,6 +23,8 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
 
 public interface ExecContext {
 
+	boolean isAddSystemEnvironment();
+
 	String getExecutable();
 
 	List<String> getArgs();

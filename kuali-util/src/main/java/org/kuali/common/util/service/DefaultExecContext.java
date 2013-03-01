@@ -30,6 +30,7 @@ public class DefaultExecContext implements ExecContext {
 	File workingDirectory;
 	StreamConsumer standardOutConsumer;
 	StreamConsumer standardErrConsumer;
+	boolean addSystemEnvironment = false;
 
 	@Override
 	public InputStream getInput() {
@@ -77,7 +78,7 @@ public class DefaultExecContext implements ExecContext {
 	}
 
 	@Override
-    public StreamConsumer getStandardOutConsumer() {
+	public StreamConsumer getStandardOutConsumer() {
 		return standardOutConsumer;
 	}
 
@@ -86,12 +87,20 @@ public class DefaultExecContext implements ExecContext {
 	}
 
 	@Override
-    public StreamConsumer getStandardErrConsumer() {
+	public StreamConsumer getStandardErrConsumer() {
 		return standardErrConsumer;
 	}
 
 	public void setStandardErrConsumer(StreamConsumer standardErrConsumer) {
 		this.standardErrConsumer = standardErrConsumer;
+	}
+
+	public boolean isAddSystemEnvironment() {
+		return addSystemEnvironment;
+	}
+
+	public void setAddSystemEnvironment(boolean addSystemEnvironment) {
+		this.addSystemEnvironment = addSystemEnvironment;
 	}
 
 }

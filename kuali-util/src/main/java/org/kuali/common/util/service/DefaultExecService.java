@@ -85,6 +85,13 @@ public class DefaultExecService implements ExecService {
 	protected Commandline getCommandLine(ExecContext context) {
 		Commandline cl = new Commandline();
 		cl.setExecutable(context.getExecutable());
+		if (context.isAddSystemEnvironment()) {
+			try {
+				cl.addSystemEnvironment();
+			} catch (Exception e) {
+				throw new IllegalStateException(e);
+			}
+		}
 		if (context.getArgs() != null) {
 			cl.addArguments(CollectionUtils.toStringArray(context.getArgs()));
 		}
