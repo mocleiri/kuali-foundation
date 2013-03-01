@@ -224,6 +224,7 @@
 
   <bean id="kdo.databaseHandler" class="org.kuali.common.deploy.MavenDatabaseHandler">
     <property name="context" ref="kdoMavenDatabaseContext" />
+    <property name="skip" value="${kdo.db.skip:TRUE}" />
   </bean>
 
   <bean id="kdo.deployService" class="org.kuali.common.deploy.DefaultDeployService" init-method="deploy">
