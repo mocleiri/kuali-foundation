@@ -16,7 +16,8 @@
   limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -216,6 +217,13 @@
     <property name="properties" ref="kdo.properties" />
     <property name="owner" value="${tomcat.owner}" />
     <property name="group" value="${tomcat.group}" />
+  </bean>
+
+  <bean id="kdoMavenDatabaseContext" class="org.kuali.common.util.service.MavenContext">
+  </bean>
+
+  <bean id="kdo.databaseHandler" class="org.kuali.common.deploy.MavenDatabaseHandler">
+    <property name="context" ref="kdoMavenDatabaseContext" />
   </bean>
 
   <bean id="kdo.deployService" class="org.kuali.common.deploy.DefaultDeployService" init-method="deploy">
