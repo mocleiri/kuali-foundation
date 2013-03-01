@@ -5,7 +5,11 @@ import java.util.List;
 
 public class MavenContext {
 
-	String executable = "mvn";
+	public static final String DEFAULT_EXECUTABLE = "mvn";
+	public static final String MAVEN_OPTS = "MAVEN_OPTS";
+
+	String executable = DEFAULT_EXECUTABLE;
+	boolean inheritMavenOpts = true;
 	File workingDir;
 	File pom;
 	boolean debug;
@@ -13,7 +17,6 @@ public class MavenContext {
 	boolean batchMode;
 	boolean quiet;
 	boolean offline;
-	boolean mavenOpts;
 	List<String> options;
 	List<String> goals;
 	List<String> phases;
@@ -82,14 +85,6 @@ public class MavenContext {
 		this.offline = offline;
 	}
 
-	public boolean isMavenOpts() {
-		return mavenOpts;
-	}
-
-	public void setMavenOpts(boolean mavenOpts) {
-		this.mavenOpts = mavenOpts;
-	}
-
 	public List<String> getOptions() {
 		return options;
 	}
@@ -112,6 +107,14 @@ public class MavenContext {
 
 	public void setPhases(List<String> phases) {
 		this.phases = phases;
+	}
+
+	public boolean isInheritMavenOpts() {
+		return inheritMavenOpts;
+	}
+
+	public void setInheritMavenOpts(boolean inheritMavenOpts) {
+		this.inheritMavenOpts = inheritMavenOpts;
 	}
 
 }
