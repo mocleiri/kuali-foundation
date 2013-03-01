@@ -23,6 +23,7 @@ public class MavenDatabaseHandler implements DatabaseHandler {
 		}
 		Assert.notNull(service);
 		Assert.notNull(context);
+		logger.info("Database reset");
 		service.execute(context);
 	}
 

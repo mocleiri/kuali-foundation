@@ -45,6 +45,7 @@
     <value>db.vendor</value>
     <value>kuali.enc.*</value>
     <value>jdbc.*</value>
+    <value>kdo.*</value>
   </util:list>
 
   <bean id="kdo.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
@@ -57,7 +58,7 @@
     <property name="locationHelperIncludes" ref="kdo.locationHelperIncludes" />
   </bean>
 
-  <context:property-placeholder properties-ref="kdo.properties" system-properties-mode="NEVER" />
+  <context:property-placeholder properties-ref="kdo.properties" />
 
   <bean id="kdoJdbcDriverArtifact" class="org.kuali.common.util.Artifact">
     <property name="groupId" value="${jdbc.driver.groupId}" />
@@ -220,7 +221,7 @@
   </bean>
 
   <util:list id="kdoMavenDbProfiles">
-    <value>db</value>
+    <value>import</value>
     <value>${db.vendor}</value>
   </util:list>
 
@@ -228,6 +229,7 @@
     <property name="inheritMavenOpts" value="true" />
     <property name="goals" value="initialize" />
     <property name="profiles" ref="kdoMavenDbProfiles" />
+    <property name="workingDir" value="/Users/jcaddel/ws/aggregate/ks-deployments/ks-dbs/ks-impex/ks-impex-bundled-db" />
   </bean>
 
   <bean id="kdo.databaseHandler" class="org.kuali.common.deploy.MavenDatabaseHandler">
