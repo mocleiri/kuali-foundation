@@ -51,13 +51,18 @@ public class DefaultExecService implements ExecService {
 		return exitValue;
 	}
 
+	protected int executeAndValidate(ExecContext context) {
+		int exitValue = execute(context);
+		validateExitValue(exitValue);
+		return exitValue;
+	}
+
 	protected int execute(ExecContext context, Commandline cl) {
 		try {
 			logger.info("[{}]", cl);
 			StreamConsumer stdout = getStreamConsumer(context.getStandardOutConsumer(), logger, LoggerLevel.INFO);
 			StreamConsumer stderr = getStreamConsumer(context.getStandardErrConsumer(), logger, LoggerLevel.WARN);
-			return CommandLineUtils.executeCommandLine(cl, context.getInput(), stdout, stderr,
-					context.getTimeoutInSeconds());
+			return CommandLineUtils.executeCommandLine(cl, context.getInput(), stdout, stderr, context.getTimeoutInSeconds());
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
 		}
