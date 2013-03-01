@@ -49,15 +49,17 @@ public class RepositoryUtils {
 		sb.append(artifact.getArtifactId());
 		sb.append(":");
 		sb.append(artifact.getVersion());
-
-		boolean skipClassifier = StringUtils.isBlank(artifact.getClassifier()) || NullUtils.isNullOrNone(artifact.getClassifier());
-		if (!skipClassifier) {
+		if (!isSkipClassifier(artifact)) {
 			sb.append(":");
 			sb.append(artifact.getClassifier());
 		}
 		sb.append(":");
 		sb.append(artifact.getPackaging());
 		return sb.toString();
+	}
+
+	protected static boolean isSkipClassifier(Artifact artifact) {
+		return StringUtils.isBlank(artifact.getClassifier()) || NullUtils.isNullOrNone(artifact.getClassifier());
 	}
 
 	public static final String getRepositoryPath(Artifact artifact) {
@@ -75,8 +77,8 @@ public class RepositoryUtils {
 		sb.append(artifact.getArtifactId());
 		sb.append("-");
 		sb.append(artifact.getVersion());
-		if (!NullUtils.isNullOrNone(artifact.getClassifier())) {
-			sb.append("-");
+		if (!isSkipClassifier(artifact)) {
+			sb.append(":");
 			sb.append(artifact.getClassifier());
 		}
 		sb.append(".");
