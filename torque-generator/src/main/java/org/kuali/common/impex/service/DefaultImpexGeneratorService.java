@@ -1,5 +1,32 @@
 package org.kuali.common.impex.service;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +39,6 @@ import org.apache.torque.engine.platform.PlatformFactory;
 import org.apache.torque.task.TorqueDataModelTask;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xerces.dom.DocumentTypeImpl;
-import org.apache.xerces.util.XMLChar;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -46,32 +72,6 @@ import org.springframework.util.Assert;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import javax.sql.DataSource;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 
@@ -131,10 +131,9 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 	}
 
 	/**
-	 * Use JDBC to extract the data held by the database into a <code>java.lang.String</code> suitable for dumping to disk. The String
-	 * returned by this method must be completely disconnected from the ResultSet and database. Once this method returns, invoking a method
-	 * on the underlying ResultSet or otherwise contacting the database to assist with processing the data held in this row/column is
-	 * forbidden.
+	 * Use JDBC to extract the data held by the database into a <code>java.lang.String</code> suitable for dumping to disk. The String returned by this method must be completely
+	 * disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying ResultSet or otherwise contacting the database to assist with
+	 * processing the data held in this row/column is forbidden.
 	 */
 	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
@@ -549,8 +548,8 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		column.setAttribute("type", TypeMap.getTorqueType(type).getName());
 
 		if (size > 0
-		        && (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type
-		                .intValue() == Types.NUMERIC)) {
+				&& (type.intValue() == Types.CHAR || type.intValue() == Types.VARCHAR || type.intValue() == Types.LONGVARCHAR || type.intValue() == Types.DECIMAL || type
+						.intValue() == Types.NUMERIC)) {
 			column.setAttribute("size", String.valueOf(size));
 		}
 
@@ -737,47 +736,47 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		OutputStream out = null;
 		try {
 			File outFile = context.getDataHandler().getFileForTable(context, table.getName());
-            out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
+			out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
 
-            Column[] columns = getColumns(rs.getMetaData());
-            long totalDataSize = 0;
-            long totalRowCount = 0;
-            long currentRowCount = 0;
-            long currentDataSize = 0;
-            List<String[]> data = new ArrayList<String[]>();
-            DumpTableContext startContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-            context.getDataHandler().startData(startContext);
-            while (rs.next()) {
-                currentRowCount++;
-                totalRowCount++;
-                String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
-                data.add(rowData);
-                long rowSize = getSize(rowData);
-                currentDataSize += rowSize;
-                totalDataSize += rowSize;
-                if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
-                    DumpTableContext doDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-                    context.getDataHandler().doData(doDataContext);
-                    currentDataSize = 0;
-                    currentRowCount = 0;
-                    data = new ArrayList<String[]>();
-                }
-            }
-            DumpTableContext finishDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
-            context.getDataHandler().finishData(finishDataContext);
-            DumpTableResult result = new DumpTableResult();
-            result.setTable(table);
-            result.setRows(totalRowCount);
-            result.setSize(totalDataSize);
-            // set the file reference if a file was actually created
-            if (totalRowCount > 0) {
-                result.setFiles(Collections.singletonList(outFile));
-            } else {
-                List<File> empty = Collections.emptyList();
-                result.setFiles(empty);
-            }
-            return result;
-        } catch (IOException e) {
+			Column[] columns = getColumns(rs.getMetaData());
+			long totalDataSize = 0;
+			long totalRowCount = 0;
+			long currentRowCount = 0;
+			long currentDataSize = 0;
+			List<String[]> data = new ArrayList<String[]>();
+			DumpTableContext startContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+			context.getDataHandler().startData(startContext);
+			while (rs.next()) {
+				currentRowCount++;
+				totalRowCount++;
+				String[] rowData = getRowData(context.getDateFormat(), table.getName(), rs, columns, totalRowCount);
+				data.add(rowData);
+				long rowSize = getSize(rowData);
+				currentDataSize += rowSize;
+				totalDataSize += rowSize;
+				if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
+					DumpTableContext doDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+					context.getDataHandler().doData(doDataContext);
+					currentDataSize = 0;
+					currentRowCount = 0;
+					data = new ArrayList<String[]>();
+				}
+			}
+			DumpTableContext finishDataContext = getDumpTableContext(out, columns, data, currentDataSize, context, currentRowCount, totalRowCount, table, totalDataSize);
+			context.getDataHandler().finishData(finishDataContext);
+			DumpTableResult result = new DumpTableResult();
+			result.setTable(table);
+			result.setRows(totalRowCount);
+			result.setSize(totalDataSize);
+			// set the file reference if a file was actually created
+			if (totalRowCount > 0) {
+				result.setFiles(Collections.singletonList(outFile));
+			} else {
+				List<File> empty = Collections.emptyList();
+				result.setFiles(empty);
+			}
+			return result;
+		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(out);
@@ -785,7 +784,7 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 	}
 
 	protected DumpTableContext getDumpTableContext(OutputStream out, Column[] columns, List<String[]> data, long cds, ImpexContext context, long crc, long trc, TableContext table,
-	        long tds) {
+			long tds) {
 		DumpTableContext dtc = new DumpTableContext();
 		dtc.setOutputStream(out);
 		dtc.setColumns(columns);
@@ -832,12 +831,10 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 	}
 
 	/**
-	 * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each element of the
-	 * returned List is a List with:
-	 *
-	 * element 0 => a String object for the column name. element 1 => an Integer object for the column type. element 2 => size of the
-	 * column. element 3 => null type.
-	 *
+	 * Retrieves all the column names and types for a given table from JDBC metadata. It returns a List of Lists. Each element of the returned List is a List with:
+	 * 
+	 * element 0 => a String object for the column name. element 1 => an Integer object for the column type. element 2 => size of the column. element 3 => null type.
+	 * 
 	 * @param dbMeta
 	 *            JDBC metadata.
 	 * @param tableName
@@ -907,7 +904,7 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 
 	/**
 	 * Retrieves a list of foreign key columns for a given table.
-	 *
+	 * 
 	 * @param dbMeta
 	 *            JDBC metadata.
 	 * @param tableName
@@ -1218,7 +1215,7 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 
 	protected List<TableContext> getTableContexts(List<String> tables) {
 		List<TableContext> contexts = new ArrayList<TableContext>();
-		for(String table : tables) {
+		for (String table : tables) {
 			TableContext context = new TableContext();
 			context.setName(table);
 			contexts.add(context);
