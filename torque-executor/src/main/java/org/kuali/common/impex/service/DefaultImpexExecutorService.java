@@ -236,8 +236,10 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("URL - {}", dmds.getUrl());
 		logger.info("Username - {}", dmds.getUsername());
 		logger.info("Password - {}", dmds.getPassword());
-		logger.info("MPX Locations - {}", FormatUtils.getCount(locations.size()));
-		logger.info("MPX Rows - {}", FormatUtils.getSize(rows));
-		logger.info("MPX Size - {}", FormatUtils.getSize(size));
+		String locs = FormatUtils.getCount(locations.size());
+		String count = FormatUtils.getCount(rows);
+		String length = FormatUtils.getSize(size);
+		Object[] args = { count, locs, length };
+		logger.info("[Row Count: {}  Sources: {}  Size: {}]", args);
 	}
 }
