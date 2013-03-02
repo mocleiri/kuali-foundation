@@ -220,7 +220,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("Schema xml location - {}", context.getSchemaXmlLocation());
 		logger.info("Encoding - {}", context.getEncoding());
 		logger.info("Max thread count - {}", context.getMaxThreadCount());
-		logger.info("Batch Data Size - {}", context.getBatchDataSize());
+		logger.info("Batch Data Size - {}", FormatUtils.getSize(context.getBatchDataSize()));
 		logger.info("Batch Row Count - {}", context.getBatchRowCount());
 	}
 }
