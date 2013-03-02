@@ -212,7 +212,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-	private void logContext(ImportContext context) {
+	protected void logContext(ImportContext context) {
 		logger.info("---------------------------------------------------------------");
 		logger.info("Import Context Properties");
 		logger.info("---------------------------------------------------------------");
