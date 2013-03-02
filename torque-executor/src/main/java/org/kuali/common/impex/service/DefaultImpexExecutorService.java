@@ -109,6 +109,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 		// Sort the sources by size
 		Collections.sort(metaDatas);
+
 		// Largest to smallest instead of smallest to largest
 		Collections.reverse(metaDatas);
 
