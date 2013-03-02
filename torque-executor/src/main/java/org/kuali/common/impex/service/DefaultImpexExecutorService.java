@@ -35,6 +35,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.Assert;
 
 /**
@@ -53,7 +54,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
 
 		logger.info("Impex Executor data import started");
-		logContext(context);
+		logContext(context, sqlExecutionContext);
 
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 
@@ -212,7 +213,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-	protected void logContext(ImportContext context) {
+	protected void logContext(ImportContext context, ExecutionContext ec) {
 		logger.info("---------------------------------------------------------------");
 		logger.info("Import Context Properties");
 		logger.info("---------------------------------------------------------------");
@@ -223,5 +224,10 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("Max thread count - {}", context.getMaxThreadCount());
 		logger.info("Batch Data Size - {}", FormatUtils.getSize(context.getBatchDataSize()));
 		logger.info("Batch Row Count - {}", context.getBatchRowCount());
+
+		DriverManagerDataSource dmds = (DriverManagerDataSource) ec.getJdbcContext().getDataSource();
+		logger.info("URL - {}", dmds.getUrl());
+		logger.info("Username - {}", dmds.getUsername());
+		logger.info("Password - {}", dmds.getPassword());
 	}
 }
