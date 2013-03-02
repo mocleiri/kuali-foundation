@@ -54,9 +54,10 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
 
 		logger.info("Impex Executor data import started");
-		logContext(context, sqlExecutionContext);
-
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
+		List<MpxMetaData> metaData = MpxParser.getMpxMetaDatas(mpxLocations);
+
+		logContext(context, sqlExecutionContext, mpxLocations, metaData);
 
 		// Print a dot any time we complete 1% of our requests
 		MpxBucketProgressListener progressListener = new MpxBucketProgressListener();
@@ -213,7 +214,13 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-	protected void logContext(ImportContext context, ExecutionContext ec) {
+	protected void logContext(ImportContext context, ExecutionContext ec, List<String> locations, List<MpxMetaData> metaData) {
+		long rows = 0;
+		long size = 0;
+		for (MpxMetaData mmd : metaData) {
+			rows += mmd.getRowCount();
+			size += mmd.getSize();
+		}
 		logger.info("---------------------------------------------------------------");
 		logger.info("Import Context Properties");
 		logger.info("---------------------------------------------------------------");
@@ -229,5 +236,8 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("URL - {}", dmds.getUrl());
 		logger.info("Username - {}", dmds.getUsername());
 		logger.info("Password - {}", dmds.getPassword());
+		logger.info("MPX Locations - {}", FormatUtils.getCount(locations.size()));
+		logger.info("MPX Rows - {}", FormatUtils.getSize(rows));
+		logger.info("MPX Size - {}", FormatUtils.getSize(size));
 	}
 }
