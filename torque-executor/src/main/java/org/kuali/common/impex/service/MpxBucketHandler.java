@@ -23,8 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created with IntelliJ IDEA. User: andy Date: 2/21/13 Time: 1:50 PM To change this template use File | Settings | File
- * Templates.
+ * Created with IntelliJ IDEA. User: andy Date: 2/21/13 Time: 1:50 PM To change this template use File | Settings | File Templates.
  */
 public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 
@@ -33,7 +32,7 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 	@Override
 	public void handleElement(ListIteratorContext<MpxBucket> mpxBucketListIteratorContext, int i, MpxBucket mpxBucket) {
 		ImpexExecutorService service = mpxBucket.getService();
-        ImportContext context = mpxBucket.getContext();
+		ImportContext context = mpxBucket.getContext();
 
 		List<MpxImportResult> results = mpxBucket.getResults();
 
@@ -44,10 +43,9 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 				results.add(result);
 			}
 
-            mpxBucket.getProgressListener().progressOccurred(metaData.getRowCount(), 0, null);
+			mpxBucket.getProgressListener().progressOccurred(metaData.getRowCount(), 0, null);
 
-			logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (seconds): "
-					+ (result.getElapsed() / 1000.0));
+			logger.debug("Importing " + metaData.getLocation() + " complete, elapsed time (seconds): " + (result.getElapsed() / 1000.0));
 		}
 	}
 }
