@@ -60,7 +60,9 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logContext(context, sqlExecutionContext, mpxLocations, metaData);
 
 		// Print a dot any time we complete 1% of our requests
+		long rows = getTotalRowCount(metaData);
 		MpxBucketProgressListener progressListener = new MpxBucketProgressListener();
+		progressListener.setTotal(rows);
 
 		List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
 		List<MpxBucket> mpxBuckets = getMpxBuckets(mpxLocations, context, sqlExecutionContext, importResults, progressListener, metaData);
@@ -102,25 +104,34 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		throw new IllegalArgumentException("Cannot locate table definition for [" + tableName + "]");
 	}
 
+	protected long getTotalRowCount(List<MpxMetaData> metaDatas) {
+		long rows = 0;
+		for (MpxMetaData md : metaDatas) {
+			rows += md.getRowCount();
+		}
+		return rows;
+	}
+
 	protected List<MpxBucket> getMpxBuckets(List<String> locations, ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
 			MpxBucketProgressListener progressListener, List<MpxMetaData> metaDatas) throws IOException {
-		// number of buckets equals thread count, unless thread count > total number of sources
-		int bucketCount = Math.min(context.getMaxThreadCount(), locations.size());
 
-		// Sort the sources by size
+		// number of buckets equals thread count, unless thread count > total number of locations
+		int bucketCount = Math.min(context.getMaxThreadCount(), metaDatas.size());
+
+		// Sort the metadata by row count
 		Collections.sort(metaDatas);
 
 		// Largest to smallest instead of smallest to largest
 		Collections.reverse(metaDatas);
 
-		// Allocate some buckets to hold the files
+		// Allocate the appropriate number of buckets
 		List<MpxBucket> buckets = new ArrayList<MpxBucket>(bucketCount);
 		for (int i = 0; i < bucketCount; i++) {
 			buckets.add(new MpxBucket());
 		}
 
-		// Distribute the sources into buckets as evenly as possible
-		// "Evenly" in this case means each bucket should be roughly the same size
+		// Distribute the metadata into buckets as evenly as possible
+		// "Evenly" in this case means each bucket should contain as close to the same number of rows as possible
 		for (MpxMetaData metaData : metaDatas) {
 			// Sort the buckets by size, so the smallest is at the top, which is the bucket that should be filled next
 			Collections.sort(buckets);
@@ -138,10 +149,6 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 			bucket.setService(this);
 			bucket.setResults(results);
 			bucket.setExecutionContext(sqlExecutionContext);
-
-			// set the progress tracker total to the sum of all row counts for all buckets
-			progressListener.setTotal(progressListener.getTotal() + bucket.getAllRowCounts());
-
 			// Randomize the order in which tables get populated
 			Collections.shuffle(bucket.getMpxBeans());
 		}

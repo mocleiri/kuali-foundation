@@ -32,7 +32,7 @@ public class MpxBucket implements Comparable<MpxBucket> {
 	List<MpxImportResult> results;
 	List<MpxMetaData> mpxBeans = new ArrayList<MpxMetaData>();
 	Long allRowCounts = 0l;
-	private ExecutionContext executionContext;
+	ExecutionContext executionContext;
 
 	@Override
 	public int compareTo(MpxBucket o) {
