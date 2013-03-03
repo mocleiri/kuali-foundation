@@ -50,6 +50,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexExecutorService.class);
 
 	JdbcService jdbcService;
+	int shown = 0;
 
 	protected List<SqlMetaData> getSqlMetaData(ImportContext context, SqlProducer producer, List<String> locations) {
 		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
@@ -68,7 +69,6 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		BufferedReader in = null;
 		long count = 0;
 		long size = 0;
-		int show = 5;
 		try {
 			in = LocationUtils.getBufferedReader(location, encoding);
 			String sql = producer.getSql(table, in);
@@ -76,8 +76,9 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 				count++;
 				size += sql.length();
 				sql = producer.getSql(table, in);
-				if (count < show) {
+				if (shown < 5) {
 					logger.info("[" + Str.flatten(sql) + "]");
+					shown++;
 				}
 			}
 			SqlMetaData smd = new SqlMetaData();
