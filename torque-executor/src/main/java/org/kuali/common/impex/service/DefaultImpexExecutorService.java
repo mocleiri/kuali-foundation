@@ -33,6 +33,7 @@ import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Str;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +68,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		BufferedReader in = null;
 		long count = 0;
 		long size = 0;
+		int show = 5;
 		try {
 			in = LocationUtils.getBufferedReader(location, encoding);
 			String sql = producer.getSql(table, in);
@@ -74,6 +76,9 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 				count++;
 				size += sql.length();
 				sql = producer.getSql(table, in);
+				if (count < show) {
+					logger.info("[" + Str.flatten(sql) + "]");
+				}
 			}
 			SqlMetaData smd = new SqlMetaData();
 			smd.setCount(count);
