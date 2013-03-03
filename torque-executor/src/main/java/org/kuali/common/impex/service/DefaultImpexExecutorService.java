@@ -111,7 +111,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		progressListener.setTotal(rows);
 
 		List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
-		List<MpxBucket> mpxBuckets = getMpxBuckets(mpxLocations, context, sqlExecutionContext, importResults, progressListener, metaData);
+		List<MpxBucket> mpxBuckets = getMpxBuckets(context, sqlExecutionContext, importResults, progressListener, metaData);
 
 		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = ImpexUtils.invokeThreads(mpxBuckets, new MpxBucketHandler());
@@ -164,7 +164,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return rows;
 	}
 
-	protected List<MpxBucket> getMpxBuckets(List<String> locations, ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
+	protected List<MpxBucket> getMpxBuckets(ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
 			MpxBucketProgressListener progressListener, List<MpxMetaData> metaDatas) throws IOException {
 
 		// number of buckets equals thread count, unless thread count > total number of locations
