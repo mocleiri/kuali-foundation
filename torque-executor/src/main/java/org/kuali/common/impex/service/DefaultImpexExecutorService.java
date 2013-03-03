@@ -81,6 +81,8 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 			return smd;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
