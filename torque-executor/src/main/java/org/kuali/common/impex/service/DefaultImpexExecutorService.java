@@ -100,8 +100,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 		List<MpxMetaData> metaData = MpxParser.getMpxMetaDatas(mpxLocations);
 
-		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
-		SqlProducer sqlProducer = platform.getSqlProducer();
+        SqlProducer sqlProducer = getSqlProducer(context);
 		List<SqlMetaData> smds = getSqlMetaData(context, sqlProducer, mpxLocations);
 
 		logContext(context, sqlExecutionContext, mpxLocations, metaData, smds);
@@ -133,16 +132,22 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 		Table table = getTableDefinition(tableName, tables);
 
-		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
-
-		SqlProducer sqlProducer = platform.getSqlProducer();
-		sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
-		sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
+        SqlProducer sqlProducer = getSqlProducer(context);
 
 		return executeSql(context, sqlProducer, table, metaData, sqlExecutionContext);
 	}
 
-	protected Table getTableDefinition(String tableName, List<Table> tables) {
+    private SqlProducer getSqlProducer(ImportContext context) {
+        Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
+
+        SqlProducer sqlProducer = platform.getSqlProducer();
+        sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
+        sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
+
+        return sqlProducer;
+    }
+
+    protected Table getTableDefinition(String tableName, List<Table> tables) {
 		for (Table table : tables) {
 			if (StringUtils.equalsIgnoreCase(tableName, table.getName())) {
 				return table;
