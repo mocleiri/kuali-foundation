@@ -28,6 +28,7 @@ import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.jdbc.JdbcService;
+import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.util.FormatUtils;
@@ -47,7 +48,40 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexExecutorService.class);
 
-	private JdbcService jdbcService;
+	JdbcService jdbcService;
+
+	protected List<SqlMetaData> getSqlMetaData(ImportContext context, SqlProducer producer, List<String> locations, String encoding) {
+		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
+		List<SqlMetaData> smds = new ArrayList<SqlMetaData>();
+		for (String location : locations) {
+			SqlMetaData smd = getSqlMetaData(producer, location, encoding, tables);
+			smds.add(smd);
+		}
+		return smds;
+	}
+
+	protected SqlMetaData getSqlMetaData(SqlProducer producer, String location, String encoding, List<Table> tables) {
+		String filename = LocationUtils.getFilename(location);
+		String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
+		Table table = getTableDefinition(tableName, tables);
+		BufferedReader in = null;
+		long count = 0;
+		long size = 0;
+		try {
+			in = LocationUtils.getBufferedReader(location, encoding);
+			String sql = producer.getSql(table, in);
+			while (sql != null) {
+				count++;
+				size += sql.length();
+			}
+			SqlMetaData smd = new SqlMetaData();
+			smd.setCount(count);
+			smd.setSize(size);
+			return smd;
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	@Override
 	public List<MpxImportResult> importData(ImportContext context, ExecutionContext sqlExecutionContext) throws IOException {
