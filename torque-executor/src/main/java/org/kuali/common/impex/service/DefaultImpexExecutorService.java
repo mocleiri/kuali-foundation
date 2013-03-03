@@ -133,13 +133,13 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		// Distribute the metadata into buckets as evenly as possible
 		// "Evenly" in this case means each bucket should contain as close to the same number of rows as possible
 		for (MpxMetaData metaData : metaDatas) {
-			// Sort the buckets by size, so the smallest is at the top, which is the bucket that should be filled next
+			// Sort the buckets so that the bucket holding the fewest rows is at the top
 			Collections.sort(buckets);
 			// First bucket in the list is the smallest
 			MpxBucket smallest = buckets.get(0);
 			// Add this source to the bucket
 			smallest.getMpxBeans().add(metaData);
-			// Update the bucket metadata holding overall size
+			// Update the bucket metadata holding overall row count
 			smallest.setAllRowCounts(smallest.getAllRowCounts() + metaData.getRowCount());
 		}
 
