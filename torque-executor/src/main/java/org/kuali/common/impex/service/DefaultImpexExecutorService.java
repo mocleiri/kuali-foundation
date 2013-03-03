@@ -167,7 +167,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		try {
 			reader = LocationUtils.getBufferedReader(location, context.getEncoding());
 
-			List<String> sqlStrings = new ArrayList<String>(metaData.getRowCount() / context.getBatchRowCount());
+			List<String> sqlStrings = new ArrayList<String>();
 
 			String sql = sqlProducer.getSql(table, reader);
 			while (sql != null) {
