@@ -50,11 +50,11 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 	JdbcService jdbcService;
 
-	protected List<SqlMetaData> getSqlMetaData(ImportContext context, SqlProducer producer, List<String> locations, String encoding) {
+	protected List<SqlMetaData> getSqlMetaData(ImportContext context, SqlProducer producer, List<String> locations) {
 		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
 		List<SqlMetaData> smds = new ArrayList<SqlMetaData>();
 		for (String location : locations) {
-			SqlMetaData smd = getSqlMetaData(producer, location, encoding, tables);
+			SqlMetaData smd = getSqlMetaData(producer, location, context.getEncoding(), tables);
 			smds.add(smd);
 		}
 		return smds;
@@ -91,7 +91,11 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 		List<MpxMetaData> metaData = MpxParser.getMpxMetaDatas(mpxLocations);
 
-		logContext(context, sqlExecutionContext, mpxLocations, metaData);
+		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
+		SqlProducer sqlProducer = platform.getSqlProducer();
+		List<SqlMetaData> smds = getSqlMetaData(context, sqlProducer, mpxLocations);
+
+		logContext(context, sqlExecutionContext, mpxLocations, metaData, smds);
 
 		// Print a dot any time we complete 1% of our requests
 		long rows = getTotalRowCount(metaData);
@@ -253,12 +257,18 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-	protected void logContext(ImportContext context, ExecutionContext ec, List<String> locations, List<MpxMetaData> metaData) {
+	protected void logContext(ImportContext context, ExecutionContext ec, List<String> locations, List<MpxMetaData> metaData, List<SqlMetaData> smds) {
 		long rows = 0;
 		long size = 0;
 		for (MpxMetaData mmd : metaData) {
 			rows += mmd.getRowCount();
 			size += mmd.getSize();
+		}
+		long sqlCount = 0;
+		long sqlSize = 0;
+		for (SqlMetaData smd : smds) {
+			sqlCount += smd.getCount();
+			sqlSize += smd.getSize();
 		}
 		logger.info("---------------------------------------------------------------");
 		logger.info("Import Context Properties");
@@ -281,5 +291,10 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		String length = FormatUtils.getSize(size);
 		Object[] args = { count, locs, length };
 		logger.info("[Row Count: {}  Sources: {}  Size: {}]", args);
+
+		String scount = FormatUtils.getCount(sqlCount);
+		String slength = FormatUtils.getSize(sqlSize);
+		Object[] args2 = { scount, locs, slength };
+		logger.info("[SQL Count: {}  Sources: {}  Size: {}]", args2);
 	}
 }
