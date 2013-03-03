@@ -51,7 +51,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 	@Override
 	public List<MpxImportResult> importData(ImportContext context, ExecutionContext sqlExecutionContext) throws IOException {
-		Assert.notNull(jdbcService, "Need a non-null JdbcService to import data!");
+		Assert.notNull(jdbcService, "jdbcService is null");
 
 		logger.info("Impex Executor data import started");
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
@@ -63,7 +63,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		MpxBucketProgressListener progressListener = new MpxBucketProgressListener();
 
 		List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
-		List<MpxBucket> mpxBuckets = getMpxBuckets(mpxLocations, context, sqlExecutionContext, importResults, progressListener);
+		List<MpxBucket> mpxBuckets = getMpxBuckets(mpxLocations, context, sqlExecutionContext, importResults, progressListener, metaData);
 
 		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = ImpexUtils.invokeThreads(mpxBuckets, new MpxBucketHandler());
@@ -103,11 +103,9 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	}
 
 	protected List<MpxBucket> getMpxBuckets(List<String> locations, ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
-			MpxBucketProgressListener progressListener) throws IOException {
+			MpxBucketProgressListener progressListener, List<MpxMetaData> metaDatas) throws IOException {
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getMaxThreadCount(), locations.size());
-
-		List<MpxMetaData> metaDatas = MpxParser.getMpxMetaDatas(locations);
 
 		// Sort the sources by size
 		Collections.sort(metaDatas);
