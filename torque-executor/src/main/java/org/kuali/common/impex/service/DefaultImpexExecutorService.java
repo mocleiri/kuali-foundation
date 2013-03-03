@@ -237,6 +237,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("Batch Data Size - {}", FormatUtils.getSize(context.getBatchDataSize()));
 		logger.info("Batch Row Count - {}", context.getBatchRowCount());
 
+		// TODO Get rid of this DriverManagerDataSource stuff
 		DriverManagerDataSource dmds = (DriverManagerDataSource) ec.getJdbcContext().getDataSource();
 		logger.info("URL - {}", dmds.getUrl());
 		logger.info("Username - {}", dmds.getUsername());
