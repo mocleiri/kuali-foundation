@@ -73,6 +73,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 			while (sql != null) {
 				count++;
 				size += sql.length();
+				sql = producer.getSql(table, in);
 			}
 			SqlMetaData smd = new SqlMetaData();
 			smd.setCount(count);
