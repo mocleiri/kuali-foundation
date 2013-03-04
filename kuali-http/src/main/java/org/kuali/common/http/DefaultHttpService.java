@@ -32,11 +32,71 @@ public class DefaultHttpService implements HttpService {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
 
-	protected boolean isSuccess(int resultCode) {
+	@Override
+	public WaitResult wait(HttpContext context) {
+		String url = context.getUrl();
+		HttpClient client = getHttpClient(context);
+		long now = System.currentTimeMillis();
+		long end = now + (context.getOverallTimeout() * 1000);
+		logger.info(getMsg("Determining status for '" + context.getUrl() + "'"));
+		for (;;) {
+			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
+			RequestResult result = doRequest(client, url, secondsRemaining);
+			if (result.equals(RequestResult.SUCCESS)) {
+				return result;
+			} else if (result.equals(RequestResult.INVALID_HTTP_STATUS_CODE)) {
+				logger.info("Invalid http status code.  Expected " + context.getSuccessCodes());
+				return result;
+			}
+			sleep(sleepInterval);
+			if (System.currentTimeMillis() > end) {
+				logger.info("Timed out waiting for response from '" + url + "'");
+				return RequestResult.TIMEOUT;
+			}
+		}
+		return new WaitResult();
+	}
+
+	protected RequestResult doRequest(HttpClient client, HttpContext context, long secondsRemaining) {
+		String url = context.getUrl();
+		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
+		try {
+			HttpMethod method = new GetMethod(url);
+			client.executeMethod(method);
+			int statusCode = method.getStatusCode();
+			String statusText = method.getStatusText();
+			boolean success = isSuccess(context.getSuccessCodes(), statusCode);
+			boolean continueWaiting = isContinueWaiting(context.getContinueWaitingCodes(), statusCode);
+
+			message = message.append(statusCode + ":" + statusText + "'");
+			if (success) {
+				// Everything is OK
+				logger.info(getMsg(message.toString()));
+				return RequestResult.SUCCESS;
+			} else if (continueWaiting) {
+				// We got an HTTP status code that does not represent success,
+				// but we should continue waiting
+				// This can happen when Tomcat is fronted by an Apache web server
+				// That configuration returns 503 if Tomcat isn't up and running yet
+				logger.info(getMsg(message.toString()));
+				return RequestResult.CONTINUE_WAITING_HTTP_STATUS_CODE;
+			} else {
+				// We got an HTTP status code that we don't recognize, we are done
+				logger.info(getMsg(message.toString(), secondsRemaining));
+				return RequestResult.INVALID_HTTP_STATUS_CODE;
+			}
+
+		} catch (IOException e) {
+			logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
+			return RequestResult.IO_EXCEPTION;
+		}
+	}
+
+	protected boolean isSuccess(List<Integer> successCodes, int resultCode) {
 		return isMatch(resultCode, successCodes);
 	}
 
-	protected boolean isContinueWaiting(int resultCode) {
+	protected boolean isContinueWaiting(List<Integer> continueWaitingCodes, int resultCode) {
 		return isMatch(resultCode, continueWaitingCodes);
 	}
 
@@ -63,74 +123,14 @@ public class DefaultHttpService implements HttpService {
 		return sb.toString();
 	}
 
-	public Result wait(String url) {
-		HttpClient client = getHttpClient();
-		long now = System.currentTimeMillis();
-		long end = now + (timeout * 1000);
-		logger.info(getMsg("Determining status for '" + url + "'"));
-		for (;;) {
-			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			Result result = doRequest(client, url, secondsRemaining);
-			if (result.equals(Result.SUCCESS)) {
-				return result;
-			} else if (result.equals(Result.INVALID_HTTP_STATUS_CODE)) {
-				logger.info("Invalid http status code.  Expected " + successCodes);
-				return result;
-			}
-			sleep(sleepInterval);
-			if (System.currentTimeMillis() > end) {
-				logger.info("Timed out waiting for response from '" + url + "'");
-				return Result.TIMEOUT;
-			}
-		}
-	}
 
-	@Override
-	public WaitResult wait(HttpContext context) {
-		return new WaitResult();
-	}
-
-	protected HttpClient getHttpClient() {
+	protected HttpClient getHttpClient(HttpContext context) {
 		HttpClient client = new HttpClient();
 		HttpClientParams clientParams = client.getParams();
 		HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
 		clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
-		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
+		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, context.getRequestTimeout());
 		return client;
-	}
-
-	protected Result doRequest(HttpClient client, String url, long secondsRemaining) {
-		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
-		try {
-			HttpMethod method = new GetMethod(url);
-			client.executeMethod(method);
-			int statusCode = method.getStatusCode();
-			String statusText = method.getStatusText();
-			boolean success = isSuccess(statusCode);
-			boolean continueWaiting = isContinueWaiting(statusCode);
-
-			message = message.append(statusCode + ":" + statusText + "'");
-			if (success) {
-				// Everything is OK
-				logger.info(getMsg(message.toString()));
-				return Result.SUCCESS;
-			} else if (continueWaiting) {
-				// We got an HTTP status code that does not represent success,
-				// but we should continue waiting
-				// This can happen when Tomcat is fronted by an Apache web server
-				// That configuration returns 503 if Tomcat isn't up and running yet
-				logger.info(getMsg(message.toString()));
-				return Result.CONTINUE_WAITING_HTTP_STATUS_CODE;
-			} else {
-				// We got an HTTP status code that we don't recognize, we are done
-				logger.info(getMsg(message.toString(), secondsRemaining));
-				return Result.INVALID_HTTP_STATUS_CODE;
-			}
-
-		} catch (IOException e) {
-			logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
-			return Result.IO_EXCEPTION;
-		}
 	}
 
 	protected void sleep(long millis) {

@@ -63,4 +63,12 @@ public class HttpContext {
 		this.overallTimeout = overallTimeout;
 	}
 
+	public List<Integer> getContinueWaitingCodes() {
+		return continueWaitingCodes;
+	}
+
+	public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
+		this.continueWaitingCodes = continueWaitingCodes;
+	}
+
 }
