@@ -25,6 +25,7 @@ import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.kuali.common.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,7 @@ public class DefaultHttpService implements HttpService {
 
 	@Override
 	public WaitResult wait(HttpContext context) {
+		Assert.notBlank(context.getUrl(), "url is blank");
 		String url = context.getUrl();
 		HttpClient client = getHttpClient(context);
 		long now = System.currentTimeMillis();
