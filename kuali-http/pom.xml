@@ -36,15 +36,10 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-util</url>
   </scm>
   <properties>
-    <spring.version>3.2.0.RELEASE</spring.version>
     <junit.version>4.10</junit.version>
+    <httpclient.version>3.1</httpclient.version>
     <slf4j.version>1.6.4</slf4j.version>
-    <io.version>2.4</io.version>
-    <lang.version>3.1</lang.version>
-    <jasypt.version>1.9.0</jasypt.version>
     <beanutils.version>1.8.3</beanutils.version>
-    <jsch.version>0.1.49</jsch.version>
-    <plexus-utils.version>3.0.10</plexus-utils.version>
   </properties>
   <developers>
     <developer>
@@ -55,59 +50,7 @@
       <email>jcaddel@kuali.org</email>
     </developer>
   </developers>
-  <build>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>maven.properties</include>
-          <include>**/PropertyUtilsTest-context.xml</include>
-          <include>**/SpringServiceTest-context.xml</include>
-          <include>**/MavenTest-context.xml</include>
-          <include>**/build-properties-context.xml</include>
-        </includes>
-      </testResource>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>maven.properties</exclude>
-          <exclude>**/PropertyUtilsTest-context.xml</exclude>
-          <exclude>**/SpringServiceTest-context.xml</exclude>
-          <exclude>**/MavenTest-context.xml</exclude>
-          <exclude>**/build-properties-context.xml</exclude>
-        </excludes>
-      </testResource>
-    </testResources>
-  </build>
   <dependencies>
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>${plexus-utils.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.jcraft</groupId>
-      <artifactId>jsch</artifactId>
-      <version>${jsch.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${lang.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>${io.version}</version>
-    </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -120,37 +63,15 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>${spring.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>${httpclient.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>${spring.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.jasypt</groupId>
-      <artifactId>jasypt</artifactId>
-      <version>${jasypt.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
