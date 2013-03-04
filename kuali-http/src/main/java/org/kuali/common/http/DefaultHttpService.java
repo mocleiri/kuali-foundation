@@ -53,22 +53,23 @@ public class DefaultHttpService implements HttpService {
 				logHttpRequestResult(rr, context.getUrl(), end);
 				sleep(context.getSleepIntervalMillis());
 			} else {
-				logFinalHttpRequestResult(rr, context.getUrl(), waitResult.getStart());
 				HttpStatus status = getResultStatus(context, rr, end);
 				waitResult.setStatus(status);
 				waitResult.setStop(rr.getStop());
 				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
 				waitResult.setFinalRequestResult(rr);
+				logWaitResult(waitResult, context.getUrl());
 				return waitResult;
 			}
 		}
 	}
 
-	protected void logFinalHttpRequestResult(HttpRequestResult result, String url, long start) {
-		String elapsed = FormatUtils.getTime(result.getStop() - start);
-		String statusText = getStatusText(result);
-		Object[] args = { url, statusText, elapsed };
-		logger.info("{} - {}  Total time: {}", args);
+	protected void logWaitResult(HttpWaitResult result, String url) {
+		String status = result.getStatus().toString();
+		String elapsed = FormatUtils.getTime(result.getStop() - result.getStart());
+		String statusText = getStatusText(result.getFinalRequestResult());
+		Object[] args = { url, status, statusText, elapsed };
+		logger.info("{} - Result: {}  Status: {}  Total time: {}", args);
 	}
 
 	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
