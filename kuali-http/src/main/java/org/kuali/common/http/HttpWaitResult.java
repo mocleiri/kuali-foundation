@@ -9,6 +9,7 @@ public class HttpWaitResult {
 	long elapsed;
 	List<HttpRequestResult> requestResults;
 	HttpStatus status;
+	HttpRequestResult finalRequestResult;
 
 	public long getStart() {
 		return start;
@@ -48,6 +49,14 @@ public class HttpWaitResult {
 
 	public void setStatus(HttpStatus status) {
 		this.status = status;
+	}
+
+	public HttpRequestResult getFinalRequestResult() {
+		return finalRequestResult;
+	}
+
+	public void setFinalRequestResult(HttpRequestResult finalRequestResult) {
+		this.finalRequestResult = finalRequestResult;
 	}
 
 }

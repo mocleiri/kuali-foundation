@@ -58,6 +58,7 @@ public class DefaultHttpService implements HttpService {
 				waitResult.setStatus(status);
 				waitResult.setStop(rr.getStop());
 				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
+				waitResult.setFinalRequestResult(rr);
 				return waitResult;
 			}
 		}
@@ -75,7 +76,8 @@ public class DefaultHttpService implements HttpService {
 		logger.info("{} - {} - (Timeout in {})", args);
 	}
 
-	protected String getStatusText(HttpRequestResult result) {
+	@Override
+	public String getStatusText(HttpRequestResult result) {
 		if (result.getException() != null) {
 			return result.getException().getMessage();
 		} else {
