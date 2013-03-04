@@ -33,7 +33,6 @@ import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.Str;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +49,6 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultImpexExecutorService.class);
 
 	JdbcService jdbcService;
-	int shown = 0;
 
 	protected List<SqlMetaData> getSqlMetaData(ImportContext context, SqlProducer producer, List<String> locations) {
 		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
@@ -76,10 +74,6 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 				count++;
 				size += sql.length();
 				sql = producer.getSql(table, in);
-				if (shown < 5) {
-					logger.info("[" + Str.flatten(sql) + "]");
-					shown++;
-				}
 			}
 			SqlMetaData smd = new SqlMetaData();
 			smd.setCount(count);
@@ -100,7 +94,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 		List<MpxMetaData> metaData = MpxParser.getMpxMetaDatas(mpxLocations);
 
-        SqlProducer sqlProducer = getSqlProducer(context);
+		SqlProducer sqlProducer = getSqlProducer(context);
 		List<SqlMetaData> smds = getSqlMetaData(context, sqlProducer, mpxLocations);
 
 		logContext(context, sqlExecutionContext, mpxLocations, metaData, smds);
@@ -132,22 +126,22 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
 		Table table = getTableDefinition(tableName, tables);
 
-        SqlProducer sqlProducer = getSqlProducer(context);
+		SqlProducer sqlProducer = getSqlProducer(context);
 
 		return executeSql(context, sqlProducer, table, metaData, sqlExecutionContext);
 	}
 
-    private SqlProducer getSqlProducer(ImportContext context) {
-        Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
+	private SqlProducer getSqlProducer(ImportContext context) {
+		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
 
-        SqlProducer sqlProducer = platform.getSqlProducer();
-        sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
-        sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
+		SqlProducer sqlProducer = platform.getSqlProducer();
+		sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
+		sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
 
-        return sqlProducer;
-    }
+		return sqlProducer;
+	}
 
-    protected Table getTableDefinition(String tableName, List<Table> tables) {
+	protected Table getTableDefinition(String tableName, List<Table> tables) {
 		for (Table table : tables) {
 			if (StringUtils.equalsIgnoreCase(tableName, table.getName())) {
 				return table;
@@ -164,8 +158,8 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return rows;
 	}
 
-	protected List<MpxBucket> getMpxBuckets(ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results,
-			MpxBucketProgressListener progressListener, List<MpxMetaData> metaDatas) throws IOException {
+	protected List<MpxBucket> getMpxBuckets(ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results, MpxBucketProgressListener progressListener,
+			List<MpxMetaData> metaDatas) throws IOException {
 
 		// number of buckets equals thread count, unless thread count > total number of locations
 		int bucketCount = Math.min(context.getMaxThreadCount(), metaDatas.size());
