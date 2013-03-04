@@ -131,7 +131,7 @@ public class DefaultHttpService implements HttpService {
 		if (isContinueWaiting(context.getContinueWaitingCodes(), statusCode)) {
 			return false;
 		} else {
-			// We got an http status code, but it wasn't we were expecting. We need to fail
+			// We got an http status code, but it wasn't one we were expecting. We need to fail
 			return true;
 		}
 	}
