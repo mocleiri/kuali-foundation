@@ -15,15 +15,15 @@ $page = 'compliance';
     <div class="row-fluid">
       <div class="span12 content">
         <div class="box"> <div class="boxHeader ">
-            <h3> Special Review</h3>
+            <h3>Compliance</h3>
           </div>
           <div class="boxContent " style="display:block" >
             
             <div style="margin-bottom:10px;">
-            	<a id="addcomplianceprotocol" href="#" class="btn btn-inverse btn-mini">add compliance protocol</a>
+            	<a href="#" class="btn btn-mini btn-inverse addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a>
                 <script>
 					$(document).ready(function () {
-						$("#addcomplianceprotocol").click(function(){
+						$(".addcomplianceprotocol").click(function(){
 							$("#addrow01").slideDown(200);
 							$("#norows01").slideUp(200);
 						});
@@ -42,7 +42,7 @@ $page = 'compliance';
                     <th>Approval Date</th>
                     <th>Expiration Date</th>
                     <th>Exemption #</th>
-                    <th style="width: 36px;"></th>
+                    <th style="width: 70px;"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -77,7 +77,7 @@ $page = 'compliance';
                     <td><a href="#">01/01/2018</a></td>
                     <td><a href="#">select</a></td>
                     <td>
-                    	<a id="delete01" href="#" class="btn btn-mini">delete</a>
+                    	<a id="delete01" href="#" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i> Delete</a>
                         <script>
 							$(document).ready(function () {
 								$("#delete01").click(function(){
@@ -123,12 +123,17 @@ $page = 'compliance';
               <div id="norows01" style="display:block; font-style:italic; text-align:center; border:1px solid #DDDDDD; border-bottom-left-radius:5px; border-bottom-right-radius:5px; margin-top:-21px; padding:10px;">
                 There are no compliance protocols.
               </div>
+              <a href="#" class="btn btn-mini btn-inverse addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a>
             </div>
           </div>
         </div>
         
         
-        <div style=" padd12px; text-align:center"> <a href="prop.keypersonnel.pers.php" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn">save</a> <a href="prop.customdata.php" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+        <div style=" padd12px; text-align:center">
+          <a href="prop.permissions.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.abstracts.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+        </div>
 
         <!--<div class="box"> <div class="boxHeader expandControl">
             <h3> asdfasdfasdf </h3>

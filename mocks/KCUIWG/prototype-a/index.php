@@ -1,3 +1,8 @@
+<?php
+# Variables
+$page = 'start';
+?>
+
 <?php require_once( 'assets/inc/head.php' ) ?>
 
 <?php require_once( 'assets/inc/header.php' ) ?>
@@ -10,7 +15,7 @@
     <div class="row-fluid">
       <div class="span12 content">
         <div class="box"> <div class="boxHeader ">
-            <h3>  Start a Proposal</h3>
+            <h3>Proposal Details</h3>
           </div>
           <div class="boxContent " style="display:block" >
             <div class="control-group">
@@ -82,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="control-group">
+            <!-- <div class="control-group">
               <label class="control-label" for="orgdocnum">Award ID</label>
               <div class="controls">
                 <input type="text" id="Description2" placeholder="" class=" input-small">
@@ -93,10 +98,10 @@
               <div class="controls">
                 <input type="text" id="Description3" placeholder="" class=" input-small">
                 <a href="#" class="btn lookup"><span>lookup</span></a></div>
-            </div>
+            </div> -->
           </div>
         </div>       
-   <div style=" padd12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">create proposal <i class="icon-white icon-play"></i></a>
+   <div style=" padd12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
         
         </div>
         

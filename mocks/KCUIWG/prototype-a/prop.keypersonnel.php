@@ -14,7 +14,7 @@ $page = 'personnel';
       <div class="span12 content">
         <div class="box">
           <div class="boxHeader">
-            <h3> Personnel</h3>
+            <h3>Key Personnel</h3>
           </div>
           
           <!-- <div class="boxHeader expandControl">
@@ -38,7 +38,7 @@ $page = 'personnel';
               
               <ul class="nav nav-tabs" style="display:block" >
                 <li>
-                     <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
+                     <a href="#" class="btn btn-mini ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><i class="icon icon-plus"></i> Add Person</a>
                   
                   <!-- Modal -->
                   
@@ -48,9 +48,9 @@ $page = 'personnel';
           </div>
         </div>
         <div style=" padd12px; text-align:center">
-          <a href="prop.proposal.html" class="btn"><i class="icon-chevron-left"></i> back</a>
-          <a href="#" class="btn">save</a>
-          <a href="prop.specialreview.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a>
+          <a href="prop.proposal.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.permissions.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
         </div>
         
         <!--<div class="box"> <div class="boxHeader expandControl">
@@ -73,6 +73,7 @@ $page = 'personnel';
 
 
 <?php include( 'assets/inc/scripts.global.php' ) ?>
+
 <script type="text/javascript">
     $(document).ready(function () {
         
@@ -82,7 +83,7 @@ $page = 'personnel';
                 value: 1,
                 source: [{
                     value: 1,
-                    text: 'PI/Contact'
+                    text: 'Principal Investigator/Contact'
                 }, {
                     value: 2,
                     text: 'Co-Principal Investigator'

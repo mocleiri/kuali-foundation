@@ -15,7 +15,7 @@ $page = 'customdata';
     <div class="row-fluid">
       <div class="span12 content">
         <div class="box"> <div class="boxHeader expandControl">
-            <h3>  Personnel Items for Review </h3>
+            <h3>Institution Specific Data</h3>
           </div>
           <div class="boxContent expandTarget" style=" display:block" > <div class="control-group">
               <label class="control-label" for="Description">Graduate Student Count</label>
@@ -58,7 +58,11 @@ $page = 'customdata';
         
         
         
-        <div style=" padd12px; text-align:center"> <a href="prop.specialreview.php" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn">save</a> <a href="prop.abstracts.php" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+        <div style=" padd12px; text-align:center">
+          <a href="prop.budget.actions.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.medusa.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+        </div>
       </div>
     </div>
   </form>

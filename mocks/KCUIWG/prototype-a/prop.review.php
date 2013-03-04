@@ -52,7 +52,12 @@ $page = 'review';
           </div>
           <div class="boxContent expandTarget"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
-        </div>--><div style=" padd12px; text-align:center"> <a href="prop.permissions.php" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn btn-inverse">save</a> </div>
+        </div>-->
+        <div style=" padd12px; text-align:center">
+          <a href="prop.medusa.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="#" class="btn btn-inverse">Complete Proposal</a>
+        </div>
       </div>
     </div>
   </form>

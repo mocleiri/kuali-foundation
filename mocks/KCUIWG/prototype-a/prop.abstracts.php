@@ -16,7 +16,7 @@ $page = 'attachments';
       <div class="span12 content">
         <div class="box">
           <div class="boxHeader expandControl">
-            <h3> Proposal Attachments </h3>
+            <h3>Attachments</h3>
           </div>
           <div class="boxContent expandTarget" style=" display:nonee" >
             <div class="boxSubheader">
@@ -1114,7 +1114,11 @@ $page = 'attachments';
             </div>
           </div>
         </div>
-        <div style=" padd12px; text-align:center"> <a href="prop.customdata.php" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn">save</a> <a href="prop.questions.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+        <div style=" padd12px; text-align:center">
+          <a href="prop.specialreview.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.questions.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+        </div>
       </div>
       <!--<div class="box"> <div class="boxHeader expandControl">
             <h3> asdfasdfasdf </h3>

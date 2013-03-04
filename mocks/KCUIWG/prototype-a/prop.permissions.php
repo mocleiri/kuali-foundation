@@ -16,7 +16,7 @@ $page = 'access';
       <div class="span12 content">
         <div class="box">
           <div class="boxHeader ">
-            <h3> Access </h3>
+            <h3>Access</h3>
           </div>
           <div class="boxContent " >
           <div style=" margin-bottom:12px; float:">  <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="viewsummary" data-keyboard="true" url="modal-accesssummary/frame.html">view summary</a></div>
@@ -25,14 +25,8 @@ $page = 'access';
                 <li class="active">
                   <a href="#art" data-toggle="tab">Haskell, Edward </a>
                 </li>
-                <li >
-                  <a href="#ben" data-toggle="tab">Hensler, Judith</a>
-                </li>
                 <li>
-                  <a href="#ella" data-toggle="tab">Rutherford, Violet</a>
-                </li>
-                <li>
-                  <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
+                  <a href="#" class="btn btn-mini ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html">Add Person</a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -112,7 +106,12 @@ $page = 'access';
           </div>
           <div class="boxContent expandTarget"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
-        </div>--> <div style=" padd12px; text-align:center"> <a href="prop.budget.php" class="btn"><i class="icon-chevron-left"></i> back</a> <a href="#" class="btn">save</a> <a href="prop.medusa.php" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+        </div>-->
+        <div style=" padd12px; text-align:center">
+          <a href="prop.keypersonnel.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.specialreview.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+        </div>
       </div>
     </div>
   </form>

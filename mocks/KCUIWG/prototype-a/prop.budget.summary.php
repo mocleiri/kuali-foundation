@@ -156,6 +156,11 @@ $page = 'budget-summary';
           <div class="boxContent expandTarget"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
         </div>--> 
+        <div style=" padd12px; text-align:center">
+          <a href="prop.questions.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.budget.paramaters.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+        </div>
       </div>
     </div>
   </form>
