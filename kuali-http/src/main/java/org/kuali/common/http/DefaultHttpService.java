@@ -45,13 +45,13 @@ public class DefaultHttpService implements HttpService {
 		logger.info(getMsg("Determining status for '" + context.getUrl() + "'"));
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			RequestResult result = doRequest(client, context, secondsRemaining);
-			if (result.equals(RequestResult.SUCCESS)) {
+			RequestResultEnum result = doRequest(client, context, secondsRemaining);
+			if (result.equals(RequestResultEnum.SUCCESS)) {
 				wr.setRequestResult(result);
 				wr.setStart(System.currentTimeMillis());
 				wr.setElapsed(wr.getStop() - now);
 				return wr;
-			} else if (result.equals(RequestResult.INVALID_HTTP_STATUS_CODE)) {
+			} else if (result.equals(RequestResultEnum.INVALID_HTTP_STATUS_CODE)) {
 				logger.info("Invalid http status code.  Expected " + context.getSuccessCodes());
 				wr.setRequestResult(result);
 				wr.setStart(System.currentTimeMillis());
@@ -69,7 +69,7 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected RequestResult doRequest(HttpClient client, HttpContext context, long secondsRemaining) {
+	protected RequestResultEnum doRequest(HttpClient client, HttpContext context, long secondsRemaining) {
 		String url = context.getUrl();
 		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
 		try {
@@ -84,22 +84,22 @@ public class DefaultHttpService implements HttpService {
 			if (success) {
 				// Everything is OK
 				logger.info(getMsg(message.toString()));
-				return RequestResult.SUCCESS;
+				return RequestResultEnum.SUCCESS;
 			} else if (continueWaiting) {
 				// We got an HTTP status code that does not represent success,
 				// but we should continue waiting
 				// This can happen when Tomcat is fronted by an Apache web server
 				// That configuration returns 503 if Tomcat isn't up and running yet
 				logger.info(getMsg(message.toString()));
-				return RequestResult.CONTINUE_WAITING_HTTP_STATUS_CODE;
+				return RequestResultEnum.CONTINUE_WAITING_HTTP_STATUS_CODE;
 			} else {
 				// We got an HTTP status code that we don't recognize, we are done
 				logger.info(getMsg(message.toString(), secondsRemaining));
-				return RequestResult.INVALID_HTTP_STATUS_CODE;
+				return RequestResultEnum.INVALID_HTTP_STATUS_CODE;
 			}
 		} catch (IOException e) {
 			logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
-			return RequestResult.IO_EXCEPTION;
+			return RequestResultEnum.IO_EXCEPTION;
 		}
 	}
 

@@ -5,7 +5,7 @@ public class WaitResult {
 	long start;
 	long stop;
 	long elapsed;
-	RequestResult requestResult;
+	RequestResultEnum requestResult;
 	String message;
 
 	public long getStart() {
@@ -32,11 +32,11 @@ public class WaitResult {
 		this.elapsed = elapsed;
 	}
 
-	public RequestResult getRequestResult() {
+	public RequestResultEnum getRequestResult() {
 		return requestResult;
 	}
 
-	public void setRequestResult(RequestResult requestResult) {
+	public void setRequestResult(RequestResultEnum requestResult) {
 		this.requestResult = requestResult;
 	}
 
