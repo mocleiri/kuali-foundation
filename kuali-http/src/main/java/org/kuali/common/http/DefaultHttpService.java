@@ -27,6 +27,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,7 @@ public class DefaultHttpService implements HttpService {
 		logger.info("Determining status for {} - (Timeout in {})", context.getUrl(), context.getOverallTimeoutMillis());
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
+			logHttpRequestResult(rr, context.getUrl(), end);
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
 				sleep(context.getSleepIntervalMillis());
@@ -57,6 +59,21 @@ public class DefaultHttpService implements HttpService {
 				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
 				return waitResult;
 			}
+		}
+	}
+
+	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
+		String statusText = getStatusText(result);
+		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
+		Object[] args = { url, statusText, timeout };
+		logger.info("{} - {} - (Timeout in {})", args);
+	}
+
+	protected String getStatusText(HttpRequestResult result) {
+		if (result.getException() != null) {
+			return result.getException().getMessage();
+		} else {
+			return result.getStatusCode() + " - " + result.getStatusText();
 		}
 	}
 
