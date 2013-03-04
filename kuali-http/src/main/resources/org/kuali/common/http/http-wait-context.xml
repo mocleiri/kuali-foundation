@@ -33,7 +33,7 @@
     If any status code other than 503 is returned, the logic quits polling the url and returns an HttpWaitResult object
     The HttpWaitResult object contains a ResultStatus object which can be inspected to see if polling the url
     resulted in SUCCESS (ie status code 200).
-    Anything other than SUCCESS indicates something went wrong (timeout, 404, etc)
+    Anything other than SUCCESS indicates something went wrong (timeout, 404, etc) and results in IllegalStateException being thrown
   -->
 
   <bean id="http.overallTimeoutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
