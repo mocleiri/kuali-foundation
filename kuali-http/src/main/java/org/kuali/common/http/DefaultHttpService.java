@@ -51,8 +51,35 @@ public class DefaultHttpService implements HttpService {
 			if (!isFinishState(context, rr, end)) {
 				sleep(context.getSleepIntervalMillis());
 			} else {
+				ResultStatus status = getResultStatus(context, rr, end);
+				waitResult.setStatus(status);
+				waitResult.setStop(rr.getStop());
+				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
 				return waitResult;
 			}
+		}
+	}
+
+	protected ResultStatus getResultStatus(HttpContext context, HttpRequestResult rr, long end) {
+		// If we've gone past our max allotted time, we are done
+		if (System.currentTimeMillis() > end) {
+			return ResultStatus.TIMEOUT;
+		}
+
+		if (rr.getException() != null) {
+			return ResultStatus.IO_EXCEPTION;
+		}
+
+		Integer statusCode = rr.getStatusCode();
+		if (statusCode == null) {
+			throw new IllegalStateException("statusCode should never be null here");
+		}
+
+		// If there is a status code and it matches a success code, we are done
+		if (isSuccess(context.getSuccessCodes(), statusCode)) {
+			return ResultStatus.SUCCESS;
+		} else {
+			return ResultStatus.INVALID_HTTP_STATUS_CODE;
 		}
 	}
 
