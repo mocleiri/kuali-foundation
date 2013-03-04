@@ -23,12 +23,16 @@ import org.apache.commons.lang3.StringUtils;
 public class TimeUtils {
 
 	/**
-	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
 	 * 
 	 * <pre>
-	 *   500ms == 500 milliseconds
-	 *   3s    == 3 seconds = 3000 milliseconds
-	 *   1m    == 1 minute  = 60,000 milliseconds
+	 *   1   == 1 millisecond
+	 *   1ms == 1 millisecond
+	 *   1s  == 1 second ==           1000 milliseconds
+	 *   1m  == 1 minute ==         60,000 milliseconds
+	 *   1h  == 1 hour   ==      3,600,000 milliseconds 
+	 *   1d  == 1 day    ==     86,400,000 milliseconds
+	 *   1y  == 1 year   == 31,536,000,000 milliseconds
 	 * </pre>
 	 */
 	public static long getMillis(String time) {
