@@ -48,13 +48,12 @@ public class DefaultHttpService implements HttpService {
 		logger.info("Determining status for {} - (Timeout in {})", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
-			long now = System.currentTimeMillis();
 			requestResults.add(rr);
-			if (!isFinishState(context, rr, end, now)) {
+			if (!isFinishState(context, rr, end)) {
 				logHttpRequestResult(rr, context.getUrl(), end);
 				sleep(context.getSleepIntervalMillis());
 			} else {
-				HttpStatus status = getResultStatus(context, rr, end, now);
+				HttpStatus status = getResultStatus(context, rr, end);
 				waitResult.setStatus(status);
 				waitResult.setStop(rr.getStop());
 				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
@@ -88,12 +87,13 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected HttpStatus getResultStatus(HttpContext context, HttpRequestResult rr, long end, long now) {
-		// If we've gone past our max allotted time, we are done
-		if (now > end) {
+	protected HttpStatus getResultStatus(HttpContext context, HttpRequestResult rr, long end) {
+		// If we've gone past our max allotted time, we've timed out
+		if (rr.getStop() > end) {
 			return HttpStatus.TIMEOUT;
 		}
 
+		// If we've gone past our max allotted time, we've timed out
 		if (rr.getException() != null) {
 			return HttpStatus.IO_EXCEPTION;
 		}
@@ -111,9 +111,9 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end, long now) {
+	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end) {
 		// If we've gone past our max allotted time, we are done
-		if (now > end) {
+		if (rr.getStop() > end) {
 			return true;
 		}
 
