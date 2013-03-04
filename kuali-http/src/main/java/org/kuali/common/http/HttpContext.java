@@ -11,18 +11,18 @@ public class HttpContext {
 	// HTTP codes signifying success
 	List<Integer> successCodes = Arrays.asList(200);
 
-	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned
+	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
 	List<Integer> continueWaitingCodes = Arrays.asList(503);
 
 	// Millis to wait before an individual http request times out
-	int requestTimeout = 3000;
+	int requestTimeoutMillis = 3000;
 
 	// Millis to wait in between http requests
-	int sleepInterval = 3000;
+	int sleepIntervalMillis = 3000;
 
-	// Total number of seconds to wait before failing
-	int overallTimeout = 180;
+	// Total number of millis to wait before timing out (3 minutes)
+	int overallTimeoutMillis = 1000 * 60 * 3;
 
 	public String getUrl() {
 		return url;
@@ -40,28 +40,28 @@ public class HttpContext {
 		this.successCodes = successCodes;
 	}
 
-	public int getRequestTimeout() {
-		return requestTimeout;
+	public int getRequestTimeoutMillis() {
+		return requestTimeoutMillis;
 	}
 
-	public void setRequestTimeout(int requestTimeout) {
-		this.requestTimeout = requestTimeout;
+	public void setRequestTimeoutMillis(int requestTimeout) {
+		this.requestTimeoutMillis = requestTimeout;
 	}
 
-	public int getSleepInterval() {
-		return sleepInterval;
+	public int getSleepIntervalMillis() {
+		return sleepIntervalMillis;
 	}
 
-	public void setSleepInterval(int sleepInterval) {
-		this.sleepInterval = sleepInterval;
+	public void setSleepIntervalMillis(int sleepInterval) {
+		this.sleepIntervalMillis = sleepInterval;
 	}
 
-	public int getOverallTimeout() {
-		return overallTimeout;
+	public int getOverallTimeoutMillis() {
+		return overallTimeoutMillis;
 	}
 
-	public void setOverallTimeout(int overallTimeout) {
-		this.overallTimeout = overallTimeout;
+	public void setOverallTimeoutMillis(int overallTimeout) {
+		this.overallTimeoutMillis = overallTimeout;
 	}
 
 	public List<Integer> getContinueWaitingCodes() {

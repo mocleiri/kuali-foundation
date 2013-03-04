@@ -41,14 +41,14 @@ public class DefaultHttpService implements HttpService {
 		HttpClient client = getHttpClient(context);
 		WaitResult waitResult = new WaitResult();
 		waitResult.setStart(System.currentTimeMillis());
-		long end = waitResult.getStart() + (context.getOverallTimeout() * 1000);
+		long end = waitResult.getStart() + (context.getOverallTimeoutMillis() * 1000);
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
-				sleep(context.getRequestTimeout());
+				sleep(context.getRequestTimeoutMillis());
 			}
 		}
 	}
@@ -131,7 +131,7 @@ public class DefaultHttpService implements HttpService {
 		HttpClientParams clientParams = client.getParams();
 		HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
 		clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
-		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, context.getRequestTimeout());
+		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, context.getRequestTimeoutMillis());
 		return client;
 	}
 
