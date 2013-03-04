@@ -4,11 +4,20 @@ import java.util.List;
 
 public class HttpContext {
 
+	// Url to contact
 	String url;
+
+	// HTTP codes signifying success
 	List<Integer> successCodes;
-	int requestTimeout;
-	int sleepInterval;
-	int overallTimeout;
+
+	// Millis to wait before an individual http request times out
+	int requestTimeout = 3000;
+
+	// Millis to wait in between http requests
+	int sleepInterval = 3000;
+
+	// Total number of seconds to wait before failing
+	int overallTimeout = 180;
 
 	public String getUrl() {
 		return url;
