@@ -62,17 +62,17 @@ $page = 'personnel';
                       </dd>
                       <dt>Full Name</dt>
                       <dd>
-                        <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Full Name">Tatum, Arthur</a>
+                        <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Full Name">Haskell, Edward</a>
                       </dd>
                       <dt>User Name </dt>
-                      <dd>arttatum</dd>
+                      <dd>haskelledw</dd>
                       <dt>Email Address</dt>
                       <dd>
-                        <a href="#" id="email" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Email">arttatum@indiana.edu</a>
+                        <a href="#" id="email" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Email">haskelledw@inst.com</a>
                       </dd>
                       <dt>Office Phone</dt>
                       <dd>
-                        <a href="#" id="phone" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Office Phone">(812) 855-7441</a>
+                        <a href="#" id="phone" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Office Phone">917-422-5934</a>
                       </dd>
                       <dt>Primary Title</dt>
                       <dd>

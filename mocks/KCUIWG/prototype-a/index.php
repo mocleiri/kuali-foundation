@@ -80,8 +80,13 @@ $page = 'start';
             <div class="control-group">
               <label class="control-label" for="orgdocnum">Sponsor Code</label>
               <div class="controls">
-                <input type="text" id="Description" placeholder="" class=" input-small">
-                <a href="#" class="btn lookup"><span>lookup</span></a></div>
+                <select name="orgdocnum">
+                  <option>select</option>
+                  <option value="1">Chemistry - Physical Sciences B.02</option>
+                </select>
+                <!-- <input type="text" id="Description" placeholder="" class=" input-small"> -->
+                <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
+              </div>
             </div>
             <div class="control-group"> 
               

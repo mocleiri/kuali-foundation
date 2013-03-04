@@ -72,10 +72,19 @@ $page = 'compliance';
                     <td>
                       <input type="text" class=" input-mini" name="textfield5" id="textfield3" tabindex="1" />
                       </td>
-                    <td><a href="#">01/01/2013</a></td>
-                    <td><a href="#">01/12/2013</a></td>
-                    <td><a href="#">01/01/2018</a></td>
-                    <td><a href="#">select</a></td>
+                    <td class="date">
+                        <input type="text" class="input-small date" id="start_date" name="input" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </td>
+                    <td class="date">
+                        <input type="text" class="input-small date" id="start_date" name="input" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </td>
+                    <td class="date">
+                        <input type="text" class="input-small date" id="start_date" name="input" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </td>
+                    <td>E2, E5, E6</td>
                     <td>
                     	<a id="delete01" href="#" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i> Delete</a>
                         <script>

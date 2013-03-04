@@ -35,10 +35,9 @@ $page = 'attachments';
                 <label class="control-label">Attachment Type</label>
                 <div class="controls">
                   <select name="select" class="input-xlarge">
-                    <option>Enter</option>
-                    <option>Your</option>
-                    <option>Options</option>
-                    <option>Here!</option>
+                    <option>select</option>
+                    <option>Abstract</option>
+                    <option>Amendment</option>
                   </select>
                 </div>
               </div>
