@@ -2,8 +2,12 @@ package org.kuali.common.http;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpWaitExecutable implements Executable {
+
+	private final Logger logger = LoggerFactory.getLogger(HttpWaitExecutable.class);
 
 	HttpContext context;
 	HttpService service = new DefaultHttpService();
@@ -11,6 +15,7 @@ public class HttpWaitExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		logger.debug(context.getUrl());
 		HttpWaitResult result = service.wait(context);
 		HttpStatus actual = result.getStatus();
 		Assert.isTrue(expected.equals(actual), "Expected status is [" + expected + "] but actual status is [" + actual + "]");

@@ -53,7 +53,7 @@ public class DefaultHttpService implements HttpService {
 				logHttpRequestResult(rr, context.getUrl(), end);
 				sleep(context.getSleepIntervalMillis());
 			} else {
-				logFinalHttpRequestResult(rr, context.getUrl());
+				logFinalHttpRequestResult(rr, context.getUrl(), waitResult.getStart());
 				HttpStatus status = getResultStatus(context, rr, end);
 				waitResult.setStatus(status);
 				waitResult.setStop(rr.getStop());
@@ -64,9 +64,11 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected void logFinalHttpRequestResult(HttpRequestResult result, String url) {
+	protected void logFinalHttpRequestResult(HttpRequestResult result, String url, long start) {
+		String elapsed = FormatUtils.getTime(result.getStop() - start);
 		String statusText = getStatusText(result);
-		logger.info("{} - {}", url, statusText);
+		Object[] args = { url, statusText, elapsed };
+		logger.info("{} - {}  Total time: {}", args);
 	}
 
 	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
@@ -76,8 +78,7 @@ public class DefaultHttpService implements HttpService {
 		logger.info("{} - {} - (Timeout in {})", args);
 	}
 
-	@Override
-	public String getStatusText(HttpRequestResult result) {
+	protected String getStatusText(HttpRequestResult result) {
 		if (result.getException() != null) {
 			return result.getException().getMessage();
 		} else {
