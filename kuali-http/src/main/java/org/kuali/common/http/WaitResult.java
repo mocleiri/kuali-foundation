@@ -6,6 +6,7 @@ public class WaitResult {
 	long stop;
 	long elapsed;
 	RequestResult requestResult;
+	String message;
 
 	public long getStart() {
 		return start;
@@ -37,6 +38,14 @@ public class WaitResult {
 
 	public void setRequestResult(RequestResult requestResult) {
 		this.requestResult = requestResult;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }
