@@ -26,6 +26,7 @@
 
   <util:properties id="httpProperties">
     <prop key="http.url">http://env16.ks.kuali.org</prop>
+    <prop key="http.overallTimeOutMillis">http://env16.ks.kuali.org</prop>
   </util:properties>
 
   <context:property-placeholder properties-ref="httpProperties" />
