@@ -51,6 +51,7 @@
     <property name="time" value="${http.sleepInterval:5s}" />
   </bean>
 
+  <!-- Provide some context for the executable -->
   <bean id="http.context" class="org.kuali.common.http.HttpContext">
     <property name="url" value="${http.url}" />
     <property name="overallTimeoutMillis" ref="http.overallTimeoutMillis" />
@@ -58,8 +59,10 @@
     <property name="sleepIntervalMillis" ref="http.sleepIntervalMillis" />
   </bean>
 
+  <!-- Invoke the service and wait for the url to respond with http status code "200" -->
   <bean id="http.waitExecutable" class="org.kuali.common.http.HttpWaitExecutable" init-method="execute">
     <property name="context" ref="http.context" />
+    <property name="skip" value="${http.wait.skip:FALSE}" />
   </bean>
 
 </beans>

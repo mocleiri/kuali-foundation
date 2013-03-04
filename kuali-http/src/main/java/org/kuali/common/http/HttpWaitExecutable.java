@@ -12,10 +12,14 @@ public class HttpWaitExecutable implements Executable {
 	HttpContext context;
 	HttpService service = new DefaultHttpService();
 	HttpStatus expected = HttpStatus.SUCCESS;
+	boolean skip;
 
 	@Override
 	public void execute() {
-		logger.debug(context.getUrl());
+		if (skip) {
+			logger.info("Skip waiting for a valid http status code");
+			return;
+		}
 		HttpWaitResult result = service.wait(context);
 		HttpStatus actual = result.getStatus();
 		Assert.isTrue(expected.equals(actual), "Expected status - [" + expected + "]  Actual status - [" + actual + "]");
@@ -43,6 +47,14 @@ public class HttpWaitExecutable implements Executable {
 
 	public void setExpected(HttpStatus expected) {
 		this.expected = expected;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
