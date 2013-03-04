@@ -73,10 +73,10 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
-		String statusText = "[" + getStatusText(result) + "]";
+		String statusText = getStatusText(result);
 		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
 		Object[] args = { url, statusText, timeout };
-		logger.info("{} - {} - (Timeout in {})", args);
+		logger.info("{} - [{}] - (Timeout in {})", args);
 	}
 
 	protected String getStatusText(HttpRequestResult result) {
