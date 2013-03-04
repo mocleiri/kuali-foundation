@@ -1,12 +1,13 @@
 package org.kuali.common.http;
 
+import java.util.List;
+
 public class WaitResult {
 
 	long start;
 	long stop;
 	long elapsed;
-	RequestResultEnum requestResult;
-	String message;
+	List<RequestResult> requestResults;
 
 	public long getStart() {
 		return start;
@@ -32,20 +33,12 @@ public class WaitResult {
 		this.elapsed = elapsed;
 	}
 
-	public RequestResultEnum getRequestResult() {
-		return requestResult;
+	public List<RequestResult> getRequestResults() {
+		return requestResults;
 	}
 
-	public void setRequestResult(RequestResultEnum requestResult) {
-		this.requestResult = requestResult;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	public void setRequestResults(List<RequestResult> requestResults) {
+		this.requestResults = requestResults;
 	}
 
 }

@@ -45,19 +45,7 @@ public class DefaultHttpService implements HttpService {
 		logger.info(getMsg("Determining status for '" + context.getUrl() + "'"));
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			RequestResultEnum result = doRequest(client, context, secondsRemaining);
-			if (result.equals(RequestResultEnum.SUCCESS)) {
-				wr.setRequestResult(result);
-				wr.setStart(System.currentTimeMillis());
-				wr.setElapsed(wr.getStop() - now);
-				return wr;
-			} else if (result.equals(RequestResultEnum.INVALID_HTTP_STATUS_CODE)) {
-				logger.info("Invalid http status code.  Expected " + context.getSuccessCodes());
-				wr.setRequestResult(result);
-				wr.setStart(System.currentTimeMillis());
-				wr.setElapsed(wr.getStop() - now);
-				return wr;
-			}
+			RequestResult result = doRequest(client, context);
 			sleep(context.getRequestTimeout());
 			if (System.currentTimeMillis() > end) {
 				logger.info("Timed out waiting for response from '" + url + "'");
@@ -69,7 +57,7 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected RequestResult getRequestResult(HttpClient client, HttpContext context) {
+	protected RequestResult doRequest(HttpClient client, HttpContext context) {
 		RequestResult result = new RequestResult();
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
@@ -84,7 +72,7 @@ public class DefaultHttpService implements HttpService {
 		return result;
 	}
 
-	protected RequestResultEnum doRequest(HttpClient client, HttpContext context, long secondsRemaining) {
+	protected RequestResultEnum doRequestOld(HttpClient client, HttpContext context, long secondsRemaining) {
 		String url = context.getUrl();
 		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
 		try {
