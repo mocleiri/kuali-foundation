@@ -32,4 +32,12 @@ public class HttpWaitExecutable implements Executable {
 		this.service = service;
 	}
 
+	public HttpStatus getExpected() {
+		return expected;
+	}
+
+	public void setExpected(HttpStatus expected) {
+		this.expected = expected;
+	}
+
 }
