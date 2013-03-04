@@ -36,15 +36,15 @@
     Anything other than SUCCESS indicates something went wrong (timeout, 404, etc)
   -->
 
-  <bean id="http.overallTimeoutMillis" class="org.kuali.common.spring.GetMillisFactoryBean">
+  <bean id="http.overallTimeoutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.overallTimeoutMillis:15m}" />
   </bean>
 
-  <bean id="http.requestTimeOutMillis" class="org.kuali.common.spring.GetMillisFactoryBean">
+  <bean id="http.requestTimeOutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.requestTimeOutMillis:15s}" />
   </bean>
 
-  <bean id="http.sleepIntervalMillis" class="org.kuali.common.spring.GetMillisFactoryBean">
+  <bean id="http.sleepIntervalMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.sleepIntervalMillis:5s}" />
   </bean>
 
