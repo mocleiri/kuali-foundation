@@ -17,15 +17,26 @@ package org.kuali.common.util.execute;
 
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Execute the list of <code>executables</code> supplied to this bean
  */
 public class ExecutablesExecutable implements Executable {
 
+	private static final Logger logger = LoggerFactory.getLogger(ExecutablesExecutable.class);
+
 	List<Executable> executables;
+	boolean skip;
 
 	@Override
 	public void execute() {
+		if (skip) {
+			logger.info("Skipping execution of {} executables", CollectionUtils.toEmptyList(executables).size());
+			return;
+		}
 		for (Executable executable : executables) {
 			executable.execute();
 		}
@@ -37,6 +48,14 @@ public class ExecutablesExecutable implements Executable {
 
 	public void setExecutables(List<Executable> executables) {
 		this.executables = executables;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
