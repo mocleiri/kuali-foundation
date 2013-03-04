@@ -170,20 +170,6 @@ public class DefaultHttpService implements HttpService {
 		return false;
 	}
 
-	protected String getMsg(String msg) {
-		return getMsg(msg, -1);
-	}
-
-	protected String getMsg(String msg, long l) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(msg);
-		if (l == -1) {
-			return sb.toString();
-		}
-		sb.append(" - (Timeout in " + l + "s)");
-		return sb.toString();
-	}
-
 	protected HttpClient getHttpClient(HttpContext context) {
 		HttpClient client = new HttpClient();
 		HttpClientParams clientParams = client.getParams();
