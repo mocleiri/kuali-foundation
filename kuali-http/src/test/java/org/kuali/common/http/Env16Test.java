@@ -1,5 +1,6 @@
 package org.kuali.common.http;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
@@ -7,7 +8,7 @@ import org.kuali.common.util.service.SpringService;
 public class Env16Test {
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void test() {
 		try {
 			SpringService ss = new DefaultSpringService();
