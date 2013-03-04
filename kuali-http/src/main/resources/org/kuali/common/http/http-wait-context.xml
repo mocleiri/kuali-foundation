@@ -28,8 +28,8 @@
     The only required property is ${http.url}.
     The other timeout related properties have sensible defaults.
     Default behavior is to wait up to 15 minutes to get a valid http status from ${http.url}
-    If an IO exception is encountered when polling ${http.url} the logic will back off, wait 5 seconds, then try again.
-    If status code 503 (temporarily unavailable) is returned the logic will back off, wait 5 seconds, then try again.
+    If an IO exception is encountered the logic will back off, wait 5 seconds, then try again.
+    If status code 503 (temporarily unavailable) is returned, the logic will back off, wait 5 seconds, then try again.
     If any status code other than 503 is returned, the logic quits polling the url and returns an HttpWaitResult object
     The HttpWaitResult object contains a ResultStatus object which can be inspected to see if polling the url
     resulted in SUCCESS (ie status code 200).
