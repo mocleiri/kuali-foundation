@@ -44,9 +44,11 @@ public class DefaultHttpService implements HttpService {
 		WaitResult waitResult = new WaitResult();
 		waitResult.setStart(now);
 		List<RequestResult> requestResults = new ArrayList<RequestResult>();
+		waitResult.setRequestResults(requestResults);
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
 			RequestResult result = doRequest(client, context);
+			requestResults.add(result);
 			sleep(context.getRequestTimeout());
 			if (System.currentTimeMillis() > end) {
 				logger.info("Timed out waiting for response from '" + url + "'");
@@ -74,7 +76,7 @@ public class DefaultHttpService implements HttpService {
 		return result;
 	}
 
-	protected RequestResultEnum doRequestOld(HttpClient client, HttpContext context, long secondsRemaining) {
+	protected ResultStatus doRequestOld(HttpClient client, HttpContext context, long secondsRemaining) {
 		String url = context.getUrl();
 		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
 		try {
@@ -89,22 +91,22 @@ public class DefaultHttpService implements HttpService {
 			if (success) {
 				// Everything is OK
 				logger.info(getMsg(message.toString()));
-				return RequestResultEnum.SUCCESS;
+				return ResultStatus.SUCCESS;
 			} else if (continueWaiting) {
 				// We got an HTTP status code that does not represent success,
 				// but we should continue waiting
 				// This can happen when Tomcat is fronted by an Apache web server
 				// That configuration returns 503 if Tomcat isn't up and running yet
 				logger.info(getMsg(message.toString()));
-				return RequestResultEnum.CONTINUE_WAITING_HTTP_STATUS_CODE;
+				return ResultStatus.CONTINUE_WAITING_HTTP_STATUS_CODE;
 			} else {
 				// We got an HTTP status code that we don't recognize, we are done
 				logger.info(getMsg(message.toString(), secondsRemaining));
-				return RequestResultEnum.INVALID_HTTP_STATUS_CODE;
+				return ResultStatus.INVALID_HTTP_STATUS_CODE;
 			}
 		} catch (IOException e) {
 			logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
-			return RequestResultEnum.IO_EXCEPTION;
+			return ResultStatus.IO_EXCEPTION;
 		}
 	}
 

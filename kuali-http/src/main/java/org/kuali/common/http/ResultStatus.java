@@ -15,8 +15,8 @@
  */
 package org.kuali.common.http;
 
-public enum RequestResultEnum {
+public enum ResultStatus {
 
-	IO_EXCEPTION, SUCCESS, CONTINUE_WAITING_HTTP_STATUS_CODE, INVALID_HTTP_STATUS_CODE, TIMEOUT;
+	IO_EXCEPTION, SUCCESS, INVALID_HTTP_STATUS_CODE, TIMEOUT;
 
 }
