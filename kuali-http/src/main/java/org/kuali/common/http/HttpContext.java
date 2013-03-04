@@ -1,5 +1,6 @@
 package org.kuali.common.http;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class HttpContext {
@@ -8,11 +9,11 @@ public class HttpContext {
 	String url;
 
 	// HTTP codes signifying success
-	List<Integer> successCodes;
+	List<Integer> successCodes = Arrays.asList(200);
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned
 	// We don't want to fail if we get a 503, just continue waiting
-	List<Integer> continueWaitingCodes;
+	List<Integer> continueWaitingCodes = Arrays.asList(503);
 
 	// Millis to wait before an individual http request times out
 	int requestTimeout = 3000;
