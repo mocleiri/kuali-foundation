@@ -41,7 +41,7 @@ public class DefaultHttpService implements HttpService {
 		HttpClient client = getHttpClient(context);
 		WaitResult waitResult = new WaitResult();
 		waitResult.setStart(System.currentTimeMillis());
-		long end = waitResult.getStart() + (context.getOverallTimeoutMillis() * 1000);
+		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
 		for (;;) {
