@@ -30,158 +30,159 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultHttpService {
-    private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
-    List<Integer> successCodes = new ArrayList<Integer>();
-    List<Integer> continueWaitingCodes = new ArrayList<Integer>();
-    int requestTimeout = 3000;
-    int sleepInterval = 3000;
-    int timeout = 180;
 
-    protected boolean isSuccess(int resultCode) {
-        return isMatch(resultCode, successCodes);
-    }
+	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
+	List<Integer> successCodes = new ArrayList<Integer>();
+	List<Integer> continueWaitingCodes = new ArrayList<Integer>();
+	int requestTimeout = 3000;
+	int sleepInterval = 3000;
+	int timeout = 180;
 
-    protected boolean isContinueWaiting(int resultCode) {
-        return isMatch(resultCode, continueWaitingCodes);
-    }
+	protected boolean isSuccess(int resultCode) {
+		return isMatch(resultCode, successCodes);
+	}
 
-    protected boolean isMatch(int i, List<Integer> integers) {
-        for (int integer : integers) {
-            if (i == integer) {
-                return true;
-            }
-        }
-        return false;
-    }
+	protected boolean isContinueWaiting(int resultCode) {
+		return isMatch(resultCode, continueWaitingCodes);
+	}
 
-    protected String getMsg(String msg) {
-        return getMsg(msg, -1);
-    }
+	protected boolean isMatch(int i, List<Integer> integers) {
+		for (int integer : integers) {
+			if (i == integer) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    protected String getMsg(String msg, long l) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(msg);
-        if (l == -1) {
-            return sb.toString();
-        }
-        sb.append(" - (Timeout in " + l + "s)");
-        return sb.toString();
-    }
+	protected String getMsg(String msg) {
+		return getMsg(msg, -1);
+	}
 
-    public Result wait(String url) {
-        HttpClient client = getHttpClient();
-        long now = System.currentTimeMillis();
-        long end = now + (timeout * 1000);
-        logger.info(getMsg("Determining status for '" + url + "'"));
-        for (;;) {
-            long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-            Result result = doRequest(client, url, secondsRemaining);
-            if (result.equals(Result.SUCCESS)) {
-                return result;
-            } else if (result.equals(Result.INVALID_HTTP_STATUS_CODE)) {
-                logger.info("Invalid http status code.  Expected " + successCodes);
-                return result;
-            }
-            sleep(sleepInterval);
-            if (System.currentTimeMillis() > end) {
-                logger.info("Timed out waiting for response from '" + url + "'");
-                return Result.TIMEOUT;
-            }
-        }
-    }
+	protected String getMsg(String msg, long l) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(msg);
+		if (l == -1) {
+			return sb.toString();
+		}
+		sb.append(" - (Timeout in " + l + "s)");
+		return sb.toString();
+	}
 
-    protected HttpClient getHttpClient() {
-        HttpClient client = new HttpClient();
-        HttpClientParams clientParams = client.getParams();
-        HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
-        clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
-        clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
-        return client;
-    }
+	public Result wait(String url) {
+		HttpClient client = getHttpClient();
+		long now = System.currentTimeMillis();
+		long end = now + (timeout * 1000);
+		logger.info(getMsg("Determining status for '" + url + "'"));
+		for (;;) {
+			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
+			Result result = doRequest(client, url, secondsRemaining);
+			if (result.equals(Result.SUCCESS)) {
+				return result;
+			} else if (result.equals(Result.INVALID_HTTP_STATUS_CODE)) {
+				logger.info("Invalid http status code.  Expected " + successCodes);
+				return result;
+			}
+			sleep(sleepInterval);
+			if (System.currentTimeMillis() > end) {
+				logger.info("Timed out waiting for response from '" + url + "'");
+				return Result.TIMEOUT;
+			}
+		}
+	}
 
-    protected Result doRequest(HttpClient client, String url, long secondsRemaining) {
-        StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
-        try {
-            HttpMethod method = new GetMethod(url);
-            client.executeMethod(method);
-            int statusCode = method.getStatusCode();
-            String statusText = method.getStatusText();
-            boolean success = isSuccess(statusCode);
-            boolean continueWaiting = isContinueWaiting(statusCode);
+	protected HttpClient getHttpClient() {
+		HttpClient client = new HttpClient();
+		HttpClientParams clientParams = client.getParams();
+		HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
+		clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
+		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, requestTimeout);
+		return client;
+	}
 
-            message = message.append(statusCode + ":" + statusText + "'");
-            if (success) {
-                // Everything is OK
-                logger.info(getMsg(message.toString()));
-                return Result.SUCCESS;
-            } else if (continueWaiting) {
-                // We got an HTTP status code that does not represent success,
-                // but we should continue waiting
-                // This can happen when Tomcat is fronted by an Apache web server
-                // that returns 503 if Tomcat isn't up and running yet
-                logger.info(getMsg(message.toString()));
-                return Result.CONTINUE_WAITING_HTTP_STATUS_CODE;
-            } else {
-                // We got an HTTP status code that we don't recognize, we are done
-                logger.info(getMsg(message.toString(), secondsRemaining));
-                return Result.INVALID_HTTP_STATUS_CODE;
-            }
+	protected Result doRequest(HttpClient client, String url, long secondsRemaining) {
+		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
+		try {
+			HttpMethod method = new GetMethod(url);
+			client.executeMethod(method);
+			int statusCode = method.getStatusCode();
+			String statusText = method.getStatusText();
+			boolean success = isSuccess(statusCode);
+			boolean continueWaiting = isContinueWaiting(statusCode);
 
-        } catch (IOException e) {
-            logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
-            return Result.IO_EXCEPTION;
-        }
-    }
+			message = message.append(statusCode + ":" + statusText + "'");
+			if (success) {
+				// Everything is OK
+				logger.info(getMsg(message.toString()));
+				return Result.SUCCESS;
+			} else if (continueWaiting) {
+				// We got an HTTP status code that does not represent success,
+				// but we should continue waiting
+				// This can happen when Tomcat is fronted by an Apache web server
+				// that returns 503 if Tomcat isn't up and running yet
+				logger.info(getMsg(message.toString()));
+				return Result.CONTINUE_WAITING_HTTP_STATUS_CODE;
+			} else {
+				// We got an HTTP status code that we don't recognize, we are done
+				logger.info(getMsg(message.toString(), secondsRemaining));
+				return Result.INVALID_HTTP_STATUS_CODE;
+			}
 
-    protected void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+		} catch (IOException e) {
+			logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
+			return Result.IO_EXCEPTION;
+		}
+	}
 
-    public int getRequestTimeout() {
-        return requestTimeout;
-    }
+	protected void sleep(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    public void setRequestTimeout(int requestTimeout) {
-        this.requestTimeout = requestTimeout;
-    }
+	public int getRequestTimeout() {
+		return requestTimeout;
+	}
 
-    public int getSleepInterval() {
-        return sleepInterval;
-    }
+	public void setRequestTimeout(int requestTimeout) {
+		this.requestTimeout = requestTimeout;
+	}
 
-    public void setSleepInterval(int sleepInterval) {
-        this.sleepInterval = sleepInterval;
-    }
+	public int getSleepInterval() {
+		return sleepInterval;
+	}
 
-    public int getTimeout() {
-        return timeout;
-    }
+	public void setSleepInterval(int sleepInterval) {
+		this.sleepInterval = sleepInterval;
+	}
 
-    public void setTimeout(int waitTimeout) {
-        this.timeout = waitTimeout;
-    }
+	public int getTimeout() {
+		return timeout;
+	}
 
-    public Logger getLogger() {
-        return logger;
-    }
+	public void setTimeout(int waitTimeout) {
+		this.timeout = waitTimeout;
+	}
 
-    public List<Integer> getSuccessCodes() {
-        return successCodes;
-    }
+	public Logger getLogger() {
+		return logger;
+	}
 
-    public void setSuccessCodes(List<Integer> successCodes) {
-        this.successCodes = successCodes;
-    }
+	public List<Integer> getSuccessCodes() {
+		return successCodes;
+	}
 
-    public List<Integer> getContinueWaitingCodes() {
-        return continueWaitingCodes;
-    }
+	public void setSuccessCodes(List<Integer> successCodes) {
+		this.successCodes = successCodes;
+	}
 
-    public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
-        this.continueWaitingCodes = continueWaitingCodes;
-    }
+	public List<Integer> getContinueWaitingCodes() {
+		return continueWaitingCodes;
+	}
+
+	public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
+		this.continueWaitingCodes = continueWaitingCodes;
+	}
 }

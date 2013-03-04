@@ -6,6 +6,9 @@ public class HttpContext {
 
 	String url;
 	List<Integer> successCodes;
+	int requestTimeout;
+	int sleepInterval;
+	int overallTimeout;
 
 	public String getUrl() {
 		return url;
@@ -21,6 +24,30 @@ public class HttpContext {
 
 	public void setSuccessCodes(List<Integer> successCodes) {
 		this.successCodes = successCodes;
+	}
+
+	public int getRequestTimeout() {
+		return requestTimeout;
+	}
+
+	public void setRequestTimeout(int requestTimeout) {
+		this.requestTimeout = requestTimeout;
+	}
+
+	public int getSleepInterval() {
+		return sleepInterval;
+	}
+
+	public void setSleepInterval(int sleepInterval) {
+		this.sleepInterval = sleepInterval;
+	}
+
+	public int getOverallTimeout() {
+		return overallTimeout;
+	}
+
+	public void setOverallTimeout(int overallTimeout) {
+		this.overallTimeout = overallTimeout;
 	}
 
 }
