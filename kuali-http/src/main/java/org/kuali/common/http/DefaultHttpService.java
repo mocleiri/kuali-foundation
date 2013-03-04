@@ -139,7 +139,7 @@ public class DefaultHttpService implements HttpService {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
+			throw new IllegalStateException(e);
 		}
 	}
 }
