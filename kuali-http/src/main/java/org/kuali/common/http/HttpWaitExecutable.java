@@ -18,7 +18,7 @@ public class HttpWaitExecutable implements Executable {
 		logger.debug(context.getUrl());
 		HttpWaitResult result = service.wait(context);
 		HttpStatus actual = result.getStatus();
-		Assert.isTrue(expected.equals(actual), "Expected status [" + expected + "] actual status is [" + actual + "]");
+		Assert.isTrue(expected.equals(actual), "Expected status - [" + expected + "]  Actual status - [" + actual + "]");
 	}
 
 	public HttpContext getContext() {
