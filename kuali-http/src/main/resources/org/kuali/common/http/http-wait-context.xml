@@ -27,11 +27,11 @@
   <!--
     The only required property is ${http.url}.
     The other timeout related properties have sensible defaults.
-    Default behavior is to repeatedly poll the url for up to 15 minutes to get a valid http status code.
+    Default behavior is to repeatedly poll the url for 15 minutes until we get a valid http status code.
     If an IO exception is encountered the logic will back off, wait 5 seconds, then try again.
     If status code 503 (temporarily unavailable) is returned, the logic will back off, wait 5 seconds, then try again.
-    Any status code other than 503 causes the logic to quit polling and return an HttpWaitResult object
-    The HttpWaitResult object contains a ResultStatus object which can be inspected to see if polling the url
+    Any status code other than 503 causes the logic to quit polling and return.
+    The return object (HttpWaitResult) contains a ResultStatus object which can be inspected to see if polling the url
     resulted in SUCCESS (ie status code 200).
     Anything other than SUCCESS indicates something went wrong (timeout, 404, etc) and results in IllegalStateException being thrown
   -->
