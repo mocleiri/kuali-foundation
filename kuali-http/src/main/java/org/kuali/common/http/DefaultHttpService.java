@@ -93,11 +93,12 @@ public class DefaultHttpService implements HttpService {
 			return HttpStatus.TIMEOUT;
 		}
 
-		// If we've gone past our max allotted time, we've timed out
+		// Don't think we'll ever fall into this. Logic always continues re-trying until timeout is exceeded if an IO exception is returned
 		if (rr.getException() != null) {
 			return HttpStatus.IO_EXCEPTION;
 		}
 
+		// If we have not timed out and there is no exception, we must have gotten a valid http response code back
 		Integer statusCode = rr.getStatusCode();
 		if (statusCode == null) {
 			throw new IllegalStateException("statusCode should never be null here");
