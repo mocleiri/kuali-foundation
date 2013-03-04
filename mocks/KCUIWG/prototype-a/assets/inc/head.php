@@ -11,6 +11,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<!-- jQuery (NB: please load in head so we can use inline jQuery docReady calls) -->
+<script src="assets/js/jquery.js"></script>
+
 <!-- Le styles -->
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">

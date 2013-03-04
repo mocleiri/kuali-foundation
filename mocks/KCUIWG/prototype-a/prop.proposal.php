@@ -31,10 +31,10 @@ $page = 'basics';
         <!-- // -->
 
         <div class="box">
-          <div class="boxHeader expandControl">
+          <div class="boxHeader expandControl closed">
             <h3>Proposal Details</h3>
           </div>
-          <div class="boxContent expandTarget" style="display:block" >
+          <div class="boxContent expandTarget" style="display:none" >
             <div class="boxSubheader">
               <h4><span class="req">*<span>required</span></span>Required</h4>
             </div>
@@ -86,26 +86,26 @@ $page = 'basics';
               <div class="controls controls-row datepicker">
                 <div class="input-append">
                   <label for="startDate" class="hidden">Start date</label>
-                  <input type="text" class="" id="startDate" name="input" placeholder="from..." required="required">
+                  <input type="text" class="" id="startDate" name="input" placeholder="from..." required>
                   <span class="add-on"><i class="icon-calendar"></i></span>
                 </div>
                 <div class="input-append">
                   <label for="endDate" class="hidden">End date</label>
-                  <input type="text" class="" id="endDate" name="input" placeholder="to..." required="required">
+                  <input type="text" class="" id="endDate" name="input" placeholder="to..." required>
                   <span class="add-on"><i class="icon-calendar"></i></span></div>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="orgdocnum2">Sponsor Code</label>
               <div class="controls">
-                <input type="text" id="orgdocnum2" placeholder="" class=" input-small" required="required">
+                <input type="text" id="orgdocnum2" placeholder="" class=" input-small" required>
                 <a href="#" class="btn lookup"><span>lookup</span></a> </div>
             </div>
             <div class="control-group"> 
               <!-- Textarea -->
               <label class="control-label" for="projectTitle">Project Title</label>
               <div class="controls">
-                <textarea name="textarea" id="projectTitle" class="input-xlarge" required="required"></textarea>
+                <textarea name="textarea" id="projectTitle" class="input-xlarge" required></textarea>
               </div>
             </div>
             <div class="boxSubheader">
