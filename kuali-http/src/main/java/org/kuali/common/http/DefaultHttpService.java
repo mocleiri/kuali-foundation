@@ -16,6 +16,7 @@
 package org.kuali.common.http;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -40,19 +41,19 @@ public class DefaultHttpService implements HttpService {
 		HttpClient client = getHttpClient(context);
 		long now = System.currentTimeMillis();
 		long end = now + (context.getOverallTimeout() * 1000);
-		WaitResult wr = new WaitResult();
-		wr.setStart(now);
-		logger.info(getMsg("Determining status for '" + context.getUrl() + "'"));
+		WaitResult waitResult = new WaitResult();
+		waitResult.setStart(now);
+		List<RequestResult> requestResults = new ArrayList<RequestResult>();
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
 			RequestResult result = doRequest(client, context);
 			sleep(context.getRequestTimeout());
 			if (System.currentTimeMillis() > end) {
 				logger.info("Timed out waiting for response from '" + url + "'");
-				wr.setRequestResult(result);
-				wr.setStart(System.currentTimeMillis());
-				wr.setElapsed(wr.getStop() - now);
-				return wr;
+				waitResult.setRequestResult(result);
+				waitResult.setStart(System.currentTimeMillis());
+				waitResult.setElapsed(waitResult.getStop() - now);
+				return waitResult;
 			}
 		}
 	}
@@ -61,14 +62,15 @@ public class DefaultHttpService implements HttpService {
 		RequestResult result = new RequestResult();
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
+			result.setStart(System.currentTimeMillis());
 			client.executeMethod(method);
-			int statusCode = method.getStatusCode();
-			String statusText = method.getStatusText();
-			result.setStatusCode(statusCode);
-			result.setStatusText(statusText);
+			result.setStatusCode(method.getStatusCode());
+			result.setStatusText(method.getStatusText());
 		} catch (IOException e) {
 			result.setException(e);
 		}
+		result.setStop(System.currentTimeMillis());
+		result.setElapsed(result.getStop() - result.getStart());
 		return result;
 	}
 
