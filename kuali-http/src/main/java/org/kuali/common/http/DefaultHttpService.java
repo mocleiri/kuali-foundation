@@ -29,8 +29,8 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpInspector {
-    private final Logger logger = LoggerFactory.getLogger(HttpInspector.class);
+public class DefaultHttpService {
+    private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
     List<Integer> successCodes = new ArrayList<Integer>();
     List<Integer> continueWaitingCodes = new ArrayList<Integer>();
     int requestTimeout = 3000;
