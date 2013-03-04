@@ -45,14 +45,15 @@ public class DefaultHttpService implements HttpService {
 		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
-		logger.info("Determining status for {} - (Timeout in {})", context.getUrl(), context.getOverallTimeoutMillis());
+		logger.info("Determining status for {} - (Timeout in {})", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
-			logHttpRequestResult(rr, context.getUrl(), end);
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
+				logHttpRequestResult(rr, context.getUrl(), end);
 				sleep(context.getSleepIntervalMillis());
 			} else {
+				logFinalHttpRequestResult(rr, context.getUrl());
 				ResultStatus status = getResultStatus(context, rr, end);
 				waitResult.setStatus(status);
 				waitResult.setStop(rr.getStop());
@@ -60,6 +61,11 @@ public class DefaultHttpService implements HttpService {
 				return waitResult;
 			}
 		}
+	}
+
+	protected void logFinalHttpRequestResult(HttpRequestResult result, String url) {
+		String statusText = getStatusText(result);
+		logger.info("{} - {}", url, statusText);
 	}
 
 	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
