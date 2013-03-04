@@ -41,7 +41,7 @@
   </bean>
 
   <bean id="http.requestTimeoutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
-    <property name="time" value="${http.requestTimeoutMillis:15s}" />
+    <property name="time" value="${http.requestTimeoutMillis:5s}" />
   </bean>
 
   <bean id="http.sleepIntervalMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
