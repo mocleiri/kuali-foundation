@@ -122,6 +122,8 @@
     <kuali-sql.version>2.0.1</kuali-sql.version>
     <kuali-jdbc.version>2.0.4</kuali-jdbc.version>
     <kuali-deploy.version>2.1.5</kuali-deploy.version>
+    <impex.version>2.0.5</impex.version>
+    <kuali-http.version>1.0.0</kuali-http.version>
   </properties>
   <profiles>
     <profile>
@@ -221,8 +223,6 @@
         <oracle.version>11.2.0.2</oracle.version>
         <deploy.env>NONE</deploy.env>
         <project.classifier>NONE</project.classifier>
-        <impex.version>2.0.5</impex.version>
-        <kuali-http.version>1.0.0</kuali-http.version>
       </properties>
       <build>
         <plugins>
