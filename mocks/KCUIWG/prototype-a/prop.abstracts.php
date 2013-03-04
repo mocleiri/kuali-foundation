@@ -18,7 +18,7 @@ $page = 'attachments';
           <div class="boxHeader expandControl">
             <h3>Attachments</h3>
           </div>
-          <div class="boxContent expandTarget" style=" display:nonee" >
+          <div class="boxContent expandTarget" >
             <div class="boxSubheader">
               <h4>Add Attachment</h4>
             </div>
@@ -42,53 +42,7 @@ $page = 'attachments';
                   </select>
                 </div>
               </div>
-              <div class="control-group">
-                <!-- Select Basic -->
-                <label class="control-label">Status</label>
-                <div class="controls">
-                  <select name="select" class="input-xlarge">
-                    <option>Enter</option>
-                    <option>Your</option>
-                    <option>Options</option>
-                    <option>Here!</option>
-                  </select>
-                </div>
-              </div>
-              <div class="control-group">
-                <!-- Text input-->
-                <label class="control-label" for="input01">Contact Name</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge">
-                </div>
-              </div>
-              <div class="control-group">
-                <!-- Text input-->
-                <label class="control-label" for="input01">Uploaded By:</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge">
-                </div>
-              </div>
-              <div class="control-group">
-                <!-- Text input-->
-                <label class="control-label" for="input01">Email Address</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge">
-                </div>
-              </div>
-              <div class="control-group">
-                <!-- Text input-->
-                <label class="control-label" for="input01">Posted Timestamp</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge">
-                </div>
-              </div>
-              <div class="control-group">
-                <!-- Text input-->
-                <label class="control-label" for="input01">Phone Number</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge">
-                </div>
-              </div>
+              
               <div class="control-group">
                 <!-- Text input-->
                 <label class="control-label" for="input01">Comments</label>
@@ -111,175 +65,13 @@ $page = 'attachments';
                 </div>
               </div>
             </fieldset>
-            <div class="boxSubheader expandControl closed ">
-              <h4> this_file.pdf</h4>
-            </div>
-            <div class=" clearfix expandTarget" style="display:none">
-              <dl class="table-display" style="margin-top:-13px;">
-                <dt>File </dt>
-                <dd> this_file.pdf </dd>
-                <dt>Attachment Type:</dt>
-                <dd>Bibliography</dd>
-                <dt>Status</dt>
-                <dd>Incomplete</dd>
-                <dt>Contact Name</dt>
-                <dd>Tom Clark</dd>
-                <dt>Uploaded By</dt>
-                <dd>thrclark</dd>
-                <dt>Email Address</dt>
-                <dd>thrclark@indiana.edu</dd>
-                <dt>Posted Timestamp</dt>
-                <dd>2013-01-18T19:33:30+00:00</dd>
-                <dt>Phone Number</dt>
-                <dd>123-456-7890</dd>
-                <dt>Comments</dt>
-                <dd>Accipe sacrificium confessionum mearum de manu</dd>
-                <dt>Description</dt>
-                <dd>um: sed solvis eam, cum voles, aut miserans </dd>
-              </dl>
-            </div>
-            <div class="boxSubheader expandControl closed ">
-              <h4> this_file.pdf</h4>
-            </div>
-            <div class=" clearfix expandTarget" style="display:none">
-              <dl class="table-display" style="margin-top:-13px;">
-                <dt>File </dt>
-                <dd> this_file.pdf </dd>
-                <dt>Attachment Type:</dt>
-                <dd>Bibliography</dd>
-                <dt>Status</dt>
-                <dd>Incomplete</dd>
-                <dt>Contact Name</dt>
-                <dd>Tom Clark</dd>
-                <dt>Uploaded By</dt>
-                <dd>thrclark</dd>
-                <dt>Email Address</dt>
-                <dd>thrclark@indiana.edu</dd>
-                <dt>Posted Timestamp</dt>
-                <dd>2013-01-18T19:33:30+00:00</dd>
-                <dt>Phone Number</dt>
-                <dd>123-456-7890</dd>
-                <dt>Comments</dt>
-                <dd>Accipe sacrificium confessionum mearum de manu</dd>
-                <dt>Description</dt>
-                <dd>um: sed solvis eam, cum voles, aut miserans </dd>
-              </dl>
-            </div>
-            <div class="boxSubheader expandControl closed ">
-              <h4> this_file.pdf</h4>
-            </div>
-            <div class=" clearfix expandTarget" style="display:none">
-              <dl class="table-display" style="margin-top:-13px;">
-                <dt>File </dt>
-                <dd> this_file.pdf </dd>
-                <dt>Attachment Type:</dt>
-                <dd>Bibliography</dd>
-                <dt>Status</dt>
-                <dd>Incomplete</dd>
-                <dt>Contact Name</dt>
-                <dd>Tom Clark</dd>
-                <dt>Uploaded By</dt>
-                <dd>thrclark</dd>
-                <dt>Email Address</dt>
-                <dd>thrclark@indiana.edu</dd>
-                <dt>Posted Timestamp</dt>
-                <dd>2013-01-18T19:33:30+00:00</dd>
-                <dt>Phone Number</dt>
-                <dd>123-456-7890</dd>
-                <dt>Comments</dt>
-                <dd>Accipe sacrificium confessionum mearum de manu</dd>
-                <dt>Description</dt>
-                <dd>um: sed solvis eam, cum voles, aut miserans </dd>
-              </dl>
-            </div>
-            <div class="boxSubheader expandControl closed ">
-              <h4> this_file.pdf</h4>
-            </div>
-            <div class=" clearfix expandTarget" style="display:none">
-              <dl class="table-display" style="margin-top:-13px;">
-                <dt>File </dt>
-                <dd> this_file.pdf </dd>
-                <dt>Attachment Type:</dt>
-                <dd>Bibliography</dd>
-                <dt>Status</dt>
-                <dd>Incomplete</dd>
-                <dt>Contact Name</dt>
-                <dd>Tom Clark</dd>
-                <dt>Uploaded By</dt>
-                <dd>thrclark</dd>
-                <dt>Email Address</dt>
-                <dd>thrclark@indiana.edu</dd>
-                <dt>Posted Timestamp</dt>
-                <dd>2013-01-18T19:33:30+00:00</dd>
-                <dt>Phone Number</dt>
-                <dd>123-456-7890</dd>
-                <dt>Comments</dt>
-                <dd>Accipe sacrificium confessionum mearum de manu</dd>
-                <dt>Description</dt>
-                <dd>um: sed solvis eam, cum voles, aut miserans </dd>
-              </dl>
-            </div>
-            <div class="boxSubheader expandControl closed ">
-              <h4> this_file.pdf</h4>
-            </div>
-            <div class=" clearfix expandTarget" style="display:none">
-              <dl class="table-display" style="margin-top:-13px;">
-                <dt>File </dt>
-                <dd> this_file.pdf </dd>
-                <dt>Attachment Type:</dt>
-                <dd>Bibliography</dd>
-                <dt>Status</dt>
-                <dd>Incomplete</dd>
-                <dt>Contact Name</dt>
-                <dd>Tom Clark</dd>
-                <dt>Uploaded By</dt>
-                <dd>thrclark</dd>
-                <dt>Email Address</dt>
-                <dd>thrclark@indiana.edu</dd>
-                <dt>Posted Timestamp</dt>
-                <dd>2013-01-18T19:33:30+00:00</dd>
-                <dt>Phone Number</dt>
-                <dd>123-456-7890</dd>
-                <dt>Comments</dt>
-                <dd>Accipe sacrificium confessionum mearum de manu</dd>
-                <dt>Description</dt>
-                <dd>um: sed solvis eam, cum voles, aut miserans </dd>
-              </dl>
-            </div>
-            <div class="boxSubheader expandControl closed ">
-              <h4> this_file.pdf</h4>
-            </div>
-            <div class=" clearfix expandTarget" style="display:none">
-              <dl class="table-display" style="margin-top:-13px;">
-                <dt>File </dt>
-                <dd> this_file.pdf </dd>
-                <dt>Attachment Type:</dt>
-                <dd>Bibliography</dd>
-                <dt>Status</dt>
-                <dd>Incomplete</dd>
-                <dt>Contact Name</dt>
-                <dd>Tom Clark</dd>
-                <dt>Uploaded By</dt>
-                <dd>thrclark</dd>
-                <dt>Email Address</dt>
-                <dd>thrclark@indiana.edu</dd>
-                <dt>Posted Timestamp</dt>
-                <dd>2013-01-18T19:33:30+00:00</dd>
-                <dt>Phone Number</dt>
-                <dd>123-456-7890</dd>
-                <dt>Comments</dt>
-                <dd>Accipe sacrificium confessionum mearum de manu</dd>
-                <dt>Description</dt>
-                <dd>um: sed solvis eam, cum voles, aut miserans </dd>
-              </dl>
-            </div>
           </div>
         </div>
         <div class="box">
-          <div class="boxHeader expandControl">
+          <div class="boxHeader expandControl closed">
             <h3> Personnel Attachments </h3>
           </div>
-          <div class="boxContent expandTarget" style=" display:nonee" >
+          <div class="boxContent expandTarget" style=" display:none" >
             <div class="boxSubheader">
               <h4>Add Attachment</h4>
             </div>
@@ -497,10 +289,10 @@ $page = 'attachments';
           </div>
         </div>
         <div class="box">
-          <div class="boxHeader expandControl">
+          <div class="boxHeader expandControl closed">
             <h3> Internal Attachments</h3>
           </div>
-          <div class="boxContent expandTarget" style=" display:nonee" >
+          <div class="boxContent expandTarget" style=" display:none" >
             <div class="boxSubheader">
               <h4>Add Attachment</h4>
             </div>
@@ -706,10 +498,10 @@ $page = 'attachments';
           </div>
         </div>
         <div class="box">
-          <div class="boxHeader expandControl">
+          <div class="boxHeader expandControl closed">
             <h3> Abstracts </h3>
           </div>
-          <div class="boxContent expandTarget" style=" display:nonee" >
+          <div class="boxContent expandTarget" style=" display:none" >
             <div class="boxSubheader">
               <h4>Add Abstract</h4>
             </div>
@@ -920,10 +712,10 @@ $page = 'attachments';
           </div>
         </div>
         <div class="box">
-          <div class="boxHeader expandControl">
+          <div class="boxHeader expandControl closed">
             <h3> Notes</h3>
           </div>
-          <div class="boxContent expandTarget" style=" display:nonee" >
+          <div class="boxContent expandTarget" style=" display:none" >
             <div class="boxSubheader">
               <h4>Add Note</h4>
             </div>

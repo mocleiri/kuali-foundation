@@ -6,7 +6,7 @@
     <div id="global" class="clearfix">
       <div class="brand">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#">Researcher</a></li>
+          <li class="active"><a href="index.php">Researcher</a></li>
           <li><a href="#">Unit</a></li>
           <li><a href="#">Central Admin</a></li>
           <li><a href="#">Maintenance</a></li>

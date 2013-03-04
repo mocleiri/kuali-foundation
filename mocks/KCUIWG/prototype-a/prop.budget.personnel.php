@@ -74,7 +74,7 @@ $page = 'budget-personnel';
                   <td><a href="#" id="apptype" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Appointment Type">12M Duration</a></td>
                   <td><a href="#" id="basesal" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Base Salary">87,000.00</a></td>
                   <td><a href="#" id="saleff" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Salary Effective Date">01/01/2013</a></td>
-                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini">delete</a></td>
+                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a></td>
                 </tr>
                 <tr>
                   <td>Tatum, Art</td>
@@ -82,7 +82,7 @@ $page = 'budget-personnel';
                   <td><a href="#">12M  Duration</a></td>
                   <td><a href="#">69,000.00</a></td>
                   <td><a href="#">01/01/2013</a></td>
-                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini">delete</a></td>
+                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a></td>
                 </tr>
                 <tr>
                   <td>Lee, Peggy</td>
@@ -90,7 +90,7 @@ $page = 'budget-personnel';
                   <td><a href="#">12M  Duration</a></td>
                   <td><a href="#">69,000.00</a></td>
                   <td><a href="#">01/01/2013</a></td>
-                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini">delete</a></td>
+                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a></td>
                 </tr>
               </tbody>
             </table>

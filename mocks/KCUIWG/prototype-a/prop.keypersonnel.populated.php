@@ -2,12 +2,14 @@
 # Variables
 $page = 'personnel';
 ?>
+
 <?php require_once( 'assets/inc/head.php' ) ?>
+
 <?php require_once( 'assets/inc/header.php' ) ?>
+
 <?php include( 'assets/inc/subnavigation.php' ) ?>
 
 <!-- Begin main application content -->
-
 <div id="content" tabindex="-1">
   <form class="form-horizontal">
     <div class="row-fluid">
@@ -30,7 +32,7 @@ $page = 'personnel';
               <!-- Only required for left/right tabs -->
             
               <div class="alert alert-info">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</div>
+              <button type="button" class="close" data-dismiss="alert">&times;</button>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</div>
           <!--    <div class="boxSubheader">
                 <h4>Personnel</h4>
               </div>-->
@@ -39,22 +41,16 @@ $page = 'personnel';
                 <li class="active">
                   <a href="#art" data-toggle="tab">Haskell, Edward <small>(PI)</small></a>
                 </li>
-                <li >
-                  <a href="#ben" data-toggle="tab">Hensler, Judith</a>
-                </li>
-                <li>
-                  <a href="#ella" data-toggle="tab">Rutherford, Violet</a>
-                </li>
-                <li>
-                  <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
-                </li>
               </ul>
+              <!-- <p>
+                <a href="#" class="btn btn-mini btn-inverse ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/start.html"><i class="icon-white icon-plus"></i> Add Person</a>
+              </p> -->
               <div class="tab-content">
                 <div class="tab-pane active" id="art">
                   <div class="boxSubheader">
                     <h5 style="font-size:12px">Haskell, Edward <small>(PI)</small></h5>
                     <div class="boxControls">
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a> | <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">Reorder</a> | <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">Delete</a>
                     </div>
                   </div>
                   <div class="boxSubheader expandControl closed">
@@ -533,9 +529,9 @@ $page = 'personnel';
           </div>
         </div>
         <div style=" padd12px; text-align:center">
-          <a href="prop.proposal.html" class="btn"><i class="icon-chevron-left"></i> back</a>
-          <a href="#" class="btn">save</a>
-          <a href="prop.specialreview.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a>
+          <a href="prop.proposal.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.permissions.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
         </div>
         
         <!--<div class="box"> <div class="boxHeader expandControl">

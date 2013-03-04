@@ -35,15 +35,13 @@ $page = 'personnel';
               <!--    <div class="boxSubheader">
                 <h4>Personnel</h4>
               </div>-->
-              
-              <ul class="nav nav-tabs" style="display:block" >
-                <li>
-                     <a href="#" class="btn btn-mini ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><i class="icon icon-plus"></i> Add Person</a>
+
+              <p>
+                <a href="#" class="btn btn-mini btn-inverse ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/start.html"><i class="icon-white icon-plus"></i> Add Person</a>
+              </p>
                   
                   <!-- Modal -->
                   
-                </li>
-              </ul>
             </div>
           </div>
         </div>

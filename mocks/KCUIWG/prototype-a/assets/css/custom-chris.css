@@ -320,6 +320,10 @@ i {
   float: left;
   margin: 0.15em 0.2em 0 0;
 }
+#content:focus,
+#content:active {
+  outline: none;
+}
 .sticky-panel {
   position: fixed;
   z-index: 9999;

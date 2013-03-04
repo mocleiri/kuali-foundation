@@ -19,14 +19,11 @@ $page = 'access';
             <h3>Access</h3>
           </div>
           <div class="boxContent " >
-          <div style=" margin-bottom:12px; float:">  <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="viewsummary" data-keyboard="true" url="modal-accesssummary/frame.html">view summary</a></div>
+          <div style=" margin-bottom:12px; float:">  <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="viewsummary" data-keyboard="true" url="modal-accesssummary/frame.html">View Summary</a></div>
             <div class="tabbable tabs-left clearfix">
               <ul class="nav nav-tabs" style="display:block" >
                 <li class="active">
                   <a href="#art" data-toggle="tab">Haskell, Edward </a>
-                </li>
-                <li>
-                  <a href="#" class="btn btn-mini ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html">Add Person</a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -34,9 +31,9 @@ $page = 'access';
                   <div class="boxSubheader">
                     <h5 style="font-size:12px; padding-bottom:12px">Haskell, Edward </h5>
                     <div class="boxControls">
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a>
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">Reorder</a>
                       |
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">Delete</a>
                     </div>
                   </div>
                   <dl class="table-display" style="margin-top:-13px;">
@@ -49,50 +46,6 @@ $page = 'access';
                     <dt>Role</dt>
                     <dd>
                       <a href="#" id="role-ed" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Aggregator <i class="icon-pencil"></i></a>
-                    </dd>
-                  </dl>
-                </div>
-                <div class="tab-pane " id="ben">
-                  <div class="boxSubheader">
-                    <h5 style="font-size:12px; padding-bottom:12px">Hensler, Judith </h5>
-                    <div class="boxControls">
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a>
-                      |
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
-                    </div>
-                  </div>
-                  <dl class="table-display" style="margin-top:-13px;">
-                    <dt> User Name</dt>
-                    <dd> hensljud </dd>
-                    <dt> Unit Number</dt>
-                    <dd> UA-VPIT</dd>
-                    <dt> Unit Name</dt>
-                    <dd> VICE PRES INFORMATION TECHNLGY</dd>
-                    <dt>Role</dt>
-                    <dd>
-                      <a href="#" id="role-judith" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Viewer <i class="icon-pencil"></i></a>
-                    </dd>
-                  </dl>
-                </div>
-                <div class="tab-pane " id="ella">
-                  <div class="boxSubheader">
-                    <h5 style="font-size:12px; padding-bottom:12px">Rutherford, Violet</h5>
-                    <div class="boxControls">
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a>
-                      |
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
-                    </div>
-                  </div>
-                  <dl class="table-display" style="margin-top:-13px;">
-                    <dt> User Name</dt>
-                    <dd> ruthvio </dd>
-                    <dt> Unit Number</dt>
-                    <dd> IN-PCTR </dd>
-                    <dt> Unit Name</dt>
-                    <dd> PED-CLINICAL TRANSLAT RESEARCH </dd>
-                    <dt>Role</dt>
-                    <dd>
-                      <a href="#" id="role-violet" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Viewer <i class="icon-pencil"></i></a>
                     </dd>
                   </dl>
                 </div>
