@@ -53,13 +53,14 @@ public class TimeUtils {
 			}
 		}
 		// Assume milliseconds
-		return new Long(time);
+		return getLongValue(time, "", 1);
 	}
 
 	protected static long getLongValue(String time, String suffix, int multiplier) {
 		int len = StringUtils.length(time);
 		String substring = StringUtils.substring(time, 0, len - suffix.length());
-		Long longValue = new Long(substring);
-		return longValue * multiplier;
+		Double value = new Double(substring);
+		value = value * multiplier;
+		return value.longValue();
 	}
 }
