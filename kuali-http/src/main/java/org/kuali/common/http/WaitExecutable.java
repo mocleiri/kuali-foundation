@@ -9,7 +9,7 @@ public class WaitExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		WaitResult result = service.wait(context);
+		HttpWaitResult result = service.wait(context);
 	}
 
 	public HttpContext getContext() {

@@ -35,11 +35,11 @@ public class DefaultHttpService implements HttpService {
 	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
 
 	@Override
-	public WaitResult wait(HttpContext context) {
+	public HttpWaitResult wait(HttpContext context) {
 		Assert.notBlank(context.getUrl(), "url is blank");
 		logger.debug(context.getUrl());
 		HttpClient client = getHttpClient(context);
-		WaitResult waitResult = new WaitResult();
+		HttpWaitResult waitResult = new HttpWaitResult();
 		waitResult.setStart(System.currentTimeMillis());
 		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();

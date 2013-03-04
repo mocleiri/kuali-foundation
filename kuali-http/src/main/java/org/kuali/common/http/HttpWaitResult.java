@@ -2,7 +2,7 @@ package org.kuali.common.http;
 
 import java.util.List;
 
-public class WaitResult {
+public class HttpWaitResult {
 
 	long start;
 	long stop;
