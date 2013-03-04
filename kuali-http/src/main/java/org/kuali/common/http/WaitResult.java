@@ -8,6 +8,7 @@ public class WaitResult {
 	long stop;
 	long elapsed;
 	List<RequestResult> requestResults;
+	ResultStatus status;
 
 	public long getStart() {
 		return start;
@@ -39,6 +40,14 @@ public class WaitResult {
 
 	public void setRequestResults(List<RequestResult> requestResults) {
 		this.requestResults = requestResults;
+	}
+
+	public ResultStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ResultStatus status) {
+		this.status = status;
 	}
 
 }
