@@ -475,7 +475,8 @@ $page = 'basics';
         <div style=" padd12px; text-align:center">
           <a href="#" class="btn btn-mini"><i class="icon-chevron-left"></i> back</a>
           <a href="#" class="btn btn">save</a>
-          <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+          <!-- <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div> -->
+          <a href="prop.keypersonnel.php" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
       </div>
     </div>
   </form>

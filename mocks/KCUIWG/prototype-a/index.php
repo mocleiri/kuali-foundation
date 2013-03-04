@@ -5,7 +5,7 @@
 <?php include( 'assets/inc/subnavigation.php' ) ?>
 
 <!-- Begin main application content -->
-<div id="content" style="margin-left:0px">
+<div id="content" style="margin-left:0px" tabindex="-1">
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12 content">
