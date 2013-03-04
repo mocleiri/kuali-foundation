@@ -6,6 +6,7 @@ public class HttpWaitExecutable implements Executable {
 
 	HttpContext context;
 	HttpService service = new DefaultHttpService();
+	
 
 	@Override
 	public void execute() {

@@ -54,7 +54,7 @@ public class DefaultHttpService implements HttpService {
 				sleep(context.getSleepIntervalMillis());
 			} else {
 				logFinalHttpRequestResult(rr, context.getUrl());
-				ResultStatus status = getResultStatus(context, rr, end);
+				HttpStatus status = getResultStatus(context, rr, end);
 				waitResult.setStatus(status);
 				waitResult.setStop(rr.getStop());
 				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
@@ -83,14 +83,14 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected ResultStatus getResultStatus(HttpContext context, HttpRequestResult rr, long end) {
+	protected HttpStatus getResultStatus(HttpContext context, HttpRequestResult rr, long end) {
 		// If we've gone past our max allotted time, we are done
 		if (System.currentTimeMillis() > end) {
-			return ResultStatus.TIMEOUT;
+			return HttpStatus.TIMEOUT;
 		}
 
 		if (rr.getException() != null) {
-			return ResultStatus.IO_EXCEPTION;
+			return HttpStatus.IO_EXCEPTION;
 		}
 
 		Integer statusCode = rr.getStatusCode();
@@ -100,9 +100,9 @@ public class DefaultHttpService implements HttpService {
 
 		// If there is a status code and it matches a success code, we are done
 		if (isSuccess(context.getSuccessCodes(), statusCode)) {
-			return ResultStatus.SUCCESS;
+			return HttpStatus.SUCCESS;
 		} else {
-			return ResultStatus.INVALID_HTTP_STATUS_CODE;
+			return HttpStatus.INVALID_HTTP_STATUS_CODE;
 		}
 	}
 

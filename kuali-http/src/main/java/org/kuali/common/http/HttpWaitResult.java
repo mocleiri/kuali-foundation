@@ -8,7 +8,7 @@ public class HttpWaitResult {
 	long stop;
 	long elapsed;
 	List<HttpRequestResult> requestResults;
-	ResultStatus status;
+	HttpStatus status;
 
 	public long getStart() {
 		return start;
@@ -42,11 +42,11 @@ public class HttpWaitResult {
 		this.requestResults = requestResults;
 	}
 
-	public ResultStatus getStatus() {
+	public HttpStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(ResultStatus status) {
+	public void setStatus(HttpStatus status) {
 		this.status = status;
 	}
 
