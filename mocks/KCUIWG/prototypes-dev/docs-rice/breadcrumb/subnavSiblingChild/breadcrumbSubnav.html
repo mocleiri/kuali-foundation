@@ -13,7 +13,20 @@
 <meta name="author" content="">
 <!-- Le styles -->
 <link href="../../../assets/css/bootstrap.css" rel="stylesheet">
-<style type="text/css"></style>
+<style>
+.ui-autocomplete {
+	max-height: 100px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+* html .ui-autocomplete {
+	height: 100px;
+}
+</style>
 <link href="../../../assets/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="../../../assets/css/bootstrap-override.css" rel="stylesheet">
 
@@ -26,14 +39,12 @@
 </head>
 <body>
 <div class="container demo" >
-  <ul class="breadcrumb breadcrumb-subnav">
-    <li> Home
-      
-    </li>
-    
-    
-    
-  </ul>
+  <form>
+    <ul class="breadcrumb breadcrumb-subnav">
+      <li> Home <span class="divider">/</span>
+      </li>
+    </ul>
+  </form>
 </div>
 
 <!-- /container -->
@@ -54,38 +65,37 @@
 <script src="../../../assets/js/bootstrap-collapse.js"></script>
 <script src="../../../assets/js/bootstrap-carousel.js"></script>
 <script src="../../../assets/js/bootstrap-typeahead.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 <script>
-$('#home, #food, #fruits').popover({ html : true });
-
-var isVisible = false;
-var clickedAway = false;
-
-$('.popup-marker').popover({
-        html: true,
-        trigger: 'manual'
-    }).click(function(e) {
-        $(this).popover('show');
-        isVisible = true;
-        e.preventDefault();
+  $(function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
     });
-
-$(document).click(function(e) {
-  if(isVisible & clickedAway)
-  {
-    $('.popup-marker').popover('hide');
-    isVisible = clickedAway = false
-  }
-  else
-  {
-    clickedAway = true
-  }
-});
-
-
-
-
-
-
-</script>
+  });
+  </script>
 </body>
 </html>

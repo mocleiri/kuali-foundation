@@ -13,7 +13,20 @@
 <meta name="author" content="">
 <!-- Le styles -->
 <link href="../../../assets/css/bootstrap.css" rel="stylesheet">
-<style type="text/css"></style>
+<style>
+.ui-autocomplete {
+	max-height: 100px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+* html .ui-autocomplete {
+	height: 100px;
+}
+</style>
 <link href="../../../assets/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="../../../assets/css/bootstrap-override.css" rel="stylesheet">
 
@@ -26,153 +39,313 @@
 </head>
 <body>
 <div class="container demo" >
-<ul class="breadcrumb breadcrumb-subnav">
-    <li> Home
-      <span class="divider">/</span>
-    </li>
-    <li class="dropdown"> <a href="breadcrumbSubnav.food.html">Food</a>
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-      <span class="caret"></span>
-      </a>
-      <span class="divider">/</span>
-      <ul class="dropdown-menu" id="menu1">
-        <li class="dropdown-submenu">
-          <a href="breadcrumbSubnav.food.html"> <i class="icon-ok"></i> Food</a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-submenu">
-              <a href="breadcrumbSubnav.food.fruits.html"> <i class="icon-ok"></i> Fruits</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Apples</a>
-                </li>
-                <li>
-                  <a href="#">Oranges</a>
-                </li>
-                <li>
-                  <a href="breadcrumbSubnav.food.fruits.bananas.html"> Bananas</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="#">Veggies</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Carrots</a>
-                </li>
-                <li>
-                  <a href="#">Onions</a>
-                </li>
-                <li>
-                  <a href="#">Peppers</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="#">Grains</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Wheat</a>
-                </li>
-                <li>
-                  <a href="#">Oats</a>
-                </li>
-                <li>
-                  <a href="#">Barley</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href="#">Drinks</a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-submenu">
-              <a href="#">Alcoholic</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Beer</a>
-                </li>
-                <li>
-                  <a href="#">Wine</a>
-                </li>
-                <li>
-                  <a href="#">Vodka</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="#">Non-Alcoholic</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Water</a>
-                </li>
-                <li>
-                  <a href="#">Juice</a>
-                </li>
-                <li>
-                  <a href="#">Soda</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li class="dropdown">
-    
-    
-    <a href="breadcrumbSubnav.food.fruits.html">Fruits</a>
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle"> 
-      <span class="caret"></span>
-      </a>
-   
-      <ul class="dropdown-menu">
-        <li class="dropdown-submenu">
-          <a href="breadcrumbSubnav.food.fruits.html"> <i class="icon-ok"></i> Fruits</a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Apples</a>
-            </li>
-            <li>
-              <a href="#">Oranges</a>
-            </li>
-            <li>
-              <a href="breadcrumbSubnav.food.fruits.bananas.html"> Bananas</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href="#">Veggies</a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Carrots</a>
-            </li>
-            <li>
-              <a href="#">Onions</a>
-            </li>
-            <li>
-              <a href="#">Peppers</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href="#">Grains</a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Wheat</a>
-            </li>
-            <li>
-              <a href="#">Oats</a>
-            </li>
-            <li>
-              <a href="#">Barley</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-</ul>
+  <form>
+    <ul class="breadcrumb breadcrumb-subnav">
+      <li> Home <span class="divider">/</span>
+      </li>
+      <li class="dropdown">
+        <a href="breadcrumbSubnav.food.html">Food</a>
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        <span class="caret"></span>
+        </a>
+        <span class="divider">/</span>
+        <ul class="dropdown-menu" id="menu1">
+          <li class="dropdown-submenu">
+            <a href="breadcrumbSubnav.food.html">
+            <i class="icon-ok"></i> Food</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-submenu">
+                <a href="breadcrumbSubnav.food.fruits.html">
+                <i class="icon-ok"></i> Fruits</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Apples</a>
+                  </li>
+                  <li>
+                    <a href="#">Oranges</a>
+                  </li>
+                  <li>
+                    <a href="breadcrumbSubnav.food.fruits.bananas.html">
+                   Bananas</a>
+                  </li> <li class="divider"></li>
+          <li>
+            <div class="dropdown-form">more items
+              <select>
+                <option>Apricot</option>
+                <option>Avocado</option>
+                <option>Banana</option>
+                <option>Breadfruit</option>
+                <option>Bilberry</option>
+                <option>Blackberry</option>
+                <option>Blackcurrant</option>
+                <option>Blueberry</option>
+                <option>Currant</option>
+                <option>Cherry</option>
+                <option>Cherimoya</option>
+                <option>Clementine</option>
+                <option>Cloudberry</option>
+                <option>Coconut</option>
+                <option>Date</option>
+                <option>Damson</option>
+                <option>Dragonfruit</option>
+                <option>Durian</option>
+                <option>Eggplant</option>
+                <option>Elderberry</option>
+                <option>Feijoa</option>
+                <option>Fig</option>
+                <option>Gooseberry</option>
+                <option>Grape</option>
+                <option>Grapefruit</option>
+                <option>Guava</option>
+                <option>Huckleberry</option>
+                <option>Honeydew</option>
+                <option>Jackfruit</option>
+                <option>Jettamelon</option>
+                <option>Jambul</option>
+                <option>Jujube</option>
+                <option>Kiwi fruit</option>
+                <option>Kumquat</option>
+                <option>Legume</option>
+                <option>Lemon</option>
+                <option>Lime</option>
+                <option>Loquat</option>
+                <option>Lychee</option>
+                <option>Mandarine</option>
+                <option>Mango</option>
+                <option>Melon</option>
+                <option>Canary melon</option>
+                <option>Cantaloupe</option>
+                <option>Honeydew</option>
+                <option>Watermelon</option>
+                <option>Rock melon</option>
+                <option>Nectarine</option>
+                <option>Nut</option>
+                <option>Orange</option>
+                <option>Peach</option>
+                <option>Pear</option>
+                <option>Persimmon</option>
+                <option>Physalis</option>
+                <option>Plum/prune (dried plum)</option>
+                <option>Pineapple</option>
+                <option>Pomegranate</option>
+                <option>Pomelo</option>
+                <option>Purple Mangosteen</option>
+                <option>Raspberry</option>
+                <option>Western raspberry (blackcap)</option>
+                <option>Rambutan</option>
+                <option>Redcurrant</option>
+                <option>Salal berry</option>
+                <option>Satsuma</option>
+                <option>Star fruit</option>
+                <option>Strawberry</option>
+                <option>Tangerine</option>
+                <option>Tomato</option>
+                <option>Ugli fruit</option>
+              </select>
+            </div>
+          </li>
+                </ul>
+              </li>
+              <li class="dropdown-submenu">
+                <a href="#">Veggies</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Carrots</a>
+                  </li>
+                  <li>
+                    <a href="#">Onions</a>
+                  </li>
+                  <li>
+                    <a href="#">Peppers</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown-submenu">
+                <a href="#">Grains</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Wheat</a>
+                  </li>
+                  <li>
+                    <a href="#">Oats</a>
+                  </li>
+                  <li>
+                    <a href="#">Barley</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu">
+            <a href="#">Drinks</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-submenu">
+                <a href="#">Alcoholic</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Beer</a>
+                  </li>
+                  <li>
+                    <a href="#">Wine</a>
+                  </li>
+                  <li>
+                    <a href="#">Vodka</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown-submenu">
+                <a href="#">Non-Alcoholic</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Water</a>
+                  </li>
+                  <li>
+                    <a href="#">Juice</a>
+                  </li>
+                  <li>
+                    <a href="#">Soda</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="breadcrumbSubnav.food.fruits.html">Fruits</a>
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        <span class="caret"></span>
+        </a>
+       
+        <ul class="dropdown-menu">
+          <li class="dropdown-submenu">
+            <a href="breadcrumbSubnav.food.fruits.html">
+            <i class="icon-ok"></i> Fruits</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">Apples</a>
+              </li>
+              <li>
+                <a href="#">Oranges</a>
+              </li>
+              <li>
+                <a href="breadcrumbSubnav.food.fruits.bananas.html">Bananas</a>
+              </li> <li class="divider"></li>
+          <li>
+            <div class="dropdown-form">more items
+              <select>
+                <option>Apricot</option>
+                <option>Avocado</option>
+                <option>Banana</option>
+                <option>Breadfruit</option>
+                <option>Bilberry</option>
+                <option>Blackberry</option>
+                <option>Blackcurrant</option>
+                <option>Blueberry</option>
+                <option>Currant</option>
+                <option>Cherry</option>
+                <option>Cherimoya</option>
+                <option>Clementine</option>
+                <option>Cloudberry</option>
+                <option>Coconut</option>
+                <option>Date</option>
+                <option>Damson</option>
+                <option>Dragonfruit</option>
+                <option>Durian</option>
+                <option>Eggplant</option>
+                <option>Elderberry</option>
+                <option>Feijoa</option>
+                <option>Fig</option>
+                <option>Gooseberry</option>
+                <option>Grape</option>
+                <option>Grapefruit</option>
+                <option>Guava</option>
+                <option>Huckleberry</option>
+                <option>Honeydew</option>
+                <option>Jackfruit</option>
+                <option>Jettamelon</option>
+                <option>Jambul</option>
+                <option>Jujube</option>
+                <option>Kiwi fruit</option>
+                <option>Kumquat</option>
+                <option>Legume</option>
+                <option>Lemon</option>
+                <option>Lime</option>
+                <option>Loquat</option>
+                <option>Lychee</option>
+                <option>Mandarine</option>
+                <option>Mango</option>
+                <option>Melon</option>
+                <option>Canary melon</option>
+                <option>Cantaloupe</option>
+                <option>Honeydew</option>
+                <option>Watermelon</option>
+                <option>Rock melon</option>
+                <option>Nectarine</option>
+                <option>Nut</option>
+                <option>Orange</option>
+                <option>Peach</option>
+                <option>Pear</option>
+                <option>Persimmon</option>
+                <option>Physalis</option>
+                <option>Plum/prune (dried plum)</option>
+                <option>Pineapple</option>
+                <option>Pomegranate</option>
+                <option>Pomelo</option>
+                <option>Purple Mangosteen</option>
+                <option>Raspberry</option>
+                <option>Western raspberry (blackcap)</option>
+                <option>Rambutan</option>
+                <option>Redcurrant</option>
+                <option>Salal berry</option>
+                <option>Satsuma</option>
+                <option>Star fruit</option>
+                <option>Strawberry</option>
+                <option>Tangerine</option>
+                <option>Tomato</option>
+                <option>Ugli fruit</option>
+              </select>
+            </div>
+          </li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu">
+            <a href="#">Veggies</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">Carrots</a>
+              </li>
+              <li>
+                <a href="#">Onions</a>
+              </li>
+              <li>
+                <a href="#">Peppers</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu">
+            <a href="#">Grains</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">Wheat</a>
+              </li>
+              <li>
+                <a href="#">Oats</a>
+              </li>
+              <li>
+                <a href="#">Barley</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </form>
+  <div style=" padding:12px; padding-top:0px"> <h3>Fruits</h3>
   
+  <p>In botany, a fruit is a part of a flowering plant that derives from specific tissues of the flower, one or more ovaries, and in some cases accessory tissues. Fruits are the means by which these plants disseminate seeds. Many of them that bear edible fruits, in particular, have propagated with the movements of humans and animals in a symbiotic relationship as a means for seed dispersal and nutrition, respectively; in fact, humans and many animals have become dependent on fruits as a source of food.[1] Fruits account for a substantial fraction of the world's agricultural output, and some (such as the apple and the pomegranate) have acquired extensive cultural and symbolic meanings.</p>
+
+<p>The section of a fungus that produces spores is also called a fruiting body.In common language usage, "fruit" normally means the fleshy seed-associated structures of a plant that are sweet and edible in the raw state, such as apples, oranges, grapes, strawberries, and bananas.[3] On the other hand, the botanical sense of "fruit" includes many structures that are not commonly called "fruits", such as bean pods, corn kernels, wheat grains, and tomatoes.</p></div>
 </div>
 
 <!-- /container -->
@@ -193,38 +366,37 @@
 <script src="../../../assets/js/bootstrap-collapse.js"></script>
 <script src="../../../assets/js/bootstrap-carousel.js"></script>
 <script src="../../../assets/js/bootstrap-typeahead.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 <script>
-$('#home, #food, #fruits').popover({ html : true });
-
-var isVisible = false;
-var clickedAway = false;
-
-$('.popup-marker').popover({
-        html: true,
-        trigger: 'manual'
-    }).click(function(e) {
-        $(this).popover('show');
-        isVisible = true;
-        e.preventDefault();
+  $(function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
     });
-
-$(document).click(function(e) {
-  if(isVisible & clickedAway)
-  {
-    $('.popup-marker').popover('hide');
-    isVisible = clickedAway = false
-  }
-  else
-  {
-    clickedAway = true
-  }
-});
-
-
-
-
-
-
-</script>
+  });
+  </script>
 </body>
 </html>
