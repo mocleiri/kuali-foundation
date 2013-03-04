@@ -46,7 +46,7 @@ $page = 'personnel';
                   <a href="#ella" data-toggle="tab">Rutherford, Violet</a>
                 </li>
                 <li>
-                  <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add personnel...</em></small></a>
+                  <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
                 </li>
               </ul>
               <div class="tab-content">

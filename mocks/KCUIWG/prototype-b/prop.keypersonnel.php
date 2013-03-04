@@ -38,7 +38,7 @@ $page = 'personnel';
               
               <ul class="nav nav-tabs" style="display:block" >
                 <li>
-                     <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add personnel...</em></small></a>
+                     <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
                   
                   <!-- Modal -->
                   

@@ -14,32 +14,99 @@ $page = 'access';
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12 content">
-        <div class="box"> <div class="boxHeader ">
-            <h3> Permissions </h3>
+        <div class="box">
+          <div class="boxHeader ">
+            <h3> Access </h3>
           </div>
           <div class="boxContent " >
-            <div class="boxSubheader">
-              <h4>Assigned Roles</h4>
-              <div class="boxControls"><a href="../asdf.php" class="">view permissions</a></div>
+          <div style=" margin-bottom:12px; float:">  <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="viewsummary" data-keyboard="true" url="modal-accesssummary/frame.html">view summary</a></div>
+            <div class="tabbable tabs-left clearfix">
+              <ul class="nav nav-tabs" style="display:block" >
+                <li class="active">
+                  <a href="#art" data-toggle="tab">Haskell, Edward </a>
+                </li>
+                <li >
+                  <a href="#ben" data-toggle="tab">Hensler, Judith</a>
+                </li>
+                <li>
+                  <a href="#ella" data-toggle="tab">Rutherford, Violet</a>
+                </li>
+                <li>
+                  <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="art">
+                  <div class="boxSubheader">
+                    <h5 style="font-size:12px; padding-bottom:12px">Haskell, Edward </h5>
+                    <div class="boxControls">
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a>
+                      |
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
+                    </div>
+                  </div>
+                  <dl class="table-display" style="margin-top:-13px;">
+                    <dt> User Name</dt>
+                    <dd> haskedw </dd>
+                    <dt> Unit Number</dt>
+                    <dd> BL-MUS </dd>
+                    <dt> Unit Name</dt>
+                    <dd> JACOBS SCHOOL OF MUSIC </dd>
+                    <dt>Role</dt>
+                    <dd>
+                      <a href="#" id="role-ed" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Aggregator <i class="icon-pencil"></i></a>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="tab-pane " id="ben">
+                  <div class="boxSubheader">
+                    <h5 style="font-size:12px; padding-bottom:12px">Hensler, Judith </h5>
+                    <div class="boxControls">
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a>
+                      |
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
+                    </div>
+                  </div>
+                  <dl class="table-display" style="margin-top:-13px;">
+                    <dt> User Name</dt>
+                    <dd> hensljud </dd>
+                    <dt> Unit Number</dt>
+                    <dd> UA-VPIT</dd>
+                    <dt> Unit Name</dt>
+                    <dd> VICE PRES INFORMATION TECHNLGY</dd>
+                    <dt>Role</dt>
+                    <dd>
+                      <a href="#" id="role-judith" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Viewer <i class="icon-pencil"></i></a>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="tab-pane " id="ella">
+                  <div class="boxSubheader">
+                    <h5 style="font-size:12px; padding-bottom:12px">Rutherford, Violet</h5>
+                    <div class="boxControls">
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">reorder</a>
+                      |
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">delete</a>
+                    </div>
+                  </div>
+                  <dl class="table-display" style="margin-top:-13px;">
+                    <dt> User Name</dt>
+                    <dd> ruthvio </dd>
+                    <dt> Unit Number</dt>
+                    <dd> IN-PCTR </dd>
+                    <dt> Unit Name</dt>
+                    <dd> PED-CLINICAL TRANSLAT RESEARCH </dd>
+                    <dt>Role</dt>
+                    <dd>
+                      <a href="#" id="role-violet" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Viewer <i class="icon-pencil"></i></a>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
             </div>
-            <dl class="table-display" style="margin-top:-13px;">
-              <dt> Viewer</dt>
-              <dd><a href="#">assign</a></dd>
-              <dt> Budget Creator</dt>
-              <dd><a href="#">assign</a></dd>
-              <dt> Narrative Writer</dt>
-              <dd><a href="#">assign</a></dd>
-              <dt> Aggregator</dt>
-              <dd>Oscar Peterson <a href="#">(change)</a></dd>
-              <dt> Contact Person</dt>
-              <dd><a href="#">assign</a></dd>
-           
-            </dl>
             <div class="clearfix"></div>
           </div>
         </div>
-        
-        
         <!--<div class="box"> <div class="boxHeader expandControl">
             <h3> asdfasdfasdf </h3>
           </div>
@@ -50,9 +117,66 @@ $page = 'access';
     </div>
   </form>
 </div>
+
+<div class="modal hide fade" id="viewsummary"></div>
 <p>
 
 <?php include( 'assets/inc/scripts.global.php' ) ?>
+
+ <script>
+    $(function () {
+        $('#role-ed').editable({
+            value: [4],
+            source: [{
+                value: 1,
+                text: 'Viewer'
+            }, {
+                value: 2,
+                text: 'Budget Creator'
+            }, {
+                value: 3,
+                text: 'Narritive Writer'
+            }, {
+                value: 4,
+                text: 'Aggregator'
+            }, {
+                value: 5,
+                text: 'Contact Person'
+            }]
+        });
+		
+		
+		
+		
+		 $('#role-judith, #role-violet').editable({
+            value: [1],
+            source: [{
+                value: 1,
+                text: 'Viewer'
+            }, {
+                value: 2,
+                text: 'Budget Creator'
+            }, {
+                value: 3,
+                text: 'Narritive Writer'
+            }, {
+                value: 4,
+                text: 'Aggregator'
+            }, {
+                value: 5,
+                text: 'Contact Person'
+            }]
+        });
+		
+		
+    $(".ajax-modal").live('click', function () {
+        var url = $(this).attr('url');
+        var modal_id = $(this).attr('data-controls-modal');
+        $("#" + modal_id).load(url).modal('show');
+    });
+		
+    });
+</script>
 
 </body>
 </html>
