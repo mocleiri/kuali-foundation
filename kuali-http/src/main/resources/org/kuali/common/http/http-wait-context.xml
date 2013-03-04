@@ -40,7 +40,7 @@
     <property name="time" value="${http.overallTimeoutMillis:15m}" />
   </bean>
 
-  <bean id="http.requestTimeOutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
+  <bean id="http.requestTimeoutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.requestTimeoutMillis:15s}" />
   </bean>
 
