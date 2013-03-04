@@ -36,14 +36,17 @@
     Anything other than SUCCESS indicates something went wrong (timeout, 404, etc) and results in IllegalStateException being thrown
   -->
 
+  <!-- Hard timeout (Default is 15 minutes) -->
   <bean id="http.overallTimeoutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.overallTimeout:15m}" />
   </bean>
 
+  <!-- Amount of time for the HttpRequest to complete (Default is 5 seconds) -->
   <bean id="http.requestTimeoutMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.requestTimeout:5s}" />
   </bean>
 
+  <!-- Amount of time to wait before polling the URL again (Default is 5 seconds) -->
   <bean id="http.sleepIntervalMillis" class="org.kuali.common.util.spring.GetMillisFactoryBean">
     <property name="time" value="${http.sleepInterval:5s}" />
   </bean>
