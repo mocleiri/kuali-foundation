@@ -15,10 +15,10 @@ public class HttpContext {
 	// We don't want to fail if we get a 503, just continue waiting
 	List<Integer> continueWaitingCodes = Arrays.asList(503);
 
-	// Millis to wait before an individual http request times out
+	// Millis to wait before an individual http request times out (3 seconds)
 	int requestTimeoutMillis = 3000;
 
-	// Millis to wait in between http requests
+	// Millis to wait in between http requests (3 seconds)
 	int sleepIntervalMillis = 3000;
 
 	// Total number of millis to wait before timing out (3 minutes)
