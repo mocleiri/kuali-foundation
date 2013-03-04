@@ -73,7 +73,7 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
-		String statusText = getStatusText(result);
+		String statusText = "[" + getStatusText(result) + "]";
 		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
 		Object[] args = { url, statusText, timeout };
 		logger.info("{} - {} - (Timeout in {})", args);
@@ -81,9 +81,9 @@ public class DefaultHttpService implements HttpService {
 
 	protected String getStatusText(HttpRequestResult result) {
 		if (result.getException() != null) {
-			return "[" + result.getException().toString() + "]";
+			return result.getException().toString();
 		} else {
-			return "[" + result.getStatusCode() + " - " + result.getStatusText() + "]";
+			return result.getStatusCode() + " - " + result.getStatusText();
 		}
 	}
 
