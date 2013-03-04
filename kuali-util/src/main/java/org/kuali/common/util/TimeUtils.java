@@ -51,9 +51,9 @@ public class TimeUtils {
 		return new Long(time);
 	}
 
-	protected static long getLongValue(String time, String endsWithToken, int multiplier) {
+	protected static long getLongValue(String time, String suffix, int multiplier) {
 		int len = StringUtils.length(time);
-		String substring = StringUtils.substring(time, 0, len - endsWithToken.length());
+		String substring = StringUtils.substring(time, 0, len - suffix.length());
 		Long longValue = new Long(substring);
 		return longValue * multiplier;
 	}
