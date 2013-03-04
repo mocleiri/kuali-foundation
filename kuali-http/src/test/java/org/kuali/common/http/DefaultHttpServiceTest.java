@@ -7,7 +7,7 @@ public class DefaultHttpServiceTest {
 	@Test
 	public void test() {
 		HttpContext context = new HttpContext();
-		context.setUrl("http://www.google.com");
+		context.setUrl("http://env16.ks.kuali.org");
 		HttpService service = new DefaultHttpService();
 		service.wait(context);
 	}
