@@ -38,23 +38,33 @@ public class DefaultHttpService implements HttpService {
 		HttpClient client = getHttpClient(context);
 		long now = System.currentTimeMillis();
 		long end = now + (context.getOverallTimeout() * 1000);
+		WaitResult wr = new WaitResult();
+		wr.setStart(now);
 		logger.info(getMsg("Determining status for '" + context.getUrl() + "'"));
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			RequestResult result = doRequest(client, url, secondsRemaining);
+			RequestResult result = doRequest(client, context, secondsRemaining);
 			if (result.equals(RequestResult.SUCCESS)) {
-				return result;
+				wr.setRequestResult(result);
+				wr.setStart(System.currentTimeMillis());
+				wr.setElapsed(wr.getStop() - now);
+				return wr;
 			} else if (result.equals(RequestResult.INVALID_HTTP_STATUS_CODE)) {
 				logger.info("Invalid http status code.  Expected " + context.getSuccessCodes());
-				return result;
+				wr.setRequestResult(result);
+				wr.setStart(System.currentTimeMillis());
+				wr.setElapsed(wr.getStop() - now);
+				return wr;
 			}
-			sleep(sleepInterval);
+			sleep(context.getRequestTimeout());
 			if (System.currentTimeMillis() > end) {
 				logger.info("Timed out waiting for response from '" + url + "'");
-				return RequestResult.TIMEOUT;
+				wr.setRequestResult(result);
+				wr.setStart(System.currentTimeMillis());
+				wr.setElapsed(wr.getStop() - now);
+				return wr;
 			}
 		}
-		return new WaitResult();
 	}
 
 	protected RequestResult doRequest(HttpClient client, HttpContext context, long secondsRemaining) {
@@ -122,7 +132,6 @@ public class DefaultHttpService implements HttpService {
 		sb.append(" - (Timeout in " + l + "s)");
 		return sb.toString();
 	}
-
 
 	protected HttpClient getHttpClient(HttpContext context) {
 		HttpClient client = new HttpClient();
