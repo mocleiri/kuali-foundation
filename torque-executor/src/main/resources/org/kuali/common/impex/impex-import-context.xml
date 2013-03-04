@@ -62,6 +62,7 @@
   </bean>
 
   <bean id="executable" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
+    <property name="skip" value="${impex.import.skip:FALSE}" />
     <property name="executables">
       <util:list>
         <ref bean="import.schema.databaseResetExecutable" />
