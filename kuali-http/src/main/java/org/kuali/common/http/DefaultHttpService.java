@@ -44,6 +44,7 @@ public class DefaultHttpService implements HttpService {
 		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
+		logger.info("Determining status for {} - (Timeout in {})", context.getUrl(), end - waitResult.getStart());
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
