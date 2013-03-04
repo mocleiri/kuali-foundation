@@ -47,8 +47,8 @@ public class DefaultHttpService implements HttpService {
 		waitResult.setRequestResults(requestResults);
 		for (;;) {
 			long secondsRemaining = (long) Math.ceil((end - System.currentTimeMillis()) / 1000D);
-			RequestResult result = doRequest(client, context);
-			requestResults.add(result);
+			RequestResult rr = doRequest(client, context);
+			requestResults.add(rr);
 			sleep(context.getRequestTimeout());
 			if (System.currentTimeMillis() > end) {
 				logger.info("Timed out waiting for response from '" + url + "'");
@@ -57,6 +57,16 @@ public class DefaultHttpService implements HttpService {
 				waitResult.setElapsed(waitResult.getStop() - now);
 				return waitResult;
 			}
+		}
+	}
+
+	protected boolean isFinishState(HttpContext context, RequestResult rr) {
+		boolean success
+		if (isSuccess(context.getSuccessCodes(), rr.getStatusCode())) {
+			return true;
+		}
+		if (isContinueWaiting(context.getContinueWaitingCodes(), rr.getStatusCode())) {
+			return;
 		}
 	}
 

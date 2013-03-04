@@ -7,7 +7,7 @@ public class WaitResult {
 	long start;
 	long stop;
 	long elapsed;
-	List<RequestResult> requestResults;
+	List<HttpRequestResult> requestResults;
 	ResultStatus status;
 
 	public long getStart() {
@@ -34,11 +34,11 @@ public class WaitResult {
 		this.elapsed = elapsed;
 	}
 
-	public List<RequestResult> getRequestResults() {
+	public List<HttpRequestResult> getRequestResults() {
 		return requestResults;
 	}
 
-	public void setRequestResults(List<RequestResult> requestResults) {
+	public void setRequestResults(List<HttpRequestResult> requestResults) {
 		this.requestResults = requestResults;
 	}
 

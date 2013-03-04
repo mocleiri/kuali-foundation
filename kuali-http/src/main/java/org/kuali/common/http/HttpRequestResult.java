@@ -2,20 +2,20 @@ package org.kuali.common.http;
 
 import java.io.IOException;
 
-public class RequestResult {
+public class HttpRequestResult {
 
-	int statusCode;
+	Integer statusCode;
 	String statusText;
 	IOException exception;
 	long start;
 	long stop;
 	long elapsed;
 
-	public int getStatusCode() {
+	public Integer getStatusCode() {
 		return statusCode;
 	}
 
-	public void setStatusCode(int statusCode) {
+	public void setStatusCode(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
 
