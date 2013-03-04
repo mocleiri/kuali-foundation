@@ -40,21 +40,21 @@ public class DefaultHttpService implements HttpService {
 		HttpClient client = getHttpClient(context);
 		WaitResult waitResult = new WaitResult();
 		waitResult.setStart(System.currentTimeMillis());
-		long endMillis = waitResult.getStart() + (context.getOverallTimeout() * 1000);
+		long end = waitResult.getStart() + (context.getOverallTimeout() * 1000);
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
-			if (!isFinishState(context, rr, endMillis)) {
+			if (!isFinishState(context, rr, end)) {
 				sleep(context.getRequestTimeout());
 			}
 		}
 	}
 
-	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long endMillis) {
-		// If we've gone past or max allotted time, we're done
-		if (System.currentTimeMillis() > endMillis) {
+	protected boolean isFinishState(HttpContext context, HttpRequestResult rr, long end) {
+		// If we've gone past our max allotted time, we are done
+		if (System.currentTimeMillis() > end) {
 			return true;
 		}
 
@@ -73,7 +73,7 @@ public class DefaultHttpService implements HttpService {
 		if (isContinueWaiting(context.getContinueWaitingCodes(), statusCode)) {
 			return false;
 		} else {
-			// We successfully acquired an http status code, but it wasn't what we were expecting, we need to fail
+			// We got an http status code, but it wasn't what we we expected, we need to fail
 			return true;
 		}
 	}
