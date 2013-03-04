@@ -16,7 +16,6 @@
 package org.kuali.common.http;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -29,14 +28,9 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultHttpService {
+public class DefaultHttpService implements HttpService {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
-	List<Integer> successCodes = new ArrayList<Integer>();
-	List<Integer> continueWaitingCodes = new ArrayList<Integer>();
-	int requestTimeout = 3000;
-	int sleepInterval = 3000;
-	int timeout = 180;
 
 	protected boolean isSuccess(int resultCode) {
 		return isMatch(resultCode, successCodes);
@@ -91,6 +85,11 @@ public class DefaultHttpService {
 		}
 	}
 
+	@Override
+	public WaitResult wait(HttpContext context) {
+		return new WaitResult();
+	}
+
 	protected HttpClient getHttpClient() {
 		HttpClient client = new HttpClient();
 		HttpClientParams clientParams = client.getParams();
@@ -119,7 +118,7 @@ public class DefaultHttpService {
 				// We got an HTTP status code that does not represent success,
 				// but we should continue waiting
 				// This can happen when Tomcat is fronted by an Apache web server
-				// that returns 503 if Tomcat isn't up and running yet
+				// That configuration returns 503 if Tomcat isn't up and running yet
 				logger.info(getMsg(message.toString()));
 				return Result.CONTINUE_WAITING_HTTP_STATUS_CODE;
 			} else {
@@ -140,49 +139,5 @@ public class DefaultHttpService {
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public int getRequestTimeout() {
-		return requestTimeout;
-	}
-
-	public void setRequestTimeout(int requestTimeout) {
-		this.requestTimeout = requestTimeout;
-	}
-
-	public int getSleepInterval() {
-		return sleepInterval;
-	}
-
-	public void setSleepInterval(int sleepInterval) {
-		this.sleepInterval = sleepInterval;
-	}
-
-	public int getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(int waitTimeout) {
-		this.timeout = waitTimeout;
-	}
-
-	public Logger getLogger() {
-		return logger;
-	}
-
-	public List<Integer> getSuccessCodes() {
-		return successCodes;
-	}
-
-	public void setSuccessCodes(List<Integer> successCodes) {
-		this.successCodes = successCodes;
-	}
-
-	public List<Integer> getContinueWaitingCodes() {
-		return continueWaitingCodes;
-	}
-
-	public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
-		this.continueWaitingCodes = continueWaitingCodes;
 	}
 }
