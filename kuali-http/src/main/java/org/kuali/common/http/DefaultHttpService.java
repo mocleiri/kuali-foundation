@@ -48,7 +48,9 @@ public class DefaultHttpService implements HttpService {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
-				sleep(context.getRequestTimeoutMillis());
+				sleep(context.getSleepIntervalMillis());
+			} else {
+				return waitResult;
 			}
 		}
 	}
