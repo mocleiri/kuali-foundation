@@ -22,6 +22,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class TimeUtils {
 
+	private static final List<String> TOKENS = Arrays.asList("ms", "s", "m", "h", "d", "y");
+	private static final List<Integer> MULTIPLIERS = Arrays.asList(1, 1000, 1000 * 60, 1000 * 60 * 60, 1000 * 60 * 60 * 24, 1000 * 60 * 60 * 24 * 365);
+
 	/**
 	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
 	 * 
@@ -36,9 +39,11 @@ public class TimeUtils {
 	 * </pre>
 	 */
 	public static long getMillis(String time) {
+		return getMillis(time, TOKENS, MULTIPLIERS);
+	}
+
+	public static long getMillis(String time, List<String> tokens, List<Integer> multipliers) {
 		Assert.notBlank(time);
-		List<String> tokens = Arrays.asList("ms", "s", "m", "h", "d", "y");
-		List<Integer> multipliers = Arrays.asList(1, 1000, 1000 * 60, 1000 * 60 * 60, 1000 * 60 * 60 * 24, 1000 * 60 * 60 * 24 * 365);
 		Assert.isTrue(tokens.size() == multipliers.size());
 		for (int i = 0; i < tokens.size(); i++) {
 			String token = tokens.get(i);
