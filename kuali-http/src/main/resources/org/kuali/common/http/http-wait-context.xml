@@ -25,7 +25,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <!--
-    Only required property is ${http.url}.
+    The only required property is ${http.url}.
     The other timeout related properties have sensible defaults.
     Default behavior is to wait up to 15 minutes to get a valid http status from ${http.url}
     If an IO exception is encountered when polling ${http.url} the logic will back off, wait 5 seconds, then try again.
