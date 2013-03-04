@@ -81,7 +81,7 @@ public class DefaultHttpService implements HttpService {
 
 	protected String getStatusText(HttpRequestResult result) {
 		if (result.getException() != null) {
-			return result.getException().getMessage();
+			return "[" + result.getException().toString() + "]";
 		} else {
 			return result.getStatusCode() + " - " + result.getStatusText();
 		}
