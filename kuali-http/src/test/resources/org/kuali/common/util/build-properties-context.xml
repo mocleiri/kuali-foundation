@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2010-2012 The Kuali Foundation
+
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.opensource.org/licenses/ecl2.php
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <bean id="kuali.build.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="properties">
+      <props>
+        <prop key="kuali.home">\${user.home:.}/.${kuali.groupId.code}</prop>
+        <prop key="kuali.group.home">${kuali.home}/${project.groupId.code}</prop>
+        <prop key="kuali.groupId">${kuali.groupId}</prop>
+        <prop key="kuali.groupId.code">${kuali.groupId.code}</prop>
+        <prop key="org.groupId">${kuali.groupId}</prop>
+        <prop key="project.groupId">${project.groupId}</prop>
+        <prop key="project.groupId.code">common</prop>
+        <prop key="project.artifactId">${project.artifactId}</prop>
+        <prop key="project.version">${project.version}</prop>
+        <prop key="project.build.sourceEncoding">${project.build.sourceEncoding}</prop>
+        <prop key="kuali.properties.global">${kuali.properties.global}</prop>
+        <prop key="kuali.properties.missing">${kuali.properties.missing}</prop>
+      </props>
+    </property>
+  </bean>
+
+</beans>
