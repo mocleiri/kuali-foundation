@@ -31,11 +31,10 @@ $page = 'personnel';
             </div>-->
               <!-- Only required for left/right tabs -->
             
-              <div class="alert alert-info">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</div>
-          <!--    <div class="boxSubheader">
-                <h4>Personnel</h4>
-              </div>-->
+            <p> Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
+          <p>
+                <a href="#" class="btn btn-mini btn-inverse ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><i class="icon-white icon-plus"></i> Add Person</a>
+              </p>
 
           <ul class="nav nav-tabs" style="display:block" >
                 <li class="active">
