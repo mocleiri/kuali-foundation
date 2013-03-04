@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.1.5</version>
+    <version>2.1.57</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-util</artifactId>
@@ -51,6 +51,10 @@
     </developer>
   </developers>
   <dependencies>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-util</artifactId>
+    </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
