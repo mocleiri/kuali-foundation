@@ -1,11 +1,12 @@
 package org.kuali.common.http;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DefaultHttpServiceTest {
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void test() {
 		HttpContext context = new HttpContext();
 		context.setUrl("http://env16.ks.kuali.org");
