@@ -81,24 +81,27 @@ $page = 'basics';
                 </select>
               </div>
             </div>
+            
             <div class="control-group">
-              <span class="control-label" for="startDate">Project Dates <span class="req">*<span>required</span></span></span>
-              <div class="controls controls-row datepicker">
-                <div class="input-append">
-                  <label for="startDate" class="hidden">Start date</label>
-                  <input type="text" class="" id="startDate" name="input" value="9/1/2013" required>
-                  <span class="add-on"><i class="icon-calendar"></i></span>
-                </div>
-                <div class="input-append">
-                  <label for="endDate" class="hidden">End date</label>
-                  <input type="text" class="" id="endDate" name="input" value="8/31/2015" required>
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
+              <label class="control-label" for="start_date">Start Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="from..." value="01/09/2013">
+                <span class="add-on"><i class="icon-calendar"></i></span>
               </div>
             </div>
+
+            <div class="control-group">
+              <label class="control-label" for="end_date">End Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="end_date" name="input" placeholder="from..." value="31/08/2015">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
+            </div>
+
             <div class="control-group">
               <label class="control-label" for="orgdocnum2">Sponsor Code</label>
               <div class="controls">
-                <input type="text" id="orgdocnum2" placeholder="" class=" input-small" value="Chemistry - Physical Sciences B.02" required>
+                <input type="text" id="orgdocnum2" placeholder="" class="" value="Chemistry - Physical Sciences B.02" required>
                 <a href="#" class="btn lookup" disabled><span>lookup</span></a>
               </div>
             </div>
@@ -185,14 +188,13 @@ $page = 'basics';
           </div>
           <div class="boxContent expandTarget" style="display:none" >
             <div class="control-group">
-              <label class="control-label" for="orgdocnum3">Sponsor Deadline Date </label>
-              <div class="controls">
-                <div class="input-append">
-                  <input class=" input-small" id="asdf6" type="text">
-                  <button type="submit" class="btn"> <i class="icon-calendar"></i></button>
-                </div>
+              <label class="control-label" for="start_date">Sponsor Deadline Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="from...">
+                <span class="add-on"><i class="icon-calendar"></i></span>
               </div>
             </div>
+
             <div class="control-group">
               <label class="control-label" for="ProposalType4">Notice of Opportunity</label>
               <div class="controls">

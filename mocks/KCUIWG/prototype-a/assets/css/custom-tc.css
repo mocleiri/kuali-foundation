@@ -260,7 +260,7 @@ cursor: pointer;
 
 #document.fixed{background:#960000;top:0;left:0;z-index:999 !important;}
 
-.dropdown-menu{left:auto !important;right:0 !important;}.dropdown-menu a{font-size:.90em;text-align:left;}
+/*.dropdown-menu{left:auto !important;right:0 !important;}.dropdown-menu a{font-size:.90em;text-align:left;}*/
 .popover{color:#222222 !important;}.popover ul{list-style:none;margin:0;padding:0;width:100%;}.popover ul li{display:block !important;clear:both;border-top:1px solid #f9f9f9 !important;width:100%;}.popover ul li .progress{width:100% !important;max-width:100% !important;float:none !important;margin-top:0 !important;}
 .popover ul li span{display:inline-block;margin-right:.35em;}
 .popover ul li:first-child{border-top:none;}

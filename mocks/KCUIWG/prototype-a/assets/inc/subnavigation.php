@@ -1,6 +1,5 @@
 <!-- Subnavigation -->
 <div id="ToC">
-  <a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
     <ul style="display: block; ">
       <li <?php if( $page == 'basics' ) { echo 'class="active"'; } ?>><a href="prop.proposal.php"><i class="icon icon-chevron-right"></i><span>Basics</span></a></li>
       <li <?php if( $page == 'personnel' ) { echo 'class="active"'; } ?>><a href="prop.keypersonnel.php"><i class="icon icon-chevron-right"></i><span>Key Personnel</span></a></li>

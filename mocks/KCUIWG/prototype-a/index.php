@@ -60,17 +60,23 @@ $page = 'start';
                 </select>
               </div>
             </div>
+
             <div class="control-group">
-              <label class="control-label" for="Text Field2">Start/End Dates</label>
-              <div class="controls controls-row datepicker">
-                <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="from...">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
-                <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="to...">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
+              <label class="control-label" for="start_date">Start Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="from...">
+                <span class="add-on"><i class="icon-calendar"></i></span>
               </div>
             </div>
+
+            <div class="control-group">
+              <label class="control-label" for="end_date">End Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="end_date" name="input" placeholder="from...">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
+            </div>
+
             <div class="control-group">
               <label class="control-label" for="orgdocnum">Sponsor Code</label>
               <div class="controls">
@@ -101,7 +107,7 @@ $page = 'start';
             </div> -->
           </div>
         </div>       
-   <div style=" padd12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
+   <div style=" padding: 12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
         
         </div>
         
@@ -118,7 +124,6 @@ $page = 'start';
 <p>
 
 <?php include( 'assets/inc/scripts.global.php' ) ?>
-
 
 </body>
 </html>
