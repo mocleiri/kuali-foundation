@@ -129,9 +129,16 @@ public class DefaultHttpService implements HttpService {
 	protected HttpClient getHttpClient(HttpContext context) {
 		HttpClient client = new HttpClient();
 		HttpClientParams clientParams = client.getParams();
+
+		// Disable the automatic retry capability built into the http client software
+		// We will be handling retries on our own
 		HttpMethodRetryHandler retryHandler = new DefaultHttpMethodRetryHandler(0, false);
 		clientParams.setParameter(HttpMethodParams.RETRY_HANDLER, retryHandler);
+
+		// Set a hard timeout for this individual request so we get control back after a known amount of time
 		clientParams.setParameter(HttpMethodParams.SO_TIMEOUT, context.getRequestTimeoutMillis());
+
+		// Return the client configured with our preferences
 		return client;
 	}
 
