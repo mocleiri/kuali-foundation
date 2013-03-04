@@ -37,6 +37,7 @@ public class DefaultHttpService implements HttpService {
 	@Override
 	public WaitResult wait(HttpContext context) {
 		Assert.notBlank(context.getUrl(), "url is blank");
+		logger.debug(context.getUrl());
 		HttpClient client = getHttpClient(context);
 		WaitResult waitResult = new WaitResult();
 		waitResult.setStart(System.currentTimeMillis());
