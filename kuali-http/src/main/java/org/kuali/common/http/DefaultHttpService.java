@@ -83,9 +83,9 @@ public class DefaultHttpService implements HttpService {
 
 	protected HttpRequestResult doRequest(HttpClient client, HttpContext context) {
 		HttpRequestResult result = new HttpRequestResult();
+		result.setStart(System.currentTimeMillis());
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
-			result.setStart(System.currentTimeMillis());
 			client.executeMethod(method);
 			result.setStatusCode(method.getStatusCode());
 			result.setStatusText(method.getStatusText());
