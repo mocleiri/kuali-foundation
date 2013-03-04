@@ -69,6 +69,21 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
+	protected RequestResult getRequestResult(HttpClient client, HttpContext context) {
+		RequestResult result = new RequestResult();
+		try {
+			HttpMethod method = new GetMethod(context.getUrl());
+			client.executeMethod(method);
+			int statusCode = method.getStatusCode();
+			String statusText = method.getStatusText();
+			result.setStatusCode(statusCode);
+			result.setStatusText(statusText);
+		} catch (IOException e) {
+			result.setException(e);
+		}
+		return result;
+	}
+
 	protected RequestResultEnum doRequest(HttpClient client, HttpContext context, long secondsRemaining) {
 		String url = context.getUrl();
 		StringBuilder message = new StringBuilder("Status for '" + url + "' is '");
