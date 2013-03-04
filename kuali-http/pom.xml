@@ -60,6 +60,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
+      <version>3.0.14-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
