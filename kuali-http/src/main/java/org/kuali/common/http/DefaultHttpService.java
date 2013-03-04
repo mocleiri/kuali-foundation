@@ -97,7 +97,6 @@ public class DefaultHttpService implements HttpService {
 				logger.info(getMsg(message.toString(), secondsRemaining));
 				return RequestResult.INVALID_HTTP_STATUS_CODE;
 			}
-
 		} catch (IOException e) {
 			logger.info(getMsg(message.append(e.getMessage() + "'").toString(), secondsRemaining));
 			return RequestResult.IO_EXCEPTION;
