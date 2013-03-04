@@ -65,7 +65,7 @@ public class DefaultHttpService implements HttpService {
 			return false;
 		}
 
-		// If there is a status code and it matches a success codes, we are done
+		// If there is a status code and it matches a success code, we are done
 		if (isSuccess(context.getSuccessCodes(), statusCode)) {
 			return true;
 		}
@@ -74,7 +74,7 @@ public class DefaultHttpService implements HttpService {
 		if (isContinueWaiting(context.getContinueWaitingCodes(), statusCode)) {
 			return false;
 		} else {
-			// We got an http status code, but it wasn't what we we expected, we need to fail
+			// We got an http status code, but it wasn't we were expecting. We need to fail
 			return true;
 		}
 	}
