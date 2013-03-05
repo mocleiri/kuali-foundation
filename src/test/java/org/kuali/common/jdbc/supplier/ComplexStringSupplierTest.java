@@ -3,21 +3,47 @@ package org.kuali.common.jdbc.supplier;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+import org.kuali.common.jdbc.DefaultDatabaseService;
 import org.kuali.common.jdbc.DefaultSqlReader;
+import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class ComplexStringSupplierTest {
 
+	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseService.class);
+
+	@Test
 	public void test() {
-		List<String> sql = new ArrayList<String>();
-		sql.add("select sysdate from dual");
-		sql.add("select 1 from dual");
+		String singleSqlStatement = "select sysdate from dual\n/\n";
+		int count = 5;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < count; i++) {
+			sb.append(singleSqlStatement);
+		}
+		List<String> list = new ArrayList<String>();
+		list.add(sb.toString());
 
 		SqlReader reader = new DefaultSqlReader();
 
 		ComplexStringSupplier supplier = new ComplexStringSupplier();
+		supplier.setStrings(list);
+		supplier.setReader(reader);
 
-		supplier.setStrings(sql);
+		SqlMetaData smd = supplier.getSqlMetaData();
+
+		Assert.isTrue(smd.getCount() == count);
+
+		supplier.open();
+		String sql = supplier.getSql();
+		while (sql != null) {
+			logger.info(sql);
+			sql = supplier.getSql();
+		}
+		supplier.close();
 
 	}
 

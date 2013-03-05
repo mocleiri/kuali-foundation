@@ -93,6 +93,7 @@ public class JdbcUtils {
 		while (sql != null) {
 			count++;
 			size += sql.length();
+			sql = reader.getSqlStatement(in);
 		}
 		return new SqlMetaData(count, size);
 	}
