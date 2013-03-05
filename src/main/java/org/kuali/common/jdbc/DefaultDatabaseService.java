@@ -31,6 +31,9 @@ import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
+import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
+import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -98,13 +101,10 @@ public class DefaultDatabaseService implements DatabaseService {
 		JdbcService service = new DefaultJdbcService();
 		ExecutionContext dba = getDbaContext(context);
 		dba.setExecute(context.isExecuteSql());
-		dba.setReader(context.getDbaReader());
 
 		long start = System.currentTimeMillis();
 		service.executeSql(dba);
 		for (ExecutionContext ec : contexts) {
-			ec.setEncoding(context.getEncoding());
-			ec.setReader(context.getReader());
 			ec.setJdbcContext(context.getNormalJdbcContext());
 			ec.setExecute(context.isExecuteSql());
 			service.executeSql(ec);
@@ -118,11 +118,12 @@ public class DefaultDatabaseService implements DatabaseService {
 	}
 
 	protected ExecutionContext getDbaContext(DatabaseResetContext context) {
+		SqlSupplier supplier = new ComplexStringSupplier(Arrays.asList(context.getDbaSql()));
+		List<SqlSupplier> suppliers = Arrays.asList(supplier);
 		ExecutionContext ec = new ExecutionContext();
 		ec.setMessage("Executing DBA SQL");
 		ec.setJdbcContext(context.getDbaJdbcContext());
-		ec.setReader(context.getReader());
-		ec.setSql(Arrays.asList(context.getDbaSql()));
+		ec.setSuppliers(suppliers);
 		ec.setListener(getDbaListener());
 		return ec;
 	}
@@ -207,6 +208,9 @@ public class DefaultDatabaseService implements DatabaseService {
 		validateExists(concurrentLocations);
 		validateExists(sequentialLocations);
 
+		List<SqlSupplier> concurrentSuppliers = getSqlSuppliers(concurrentLocations);
+		List<SqlSupplier> sequentialSuppliers = getSqlSuppliers(sequentialLocations);
+
 		String order = properties.getProperty(prefix + "." + ORDER);
 		if (order == null) {
 			order = CONCURRENT + "," + SEQUENTIAL;
@@ -230,32 +234,41 @@ public class DefaultDatabaseService implements DatabaseService {
 
 		if (one.equals(ExecutionMode.CONCURRENT)) {
 			// Concurrent first, then sequential
-			context1.setLocations(concurrentLocations);
+			context1.setSuppliers(concurrentSuppliers);
 			context1.setThreads(threads);
 			context1.setMessage(concurrentMsg);
-			context2.setLocations(sequentialLocations);
+			context1.setSuppliers(sequentialSuppliers);
 			context2.setMessage(sequentialMsg);
 		} else {
 			// Sequential first, then concurrent
-			context1.setLocations(sequentialLocations);
+			context1.setSuppliers(sequentialSuppliers);
 			context1.setMessage(sequentialMsg);
-			context2.setLocations(concurrentLocations);
+			context1.setSuppliers(concurrentSuppliers);
 			context2.setMessage(concurrentMsg);
 			context2.setThreads(threads);
 		}
 
 		// Add context1 to the list (if it has any locations)
-		if (!CollectionUtils.isEmpty(context1.getLocations())) {
+		if (!CollectionUtils.isEmpty(context1.getSuppliers())) {
 			contexts.add(context1);
 		}
 
 		// Add context2 to the list (if it has any locations)
-		if (!CollectionUtils.isEmpty(context2.getLocations())) {
+		if (!CollectionUtils.isEmpty(context2.getSuppliers())) {
 			contexts.add(context2);
 		}
 
 		// Return the list
 		return contexts;
+	}
+
+	protected List<SqlSupplier> getSqlSuppliers(List<String> locations) {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String location : locations) {
+			SqlSupplier ss = new SqlLocationSupplier(location);
+			suppliers.add(ss);
+		}
+		return suppliers;
 	}
 
 	protected NotifyingListener getDbaListener() {

@@ -31,7 +31,7 @@ import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
-import org.kuali.common.jdbc.supplier.SqlLocationsSupplier;
+import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -150,6 +150,15 @@ public class DefaultJdbcServiceTest {
 		}
 	}
 
+	protected List<SqlSupplier> getSqlSuppliers(List<String> locations) {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String location : locations) {
+			SqlSupplier ss = new SqlLocationSupplier(location);
+			suppliers.add(ss);
+		}
+		return suppliers;
+	}
+
 	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads) {
 
 		String concurrent = getValue(prefix + ".concurrent");
@@ -160,12 +169,12 @@ public class DefaultJdbcServiceTest {
 
 		List<String> concurrentLocations = getLocationsFromCSV(concurrent);
 		List<String> sequentialLocations = getLocationsFromCSV(sequential);
-		
-		SqlSupplier concurrentSupplier = new SqlLocationsSupplier(concurrentLocations);
-		
 
 		validateExists(concurrentLocations);
 		validateExists(sequentialLocations);
+
+		List<SqlSupplier> concurrentSuppliers = getSqlSuppliers(concurrentLocations);
+		List<SqlSupplier> sequentialSuppliers = getSqlSuppliers(sequentialLocations);
 
 		String order = getValue(prefix + ".order");
 		if (order == null) {
@@ -190,27 +199,27 @@ public class DefaultJdbcServiceTest {
 
 		if (one.equals(ExecutionMode.CONCURRENT)) {
 			// Concurrent first, then sequential
-			context1.setLocations(concurrentLocations);
+			context1.setSuppliers(concurrentSuppliers);
 			context1.setThreads(threads);
 			context1.setMessage(concurrentMsg);
-			context2.setLocations(sequentialLocations);
+			context1.setSuppliers(sequentialSuppliers);
 			context2.setMessage(sequentialMsg);
 		} else {
 			// Sequential first, then concurrent
-			context1.setLocations(sequentialLocations);
+			context1.setSuppliers(sequentialSuppliers);
 			context1.setMessage(sequentialMsg);
-			context2.setLocations(concurrentLocations);
+			context1.setSuppliers(concurrentSuppliers);
 			context2.setMessage(concurrentMsg);
 			context2.setThreads(threads);
 		}
 
 		// Add context1 to the list (if it has any locations)
-		if (!CollectionUtils.isEmpty(context1.getLocations())) {
+		if (!CollectionUtils.isEmpty(context1.getSuppliers())) {
 			contexts.add(context1);
 		}
 
 		// Add context2 to the list (if it has any locations)
-		if (!CollectionUtils.isEmpty(context2.getLocations())) {
+		if (!CollectionUtils.isEmpty(context2.getSuppliers())) {
 			contexts.add(context2);
 		}
 
@@ -312,8 +321,6 @@ public class DefaultJdbcServiceTest {
 				if (skip) {
 					context.setExecute(false);
 				}
-				context.setEncoding("UTF-8");
-				context.setReader(reader);
 				context.setJdbcContext(jdbcContext);
 				context.setListener(getDefaultListener());
 				service.executeSql(context);

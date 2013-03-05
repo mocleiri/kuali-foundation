@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
@@ -17,8 +18,17 @@ public class SqlLocationSupplier extends AbstractSupplier {
 	protected BufferedReader in;
 
 	String location;
-	String encoding;
-	SqlReader reader;
+	String encoding = "UTF-8";
+	SqlReader reader = new DefaultSqlReader();
+
+	public SqlLocationSupplier() {
+		this(null);
+	}
+
+	public SqlLocationSupplier(String location) {
+		super();
+		this.location = location;
+	}
 
 	@Override
 	public void open() throws IOException {

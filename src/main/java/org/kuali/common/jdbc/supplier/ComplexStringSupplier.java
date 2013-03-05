@@ -23,6 +23,15 @@ public class ComplexStringSupplier extends AbstractSupplier {
 	List<String> strings;
 	SqlReader reader = new DefaultSqlReader();
 
+	public ComplexStringSupplier() {
+		this(null);
+	}
+
+	public ComplexStringSupplier(List<String> strings) {
+		super();
+		this.strings = strings;
+	}
+
 	@Override
 	public void open() {
 
