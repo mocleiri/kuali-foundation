@@ -14,6 +14,7 @@ public class StringSupplier implements SqlSupplier {
 	@Override
 	public void open() {
 
+		// Make sure we've got something to work with
 		Assert.notNull(strings, "strings is null");
 
 		// Reset index to zero
@@ -37,16 +38,11 @@ public class StringSupplier implements SqlSupplier {
 	@Override
 	public SqlMetaData getSqlMetaData() {
 		int count = strings.size();
-
 		long size = 0;
 		for (String string : strings) {
 			size += string.length();
 		}
-
-		SqlMetaData smd = new SqlMetaData();
-		smd.setCount(count);
-		smd.setSize(size);
-		return smd;
+		return new SqlMetaData(count, size);
 	}
 
 	public List<String> getStrings() {

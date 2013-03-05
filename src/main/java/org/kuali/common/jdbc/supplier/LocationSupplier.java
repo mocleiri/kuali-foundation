@@ -48,10 +48,7 @@ public class LocationSupplier implements SqlSupplier {
 				size += sql.length();
 				sql = reader.getSqlStatement(in);
 			}
-			SqlMetaData smd = new SqlMetaData();
-			smd.setCount(count);
-			smd.setSize(size);
-			return smd;
+			return new SqlMetaData(count, size);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
