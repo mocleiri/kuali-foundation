@@ -10,6 +10,9 @@ import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
 
+/**
+ * Work with a location containing pre-generated SQL statements
+ */
 public class SqlLocationSupplier implements SqlSupplier {
 
 	protected BufferedReader in;
