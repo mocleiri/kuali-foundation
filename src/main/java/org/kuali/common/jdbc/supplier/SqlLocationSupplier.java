@@ -9,7 +9,7 @@ import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
 
-public class LocationSupplier implements SqlSupplier {
+public class SqlLocationSupplier implements SqlSupplier {
 
 	protected BufferedReader in;
 
