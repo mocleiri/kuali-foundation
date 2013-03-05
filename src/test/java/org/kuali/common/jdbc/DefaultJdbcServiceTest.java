@@ -30,6 +30,8 @@ import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
+import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -127,12 +129,15 @@ public class DefaultJdbcServiceTest {
 	}
 
 	protected ExecutionContext getDbaContext() {
+
+		List<String> sql = Arrays.asList(getValue("sql.drop"), getValue("sql.create"));
+		SqlSupplier supplier = new SimpleStringSupplier(sql);
+
 		ExecutionContext ec = new ExecutionContext();
 		ec.setMessage("Executing DBA SQL");
 		ec.setJdbcContext(jdbcDba);
-		ec.setReader(reader);
-		ec.setSql(Arrays.asList(getValue("sql.drop"), getValue("sql.create")));
 		ec.setListener(getDbaListener());
+		ec.setSuppliers(Arrays.asList(supplier));
 		return ec;
 	}
 
@@ -154,6 +159,7 @@ public class DefaultJdbcServiceTest {
 
 		List<String> concurrentLocations = getLocationsFromCSV(concurrent);
 		List<String> sequentialLocations = getLocationsFromCSV(sequential);
+		
 
 		validateExists(concurrentLocations);
 		validateExists(sequentialLocations);
