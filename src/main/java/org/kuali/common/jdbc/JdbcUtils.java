@@ -24,6 +24,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -46,12 +47,12 @@ public class JdbcUtils {
 	}
 
 	/**
-	 * Return a count of the total number of SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its <code>SqlMetaData</code> filled in.
+	 * Return a count of the total number of SQL statements contained in <code>suppliers</code>. Assumes <code>suppliers</code> has had its <code>SqlMetaData</code> filled in.
 	 */
-	public static long getSqlCount(List<SqlSource> sources) {
+	public static long getSqlCount(List<SqlSupplier> suppliers) {
 		long count = 0;
-		for (SqlSource source : sources) {
-			SqlMetaData smd = source.getMetaData();
+		for (SqlSupplier supplier : suppliers) {
+			SqlMetaData smd = supplier.getMetaData();
 			count += smd.getCount();
 		}
 		return count;

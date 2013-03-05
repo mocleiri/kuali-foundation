@@ -93,7 +93,7 @@ public class DefaultJdbcService implements JdbcService {
 
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
 		ThreadsProgressListener listener = new ThreadsProgressListener();
-		listener.setTotal(JdbcUtils.getSqlCount(sources));
+		listener.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 
 		// Provide some context for each bucket
 		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
