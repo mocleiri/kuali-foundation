@@ -57,8 +57,8 @@ public class ComplexStringSupplier implements SqlSupplier {
 			// Open a reader to the new string
 			in = getBufferedReader(strings, index);
 
-			// Return the first SQL statement from the new string
-			return reader.getSqlStatement(in);
+			// Get a SQL statement from the new string
+			return getSql();
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
