@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 /**
  * Supply SQL from strings that have one SQL statement each
  */
-public class SimpleStringSupplier extends AbstractSupplier implements SqlSupplier {
+public class SimpleStringSupplier extends AbstractSupplier {
 
 	protected int index = 0;
 

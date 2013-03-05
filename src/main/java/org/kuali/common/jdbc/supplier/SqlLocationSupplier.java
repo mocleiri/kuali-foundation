@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 /**
  * Supply SQL from a location containing pre-generated SQL statements
  */
-public class SqlLocationSupplier extends AbstractSupplier implements SqlSupplier {
+public class SqlLocationSupplier extends AbstractSupplier {
 
 	protected BufferedReader in;
 

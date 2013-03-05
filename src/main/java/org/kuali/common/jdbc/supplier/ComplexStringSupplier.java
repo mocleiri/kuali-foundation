@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 /**
  * Supply SQL from strings that may have more than one SQL statement each
  */
-public class ComplexStringSupplier extends AbstractSupplier implements SqlSupplier {
+public class ComplexStringSupplier extends AbstractSupplier {
 
 	protected int index = 0;
 	protected BufferedReader in;
