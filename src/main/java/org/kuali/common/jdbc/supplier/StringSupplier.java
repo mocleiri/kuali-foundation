@@ -13,15 +13,15 @@ public class StringSupplier implements SqlSupplier {
 
 	@Override
 	public void open() {
+
+		Assert.notNull(strings, "strings is null");
+
 		// Reset index to zero
 		index = 0;
 	}
 
 	@Override
 	public String getSql() {
-
-		Assert.notNull(strings, "strings is null");
-
 		if (index < strings.size()) {
 			return strings.get(index++);
 		} else {
