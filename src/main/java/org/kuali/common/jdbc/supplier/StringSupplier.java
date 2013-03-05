@@ -6,8 +6,9 @@ import org.springframework.util.Assert;
 
 public class StringSupplier implements SqlSupplier {
 
+	private int index = 0;
+
 	List<String> strings;
-	int index = 0;
 
 	@Override
 	public synchronized String getSql() {

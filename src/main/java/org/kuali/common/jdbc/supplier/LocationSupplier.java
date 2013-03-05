@@ -10,12 +10,13 @@ import org.springframework.util.Assert;
 
 public class LocationSupplier implements SqlSupplier {
 
+	private BufferedReader in;
+	private boolean done = false;
+	private boolean initialized = false;
+
 	String location;
 	String encoding;
 	SqlReader reader;
-
-	BufferedReader in;
-	boolean done = false;
 
 	@Override
 	public synchronized String getSql() {
@@ -28,9 +29,7 @@ public class LocationSupplier implements SqlSupplier {
 		}
 
 		try {
-			if (in == null) {
-				in = LocationUtils.getBufferedReader(location, encoding);
-			}
+			init();
 			String sql = reader.getSqlStatement(in);
 			if (sql == null) {
 				done = true;
@@ -38,9 +37,17 @@ public class LocationSupplier implements SqlSupplier {
 			}
 			return sql;
 		} catch (IOException e) {
+			done = true;
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected void init() throws IOException {
+		if (!initialized) {
+			in = LocationUtils.getBufferedReader(location, encoding);
+			initialized = true;
 		}
 	}
 
