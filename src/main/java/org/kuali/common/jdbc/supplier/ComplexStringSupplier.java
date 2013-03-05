@@ -111,4 +111,12 @@ public class ComplexStringSupplier implements SqlSupplier {
 		this.strings = strings;
 	}
 
+	public SqlReader getReader() {
+		return reader;
+	}
+
+	public void setReader(SqlReader reader) {
+		this.reader = reader;
+	}
+
 }
