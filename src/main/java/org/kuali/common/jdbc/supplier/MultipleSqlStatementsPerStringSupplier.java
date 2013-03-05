@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
@@ -59,6 +60,8 @@ public class MultipleSqlStatementsPerStringSupplier implements SqlSupplier {
 			return JdbcUtils.getSqlMetaData(in, reader);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
