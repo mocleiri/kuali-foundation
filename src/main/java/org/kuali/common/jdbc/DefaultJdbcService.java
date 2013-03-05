@@ -198,7 +198,7 @@ public class DefaultJdbcService implements JdbcService {
 			statement = conn.createStatement();
 			List<SqlSupplier> suppliers = context.getSuppliers();
 			for (SqlSupplier supplier : suppliers) {
-				excecuteSupplier(conn, statement, context, supplier);
+				excecuteSupplier(statement, context, supplier);
 				conn.commit();
 			}
 			conn.setAutoCommit(originalAutoCommitSetting);
@@ -209,12 +209,13 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void excecuteSupplier(Connection conn, Statement statement, ExecutionContext context, SqlSupplier supplier) throws SQLException {
+	protected void excecuteSupplier(Statement statement, ExecutionContext context, SqlSupplier supplier) throws SQLException {
 		try {
 			supplier.open();
 			String sql = supplier.getSql();
 			while (sql != null) {
 				executeSql(statement, sql, context);
+				sql = supplier.getSql();
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
