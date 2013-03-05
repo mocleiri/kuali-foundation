@@ -6,7 +6,7 @@ import org.kuali.common.jdbc.SqlMetaData;
 import org.springframework.util.Assert;
 
 /**
- * Supply SQL from a List of strings containing SQL statements
+ * Supply SQL from strings that have one SQL statement each
  */
 public class SimpleStringSupplier implements SqlSupplier {
 
