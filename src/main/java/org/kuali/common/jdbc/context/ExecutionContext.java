@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.context;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.SqlGenerator;
+import org.kuali.common.jdbc.SqlSupplier;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -38,7 +38,7 @@ public class ExecutionContext {
 	String encoding;
 	List<String> locations;
 	List<String> sql;
-	List<SqlGenerator> generators;
+	List<SqlSupplier> generators;
 	String message;
 
 	public JdbcContext getJdbcContext() {
@@ -113,11 +113,11 @@ public class ExecutionContext {
 		this.message = message;
 	}
 
-	public List<SqlGenerator> getGenerators() {
+	public List<SqlSupplier> getGenerators() {
 		return generators;
 	}
 
-	public void setGenerators(List<SqlGenerator> generators) {
+	public void setGenerators(List<SqlSupplier> generators) {
 		this.generators = generators;
 	}
 
