@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
@@ -287,7 +286,7 @@ public class DefaultJdbcServiceTest {
 	}
 
 	@Test
-	@Ignore
+	// @Ignore
 	public void testReset() {
 		try {
 
