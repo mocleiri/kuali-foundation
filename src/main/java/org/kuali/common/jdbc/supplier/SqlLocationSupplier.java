@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
@@ -36,19 +37,10 @@ public class SqlLocationSupplier implements SqlSupplier {
 
 	@Override
 	public SqlMetaData getSqlMetaData() {
-		long count = 0;
-		long size = 0;
-
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(location, encoding);
-			String sql = reader.getSqlStatement(in);
-			while (sql != null) {
-				count++;
-				size += sql.length();
-				sql = reader.getSqlStatement(in);
-			}
-			return new SqlMetaData(count, size);
+			return JdbcUtils.getSqlMetaData(in, reader);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {

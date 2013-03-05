@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,8 +34,7 @@ public class JdbcUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
 	/**
-	 * Return the total size of the SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its
-	 * <code>SqlMetaData</code> filled in.
+	 * Return the total size of the SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its <code>SqlMetaData</code> filled in.
 	 */
 	public static long getSqlSize(List<SqlSource> sources) {
 		long size = 0;
@@ -45,8 +46,7 @@ public class JdbcUtils {
 	}
 
 	/**
-	 * Return a count of the total number of SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its
-	 * <code>SqlMetaData</code> filled in.
+	 * Return a count of the total number of SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its <code>SqlMetaData</code> filled in.
 	 */
 	public static long getSqlCount(List<SqlSource> sources) {
 		long count = 0;
@@ -84,6 +84,17 @@ public class JdbcUtils {
 		} catch (SQLException e) {
 			throw new JdbcException(e);
 		}
+	}
+
+	public static SqlMetaData getSqlMetaData(BufferedReader in, SqlReader reader) throws IOException {
+		long count = 0;
+		long size = 0;
+		String sql = reader.getSqlStatement(in);
+		while (sql != null) {
+			count++;
+			size += sql.length();
+		}
+		return new SqlMetaData(count, size);
 	}
 
 }
