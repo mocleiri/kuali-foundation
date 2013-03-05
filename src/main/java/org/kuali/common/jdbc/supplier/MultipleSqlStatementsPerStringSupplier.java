@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 public class MultipleSqlStatementsPerStringSupplier implements SqlSupplier {
 
 	protected int index = 0;
+	protected BufferedReader in;
 
 	List<String> strings;
 	SqlReader reader;
@@ -26,21 +27,50 @@ public class MultipleSqlStatementsPerStringSupplier implements SqlSupplier {
 
 		// Reset index to zero
 		index = 0;
+
+		// Open a reader to the first string in the list
+		in = getBufferedReader(strings, index);
 	}
 
 	@Override
 	public String getSql() {
-		if (index < strings.size()) {
-			return strings.get(index++);
-		} else {
-			return null;
+		try {
+			// Have the reader produce a SQL statement
+			String sql = reader.getSqlStatement(in);
+
+			// We got a SQL statement we are done
+			if (sql != null) {
+				return sql;
+			}
+
+			// We've exhausted the current string, move to the next one
+			index++;
+
+			// We've exhausted all of the strings, we are done
+			if (index == strings.size()) {
+				return null;
+			}
+
+			// Open a reader to the new string
+			in = getBufferedReader(strings, index);
+
+			// Return the first SQL statement from the new string
+			return reader.getSqlStatement(in);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
 		}
+	}
+
+	protected BufferedReader getBufferedReader(List<String> strings, int index) {
+		String string = strings.get(index);
+		return LocationUtils.getBufferedReaderFromString(string);
 	}
 
 	@Override
 	public void close() {
 		// Reset index to zero
 		index = 0;
+		IOUtils.closeQuietly(in);
 	}
 
 	@Override
