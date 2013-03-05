@@ -12,7 +12,7 @@ import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
 
 /**
- * Supply SQL from strings that may have more than one SQL statement each
+ * Supply SQL obtained from a list of locations
  */
 public class SqlLocationsSupplier extends AbstractSupplier {
 
