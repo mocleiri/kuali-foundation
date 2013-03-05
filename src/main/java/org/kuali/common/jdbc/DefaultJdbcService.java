@@ -35,6 +35,7 @@ import org.kuali.common.jdbc.listener.BucketEvent;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.jdbc.threads.SqlBucketContext;
 import org.kuali.common.jdbc.threads.SqlBucketHandler;
@@ -229,6 +230,13 @@ public class DefaultJdbcService implements JdbcService {
 			source.setLocation(location);
 			source.setEncoding(context.getEncoding());
 			source.setMetaData(getMetaData(context.getReader(), location, context.getEncoding()));
+			sources.add(source);
+		}
+		for (SqlSupplier supplier : CollectionUtils.toEmptyList(context.getSuppliers())) {
+			SqlMetaData smd = supplier.getSqlMetaData();
+			SqlSource source = new SqlSource();
+			source.setSupplier(supplier);
+			source.setMetaData(smd);
 			sources.add(source);
 		}
 		return sources;
