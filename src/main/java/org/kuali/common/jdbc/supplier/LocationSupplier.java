@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 
 public class LocationSupplier implements SqlSupplier {
 
-	private BufferedReader in;
+	protected BufferedReader in;
 
 	String location;
 	String encoding;
@@ -58,5 +58,29 @@ public class LocationSupplier implements SqlSupplier {
 			IOUtils.closeQuietly(in);
 		}
 
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	public SqlReader getReader() {
+		return reader;
+	}
+
+	public void setReader(SqlReader reader) {
+		this.reader = reader;
 	}
 }

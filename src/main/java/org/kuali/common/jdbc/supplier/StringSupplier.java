@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 
 public class StringSupplier implements SqlSupplier {
 
-	private int index = 0;
+	protected int index = 0;
 
 	List<String> strings;
 
