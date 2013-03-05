@@ -26,6 +26,9 @@ public class ComplexStringSupplierTest {
 		}
 		List<String> list = new ArrayList<String>();
 		list.add(sb.toString());
+		list.add(sb.toString());
+		list.add(sb.toString());
+		list.add("select sysdate from dual");
 
 		SqlReader reader = new DefaultSqlReader();
 
@@ -35,7 +38,7 @@ public class ComplexStringSupplierTest {
 
 		SqlMetaData smd = supplier.getSqlMetaData();
 
-		Assert.isTrue(smd.getCount() == count);
+		Assert.isTrue(smd.getCount() == count * 3 + 1);
 
 		supplier.open();
 		String sql = supplier.getSql();
