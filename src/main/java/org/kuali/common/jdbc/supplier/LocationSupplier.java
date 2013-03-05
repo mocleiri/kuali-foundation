@@ -1,9 +1,10 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.supplier;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
 

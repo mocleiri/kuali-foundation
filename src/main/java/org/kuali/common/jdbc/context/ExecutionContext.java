@@ -17,10 +17,10 @@ package org.kuali.common.jdbc.context;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.SqlSupplier;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 
 public class ExecutionContext {
 

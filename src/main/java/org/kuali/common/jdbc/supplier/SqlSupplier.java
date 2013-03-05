@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc;
+package org.kuali.common.jdbc.supplier;
 
 public interface SqlSupplier {
 
