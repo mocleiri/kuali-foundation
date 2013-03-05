@@ -64,6 +64,9 @@ public class ComplexStringSupplier implements SqlSupplier {
 		}
 	}
 
+	/**
+	 * Extract a String from the list and open a BufferedReader that can read from it
+	 */
 	protected BufferedReader getBufferedReader(List<String> strings, int index) {
 		String string = strings.get(index);
 		return LocationUtils.getBufferedReaderFromString(string);
