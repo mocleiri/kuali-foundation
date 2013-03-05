@@ -17,7 +17,7 @@ public interface SqlSupplier {
 	String getSql() throws IOException;
 
 	/**
-	 * Close the supplier to free any resources it may have open
+	 * Close the supplier to free any resources it may have opened
 	 */
 	void close();
 
