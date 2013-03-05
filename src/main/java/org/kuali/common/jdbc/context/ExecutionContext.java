@@ -38,47 +38,15 @@ public class ExecutionContext {
 	String encoding;
 	List<String> locations;
 	List<String> sql;
-	List<SqlSupplier> generators;
+	List<SqlSupplier> suppliers;
 	String message;
 
-	public JdbcContext getJdbcContext() {
-		return jdbcContext;
+	public boolean isExecute() {
+		return execute;
 	}
 
-	public void setJdbcContext(JdbcContext jdbcContext) {
-		this.jdbcContext = jdbcContext;
-	}
-
-	public SqlReader getReader() {
-		return reader;
-	}
-
-	public void setReader(SqlReader reader) {
-		this.reader = reader;
-	}
-
-	public List<String> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<String> locations) {
-		this.locations = locations;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
-	public List<String> getSql() {
-		return sql;
-	}
-
-	public void setSql(List<String> sql) {
-		this.sql = sql;
+	public void setExecute(boolean execute) {
+		this.execute = execute;
 	}
 
 	public int getThreads() {
@@ -97,12 +65,52 @@ public class ExecutionContext {
 		this.listener = listener;
 	}
 
-	public boolean isExecute() {
-		return execute;
+	public JdbcContext getJdbcContext() {
+		return jdbcContext;
 	}
 
-	public void setExecute(boolean execute) {
-		this.execute = execute;
+	public void setJdbcContext(JdbcContext jdbcContext) {
+		this.jdbcContext = jdbcContext;
+	}
+
+	public SqlReader getReader() {
+		return reader;
+	}
+
+	public void setReader(SqlReader reader) {
+		this.reader = reader;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
+	}
+
+	public List<String> getSql() {
+		return sql;
+	}
+
+	public void setSql(List<String> sql) {
+		this.sql = sql;
+	}
+
+	public List<SqlSupplier> getSuppliers() {
+		return suppliers;
+	}
+
+	public void setSuppliers(List<SqlSupplier> suppliers) {
+		this.suppliers = suppliers;
 	}
 
 	public String getMessage() {
@@ -111,14 +119,6 @@ public class ExecutionContext {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public List<SqlSupplier> getGenerators() {
-		return generators;
-	}
-
-	public void setGenerators(List<SqlSupplier> generators) {
-		this.generators = generators;
 	}
 
 }
