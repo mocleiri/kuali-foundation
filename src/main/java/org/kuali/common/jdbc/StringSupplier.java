@@ -10,7 +10,7 @@ public class StringSupplier implements SqlSupplier {
 	int index = 0;
 
 	@Override
-	public String getSql() {
+	public synchronized String getSql() {
 
 		Assert.notNull(strings, "strings is null");
 
