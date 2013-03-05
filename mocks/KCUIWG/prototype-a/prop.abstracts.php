@@ -36,8 +36,19 @@ $page = 'attachments';
                 <div class="controls">
                   <select name="select" class="input-xlarge">
                     <option>select</option>
-                    <option>Abstract</option>
-                    <option>Amendment</option>
+                    <option>Narrative</option>
+                    <option>Equipment</option>
+                    <option>Bibliography</option>
+                    <option>Project Summary</option>
+                    <option>Budget Justification</option>
+                    <option>Additional Keypersons</option>
+                    <option>Additional Equipment</option>
+                    <option>Personal Data</option>
+                    <option>Facilities</option>
+                    <option>Subaward Budget</option>
+                    <option>Table of Contents</option>
+                    <option>Supplementary Documentation</option>
+                    <option>Other</option>
                   </select>
                 </div>
               </div>

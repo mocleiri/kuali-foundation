@@ -44,7 +44,7 @@ $page = 'basics';
                 <select name="ProposalType" class="input-xlarge" id="ProposalType" required="required">
                   <option value="">select</option>
                   <option value="4">Continuation</option>
-                  <option value="1">New</option>
+                  <option value="1" selected="selected">New</option>
                   <option value="3">Renewal</option>
                   <option value="2">Resubmission</option>
                   <option value="5">Revision</option>
@@ -57,7 +57,7 @@ $page = 'basics';
               <div class="controls">
                 <select name="select" id="leadUnit" class="input-xlarge" title="Lead Unit" required="required">
                   <option value="">select</option>
-                  <option value="000001">000001 - University</option>
+                  <option value="000001" selected="selected">000001 - University</option>
                   <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
                   <option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
                   <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
@@ -75,40 +75,49 @@ $page = 'basics';
                   <option value="6">Fellowship - Pre-Doctoral</option>
                   <option value="2">Instruction</option>
                   <option value="3">Public Service</option>
-                  <option value="1">Research</option>
+                  <option value="1" selected="selected">Research</option>
                   <option value="8">Student Services</option>
                   <option value="5">other</option>
                 </select>
               </div>
             </div>
+            
             <div class="control-group">
-              <span class="control-label" for="startDate">Project Dates <span class="req">*<span>required</span></span></span>
-              <div class="controls controls-row datepicker">
-                <div class="input-append">
-                  <label for="startDate" class="hidden">Start date</label>
-                  <input type="text" class="" id="startDate" name="input" placeholder="from..." required>
-                  <span class="add-on"><i class="icon-calendar"></i></span>
-                </div>
-                <div class="input-append">
-                  <label for="endDate" class="hidden">End date</label>
-                  <input type="text" class="" id="endDate" name="input" placeholder="to..." required>
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
+              <label class="control-label" for="start_date">Start Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="from..." value="01/09/2013">
+                <span class="add-on"><i class="icon-calendar"></i></span>
               </div>
             </div>
+
             <div class="control-group">
-              <label class="control-label" for="orgdocnum2">Sponsor Code</label>
-              <div class="controls">
-                <input type="text" id="orgdocnum2" placeholder="" class=" input-small" required>
-                <a href="#" class="btn lookup"><span>lookup</span></a> </div>
+              <label class="control-label" for="end_date">End Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="end_date" name="input" placeholder="from..." value="31/08/2015">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
             </div>
+
+            <div class="control-group">
+              <label class="control-label" for="orgdocnum">Sponsor Code</label>
+              <div class="controls">
+                <select name="orgdocnum">
+                  <option>select</option>
+                  <option value="1" selected="selected">Chemistry - Physical Sciences B.02</option>
+                </select>
+                <!-- <input type="text" id="Description" placeholder="" class=" input-small"> -->
+                <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
+              </div>
+            </div>
+
             <div class="control-group"> 
               <!-- Textarea -->
               <label class="control-label" for="projectTitle">Project Title</label>
               <div class="controls">
-                <textarea name="textarea" id="projectTitle" class="input-xlarge" required></textarea>
+                <textarea name="textarea" id="projectTitle" class="input-xlarge" required>Elevating Phenethylamine Concentration through Cocoa Bean Roasting and Processing</textarea>
               </div>
             </div>
-            <div class="boxSubheader">
+            <!-- <div class="boxSubheader">
               <h4>Conditionally Required Institutional Fields</h4>
             </div>
             <div class="control-group">
@@ -122,7 +131,7 @@ $page = 'basics';
               <div class="controls">
                 <input type="text" id="Description" placeholder="" class=" input-small">
                 <a href="#" class="btn lookup"><span>lookup</span></a> </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="box">
@@ -146,7 +155,7 @@ $page = 'basics';
             <div class="control-group" style="text-align: right; width:405px;">
               <button class="btn btn-mini" >Search </button>
             </div>
-            <h4>Opportunity</h4>
+            <!-- <h4>Opportunity</h4>
             <div class="clearfix">
               <dl class="table-display" style="margin-top:-13px;">
                 <dt> Opportunity ID</dt>
@@ -175,7 +184,8 @@ $page = 'basics';
             <h4>Submission Details</h4>
             Submission details will be available after the proposal is submitted.
             <h4>Forms</h4>
-            No forms are currently available for the Grants.gov opportunity selected. </div>
+            No forms are currently available for the Grants.gov opportunity selected. -->
+          </div>
         </div>
         <div class="box">
           <div class="boxHeader expandControl closed">
@@ -183,14 +193,13 @@ $page = 'basics';
           </div>
           <div class="boxContent expandTarget" style="display:none" >
             <div class="control-group">
-              <label class="control-label" for="orgdocnum3">Sponsor Deadline Date </label>
-              <div class="controls">
-                <div class="input-append">
-                  <input class=" input-small" id="asdf6" type="text">
-                  <button type="submit" class="btn"> <i class="icon-calendar"></i></button>
-                </div>
+              <label class="control-label" for="start_date">Sponsor Deadline Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="from...">
+                <span class="add-on"><i class="icon-calendar"></i></span>
               </div>
             </div>
+
             <div class="control-group">
               <label class="control-label" for="ProposalType4">Notice of Opportunity</label>
               <div class="controls">
@@ -473,9 +482,10 @@ $page = 'basics';
         </div>
         
         <div style=" padd12px; text-align:center">
-          <a href="#" class="btn btn-mini"><i class="icon-chevron-left"></i> back</a>
-          <a href="#" class="btn btn">save</a>
-          <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div>
+          <a href="index.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <!-- <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div> -->
+          <a href="prop.keypersonnel.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
       </div>
     </div>
   </form>

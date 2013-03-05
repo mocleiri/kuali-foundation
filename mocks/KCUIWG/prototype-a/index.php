@@ -88,8 +88,8 @@ $page = 'start';
                 <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
               </div>
             </div>
-            <div class="control-group"> 
-              
+            
+            <div class="control-group">         
               <!-- Textarea -->
               <label class="control-label">Project Title</label>
               <div class="controls">
@@ -112,7 +112,7 @@ $page = 'start';
             </div> -->
           </div>
         </div>       
-   <div style=" padding: 12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
+        <div style=" padding: 12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
         
         </div>
         

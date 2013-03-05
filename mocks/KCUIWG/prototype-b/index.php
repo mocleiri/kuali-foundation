@@ -1,3 +1,8 @@
+<?php
+# Variables
+$page = 'start';
+?>
+
 <?php require_once( 'assets/inc/head.php' ) ?>
 
 <?php require_once( 'assets/inc/header.php' ) ?>
@@ -55,25 +60,36 @@
                 </select>
               </div>
             </div>
+
             <div class="control-group">
-              <label class="control-label" for="Text Field2">Start/End Dates</label>
-              <div class="controls controls-row datepicker">
-                <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="from...">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
-                <div class="input-append">
-                  <input type="text" class="" id="input" name="input" placeholder="to...">
-                  <span class="add-on"><i class="icon-calendar"></i></span></div>
+              <label class="control-label" for="start_date">Start Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="from...">
+                <span class="add-on"><i class="icon-calendar"></i></span>
               </div>
             </div>
+
+            <div class="control-group">
+              <label class="control-label" for="end_date">End Date</label>
+              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
+                <input type="text" class="input-small" id="end_date" name="input" placeholder="from...">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
+            </div>
+
             <div class="control-group">
               <label class="control-label" for="orgdocnum">Sponsor Code</label>
               <div class="controls">
-                <input type="text" id="Description" placeholder="" class=" input-small">
-                <a href="#" class="btn lookup"><span>lookup</span></a></div>
+                <select name="orgdocnum">
+                  <option>select</option>
+                  <option value="1">Chemistry - Physical Sciences B.02</option>
+                </select>
+                <!-- <input type="text" id="Description" placeholder="" class=" input-small"> -->
+                <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
+              </div>
             </div>
-            <div class="control-group"> 
-              
+            
+            <div class="control-group">         
               <!-- Textarea -->
               <label class="control-label">Project Title</label>
               <div class="controls">
@@ -82,7 +98,8 @@
                 </div>
               </div>
             </div>
-            <div class="control-group">
+
+            <!-- <div class="control-group">
               <label class="control-label" for="orgdocnum">Award ID</label>
               <div class="controls">
                 <input type="text" id="Description2" placeholder="" class=" input-small">
@@ -93,10 +110,11 @@
               <div class="controls">
                 <input type="text" id="Description3" placeholder="" class=" input-small">
                 <a href="#" class="btn lookup"><span>lookup</span></a></div>
-            </div>
+            </div> -->
+
           </div>
         </div>       
-   <div style=" padd12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">create proposal <i class="icon-white icon-play"></i></a>
+        <div style=" padding: 12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
         
         </div>
         

@@ -99,12 +99,17 @@ $page = 'basics';
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="orgdocnum2">Sponsor Code</label>
+              <label class="control-label" for="orgdocnum">Sponsor Code</label>
               <div class="controls">
-                <input type="text" id="orgdocnum2" placeholder="" class="" value="Chemistry - Physical Sciences B.02" required>
-                <a href="#" class="btn lookup" disabled><span>lookup</span></a>
+                <select name="orgdocnum">
+                  <option>select</option>
+                  <option value="1" selected="selected">Chemistry - Physical Sciences B.02</option>
+                </select>
+                <!-- <input type="text" id="Description" placeholder="" class=" input-small"> -->
+                <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
               </div>
             </div>
+
             <div class="control-group"> 
               <!-- Textarea -->
               <label class="control-label" for="projectTitle">Project Title</label>

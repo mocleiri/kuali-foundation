@@ -422,3 +422,6 @@ body.ajaxed h1 {
   top: 0;
   right: 10.5%;
 }
+.add-on.calendar:hover {
+  cursor: pointer;
+}
