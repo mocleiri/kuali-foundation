@@ -49,10 +49,10 @@ public class SummaryListener implements SqlListener {
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-		this.count = JdbcUtils.getSqlCount(event.getSources());
-		this.size = JdbcUtils.getSqlSize(event.getSources());
+		this.count = JdbcUtils.getSqlCount(event.getContext().getSuppliers());
+		this.size = JdbcUtils.getSqlSize(event.getContext().getSuppliers());
 		String count = FormatUtils.getCount(this.count);
-		String sources = FormatUtils.getCount(event.getSources().size());
+		String sources = FormatUtils.getCount(event.getContext().getSuppliers().size());
 		String size = FormatUtils.getSize(this.size);
 		Object[] args = { count, sources, size };
 		LoggerUtils.logMsg("Executing - [SQL Count: {}  Sources: {}  Size: {}]", args, logger, loggerLevel);
@@ -74,7 +74,7 @@ public class SummaryListener implements SqlListener {
 	public void afterExecution(SqlExecutionEvent event) {
 		long elapsed = System.currentTimeMillis() - startMillis;
 		String count = FormatUtils.getCount(this.count);
-		String sources = FormatUtils.getCount(event.getSources().size());
+		String sources = FormatUtils.getCount(event.getContext().getSuppliers().size());
 		String size = FormatUtils.getSize(this.size);
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);

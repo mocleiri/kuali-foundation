@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
@@ -52,10 +52,10 @@ public class BucketListener implements SqlListener {
 		List<Object[]> argsList = new ArrayList<Object[]>();
 		for (int i = 0; i < buckets.size(); i++) {
 			SqlBucket bucket = buckets.get(i);
-			List<SqlSource> sources = bucket.getSources();
-			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(sources));
-			String srcs = FormatUtils.getCount(sources.size());
-			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(sources));
+			List<SqlSupplier> suppliers = bucket.getSuppliers();
+			String count = FormatUtils.getCount(JdbcUtils.getSqlCount(suppliers));
+			String srcs = FormatUtils.getCount(suppliers.size());
+			String size = FormatUtils.getSize(JdbcUtils.getSqlSize(suppliers));
 			Object[] args = { i + 1, count, srcs, size };
 			argsList.add(args);
 		}

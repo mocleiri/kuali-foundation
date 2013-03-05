@@ -37,10 +37,10 @@ public class JdbcUtils {
 	/**
 	 * Return the total size of the SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its <code>SqlMetaData</code> filled in.
 	 */
-	public static long getSqlSize(List<SqlSource> sources) {
+	public static long getSqlSize(List<SqlSupplier> suppliers) {
 		long size = 0;
-		for (SqlSource source : sources) {
-			SqlMetaData smd = source.getMetaData();
+		for (SqlSupplier supplier : suppliers) {
+			SqlMetaData smd = supplier.getMetaData();
 			size += smd.getSize();
 		}
 		return size;

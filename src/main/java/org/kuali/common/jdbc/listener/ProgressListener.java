@@ -45,7 +45,7 @@ public class ProgressListener implements SqlListener {
 	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		// The total number of SQL statements being executed
-		this.total = JdbcUtils.getSqlCount(event.getSources());
+		this.total = JdbcUtils.getSqlCount(event.getContext().getSuppliers());
 	}
 
 	@Override

@@ -36,7 +36,8 @@ public class ComplexStringSupplierTest {
 		supplier.setStrings(list);
 		supplier.setReader(reader);
 
-		SqlMetaData smd = supplier.getSqlMetaData();
+		supplier.fillInMetaData();
+		SqlMetaData smd = supplier.getMetaData();
 
 		Assert.isTrue(smd.getCount() == count * 3 + 1);
 
