@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
@@ -13,7 +12,7 @@ import org.springframework.util.Assert;
 /**
  * Supply SQL from a location containing pre-generated SQL statements
  */
-public class SqlLocationSupplier implements SqlSupplier {
+public class SqlLocationSupplier extends AbstractSupplier implements SqlSupplier {
 
 	protected BufferedReader in;
 
@@ -39,11 +38,11 @@ public class SqlLocationSupplier implements SqlSupplier {
 	}
 
 	@Override
-	public SqlMetaData getSqlMetaData() {
+	public void fillInMetaData() {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(location, encoding);
-			return JdbcUtils.getSqlMetaData(in, reader);
+			this.metaData = JdbcUtils.getSqlMetaData(in, reader);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {

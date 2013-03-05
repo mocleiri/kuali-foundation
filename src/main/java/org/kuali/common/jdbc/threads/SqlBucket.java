@@ -18,13 +18,13 @@ package org.kuali.common.jdbc.threads;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.jdbc.SqlSource;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 
 public class SqlBucket implements Comparable<SqlBucket> {
 
 	long count;
 	long size;
-	List<SqlSource> sources = new ArrayList<SqlSource>();
+	List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 
 	@Override
 	public int compareTo(SqlBucket other) {
@@ -49,12 +49,12 @@ public class SqlBucket implements Comparable<SqlBucket> {
 		this.size = size;
 	}
 
-	public List<SqlSource> getSources() {
-		return sources;
+	public List<SqlSupplier> getSuppliers() {
+		return suppliers;
 	}
 
-	public void setSources(List<SqlSource> sources) {
-		this.sources = sources;
+	public void setSuppliers(List<SqlSupplier> suppliers) {
+		this.suppliers = suppliers;
 	}
 
 }

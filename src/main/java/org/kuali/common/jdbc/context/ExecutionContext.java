@@ -17,7 +17,6 @@ package org.kuali.common.jdbc.context;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
@@ -34,10 +33,6 @@ public class ExecutionContext {
 	int threads = 1;
 	SqlListener listener = new NoOpSqlListener();
 	JdbcContext jdbcContext;
-	SqlReader reader;
-	String encoding;
-	List<String> locations;
-	List<String> sql;
 	List<SqlSupplier> suppliers;
 	String message;
 
@@ -71,38 +66,6 @@ public class ExecutionContext {
 
 	public void setJdbcContext(JdbcContext jdbcContext) {
 		this.jdbcContext = jdbcContext;
-	}
-
-	public SqlReader getReader() {
-		return reader;
-	}
-
-	public void setReader(SqlReader reader) {
-		this.reader = reader;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
-	public List<String> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<String> locations) {
-		this.locations = locations;
-	}
-
-	public List<String> getSql() {
-		return sql;
-	}
-
-	public void setSql(List<String> sql) {
-		this.sql = sql;
 	}
 
 	public List<SqlSupplier> getSuppliers() {

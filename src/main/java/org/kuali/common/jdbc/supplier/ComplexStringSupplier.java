@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 /**
  * Supply SQL from strings that have more than one SQL statement each
  */
-public class ComplexStringSupplier implements SqlSupplier {
+public class ComplexStringSupplier extends AbstractSupplier implements SqlSupplier {
 
 	protected int index = 0;
 	protected BufferedReader in;
@@ -80,7 +80,7 @@ public class ComplexStringSupplier implements SqlSupplier {
 	}
 
 	@Override
-	public SqlMetaData getSqlMetaData() {
+	public void fillInMetaData() {
 		long count = 0;
 		long size = 0;
 		for (String string : strings) {
@@ -88,7 +88,7 @@ public class ComplexStringSupplier implements SqlSupplier {
 			count += smd.getCount();
 			size += smd.getSize();
 		}
-		return new SqlMetaData(count, size);
+		this.metaData = new SqlMetaData(count, size);
 	}
 
 	protected SqlMetaData getSqlMetaData(String sql) {

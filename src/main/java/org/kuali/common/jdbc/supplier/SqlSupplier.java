@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.kuali.common.jdbc.SqlMetaData;
 
-public interface SqlSupplier {
+public interface SqlSupplier extends Comparable<SqlSupplier> {
 
 	/**
 	 * Open the supplier so it is ready to provide SQL
@@ -22,8 +22,13 @@ public interface SqlSupplier {
 	void close();
 
 	/**
+	 * Fill in SQL count + overall size
+	 */
+	void fillInMetaData();
+
+	/**
 	 * Return SQL count and overall size
 	 */
-	SqlMetaData getSqlMetaData();
+	SqlMetaData getMetaData();
 
 }

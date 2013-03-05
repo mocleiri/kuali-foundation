@@ -15,7 +15,6 @@
  */
 package org.kuali.common.jdbc;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -28,13 +27,13 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.jdbc.threads.SqlBucketContext;
@@ -43,7 +42,6 @@ import org.kuali.common.jdbc.threads.ThreadsProgressListener;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,20 +57,19 @@ public class DefaultJdbcService implements JdbcService {
 			logger.info(context.getMessage());
 		}
 		context.getListener().beforeMetaData(context);
-		List<SqlSource> sources = getSqlSources(context);
-		context.getListener().beforeExecution(new SqlExecutionEvent(context, sources));
-		if (context.getThreads() < 2 || sources.size() < 2) {
-			executeSequentially(context, sources);
+		context.getListener().beforeExecution(new SqlExecutionEvent(context));
+		if (context.getThreads() < 2 || context.getSuppliers().size() < 2) {
+			executeSequentially(context);
 		} else {
-			executeMultiThreaded(context, sources);
+			executeMultiThreaded(context);
 		}
-		context.getListener().afterExecution(new SqlExecutionEvent(context, sources));
+		context.getListener().afterExecution(new SqlExecutionEvent(context));
 	}
 
-	protected void executeMultiThreaded(ExecutionContext context, List<SqlSource> sources) {
+	protected void executeMultiThreaded(ExecutionContext context) {
 
 		// Divide the SQL we have to execute up into buckets as "evenly" as possible
-		List<SqlBucket> buckets = getSqlBuckets(context, sources);
+		List<SqlBucket> buckets = getSqlBuckets(context);
 
 		// Notify the listener now that buckets are created
 		context.getListener().bucketsCreated(new BucketEvent(context, buckets));
@@ -117,12 +114,12 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(DataSource dataSource, String sql) {
+		SqlSupplier supplier = new SimpleStringSupplier(Arrays.asList(sql));
 		JdbcContext jdbcContext = new JdbcContext();
 		jdbcContext.setDataSource(dataSource);
 		ExecutionContext context = new ExecutionContext();
 		context.setJdbcContext(jdbcContext);
-		context.setSql(Arrays.asList(sql));
-		context.setReader(new DefaultSqlReader());
+		context.setSuppliers(Arrays.asList(supplier));
 		executeSql(context);
 	}
 
@@ -139,22 +136,21 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected ExecutionContext getExecutionContext(ExecutionContext original, SqlBucket bucket, SqlListener listener) {
-		List<SqlSource> sources = bucket.getSources();
 		ExecutionContext context = new ExecutionContext();
-		context.setSql(getSql(sources));
-		context.setLocations(getLocations(sources));
-		context.setEncoding(original.getEncoding());
 		context.setJdbcContext(original.getJdbcContext());
-		context.setReader(original.getReader());
 		context.setThreads(1);
 		context.setExecute(original.isExecute());
 		context.setListener(listener);
 		return context;
 	}
 
-	protected List<SqlBucket> getSqlBuckets(ExecutionContext context, List<SqlSource> sources) {
+	protected List<SqlBucket> getSqlBuckets(ExecutionContext context) {
+
+		//
+		List<SqlSupplier> suppliers = context.getSuppliers();
+
 		// number of buckets equals thread count, unless thread count > total number of sources
-		int bucketCount = Math.min(context.getThreads(), sources.size());
+		int bucketCount = Math.min(context.getThreads(), suppliers.size());
 		// Sort the sources by size
 		Collections.sort(sources);
 		// Largest to smallest instead of smallest to largest
@@ -177,7 +173,7 @@ public class DefaultJdbcService implements JdbcService {
 		return buckets;
 	}
 
-	protected void executeSequentially(ExecutionContext context, List<SqlSource> sources) {
+	protected void executeSequentially(ExecutionContext context) {
 		JdbcContext jdbc = context.getJdbcContext();
 		Connection conn = null;
 		Statement statement = null;
@@ -186,8 +182,11 @@ public class DefaultJdbcService implements JdbcService {
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
-			executeSqlSources(conn, statement, context, sources);
-			conn.commit();
+			List<SqlSupplier> suppliers = context.getSuppliers();
+			for (SqlSupplier supplier : suppliers) {
+				excecuteSupplier(conn, statement, context, supplier);
+				conn.commit();
+			}
 			conn.setAutoCommit(originalAutoCommitSetting);
 		} catch (Exception e) {
 			throw new JdbcException(e);
@@ -196,111 +195,17 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected List<String> getSql(List<SqlSource> sources) {
-		List<String> sql = new ArrayList<String>();
-		for (SqlSource source : sources) {
-			if (source.getSql() != null) {
-				sql.add(source.getSql());
-			}
-		}
-		return sql;
-	}
-
-	protected List<String> getLocations(List<SqlSource> sources) {
-		List<String> locations = new ArrayList<String>();
-		for (SqlSource source : sources) {
-			if (source.getLocation() != null) {
-				locations.add(source.getLocation());
-			}
-		}
-		return locations;
-	}
-
-	protected List<SqlSource> getSqlSources(ExecutionContext context) {
-		List<SqlSource> sources = new ArrayList<SqlSource>();
-		for (String sql : CollectionUtils.toEmptyList(context.getSql())) {
-			SqlSource source = new SqlSource();
-			source.setSql(sql);
-			source.setMetaData(getMetaDataFromString(context.getReader(), sql));
-			sources.add(source);
-		}
-		for (String location : CollectionUtils.toEmptyList(context.getLocations())) {
-			logger.debug("Getting metadata for {}", location);
-			SqlSource source = new SqlSource();
-			source.setLocation(location);
-			source.setEncoding(context.getEncoding());
-			source.setMetaData(getMetaData(context.getReader(), location, context.getEncoding()));
-			sources.add(source);
-		}
-		for (SqlSupplier supplier : CollectionUtils.toEmptyList(context.getSuppliers())) {
-			SqlMetaData smd = supplier.getSqlMetaData();
-			SqlSource source = new SqlSource();
-			source.setSupplier(supplier);
-			source.setMetaData(smd);
-			sources.add(source);
-		}
-		return sources;
-	}
-
-	protected void executeSqlSources(Connection conn, Statement statement, ExecutionContext context, List<SqlSource> sources) throws SQLException {
-		for (SqlSource source : sources) {
-			if (source.getSql() != null) {
-				executeSqlString(conn, statement, context, source.getSql());
-			}
-			if (source.getLocation() != null) {
-				executeLocation(conn, statement, context, source.getLocation());
-			}
-			if (source.getSupplier() != null) {
-				excecuteSupplier(conn, statement, context, source.getSupplier());
-			}
-			conn.commit();
-		}
-	}
-
-	protected void executeSqlString(Connection conn, Statement statement, ExecutionContext context, String sql) {
-		BufferedReader in = null;
-		try {
-			in = LocationUtils.getBufferedReaderFromString(sql);
-			executeSql(conn, statement, context, in);
-		} catch (Exception e) {
-			throw new JdbcException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
-	protected void excecuteSupplier(Connection conn, Statement statement, ExecutionContext context, SqlSupplier supplier) {
+	protected void excecuteSupplier(Connection conn, Statement statement, ExecutionContext context, SqlSupplier supplier) throws SQLException {
 		try {
 			supplier.open();
 			String sql = supplier.getSql();
 			while (sql != null) {
-				executeSqlString(conn, statement, context, sql);
+				executeSql(statement, sql, context);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			supplier.close();
-		}
-	}
-
-	protected void executeLocation(Connection conn, Statement statement, ExecutionContext context, String location) {
-		BufferedReader in = null;
-		try {
-			in = LocationUtils.getBufferedReader(location, context.getEncoding());
-			executeSql(conn, statement, context, in);
-		} catch (Exception e) {
-			throw new JdbcException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
-	protected void executeSql(Connection conn, Statement statement, ExecutionContext context, BufferedReader in) throws IOException, SQLException {
-		SqlReader reader = context.getReader();
-		String sql = reader.getSqlStatement(in);
-		while (sql != null) {
-			executeSql(statement, sql, context);
-			sql = reader.getSqlStatement(in);
 		}
 	}
 
@@ -329,50 +234,6 @@ public class DefaultJdbcService implements JdbcService {
 		} finally {
 			logger.trace("closing connection");
 			JdbcUtils.closeQuietly(dataSource, conn);
-		}
-	}
-
-	@Override
-	public List<SqlMetaData> getMetaData(SqlReader reader, List<String> locations, String encoding) {
-		List<SqlMetaData> smdl = new ArrayList<SqlMetaData>();
-		for (String location : locations) {
-			smdl.add(getMetaData(reader, location, encoding));
-		}
-		return smdl;
-	}
-
-	@Override
-	public SqlMetaData getMetaData(SqlReader reader, String location, String encoding) {
-		BufferedReader in = null;
-		try {
-			in = LocationUtils.getBufferedReader(location, encoding);
-			return reader.getSqlMetaData(in);
-		} catch (IOException e) {
-			throw new IllegalArgumentException("Unexpected IO exception");
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
-	}
-
-	@Override
-	public List<SqlMetaData> getMetaDataFromStrings(SqlReader reader, List<String> sql) {
-		List<SqlMetaData> smdl = new ArrayList<SqlMetaData>();
-		for (String s : sql) {
-			smdl.add(getMetaDataFromString(reader, s));
-		}
-		return smdl;
-	}
-
-	@Override
-	public SqlMetaData getMetaDataFromString(SqlReader reader, String sql) {
-		BufferedReader in = null;
-		try {
-			in = LocationUtils.getBufferedReaderFromString(sql);
-			return reader.getSqlMetaData(in);
-		} catch (IOException e) {
-			throw new IllegalArgumentException("Unexpected IO exception");
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 

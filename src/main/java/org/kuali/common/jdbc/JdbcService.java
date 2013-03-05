@@ -15,25 +15,24 @@
  */
 package org.kuali.common.jdbc;
 
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
 
 public interface JdbcService {
 
+	/**
+	 * Get JDBC related metadata
+	 */
 	JdbcMetaData getJdbcMetaData(DataSource dataSource);
 
-	SqlMetaData getMetaDataFromString(SqlReader reader, String sql);
-
-	List<SqlMetaData> getMetaDataFromStrings(SqlReader reader, List<String> sql);
-
-	SqlMetaData getMetaData(SqlReader reader, String location, String encoding);
-
-	List<SqlMetaData> getMetaData(SqlReader reader, List<String> locations, String encoding);
-
+	/**
+	 * Execute SQL as dictated by the context
+	 */
 	void executeSql(ExecutionContext context);
 
+	/**
+	 * Execute a single SQL statement
+	 */
 	void executeSql(DataSource dataSource, String sql);
 }

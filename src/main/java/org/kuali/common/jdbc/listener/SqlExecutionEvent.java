@@ -15,24 +15,19 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import java.util.List;
-
-import org.kuali.common.jdbc.SqlSource;
 import org.kuali.common.jdbc.context.ExecutionContext;
 
 public class SqlExecutionEvent {
 
 	ExecutionContext context;
-	List<SqlSource> sources;
 
 	public SqlExecutionEvent() {
-		this(null, null);
+		this(null);
 	}
 
-	public SqlExecutionEvent(ExecutionContext context, List<SqlSource> sources) {
+	public SqlExecutionEvent(ExecutionContext context) {
 		super();
 		this.context = context;
-		this.sources = sources;
 	}
 
 	public ExecutionContext getContext() {
@@ -41,14 +36,6 @@ public class SqlExecutionEvent {
 
 	public void setContext(ExecutionContext context) {
 		this.context = context;
-	}
-
-	public List<SqlSource> getSources() {
-		return sources;
-	}
-
-	public void setSources(List<SqlSource> sources) {
-		this.sources = sources;
 	}
 
 }
