@@ -32,7 +32,8 @@ public class StringSupplier implements SqlSupplier {
 
 	@Override
 	public void close() {
-		// nothing to do
+		// Reset index to zero
+		index = 0;
 	}
 
 	@Override
