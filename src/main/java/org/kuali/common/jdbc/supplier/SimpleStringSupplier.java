@@ -5,7 +5,7 @@ import java.util.List;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.springframework.util.Assert;
 
-public class StringSupplier implements SqlSupplier {
+public class SimpleStringSupplier implements SqlSupplier {
 
 	protected int index = 0;
 
