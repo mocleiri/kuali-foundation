@@ -48,7 +48,9 @@ public class MultipleSqlStatementsPerStringSupplier implements SqlSupplier {
 		long count = 0;
 		long size = 0;
 		for (String string : strings) {
-			size += string.length();
+			SqlMetaData smd = getSqlMetaData(string);
+			count += smd.getCount();
+			size += smd.getSize();
 		}
 		return new SqlMetaData(count, size);
 	}
