@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
@@ -16,11 +17,16 @@ import org.springframework.util.Assert;
  */
 public class SqlLocationsSupplier extends AbstractSupplier {
 
+	public SqlLocationsSupplier(List<String> locations) {
+		super();
+		this.locations = locations;
+	}
+
 	protected int index = 0;
 	protected BufferedReader in;
 
 	List<String> locations;
-	SqlReader reader;
+	SqlReader reader = new DefaultSqlReader();
 
 	@Override
 	public void open() throws IOException {

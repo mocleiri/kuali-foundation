@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
@@ -20,7 +21,7 @@ public class ComplexStringSupplier extends AbstractSupplier {
 	protected BufferedReader in;
 
 	List<String> strings;
-	SqlReader reader;
+	SqlReader reader = new DefaultSqlReader();
 
 	@Override
 	public void open() {
