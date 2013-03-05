@@ -23,6 +23,16 @@ public class SqlMetaData implements Comparable<SqlMetaData> {
 	// The collective size of the individual sql statements
 	long size;
 
+	public SqlMetaData() {
+		this(0, 0);
+	}
+
+	public SqlMetaData(long count, long size) {
+		super();
+		this.count = count;
+		this.size = size;
+	}
+
 	@Override
 	public int compareTo(SqlMetaData other) {
 		Long size1 = this.size;
