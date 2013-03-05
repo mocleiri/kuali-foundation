@@ -1,7 +1,7 @@
 <!-- Subnavigation -->
-<div id="ToC">
-    <ul style="display: block; ">
-      <li <?php if( $page == 'basics' ) { echo 'class="active"'; } ?>><a href="prop.proposal.php"><i class="icon icon-chevron-right"></i><span>Basics</span></a></li>
+<div id="ToC" <?php if( $page == 'start' ) { echo 'class="disabled"'; } ?>>
+    <ul style="display: block;">
+      <li <?php if( $page == 'basics' || $page == 'start' ) { echo 'class="active"'; } ?>><a href="prop.proposal.php"><i class="icon icon-chevron-right"></i><span>Basics</span></a></li>
       <li <?php if( $page == 'personnel' ) { echo 'class="active"'; } ?>><a href="prop.keypersonnel.php"><i class="icon icon-chevron-right"></i><span>Key Personnel</span></a></li>
       <li <?php if( $page == 'access' ) { echo 'class="active"'; } ?>><a href="prop.permissions.php"><i class="icon icon-chevron-right"></i><span>Access</span></a></li>
       <li <?php if( $page == 'compliance' ) { echo 'class="active"'; } ?>><a href="prop.specialreview.php"><i class="icon icon-chevron-right"></i><span>Compliance</span></a></li>

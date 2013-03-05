@@ -19,33 +19,34 @@ $page = 'access';
             <h3>Access</h3>
           </div>
           <div class="boxContent " >
-          <div style=" margin-bottom:12px; float:">  <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="viewsummary" data-keyboard="true" url="modal-accesssummary/frame.html">View Summary</a></div>
+          <!-- <div style=" margin-bottom:12px; float:">
+            <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="viewsummary" data-keyboard="true" url="modal-accesssummary/frame.html">View Summary</a>
+          </div> -->
             <div class="tabbable tabs-left clearfix">
               <ul class="nav nav-tabs" style="display:block" >
                 <li class="active">
                   <a href="#art" data-toggle="tab">Haskell, Edward </a>
                 </li>
               </ul>
+
               <div class="tab-content">
                 <div class="tab-pane active" id="art">
                   <div class="boxSubheader">
                     <h5 style="font-size:12px; padding-bottom:12px">Haskell, Edward </h5>
-                    <div class="boxControls">
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">Reorder</a>
-                      |
-                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">Delete</a>
-                    </div>
+                    <!-- <div class="boxControls">
+                      <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">Reorder</a> | <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">Delete</a>
+                    </div> -->
                   </div>
                   <dl class="table-display" style="margin-top:-13px;">
-                    <dt> User Name</dt>
-                    <dd> haskedw </dd>
-                    <dt> Unit Number</dt>
-                    <dd> BL-MUS </dd>
-                    <dt> Unit Name</dt>
-                    <dd> JACOBS SCHOOL OF MUSIC </dd>
+                    <dt>User Name</dt>
+                    <dd>haskedw </dd>
+                    <dt>Unit Number</dt>
+                    <dd>BL-MUS </dd>
+                    <dt>Unit Name</dt>
+                    <dd>JACOBS SCHOOL OF MUSIC</dd>
                     <dt>Role</dt>
                     <dd>
-                      <a href="#" id="role-ed" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Aggregator <i class="icon-pencil"></i></a>
+                      <a href="#" id="role-ed" data-type="checklist" data-pk="1" data-url="/post" data-original-title="Select Role(s)">Principal Investigator <i class="icon-pencil"></i></a>
                     </dd>
                   </dl>
                 </div>
@@ -78,7 +79,7 @@ $page = 'access';
  <script>
     $(function () {
         $('#role-ed').editable({
-            value: [4],
+            value: [5],
             source: [{
                 value: 1,
                 text: 'Viewer'
@@ -93,7 +94,7 @@ $page = 'access';
                 text: 'Aggregator'
             }, {
                 value: 5,
-                text: 'Contact Person'
+                text: 'Principal Investigator / Contact Person'
             }]
         });
 		

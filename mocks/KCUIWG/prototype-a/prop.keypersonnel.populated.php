@@ -31,26 +31,22 @@ $page = 'personnel';
             </div>-->
               <!-- Only required for left/right tabs -->
             
-            <p> Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
-          <p>
-                <a href="#" class="btn btn-mini btn-inverse ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><i class="icon-white icon-plus"></i> Add Person</a>
-              </p>
+            <p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any + Additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
+          
+            <ul class="nav nav-tabs" style="display:block" >
+              <li class="active">
+                <a href="#art" data-toggle="tab">Haskell, Edward <small>(PI)</small></a>
+              </li>
+            </ul>
 
-          <ul class="nav nav-tabs" style="display:block" >
-                <li class="active">
-                  <a href="#art" data-toggle="tab">Haskell, Edward <small>(PI)</small></a>
-                </li>
-              </ul>
-              <!-- <p>
-                <a href="#" class="btn btn-mini btn-inverse ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/start.html"><i class="icon-white icon-plus"></i> Add Person</a>
-              </p> -->
+
               <div class="tab-content">
                 <div class="tab-pane active" id="art">
                   <div class="boxSubheader">
                     <h5 style="font-size:12px">Haskell, Edward <small>(PI)</small></h5>
-                    <div class="boxControls">
+                    <!-- <div class="boxControls">
                       <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-reorderpersonnel/frame.html">Reorder</a> | <a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="deletepersonnel" data-keyboard="true" url="modal-deletepersonnel/frame.html">Delete</a>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="boxSubheader expandControl closed">
                     <h4> Details</h4>
@@ -76,11 +72,11 @@ $page = 'personnel';
                       </dd>
                       <dt>Primary Title</dt>
                       <dd>
-                        <a href="#" id="prititle" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Primary Title">add</a>
+                        <a href="#" id="prititle" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Primary Title">+ Add</a>
                       </dd>
                       <dt>Directory Title</dt>
                       <dd>
-                        <a href="#" id="dirtitle" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Directory Title">add</a>
+                        <a href="#" id="dirtitle" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Directory Title">+ Add</a>
                       </dd>
                       <dt>Home Unit</dt>
                       <dd>UA-VPIT</dd>
@@ -88,35 +84,35 @@ $page = 'personnel';
                       <dd>UNIVERSITY ADMINISTRATION </dd>
                       <dt>Fax</dt>
                       <dd>
-                        <a href="#" id="fax" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Fax">add</a>
+                        <a href="#" id="fax" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Fax">+ Add</a>
                       </dd>
                       <dt>Pager</dt>
                       <dd>
-                        <a href="#" id="pager" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Pager">add</a>
+                        <a href="#" id="pager" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Pager">+ Add</a>
                       </dd>
                       <dt>Mobile</dt>
                       <dd>
-                        <a href="#" id="mobile" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Mobile">add</a>
+                        <a href="#" id="mobile" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Mobile">+ Add</a>
                       </dd>
                       <dt>Office Location</dt>
                       <dd>
-                        <a href="#" id="officelocation" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Office Location">add</a>
+                        <a href="#" id="officelocation" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Office Location">+ Add</a>
                       </dd>
                       <dt>Secondary Office Location</dt>
                       <dd>
-                        <a href="#" id="officelocation2" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Secondary Office Location">add</a>
+                        <a href="#" id="officelocation2" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Secondary Office Location">+ Add</a>
                       </dd>
                       <dt>Address Line 1</dt>
                       <dd>
-                        <a href="#" id="address1" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 1">CIB, 2709 E 10th Street</a>
+                        <a href="#" id="+ Address1" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 1">CIB, 2709 E 10th Street</a>
                       </dd>
                       <dt>Address Line 2</dt>
                       <dd>
-                        <a href="#" id="address2" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 2">add</a>
+                        <a href="#" id="+ Address2" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 2">+ Add</a>
                       </dd>
                       <dt>Address Line 3</dt>
                       <dd>
-                        <a href="#" id="address3" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 3">add</a>
+                        <a href="#" id="+ Address3" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 3">+ Add</a>
                       </dd>
                       <dt>City</dt>
                       <dd>
@@ -138,23 +134,23 @@ $page = 'personnel';
                       <dd>Yes</dd>
                       <dt>Education Level</dt>
                       <dd>
-                        <a href="#" id="edlevel" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Education Level">add</a>
+                        <a href="#" id="edlevel" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Education Level">+ Add</a>
                       </dd>
                       <dt>Year Graduated</dt>
                       <dd>
-                        <a href="#" id="gradyear" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Year Graduated">add</a>
+                        <a href="#" id="gradyear" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Year Graduated">+ Add</a>
                       </dd>
                       <dt>Major</dt>
                       <dd>
-                        <a href="#" id="major" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Major">add</a>
+                        <a href="#" id="major" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Major">+ Add</a>
                       </dd>
                       <dt>Degree</dt>
                       <dd>
-                        <a href="#" id="degree" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Degree">add</a>
+                        <a href="#" id="degree" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Degree">+ Add</a>
                       </dd>
                       <dt>School</dt>
                       <dd>
-                        <a href="#" id="school" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter School">add</a>
+                        <a href="#" id="school" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter School">+ Add</a>
                       </dd>
                     </dl>
                     <div class="clearfix"></div>
@@ -166,115 +162,115 @@ $page = 'personnel';
                     <dl class="table-display" style="margin-top:-13px;">
                       <dt>Age by Fiscal Year </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Race </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Education Level </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Degree </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Major </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>KcPerson Id </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Is Handicapped </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Handicap Type </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Veteran </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Veteran Type </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Has Visa </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Visa Code </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Visa Type </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Visa Renewal Date </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Office Location </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Secondary Office Location </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>School </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Year Graduated </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Directory Department </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Primary Title </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Directory Title </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Is Vacation Accrual </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Is on Sabbatical </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>County </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Id Provided </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Id Verified </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Version Number </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                       <dt>Citzenship Type </dt>
                       <dd>
-                        <a href="#" >add</a>
+                        <a href="#" >+ Add</a>
                       </dd>
                     </dl>
                     <div class="clearfix"></div>
@@ -527,7 +523,7 @@ $page = 'personnel';
             </div>
           </div>
         </div>
-        <div style=" padd12px; text-align:center">
+        <div style=" p+ Add12px; text-align:center">
           <a href="prop.proposal.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
           <a href="#" class="btn">Save</a>
           <a href="prop.permissions.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
@@ -547,8 +543,8 @@ $page = 'personnel';
 
 <!-- Modal -->
 
-<div class="modal hide fade" id="addemployee"></div>
-<div class="modal hide fade" id="addnonemployee"></div>
+<div class="modal hide fade" id="+ Addemployee"></div>
+<div class="modal hide fade" id="+ Addnonemployee"></div>
 <div class="modal hide fade" id="deletepersonnel"></div>
 
 
@@ -556,7 +552,7 @@ $page = 'personnel';
 <script type="text/javascript">
     $(document).ready(function () {
         
-        $('#username, #email, #phone, #prititle, #dirtitle, #fax, #pager, #mobile, #officelocation,#officelocation2,#address1,#address2, #address3, #city, #county, #zip, #edlevel, #gradyear, #major, #degree, #school').editable();
+        $('#username, #email, #phone, #prititle, #dirtitle, #fax, #pager, #mobile, #officelocation,#officelocation2,#+ Address1,#+ Address2, #+ Address3, #city, #county, #zip, #edlevel, #gradyear, #major, #degree, #school').editable();
         $(function () {
             $('#role').editable({
                 value: 1,

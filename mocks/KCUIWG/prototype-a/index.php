@@ -10,7 +10,7 @@ $page = 'start';
 <?php include( 'assets/inc/subnavigation.php' ) ?>
 
 <!-- Begin main application content -->
-<div id="content" style="margin-left:0px" tabindex="-1">
+<div id="content" tabindex="-1">
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12 content">
@@ -46,7 +46,7 @@ $page = 'start';
             <div class="control-group">
               <label class="control-label" for="asdf">Activity Type</label>
               <div class="controls">
-                <select title="* Activity Type" class="input-xlarge">
+                <select title="Activity Type" class="input-xlarge">
                   <option value="">select</option>
                   <option value="4">Clinical Trial</option>
                   <option value="9">Construction</option>
@@ -63,17 +63,17 @@ $page = 'start';
 
             <div class="control-group">
               <label class="control-label" for="start_date">Start Date</label>
-              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                <input type="text" class="input-small" id="start_date" name="input" placeholder="from...">
-                <span class="add-on"><i class="icon-calendar"></i></span>
+              <div class="controls date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy">
+                <button class="add-on"><i class="icon-calendar"></i></button>
               </div>
             </div>
 
             <div class="control-group">
               <label class="control-label" for="end_date">End Date</label>
-              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                <input type="text" class="input-small" id="end_date" name="input" placeholder="from...">
-                <span class="add-on"><i class="icon-calendar"></i></span>
+              <div class="controls date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                <input type="text" class="input-small" id="end_date" name="input" placeholder="mm-dd-yyyy">
+                <button class="add-on"><i class="icon-calendar"></i></button>
               </div>
             </div>
 
@@ -112,8 +112,8 @@ $page = 'start';
             </div> -->
           </div>
         </div>       
-        <div style=" padding: 12px; text-align:center">     <a href="prop.proposal.php" class="btn btn-inverse">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
-        
+        <div style=" padding: 12px; text-align:center">
+          <a href="prop.proposal.php" class="btn btn-inverse btn-large">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
         </div>
         
         <!--<div class="box"> <div class="boxHeader expandControl">

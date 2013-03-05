@@ -353,7 +353,7 @@ i {
 }
 
 #secondary.fixed {
-	top: 52px;
+	top: 47px;
 	left: 0;
 	z-index: 998 !important;
 }
@@ -400,6 +400,30 @@ i {
 
 		li:first-child {
 			border-top: 0px !important;
+		}
+	}
+}
+
+#ToC.disabled {
+
+	ul {
+
+		li {
+
+			a {
+				cursor: default;
+				color: darken(#aaa, 35%);
+
+				.icon {
+					opacity: .15;
+					-moz-opacity: .15;
+					-o-opacity: .15;
+				}
+			}
+
+			a:hover {
+				background-color: inherit;
+			}
 		}
 	}
 }

@@ -20,7 +20,7 @@ $page = 'compliance';
           <div class="boxContent " style="display:block" >
             
             <div style="margin-bottom:10px;">
-            	<a href="#" class="btn btn-mini btn-inverse addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a>
+            	<a href="#" class="btn btn-mini btn-success addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a>
                 <script>
 					$(document).ready(function () {
 						$(".addcomplianceprotocol").click(function(){
@@ -35,14 +35,14 @@ $page = 'compliance';
               <table class="table table-striped table-bordered table-condensed">
                 <thead>
                   <tr>
-                    <th> Type</th>
+                    <th>Type</th>
                     <th>Approval Status</th>
                     <th>Protocol Number</th>
                     <th>Application Date</th>
                     <th>Approval Date</th>
                     <th>Expiration Date</th>
                     <th>Exemption #</th>
-                    <th style="width: 70px;"></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,27 +62,35 @@ $page = 'compliance';
                         <option value="11">TLO PR-Previously Reviewed</option>
                         <option value="12">Foundation Relations</option></select>
                     </td>
-                    <td><select class="input-small" title="* Approval Status"><option value="">select</option>
+                    <td>
+                        <select class="input-small" title="* Approval Status"><option value="">select</option>
                         <option value="2">Approved</option>
                         <option value="4">Exempt</option>
                         <option value="6">Link to IACUC</option>
                         <option value="5">Link to IRB</option>
                         <option value="3">Not yet applied</option>
-                        <option value="1">Pending</option></select></td>
+                        <option value="1">Pending</option></select>
+                    </td>
                     <td>
-                      <input type="text" class=" input-mini" name="textfield5" id="textfield3" tabindex="1" />
-                      </td>
-                    <td class="date">
-                        <input type="text" class="input-small date" id="start_date" name="input" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                        <span class="add-on"><i class="icon-calendar"></i></span>
+                      <input type="text" class="input-mini" name="textfield5" id="textfield3" />
                     </td>
-                    <td class="date">
-                        <input type="text" class="input-small date" id="start_date" name="input" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    <td>
+                      <div class="date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                        <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy">
+                        <button class="add-on"><i class="icon-calendar"></i></button>
+                      </div>
                     </td>
-                    <td class="date">
-                        <input type="text" class="input-small date" id="start_date" name="input" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    <td>
+                      <div class="date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                        <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy">
+                        <button class="add-on"><i class="icon-calendar"></i></button>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                        <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy">
+                        <button class="add-on"><i class="icon-calendar"></i></button>
+                      </div>
                     </td>
                     <td>E2, E5, E6</td>
                     <td>
@@ -132,7 +140,7 @@ $page = 'compliance';
               <div id="norows01" style="display:block; font-style:italic; text-align:center; border:1px solid #DDDDDD; border-bottom-left-radius:5px; border-bottom-right-radius:5px; margin-top:-21px; padding:10px;">
                 There are no compliance protocols.
               </div>
-              <a href="#" class="btn btn-mini btn-inverse addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a>
+              <p style="margin-top: 10px;"><a href="#" class="btn btn-mini btn-success addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a></p>
             </div>
           </div>
         </div>

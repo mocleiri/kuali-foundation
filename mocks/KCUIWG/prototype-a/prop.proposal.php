@@ -84,17 +84,17 @@ $page = 'basics';
             
             <div class="control-group">
               <label class="control-label" for="start_date">Start Date</label>
-              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                <input type="text" class="input-small" id="start_date" name="input" placeholder="from..." value="01/09/2013">
-                <span class="add-on"><i class="icon-calendar"></i></span>
+              <div class="controls date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy" value="03-06-2013">
+                <button class="add-on"><i class="icon-calendar"></i></button>
               </div>
             </div>
 
             <div class="control-group">
               <label class="control-label" for="end_date">End Date</label>
-              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                <input type="text" class="input-small" id="end_date" name="input" placeholder="from..." value="31/08/2015">
-                <span class="add-on"><i class="icon-calendar"></i></span>
+              <div class="controls date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                <input type="text" class="input-small" id="end_date" name="input" placeholder="mm-dd-yyyy" value="08-31-2015">
+                <button class="add-on"><i class="icon-calendar"></i></button>
               </div>
             </div>
 
@@ -114,7 +114,7 @@ $page = 'basics';
               <!-- Textarea -->
               <label class="control-label" for="projectTitle">Project Title</label>
               <div class="controls">
-                <textarea name="textarea" id="projectTitle" class="input-xlarge" required>Elevating Phenethylamine Concentration through Cocoa Bean Roasting and Processing</textarea>
+                <textarea name="textarea" id="projectTitle" class="input-xlarge" required>The effect of maternal health on child nutrition</textarea>
               </div>
             </div>
             <!-- <div class="boxSubheader">
@@ -152,9 +152,9 @@ $page = 'basics';
                 <input type="text" id="Description" placeholder="" class="input-xlarge">
               </div>
             </div>
-            <div class="control-group" style="text-align: right; width:405px;">
+            <!-- <div class="control-group" style="text-align: right; width:405px;">
               <button class="btn btn-mini" >Search </button>
-            </div>
+            </div> -->
             <!-- <h4>Opportunity</h4>
             <div class="clearfix">
               <dl class="table-display" style="margin-top:-13px;">
@@ -192,11 +192,12 @@ $page = 'basics';
             <h3> Sponsor &amp; Program Information </h3>
           </div>
           <div class="boxContent expandTarget" style="display:none" >
+
             <div class="control-group">
-              <label class="control-label" for="start_date">Sponsor Deadline Date</label>
-              <div class="controls date" data-date="05-03-2013" data-date-format="dd-mm-yyyy">
-                <input type="text" class="input-small" id="start_date" name="input" placeholder="from...">
-                <span class="add-on"><i class="icon-calendar"></i></span>
+              <label class="control-label" for="start_date">Start Date</label>
+              <div class="controls date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy" value="03-06-2013">
+                <button class="add-on"><i class="icon-calendar"></i></button>
               </div>
             </div>
 
@@ -333,93 +334,95 @@ $page = 'basics';
             </div>
           </div>
         </div>
+
         <div class="box">
           <div class="boxHeader expandControl closed">
-            <h3> Organization/Location </h3>
+            <h3>Organization/Location</h3>
           </div>
           <div class="boxContent expandTarget" style="display:none" >
             <div class="boxSubheader">
               <h4>Applicant Organization</h4>
-              <div class="boxControls"><a href="../asdf.php" class="btn btn-mini">change</a></div>
+              <div class="boxControls"><a href="#" class="btn btn-mini btn-inverse">Edit</a></div>
             </div>
             <dl class="table-display" style="margin-top:-13px;">
               <dt>Organization</dt>
-              <dd>UNIVERSITY OF MICHIGAN</dd>
+              <dd></dd>
               <dt>Address 1</dt>
-              <dd>2044 Wolverine Tower</dd>
+              <dd></dd>
               <dt>Address 2</dt>
-              <dd>3003 State Street</dd>
-              <dt> City</dt>
-              <dd>ANN ARBOR</dd>
+              <dd></dd>
+              <dt>City</dt>
+              <dd></dd>
               <dt>State</dt>
-              <dd>MI</dd>
+              <dd></dd>
               <dt>Zip</dt>
-              <dd>48109-1273</dd>
+              <dd></dd>
               <dt>Congressional District</dt>
-              <dd>MI-302 <a href="#">(delete)</a></dd>
+              <dd></dd>
               <dt>Congressional District</dt>
-              <dd>MI-307 <a href="#">(delete)</a></dd>
+              <dd></dd>
               <dt>Congressional District</dt>
-              <dd><a href="#">+ add</a></dd>
+              <dd></dd>
             </dl>
             <div class="clearfix"></div>
             <div class="boxSubheader">
               <h4>Performing Organization</h4>
-              <div class="boxControls"><a href="../asdf.php" class="btn btn-mini">change</a></div>
+              <div class="boxControls"><a href="#" class="btn btn-mini btn-inverse">Edit</a></div>
             </div>
             <dl class="table-display" style="margin-top:-13px;">
               <dt>Organization</dt>
-              <dd>UNIVERSITY OF MICHIGAN</dd>
+              <dd></dd>
               <dt>Address 1</dt>
-              <dd>2044 Wolverine Tower</dd>
+              <dd></dd>
               <dt>Address 2</dt>
-              <dd>3003 State Street</dd>
-              <dt> City</dt>
-              <dd>ANN ARBOR</dd>
+              <dd></dd>
+              <dt>City</dt>
+              <dd></dd>
               <dt>State</dt>
-              <dd>MI</dd>
+              <dd></dd>
               <dt>Zip</dt>
-              <dd>48109-1273</dd>
+              <dd></dd>
               <dt>Congressional District</dt>
-              <dd>MI-302 <a href="#">(delete)</a></dd>
+              <dd></dd>
               <dt>Congressional District</dt>
-              <dd>MI-307 <a href="#">(delete)</a></dd>
+              <dd></dd>
               <dt>Congressional District</dt>
-              <dd><a href="#">+ add</a></dd>
+              <dd></dd>
             </dl>
             <div class="clearfix"></div>
             <div class="boxSubheader">
               <h4>Performance Site Locations (optional)</h4>
-              <div class="boxControls"><a href="../asdf.php" class="btn btn-mini">add</a></div>
+              <div class="boxControls"><a href="#" class="btn btn-mini btn-success"><i class="icon-white icon-plus"></i>Add</a></div>
             </div>
             <div class="boxSubheader">
               <h4>Other Organizations (optional)</h4>
-              <div class="boxControls"><a href="../asdf.php" class="btn btn-mini">add</a></div>
+              <div class="boxControls"><a href="#" class="btn btn-mini btn-success"><i class="icon-white icon-plus"></i>Add</a></div>
             </div>
           </div>
         </div>
+
         <div class="box">
           <div class="boxHeader expandControl closed">
-            <h3> Delivery Info </h3>
+            <h3>Delivery Info</h3>
           </div>
           <div class="boxContent expandTarget" style="display:none" >
             <div class="boxSubheader">
-              <h4>Recipient </h4>
-              <div class="boxControls"><a href="../asdf.php" class="btn btn-mini">change</a></div>
+              <h4>Recipient</h4>
+              <div class="boxControls"><a href="#" class="btn btn-mini btn-inverse">Edit</a></div>
             </div>
             <dl class="table-display" style="margin-top:-13px;">
               <dt>Organization</dt>
-              <dd>UNIVERSITY OF MICHIGAN</dd>
+              <dd></dd>
               <dt>Address 1</dt>
-              <dd>2044 Wolverine Tower</dd>
+              <dd></dd>
               <dt>Address 2</dt>
-              <dd>3003 State Street</dd>
-              <dt> City</dt>
-              <dd>ANN ARBOR</dd>
+              <dd></dd>
+              <dt>City</dt>
+              <dd></dd>
               <dt>State</dt>
-              <dd>MI</dd>
+              <dd></dd>
               <dt>Zip</dt>
-              <dd>48109-1273</dd>
+              <dd></dd>
             </dl>
             <div class="clearfix"></div>
             <div class="boxSubheader">
@@ -464,18 +467,15 @@ $page = 'basics';
             </div>
           </div>
         </div>
+
         <div class="box">
           <div class="boxHeader expandControl closed">
-            <h3> Keywords </h3>
+            <h3>Keywords</h3>
           </div>
           <div class="boxContent expandTarget" style="display:none" >
             <dl class="table-display" style="margin-top:;">
               <dt>1</dt>
-              <dd>Carbon <a href="#">(delete)</a></dd>
-              <dt>2</dt>
-              <dd>Heat <a href="#">(delete)</a></dd>
-              <dt>3</dt>
-              <dd><a href="#">+ add</a></dd>
+              <dd></dd>
             </dl>
             <div class="clearfix"></div>
           </div>

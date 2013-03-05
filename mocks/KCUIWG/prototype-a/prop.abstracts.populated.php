@@ -19,6 +19,11 @@ $page = 'attachments';
             <h3>Attachments</h3>
           </div>
           <div class="boxContent expandTarget" >
+
+            <p class="alert alert-success">
+              Your file has been uploaded!
+            </p>
+
             <div class="boxSubheader">
               <h4>Add Attachment</h4>
             </div>
@@ -71,10 +76,38 @@ $page = 'attachments';
                 <!-- Text input-->
                 <label class="control-label" for="input01"></label>
                 <div class="controls">
-                  <a href="prop.abstracts.populated.php" class="btn btn-success btn-mini"><i class="icon-white icon-plus"></i> Add Attachment</a>
+                  <a href="#" class="btn btn-success btn-mini"><i class="icon-white icon-plus"></i> Add Attachment</a>
                 </div>
               </div>
             </fieldset>
+
+            <div class="boxSubheader expandControl closed ">
+              <h4>Statement_of_Work.pdf</h4>
+            </div>
+            <div class=" clearfix expandTarget" style="display:none">
+              <dl class="table-display" style="margin-top:-13px;">
+                <dt>File</dt>
+                <dd>Statement_of_Work.pdf</dd>
+                <dt>Attachment Type:</dt>
+                <dd>Abstract</dd>
+                <dt>Status</dt>
+                <dd>Complete</dd>
+                <dt>Contact Name</dt>
+                <dd>Test User</dd>
+                <dt>Uploaded By</dt>
+                <dd>Test User</dd>
+                <dt>Email Address</dt>
+                <dd>testuser@email.com</dd>
+                <dt>Posted Timestamp</dt>
+                <dd>2013-03-5 19:33:30+00:00</dd>
+                <dt>Phone Number</dt>
+                <dd>123-456-7890</dd>
+                <dt>Comments</dt>
+                <dd>This is a test file.</dd>
+                <dt>Description</dt>
+                <dd>This is a test file.</dd>
+              </dl>
+            </div>
           </div>
         </div>
 
