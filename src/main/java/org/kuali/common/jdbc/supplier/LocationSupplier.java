@@ -12,37 +12,35 @@ import org.springframework.util.Assert;
 public class LocationSupplier implements SqlSupplier {
 
 	private BufferedReader in;
-	private boolean done = false;
-	private boolean initialized = false;
 
 	String location;
 	String encoding;
 	SqlReader reader;
 
 	@Override
-	public synchronized String getSql() {
-
+	public void open() {
 		Assert.notNull(location, "location is null");
 		Assert.notNull(reader, "reader is null");
 
-		if (done) {
-			return null;
-		}
-
 		try {
-			init();
-			String sql = reader.getSqlStatement(in);
-			if (sql == null) {
-				done = true;
-				IOUtils.closeQuietly(in);
-			}
-			return sql;
+			in = LocationUtils.getBufferedReader(location, encoding);
 		} catch (IOException e) {
-			done = true;
 			throw new IllegalStateException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
+	}
+
+	@Override
+	public String getSql() {
+		try {
+			return reader.getSqlStatement(in);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	@Override
+	public void close() {
+		IOUtils.closeQuietly(in);
 	}
 
 	@Override
@@ -70,12 +68,4 @@ public class LocationSupplier implements SqlSupplier {
 		}
 
 	}
-
-	protected void init() throws IOException {
-		if (!initialized) {
-			in = LocationUtils.getBufferedReader(location, encoding);
-			initialized = true;
-		}
-	}
-
 }

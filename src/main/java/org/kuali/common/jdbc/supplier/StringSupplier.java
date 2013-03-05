@@ -12,7 +12,13 @@ public class StringSupplier implements SqlSupplier {
 	List<String> strings;
 
 	@Override
-	public synchronized String getSql() {
+	public void open() {
+		// Reset index to zero
+		index = 0;
+	}
+
+	@Override
+	public String getSql() {
 
 		Assert.notNull(strings, "strings is null");
 
@@ -21,6 +27,11 @@ public class StringSupplier implements SqlSupplier {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void close() {
+		// nothing to do
 	}
 
 	@Override
