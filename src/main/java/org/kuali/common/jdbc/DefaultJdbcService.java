@@ -246,8 +246,12 @@ public class DefaultJdbcService implements JdbcService {
 		for (SqlSource source : sources) {
 			if (source.getSql() != null) {
 				executeSqlString(conn, statement, context, source.getSql());
-			} else {
+			}
+			if (source.getLocation() != null) {
 				executeLocation(conn, statement, context, source.getLocation());
+			}
+			if (source.getSupplier() != null) {
+				excecuteSupplier(conn, statement, context, source.getSupplier());
 			}
 			conn.commit();
 		}
@@ -262,6 +266,13 @@ public class DefaultJdbcService implements JdbcService {
 			throw new JdbcException(e);
 		} finally {
 			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected void excecuteSupplier(Connection conn, Statement statement, ExecutionContext context, SqlSupplier supplier) {
+		String sql = supplier.getSql();
+		while (sql != null) {
+			executeSqlString(conn, statement, context, sql);
 		}
 	}
 
