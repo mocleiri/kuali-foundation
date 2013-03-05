@@ -12,8 +12,8 @@ public abstract class AbstractSupplier implements Comparable<SqlSupplier> {
 
 	@Override
 	public int compareTo(SqlSupplier other) {
-		Long one = metaData.getCount();
-		Long two = other.getMetaData().getCount();
+		Long one = metaData.getSize();
+		Long two = other.getMetaData().getSize();
 		return one.compareTo(two);
 	}
 

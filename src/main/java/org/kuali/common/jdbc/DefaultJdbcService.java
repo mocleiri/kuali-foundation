@@ -146,30 +146,44 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected List<SqlBucket> getSqlBuckets(ExecutionContext context) {
 
-		//
+		// Pull out our list of suppliers
 		List<SqlSupplier> suppliers = context.getSuppliers();
+
+		// Fill in SQL metadata
+		for (SqlSupplier supplier : suppliers) {
+			supplier.fillInMetaData();
+		}
 
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getThreads(), suppliers.size());
-		// Sort the sources by size
-		Collections.sort(sources);
+
+		// Sort the suppliers by SQL size
+		Collections.sort(suppliers);
+
 		// Largest to smallest instead of smallest to largest
-		Collections.reverse(sources);
+		Collections.reverse(suppliers);
+
 		// Allocate some buckets to hold the sql
 		List<SqlBucket> buckets = CollectionUtils.getNewList(SqlBucket.class, bucketCount);
+
 		// Distribute the sources into buckets as evenly as possible
 		// "Evenly" in this case means each bucket should be roughly the same size
-		for (SqlSource source : sources) {
+		for (SqlSupplier supplier : suppliers) {
 			// Sort the buckets by size
 			Collections.sort(buckets);
+
 			// First bucket in the list is the smallest
 			SqlBucket smallest = buckets.get(0);
+
 			// Add this source to the bucket
-			smallest.getSources().add(source);
+			smallest.getSuppliers().add(supplier);
+
 			// Update the bucket metadata holding overall size
-			smallest.setCount(smallest.getCount() + source.getMetaData().getCount());
-			smallest.setSize(smallest.getSize() + source.getMetaData().getSize());
+			smallest.setCount(smallest.getCount() + supplier.getMetaData().getCount());
+			smallest.setSize(smallest.getSize() + supplier.getMetaData().getSize());
 		}
+
+		// Return the buckets
 		return buckets;
 	}
 
