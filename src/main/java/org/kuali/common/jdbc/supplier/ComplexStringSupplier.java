@@ -11,7 +11,7 @@ import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
 
-public class MultipleSqlStatementsPerStringSupplier implements SqlSupplier {
+public class ComplexStringSupplier implements SqlSupplier {
 
 	protected int index = 0;
 	protected BufferedReader in;
