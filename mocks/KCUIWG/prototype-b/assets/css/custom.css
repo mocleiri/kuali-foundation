@@ -887,13 +887,12 @@ body.ajaxed
 
 body.ajaxed h1 { font-size: 1.5em; }
 
-.dropdown-menu
-{
+#secondary .dropdown-menu {
 	left: auto !important;
 	right: 0 !important;
 }
 
-.dropdown-menu a { font-size: 0.9em; }
+/*.dropdown-menu a { font-size: 0.9em; }*/
 
 .clearfix:after
 {

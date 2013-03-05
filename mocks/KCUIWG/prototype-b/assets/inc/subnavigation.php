@@ -1,34 +1,11 @@
 <!-- Subnavigation -->
 <div id="ToC">
-  <a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
     <ul style="display: block; ">
       <li <?php if( $page == 'basics' ) { echo 'class="active"'; } ?>><a href="prop.proposal.php"><i class="icon icon-chevron-right"></i><span>Basics</span></a></li>
       <li <?php if( $page == 'personnel' ) { echo 'class="active"'; } ?>><a href="prop.keypersonnel.php"><i class="icon icon-chevron-right"></i><span>Key Personnel</span></a></li>
       <li <?php if( $page == 'access' ) { echo 'class="active"'; } ?>><a href="prop.permissions.php"><i class="icon icon-chevron-right"></i><span>Access</span></a></li>
       <li <?php if( $page == 'compliance' ) { echo 'class="active"'; } ?>><a href="prop.specialreview.php"><i class="icon icon-chevron-right"></i><span>Compliance</span></a></li>
-     
-      
-       <li class="submenu <?php if( ($page == 'attachments') || (strpos($page, "attachments-") !== false) ) { echo 'open'; } ?>"><a href="#"><i class="icon icon-chevron-right"></i><span>Attachments </span></a>
-        <ul>
-          <li <?php if( $page == 'attachments-proposal' ) { echo 'class="active"'; } ?> style="line-height:14px;"><a href="prop.attachments.proposal.php"><span>Proposal</span></a></li>
-          <li <?php if( $page == 'attachments-personnel' ) { echo 'class="active"'; } ?> style="line-height:14px;"><a href="prop.attachments.personnel.php"><span>Personnel</span></a></li>
-          <li <?php if( $page == 'attachments-internal' ) { echo 'class="active"'; } ?> style="line-height:14px;"><a href="prop.attachments.internal.php"><span>Internal</span></a></li>
-          <li <?php if( $page == 'attachments-abstracts' ) { echo 'class="active"'; } ?> style="line-height:14px;"><a href="prop.attachments.abstracts.php"><span>Abstracts</span></a></li>
-          <li <?php if( $page == 'attachments-notes' ) { echo 'class="active"'; } ?> style="line-height:14px;"><a href="prop.attachments.notes.php"><span>Notes</span></a></li>
-          
-        </ul>
-      </li>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      <li <?php if( $page == 'attachments' ) { echo 'class="active"'; } ?>><a href="prop.abstracts.php"><i class="icon icon-chevron-right"></i><span>Attachments</span></a></li>
       <li <?php if( $page == 'questionnaire' ) { echo 'class="active"'; } ?>><a href="prop.questions.php"><i class="icon icon-chevron-right"></i><span>Questionnaire</span></a></li>
       <li class="submenu <?php if( ($page == 'budget') || (strpos($page, "budget-") !== false) ) { echo 'open'; } ?>"><a href="#"><i class="icon icon-chevron-right"></i><span>Budget <small style="margin-left: 8px;">(version 3)</small></span></a>
         <ul>

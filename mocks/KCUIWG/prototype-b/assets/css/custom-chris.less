@@ -39,6 +39,10 @@ body {
 	color: @darkest;
 }
 
+a {
+	color: #960000;
+}
+
 a:hover {
 	text-decoration: none;
 }
@@ -345,7 +349,7 @@ i {
 }
 
 #secondary {
-	margin-top: -5px;
+	margin-top: 0px;
 }
 
 #secondary.fixed {
@@ -355,7 +359,7 @@ i {
 }
 
 #ToC {
-	margin-top: 11px;
+	margin-top: 10px;
 
 	ul {
 
@@ -438,6 +442,10 @@ i {
 	}
 }
 
+#content:focus, #content:active {
+	outline: none;
+}
+
 .sticky-panel {
 	position: fixed;
 	z-index: 9999;
@@ -480,14 +488,23 @@ body.ajaxed {
 }
 
 .dropdown-menu {
-	left: auto !important;
-	right: 0 !important;
+	// left: auto !important;
+	// right: 0 !important;
 
 	a {
 		font-size: .90em;
 		text-align: left;
 	}
 }
+
+.date {
+	position: relative !important;
+}
+
+// .datepicker.dropdown-menu {
+// 	top: 0 !important;
+// 	left: 0 !important;
+// }
 
 .popover {
 	color: @darkest !important;
@@ -561,23 +578,27 @@ body.ajaxed {
 	}
 }
 
-.clearfix:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
+.add-on.calendar:hover {
+	cursor: pointer;
 }
+
+// .clearfix:after {
+// 	content: ".";
+// 	display: block;
+// 	clear: both;
+// 	visibility: hidden;
+// 	line-height: 0;
+// 	height: 0;
+// }
  
-.clearfix {
-	display: inline-block;
-}
+// .clearfix {
+// 	display: inline-block;
+// }
  
-html[xmlns] .clearfix {
-	display: block;
-}
+// html[xmlns] .clearfix {
+// 	display: block;
+// }
  
-* html .clearfix {
-	height: 1%;
-}
+// * html .clearfix {
+// 	height: 1%;
+// }

@@ -6,7 +6,7 @@
     <div id="global" class="clearfix">
       <div class="brand">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#">Researcher</a></li>
+          <li class="active"><a href="index.php">Researcher</a></li>
           <li><a href="#">Unit</a></li>
           <li><a href="#">Central Admin</a></li>
           <li><a href="#">Maintenance</a></li>
@@ -29,7 +29,7 @@
           <a href="#"><i class="icon-white icon-home"></i>Portal</a> &raquo; Doc #1234 Kuali Coeus Prototype A
         </div>
         <div class="title-author">
-          by quickstart
+          by Test User
         </div>
       </div>
     </div>
@@ -41,8 +41,9 @@
       
       <div class="meta">
         <ul>
-          <li><span>Created:</span>2 Feb 2013</li>
-          <li><span>Updated:</span>28 Feb 2013 by Geoff McGregor</li>
+          <li><span>Created:</span><?php if( $page !== 'start' ) { echo date('m-d-Y'); } else { echo '---'; } ?></li>
+          <li><span>Updated:</span><?php if( $page !== 'start' ) { echo date('m-d-Y'); } else { echo '---'; } ?></li>
+          <?php if( $page !== 'start' ) { ?>
           <li>
             <a href="#" class="show-popover" rel="popover" data-placement="bottom" data-original-title="Document meta information" data-content="
             <ul>
@@ -53,10 +54,11 @@
             </ul>
             ">See more</a>
           </li>
+          <?php } ?>
         </ul>
       </div>
 
-      <!-- Tools --> 
+      <!-- Tools -->
       <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
         <ul class="dropdown-menu">
