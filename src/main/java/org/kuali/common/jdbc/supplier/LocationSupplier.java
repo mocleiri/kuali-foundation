@@ -18,24 +18,15 @@ public class LocationSupplier implements SqlSupplier {
 	SqlReader reader;
 
 	@Override
-	public void open() {
+	public void open() throws IOException {
 		Assert.notNull(location, "location is null");
 		Assert.notNull(reader, "reader is null");
-
-		try {
-			in = LocationUtils.getBufferedReader(location, encoding);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
+		in = LocationUtils.getBufferedReader(location, encoding);
 	}
 
 	@Override
-	public String getSql() {
-		try {
-			return reader.getSqlStatement(in);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
+	public String getSql() throws IOException {
+		return reader.getSqlStatement(in);
 	}
 
 	@Override

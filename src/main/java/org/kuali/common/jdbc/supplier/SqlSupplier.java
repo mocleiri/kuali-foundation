@@ -1,5 +1,7 @@
 package org.kuali.common.jdbc.supplier;
 
+import java.io.IOException;
+
 import org.kuali.common.jdbc.SqlMetaData;
 
 public interface SqlSupplier {
@@ -7,12 +9,12 @@ public interface SqlSupplier {
 	/**
 	 * Open the supplier so it is ready to provide SQL
 	 */
-	void open();
+	void open() throws IOException;
 
 	/**
 	 * Return a single SQL statement to execute. Returns <code>null</code> when the SQL supply has been exhausted.
 	 */
-	String getSql();
+	String getSql() throws IOException;
 
 	/**
 	 * Close the supplier to free any resources it may have open
