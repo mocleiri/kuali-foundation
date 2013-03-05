@@ -15,15 +15,18 @@
  */
 package org.kuali.common.jdbc;
 
+import org.kuali.common.jdbc.supplier.SqlSupplier;
+
 public class SqlSource implements Comparable<SqlSource> {
 
 	String location;
 	String encoding;
 	String sql;
+	SqlSupplier supplier;
 	SqlMetaData metaData;
 
 	@Override
-    public int compareTo(SqlSource other) {
+	public int compareTo(SqlSource other) {
 		Long size1 = metaData.getSize();
 		Long size2 = other.getMetaData().getSize();
 		return size1.compareTo(size2);
@@ -59,6 +62,14 @@ public class SqlSource implements Comparable<SqlSource> {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public SqlSupplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(SqlSupplier supplier) {
+		this.supplier = supplier;
 	}
 
 }
