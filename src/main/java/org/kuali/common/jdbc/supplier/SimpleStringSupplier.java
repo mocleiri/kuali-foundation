@@ -5,6 +5,9 @@ import java.util.List;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.springframework.util.Assert;
 
+/**
+ * Supply SQL from a List of strings containing SQL statements
+ */
 public class SimpleStringSupplier implements SqlSupplier {
 
 	protected int index = 0;

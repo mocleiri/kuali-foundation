@@ -11,6 +11,9 @@ import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.util.Assert;
 
+/**
+ * Supply SQL from a List of strings containing SQL statements, where each String can have more than one SQL statement
+ */
 public class ComplexStringSupplier implements SqlSupplier {
 
 	protected int index = 0;
