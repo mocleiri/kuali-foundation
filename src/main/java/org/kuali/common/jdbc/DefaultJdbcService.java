@@ -107,7 +107,7 @@ public class DefaultJdbcService implements JdbcService {
 		thc.setDivisor(1);
 		// thc.setListener(new PercentCompleteListener<SqlBucketContext>());
 
-		// Start threads to execute SQL from multiple files concurrently
+		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		invoker.invokeThreads(thc);
 	}
