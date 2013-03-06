@@ -4,7 +4,7 @@ import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.util.Assert;
 
-public class JdbcServiceExecutable implements Executable {
+public class JdbcExecutable implements Executable {
 
 	JdbcService service;
 	JdbcContext context;
