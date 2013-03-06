@@ -43,7 +43,7 @@
     <slf4j.version>1.6.4</slf4j.version>
 
     <!-- These are only used for testing -->
-    <ole.version>0.8.1-s-SNAPSHOT</ole.version>
+    <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
   </properties>
   <developers>
@@ -167,25 +167,25 @@
       <classifier>sql</classifier>
       <scope>test</scope>
       </dependency>
-      <dependency>
+    -->
+    <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-rice-sql</artifactId>
       <version>${ole.version}</version>
       <scope>test</scope>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-master-sql</artifactId>
       <version>${ole.version}</version>
       <scope>test</scope>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-liquibase-sql</artifactId>
       <version>${ole.version}</version>
       <scope>test</scope>
-      </dependency>
-    -->
+    </dependency>
   </dependencies>
   <build>
     <testResources>

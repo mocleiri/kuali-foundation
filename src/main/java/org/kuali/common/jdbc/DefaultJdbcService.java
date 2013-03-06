@@ -56,6 +56,12 @@ public class DefaultJdbcService implements JdbcService {
 		if (context.getMessage() != null) {
 			logger.info(context.getMessage());
 		}
+
+		// Fill in SQL metadata
+		for (SqlSupplier supplier : context.getSuppliers()) {
+			supplier.fillInMetaData();
+		}
+
 		context.getListener().beforeMetaData(context);
 		context.getListener().beforeExecution(new SqlExecutionEvent(context));
 		if (context.getThreads() < 2 || context.getSuppliers().size() < 2) {
@@ -148,11 +154,6 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Pull out our list of suppliers
 		List<SqlSupplier> suppliers = context.getSuppliers();
-
-		// Fill in SQL metadata
-		for (SqlSupplier supplier : suppliers) {
-			supplier.fillInMetaData();
-		}
 
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getThreads(), suppliers.size());

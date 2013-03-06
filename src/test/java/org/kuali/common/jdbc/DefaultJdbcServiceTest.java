@@ -29,7 +29,7 @@ import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
-import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
+import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
@@ -131,7 +131,7 @@ public class DefaultJdbcServiceTest {
 	protected ExecutionContext getDbaContext() {
 
 		List<String> sql = Arrays.asList(getValue("sql.drop"), getValue("sql.create"));
-		SqlSupplier supplier = new SimpleStringSupplier(sql);
+		SqlSupplier supplier = new ComplexStringSupplier(sql);
 
 		ExecutionContext ec = new ExecutionContext();
 		ec.setMessage("Executing DBA SQL");
