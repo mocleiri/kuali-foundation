@@ -21,16 +21,16 @@ import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SqlSupplierFactoryBeanTest {
+public class LocationSupplierFactoryBeanTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqlSupplierFactoryBeanTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(LocationSupplierFactoryBeanTest.class);
 
 	@Test
 	public void test() {
 		try {
 			logger.debug("");
 			SpringService ss = new DefaultSpringService();
-			ss.load("classpath:org/kuali/common/jdbc/supplier/sql-supplier-context.xml");
+			ss.load("classpath:org/kuali/common/jdbc/supplier/location-supplier-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
