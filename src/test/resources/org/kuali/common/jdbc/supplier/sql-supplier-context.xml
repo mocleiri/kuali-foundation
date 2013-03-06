@@ -28,7 +28,7 @@
     <constructor-arg value="UTF-8" />
   </bean>
 
-  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReaderrr" />
+  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
 
   <bean id="sqlMapping" class="org.kuali.common.jdbc.supplier.LocationExtensionMapping">
     <property name="extension" value="sql" />

@@ -15,7 +15,6 @@
  */
 package org.kuali.common.jdbc.supplier;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
@@ -27,7 +26,6 @@ public class SqlSupplierFactoryBeanTest {
 	private static final Logger logger = LoggerFactory.getLogger(SqlSupplierFactoryBeanTest.class);
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			logger.debug("");
