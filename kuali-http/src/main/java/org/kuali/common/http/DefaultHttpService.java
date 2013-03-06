@@ -69,7 +69,7 @@ public class DefaultHttpService implements HttpService {
 		String elapsed = FormatUtils.getTime(result.getStop() - result.getStart());
 		String statusText = getStatusText(result.getFinalRequestResult());
 		Object[] args = { url, status, statusText, elapsed };
-		logger.info("{} - [{} - {}]  Total time: {}]", args);
+		logger.info("{} - [{} - {}]  Total time: {}", args);
 	}
 
 	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
