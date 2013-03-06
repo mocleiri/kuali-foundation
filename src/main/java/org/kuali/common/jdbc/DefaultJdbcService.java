@@ -53,7 +53,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(JdbcContext context) {
-		// Log a message if appropriate
+		// Log a message if provided
 		if (!StringUtils.isBlank(context.getMessage())) {
 			logger.info(context.getMessage());
 		}
