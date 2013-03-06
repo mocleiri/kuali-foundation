@@ -17,29 +17,29 @@ package org.kuali.common.jdbc.listener;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.threads.SqlBucket;
 
 public class BucketEvent {
 
-	ExecutionContext context;
+	JdbcContext context;
 	List<SqlBucket> buckets;
 
 	public BucketEvent() {
 		this(null, null);
 	}
 
-	public BucketEvent(ExecutionContext context, List<SqlBucket> buckets) {
+	public BucketEvent(JdbcContext context, List<SqlBucket> buckets) {
 		super();
 		this.context = context;
 		this.buckets = buckets;
 	}
 
-	public ExecutionContext getContext() {
+	public JdbcContext getContext() {
 		return context;
 	}
 
-	public void setContext(ExecutionContext context) {
+	public void setContext(JdbcContext context) {
 		this.context = context;
 	}
 

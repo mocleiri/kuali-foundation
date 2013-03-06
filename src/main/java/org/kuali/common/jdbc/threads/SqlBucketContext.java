@@ -16,12 +16,12 @@
 package org.kuali.common.jdbc.threads;
 
 import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 
 public class SqlBucketContext {
 
 	SqlBucket bucket;
-	ExecutionContext context;
+	JdbcContext context;
 	JdbcService service;
 
 	public SqlBucket getBucket() {
@@ -32,11 +32,11 @@ public class SqlBucketContext {
 		this.bucket = bucket;
 	}
 
-	public ExecutionContext getContext() {
+	public JdbcContext getContext() {
 		return context;
 	}
 
-	public void setContext(ExecutionContext context) {
+	public void setContext(JdbcContext context) {
 		this.context = context;
 	}
 

@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.util.FormatUtils;
@@ -39,7 +39,7 @@ public class BucketListener implements SqlListener {
 	LoggerLevel level = LoggerLevel.DEBUG;
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
+	public void beforeMetaData(JdbcContext context) {
 	}
 
 	@Override

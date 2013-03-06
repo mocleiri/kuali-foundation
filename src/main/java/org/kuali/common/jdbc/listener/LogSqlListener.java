@@ -16,7 +16,7 @@
 package org.kuali.common.jdbc.listener;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -31,7 +31,7 @@ public class LogSqlListener implements SqlListener {
 	boolean flatten = true;
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
+	public void beforeMetaData(JdbcContext context) {
 	}
 
 	@Override

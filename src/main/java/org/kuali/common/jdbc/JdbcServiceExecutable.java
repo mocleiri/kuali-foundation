@@ -1,13 +1,13 @@
 package org.kuali.common.jdbc;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.util.Assert;
 
 public class JdbcServiceExecutable implements Executable {
 
 	JdbcService service;
-	ExecutionContext context;
+	JdbcContext context;
 
 	@Override
 	public void execute() {

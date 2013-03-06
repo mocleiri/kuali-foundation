@@ -16,7 +16,7 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -43,7 +43,7 @@ public class SummaryListener implements SqlListener {
 	boolean showRate = true;
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
+	public void beforeMetaData(JdbcContext context) {
 		this.startMillis = System.currentTimeMillis();
 	}
 

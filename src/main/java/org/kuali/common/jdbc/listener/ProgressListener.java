@@ -18,7 +18,7 @@ package org.kuali.common.jdbc.listener;
 import java.io.PrintStream;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 
 /**
  * Print a dot to the console each time 1% of the SQL finishes executing
@@ -39,7 +39,7 @@ public class ProgressListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
+	public void beforeMetaData(JdbcContext context) {
 	}
 
 	@Override

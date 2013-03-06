@@ -15,26 +15,26 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 
 public class SqlExecutionEvent {
 
-	ExecutionContext context;
+	JdbcContext context;
 
 	public SqlExecutionEvent() {
 		this(null);
 	}
 
-	public SqlExecutionEvent(ExecutionContext context) {
+	public SqlExecutionEvent(JdbcContext context) {
 		super();
 		this.context = context;
 	}
 
-	public ExecutionContext getContext() {
+	public JdbcContext getContext() {
 		return context;
 	}
 
-	public void setContext(ExecutionContext context) {
+	public void setContext(JdbcContext context) {
 		this.context = context;
 	}
 

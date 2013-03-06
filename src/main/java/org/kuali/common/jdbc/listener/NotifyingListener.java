@@ -18,7 +18,7 @@ package org.kuali.common.jdbc.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 
 /**
  * Notify other listeners about SQL related events
@@ -37,7 +37,7 @@ public class NotifyingListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
+	public void beforeMetaData(JdbcContext context) {
 		for (SqlListener listener : listeners) {
 			listener.beforeMetaData(context);
 		}

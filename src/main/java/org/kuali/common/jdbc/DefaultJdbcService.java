@@ -27,7 +27,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
@@ -51,7 +51,7 @@ public class DefaultJdbcService implements JdbcService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultJdbcService.class);
 
 	@Override
-	public void executeSql(ExecutionContext context) {
+	public void executeSql(JdbcContext context) {
 		if (context.getMessage() != null) {
 			logger.info(context.getMessage());
 		}
@@ -71,7 +71,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.getListener().afterExecution(new SqlExecutionEvent(context));
 	}
 
-	protected void executeMultiThreaded(ExecutionContext context) {
+	protected void executeMultiThreaded(JdbcContext context) {
 
 		// Divide the SQL we have to execute up into buckets as "evenly" as possible
 		List<SqlBucket> buckets = getSqlBuckets(context);
@@ -120,13 +120,13 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public void executeSql(DataSource dataSource, String sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(Arrays.asList(sql));
-		ExecutionContext context = new ExecutionContext();
+		JdbcContext context = new JdbcContext();
 		context.setDataSource(dataSource);
 		context.setSuppliers(Arrays.asList(supplier));
 		executeSql(context);
 	}
 
-	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, ExecutionContext context, SqlListener listener) {
+	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, JdbcContext context, SqlListener listener) {
 		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
 		for (SqlBucket bucket : buckets) {
 			SqlBucketContext sbc = new SqlBucketContext();
@@ -138,8 +138,8 @@ public class DefaultJdbcService implements JdbcService {
 		return sbcs;
 	}
 
-	protected ExecutionContext getExecutionContext(ExecutionContext original, SqlBucket bucket, SqlListener listener) {
-		ExecutionContext context = new ExecutionContext();
+	protected JdbcContext getExecutionContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
+		JdbcContext context = new JdbcContext();
 		context.setDataSource(original.getDataSource());
 		context.setCommitMode(original.getCommitMode());
 		context.setThreads(1);
@@ -148,7 +148,7 @@ public class DefaultJdbcService implements JdbcService {
 		return context;
 	}
 
-	protected List<SqlBucket> getSqlBuckets(ExecutionContext context) {
+	protected List<SqlBucket> getSqlBuckets(JdbcContext context) {
 
 		// Pull out our list of suppliers
 		List<SqlSupplier> suppliers = context.getSuppliers();
@@ -186,7 +186,7 @@ public class DefaultJdbcService implements JdbcService {
 		return buckets;
 	}
 
-	protected void executeSequentially(ExecutionContext context) {
+	protected void executeSequentially(JdbcContext context) {
 		Connection conn = null;
 		Statement statement = null;
 		try {
@@ -207,7 +207,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void excecuteSupplier(Statement statement, ExecutionContext context, SqlSupplier supplier) throws SQLException {
+	protected void excecuteSupplier(Statement statement, JdbcContext context, SqlSupplier supplier) throws SQLException {
 		try {
 			supplier.open();
 			String sql = supplier.getSql();
@@ -222,7 +222,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected void executeSql(Statement statement, String sql, ExecutionContext context) throws SQLException {
+	protected void executeSql(Statement statement, String sql, JdbcContext context) throws SQLException {
 		try {
 			long start = System.currentTimeMillis();
 			context.getListener().beforeExecuteSql(new SqlEvent(sql, start, 0));

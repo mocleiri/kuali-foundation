@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class MessageListener implements SqlListener {
 	String afterExecution;
 
 	@Override
-	public void beforeMetaData(ExecutionContext context) {
+	public void beforeMetaData(JdbcContext context) {
 		if (beforeMetaData != null) {
 			LoggerUtils.logMsg(beforeMetaData, logger, level);
 		}

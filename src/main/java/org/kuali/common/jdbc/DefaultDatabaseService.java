@@ -24,7 +24,7 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.context.DatabaseResetContext;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
@@ -74,37 +74,37 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("------------------------------------------------------------------------");
 
 		int threads = context.getThreads();
-		List<ExecutionContext> schemas = getExecutionContexts(context.getSchemaPropertyPrefix(), threads, context.getProperties());
-		List<ExecutionContext> data = getExecutionContexts(context.getDataPropertyPrefix(), threads, context.getProperties());
-		List<ExecutionContext> constraints = getExecutionContexts(context.getConstraintPropertyPrefix(), threads, context.getProperties());
-		List<ExecutionContext> other = getExecutionContexts(context.getOtherPropertyPrefix(), threads, context.getProperties());
+		List<JdbcContext> schemas = getExecutionContexts(context.getSchemaPropertyPrefix(), threads, context.getProperties());
+		List<JdbcContext> data = getExecutionContexts(context.getDataPropertyPrefix(), threads, context.getProperties());
+		List<JdbcContext> constraints = getExecutionContexts(context.getConstraintPropertyPrefix(), threads, context.getProperties());
+		List<JdbcContext> other = getExecutionContexts(context.getOtherPropertyPrefix(), threads, context.getProperties());
 
-		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
+		List<JdbcContext> contexts = new ArrayList<JdbcContext>();
 		contexts.addAll(schemas);
-		for (ExecutionContext schema : schemas) {
+		for (JdbcContext schema : schemas) {
 			schema.setListener(getDDLListener());
 		}
 		contexts.addAll(data);
-		for (ExecutionContext ec : data) {
+		for (JdbcContext ec : data) {
 			ec.setListener(getDMLListener());
 		}
 		contexts.addAll(constraints);
-		for (ExecutionContext ec : constraints) {
+		for (JdbcContext ec : constraints) {
 			ec.setListener(getDDLListener());
 		}
 
 		contexts.addAll(other);
-		for (ExecutionContext ec : other) {
+		for (JdbcContext ec : other) {
 			ec.setListener(getOtherListener(true));
 		}
 
 		JdbcService service = new DefaultJdbcService();
-		ExecutionContext dba = getDbaContext(context);
+		JdbcContext dba = getDbaContext(context);
 		dba.setExecute(context.isExecuteSql());
 
 		long start = System.currentTimeMillis();
 		service.executeSql(dba);
-		for (ExecutionContext ec : contexts) {
+		for (JdbcContext ec : contexts) {
 			// ec.setJdbcContext(context.getNormalJdbcContext());
 			ec.setExecute(context.isExecuteSql());
 			service.executeSql(ec);
@@ -117,10 +117,10 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("------------------------------------------------------------------------");
 	}
 
-	protected ExecutionContext getDbaContext(DatabaseResetContext context) {
+	protected JdbcContext getDbaContext(DatabaseResetContext context) {
 		SqlSupplier supplier = new ComplexStringSupplier(Arrays.asList(context.getDbaSql()));
 		List<SqlSupplier> suppliers = Arrays.asList(supplier);
-		ExecutionContext ec = new ExecutionContext();
+		JdbcContext ec = new JdbcContext();
 		ec.setMessage("Executing DBA SQL");
 		// ec.setJdbcContext(context.getDbaJdbcContext());
 		ec.setSuppliers(suppliers);
@@ -194,7 +194,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		return locations;
 	}
 
-	protected List<ExecutionContext> getExecutionContexts(String prefix, int threads, Properties properties) {
+	protected List<JdbcContext> getExecutionContexts(String prefix, int threads, Properties properties) {
 
 		String concurrent = properties.getProperty(prefix + "." + CONCURRENT);
 		String sequential = properties.getProperty(prefix + "." + SEQUENTIAL);
@@ -228,9 +228,9 @@ public class DefaultDatabaseService implements DatabaseService {
 			throw new IllegalArgumentException(getInvalidOrderingMessage(order));
 		}
 
-		List<ExecutionContext> contexts = new ArrayList<ExecutionContext>();
-		ExecutionContext context1 = new ExecutionContext();
-		ExecutionContext context2 = new ExecutionContext();
+		List<JdbcContext> contexts = new ArrayList<JdbcContext>();
+		JdbcContext context1 = new JdbcContext();
+		JdbcContext context2 = new JdbcContext();
 
 		if (one.equals(ExecutionMode.CONCURRENT)) {
 			// Concurrent first, then sequential

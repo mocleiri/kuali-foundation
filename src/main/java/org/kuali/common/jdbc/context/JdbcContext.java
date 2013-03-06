@@ -24,7 +24,7 @@ import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 
-public class ExecutionContext {
+public class JdbcContext {
 
 	// If false, no SQL is executed.
 	// Everything leading up to SQL execution still takes place

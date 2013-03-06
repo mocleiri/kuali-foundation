@@ -17,7 +17,7 @@ package org.kuali.common.jdbc;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 
 public interface JdbcService {
 
@@ -29,7 +29,7 @@ public interface JdbcService {
 	/**
 	 * Execute SQL as dictated by the context
 	 */
-	void executeSql(ExecutionContext context);
+	void executeSql(JdbcContext context);
 
 	/**
 	 * Execute a single SQL statement
