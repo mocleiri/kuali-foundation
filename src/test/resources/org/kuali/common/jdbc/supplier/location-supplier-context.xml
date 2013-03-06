@@ -24,28 +24,17 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="propertyLocations" value-type="java.lang.String">
-    <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-    <value>classpath:org/kuali/common/jdbc/service.properties</value>
-    <value>classpath:org/kuali/common/sql/sql.xml</value>
-    <value>classpath:org/kuali/common/sql/mysql.xml</value>
-    <value>classpath:org/kuali/common/jdbc/supplier.properties</value>
-  </util:list>
-
-  <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="locations" ref="propertyLocations" />
-  </bean>
-
-  <context:property-placeholder properties-ref="properties" />
-
   <bean id="encoding" class="java.lang.String">
     <constructor-arg value="UTF-8" />
   </bean>
 
+  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-properties.xml" />
+  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
+
   <util:list id="dbaSql" value-type="java.lang.String">
-    <value>${mysql.validate}</value>
-    <value>${mysql.drop}</value>
-    <value>${mysql.create}</value>
+    <value>${sql.validate}</value>
+    <value>${sql.drop}</value>
+    <value>${sql.create}</value>
   </util:list>
 
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
@@ -54,18 +43,6 @@
     <property name="reader" ref="sqlReader" />
     <property name="encoding" ref="encoding" />
   </bean>
-
-  <util:list id="nullableProperties" value-type="java.lang.String">
-    <value>dbaUsername</value>
-    <value>dbaPassword</value>
-    <value>username</value>
-    <value>password</value>
-  </util:list>
-
-  <util:list id="nullTokens" value-type="java.lang.String">
-    <value>NONE</value>
-    <value>NULL</value>
-  </util:list>
 
   <bean id="databaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
@@ -90,12 +67,6 @@
     <property name="url" value="#{databaseProcessContext.dbaUrl}" />
     <property name="username" value="#{databaseProcessContext.dbaUsername}" />
     <property name="password" value="#{databaseProcessContext.dbaPassword}" />
-  </bean>
-
-  <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
-    <property name="nullTokens" ref="nullTokens" />
-    <property name="properties" ref="nullableProperties" />
-    <property name="bean" ref="databaseProcessContext" />
   </bean>
 
   <bean id="sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
