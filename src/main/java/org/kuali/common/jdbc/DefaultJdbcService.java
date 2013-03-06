@@ -201,7 +201,7 @@ public class DefaultJdbcService implements JdbcService {
 			}
 			conn.setAutoCommit(originalAutoCommitSetting);
 		} catch (Exception e) {
-			throw new JdbcException(e);
+			throw new IllegalStateException(e);
 		} finally {
 			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
 		}
@@ -243,7 +243,7 @@ public class DefaultJdbcService implements JdbcService {
 			DatabaseMetaData dbmd = conn.getMetaData();
 			return getJdbcMetaData(dbmd);
 		} catch (Exception e) {
-			throw new JdbcException(e);
+			throw new IllegalStateException(e);
 		} finally {
 			logger.trace("closing connection");
 			JdbcUtils.closeQuietly(dataSource, conn);

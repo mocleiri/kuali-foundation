@@ -70,7 +70,7 @@ public class JdbcUtils {
 		try {
 			statement.close();
 		} catch (SQLException e) {
-			throw new JdbcException(e);
+			throw new IllegalStateException(e);
 		}
 	}
 
@@ -83,7 +83,7 @@ public class JdbcUtils {
 			logger.trace("releasing connection");
 			DataSourceUtils.doReleaseConnection(conn, dataSource);
 		} catch (SQLException e) {
-			throw new JdbcException(e);
+			throw new IllegalStateException(e);
 		}
 	}
 

@@ -46,8 +46,8 @@ public class DatabaseResetContext {
 	String encoding;
 	Properties properties;
 	DatabaseProcessContext databaseProcessContext;
-	JdbcContext normalJdbcContext;
-	JdbcContext dbaJdbcContext;
+	// JdbcContext normalJdbcContext;
+	// JdbcContext dbaJdbcContext;
 	String dbaSql;
 
 	public String getEncoding() {
@@ -88,22 +88,6 @@ public class DatabaseResetContext {
 
 	public void setService(JdbcService service) {
 		this.service = service;
-	}
-
-	public JdbcContext getNormalJdbcContext() {
-		return normalJdbcContext;
-	}
-
-	public void setNormalJdbcContext(JdbcContext normal) {
-		this.normalJdbcContext = normal;
-	}
-
-	public JdbcContext getDbaJdbcContext() {
-		return dbaJdbcContext;
-	}
-
-	public void setDbaJdbcContext(JdbcContext dba) {
-		this.dbaJdbcContext = dba;
 	}
 
 	public String getSchemaPropertyPrefix() {

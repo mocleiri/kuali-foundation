@@ -64,7 +64,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		logger.info("DBA URL - {}", context.getDatabaseProcessContext().getDbaUrl());
 		logger.info("DBA User - {}", LoggerUtils.getUsername(dpc.getDbaUsername()));
 		logger.info("DBA Password - {}", LoggerUtils.getPassword(dpc.getDbaUsername(), dpc.getDbaPassword()));
-		JdbcMetaData metadata = context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
+		JdbcMetaData metadata = new JdbcMetaData(); // context.getService().getJdbcMetaData(context.getDbaJdbcContext().getDataSource());
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
 		logger.info("Driver - {}", context.getDatabaseProcessContext().getDriver());
