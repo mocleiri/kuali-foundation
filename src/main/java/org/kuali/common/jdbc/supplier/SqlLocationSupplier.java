@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 /**
  * Supply SQL from a location containing pre-generated SQL statements
  */
-public class SqlLocationSupplier extends AbstractSupplier {
+public class SqlLocationSupplier extends AbstractSupplier implements LocationSupplier {
 
 	protected BufferedReader in;
 
@@ -60,10 +60,12 @@ public class SqlLocationSupplier extends AbstractSupplier {
 		}
 	}
 
+	@Override
 	public String getLocation() {
 		return location;
 	}
 
+	@Override
 	public void setLocation(String location) {
 		this.location = location;
 	}
