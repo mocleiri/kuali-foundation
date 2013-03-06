@@ -24,6 +24,13 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <util:list id="propertyLocations" value-type="java.lang.String">
+    <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+    <value>classpath:org/kuali/common/jdbc/service.properties</value>
+    <value>classpath:org/kuali/common/sql/sql.xml</value>
+    <value>classpath:org/kuali/common/sql/mysql.xml</value>
+  </util:list>
+
   <bean id="encoding" class="java.lang.String">
     <constructor-arg value="UTF-8" />
   </bean>
