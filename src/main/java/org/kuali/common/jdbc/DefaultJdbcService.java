@@ -185,6 +185,7 @@ public class DefaultJdbcService implements JdbcService {
 		// Distribute the sources into buckets as evenly as possible
 		// "Evenly" in this case means each bucket should be roughly the same size
 		for (SqlSupplier supplier : suppliers) {
+
 			// Sort the buckets by size
 			Collections.sort(buckets);
 
