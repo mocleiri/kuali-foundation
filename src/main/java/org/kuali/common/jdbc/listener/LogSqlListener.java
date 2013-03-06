@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public class LogSqlListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
-	LoggerLevel level = LoggerLevel.DEBUG;
+	LoggerLevel level = LoggerLevel.INFO;
 	boolean flatten = true;
 
 	@Override
@@ -51,8 +51,8 @@ public class LogSqlListener implements SqlListener {
 		String sql = getSql(event.getSql(), flatten);
 		long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
 		String time = StringUtils.leftPad(FormatUtils.getTime(millis), 8, " ");
-		Object[] args = { time };
-		String msg = "Elapsed: {} " + sql;
+		Object[] args = { time, sql };
+		String msg = "Elapsed: {} {}";
 		LoggerUtils.logMsg(msg, args, logger, level);
 	}
 
