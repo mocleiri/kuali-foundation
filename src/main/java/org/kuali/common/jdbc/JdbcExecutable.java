@@ -20,6 +20,7 @@ public class JdbcExecutable implements Executable {
 			logger.info("Skipping execution");
 			return;
 		}
+
 		Assert.notNull(service, "service is null");
 		Assert.notNull(context, "context is null");
 
