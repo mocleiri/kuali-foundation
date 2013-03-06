@@ -28,7 +28,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
@@ -121,10 +120,8 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public void executeSql(DataSource dataSource, String sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(Arrays.asList(sql));
-		JdbcContext jdbcContext = new JdbcContext();
-		jdbcContext.setDataSource(dataSource);
 		ExecutionContext context = new ExecutionContext();
-		context.setJdbcContext(jdbcContext);
+		context.setDataSource(dataSource);
 		context.setSuppliers(Arrays.asList(supplier));
 		executeSql(context);
 	}
@@ -143,7 +140,8 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected ExecutionContext getExecutionContext(ExecutionContext original, SqlBucket bucket, SqlListener listener) {
 		ExecutionContext context = new ExecutionContext();
-		context.setJdbcContext(original.getJdbcContext());
+		context.setDataSource(original.getDataSource());
+		context.setCommitMode(original.getCommitMode());
 		context.setThreads(1);
 		context.setExecute(original.isExecute());
 		context.setListener(listener);
@@ -189,11 +187,10 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected void executeSequentially(ExecutionContext context) {
-		JdbcContext jdbc = context.getJdbcContext();
 		Connection conn = null;
 		Statement statement = null;
 		try {
-			conn = DataSourceUtils.doGetConnection(jdbc.getDataSource());
+			conn = DataSourceUtils.doGetConnection(context.getDataSource());
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
@@ -206,7 +203,7 @@ public class DefaultJdbcService implements JdbcService {
 		} catch (Exception e) {
 			throw new JdbcException(e);
 		} finally {
-			JdbcUtils.closeQuietly(jdbc.getDataSource(), conn, statement);
+			JdbcUtils.closeQuietly(context.getDataSource(), conn, statement);
 		}
 	}
 

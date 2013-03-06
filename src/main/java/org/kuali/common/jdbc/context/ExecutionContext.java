@@ -17,6 +17,9 @@ package org.kuali.common.jdbc.context;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.kuali.common.jdbc.CommitMode;
 import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
@@ -32,7 +35,8 @@ public class ExecutionContext {
 	// When used, SQL supplied to this context does not execute sequentially
 	int threads = 1;
 	SqlListener listener = new NoOpSqlListener();
-	JdbcContext jdbcContext;
+	CommitMode commitMode = CommitMode.PER_SUPPLIER;
+	DataSource dataSource;
 	List<SqlSupplier> suppliers;
 	String message;
 
@@ -60,12 +64,20 @@ public class ExecutionContext {
 		this.listener = listener;
 	}
 
-	public JdbcContext getJdbcContext() {
-		return jdbcContext;
+	public CommitMode getCommitMode() {
+		return commitMode;
 	}
 
-	public void setJdbcContext(JdbcContext jdbcContext) {
-		this.jdbcContext = jdbcContext;
+	public void setCommitMode(CommitMode commitMode) {
+		this.commitMode = commitMode;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	public List<SqlSupplier> getSuppliers() {
