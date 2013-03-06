@@ -35,7 +35,7 @@ public class JdbcUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
 	/**
-	 * Return the total size of the SQL statements contained in <code>sources</code>. Assumes <code>sources</code> has had its <code>SqlMetaData</code> filled in.
+	 * Return the total size of the SQL statements contained in <code>suppliers</code>. Assumes <code>suppliers</code> has had its <code>SqlMetaData</code> filled in.
 	 */
 	public static long getSqlSize(List<SqlSupplier> suppliers) {
 		long size = 0;
