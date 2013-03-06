@@ -22,7 +22,7 @@ import org.kuali.common.jdbc.CommitMode;
 public class JdbcContext {
 
 	DataSource dataSource;
-	CommitMode commitMode = CommitMode.PER_SOURCE;
+	CommitMode commitMode = CommitMode.PER_SUPPLIER;
 
 	public DataSource getDataSource() {
 		return dataSource;
