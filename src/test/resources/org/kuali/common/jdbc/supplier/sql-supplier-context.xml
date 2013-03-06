@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010-2013 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <bean id="encoding" class="java.lang.String">
+    <constructor-arg value="UTF-8" />
+  </bean>
+
+  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReaderrr" />
+
+  <bean id="sqlMapping" class="org.kuali.common.jdbc.supplier.LocationExtensionMapping">
+    <property name="extension" value="sql" />
+    <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
+  </bean>
+
+  <util:list id="mappings" value-type="org.kuali.common.jdbc.supplier.LocationExtensionMapping">
+    <ref bean="sqlMapping" />
+  </util:list>
+
+  <bean id="schema1SqlSupplier" class="org.kuali.common.jdbc.supplier.SqlSupplierFactoryBean">
+    <property name="location" value="classpath:sql/oracle/ole-rice-sql.sql" />
+    <property name="reader" ref="sqlReader" />
+    <property name="encoding" ref="encoding" />
+  </bean>
+
+  <bean id="schema2SqlSupplier" class="org.kuali.common.jdbc.supplier.SqlSupplierFactoryBean">
+    <property name="location" value="classpath:sql/oracle/ole-master-sql.sql" />
+    <property name="reader" ref="sqlReader" />
+    <property name="encoding" ref="encoding" />
+  </bean>
+
+</beans>
