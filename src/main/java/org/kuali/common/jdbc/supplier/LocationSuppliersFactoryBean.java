@@ -9,7 +9,7 @@ import org.kuali.common.util.Assert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
 
-public class LocationSupplierFactoryBean implements FactoryBean<List<LocationSupplier>> {
+public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
 	List<String> locations;
 	Map<String, LocationSupplierSourceBean> mappings;
