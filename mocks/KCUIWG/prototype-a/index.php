@@ -14,13 +14,19 @@ $page = 'start';
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12 content">
-        <div class="box"> <div class="boxHeader ">
+
+        <div class="box">
+          <div class="boxHeader expandControl closed">
             <h3>Proposal Details</h3>
           </div>
-          <div class="boxContent " style="display:block" >
+          <div class="boxContent expandTarget" style="display:none" >
+            <div class="boxSubheader">
+              <h4><span class="req">*<span>required</span></span>Required</h4>
+            </div>
             <div class="control-group">
               <label class="control-label" for="ProposalType">Proposal Type</label>
-              <div class="controls"><select id="ProposalType" class="input-xlarge">
+              <div class="controls">
+                <select name="ProposalType" class="input-xlarge" id="ProposalType" required="required">
                   <option value="">select</option>
                   <option value="4">Continuation</option>
                   <option value="1">New</option>
@@ -32,9 +38,9 @@ $page = 'start';
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="asdf">Lead Unit</label>
+              <label class="control-label" for="leadUnit">Lead Unit</label>
               <div class="controls">
-                <select title="* Lead Unit" class="input-xlarge">
+                <select name="select" id="leadUnit" class="input-xlarge" title="Lead Unit" required="required">
                   <option value="">select</option>
                   <option value="000001">000001 - University</option>
                   <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
@@ -44,9 +50,9 @@ $page = 'start';
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="asdf">Activity Type</label>
+              <label class="control-label" for="activityType">Activity Type</label>
               <div class="controls">
-                <select title="Activity Type" class="input-xlarge">
+                <select name="select" id="activityType" class="input-xlarge" title="Activity Type" required="required">
                   <option value="">select</option>
                   <option value="4">Clinical Trial</option>
                   <option value="9">Construction</option>
@@ -60,7 +66,7 @@ $page = 'start';
                 </select>
               </div>
             </div>
-
+            
             <div class="control-group">
               <label class="control-label" for="start_date">Start Date</label>
               <div class="controls date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
@@ -88,30 +94,32 @@ $page = 'start';
                 <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
               </div>
             </div>
-            
-            <div class="control-group">         
+
+            <div class="control-group"> 
               <!-- Textarea -->
-              <label class="control-label">Project Title</label>
+              <label class="control-label" for="projectTitle">Project Title</label>
               <div class="controls">
-                <div class="textarea">
-                  <textarea class="input-xlarge"> </textarea>
-                </div>
+                <textarea name="textarea" id="projectTitle" class="input-xlarge" required></textarea>
               </div>
             </div>
-            <!-- <div class="control-group">
-              <label class="control-label" for="orgdocnum">Award ID</label>
-              <div class="controls">
-                <input type="text" id="Description2" placeholder="" class=" input-small">
-                <a href="#" class="btn lookup"><span>lookup</span></a></div>
+            <!-- <div class="boxSubheader">
+              <h4>Conditionally Required Institutional Fields</h4>
             </div>
             <div class="control-group">
-              <label class="control-label" for="orgdocnum">Original Institutional Prop ID</label>
+              <label class="control-label" for="orgdocnum4">Award ID</label>
               <div class="controls">
-                <input type="text" id="Description3" placeholder="" class=" input-small">
-                <a href="#" class="btn lookup"><span>lookup</span></a></div>
+                <input type="text" id="Description" placeholder="" class=" input-small">
+                <a href="#" class="btn lookup"><span>lookup</span></a> </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="orgdocnum5">Original Institutional Prop ID</label>
+              <div class="controls">
+                <input type="text" id="Description" placeholder="" class=" input-small">
+                <a href="#" class="btn lookup"><span>lookup</span></a> </div>
             </div> -->
           </div>
-        </div>       
+        </div>
+
         <div style=" padding: 12px; text-align:center">
           <a href="prop.proposal.php" class="btn btn-inverse btn-large">Create Proposal <i class="icon-white icon-chevron-right"></i></a>
         </div>
