@@ -49,7 +49,7 @@
     <value>classpath:sql/mysql/ole-master-sql.sql</value>
   </util:list>
 
-  <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSupplierFactoryBean">
+  <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
     <property name="locations" ref="schemaLocations" />
     <property name="mappings" ref="extensionMappings" />
   </bean>
