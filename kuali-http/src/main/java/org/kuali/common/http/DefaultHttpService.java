@@ -45,7 +45,7 @@ public class DefaultHttpService implements HttpService {
 		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
-		logger.info("Determining status for {} - (Timeout in {})", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
+		logger.info("Determining status for {} - [Timeout in {}]", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
@@ -76,7 +76,7 @@ public class DefaultHttpService implements HttpService {
 		String statusText = getStatusText(result);
 		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
 		Object[] args = { url, statusText, timeout };
-		logger.info("{} - [{}] - (Timeout in {})", args);
+		logger.info("{} - [{}] - [Timeout in {}]", args);
 	}
 
 	protected String getStatusText(HttpRequestResult result) {
