@@ -131,7 +131,12 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(DataSource dataSource, String sql) {
-		SqlSupplier supplier = new SimpleStringSupplier(Arrays.asList(sql));
+		executeSql(dataSource, Arrays.asList(sql));
+	}
+
+	@Override
+	public void executeSql(DataSource dataSource, List<String> sql) {
+		SqlSupplier supplier = new SimpleStringSupplier(sql);
 		JdbcContext context = new JdbcContext();
 		context.setDataSource(dataSource);
 		context.setSuppliers(Arrays.asList(supplier));

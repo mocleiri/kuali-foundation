@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
@@ -35,4 +37,9 @@ public interface JdbcService {
 	 * Execute a single SQL statement
 	 */
 	void executeSql(DataSource dataSource, String sql);
+
+	/**
+	 * Execute a list of SQL statements
+	 */
+	void executeSql(DataSource dataSource, List<String> sql);
 }
