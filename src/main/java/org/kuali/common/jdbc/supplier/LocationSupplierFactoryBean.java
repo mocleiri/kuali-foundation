@@ -29,23 +29,23 @@ public class LocationSupplierFactoryBean implements FactoryBean<List<LocationSup
 			String extension = FilenameUtils.getExtension(location);
 
 			// The map holds the concrete implementation to use for each extension
-			LocationSupplierSourceBean source = mappings.get(extension);
+			LocationSupplierSourceBean sourceBean = mappings.get(extension);
 
 			// Unknown extension type
-			if (source == null) {
+			if (sourceBean == null) {
 				throw new IllegalArgumentException("Unknown extension [" + extension + "]");
 			}
 
 			// Create a new instance of the impl class
-			Class<? extends LocationSupplier> supplierClass = source.getSupplierClass();
+			Class<? extends LocationSupplier> supplierClass = sourceBean.getSupplierClass();
 			LocationSupplier instance = supplierClass.newInstance();
 
 			// Store the location on the impl
 			instance.setLocation(location);
 
 			// Configure the impl with anything else it needs
-			if (source.getInstance() != null) {
-				BeanUtils.copyProperties(source.getInstance(), instance);
+			if (sourceBean.getInstance() != null) {
+				BeanUtils.copyProperties(sourceBean.getInstance(), instance);
 			}
 
 			// Add it to the list
