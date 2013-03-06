@@ -24,17 +24,28 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="encoding" class="java.lang.String">
-    <constructor-arg value="UTF-8" />
+  <bean id="sqlLocationSupplierInstance" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+    <property name="reader" ref="sqlReader" />
+    <property name="encoding" ref="encoding" />
   </bean>
 
-  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
+  <bean id="sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+    <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
+    <property name="instance" ref="sqlLocationSupplierInstance" />
+  </bean>
 
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-properties.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-datasource.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-dba.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
+  <util:map id="extensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+    <entry key="sql" value-ref="sqlLocationSourceBean" />
+  </util:map>
 
+  <util:list id="schemaLocations">
+    <value>classpath:sql/${db.vendor}/ole-rice-sql.sql</value>
+    <value>classpath:sql/${db.vendor}/ole-master-sql.sql</value>
+  </util:list>
+
+  <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+    <property name="locations" ref="schemaLocations" />
+    <property name="mappings" ref="extensionMappings" />
+  </bean>
 
 </beans>
