@@ -48,6 +48,49 @@
     <property name="encoding" ref="encoding" />
   </bean>
 
+  <util:list id="nullableProperties" value-type="java.lang.String">
+    <value>dbaUsername</value>
+    <value>dbaPassword</value>
+    <value>username</value>
+    <value>password</value>
+  </util:list>
+
+  <util:list id="nullTokens" value-type="java.lang.String">
+    <value>NONE</value>
+    <value>NULL</value>
+  </util:list>
+
+  <bean id="databaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
+    <property name="vendor" value="mysql" />
+    <property name="driver" value="${mysql.driver}" />
+    <property name="url" value="jdbc:mysql://localhost/JDBCTEST" />
+    <property name="username" value="JDBCTEST" />
+    <property name="password" value="JDBCTEST" />
+    <property name="dbaUrl" value="${mysql.dba.url}" />
+    <property name="dbaUsername" value="${mysql.dba.username}" />
+    <property name="dbaPassword" value="${mysql.dba.password}" />
+  </bean>
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
+    <property name="driverClassName" value="#{databaseProcessContext.driver}" />
+    <property name="url" value="#{databaseProcessContext.url}" />
+    <property name="username" value="#{databaseProcessContext.username}" />
+    <property name="password" value="#{databaseProcessContext.password}" />
+  </bean>
+
+  <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
+    <property name="driverClassName" value="#{databaseProcessContext.driver}" />
+    <property name="url" value="#{databaseProcessContext.dbaUrl}" />
+    <property name="username" value="#{databaseProcessContext.dbaUsername}" />
+    <property name="password" value="#{databaseProcessContext.dbaPassword}" />
+  </bean>
+
+  <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
+    <property name="nullTokens" ref="nullTokens" />
+    <property name="properties" ref="nullableProperties" />
+    <property name="bean" ref="databaseProcessContext" />
+  </bean>
+
   <bean id="sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
     <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
     <property name="instance" ref="sqlLocationSupplierInstance" />
