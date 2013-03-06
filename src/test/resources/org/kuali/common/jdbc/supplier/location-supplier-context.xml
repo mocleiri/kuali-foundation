@@ -29,6 +29,7 @@
     <value>classpath:org/kuali/common/jdbc/service.properties</value>
     <value>classpath:org/kuali/common/sql/sql.xml</value>
     <value>classpath:org/kuali/common/sql/mysql.xml</value>
+    <value>classpath:org/kuali/common/jdbc/supplier.properties</value>
   </util:list>
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
@@ -40,6 +41,12 @@
   <bean id="encoding" class="java.lang.String">
     <constructor-arg value="UTF-8" />
   </bean>
+
+  <util:list id="dbaSql" value-type="java.lang.String">
+    <value>${mysql.validate}</value>
+    <value>${mysql.drop}</value>
+    <value>${mysql.create}</value>
+  </util:list>
 
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
 
