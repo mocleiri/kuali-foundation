@@ -30,20 +30,19 @@
 
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
 
-  <bean id="sqlLocationSupplierSourceBean" class="org.kuali.common.jdbc.DefaultSqlReader">
+  <bean id="sqlLocationSupplierInstance" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
     <property name="reader" ref="sqlReader" />
     <property name="encoding" ref="encoding" />
   </bean>
 
-  <bean id="sqlMapping" class="org.kuali.common.jdbc.supplier.LocationExtensionMapping">
-    <property name="extension" value="sql" />
+  <bean id="sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
     <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
-    <property name="sourceBean" ref="sqlLocationSupplierSourceBean" />
+    <property name="instance" ref="sqlLocationSupplierInstance" />
   </bean>
 
-  <util:list id="mappings" value-type="org.kuali.common.jdbc.supplier.LocationExtensionMapping">
-    <ref bean="sqlMapping" />
-  </util:list>
+  <util:map id="extensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+    <entry key="sql" value-ref="sqlLocationSourceBean" />
+  </util:map>
 
   <util:list id="schemaLocations">
     <value>classpath:sql/oracle/ole-rice-sql.sql</value>
@@ -52,13 +51,7 @@
 
   <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.SqlSupplierFactoryBean">
     <property name="locations" ref="schemaLocations" />
-    <property name="mappings" ref="mappings" />
-  </bean>
-
-  <bean id="schema2SqlSupplier" class="org.kuali.common.jdbc.supplier.SqlSupplierFactoryBean">
-    <property name="location" value="classpath:sql/oracle/ole-master-sql.sql" />
-    <property name="reader" ref="sqlReader" />
-    <property name="encoding" ref="encoding" />
+    <property name="mappings" ref="extensionMappings" />
   </bean>
 
 </beans>
