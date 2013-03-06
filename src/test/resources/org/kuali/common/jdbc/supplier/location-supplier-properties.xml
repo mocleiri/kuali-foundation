@@ -29,7 +29,7 @@
     <value>classpath:org/kuali/common/jdbc/service.properties</value>
     <value>classpath:org/kuali/common/sql/sql.xml</value>
     <value>classpath:org/kuali/common/sql/mysql.xml</value>
-    <value>classpath:org/kuali/common/jdbc/supplier.properties</value>
+    <value>classpath:org/kuali/common/jdbc/supplier/supplier.properties</value>
   </util:list>
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
