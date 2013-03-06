@@ -58,7 +58,6 @@ public class SqlLocationSupplier extends AbstractSupplier {
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
-
 	}
 
 	public String getLocation() {
