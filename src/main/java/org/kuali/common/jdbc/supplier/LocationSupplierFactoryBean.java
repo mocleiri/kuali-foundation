@@ -28,7 +28,7 @@ public class LocationSupplierFactoryBean implements FactoryBean<List<LocationSup
 			// Extract the extension from the location
 			String extension = FilenameUtils.getExtension(location);
 
-			// The mappings object needs to know the concrete implementation to use for each extension
+			// The map holds the concrete implementation to use for each extension
 			LocationSupplierSourceBean source = mappings.get(extension);
 
 			// Unknown extension type
