@@ -1,0 +1,20 @@
+package org.kuali.common.jdbc;
+
+import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.util.execute.Executable;
+import org.springframework.util.Assert;
+
+public class JdbcServiceExecutable implements Executable {
+
+	JdbcService service;
+	ExecutionContext context;
+
+	@Override
+	public void execute() {
+		Assert.notNull(service, "service is null");
+		Assert.notNull(context, "context is null");
+
+		service.executeSql(context);
+	}
+
+}

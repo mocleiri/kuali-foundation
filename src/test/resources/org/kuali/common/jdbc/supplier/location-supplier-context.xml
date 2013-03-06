@@ -45,8 +45,8 @@
   </util:map>
 
   <util:list id="schemaLocations">
-    <value>classpath:sql/oracle/ole-rice-sql.sql</value>
-    <value>classpath:sql/oracle/ole-master-sql.sql</value>
+    <value>classpath:sql/mysql/ole-rice-sql.sql</value>
+    <value>classpath:sql/mysql/ole-master-sql.sql</value>
   </util:list>
 
   <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSupplierFactoryBean">
