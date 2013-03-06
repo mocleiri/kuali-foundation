@@ -34,6 +34,7 @@
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations" ref="propertyLocations" />
+    <property name="encoding" ref="encoding" />
   </bean>
 
   <context:property-placeholder properties-ref="properties" />
