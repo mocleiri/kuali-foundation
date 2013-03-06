@@ -152,10 +152,10 @@ public class Str {
 	}
 
 	/**
-	 * Replace carriage returns and linefeeds with \r and \n.
+	 * Replace carriage returns and linefeeds with a space
 	 */
 	public static final String flatten(String s) {
-		return flatten(s, "\\r", "\\n");
+		return flatten(s, SPACE, SPACE);
 	}
 
 	/**
