@@ -71,6 +71,8 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Fire an event before beginning SQL execution
 		context.getListener().beforeExecution(new SqlExecutionEvent(context));
+
+		// Execute the SQL as dictated by the context
 		if (sequential) {
 			executeSequentially(context);
 		} else {
