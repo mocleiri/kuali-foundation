@@ -23,6 +23,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
+import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,8 @@ public class TestOracleBigDataImpex {
 	@Resource
 	protected DatabaseResetExecutable resetExec;
 
-	@Resource
-	protected ImpexExecutorService impexExecutorService;
+    @Resource
+    protected JdbcService jdbcService;
 
 	@Resource
 	protected ExecutionContext sqlExecutionContext;
@@ -63,7 +64,7 @@ public class TestOracleBigDataImpex {
 		// List<ImpexContext> contexts = Collections.singletonList(getImpexContext());
 
 		// import the data from the generated mpx files
-		getImpexExecutorService().importData(getImportContext(), getSqlExecutionContext());
+        getJdbcService().executeSql(sqlExecutionContext);
 	}
 
 	public ImportContext getImportContext() {
@@ -72,14 +73,6 @@ public class TestOracleBigDataImpex {
 
 	public void setImportContext(ImportContext importContext) {
 		this.importContext = importContext;
-	}
-
-	public ImpexExecutorService getImpexExecutorService() {
-		return impexExecutorService;
-	}
-
-	public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
-		this.impexExecutorService = impexExecutorService;
 	}
 
 	public DatabaseResetExecutable getResetExec() {
@@ -97,4 +90,12 @@ public class TestOracleBigDataImpex {
 	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
 		this.sqlExecutionContext = sqlExecutionContext;
 	}
+
+    public JdbcService getJdbcService() {
+        return jdbcService;
+    }
+
+    public void setJdbcService(JdbcService jdbcService) {
+        this.jdbcService = jdbcService;
+    }
 }

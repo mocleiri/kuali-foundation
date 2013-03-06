@@ -17,8 +17,12 @@ package org.kuali.common.impex.service;
 
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
+import org.kuali.common.impex.supplier.MpxLocationSupplier;
+import org.kuali.common.impex.supplier.MpxLocationSupplierListFactory;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
+import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.LocationUtils;
 
 import java.io.BufferedReader;
@@ -35,6 +39,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -44,6 +50,30 @@ import static org.junit.Assert.assertTrue;
 public abstract class AbstractTestImpexProcess {
 
     protected static final String LF = "\n";
+
+    @Resource
+    protected ImpexContext impexContext;
+
+    @Resource
+    protected ExecutionContext resetExecutionContext;
+
+    @Resource
+    protected ExecutionContext initialExecutionContext;
+
+    @Resource
+    protected ExecutionContext schemaExecutionContext;
+
+    @Resource
+    protected ExecutionContext mpxExecutionContext;
+
+    @Resource
+    protected ImpexGeneratorService impexService;
+
+    @Resource
+    protected ImportContext importContext;
+
+    @Resource
+    protected JdbcService jdbcService;
 
     protected byte[] getDataBytes(List<DumpTableResult> results) throws IOException {
         StringBuilder dataBuilder = new StringBuilder();
@@ -97,39 +127,51 @@ public abstract class AbstractTestImpexProcess {
         return colMap;
     }
 
-    protected void doTest() throws SQLException, IOException {
-        ImpexUtils.log(getImpexContext());
+    protected void doTest() throws Exception, IOException {
+        ImpexUtils.log(impexContext);
 
         // clear db of data
-        getResetExec().execute();
+        jdbcService.executeSql(resetExecutionContext);
 
-        List<ImpexContext> contexts = Collections.singletonList(getImpexContext());
+        // load the db with data
+        jdbcService.executeSql(initialExecutionContext);
 
-        DatabaseContext database = getImpexService().getDatabaseObjectLists(getImpexContext());
-        getImpexService().fillInMetaData(getImpexContext(), database);
-        getImpexService().serializeSchemas(contexts, database);
+        List<ImpexContext> contexts = Collections.singletonList(impexContext);
+
+        DatabaseContext database = impexService.getDatabaseObjectLists(impexContext);
+        impexService.fillInMetaData(impexContext, database);
+        impexService.serializeSchemas(contexts, database);
         // service.generateDataDtds(contexts);
-        getImpexService().generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
-        List<DumpTableResult> initialLoadResults = getImpexService().dumpTables(getImpexContext(), database);
+        impexService.generateSchemaSql(contexts, Arrays.asList("oracle", "mysql"));
+        List<DumpTableResult> initialLoadResults = impexService.dumpTables(impexContext, database);
 
         byte[] initialBytes = getDataBytes(initialLoadResults);
 
         ImpexUtils.doStats(initialLoadResults);
 
-        // update the database reset context to clean the database of any data
-        Collection<String> cleanPropNames = getCleanDatabaseProperties().stringPropertyNames();
-        for (String name : cleanPropNames) {
-            getResetExec().getContext().getProperties().setProperty(name, getCleanDatabaseProperties().getProperty(name));
-        }
-
         // clear db of data
-        getResetExec().execute();
+        jdbcService.executeSql(resetExecutionContext);
+
+        // load only schema
+        jdbcService.executeSql(schemaExecutionContext);
 
         // import the data from the generated mpx files
-        getImpexExecutorService().importData(getImportContext(), getSqlExecutionContext());
+        // Have to create a supplier factory here because the table meta data does not exist until this point
+        MpxLocationSupplierListFactory supplierFactory = new MpxLocationSupplierListFactory(importContext);
+
+        List<MpxLocationSupplier> factoryList = supplierFactory.getObject();
+
+        List<SqlSupplier> supplierList = new ArrayList<SqlSupplier>(factoryList.size());
+
+        for(MpxLocationSupplier s : factoryList) {
+            supplierList.add(s);
+        }
+
+        mpxExecutionContext.setSuppliers(supplierList);
+        jdbcService.executeSql(mpxExecutionContext);
 
         // dump the tables again to compare the results
-        List<DumpTableResult> secondaryLoadResults = getImpexService().dumpTables(getImpexContext(), database);
+        List<DumpTableResult> secondaryLoadResults = impexService.dumpTables(impexContext, database);
 
         byte[] secondaryBytes = getDataBytes(secondaryLoadResults);
 
@@ -138,17 +180,4 @@ public abstract class AbstractTestImpexProcess {
         assertTrue("Data files are not byte-for-byte equal", Arrays.equals(initialBytes, secondaryBytes));
     }
 
-    public abstract Properties getCleanDatabaseProperties();
-
-    public abstract ImpexContext getImpexContext();
-
-    public abstract ImportContext getImportContext();
-
-    public abstract ImpexExecutorService getImpexExecutorService();
-
-    public abstract ImpexGeneratorService getImpexService();
-
-    public abstract DatabaseResetExecutable getResetExec();
-
-    public abstract ExecutionContext getSqlExecutionContext();
 }

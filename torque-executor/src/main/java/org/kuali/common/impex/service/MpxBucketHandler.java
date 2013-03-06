@@ -36,7 +36,7 @@ public class MpxBucketHandler implements ElementHandler<MpxBucket> {
 
 		List<MpxImportResult> results = mpxBucket.getResults();
 
-		for (MpxMetaData metaData : mpxBucket.getMpxBeans()) {
+		for (MpxExecuteMetaData metaData : mpxBucket.getMpxBeans()) {
 			logger.debug("Importing data location: " + metaData.getLocation());
 			MpxImportResult result = service.importDataLocation(metaData, context, mpxBucket.getExecutionContext());
 			synchronized (results) {

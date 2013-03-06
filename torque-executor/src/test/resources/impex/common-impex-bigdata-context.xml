@@ -168,15 +168,14 @@
         <property name="reader">
             <bean class="org.kuali.common.jdbc.DefaultSqlReader"/>
         </property>
-    </bean>
-
-    <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexGeneratorService"/>
-
-    <bean id="impexExecutorService" class="org.kuali.common.impex.service.DefaultImpexExecutorService">
-        <property name="jdbcService" ref="jdbcService"/>
+        <property name="suppliers" ref="supplierFactory"/>
+        <property name="threads" value=""
     </bean>
 
     <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService"/>
 
+    <bean id="supplierFactory" class="org.kuali.common.impex.supplier.MpxLocationSupplierListFactory">
+        <constructor-arg ref="importContext"/>
+    </bean>
 
 </beans>

@@ -34,18 +34,6 @@
         <prop key="project.build.directory">${project.build.directory}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
         <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
-        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
-        <prop key="sql.data.1">classpath:mpxTests/${db.vendor}/FOO_T.sql</prop>
-        <prop key="sql.data.2">classpath:mpxTests/${db.vendor}/BAZ_T.sql</prop>
-        <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent">sql.data.1, sql.data.2</prop>
-    </util:properties>
-
-    <util:properties id="cleanDatabaseProperties">
-        <prop key="sql.schema.1">classpath:mpxTests/${db.vendor}/test-db-schema.sql</prop>
-        <prop key="sql.data.1"></prop>
-        <prop key="sql.schema.concurrent">sql.schema.1</prop>
-        <prop key="sql.data.concurrent"></prop>
     </util:properties>
 
     <context:property-placeholder properties-ref="mavenProperties" system-properties-mode="NEVER" />
@@ -147,24 +135,14 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="dbaSql" class="java.lang.String">
-        <constructor-arg value="#{commonProperties['sql.validate']} #{commonProperties['sql.drop']} #{commonProperties['sql.create']}" />
-    </bean>
+    <util:list id="resetSqls">
+        <value>#{commonProperties['sql.validate']}</value>
+        <value>#{commonProperties['sql.drop']}</value>
+        <value>#{commonProperties['sql.create']}</value>
+    </util:list>
 
-    <bean id="databaseResetContext" class="org.kuali.common.jdbc.context.DatabaseResetContext">
-        <property name="normalJdbcContext" ref="normalJdbcContext" />
-        <property name="dbaJdbcContext" ref="dbaJdbcContext" />
-        <property name="databaseProcessContext" ref="databaseProcessContext" />
-        <property name="dbaSql" ref="dbaSql" />
-        <property name="properties" ref="commonProperties" />
-        <property name="encoding" value="${kuali.encoding}" />
-    </bean>
-
-    <bean id="databaseService" class="org.kuali.common.jdbc.DefaultDatabaseService" />
-
-    <bean id="databaseResetExecutable" class="org.kuali.common.jdbc.DatabaseResetExecutable">
-        <property name="context" ref="databaseResetContext" />
-        <property name="service" ref="databaseService" />
+    <bean id="dbResetSupplier" class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
+        <property name="strings" ref="resetSqls"/>
     </bean>
 
     <util:properties id="impexContextProperties">
@@ -194,24 +172,56 @@
         <property name="schemaXmlLocation" value="${project.build.directory}/impex/${project.artifactId}.xml"/>
     </bean>
 
-    <bean id="jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource"/>
+    <bean id="resetExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+        <property name="jdbcContext" ref="dbaJdbcContext"/>
+        <property name="suppliers">
+            <list>
+                <ref bean="dbResetSupplier"/>
+            </list>
+        </property>
     </bean>
 
-    <bean id="sqlExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
-        <property name="jdbcContext" ref="jdbcContext"/>
-        <property name="reader">
-            <bean class="org.kuali.common.jdbc.DefaultSqlReader"/>
+    <bean id="initialExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+        <property name="jdbcContext" ref="normalJdbcContext"/>
+        <property name="suppliers" ref="initialSupplierList"/>
+    </bean>
+
+    <bean id="schemaExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+        <property name="jdbcContext" ref="normalJdbcContext"/>
+        <property name="suppliers">
+            <list>
+                <ref bean="schemaSupplier"/>
+            </list>
         </property>
+    </bean>
+
+    <bean id="mpxExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
+        <property name="jdbcContext" ref="normalJdbcContext"/>
     </bean>
 
     <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexGeneratorService"/>
 
-    <bean id="impexExecutorService" class="org.kuali.common.impex.service.DefaultImpexExecutorService">
-        <property name="jdbcService" ref="jdbcService"/>
-    </bean>
-
     <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService"/>
 
+    <bean id="schemaSupplier" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+        <property name="encoding" value="${kuali.encoding}"/>
+        <property name="location" value="classpath:mpxTests/${db.vendor}/test-db-schema.sql"/>
+    </bean>
+
+    <bean id="dataSupplier1" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+        <property name="encoding" value="${kuali.encoding}"/>
+        <property name="location" value="classpath:mpxTests/${db.vendor}/FOO_T.sql"/>
+    </bean>
+
+    <bean id="dataSupplier2" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+        <property name="encoding" value="${kuali.encoding}"/>
+        <property name="location" value="classpath:mpxTests/${db.vendor}/BAZ_T.sql"/>
+    </bean>
+
+    <util:list id="initialSupplierList">
+        <ref bean="schemaSupplier"/>
+        <ref bean="dataSupplier1"/>
+        <ref bean="dataSupplier2"/>
+    </util:list>
 
 </beans>

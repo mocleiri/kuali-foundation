@@ -20,6 +20,6 @@ public interface ImpexExecutorService {
 	 */
 	List<MpxImportResult> importData(ImportContext context, ExecutionContext executionContext) throws IOException;
 
-	MpxImportResult importDataLocation(MpxMetaData metaData, ImportContext context, ExecutionContext executionContext);
+	MpxImportResult importDataLocation(MpxExecuteMetaData metaData, ImportContext context, ExecutionContext executionContext);
 
 }

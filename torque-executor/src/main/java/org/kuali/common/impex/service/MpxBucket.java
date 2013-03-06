@@ -30,7 +30,7 @@ public class MpxBucket implements Comparable<MpxBucket> {
 	ImpexExecutorService service;
 	ProgressListener<MpxBucket> progressListener;
 	List<MpxImportResult> results;
-	List<MpxMetaData> mpxBeans = new ArrayList<MpxMetaData>();
+	List<MpxExecuteMetaData> mpxBeans = new ArrayList<MpxExecuteMetaData>();
 	Long allRowCounts = 0l;
 	ExecutionContext executionContext;
 
@@ -87,11 +87,11 @@ public class MpxBucket implements Comparable<MpxBucket> {
 		this.executionContext = executionContext;
 	}
 
-	public List<MpxMetaData> getMpxBeans() {
+	public List<MpxExecuteMetaData> getMpxBeans() {
 		return mpxBeans;
 	}
 
-	public void setMpxBeans(List<MpxMetaData> mpxBeans) {
+	public void setMpxBeans(List<MpxExecuteMetaData> mpxBeans) {
 		this.mpxBeans = mpxBeans;
 	}
 }

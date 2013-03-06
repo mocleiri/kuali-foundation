@@ -15,41 +15,38 @@
 
 package org.kuali.common.impex.service;
 
+import org.kuali.common.jdbc.SqlMetaData;
+
 /**
  * @author andrewlubbers
  */
-public class MpxMetaData implements Comparable<MpxMetaData> {
+public class MpxExecuteMetaData extends SqlMetaData {
 
-	Integer rowCount;
-	long size;
-	String location;
+    int rowCount;
+    String location;
+    long rawDataSize;
 
-	public String getLocation() {
-		return location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public Integer getRowCount() {
-		return rowCount;
-	}
+    public long getRawDataSize() {
+        return rawDataSize;
+    }
 
-	public void setRowCount(Integer rowCount) {
-		this.rowCount = rowCount;
-	}
+    public void setRawDataSize(long rawDataSize) {
+        this.rawDataSize = rawDataSize;
+    }
 
-	@Override
-	public int compareTo(MpxMetaData o) {
-		return rowCount.compareTo(o.getRowCount());
-	}
+    public int getRowCount() {
+        return rowCount;
+    }
 
-	public long getSize() {
-		return size;
-	}
-
-	public void setSize(long size) {
-		this.size = size;
-	}
+    public void setRowCount(int rowCount) {
+        this.rowCount = rowCount;
+    }
 }

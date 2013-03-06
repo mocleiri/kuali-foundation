@@ -50,34 +50,39 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 	JdbcService jdbcService;
 
-	protected List<SqlMetaData> getSqlMetaData(ImportContext context, SqlProducer producer, List<String> locations) {
+	protected List<MpxExecuteMetaData> getExecuteMetaData(ImportContext context, SqlProducer producer, List<MpxMetaData> mpxMetaDatas) {
 		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
-		List<SqlMetaData> smds = new ArrayList<SqlMetaData>();
-		for (String location : locations) {
-			SqlMetaData smd = getSqlMetaData(producer, location, context.getEncoding(), tables);
-			smds.add(smd);
-		}
-		return smds;
+		List<MpxExecuteMetaData> executeMetas = new ArrayList<MpxExecuteMetaData>();
+
+        // build a map of locations to tables
+        for(MpxMetaData mpxMeta: mpxMetaDatas) {
+            Table table = getTableDefinition(context, mpxMeta.getLocation());
+
+            MpxExecuteMetaData executeMeta = getExecuteMetaData(producer, mpxMeta, context.getEncoding(), table);
+            executeMetas.add(executeMeta);
+        }
+
+		return executeMetas;
 	}
 
-	protected SqlMetaData getSqlMetaData(SqlProducer producer, String location, String encoding, List<Table> tables) {
-		String filename = LocationUtils.getFilename(location);
-		String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
-		Table table = getTableDefinition(tableName, tables);
+	protected MpxExecuteMetaData getExecuteMetaData(SqlProducer producer, MpxMetaData metaData, String encoding, Table table) {
 		BufferedReader in = null;
 		long count = 0;
 		long size = 0;
 		try {
-			in = LocationUtils.getBufferedReader(location, encoding);
+			in = LocationUtils.getBufferedReader(metaData.getLocation(), encoding);
 			String sql = producer.getSql(table, in);
 			while (sql != null) {
 				count++;
 				size += sql.length();
 				sql = producer.getSql(table, in);
 			}
-			SqlMetaData smd = new SqlMetaData();
+			MpxExecuteMetaData smd = new MpxExecuteMetaData();
 			smd.setCount(count);
 			smd.setSize(size);
+            smd.setRawDataSize(metaData.getSize());
+            smd.setLocation(metaData.getLocation());
+            smd.setRowCount(metaData.getRowCount());
 			return smd;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
@@ -91,21 +96,20 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		Assert.notNull(jdbcService, "jdbcService is null");
 
 		logger.info("Impex Executor data import started");
-		List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
-		List<MpxMetaData> metaData = MpxParser.getMpxMetaDatas(mpxLocations);
+		List<MpxMetaData> metaDatas = MpxParser.getMpxMetaDatas(LocationUtils.getLocations(context.getDataLocations()));
 
 		SqlProducer sqlProducer = getSqlProducer(context);
-		List<SqlMetaData> smds = getSqlMetaData(context, sqlProducer, mpxLocations);
+		List<MpxExecuteMetaData> executeMetaDatas = getExecuteMetaData(context, sqlProducer, metaDatas);
 
-		logContext(context, sqlExecutionContext, mpxLocations, metaData, smds);
+		logContext(context, sqlExecutionContext, executeMetaDatas);
 
 		// Print a dot any time we complete 1% of our requests
-		long rows = getTotalRowCount(metaData);
+		long rows = getTotalRowCount(executeMetaDatas);
 		MpxBucketProgressListener progressListener = new MpxBucketProgressListener();
 		progressListener.setTotal(rows);
 
 		List<MpxImportResult> importResults = new ArrayList<MpxImportResult>();
-		List<MpxBucket> mpxBuckets = getMpxBuckets(context, sqlExecutionContext, importResults, progressListener, metaData);
+		List<MpxBucket> mpxBuckets = getMpxBuckets(context, sqlExecutionContext, importResults, progressListener, executeMetaDatas);
 
 		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = ImpexUtils.invokeThreads(mpxBuckets, new MpxBucketHandler());
@@ -119,17 +123,15 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	}
 
 	@Override
-	public MpxImportResult importDataLocation(MpxMetaData metaData, ImportContext context, ExecutionContext sqlExecutionContext) {
-		List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
-		String filename = LocationUtils.getFilename(metaData.getLocation());
-		logger.debug("Importing " + filename);
-		String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
-		Table table = getTableDefinition(tableName, tables);
+	public MpxImportResult importDataLocation(MpxExecuteMetaData metaData, ImportContext context, ExecutionContext sqlExecutionContext) {
+        String location = metaData.getLocation();
+        logger.debug("Importing " + LocationUtils.getFilename(location));
+        Table table = getTableDefinition(context, location);
 
-		SqlProducer sqlProducer = getSqlProducer(context);
+        SqlProducer sqlProducer = getSqlProducer(context);
 
-		return executeSql(context, sqlProducer, table, metaData, sqlExecutionContext);
-	}
+        return executeSql(context, sqlProducer, table, metaData, sqlExecutionContext);
+    }
 
 	private SqlProducer getSqlProducer(ImportContext context) {
 		Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
@@ -141,7 +143,11 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return sqlProducer;
 	}
 
-	protected Table getTableDefinition(String tableName, List<Table> tables) {
+	protected Table getTableDefinition(ImportContext context, String location) {
+        List<Table> tables = getTables(context.getDatabaseVendor(), context.getSchemaXmlLocation());
+        String filename = LocationUtils.getFilename(location);
+        String tableName = StringUtils.substring(filename, 0, StringUtils.indexOf(filename, "."));
+
 		for (Table table : tables) {
 			if (StringUtils.equalsIgnoreCase(tableName, table.getName())) {
 				return table;
@@ -150,16 +156,16 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		throw new IllegalArgumentException("Cannot locate table definition for [" + tableName + "]");
 	}
 
-	protected long getTotalRowCount(List<MpxMetaData> metaDatas) {
+	protected long getTotalRowCount(List<MpxExecuteMetaData> metaDatas) {
 		long rows = 0;
-		for (MpxMetaData md : metaDatas) {
+		for (MpxExecuteMetaData md : metaDatas) {
 			rows += md.getRowCount();
 		}
 		return rows;
 	}
 
 	protected List<MpxBucket> getMpxBuckets(ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results, MpxBucketProgressListener progressListener,
-			List<MpxMetaData> metaDatas) throws IOException {
+			List<MpxExecuteMetaData> metaDatas) throws IOException {
 
 		// number of buckets equals thread count, unless thread count > total number of locations
 		int bucketCount = Math.min(context.getMaxThreadCount(), metaDatas.size());
@@ -178,7 +184,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 
 		// Distribute the metadata into buckets as evenly as possible
 		// "Evenly" in this case means each bucket should contain as close to the same number of rows as possible
-		for (MpxMetaData metaData : metaDatas) {
+		for (MpxExecuteMetaData metaData : metaDatas) {
 			// Sort the buckets so that the bucket holding the fewest rows is at the top
 			Collections.sort(buckets);
 			// First bucket in the list is the smallest
@@ -202,7 +208,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return buckets;
 	}
 
-	protected MpxImportResult executeSql(ImportContext context, SqlProducer sqlProducer, Table table, MpxMetaData metaData, ExecutionContext sqlExecutionContext) {
+	protected MpxImportResult executeSql(ImportContext context, SqlProducer sqlProducer, Table table, MpxExecuteMetaData metaData, ExecutionContext sqlExecutionContext) {
 		String location = metaData.getLocation();
 
 		BufferedReader reader = null;
@@ -226,7 +232,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 			}
 
 			// execute the sql as a batch
-			sqlExecutionContext.setSql(sqlStrings);
+			//sqlExecutionContext.setSql(sqlStrings);
 			jdbcService.executeSql(sqlExecutionContext);
 
 		} catch (IOException e) {
@@ -265,18 +271,16 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-	protected void logContext(ImportContext context, ExecutionContext ec, List<String> locations, List<MpxMetaData> metaData, List<SqlMetaData> smds) {
+	protected void logContext(ImportContext context, ExecutionContext ec, List<MpxExecuteMetaData> metaData) {
 		long rows = 0;
 		long size = 0;
-		for (MpxMetaData mmd : metaData) {
+        long sqlCount = 0;
+        long sqlSize = 0;
+		for (MpxExecuteMetaData mmd : metaData) {
 			rows += mmd.getRowCount();
 			size += mmd.getSize();
-		}
-		long sqlCount = 0;
-		long sqlSize = 0;
-		for (SqlMetaData smd : smds) {
-			sqlCount += smd.getCount();
-			sqlSize += smd.getSize();
+            sqlCount += mmd.getCount();
+            sqlSize += mmd.getSize();
 		}
 		logger.info("---------------------------------------------------------------");
 		logger.info("Import Context Properties");
@@ -294,15 +298,15 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("URL - {}", dmds.getUrl());
 		logger.info("Username - {}", dmds.getUsername());
 		logger.info("Password - {}", dmds.getPassword());
-		String locs = FormatUtils.getCount(locations.size());
-		String count = FormatUtils.getCount(rows);
+		String dataLocationCount = FormatUtils.getCount(metaData.size());
+		String rowCount = FormatUtils.getCount(rows);
 		String length = FormatUtils.getSize(size);
-		Object[] args = { count, locs, length };
+		Object[] args = { rowCount, dataLocationCount, length };
 		logger.info("[Row Count: {}  Sources: {}  Size: {}]", args);
 
 		String scount = FormatUtils.getCount(sqlCount);
 		String slength = FormatUtils.getSize(sqlSize);
-		Object[] args2 = { scount, locs, slength };
+		Object[] args2 = { scount, dataLocationCount, slength };
 		logger.info("[SQL Count: {}  Sources: {}  Size: {}]", args2);
 	}
 }

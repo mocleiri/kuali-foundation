@@ -23,6 +23,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
+import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.ExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,27 +42,6 @@ public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 
 	private static final Logger logger = LoggerFactory.getLogger(TestOracleImpexProcess.class);
 
-	@Resource
-	protected ImpexContext impexContext;
-
-	@Resource
-	protected DatabaseResetExecutable resetExec;
-
-	@Resource
-	protected Properties cleanDatabaseProperties;
-
-	@Resource
-	protected ImpexExecutorService impexExecutorService;
-
-	@Resource
-	protected ImpexGeneratorService impexService;
-
-	@Resource
-	protected ExecutionContext sqlExecutionContext;
-
-    @Resource
-    protected ImportContext importContext;
-
 	@Test
 	public void test() throws Exception {
 		logger.info("Starting database dump");
@@ -69,66 +49,4 @@ public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 		doTest();
 	}
 
-	@Override
-    public Properties getCleanDatabaseProperties() {
-		return cleanDatabaseProperties;
-	}
-
-	public void setCleanDatabaseProperties(Properties cleanDatabaseProperties) {
-		this.cleanDatabaseProperties = cleanDatabaseProperties;
-	}
-
-	@Override
-    public ImpexContext getImpexContext() {
-		return impexContext;
-	}
-
-	public void setImpexContext(ImpexContext impexContext) {
-		this.impexContext = impexContext;
-	}
-
-	@Override
-    public ImpexExecutorService getImpexExecutorService() {
-		return impexExecutorService;
-	}
-
-	public void setImpexExecutorService(ImpexExecutorService impexExecutorService) {
-		this.impexExecutorService = impexExecutorService;
-	}
-
-	@Override
-    public ImpexGeneratorService getImpexService() {
-		return impexService;
-	}
-
-	public void setImpexService(ImpexGeneratorService impexService) {
-		this.impexService = impexService;
-	}
-
-	@Override
-    public DatabaseResetExecutable getResetExec() {
-		return resetExec;
-	}
-
-	public void setResetExec(DatabaseResetExecutable resetExec) {
-		this.resetExec = resetExec;
-	}
-
-	@Override
-    public ExecutionContext getSqlExecutionContext() {
-		return sqlExecutionContext;
-	}
-
-	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
-		this.sqlExecutionContext = sqlExecutionContext;
-	}
-
-    @Override
-    public ImportContext getImportContext() {
-        return importContext;
-    }
-
-    public void setImportContext(ImportContext importContext) {
-        this.importContext = importContext;
-    }
 }

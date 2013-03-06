@@ -80,33 +80,37 @@ public class MpxParser {
 		List<MpxMetaData> results = new ArrayList<MpxMetaData>(locations.size());
 
 		for (String location : locations) {
-			MpxMetaData metaData = new MpxMetaData();
-			metaData.setLocation(location);
-
-			BufferedReader reader = LocationUtils.getBufferedReader(location);
-			String line = reader.readLine();
-
-			// skip the first header line to get an accurate row count
-			if (ImpexUtils.isHeaderLine(line)) {
-				line = reader.readLine();
-			}
-
-			int rowCount = 0;
-			long size = 0;
-			do {
-				rowCount++;
-				if (line != null) {
-					size += line.length();
-				}
-				line = reader.readLine();
-			} while (line != null);
-
-			metaData.setRowCount(rowCount);
-			metaData.setSize(size);
-
-			results.add(metaData);
+			results.add(getMpxMetaData(location));
 		}
 
 		return results;
 	}
+
+    public static MpxMetaData getMpxMetaData(String location) throws IOException {
+        MpxMetaData metaData = new MpxMetaData();
+        metaData.setLocation(location);
+
+        BufferedReader reader = LocationUtils.getBufferedReader(location);
+        String line = reader.readLine();
+
+        // skip the first header line to get an accurate row count
+        if (ImpexUtils.isHeaderLine(line)) {
+            line = reader.readLine();
+        }
+
+        int rowCount = 0;
+        long size = 0;
+        do {
+            rowCount++;
+            if (line != null) {
+                size += line.length();
+            }
+            line = reader.readLine();
+        } while (line != null);
+
+        metaData.setRowCount(rowCount);
+        metaData.setSize(size);
+
+        return metaData;
+    }
 }
