@@ -94,14 +94,14 @@ public class ComplexStringSupplier extends AbstractSupplier {
 		long count = 0;
 		long size = 0;
 		for (String string : strings) {
-			SqlMetaData smd = getSqlMetaData(string);
+			SqlMetaData smd = getMetaData(string);
 			count += smd.getCount();
 			size += smd.getSize();
 		}
 		this.metaData = new SqlMetaData(count, size);
 	}
 
-	protected SqlMetaData getSqlMetaData(String sql) {
+	protected SqlMetaData getMetaData(String sql) {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReaderFromString(sql);
