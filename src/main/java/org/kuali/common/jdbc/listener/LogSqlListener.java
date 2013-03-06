@@ -29,6 +29,7 @@ public class LogSqlListener implements SqlListener {
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
 	LoggerLevel level = LoggerLevel.INFO;
 	boolean flatten = true;
+	LogSqlMode mode = LogSqlMode.AFTER;
 
 	@Override
 	public void beforeMetaData(JdbcContext context) {
@@ -44,16 +45,35 @@ public class LogSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecuteSql(SqlEvent event) {
+		switch (mode) {
+		case BEFORE:
+		case BOTH:
+			String sql = getSql(event.getSql(), flatten);
+			LoggerUtils.logMsg(sql, logger, level);
+			return;
+		case AFTER:
+		default:
+			throw new IllegalArgumentException("Mode [" + mode + "] is unknown");
+		}
 	}
 
 	@Override
 	public void afterExecuteSql(SqlEvent event) {
-		String sql = getSql(event.getSql(), flatten);
-		long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
-		String elapsed = StringUtils.leftPad(FormatUtils.getTime(millis), 8, " ");
-		Object[] args = { elapsed, sql };
-		String msg = "Elapsed: {} {}";
-		LoggerUtils.logMsg(msg, args, logger, level);
+		switch (mode) {
+		case BEFORE:
+			return;
+		case BOTH:
+		case AFTER:
+			String sql = getSql(event.getSql(), flatten);
+			long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
+			String elapsed = StringUtils.leftPad(FormatUtils.getTime(millis), 8, " ");
+			Object[] args = { elapsed, sql };
+			String msg = "Elapsed: {} {}";
+			LoggerUtils.logMsg(msg, args, logger, level);
+			return;
+		default:
+			throw new IllegalArgumentException("Mode [" + mode + "] is unknown");
+		}
 	}
 
 	protected String getSql(String sql, boolean flatten) {
@@ -82,6 +102,14 @@ public class LogSqlListener implements SqlListener {
 
 	public void setFlatten(boolean flatten) {
 		this.flatten = flatten;
+	}
+
+	public LogSqlMode getMode() {
+		return mode;
+	}
+
+	public void setMode(LogSqlMode mode) {
+		this.mode = mode;
 	}
 
 }
