@@ -105,7 +105,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		long start = System.currentTimeMillis();
 		service.executeSql(dba);
 		for (ExecutionContext ec : contexts) {
-			ec.setJdbcContext(context.getNormalJdbcContext());
+			// ec.setJdbcContext(context.getNormalJdbcContext());
 			ec.setExecute(context.isExecuteSql());
 			service.executeSql(ec);
 		}
@@ -122,7 +122,7 @@ public class DefaultDatabaseService implements DatabaseService {
 		List<SqlSupplier> suppliers = Arrays.asList(supplier);
 		ExecutionContext ec = new ExecutionContext();
 		ec.setMessage("Executing DBA SQL");
-		ec.setJdbcContext(context.getDbaJdbcContext());
+		// ec.setJdbcContext(context.getDbaJdbcContext());
 		ec.setSuppliers(suppliers);
 		ec.setListener(getDbaListener());
 		return ec;

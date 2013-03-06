@@ -135,7 +135,7 @@ public class DefaultJdbcServiceTest {
 
 		ExecutionContext ec = new ExecutionContext();
 		ec.setMessage("Executing DBA SQL");
-		ec.setJdbcContext(jdbcDba);
+		// ec.setJdbcContext(jdbcDba);
 		ec.setListener(getDbaListener());
 		ec.setSuppliers(Arrays.asList(supplier));
 		return ec;
@@ -320,7 +320,7 @@ public class DefaultJdbcServiceTest {
 				if (skip) {
 					context.setExecute(false);
 				}
-				context.setJdbcContext(jdbcContext);
+				// context.setJdbcContext(jdbcContext);
 				context.setListener(getDefaultListener());
 				service.executeSql(context);
 			}
