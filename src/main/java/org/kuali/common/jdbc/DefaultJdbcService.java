@@ -27,6 +27,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
 import org.kuali.common.jdbc.listener.SqlEvent;
@@ -52,22 +53,31 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(JdbcContext context) {
-		if (context.getMessage() != null) {
+		// Log a message if appropriate
+		if (!StringUtils.isBlank(context.getMessage())) {
 			logger.info(context.getMessage());
 		}
+
+		// Fire an event before we begin calculating metadata
+		context.getListener().beforeMetaData(context);
 
 		// Fill in SQL metadata
 		for (SqlSupplier supplier : context.getSuppliers()) {
 			supplier.fillInMetaData();
 		}
 
-		context.getListener().beforeMetaData(context);
+		// No point in using multiple threads if either of these is less than 2
+		boolean sequential = context.getThreads() < 2 || context.getSuppliers().size() < 2;
+
+		// Fire an event before beginning SQL execution
 		context.getListener().beforeExecution(new SqlExecutionEvent(context));
-		if (context.getThreads() < 2 || context.getSuppliers().size() < 2) {
+		if (sequential) {
 			executeSequentially(context);
 		} else {
 			executeMultiThreaded(context);
 		}
+
+		// Fire an event now that SQL execution is complete
 		context.getListener().afterExecution(new SqlExecutionEvent(context));
 	}
 
