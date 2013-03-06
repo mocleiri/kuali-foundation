@@ -1,15 +1,15 @@
 package org.kuali.common.jdbc.supplier;
 
-public class SqlSupplierSourceBean {
+public class LocationSupplierSourceBean {
 
-	Class<? extends SqlSupplier> supplierClass;
+	Class<? extends LocationSupplier> supplierClass;
 	Object instance;
 
-	public Class<? extends SqlSupplier> getSupplierClass() {
+	public Class<? extends LocationSupplier> getSupplierClass() {
 		return supplierClass;
 	}
 
-	public void setSupplierClass(Class<? extends SqlSupplier> supplierClass) {
+	public void setSupplierClass(Class<? extends LocationSupplier> supplierClass) {
 		this.supplierClass = supplierClass;
 	}
 

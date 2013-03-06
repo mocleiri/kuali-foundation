@@ -9,24 +9,24 @@ import org.kuali.common.util.Assert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
 
-public class SqlSupplierFactoryBean implements FactoryBean<List<SqlSupplier>> {
+public class LocationSupplierFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
 	List<String> locations;
-	Map<String, SqlSupplierSourceBean> mappings;
+	Map<String, LocationSupplierSourceBean> mappings;
 
 	@Override
-	public List<SqlSupplier> getObject() throws Exception {
+	public List<LocationSupplier> getObject() throws Exception {
 		Assert.notNull(locations, "locations is null");
 		Assert.notNull(mappings, "mappings is null");
-		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		List<LocationSupplier> suppliers = new ArrayList<LocationSupplier>();
 		for (String location : locations) {
 			String extension = FilenameUtils.getExtension(location);
-			SqlSupplierSourceBean source = mappings.get(extension);
+			LocationSupplierSourceBean source = mappings.get(extension);
 			if (source == null) {
 				throw new IllegalArgumentException("Unknown extension [" + extension + "]");
 			}
-			Class<? extends SqlSupplier> supplierClass = source.getSupplierClass();
-			SqlSupplier instance = supplierClass.newInstance();
+			Class<? extends LocationSupplier> supplierClass = source.getSupplierClass();
+			LocationSupplier instance = supplierClass.newInstance();
 			if (source.getInstance() != null) {
 				BeanUtils.copyProperties(source.getInstance(), instance);
 			}
