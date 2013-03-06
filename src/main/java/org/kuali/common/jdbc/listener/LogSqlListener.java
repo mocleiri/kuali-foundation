@@ -50,8 +50,8 @@ public class LogSqlListener implements SqlListener {
 	public void afterExecuteSql(SqlEvent event) {
 		String sql = getSql(event.getSql(), flatten);
 		long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
-		String time = StringUtils.leftPad(FormatUtils.getTime(millis), 8, " ");
-		Object[] args = { time, sql };
+		String elapsed = StringUtils.leftPad(FormatUtils.getTime(millis), 8, " ");
+		Object[] args = { elapsed, sql };
 		String msg = "Elapsed: {} {}";
 		LoggerUtils.logMsg(msg, args, logger, level);
 	}
