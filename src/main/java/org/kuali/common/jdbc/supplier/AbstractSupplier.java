@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.supplier;
 
 import org.kuali.common.jdbc.SqlMetaData;
 
-public abstract class AbstractSupplier implements SqlSupplier, Comparable<SqlSupplier> {
+public abstract class AbstractSupplier implements SqlSupplier {
 
 	protected SqlMetaData metaData;
 
