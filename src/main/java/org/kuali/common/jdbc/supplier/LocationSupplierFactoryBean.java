@@ -66,4 +66,20 @@ public class LocationSupplierFactoryBean implements FactoryBean<List<LocationSup
 		return false;
 	}
 
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
+	}
+
+	public Map<String, LocationSupplierSourceBean> getMappings() {
+		return mappings;
+	}
+
+	public void setMappings(Map<String, LocationSupplierSourceBean> mappings) {
+		this.mappings = mappings;
+	}
+
 }
