@@ -358,10 +358,10 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
             
-            <input type="button" id="c_categoriesstuff" value="Catagories" />
-            <input type="button" id="c_personnelstuff" value="Personnel" />
-            <input type="button" id="c_locationstuff" value="Location" />
-            <input type="button" id="c_summarystuff" value="Summary" />
+            <img id="c_categoriesstuff" src="../images/tinybutton-a2categories.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="categories" title="Categories" />
+            <img id="c_personnelstuff" src="../images/tinybutton-a1personnel.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="personnel" title="Personnel" />
+            <img id="c_locationstuff" src="../images/tinybutton-a1location.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="location" title="Location" />
+            <img id="c_summarystuff" src="../images/tinybutton-a1summary.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="summary" title="Summary" />
             <script type="text/javascript">
 				$(document).ready(function(){
 					$("#c_categoriesstuff").click(
@@ -369,6 +369,10 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#categoriesstuff").slideDown(400);
+							$("#c_categoriesstuff").attr("src","../images/tinybutton-a2categories.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybutton-a1personnel.gif");
+							$("#c_locationstuff").attr("src","../images/tinybutton-a1location.gif");
+							$("#c_summarystuff").attr("src","../images/tinybutton-a1summary.gif");
 						}
 					);
 					$("#c_personnelstuff").click(
@@ -376,6 +380,10 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#personnelstuff").slideDown(400);
+							$("#c_categoriesstuff").attr("src","../images/tinybutton-a1categories.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybutton-a2personnel.gif");
+							$("#c_locationstuff").attr("src","../images/tinybutton-a1location.gif");
+							$("#c_summarystuff").attr("src","../images/tinybutton-a1summary.gif");
 						}
 					);
 					$("#c_locationstuff").click(
@@ -383,6 +391,10 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#locationstuff").slideDown(400);
+							$("#c_categoriesstuff").attr("src","../images/tinybutton-a1categories.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybutton-a1personnel.gif");
+							$("#c_locationstuff").attr("src","../images/tinybutton-a2location.gif");
+							$("#c_summarystuff").attr("src","../images/tinybutton-a1summary.gif");
 						}
 					);
 					$("#c_summarystuff").click(
@@ -390,6 +402,10 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#summarystuff").slideDown(400);
+							$("#c_categoriesstuff").attr("src","../images/tinybutton-a1categories.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybutton-a1personnel.gif");
+							$("#c_locationstuff").attr("src","../images/tinybutton-a1location.gif");
+							$("#c_summarystuff").attr("src","../images/tinybutton-a2summary.gif");
 						}
 					);	
 				});
@@ -537,9 +553,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -565,16 +578,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -612,9 +615,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -640,16 +640,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -687,9 +677,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -717,16 +704,6 @@
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
                                     </select>
                                 </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
-                                    </select>
-                                </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
                                      
                                 </td>
@@ -746,10 +723,6 @@
                                     Group 2 : Flying Frogs
                                 </td>
                                 <td class="content_white" style="text-align:left;">
-                                    Inez Chew<br />
-                                    Frank Enstine
-                                </td>
-                                <td class="content_white" style="text-align:left;">
                                     A
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -760,7 +733,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
                                         
                                     <!-- Surgical Procedures -->
                                     <table class="elementhead_table" style="margin-top:5px;">
@@ -881,9 +854,6 @@
                                     Group 1 : Flying Salamanders
                                 </td>
                                 <td class="content_white" style="text-align:left;">
-                                    Inez Chew
-                                </td>
-                                <td class="content_white" style="text-align:left;">
                                     A
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -894,7 +864,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
                                     
                                    <!-- Surgical Procedures -->
                                     <table class="elementhead_table" style="margin-top:5px;">
@@ -1034,9 +1004,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1062,16 +1029,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1109,9 +1066,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1137,16 +1091,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1184,9 +1128,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1212,16 +1153,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1259,9 +1190,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1287,16 +1215,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1334,9 +1252,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1362,16 +1277,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1409,9 +1314,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1439,16 +1341,6 @@
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
                                     </select>
                                 </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
-                                    </select>
-                                </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
                                      
                                 </td>
@@ -1461,7 +1353,6 @@
                             </tr>
                         </table>
                     </div>
-                
                 	               
                 	<!-- Anesthesia/Analgesia Species -->
                     <table class="elementhead_table CustomData10" style="display:none;">
@@ -1485,9 +1376,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1513,16 +1401,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1560,9 +1438,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1588,16 +1463,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1635,9 +1500,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1663,16 +1525,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1710,9 +1562,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1738,16 +1587,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -1785,9 +1624,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1815,16 +1651,6 @@
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
                                     </select>
                                 </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
-                                    </select>
-                                </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
                                      
                                 </td>
@@ -1843,9 +1669,6 @@
                                     Group 1 : Flying Frogs
                                 </td>
                                 <td class="content_white" style="text-align:left;">
-                                    Joseph Abrahamson
-                                </td>
-                                <td class="content_white" style="text-align:left;">
                                     A
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -1856,7 +1679,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
                                 
                                      <!-- Non-surgical Procedures -->
                                     <table class="elementhead_table" style="margin-top:5px;">
@@ -1937,9 +1760,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -1965,16 +1785,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2012,9 +1822,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2040,16 +1847,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2087,9 +1884,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2115,16 +1909,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2162,9 +1946,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2190,16 +1971,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2237,9 +2008,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2265,16 +2033,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2312,9 +2070,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2340,16 +2095,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2389,9 +2134,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2417,16 +2159,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2464,9 +2196,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2492,16 +2221,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2539,9 +2258,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2567,16 +2283,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2616,9 +2322,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2644,16 +2347,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2691,9 +2384,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2721,16 +2411,6 @@
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
                                     </select>
                                 </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
-                                    </select>
-                                </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
                                      
                                 </td>
@@ -2749,9 +2429,6 @@
                                     Group 2 : Flying Salamanders
                                 </td>
                                 <td class="content_white" style="text-align:left;">
-                                    Inez Chew
-                                </td>
-                                <td class="content_white" style="text-align:left;">
                                     D
                                 </td>
                                 <td class="content_white" style="text-align:left;">
@@ -2762,7 +2439,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="content_white" style="text-align:left; padding:5px;" colspan="4">
+                                <td class="content_white" style="text-align:left; padding:5px;" colspan="3">
                                     
                                      <!-- Drugs -->
                                     <table class="elementhead_table" style="margin-top:5px;">
@@ -2852,9 +2529,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2880,16 +2554,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -2929,9 +2593,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -2957,16 +2618,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -3004,9 +2655,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -3032,16 +2680,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -3079,9 +2717,6 @@
                                     Groups : Species
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
-                                    Person(s) Responsible
-                                </td>
-                                <td class="content_grey" style="text-align:center;">
                                     Pain Category
                                 </td>
                                 <td class="content_grey" style="text-align:center;">
@@ -3107,16 +2742,6 @@
                                         <option value="7">Group 1 : Tiny Flying Frogs</option>
                                         <option value="8">Group 2 : Tiny Flying Frogs</option>
                                         <option value="9">Group 3 : Tiny Flying Frogs</option>
-                                    </select>
-                                </td>
-                                <td class="content_gradient" style="text-align:left;">
-                                    <select multiple="multiple" style="width:100%;">
-                                        <option selected="selected">select</option>
-                                        <option>Joseph Abrahamson</option>
-                                        <option>Inez Chew</option>
-                                        <option>Frank Enstine</option>
-                                        <option>Emory Eagle</option>
-                                        <option>Bart Niedner</option>
                                     </select>
                                 </td>
                                 <td class="content_gradient" style="text-align:left;">&nbsp;
@@ -3167,10 +2792,13 @@
                 <div id="d_personnel01" style="display:block;" >
                 	<table class="content_table">  
                     	<tr>
-                            <td class="content_grey" style="text-align:center;">
+                            <td class="content_grey" style="text-align:center; width:175px;">
                             	Name
                             </td>
-                            <td class="content_grey" style="text-align:center; width:310px;">
+                            <td class="content_grey" style="text-align:center;">
+                            	Qualifications
+                            </td>
+                            <td class="content_grey" style="text-align:center; width:215px;">
                             	Action
                             </td>
                         </tr> 
@@ -3179,16 +2807,96 @@
                             	Derby, Emily
                             </td>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
-                            	<input type="button" value="Training Details" onclick="alert('Please let Bart know what this link shoud do.');" />
-                                <!--<a id="FB_control_editspecies01" href="#FB_div_editspecies01" title="Edit Tiny Flying Frogs"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>-->
-								<input id="c_fb01" href="#d_fb01" title="Assigned Proceedures" type="button" value="View Assigned Proceedures" />
+                            	Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. 
+                                Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. 
+                                Talented in problem solving and office system design.
+                            </td>
+                            <td class="content_white" style="vertical-align:top; padding:8px;">
+                            	<!--<input type="button" value="Training Details" onclick="alert('Please let Bart know what this link shoud do.');" />
+                                <a id="FB_control_editspecies01" href="#FB_div_editspecies01" title="Edit Tiny Flying Frogs"><img id="edit03" src="../images/tinybutton-edit1.gif" style="border:none; cursor:pointer;" alt="edit" title="Edit" type="image" /></a>
+								<input id="c_fb01" href="#d_fb01" title="Assigned Proceedures" type="button" value="View Assigned Proceedures" />-->
+								
+								<img src="../images/tinybutton-trainingdetails.gif" style="height:15px; width:86px; cursor:pointer; border:none;" alt="training details" title="Training Details" />
+                                <img id="c_fb01" href="#d_fb01"  value="Assigned Proceedures" src="../images/tinybutton-assignproceedures.gif" style="height:15px; width:100px; cursor:pointer; border:none;" alt="viewassignedproceedures" title="View Assigned Proceedures" />
 								<script type="text/javascript">
 									$(document).ready(function() {
 										$("#c_fb01").fancybox();
 									});
 								</script>
                                 <div style="display: none;">
-                                    <div id="d_fb01" style="overflow:auto;"><img src="./screens/assigned.jpg" alt="screen" style="width:400px; height:469px; padding:10px;" /></div>
+                                    <div id="d_fb01" style="overflow:auto;">
+                                    	<table class="content_table">  
+                                            <tr>
+                                                <th class="content_grey" style="text-align:center; background-color:#666; color:#FFF;" colspan="2">
+                                                   Procedures Conducted by: Derby, Emily
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Group: <input type="text" style="width:30px;" value="A" />
+                                                </td>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Species: <input type="text" style="width:300px;" value="Amphibian-Frog" />
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
+                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Anesthesia<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Physical Method<br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Aversive Stmuli <span id="" style="display:block; float:right;"><span class="fineprint">Qualifications: </span><input type="text" style="width:200px;" value="Works well under pressure as part of a team." /></span><br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Blood Sampling <span id="" style="display:block; float:right;"><span class="fineprint">Qualifications: </span><input type="text" style="width:200px;" value="Retractable, one-foot long Adamantium claws." /></span><br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Chemical Restraint<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Non-survival
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Group: <input type="text" style="width:30px;" value="B" />
+                                                </td>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Species: <input type="text" style="width:300px;" value="Bird - Chicken For Agricultural Research" />
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
+                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked"  /> Anesthesia <span id="" style="display:block; float:right;"><span class="fineprint">Qualifications: </span><input type="text" style="width:200px;" value="Beer pong champion of the world." /></span><br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Physical Method
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Group: <input type="text" style="width:30px;" value="C" />
+                                                </td>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Species: <input type="text" style="width:300px;" value="Bird - Finch" />
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
+                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Food/water restriction (not prior to surgery)<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Aversive Stmuli<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Antibody Production
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Group: <input type="text" style="width:30px;" value="D" />
+                                                </td>
+                                                <td class="content_grey" style="text-align:left;">
+                                                    Species: <input type="text" style="width:300px;" value="Amphibian-Frog" />
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
+                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Non-survival
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </td>
                         </tr>  
@@ -3197,8 +2905,12 @@
                             	Szulc, Katarzyna
                             </td>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
-                            	<input type="button" value="Training Details" onclick="alert('Please let Bart know what this link shoud do.');" />
-                                <input type="button" value="View Assigned Proceedures" />
+                            	Worked both as a crew member and independently. Get along well with employers and coworkers. Experienced in customer relations. 
+                                Self-motivated; able to learn on own initiative. Excellent record of dependability and reliability.  Retractable, one-foot long Adamantium claws. Versatile and multi-skilled person.
+                            </td>
+                            <td class="content_white" style="vertical-align:top; padding:8px;">
+                            	<img src="../images/tinybutton-trainingdetails.gif" style="height:15px; width:86px; cursor:pointer; border:none;" alt="training details" title="Training Details" />
+                                <img src="../images/tinybutton-assignproceedures.gif" style="height:15px; width:100px; cursor:pointer; border:none;" alt="assign proceedures" title="Assign Proceedures" />
                             </td>
                         </tr>
                     </table>
@@ -3253,12 +2965,12 @@
                             <td class="content_grey" style="vertical-align:top; padding:8px; text-align:center;">
                             	Description
                             </td>
-                            <td class="content_grey" style="vertical-align:top; padding:8px; text-align:center; width:230px;">
+                            <td class="content_grey" style="vertical-align:top; padding:8px; text-align:center; width:160px;">
                             	Action
                             </td>
                         </tr>
                         <tr>
-                            <td class="content_info" style="vertical-align:top; padding:8px;">
+                            <td class="content_grey" style="vertical-align:top; padding:8px;">
                             	
                             </td>
                             <td class="content_info" style="vertical-align:top; padding:8px;">
@@ -3328,8 +3040,8 @@
                                 
                             </td>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
-                            	<input id="c_fb03" href="#d_fb03" title="Assigned Proceedures" type="button" value="View Assigned Proceedures" />
-								<script type="text/javascript">
+                            	<img id="c_fb03" href="#d_fb03" src="../images/tinybutton-assignproceedures.gif" style="height:15px; width:100px; cursor:pointer; border:none;" alt="assign proceedures" title="Assign Proceedures" />
+                                <script type="text/javascript">
 									$(document).ready(function() {
 										$("#c_fb03").fancybox();
 									});
@@ -3374,7 +3086,7 @@
                                 
                             </td>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
-                            	<input id="c_fb04" href="#d_fb04" title="Assigned Proceedures" type="button" value="View Assigned Proceedures" />
+                            	<img id="c_fb04" href="#d_fb04" src="../images/tinybutton-assignproceedures.gif" style="height:15px; width:100px; cursor:pointer; border:none;" alt="assign proceedures" title="Assign Proceedures" />
 								<script type="text/javascript">
 									$(document).ready(function() {
 										$("#c_fb04").fancybox();
