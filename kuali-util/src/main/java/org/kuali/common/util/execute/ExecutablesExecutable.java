@@ -18,6 +18,7 @@ package org.kuali.common.util.execute;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,7 @@ public class ExecutablesExecutable implements Executable {
 
 	List<Executable> executables;
 	boolean skip;
+	boolean timed;
 
 	@Override
 	public void execute() {
@@ -37,8 +39,18 @@ public class ExecutablesExecutable implements Executable {
 			logger.info("Skipping execution of {} executables", CollectionUtils.toEmptyList(executables).size());
 			return;
 		}
+		long start = System.currentTimeMillis();
 		for (Executable executable : executables) {
 			executable.execute();
+		}
+		long stop = System.currentTimeMillis() - start;
+		if (timed) {
+			String elapsed = FormatUtils.getTime(stop - start);
+			String finished = FormatUtils.getDate(stop);
+			logger.info("------------------------------------------------------------------------");
+			logger.info("Total Time: {}", elapsed);
+			logger.info("Finished at: {}", finished);
+			logger.info("------------------------------------------------------------------------");
 		}
 	}
 
@@ -56,6 +68,14 @@ public class ExecutablesExecutable implements Executable {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
+	}
+
+	public boolean isTimed() {
+		return timed;
+	}
+
+	public void setTimed(boolean timed) {
+		this.timed = timed;
 	}
 
 }
