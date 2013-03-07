@@ -49,4 +49,11 @@
     <property name="password" value="#{databaseProcessContext.dbaPassword}" />
   </bean>
 
+  <bean id="showConfigExecutable" class="org.kuali.common.jdbc.ShowConfigExecutable">
+    <property name="service" ref="jdbcService" />
+    <property name="context" ref="databaseProcessContext" />
+    <property name="dataSource" ref="dbaDataSource" />
+    <property name="skip" value="${jdbc.showconfig.skip:FALSE}" />
+  </bean>
+
 </beans>

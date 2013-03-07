@@ -25,6 +25,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <util:list id="jdbcExecutables">
+    <ref bean="showConfigExecutable" />
     <ref bean="dbaExecutable" />
     <ref bean="schemaExecutable" />
     <ref bean="dataExecutable" />
