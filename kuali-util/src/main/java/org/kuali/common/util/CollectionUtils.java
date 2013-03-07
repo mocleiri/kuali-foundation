@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -191,10 +193,21 @@ public class CollectionUtils {
 	/**
 	 * Combine the list of lists into a single list
 	 */
-	public static final <T> List<T> combine(List<List<T>> listOfLists) {
+	public static final <T> List<T> combineLists(List<List<T>> listOfLists) {
 		List<T> combined = new ArrayList<T>();
 		for (List<T> list : listOfLists) {
 			combined.addAll(list);
+		}
+		return combined;
+	}
+
+	/**
+	 * Combine the list of maps into a single map
+	 */
+	public static final <K, V> Map<K, V> combineMaps(List<Map<K, V>> listOfMaps) {
+		Map<K, V> combined = new HashMap<K, V>();
+		for (Map<K, V> map : listOfMaps) {
+			combined.putAll(map);
 		}
 		return combined;
 	}

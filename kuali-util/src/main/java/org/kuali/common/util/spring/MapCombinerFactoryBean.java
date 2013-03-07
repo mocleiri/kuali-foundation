@@ -16,22 +16,23 @@
 package org.kuali.common.util.spring;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kuali.common.util.CollectionUtils;
 import org.springframework.beans.factory.FactoryBean;
 
-public class ListCombinerFactoryBean<T> implements FactoryBean<List<T>> {
+public class MapCombinerFactoryBean<K, V> implements FactoryBean<Map<K, V>> {
 
-	List<List<T>> listOfLists;
+	List<Map<K, V>> listOfMaps;
 
 	@Override
-	public List<T> getObject() throws Exception {
-		return CollectionUtils.combineLists(listOfLists);
+	public Map<K, V> getObject() throws Exception {
+		return CollectionUtils.combineMaps(listOfMaps);
 	}
 
 	@Override
 	public Class<?> getObjectType() {
-		return List.class;
+		return Map.class;
 	}
 
 	@Override
@@ -39,12 +40,12 @@ public class ListCombinerFactoryBean<T> implements FactoryBean<List<T>> {
 		return false;
 	}
 
-	public List<List<T>> getListOfLists() {
-		return listOfLists;
+	public List<Map<K, V>> getListOfMaps() {
+		return listOfMaps;
 	}
 
-	public void setListOfLists(List<List<T>> listOfLists) {
-		this.listOfLists = listOfLists;
+	public void setListOfMaps(List<Map<K, V>> listOfMaps) {
+		this.listOfMaps = listOfMaps;
 	}
 
 }
