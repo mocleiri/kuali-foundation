@@ -41,7 +41,7 @@
     <property name="dataSource" ref="dataSource" />
     <property name="suppliers" ref="sequentialDataSuppliers" />
     <property name="message" value="${sql.data.sequential.message}" />
-    <property name="listener" ref="summaryListener" />
+    <property name="listener" ref="summaryAndProgressListener" />
   </bean>
 
   <bean id="sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">

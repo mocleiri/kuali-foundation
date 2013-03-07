@@ -32,6 +32,16 @@
   <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService" />
   <bean id="logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
   <bean id="summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
+  <bean id="progressListener" class="org.kuali.common.jdbc.listener.ProgressListener" />
+
+  <util:list id="summaryAndProgressList">
+    <ref bean="summaryListener" />
+    <ref bean="progressListener" />
+  </util:list>
+
+  <bean id="summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
+    <property name="listeners" ref="summaryAndProgressList" />
+  </bean>
 
   <bean id="sqlLocationSupplierInstance" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
     <property name="reader" ref="sqlReader" />
