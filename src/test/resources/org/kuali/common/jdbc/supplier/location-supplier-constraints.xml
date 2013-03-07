@@ -24,28 +24,28 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="schemaLocations">
+  <util:list id="constraintsLocations">
     <value>classpath:sql/${db.vendor}/ole-rice-sql.sql</value>
     <value>classpath:sql/${db.vendor}/ole-master-sql.sql</value>
   </util:list>
 
-  <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-    <property name="locations" ref="schemaLocations" />
+  <bean id="constraintsSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+    <property name="locations" ref="constraintsLocations" />
     <property name="mappings" ref="extensionMappings" />
   </bean>
 
-  <bean id="schemaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+  <bean id="constraintsJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="dataSource" />
-    <property name="suppliers" ref="schemaSuppliers" />
-    <property name="message" value="${sql.schema.concurrent.message}" />
+    <property name="suppliers" ref="constraintsSuppliers" />
+    <property name="message" value="${sql.constraints.concurrent.message}" />
     <property name="listener" ref="summaryListener" />
     <property name="threads" value="${sql.threads}" />
   </bean>
 
-  <bean id="schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
+  <bean id="constraintsExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
     <property name="service" ref="jdbcService" />
-    <property name="context" ref="schemaJdbcContext" />
-    <property name="skip" value="${jdbc.schema.skip:FALSE}" />
+    <property name="context" ref="constraintsJdbcContext" />
+    <property name="skip" value="${jdbc.constraints.skip:FALSE}" />
   </bean>
 
 </beans>
