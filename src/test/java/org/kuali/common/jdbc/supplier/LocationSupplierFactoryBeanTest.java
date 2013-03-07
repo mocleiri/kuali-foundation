@@ -30,7 +30,7 @@ public class LocationSupplierFactoryBeanTest {
 		try {
 			logger.debug("");
 			SpringService ss = new DefaultSpringService();
-			ss.load("classpath:org/kuali/common/jdbc/supplier/location-supplier-context.xml");
+			ss.load("classpath:org/kuali/common/jdbc/reset/jdbc-reset-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
