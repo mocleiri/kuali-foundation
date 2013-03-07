@@ -28,8 +28,7 @@ import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.SqlMetaData;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
@@ -92,7 +91,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	}
 
 	@Override
-	public List<MpxImportResult> importData(ImportContext context, ExecutionContext sqlExecutionContext) throws IOException {
+	public List<MpxImportResult> importData(ImportContext context, JdbcContext sqlExecutionContext) throws IOException {
 		Assert.notNull(jdbcService, "jdbcService is null");
 
 		logger.info("Impex Executor data import started");
@@ -123,7 +122,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 	}
 
 	@Override
-	public MpxImportResult importDataLocation(MpxExecuteMetaData metaData, ImportContext context, ExecutionContext sqlExecutionContext) {
+	public MpxImportResult importDataLocation(MpxExecuteMetaData metaData, ImportContext context, JdbcContext sqlExecutionContext) {
         String location = metaData.getLocation();
         logger.debug("Importing " + LocationUtils.getFilename(location));
         Table table = getTableDefinition(context, location);
@@ -164,7 +163,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return rows;
 	}
 
-	protected List<MpxBucket> getMpxBuckets(ImportContext context, ExecutionContext sqlExecutionContext, List<MpxImportResult> results, MpxBucketProgressListener progressListener,
+	protected List<MpxBucket> getMpxBuckets(ImportContext context, JdbcContext sqlExecutionContext, List<MpxImportResult> results, MpxBucketProgressListener progressListener,
 			List<MpxExecuteMetaData> metaDatas) throws IOException {
 
 		// number of buckets equals thread count, unless thread count > total number of locations
@@ -208,7 +207,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		return buckets;
 	}
 
-	protected MpxImportResult executeSql(ImportContext context, SqlProducer sqlProducer, Table table, MpxExecuteMetaData metaData, ExecutionContext sqlExecutionContext) {
+	protected MpxImportResult executeSql(ImportContext context, SqlProducer sqlProducer, Table table, MpxExecuteMetaData metaData, JdbcContext sqlExecutionContext) {
 		String location = metaData.getLocation();
 
 		BufferedReader reader = null;
@@ -271,7 +270,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		this.jdbcService = jdbcService;
 	}
 
-	protected void logContext(ImportContext context, ExecutionContext ec, List<MpxExecuteMetaData> metaData) {
+	protected void logContext(ImportContext context, JdbcContext ec, List<MpxExecuteMetaData> metaData) {
 		long rows = 0;
 		long size = 0;
         long sqlCount = 0;
@@ -294,7 +293,7 @@ public class DefaultImpexExecutorService implements ImpexExecutorService {
 		logger.info("Batch Row Count - {}", context.getBatchRowCount());
 
 		// TODO Get rid of this DriverManagerDataSource stuff
-		DriverManagerDataSource dmds = (DriverManagerDataSource) ec.getJdbcContext().getDataSource();
+		DriverManagerDataSource dmds = (DriverManagerDataSource) ec.getDataSource();
 		logger.info("URL - {}", dmds.getUrl());
 		logger.info("Username - {}", dmds.getUsername());
 		logger.info("Password - {}", dmds.getPassword());

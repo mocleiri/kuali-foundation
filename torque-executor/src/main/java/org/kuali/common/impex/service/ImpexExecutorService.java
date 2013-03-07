@@ -3,7 +3,7 @@ package org.kuali.common.impex.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 
 /**
  * This interface provides an API to execute sql from artifacts created by torque-generator
@@ -18,8 +18,8 @@ public interface ImpexExecutorService {
 	 * @param context
 	 *            contains the database connection context and other meta information
 	 */
-	List<MpxImportResult> importData(ImportContext context, ExecutionContext executionContext) throws IOException;
+	List<MpxImportResult> importData(ImportContext context, JdbcContext executionContext) throws IOException;
 
-	MpxImportResult importDataLocation(MpxExecuteMetaData metaData, ImportContext context, ExecutionContext executionContext);
+	MpxImportResult importDataLocation(MpxExecuteMetaData metaData, ImportContext context, JdbcContext executionContext);
 
 }

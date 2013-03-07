@@ -18,7 +18,7 @@ package org.kuali.common.impex.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.threads.listener.ProgressListener;
 
 /**
@@ -32,7 +32,7 @@ public class MpxBucket implements Comparable<MpxBucket> {
 	List<MpxImportResult> results;
 	List<MpxExecuteMetaData> mpxBeans = new ArrayList<MpxExecuteMetaData>();
 	Long allRowCounts = 0l;
-	ExecutionContext executionContext;
+    JdbcContext executionContext;
 
 	@Override
 	public int compareTo(MpxBucket o) {
@@ -79,11 +79,11 @@ public class MpxBucket implements Comparable<MpxBucket> {
 		this.service = service;
 	}
 
-	public ExecutionContext getExecutionContext() {
+	public JdbcContext getExecutionContext() {
 		return executionContext;
 	}
 
-	public void setExecutionContext(ExecutionContext executionContext) {
+	public void setExecutionContext(JdbcContext executionContext) {
 		this.executionContext = executionContext;
 	}
 

@@ -15,16 +15,9 @@
 
 package org.kuali.common.impex.service;
 
-import java.util.Properties;
-
-import javax.annotation.Resource;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.jdbc.DatabaseResetExecutable;
-import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.ExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;

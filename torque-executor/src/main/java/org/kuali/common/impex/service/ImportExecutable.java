@@ -17,7 +17,7 @@ package org.kuali.common.impex.service;
 
 import java.io.IOException;
 
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class ImportExecutable implements Executable {
 
 	ImpexExecutorService service;
 	ImportContext context;
-	ExecutionContext sqlExecutionContext;
+	JdbcContext sqlExecutionContext;
 
 	@Override
 	public void execute() {
@@ -67,11 +67,11 @@ public class ImportExecutable implements Executable {
 		this.context = context;
 	}
 
-	public ExecutionContext getSqlExecutionContext() {
+	public JdbcContext getSqlExecutionContext() {
 		return sqlExecutionContext;
 	}
 
-	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
+	public void setSqlExecutionContext(JdbcContext sqlExecutionContext) {
 		this.sqlExecutionContext = sqlExecutionContext;
 	}
 }

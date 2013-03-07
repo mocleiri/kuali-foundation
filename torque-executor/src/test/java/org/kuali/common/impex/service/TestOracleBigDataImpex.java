@@ -16,7 +16,6 @@
 package org.kuali.common.impex.service;
 
 import java.io.IOException;
-
 import javax.annotation.Resource;
 
 import org.junit.Ignore;
@@ -24,7 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
 import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.ExecutionContext;
+import org.kuali.common.jdbc.context.JdbcContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -52,7 +51,7 @@ public class TestOracleBigDataImpex {
     protected JdbcService jdbcService;
 
 	@Resource
-	protected ExecutionContext sqlExecutionContext;
+	protected JdbcContext sqlExecutionContext;
 
 	@Test
 	public void test() throws IOException {
@@ -83,11 +82,11 @@ public class TestOracleBigDataImpex {
 		this.resetExec = resetExec;
 	}
 
-	public ExecutionContext getSqlExecutionContext() {
+	public JdbcContext getSqlExecutionContext() {
 		return sqlExecutionContext;
 	}
 
-	public void setSqlExecutionContext(ExecutionContext sqlExecutionContext) {
+	public void setSqlExecutionContext(JdbcContext sqlExecutionContext) {
 		this.sqlExecutionContext = sqlExecutionContext;
 	}
 

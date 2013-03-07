@@ -172,31 +172,44 @@
         <property name="schemaXmlLocation" value="${project.build.directory}/impex/${project.artifactId}.xml"/>
     </bean>
 
-    <bean id="resetExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
-        <property name="jdbcContext" ref="dbaJdbcContext"/>
+    <bean id="resetContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="dbaDataSource" />
+        <property name="threads" value="8"/>
         <property name="suppliers">
             <list>
                 <ref bean="dbResetSupplier"/>
             </list>
         </property>
+        <property name="message" value="Reset DB"/>
     </bean>
 
-    <bean id="initialExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
-        <property name="jdbcContext" ref="normalJdbcContext"/>
+    <bean id="initialContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="dataSource" />
         <property name="suppliers" ref="initialSupplierList"/>
+        <property name="message" value="First pass data and schema"/>
     </bean>
 
-    <bean id="schemaExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
-        <property name="jdbcContext" ref="normalJdbcContext"/>
+    <bean id="schemaContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="dataSource" />
         <property name="suppliers">
             <list>
                 <ref bean="schemaSupplier"/>
             </list>
         </property>
+        <property name="threads" value="8"/>
+        <property name="message" value="Second pass schema"/>
     </bean>
 
-    <bean id="mpxExecutionContext" class="org.kuali.common.jdbc.context.ExecutionContext">
-        <property name="jdbcContext" ref="normalJdbcContext"/>
+    <bean id="mpxContext" class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="dataSource" />
+        <property name="threads" value="1"/>
+        <property name="message" value="Second pass data"/>
+        <property name="listener" ref="sqlLogger"/>
+    </bean>
+
+    <bean id="sqlLogger" class="org.kuali.common.jdbc.listener.LogSqlListener">
+        <property name="mode" value="BEFORE"/>
+        <property name="flatten" value="false"/>
     </bean>
 
     <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexGeneratorService"/>

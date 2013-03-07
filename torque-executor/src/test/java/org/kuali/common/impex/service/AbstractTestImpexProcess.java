@@ -15,31 +15,30 @@
 
 package org.kuali.common.impex.service;
 
-import org.kuali.common.impex.DatabaseContext;
-import org.kuali.common.impex.DumpTableResult;
-import org.kuali.common.impex.supplier.MpxLocationSupplier;
-import org.kuali.common.impex.supplier.MpxLocationSupplierListFactory;
-import org.kuali.common.jdbc.DatabaseResetExecutable;
-import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.ExecutionContext;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
-import org.kuali.common.util.LocationUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-
 import javax.annotation.Resource;
+
+import org.kuali.common.impex.DatabaseContext;
+import org.kuali.common.impex.DumpTableResult;
+import org.kuali.common.impex.supplier.MpxLocationSupplier;
+import org.kuali.common.impex.supplier.MpxLocationSupplierListFactory;
+import org.kuali.common.jdbc.JdbcService;
+import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.listener.BucketEvent;
+import org.kuali.common.jdbc.listener.SqlEvent;
+import org.kuali.common.jdbc.listener.SqlExecutionEvent;
+import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.LocationUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -55,16 +54,16 @@ public abstract class AbstractTestImpexProcess {
     protected ImpexContext impexContext;
 
     @Resource
-    protected ExecutionContext resetExecutionContext;
+    protected JdbcContext resetContext;
 
     @Resource
-    protected ExecutionContext initialExecutionContext;
+    protected JdbcContext initialContext;
 
     @Resource
-    protected ExecutionContext schemaExecutionContext;
+    protected JdbcContext schemaContext;
 
     @Resource
-    protected ExecutionContext mpxExecutionContext;
+    protected JdbcContext mpxContext;
 
     @Resource
     protected ImpexGeneratorService impexService;
@@ -131,10 +130,10 @@ public abstract class AbstractTestImpexProcess {
         ImpexUtils.log(impexContext);
 
         // clear db of data
-        jdbcService.executeSql(resetExecutionContext);
+        jdbcService.executeSql(resetContext);
 
         // load the db with data
-        jdbcService.executeSql(initialExecutionContext);
+        jdbcService.executeSql(initialContext);
 
         List<ImpexContext> contexts = Collections.singletonList(impexContext);
 
@@ -150,10 +149,10 @@ public abstract class AbstractTestImpexProcess {
         ImpexUtils.doStats(initialLoadResults);
 
         // clear db of data
-        jdbcService.executeSql(resetExecutionContext);
+        jdbcService.executeSql(resetContext);
 
         // load only schema
-        jdbcService.executeSql(schemaExecutionContext);
+        jdbcService.executeSql(schemaContext);
 
         // import the data from the generated mpx files
         // Have to create a supplier factory here because the table meta data does not exist until this point
@@ -167,8 +166,43 @@ public abstract class AbstractTestImpexProcess {
             supplierList.add(s);
         }
 
-        mpxExecutionContext.setSuppliers(supplierList);
-        jdbcService.executeSql(mpxExecutionContext);
+        mpxContext.setSuppliers(supplierList);
+
+        mpxContext.setListener(new SqlListener() {
+            @Override
+            public void beforeMetaData(JdbcContext context) {
+            }
+
+            @Override
+            public void beforeExecution(SqlExecutionEvent event) {
+            }
+
+            @Override
+            public void bucketsCreated(BucketEvent event) {
+            }
+
+            @Override
+            public void beforeExecuteSql(SqlEvent event) {
+                String sql = event.getSql();
+                char[] chars = new char[5];
+                sql.getChars(sql.length() - 5, sql.length(), chars, 0);
+                for(char c : chars) {
+                    System.out.println("Char is: " + c);
+                    System.out.println("\t Int value of char is: " + (int)c);
+                    System.out.println("\t Is letter or digit? " + Character.isLetterOrDigit(c));
+                }
+            }
+
+            @Override
+            public void afterExecuteSql(SqlEvent event) {
+            }
+
+            @Override
+            public void afterExecution(SqlExecutionEvent event) {
+            }
+        });
+
+        jdbcService.executeSql(mpxContext);
 
         // dump the tables again to compare the results
         List<DumpTableResult> secondaryLoadResults = impexService.dumpTables(impexContext, database);
