@@ -56,10 +56,6 @@ public class MpxLocationSupplierListFactory implements FactoryBean<List<MpxLocat
     protected void initialize() throws IOException {
         Platform platform = PlatformFactory.getPlatformFor(context.getDatabaseVendor());
 
-        SqlProducer sqlProducer = platform.getSqlProducer();
-        sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
-        sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
-
         // extract all mpx locations from the list of location resources
         List<String> mpxLocations = LocationUtils.getLocations(context.getDataLocations());
 
@@ -69,6 +65,10 @@ public class MpxLocationSupplierListFactory implements FactoryBean<List<MpxLocat
         // build a map of locations to tables
         for(String location : mpxLocations) {
             Table table = locationTableMap.get(location);
+
+            SqlProducer sqlProducer = platform.getSqlProducer();
+            sqlProducer.setBatchDataSizeLimit(context.getBatchDataSize());
+            sqlProducer.setBatchRowCountLimit(context.getBatchRowCount());
 
             MpxLocationSupplier supplier = new MpxLocationSupplier();
             supplier.setEncoding(context.getEncoding());

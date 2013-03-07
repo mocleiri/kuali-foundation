@@ -3,7 +3,9 @@ package org.kuali.common.impex.service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,7 +19,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	private static final String INSERT_PREFIX = "INSERT ALL\n";
 	private static final String INDENT = "  ";
 	private static final String INTO_PREFIX = "INTO ";
-	private static final String VALUES_PREFIX = "VALUES ";
+	private static final String VALUES_PREFIX = " VALUES ";
 	private static final String SPACE = " ";
 	private static final String LF = "\n";
 	private static final String ARG_LIST_START = "(";
@@ -25,7 +27,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	private static final String DATE_VALUE_PREFIX = "TO_DATE( '";
 	private static final String DATE_VALUE_SUFFIX = "', 'YYYYMMDDHH24MISS' )";
 
-	private static final String BATCH_SEPARATOR = "SELECT * FROM DUAL\n/\n";
+	private static final String BATCH_SEPARATOR = "SELECT * FROM DUAL\n";
 
 	private static final String CLOB_PLACEHOLDER = "EMPTY_CLOB()";
 	private static final int CLOB_BATCH_SIZE = 4000;
@@ -36,12 +38,19 @@ public class OracleProducer extends AbstractSqlProducer {
 	private static final String EQUALITY_EXPRESSION = " = ";
 	private static final String WHERE_CLAUSE_DELIMITER = " AND ";
 	private static final String CLOB_DATA_PREFIX = "    \n    FOR UPDATE;        \n    buffer := '";
-	private static final String CLOB_DATA_SUFFIX = "';\n" + "    DBMS_LOB.writeappend(data,LENGTH(buffer),buffer);\n" + "END;\n" + "/\n";
-	private static final String CLOB_LENGTH_COMMENT = "-- Length: ";
-	private static final String CLOB_CHUNKS_COMMENT = "-- Chunks: ";
+	private static final String CLOB_DATA_SUFFIX = "';\n" + "    DBMS_LOB.writeappend(data,LENGTH(buffer),buffer);\n" + "END;\n";
+
+    List<LongClob> currentClobs;
+    boolean unfinishedClob = false;
 
 	@Override
 	public String getSql(Table table, BufferedReader reader) throws IOException {
+
+        // if we are still returning pieces of a large CLOB, continue working on it
+        if(unfinishedClob) {
+            return continueClob(table, currentClobs);
+        }
+
 		boolean hasClobColumns = false;
 		List<Column> columns = ImpexUtils.getColumns(table);
 		for (Column col : columns) {
@@ -50,9 +59,9 @@ public class OracleProducer extends AbstractSqlProducer {
 			}
 		}
 
-		List<LongClobRow> longClobs = null;
+		List<LongClob> longClobs = null;
 		if (hasClobColumns) {
-			longClobs = new ArrayList<LongClobRow>();
+			longClobs = new ArrayList<LongClob>();
 		}
 
 		StringBuilder sqlBuilder = new StringBuilder();
@@ -78,22 +87,33 @@ public class OracleProducer extends AbstractSqlProducer {
 			if (hasClobColumns) {
 				List<DataBean> clobs = new ArrayList<DataBean>();
 				List<DataBean> primaryKeys = new ArrayList<DataBean>();
-				for (DataBean data : rowBeans) {
-					// if the column is a CLOB type, and the data string is long enough,
-					// add the data bean to the list of clobs that need to be split up
-					if (isDataBigClob(data.getValue(), data.getColumn())) {
-						clobs.add(data);
-					}
 
+                // first find the primary keys
+				for (DataBean data : rowBeans) {
 					// if the column is a primary key, add it to the tracked list
 					if (data.getColumn().isPrimaryKey()) {
 						primaryKeys.add(data);
 					}
 				}
-				LongClobRow longClob = new LongClobRow();
-				longClob.longClobs = clobs;
-				longClob.primaryKeys = primaryKeys;
-				longClobs.add(longClob);
+
+                // now loop trough data beans again and add LongClob entries
+                for(DataBean data : rowBeans) {
+                    // if the column is a CLOB type, and the data string is long enough,
+                    // add the data bean to the list of clobs that need to be split up
+                    if (isDataBigClob(data.getValue(), data.getColumn())) {
+                        LongClob longClob = new LongClob();
+                        longClob.column = data.getColumn();
+                        longClob.clobChunks = new ArrayDeque<String>();
+                        longClob.clobChunks.addAll(chunkClob(data.getValue()));
+                        longClob.primaryKeys = primaryKeys;
+                        longClobs.add(longClob);
+                    }
+                }
+
+                // if we have found any long clobs, break out of the list and process clob data
+                if(!longClobs.isEmpty()) {
+                    break;
+                }
 			}
 
 			// include the length of the batch separator to the total length of sql so far,
@@ -109,7 +129,8 @@ public class OracleProducer extends AbstractSqlProducer {
 		sqlBuilder.append(BATCH_SEPARATOR);
 
 		if (hasClobColumns && !longClobs.isEmpty()) {
-			sqlBuilder.append(buildClobBatches(table, longClobs));
+			unfinishedClob = true;
+            currentClobs = longClobs;
 		}
 
 		// return null to indicate no rows were processed
@@ -120,7 +141,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		}
 	}
 
-	@Override
+    @Override
 	protected String getEscapedValue(Column column, String token) {
 		if (isDataBigClob(token, column)) {
 			return token;
@@ -134,50 +155,44 @@ public class OracleProducer extends AbstractSqlProducer {
 		return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
 	}
 
-	protected String buildClobBatches(Table table, List<LongClobRow> longClobRows) {
+	protected String continueClob(Table table, List<LongClob> longClobRows) {
+        // find the next clob to work on
+        LongClob currentClob = longClobRows.get(0);
+        String clobChunk = currentClob.clobChunks.pop();
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
 
 		// handle the clob data that is too long
-		for (LongClobRow clobRow : longClobRows) {
-			List<DataBean> primaryKeys = clobRow.primaryKeys;
-			List<DataBean> longClobs = clobRow.longClobs;
+        List<DataBean> primaryKeys = currentClob.primaryKeys;
 
-			for (DataBean data : longClobs) {
 
-				// the number of 4000 charachter chunks in the data
-				List<String> dataChunks = chunkClob(data.getValue());
-				sqlBuilder.append(buildClobHeader(dataChunks, data));
+        // write sql that will append the current chunk into the clob column
+        sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(currentClob.column.getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName())
+                .append(CLOB_BATCH_HEADER_SUFFIX);
 
-				// for each chunk, write sql that will append the chunk into the clob column
-				for (String chunk : dataChunks) {
-					sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(data.getColumn().getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName())
-					        .append(CLOB_BATCH_HEADER_SUFFIX);
+        String clauseDelimiter = "";
+        for (DataBean pk : primaryKeys) {
+            sqlBuilder.append(clauseDelimiter);
+            sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getSqlValue(pk, dateFormat));
 
-					String clauseDelimiter = "";
-					for (DataBean pk : primaryKeys) {
-						sqlBuilder.append(clauseDelimiter);
-						sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getSqlValue(pk, dateFormat));
+            clauseDelimiter = WHERE_CLAUSE_DELIMITER;
+        }
 
-						clauseDelimiter = WHERE_CLAUSE_DELIMITER;
-					}
+        sqlBuilder.append(CLOB_DATA_PREFIX).append(clobChunk).append(CLOB_DATA_SUFFIX);
 
-					sqlBuilder.append(CLOB_DATA_PREFIX).append(chunk).append(CLOB_DATA_SUFFIX);
 
-				}
-			}
-		}
+        // check to see if we have more clobs to process for this mpx row
+        if(currentClob.clobChunks.isEmpty()) {
+            longClobRows.remove(0);
+        }
+
+        if(longClobRows.isEmpty()) {
+            unfinishedClob = false;
+        }
 
 		return sqlBuilder.toString();
 
-	}
-
-	protected String buildClobHeader(List<String> dataChunks, DataBean data) {
-		StringBuilder headerBuilder = new StringBuilder();
-		headerBuilder.append(CLOB_LENGTH_COMMENT).append(data.getValue().length()).append(LF);
-		headerBuilder.append(CLOB_CHUNKS_COMMENT).append(dataChunks.size()).append(LF);
-
-		return headerBuilder.toString();
 	}
 
 	/**
@@ -219,9 +234,8 @@ public class OracleProducer extends AbstractSqlProducer {
 
 		// output looks like "  INSERT INTO FOO_BAR_T (FOO, BAR, BAZ)"
 		sqlBuilder.append(INDENT).append(INTO_PREFIX).append(table.getName()).append(SPACE).append(ARG_LIST_START).append(getColumnNamesCSV(table)).append(ARG_LIST_END);
-		sqlBuilder.append(LF);
 		// output looks like "  VALUES ('Test', 1, 2)"
-		sqlBuilder.append(INDENT).append(VALUES_PREFIX).append(ARG_LIST_START).append(CollectionUtils.getCSV(values)).append(ARG_LIST_END);
+		sqlBuilder.append(VALUES_PREFIX).append(ARG_LIST_START).append(CollectionUtils.getCSV(values)).append(ARG_LIST_END);
 		sqlBuilder.append(LF);
 
 		return sqlBuilder.toString();
@@ -250,8 +264,9 @@ public class OracleProducer extends AbstractSqlProducer {
 		return result.toString();
 	}
 
-	protected class LongClobRow {
-		List<DataBean> longClobs;
+	protected class LongClob {
+        Deque<String> clobChunks;
+        Column column;
 		List<DataBean> primaryKeys;
 	}
 

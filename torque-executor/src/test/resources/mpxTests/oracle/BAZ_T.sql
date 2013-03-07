@@ -1,10 +1,15 @@
-INSERT INTO BAZ_T (ID, XML, CREATETIME, NAME, FOO_ID) VALUES ('1',EMPTY_CLOB(), TO_DATE( '20110101100000', 'YYYYMMDDHH24MISS' ),'widgets','FOO1')
+INSERT ALL
+  INTO BAZ_T (ID,XML,CREATETIME,NAME,FOO_ID) VALUES ('1',EMPTY_CLOB(),TO_DATE( '20110101100000', 'YYYYMMDDHH24MISS' ),'widgets','FOO1')
+SELECT * FROM DUAL
 /
+-- Length: 65850
+-- Chunks: 17
 DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '<xsl:stylesheet xmlns:my-class="xalan://org.kuali.rice.edl.framework.util.EDLFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 				<xsl:output method="html" version="4.01"/>
 				<xsl:variable name="globalReadOnly" select="/documentContent/documentState/editable != ''true''"/>
@@ -98,7 +103,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '/xsl:choose>
 								</xsl:variable>
 								
@@ -189,7 +195,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := 'h-param name="renderCmd" select="$render"/>
 											<xsl:with-param name="align" select="$vAlign"/>
 											<xsl:with-param name="hasUserValue" select="$hasUserValue"/>
@@ -265,7 +272,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '								<xsl:with-param name="invalid" select="$invalid"/>
 											<xsl:with-param name="regex" select="$regex"/>
 											<xsl:with-param name="customValidator" select="$customValidator"/>
@@ -342,7 +350,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := 'type"/>
 <xsl:text>: </xsl:text>
 									</span>
@@ -453,7 +462,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '
 						</xsl:if>
 						<xsl:if test="$align=''vertical''">
@@ -572,7 +582,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := './../value">true</xsl:when>
 									<xsl:otherwise>false</xsl:otherwise>
 								</xsl:choose>
@@ -685,7 +696,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := 'sl:attribute>
 									</xsl:if>
 									<xsl:value-of select="$title"/>
@@ -803,7 +815,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '						<button name="{$fieldName}">
 							<xsl:variable name="value" select="value"/>
 							<xsl:if test="$value">
@@ -921,7 +934,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '"submit" value="{$value}"/>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -1021,7 +1035,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '	 [var doctype=<xsl:value-of select="$docType"/>]</xsl:comment>
 					<xsl:comment>* 	 [var def=<xsl:value-of select="$def"/>]</xsl:comment>
 					<xsl:comment>* 	 [var style=<xsl:value-of select="$style"/>]</xsl:comment>
@@ -1152,7 +1167,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '							</xsl:choose>
 							standing in for user
 							<xsl:choose>
@@ -1255,7 +1271,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := 'ariable name="functionName" select="$fname"/>
 					<xsl:variable name="fxname" select="boolean(normalize-space($fname))"/>
 					<xsl:variable name="actionable" select="/documentContent/documentState/actionable = ''true''"/>
@@ -1352,7 +1369,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '	<xsl:text>                 					 </xsl:text>
 									</xsl:if>
 								</xsl:if>
@@ -1474,7 +1492,8 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
+ ID = '1'    
+    FOR UPDATE;        
     buffer := '										<br/>
 													Attachment:	
 													<input name="file" type="file">
@@ -1574,7 +1593,7 @@ BEGIN
 <xsl:value-of select="../../noteId"/>
 </xsl:attribute>
 																		</input>
-																		<xsl:choos';
+																		<xsl:choo';
     DBMS_LOB.writeappend(data,LENGTH(buffer),buffer);
 END;
 /
@@ -1582,8 +1601,9 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
-    buffer := 'e>
+ ID = '1'    
+    FOR UPDATE;        
+    buffer := 'se>
 																			<xsl:when test="$globalReadOnly = ''true''">
 																			</xsl:when>
 																			<xsl:otherwise>
@@ -1659,7 +1679,7 @@ BEGIN
 																	<img height="15" src="images/tinybutton-delete1-disabled.gif" vspace="3" width="40"/>
 																</div>
 															</xsl:otherwise>
-				';
+	';
     DBMS_LOB.writeappend(data,LENGTH(buffer),buffer);
 END;
 /
@@ -1667,8 +1687,9 @@ DECLARE    data CLOB; buffer VARCHAR2(32000);
 BEGIN
     SELECT XML INTO data FROM BAZ_T 
     WHERE 
- ID = '1'    FOR UPDATE;        
-    buffer := '										</xsl:choose>
+ ID = '1'    
+    FOR UPDATE;        
+    buffer := '													</xsl:choose>
 													</xsl:otherwise>
 												</xsl:choose>
 											</td>

@@ -127,14 +127,6 @@
         <property name="password" value="#{databaseProcessContext.dbaPassword}" />
     </bean>
 
-    <bean id="dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dbaDataSource" />
-    </bean>
-
-    <bean id="normalJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
     <util:list id="resetSqls">
         <value>#{commonProperties['sql.validate']}</value>
         <value>#{commonProperties['sql.drop']}</value>
@@ -174,7 +166,6 @@
 
     <bean id="resetContext" class="org.kuali.common.jdbc.context.JdbcContext">
         <property name="dataSource" ref="dbaDataSource" />
-        <property name="threads" value="8"/>
         <property name="suppliers">
             <list>
                 <ref bean="dbResetSupplier"/>
@@ -196,15 +187,12 @@
                 <ref bean="schemaSupplier"/>
             </list>
         </property>
-        <property name="threads" value="8"/>
         <property name="message" value="Second pass schema"/>
     </bean>
 
     <bean id="mpxContext" class="org.kuali.common.jdbc.context.JdbcContext">
         <property name="dataSource" ref="dataSource" />
-        <property name="threads" value="1"/>
         <property name="message" value="Second pass data"/>
-        <property name="listener" ref="sqlLogger"/>
     </bean>
 
     <bean id="sqlLogger" class="org.kuali.common.jdbc.listener.LogSqlListener">

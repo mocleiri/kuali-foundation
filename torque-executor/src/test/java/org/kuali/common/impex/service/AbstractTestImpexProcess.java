@@ -167,41 +167,6 @@ public abstract class AbstractTestImpexProcess {
         }
 
         mpxContext.setSuppliers(supplierList);
-
-        mpxContext.setListener(new SqlListener() {
-            @Override
-            public void beforeMetaData(JdbcContext context) {
-            }
-
-            @Override
-            public void beforeExecution(SqlExecutionEvent event) {
-            }
-
-            @Override
-            public void bucketsCreated(BucketEvent event) {
-            }
-
-            @Override
-            public void beforeExecuteSql(SqlEvent event) {
-                String sql = event.getSql();
-                char[] chars = new char[5];
-                sql.getChars(sql.length() - 5, sql.length(), chars, 0);
-                for(char c : chars) {
-                    System.out.println("Char is: " + c);
-                    System.out.println("\t Int value of char is: " + (int)c);
-                    System.out.println("\t Is letter or digit? " + Character.isLetterOrDigit(c));
-                }
-            }
-
-            @Override
-            public void afterExecuteSql(SqlEvent event) {
-            }
-
-            @Override
-            public void afterExecution(SqlExecutionEvent event) {
-            }
-        });
-
         jdbcService.executeSql(mpxContext);
 
         // dump the tables again to compare the results

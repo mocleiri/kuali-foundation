@@ -42,59 +42,29 @@ public class TestOracleBigDataImpex {
 	private static final Logger logger = LoggerFactory.getLogger(TestOracleBigDataImpex.class);
 
 	@Resource
-	protected ImportContext importContext;
-
-	@Resource
-	protected DatabaseResetExecutable resetExec;
+	protected JdbcContext resetContext;
 
     @Resource
     protected JdbcService jdbcService;
 
 	@Resource
-	protected JdbcContext sqlExecutionContext;
+	protected JdbcContext mpxContext;
+
+    @Resource
+    protected JdbcContext schemaContext;
 
 	@Test
 	public void test() throws IOException {
 		logger.debug("");
 
 		// clear db of data
-		getResetExec().execute();
+		jdbcService.executeSql(resetContext);
 
-		// List<ImpexContext> contexts = Collections.singletonList(getImpexContext());
+        // load the schema
+        jdbcService.executeSql(schemaContext);
 
 		// import the data from the generated mpx files
-        getJdbcService().executeSql(sqlExecutionContext);
+        jdbcService.executeSql(mpxContext);
 	}
 
-	public ImportContext getImportContext() {
-		return importContext;
-	}
-
-	public void setImportContext(ImportContext importContext) {
-		this.importContext = importContext;
-	}
-
-	public DatabaseResetExecutable getResetExec() {
-		return resetExec;
-	}
-
-	public void setResetExec(DatabaseResetExecutable resetExec) {
-		this.resetExec = resetExec;
-	}
-
-	public JdbcContext getSqlExecutionContext() {
-		return sqlExecutionContext;
-	}
-
-	public void setSqlExecutionContext(JdbcContext sqlExecutionContext) {
-		this.sqlExecutionContext = sqlExecutionContext;
-	}
-
-    public JdbcService getJdbcService() {
-        return jdbcService;
-    }
-
-    public void setJdbcService(JdbcService jdbcService) {
-        this.jdbcService = jdbcService;
-    }
 }
