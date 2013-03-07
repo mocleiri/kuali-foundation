@@ -24,13 +24,32 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-common.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-properties.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-datasource.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-dba.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-constraints.xml" />
+  <util:list id="dataLocationListings">
+    <value>classpath:META-INF/sql/${db.vendor}/${ole.schema.1}.tables</value>
+    <value>classpath:META-INF/sql/${db.vendor}/${ole.schema.2}.tables</value>
+  </util:list>
+
+  <bean id="dataLocations" class="org.kuali.common.util.spring.GetLocationListingsFactoryBean">
+    <property name="locationListings" ref="dataLocationListings" />
+  </bean>
+
+  <bean id="dataSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+    <property name="locations" ref="dataLocations" />
+    <property name="mappings" ref="extensionMappings" />
+  </bean>
+
+  <bean id="dataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="dataSource" />
+    <property name="suppliers" ref="dataSuppliers" />
+    <property name="message" value="${sql.data.concurrent.message}" />
+    <property name="listener" ref="summaryListener" />
+    <property name="threads" value="${sql.threads}" />
+  </bean>
+
+  <bean id="dataExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
+    <property name="service" ref="jdbcService" />
+    <property name="context" ref="constraintsJdbcContext" />
+    <property name="skip" value="${jdbc.data.skip:FALSE}" />
+  </bean>
 
 </beans>
