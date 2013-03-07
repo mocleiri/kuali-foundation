@@ -148,7 +148,7 @@ public class DefaultJdbcService implements JdbcService {
 
 		for (SqlBucket bucket : buckets) {
 
-			JdbcContext newJdbcContext = getJdbcContext(context, listener);
+			JdbcContext newJdbcContext = getJdbcContext(context, bucket, listener);
 
 			SqlBucketContext sbc = new SqlBucketContext();
 			sbc.setService(this);
@@ -159,8 +159,9 @@ public class DefaultJdbcService implements JdbcService {
 		return sbcs;
 	}
 
-	protected JdbcContext getJdbcContext(JdbcContext original, SqlListener listener) {
+	protected JdbcContext getJdbcContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
 		JdbcContext context = new JdbcContext();
+		context.setSuppliers(bucket.getSuppliers());
 		context.setDataSource(original.getDataSource());
 		context.setCommitMode(original.getCommitMode());
 		context.setThreads(1);
