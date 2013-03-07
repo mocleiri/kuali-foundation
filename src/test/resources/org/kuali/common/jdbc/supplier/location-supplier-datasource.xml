@@ -33,6 +33,7 @@
     <property name="dbaUrl" value="${jdbc.dba.url}" />
     <property name="dbaUsername" value="${jdbc.dba.username}" />
     <property name="dbaPassword" value="${jdbc.dba.password}" />
+    <property name="encoding" ref="encoding" />
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
