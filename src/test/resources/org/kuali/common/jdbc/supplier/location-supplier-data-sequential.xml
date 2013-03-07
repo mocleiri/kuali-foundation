@@ -24,14 +24,31 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-common.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-properties.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-datasource.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-dba.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data-sequential.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-constraints.xml" />
+  <util:list id="sequentialDataLocationListings">
+    <value>classpath:META-INF/org/kuali/ole/sql/${db.vendor}/ole-liquibase-sql.resources</value>
+  </util:list>
+
+  <bean id="sequentialDataLocations" class="org.kuali.common.util.spring.GetLocationListingsFactoryBean">
+    <property name="locationListings" ref="sequentialDataLocationListings" />
+  </bean>
+
+  <bean id="sequentialDataSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+    <property name="locations" ref="sequentialDataLocations" />
+    <property name="mappings" ref="extensionMappings" />
+  </bean>
+
+  <bean id="sequentialDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="dataSource" />
+    <property name="suppliers" ref="sequentialDataSuppliers" />
+    <property name="message" value="${sql.data.sequential.message}" />
+    <property name="listener" ref="summaryListener" />
+    <property name="threads" value="${sql.threads}" />
+  </bean>
+
+  <bean id="sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
+    <property name="service" ref="jdbcService" />
+    <property name="context" ref="sequentialDataJdbcContext" />
+    <property name="skip" value="${jdbc.data.skip:FALSE}" />
+  </bean>
 
 </beans>
