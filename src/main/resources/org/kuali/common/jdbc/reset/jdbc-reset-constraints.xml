@@ -24,8 +24,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.concurrentSchemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-    <property name="property" value="sql.schema.concurrent" />
+  <bean id="jdbc.concurrentConstraintsSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+    <property name="property" value="sql.constraints.concurrent" />
     <property name="properties" ref="jdbc.properties" />
     <property name="extensionMappings" ref="jdbc.extensionMappings" />
   </bean>
