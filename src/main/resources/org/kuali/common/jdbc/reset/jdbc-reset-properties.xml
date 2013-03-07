@@ -24,17 +24,21 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-common.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-properties.xml" />
-  <!--
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-datasource.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-dba.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data-sequential.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-constraints.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-controller.xml" />
-  -->
+  <util:list id="jdbc.defaultPropertyLocations" value-type="java.lang.String">
+    <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+    <value>classpath:org/kuali/common/jdbc/service.properties</value>
+    <value>classpath:org/kuali/common/sql/sql.xml</value>
+    <value>classpath:org/kuali/common/sql/mysql.xml</value>
+    <value>classpath:org/kuali/common/sql/oracle.xml</value>
+    <value>classpath:org/kuali/common/sql/h2.xml</value>
+    <value>classpath:org/kuali/common/sql/derby.xml</value>
+  </util:list>
+
+  <bean id="jdbc.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+    <property name="locations" ref="jdbc.defaultPropertyLocations" />
+    <property name="encoding" ref="jdbc.encoding" />
+  </bean>
+
+  <context:property-placeholder properties-ref="jdbc.properties" />
 
 </beans>
