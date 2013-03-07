@@ -145,11 +145,15 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, JdbcContext context, SqlListener listener) {
 		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
+
 		for (SqlBucket bucket : buckets) {
+
+			JdbcContext newJdbcContext = getJdbcContext(context, listener);
+
 			SqlBucketContext sbc = new SqlBucketContext();
 			sbc.setService(this);
 			sbc.setBucket(bucket);
-			sbc.setContext(getJdbcContext(context, listener));
+			sbc.setContext(newJdbcContext);
 			sbcs.add(sbc);
 		}
 		return sbcs;
