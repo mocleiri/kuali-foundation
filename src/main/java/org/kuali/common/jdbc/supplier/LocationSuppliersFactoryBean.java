@@ -38,8 +38,10 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	}
 
 	protected List<LocationSupplier> getSuppliers(List<String> locations, Map<String, LocationSupplierSourceBean> mappings) {
-		// Cycle through the list of locations, creating one supplier per location
+		// Allocate some storage for our suppliers
 		List<LocationSupplier> suppliers = new ArrayList<LocationSupplier>();
+
+		// Cycle through the list of locations, creating one supplier per location
 		for (String location : locations) {
 
 			// Extract the extension from the location
