@@ -29,6 +29,9 @@
     <value>classpath:org/kuali/common/jdbc/service.properties</value>
     <value>classpath:org/kuali/common/sql/sql.xml</value>
     <value>classpath:org/kuali/common/sql/mysql.xml</value>
+    <value>classpath:org/kuali/common/sql/oracle.xml</value>
+    <value>classpath:org/kuali/common/sql/h2.xml</value>
+    <value>classpath:org/kuali/common/sql/derby.xml</value>
     <value>classpath:org/kuali/common/jdbc/supplier/supplier.properties</value>
   </util:list>
 
