@@ -49,4 +49,8 @@ public class SqlTimingListener implements SqlListener {
 	public void afterExecution(SqlExecutionEvent event) {
 	}
 
+	public long getElapsed() {
+		return elapsed;
+	}
+
 }
