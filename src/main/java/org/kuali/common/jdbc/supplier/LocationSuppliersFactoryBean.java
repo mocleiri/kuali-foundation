@@ -28,7 +28,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		// Make sure we are configured correctly
 		Assert.notNull(properties, "properties is null");
 		Assert.notNull(prefix, "prefix is null");
-		Assert.notNull(extensionMappings, "mappings is null");
+		Assert.notNull(extensionMappings, "extensionMappings is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
 		List<String> locations = getLocations(properties, prefix, listSuffix);
