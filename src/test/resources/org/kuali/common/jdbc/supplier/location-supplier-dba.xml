@@ -42,12 +42,12 @@
     <property name="dataSource" ref="dbaDataSource" />
     <property name="suppliers" ref="dbaSuppliers" />
     <property name="message" value="Executing DBA SQL" />
+    <property name="listener" ref="logSqlListener" />
   </bean>
 
-  <bean id="dbaExecutable" class="org.kuali.common.jdbc.context.JdbcExecutable" init-method="execute">
+  <bean id="dbaExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
     <property name="service" ref="jdbcService" />
     <property name="context" ref="dbaJdbcContext" />
-    <property name="message" value="Executing DBA SQL" />
     <property name="skip" value="${jdbc.dba.skip:FALSE}" />
   </bean>
 

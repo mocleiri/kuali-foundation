@@ -52,6 +52,7 @@ public class LogSqlListener implements SqlListener {
 			LoggerUtils.logMsg(sql, logger, level);
 			return;
 		case AFTER:
+			return;
 		default:
 			throw new IllegalArgumentException("Mode [" + mode + "] is unknown");
 		}

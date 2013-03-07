@@ -30,6 +30,8 @@
 
   <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
   <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService" />
+  <bean id="logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
+
 
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-properties.xml" />
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
