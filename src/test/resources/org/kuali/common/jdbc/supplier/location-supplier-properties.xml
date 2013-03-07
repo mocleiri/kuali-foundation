@@ -32,7 +32,7 @@
     <value>classpath:org/kuali/common/sql/oracle.xml</value>
     <value>classpath:org/kuali/common/sql/h2.xml</value>
     <value>classpath:org/kuali/common/sql/derby.xml</value>
-    <value>classpath:org/kuali/common/jdbc/supplier/supplier.properties</value>
+    <value>classpath:ole-fs.properties</value>
   </util:list>
 
   <bean id="properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
