@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.springframework.beans.factory.FactoryBean;
 
-public class CombineListsFactoryBean<T> implements FactoryBean<List<T>> {
+public class ListCombinerFactoryBean<T> implements FactoryBean<List<T>> {
 
 	List<List<T>> listOfLists;
 
