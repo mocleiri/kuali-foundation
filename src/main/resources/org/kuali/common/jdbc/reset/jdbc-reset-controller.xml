@@ -24,26 +24,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.propertyLocations" class="org.kuali.common.util.spring.ListCombinerFactoryBean">
-    <property name="listOfLists">
-      <list>
-        <ref bean="jdbc.defaultPropertyLocations" />
-        <util:list>
-          <value>classpath:ole-fs.properties</value>
-        </util:list>
-      </list>
-    </property>
-  </bean>
+  <util:list id="jdbc.executablesList">
+    <ref bean="jdbc.showConfigExecutable" />
+    <ref bean="jdbc.dbaExecutable" />
+    <ref bean="jdbc.schemaExecutable" />
+    <ref bean="jdbc.concurrentDataExecutable" />
+    <ref bean="jdbc.sequentialDataExecutable" />
+    <ref bean="jdbc.constraintsExecutable" />
+  </util:list>
 
-  <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
-    <property name="listOfMaps">
-      <list>
-        <ref bean="jdbc.defaultExtensionMappings" />
-      </list>
-    </property>
+  <bean id="jdbc.executeReset" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
+    <property name="executables" ref="jdbc.executablesList" />
+    <property name="skip" value="${jdbc.execute.skip:FALSE}" />
+    <property name="timed" value="${jdbc.execute.timed:TRUE}" />
   </bean>
-
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-context.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-controller.xml" />
 
 </beans>
