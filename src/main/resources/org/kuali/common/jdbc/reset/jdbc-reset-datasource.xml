@@ -41,6 +41,7 @@
     <property name="properties" ref="jdbc.nullableProperties" />
     <property name="bean" ref="jdbcDatabaseProcessContext" />
   </bean>
+
   <bean id="jdbcDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
     <property name="vendor" value="${db.vendor}" />
     <property name="driver" value="${jdbc.driver}" />
