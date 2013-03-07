@@ -52,13 +52,13 @@
     <property name="dataSource" ref="dataSource" />
     <property name="suppliers" ref="schemaSuppliers" />
     <property name="message" value="${sql.schema.concurrent.message}" />
-    <property name="listener" ref="logSqlListener" />
+    <property name="listener" ref="summaryListener" />
   </bean>
 
   <bean id="schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
     <property name="service" ref="jdbcService" />
-    <property name="context" ref="dbaJdbcContext" />
-    <property name="skip" value="${jdbc.dba.skip:FALSE}" />
+    <property name="context" ref="schemaJdbcContext" />
+    <property name="skip" value="${jdbc.schema.skip:FALSE}" />
   </bean>
 
 </beans>

@@ -33,12 +33,10 @@
   <bean id="logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
   <bean id="summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
 
-
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-properties.xml" />
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-nullify.xml" />
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-datasource.xml" />
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-dba.xml" />
   <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
-
 
 </beans>
