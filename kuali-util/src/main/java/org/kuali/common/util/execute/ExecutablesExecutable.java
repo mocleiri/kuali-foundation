@@ -43,7 +43,7 @@ public class ExecutablesExecutable implements Executable {
 		for (Executable executable : executables) {
 			executable.execute();
 		}
-		long stop = System.currentTimeMillis() - start;
+		long stop = System.currentTimeMillis();
 		if (timed) {
 			String elapsed = FormatUtils.getTime(stop - start);
 			String finished = FormatUtils.getDate(stop);
