@@ -27,8 +27,8 @@
   <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-common.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-properties.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-nullify.xml" />
+  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-datasource.xml" />
   <!--
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-datasource.xml" />
     <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-dba.xml" />
     <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
     <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data.xml" />
