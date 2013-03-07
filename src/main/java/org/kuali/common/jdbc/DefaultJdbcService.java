@@ -41,9 +41,11 @@ import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.jdbc.threads.SqlBucketContext;
 import org.kuali.common.jdbc.threads.SqlBucketHandler;
 import org.kuali.common.jdbc.threads.ThreadsProgressListener;
+import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,7 +132,11 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
-		invoker.invokeThreads(thc);
+		ExecutionStatistics stats = invoker.invokeThreads(thc);
+		long aggregateTime = stl.getAggregateSqlTime();
+		long wallTime = stats.getExecutionTime();
+		String timeSavings = FormatUtils.getTime(aggregateTime - wallTime);
+		logger.info("Time savings due to multi-threading: {}", timeSavings);
 	}
 
 	@Override
