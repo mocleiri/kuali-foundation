@@ -36,6 +36,7 @@
   <bean id="exectuablesExecutable" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
     <property name="executables" ref="jdbcExecutables" />
     <property name="skip" value="${jdbc.execute.skip:FALSE}" />
+    <property name="timed" value="${jdbc.execute.timed:TRUE}" />
   </bean>
 
 
