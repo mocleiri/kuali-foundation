@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010-2013 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <bean id="jdbc.encoding" class="java.lang.String">
+    <constructor-arg value="UTF-8" />
+  </bean>
+
+  <bean id="jdbc.sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
+  <bean id="jdbc.service" class="org.kuali.common.jdbc.DefaultJdbcService" />
+  <bean id="jdbc.logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
+  <bean id="jdbc.summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
+  <bean id="jdbc.progressListener" class="org.kuali.common.jdbc.listener.ProgressListener" />
+
+  <util:list id="jdbc.summaryAndProgressList">
+    <ref bean="jdbc.summaryListener" />
+    <ref bean="jdbc.progressListener" />
+  </util:list>
+
+  <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
+    <property name="listeners" ref="jdbc.summaryAndProgressList" />
+  </bean>
+
+  <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+    <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
+    <property name="supplierInstance">
+      <bean class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+        <property name="reader" ref="jdbc.sqlReader" />
+        <property name="encoding" ref="jdbc.encoding" />
+      </bean>
+    </property>
+  </bean>
+
+  <util:map id="jdbc.defaultExtensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+    <entry key="sql" value-ref="jdbc.sqlLocationSourceBean" />
+  </util:map>
+
+</beans>

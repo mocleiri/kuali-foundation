@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010-2013 The Kuali Foundation
+
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.opensource.org/licenses/ecl2.php
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <util:list id="jdbc.nullableProperties" value-type="java.lang.String">
+    <value>dbaUsername</value>
+    <value>dbaPassword</value>
+    <value>username</value>
+    <value>password</value>
+  </util:list>
+
+  <util:list id="jdbc.nullTokens" value-type="java.lang.String">
+    <value>NONE</value>
+    <value>NULL</value>
+  </util:list>
+
+  <bean id="jdbc.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
+    <property name="nullTokens" ref="jdbc.nullTokens" />
+    <property name="properties" ref="jdbc.nullableProperties" />
+    <property name="bean" ref="jdbcDatabaseProcessContext" />
+  </bean>
+
+  <bean id="jdbcDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
+    <property name="vendor" value="${db.vendor}" />
+    <property name="driver" value="${jdbc.driver}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="dbaUrl" value="${jdbc.dba.url}" />
+    <property name="dbaUsername" value="${jdbc.dba.username}" />
+    <property name="dbaPassword" value="${jdbc.dba.password}" />
+    <property name="encoding" ref="jdbc.encoding" />
+  </bean>
+
+  <bean id="jdbc.dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="jdbc.nullifier">
+    <property name="driverClassName" value="#{jdbcDatabaseProcessContext.driver}" />
+    <property name="url" value="#{jdbcDatabaseProcessContext.url}" />
+    <property name="username" value="#{jdbcDatabaseProcessContext.username}" />
+    <property name="password" value="#{jdbcDatabaseProcessContext.password}" />
+  </bean>
+
+  <bean id="jdbc.dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="jdbc.nullifier">
+    <property name="driverClassName" value="#{jdbcDatabaseProcessContext.driver}" />
+    <property name="url" value="#{jdbcDatabaseProcessContext.dbaUrl}" />
+    <property name="username" value="#{jdbcDatabaseProcessContext.dbaUsername}" />
+    <property name="password" value="#{jdbcDatabaseProcessContext.dbaPassword}" />
+  </bean>
+
+  <bean id="jdbc.showConfigExecutable" class="org.kuali.common.jdbc.ShowConfigExecutable">
+    <property name="service" ref="jdbc.service" />
+    <property name="context" ref="jdbcDatabaseProcessContext" />
+    <property name="dataSource" ref="jdbc.dbaDataSource" />
+    <property name="skip" value="${jdbc.showconfig.skip:FALSE}" />
+  </bean>
+
+</beans>
