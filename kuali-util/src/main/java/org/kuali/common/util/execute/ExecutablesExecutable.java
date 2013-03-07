@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.execute;
 
+import java.util.Date;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
@@ -46,10 +47,9 @@ public class ExecutablesExecutable implements Executable {
 		long stop = System.currentTimeMillis();
 		if (timed) {
 			String elapsed = FormatUtils.getTime(stop - start);
-			String finished = FormatUtils.getDate(stop);
 			logger.info("------------------------------------------------------------------------");
 			logger.info("Total Time: {}", elapsed);
-			logger.info("Finished at: {}", finished);
+			logger.info("Finished at: {}", new Date(stop));
 			logger.info("------------------------------------------------------------------------");
 		}
 	}
