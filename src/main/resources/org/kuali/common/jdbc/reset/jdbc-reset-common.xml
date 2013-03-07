@@ -43,14 +43,14 @@
     <property name="listeners" ref="jdbc.summaryAndProgressList" />
   </bean>
 
-  <bean id="jdbc.sqlLocationSupplierInstance" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
-    <property name="reader" ref="jdbc.sqlReader" />
-    <property name="encoding" ref="jdbc.encoding" />
-  </bean>
-
   <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
     <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
-    <property name="supplierInstance" ref="jdbc.sqlLocationSupplierInstance" />
+    <property name="supplierInstance">
+      <bean class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+        <property name="reader" ref="jdbc.sqlReader" />
+        <property name="encoding" ref="jdbc.encoding" />
+      </bean>
+    </property>
   </bean>
 
   <util:map id="jdbc.defaultExtensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
