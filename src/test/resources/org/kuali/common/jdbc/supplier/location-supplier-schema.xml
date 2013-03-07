@@ -25,8 +25,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <util:list id="schemaLocations">
-    <value>classpath:sql/${db.vendor}/ole-rice-sql.sql</value>
-    <value>classpath:sql/${db.vendor}/ole-master-sql.sql</value>
+    <value>classpath:sql/${db.vendor}/${ole.schema.1}.sql</value>
+    <value>classpath:sql/${db.vendor}/${ole.schema.2}.sql</value>
   </util:list>
 
   <bean id="schemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">

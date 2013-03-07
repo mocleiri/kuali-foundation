@@ -25,8 +25,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <util:list id="constraintsLocations">
-    <value>classpath:sql/${db.vendor}/ole-rice-sql.sql</value>
-    <value>classpath:sql/${db.vendor}/ole-master-sql.sql</value>
+    <value>classpath:sql/${db.vendor}/${ole.schema.1}-constraints.sql</value>
+    <value>classpath:sql/${db.vendor}/${ole.schema.2}-constraints.sql</value>
   </util:list>
 
   <bean id="constraintsSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
