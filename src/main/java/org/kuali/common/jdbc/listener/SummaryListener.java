@@ -41,7 +41,6 @@ public class SummaryListener implements SqlListener {
 	long size;
 	LoggerLevel loggerLevel = LoggerLevel.INFO;
 	boolean showRate = true;
-	long aggregateTime = 0;
 
 	@Override
 	public void beforeMetaData(JdbcContext context) {
@@ -69,26 +68,21 @@ public class SummaryListener implements SqlListener {
 
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
-		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
-		this.aggregateTime += elapsed;
 	}
 
 	@Override
 	public void afterExecution(SqlExecutionEvent event) {
 		long elapsed = System.currentTimeMillis() - startMillis;
-		long threadsEffect = aggregateTime - elapsed;
 		String count = FormatUtils.getCount(this.count);
 		String sources = FormatUtils.getCount(event.getContext().getSuppliers().size());
 		String size = FormatUtils.getSize(this.size);
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
-		String threads = FormatUtils.getTime(threadsEffect);
+		Object[] args = { count, sources, size, time, rate };
 		if (showRate) {
-			Object[] args = { count, sources, size, time, rate, threads };
-			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}  Threads effect: {}]", args, logger, loggerLevel);
+			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args, logger, loggerLevel);
 		} else {
-			Object[] args = { count, sources, size, time, threads };
-			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Threads effect: {}]", args, logger, loggerLevel);
+			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}]", args, logger, loggerLevel);
 		}
 	}
 
