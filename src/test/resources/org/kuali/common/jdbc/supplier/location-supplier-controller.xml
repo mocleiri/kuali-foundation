@@ -33,7 +33,7 @@
   </util:list>
 
   <bean id="exectuablesExecutable" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
-    <property name="exectuables" ref="jdbcExecutables" />
+    <property name="executables" ref="jdbcExecutables" />
     <property name="skip" value="${jdbc.execute.skip:FALSE}" />
   </bean>
 
