@@ -30,18 +30,18 @@
     <property name="extensionMappings" ref="jdbc.extensionMappings" />
   </bean>
 
-  <bean id="jdbc.concurrentSchemaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+  <bean id="jdbc.concurrentConstraintsJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="jdbc.dataSource" />
-    <property name="suppliers" ref="jdbc.concurrentSchemaSuppliers" />
-    <property name="message" value="${sql.schema.concurrent.message}" />
+    <property name="suppliers" ref="jdbc.concurrentConstraintsSuppliers" />
+    <property name="message" value="${sql.constraints.concurrent.message}" />
     <property name="listener" ref="jdbc.summaryListener" />
     <property name="threads" value="${sql.threads}" />
   </bean>
 
   <bean id="jdbc.schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbc.service" />
-    <property name="context" ref="jdbc.concurrentSchemaJdbcContext" />
-    <property name="skip" value="${jdbc.schema.skip:FALSE}" />
+    <property name="context" ref="jdbc.concurrentConstraintsJdbcContext" />
+    <property name="skip" value="${jdbc.constraints.skip:FALSE}" />
   </bean>
 
 </beans>

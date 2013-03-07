@@ -30,6 +30,7 @@
   <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-dba.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-schema.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-data.xml" />
+  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-constraints.xml" />
   <!--
     <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-constraints.xml" />
     <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-controller.xml" />
