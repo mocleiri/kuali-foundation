@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.torque.engine.database.model.Table;
-import org.kuali.common.impex.service.MpxExecuteMetaData;
 import org.kuali.common.impex.service.MpxMetaData;
 import org.kuali.common.impex.service.MpxParser;
 import org.kuali.common.impex.service.SqlProducer;

@@ -55,7 +55,7 @@
     <property name="csv" value="${impex.import.dataLocations}" />
   </bean>
 
-  <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
+  <bean id="importContext" class="org.kuali.common.impex.ImportContext">
     <property name="databaseVendor" value="${db.vendor}" />
     <property name="dataLocations" ref="importDataLocations" />
     <property name="schemaXmlLocation" value="classpath:${impex.import.artifactId}.xml" />

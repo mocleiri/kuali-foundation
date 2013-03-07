@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.service;
+package org.kuali.common.impex.supplier;
 
 import org.kuali.common.jdbc.SqlMetaData;
 

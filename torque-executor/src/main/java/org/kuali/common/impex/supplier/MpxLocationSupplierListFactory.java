@@ -26,7 +26,7 @@ import org.apache.torque.engine.database.model.Database;
 import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
-import org.kuali.common.impex.service.ImportContext;
+import org.kuali.common.impex.ImportContext;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.core.db.torque.KualiXmlToAppData;

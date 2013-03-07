@@ -138,7 +138,7 @@
         <property name="strings" ref="resetSqls"/>
     </bean>
 
-    <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
+    <bean id="importContext" class="org.kuali.common.impex.ImportContext">
         <property name="databaseVendor" value="#{databaseProcessContext.vendor}"/>
         <property name="dataLocations" value="classpath:impex/${dataProjectId}-dataLocations.properties"/>
         <property name="schemaXmlLocation" value="classpath:impex/${dataProjectId}.xml"/>

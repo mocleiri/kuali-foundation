@@ -3,6 +3,8 @@ package org.kuali.common.impex.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.kuali.common.impex.ImportContext;
+import org.kuali.common.impex.supplier.MpxExecuteMetaData;
 import org.kuali.common.jdbc.context.JdbcContext;
 
 /**

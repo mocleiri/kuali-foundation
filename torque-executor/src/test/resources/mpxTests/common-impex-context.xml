@@ -158,7 +158,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="importContext" class="org.kuali.common.impex.service.ImportContext">
+    <bean id="importContext" class="org.kuali.common.impex.ImportContext">
         <property name="databaseVendor" value="#{databaseProcessContext.vendor}"/>
         <property name="dataLocations" value="classpath:mpxTests/mpxLocations.resources"/>
         <property name="schemaXmlLocation" value="${project.build.directory}/impex/${project.artifactId}.xml"/>

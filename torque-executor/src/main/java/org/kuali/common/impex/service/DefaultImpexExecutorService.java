@@ -27,6 +27,8 @@ import org.apache.torque.engine.database.model.Database;
 import org.apache.torque.engine.database.model.Table;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
+import org.kuali.common.impex.ImportContext;
+import org.kuali.common.impex.supplier.MpxExecuteMetaData;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.threads.ExecutionStatistics;

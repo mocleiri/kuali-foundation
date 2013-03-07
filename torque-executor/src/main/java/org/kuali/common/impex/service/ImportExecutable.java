@@ -17,6 +17,7 @@ package org.kuali.common.impex.service;
 
 import java.io.IOException;
 
+import org.kuali.common.impex.ImportContext;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
