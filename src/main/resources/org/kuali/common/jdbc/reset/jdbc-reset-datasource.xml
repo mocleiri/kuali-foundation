@@ -37,7 +37,7 @@
   </bean>
 
   <bean id="jdbc.dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="jdbc.nullifier">
-    <property name="driverClassName" value="#{jdbcDatabaseProcessContext.driver" />
+    <property name="driverClassName" value="#{jdbcDatabaseProcessContext.driver}" />
     <property name="url" value="#{jdbcDatabaseProcessContext.url}" />
     <property name="username" value="#{jdbcDatabaseProcessContext.username}" />
     <property name="password" value="#{jdbcDatabaseProcessContext.password}" />

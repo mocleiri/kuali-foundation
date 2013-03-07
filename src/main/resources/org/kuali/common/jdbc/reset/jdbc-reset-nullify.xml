@@ -39,7 +39,7 @@
   <bean id="jdbc.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
     <property name="nullTokens" ref="jdbc.nullTokens" />
     <property name="properties" ref="jdbc.nullableProperties" />
-    <property name="bean" ref="jdbc.databaseProcessContext" />
+    <property name="bean" ref="jdbcDatabaseProcessContext" />
   </bean>
 
 </beans>
