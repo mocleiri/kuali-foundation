@@ -42,7 +42,6 @@
     <property name="suppliers" ref="sequentialDataSuppliers" />
     <property name="message" value="${sql.data.sequential.message}" />
     <property name="listener" ref="summaryListener" />
-    <property name="threads" value="${sql.threads}" />
   </bean>
 
   <bean id="sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
