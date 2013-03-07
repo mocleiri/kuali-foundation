@@ -8,8 +8,8 @@ import java.util.Properties;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
 
@@ -19,7 +19,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 
 	String listSuffix = DEFAULT_LIST_SUFFIX;
 	Properties properties;
-	String prefix;
+	String property;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
 
 	@Override
@@ -27,11 +27,11 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 
 		// Make sure we are configured correctly
 		Assert.notNull(properties, "properties is null");
-		Assert.notNull(prefix, "prefix is null");
+		Assert.notNull(property, "property is null");
 		Assert.notNull(extensionMappings, "extensionMappings is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
-		List<String> locations = getLocations(properties, prefix, listSuffix);
+		List<String> locations = getLocations(properties, property, listSuffix);
 
 		// Convert the locations into LocationSupplier's based on extension
 		return getSuppliers(locations, extensionMappings);
@@ -85,8 +85,12 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		}
 	}
 
-	protected List<String> getLocations(Properties properties, String prefix, String listSuffix) {
-		List<String> keys = PropertyUtils.getStartsWithKeys(properties, prefix);
+	protected List<String> getLocations(Properties properties, String property, String listSuffix) {
+		String csv = properties.getProperty(property);
+		if (StringUtils.isBlank(csv)) {
+			return new ArrayList<String>();
+		}
+		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
 		List<String> locations = new ArrayList<String>();
 		for (String key : keys) {
 			String value = properties.getProperty(key);
@@ -125,20 +129,20 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		this.properties = properties;
 	}
 
-	public String getPrefix() {
-		return prefix;
-	}
-
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
-
 	public Map<String, LocationSupplierSourceBean> getExtensionMappings() {
 		return extensionMappings;
 	}
 
 	public void setExtensionMappings(Map<String, LocationSupplierSourceBean> extensionMappings) {
 		this.extensionMappings = extensionMappings;
+	}
+
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 }
