@@ -12,7 +12,7 @@
     <spring.version>3.2.0.RELEASE</spring.version>
     <mysql.version>5.1.22</mysql.version>
     <oracle.version>11.2.0.2</oracle.version>
-      <kuali-jdbc.version>3.0.0-SNAPSHOT</kuali-jdbc.version>
+    <kuali-jdbc.version>3.0.0-SNAPSHOT</kuali-jdbc.version>
   </properties>
   <dependencies>
     <dependency>
@@ -75,11 +75,11 @@
       <artifactId>spring-test</artifactId>
       <version>${spring.version}</version>
     </dependency>
-      <dependency>
-          <groupId>org.kuali.common</groupId>
-          <artifactId>kuali-sql</artifactId>
-          <scope>test</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-sql</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <testResources>
