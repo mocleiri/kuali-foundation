@@ -50,7 +50,7 @@
 
   <bean id="sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
     <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
-    <property name="instance" ref="sqlLocationSupplierInstance" />
+    <property name="supplierInstance" ref="sqlLocationSupplierInstance" />
   </bean>
 
   <util:map id="extensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
