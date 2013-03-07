@@ -15,7 +15,6 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
@@ -67,10 +66,9 @@ public class LogSqlListener implements SqlListener {
 		case AFTER:
 			String sql = getSql(event.getSql(), flatten);
 			long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
-			String elapsed = StringUtils.leftPad(FormatUtils.getTime(millis), 8, " ");
-			Object[] args = { elapsed, sql };
-			String msg = "Elapsed: {} {}";
-			LoggerUtils.logMsg(msg, args, logger, level);
+			String elapsed = FormatUtils.getTime(millis);
+			Object[] args = { sql, elapsed };
+			LoggerUtils.logMsg("{} - {}", args, logger, level);
 			return;
 		default:
 			throw new IllegalArgumentException("Mode [" + mode + "] is unknown");
