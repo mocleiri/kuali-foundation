@@ -149,13 +149,13 @@ public class DefaultJdbcService implements JdbcService {
 			SqlBucketContext sbc = new SqlBucketContext();
 			sbc.setService(this);
 			sbc.setBucket(bucket);
-			sbc.setContext(getExecutionContext(context, bucket, listener));
+			sbc.setContext(getJdbcContext(context, bucket, listener));
 			sbcs.add(sbc);
 		}
 		return sbcs;
 	}
 
-	protected JdbcContext getExecutionContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
+	protected JdbcContext getJdbcContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
 		JdbcContext context = new JdbcContext();
 		context.setDataSource(original.getDataSource());
 		context.setCommitMode(original.getCommitMode());

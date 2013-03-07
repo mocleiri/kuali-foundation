@@ -53,6 +53,7 @@
     <property name="suppliers" ref="schemaSuppliers" />
     <property name="message" value="${sql.schema.concurrent.message}" />
     <property name="listener" ref="summaryListener" />
+    <property name="threads" value="${sql.threads}" />
   </bean>
 
   <bean id="schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
