@@ -30,7 +30,7 @@ public class ShowConfigExecutable implements Executable {
 		Assert.notNull(dataSource, "dataSource is null");
 
 		logger.info("------------------------------------------------------------------------");
-		logger.info("JDBC Configuration - {}", context.getUrl());
+		logger.info("JDBC Configuration");
 		logger.info("------------------------------------------------------------------------");
 		logger.info("Vendor - {}", context.getVendor());
 		logger.info("URL - {}", context.getUrl());
