@@ -38,10 +38,17 @@
     <ref bean="dbaSqlSupplier" />
   </util:list>
 
-  <bean id="jdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+  <bean id="dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="dbaDataSource" />
     <property name="suppliers" ref="dbaSuppliers" />
     <property name="message" value="Executing DBA SQL" />
+  </bean>
+
+  <bean id="dbaExecutable" class="org.kuali.common.jdbc.context.JdbcExecutable" init-method="execute">
+    <property name="service" ref="jdbcService" />
+    <property name="context" ref="dbaJdbcContext" />
+    <property name="message" value="Executing DBA SQL" />
+    <property name="skip" value="${jdbc.dba.skip:FALSE}" />
   </bean>
 
 </beans>
