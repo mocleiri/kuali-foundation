@@ -69,7 +69,8 @@ public class SummaryListener implements SqlListener {
 
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
-		this.aggregateTime += event.getStopTimeMillis() - event.getStartTimeMillis();
+		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
+		this.aggregateTime += elapsed;
 	}
 
 	@Override
