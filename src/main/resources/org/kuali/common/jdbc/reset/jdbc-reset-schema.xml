@@ -26,8 +26,8 @@
 
   <bean id="jdbc.concurrentSchemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
     <property name="property" value="sql.schema.concurrent" />
-    <property name="properties" ref="jdbc.defaultProperties" />
-    <property name="mappings" ref="jdbc.defaultExtensionMappings" />
+    <property name="properties" ref="jdbc.properties" />
+    <property name="extensionMappings" ref="jdbc.defaultExtensionMappings" />
   </bean>
 
   <bean id="jdbc.concurrentSchemaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
