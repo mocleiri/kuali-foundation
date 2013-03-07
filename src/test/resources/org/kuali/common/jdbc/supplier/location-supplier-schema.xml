@@ -42,7 +42,7 @@
     <property name="threads" value="${sql.threads}" />
   </bean>
 
-  <bean id="schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
+  <bean id="schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbcService" />
     <property name="context" ref="schemaJdbcContext" />
     <property name="skip" value="${jdbc.schema.skip:FALSE}" />

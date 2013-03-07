@@ -44,7 +44,7 @@
     <property name="listener" ref="summaryListener" />
   </bean>
 
-  <bean id="sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
+  <bean id="sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbcService" />
     <property name="context" ref="sequentialDataJdbcContext" />
     <property name="skip" value="${jdbc.data.skip:FALSE}" />

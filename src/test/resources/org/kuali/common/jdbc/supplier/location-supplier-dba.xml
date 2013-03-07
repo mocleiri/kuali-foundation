@@ -45,7 +45,7 @@
     <property name="listener" ref="logSqlListener" />
   </bean>
 
-  <bean id="dbaExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
+  <bean id="dbaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbcService" />
     <property name="context" ref="dbaJdbcContext" />
     <property name="skip" value="${jdbc.dba.skip:FALSE}" />
