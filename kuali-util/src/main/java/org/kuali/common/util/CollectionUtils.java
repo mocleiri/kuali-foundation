@@ -33,9 +33,9 @@ public class CollectionUtils {
 
 	/**
 	 * Return an array of int's that represents as even of a split as possible
-	 *
+	 * 
 	 * For example: passing in 100,7 returns 15, 15, 14, 14, 14, 14, 14
-	 *
+	 * 
 	 * @param numerator
 	 * @param denominator
 	 * @return
@@ -77,8 +77,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Prefix the strings passed in with their position in the list (left padded with zero's). The padding is the number of digits in the
-	 * size of the list. A list with 100 elements will return strings prefixed with 000, 001, etc.
+	 * Prefix the strings passed in with their position in the list (left padded with zero's). The padding is the number of digits in the size of the list. A list with 100 elements
+	 * will return strings prefixed with 000, 001, etc.
 	 */
 	public static final List<String> getSequencedStrings(List<String> strings, int initialSequenceNumber) {
 		List<String> sequencedStrings = new ArrayList<String>();
@@ -94,8 +94,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Prefix the strings passed in with their position in the list (left padded with zero's). The padding is the number of digits in the
-	 * size of the list. A list with 100 elements will return strings prefixed with 000, 001, etc.
+	 * Prefix the strings passed in with their position in the list (left padded with zero's). The padding is the number of digits in the size of the list. A list with 100 elements
+	 * will return strings prefixed with 000, 001, etc.
 	 */
 	public static final List<String> getSequencedStrings(List<String> strings) {
 		return getSequencedStrings(strings, 0);
@@ -174,8 +174,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Return a list containing only the elements where the corresponding index in the <code>includes</code> list is <code>true</code>.
-	 * <code>includes</code> and <code>list</code> must be the same size.
+	 * Return a list containing only the elements where the corresponding index in the <code>includes</code> list is <code>true</code>. <code>includes</code> and <code>list</code>
+	 * must be the same size.
 	 */
 	public static final <T> List<T> getList(List<Boolean> includes, List<T> list) {
 		Assert.isTrue(includes.size() == list.size());
@@ -186,6 +186,17 @@ public class CollectionUtils {
 			}
 		}
 		return included;
+	}
+
+	/**
+	 * Combine the list of lists into a single list
+	 */
+	public static final <T> List<T> combine(List<List<T>> listOfLists) {
+		List<T> combined = new ArrayList<T>();
+		for (List<T> list : listOfLists) {
+			combined.addAll(list);
+		}
+		return combined;
 	}
 
 	/**
