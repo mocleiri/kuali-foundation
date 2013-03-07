@@ -25,6 +25,7 @@ public class DatabaseProcessContext {
 	String dbaUrl;
 	String dbaUsername;
 	String dbaPassword;
+	String encoding;
 
 	public String getDriver() {
 		return driver;
@@ -88,6 +89,14 @@ public class DatabaseProcessContext {
 
 	public void setVendor(String vendor) {
 		this.vendor = vendor;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
