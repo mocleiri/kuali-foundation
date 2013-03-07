@@ -41,8 +41,8 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 			LocationSupplier implementation = supplierClass.newInstance();
 
 			// Configure the impl with default properties from the source bean
-			if (sourceBean.getInstance() != null) {
-				BeanUtils.copyProperties(sourceBean.getInstance(), implementation);
+			if (sourceBean.getSupplierInstance() != null) {
+				BeanUtils.copyProperties(sourceBean.getSupplierInstance(), implementation);
 			}
 
 			// Store the location on the impl

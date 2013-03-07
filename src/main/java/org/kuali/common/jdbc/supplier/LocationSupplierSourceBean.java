@@ -3,7 +3,7 @@ package org.kuali.common.jdbc.supplier;
 public class LocationSupplierSourceBean {
 
 	Class<? extends LocationSupplier> supplierClass;
-	LocationSupplier instance;
+	LocationSupplier supplierInstance;
 
 	public Class<? extends LocationSupplier> getSupplierClass() {
 		return supplierClass;
@@ -13,12 +13,12 @@ public class LocationSupplierSourceBean {
 		this.supplierClass = supplierClass;
 	}
 
-	public LocationSupplier getInstance() {
-		return instance;
+	public LocationSupplier getSupplierInstance() {
+		return supplierInstance;
 	}
 
-	public void setInstance(LocationSupplier instance) {
-		this.instance = instance;
+	public void setSupplierInstance(LocationSupplier supplierInstance) {
+		this.supplierInstance = supplierInstance;
 	}
 
 }
