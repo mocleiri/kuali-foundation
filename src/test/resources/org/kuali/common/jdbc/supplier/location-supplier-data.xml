@@ -48,7 +48,7 @@
 
   <bean id="dataExecutable" class="org.kuali.common.jdbc.JdbcExecutable" init-method="execute">
     <property name="service" ref="jdbcService" />
-    <property name="context" ref="constraintsJdbcContext" />
+    <property name="context" ref="dataJdbcContext" />
     <property name="skip" value="${jdbc.data.skip:FALSE}" />
   </bean>
 
