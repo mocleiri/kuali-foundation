@@ -22,7 +22,10 @@ import org.kuali.common.jdbc.context.JdbcContext;
  */
 public class SqlTimingListener implements SqlListener {
 
-	long elapsed;
+	long aggregateSqlTime;
+	long wallTimeElapsed;
+	long start;
+	long stop;
 
 	@Override
 	public void beforeMetaData(JdbcContext context) {
@@ -38,19 +41,26 @@ public class SqlTimingListener implements SqlListener {
 
 	@Override
 	public void beforeExecuteSql(SqlEvent event) {
+		this.start = System.currentTimeMillis();
 	}
 
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
-		this.elapsed += event.getStopTimeMillis() - event.getStartTimeMillis();
+		this.aggregateSqlTime += event.getStopTimeMillis() - event.getStartTimeMillis();
 	}
 
 	@Override
 	public void afterExecution(SqlExecutionEvent event) {
+		this.stop = System.currentTimeMillis();
+		this.wallTimeElapsed = stop - start;
 	}
 
-	public long getElapsed() {
-		return elapsed;
+	public long getAggregateSqlTime() {
+		return aggregateSqlTime;
+	}
+
+	public long getWallTimeElapsed() {
+		return wallTimeElapsed;
 	}
 
 }
