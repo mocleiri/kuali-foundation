@@ -28,13 +28,13 @@
   <bean id="jdbc.concurrentDataSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
     <property name="property" value="sql.data.concurrent" />
     <property name="properties" ref="jdbc.properties" />
-    <property name="mappings" ref="jdbc.extensionMappings" />
+    <property name="extensionMappings" ref="jdbc.extensionMappings" />
   </bean>
 
   <bean id="jdbc.sequentialDataSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
     <property name="property" value="sql.data.sequential" />
     <property name="properties" ref="jdbc.properties" />
-    <property name="mappings" ref="jdbc.extensionMappings" />
+    <property name="extensionMappings" ref="jdbc.extensionMappings" />
   </bean>
 
   <!-- Setup JDBC contexts -->

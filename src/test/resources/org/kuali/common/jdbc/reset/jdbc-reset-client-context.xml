@@ -37,4 +37,12 @@
     </property>
   </bean>
 
+  <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
+    <property name="listOfMaps">
+      <list>
+        <ref bean="jdbc.defaultExtensionMappings" />
+      </list>
+    </property>
+  </bean>
+
 </beans>
