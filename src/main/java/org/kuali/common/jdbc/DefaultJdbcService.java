@@ -30,9 +30,11 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
+import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.listener.SqlTimingListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
@@ -109,8 +111,10 @@ public class DefaultJdbcService implements JdbcService {
 		// Only printing a dot to the console when each bucket completes is not granular enough
 
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
-		ThreadsProgressListener listener = new ThreadsProgressListener();
-		listener.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
+		ThreadsProgressListener tpl = new ThreadsProgressListener();
+		tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
+		SqlTimingListener stl = new SqlTimingListener();
+		NotifyingListener listener = new NotifyingListener(Arrays.asList(tpl, stl));
 
 		// Provide some context for each bucket
 		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
