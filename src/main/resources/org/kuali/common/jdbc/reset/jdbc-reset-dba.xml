@@ -24,17 +24,31 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-common.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-properties.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-nullify.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-datasource.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset/jdbc-reset-dba.xml" />
-  <!--
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-schema.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-data-sequential.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-constraints.xml" />
-    <import resource="classpath:org/kuali/common/jdbc/supplier/location-supplier-controller.xml" />
-  -->
+  <util:list id="jdbc.dbaSql" value-type="java.lang.String">
+    <value>${sql.drop}</value>
+    <value>${sql.create}</value>
+  </util:list>
+
+  <bean id="jdbc.dbaSqlSupplier" class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
+    <property name="reader" ref="jdbc.sqlReader" />
+    <property name="strings" ref="jdbc.dbaSql" />
+  </bean>
+
+  <util:list id="jdbc.dbaSuppliers">
+    <ref bean="jdbc.dbaSqlSupplier" />
+  </util:list>
+
+  <bean id="jdbc.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
+    <property name="dataSource" ref="jdbc.dbaDataSource" />
+    <property name="suppliers" ref="jdbc.dbaSuppliers" />
+    <property name="message" value="Executing DBA SQL" />
+    <property name="listener" ref="jdbc.logSqlListener" />
+  </bean>
+
+  <bean id="jdbc.dbaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
+    <property name="service" ref="jdbc.service" />
+    <property name="context" ref="jdbc.dbaJdbcContext" />
+    <property name="skip" value="${jdbc.dba.skip:FALSE}" />
+  </bean>
 
 </beans>
