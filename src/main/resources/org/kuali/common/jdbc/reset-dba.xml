@@ -41,7 +41,7 @@
   <bean id="jdbc.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="jdbc.dbaDataSource" />
     <property name="suppliers" ref="jdbc.dbaSuppliers" />
-    <property name="message" value="Executing DBA SQL" />
+    <property name="message" value="${sql.dba.message}" />
     <property name="listener" ref="jdbc.logSqlListener" />
   </bean>
 
