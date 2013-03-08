@@ -19,15 +19,7 @@ public class MetaInfUtils {
 
 	public static void scanAndCreateFiles(List<MetaInfContext> contexts) throws IOException {
 		for (MetaInfContext context : contexts) {
-			Assert.notNull(context.getBaseDir(), "baseDir is null");
-			Assert.notNull(context.getOutputFile(), "outputFile is null");
-			List<String> includes = context.getIncludes();
-			List<String> excludes = context.getExcludes();
-			logger.info("Examining - " + context.getBaseDir().getCanonicalPath());
-			logger.info("Include - " + CollectionUtils.getSpaceSeparatedString(includes));
-			logger.info("Exclude - " + CollectionUtils.getSpaceSeparatedString(excludes));
-			SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
-			List<File> files = scanner.getFiles();
+			List<File> files = getFiles(context);
 			logger.info("Located " + files.size() + " files");
 			List<MetaInfResource> resources = getResources(context.getBaseDir(), files, context.getPrefix());
 			doLocations(context, resources);
@@ -35,6 +27,18 @@ public class MetaInfUtils {
 				doProperties(context, resources);
 			}
 		}
+	}
+
+	public static List<File> getFiles(MetaInfContext context) throws IOException {
+		Assert.notNull(context.getBaseDir(), "baseDir is null");
+		Assert.notNull(context.getOutputFile(), "outputFile is null");
+		List<String> includes = context.getIncludes();
+		List<String> excludes = context.getExcludes();
+		logger.info("Examining - " + context.getBaseDir().getCanonicalPath());
+		logger.info("Include - " + CollectionUtils.getSpaceSeparatedString(includes));
+		logger.info("Exclude - " + CollectionUtils.getSpaceSeparatedString(excludes));
+		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
+		return scanner.getFiles();
 	}
 
 	public static void doLocations(MetaInfContext context, List<MetaInfResource> resources) throws IOException {
