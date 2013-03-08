@@ -41,25 +41,25 @@
   </bean>
 
   <!-- Create metaInfContext beans -->
-  <bean id="metaInfContextSchema" class="org.kuali.common.util.DefaultMetaInfContext">
+  <bean id="metaInfContextSchema" class="org.kuali.common.util.MetaInfContext">
     <property name="outputFile" value="${metainf.output.schema}" />
     <property name="includes" ref="metaInfIncludesSchema" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
     <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
-  <bean id="metaInfContextData" class="org.kuali.common.util.DefaultMetaInfContext">
+  <bean id="metaInfContextData" class="org.kuali.common.util.MetaInfContext">
     <property name="outputFile" value="${metainf.output.data}" />
     <property name="includes" ref="metaInfIncludesData" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
     <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
-  <bean id="metaInfContextConstraints" class="org.kuali.common.util.DefaultMetaInfContext">
+  <bean id="metaInfContextConstraints" class="org.kuali.common.util.MetaInfContext">
     <property name="outputFile" value="${metainf.output.constraints}" />
     <property name="includes" ref="metaInfIncludesConstraints" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
     <property name="prefix" value="${metainf.resource.prefix}" />
   </bean>
-  <bean id="metaInfContextOther" class="org.kuali.common.util.DefaultMetaInfContext">
+  <bean id="metaInfContextOther" class="org.kuali.common.util.MetaInfContext">
     <property name="outputFile" value="${metainf.output.other}" />
     <property name="includes" ref="metaInfIncludesOther" />
     <property name="baseDir" value="${project.build.outputDirectory}" />

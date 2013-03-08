@@ -30,8 +30,10 @@ public class MetaInfUtils {
 			List<File> files = scanner.getFiles();
 			logger.info("Located " + files.size() + " files");
 			List<MetaInfResource> resources = getResources(context.getBaseDir(), files, context.getPrefix());
-			doProperties(context, resources);
 			doLocations(context, resources);
+			if (context.isAddPropertiesFile()) {
+				doProperties(context, resources);
+			}
 		}
 	}
 
