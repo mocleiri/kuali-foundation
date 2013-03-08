@@ -157,15 +157,13 @@ public class DefaultJdbcService implements JdbcService {
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
 
 		// If multiple threads were used, display the amount of time saved due to multi-threading
-		if (context.getThreads() > 1) {
-			long aggregateTime = stl.getAggregateSqlTime();
-			long wallTime = stats.getExecutionTime();
-			String aTime = FormatUtils.getTime(aggregateTime);
-			String wTime = FormatUtils.getTime(wallTime);
-			String savings = FormatUtils.getTime(aggregateTime - wallTime);
-			Object[] args = { buckets.size(), aTime, wTime, savings };
-			logger.info("Threads: {}  Aggregate: {}  Wall: {}  Savings: {}", args);
-		}
+		long aggregateTime = stl.getAggregateSqlTime();
+		long wallTime = stats.getExecutionTime();
+		String aTime = FormatUtils.getTime(aggregateTime);
+		String wTime = FormatUtils.getTime(wallTime);
+		String savings = FormatUtils.getTime(aggregateTime - wallTime);
+		Object[] args = { buckets.size(), aTime, wTime, savings };
+		logger.info("Threads: {}  Aggregate: {}  Wall: {}  Savings: {}", args);
 	}
 
 	@Override
