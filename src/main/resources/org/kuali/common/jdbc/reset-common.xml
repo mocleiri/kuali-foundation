@@ -53,7 +53,7 @@
   </bean>
 
   <bean id="jdbc.summaryAndMetaDataListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
-    <property name="listeners" ref="jdbc.summaryAndProgressList" />
+    <property name="listeners" ref="jdbc.summaryAndMetaDataList" />
   </bean>
 
   <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
