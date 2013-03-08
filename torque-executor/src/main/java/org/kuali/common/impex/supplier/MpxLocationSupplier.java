@@ -17,122 +17,136 @@ package org.kuali.common.impex.supplier;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Table;
-import org.kuali.common.impex.service.MpxMetaData;
-import org.kuali.common.impex.service.MpxParser;
+import org.kuali.common.impex.KualiDatabase;
 import org.kuali.common.impex.service.SqlProducer;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.jdbc.SqlMetaData;
+import org.kuali.common.jdbc.supplier.AbstractSupplier;
+import org.kuali.common.jdbc.supplier.LocationSupplier;
 import org.kuali.common.util.LocationUtils;
 
 /**
- * This class provides an implementation of the SqlSupplier interface using an Mpx resource
- * as the data source
- *
+ * This class provides an implementation of the SqlSupplier interface using an Mpx resource as the data source
+ * 
  * @author andrewlubbers
  */
-public class MpxLocationSupplier implements SqlSupplier {
+public class MpxLocationSupplier extends AbstractSupplier implements LocationSupplier {
 
-    SqlProducer sqlProducer;
-    MpxExecuteMetaData metaData;
-    BufferedReader reader;
-    String encoding;
-    Table table;
-    String location;
+	public static final String DEFAULT_MPX_EXTENSION = ".mpx";
+	public static final String UTF8 = "UTF-8";
 
-    @Override
-    public void open() throws IOException {
-        reader = LocationUtils.getBufferedReader(location, encoding);
-    }
+	protected BufferedReader reader;
+	protected Table table;
 
-    @Override
-    public String getSql() throws IOException {
-        return sqlProducer.getSql(table, reader);
-    }
+	String extension = DEFAULT_MPX_EXTENSION;
+	String encoding = UTF8;
+	KualiDatabase database;
+	SqlProducer producer;
+	String location;
 
-    @Override
-    public void close() {
-        IOUtils.closeQuietly(reader);
-    }
+	@Override
+	public void open() throws IOException {
+		this.table = getTable(location, database, extension);
+		this.reader = LocationUtils.getBufferedReader(location, encoding);
+	}
 
-    @Override
-    public void fillInMetaData() {
-        try {
-            metaData = getExecuteMetaData(sqlProducer, MpxParser.getMpxMetaData(location), encoding, table);
-        } catch (IOException e) {
-            throw new IllegalStateException("Exception thrown while trying to initialize meta data: " + e.getMessage(), e);
-        }
-    }
+	@Override
+	public String getSql() throws IOException {
+		return producer.getSql(table, reader);
+	}
 
-    protected MpxExecuteMetaData getExecuteMetaData(SqlProducer producer, MpxMetaData metaData, String encoding, Table table) {
-        BufferedReader in = null;
-        long count = 0;
-        long size = 0;
-        try {
-            in = LocationUtils.getBufferedReader(metaData.getLocation(), encoding);
-            String sql = producer.getSql(table, in);
-            while (sql != null) {
-                count++;
-                size += sql.length();
-                sql = producer.getSql(table, in);
-            }
-            MpxExecuteMetaData executeMeta = new MpxExecuteMetaData();
-            executeMeta.setCount(count);
-            executeMeta.setSize(size);
-            executeMeta.setRawDataSize(metaData.getSize());
-            executeMeta.setLocation(metaData.getLocation());
-            executeMeta.setRowCount(metaData.getRowCount());
-            return executeMeta;
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-    }
+	@Override
+	public void close() {
+		IOUtils.closeQuietly(reader);
+		this.table = null;
+	}
 
-    public String getEncoding() {
-        return encoding;
-    }
+	protected Table getTable(String location, KualiDatabase database, String extension) {
+		String filename = LocationUtils.getFilename(location);
+		if (!StringUtils.endsWithIgnoreCase(filename, extension)) {
+			throw new IllegalArgumentException(location + " does not end with " + extension);
+		}
+		int end = filename.length() - extension.length();
+		String tableName = StringUtils.substring(filename, 0, end);
+		return getTable(database, tableName);
+	}
 
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
+	protected Table getTable(KualiDatabase database, String tableName) {
+		List<?> tables = database.getTables();
+		for (Object element : tables) {
+			Table table = (Table) element;
+			if (StringUtils.equalsIgnoreCase(tableName, table.getName())) {
+				return table;
+			}
+		}
+		throw new IllegalArgumentException("Unable to locate table [" + tableName + "]");
+	}
 
-    public MpxExecuteMetaData getMetaData() {
-        return metaData;
-    }
+	@Override
+	public void fillInMetaData() {
+		long count = 0;
+		long size = 0;
+		BufferedReader in = null;
+		try {
+			Table table = getTable(location, database, extension);
+			in = LocationUtils.getBufferedReader(location, encoding);
+			String sql = producer.getSql(table, in);
+			while (sql != null) {
+				count++;
+				size += sql.length();
+				sql = producer.getSql(table, in);
+			}
+			this.metaData = new SqlMetaData(count, size);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
 
-    public void setMetaData(MpxExecuteMetaData metaData) {
-        this.metaData = metaData;
-    }
+	public String getEncoding() {
+		return encoding;
+	}
 
-    public SqlProducer getSqlProducer() {
-        return sqlProducer;
-    }
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
 
-    public void setSqlProducer(SqlProducer sqlProducer) {
-        this.sqlProducer = sqlProducer;
-    }
+	@Override
+	public String getLocation() {
+		return location;
+	}
 
-    public Table getTable() {
-        return table;
-    }
+	@Override
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public void setTable(Table table) {
-        this.table = table;
-    }
+	public SqlProducer getProducer() {
+		return producer;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	public void setProducer(SqlProducer producer) {
+		this.producer = producer;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public KualiDatabase getDatabase() {
+		return database;
+	}
 
-    @Override
-    public int compareTo(SqlSupplier o) {
-        return metaData.compareTo(o.getMetaData());
-    }
+	public void setDatabase(KualiDatabase database) {
+		this.database = database;
+	}
+
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
 }
