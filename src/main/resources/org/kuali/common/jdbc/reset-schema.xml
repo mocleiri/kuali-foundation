@@ -36,6 +36,7 @@
     <property name="message" value="${sql.schema.concurrent.message}" />
     <property name="listener" ref="jdbc.summaryListener" />
     <property name="threads" value="${sql.threads}" />
+    <property name="multithreaded" value="true" />
   </bean>
 
   <bean id="jdbc.schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">

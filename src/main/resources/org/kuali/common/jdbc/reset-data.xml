@@ -44,6 +44,7 @@
     <property name="message" value="${sql.data.concurrent.message}" />
     <property name="listener" ref="jdbc.summaryListener" />
     <property name="threads" value="${sql.threads}" />
+    <property name="multithreaded" value="true" />
   </bean>
 
   <bean id="jdbc.sequentialDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
@@ -51,7 +52,6 @@
     <property name="suppliers" ref="jdbc.sequentialDataSuppliers" />
     <property name="message" value="${sql.data.sequential.message}" />
     <property name="listener" ref="jdbc.summaryAndProgressListener" />
-    <property name="threads" value="1" />
   </bean>
 
   <!-- Setup executables -->

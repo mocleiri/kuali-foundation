@@ -70,17 +70,14 @@ public class DefaultJdbcService implements JdbcService {
 			supplier.fillInMetaData();
 		}
 
-		// No point in using multiple threads if either of these is less than 2
-		boolean sequential = context.getThreads() < 2 || context.getSuppliers().size() < 2;
-
 		// Fire an event before beginning SQL execution
 		context.getListener().beforeExecution(new SqlExecutionEvent(context));
 
 		// Execute the SQL as dictated by the context
-		if (sequential) {
-			executeSequentially(context);
-		} else {
+		if (context.isMultithreaded()) {
 			executeMultiThreaded(context);
+		} else {
+			executeSequentially(context);
 		}
 
 		// Fire an event now that SQL execution is complete
@@ -138,10 +135,12 @@ public class DefaultJdbcService implements JdbcService {
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
-		long aggregateTime = stl.getAggregateSqlTime();
-		long wallTime = stats.getExecutionTime();
-		String timeSavings = FormatUtils.getTime(aggregateTime - wallTime);
-		logger.info("Time savings due to multi-threading: {}", timeSavings);
+		if (context.getThreads() > 1) {
+			long aggregateTime = stl.getAggregateSqlTime();
+			long wallTime = stats.getExecutionTime();
+			String timeSavings = FormatUtils.getTime(aggregateTime - wallTime);
+			logger.info("Threads: {}  Time savings: {}", context.getThreads(), timeSavings);
+		}
 	}
 
 	@Override
