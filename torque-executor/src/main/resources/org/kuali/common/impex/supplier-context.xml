@@ -24,19 +24,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="impex.database" class="org.kuali.common.impex.supplier.KualiDatabaseFactoryBean">
+  <bean id="impex.database" class="org.kuali.common.impex.KualiDatabaseFactoryBean">
     <property name="databaseVendor" value="${db.vendor}" />
     <property name="location" value="${impex.schema.location}" />
   </bean>
 
-  <bean id="impex.producer" class="org.kuali.common.impex.supplier.SqlProducerFactoryBean">
+  <bean id="impex.producer" class="org.kuali.common.impex.SqlProducerFactoryBean">
     <property name="databaseVendor" value="${db.vendor}" />
   </bean>
 
   <bean id="impex.mpxLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
-    <property name="supplierClass" value="org.kuali.common.impex.supplier.MpxLocationSupplier" />
+    <property name="supplierClass" value="org.kuali.common.impex.MpxLocationSupplier" />
     <property name="supplierInstance">
-      <bean class="org.kuali.common.impex.supplier.MpxLocationSupplier">
+      <bean class="org.kuali.common.impex.MpxLocationSupplier">
         <property name="database" ref="impex.database" />
         <property name="producer" ref="impex.producer" />
       </bean>
