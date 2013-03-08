@@ -195,6 +195,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.setThreads(1);
 		context.setExecute(original.isExecute());
 		context.setListener(listener);
+		context.setSkipMetaData(true);
 		return context;
 	}
 

@@ -40,6 +40,7 @@ public class JdbcContext {
 	DataSource dataSource;
 	List<SqlSupplier> suppliers;
 	String message;
+	boolean skipMetaData;
 
 	public boolean isExecute() {
 		return execute;
@@ -103,6 +104,14 @@ public class JdbcContext {
 
 	public void setMultithreaded(boolean multithreaded) {
 		this.multithreaded = multithreaded;
+	}
+
+	public boolean isSkipMetaData() {
+		return skipMetaData;
+	}
+
+	public void setSkipMetaData(boolean skipMetaData) {
+		this.skipMetaData = skipMetaData;
 	}
 
 }
