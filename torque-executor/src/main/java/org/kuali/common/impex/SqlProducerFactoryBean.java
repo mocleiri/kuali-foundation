@@ -1,18 +1,25 @@
 package org.kuali.common.impex;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.service.SqlProducer;
+import org.kuali.common.util.SizeUtils;
 import org.springframework.beans.factory.FactoryBean;
 
 public class SqlProducerFactoryBean implements FactoryBean<SqlProducer> {
 
 	String databaseVendor;
+	int batchRowCountLimit = 50;
+	int batchDataSizeLimit = (int) SizeUtils.getBytes("50k");
 
 	@Override
 	public SqlProducer getObject() throws Exception {
 		Platform platform = PlatformFactory.getPlatformFor(databaseVendor);
-		return platform.getSqlProducer();
+		SqlProducer producer = platform.getSqlProducer();
+		BeanUtils.copyProperty(producer, "batchRowCountLimit", batchRowCountLimit);
+		BeanUtils.copyProperty(producer, "batchDataSizeLimit", batchDataSizeLimit);
+		return producer;
 	}
 
 	@Override
@@ -31,6 +38,22 @@ public class SqlProducerFactoryBean implements FactoryBean<SqlProducer> {
 
 	public void setDatabaseVendor(String databaseVendor) {
 		this.databaseVendor = databaseVendor;
+	}
+
+	public int getBatchRowCountLimit() {
+		return batchRowCountLimit;
+	}
+
+	public void setBatchRowCountLimit(int batchRowCountLimit) {
+		this.batchRowCountLimit = batchRowCountLimit;
+	}
+
+	public int getBatchDataSizeLimit() {
+		return batchDataSizeLimit;
+	}
+
+	public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+		this.batchDataSizeLimit = batchDataSizeLimit;
 	}
 
 }
