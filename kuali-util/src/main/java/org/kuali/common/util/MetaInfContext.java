@@ -3,21 +3,60 @@ package org.kuali.common.util;
 import java.io.File;
 import java.util.List;
 
-public interface MetaInfContext {
+public class MetaInfContext {
 
-	public static final boolean DEFAULT_SORT_VALUE = true;
-	public static final String DEFAULT_PREFIX_VALUE = "classpath:";
+	File baseDir;
+	File outputFile;
+	String prefix = "classpath:";
+	boolean sort = true;
+	List<String> includes;
+	List<String> excludes;
 
-	File getBaseDir();
+	public File getBaseDir() {
+		return baseDir;
+	}
 
-	File getOutputFile();
+	public void setBaseDir(File baseDir) {
+		this.baseDir = baseDir;
+	}
 
-	String getPrefix();
+	public File getOutputFile() {
+		return outputFile;
+	}
 
-	boolean isSort();
+	public void setOutputFile(File outputFile) {
+		this.outputFile = outputFile;
+	}
 
-	List<String> getIncludes();
+	public String getPrefix() {
+		return prefix;
+	}
 
-	List<String> getExcludes();
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 
+	public boolean isSort() {
+		return sort;
+	}
+
+	public void setSort(boolean sort) {
+		this.sort = sort;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
 }

@@ -54,8 +54,7 @@ public class MetaInfUtils {
 		Properties properties = new Properties();
 		for (MetaInfResource resource : resources) {
 			String sizeKey = resource.getKey() + ".size";
-			String sizeVal = resource.getSize() + "";
-			properties.setProperty(sizeKey, sizeVal);
+			properties.setProperty(sizeKey, resource.getSize() + "");
 		}
 		return properties;
 	}
