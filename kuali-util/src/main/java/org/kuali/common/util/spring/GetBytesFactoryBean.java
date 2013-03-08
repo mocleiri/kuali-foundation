@@ -15,18 +15,18 @@
  */
 package org.kuali.common.util.spring;
 
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.TimeUtils;
+import org.kuali.common.util.SizeUtils;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.util.Assert;
 
-public class GetMillisFactoryBean implements FactoryBean<Long> {
+public class GetBytesFactoryBean implements FactoryBean<Long> {
 
-	String time;
+	String size;
 
 	@Override
 	public Long getObject() throws Exception {
-		Assert.notNull(time, "time is null");
-		return TimeUtils.getMillis(time);
+		Assert.notNull(size, "size is null");
+		return SizeUtils.getBytes(size);
 	}
 
 	@Override
@@ -39,12 +39,12 @@ public class GetMillisFactoryBean implements FactoryBean<Long> {
 		return false;
 	}
 
-	public String getTime() {
-		return time;
+	public String getSize() {
+		return size;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 }
