@@ -102,6 +102,15 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		return result;
 	}
 
+	protected String getColumnNamesCSV(Table table) {
+		List<Column> columns = ImpexUtils.getColumns(table);
+		List<String> colNames = new ArrayList<String>(columns.size());
+		for (Column col : columns) {
+			colNames.add(col.getName());
+		}
+		return CollectionUtils.getCSV(colNames);
+	}
+
 	public int getBatchRowCountLimit() {
 		return batchRowCountLimit;
 	}
@@ -120,12 +129,4 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		this.batchRowCountLimit = batchRowCountLimit;
 	}
 
-	protected String getColumnNamesCSV(Table table) {
-		List<Column> columns = ImpexUtils.getColumns(table);
-		List<String> colNames = new ArrayList<String>(columns.size());
-		for (Column col : columns) {
-			colNames.add(col.getName());
-		}
-		return CollectionUtils.getCSV(colNames);
-	}
 }
