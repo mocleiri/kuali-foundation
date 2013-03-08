@@ -20,16 +20,16 @@ package org.kuali.common.jdbc.listener;
  */
 public class SqlTimingListener extends NoOpSqlListener {
 
-	long aggregateSqlTime;
+	long aggregateTime;
 
 	@Override
-	public synchronized void afterExecuteSql(SqlEvent event) {
+	public void afterExecution(SqlExecutionEvent event) {
 		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
-		this.aggregateSqlTime += elapsed;
+		this.aggregateTime += elapsed;
 	}
 
-	public long getAggregateSqlTime() {
-		return aggregateSqlTime;
+	public long getAggregateTime() {
+		return aggregateTime;
 	}
 
 }
