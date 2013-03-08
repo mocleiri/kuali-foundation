@@ -34,7 +34,7 @@
     <property name="dataSource" ref="jdbc.dataSource" />
     <property name="suppliers" ref="jdbc.concurrentSchemaSuppliers" />
     <property name="message" value="${sql.schema.concurrent.message}" />
-    <property name="listener" ref="jdbc.summaryListener" />
+    <property name="listener" ref="jdbc.summaryListenerNoRate" />
     <property name="threads" value="${sql.threads}" />
     <property name="multithreaded" value="true" />
   </bean>

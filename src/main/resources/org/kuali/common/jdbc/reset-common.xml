@@ -32,6 +32,9 @@
   <bean id="jdbc.service" class="org.kuali.common.jdbc.DefaultJdbcService" />
   <bean id="jdbc.logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
   <bean id="jdbc.summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
+  <bean id="jdbc.summaryListenerNoRate" class="org.kuali.common.jdbc.listener.SummaryListener">
+    <property name="showRate" value="false" />
+  </bean>
   <bean id="jdbc.progressListener" class="org.kuali.common.jdbc.listener.ProgressListener" />
 
   <util:list id="jdbc.summaryAndProgressList">
