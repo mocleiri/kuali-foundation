@@ -272,9 +272,11 @@ public class DefaultJdbcService implements JdbcService {
 	protected void excecuteSupplier(Statement statement, JdbcContext context, SqlSupplier supplier) throws SQLException {
 		try {
 			supplier.open();
-			String sql = supplier.getSql();
+			List<String> sql = supplier.getSql();
 			while (sql != null) {
-				executeSql(statement, sql, context);
+				for (String s : sql) {
+					executeSql(statement, s, context);
+				}
 				sql = supplier.getSql();
 			}
 		} catch (IOException e) {

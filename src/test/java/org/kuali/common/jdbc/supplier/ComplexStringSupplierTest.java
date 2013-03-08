@@ -42,9 +42,11 @@ public class ComplexStringSupplierTest {
 		Assert.isTrue(smd.getCount() == count * 3 + 1);
 
 		supplier.open();
-		String sql = supplier.getSql();
+		List<String> sql = supplier.getSql();
 		while (sql != null) {
-			logger.info(sql);
+			for (String s : sql) {
+				logger.info(s);
+			}
 			sql = supplier.getSql();
 		}
 		supplier.close();

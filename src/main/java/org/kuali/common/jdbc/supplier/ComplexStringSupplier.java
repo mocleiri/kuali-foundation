@@ -46,10 +46,10 @@ public class ComplexStringSupplier extends AbstractSupplier {
 	}
 
 	@Override
-	public String getSql() {
+	public List<String> getSql() {
 		try {
 			// Have the reader produce a SQL statement
-			String sql = reader.getSqlStatement(in);
+			List<String> sql = reader.getSql(in);
 
 			// We got a SQL statement we are done
 			if (sql != null) {

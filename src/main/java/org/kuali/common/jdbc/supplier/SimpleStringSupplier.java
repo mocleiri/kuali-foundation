@@ -10,8 +10,6 @@ import org.springframework.util.Assert;
  */
 public class SimpleStringSupplier extends AbstractSupplier {
 
-	protected int index = 0;
-
 	List<String> strings;
 
 	public SimpleStringSupplier() {
@@ -25,27 +23,18 @@ public class SimpleStringSupplier extends AbstractSupplier {
 
 	@Override
 	public void open() {
-
 		// Make sure we've got something to work with
 		Assert.notNull(strings, "strings is null");
-
-		// Reset index to zero
-		index = 0;
 	}
 
 	@Override
-	public String getSql() {
-		if (index < strings.size()) {
-			return strings.get(index++);
-		} else {
-			return null;
-		}
+	public List<String> getSql() {
+		return strings;
 	}
 
 	@Override
 	public void close() {
-		// Reset index to zero
-		index = 0;
+		// Nothing to do
 	}
 
 	@Override

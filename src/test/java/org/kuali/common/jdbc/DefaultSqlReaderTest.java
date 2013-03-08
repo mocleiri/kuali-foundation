@@ -17,6 +17,7 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -36,10 +37,12 @@ public class DefaultSqlReaderTest {
 			SqlReader sqlReader = new MySQLDumpReader();
 
 			BufferedReader reader = LocationUtils.getBufferedReader("classpath:mysqldump.sql");
-			String sql = sqlReader.getSqlStatement(reader);
+			List<String> sql = sqlReader.getSql(reader);
 			while (sql != null) {
-				logger.info(sql);
-				sql = sqlReader.getSqlStatement(reader);
+				for (String s : sql) {
+					logger.info(s);
+				}
+				sql = sqlReader.getSql(reader);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,21 +55,28 @@ public class DefaultSqlReaderTest {
 		BufferedReader reader = LocationUtils.getBufferedReaderFromString(getSql4());
 		try {
 			// This one is too complicated for the default sql reader
-			Assert.assertEquals("SELECT '\n/\n'", sqlReader.getSqlStatement(reader));
+			List<String> sql = sqlReader.getSql(reader);
+			String s = sql.get(0);
+			Assert.assertEquals("SELECT '\n/\n'", s);
 		} catch (AssertionError e) {
 			; // ignore
 		}
+	}
+
+	protected String getFirst(SqlReader reader, BufferedReader in) throws IOException {
+		List<String> sql = reader.getSql(in);
+		return sql.get(0);
 	}
 
 	@Test
 	public void simpleCommentTest() throws IOException {
 		SqlReader sqlReader = new DefaultSqlReader();
 		BufferedReader reader = LocationUtils.getBufferedReaderFromString(getSqlWithComment1());
-		Assert.assertEquals("SELECT 1", sqlReader.getSqlStatement(reader));
+		Assert.assertEquals("SELECT 1", getFirst(sqlReader, reader));
 		reader = LocationUtils.getBufferedReaderFromString(getSqlWithComment2());
-		Assert.assertEquals("SELECT 1", sqlReader.getSqlStatement(reader));
+		Assert.assertEquals("SELECT 1", getFirst(sqlReader, reader));
 		reader = LocationUtils.getBufferedReaderFromString(getSqlWithComment3());
-		Assert.assertEquals("SELECT '\n-- Howdy'", sqlReader.getSqlStatement(reader));
+		Assert.assertEquals("SELECT '\n-- Howdy'", getFirst(sqlReader, reader));
 	}
 
 	@Test
@@ -74,10 +84,10 @@ public class DefaultSqlReaderTest {
 		SqlReader sqlReader = new DefaultSqlReader();
 		String sql = "SELECT 1\r/\nSELECT 1\n/\nSELECT 1\r\n/";
 		BufferedReader reader = LocationUtils.getBufferedReaderFromString(sql);
-		String s = sqlReader.getSqlStatement(reader);
+		String s = getFirst(sqlReader, reader);
 		while (s != null) {
 			logger.info("[" + Str.flatten(s) + "]");
-			s = sqlReader.getSqlStatement(reader);
+			s = getFirst(sqlReader, reader);
 		}
 	}
 

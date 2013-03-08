@@ -17,10 +17,11 @@ package org.kuali.common.jdbc;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 public interface SqlReader {
 
-	String getSqlStatement(BufferedReader reader) throws IOException;
+	List<String> getSql(BufferedReader reader) throws IOException;
 
 	SqlMetaData getSqlMetaData(BufferedReader reader) throws IOException;
 

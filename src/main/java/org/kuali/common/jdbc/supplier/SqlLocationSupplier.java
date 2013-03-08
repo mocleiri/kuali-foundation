@@ -2,6 +2,7 @@ package org.kuali.common.jdbc.supplier;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.DefaultSqlReader;
@@ -38,8 +39,8 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	}
 
 	@Override
-	public String getSql() throws IOException {
-		return reader.getSqlStatement(in);
+	public List<String> getSql() throws IOException {
+		return reader.getSql(in);
 	}
 
 	@Override

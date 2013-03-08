@@ -90,11 +90,13 @@ public class JdbcUtils {
 	public static SqlMetaData getSqlMetaData(BufferedReader in, SqlReader reader) throws IOException {
 		long count = 0;
 		long size = 0;
-		String sql = reader.getSqlStatement(in);
+		List<String> sql = reader.getSql(in);
 		while (sql != null) {
-			count++;
-			size += sql.length();
-			sql = reader.getSqlStatement(in);
+			for (String s : sql) {
+				count++;
+				size += s.length();
+			}
+			sql = reader.getSql(in);
 		}
 		return new SqlMetaData(count, size);
 	}

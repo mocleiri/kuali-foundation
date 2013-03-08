@@ -61,14 +61,14 @@ public class DefaultSqlReader implements SqlReader {
 	}
 
 	@Override
-	public String getSqlStatement(BufferedReader reader) throws IOException {
+	public List<String> getSql(BufferedReader reader) throws IOException {
 		Assert.notNull(delimiter, "delimiter is null");
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null) {
 			if (isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode)) {
-				return getReturnValue(sb.toString() + line, trim, lineSeparator);
+				return Arrays.asList(getReturnValue(sb.toString() + line, trim, lineSeparator));
 			}
 			if (!ignore(ignoreComments, sb, trimmedLine, commentTokens)) {
 				sb.append(line + lineSeparator.getValue());
@@ -76,7 +76,7 @@ public class DefaultSqlReader implements SqlReader {
 			line = reader.readLine();
 			trimmedLine = StringUtils.trimToNull(line);
 		}
-		return getReturnValue(sb.toString(), trim, lineSeparator);
+		return Arrays.asList(getReturnValue(sb.toString(), trim, lineSeparator));
 	}
 
 	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {

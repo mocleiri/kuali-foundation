@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc.supplier;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.kuali.common.jdbc.SqlMetaData;
 
@@ -12,9 +13,9 @@ public interface SqlSupplier extends Comparable<SqlSupplier> {
 	void open() throws IOException;
 
 	/**
-	 * Return a single SQL statement to execute. Returns <code>null</code> when the SQL supply has been exhausted.
+	 * Return a list of SQL statements to execute. Returns <code>null</code> when the SQL supply has been exhausted.
 	 */
-	String getSql() throws IOException;
+	List<String> getSql() throws IOException;
 
 	/**
 	 * Close the supplier to free any resources it may have opened
