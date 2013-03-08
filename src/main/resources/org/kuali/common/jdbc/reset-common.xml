@@ -44,8 +44,8 @@
   </util:list>
 
   <util:list id="jdbc.summaryAndMetaDataList">
-    <ref bean="jdbc.summaryListener" />
     <ref bean="jdbc.metaDataListener" />
+    <ref bean="jdbc.summaryListener" />
   </util:list>
 
   <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
