@@ -32,6 +32,7 @@
   <bean id="jdbc.service" class="org.kuali.common.jdbc.DefaultJdbcService" />
   <bean id="jdbc.logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
   <bean id="jdbc.summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
+  <bean id="jdbc.metaDataListener" class="org.kuali.common.jdbc.listener.MetaDataListener" />
   <bean id="jdbc.summaryListenerNoRate" class="org.kuali.common.jdbc.listener.SummaryListener">
     <property name="showRate" value="false" />
   </bean>
@@ -42,7 +43,16 @@
     <ref bean="jdbc.progressListener" />
   </util:list>
 
+  <util:list id="jdbc.summaryAndMetaDataList">
+    <ref bean="jdbc.summaryListener" />
+    <ref bean="jdbc.metaDataListener" />
+  </util:list>
+
   <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
+    <property name="listeners" ref="jdbc.summaryAndProgressList" />
+  </bean>
+
+  <bean id="jdbc.summaryAndMetaDataListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
     <property name="listeners" ref="jdbc.summaryAndProgressList" />
   </bean>
 
