@@ -44,7 +44,7 @@
     </property>
   </bean>
 
-  <import resource="classpath:org/kuali/common/impex/supplier-context.xml" />
+  <import resource="classpath:org/kuali/common/impex/mpx-supplier-context.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-context.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-controller.xml" />
 
