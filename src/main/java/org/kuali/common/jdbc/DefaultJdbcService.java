@@ -160,8 +160,11 @@ public class DefaultJdbcService implements JdbcService {
 		if (context.getThreads() > 1) {
 			long aggregateTime = stl.getAggregateSqlTime();
 			long wallTime = stats.getExecutionTime();
-			String timeSavings = FormatUtils.getTime(aggregateTime - wallTime);
-			logger.info("Threads: {}  Time savings: {}", buckets.size(), timeSavings);
+			String aTime = FormatUtils.getTime(aggregateTime);
+			String wTime = FormatUtils.getTime(wallTime);
+			String savings = FormatUtils.getTime(aggregateTime - wallTime);
+			Object[] args = { buckets.size(), aTime, wTime, savings };
+			logger.info("Threads: {}  Aggregate: {}  Wall: {}  Savings: {}", args);
 		}
 	}
 
