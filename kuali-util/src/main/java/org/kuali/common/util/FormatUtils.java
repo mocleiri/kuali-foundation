@@ -22,6 +22,13 @@ public class FormatUtils {
 	protected static SimpleFormatter SF = new SimpleFormatter();
 
 	/**
+	 * 
+	 */
+	public static String getThroughputInSeconds(long millis, long count, String label) {
+		return SF.getThroughputInSeconds(millis, count, label);
+	}
+
+	/**
 	 * Parse a date from the string. The string must be in the same format returned by the getDate() methods
 	 */
 	public static Date parseDate(String date) {
@@ -43,8 +50,7 @@ public class FormatUtils {
 	}
 
 	/**
-	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s,
-	 * TB/s, PB/s, or EB/s as appropriate
+	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s, TB/s, PB/s, or EB/s as appropriate
 	 */
 	public static String getRate(long millis, long bytes) {
 		return SF.getRate(millis, bytes);
@@ -58,8 +64,8 @@ public class FormatUtils {
 	}
 
 	/**
-	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, years, decades, or centuries as appropriate. Note that years,
-	 * decades, and centuries are approximations since the logic always assumes there are exactly 365 days per year.
+	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, years, decades, or centuries as appropriate. Note that years, decades, and centuries are
+	 * approximations since the logic always assumes there are exactly 365 days per year.
 	 */
 	public static String getTime(long millis) {
 		return SF.getTime(millis);

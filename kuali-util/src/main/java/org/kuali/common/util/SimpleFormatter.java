@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * Format time, bytes, counts, dates, and transfer rates into human friendly form
- *
+ * 
  * @author Jeff Caddel
  * @since May 27, 2010 6:46:17 PM
  */
@@ -90,8 +90,16 @@ public class SimpleFormatter {
 	}
 
 	/**
-	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s,
-	 * TB/s, PB/s, or EB/s as appropriate
+	 * 
+	 */
+	public String getThroughputInSeconds(long millis, long count, String label) {
+		double seconds = millis / SECOND;
+		double countPerSecond = count / seconds;
+		return rateFormatter.format(countPerSecond) + " " + label;
+	}
+
+	/**
+	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s, TB/s, PB/s, or EB/s as appropriate
 	 */
 	public String getRate(long millis, long bytes) {
 		double seconds = millis / SECOND;
@@ -109,8 +117,8 @@ public class SimpleFormatter {
 	}
 
 	/**
-	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, years, decades, or centuries as appropriate. Note that years,
-	 * decades, and centuries are approximations since the logic always assumes there are exactly 365 days per year.
+	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, years, decades, or centuries as appropriate. Note that years, decades, and centuries are
+	 * approximations since the logic always assumes there are exactly 365 days per year.
 	 */
 	public String getTime(long millis) {
 		long abs = Math.abs(millis);
