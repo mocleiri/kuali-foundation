@@ -26,7 +26,7 @@
 
   <context:property-placeholder ignore-unresolvable="true" location="classpath:org/kuali/common/impex/batch.properties" />
 
-  <bean id="impex.batchSize" class="org.kuali.common.util.spring.GetSizeFactoryBean">
+  <bean id="impex.batchSize" class="org.kuali.common.util.spring.GetBytesFactoryBean">
     <property name="size" value="${impex.batch.size}" />
   </bean>
 
