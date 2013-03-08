@@ -16,10 +16,7 @@
 package org.kuali.common.impex.service;
 
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -30,14 +27,5 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:mpxTests/mysql-impex-context.xml" })
 @Ignore
 public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
-
-	private static final Logger logger = LoggerFactory.getLogger(TestMySQLImpexProcess.class);
-
-	@Test
-	public void test() throws Exception {
-		logger.info("Starting database dump");
-
-		doTest();
-	}
 
 }

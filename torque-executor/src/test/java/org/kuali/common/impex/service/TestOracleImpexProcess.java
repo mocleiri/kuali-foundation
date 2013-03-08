@@ -16,30 +16,18 @@
 package org.kuali.common.impex.service;
 
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * This class tests the impex process from a sample db
- *
+ * 
  * @author andrewlubbers
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:mpxTests/oracle-impex-context.xml" })
 @Ignore
 public class TestOracleImpexProcess extends AbstractTestImpexProcess {
-
-	private static final Logger logger = LoggerFactory.getLogger(TestOracleImpexProcess.class);
-
-	@Test
-	public void test() throws Exception {
-		logger.info("Starting database dump");
-
-		doTest();
-	}
 
 }
