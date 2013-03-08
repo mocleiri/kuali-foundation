@@ -86,17 +86,30 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	}
 
 	protected List<String> getLocations(Properties properties, String property, String listSuffix) {
+
+		// Extract the list of property keys (comma delimited)
 		String csv = properties.getProperty(property);
+
+		// If no properties were provided, we are done
 		if (StringUtils.isBlank(csv)) {
 			return new ArrayList<String>();
 		}
+
+		// Parse the property keys into a list
 		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
+
+		// Allocate some storage for the locations we find
 		List<String> locations = new ArrayList<String>();
 		for (String key : keys) {
+
+			// This is a either a list of locations or a location itself
 			String value = properties.getProperty(key);
+
 			if (StringUtils.endsWithIgnoreCase(key, listSuffix)) {
+				// If the key ends with .list, it's a list of locations
 				locations.addAll(LocationUtils.getLocations(value));
 			} else {
+				// Otherwise it is a location itself
 				locations.add(value);
 			}
 		}
