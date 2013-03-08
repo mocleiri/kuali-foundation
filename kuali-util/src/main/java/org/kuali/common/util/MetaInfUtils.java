@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
@@ -29,13 +30,34 @@ public class MetaInfUtils {
 			List<File> files = scanner.getFiles();
 			logger.info("Located " + files.size() + " files");
 			List<MetaInfResource> resources = getResources(context.getBaseDir(), files, context.getPrefix());
-			List<String> locations = getLocations(resources);
-			if (context.isSort()) {
-				Collections.sort(locations);
-			}
-			logger.info("Creating " + context.getOutputFile().getCanonicalPath());
-			FileUtils.writeLines(context.getOutputFile(), locations);
+			doProperties(context, resources);
+			doLocations(context, resources);
 		}
+	}
+
+	public static void doLocations(MetaInfContext context, List<MetaInfResource> resources) throws IOException {
+		List<String> locations = getLocations(resources);
+		if (context.isSort()) {
+			Collections.sort(locations);
+		}
+		logger.info("Creating " + context.getOutputFile().getCanonicalPath());
+		FileUtils.writeLines(context.getOutputFile(), locations);
+	}
+
+	public static void doProperties(MetaInfContext context, List<MetaInfResource> resources) {
+		Properties properties = getProperties(resources);
+		File propertiesFile = new File(LocationUtils.getCanonicalPath(context.getOutputFile()) + ".properties");
+		PropertyUtils.store(properties, propertiesFile, "UTF-8");
+	}
+
+	public static Properties getProperties(List<MetaInfResource> resources) {
+		Properties properties = new Properties();
+		for (MetaInfResource resource : resources) {
+			String sizeKey = resource.getKey() + ".size";
+			String sizeVal = resource.getSize() + "";
+			properties.setProperty(sizeKey, sizeVal);
+		}
+		return properties;
 	}
 
 	public static String getPropertyKey(String location) {
