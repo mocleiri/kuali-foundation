@@ -4,14 +4,13 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.service.SqlProducer;
-import org.kuali.common.util.SizeUtils;
 import org.springframework.beans.factory.FactoryBean;
 
 public class SqlProducerFactoryBean implements FactoryBean<SqlProducer> {
 
 	String databaseVendor;
 	int batchRowCountLimit = 50;
-	int batchDataSizeLimit = (int) SizeUtils.getBytes("50k");
+	int batchDataSizeLimit = 50 * 1024;
 
 	@Override
 	public SqlProducer getObject() throws Exception {
