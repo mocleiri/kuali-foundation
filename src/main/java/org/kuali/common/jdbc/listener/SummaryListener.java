@@ -44,6 +44,10 @@ public class SummaryListener extends NoOpSqlListener {
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
 		this.startMillis = System.currentTimeMillis();
+	}
+
+	@Override
+	public void afterMetaData(SqlMetaDataEvent event) {
 		this.count = JdbcUtils.getSqlCount(event.getContext().getSuppliers());
 		this.size = JdbcUtils.getSqlSize(event.getContext().getSuppliers());
 		String count = FormatUtils.getCount(this.count);
@@ -76,4 +80,5 @@ public class SummaryListener extends NoOpSqlListener {
 	public void setShowRate(boolean showRate) {
 		this.showRate = showRate;
 	}
+
 }
