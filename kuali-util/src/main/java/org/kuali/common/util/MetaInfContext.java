@@ -11,6 +11,7 @@ public class MetaInfContext {
 	boolean sort = true;
 	List<String> includes;
 	List<String> excludes;
+	boolean addPropertiesFile;
 
 	public File getBaseDir() {
 		return baseDir;
@@ -58,5 +59,13 @@ public class MetaInfContext {
 
 	public void setExcludes(List<String> excludes) {
 		this.excludes = excludes;
+	}
+
+	public boolean isAddPropertiesFile() {
+		return addPropertiesFile;
+	}
+
+	public void setAddPropertiesFile(boolean addPropertiesFile) {
+		this.addPropertiesFile = addPropertiesFile;
 	}
 }
