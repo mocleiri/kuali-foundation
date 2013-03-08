@@ -90,7 +90,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		// Extract the list of property keys (comma delimited)
 		String csv = properties.getProperty(property);
 
-		// If no properties were provided, we are done
+		// If no keys were provided, we are done
 		if (StringUtils.isBlank(csv)) {
 			return new ArrayList<String>();
 		}
