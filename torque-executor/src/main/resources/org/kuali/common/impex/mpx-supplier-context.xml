@@ -33,6 +33,8 @@
 
   <bean id="impex.producer" class="org.kuali.common.impex.SqlProducerFactoryBean">
     <property name="databaseVendor" value="${db.vendor}" />
+    <property name="batchRowCountLimit" ref="impex.batchRows" />
+    <property name="batchDataSizeLimit" ref="impex.batchSize" />
   </bean>
 
   <bean id="impex.mpxLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
