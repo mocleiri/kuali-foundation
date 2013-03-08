@@ -53,7 +53,7 @@
     </property>
   </bean>
 
-  <util:map id="jdbc.defaultExtensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+  <util:map id="jdbc.defaultExtensionMappings">
     <entry key="sql" value-ref="jdbc.sqlLocationSourceBean" />
   </util:map>
 
