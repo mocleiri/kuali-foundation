@@ -15,12 +15,15 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.context.JdbcContext;
 
 public class NoOpSqlListener implements SqlListener {
 
 	@Override
-	public void beforeMetaData(JdbcContext context) {
+	public void beforeMetaData(SqlMetaDataEvent event) {
+	}
+
+	@Override
+	public void afterMetaData(SqlMetaDataEvent event) {
 	}
 
 	@Override

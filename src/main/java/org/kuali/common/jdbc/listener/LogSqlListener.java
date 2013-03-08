@@ -15,7 +15,6 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -23,24 +22,12 @@ import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogSqlListener implements SqlListener {
+public class LogSqlListener extends NoOpSqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
 	LoggerLevel level = LoggerLevel.INFO;
 	boolean flatten = true;
 	LogSqlMode mode = LogSqlMode.AFTER;
-
-	@Override
-	public void beforeMetaData(JdbcContext context) {
-	}
-
-	@Override
-	public void beforeExecution(SqlExecutionEvent event) {
-	}
-
-	@Override
-	public void bucketsCreated(BucketEvent event) {
-	}
 
 	@Override
 	public void beforeExecuteSql(SqlEvent event) {
@@ -81,10 +68,6 @@ public class LogSqlListener implements SqlListener {
 		} else {
 			return sql;
 		}
-	}
-
-	@Override
-	public void afterExecution(SqlExecutionEvent event) {
 	}
 
 	public LoggerLevel getLevel() {

@@ -34,6 +34,7 @@ import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.listener.SqlMetaDataEvent;
 import org.kuali.common.jdbc.listener.SqlTimingListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
@@ -73,6 +74,9 @@ public class DefaultJdbcService implements JdbcService {
 			doMetaData(context);
 		}
 
+		// Fire an event before beginning SQL execution
+		context.getListener().beforeExecution(new SqlExecutionEvent(context));
+
 		// Execute the SQL as dictated by the context
 		if (context.isMultithreaded()) {
 			executeMultiThreaded(context);
@@ -85,22 +89,18 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected void doMetaData(JdbcContext context) {
+
 		// Fire an event before we begin calculating metadata
-		context.getListener().beforeMetaData(context);
+		long start = System.currentTimeMillis();
+		context.getListener().beforeMetaData(new SqlMetaDataEvent(context, start, -1));
 
 		// Fill in SQL metadata
-		System.out.print("[INFO] Accumulating SQL metadata...");
-		long start = System.currentTimeMillis();
 		for (SqlSupplier supplier : context.getSuppliers()) {
 			supplier.fillInMetaData();
 		}
-		long stop = System.currentTimeMillis();
-		String elapsed = FormatUtils.getTime(stop - start);
-		System.out.println("[" + elapsed + "]");
 
-		// Fire an event before beginning SQL execution
-		context.getListener().beforeExecution(new SqlExecutionEvent(context));
-
+		// Fire an event now that metadata calculation is complete
+		context.getListener().afterMetaData(new SqlMetaDataEvent(context, start, System.currentTimeMillis()));
 	}
 
 	protected void executeMultiThreaded(JdbcContext context) {

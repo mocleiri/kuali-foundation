@@ -15,38 +15,17 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.context.JdbcContext;
-
 /**
- * Print a dot to the console each time 1% of the SQL finishes executing
+ * Track the total amount of time spent executing SQL. This must be threadsafe.
  */
-public class SqlTimingListener implements SqlListener {
+public class SqlTimingListener extends NoOpSqlListener {
 
 	long aggregateSqlTime;
 
 	@Override
-	public void beforeMetaData(JdbcContext context) {
-	}
-
-	@Override
-	public void beforeExecution(SqlExecutionEvent event) {
-	}
-
-	@Override
-	public void bucketsCreated(BucketEvent event) {
-	}
-
-	@Override
-	public void beforeExecuteSql(SqlEvent event) {
-	}
-
-	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
-		this.aggregateSqlTime += event.getStopTimeMillis() - event.getStartTimeMillis();
-	}
-
-	@Override
-	public void afterExecution(SqlExecutionEvent event) {
+		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
+		this.aggregateSqlTime += elapsed;
 	}
 
 	public long getAggregateSqlTime() {

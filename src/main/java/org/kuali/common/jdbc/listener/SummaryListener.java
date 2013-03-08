@@ -16,16 +16,21 @@
 package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SummaryListener implements SqlListener {
+public class SummaryListener extends NoOpSqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(SummaryListener.class);
+
+	long startMillis;
+	long count;
+	long size;
+	LoggerLevel loggerLevel = LoggerLevel.INFO;
+	boolean showRate = true;
 
 	public SummaryListener() {
 		this(true);
@@ -36,19 +41,9 @@ public class SummaryListener implements SqlListener {
 		this.showRate = showRate;
 	}
 
-	long startMillis;
-	long count;
-	long size;
-	LoggerLevel loggerLevel = LoggerLevel.INFO;
-	boolean showRate = true;
-
-	@Override
-	public void beforeMetaData(JdbcContext context) {
-		this.startMillis = System.currentTimeMillis();
-	}
-
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
+		this.startMillis = System.currentTimeMillis();
 		this.count = JdbcUtils.getSqlCount(event.getContext().getSuppliers());
 		this.size = JdbcUtils.getSqlSize(event.getContext().getSuppliers());
 		String count = FormatUtils.getCount(this.count);
@@ -56,18 +51,6 @@ public class SummaryListener implements SqlListener {
 		String size = FormatUtils.getSize(this.size);
 		Object[] args = { count, sources, size };
 		LoggerUtils.logMsg("Executing - [SQL Count: {}  Sources: {}  Size: {}]", args, logger, loggerLevel);
-	}
-
-	@Override
-	public void bucketsCreated(BucketEvent event) {
-	}
-
-	@Override
-	public void beforeExecuteSql(SqlEvent event) {
-	}
-
-	@Override
-	public synchronized void afterExecuteSql(SqlEvent event) {
 	}
 
 	@Override

@@ -15,11 +15,12 @@
  */
 package org.kuali.common.jdbc.listener;
 
-import org.kuali.common.jdbc.context.JdbcContext;
 
 public interface SqlListener {
 
-	void beforeMetaData(JdbcContext context);
+	void beforeMetaData(SqlMetaDataEvent event);
+
+	void afterMetaData(SqlMetaDataEvent event);
 
 	void beforeExecution(SqlExecutionEvent event);
 

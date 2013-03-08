@@ -18,12 +18,11 @@ package org.kuali.common.jdbc.listener;
 import java.io.PrintStream;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.context.JdbcContext;
 
 /**
  * Print a dot to the console each time 1% of the SQL finishes executing
  */
-public class ProgressListener implements SqlListener {
+public class ProgressListener extends NoOpSqlListener {
 
 	PrintStream out = System.out;
 	long count = 0;
@@ -39,21 +38,9 @@ public class ProgressListener implements SqlListener {
 	}
 
 	@Override
-	public void beforeMetaData(JdbcContext context) {
-	}
-
-	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
 		// The total number of SQL statements being executed
 		this.total = JdbcUtils.getSqlCount(event.getContext().getSuppliers());
-	}
-
-	@Override
-	public void bucketsCreated(BucketEvent event) {
-	}
-
-	@Override
-	public void beforeExecuteSql(SqlEvent event) {
 	}
 
 	@Override
@@ -77,10 +64,6 @@ public class ProgressListener implements SqlListener {
 		if (count == total) {
 			out.print(completeToken);
 		}
-	}
-
-	@Override
-	public void afterExecution(SqlExecutionEvent event) {
 	}
 
 	protected boolean enoughProgress(int percentComplete) {

@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.util.FormatUtils;
@@ -30,21 +29,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This listener will print statistics related to how the SQL is being divided up into different buckets for execution. Only useful when
- * concurrent SQL execution is being performed.
+ * This listener will print statistics related to how the SQL is being divided up into different buckets for execution. Only useful when concurrent SQL execution is being
+ * performed.
  */
-public class BucketListener implements SqlListener {
+public class BucketListener extends NoOpSqlListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(BucketListener.class);
 	LoggerLevel level = LoggerLevel.DEBUG;
-
-	@Override
-	public void beforeMetaData(JdbcContext context) {
-	}
-
-	@Override
-	public void beforeExecution(SqlExecutionEvent event) {
-	}
 
 	@Override
 	public void bucketsCreated(BucketEvent event) {
@@ -61,18 +52,6 @@ public class BucketListener implements SqlListener {
 		}
 		List<String> columns = Arrays.asList("Bucket", "SQL Count", "Sources", "Size");
 		LoggerUtils.logTable(columns, argsList, level, logger);
-	}
-
-	@Override
-	public void beforeExecuteSql(SqlEvent event) {
-	}
-
-	@Override
-	public void afterExecuteSql(SqlEvent event) {
-	}
-
-	@Override
-	public void afterExecution(SqlExecutionEvent event) {
 	}
 
 	public LoggerLevel getLevel() {
