@@ -12,13 +12,13 @@ public class MetaDataListener extends NoOpSqlListener {
 	public void beforeMetaData(SqlMetaDataEvent event) {
 		JdbcContext context = event.getContext();
 		List<SqlSupplier> suppliers = context.getSuppliers();
-		System.out.print("[INFO] Accumulating SQL metadata from " + suppliers.size() + " suppliers...........");
+		System.out.print("[INFO] Accumulating SQL metadata from " + suppliers.size() + " suppliers - ");
 	}
 
 	@Override
 	public void afterMetaData(SqlMetaDataEvent event) {
 		String elapsed = FormatUtils.getTime(event.getStopTimeMillis() - event.getStartTimeMillis());
-		System.out.println(".....[" + elapsed + "]");
+		System.out.println("[" + elapsed + "]");
 	}
 
 }
