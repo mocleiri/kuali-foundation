@@ -26,7 +26,6 @@ public class SummaryListener extends NoOpSqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(SummaryListener.class);
 
-	long startMillis;
 	long count;
 	long size;
 	LoggerLevel loggerLevel = LoggerLevel.INFO;
@@ -42,11 +41,6 @@ public class SummaryListener extends NoOpSqlListener {
 	}
 
 	@Override
-	public void beforeExecution(SqlExecutionEvent event) {
-		this.startMillis = System.currentTimeMillis();
-	}
-
-	@Override
 	public void afterMetaData(SqlMetaDataEvent event) {
 		this.count = JdbcUtils.getSqlCount(event.getContext().getSuppliers());
 		this.size = JdbcUtils.getSqlSize(event.getContext().getSuppliers());
@@ -59,7 +53,7 @@ public class SummaryListener extends NoOpSqlListener {
 
 	@Override
 	public void afterExecution(SqlExecutionEvent event) {
-		long elapsed = System.currentTimeMillis() - startMillis;
+		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
 		String count = FormatUtils.getCount(this.count);
 		String sources = FormatUtils.getCount(event.getContext().getSuppliers().size());
 		String size = FormatUtils.getSize(this.size);
