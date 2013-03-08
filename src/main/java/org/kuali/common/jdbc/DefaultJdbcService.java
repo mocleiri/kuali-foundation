@@ -132,10 +132,14 @@ public class DefaultJdbcService implements JdbcService {
 		ThreadsProgressListener tpl = new ThreadsProgressListener();
 		tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 		SqlTimingListener stl = new SqlTimingListener();
-		NotifyingListener listener = new NotifyingListener(Arrays.asList(tpl, stl));
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(tpl);
+		listeners.add(stl);
+		NotifyingListener notifier = new NotifyingListener();
+		notifier.setListeners(listeners);
 
 		// Provide some context for each bucket
-		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
+		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, notifier);
 
 		// Store some context for the thread handler
 		ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
