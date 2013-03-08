@@ -58,10 +58,6 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public void executeSql(JdbcContext context) {
-		// Fire an event before doing anything
-		long start = System.currentTimeMillis();
-		context.getListener().beforeExecution(new SqlExecutionEvent(context, start, -1));
-
 		// Log a message if provided
 		if (!StringUtils.isBlank(context.getMessage())) {
 			logger.info(context.getMessage());
@@ -78,6 +74,10 @@ public class DefaultJdbcService implements JdbcService {
 			doMetaData(context);
 		}
 
+		// Fire an event before executing any SQL
+		long start = System.currentTimeMillis();
+		context.getListener().beforeExecution(new SqlExecutionEvent(context, start, -1));
+
 		// Execute the SQL as dictated by the context
 		if (context.isMultithreaded()) {
 			executeMultiThreaded(context);
@@ -85,7 +85,7 @@ public class DefaultJdbcService implements JdbcService {
 			executeSequentially(context);
 		}
 
-		// Fire an event now that everything is done
+		// Fire an event now that all SQL execution is complete
 		context.getListener().afterExecution(new SqlExecutionEvent(context, start, System.currentTimeMillis()));
 	}
 
