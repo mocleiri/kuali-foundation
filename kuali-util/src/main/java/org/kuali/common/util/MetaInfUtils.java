@@ -28,7 +28,8 @@ public class MetaInfUtils {
 			SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
 			List<File> files = scanner.getFiles();
 			logger.info("Located " + files.size() + " files");
-			List<String> locations = getLocations(context.getBaseDir(), files, context.getPrefix());
+			List<MetaInfResource> resources = getResources(context.getBaseDir(), files, context.getPrefix());
+			List<String> locations = getLocations(resources);
 			if (context.isSort()) {
 				Collections.sort(locations);
 			}
@@ -37,8 +38,30 @@ public class MetaInfUtils {
 		}
 	}
 
+	public static String getPropertyKey(String location) {
+		String key = StringUtils.replace(location, ":", ".");
+		return StringUtils.replace(key, "/", ".");
+	}
+
 	public static void scanAndCreateFile(MetaInfContext context) throws IOException {
 		scanAndCreateFiles(Arrays.asList(context));
+	}
+
+	public static List<MetaInfResource> getResources(File baseDir, List<File> files, String prefix) throws IOException {
+		List<MetaInfResource> resources = new ArrayList<MetaInfResource>();
+		for (int i = 0; i < files.size(); i++) {
+			MetaInfResource resource = getResource(baseDir, files.get(i), prefix);
+			resources.add(resource);
+		}
+		return resources;
+	}
+
+	public static List<String> getLocations(List<MetaInfResource> resources) {
+		List<String> locations = new ArrayList<String>();
+		for (MetaInfResource resource : resources) {
+			locations.add(resource.getLocation());
+		}
+		return locations;
 	}
 
 	public static List<String> getLocations(File baseDir, List<File> files, String prefix) throws IOException {
@@ -48,6 +71,18 @@ public class MetaInfUtils {
 			locations.add(location);
 		}
 		return locations;
+	}
+
+	public static MetaInfResource getResource(File baseDir, File file, String prefix) throws IOException {
+		String location = getLocation(baseDir, file, prefix);
+		long size = file.length();
+		String key = getPropertyKey(location);
+
+		MetaInfResource resource = new MetaInfResource();
+		resource.setLocation(location);
+		resource.setSize(size);
+		resource.setKey(key);
+		return resource;
 	}
 
 	public static String getLocation(File baseDir, File file, String prefix) throws IOException {
