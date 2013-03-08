@@ -69,7 +69,9 @@ public class DefaultJdbcService implements JdbcService {
 		}
 
 		// Calculate metadata
-		doMetaData(context);
+		if (!context.isSkipMetaData()) {
+			doMetaData(context);
+		}
 
 		// Execute the SQL as dictated by the context
 		if (context.isMultithreaded()) {
