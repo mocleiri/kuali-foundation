@@ -113,11 +113,11 @@ public class DefaultJdbcService implements JdbcService {
 		ThreadsProgressListener tpl = new ThreadsProgressListener();
 		tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 		SqlTimingListener stl = new SqlTimingListener();
-        List<SqlListener> sqlListeners = new ArrayList<SqlListener>(3);
-        sqlListeners.addAll(Arrays.asList(tpl, stl));
-        if(context.getListener() != null) {
-            sqlListeners.add(context.getListener());
-        }
+		List<SqlListener> sqlListeners = new ArrayList<SqlListener>(3);
+		sqlListeners.addAll(Arrays.asList(tpl, stl));
+		if (context.getListener() != null) {
+			sqlListeners.add(context.getListener());
+		}
 		NotifyingListener listener = new NotifyingListener(sqlListeners);
 
 		// Provide some context for each bucket
@@ -135,6 +135,8 @@ public class DefaultJdbcService implements JdbcService {
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
+
+		// If multiple threads were used, display the amount of time saved due to multi-threading
 		if (context.getThreads() > 1) {
 			long aggregateTime = stl.getAggregateSqlTime();
 			long wallTime = stats.getExecutionTime();
