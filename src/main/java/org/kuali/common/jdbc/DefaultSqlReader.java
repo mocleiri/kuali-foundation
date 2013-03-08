@@ -76,7 +76,15 @@ public class DefaultSqlReader implements SqlReader {
 			line = reader.readLine();
 			trimmedLine = StringUtils.trimToNull(line);
 		}
-		return Arrays.asList(getReturnValue(sb.toString(), trim, lineSeparator));
+
+        String result = getReturnValue(sb.toString(), trim, lineSeparator);
+
+        if(result == null) {
+            return null;
+        }
+        else {
+		    return Arrays.asList(result);
+        }
 	}
 
 	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {
