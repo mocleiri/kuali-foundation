@@ -37,7 +37,6 @@
     <property name="outputFile" value="${impex.metainf.outputFile}" />
     <property name="includes" ref="metaInfIncludes" />
     <property name="baseDir" value="${project.build.outputDirectory}" />
-    <property name="prefix" value="${metainf.resource.prefix:classpath:}" />
   </bean>
 
   <!-- Aggregate metaInfContext beans into a list -->
