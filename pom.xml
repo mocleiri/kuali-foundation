@@ -164,25 +164,25 @@
       <classifier>sql</classifier>
       <scope>test</scope>
       </dependency>
-    -->
-    <dependency>
+      <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-rice-sql</artifactId>
       <version>${ole.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-master-sql</artifactId>
       <version>${ole.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.kuali.ole</groupId>
       <artifactId>ole-liquibase-sql</artifactId>
       <version>${ole.version}</version>
       <scope>test</scope>
-    </dependency>
+      </dependency>
+    -->
   </dependencies>
   <build>
     <testResources>
