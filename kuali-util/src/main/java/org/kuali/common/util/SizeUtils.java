@@ -46,7 +46,7 @@ public class SizeUtils {
 		Assert.notBlank(size);
 		for (int i = 0; i < tokens.size(); i++) {
 			String token = tokens.get(i);
-			long multiplier = (long) Math.pow(i, 1024);
+			long multiplier = (long) Math.pow(1024, i);
 			if (StringUtils.endsWithIgnoreCase(size, token)) {
 				return getLongValue(size, token, multiplier);
 			}
