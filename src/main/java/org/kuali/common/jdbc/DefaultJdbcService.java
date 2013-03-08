@@ -62,6 +62,12 @@ public class DefaultJdbcService implements JdbcService {
 			logger.info(context.getMessage());
 		}
 
+		// Make sure we have something to do
+		if (CollectionUtils.isEmpty(context.getSuppliers())) {
+			logger.info("Skipping execution.  No suppliers");
+			return;
+		}
+
 		// Fire an event before we begin calculating metadata
 		context.getListener().beforeMetaData(context);
 
@@ -113,12 +119,7 @@ public class DefaultJdbcService implements JdbcService {
 		ThreadsProgressListener tpl = new ThreadsProgressListener();
 		tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 		SqlTimingListener stl = new SqlTimingListener();
-		List<SqlListener> sqlListeners = new ArrayList<SqlListener>(3);
-		sqlListeners.addAll(Arrays.asList(tpl, stl));
-		if (context.getListener() != null) {
-			sqlListeners.add(context.getListener());
-		}
-		NotifyingListener listener = new NotifyingListener(sqlListeners);
+		NotifyingListener listener = new NotifyingListener(Arrays.asList(tpl, stl));
 
 		// Provide some context for each bucket
 		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, listener);
