@@ -318,12 +318,8 @@ public class CollectionUtils {
 
 	public static final List<String> sortedMerge(List<String> list, String csv) {
 		Set<String> set = new TreeSet<String>();
-		for (String string : toEmptyList(list)) {
-			set.add(string);
-		}
-		for (String string : getTrimmedListFromCSV(csv)) {
-			set.add(string);
-		}
+		set.addAll(toEmptyList(list));
+		set.addAll(getTrimmedListFromCSV(csv));
 		return new ArrayList<String>(set);
 	}
 
