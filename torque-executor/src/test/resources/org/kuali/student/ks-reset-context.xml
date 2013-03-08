@@ -29,7 +29,7 @@
       <list>
         <ref bean="jdbc.defaultPropertyLocations" />
         <util:list>
-          <value>classpath:ks-with-rice-bundled.properties</value>
+          <value>classpath:ks-with-rice-bundled-jbc.properties</value>
         </util:list>
       </list>
     </property>
