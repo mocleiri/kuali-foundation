@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="impex.batch.size" class="org.kuali.common.util.spring.GetSizeFactoryBean">
+  <bean id="impex.batchSize" class="org.kuali.common.util.spring.GetSizeFactoryBean">
     <property name="size" value="${impex.batch.size}" />
   </bean>
 
