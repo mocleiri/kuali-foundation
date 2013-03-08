@@ -36,8 +36,8 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 	public static final int DEFAULT_BATCH_ROW_COUNT_LIMIT = 50;
 	public static final int DEFAULT_DATA_SIZE_LIMIT = 50 * 1024;
 
-	private int batchRowCountLimit = DEFAULT_BATCH_ROW_COUNT_LIMIT;
-	private int batchDataSizeLimit = DEFAULT_DATA_SIZE_LIMIT;
+	int batchRowCountLimit = DEFAULT_BATCH_ROW_COUNT_LIMIT;
+	int batchDataSizeLimit = DEFAULT_DATA_SIZE_LIMIT;
 
 	protected boolean batchLimitReached(int rows, int length) {
 		if (rows > getBatchRowCountLimit()) {
@@ -126,7 +126,6 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		for (Column col : columns) {
 			colNames.add(col.getName());
 		}
-
 		return CollectionUtils.getCSV(colNames);
 	}
 }
