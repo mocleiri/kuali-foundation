@@ -34,6 +34,7 @@ public class JdbcContext {
 	// Use this to enable multi-threaded SQL execution
 	// When used, SQL supplied to this context does not execute sequentially
 	int threads = 1;
+	boolean multithreaded;
 	SqlListener listener = new NoOpSqlListener();
 	CommitMode commitMode = CommitMode.PER_SUPPLIER;
 	DataSource dataSource;
@@ -94,6 +95,14 @@ public class JdbcContext {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public boolean isMultithreaded() {
+		return multithreaded;
+	}
+
+	public void setMultithreaded(boolean multithreaded) {
+		this.multithreaded = multithreaded;
 	}
 
 }
