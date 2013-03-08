@@ -30,6 +30,7 @@ public class SpringContextLoaderTest {
 		try {
 			logger.debug("");
 			SpringService ss = new DefaultSpringService();
+			System.setProperty("jdbc.data.skip", "true");
 			ss.load("classpath:org/kuali/student/ks-reset-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
