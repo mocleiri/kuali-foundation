@@ -94,7 +94,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		List<String> locations = new ArrayList<String>();
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			if (StringUtils.endsWithIgnoreCase(value, listSuffix)) {
+			if (StringUtils.endsWithIgnoreCase(key, listSuffix)) {
 				locations.addAll(LocationUtils.getLocations(value));
 			} else {
 				locations.add(value);
