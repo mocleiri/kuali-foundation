@@ -43,7 +43,7 @@
     </property>
   </bean>
 
-  <util:map id="impex.extensionMappings" value-type="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+  <util:map id="impex.extensionMappings">
     <entry key="mpx" value-ref="impex.mpxLocationSourceBean" />
   </util:map>
 
