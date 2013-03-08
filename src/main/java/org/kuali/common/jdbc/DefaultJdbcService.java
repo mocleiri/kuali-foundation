@@ -68,16 +68,8 @@ public class DefaultJdbcService implements JdbcService {
 			return;
 		}
 
-		// Fire an event before we begin calculating metadata
-		context.getListener().beforeMetaData(context);
-
-		// Fill in SQL metadata
-		for (SqlSupplier supplier : context.getSuppliers()) {
-			supplier.fillInMetaData();
-		}
-
-		// Fire an event before beginning SQL execution
-		context.getListener().beforeExecution(new SqlExecutionEvent(context));
+		// Calculate metadata
+		doMetaData(context);
 
 		// Execute the SQL as dictated by the context
 		if (context.isMultithreaded()) {
@@ -88,6 +80,25 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Fire an event now that SQL execution is complete
 		context.getListener().afterExecution(new SqlExecutionEvent(context));
+	}
+
+	protected void doMetaData(JdbcContext context) {
+		// Fire an event before we begin calculating metadata
+		context.getListener().beforeMetaData(context);
+
+		// Fill in SQL metadata
+		System.out.print("[INFO] Accumulating SQL metadata...");
+		long start = System.currentTimeMillis();
+		for (SqlSupplier supplier : context.getSuppliers()) {
+			supplier.fillInMetaData();
+		}
+		long stop = System.currentTimeMillis();
+		String elapsed = FormatUtils.getTime(stop - start);
+		System.out.println("[" + elapsed + "]");
+
+		// Fire an event before beginning SQL execution
+		context.getListener().beforeExecution(new SqlExecutionEvent(context));
+
 	}
 
 	protected void executeMultiThreaded(JdbcContext context) {
