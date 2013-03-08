@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 public class SizeUtils {
 
 	private static final List<String> TOKENS = Arrays.asList("b", "k", "m", "g", "t", "p", "e");
+	private static final int BASE = 1024;
 
 	/**
 	 * Parse bytes from a size string that ends with a unit of measure. If no unit of measure is provided, bytes is assumed. Unit of measure is case insensitive.
@@ -30,28 +31,28 @@ public class SizeUtils {
 	 * <pre>
 	 *   1  == 1 byte
 	 *   1b == 1 byte
-	 *   1k == 1 kilobyte == 1024   bytes
-	 *   1m == 1 megabyte == 1024^2 bytes
-	 *   1g == 1 gigabyte == 1024^3 bytes 
-	 *   1t == 1 terabyte == 1024^4 bytes
-	 *   1p == 1 petabyte == 1024^5 bytes
-	 *   1e == 1 exabyte  == 1024^6 bytes
+	 *   1k == 1 kilobyte == 1024   bytes ==                     1,024 bytes
+	 *   1m == 1 megabyte == 1024^2 bytes ==                 1,048,576 bytes
+	 *   1g == 1 gigabyte == 1024^3 bytes ==             1,073,741,824 bytes
+	 *   1t == 1 terabyte == 1024^4 bytes ==         1,099,511,627,776 bytes
+	 *   1p == 1 petabyte == 1024^5 bytes ==     1,125,899,906,842,624 bytes
+	 *   1e == 1 exabyte  == 1024^6 bytes == 1,152,921,504,606,846,976 bytes
 	 * </pre>
 	 */
 	public static long getBytes(String size) {
-		return getBytes(size, TOKENS);
+		return getBytes(size, TOKENS, BASE);
 	}
 
-	public static long getBytes(String size, List<String> tokens) {
+	public static long getBytes(String size, List<String> tokens, int base) {
 		Assert.notBlank(size);
 		for (int i = 0; i < tokens.size(); i++) {
 			String token = tokens.get(i);
-			long multiplier = (long) Math.pow(1024, i);
+			long multiplier = (long) Math.pow(base, i);
 			if (StringUtils.endsWithIgnoreCase(size, token)) {
 				return getLongValue(size, token, multiplier);
 			}
 		}
-		// Assume milliseconds
+		// Assume bytes
 		return getLongValue(size, "", 1);
 	}
 
