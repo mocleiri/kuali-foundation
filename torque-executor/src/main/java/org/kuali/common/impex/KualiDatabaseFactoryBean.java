@@ -9,8 +9,9 @@ public class KualiDatabaseFactoryBean implements FactoryBean<KualiDatabase> {
 
 	String location;
 	String databaseVendor;
+    private Boolean isSingleton = Boolean.FALSE;
 
-	@Override
+    @Override
 	public KualiDatabase getObject() throws Exception {
 
 		Assert.notNull(location, "location is null");
@@ -27,10 +28,14 @@ public class KualiDatabaseFactoryBean implements FactoryBean<KualiDatabase> {
 
 	@Override
 	public boolean isSingleton() {
-		return false;
+		return isSingleton;
 	}
 
-	public String getLocation() {
+    public void setSingleton(Boolean singleton) {
+        isSingleton = singleton;
+    }
+
+    public String getLocation() {
 		return location;
 	}
 
