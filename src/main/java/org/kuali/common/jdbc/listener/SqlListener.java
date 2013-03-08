@@ -18,11 +18,11 @@ package org.kuali.common.jdbc.listener;
 
 public interface SqlListener {
 
+	void beforeExecution(SqlExecutionEvent event);
+
 	void beforeMetaData(SqlMetaDataEvent event);
 
 	void afterMetaData(SqlMetaDataEvent event);
-
-	void beforeExecution(SqlExecutionEvent event);
 
 	void bucketsCreated(BucketEvent event);
 

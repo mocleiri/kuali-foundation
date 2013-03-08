@@ -17,16 +17,16 @@ package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.context.JdbcContext;
 
-public class SqlExecutionEvent {
+public class SqlExecutionEvent extends AbstractTimedEvent {
 
 	JdbcContext context;
 
 	public SqlExecutionEvent() {
-		this(null);
+		this(null, 0, 0);
 	}
 
-	public SqlExecutionEvent(JdbcContext context) {
-		super();
+	public SqlExecutionEvent(JdbcContext context, long startTimeMillis, long stopTimeMillis) {
+		super(startTimeMillis, stopTimeMillis);
 		this.context = context;
 	}
 
