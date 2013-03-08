@@ -16,6 +16,7 @@
 package org.kuali.common.impex.service;
 
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,5 +30,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:mpxTests/oracle-impex-context.xml" })
 @Ignore
 public class TestOracleImpexProcess extends AbstractTestImpexProcess {
+
+    @Test
+    public void test() throws Exception {
+        doTest();
+    }
 
 }

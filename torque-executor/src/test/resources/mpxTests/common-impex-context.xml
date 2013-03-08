@@ -23,6 +23,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <import resource="classpath:org/kuali/common/impex/batch-context.xml" />
+
     <!-- The following properties are populated by maven when the test resources are processed -->
     <util:properties id="mavenProperties">
         <prop key="db.vendor">#{vendorSpecificProperties['vendor']}</prop>
@@ -158,11 +160,35 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="importContext" class="org.kuali.common.impex.ImportContext">
-        <property name="databaseVendor" value="#{databaseProcessContext.vendor}"/>
-        <property name="dataLocations" value="classpath:mpxTests/mpxLocations.resources"/>
-        <property name="schemaXmlLocation" value="${project.build.directory}/impex/${project.artifactId}.xml"/>
+    <util:properties id="kdfProperties">
+        <prop key="databaseVendor">#{databaseProcessContext.vendor}</prop>
+        <prop key="location">${project.build.directory}/impex/${project.artifactId}.xml</prop>
+    </util:properties>
+
+    <bean id="prototypeMpxLocationSupplier" class="org.kuali.common.impex.MpxLocationSupplier">
+        <property name="producer" ref="impex.producer" />
     </bean>
+
+    <bean id="impex.producer" class="org.kuali.common.impex.SqlProducerFactoryBean">
+        <property name="databaseVendor" value="${db.vendor}" />
+        <property name="batchRowCountLimit" ref="impex.batchRows" />
+        <property name="batchDataSizeLimit" ref="impex.batchSize" />
+    </bean>
+
+    <bean id="mpxLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+        <property name="supplierClass" value="org.kuali.common.impex.MpxLocationSupplier" />
+    </bean>
+
+
+
+    <util:properties id="testLocationSuppliersFactoryProperties">
+        <prop key="locationKeys">mpxList1</prop>
+        <prop key="mpxList1">classpath:mpxTests/mpxLocations.list</prop>
+    </util:properties>
+
+    <util:map id="testExtensionMappings">
+        <entry key="mpx" value-ref="mpxLocationSourceBean" />
+    </util:map>
 
     <bean id="resetContext" class="org.kuali.common.jdbc.context.JdbcContext">
         <property name="dataSource" ref="dbaDataSource" />
