@@ -142,7 +142,7 @@ public class DefaultJdbcService implements JdbcService {
 			long aggregateTime = stl.getAggregateSqlTime();
 			long wallTime = stats.getExecutionTime();
 			String timeSavings = FormatUtils.getTime(aggregateTime - wallTime);
-			logger.info("Threads: {}  Time savings: {}", context.getThreads(), timeSavings);
+			logger.info("Threads: {}  Time savings: {}", buckets.size(), timeSavings);
 		}
 	}
 
