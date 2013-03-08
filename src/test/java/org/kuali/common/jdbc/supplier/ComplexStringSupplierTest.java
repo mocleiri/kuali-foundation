@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.kuali.common.jdbc.DefaultDatabaseService;
 import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.SqlReader;
@@ -14,7 +13,7 @@ import org.springframework.util.Assert;
 
 public class ComplexStringSupplierTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultDatabaseService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ComplexStringSupplierTest.class);
 
 	@Test
 	public void test() {

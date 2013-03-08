@@ -25,6 +25,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <util:list id="jdbc.dbaSql" value-type="java.lang.String">
+    <value>${sql.validate}</value>
     <value>${sql.drop}</value>
     <value>${sql.create}</value>
   </util:list>
