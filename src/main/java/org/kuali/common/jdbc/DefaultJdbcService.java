@@ -30,12 +30,12 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
+import org.kuali.common.jdbc.listener.ExecutionTimingListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SqlMetaDataEvent;
-import org.kuali.common.jdbc.listener.SqlTimingListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
@@ -134,10 +134,10 @@ public class DefaultJdbcService implements JdbcService {
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
 		ThreadsProgressListener tpl = new ThreadsProgressListener();
 		tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
-		SqlTimingListener stl = new SqlTimingListener();
+		ExecutionTimingListener etl = new ExecutionTimingListener();
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(tpl);
-		listeners.add(stl);
+		listeners.add(etl);
 		NotifyingListener notifier = new NotifyingListener();
 		notifier.setListeners(listeners);
 
@@ -157,8 +157,8 @@ public class DefaultJdbcService implements JdbcService {
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
 
-		// If multiple threads were used, display the amount of time saved due to multi-threading
-		long aggregateTime = stl.getAggregateTime();
+		// Display thread related timing statistics
+		long aggregateTime = etl.getAggregateTime();
 		long wallTime = stats.getExecutionTime();
 		String aTime = FormatUtils.getTime(aggregateTime);
 		String wTime = FormatUtils.getTime(wallTime);
