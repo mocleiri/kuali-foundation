@@ -160,11 +160,12 @@ public class DefaultJdbcService implements JdbcService {
 		// Display thread related timing statistics
 		long aggregateTime = etl.getAggregateTime();
 		long wallTime = stats.getExecutionTime();
+		String avgMillis = FormatUtils.getTime(aggregateTime / buckets.size());
 		String aTime = FormatUtils.getTime(aggregateTime);
 		String wTime = FormatUtils.getTime(wallTime);
 		String diff = FormatUtils.getTime(aggregateTime - wallTime);
-		Object[] args = { buckets.size(), aTime, wTime, diff };
-		logger.info("Threads - [t:{}  aggregate:{}  wall:{}  diff:{}]", args);
+		Object[] args = { buckets.size(), aTime, wTime, diff, avgMillis };
+		logger.info("Threads - [count: {}  aggregate: {}  wall: {}  diff: {}  avg: {}]", args);
 	}
 
 	@Override
