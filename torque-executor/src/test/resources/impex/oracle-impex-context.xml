@@ -24,10 +24,6 @@
 
     <import resource="classpath:impex/common-impex-bigdata-context.xml"/>
 
-    <bean id="dbaSql" class="java.lang.String">
-        <constructor-arg value="#{commonProperties['oracle.validate']} #{commonProperties['oracle.drop']} #{commonProperties['oracle.create']}" />
-    </bean>
-
     <util:properties id="vendorSpecificProperties">
         <prop key="vendor">oracle</prop>
     </util:properties>

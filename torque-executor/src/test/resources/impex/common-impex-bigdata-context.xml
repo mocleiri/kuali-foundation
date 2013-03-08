@@ -23,165 +23,28 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- The following properties are populated by maven when the test resources are processed -->
-    <util:properties id="mavenProperties">
-        <prop key="db.vendor">#{vendorSpecificProperties['vendor']}</prop>
-        <prop key="kuali.encoding">${kuali.encoding}</prop>
-        <prop key="project.groupId">${project.groupId}</prop>
-        <prop key="project.artifactId">${project.artifactId}</prop>
-        <prop key="project.version">${project.version}</prop>
-        <prop key="project.basedir">${project.basedir}</prop>
-        <prop key="project.build.directory">${project.build.directory}</prop>
-        <prop key="kuali.groupId">${kuali.groupId}</prop>
-        <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
-        <prop key="dataProjectId">ks-impex-rice-db</prop>
-    </util:properties>
-
-    <context:property-placeholder properties-ref="mavenProperties" system-properties-mode="NEVER" />
-
-    <util:list id="locations" value-type="java.lang.String">
-        <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-        <value>classpath:org/kuali/common/jdbc/service.properties</value>
-        <value>classpath:org/kuali/common/deploy/jdbc.properties</value>
-        <value>classpath:org/kuali/common/sql/sql.xml</value>
-        <value>classpath:org/kuali/common/sql/mysql.xml</value>
-        <value>classpath:org/kuali/common/sql/oracle.xml</value>
-        <value>classpath:org/kuali/common/sql/h2.xml</value>
-        <value>classpath:org/kuali/common/sql/derby.xml</value>
-    </util:list>
-
-    <util:list id="locationHelperIncludes" value-type="java.lang.String">
-        <value>kuali.encoding</value>
-        <value>kuali.groupId</value>
-        <value>project.groupId</value>
-        <value>project.artifactId</value>
-        <value>project.version</value>
-        <value>project.classifier</value>
-        <value>kuali.enc.*</value>
-    </util:list>
-
-    <util:list id="buildPropertyIncludes" value-type="java.lang.String">
-        <value>db.vendor</value>
-        <value>jdbc.*</value>
-        <value>oracle.*</value>
-        <value>mysql.*</value>
-        <value>h2.*</value>
-        <value>sql.*</value>
-    </util:list>
-
-    <bean id="commonProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-        <property name="singleton" value="false"/>
-        <property name="locations" ref="locations" />
-        <property name="locationHelperProperties" ref="mavenProperties" />
-        <property name="buildProperties" ref="mavenProperties" />
-        <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
-        <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
-        <property name="organizationGroupId" value="${kuali.groupId}" />
-        <property name="encoding" value="${kuali.encoding}" />
-        <property name="locationHelperIncludes" ref="locationHelperIncludes" />
-        <property name="buildPropertyIncludes" ref="buildPropertyIncludes" />
-    </bean>
-
-    <bean id="databaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
-        <property name="vendor" value="${db.vendor}" />
-        <property name="driver" value="#{commonProperties['jdbc.driver']}" />
-        <property name="url" value="#{commonProperties['jdbc.url']}" />
-        <property name="username" value="#{commonProperties['jdbc.username']}" />
-        <property name="password" value="#{commonProperties['jdbc.password']}" />
-        <property name="dbaUrl" value="#{commonProperties['jdbc.dba.url']}" />
-        <property name="dbaUsername" value="#{commonProperties['jdbc.dba.username']}" />
-        <property name="dbaPassword" value="#{commonProperties['jdbc.dba.password']}" />
-    </bean>
-
-    <util:list id="deploy.nullableProperties" value-type="java.lang.String">
-        <value>dbaUsername</value>
-        <value>dbaPassword</value>
-        <value>username</value>
-        <value>password</value>
-    </util:list>
-
-    <util:list id="deploy.nullTokens" value-type="java.lang.String">
-        <value>NONE</value>
-        <value>NULL</value>
-    </util:list>
-
-    <bean id="common.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify" abstract="true">
-        <property name="properties" ref="deploy.nullableProperties" />
-        <property name="nullTokens" ref="deploy.nullTokens" />
-    </bean>
-
-    <bean id="nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify" parent="common.nullifier">
-        <property name="bean" ref="databaseProcessContext" />
-    </bean>
-
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
-        <property name="driverClassName" value="#{databaseProcessContext.driver}" />
-        <property name="url" value="#{databaseProcessContext.url}" />
-        <property name="username" value="#{databaseProcessContext.username}" />
-        <property name="password" value="#{databaseProcessContext.password}" />
-    </bean>
-
-    <bean id="dbaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="nullifier">
-        <property name="driverClassName" value="#{databaseProcessContext.driver}" />
-        <property name="url" value="#{databaseProcessContext.dbaUrl}" />
-        <property name="username" value="#{databaseProcessContext.dbaUsername}" />
-        <property name="password" value="#{databaseProcessContext.dbaPassword}" />
-    </bean>
-
-    <util:list id="resetSqls">
-        <value>#{commonProperties['sql.validate']}</value>
-        <value>#{commonProperties['sql.drop']}</value>
-        <value>#{commonProperties['sql.create']}</value>
-    </util:list>
-
-    <bean id="dbResetSupplier" class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
-        <property name="strings" ref="resetSqls"/>
-    </bean>
-
-    <bean id="importContext" class="org.kuali.common.impex.ImportContext">
-        <property name="databaseVendor" value="#{databaseProcessContext.vendor}"/>
-        <property name="dataLocations" value="classpath:impex/${dataProjectId}-dataLocations.properties"/>
-        <property name="schemaXmlLocation" value="classpath:impex/${dataProjectId}.xml"/>
-    </bean>
-
-    <bean id="resetContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dbaDataSource" />
-        <property name="threads" value="8"/>
-        <property name="suppliers">
+    <bean id="jdbc.propertyLocations" class="org.kuali.common.util.spring.ListCombinerFactoryBean">
+        <property name="listOfLists">
             <list>
-                <ref bean="dbResetSupplier"/>
+                <ref bean="jdbc.defaultPropertyLocations" />
+                <util:list>
+                    <value>#{vendorSpecificProperties.vendor}-loader-test.properties</value>
+                </util:list>
             </list>
         </property>
-        <property name="message" value="Reset DB"/>
     </bean>
 
-    <bean id="mpxContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource" />
-        <property name="suppliers" ref="supplierFactory"/>
-        <property name="message" value="Mpx data"/>
-        <property name="threads" value="8"/>
-    </bean>
-
-    <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService"/>
-
-    <bean id="supplierFactory" class="org.kuali.common.impex.supplier.MpxLocationSupplierListFactory">
-        <constructor-arg ref="importContext"/>
-    </bean>
-
-    <bean id="schemaContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource" />
-        <property name="suppliers">
+    <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
+        <property name="listOfMaps">
             <list>
-                <ref bean="schemaSupplier"/>
+                <ref bean="jdbc.defaultExtensionMappings" />
+                <ref bean="impex.extensionMappings" />
             </list>
         </property>
-        <property name="threads" value="8"/>
-        <property name="message" value="Schema"/>
     </bean>
 
-    <bean id="schemaSupplier" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
-        <property name="encoding" value="${kuali.encoding}"/>
-        <property name="location" value="classpath:impex/${db.vendor}/${dataProjectId}.sql"/>
-    </bean>
+    <import resource="classpath:org/kuali/common/impex/mpx-supplier-context.xml" />
+    <import resource="classpath:org/kuali/common/jdbc/reset-context.xml" />
+    <import resource="classpath:org/kuali/common/jdbc/reset-controller.xml" />
 
 </beans>

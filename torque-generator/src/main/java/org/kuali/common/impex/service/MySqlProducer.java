@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +30,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 	 * together into SQL statements 50 lines at a time or 50K in length whichever comes first.
 	 */
 	@Override
-	public String getSql(Table table, BufferedReader reader) throws IOException {
+	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
 
 		// Extract the columns into a list
 		List<Column> columns = ImpexUtils.getColumns(table);
@@ -79,7 +80,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 		if (rows == 0) {
 			return null;
 		} else {
-			return sb.toString();
+			return Collections.singletonList(sb.toString());
 		}
 	}
 

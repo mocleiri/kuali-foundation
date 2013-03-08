@@ -20,10 +20,13 @@ import javax.annotation.Resource;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.kuali.common.jdbc.DatabaseResetExecutable;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,37 +37,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author andrewlubbers
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:impex/oracle-impex-context.xml" })
 @Ignore
 public class TestOracleBigDataImpex {
 
-	private static final Logger logger = LoggerFactory.getLogger(TestOracleBigDataImpex.class);
-
-	@Resource
-	protected JdbcContext resetContext;
-
-    @Resource
-    protected JdbcService jdbcService;
-
-	@Resource
-	protected JdbcContext mpxContext;
-
-    @Resource
-    protected JdbcContext schemaContext;
-
-	@Test
-	public void test() throws IOException {
-		logger.debug("");
-
-		// clear db of data
-		jdbcService.executeSql(resetContext);
-
-        // load the schema
-        jdbcService.executeSql(schemaContext);
-
-		// import the data from the generated mpx files
-        jdbcService.executeSql(mpxContext);
-	}
+    @Test
+    public void test() {
+        SpringService ss = new DefaultSpringService();
+        // System.setProperty("jdbc.data.skip", "true");
+        ss.load("classpath:impex/oracle-impex-context.xml");
+    }
 
 }

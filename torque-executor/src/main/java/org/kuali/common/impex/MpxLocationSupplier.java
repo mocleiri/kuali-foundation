@@ -55,7 +55,7 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 	}
 
 	@Override
-	public String getSql() throws IOException {
+	public List<String> getSql() throws IOException {
 		return producer.getSql(table, reader);
 	}
 
@@ -94,11 +94,13 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		try {
 			Table table = getTable(location, database, extension);
 			in = LocationUtils.getBufferedReader(location, encoding);
-			String sql = producer.getSql(table, in);
-			while (sql != null) {
+			List<String> sqls = producer.getSql(table, in);
+			while (sqls != null) {
 				count++;
-				size += sql.length();
-				sql = producer.getSql(table, in);
+                for(String s : sqls) {
+                    size += s.length();
+                }
+				sqls = producer.getSql(table, in);
 			}
 			this.metaData = new SqlMetaData(count, size);
 		} catch (IOException e) {
