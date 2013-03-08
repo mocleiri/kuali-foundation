@@ -90,6 +90,8 @@ public class DefaultJdbcService implements JdbcService {
 
 	protected void doMetaData(JdbcContext context) {
 
+		logger.info("doMetaData()");
+
 		// Fire an event before we begin calculating metadata
 		long start = System.currentTimeMillis();
 		context.getListener().beforeMetaData(new SqlMetaDataEvent(context, start, -1));
