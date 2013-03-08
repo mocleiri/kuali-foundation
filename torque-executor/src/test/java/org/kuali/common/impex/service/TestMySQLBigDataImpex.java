@@ -17,11 +17,8 @@ package org.kuali.common.impex.service;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author andrewlubbers
@@ -29,11 +26,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Ignore
 public class TestMySQLBigDataImpex {
 
-    @Test
-    public void test() {
-        SpringService ss = new DefaultSpringService();
-        // System.setProperty("jdbc.data.skip", "true");
-        ss.load("classpath:impex/mysql-impex-context.xml");
-    }
+	@Test
+	public void test() {
+		SpringService ss = new DefaultSpringService();
+		// System.setProperty("jdbc.data.skip", "true");
+		ss.load("classpath:impex/mysql-impex-context.xml");
+	}
 
 }

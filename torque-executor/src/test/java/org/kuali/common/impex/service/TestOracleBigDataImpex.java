@@ -15,36 +15,24 @@
 
 package org.kuali.common.impex.service;
 
-import java.io.IOException;
-import javax.annotation.Resource;
-
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.RunWith;
-import org.kuali.common.jdbc.DatabaseResetExecutable;
-import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Test sql executor with big data set
- *
+ * 
  * @author andrewlubbers
  */
 @Ignore
 public class TestOracleBigDataImpex {
 
-    @Test
-    public void test() {
-        SpringService ss = new DefaultSpringService();
-        // System.setProperty("jdbc.data.skip", "true");
-        ss.load("classpath:impex/oracle-impex-context.xml");
-    }
+	@Test
+	public void test() {
+		SpringService ss = new DefaultSpringService();
+		// System.setProperty("jdbc.data.skip", "true");
+		ss.load("classpath:impex/oracle-impex-context.xml");
+	}
 
 }
