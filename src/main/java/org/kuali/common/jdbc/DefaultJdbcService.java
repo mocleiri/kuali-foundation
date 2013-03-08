@@ -164,7 +164,7 @@ public class DefaultJdbcService implements JdbcService {
 		String wTime = FormatUtils.getTime(wallTime);
 		String diff = FormatUtils.getTime(aggregateTime - wallTime);
 		Object[] args = { buckets.size(), aTime, wTime, diff };
-		logger.info("Threads: {}  Aggregate: {}  Wall: {}  Savings: {}", args);
+		logger.info("Threads: {}  Aggregate: {}  Wall: {}  Diff: {}", args);
 	}
 
 	@Override
