@@ -59,11 +59,12 @@ public class SummaryListener extends NoOpSqlListener {
 		String size = FormatUtils.getSize(this.size);
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
-		Object[] args = { count, sources, size, time, rate };
+		String speed = FormatUtils.getSpeed(elapsed, this.count, "SQL/s");
+		Object[] args = { count, sources, size, time, speed, rate };
 		if (showRate) {
-			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Rate: {}]", args, logger, loggerLevel);
+			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Speed: {}  Rate: {}]", args, logger, loggerLevel);
 		} else {
-			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}]", args, logger, loggerLevel);
+			LoggerUtils.logMsg("Completed - [SQL Count: {}  Sources: {}  Size: {}  Time: {}  Speed: {}]", args, logger, loggerLevel);
 		}
 	}
 
