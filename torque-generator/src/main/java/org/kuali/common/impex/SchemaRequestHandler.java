@@ -41,7 +41,7 @@ public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket>
 					Long nextVal = platform.getSequenceNextVal(metaData.getConnection(), schema, sequence.getName());
 					sequence.setNextVal(nextVal.toString());
 				}
-				element.getProgressTracker().progressOccurred();
+				element.getProgressTracker().update(1);
 			}
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
