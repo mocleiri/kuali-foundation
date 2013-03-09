@@ -35,13 +35,13 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
 		this.aggregateUpdateCount += event.getUpdateCount();
-		if (informer.getCount() == 0) {
-			informer.start();
+		if (informer.getProgress() == 0) {
+			informer.begin();
 		}
 		if (trackProgressByUpdateCount) {
-			informer.update(event.getUpdateCount());
+			informer.incrementProgress(event.getUpdateCount());
 		} else {
-			informer.update(1);
+			informer.incrementProgress(1);
 		}
 	}
 
