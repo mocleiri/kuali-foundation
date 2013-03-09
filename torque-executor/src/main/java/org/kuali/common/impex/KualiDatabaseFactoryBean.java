@@ -1,6 +1,5 @@
 package org.kuali.common.impex;
 
-import org.kuali.common.impex.KualiDatabase;
 import org.kuali.common.util.Assert;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.springframework.beans.factory.FactoryBean;
@@ -9,9 +8,8 @@ public class KualiDatabaseFactoryBean implements FactoryBean<KualiDatabase> {
 
 	String location;
 	String databaseVendor;
-    private Boolean isSingleton = Boolean.FALSE;
 
-    @Override
+	@Override
 	public KualiDatabase getObject() throws Exception {
 
 		Assert.notNull(location, "location is null");
@@ -28,14 +26,10 @@ public class KualiDatabaseFactoryBean implements FactoryBean<KualiDatabase> {
 
 	@Override
 	public boolean isSingleton() {
-		return isSingleton;
+		return false;
 	}
 
-    public void setSingleton(Boolean singleton) {
-        isSingleton = singleton;
-    }
-
-    public String getLocation() {
+	public String getLocation() {
 		return location;
 	}
 
