@@ -41,7 +41,6 @@ public class JdbcContext {
 	List<SqlSupplier> suppliers;
 	String message;
 	boolean skipMetaData;
-	boolean ddl;
 
 	public boolean isExecute() {
 		return execute;
@@ -113,14 +112,6 @@ public class JdbcContext {
 
 	public void setSkipMetaData(boolean skipMetaData) {
 		this.skipMetaData = skipMetaData;
-	}
-
-	public boolean isDdl() {
-		return ddl;
-	}
-
-	public void setDdl(boolean ddl) {
-		this.ddl = ddl;
 	}
 
 }
