@@ -31,6 +31,15 @@ public class PercentCompleteInformer {
 	String progressToken = ".";
 	String completeToken = "\n";
 
+	public PercentCompleteInformer() {
+		this(0);
+	}
+
+	public PercentCompleteInformer(long total) {
+		super();
+		this.total = total;
+	}
+
 	public synchronized void begin() {
 		out.print(startToken);
 	}
