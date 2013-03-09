@@ -52,6 +52,7 @@ public class MetaInfUtils {
 	}
 
 	public static void doProperties(MetaInfContext context, List<MetaInfResource> resources) {
+		logger.debug("doProperties()");
 		Properties properties = getProperties(context, resources);
 		File propertiesFile = new File(LocationUtils.getCanonicalPath(context.getOutputFile()) + ".properties");
 		PropertyUtils.store(properties, propertiesFile, "UTF-8");
