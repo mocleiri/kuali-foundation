@@ -20,7 +20,6 @@ public class MetaInfUtils {
 	public static void scanAndCreateFiles(List<MetaInfContext> contexts) throws IOException {
 		for (MetaInfContext context : contexts) {
 			List<File> files = getFiles(context);
-			logger.info("Located " + files.size() + " files");
 			List<MetaInfResource> resources = getResources(context.getBaseDir(), files, context.getPrefix());
 			doLocations(context, resources);
 			if (context.isAddPropertiesFile()) {
@@ -38,7 +37,9 @@ public class MetaInfUtils {
 		logger.info("Include - " + CollectionUtils.getSpaceSeparatedString(includes));
 		logger.info("Exclude - " + CollectionUtils.getSpaceSeparatedString(excludes));
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
-		return scanner.getFiles();
+		List<File> files = scanner.getFiles();
+		logger.info("Located " + files.size() + " files");
+		return files;
 	}
 
 	public static void doLocations(MetaInfContext context, List<MetaInfResource> resources) throws IOException {
