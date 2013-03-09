@@ -10,7 +10,7 @@ public class JdbcExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcExecutable.class);
 
-	JdbcService service;
+	JdbcService service = new DefaultJdbcService();
 	JdbcContext context;
 	boolean skip;
 
