@@ -44,7 +44,7 @@ public class ProgressListener extends NoOpSqlListener {
 	}
 
 	@Override
-	public void afterExecuteSql(SqlEvent event) {
+	public synchronized void afterExecuteSql(SqlEvent event) {
 		// The first SQL statement was just executed
 		if (count == 0) {
 			out.print(startToken);
