@@ -95,7 +95,7 @@ public class SimpleFormatter {
 	public String getThroughputInSeconds(long millis, long count, String label) {
 		double seconds = millis / SECOND;
 		double countPerSecond = count / seconds;
-		return rateFormatter.format(countPerSecond) + " " + label;
+		return countFormatter.format(countPerSecond) + " " + label;
 	}
 
 	/**
