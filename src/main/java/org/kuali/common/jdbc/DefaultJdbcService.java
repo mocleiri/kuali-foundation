@@ -36,12 +36,12 @@ import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SqlMetaDataEvent;
+import org.kuali.common.jdbc.listener.ThreadsProgressListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
 import org.kuali.common.jdbc.threads.SqlBucketContext;
 import org.kuali.common.jdbc.threads.SqlBucketHandler;
-import org.kuali.common.jdbc.threads.ThreadsProgressListener;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -161,6 +161,7 @@ public class DefaultJdbcService implements JdbcService {
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
+		tpl.getOut().print(tpl.getCompleteToken());
 
 		// Display thread related stats
 		long aggregateTime = etl.getAggregateTime();

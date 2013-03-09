@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.threads;
-
-import org.kuali.common.jdbc.listener.ProgressListener;
-import org.kuali.common.jdbc.listener.SqlExecutionEvent;
+package org.kuali.common.jdbc.listener;
 
 public class ThreadsProgressListener extends ProgressListener {
 
