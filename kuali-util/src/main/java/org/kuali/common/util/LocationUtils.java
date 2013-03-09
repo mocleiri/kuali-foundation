@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -45,6 +46,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.Assert;
 
 public class LocationUtils {
 
@@ -78,6 +80,37 @@ public class LocationUtils {
 	 */
 	public static final PrintStream openPrintStream(File file) throws IOException {
 		return new PrintStream(FileUtils.openOutputStream(file));
+	}
+
+	public static Properties getLocationProperties(LocationPropertiesContext context) {
+
+		Assert.notNull(context, "context is null");
+
+		Properties properties = context.getProperties();
+		String keySuffix = context.getKeySuffix();
+		String locationPropertiesSuffix = context.getLocationPropertiesSuffix();
+		String encoding = context.getEncoding();
+
+		Assert.notNull(properties, "properties is null");
+		Assert.notNull(keySuffix, "keySuffix is null");
+		Assert.notNull(locationPropertiesSuffix, "locationPropertiesSuffix is null");
+
+		List<String> keys = PropertyUtils.getEndsWithKeys(properties, keySuffix);
+
+		Properties locationProperties = new Properties();
+		for (String key : keys) {
+			String location = properties.getProperty(key);
+			if (!exists(location)) {
+				continue;
+			}
+			String propertiesLocation = location + locationPropertiesSuffix;
+			if (!exists(propertiesLocation)) {
+				continue;
+			}
+			Properties p = PropertyUtils.load(location, encoding);
+			locationProperties.putAll(p);
+		}
+		return locationProperties;
 	}
 
 	public static long getLineCount(File file) {
