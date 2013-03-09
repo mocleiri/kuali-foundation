@@ -128,6 +128,7 @@ public class LocationUtils {
 			while (s != null) {
 				lines++;
 				size += s.length();
+				s = in.readLine();
 			}
 			return new TextMetaData(lines, size);
 		} catch (IOException e) {
