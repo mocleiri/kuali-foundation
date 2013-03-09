@@ -16,7 +16,7 @@
 package org.kuali.common.jdbc.listener;
 
 /**
- * Track the total amount of time spent executing SQL. This must be threadsafe.
+ * Thread safe tracking of SQL execution related statistics
  */
 public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
