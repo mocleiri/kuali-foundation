@@ -25,16 +25,12 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
 	@Override
 	public synchronized void afterExecution(SqlExecutionEvent event) {
-		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
-		this.aggregateTime += elapsed;
+		this.aggregateTime += event.getStopTimeMillis() - event.getStartTimeMillis();
 	}
 
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
-		int updateCount = event.getUpdateCount();
-		if (updateCount != -1) {
-			this.aggregateUpdateCount += updateCount;
-		}
+		this.aggregateUpdateCount += event.getUpdateCount();
 	}
 
 	public long getAggregateTime() {
