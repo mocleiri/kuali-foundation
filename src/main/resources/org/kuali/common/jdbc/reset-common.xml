@@ -36,6 +36,7 @@
   <bean id="jdbc.summaryListenerNoRate" class="org.kuali.common.jdbc.listener.SummaryListener">
     <property name="showRate" value="false" />
   </bean>
+
   <bean id="jdbc.progressListener" class="org.kuali.common.jdbc.listener.ProgressListener" />
 
   <util:list id="jdbc.summaryAndProgressList">
