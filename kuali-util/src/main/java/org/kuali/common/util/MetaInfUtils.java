@@ -17,6 +17,8 @@ public class MetaInfUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfUtils.class);
 
+	private static long lineCountCalcTime = 0;
+
 	public static void scanAndCreateFiles(List<MetaInfContext> contexts) throws IOException {
 		for (MetaInfContext context : contexts) {
 			List<File> files = getFiles(context);
@@ -24,6 +26,7 @@ public class MetaInfUtils {
 			doLocations(context, resources);
 			if (context.isAddPropertiesFile()) {
 				doProperties(context, resources);
+				logger.info("Line count calc time: {}", FormatUtils.getTime(lineCountCalcTime));
 			}
 		}
 	}
@@ -111,7 +114,9 @@ public class MetaInfUtils {
 		long size = file.length();
 		long lines = -1;
 		if (context.isAddLineCount()) {
+			long start = System.currentTimeMillis();
 			lines = LocationUtils.getLineCount(file);
+			lineCountCalcTime += System.currentTimeMillis() - start;
 		}
 		String key = getPropertyKey(location);
 
