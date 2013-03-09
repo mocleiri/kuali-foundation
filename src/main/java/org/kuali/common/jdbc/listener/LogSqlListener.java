@@ -27,7 +27,7 @@ public class LogSqlListener extends NoOpSqlListener {
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
 	LoggerLevel level = LoggerLevel.INFO;
 	boolean flatten = true;
-	LogSqlMode mode = LogSqlMode.AFTER;
+	LogSqlMode mode = LogSqlMode.BEFORE;
 
 	@Override
 	public void beforeExecuteSql(SqlEvent event) {
