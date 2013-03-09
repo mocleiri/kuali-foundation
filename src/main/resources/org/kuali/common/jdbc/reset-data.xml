@@ -42,7 +42,16 @@
     <property name="dataSource" ref="jdbc.dataSource" />
     <property name="suppliers" ref="jdbc.concurrentDataSuppliers" />
     <property name="message" value="${sql.data.concurrent.message}" />
-    <property name="listener" ref="jdbc.summaryAndMetaDataListener" />
+    <property name="listener">
+      <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
+        <property name="listeners">
+          <util:list>
+            <ref bean="jdbc.metaDataListener" />
+            <bean class="org.kuali.common.jdbc.listener.DataSummaryListener" />
+          </util:list>
+        </property>
+      </bean>
+    </property>
     <property name="threads" value="${sql.threads}" />
     <property name="multithreaded" value="true" />
   </bean>
