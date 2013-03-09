@@ -18,18 +18,31 @@ package org.kuali.common.jdbc.listener;
 /**
  * Track the total amount of time spent executing SQL. This must be threadsafe.
  */
-public class ExecutionTimingListener extends NoOpSqlListener {
+public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
 	long aggregateTime;
+	long aggregateUpdateCount;
 
 	@Override
-	public void afterExecution(SqlExecutionEvent event) {
+	public synchronized void afterExecution(SqlExecutionEvent event) {
 		long elapsed = event.getStopTimeMillis() - event.getStartTimeMillis();
 		this.aggregateTime += elapsed;
 	}
 
+	@Override
+	public synchronized void afterExecuteSql(SqlEvent event) {
+		int updateCount = event.getUpdateCount();
+		if (updateCount != -1) {
+			this.aggregateUpdateCount += updateCount;
+		}
+	}
+
 	public long getAggregateTime() {
 		return aggregateTime;
+	}
+
+	public long getAggregateUpdateCount() {
+		return aggregateUpdateCount;
 	}
 
 }

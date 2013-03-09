@@ -31,15 +31,15 @@ public interface JdbcService {
 	/**
 	 * Execute SQL as dictated by the context
 	 */
-	void executeSql(JdbcContext context);
+	ExecutionResult executeSql(JdbcContext context);
 
 	/**
 	 * Execute a single SQL statement
 	 */
-	void executeSql(DataSource dataSource, String sql);
+	ExecutionResult executeSql(DataSource dataSource, String sql);
 
 	/**
 	 * Execute a list of SQL statements
 	 */
-	void executeSql(DataSource dataSource, List<String> sql);
+	ExecutionResult executeSql(DataSource dataSource, List<String> sql);
 }

@@ -17,17 +17,25 @@ package org.kuali.common.jdbc.listener;
 
 public class SqlEvent {
 
+	private static final int DEFAULT_UPDATE_COUNT = -1;
+
 	String sql;
 	long startTimeMillis;
 	long stopTimeMillis;
+	int updateCount = DEFAULT_UPDATE_COUNT;
 
 	public SqlEvent() {
-		this(null, 0, 0);
+		this(null, 0);
 	}
 
-	public SqlEvent(String sql, long startTimeMillis, long stopTimeMillis) {
+	public SqlEvent(String sql, long startTimeMillis) {
+		this(null, DEFAULT_UPDATE_COUNT, startTimeMillis, 0);
+	}
+
+	public SqlEvent(String sql, int updateCount, long startTimeMillis, long stopTimeMillis) {
 		super();
 		this.sql = sql;
+		this.updateCount = updateCount;
 		this.startTimeMillis = startTimeMillis;
 		this.stopTimeMillis = stopTimeMillis;
 	}
@@ -54,6 +62,14 @@ public class SqlEvent {
 
 	public void setStopTimeMillis(long stopTimeMillis) {
 		this.stopTimeMillis = stopTimeMillis;
+	}
+
+	public int getUpdateCount() {
+		return updateCount;
+	}
+
+	public void setUpdateCount(int updateCount) {
+		this.updateCount = updateCount;
 	}
 
 }
