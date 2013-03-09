@@ -40,7 +40,7 @@ public class PercentCompleteInformer {
 		this.total = total;
 	}
 
-	public synchronized void begin() {
+	public synchronized void start() {
 		out.print(startToken);
 	}
 
@@ -66,7 +66,7 @@ public class PercentCompleteInformer {
 		}
 	}
 
-	public synchronized void end() {
+	public synchronized void stop() {
 		out.print(completeToken);
 	}
 
