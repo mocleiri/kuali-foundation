@@ -114,6 +114,29 @@ public class LocationUtils {
 		return locationProperties;
 	}
 
+	public static TextMetaData getTextMetaData(File file) {
+		return getTextMetaData(getCanonicalPath(file));
+	}
+
+	public static TextMetaData getTextMetaData(String location) {
+		long lines = 0;
+		long size = 0;
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReader(location);
+			String s = in.readLine();
+			while (s != null) {
+				lines++;
+				size += s.length();
+			}
+			return new TextMetaData(lines, size);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 	public static long getLineCount(File file) {
 		return getLineCount(getCanonicalPath(file));
 	}
