@@ -167,8 +167,9 @@ public class DefaultJdbcService implements JdbcService {
 		String avgMillis = FormatUtils.getTime(aggregateTime / buckets.size());
 		String aTime = FormatUtils.getTime(aggregateTime);
 		String wTime = FormatUtils.getTime(wallTime);
-		Object[] args = { buckets.size(), wTime, aTime, avgMillis };
-		logger.info("Threads - [count: {}  time: {}  aggregate: {}  avg: {}]", args);
+		String sqlCount = FormatUtils.getCount(etl.getAggregateSqlCount());
+		Object[] args = { buckets.size(), wTime, aTime, avgMillis, sqlCount };
+		logger.info("Threads - [count: {}  time: {}  aggregate: {}  avg: {}  sql: {}]", args);
 
 		return etl.getAggregateUpdateCount();
 	}
