@@ -24,6 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+
   <bean id="jdbc.propertyLocations" class="org.kuali.common.util.spring.ListCombinerFactoryBean">
     <property name="listOfLists">
       <list>
@@ -33,6 +34,10 @@
         </util:list>
       </list>
     </property>
+  </bean>
+
+  <bean id="impex.locationProperties" class="org.kuali.common.util.spring.LocationPropertiesFactoryBean">
+    <property name="properties" ref="jdbc.properties" />
   </bean>
 
   <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
