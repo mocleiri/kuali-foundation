@@ -16,6 +16,7 @@ public class ExecutionResult {
 		this.updateCount = updateCount;
 		this.startTimeMillis = startTimeMillis;
 		this.stopTimeMillis = stopTimeMillis;
+		this.elapsed = stopTimeMillis - startTimeMillis;
 	}
 
 	public long getUpdateCount() {

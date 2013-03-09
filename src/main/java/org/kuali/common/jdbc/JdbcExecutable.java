@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc;
 
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,10 @@ public class JdbcExecutable implements Executable {
 		Assert.notNull(service, "service is null");
 		Assert.notNull(context, "context is null");
 
-		service.executeSql(context);
+		ExecutionResult result = service.executeSql(context);
+		String elapsed = FormatUtils.getTime(result.getElapsed());
+		String updates = FormatUtils.getCount(result.getUpdateCount());
+		logger.info("Update count: {}  Total time: {}", updates, elapsed);
 	}
 
 	public JdbcService getService() {
