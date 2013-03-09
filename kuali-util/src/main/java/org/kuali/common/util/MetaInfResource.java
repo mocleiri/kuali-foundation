@@ -4,8 +4,8 @@ public class MetaInfResource {
 
 	String key;
 	String location;
-	long size;
-	long lines;
+	long size = -1;
+	long lines = -1;
 
 	public String getLocation() {
 		return location;

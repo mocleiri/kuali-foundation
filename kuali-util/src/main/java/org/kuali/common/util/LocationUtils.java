@@ -59,14 +59,12 @@ public class LocationUtils {
 	private static final String CLASSPATH = "classpath:";
 
 	/**
-	 * Opens a {@link FileOutputStream} for the specified file, checking and creating the parent directory if it does
-	 * not exist.
+	 * Opens a {@link FileOutputStream} for the specified file, checking and creating the parent directory if it does not exist.
 	 * <p>
 	 * At the end of the method either the stream will be successfully opened, or an exception will have been thrown.
 	 * <p>
-	 * The parent directory will be created if it does not exist. The file will be created if it does not exist. An
-	 * exception is thrown if the file object exists but is a directory. An exception is thrown if the file exists but
-	 * cannot be written to. An exception is thrown if the parent directory cannot be created.
+	 * The parent directory will be created if it does not exist. The file will be created if it does not exist. An exception is thrown if the file object exists but is a
+	 * directory. An exception is thrown if the file exists but cannot be written to. An exception is thrown if the parent directory cannot be created.
 	 * 
 	 * @param file
 	 *            the file to open for output, must not be {@code null}
@@ -82,6 +80,26 @@ public class LocationUtils {
 		return new PrintStream(FileUtils.openOutputStream(file));
 	}
 
+	public static long getLineCount(File file) {
+		return getLineCount(getCanonicalPath(file));
+	}
+
+	public static long getLineCount(String location) {
+		long count = 0;
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReader(location);
+			while (in.readLine() != null) {
+				count++;
+			}
+			return count;
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 	public static final void copyLocationsToFiles(List<String> locations, List<File> files) {
 		Assert.isTrue(locations.size() == files.size());
 		for (int i = 0; i < locations.size(); i++) {
@@ -92,16 +110,14 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Return the text that appears after <code>classpath:</code>. Throws <code>IllegalArgumentException</code> if
-	 * location does not start with <code>classpath:</code>
+	 * Return the text that appears after <code>classpath:</code>. Throws <code>IllegalArgumentException</code> if location does not start with <code>classpath:</code>
 	 */
 	public static final String getClasspathFilename(String location) {
 		return getClasspathFilenames(Arrays.asList(location)).get(0);
 	}
 
 	/**
-	 * Return the text that appears after <code>classpath:</code>. Throws <code>IllegalArgumentException</code> if any
-	 * locations do not start with <code>classpath:</code>
+	 * Return the text that appears after <code>classpath:</code>. Throws <code>IllegalArgumentException</code> if any locations do not start with <code>classpath:</code>
 	 */
 	public static final List<String> getClasspathFilenames(List<String> locations) {
 		List<String> classpathFilenames = new ArrayList<String>();
@@ -228,14 +244,12 @@ public class LocationUtils {
 
 	public static final void validateNormalizedPath(String originalPath, String normalizedPath) {
 		if (CollectionUtils.containsAny(normalizedPath, Arrays.asList(SLASH_DOT_DOT, SLASH_DOT_SLASH, DOT_DOT_SLASH))) {
-			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path ["
-					+ normalizedPath + "]");
+			throw new IllegalArgumentException("[" + originalPath + "] could not be normalized. Normalized path [" + normalizedPath + "]");
 		}
 	}
 
 	/**
-	 * Resolve and remove <code>..</code> and <code>.</code> from <code>absolutePath</code> after converting any back
-	 * slashes to forward slashes
+	 * Resolve and remove <code>..</code> and <code>.</code> from <code>absolutePath</code> after converting any back slashes to forward slashes
 	 */
 	public static final String getNormalizedAbsolutePath(String absolutePath) {
 		if (absolutePath == null) {
@@ -300,8 +314,8 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If
-	 * <code>filename</code> is a directory, delete it and all sub-directories.
+	 * Null safe method to unconditionally attempt to delete <code>filename</code> without throwing an exception. If <code>filename</code> is a directory, delete it and all
+	 * sub-directories.
 	 */
 	public static final boolean deleteFileQuietly(String filename) {
 		File file = getFileQuietly(filename);
@@ -309,8 +323,7 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Null safe method for getting a <code>File</code> handle from <code>filename</code>. If <code>filename</code> is
-	 * null, null is returned.
+	 * Null safe method for getting a <code>File</code> handle from <code>filename</code>. If <code>filename</code> is null, null is returned.
 	 */
 	public static final File getFileQuietly(String filename) {
 		if (filename == null) {
@@ -321,8 +334,7 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Get the contents of <code>location</code> as a <code>String</code> using the platform's default character
-	 * encoding.
+	 * Get the contents of <code>location</code> as a <code>String</code> using the platform's default character encoding.
 	 */
 	public static final String toString(String location) {
 		return toString(location, null);
@@ -382,24 +394,21 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Get the contents of <code>file</code> as a list of <code>String's</code> one entry per line using the platform
-	 * default encoding
+	 * Get the contents of <code>file</code> as a list of <code>String's</code> one entry per line using the platform default encoding
 	 */
 	public static final List<String> readLines(File file) {
 		return readLines(getCanonicalPath(file));
 	}
 
 	/**
-	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the
-	 * platform default encoding
+	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the platform default encoding
 	 */
 	public static final List<String> readLines(String location) {
 		return readLines(location, null);
 	}
 
 	/**
-	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the
-	 * encoding indicated.
+	 * Get the contents of <code>location</code> as a list of <code>String's</code> one entry per line using the encoding indicated.
 	 */
 	public static final List<String> readLines(String location, String encoding) {
 		Reader reader = null;
@@ -440,8 +449,7 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Return a <code>Writer</code> that writes to <code>out</code> using the indicated encoding. <code>null</code>
-	 * means use the platform's default encoding.
+	 * Return a <code>Writer</code> that writes to <code>out</code> using the indicated encoding. <code>null</code> means use the platform's default encoding.
 	 */
 	public static final Writer getWriter(OutputStream out, String encoding) throws IOException {
 		if (encoding == null) {
@@ -452,16 +460,14 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Return a <code>BufferedReader</code> that reads from <code>file</code> using the indicated encoding.
-	 * <code>null</code> means use the platform's default encoding.
+	 * Return a <code>BufferedReader</code> that reads from <code>file</code> using the indicated encoding. <code>null</code> means use the platform's default encoding.
 	 */
 	public static final BufferedReader getBufferedReader(File file, String encoding) throws IOException {
 		return getBufferedReader(FileUtils.openInputStream(file), encoding);
 	}
 
 	/**
-	 * Return a <code>BufferedReader</code> that reads from <code>in</code> using the indicated encoding.
-	 * <code>null</code> means use the platform's default encoding.
+	 * Return a <code>BufferedReader</code> that reads from <code>in</code> using the indicated encoding. <code>null</code> means use the platform's default encoding.
 	 */
 	public static final BufferedReader getBufferedReader(InputStream in, String encoding) throws IOException {
 		if (encoding == null) {
@@ -514,9 +520,8 @@ public class LocationUtils {
 	}
 
 	/**
-	 * Open an <code>InputStream</code> to <code>location</code>. If <code>location</code> is the path to an existing
-	 * <code>File</code> on the local file system, a <code>FileInputStream</code> is returned. Otherwise Spring's
-	 * resource loading framework is used to open an <code>InputStream</code> to <code>location</code>.
+	 * Open an <code>InputStream</code> to <code>location</code>. If <code>location</code> is the path to an existing <code>File</code> on the local file system, a
+	 * <code>FileInputStream</code> is returned. Otherwise Spring's resource loading framework is used to open an <code>InputStream</code> to <code>location</code>.
 	 */
 	public static final InputStream getInputStream(String location) throws IOException {
 		if (isExistingFile(location)) {
@@ -556,8 +561,7 @@ public class LocationUtils {
 		return results;
 	}
 
-	public static final ComparisonResults getLocationListComparison(List<String> newLocations,
-			List<String> originalLocations) {
+	public static final ComparisonResults getLocationListComparison(List<String> newLocations, List<String> originalLocations) {
 		ComparisonResults result = new ComparisonResults();
 
 		result.setAdded(new ArrayList<String>());

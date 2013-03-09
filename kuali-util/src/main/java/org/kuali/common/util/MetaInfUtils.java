@@ -20,7 +20,7 @@ public class MetaInfUtils {
 	public static void scanAndCreateFiles(List<MetaInfContext> contexts) throws IOException {
 		for (MetaInfContext context : contexts) {
 			List<File> files = getFiles(context);
-			List<MetaInfResource> resources = getResources(context.getBaseDir(), files, context.getPrefix());
+			List<MetaInfResource> resources = getResources(context, files);
 			doLocations(context, resources);
 			if (context.isAddPropertiesFile()) {
 				doProperties(context, resources);
@@ -52,16 +52,20 @@ public class MetaInfUtils {
 	}
 
 	public static void doProperties(MetaInfContext context, List<MetaInfResource> resources) {
-		Properties properties = getProperties(resources);
+		Properties properties = getProperties(context, resources);
 		File propertiesFile = new File(LocationUtils.getCanonicalPath(context.getOutputFile()) + ".properties");
 		PropertyUtils.store(properties, propertiesFile, "UTF-8");
 	}
 
-	public static Properties getProperties(List<MetaInfResource> resources) {
+	public static Properties getProperties(MetaInfContext context, List<MetaInfResource> resources) {
 		Properties properties = new Properties();
 		for (MetaInfResource resource : resources) {
 			String sizeKey = resource.getKey() + ".size";
 			properties.setProperty(sizeKey, resource.getSize() + "");
+			if (context.isAddLineCount()) {
+				String linesKey = resource.getKey() + ".lines";
+				properties.setProperty(linesKey, resource.getLines() + "");
+			}
 		}
 		return properties;
 	}
@@ -75,10 +79,10 @@ public class MetaInfUtils {
 		scanAndCreateFiles(Arrays.asList(context));
 	}
 
-	public static List<MetaInfResource> getResources(File baseDir, List<File> files, String prefix) throws IOException {
+	public static List<MetaInfResource> getResources(MetaInfContext context, List<File> files) throws IOException {
 		List<MetaInfResource> resources = new ArrayList<MetaInfResource>();
 		for (int i = 0; i < files.size(); i++) {
-			MetaInfResource resource = getResource(baseDir, files.get(i), prefix);
+			MetaInfResource resource = getResource(context, files.get(i));
 			resources.add(resource);
 		}
 		return resources;
@@ -101,15 +105,20 @@ public class MetaInfUtils {
 		return locations;
 	}
 
-	public static MetaInfResource getResource(File baseDir, File file, String prefix) throws IOException {
-		String location = getLocation(baseDir, file, prefix);
+	public static MetaInfResource getResource(MetaInfContext context, File file) throws IOException {
+		String location = getLocation(context.getBaseDir(), file, context.getPrefix());
 		long size = file.length();
+		long lines = -1;
+		if (context.isAddLineCount()) {
+			lines = LocationUtils.getLineCount(file);
+		}
 		String key = getPropertyKey(location);
 
 		MetaInfResource resource = new MetaInfResource();
 		resource.setLocation(location);
 		resource.setSize(size);
 		resource.setKey(key);
+		resource.setLines(lines);
 		return resource;
 	}
 

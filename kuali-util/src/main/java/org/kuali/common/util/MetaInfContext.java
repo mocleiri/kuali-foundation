@@ -12,7 +12,6 @@ public class MetaInfContext {
 	List<String> includes;
 	List<String> excludes;
 	boolean addPropertiesFile = true;
-	boolean isTextFile;
 	boolean addLineCount;
 
 	public File getBaseDir() {
@@ -69,14 +68,6 @@ public class MetaInfContext {
 
 	public void setAddPropertiesFile(boolean addPropertiesFile) {
 		this.addPropertiesFile = addPropertiesFile;
-	}
-
-	public boolean isTextFile() {
-		return isTextFile;
-	}
-
-	public void setTextFile(boolean isTextFile) {
-		this.isTextFile = isTextFile;
 	}
 
 	public boolean isAddLineCount() {
