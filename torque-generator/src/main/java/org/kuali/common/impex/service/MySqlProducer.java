@@ -26,8 +26,8 @@ public class MySqlProducer extends AbstractSqlProducer {
 	private static final String PREFIX_END = " VALUES ";
 
 	/**
-	 * Read data lines from the .mpx file and combine them into batched up, INSERT INTO sql statements. Individual data lines are merged
-	 * together into SQL statements 50 lines at a time or 50K in length whichever comes first.
+	 * Read data lines from the .mpx file and combine them into batched up, INSERT INTO sql statements. Individual data lines are merged together into SQL statements 50 lines at a
+	 * time or 50K in length whichever comes first.
 	 */
 	@Override
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
@@ -84,19 +84,20 @@ public class MySqlProducer extends AbstractSqlProducer {
 		}
 	}
 
-    protected String buildBatchSql(List<DataBean> rowBeans) {
+	protected String buildBatchSql(List<DataBean> rowBeans) {
 		StringBuilder batchBuilder = new StringBuilder();
 		SimpleDateFormat sqlDateFormatter = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		List<String> sqlValues = new ArrayList<String>(rowBeans.size());
 		for (DataBean d : rowBeans) {
 			sqlValues.add(getSqlValue(d, sqlDateFormatter));
 		}
-
-		batchBuilder.append(ARG_LIST_START).append(CollectionUtils.getCSV(sqlValues)).append(ARG_LIST_END);
+		batchBuilder.append(ARG_LIST_START);
+		batchBuilder.append(CollectionUtils.getCSV(sqlValues));
+		batchBuilder.append(ARG_LIST_END);
 		return batchBuilder.toString();
 	}
 
-    protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
+	protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
 		StringBuilder result = new StringBuilder();
 
 		if (data.getDateValue() != null) {
@@ -113,7 +114,6 @@ public class MySqlProducer extends AbstractSqlProducer {
 	// INSERT INTO FOO (BAR1,BAR2) VALUES
 	protected String getPrefix(Table table) {
 		String columnNamesCSV = getColumnNamesCSV(table);
-
 		StringBuilder sb = new StringBuilder();
 		sb.append(PREFIX_START).append(table.getName()).append(SPACE);
 		sb.append(ARG_LIST_START).append(columnNamesCSV).append(ARG_LIST_END);
