@@ -22,12 +22,12 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Table;
-import org.kuali.common.impex.KualiDatabase;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.TextMetaData;
 
 /**
  * This class provides an implementation of the SqlSupplier interface using an Mpx resource as the data source
@@ -88,26 +88,8 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 
 	@Override
 	public void fillInMetaData() {
-		long count = 0;
-		long size = 0;
-		BufferedReader in = null;
-		try {
-			Table table = getTable(location, database, extension);
-			in = LocationUtils.getBufferedReader(location, encoding);
-			List<String> sqls = producer.getSql(table, in);
-			while (sqls != null) {
-				count++;
-                for(String s : sqls) {
-                    size += s.length();
-                }
-				sqls = producer.getSql(table, in);
-			}
-			this.metaData = new SqlMetaData(count, size);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
+		TextMetaData tmd = LocationUtils.getTextMetaData(location);
+		this.metaData = new SqlMetaData(tmd.getLines() - 1, tmd.getSize());
 	}
 
 	public String getEncoding() {
