@@ -45,15 +45,15 @@ public class PercentCompleteInformer {
 	/**
 	 * Increment progress by the amount indicated
 	 */
-	public synchronized void incrementProgress(long progress) {
+	public synchronized void incrementProgress(long amount) {
 		// Increment the progress indicator
-		this.progress += progress;
+		this.progress += amount;
 
 		// Print a dot anytime we make at least 1% progress
 		int percentComplete = (int) ((progress * 100) / total);
 		if (enoughProgress(percentComplete)) {
 			this.percentCompletePrevious = percentComplete;
-			out.print(progressToken);
+			out.print(this.progressToken);
 		}
 	}
 
