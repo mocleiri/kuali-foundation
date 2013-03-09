@@ -24,6 +24,7 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
 	long aggregateTime;
 	long aggregateUpdateCount;
+	long aggregateSqlCount;
 	PercentCompleteInformer informer;
 	boolean trackProgressByUpdateCount;
 
@@ -35,6 +36,7 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
 		this.aggregateUpdateCount += event.getUpdateCount();
+		this.aggregateSqlCount++;
 		if (informer.getProgress() == 0) {
 			informer.begin();
 		}
@@ -67,5 +69,9 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
 	public void setTrackProgressByUpdateCount(boolean trackProgressByUpdateCount) {
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
+	}
+
+	public long getAggregateSqlCount() {
+		return aggregateSqlCount;
 	}
 }
