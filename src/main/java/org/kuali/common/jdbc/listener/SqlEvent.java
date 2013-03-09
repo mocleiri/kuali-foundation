@@ -29,7 +29,7 @@ public class SqlEvent {
 	}
 
 	public SqlEvent(String sql, long startTimeMillis) {
-		this(null, DEFAULT_UPDATE_COUNT, startTimeMillis, 0);
+		this(sql, DEFAULT_UPDATE_COUNT, startTimeMillis, 0);
 	}
 
 	public SqlEvent(String sql, int updateCount, long startTimeMillis, long stopTimeMillis) {
