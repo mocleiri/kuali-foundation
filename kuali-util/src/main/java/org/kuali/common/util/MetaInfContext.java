@@ -11,7 +11,7 @@ public class MetaInfContext {
 	boolean sort = true;
 	List<String> includes;
 	List<String> excludes;
-	boolean addPropertiesFile = true;
+	boolean addPropertiesFile;
 	boolean addLineCount;
 
 	public File getBaseDir() {
