@@ -36,7 +36,7 @@ public class ProgressListener extends NoOpSqlListener {
 		informer.incrementProgress();
 		// The first SQL statement was just executed
 		if (informer.getProgress() == 0) {
-			informer.begin();
+			informer.start();
 		}
 
 		// Increment the counter
@@ -44,7 +44,7 @@ public class ProgressListener extends NoOpSqlListener {
 
 		// The last SQL statement was just executed
 		if (informer.getProgress() == informer.getTotal()) {
-			informer.end();
+			informer.stop();
 		}
 	}
 

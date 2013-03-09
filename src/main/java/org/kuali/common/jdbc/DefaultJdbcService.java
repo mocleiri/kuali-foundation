@@ -122,7 +122,6 @@ public class DefaultJdbcService implements JdbcService {
 		Collections.sort(buckets);
 		Collections.reverse(buckets);
 
-		// Progress across all of the threads is coordinated by ThreadsProgressListener
 		// The tracking built into the kuali-threads package assumes "progress" equals one element from the list completing
 		// It assumes you have a gigantic list where each element in the list = 1 unit of work
 		// A large list of files that need to be posted to S3 (for example).
@@ -136,8 +135,6 @@ public class DefaultJdbcService implements JdbcService {
 		// Only printing a dot to the console when each bucket completes is not granular enough
 
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
-		// ThreadsProgressListener tpl = new ThreadsProgressListener();
-		// tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 		PercentCompleteInformer informer = new PercentCompleteInformer();
 		informer.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener();
@@ -159,7 +156,7 @@ public class DefaultJdbcService implements JdbcService {
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
-		informer.end();
+		informer.stop();
 
 		// Display thread related stats
 		long aggregateTime = etl.getAggregateTime();
