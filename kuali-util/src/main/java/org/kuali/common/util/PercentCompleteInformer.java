@@ -18,12 +18,12 @@ package org.kuali.common.util;
 import java.io.PrintStream;
 
 /**
- * Print a dot to the console each time we make 1% progress towards the total count
+ * Print a dot to the console each time we make 1% progress towards the total
  */
 public class PercentCompleteInformer {
 
 	PrintStream out = System.out;
-	long count = 0;
+	long progress = 0;
 	long total = 0;
 	int percentageIncrement = 1;
 	int percentCompletePrevious;
@@ -31,23 +31,33 @@ public class PercentCompleteInformer {
 	String progressToken = ".";
 	String completeToken = "\n";
 
-	public synchronized void start() {
+	public synchronized void begin() {
 		out.print(startToken);
 	}
 
-	public synchronized void update(long progress) {
-		// Increment the counter
-		this.count += progress;
+	/**
+	 * Increment progress by one
+	 */
+	public synchronized void incrementProgress() {
+		incrementProgress(1);
+	}
+
+	/**
+	 * Increment progress by the amount indicated
+	 */
+	public synchronized void incrementProgress(long progress) {
+		// Increment the progress indicator
+		this.progress += progress;
 
 		// Print a dot anytime we make at least 1% progress
-		int percentComplete = (int) ((count * 100) / total);
+		int percentComplete = (int) ((progress * 100) / total);
 		if (enoughProgress(percentComplete)) {
 			this.percentCompletePrevious = percentComplete;
 			out.print(progressToken);
 		}
 	}
 
-	public synchronized void stop() {
+	public synchronized void end() {
 		out.print(completeToken);
 	}
 
@@ -64,12 +74,12 @@ public class PercentCompleteInformer {
 		this.out = out;
 	}
 
-	public long getCount() {
-		return count;
+	public long getProgress() {
+		return progress;
 	}
 
-	public void setCount(long count) {
-		this.count = count;
+	public void setProgress(long progress) {
+		this.progress = progress;
 	}
 
 	public int getPercentageIncrement() {
