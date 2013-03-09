@@ -31,12 +31,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
 import org.kuali.common.jdbc.listener.MultiThreadedExecutionListener;
-import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SqlMetaDataEvent;
-import org.kuali.common.jdbc.listener.ThreadsProgressListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.jdbc.threads.SqlBucket;
@@ -47,6 +45,7 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,17 +136,16 @@ public class DefaultJdbcService implements JdbcService {
 		// Only printing a dot to the console when each bucket completes is not granular enough
 
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
-		ThreadsProgressListener tpl = new ThreadsProgressListener();
-		tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
+		// ThreadsProgressListener tpl = new ThreadsProgressListener();
+		// tpl.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
+		PercentCompleteInformer informer = new PercentCompleteInformer();
+		informer.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
 		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener();
-		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(tpl);
-		listeners.add(etl);
-		NotifyingListener notifier = new NotifyingListener();
-		notifier.setListeners(listeners);
+		etl.setTrackProgressByUpdateCount(context.isTrackProgressByUpdateCount());
+		etl.setInformer(informer);
 
 		// Provide some context for each bucket
-		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, notifier);
+		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, etl);
 
 		// Store some context for the thread handler
 		ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
@@ -161,7 +159,7 @@ public class DefaultJdbcService implements JdbcService {
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
-		tpl.getOut().print(tpl.getCompleteToken());
+		informer.stop();
 
 		// Display thread related stats
 		long aggregateTime = etl.getAggregateTime();

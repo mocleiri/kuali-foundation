@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc.listener;
 
+import org.kuali.common.util.PercentCompleteInformer;
+
 /**
  * Thread safe tracking of SQL execution related statistics
  */
@@ -22,6 +24,8 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
 	long aggregateTime;
 	long aggregateUpdateCount;
+	PercentCompleteInformer informer;
+	boolean trackProgressByUpdateCount;
 
 	@Override
 	public synchronized void afterExecution(SqlExecutionEvent event) {
@@ -31,6 +35,14 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
 		this.aggregateUpdateCount += event.getUpdateCount();
+		if (informer.getCount() == 0) {
+			informer.start();
+		}
+		if (trackProgressByUpdateCount) {
+			informer.update(event.getUpdateCount());
+		} else {
+			informer.update(1);
+		}
 	}
 
 	public long getAggregateTime() {
@@ -41,4 +53,19 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 		return aggregateUpdateCount;
 	}
 
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(PercentCompleteInformer informer) {
+		this.informer = informer;
+	}
+
+	public boolean isTrackProgressByUpdateCount() {
+		return trackProgressByUpdateCount;
+	}
+
+	public void setTrackProgressByUpdateCount(boolean trackProgressByUpdateCount) {
+		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
+	}
 }
