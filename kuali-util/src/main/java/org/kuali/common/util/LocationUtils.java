@@ -107,7 +107,7 @@ public class LocationUtils {
 			if (!exists(propertiesLocation)) {
 				continue;
 			}
-			Properties p = PropertyUtils.load(location, encoding);
+			Properties p = PropertyUtils.load(propertiesLocation, encoding);
 			locationProperties.putAll(p);
 		}
 		logger.info("Located {} properties for {} location listings", locationProperties.size(), keys.size());
