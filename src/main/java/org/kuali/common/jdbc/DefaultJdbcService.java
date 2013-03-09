@@ -303,8 +303,15 @@ public class DefaultJdbcService implements JdbcService {
 			long start = System.currentTimeMillis();
 			context.getListener().beforeExecuteSql(new SqlEvent(sql, start));
 			if (context.isExecute()) {
+
+				// Execute the SQL
 				statement.execute(sql);
+
+				// Get the number of rows updated as a result of executing this SQL
 				updateCount = statement.getUpdateCount();
+
+				// Some SQL statements have nothing to do with updating rows
+				updateCount = (updateCount == -1) ? 0 : updateCount;
 			}
 			context.getListener().afterExecuteSql(new SqlEvent(sql, updateCount, start, System.currentTimeMillis()));
 			return updateCount;
