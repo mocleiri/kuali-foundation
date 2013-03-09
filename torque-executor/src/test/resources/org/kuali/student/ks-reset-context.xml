@@ -38,6 +38,7 @@
 
   <bean id="impex.locationProperties" class="org.kuali.common.util.spring.LocationPropertiesFactoryBean">
     <property name="properties" ref="jdbc.properties" />
+    <property name="encoding" value="${kuali.encoding:UTF-8}" />
   </bean>
 
   <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
