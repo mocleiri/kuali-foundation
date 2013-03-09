@@ -110,6 +110,7 @@ public class LocationUtils {
 			Properties p = PropertyUtils.load(location, encoding);
 			locationProperties.putAll(p);
 		}
+		logger.info("Located {} properties for {} location listings", locationProperties.size(), keys.size());
 		return locationProperties;
 	}
 
