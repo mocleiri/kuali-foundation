@@ -31,30 +31,24 @@ public class PercentCompleteInformer {
 	String progressToken = ".";
 	String completeToken = "\n";
 
-	public void setTotal(long total) {
-		this.total = total;
+	public synchronized void start() {
+		out.print(startToken);
 	}
 
-	public synchronized void progressOccurred() {
-		// The first SQL statement was just executed
-		if (count == 0) {
-			out.print(startToken);
-		}
-
+	public synchronized void update(long progress) {
 		// Increment the counter
-		this.count++;
+		this.count += progress;
 
-		// Print a dot anytime we make 1% progress
+		// Print a dot anytime we make at least 1% progress
 		int percentComplete = (int) ((count * 100) / total);
 		if (enoughProgress(percentComplete)) {
 			this.percentCompletePrevious = percentComplete;
 			out.print(progressToken);
 		}
+	}
 
-		// The last SQL statement was just executed
-		if (count == total) {
-			out.print(completeToken);
-		}
+	public synchronized void stop() {
+		out.print(completeToken);
 	}
 
 	protected boolean enoughProgress(int percentComplete) {
@@ -112,6 +106,10 @@ public class PercentCompleteInformer {
 
 	public long getTotal() {
 		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
 	}
 
 }
