@@ -113,6 +113,8 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 				locations.add(value);
 			}
 		}
+
+		// Return the list of locations
 		return locations;
 	}
 
