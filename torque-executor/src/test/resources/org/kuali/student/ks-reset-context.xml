@@ -29,13 +29,8 @@
     <property name="listOfProperties">
       <util:list>
         <ref bean="jdbc.properties" />
-        <bean class="org.kuali.common.util.spring.PropertyFactoryBean">
-          <property name="locations">
-            <util:list>
-              <value>classpath:ks-with-rice-bundled-jbc.properties</value>
-            </util:list>
-          </property>
-        </bean>
+        <ref bean="impex.batchProperties" />
+        <util:properties location="classpath:ks-with-rice-bundled-jbc.properties" />
       </util:list>
     </property>
   </bean>
