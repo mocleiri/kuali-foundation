@@ -31,6 +31,7 @@
     <property name="context">
       <bean class="org.kuali.common.jdbc.context.JdbcContext">
         <property name="message" value="${sql.dba.message}" />
+        <property name="skip" value="${sql.dba.skip:false}" />
         <property name="dataSource" ref="jdbc.dbaDataSource" />
         <property name="suppliers">
           <util:list>
