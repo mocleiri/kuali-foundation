@@ -24,22 +24,22 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="jdbc.nullableProperties" value-type="java.lang.String">
-    <value>dbaUsername</value>
-    <value>dbaPassword</value>
-    <value>username</value>
-    <value>password</value>
-  </util:list>
-
-  <util:list id="jdbc.nullTokens" value-type="java.lang.String">
-    <value>NONE</value>
-    <value>NULL</value>
-  </util:list>
-
   <bean id="jdbc.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
-    <property name="nullTokens" ref="jdbc.nullTokens" />
-    <property name="properties" ref="jdbc.nullableProperties" />
     <property name="bean" ref="jdbcDatabaseProcessContext" />
+    <property name="nullTokens">
+      <util:list>
+        <value>NONE</value>
+        <value>NULL</value>
+      </util:list>
+    </property>
+    <property name="properties">
+      <util:list>
+        <value>dbaUsername</value>
+        <value>dbaPassword</value>
+        <value>username</value>
+        <value>password</value>
+      </util:list>
+    </property>
   </bean>
 
   <bean id="jdbcDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
