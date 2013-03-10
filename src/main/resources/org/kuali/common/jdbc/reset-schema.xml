@@ -24,30 +24,31 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.concurrentSchemaSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-    <property name="property" value="sql.schema.concurrent" />
-    <property name="properties" ref="jdbc.properties" />
-    <property name="extensionMappings" ref="jdbc.extensionMappings" />
-  </bean>
-
-  <bean id="jdbc.concurrentSchemaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="jdbc.dataSource" />
-    <property name="suppliers" ref="jdbc.concurrentSchemaSuppliers" />
-    <property name="message" value="${sql.schema.concurrent.message}" />
-    <property name="skip" value="${sql.schema.skip:false}" />
-    <property name="listener">
-      <bean class="org.kuali.common.jdbc.listener.SummaryListener">
-        <property name="showRate" value="false" />
-      </bean>
-    </property>
-    <property name="threads" value="${sql.threads}" />
-    <property name="multithreaded" value="true" />
-  </bean>
 
   <bean id="jdbc.schemaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
+    <property name="skip" value="${jdbc.schema.skip:false}" />
     <property name="service" ref="jdbc.service" />
-    <property name="context" ref="jdbc.concurrentSchemaJdbcContext" />
-    <property name="skip" value="${jdbc.schema.skip:FALSE}" />
+    <property name="context">
+      <bean class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="multithreaded" value="true" />
+        <property name="threads" value="${sql.threads}" />
+        <property name="message" value="${sql.schema.concurrent.message}" />
+        <property name="skip" value="${sql.schema.skip:false}" />
+        <property name="dataSource" ref="jdbc.dataSource" />
+        <property name="suppliers">
+          <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+            <property name="property" value="sql.schema.concurrent" />
+            <property name="properties" ref="jdbc.properties" />
+            <property name="extensionMappings" ref="jdbc.extensionMappings" />
+          </bean>
+        </property>
+        <property name="listener">
+          <bean class="org.kuali.common.jdbc.listener.SummaryListener">
+            <property name="showRate" value="false" />
+          </bean>
+        </property>
+      </bean>
+    </property>
   </bean>
 
 </beans>
