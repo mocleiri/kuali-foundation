@@ -72,7 +72,7 @@
     <property name="service" ref="jdbc.service" />
     <property name="context" ref="jdbcDatabaseProcessContext" />
     <property name="dataSource" ref="jdbc.dbaDataSource" />
-    <property name="skip" value="${jdbc.showconfig.skip:FALSE}" />
+    <property name="skip" value="${jdbc.showconfig.skip:false}" />
   </bean>
 
 </beans>
