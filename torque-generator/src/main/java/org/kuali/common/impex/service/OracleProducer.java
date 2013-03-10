@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -175,16 +174,17 @@ public class OracleProducer extends AbstractSqlProducer {
 
 		// find the next clob to work on
 		LongClob currentClob = longClobRows.get(0);
-		String clobChunk = currentClob.clobChunks.pop();
+		String clobChunk = currentClob.getClobChunks().pop();
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 		StringBuilder sqlBuilder = new StringBuilder();
 
 		// handle the clob data that is too long
-		List<DataBean> primaryKeys = currentClob.primaryKeys;
+		List<DataBean> primaryKeys = currentClob.getPrimaryKeys();
 
 		// write sql that will append the current chunk into the clob column
-		sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(currentClob.column.getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName()).append(CLOB_BATCH_HEADER_SUFFIX);
+		sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(currentClob.getColumn().getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName())
+				.append(CLOB_BATCH_HEADER_SUFFIX);
 
 		String clauseDelimiter = "";
 		for (DataBean pk : primaryKeys) {
@@ -197,7 +197,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		sqlBuilder.append(CLOB_DATA_PREFIX).append(clobChunk).append(CLOB_DATA_SUFFIX);
 
 		// check to see if we have more clobs to process for this mpx row
-		if (currentClob.clobChunks.isEmpty()) {
+		if (currentClob.getClobChunks().isEmpty()) {
 			longClobRows.remove(0);
 		}
 
@@ -278,11 +278,11 @@ public class OracleProducer extends AbstractSqlProducer {
 		}
 	}
 
-	protected class LongClob {
-		Deque<String> clobChunks;
-		Column column;
-		List<DataBean> primaryKeys;
-	}
+	// protected class LongClob {
+	// Deque<String> clobChunks;
+	// Column column;
+	// List<DataBean> primaryKeys;
+	// }
 
 	protected boolean isDataBigClob(String value, Column column) {
 		if (value == null) {
@@ -322,10 +322,10 @@ public class OracleProducer extends AbstractSqlProducer {
 				List<String> clobChunks = chunkClob(data.getValue());
 
 				LongClob longClob = new LongClob();
-				longClob.column = data.getColumn();
-				longClob.clobChunks = new ArrayDeque<String>();
-				longClob.clobChunks.addAll(clobChunks);
-				longClob.primaryKeys = primaryKeys;
+				longClob.setColumn(data.getColumn());
+				longClob.setClobChunks(new ArrayDeque<String>());
+				longClob.getClobChunks().addAll(clobChunks);
+				longClob.setPrimaryKeys(primaryKeys);
 				longClobs.add(longClob);
 			}
 		}
