@@ -42,9 +42,7 @@
             <property name="extensionMappings" ref="jdbc.extensionMappings" />
           </bean>
         </property>
-        <property name="listener">
-          <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
-        </property>
+        <property name="listener" ref="jdbc.summaryListener" />
       </bean>
     </property>
   </bean>
