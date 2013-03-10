@@ -24,21 +24,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="jdbc.defaultPropertyLocations">
-    <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-    <value>classpath:org/kuali/common/jdbc/service.properties</value>
-    <value>classpath:org/kuali/common/sql/sql.xml</value>
-    <value>classpath:org/kuali/common/sql/mysql.xml</value>
-    <value>classpath:org/kuali/common/sql/oracle.xml</value>
-    <value>classpath:org/kuali/common/sql/h2.xml</value>
-    <value>classpath:org/kuali/common/sql/derby.xml</value>
-  </util:list>
-
   <bean id="jdbc.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="locations" ref="jdbc.propertyLocations" />
+    <property name="locations">
+      <util:list>
+        <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+        <value>classpath:org/kuali/common/jdbc/service.properties</value>
+        <value>classpath:org/kuali/common/sql/sql.xml</value>
+        <value>classpath:org/kuali/common/sql/mysql.xml</value>
+        <value>classpath:org/kuali/common/sql/oracle.xml</value>
+        <value>classpath:org/kuali/common/sql/h2.xml</value>
+        <value>classpath:org/kuali/common/sql/derby.xml</value>
+      </util:list>
+    </property>
     <property name="encoding" ref="jdbc.encoding" />
   </bean>
-
-  <context:property-placeholder properties-ref="jdbc.properties" />
 
 </beans>
