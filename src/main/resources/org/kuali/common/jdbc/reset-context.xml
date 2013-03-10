@@ -25,6 +25,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <import resource="classpath:org/kuali/common/jdbc/reset-common.xml" />
+  <import resource="classpath:org/kuali/common/jdbc/reset-listener.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-properties.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-datasource.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-dba.xml" />
