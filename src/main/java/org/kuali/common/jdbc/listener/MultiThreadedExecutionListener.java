@@ -47,7 +47,7 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 		if (trackProgressByUpdateCount) {
 			informer.incrementProgress(event.getUpdateCount());
 		} else {
-			informer.incrementProgress(1);
+			informer.incrementProgress();
 		}
 	}
 
