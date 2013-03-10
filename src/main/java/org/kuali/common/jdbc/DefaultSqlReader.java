@@ -40,7 +40,7 @@ public class DefaultSqlReader implements SqlReader {
 	List<String> commentTokens = DEFAULT_COMMENT_TOKENS;
 
 	@Override
-	public SqlMetaData getSqlMetaData(BufferedReader reader) throws IOException {
+	public SqlMetaData getMetaData(BufferedReader reader) throws IOException {
 		Assert.notNull(delimiter, "delimiter is null");
 		long count = 0;
 		long size = 0;

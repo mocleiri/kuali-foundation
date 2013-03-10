@@ -23,6 +23,6 @@ public interface SqlReader {
 
 	List<String> getSql(BufferedReader reader) throws IOException;
 
-	SqlMetaData getSqlMetaData(BufferedReader reader) throws IOException;
+	SqlMetaData getMetaData(BufferedReader reader) throws IOException;
 
 }

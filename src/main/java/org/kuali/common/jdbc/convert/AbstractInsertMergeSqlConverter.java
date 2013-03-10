@@ -121,7 +121,7 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(file, encoding);
-			return reader.getSqlMetaData(in);
+			return reader.getMetaData(in);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
 		} finally {
