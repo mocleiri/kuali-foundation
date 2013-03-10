@@ -93,11 +93,11 @@ public class OracleProducer extends AbstractSqlProducer {
 				// Figure out what the primary key's are
 				List<DataBean> primaryKeys = getPrimaryKeys(rowBeans);
 
-				// Add long clobs to our list
+				// Check for CLOB's longer than 4K and add them to our list
 				addLongClobs(rowBeans, primaryKeys, longClobs);
 
-				// if we found any long clobs we are done batching
-				// break out of the loop and add clob related SQL to the list
+				// If we found any CLOB's longer than 4K we are done batching
+				// Break out of the loop and add CLOB SQL to the list
 				if (!CollectionUtils.isEmpty(longClobs)) {
 					break;
 				}
@@ -125,10 +125,11 @@ public class OracleProducer extends AbstractSqlProducer {
 			sql.addAll(clobSql);
 		}
 
-		// return null to indicate no rows were processed
 		if (rowCount == 0) {
+			// return null to indicate no rows were processed
 			return null;
 		} else {
+			// return the list of SQL we generated
 			return sql;
 		}
 	}
