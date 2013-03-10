@@ -24,59 +24,58 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!-- Concurrent data context -->
-  <bean id="jdbc.concurrentDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="message" value="${sql.data.concurrent.message}" />
-    <property name="trackProgressByUpdateCount" value="true" />
-    <property name="skip" value="${sql.data.skip:false}" />
-    <property name="threads" value="${sql.threads}" />
-    <property name="multithreaded" value="true" />
-    <property name="dataSource" ref="jdbc.dataSource" />
-    <property name="suppliers">
-      <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-        <property name="property" value="sql.data.concurrent" />
-        <property name="properties" ref="jdbc.properties" />
-        <property name="extensionMappings" ref="jdbc.extensionMappings" />
-      </bean>
-    </property>
-    <property name="listener">
-      <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
-        <property name="listeners">
-          <util:list>
-            <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
-            <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
-          </util:list>
+  <!-- Concurrent data executable -->
+  <bean id="jdbc.concurrentDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
+    <property name="skip" value="${jdbc.data.skip:false}" />
+    <property name="service" ref="jdbc.service" />
+    <property name="context">
+      <bean class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="message" value="${sql.data.concurrent.message}" />
+        <property name="trackProgressByUpdateCount" value="true" />
+        <property name="skip" value="${sql.data.skip:false}" />
+        <property name="threads" value="${sql.threads}" />
+        <property name="multithreaded" value="true" />
+        <property name="dataSource" ref="jdbc.dataSource" />
+        <property name="suppliers">
+          <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+            <property name="property" value="sql.data.concurrent" />
+            <property name="properties" ref="jdbc.properties" />
+            <property name="extensionMappings" ref="jdbc.extensionMappings" />
+          </bean>
+        </property>
+        <property name="listener">
+          <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
+            <property name="listeners">
+              <util:list>
+                <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
+                <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
+              </util:list>
+            </property>
+          </bean>
         </property>
       </bean>
     </property>
   </bean>
 
-  <!-- Sequential data context -->
-  <bean id="jdbc.sequentialDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="jdbc.dataSource" />
-    <property name="message" value="${sql.data.sequential.message}" />
-    <property name="skip" value="${sql.data.skip:false}" />
-    <property name="listener" ref="jdbc.summaryAndProgressListener" />
-    <property name="suppliers">
-      <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-        <property name="property" value="sql.data.sequential" />
-        <property name="properties" ref="jdbc.properties" />
-        <property name="extensionMappings" ref="jdbc.extensionMappings" />
-      </bean>
-    </property>
-  </bean>
-
-  <!-- Setup executables for both contexts -->
-  <bean id="jdbc.concurrentDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
-    <property name="service" ref="jdbc.service" />
-    <property name="context" ref="jdbc.concurrentDataJdbcContext" />
-    <property name="skip" value="${jdbc.data.skip:false}" />
-  </bean>
-
+  <!-- Sequential data executable -->
   <bean id="jdbc.sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbc.service" />
-    <property name="context" ref="jdbc.sequentialDataJdbcContext" />
     <property name="skip" value="${jdbc.data.skip:false}" />
+    <property name="context">
+      <bean class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="dataSource" ref="jdbc.dataSource" />
+        <property name="message" value="${sql.data.sequential.message}" />
+        <property name="skip" value="${sql.data.skip:false}" />
+        <property name="listener" ref="jdbc.summaryAndProgressListener" />
+        <property name="suppliers">
+          <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+            <property name="property" value="sql.data.sequential" />
+            <property name="properties" ref="jdbc.properties" />
+            <property name="extensionMappings" ref="jdbc.extensionMappings" />
+          </bean>
+        </property>
+      </bean>
+    </property>
   </bean>
 
 </beans>
