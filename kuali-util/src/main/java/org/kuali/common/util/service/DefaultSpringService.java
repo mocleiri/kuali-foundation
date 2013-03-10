@@ -65,6 +65,8 @@ public class DefaultSpringService implements SpringService {
 		// Null-safe handling for non-required parameters
 		beanNames = CollectionUtils.toEmptyList(beanNames);
 		beans = CollectionUtils.toEmptyList(beans);
+
+		// Make sure we have a name for every bean
 		Assert.isTrue(beanNames.size() == beans.size());
 
 		// Make sure all of the locations exist
