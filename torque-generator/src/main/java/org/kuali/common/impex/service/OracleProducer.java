@@ -129,6 +129,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			List<String> clobSql = getClobSql(longClobs, table);
 			logger.info("Adding {} CLOB SQL statements", clobSql.size());
 			sql.addAll(clobSql);
+			logger.info("\n\n" + clobSql.get(0) + "\n\n");
 		}
 
 		if (rowCount == 0) {
