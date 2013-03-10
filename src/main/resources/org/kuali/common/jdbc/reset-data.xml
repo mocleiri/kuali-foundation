@@ -33,7 +33,7 @@
     </property>
   </bean>
 
-  <!-- Setup JDBC contexts -->
+  <!-- Concurrent data context -->
   <bean id="jdbc.concurrentDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="message" value="${sql.data.concurrent.message}" />
     <property name="trackProgressByUpdateCount" value="true" />
@@ -51,6 +51,7 @@
     </property>
   </bean>
 
+  <!-- Sequential data context -->
   <bean id="jdbc.sequentialDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="jdbc.dataSource" />
     <property name="message" value="${sql.data.sequential.message}" />
