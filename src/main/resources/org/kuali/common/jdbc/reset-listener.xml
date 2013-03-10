@@ -27,6 +27,7 @@
   <bean id="jdbc.summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
   <bean id="jdbc.dataSummaryListener" class="org.kuali.common.jdbc.listener.DataSummaryListener" />
   <bean id="jdbc.progressListener" class="org.kuali.common.jdbc.listener.ProgressListener" />
+  <bean id="jdbc.metaDataListener" class="org.kuali.common.jdbc.listener.MetaDataListener" />
 
   <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
     <property name="listeners">
@@ -40,7 +41,7 @@
   <bean id="jdbc.summaryAndMetaDataListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
     <property name="listeners">
       <util:list>
-        <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
+        <ref bean="jdbc.metaDataListener" />
         <ref bean="jdbc.summaryListener" />
       </util:list>
     </property>

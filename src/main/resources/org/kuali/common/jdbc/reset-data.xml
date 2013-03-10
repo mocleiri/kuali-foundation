@@ -40,7 +40,7 @@
           <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
             <property name="listeners">
               <util:list>
-                <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
+                <ref bean="jdbc.metaDataListener" />
                 <bean class="org.kuali.common.jdbc.listener.DataSummaryListener" />
               </util:list>
             </property>
