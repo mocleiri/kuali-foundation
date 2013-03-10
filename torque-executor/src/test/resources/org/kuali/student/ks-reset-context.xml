@@ -25,17 +25,17 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <bean id="ks.properties" class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
+  <bean id="jdbc.properties" class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
     <property name="listOfProperties">
       <util:list>
-        <ref bean="jdbc.properties" />
+        <ref bean="jdbc.defaultProperties" />
         <ref bean="impex.batchProperties" />
         <util:properties location="classpath:ks-with-rice-bundled-jbc.properties" />
       </util:list>
     </property>
   </bean>
 
-  <context:property-placeholder properties-ref="ks.properties" />
+  <context:property-placeholder properties-ref="jdbc.properties" />
 
   <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
     <property name="listOfMaps">
