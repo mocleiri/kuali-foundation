@@ -55,7 +55,8 @@ public class OracleProducer extends AbstractSqlProducer {
 		// Allocate storage for clobs longer than 4K
 		List<LongClob> longClobs = new ArrayList<LongClob>();
 
-		StringBuilder sqlBuilder = new StringBuilder();
+		// Use a StringBuilder to hold the batch insert statement
+		StringBuilder batchInsert = new StringBuilder();
 
 		// Extract one line from the .mpx file
 		String line = readLineSkipHeader(reader);
@@ -64,7 +65,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		int rowCount = 0;
 
 		// Insert the SQL prefix for Oracle insert's
-		sqlBuilder.append(INSERT_PREFIX);
+		batchInsert.append(INSERT_PREFIX);
 
 		// Iterate through the .mpx file
 		for (;;) {
@@ -81,7 +82,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			List<DataBean> rowBeans = buildRowData(columns, tokens);
 
 			// Create SQL from the row beans
-			sqlBuilder.append(buildBatchSql(table, rowBeans));
+			batchInsert.append(buildBatchSql(table, rowBeans));
 
 			// increment our row counter
 			rowCount++;
@@ -103,7 +104,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			}
 
 			// Use the length of the SQL + the length of the batch separator to figure out if we have exceeded our batch length
-			int length = sqlBuilder.length() + BATCH_SEPARATOR.length();
+			int length = batchInsert.length() + BATCH_SEPARATOR.length();
 			if (batchLimitReached(rowCount, length)) {
 				break;
 			}
@@ -113,10 +114,10 @@ public class OracleProducer extends AbstractSqlProducer {
 		}
 
 		// Add the batch separator
-		sqlBuilder.append(BATCH_SEPARATOR);
+		batchInsert.append(BATCH_SEPARATOR);
 
 		// Add the batch SQL insert statement to our results
-		sql.add(sqlBuilder.toString());
+		sql.add(batchInsert.toString());
 
 		// Add SQL for long clobs if needed
 		if (!CollectionUtils.isEmpty(longClobs)) {
