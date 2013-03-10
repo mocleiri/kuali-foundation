@@ -24,54 +24,51 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!-- Resolve placeholders using Maven properties -->
-  <context:property-placeholder properties-ref="mavenProperties" />
-
-  <!-- Convert CSV to List<String> -->
-  <bean id="metaInfIncludesSchema" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.include.schema}" />
-  </bean>
-  <bean id="metaInfIncludesData" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.include.data}" />
-  </bean>
-  <bean id="metaInfIncludesConstraints" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.include.constraints}" />
-  </bean>
-  <bean id="metaInfIncludesOther" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${metainf.include.other}" />
-  </bean>
-
-  <!-- Create metaInfContext beans -->
-  <bean id="metaInfContextSchema" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.output.schema}" />
-    <property name="includes" ref="metaInfIncludesSchema" />
-    <property name="baseDir" value="${project.build.outputDirectory}" />
-  </bean>
-  <bean id="metaInfContextData" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.output.data}" />
-    <property name="includes" ref="metaInfIncludesData" />
-    <property name="baseDir" value="${project.build.outputDirectory}" />
-  </bean>
-  <bean id="metaInfContextConstraints" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.output.constraints}" />
-    <property name="includes" ref="metaInfIncludesConstraints" />
-    <property name="baseDir" value="${project.build.outputDirectory}" />
-  </bean>
-  <bean id="metaInfContextOther" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${metainf.output.other}" />
-    <property name="includes" ref="metaInfIncludesOther" />
-    <property name="baseDir" value="${project.build.outputDirectory}" />
-  </bean>
-
-  <!-- Aggregate metaInfContext beans into a list -->
-  <util:list id="metaInfContexts">
-    <ref bean="metaInfContextSchema" />
-    <ref bean="metaInfContextData" />
-    <ref bean="metaInfContextConstraints" />
-    <ref bean="metaInfContextOther" />
+  <!-- List of MetaInfContext objects controlling what content is created under META-INF -->
+  <util:list id="metaInf.sql.contextList">
+    <!-- Schema -->
+    <bean class=" org.kuali.common.util.MetaInfContext ">
+      <property name="outputFile" value="${metainf.output.schema}" />
+      <property name="baseDir" value="${project.build.outputDirectory}" />
+      <property name="includes">
+        <bean class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+          <property name="csv" value="${metainf.include.schema}" />
+        </bean>
+      </property>
+    </bean>
+    <!-- Data -->
+    <bean class="org.kuali.common.util.MetaInfContext">
+      <property name="outputFile" value="${metainf.output.data}" />
+      <property name="baseDir" value="${project.build.outputDirectory}" />
+      <property name="includes">
+        <bean class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+          <property name="csv" value="${metainf.include.data}" />
+        </bean>
+      </property>
+    </bean>
+    <!-- Constraints -->
+    <bean class="org.kuali.common.util.MetaInfContext">
+      <property name="outputFile" value="${metainf.output.constraints}" />
+      <property name="baseDir" value="${project.build.outputDirectory}" />
+      <property name="includes">
+        <bean class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+          <property name="csv" value="${metainf.include.constraints}" />
+        </bean>
+      </property>
+    </bean>
+    <!-- Other -->
+    <bean class="org.kuali.common.util.MetaInfContext">
+      <property name="outputFile" value="${metainf.output.other}" />
+      <property name="baseDir" value="${project.build.outputDirectory}" />
+      <property name="includes">
+        <bean class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+          <property name="csv" value="${metainf.include.other}" />
+        </bean>
+      </property>
+    </bean>
   </util:list>
 
-  <!-- Invoke metaInfUtils -->
+  <!-- Invoke MetaInfUtils to create META-INF files -->
   <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="targetClass">
       <value>org.kuali.common.util.MetaInfUtils</value>
@@ -79,11 +76,10 @@
     <property name="targetMethod">
       <value>scanAndCreateFiles</value>
     </property>
-    <property name="arguments">
-      <list>
-        <ref bean="metaInfContexts" />
-      </list>
-    </property>
+    <property name="arguments" ref="metaInf.sql.contextList" />
   </bean>
+
+  <!-- Resolve placeholders using Maven properties -->
+  <context:property-placeholder properties-ref="mavenProperties" />
 
 </beans>
