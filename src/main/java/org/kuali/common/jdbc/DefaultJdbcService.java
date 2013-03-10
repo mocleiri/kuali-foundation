@@ -135,8 +135,7 @@ public class DefaultJdbcService implements JdbcService {
 		// Only printing a dot to the console when each bucket completes is not granular enough
 
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
-		PercentCompleteInformer informer = new PercentCompleteInformer();
-		informer.setTotal(JdbcUtils.getSqlCount(context.getSuppliers()));
+		PercentCompleteInformer informer = new PercentCompleteInformer(JdbcUtils.getSqlCount(context.getSuppliers()));
 		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener();
 		etl.setTrackProgressByUpdateCount(context.isTrackProgressByUpdateCount());
 		etl.setInformer(informer);
@@ -151,7 +150,6 @@ public class DefaultJdbcService implements JdbcService {
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
-		// thc.setListener(new PercentCompleteListener<SqlBucketContext>());
 
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
