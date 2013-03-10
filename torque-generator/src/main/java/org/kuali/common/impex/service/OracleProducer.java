@@ -47,10 +47,6 @@ public class OracleProducer extends AbstractSqlProducer {
 	@Override
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
 
-		if (!StringUtils.equalsIgnoreCase("KRCR_STYLE_T", table.getName())) {
-			// return null;
-		}
-
 		// Allocate some storage for the SQL we are generating
 		List<String> sql = new ArrayList<String>();
 
@@ -129,13 +125,10 @@ public class OracleProducer extends AbstractSqlProducer {
 
 		// Add SQL for long clobs if needed
 		if (!CollectionUtils.isEmpty(longClobs)) {
-			logger.info("Converting {} long CLOB's into SQL", longClobs.size());
+			logger.debug("Converting {} long CLOB's into SQL", longClobs.size());
 			List<String> clobSql = getClobSql(longClobs, table);
-			logger.info("Adding {} CLOB SQL statements", clobSql.size());
+			logger.debug("Adding {} CLOB SQL statements", clobSql.size());
 			sql.addAll(clobSql);
-			for (String s : sql) {
-				// logger.info("[" + Str.flatten(s) + "]");
-			}
 		}
 
 		if (rowCount == 0) {
