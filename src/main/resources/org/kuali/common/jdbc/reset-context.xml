@@ -32,5 +32,6 @@
   <import resource="classpath:org/kuali/common/jdbc/reset-schema.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-data.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-constraints.xml" />
+  <import resource="classpath:org/kuali/common/jdbc/reset-other.xml" />
 
 </beans>
