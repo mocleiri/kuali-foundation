@@ -15,6 +15,16 @@ public class JdbcExecutable implements Executable {
 	JdbcContext context;
 	boolean skip;
 
+	public JdbcExecutable() {
+		this(null, null);
+	}
+
+	public JdbcExecutable(JdbcService service, JdbcContext context) {
+		super();
+		this.service = service;
+		this.context = context;
+	}
+
 	@Override
 	public void execute() {
 		if (skip) {
