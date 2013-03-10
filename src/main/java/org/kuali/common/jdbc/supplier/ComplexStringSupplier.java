@@ -51,13 +51,13 @@ public class ComplexStringSupplier extends AbstractSupplier {
 			// Have the reader produce a SQL statement
 			List<String> sql = reader.getSql(in);
 
-			// We got a SQL statement we are done
 			if (sql != null) {
+				// We got a SQL statement we are done
 				return sql;
+			} else {
+				// We've exhausted the current string, move to the next one
+				index++;
 			}
-
-			// We've exhausted the current string, move to the next one
-			index++;
 
 			// We've exhausted all of the strings, we are done
 			if (index == strings.size()) {
@@ -86,6 +86,8 @@ public class ComplexStringSupplier extends AbstractSupplier {
 	public void close() {
 		// Reset index to zero
 		index = 0;
+
+		// Make sure the BufferedReader is closed
 		IOUtils.closeQuietly(in);
 	}
 
