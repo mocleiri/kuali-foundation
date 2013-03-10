@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="jdbc.defaultPropertyLocations" value-type="java.lang.String">
+  <util:list id="jdbc.defaultPropertyLocations">
     <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
     <value>classpath:org/kuali/common/jdbc/service.properties</value>
     <value>classpath:org/kuali/common/sql/sql.xml</value>
