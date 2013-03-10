@@ -18,18 +18,19 @@ package org.kuali.common.util;
 import java.io.PrintStream;
 
 /**
- * Print a dot to the console each time we make 1% progress towards the total
+ * Print a dot to the console each time we make at least 1% progress towards the total
  */
 public class PercentCompleteInformer {
 
-	PrintStream out = System.out;
-	long progress = 0;
-	long total = 0;
+	protected long progress;
+
+	PrintStream printStream = System.out;
 	int percentageIncrement = 1;
 	int percentCompletePrevious;
 	String startToken = "[INFO] Progress: ";
 	String progressToken = ".";
 	String completeToken = "\n";
+	long total;
 
 	public PercentCompleteInformer() {
 		this(0);
@@ -40,55 +41,65 @@ public class PercentCompleteInformer {
 		this.total = total;
 	}
 
-	public synchronized void start() {
-		out.print(startToken);
+	/**
+	 * Thread safe method exposing the current progress
+	 */
+	public synchronized long getProgress() {
+		return progress;
 	}
 
 	/**
-	 * Increment progress by one
+	 * Thread safe method for incrementing progress by one
 	 */
 	public synchronized void incrementProgress() {
 		incrementProgress(1);
 	}
 
 	/**
-	 * Increment progress by the amount indicated
+	 * Thread safe method for incrementing progress by <code>amount</code>
 	 */
 	public synchronized void incrementProgress(long amount) {
 		// Increment the progress indicator
 		this.progress += amount;
 
-		// Print a dot any time we make at least 1% progress
+		// Calculate how far along we are
 		int percentComplete = (int) ((progress * 100) / total);
-		if (enoughProgress(percentComplete)) {
+
+		// Print a dot to the console if any time we make at least 1% progress
+		if (isEnoughProgress(percentComplete, percentCompletePrevious, percentageIncrement)) {
 			this.percentCompletePrevious = percentComplete;
-			out.print(this.progressToken);
+			printStream.print(progressToken);
 		}
 	}
 
-	public synchronized void stop() {
-		out.print(completeToken);
-	}
-
-	protected boolean enoughProgress(int percentComplete) {
+	protected boolean isEnoughProgress(int percentComplete, int percentCompletePrevious, int percentageIncrement) {
 		int needed = percentCompletePrevious + percentageIncrement;
 		return percentComplete >= needed;
 	}
 
-	public PrintStream getOut() {
-		return out;
+	/**
+	 * Print the start token
+	 */
+	public void start() {
+
+		Assert.notNull(printStream, "printStream is null");
+
+		printStream.print(startToken);
 	}
 
-	public void setOut(PrintStream out) {
-		this.out = out;
+	/**
+	 * Print the stop token
+	 */
+	public void stop() {
+		printStream.print(completeToken);
 	}
 
-	public long getProgress() {
-		return progress;
+	public PrintStream getPrintStream() {
+		return printStream;
 	}
 
-	public void setProgress(long progress) {
-		this.progress = progress;
+	public void setPrintStream(PrintStream printStream) {
+		this.printStream = printStream;
 	}
 
 	public int getPercentageIncrement() {
