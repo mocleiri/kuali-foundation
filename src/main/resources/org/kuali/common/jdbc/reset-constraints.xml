@@ -24,24 +24,25 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.concurrentConstraintsSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-    <property name="property" value="sql.constraints.concurrent" />
-    <property name="properties" ref="jdbc.properties" />
-    <property name="extensionMappings" ref="jdbc.extensionMappings" />
-  </bean>
 
   <bean id="jdbc.concurrentConstraintsJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="jdbc.dataSource" />
-    <property name="suppliers" ref="jdbc.concurrentConstraintsSuppliers" />
-    <property name="message" value="${sql.constraints.concurrent.message}" />
     <property name="skip" value="${sql.constraints.skip:false}" />
+    <property name="multithreaded" value="true" />
+    <property name="threads" value="${sql.threads}" />
+    <property name="message" value="${sql.constraints.concurrent.message}" />
+    <property name="dataSource" ref="jdbc.dataSource" />
+    <property name="suppliers">
+      <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+        <property name="property" value="sql.constraints.concurrent" />
+        <property name="properties" ref="jdbc.properties" />
+        <property name="extensionMappings" ref="jdbc.extensionMappings" />
+      </bean>
+    </property>
     <property name="listener">
       <bean class="org.kuali.common.jdbc.listener.SummaryListener">
         <property name="showRate" value="false" />
       </bean>
     </property>
-    <property name="threads" value="${sql.threads}" />
-    <property name="multithreaded" value="true" />
   </bean>
 
   <bean id="jdbc.constraintsExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
