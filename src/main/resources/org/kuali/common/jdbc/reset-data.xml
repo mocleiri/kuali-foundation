@@ -70,13 +70,13 @@
   <bean id="jdbc.concurrentDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbc.service" />
     <property name="context" ref="jdbc.concurrentDataJdbcContext" />
-    <property name="skip" value="${jdbc.data.skip:FALSE}" />
+    <property name="skip" value="${jdbc.data.skip:false}" />
   </bean>
 
   <bean id="jdbc.sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbc.service" />
     <property name="context" ref="jdbc.sequentialDataJdbcContext" />
-    <property name="skip" value="${jdbc.data.skip:FALSE}" />
+    <property name="skip" value="${jdbc.data.skip:false}" />
   </bean>
 
 </beans>
