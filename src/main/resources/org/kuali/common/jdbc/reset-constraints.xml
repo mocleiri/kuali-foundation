@@ -24,8 +24,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-
-
   <bean id="jdbc.constraintsExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="skip" value="${jdbc.constraints.skip:false}" />
     <property name="service" ref="jdbc.service" />
