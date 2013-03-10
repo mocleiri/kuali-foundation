@@ -43,16 +43,27 @@ public class OracleProducer extends AbstractSqlProducer {
 	@Override
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
 
+		// Allocate some storage
 		List<String> results = new ArrayList<String>();
 
+		// Extract the list of columns
 		List<Column> columns = ImpexUtils.getColumns(table);
+
+		// Determine if there are clob's
 		boolean hasClobColumns = hasClobColumns(columns);
 
+		// Allocate storage for clobs > 4K
 		List<LongClob> longClobs = new ArrayList<LongClob>();
 
 		StringBuilder sqlBuilder = new StringBuilder();
+
+		// Extract one line from the .mpx file
 		String line = readLineSkipHeader(reader);
+
+		// Keep track of the number of rows
 		int rowCount = 0;
+
+		// Insert the SQL prefix for Oracle insert's
 		sqlBuilder.append(INSERT_PREFIX);
 
 		// Iterate through the .mpx file
@@ -75,7 +86,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			// increment our row counter
 			rowCount++;
 
-			// if the table has any CLOB columns, we need to handle those separately
+			// if the table has any CLOB columns, they get handled separately
 			if (hasClobColumns) {
 
 				// Figure out what the primary key's are
