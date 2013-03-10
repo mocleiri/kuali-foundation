@@ -52,8 +52,7 @@ public class LogSqlListener extends NoOpSqlListener {
 		case BOTH:
 		case AFTER:
 			String sql = getSql(event.getSql(), flatten);
-			long millis = event.getStopTimeMillis() - event.getStartTimeMillis();
-			String elapsed = FormatUtils.getTime(millis);
+			String elapsed = FormatUtils.getTime(event.getStopTimeMillis() - event.getStartTimeMillis());
 			Object[] args = { sql, elapsed };
 			LoggerUtils.logMsg("{} - {}", args, logger, level);
 			return;
