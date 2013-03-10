@@ -43,8 +43,8 @@ public class OracleProducer extends AbstractSqlProducer {
 	@Override
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
 
-		// Allocate some storage
-		List<String> results = new ArrayList<String>();
+		// Allocate some storage for the SQL we are generating
+		List<String> sql = new ArrayList<String>();
 
 		// Extract the list of columns
 		List<Column> columns = ImpexUtils.getColumns(table);
@@ -52,7 +52,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		// Determine if there are clob's
 		boolean hasClobColumns = hasClobColumns(columns);
 
-		// Allocate storage for clobs > 4K
+		// Allocate storage for clobs longer than 4K
 		List<LongClob> longClobs = new ArrayList<LongClob>();
 
 		StringBuilder sqlBuilder = new StringBuilder();
@@ -60,7 +60,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		// Extract one line from the .mpx file
 		String line = readLineSkipHeader(reader);
 
-		// Keep track of the number of rows
+		// Keep track of the number of rows we've processed
 		int rowCount = 0;
 
 		// Insert the SQL prefix for Oracle insert's
@@ -86,7 +86,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			// increment our row counter
 			rowCount++;
 
-			// if the table has any CLOB columns, they get handled separately
+			// Tables with CLOB columns may require special handling
 			if (hasClobColumns) {
 
 				// Figure out what the primary key's are
@@ -102,9 +102,9 @@ public class OracleProducer extends AbstractSqlProducer {
 				}
 			}
 
-			// include the length of the batch separator to the total length of sql so far,
-			// to determine if we have reached the end of a batch
-			if (batchLimitReached(rowCount, (sqlBuilder.length() + BATCH_SEPARATOR.length()))) {
+			// Use the length of the SQL + the length of the batch separator to figure out if we have exceeded our batch length
+			int length = sqlBuilder.length() + BATCH_SEPARATOR.length();
+			if (batchLimitReached(rowCount, length)) {
 				break;
 			}
 
@@ -112,25 +112,37 @@ public class OracleProducer extends AbstractSqlProducer {
 			line = reader.readLine();
 		}
 
+		// Add the batch separator
 		sqlBuilder.append(BATCH_SEPARATOR);
 
-		results.add(sqlBuilder.toString());
+		// Add the batch SQL insert statement to our results
+		sql.add(sqlBuilder.toString());
 
-		if (hasClobColumns && !CollectionUtils.isEmpty(longClobs)) {
-
-			String clobSql = continueClob(table, longClobs);
-			while (clobSql != null) {
-				results.add(clobSql);
-				clobSql = continueClob(table, longClobs);
-			}
+		// Add SQL for long clobs if needed
+		if (!CollectionUtils.isEmpty(longClobs)) {
+			List<String> clobSql = getClobSql(longClobs, table);
+			sql.addAll(clobSql);
 		}
 
 		// return null to indicate no rows were processed
 		if (rowCount == 0) {
 			return null;
 		} else {
-			return results;
+			return sql;
 		}
+	}
+
+	/**
+	 * Convert LongClob objects into SQL
+	 */
+	protected List<String> getClobSql(List<LongClob> longClobs, Table table) {
+		List<String> clobList = new ArrayList<String>();
+		String clobSql = continueClob(table, longClobs);
+		while (clobSql != null) {
+			clobList.add(clobSql);
+			clobSql = continueClob(table, longClobs);
+		}
+		return clobList;
 	}
 
 	@Override
@@ -238,14 +250,11 @@ public class OracleProducer extends AbstractSqlProducer {
 			result.append(DATE_VALUE_PREFIX);
 			result.append(dateFormat.format(data.getDateValue()));
 			result.append(DATE_VALUE_SUFFIX);
-		}
-		// if the data type is CLOB, and the data is longer than the batch size, the value should be handled by the CLOB-splitting code
-		else if (isDataBigClob(data.getValue(), data.getColumn())) {
+		} else if (isDataBigClob(data.getValue(), data.getColumn())) {
+			// if the data type is CLOB, and the data is longer than the batch size, the value should be handled by the CLOB-splitting code
 			result.append(CLOB_PLACEHOLDER);
-		}
-		// if the data type is CLOB and the value is null, return the EMPTY_CLOB placeholder, since Oracle doesn't like NULL in a CLOB
-		// column
-		else if (isColumnClobType(data.getColumn()) && data.getValue() == null) {
+		} else if (isColumnClobType(data.getColumn()) && data.getValue() == null) {
+			// if the data type is CLOB and the value is null, return the EMPTY_CLOB placeholder, since Oracle doesn't like NULL in a CLOB column
 			result.append(CLOB_PLACEHOLDER);
 		} else {
 			result.append(data.getValue());
