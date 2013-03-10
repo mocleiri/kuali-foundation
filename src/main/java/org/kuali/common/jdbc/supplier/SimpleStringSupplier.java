@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 public class SimpleStringSupplier extends AbstractSupplier {
 
 	List<String> strings;
+	boolean closed = true;
 
 	public SimpleStringSupplier() {
 		this(null);
@@ -25,16 +26,23 @@ public class SimpleStringSupplier extends AbstractSupplier {
 	public void open() {
 		// Make sure we've got something to work with
 		Assert.notNull(strings, "strings is null");
+		Assert.isTrue(closed, "closed is true");
+		this.closed = false;
 	}
 
 	@Override
 	public List<String> getSql() {
-		return strings;
+		if (closed) {
+			return null;
+		} else {
+			this.closed = true;
+			return strings;
+		}
 	}
 
 	@Override
 	public void close() {
-		// Nothing to do
+		this.closed = true;
 	}
 
 	@Override

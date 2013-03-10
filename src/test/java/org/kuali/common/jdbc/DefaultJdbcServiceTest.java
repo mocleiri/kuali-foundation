@@ -38,7 +38,8 @@ public class DefaultJdbcServiceTest {
 			context.setDataSource(dmds);
 			context.setSuppliers(suppliers);
 			JdbcService service = new DefaultJdbcService();
-			JdbcExecutable executable = new JdbcExecutable();
+			JdbcExecutable executable = new JdbcExecutable(service, context);
+			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
