@@ -47,7 +47,7 @@
     </property>
   </bean>
 
-  <!-- Sequential data executable -->
+  <!-- Sequential "other" executable -->
   <bean id="jdbc.sequentialOtherExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbc.service" />
     <property name="skip" value="${jdbc.other.skip:false}" />
