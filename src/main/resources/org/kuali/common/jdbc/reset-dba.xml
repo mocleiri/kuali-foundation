@@ -24,20 +24,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="jdbc.dbaSql" value-type="java.lang.String">
-    <value>${sql.validate}</value>
-    <value>${sql.drop}</value>
-    <value>${sql.create}</value>
-  </util:list>
-
-
   <bean id="jdbc.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="jdbc.dbaDataSource" />
-    <property name="suppliers" ref="jdbc.dbaSuppliers">
-      <util:list id="jdbc.dbaSuppliers">
+    <property name="suppliers">
+      <util:list>
         <bean class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
           <property name="reader" ref="jdbc.sqlReader" />
-          <property name="strings" ref="jdbc.dbaSql" />
+          <property name="strings">
+            <util:list>
+              <value>${sql.validate}</value>
+              <value>${sql.drop}</value>
+              <value>${sql.create}</value>
+            </util:list>
+          </property>
         </bean>
       </util:list>
     </property>
