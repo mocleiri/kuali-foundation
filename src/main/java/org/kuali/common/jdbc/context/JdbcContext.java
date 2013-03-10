@@ -26,10 +26,10 @@ import org.kuali.common.jdbc.supplier.SqlSupplier;
 
 public class JdbcContext {
 
-	// If false, no SQL is executed.
+	// If true, no SQL is executed.
 	// Everything leading up to SQL execution still takes place
 	// Connecting to the database, parsing SQL, etc.
-	boolean skip = true;
+	boolean skip;
 
 	// Use this to enable multi-threaded SQL execution
 	// When used, SQL supplied to this context does not execute sequentially
