@@ -17,6 +17,7 @@ package org.kuali.common.util.spring;
 
 import java.util.Properties;
 
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.DefaultPropertyLoadContext;
 import org.kuali.common.util.service.DefaultPropertyService;
 import org.kuali.common.util.service.PropertyService;
@@ -40,6 +41,7 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 	protected synchronized Properties getInstance() {
 		if (properties == null) {
 			properties = service.load(this);
+			PropertyUtils.debug(properties);
 		}
 		return properties;
 	}

@@ -30,7 +30,7 @@ public class PropertiesCombinerFactoryBean implements FactoryBean<Properties> {
 	public Properties getObject() throws Exception {
 		Assert.notNull(listOfProperties, "listOfProperties is null");
 		Properties properties = PropertyUtils.combine(listOfProperties);
-		PropertyUtils.info(properties);
+		PropertyUtils.debug(properties);
 		return properties;
 	}
 
