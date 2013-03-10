@@ -34,6 +34,7 @@
     <property name="dataSource" ref="jdbc.dataSource" />
     <property name="suppliers" ref="jdbc.concurrentConstraintsSuppliers" />
     <property name="message" value="${sql.constraints.concurrent.message}" />
+    <property name="skip" value="${sql.constraints.skip:false}" />
     <property name="listener">
       <bean class="org.kuali.common.jdbc.listener.SummaryListener">
         <property name="showRate" value="false" />

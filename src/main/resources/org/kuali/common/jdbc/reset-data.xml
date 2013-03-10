@@ -43,6 +43,7 @@
     <property name="suppliers" ref="jdbc.concurrentDataSuppliers" />
     <property name="message" value="${sql.data.concurrent.message}" />
     <property name="trackProgressByUpdateCount" value="true" />
+    <property name="skip" value="${sql.data.skip:false}" />
     <property name="listener">
       <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
         <property name="listeners">
@@ -61,6 +62,7 @@
     <property name="dataSource" ref="jdbc.dataSource" />
     <property name="suppliers" ref="jdbc.sequentialDataSuppliers" />
     <property name="message" value="${sql.data.sequential.message}" />
+    <property name="skip" value="${sql.data.skip:false}" />
     <property name="listener" ref="jdbc.summaryAndProgressListener" />
   </bean>
 
