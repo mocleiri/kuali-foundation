@@ -81,14 +81,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 			result.setValue(null);
 			result.setDateValue(null);
 		} else if (ImpexUtils.isColumnDateType(column)) {
-			SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
-			Date parsedDate;
-			try {
-				parsedDate = sdf.parse(token);
-			} catch (ParseException e) {
-				throw new IllegalArgumentException("Cannot parse " + token + " using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
-			}
-
+			Date parsedDate = getDate(token);
 			result.setValue(null);
 			result.setDateValue(parsedDate);
 		} else if (column.needEscapedValue()) {
@@ -102,6 +95,15 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		return result;
 	}
 
+	protected Date getDate(String token) {
+		SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
+		try {
+			return sdf.parse(token);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
+		}
+	}
+
 	protected String getColumnNamesCSV(Table table) {
 		List<Column> columns = ImpexUtils.getColumns(table);
 		List<String> colNames = new ArrayList<String>(columns.size());
@@ -111,10 +113,12 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		return CollectionUtils.getCSV(colNames);
 	}
 
+	@Override
 	public int getBatchRowCountLimit() {
 		return batchRowCountLimit;
 	}
 
+	@Override
 	public int getBatchDataSizeLimit() {
 		return batchDataSizeLimit;
 	}
