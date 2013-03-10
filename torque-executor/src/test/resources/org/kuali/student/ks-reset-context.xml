@@ -38,8 +38,6 @@
     </property>
   </bean>
 
-  <context:property-placeholder properties-ref="jdbc.properties" />
-
   <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
     <property name="listOfMaps">
       <list>
@@ -52,5 +50,7 @@
   <import resource="classpath:org/kuali/common/impex/mpx-supplier-context.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-context.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-controller.xml" />
+
+  <context:property-placeholder properties-ref="jdbc.properties" />
 
 </beans>
