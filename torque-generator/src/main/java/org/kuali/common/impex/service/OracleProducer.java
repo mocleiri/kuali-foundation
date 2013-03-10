@@ -125,11 +125,11 @@ public class OracleProducer extends AbstractSqlProducer {
 
 		// Add SQL for long clobs if needed
 		if (!CollectionUtils.isEmpty(longClobs)) {
-			logger.info("Converting {} long CLOB's into SQL", longClobs.size());
-			List<String> clobSql = getClobSql(longClobs, table);
-			logger.info("Adding {} CLOB SQL statements", clobSql.size());
-			sql.addAll(clobSql);
-			logger.info("\n\n" + clobSql.get(0) + "\n\n");
+			// logger.info("Converting {} long CLOB's into SQL", longClobs.size());
+			// List<String> clobSql = getClobSql(longClobs, table);
+			// logger.info("Adding {} CLOB SQL statements", clobSql.size());
+			// sql.addAll(clobSql);
+			// logger.info("\n\n" + clobSql.get(0) + "\n\n");
 		}
 
 		if (rowCount == 0) {
