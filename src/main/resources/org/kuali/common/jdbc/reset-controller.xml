@@ -35,6 +35,8 @@
         <ref bean="jdbc.concurrentDataExecutable" />
         <ref bean="jdbc.sequentialDataExecutable" />
         <ref bean="jdbc.constraintsExecutable" />
+        <ref bean="jdbc.concurrentOtherExecutable" />
+        <ref bean="jdbc.sequentialOtherExecutable" />
       </util:list>
     </property>
   </bean>
