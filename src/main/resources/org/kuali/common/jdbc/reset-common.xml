@@ -31,11 +31,6 @@
   <bean id="jdbc.sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
   <bean id="jdbc.service" class="org.kuali.common.jdbc.DefaultJdbcService" />
 
-  <util:list id="jdbc.summaryAndProgressList">
-    <ref bean="jdbc.summaryListener" />
-    <ref bean="jdbc.progressListener" />
-  </util:list>
-
   <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
     <property name="listeners">
       <util:list>
