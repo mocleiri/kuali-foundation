@@ -24,6 +24,7 @@ import org.kuali.common.util.PercentCompleteInformer;
 public class ProgressListener extends NoOpSqlListener {
 
 	PercentCompleteInformer informer = new PercentCompleteInformer();
+	boolean startInformer = true;
 
 	@Override
 	public synchronized void beforeExecution(SqlExecutionEvent event) {
@@ -33,10 +34,10 @@ public class ProgressListener extends NoOpSqlListener {
 
 	@Override
 	public synchronized void afterExecuteSql(SqlEvent event) {
-		informer.incrementProgress();
 		// The first SQL statement was just executed
-		if (informer.getProgress() == 0) {
+		if (startInformer) {
 			informer.start();
+			startInformer = false;
 		}
 
 		// Increment the counter
