@@ -24,6 +24,18 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <bean id="jdbcDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
+    <property name="vendor" value="${db.vendor}" />
+    <property name="driver" value="${jdbc.driver}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="dbaUrl" value="${jdbc.dba.url}" />
+    <property name="dbaUsername" value="${jdbc.dba.username}" />
+    <property name="dbaPassword" value="${jdbc.dba.password}" />
+    <property name="encoding" ref="jdbc.encoding" />
+  </bean>
+
   <bean id="jdbc.nullifier" class="org.kuali.common.util.nullify.DefaultBeanNullifier" init-method="nullify">
     <property name="bean" ref="jdbcDatabaseProcessContext" />
     <property name="nullTokens">
@@ -40,18 +52,6 @@
         <value>password</value>
       </util:list>
     </property>
-  </bean>
-
-  <bean id="jdbcDatabaseProcessContext" class="org.kuali.common.jdbc.context.DatabaseProcessContext">
-    <property name="vendor" value="${db.vendor}" />
-    <property name="driver" value="${jdbc.driver}" />
-    <property name="url" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
-    <property name="dbaUrl" value="${jdbc.dba.url}" />
-    <property name="dbaUsername" value="${jdbc.dba.username}" />
-    <property name="dbaPassword" value="${jdbc.dba.password}" />
-    <property name="encoding" ref="jdbc.encoding" />
   </bean>
 
   <bean id="jdbc.dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="jdbc.nullifier">
