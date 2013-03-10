@@ -58,7 +58,7 @@ public class PercentCompleteInformer {
 		// Increment the progress indicator
 		this.progress += amount;
 
-		// Print a dot anytime we make at least 1% progress
+		// Print a dot any time we make at least 1% progress
 		int percentComplete = (int) ((progress * 100) / total);
 		if (enoughProgress(percentComplete)) {
 			this.percentCompletePrevious = percentComplete;
