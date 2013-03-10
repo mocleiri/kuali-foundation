@@ -29,7 +29,7 @@ public class JdbcContext {
 	// If false, no SQL is executed.
 	// Everything leading up to SQL execution still takes place
 	// Connecting to the database, parsing SQL, etc.
-	boolean execute = true;
+	boolean skip = true;
 
 	// Use this to enable multi-threaded SQL execution
 	// When used, SQL supplied to this context does not execute sequentially
@@ -43,12 +43,12 @@ public class JdbcContext {
 	boolean skipMetaData;
 	boolean trackProgressByUpdateCount;
 
-	public boolean isExecute() {
-		return execute;
+	public boolean isSkip() {
+		return skip;
 	}
 
-	public void setExecute(boolean execute) {
-		this.execute = execute;
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 	public int getThreads() {

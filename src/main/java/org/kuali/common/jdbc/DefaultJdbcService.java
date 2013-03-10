@@ -208,7 +208,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.setDataSource(original.getDataSource());
 		context.setCommitMode(original.getCommitMode());
 		context.setThreads(1);
-		context.setExecute(original.isExecute());
+		context.setSkip(original.isSkip());
 		context.setListener(listener);
 		context.setSkipMetaData(true);
 		return context;
@@ -300,7 +300,7 @@ public class DefaultJdbcService implements JdbcService {
 			int updateCount = 0;
 			long start = System.currentTimeMillis();
 			context.getListener().beforeExecuteSql(new SqlEvent(sql, start));
-			if (context.isExecute()) {
+			if (!context.isSkip()) {
 
 				// Execute the SQL
 				statement.execute(sql);
