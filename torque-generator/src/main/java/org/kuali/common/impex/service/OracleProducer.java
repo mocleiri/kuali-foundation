@@ -45,6 +45,7 @@ public class OracleProducer extends AbstractSqlProducer {
 
 	@Override
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
+		logger.debug("Producing SQL for table [{}]", table.getName());
 
 		// Allocate some storage for the SQL we are generating
 		List<String> sql = new ArrayList<String>();
@@ -91,19 +92,10 @@ public class OracleProducer extends AbstractSqlProducer {
 			rowCount++;
 
 			// Tables with CLOB columns may require special handling
-			if (hasClobColumns) {
-
-				// Figure out what the primary key's are
-				List<DataBean> primaryKeys = getPrimaryKeys(rowBeans);
-
-				// Check for CLOB's longer than 4K and add them to our list
-				addLongClobs(rowBeans, primaryKeys, longClobs);
-
-				// If we found any CLOB's longer than 4K we are done batching
-				// Break out of the loop that processes lines from the .mpx file
-				if (!CollectionUtils.isEmpty(longClobs)) {
-					break;
-				}
+			if (hasClobColumns && addedLongClobs(rowBeans, longClobs)) {
+				// We found at least one CLOB longer than 4K
+				// Break out of the batching loop to handle the CLOB's
+				break;
 			}
 
 			// Use the length of the SQL + the length of the batch separator to figure out if we have exceeded our batch length
@@ -135,6 +127,19 @@ public class OracleProducer extends AbstractSqlProducer {
 			// return the list of SQL we generated
 			return sql;
 		}
+	}
+
+	protected boolean addedLongClobs(List<DataBean> rowBeans, List<LongClob> longClobs) {
+
+		// Figure out what the primary key's are
+		List<DataBean> primaryKeys = getPrimaryKeys(rowBeans);
+
+		// Check for CLOB's longer than 4K and add them to our list
+		addLongClobs(rowBeans, primaryKeys, longClobs);
+
+		// If we found any CLOB's longer than 4K we are done batching
+		// Return true to indicate that large clob handling needs to take place
+		return !CollectionUtils.isEmpty(longClobs);
 	}
 
 	/**
