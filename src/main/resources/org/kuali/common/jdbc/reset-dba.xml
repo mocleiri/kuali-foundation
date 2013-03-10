@@ -24,32 +24,33 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
-    <property name="dataSource" ref="jdbc.dbaDataSource" />
-    <property name="suppliers">
-      <util:list>
-        <bean class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
-          <property name="reader" ref="jdbc.sqlReader" />
-          <property name="strings">
-            <util:list>
-              <value>${sql.validate}</value>
-              <value>${sql.drop}</value>
-              <value>${sql.create}</value>
-            </util:list>
-          </property>
-        </bean>
-      </util:list>
-    </property>
-    <property name="message" value="${sql.dba.message}" />
-    <property name="listener">
-      <bean class="org.kuali.common.jdbc.listener.LogSqlListener" />
-    </property>
-  </bean>
 
   <bean id="jdbc.dbaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
+    <property name="skip" value="${jdbc.dba.skip:false}" />
     <property name="service" ref="jdbc.service" />
-    <property name="context" ref="jdbc.dbaJdbcContext" />
-    <property name="skip" value="${jdbc.dba.skip:FALSE}" />
+    <property name="context">
+      <bean class="org.kuali.common.jdbc.context.JdbcContext">
+        <property name="message" value="${sql.dba.message}" />
+        <property name="dataSource" ref="jdbc.dbaDataSource" />
+        <property name="suppliers">
+          <util:list>
+            <bean class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
+              <property name="reader" ref="jdbc.sqlReader" />
+              <property name="strings">
+                <util:list>
+                  <value>${sql.validate}</value>
+                  <value>${sql.drop}</value>
+                  <value>${sql.create}</value>
+                </util:list>
+              </property>
+            </bean>
+          </util:list>
+        </property>
+        <property name="listener">
+          <bean class="org.kuali.common.jdbc.listener.LogSqlListener" />
+        </property>
+      </bean>
+    </property>
   </bean>
 
 </beans>
