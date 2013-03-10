@@ -41,7 +41,7 @@
             <property name="listeners">
               <util:list>
                 <ref bean="jdbc.metaDataListener" />
-                <bean class="org.kuali.common.jdbc.listener.DataSummaryListener" />
+                <ref bean="jdbc.dataSummaryListener" />
               </util:list>
             </property>
           </bean>
