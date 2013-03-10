@@ -177,31 +177,39 @@ public class OracleProducer extends AbstractSqlProducer {
 		String clobChunk = currentClob.getClobChunks().pop();
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
-		StringBuilder sqlBuilder = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 
-		// handle the clob data that is too long
+		// Handle CLOB data longer than 4K
 		List<DataBean> primaryKeys = currentClob.getPrimaryKeys();
 
-		// write sql that will append the current chunk into the clob column
-		sqlBuilder.append(CLOB_BATCH_HEADER_PREFIX).append(currentClob.getColumn().getName()).append(CLOB_BATCH_HEADER_MIDDLE).append(table.getName())
-				.append(CLOB_BATCH_HEADER_SUFFIX);
+		// Create SQL to append the current chunk into the clob column
+		sb.append(CLOB_BATCH_HEADER_PREFIX);
+		sb.append(currentClob.getColumn().getName());
+		sb.append(CLOB_BATCH_HEADER_MIDDLE);
+		sb.append(table.getName());
+		sb.append(CLOB_BATCH_HEADER_SUFFIX);
 
 		String clauseDelimiter = "";
 		for (DataBean pk : primaryKeys) {
-			sqlBuilder.append(clauseDelimiter);
-			sqlBuilder.append(SPACE).append(pk.getColumn().getName()).append(EQUALITY_EXPRESSION).append(getSqlValue(pk, dateFormat));
+			sb.append(clauseDelimiter);
+			sb.append(SPACE);
+			sb.append(pk.getColumn().getName());
+			sb.append(EQUALITY_EXPRESSION);
+			sb.append(getSqlValue(pk, dateFormat));
 
 			clauseDelimiter = WHERE_CLAUSE_DELIMITER;
 		}
 
-		sqlBuilder.append(CLOB_DATA_PREFIX).append(clobChunk).append(CLOB_DATA_SUFFIX);
+		sb.append(CLOB_DATA_PREFIX);
+		sb.append(clobChunk);
+		sb.append(CLOB_DATA_SUFFIX);
 
 		// check to see if we have more clobs to process for this mpx row
 		if (currentClob.getClobChunks().isEmpty()) {
 			longClobRows.remove(0);
 		}
 
-		return sqlBuilder.toString();
+		return sb.toString();
 
 	}
 
