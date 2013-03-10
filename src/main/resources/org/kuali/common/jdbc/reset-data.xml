@@ -24,15 +24,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.concurrentDataListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
-    <property name="listeners">
-      <util:list>
-        <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
-        <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
-      </util:list>
-    </property>
-  </bean>
-
   <!-- Concurrent data context -->
   <bean id="jdbc.concurrentDataJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="message" value="${sql.data.concurrent.message}" />
@@ -41,12 +32,21 @@
     <property name="threads" value="${sql.threads}" />
     <property name="multithreaded" value="true" />
     <property name="dataSource" ref="jdbc.dataSource" />
-    <property name="listener" ref="jdbc.concurrentDataListener" />
     <property name="suppliers">
-      <bean id="jdbc.concurrentDataSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+      <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
         <property name="property" value="sql.data.concurrent" />
         <property name="properties" ref="jdbc.properties" />
         <property name="extensionMappings" ref="jdbc.extensionMappings" />
+      </bean>
+    </property>
+    <property name="listener">
+      <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
+        <property name="listeners">
+          <util:list>
+            <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
+            <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
+          </util:list>
+        </property>
       </bean>
     </property>
   </bean>
