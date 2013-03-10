@@ -43,8 +43,8 @@
     <property name="dataSource" ref="jdbc.dataSource" />
     <property name="listener" ref="jdbc.concurrentDataListener" />
     <property name="suppliers">
-      <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-        <property name="property" value="sql.data.sequential" />
+      <bean id="jdbc.concurrentDataSuppliers" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+        <property name="property" value="sql.data.concurrent" />
         <property name="properties" ref="jdbc.properties" />
         <property name="extensionMappings" ref="jdbc.extensionMappings" />
       </bean>
