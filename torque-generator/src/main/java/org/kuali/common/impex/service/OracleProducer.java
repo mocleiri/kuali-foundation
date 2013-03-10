@@ -13,6 +13,7 @@ import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,7 +135,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			logger.info("Adding {} CLOB SQL statements", clobSql.size());
 			sql.addAll(clobSql);
 			for (String s : clobSql) {
-				// logger.info("[" + Str.flatten(s) + "]");
+				logger.info("[" + Str.flatten(s) + "]");
 			}
 		}
 
