@@ -57,7 +57,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		boolean hasClobColumns = hasClobColumns(columns);
 
 		// Allocate storage for clobs longer than 4K
-		List<LongClob> longClobs = new ArrayList<LongClob>();
+		List<OracleLongClob> longClobs = new ArrayList<OracleLongClob>();
 
 		// Use a StringBuilder to hold the batch insert statement
 		StringBuilder batchInsert = new StringBuilder();
@@ -129,7 +129,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		}
 	}
 
-	protected boolean addedLongClobs(List<DataBean> rowBeans, List<LongClob> longClobs) {
+	protected boolean addedLongClobs(List<DataBean> rowBeans, List<OracleLongClob> longClobs) {
 
 		// Figure out what the primary key's are
 		List<DataBean> primaryKeys = getPrimaryKeys(rowBeans);
@@ -145,7 +145,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	/**
 	 * Convert LongClob objects into SQL
 	 */
-	protected List<String> getClobSql(List<LongClob> longClobs, Table table) {
+	protected List<String> getClobSql(List<OracleLongClob> longClobs, Table table) {
 		List<String> clobList = new ArrayList<String>();
 		String clobSql = continueClob(table, longClobs);
 		while (clobSql != null) {
@@ -169,14 +169,14 @@ public class OracleProducer extends AbstractSqlProducer {
 		return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
 	}
 
-	protected String continueClob(Table table, List<LongClob> longClobRows) {
+	protected String continueClob(Table table, List<OracleLongClob> longClobRows) {
 
 		if (CollectionUtils.isEmpty(longClobRows)) {
 			return null;
 		}
 
 		// find the next clob to work on
-		LongClob currentClob = longClobRows.get(0);
+		OracleLongClob currentClob = longClobRows.get(0);
 		String clobChunk = currentClob.getClobChunks().pop();
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
@@ -324,7 +324,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		return primaryKeys;
 	}
 
-	protected void addLongClobs(List<DataBean> rowBeans, List<DataBean> primaryKeys, List<LongClob> longClobs) {
+	protected void addLongClobs(List<DataBean> rowBeans, List<DataBean> primaryKeys, List<OracleLongClob> longClobs) {
 		// now loop trough data beans again and add LongClob entries
 		for (DataBean data : rowBeans) {
 			// if the column is a CLOB type, and the data string is long enough,
@@ -332,7 +332,7 @@ public class OracleProducer extends AbstractSqlProducer {
 			if (isDataBigClob(data.getValue(), data.getColumn())) {
 				List<String> clobChunks = chunkClob(data.getValue());
 
-				LongClob longClob = new LongClob();
+				OracleLongClob longClob = new OracleLongClob();
 				longClob.setColumn(data.getColumn());
 				longClob.setClobChunks(new ArrayDeque<String>());
 				longClob.getClobChunks().addAll(clobChunks);

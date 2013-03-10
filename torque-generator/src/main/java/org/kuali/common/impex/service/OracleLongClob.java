@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Column;
 
-public class LongClob {
+public class OracleLongClob {
 
 	private Deque<String> clobChunks;
 	private Column column;
