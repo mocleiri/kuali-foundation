@@ -13,8 +13,12 @@ import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OracleProducer extends AbstractSqlProducer {
+
+	private static final Logger logger = LoggerFactory.getLogger(OracleProducer.class);
 
 	private static final String INSERT_PREFIX = "INSERT ALL\n";
 	private static final String INDENT = "  ";
@@ -121,7 +125,9 @@ public class OracleProducer extends AbstractSqlProducer {
 
 		// Add SQL for long clobs if needed
 		if (!CollectionUtils.isEmpty(longClobs)) {
+			logger.info("Converting {} long CLOB's into SQL", longClobs.size());
 			List<String> clobSql = getClobSql(longClobs, table);
+			logger.info("Adding {} CLOB SQL statements", clobSql.size());
 			sql.addAll(clobSql);
 		}
 
