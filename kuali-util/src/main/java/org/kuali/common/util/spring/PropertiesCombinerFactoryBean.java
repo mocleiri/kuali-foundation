@@ -29,7 +29,9 @@ public class PropertiesCombinerFactoryBean implements FactoryBean<Properties> {
 	@Override
 	public Properties getObject() throws Exception {
 		Assert.notNull(listOfProperties, "listOfProperties is null");
-		return PropertyUtils.combine(listOfProperties);
+		Properties properties = PropertyUtils.combine(listOfProperties);
+		PropertyUtils.info(properties);
+		return properties;
 	}
 
 	@Override
