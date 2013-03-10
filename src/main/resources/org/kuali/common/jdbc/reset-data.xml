@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!-- Concurrent data executable -->
+  <!-- Concurrent data -->
   <bean id="jdbc.concurrentDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="skip" value="${jdbc.data.skip:false}" />
     <property name="service" ref="jdbc.service" />
@@ -57,7 +57,7 @@
     </property>
   </bean>
 
-  <!-- Sequential data executable -->
+  <!-- Sequential data -->
   <bean id="jdbc.sequentialDataExecutable" class="org.kuali.common.jdbc.JdbcExecutable">
     <property name="service" ref="jdbc.service" />
     <property name="skip" value="${jdbc.data.skip:false}" />
