@@ -48,7 +48,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
 
 		if (!StringUtils.equalsIgnoreCase("KRCR_STYLE_T", table.getName())) {
-			return null;
+			// return null;
 		}
 
 		// Allocate some storage for the SQL we are generating
