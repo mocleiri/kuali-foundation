@@ -24,22 +24,25 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
-    <property name="listeners">
-      <util:list>
-        <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
-        <bean class="org.kuali.common.jdbc.listener.ProgressListener" />
-      </util:list>
-    </property>
+  <bean id="jdbc.encoding" class="java.lang.String">
+    <constructor-arg value="UTF-8" />
   </bean>
 
-  <bean id="jdbc.summaryAndMetaDataListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
-    <property name="listeners">
-      <util:list>
-        <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
-        <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
-      </util:list>
-    </property>
-  </bean>
+  <bean id="jdbc.sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
+  <bean id="jdbc.service" class="org.kuali.common.jdbc.DefaultJdbcService" />
+
+  <util:map id="jdbc.defaultExtensionMappings">
+    <entry key="sql">
+      <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+        <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
+        <property name="supplierInstance">
+          <bean class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+            <property name="reader" ref="jdbc.sqlReader" />
+            <property name="encoding" ref="jdbc.encoding" />
+          </bean>
+        </property>
+      </bean>
+    </entry>
+  </util:map>
 
 </beans>

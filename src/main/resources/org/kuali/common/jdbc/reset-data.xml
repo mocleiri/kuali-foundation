@@ -36,21 +36,12 @@
         <property name="threads" value="${sql.threads}" />
         <property name="multithreaded" value="true" />
         <property name="dataSource" ref="jdbc.dataSource" />
+        <property name="listener" ref="jdbc.summaryAndMetaDataListener" />
         <property name="suppliers">
           <bean class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
             <property name="property" value="sql.data.concurrent" />
             <property name="properties" ref="jdbc.properties" />
             <property name="extensionMappings" ref="jdbc.extensionMappings" />
-          </bean>
-        </property>
-        <property name="listener">
-          <bean class="org.kuali.common.jdbc.listener.NotifyingListener">
-            <property name="listeners">
-              <util:list>
-                <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
-                <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
-              </util:list>
-            </property>
           </bean>
         </property>
       </bean>
