@@ -24,19 +24,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="jdbc.executablesList">
-    <ref bean="jdbc.showConfigExecutable" />
-    <ref bean="jdbc.dbaExecutable" />
-    <ref bean="jdbc.schemaExecutable" />
-    <ref bean="jdbc.concurrentDataExecutable" />
-    <ref bean="jdbc.sequentialDataExecutable" />
-    <ref bean="jdbc.constraintsExecutable" />
-  </util:list>
-
   <bean id="jdbc.executeReset" class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
-    <property name="executables" ref="jdbc.executablesList" />
-    <property name="skip" value="${jdbc.execute.skip:FALSE}" />
-    <property name="timed" value="${jdbc.execute.timed:TRUE}" />
+    <property name="skip" value="${jdbc.reset.skip:false}" />
+    <property name="timed" value="${jdbc.reset.timed:true}" />
+    <property name="executables">
+      <util:list>
+        <ref bean="jdbc.showConfigExecutable" />
+        <ref bean="jdbc.dbaExecutable" />
+        <ref bean="jdbc.schemaExecutable" />
+        <ref bean="jdbc.concurrentDataExecutable" />
+        <ref bean="jdbc.sequentialDataExecutable" />
+        <ref bean="jdbc.constraintsExecutable" />
+      </util:list>
+    </property>
   </bean>
 
 </beans>
