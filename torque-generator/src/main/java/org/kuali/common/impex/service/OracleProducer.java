@@ -235,40 +235,47 @@ public class OracleProducer extends AbstractSqlProducer {
 
 	protected String buildBatchSql(Table table, List<DataBean> dataBeans) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
-		StringBuilder sqlBuilder = new StringBuilder();
 
+		// Convert the beans into strings
 		List<String> values = new ArrayList<String>(dataBeans.size());
 		for (DataBean data : dataBeans) {
 			values.add(getSqlValue(data, dateFormat));
 		}
 
-		// output looks like "  INSERT INTO FOO_BAR_T (FOO, BAR, BAZ)"
-		sqlBuilder.append(INDENT).append(INTO_PREFIX).append(table.getName()).append(SPACE).append(ARG_LIST_START).append(getColumnNamesCSV(table)).append(ARG_LIST_END);
-		// output looks like "  VALUES ('Test', 1, 2)"
-		sqlBuilder.append(VALUES_PREFIX).append(ARG_LIST_START).append(CollectionUtils.getCSV(values)).append(ARG_LIST_END);
-		sqlBuilder.append(LF);
-
-		return sqlBuilder.toString();
+		// Create SQL from the strings
+		// result is -> "  INSERT INTO FOO_BAR_T (FOO, BAR, BAZ) VALUES ('Test', 1, 2)"
+		StringBuilder sb = new StringBuilder();
+		sb.append(INDENT);
+		sb.append(INTO_PREFIX);
+		sb.append(table.getName());
+		sb.append(SPACE);
+		sb.append(ARG_LIST_START);
+		sb.append(getColumnNamesCSV(table));
+		sb.append(ARG_LIST_END);
+		sb.append(VALUES_PREFIX);
+		sb.append(ARG_LIST_START);
+		sb.append(CollectionUtils.getCSV(values));
+		sb.append(ARG_LIST_END);
+		sb.append(LF);
+		return sb.toString();
 	}
 
 	protected String getSqlValue(DataBean data, SimpleDateFormat dateFormat) {
-		StringBuilder result = new StringBuilder();
-
 		if (data.getDateValue() != null) {
-			result.append(DATE_VALUE_PREFIX);
-			result.append(dateFormat.format(data.getDateValue()));
-			result.append(DATE_VALUE_SUFFIX);
+			StringBuilder sb = new StringBuilder();
+			sb.append(DATE_VALUE_PREFIX);
+			sb.append(dateFormat.format(data.getDateValue()));
+			sb.append(DATE_VALUE_SUFFIX);
+			return sb.toString();
 		} else if (isDataBigClob(data.getValue(), data.getColumn())) {
-			// if the data type is CLOB, and the data is longer than the batch size, the value should be handled by the CLOB-splitting code
-			result.append(CLOB_PLACEHOLDER);
+			// if the data type is CLOB, and the data is longer than the batch size, the value is handled by the CLOB-splitting code
+			return CLOB_PLACEHOLDER;
 		} else if (isColumnClobType(data.getColumn()) && data.getValue() == null) {
 			// if the data type is CLOB and the value is null, return the EMPTY_CLOB placeholder, since Oracle doesn't like NULL in a CLOB column
-			result.append(CLOB_PLACEHOLDER);
+			return CLOB_PLACEHOLDER;
 		} else {
-			result.append(data.getValue());
+			return data.getValue();
 		}
-
-		return result.toString();
 	}
 
 	protected class LongClob {
