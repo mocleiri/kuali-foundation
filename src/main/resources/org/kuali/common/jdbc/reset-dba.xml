@@ -30,20 +30,21 @@
     <value>${sql.create}</value>
   </util:list>
 
-  <bean id="jdbc.dbaSqlSupplier" class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
-    <property name="reader" ref="jdbc.sqlReader" />
-    <property name="strings" ref="jdbc.dbaSql" />
-  </bean>
-
-  <util:list id="jdbc.dbaSuppliers">
-    <ref bean="jdbc.dbaSqlSupplier" />
-  </util:list>
 
   <bean id="jdbc.dbaJdbcContext" class="org.kuali.common.jdbc.context.JdbcContext">
     <property name="dataSource" ref="jdbc.dbaDataSource" />
-    <property name="suppliers" ref="jdbc.dbaSuppliers" />
+    <property name="suppliers" ref="jdbc.dbaSuppliers">
+      <util:list id="jdbc.dbaSuppliers">
+        <bean class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
+          <property name="reader" ref="jdbc.sqlReader" />
+          <property name="strings" ref="jdbc.dbaSql" />
+        </bean>
+      </util:list>
+    </property>
     <property name="message" value="${sql.dba.message}" />
-    <property name="listener" ref="jdbc.logSqlListener" />
+    <property name="listener">
+      <bean class="org.kuali.common.jdbc.listener.LogSqlListener" />
+    </property>
   </bean>
 
   <bean id="jdbc.dbaExecutable" class="org.kuali.common.jdbc.JdbcExecutable">

@@ -30,28 +30,28 @@
 
   <bean id="jdbc.sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
   <bean id="jdbc.service" class="org.kuali.common.jdbc.DefaultJdbcService" />
-  <bean id="jdbc.logSqlListener" class="org.kuali.common.jdbc.listener.LogSqlListener" />
-  <bean id="jdbc.summaryListener" class="org.kuali.common.jdbc.listener.SummaryListener" />
-  <bean id="jdbc.metaDataListener" class="org.kuali.common.jdbc.listener.MetaDataListener" />
-
-  <bean id="jdbc.progressListener" class="org.kuali.common.jdbc.listener.ProgressListener" />
 
   <util:list id="jdbc.summaryAndProgressList">
     <ref bean="jdbc.summaryListener" />
     <ref bean="jdbc.progressListener" />
   </util:list>
 
-  <util:list id="jdbc.summaryAndMetaDataList">
-    <ref bean="jdbc.metaDataListener" />
-    <ref bean="jdbc.summaryListener" />
-  </util:list>
-
   <bean id="jdbc.summaryAndProgressListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
-    <property name="listeners" ref="jdbc.summaryAndProgressList" />
+    <property name="listeners">
+      <util:list>
+        <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
+        <bean class="org.kuali.common.jdbc.listener.ProgressListener" />
+      </util:list>
+    </property>
   </bean>
 
   <bean id="jdbc.summaryAndMetaDataListener" class="org.kuali.common.jdbc.listener.NotifyingListener">
-    <property name="listeners" ref="jdbc.summaryAndMetaDataList" />
+    <property name="listeners">
+      <util:list>
+        <bean class="org.kuali.common.jdbc.listener.MetaDataListener" />
+        <bean class="org.kuali.common.jdbc.listener.SummaryListener" />
+      </util:list>
+    </property>
   </bean>
 
   <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
