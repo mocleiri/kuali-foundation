@@ -97,7 +97,7 @@ public class OracleProducer extends AbstractSqlProducer {
 				addLongClobs(rowBeans, primaryKeys, longClobs);
 
 				// If we found any CLOB's longer than 4K we are done batching
-				// Break out of the loop and add CLOB SQL to the list
+				// Break out of the loop that processes lines from the .mpx file
 				if (!CollectionUtils.isEmpty(longClobs)) {
 					break;
 				}
