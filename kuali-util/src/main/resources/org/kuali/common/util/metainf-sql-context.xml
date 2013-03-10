@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!-- List of MetaInfContext objects controlling what content is created under META-INF -->
+  <!-- List of MetaInfContext objects controlling the content created under META-INF -->
   <util:list id="metaInf.sql.contextList">
     <!-- Schema -->
     <bean class=" org.kuali.common.util.MetaInfContext ">
