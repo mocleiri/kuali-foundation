@@ -15,14 +15,15 @@
  */
 package org.kuali.common.jdbc;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.LocationUtils;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class DefaultJdbcServiceTest {
@@ -30,13 +31,15 @@ public class DefaultJdbcServiceTest {
 	@Test
 	public void test() {
 		try {
-			List<String> strings = Arrays.asList("select sysdate from dual");
+			// List<String> strings = Arrays.asList("select sysdate from dual");
+			List<String> strings = LocationUtils.readLines("classpath:org/kuali/common/jdbc/oracle-clob.sql");
 			List<SqlSupplier> suppliers = Collections.singletonList((SqlSupplier) (new SimpleStringSupplier(strings)));
 			DriverManagerDataSource dmds = new DriverManagerDataSource("jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE", "JDBCTEST", "JDBCTEST");
 			dmds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 			JdbcContext context = new JdbcContext();
 			context.setDataSource(dmds);
 			context.setSuppliers(suppliers);
+			context.setListener(new LogSqlListener());
 			JdbcService service = new DefaultJdbcService();
 			JdbcExecutable executable = new JdbcExecutable(service, context);
 			executable.execute();
