@@ -48,15 +48,6 @@
     </property>
   </bean>
 
-  <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
-    <property name="listOfMaps">
-      <list>
-        <ref bean="jdbc.defaultExtensionMappings" />
-        <ref bean="impex.extensionMappings" />
-      </list>
-    </property>
-  </bean>
-
   <util:map id="impex.extensionMappings">
     <entry key="mpx" value-ref="impex.mpxLocationSourceBean" />
   </util:map>
