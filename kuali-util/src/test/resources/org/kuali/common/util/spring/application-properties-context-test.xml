@@ -32,23 +32,23 @@
     <prop key="project.version">2.0.0-SNAPSHOT</prop>
   </util:properties>
 
+  <bean id="organization.groupId" class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+    <property name="properties" ref="kuali.buildProperties" />
+    <property name="key" value="organization.groupId" />
+  </bean>
+
+  <bean id="project.groupId" class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+    <property name="properties" ref="kuali.buildProperties" />
+    <property name="key" value="project.groupId" />
+  </bean>
+
   <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
     <property name="properties" ref="kuali.buildProperties" />
     <property name="key" value="project.groupId.path" />
     <property name="value">
       <bean class="org.kuali.common.util.spring.GetCommonGroupIdFactoryBean">
-        <property name="organizationGroupId">
-          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-            <property name="properties" ref="kuali.buildProperties" />
-            <property name="key" value="organization.groupId" />
-          </bean>
-        </property>
-        <property name="groupId">
-          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-            <property name="properties" ref="kuali.buildProperties" />
-            <property name="key" value="project.groupId" />
-          </bean>
-        </property>
+        <property name="organizationGroupId" ref="organization.groupId" />
+        <property name="groupId" ref="project.groupId" />
       </bean>
     </property>
   </bean>
