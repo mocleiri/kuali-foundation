@@ -24,33 +24,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="properties">
-      <bean class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
-        <property name="listOfProperties">
-          <util:list>
-            <ref bean="jdbc.defaultProperties" />
-            <ref bean="impex.batchProperties" />
-          </util:list>
-        </property>
-      </bean>
-    </property>
-  </bean>
-
-  <context:property-placeholder properties-ref="jdbc.properties" />
-
-  <bean id="jdbc.extensionMappings" class="org.kuali.common.util.spring.MapCombinerFactoryBean">
-    <property name="listOfMaps">
-      <list>
-        <ref bean="jdbc.defaultExtensionMappings" />
-        <ref bean="impex.extensionMappings" />
-      </list>
-    </property>
-  </bean>
-
-  <import resource="classpath:org/kuali/common/impex/mpx-supplier-context.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset-context.xml" />
-  <import resource="classpath:org/kuali/common/jdbc/reset-controller.xml" />
-
+  <import resource="classpath:org/kuali/common/impex/jdbc-reset-context.xml" />
 
 </beans>

@@ -15,6 +15,8 @@
  */
 package org.kuali.common.impex.service;
 
+import java.util.Properties;
+
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
@@ -29,9 +31,17 @@ public class SpringContextLoaderTest {
 	public void test() {
 		try {
 			logger.debug("");
+
+			Properties p = new Properties();
+			p.setProperty("kuali.groupId", "org.kuali");
+			p.setProperty("kuali.encoding", "UTF-8");
+			p.setProperty("project.groupId", "org.kuali.student.web");
+			p.setProperty("project.artifactId", "ks-with-rice-bundled");
+			p.setProperty("project.version", "2.0.0-SNAPSHOT");
+			p.setProperty("project.classifier", "");
 			SpringService ss = new DefaultSpringService();
 			// System.setProperty("jdbc.data.skip", "true");
-			ss.load("classpath:org/kuali/student/ks-reset-context.xml");
+			ss.load("classpath:org/kuali/student/ks-reset-context.xml", "mavenProperties", p);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
