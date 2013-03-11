@@ -89,19 +89,21 @@
             </bean>
           </property>
         </bean>
-        <bean class="org.kuali.common.util.KeyValue">
+        <!--
+          <bean class="org.kuali.common.util.KeyValue">
           <property name="key" value="project.groupId.common.path" />
           <property name="value">
-            <bean class="org.kuali.common.util.spring.GetPathFactoryBean">
-              <property name="value">
-                <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-                  <property name="properties" ref="buildProperties" />
-                  <property name="key" value="project.groupId.common" />
-                </bean>
-              </property>
-            </bean>
+          <bean class="org.kuali.common.util.spring.GetPathFactoryBean">
+          <property name="value">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+          <property name="properties" ref="buildProperties" />
+          <property name="key" value="project.groupId.common" />
+          </bean>
           </property>
-        </bean>
+          </bean>
+          </property>
+          </bean>
+        -->
         <bean class="org.kuali.common.util.KeyValue">
           <property name="key" value="organization.groupId.path" />
           <property name="value">
