@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="kuali.projectProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+  <bean id="kuali.applicationProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations">
       <list>
         <value>classpath:${project.groupId.path}/${project.groupId.code}.properties</value>
@@ -35,21 +35,21 @@
         <value>${kuali.group.home}/${project.artifactId}.properties</value>
       </list>
     </property>
-    <property name="locationHelperProperties" ref="mavenProperties" />
+    <property name="locationHelperProperties" ref="kuali.buildProperties" />
     <property name="locationHelperIncludes">
       <util:list>
-        <value>kuali.encoding</value>
         <value>kuali.groupId</value>
+        <value>kuali.encoding</value>
+        <value>kuali.enc.*</value>
         <value>project.groupId</value>
         <value>project.artifactId</value>
         <value>project.version</value>
         <value>project.classifier</value>
-        <value>kuali.enc.*</value>
       </util:list>
     </property>
+    <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
-    <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encoding" value="${kuali.encoding:UTF-8}" />
   </bean>
 </beans>
