@@ -25,12 +25,15 @@ import org.springframework.util.Assert;
 public class PropertiesCombinerFactoryBean implements FactoryBean<Properties> {
 
 	List<Properties> listOfProperties;
+	boolean show;
 
 	@Override
 	public Properties getObject() throws Exception {
 		Assert.notNull(listOfProperties, "listOfProperties is null");
 		Properties properties = PropertyUtils.combine(listOfProperties);
-		PropertyUtils.debug(properties);
+		if (show) {
+			PropertyUtils.info(properties);
+		}
 		return properties;
 	}
 
@@ -50,6 +53,14 @@ public class PropertiesCombinerFactoryBean implements FactoryBean<Properties> {
 
 	public void setListOfProperties(List<Properties> listOfProperties) {
 		this.listOfProperties = listOfProperties;
+	}
+
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
 	}
 
 }

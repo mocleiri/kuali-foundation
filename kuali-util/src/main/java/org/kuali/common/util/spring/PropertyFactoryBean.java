@@ -28,6 +28,7 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 	protected static Properties properties;
 	boolean singleton = true;
 	PropertyService service = new DefaultPropertyService();
+	boolean show;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -41,7 +42,9 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 	protected synchronized Properties getInstance() {
 		if (properties == null) {
 			properties = service.load(this);
-			PropertyUtils.debug(properties);
+			if (show) {
+				PropertyUtils.info(properties);
+			}
 		}
 		return properties;
 	}
@@ -66,5 +69,13 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 
 	public void setService(PropertyService service) {
 		this.service = service;
+	}
+
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
 	}
 }
