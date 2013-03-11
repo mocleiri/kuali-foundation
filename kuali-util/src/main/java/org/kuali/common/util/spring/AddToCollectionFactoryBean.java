@@ -15,37 +15,53 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.Map;
+import java.util.Collection;
 
 import org.kuali.common.util.Assert;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-public class AddToMapInitializingBean<K, V> implements InitializingBean {
+public class AddToCollectionFactoryBean<T> implements FactoryBean<Collection<T>>, InitializingBean {
 
-	Map<K, V> source;
-	Map<K, V> destination;
+	Collection<T> source;
+	Collection<T> destination;
+
+	public Collection<T> getSource() {
+		return source;
+	}
+
+	public void setSource(Collection<T> source) {
+		this.source = source;
+	}
+
+	public Collection<T> getDestination() {
+		return destination;
+	}
+
+	public void setDestination(Collection<T> destination) {
+		this.destination = destination;
+	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(source, "source is null");
 		Assert.notNull(destination, "destination is null");
-		destination.putAll(source);
+		destination.addAll(source);
 	}
 
-	public Map<K, V> getSource() {
-		return source;
-	}
-
-	public void setSource(Map<K, V> source) {
-		this.source = source;
-	}
-
-	public Map<K, V> getDestination() {
+	@Override
+	public Collection<T> getObject() throws Exception {
 		return destination;
 	}
 
-	public void setDestination(Map<K, V> destination) {
-		this.destination = destination;
+	@Override
+	public Class<?> getObjectType() {
+		return null;
+	}
+
+	@Override
+	public boolean isSingleton() {
+		return false;
 	}
 
 }
