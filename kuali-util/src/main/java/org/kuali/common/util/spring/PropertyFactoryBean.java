@@ -46,9 +46,9 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 	protected synchronized Properties getInstance() {
 		if (instance == null) {
 			instance = service.load(this);
-			if (show) {
-				PropertyUtils.info(instance);
-			}
+		}
+		if (show) {
+			PropertyUtils.info(instance);
 		}
 		return instance;
 	}
