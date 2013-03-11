@@ -50,4 +50,11 @@ public class OrgUtils {
 		return code;
 	}
 
+	/**
+	 * Given {@code org.kuali} and {@code org.kuali.student.web} return {@code org.kuali.student}<br>
+	 */
+	public static final String getCommonGroupId(String organizationGroupId, String groupId) {
+		return organizationGroupId + "." + getGroupCode(organizationGroupId, groupId);
+	}
+
 }
