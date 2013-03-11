@@ -32,9 +32,47 @@
     <prop key="project.version">2.0.0-SNAPSHOT</prop>
   </util:properties>
 
-  <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
-    <property name="key" value="project.groupId.common" />
+  <!-- The group id of the organization ie "org.kuali" or "org.springframework" -->
+  <bean id="organization.groupId" class="java.lang.String">
+    <constructor-arg>
+      <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+        <property name="properties" ref="kuali.buildProperties" />
+        <property name="key" value="organization.groupId" />
+      </bean>
+    </constructor-arg>
+  </bean>
+
+  <!-- The group id of the project ie "org.kuali.student" or "org.kuali.rice" -->
+  <bean id="project.groupId" class="java.lang.String">
+    <constructor-arg>
+      <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+        <property name="properties" ref="kuali.buildProperties" />
+        <property name="key" value="project.groupId" />
+      </bean>
+    </constructor-arg>
+  </bean>
+
+  <bean class="org.kuali.common.util.spring.SetPropertiesFactoryBean">
     <property name="properties" ref="kuali.buildProperties" />
+    <property name="keyValuePairs">
+      <util:list>
+        <bean class="org.kuali.common.util.KeyValue">
+          <property name="key" value="project.groupId.common" />
+          <property name="value">
+            <bean class="org.kuali.common.util.spring.GetCommonGroupIdFactoryBean">
+              <property name="organizationGroupId" ref="organization.groupId" />
+              <property name="groupId" ref="">
+                <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+                  <property name="properties" ref="kuali.buildProperties" />
+                  <property name="key" value="project.groupId" />
+                </bean>
+              </property>
+            </bean>
+          </property>
+        </bean>
+      </util:list>
+    </property>
+    <property name="key" value="project.groupId.common" />
     <property name="value">
       <bean class="org.kuali.common.util.spring.GetCommonGroupIdFactoryBean">
         <property name="organizationGroupId">
