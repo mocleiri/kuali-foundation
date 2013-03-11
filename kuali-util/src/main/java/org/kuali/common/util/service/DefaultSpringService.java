@@ -125,7 +125,9 @@ public class DefaultSpringService implements SpringService {
 		List<Object> beans = context.getBeans();
 		Assert.isTrue(beanNames.size() == beans.size());
 		GenericXmlApplicationContext parentContext = new GenericXmlApplicationContext();
-		configureEnvironment(context, parentContext);
+		if (CollectionUtils.isEmpty(context.getPropertySources())) {
+			configureEnvironment(context, parentContext);
+		}
 		parentContext.refresh();
 		ConfigurableListableBeanFactory factory = parentContext.getBeanFactory();
 		for (int i = 0; i < beanNames.size(); i++) {
@@ -139,9 +141,6 @@ public class DefaultSpringService implements SpringService {
 
 	protected void configureEnvironment(SpringContext context, GenericXmlApplicationContext applicationContext) {
 		List<PropertySource<?>> propertySources = context.getPropertySources();
-		if (CollectionUtils.isEmpty(propertySources)) {
-			return;
-		}
 		ConfigurableEnvironment environment = applicationContext.getEnvironment();
 		MutablePropertySources sources = environment.getPropertySources();
 		Collections.reverse(propertySources);
