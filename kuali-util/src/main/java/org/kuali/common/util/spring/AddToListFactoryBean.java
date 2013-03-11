@@ -16,42 +16,27 @@
 package org.kuali.common.util.spring;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-public class AddToCollectionFactoryBean<T> implements FactoryBean<Collection<T>>, InitializingBean {
+public class AddToListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean {
 
-	Collection<T> source;
-	Collection<T> destination;
-
-	public Collection<T> getSource() {
-		return source;
-	}
-
-	public void setSource(Collection<T> source) {
-		this.source = source;
-	}
-
-	public Collection<T> getDestination() {
-		return destination;
-	}
-
-	public void setDestination(Collection<T> destination) {
-		this.destination = destination;
-	}
+	List<T> source;
+	List<T> target;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(source, "source is null");
-		Assert.notNull(destination, "destination is null");
-		destination.addAll(source);
+		Assert.notNull(target, "target is null");
+		target.addAll(source);
 	}
 
 	@Override
-	public Collection<T> getObject() throws Exception {
-		return destination;
+	public List<T> getObject() throws Exception {
+		return target;
 	}
 
 	@Override
@@ -62,6 +47,22 @@ public class AddToCollectionFactoryBean<T> implements FactoryBean<Collection<T>>
 	@Override
 	public boolean isSingleton() {
 		return false;
+	}
+
+	public Collection<T> getSource() {
+		return source;
+	}
+
+	public void setSource(List<T> source) {
+		this.source = source;
+	}
+
+	public Collection<T> getTarget() {
+		return target;
+	}
+
+	public void setTarget(List<T> target) {
+		this.target = target;
 	}
 
 }
