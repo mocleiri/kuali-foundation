@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="kuali.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
+  <bean id="kuali.projectProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations">
       <list>
         <value>classpath:${project.groupId.path}/${project.groupId.code}.properties</value>
