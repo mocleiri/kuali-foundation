@@ -38,18 +38,18 @@
     <property name="location" value="${impex.schema.location}" />
   </bean>
 
-  <bean id="impex.mpxLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
-    <property name="supplierClass" value="org.kuali.common.impex.MpxLocationSupplier" />
-    <property name="supplierInstance">
-      <bean class="org.kuali.common.impex.MpxLocationSupplier">
-        <property name="database" ref="impex.database" />
-        <property name="producer" ref="impex.producer" />
-      </bean>
-    </property>
-  </bean>
-
   <util:map id="impex.extensionMappings">
-    <entry key="mpx" value-ref="impex.mpxLocationSourceBean" />
+    <entry key="mpx">
+      <bean class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+        <property name="supplierClass" value="org.kuali.common.impex.MpxLocationSupplier" />
+        <property name="supplierInstance">
+          <bean class="org.kuali.common.impex.MpxLocationSupplier">
+            <property name="database" ref="impex.database" />
+            <property name="producer" ref="impex.producer" />
+          </bean>
+        </property>
+      </bean>
+    </entry>
   </util:map>
 
 </beans>
