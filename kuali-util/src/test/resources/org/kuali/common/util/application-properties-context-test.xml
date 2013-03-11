@@ -32,32 +32,25 @@
     <prop key="project.version">2.0.0-SNAPSHOT</prop>
   </util:properties>
 
-  <bean id="kuali.applicationProperties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="locations">
-      <list>
-        <value>classpath:${project.groupId.path}/${project.groupId.code}.properties</value>
-        <value>classpath:${project.groupId.path}/${project.groupId.code}-${project.version.major}.${project.version.minor}.properties</value>
-        <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
-        <value>classpath:${project.groupId.path}/${project.artifactId}-${project.version.major}.${project.version.minor}.properties</value>
-        <value>classpath:${project.groupId.path}/${project.artifactId}-${project.version.trimmed}.properties</value>
-        <value>${kuali.group.home}/${project.artifactId}.properties</value>
-      </list>
+  <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
+    <property name="properties" ref="kuali.buildProperties" />
+    <property name="key" value="project.groupId.path" />
+    <property name="value">
+      <bean class="org.kuali.common.util.spring.GetCommonGroupIdFactoryBean">
+        <property name="organizationGroupId">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+            <property name="properties" ref="kuali.buildProperties" />
+            <property name="key" value="organization.groupId" />
+          </bean>
+        </property>
+        <property name="groupId">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+            <property name="properties" ref="kuali.buildProperties" />
+            <property name="key" value="project.groupId" />
+          </bean>
+        </property>
+      </bean>
     </property>
-    <property name="locationHelperProperties" ref="kuali.buildProperties" />
-    <property name="locationHelperIncludes">
-      <util:list>
-        <value>kuali.groupId</value>
-        <value>kuali.encoding</value>
-        <value>kuali.enc.*</value>
-        <value>project.groupId</value>
-        <value>project.artifactId</value>
-        <value>project.version</value>
-        <value>project.classifier</value>
-      </util:list>
-    </property>
-    <property name="organizationGroupId" value="${kuali.groupId}" />
-    <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
-    <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
-    <property name="encoding" value="${kuali.encoding:UTF-8}" />
   </bean>
+
 </beans>
