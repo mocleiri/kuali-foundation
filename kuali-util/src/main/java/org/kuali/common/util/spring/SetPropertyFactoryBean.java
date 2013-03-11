@@ -22,7 +22,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Copy all of the mappings from <code>source</code> to <code>target</code>. The <code>source</code> mappings replace any existing <code>target</code> mappings
+ * Call <code>setProperty(key,value)</code> on <code>properties</code>
  */
 public class SetPropertyFactoryBean implements FactoryBean<Properties>, InitializingBean {
 
