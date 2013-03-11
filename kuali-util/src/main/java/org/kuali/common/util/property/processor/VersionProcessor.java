@@ -67,7 +67,7 @@ public class VersionProcessor implements PropertyProcessor {
 		}
 	}
 
-	protected Properties getVersionProperties(String key, Version v) {
+	public Properties getVersionProperties(String key, Version v) {
 		Properties properties = new Properties();
 		if (v.getMajor() != null) {
 			String newKey = key + "." + majorSuffix;

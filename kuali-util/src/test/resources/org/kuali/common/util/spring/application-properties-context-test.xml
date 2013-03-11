@@ -64,7 +64,7 @@
   </bean>
 
   <bean class="org.kuali.common.util.spring.SetPropertiesFactoryBean">
-    <property name="properties" ref="kuali.buildProperties" />
+    <property name="properties" ref="buildProperties" />
     <property name="keyValuePairs">
       <util:list>
         <bean class="org.kuali.common.util.KeyValue">
@@ -95,7 +95,7 @@
             <bean class="org.kuali.common.util.spring.GetPathFactoryBean">
               <property name="value">
                 <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-                  <property name="properties" ref="kuali.buildProperties" />
+                  <property name="properties" ref="buildProperties" />
                   <property name="key" value="organization.groupId" />
                 </bean>
               </property>
@@ -106,31 +106,17 @@
     </property>
   </bean>
 
-  <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
-    <property name="key" value="organization.groupId.path" />
-    <property name="properties" ref="kuali.buildProperties" />
-    <property name="value">
-      <bean class="org.kuali.common.util.spring.GetPathFactoryBean">
-        <property name="value">
-          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-            <property name="properties" ref="kuali.buildProperties" />
-            <property name="key" value="organization.groupId" />
-          </bean>
-        </property>
+  <bean class="org.kuali.common.util.spring.GetVersionPropertiesFactoryBean">
+    <property name="version" ref="buildProperties">
+      <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+        <property name="properties" ref="buildProperties" />
+        <property name="key" value="project.version" />
       </bean>
-    </property>
-  </bean>
-  <bean class="org.kuali.common.util.spring.SetVersionPropertiesFactoryBean">
-    <property name="properties" ref="kuali.buildProperties" />
-    <property name="includes">
-      <util:list>
-        <value>project.version</value>
-      </util:list>
     </property>
   </bean>
 
   <bean class="org.kuali.common.util.execute.ShowPropertiesExecutable" init-method="execute">
-    <property name="properties" ref="kuali.buildProperties" />
+    <property name="properties" ref="buildProperties" />
   </bean>
 
 </beans>

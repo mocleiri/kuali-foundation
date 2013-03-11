@@ -17,27 +17,23 @@ package org.kuali.common.util.spring;
 
 import java.util.Properties;
 
-import org.kuali.common.util.Assert;
+import org.kuali.common.util.Version;
+import org.kuali.common.util.VersionUtils;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.InitializingBean;
 
 /**
  * 
  */
-public class SetVersionPropertiesFactoryBean extends VersionProcessor implements FactoryBean<Properties>, InitializingBean {
+public class GetVersionPropertiesFactoryBean extends VersionProcessor implements FactoryBean<Properties> {
 
-	Properties properties;
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(properties, "properties is null");
-		super.process(properties);
-	}
+	String prefix = "project.version";
+	String version;
 
 	@Override
 	public Properties getObject() throws Exception {
-		return properties;
+		Version v = VersionUtils.getVersion(version);
+		return getVersionProperties(prefix, v);
 	}
 
 	@Override
@@ -50,11 +46,20 @@ public class SetVersionPropertiesFactoryBean extends VersionProcessor implements
 		return false;
 	}
 
-	public Properties getProperties() {
-		return properties;
+	public String getPrefix() {
+		return prefix;
 	}
 
-	public void setProperties(Properties properties) {
-		this.properties = properties;
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
 }

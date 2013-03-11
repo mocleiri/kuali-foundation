@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.KeyValue;
+import org.kuali.common.util.PropertyUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -28,23 +30,30 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class SetPropertiesFactoryBean implements FactoryBean<Properties>, InitializingBean {
 
-	Properties properties;
+	Properties target;
+	Properties source;
 	List<KeyValue> keyValuePairs;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(properties, "properties is null");
-		Assert.notNull(keyValuePairs, "keyValuePairs is null");
+		Assert.notNull(target, "target is null");
+		doKeyValuePairs(CollectionUtils.toEmptyList(keyValuePairs));
+		target.putAll(PropertyUtils.toEmpty(source));
+	}
+
+	protected void doKeyValuePairs(List<KeyValue> keyValuePairs) {
 		for (KeyValue keyValuePair : keyValuePairs) {
 			String key = keyValuePair.getKey();
 			String value = keyValuePair.getValue();
-			properties.setProperty(key, value);
+			Assert.notNull(key, "key is null");
+			Assert.notNull(value, "value for [" + key + "] is null");
+			target.setProperty(key, value);
 		}
 	}
 
 	@Override
 	public Properties getObject() throws Exception {
-		return properties;
+		return target;
 	}
 
 	@Override
@@ -57,20 +66,28 @@ public class SetPropertiesFactoryBean implements FactoryBean<Properties>, Initia
 		return false;
 	}
 
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-
 	public List<KeyValue> getKeyValuePairs() {
 		return keyValuePairs;
 	}
 
 	public void setKeyValuePairs(List<KeyValue> keyValuePairs) {
 		this.keyValuePairs = keyValuePairs;
+	}
+
+	public Properties getTarget() {
+		return target;
+	}
+
+	public void setTarget(Properties target) {
+		this.target = target;
+	}
+
+	public Properties getSource() {
+		return source;
+	}
+
+	public void setSource(Properties source) {
+		this.source = source;
 	}
 
 }
