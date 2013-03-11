@@ -31,14 +31,16 @@ import org.springframework.beans.factory.InitializingBean;
 public class SetPropertiesFactoryBean implements FactoryBean<Properties>, InitializingBean {
 
 	Properties target;
-	Properties source;
+	List<Properties> sources;
 	List<KeyValue> keyValuePairs;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(target, "target is null");
 		doKeyValuePairs(CollectionUtils.toEmptyList(keyValuePairs));
-		target.putAll(PropertyUtils.toEmpty(source));
+		for (Properties source : CollectionUtils.toEmptyList(sources)) {
+			target.putAll(PropertyUtils.toEmpty(source));
+		}
 	}
 
 	protected void doKeyValuePairs(List<KeyValue> keyValuePairs) {
@@ -82,12 +84,12 @@ public class SetPropertiesFactoryBean implements FactoryBean<Properties>, Initia
 		this.target = target;
 	}
 
-	public Properties getSource() {
-		return source;
+	public List<Properties> getSources() {
+		return sources;
 	}
 
-	public void setSource(Properties source) {
-		this.source = source;
+	public void setSources(List<Properties> sources) {
+		this.sources = sources;
 	}
 
 }

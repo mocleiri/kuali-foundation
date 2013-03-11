@@ -64,7 +64,20 @@
   </bean>
 
   <bean class="org.kuali.common.util.spring.SetPropertiesFactoryBean">
-    <property name="properties" ref="buildProperties" />
+    <property name="target" ref="buildProperties" />
+    <property name="sources">
+      <util:list>
+        <bean class="org.kuali.common.util.spring.GetVersionPropertiesFactoryBean">
+          <property name="prefix" value="project.version" />
+          <property name="version">
+            <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+              <property name="properties" ref="buildProperties" />
+              <property name="key" value="project.version" />
+            </bean>
+          </property>
+        </bean>
+      </util:list>
+    </property>
     <property name="keyValuePairs">
       <util:list>
         <bean class="org.kuali.common.util.KeyValue">
@@ -103,15 +116,6 @@
           </property>
         </bean>
       </util:list>
-    </property>
-  </bean>
-
-  <bean class="org.kuali.common.util.spring.GetVersionPropertiesFactoryBean">
-    <property name="version" ref="buildProperties">
-      <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-        <property name="properties" ref="buildProperties" />
-        <property name="key" value="project.version" />
-      </bean>
     </property>
   </bean>
 
