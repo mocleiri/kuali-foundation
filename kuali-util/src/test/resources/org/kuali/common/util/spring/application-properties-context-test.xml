@@ -53,4 +53,8 @@
     </property>
   </bean>
 
+  <bean class="org.kuali.common.util.execute.ShowPropertiesExecutable" init-method="execute">
+    <property name="properties" ref="kuali.buildProperties" />
+  </bean>
+
 </beans>
