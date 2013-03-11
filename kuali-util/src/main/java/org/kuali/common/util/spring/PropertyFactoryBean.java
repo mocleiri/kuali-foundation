@@ -25,8 +25,8 @@ import org.springframework.beans.factory.FactoryBean;
 
 public class PropertyFactoryBean extends DefaultPropertyLoadContext implements FactoryBean<Properties> {
 
-	protected static Properties properties;
-	boolean singleton = true;
+	protected static Properties instance;
+	boolean singleton = false;
 	PropertyService service = new DefaultPropertyService();
 	boolean show;
 
@@ -35,18 +35,22 @@ public class PropertyFactoryBean extends DefaultPropertyLoadContext implements F
 		if (isSingleton()) {
 			return getInstance();
 		} else {
-			return service.load(this);
+			Properties properties = service.load(this);
+			if (show) {
+				PropertyUtils.info(properties);
+			}
+			return properties;
 		}
 	}
 
 	protected synchronized Properties getInstance() {
-		if (properties == null) {
-			properties = service.load(this);
+		if (instance == null) {
+			instance = service.load(this);
 			if (show) {
-				PropertyUtils.info(properties);
+				PropertyUtils.info(instance);
 			}
 		}
-		return properties;
+		return instance;
 	}
 
 	@Override

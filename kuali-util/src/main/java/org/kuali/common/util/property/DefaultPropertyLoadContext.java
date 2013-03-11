@@ -40,7 +40,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);
 
 	List<String> locations;
-	String encoding;
+	String encoding = "UTF-8";
 	String missingLocationsMode = Mode.INFORM.name();
 	Properties locationHelperProperties;
 	String locationHelperInclude;

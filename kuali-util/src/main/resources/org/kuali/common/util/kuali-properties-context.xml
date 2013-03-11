@@ -47,5 +47,6 @@
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
     <property name="encoding" value="${kuali.encoding:UTF-8}" />
+    <property name="show" value="true" />
   </bean>
 </beans>
