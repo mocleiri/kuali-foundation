@@ -28,6 +28,10 @@
     <property name="locations">
       <list>
         <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
+        <value>classpath:${project.groupId.path}/${project.groupId.code}.properties</value>
+        <value>classpath:${project.groupId.path}/${project.groupId.code}-${project.version.major}.${project.version.minor}.properties</value>
+        <value>classpath:${project.groupId.path}/${project.groupId.code}-${project.version.trimmed}.properties</value>
+        <value>classpath:${project.groupId.path}/${project.groupId.code}-${project.version}.properties</value>
         <value>${kuali.group.home}/${project.artifactId}.properties</value>
       </list>
     </property>
