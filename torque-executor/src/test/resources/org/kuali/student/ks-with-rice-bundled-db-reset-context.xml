@@ -24,6 +24,14 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <util:properties id="kuali.buildProperties">
+    <prop key="kuali.groupId">org.kuali</prop>
+    <prop key="kuali.encoding">UTF-8</prop>
+    <prop key="project.groupId">org.kuali.student.web</prop>
+    <prop key="project.artifactId">ks-with-rice-bundled</prop>
+    <prop key="project.version">2.0.0-SNAPSHOT</prop>
+  </util:properties>
+
   <import resource="classpath:org/kuali/common/impex/jdbc-reset-context.xml" />
 
 </beans>

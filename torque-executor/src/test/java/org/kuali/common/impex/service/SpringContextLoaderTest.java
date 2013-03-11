@@ -41,7 +41,7 @@ public class SpringContextLoaderTest {
 			p.setProperty("project.classifier", "");
 			SpringService ss = new DefaultSpringService();
 			// System.setProperty("jdbc.data.skip", "true");
-			ss.load("classpath:org/kuali/student/ks-reset-context.xml", "mavenProperties", p);
+			ss.load("classpath:org/kuali/student/ks-reset-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
