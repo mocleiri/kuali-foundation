@@ -25,7 +25,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <bean id="kuali.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
-    <property name="locations" ref="deploy.locations">
+    <property name="locations">
       <list>
         <value>classpath:${project.groupId.path}/${project.artifactId}.properties</value>
         <value>${kuali.group.home}/${project.artifactId}.properties</value>
@@ -33,7 +33,7 @@
     </property>
     <property name="locationHelperProperties" ref="mavenProperties" />
     <property name="locationHelperIncludes">
-      <list>
+      <util:list>
         <value>kuali.encoding</value>
         <value>kuali.groupId</value>
         <value>project.groupId</value>
@@ -41,7 +41,7 @@
         <value>project.version</value>
         <value>project.classifier</value>
         <value>kuali.enc.*</value>
-      </list>
+      </util:list>
     </property>
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
