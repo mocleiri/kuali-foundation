@@ -86,8 +86,8 @@ public class DefaultSpringService implements SpringService {
 		AbstractApplicationContext parent = null;
 		AbstractApplicationContext child = null;
 		try {
-			// Get a parent context with any bean's they've provided us pre-registered in the context
 			if (isParentContextRequired(context)) {
+				// Build a parent context with pre-registered beans and custom property sources
 				parent = getParentContext(context);
 			}
 			// Load the locations they provided us, optionally wrapped in a parent context containing pre-registered beans
