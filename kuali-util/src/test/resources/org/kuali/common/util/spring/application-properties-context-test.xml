@@ -32,24 +32,62 @@
     <prop key="project.version">2.0.0-SNAPSHOT</prop>
   </util:properties>
 
-  <bean id="organization.groupId" class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+  <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
+    <property name="key" value="project.groupId.common" />
     <property name="properties" ref="kuali.buildProperties" />
-    <property name="key" value="organization.groupId" />
-  </bean>
-
-  <bean id="project.groupId" class="org.kuali.common.util.spring.GetPropertyFactoryBean">
-    <property name="properties" ref="kuali.buildProperties" />
-    <property name="key" value="project.groupId" />
+    <property name="value">
+      <bean class="org.kuali.common.util.spring.GetCommonGroupIdFactoryBean">
+        <property name="organizationGroupId">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+            <property name="properties" ref="kuali.buildProperties" />
+            <property name="key" value="organization.groupId" />
+          </bean>
+        </property>
+        <property name="groupId">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+            <property name="properties" ref="kuali.buildProperties" />
+            <property name="key" value="project.groupId" />
+          </bean>
+        </property>
+      </bean>
+    </property>
   </bean>
 
   <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
+    <property name="key" value="project.groupId.common.path" />
     <property name="properties" ref="kuali.buildProperties" />
-    <property name="key" value="project.groupId.path" />
     <property name="value">
-      <bean class="org.kuali.common.util.spring.GetCommonGroupIdFactoryBean">
-        <property name="organizationGroupId" ref="organization.groupId" />
-        <property name="groupId" ref="project.groupId" />
+      <bean class="org.kuali.common.util.spring.GetPathFactoryBean">
+        <property name="value">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+            <property name="properties" ref="kuali.buildProperties" />
+            <property name="key" value="project.groupId.common" />
+          </bean>
+        </property>
       </bean>
+    </property>
+  </bean>
+
+  <bean class="org.kuali.common.util.spring.SetPropertyFactoryBean">
+    <property name="key" value="organization.groupId.path" />
+    <property name="properties" ref="kuali.buildProperties" />
+    <property name="value">
+      <bean class="org.kuali.common.util.spring.GetPathFactoryBean">
+        <property name="value">
+          <bean class="org.kuali.common.util.spring.GetPropertyFactoryBean">
+            <property name="properties" ref="kuali.buildProperties" />
+            <property name="key" value="organization.groupId" />
+          </bean>
+        </property>
+      </bean>
+    </property>
+  </bean>
+  <bean class="org.kuali.common.util.spring.SetVersionPropertiesFactoryBean">
+    <property name="properties" ref="kuali.buildProperties" />
+    <property name="includes">
+      <util:list>
+        <value>project.version</value>
+      </util:list>
     </property>
   </bean>
 
