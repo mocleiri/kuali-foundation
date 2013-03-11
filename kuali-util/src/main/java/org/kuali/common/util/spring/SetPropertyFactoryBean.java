@@ -39,6 +39,11 @@ public class SetPropertyFactoryBean implements FactoryBean<Properties>, Initiali
 	}
 
 	@Override
+	public Properties getObject() throws Exception {
+		return properties;
+	}
+
+	@Override
 	public Class<Properties> getObjectType() {
 		return Properties.class;
 	}
@@ -46,11 +51,6 @@ public class SetPropertyFactoryBean implements FactoryBean<Properties>, Initiali
 	@Override
 	public boolean isSingleton() {
 		return false;
-	}
-
-	@Override
-	public Properties getObject() throws Exception {
-		return properties;
 	}
 
 	public Properties getProperties() {

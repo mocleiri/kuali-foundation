@@ -18,13 +18,13 @@ package org.kuali.common.util.spring;
 import org.kuali.common.util.Str;
 import org.springframework.beans.factory.FactoryBean;
 
-public class PropertyPathFactoryBean implements FactoryBean<String> {
+public class GetPathFactoryBean implements FactoryBean<String> {
 
-	String property;
+	String value;
 
 	@Override
 	public String getObject() throws Exception {
-		return Str.getPath(property);
+		return Str.getPath(value);
 	}
 
 	@Override
@@ -37,11 +37,12 @@ public class PropertyPathFactoryBean implements FactoryBean<String> {
 		return false;
 	}
 
-	public String getProperty() {
-		return property;
+	public String getValue() {
+		return value;
 	}
 
-	public void setProperty(String property) {
-		this.property = property;
+	public void setValue(String value) {
+		this.value = value;
 	}
+
 }
