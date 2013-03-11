@@ -17,6 +17,7 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
@@ -26,6 +27,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertySource;
 import org.springframework.util.Assert;
 
 public class DefaultSpringService implements SpringService {
@@ -58,39 +63,49 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	@Override
-	public void load(List<String> locations, List<String> beanNames, List<Object> beans) {
+	public void load(SpringContext context) {
 		// Make sure we have at least one location to load
-		Assert.isTrue(locations.size() > 0);
+		Assert.isTrue(context.getLocations().size() > 0);
 
 		// Null-safe handling for non-required parameters
-		beanNames = CollectionUtils.toEmptyList(beanNames);
-		beans = CollectionUtils.toEmptyList(beans);
+		context.setBeanNames(CollectionUtils.toEmptyList(context.getBeanNames()));
+		context.setBeans(CollectionUtils.toEmptyList(context.getBeans()));
 
 		// Make sure we have a name for every bean
-		Assert.isTrue(beanNames.size() == beans.size());
+		Assert.isTrue(context.getBeanNames().size() == context.getBeans().size());
 
 		// Make sure all of the locations exist
-		validate(locations);
+		validate(context.getLocations());
 
 		// Convert any file names to fully qualified file system URL's
-		List<String> convertedLocations = getConvertedLocations(locations);
+		List<String> convertedLocations = getConvertedLocations(context.getLocations());
 
 		// The Spring classes prefer array's
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
 		AbstractApplicationContext parent = null;
-		AbstractApplicationContext context = null;
+		AbstractApplicationContext child = null;
 		try {
 			// Get a parent context with any bean's they've provided us pre-registered in the context
-			// Parent is null if there are no beans to register
-			parent = getApplicationContext(beanNames, beans);
+			if (isParentContextRequired(context)) {
+				parent = getParentContext(context);
+			}
 			// Load the locations they provided us, optionally wrapped in a parent context containing pre-registered beans
-			context = new ClassPathXmlApplicationContext(locationsArray, parent);
+			child = new ClassPathXmlApplicationContext(locationsArray, parent);
 		} finally {
 			// cleanup
-			closeQuietly(context);
+			closeQuietly(child);
 			closeQuietly(parent);
 		}
+	}
+
+	@Override
+	public void load(List<String> locations, List<String> beanNames, List<Object> beans) {
+		SpringContext context = new SpringContext();
+		context.setLocations(locations);
+		context.setBeanNames(beanNames);
+		context.setBeans(beans);
+		load(context);
 	}
 
 	/**
@@ -105,21 +120,46 @@ public class DefaultSpringService implements SpringService {
 	/**
 	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> registered in the context under <code>beanNames</code>
 	 */
-	protected AbstractApplicationContext getApplicationContext(List<String> beanNames, List<Object> beans) {
-		if (CollectionUtils.isEmpty(beanNames) && CollectionUtils.isEmpty(beans)) {
-			return null;
-		}
+	protected GenericXmlApplicationContext getParentContext(SpringContext context) {
+		List<String> beanNames = context.getBeanNames();
+		List<Object> beans = context.getBeans();
 		Assert.isTrue(beanNames.size() == beans.size());
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
-		context.refresh();
-		ConfigurableListableBeanFactory factory = context.getBeanFactory();
+		GenericXmlApplicationContext parentContext = new GenericXmlApplicationContext();
+		configureEnvironment(context, parentContext);
+		parentContext.refresh();
+		ConfigurableListableBeanFactory factory = parentContext.getBeanFactory();
 		for (int i = 0; i < beanNames.size(); i++) {
 			String beanName = beanNames.get(i);
 			Object bean = beans.get(i);
-			logger.info("Registering [{}]", beanName);
+			logger.info("Registering [{} - {}]", beanName, bean.getClass().getName());
 			factory.registerSingleton(beanName, bean);
 		}
-		return context;
+		return parentContext;
+	}
+
+	protected void configureEnvironment(SpringContext context, GenericXmlApplicationContext applicationContext) {
+		List<PropertySource<?>> propertySources = context.getPropertySources();
+		if (CollectionUtils.isEmpty(propertySources)) {
+			return;
+		}
+		ConfigurableEnvironment environment = applicationContext.getEnvironment();
+		MutablePropertySources sources = environment.getPropertySources();
+		Collections.reverse(propertySources);
+		for (PropertySource<?> propertySource : propertySources) {
+			sources.addLast(propertySource);
+		}
+	}
+
+	protected boolean isParentContextRequired(SpringContext context) {
+		if (!CollectionUtils.isEmpty(context.getBeanNames())) {
+			return false;
+		} else if (!CollectionUtils.isEmpty(context.getBeans())) {
+			return false;
+		} else if (!CollectionUtils.isEmpty(context.getPropertySources())) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**

@@ -31,4 +31,6 @@ public interface SpringService {
 
 	void load(List<String> locations, List<String> beanNames, List<Object> beans);
 
+	void load(SpringContext context);
+
 }
