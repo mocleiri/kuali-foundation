@@ -29,6 +29,7 @@
       <bean class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
         <property name="listOfProperties">
           <util:list>
+            <ref bean="kuali.properties" />
             <ref bean="jdbc.defaultProperties" />
             <ref bean="impex.batchProperties" />
           </util:list>
@@ -48,9 +49,9 @@
     </property>
   </bean>
 
+  <import resource="classpath:org/kuali/common/util/kuali-properties-context.xml" />
   <import resource="classpath:org/kuali/common/impex/mpx-supplier-context.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-context.xml" />
   <import resource="classpath:org/kuali/common/jdbc/reset-controller.xml" />
-
 
 </beans>
