@@ -22,6 +22,9 @@ import org.kuali.common.util.Assert;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
+/**
+ * Append all of the elements from <code>source</code> to the end of <code>target</code>
+ */
 public class AddAllListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean {
 
 	List<T> source;
