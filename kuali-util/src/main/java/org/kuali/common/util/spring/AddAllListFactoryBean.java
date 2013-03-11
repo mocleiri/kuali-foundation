@@ -22,7 +22,7 @@ import org.kuali.common.util.Assert;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-public class AddToListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean {
+public class AddAllListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean {
 
 	List<T> source;
 	List<T> target;
