@@ -67,6 +67,11 @@
     <kuali.encoding>UTF-8</kuali.encoding>
     <project.build.sourceEncoding>${kuali.encoding}</project.build.sourceEncoding>
 
+    <!-- "Extra" project properties -->
+    <project.encoding>${kuali.encoding}</project.encoding>
+    <project.orgId>${kuali.groupId}</project.orgId>
+    <project.orgCode>kuali</project.orgCode>
+
     <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
     <kuali.properties.global>BOTH</kuali.properties.global>
     <kuali.properties.missing>INFORM</kuali.properties.missing>
@@ -191,7 +196,7 @@
     <plugin.surefire.version>2.14</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.13</plugin.svn-revision-number.version>
 
-    <!-- Version 2.0 throws an NPE for mvn versions:set -DnewVersion=x.y.z -->
+    <!-- Version 2.0 throws an NPE for "mvn versions:set -DnewVersion=x.y.z -N" -->
     <plugin.versions.version>1.3.1</plugin.versions.version>
 
     <plugin.war.version>2.3</plugin.war.version>
