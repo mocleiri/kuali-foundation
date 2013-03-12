@@ -45,7 +45,7 @@ if ( $project eq "" ){ print "\n\tPlease include a project: ole, rice, ks. Try a
 $projectfile = "dns_"."$project".".csv";
 `rm $projectfile`;
 $sourcefile = "dns.$project".".txt";
-$wiki = "root@ci.rice.kuali.org:/usr/local/tomcat/";
+$wiki = "root\@ci.rice.kuali.org:/usr/local/tomcat/";
 `echo \"DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
 `mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile`;
 open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
@@ -83,9 +83,9 @@ foreach $line (@DNS)
 #}
 }
 print "\ncp $projectfile $wiki";
-`cp $projectfile $wiki`;
+`scp $projectfile $wiki`;
 exit;
 } #main
 
 &main();
-sleep 30; #let the pings timeout
+sleep 60; #let the pings timeout
