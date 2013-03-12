@@ -10,6 +10,7 @@ public class SpringContext {
 	List<String> beanNames;
 	List<Object> beans;
 	List<PropertySource<?>> propertySources;
+	boolean lastOneInWins = true;
 
 	public List<String> getLocations() {
 		return locations;
@@ -41,6 +42,14 @@ public class SpringContext {
 
 	public void setPropertySources(List<PropertySource<?>> propertySources) {
 		this.propertySources = propertySources;
+	}
+
+	public boolean isLastOneInWins() {
+		return lastOneInWins;
+	}
+
+	public void setLastOneInWins(boolean lastOneInWins) {
+		this.lastOneInWins = lastOneInWins;
 	}
 
 }
