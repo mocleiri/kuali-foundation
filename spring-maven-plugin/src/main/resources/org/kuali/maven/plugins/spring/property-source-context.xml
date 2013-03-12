@@ -23,17 +23,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="spring.maven.plugin" class="org.springframework.env.redis.RedisPropertySource">
-    <constructor-arg name="source" ref="redisRepository" />
-  </bean>
-  <bean id="redisRepository" class="org.springframework.env.redis.RedisRepository">
-    <constructor-arg name="template" ref="redisTemplate" />
-  </bean>
-  <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-    <constructor-arg name="connectionFactory" ref="redisConnectionFactory" />
-  </bean>
-  <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-    <property name="usePool" value="true" />
-  </bean>
+  <bean id="buildPropertiesPropertySource" class="org.kuali.util.common.spring.PropertiesPropertySource" />
 
 </beans>
