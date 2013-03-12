@@ -67,6 +67,21 @@ public class LoadMojo extends AbstractMojo {
 	private String location;
 
 	/**
+	 * This context registers a single <code>PropertySource</code> bean backed by Maven properties
+	 * 
+	 * @parameter property="${spring.propertySourceContextLocation}" default-value="classpath:org/kuali/maven/plugins/spring/default-property-source-context.xml"
+	 * @required
+	 */
+	private String propertySourceContextLocation;
+
+	/**
+	 * If true, <code>propertySourceContextLocation</code> is loaded and any beans from that context that implement <code>PropertySource</code> are added as property sources.
+	 * 
+	 * @parameter property="${spring.configurePropertySources}" default-value="true"
+	 */
+	private boolean configurePropertySources;
+
+	/**
 	 * List of additional Spring context XML files to load (if any).
 	 * 
 	 * @parameter
@@ -249,6 +264,22 @@ public class LoadMojo extends AbstractMojo {
 
 	public MavenProject getProject() {
 		return project;
+	}
+
+	public String getPropertySourceContextLocation() {
+		return propertySourceContextLocation;
+	}
+
+	public void setPropertySourceContextLocation(String propertySourceContextLocation) {
+		this.propertySourceContextLocation = propertySourceContextLocation;
+	}
+
+	public boolean isConfigurePropertySources() {
+		return configurePropertySources;
+	}
+
+	public void setConfigurePropertySources(boolean configurePropertySources) {
+		this.configurePropertySources = configurePropertySources;
 	}
 
 }
