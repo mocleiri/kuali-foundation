@@ -4,20 +4,28 @@ public class Project {
 
 	// org.kuali
 	String orgId;
+
 	// kuali
 	String orgCode;
+
 	// org.kuali.student.web
 	String groupId;
+
 	// org.kuali.student
 	String commonGroupId;
+
 	// student
 	String groupCode;
+
 	// ks-with-rice-bundled
 	String artifactId;
+
 	// 2.0.0
 	String version;
+
 	// KS with Rice Bundled
 	String name;
+
 	// Kuali Student bundled as a completely standalone application that includes Kuali Rice bundled inside
 	String description;
 
