@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="redisPropertySource" class="org.springframework.env.redis.RedisPropertySource">
+  <bean id="spring.maven.plugin" class="org.springframework.env.redis.RedisPropertySource">
     <constructor-arg name="source" ref="redisRepository" />
   </bean>
   <bean id="redisRepository" class="org.springframework.env.redis.RedisRepository">
