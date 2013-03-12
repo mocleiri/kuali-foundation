@@ -23,6 +23,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="buildPropertiesPropertySource" class="org.kuali.util.common.spring.PropertiesPropertySource" />
+  <bean id="mavenPropertySource" class="org.kuali.util.common.spring.PropertiesPropertySource" />
 
 </beans>
