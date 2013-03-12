@@ -19,6 +19,7 @@
     <spring.version>3.2.0.RELEASE</spring.version>
     <maven.compat.version>3.0.4</maven.compat.version>
     <junit.version>4.10</junit.version>
+    <plugin-annotations.version>3.2</plugin-annotations.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -38,6 +39,12 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugin-tools</groupId>
+        <artifactId>maven-plugin-annotations</artifactId>
+        <version>{plugin-annotations.version}</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
