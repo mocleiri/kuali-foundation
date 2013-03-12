@@ -29,6 +29,9 @@ public class Project {
 	// Kuali Student bundled as a completely standalone application that includes Kuali Rice bundled inside
 	String description;
 
+	// UTF-8
+	String encoding;
+
 	public String getOrgId() {
 		return orgId;
 	}
@@ -99,6 +102,14 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
