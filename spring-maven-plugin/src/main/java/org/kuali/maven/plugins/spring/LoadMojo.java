@@ -21,9 +21,6 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.MavenUtils;
-import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
 
 /**
  * <p>
@@ -151,18 +148,7 @@ public class LoadMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		// Might be skipping execution altogether
-		if (MavenUtils.skip(forceMojoExecution, skip, project.getPackaging())) {
-			return;
-		}
-
-		SpringContext context = MojoExecutor.getSpringContext(this);
-
-		// Instantiate the implementation of SpringService we will be using
-		SpringService service = MojoExecutor.getService(serviceClassname);
-
-		// Invoke the service to load the context and inject it with beans as appropriate
-		service.load(context);
+		new MojoExecutor().execute(this);
 	}
 
 	public String getLocation() {

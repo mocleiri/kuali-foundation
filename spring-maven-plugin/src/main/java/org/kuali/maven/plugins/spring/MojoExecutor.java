@@ -23,6 +23,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
@@ -30,7 +31,22 @@ import org.kuali.common.util.service.SpringService;
 
 public class MojoExecutor {
 
-	public static SpringContext getSpringContext(LoadMojo mojo) {
+	public void execute(LoadMojo mojo) {
+		// Might be skipping execution altogether
+		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
+			return;
+		}
+
+		SpringContext context = getSpringContext(mojo);
+
+		// Instantiate the implementation of SpringService we will be using
+		SpringService service = getService(mojo.getServiceClassname());
+
+		// Invoke the service to load the context and inject it with beans as appropriate
+		service.load(context);
+	}
+
+	public SpringContext getSpringContext(LoadMojo mojo) {
 		// Combine mojo properties, project properties and internal maven properties into a Properties object
 		Properties mavenProperties = getMavenProperties(mojo.getProject(), mojo.getProperties());
 
@@ -51,7 +67,7 @@ public class MojoExecutor {
 		return context;
 	}
 
-	protected static void logConfiguration(LoadMojo mojo, Properties props, List<String> contextLocations) {
+	protected void logConfiguration(LoadMojo mojo, Properties props, List<String> contextLocations) {
 		Log log = mojo.getLog();
 		if (mojo.isInjectMavenProperties()) {
 			log.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
@@ -68,7 +84,7 @@ public class MojoExecutor {
 		}
 	}
 
-	public static SpringService getService(String serviceClassname) {
+	public SpringService getService(String serviceClassname) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
 			return (SpringService) serviceClass.newInstance();
@@ -81,9 +97,9 @@ public class MojoExecutor {
 		}
 	}
 
-	public static Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
+	public Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
 		// Get internal Maven config as a properties object
-		Properties internal = MojoExecutor.getInternalProperties(project);
+		Properties internal = getInternalProperties(project);
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
@@ -95,7 +111,7 @@ public class MojoExecutor {
 		return properties;
 	}
 
-	public static Properties getInternalProperties(MavenProject project) {
+	public Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
 		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());
