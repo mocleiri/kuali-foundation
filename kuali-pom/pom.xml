@@ -150,7 +150,7 @@
     <plugin.assembly.version>2.4</plugin.assembly.version>
     <plugin.bom.version>1.0.3</plugin.bom.version>
     <plugin.build-helper.version>1.7</plugin.build-helper.version>
-    <plugin.buildnumber.version>1.0</plugin.buildnumber.version>
+    <plugin.buildnumber.version>1.2</plugin.buildnumber.version>
     <plugin.changes.version>2.9</plugin.changes.version>
     <plugin.clean.version>2.5</plugin.clean.version>
     <plugin.cloudfront.version>1.1.5</plugin.cloudfront.version>
