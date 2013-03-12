@@ -66,7 +66,7 @@ public class LoadMojo extends AbstractMojo {
 	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework understands eg
 	 * {@code classpath:my-context.xml}
 	 * 
-	 * @parameter expression="${spring.location}" default-value="classpath:${project.artifactId}-context.xml"
+	 * @parameter property="${spring.location}" default-value="classpath:${project.artifactId}-context.xml"
 	 * @required
 	 */
 	private String location;
@@ -88,49 +88,49 @@ public class LoadMojo extends AbstractMojo {
 	/**
 	 * If true, Maven properties are injected into the Spring context as a <code>java.util.Properties</code> object
 	 * 
-	 * @parameter expression="${spring.injectProperties}" default-value="true"
+	 * @parameter property="${spring.injectProperties}" default-value="true"
 	 */
 	private boolean injectBuildProperties;
 
 	/**
 	 * If true, the <code>MavenProject</code> object is injected into the Spring context
 	 * 
-	 * @parameter expression="${spring.injectMavenProject}" default-value="false"
+	 * @parameter property="${spring.injectMavenProject}" default-value="false"
 	 */
 	private boolean injectMavenProject;
 
 	/**
 	 * If true, this <code>LoadMojo</code> object is injected into the Spring context
 	 * 
-	 * @parameter expression="${spring.injectMojo}" default-value="false"
+	 * @parameter property="${spring.injectMojo}" default-value="false"
 	 */
 	private boolean injectMojo;
 
 	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven build properties as a bean in the Spring context.
 	 * 
-	 * @parameter expression="${spring.buildPropertiesBeanName}" default-value="buildProperties"
+	 * @parameter property="${spring.buildPropertiesBeanName}" default-value="buildProperties"
 	 */
 	private String buildPropertiesBeanName;
 
 	/**
 	 * The name to use when registering the <code>MavenProject</code> object as a bean in the Spring context.
 	 * 
-	 * @parameter expression="${spring.mavenProjectBeanName}" default-value="mavenProject"
+	 * @parameter property="${spring.mavenProjectBeanName}" default-value="mavenProject"
 	 */
 	private String mavenProjectBeanName;
 
 	/**
 	 * The name to use when registering this <code>mojo</code> object as a bean in the Spring context.
 	 * 
-	 * @parameter expression="${spring.mojoBeanName}" default-value="mavenMojo"
+	 * @parameter property="${spring.mojoBeanName}" default-value="mavenMojo"
 	 */
 	private String mojoBeanName;
 
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
 	 * 
-	 * @parameter expression="${spring.serviceClassname}" default-value="org.kuali.common.util.service.DefaultSpringService"
+	 * @parameter property="${spring.serviceClassname}" default-value="org.kuali.common.util.service.DefaultSpringService"
 	 * @required
 	 */
 	private String serviceClassname;
@@ -139,7 +139,7 @@ public class LoadMojo extends AbstractMojo {
 	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. If <code>forceMojoExecution</code> is
 	 * <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides <code>skip</code>.
 	 * 
-	 * @parameter expression="${spring.forceMojoExecution}" default-value="false"
+	 * @parameter property="${spring.forceMojoExecution}" default-value="false"
 	 */
 	private boolean forceMojoExecution;
 
@@ -147,7 +147,7 @@ public class LoadMojo extends AbstractMojo {
 	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. Set this parameter to <code>true</code> to
 	 * explicitly skip executing this mojo for other scenarios. NOTE: <code>forceMojoExecution</code> overrides <code>skip</code>.
 	 * 
-	 * @parameter expression="${spring.skip}" default-value="false"
+	 * @parameter property="${spring.skip}" default-value="false"
 	 */
 	private boolean skip;
 

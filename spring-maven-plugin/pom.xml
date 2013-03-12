@@ -31,6 +31,9 @@
   <description>Integrate Spring with Maven</description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
+  <properties>
+    <plugin.plugin.version>3.2</plugin.plugin.version>
+  </properties>
   <developers>
     <developer>
       <id>jcaddel</id>
@@ -73,7 +76,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>3.0.16-SNAPSHOT</version>
+      <version>3.0.16-SNAPSHOT</version><!--$NO-MVN-MAN-VER$-->
     </dependency>
   </dependencies>
 </project>
