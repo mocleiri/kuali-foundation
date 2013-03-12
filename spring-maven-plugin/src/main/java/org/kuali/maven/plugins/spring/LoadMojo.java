@@ -88,9 +88,9 @@ public class LoadMojo extends AbstractMojo {
 	/**
 	 * If true, Maven properties are injected into the Spring context as a <code>java.util.Properties</code> object
 	 * 
-	 * @parameter property="${spring.injectProperties}" default-value="true"
+	 * @parameter property="${spring.injectMavenProperties}" default-value="true"
 	 */
-	private boolean injectBuildProperties;
+	private boolean injectMavenProperties;
 
 	/**
 	 * If true, the <code>MavenProject</code> object is injected into the Spring context
@@ -109,9 +109,9 @@ public class LoadMojo extends AbstractMojo {
 	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven build properties as a bean in the Spring context.
 	 * 
-	 * @parameter property="${spring.buildPropertiesBeanName}" default-value="buildProperties"
+	 * @parameter property="${spring.mavenPropertiesBeanName}" default-value="mavenProperties"
 	 */
-	private String buildPropertiesBeanName;
+	private String mavenPropertiesBeanName;
 
 	/**
 	 * The name to use when registering the <code>MavenProject</code> object as a bean in the Spring context.
@@ -165,8 +165,8 @@ public class LoadMojo extends AbstractMojo {
 		List<String> contextLocations = CollectionUtils.combine(location, locations);
 
 		// Assemble any beans we may be injecting
-		List<Boolean> includes = Arrays.asList(injectBuildProperties, injectMavenProject, injectMojo);
-		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(buildPropertiesBeanName, mavenProjectBeanName, mojoBeanName));
+		List<Boolean> includes = Arrays.asList(injectMavenProperties, injectMavenProject, injectMojo);
+		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mavenPropertiesBeanName, mavenProjectBeanName, mojoBeanName));
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, project, this));
 
 		// Show what we are up to
@@ -180,8 +180,8 @@ public class LoadMojo extends AbstractMojo {
 	}
 
 	protected void logConfiguration(Properties props, List<String> contextLocations) {
-		if (injectBuildProperties) {
-			getLog().info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + buildPropertiesBeanName + "]");
+		if (injectMavenProperties) {
+			getLog().info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mavenPropertiesBeanName + "]");
 			getLog().debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (injectMavenProject) {
