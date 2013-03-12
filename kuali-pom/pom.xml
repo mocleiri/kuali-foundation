@@ -70,7 +70,8 @@
     <!-- "Extra" project properties -->
     <project.encoding>${kuali.encoding}</project.encoding>
     <project.orgId>${kuali.groupId}</project.orgId>
-    <project.orgCode>kuali</project.orgCode>
+    <project.orgId.path>org/kuali</project.orgId.path>
+    <project.orgId.code>kuali</project.orgId.code>
 
     <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
     <kuali.properties.global>BOTH</kuali.properties.global>
