@@ -15,16 +15,14 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MavenUtils;
-import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 
 /**
@@ -158,41 +156,113 @@ public class LoadMojo extends AbstractMojo {
 			return;
 		}
 
-		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = MojoUtils.getMavenProperties(project, properties);
-
-		// Combine the main context location with any optional locations
-		List<String> contextLocations = CollectionUtils.combine(location, locations);
-
-		// Assemble any beans we may be injecting
-		List<Boolean> includes = Arrays.asList(injectMavenProperties, injectMavenProject, injectMojo);
-		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mavenPropertiesBeanName, mavenProjectBeanName, mojoBeanName));
-		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, project, this));
-
-		// Show what we are up to
-		logConfiguration(mavenProperties, contextLocations);
+		SpringContext context = MojoExecutor.getSpringContext(this);
 
 		// Instantiate the implementation of SpringService we will be using
-		SpringService service = MojoUtils.getService(serviceClassname);
+		SpringService service = MojoExecutor.getService(serviceClassname);
 
 		// Invoke the service to load the context and inject it with beans as appropriate
-		service.load(contextLocations, beanNames, beans);
+		service.load(context);
 	}
 
-	protected void logConfiguration(Properties props, List<String> contextLocations) {
-		if (injectMavenProperties) {
-			getLog().info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mavenPropertiesBeanName + "]");
-			getLog().debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
-		}
-		if (injectMavenProject) {
-			getLog().info("Injecting the Maven project as a [" + project.getClass().getName() + "] bean under the id [" + mavenProjectBeanName + "]");
-		}
-		if (injectMojo) {
-			getLog().info("Injecting this mojo as a [" + this.getClass().getName() + "] bean under the id [" + mojoBeanName + "]");
-		}
-		if (contextLocations.size() > 1) {
-			getLog().info("Loading " + contextLocations.size() + " Spring context files");
-		}
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public boolean isInjectMavenProperties() {
+		return injectMavenProperties;
+	}
+
+	public void setInjectMavenProperties(boolean injectMavenProperties) {
+		this.injectMavenProperties = injectMavenProperties;
+	}
+
+	public boolean isInjectMavenProject() {
+		return injectMavenProject;
+	}
+
+	public void setInjectMavenProject(boolean injectMavenProject) {
+		this.injectMavenProject = injectMavenProject;
+	}
+
+	public boolean isInjectMojo() {
+		return injectMojo;
+	}
+
+	public void setInjectMojo(boolean injectMojo) {
+		this.injectMojo = injectMojo;
+	}
+
+	public String getMavenPropertiesBeanName() {
+		return mavenPropertiesBeanName;
+	}
+
+	public void setMavenPropertiesBeanName(String mavenPropertiesBeanName) {
+		this.mavenPropertiesBeanName = mavenPropertiesBeanName;
+	}
+
+	public String getMavenProjectBeanName() {
+		return mavenProjectBeanName;
+	}
+
+	public void setMavenProjectBeanName(String mavenProjectBeanName) {
+		this.mavenProjectBeanName = mavenProjectBeanName;
+	}
+
+	public String getMojoBeanName() {
+		return mojoBeanName;
+	}
+
+	public void setMojoBeanName(String mojoBeanName) {
+		this.mojoBeanName = mojoBeanName;
+	}
+
+	public String getServiceClassname() {
+		return serviceClassname;
+	}
+
+	public void setServiceClassname(String serviceClassname) {
+		this.serviceClassname = serviceClassname;
+	}
+
+	public boolean isForceMojoExecution() {
+		return forceMojoExecution;
+	}
+
+	public void setForceMojoExecution(boolean forceMojoExecution) {
+		this.forceMojoExecution = forceMojoExecution;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+
+	public MavenProject getProject() {
+		return project;
 	}
 
 }

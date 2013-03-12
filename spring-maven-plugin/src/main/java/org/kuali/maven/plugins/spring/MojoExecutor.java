@@ -15,15 +15,58 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 
-public class MojoUtils {
+public class MojoExecutor {
+
+	public static SpringContext getSpringContext(LoadMojo mojo) {
+		// Combine mojo properties, project properties and internal maven properties into a Properties object
+		Properties mavenProperties = getMavenProperties(mojo.getProject(), mojo.getProperties());
+
+		// Combine the main context location with any optional locations
+		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
+
+		logConfiguration(mojo, mavenProperties, contextLocations);
+
+		// Assemble any beans we may be injecting
+		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMojo());
+		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMojoBeanName()));
+		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
+
+		SpringContext context = new SpringContext();
+		context.setLocations(contextLocations);
+		context.setBeanNames(beanNames);
+		context.setBeans(beans);
+		return context;
+	}
+
+	protected static void logConfiguration(LoadMojo mojo, Properties props, List<String> contextLocations) {
+		Log log = mojo.getLog();
+		if (mojo.isInjectMavenProperties()) {
+			log.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
+			log.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
+		}
+		if (mojo.isInjectMavenProject()) {
+			log.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
+		}
+		if (mojo.isInjectMojo()) {
+			log.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMojoBeanName() + "]");
+		}
+		if (contextLocations.size() > 1) {
+			log.info("Loading " + contextLocations.size() + " Spring context files");
+		}
+	}
 
 	public static SpringService getService(String serviceClassname) {
 		try {
@@ -40,7 +83,7 @@ public class MojoUtils {
 
 	public static Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
 		// Get internal Maven config as a properties object
-		Properties internal = MojoUtils.getInternalProperties(project);
+		Properties internal = MojoExecutor.getInternalProperties(project);
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
