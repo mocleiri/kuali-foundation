@@ -1,0 +1,101 @@
+[INFO]
+[INFO] The following plugin updates are available:
+[INFO]   com.mycila.maven-license-plugin:maven-license-plugin  1.9.0 -> 1.10.b1
+[INFO]   org.sonatype.plugins:nexus-maven-plugin .............. 1.9.2.4 -> 2.1
+[INFO]
+[INFO] All plugins have a version specified.
+[INFO]
+[WARNING] Project does not define minimum Maven version, default is: 2.0
+[INFO] Plugins require minimum Maven version of: 3.0
+[INFO]
+[ERROR] Project does not define required minimum version of Maven.
+[ERROR] Update the pom.xml to contain
+[ERROR]     <prerequisites>
+[ERROR]       <maven>3.0</maven>
+[ERROR]     </prerequisites>
+[INFO]
+[INFO] Require Maven 2.0.1 to use the following plugin updates:
+[INFO]   maven-antrun-plugin ............................................. 1.2
+[INFO]   maven-release-plugin ..................................... 2.0-beta-7
+[INFO]   maven-scm-plugin ................................................ 1.0
+[INFO]   maven-war-plugin .............................................. 2.0.2
+[INFO]
+[INFO] Require Maven 2.0.2 to use the following plugin updates:
+[INFO]   maven-javadoc-plugin ............................................ 2.2
+[INFO]   maven-site-plugin ........................................ 2.0-beta-7
+[INFO]   org.codehaus.mojo:build-helper-maven-plugin ..................... 1.5
+[INFO]
+[INFO] Require Maven 2.0.3 to use the following plugin updates:
+[INFO]   maven-dependency-plugin ......................................... 2.2
+[INFO]
+[INFO] Require Maven 2.0.4 to use the following plugin updates:
+[INFO]   maven-antrun-plugin ............................................. 1.3
+[INFO]   maven-assembly-plugin .................................... 2.2-beta-1
+[INFO]   maven-project-info-reports-plugin ............................. 2.0.1
+[INFO]
+[INFO] Require Maven 2.0.5 to use the following plugin updates:
+[INFO]   maven-gpg-plugin ........................................ 1.0-alpha-4
+[INFO]
+[INFO] Require Maven 2.0.6 to use the following plugin updates:
+[INFO]   maven-antrun-plugin ............................................. 1.6
+[INFO]   maven-assembly-plugin .................................... 2.2-beta-5
+[INFO]   maven-changes-plugin ............................................ 2.4
+[INFO]   maven-clean-plugin .............................................. 2.5
+[INFO]   maven-deploy-plugin ............................................. 2.7
+[INFO]   maven-enforcer-plugin ........................................... 1.2
+[INFO]   maven-gpg-plugin ................................................ 1.4
+[INFO]   maven-install-plugin ............................................ 2.4
+[INFO]   maven-jar-plugin ................................................ 2.4
+[INFO]   maven-javadoc-plugin ............................................ 2.3
+[INFO]   maven-project-info-reports-plugin ............................. 2.1.2
+[INFO]   maven-release-plugin ..................................... 2.0-beta-9
+[INFO]   maven-resources-plugin .......................................... 2.6
+[INFO]   maven-scm-plugin .............................................. 1.8.1
+[INFO]   maven-site-plugin ............................................. 2.0.1
+[INFO]   maven-source-plugin ........................................... 2.1.2
+[INFO]   maven-surefire-plugin ......................................... 2.4.3
+[INFO]   maven-war-plugin ................................................ 2.3
+[INFO]   org.codehaus.mojo:build-helper-maven-plugin ..................... 1.7
+[INFO]   org.codehaus.mojo:buildnumber-maven-plugin ...................... 1.2
+[INFO]   org.kuali.maven.plugins:sql-maven-plugin ........................ 1.8
+[INFO]
+[INFO] Require Maven 2.0.7 to use the following plugin updates:
+[INFO]   org.codehaus.mojo:sonar-maven-plugin ............................ 1.0
+[INFO]
+[INFO] Require Maven 2.0.8 to use the following plugin updates:
+[INFO]   maven-javadoc-plugin ............................................ 2.4
+[INFO]
+[INFO] Require Maven 2.0.9 to use the following plugin updates:
+[INFO]   maven-compiler-plugin ........................................... 3.0
+[INFO]   maven-dependency-plugin ......................................... 2.6
+[INFO]   maven-failsafe-plugin .......................................... 2.14
+[INFO]   maven-javadoc-plugin .......................................... 2.8.1
+[INFO]   maven-release-plugin .......................................... 2.2.2
+[INFO]   maven-source-plugin ........................................... 2.2.1
+[INFO]   maven-surefire-plugin .......................................... 2.14
+[INFO]
+[INFO] Require Maven 2.0.11 to use the following plugin updates:
+[INFO]   maven-antrun-plugin ............................................. 1.7
+[INFO]   maven-assembly-plugin ........................................... 2.2
+[INFO]
+[INFO] Require Maven 2.1.0 to use the following plugin updates:
+[INFO]   maven-project-info-reports-plugin ............................... 2.2
+[INFO]   maven-site-plugin ............................................. 2.1.1
+[INFO]
+[INFO] Require Maven 2.2.0 to use the following plugin updates:
+[INFO]   maven-project-info-reports-plugin ............................... 2.6
+[INFO]   maven-site-plugin ............................................... 3.0
+[INFO]
+[INFO] Require Maven 2.2.1 to use the following plugin updates:
+[INFO]   com.google.code.maven-svn-revision-number-plugin:svn-revision-number-maven-plugin  1.13
+[INFO]   maven-assembly-plugin ........................................... 2.4
+[INFO]   maven-changes-plugin ............................................ 2.9
+[INFO]   maven-javadoc-plugin ............................................ 2.9
+[INFO]   maven-release-plugin ............................................ 2.4
+[INFO]   maven-site-plugin ............................................... 3.2
+[INFO]   org.codehaus.mojo:versions-maven-plugin ......................... 2.0
+[INFO]   org.kuali.maven.plugins:license-maven-plugin .................. 1.6.3
+[INFO]
+[INFO] Require Maven 3.0 to use the following plugin updates:
+[INFO]   org.codehaus.mojo:sonar-maven-plugin ............................ 2.0
+[INFO]
