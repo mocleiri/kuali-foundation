@@ -22,7 +22,7 @@
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
-  <description>The Kuali Foundation is an umbrella organization that helps manage the Kuali software community.</description>
+  <description>The Kuali Foundation is an umbrella organization that helps manage the Kuali software community..</description>
   <modules>
     <module>kuali-common</module>
   </modules>
@@ -187,7 +187,7 @@
     <plugin.scm.version>1.8.1</plugin.scm.version>
 
     <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
-    <plugin.site.version>3.2</plugin.site.version>
+    <plugin.site.version>3.0-beta3</plugin.site.version>
 
     <plugin.sonar.version>2.0</plugin.sonar.version>
     <plugin.source.version>2.2.1</plugin.source.version>
