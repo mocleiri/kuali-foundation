@@ -2,11 +2,13 @@ package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LoadMojoExecutable implements Executable, InitializingBean {
 
+	@Autowired
 	LoadMojo mojo;
 	LoadMojoService service;
 
