@@ -64,7 +64,7 @@ public class MojoExecutor {
 	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, Properties mavenProperties) {
 		String[] locationsArray = { location };
 		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean("mavenProperties", mavenProperties);
-		ClassPathXmlApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
+		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
 		return service.getPropertySources(child);
 	}
 
