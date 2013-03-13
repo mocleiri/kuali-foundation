@@ -32,6 +32,7 @@ import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,22 @@ public class SpringMojoService {
 		// Combine mojo properties, project properties and internal maven properties into a Properties object
 		Properties mavenProperties = getMavenProperties(mojo);
 
+		// Aggregate objects into a SpringContext
+		SpringContext context = getSpringContext(mojo, mavenProperties);
+
+		// Get the desired SpringService implementation
+		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
+
+		// Are we adding any custom property sources?
+		if (mojo.isAddPropertySources()) {
+			// If so, extract PropertySource objects from the PropertySources context
+			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesConfig(), mojo.getMavenPropertiesBeanName(), mavenProperties);
+			// Add them to the SpringContext
+			context.setPropertySources(sources);
+		}
+
+		// Invoke the service to load the context using custom property sources and pre-registered beans
+		service.load(context);
 	}
 
 	public void execute(XmlLoadMojo mojo) {
@@ -75,6 +92,15 @@ public class SpringMojoService {
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
 		service.load(context);
+	}
+
+	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
+		child.setParent(parent);
+		child.register(annotatedClass);
+		child.refresh();
+		return service.getPropertySources(child);
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
