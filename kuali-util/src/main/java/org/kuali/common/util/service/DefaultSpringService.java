@@ -230,7 +230,7 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
-		if (!CollectionUtils.isEmpty(context.getPropertySources())) {
+		if (CollectionUtils.isEmpty(context.getPropertySources())) {
 			return;
 		}
 		List<PropertySource<?>> propertySources = context.getPropertySources();
