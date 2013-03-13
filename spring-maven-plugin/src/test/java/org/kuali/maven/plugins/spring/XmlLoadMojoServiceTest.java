@@ -5,7 +5,7 @@ import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.LoadMojoServiceTestConfig;
 
-public class LoadMojoServiceTest {
+public class XmlLoadMojoServiceTest {
 
 	@Test
 	public void test() {

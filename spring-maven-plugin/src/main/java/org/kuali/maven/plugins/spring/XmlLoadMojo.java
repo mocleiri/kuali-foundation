@@ -21,7 +21,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.service.SpringService;
-import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
+import org.kuali.maven.plugins.spring.config.XmlLoadMojoConfig;
 
 public class XmlLoadMojo extends AbstractSpringMojo {
 
@@ -50,7 +50,7 @@ public class XmlLoadMojo extends AbstractSpringMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = ReflectionUtils.newInstance(serviceClass);
-		service.load(LoadMojoConfig.class, AUTOWIRED_MOJO_QUALIFIER, this);
+		service.load(XmlLoadMojoConfig.class, AUTOWIRED_MOJO_QUALIFIER, this);
 	}
 
 	public String getLocation() {
