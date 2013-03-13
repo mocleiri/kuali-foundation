@@ -40,7 +40,14 @@ import org.springframework.stereotype.Service;
 public class SpringMojoService {
 
 	public void execute(LoadMojo mojo) {
-		System.out.println("Hello world");
+		// Might be skipping execution altogether
+		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
+			return;
+		}
+
+		// Combine mojo properties, project properties and internal maven properties into a Properties object
+		Properties mavenProperties = getMavenProperties(mojo);
+
 	}
 
 	public void execute(XmlLoadMojo mojo) {
@@ -77,6 +84,24 @@ public class SpringMojoService {
 		return service.getPropertySources(child);
 	}
 
+	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
+		// Combine the main context location with any optional locations
+		List<Class<?>> annotatedClasses = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
+
+		logConfiguration(mojo, mavenProperties, annotatedClasses);
+
+		// Assemble any beans we may be injecting
+		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
+		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
+		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
+
+		SpringContext context = new SpringContext();
+		context.setAnnotatedClasses(annotatedClasses);
+		context.setBeanNames(beanNames);
+		context.setBeans(beans);
+		return context;
+	}
+
 	protected SpringContext getSpringContext(XmlLoadMojo mojo, Properties mavenProperties) {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
@@ -95,7 +120,7 @@ public class SpringMojoService {
 		return context;
 	}
 
-	protected void logConfiguration(XmlLoadMojo mojo, Properties props, List<String> contextLocations) {
+	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
 		Log log = mojo.getLog();
 		if (mojo.isInjectMavenProperties()) {
 			log.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
@@ -107,12 +132,12 @@ public class SpringMojoService {
 		if (mojo.isInjectMavenMojo()) {
 			log.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMavenMojoBeanName() + "]");
 		}
-		if (contextLocations.size() > 1) {
-			log.info("Loading " + contextLocations.size() + " Spring context files");
+		if (configurations.size() > 1) {
+			log.info("Loading " + configurations.size() + " Spring configurations");
 		}
 	}
 
-	protected Properties getMavenProperties(XmlLoadMojo mojo) {
+	protected Properties getMavenProperties(AbstractSpringMojo mojo) {
 		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
 		Properties internal = getInternalProperties(project);

@@ -44,4 +44,28 @@ public class LoadMojo extends AbstractSpringMojo {
 		service.load(LoadMojoConfig.class, AUTOWIRED_MOJO_QUALIFIER, this);
 	}
 
+	public Class<?> getAnnotatedClass() {
+		return annotatedClass;
+	}
+
+	public void setAnnotatedClass(Class<?> annotatedClass) {
+		this.annotatedClass = annotatedClass;
+	}
+
+	public Class<?> getPropertySourcesConfig() {
+		return propertySourcesConfig;
+	}
+
+	public void setPropertySourcesConfig(Class<?> propertySourcesConfig) {
+		this.propertySourcesConfig = propertySourcesConfig;
+	}
+
+	public List<Class<?>> getAnnotatedClasses() {
+		return annotatedClasses;
+	}
+
+	public void setAnnotatedClasses(List<Class<?>> annotatedClasses) {
+		this.annotatedClasses = annotatedClasses;
+	}
+
 }
