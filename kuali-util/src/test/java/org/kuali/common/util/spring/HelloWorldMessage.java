@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring;
 
-public class HelloMessage implements Message {
+public class HelloWorldMessage implements Message {
 
 	String message = "Hello World";
 

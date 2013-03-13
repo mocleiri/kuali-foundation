@@ -9,7 +9,7 @@ public class HelloWorldTest {
 	public void test() {
 		try {
 			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(HelloWorldConfig.class);
-			HelloMessage helloWorld = ctx.getBean(HelloMessage.class);
+			HelloWorldMessage helloWorld = ctx.getBean(HelloWorldMessage.class);
 			System.out.println(helloWorld.getMessage());
 			ctx.close();
 		} catch (Exception e) {
