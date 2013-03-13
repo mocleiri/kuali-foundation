@@ -75,11 +75,11 @@ public class LoadMojo extends AbstractMojo {
 	private String propertySourcesLocation;
 
 	/**
-	 * If true, <code>propertySourceContextLocation</code> is loaded and any beans from that context that implement <code>PropertySource</code> are added as property sources.
+	 * If true, <code>propertySourcesLocation</code> is loaded. Any beans from that context that implement <code>PropertySource</code> are added as property sources.
 	 * 
-	 * @parameter property="${spring.configurePropertySources}" default-value="true"
+	 * @parameter property="${spring.addPropertySources}" default-value="true"
 	 */
-	private boolean configurePropertySources;
+	private boolean addPropertySources;
 
 	/**
 	 * List of additional Spring context XML files to load (if any).
@@ -274,12 +274,12 @@ public class LoadMojo extends AbstractMojo {
 		this.propertySourcesLocation = propertySourceContextLocation;
 	}
 
-	public boolean isConfigurePropertySources() {
-		return configurePropertySources;
+	public boolean isAddPropertySources() {
+		return addPropertySources;
 	}
 
-	public void setConfigurePropertySources(boolean configurePropertySources) {
-		this.configurePropertySources = configurePropertySources;
+	public void setAddPropertySources(boolean configurePropertySources) {
+		this.addPropertySources = configurePropertySources;
 	}
 
 }

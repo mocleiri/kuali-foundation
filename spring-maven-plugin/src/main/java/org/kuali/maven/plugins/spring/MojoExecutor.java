@@ -49,7 +49,7 @@ public class MojoExecutor {
 		// Instantiate the implementation of SpringService we will be using
 		SpringService service = getService(mojo.getServiceClassname());
 
-		if (mojo.isConfigurePropertySources()) {
+		if (mojo.isAddPropertySources()) {
 			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesLocation(), mavenProperties);
 			context.setPropertySources(sources);
 		}
