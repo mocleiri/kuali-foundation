@@ -23,6 +23,8 @@ public interface SpringService {
 
 	void load(String location);
 
+	void load(String location, String beanName, Object bean);
+
 	void load(SpringContext context);
 
 	List<PropertySource<?>> getPropertySources(String location);

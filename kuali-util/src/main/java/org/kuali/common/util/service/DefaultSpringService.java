@@ -64,8 +64,16 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(String location) {
+		load(location, null, null);
+	}
+
+	@Override
+	public void load(String location, String beanName, Object bean) {
+		Assert.hasText(location);
 		SpringContext context = new SpringContext();
 		context.setLocations(Arrays.asList(location));
+		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
+		context.setBeans(CollectionUtils.toEmptyList(bean));
 		load(context);
 	}
 

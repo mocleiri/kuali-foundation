@@ -25,7 +25,7 @@
 
   <bean class="org.kuali.common.util.spring.PropertiesPropertySource">
     <constructor-arg value="buildProperties" />
-    <constructor-arg type="java.util.Properties">
+    <constructor-arg>
       <util:properties>
         <prop key="spring.message">Hello</prop>
       </util:properties>
