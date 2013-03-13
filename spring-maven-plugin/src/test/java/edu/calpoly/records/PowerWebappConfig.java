@@ -1,8 +1,8 @@
-package org.kuali.maven.plugins.spring;
+package edu.calpoly.records;
 
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SpringMavenPluginConfig {
+public class PowerWebappConfig {
 
 }
