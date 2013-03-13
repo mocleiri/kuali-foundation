@@ -72,8 +72,8 @@ public class MojoExecutor {
 		logConfiguration(mojo, mavenProperties, contextLocations);
 
 		// Assemble any beans we may be injecting
-		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMojo());
-		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMojoBeanName()));
+		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
+		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		SpringContext context = new SpringContext();
@@ -92,8 +92,8 @@ public class MojoExecutor {
 		if (mojo.isInjectMavenProject()) {
 			log.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
 		}
-		if (mojo.isInjectMojo()) {
-			log.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMojoBeanName() + "]");
+		if (mojo.isInjectMavenMojo()) {
+			log.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMavenMojoBeanName() + "]");
 		}
 		if (contextLocations.size() > 1) {
 			log.info("Loading " + contextLocations.size() + " Spring context files");

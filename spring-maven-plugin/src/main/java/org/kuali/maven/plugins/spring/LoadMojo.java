@@ -112,9 +112,9 @@ public class LoadMojo extends AbstractMojo {
 	/**
 	 * If true, this <code>LoadMojo</code> object is injected into the Spring context
 	 * 
-	 * @parameter property="${spring.injectMojo}" default-value="false"
+	 * @parameter property="${spring.injectMavenMojo}" default-value="false"
 	 */
-	private boolean injectMojo;
+	private boolean injectMavenMojo;
 
 	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven build properties as a bean in the Spring context.
@@ -135,7 +135,7 @@ public class LoadMojo extends AbstractMojo {
 	 * 
 	 * @parameter property="${spring.mojoBeanName}" default-value="mavenMojo"
 	 */
-	private String mojoBeanName;
+	private String mavenMojoBeanName;
 
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
@@ -206,14 +206,6 @@ public class LoadMojo extends AbstractMojo {
 		this.injectMavenProject = injectMavenProject;
 	}
 
-	public boolean isInjectMojo() {
-		return injectMojo;
-	}
-
-	public void setInjectMojo(boolean injectMojo) {
-		this.injectMojo = injectMojo;
-	}
-
 	public String getMavenPropertiesBeanName() {
 		return mavenPropertiesBeanName;
 	}
@@ -230,12 +222,12 @@ public class LoadMojo extends AbstractMojo {
 		this.mavenProjectBeanName = mavenProjectBeanName;
 	}
 
-	public String getMojoBeanName() {
-		return mojoBeanName;
+	public String getMavenMojoBeanName() {
+		return mavenMojoBeanName;
 	}
 
-	public void setMojoBeanName(String mojoBeanName) {
-		this.mojoBeanName = mojoBeanName;
+	public void setMavenMojoBeanName(String mojoBeanName) {
+		this.mavenMojoBeanName = mojoBeanName;
 	}
 
 	public String getServiceClassname() {
@@ -280,6 +272,14 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setAddPropertySources(boolean configurePropertySources) {
 		this.addPropertySources = configurePropertySources;
+	}
+
+	public boolean isInjectMavenMojo() {
+		return injectMavenMojo;
+	}
+
+	public void setInjectMavenMojo(boolean injectMavenMojo) {
+		this.injectMavenMojo = injectMavenMojo;
 	}
 
 }
