@@ -1,11 +1,17 @@
 package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.execute.Executable;
+import org.springframework.beans.factory.InitializingBean;
 
-public class LoadMojoExecutable implements Executable {
+public class LoadMojoExecutable implements Executable, InitializingBean {
 
 	LoadMojo mojo;
 	LoadMojoService service;
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		execute();
+	}
 
 	@Override
 	public void execute() {
