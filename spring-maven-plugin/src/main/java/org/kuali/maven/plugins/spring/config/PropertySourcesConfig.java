@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.PropertiesPropertySource;
 
 @Configuration
 public class PropertySourcesConfig {
@@ -21,6 +22,11 @@ public class PropertySourcesConfig {
 	@Qualifier(AbstractSpringMojo.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	public Properties propertySourceProperties() {
 		return new Properties();
+	}
+
+	@Bean
+	public PropertiesPropertySource propertySource() {
+		return new PropertiesPropertySource(propertySourceName(), propertySourceProperties());
 	}
 
 }
