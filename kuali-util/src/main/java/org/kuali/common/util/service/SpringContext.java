@@ -7,6 +7,7 @@ import org.springframework.core.env.PropertySource;
 public class SpringContext {
 
 	List<String> locations;
+	List<Class<?>> annotatedClasses;
 	List<String> beanNames;
 	List<Object> beans;
 	List<PropertySource<?>> propertySources;
@@ -50,6 +51,14 @@ public class SpringContext {
 
 	public void setLastOneInWins(boolean lastOneInWins) {
 		this.lastOneInWins = lastOneInWins;
+	}
+
+	public List<Class<?>> getAnnotatedClasses() {
+		return annotatedClasses;
+	}
+
+	public void setAnnotatedClasses(List<Class<?>> annotatedClasses) {
+		this.annotatedClasses = annotatedClasses;
 	}
 
 }
