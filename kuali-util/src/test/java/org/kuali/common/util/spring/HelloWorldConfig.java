@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class HelloWorldConfig {
 
 	@Bean
-	public HelloWorldMessage helloWorldMessage() {
-		return new HelloWorldMessage();
+	public HelloMessage helloWorldMessage() {
+		return new HelloMessage();
 	}
 }
