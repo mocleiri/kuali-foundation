@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.kuali.common.util.service.DefaultSpringService;
 
 /**
  * <p>
@@ -79,7 +80,7 @@ public class LoadMojo extends AbstractMojo {
 	 * 
 	 * @parameter property="${spring.addPropertySources}" default-value="true"
 	 */
-	private boolean addPropertySources;
+	private boolean addPropertySources = true;
 
 	/**
 	 * List of additional Spring context XML files to load (if any).
@@ -100,42 +101,42 @@ public class LoadMojo extends AbstractMojo {
 	 * 
 	 * @parameter property="${spring.injectMavenProperties}" default-value="true"
 	 */
-	private boolean injectMavenProperties;
+	private boolean injectMavenProperties = true;
 
 	/**
 	 * If true, the <code>MavenProject</code> object is injected into the Spring context
 	 * 
 	 * @parameter property="${spring.injectMavenProject}" default-value="false"
 	 */
-	private boolean injectMavenProject;
+	private boolean injectMavenProject = false;
 
 	/**
 	 * If true, this <code>LoadMojo</code> object is injected into the Spring context
 	 * 
 	 * @parameter property="${spring.injectMavenMojo}" default-value="false"
 	 */
-	private boolean injectMavenMojo;
+	private boolean injectMavenMojo = false;
 
 	/**
 	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven build properties as a bean in the Spring context.
 	 * 
 	 * @parameter property="${spring.mavenPropertiesBeanName}" default-value="mavenProperties"
 	 */
-	private String mavenPropertiesBeanName;
+	private String mavenPropertiesBeanName = "mavenProperties";
 
 	/**
 	 * The name to use when registering the <code>MavenProject</code> object as a bean in the Spring context.
 	 * 
 	 * @parameter property="${spring.mavenProjectBeanName}" default-value="mavenProject"
 	 */
-	private String mavenProjectBeanName;
+	private String mavenProjectBeanName = "mavenProject";
 
 	/**
 	 * The name to use when registering this <code>mojo</code> object as a bean in the Spring context.
 	 * 
 	 * @parameter property="${spring.mojoBeanName}" default-value="mavenMojo"
 	 */
-	private String mavenMojoBeanName;
+	private String mavenMojoBeanName = "mavenMojo";
 
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
@@ -143,7 +144,7 @@ public class LoadMojo extends AbstractMojo {
 	 * @parameter property="${spring.serviceClassname}" default-value="org.kuali.common.util.service.DefaultSpringService"
 	 * @required
 	 */
-	private String serviceClassname;
+	private String serviceClassname = DefaultSpringService.class.getName();
 
 	/**
 	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. If <code>forceMojoExecution</code> is
@@ -151,7 +152,7 @@ public class LoadMojo extends AbstractMojo {
 	 * 
 	 * @parameter property="${spring.forceMojoExecution}" default-value="false"
 	 */
-	private boolean forceMojoExecution;
+	private boolean forceMojoExecution = false;
 
 	/**
 	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. Set this parameter to <code>true</code> to
@@ -159,7 +160,7 @@ public class LoadMojo extends AbstractMojo {
 	 * 
 	 * @parameter property="${spring.skip}" default-value="false"
 	 */
-	private boolean skip;
+	private boolean skip = false;
 
 	@Override
 	public void execute() throws MojoExecutionException {
@@ -281,6 +282,10 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setInjectMavenMojo(boolean injectMavenMojo) {
 		this.injectMavenMojo = injectMavenMojo;
+	}
+
+	public void setProject(MavenProject project) {
+		this.project = project;
 	}
 
 }
