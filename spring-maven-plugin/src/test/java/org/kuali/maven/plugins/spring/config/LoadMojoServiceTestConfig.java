@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.CiManagement;
 import org.apache.maven.model.IssueManagement;
+import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.maven.plugins.spring.LoadMojo;
@@ -17,11 +18,13 @@ import org.springframework.context.annotation.Configuration;
 public class LoadMojoServiceTestConfig {
 
 	@Bean(initMethod = "execute")
-	public void mojo() {
+	public AbstractMojo mojo() {
 		MavenProject project = mavenProject();
+
 		LoadMojo mojo = new LoadMojo();
 		mojo.setProject(project);
 		mojo.setLocation("classpath:" + project.getArtifactId() + "-context.xml");
+		return mojo;
 	}
 
 	@Bean
