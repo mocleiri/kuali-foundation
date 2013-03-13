@@ -56,8 +56,7 @@ public class LoadMojoServiceTest {
 			LoadMojo mojo = new LoadMojo();
 			mojo.setProject(project);
 			mojo.setLocation("classpath:" + project.getArtifactId() + "-context.xml");
-			LoadMojoService service = new LoadMojoService();
-			service.execute(mojo);
+			mojo.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
