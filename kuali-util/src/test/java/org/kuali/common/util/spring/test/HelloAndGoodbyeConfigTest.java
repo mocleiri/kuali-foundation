@@ -11,8 +11,8 @@ public class HelloAndGoodbyeConfigTest {
 	public void test() {
 		try {
 			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(HelloWorldConfig.class);
-			Message helloWorld = ctx.getBean("helloWorld", Message.class);
-			Message goodbye = ctx.getBean("goodbye", Message.class);
+			Message helloWorld = ctx.getBean("helloWorldMessage", Message.class);
+			Message goodbye = ctx.getBean("goodbyeMessage", Message.class);
 			System.out.println(helloWorld.getMessage());
 			System.out.println(goodbye.getMessage());
 			ctx.close();

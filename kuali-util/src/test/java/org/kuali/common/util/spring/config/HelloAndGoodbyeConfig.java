@@ -15,7 +15,7 @@ public class HelloAndGoodbyeConfig {
 	}
 
 	@Bean
-	public Message goodByeMessage() {
+	public Message goodbyeMessage() {
 		return new GoodbyeMessage();
 	}
 }
