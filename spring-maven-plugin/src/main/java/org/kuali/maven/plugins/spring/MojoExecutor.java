@@ -40,14 +40,17 @@ public class MojoExecutor {
 			return;
 		}
 
+		// Combine mojo properties, project properties and internal maven properties into a Properties object
+		Properties mavenProperties = getMavenProperties(mojo.getProject(), mojo.getProperties());
+
 		// Aggregate objects into a SpringContext
-		SpringContext context = getSpringContext(mojo);
+		SpringContext context = getSpringContext(mojo, mavenProperties);
 
 		// Instantiate the implementation of SpringService we will be using
 		SpringService service = getService(mojo.getServiceClassname());
 
 		if (mojo.isConfigurePropertySources()) {
-			List<PropertySource<?>> sources = service.getPropertySources(mojo.getPropertySourceContextLocation());
+			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourceContextLocation(), mavenProperties);
 			context.setPropertySources(sources);
 		}
 
@@ -55,17 +58,14 @@ public class MojoExecutor {
 		service.load(context);
 	}
 
-	protected List<PropertySource<?>> getPropertySources(SpringService service, LoadMojo mojo, Properties mavenProperties) {
-		String[] locationsArray = { mojo.getPropertySourceContextLocation() };
+	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, Properties mavenProperties) {
+		String[] locationsArray = { location };
 		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean("mavenProperties", mavenProperties);
 		ClassPathXmlApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
 		return service.getPropertySources(child);
 	}
 
-	protected SpringContext getSpringContext(LoadMojo mojo) {
-		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = getMavenProperties(mojo.getProject(), mojo.getProperties());
-
+	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
 
