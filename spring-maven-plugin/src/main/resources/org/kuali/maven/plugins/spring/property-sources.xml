@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <!-- Declare one PropertySource bean backed by the properties from Maven -->
-  <bean class="org.kuali.common.util.spring.PropertiesPropertySource">
+  <bean class="org.springframework.core.env.PropertiesPropertySource">
     <constructor-arg value="mavenProperties" /> <!-- name -->
     <constructor-arg ref="mavenProperties" /> <!-- source -->
   </bean>
