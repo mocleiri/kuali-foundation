@@ -24,7 +24,7 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 
-public abstract class BaseMojo extends AbstractMojo {
+public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public static final String AUTOWIRED_MOJO_QUALIFIER = "mojo";
 	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
