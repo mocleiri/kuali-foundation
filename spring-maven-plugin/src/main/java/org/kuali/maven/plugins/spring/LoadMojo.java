@@ -165,7 +165,7 @@ public class LoadMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		SpringService service = LoadMojoService.getSpringService(this.serviceClassname);
+		SpringService service = LoadMojoService.getSpringService(serviceClassname);
 		service.load("classpath:org/kuali/maven/plugins/spring/load-mojo-context.xml", "mojo", this);
 	}
 
