@@ -111,7 +111,13 @@ public class SpringMojoService {
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
 		if (mojo.getAnnotatedClass() == null) {
-			String classname = getDefaultAnnotatedClassname(mojo.getProject());
+			String className = getDefaultAnnotatedClassname(mojo.getProject());
+			try {
+				Class<?> annotatedClass = ReflectionUtils.getClass(className);
+				mojo.setAnnotatedClass(annotatedClass);
+			} catch (IllegalStateException e) {
+				throw new IllegalStateException("No annotated class was provided and the default class [" + className + "] could not be created", e);
+			}
 		}
 
 		// Combine the main context location with any optional locations
