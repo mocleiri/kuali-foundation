@@ -5,7 +5,7 @@ import org.kuali.common.util.spring.beans.Message;
 import org.kuali.common.util.spring.config.HelloWorldConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class HelloAndGoodbyeConfigTest {
+public class HelloAndGoodbyeTest {
 
 	@Test
 	public void test() {
