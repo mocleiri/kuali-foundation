@@ -215,17 +215,17 @@ public class CollectionUtils {
 	/**
 	 * Return a combined list where <code>required</code> is always the first element in the list
 	 */
-	public static final <T> List<T> combine(T required, List<T> optional) {
-		Assert.notNull(required);
-		if (optional == null) {
-			return Collections.singletonList(required);
+	public static final <T> List<T> combine(T element, List<T> list) {
+		Assert.notNull(element, "element is required");
+		if (list == null) {
+			return Collections.singletonList(element);
 		} else {
 			List<T> combined = new ArrayList<T>();
 			// Always insert required as the first element in the list
-			combined.add(required);
+			combined.add(element);
 			// Add the other elements
-			for (T element : optional) {
-				combined.add(element);
+			for (T optional : list) {
+				combined.add(optional);
 			}
 			return combined;
 		}
