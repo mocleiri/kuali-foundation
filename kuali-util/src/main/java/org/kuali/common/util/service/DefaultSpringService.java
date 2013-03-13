@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -102,6 +103,7 @@ public class DefaultSpringService implements SpringService {
 		// Null-safe handling for non-required parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(context.getBeanNames()));
 		context.setBeans(CollectionUtils.toEmptyList(context.getBeans()));
+		context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
 
 		// Make sure we have a name for every bean
 		Assert.isTrue(context.getBeanNames().size() == context.getBeans().size());
@@ -116,28 +118,53 @@ public class DefaultSpringService implements SpringService {
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
 		ConfigurableApplicationContext parent = null;
-		ConfigurableApplicationContext child = null;
+		ConfigurableApplicationContext xmlChild = null;
+		AnnotationConfigApplicationContext annotationChild = null;
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
 				parent = getContextWithPreRegisteredBeans(context.getBeanNames(), context.getBeans());
 			}
 
-			// Load the locations they provided us
-			// Optionally wrapped in a parent context containing the pre-registered beans (if any)
-			child = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
+				// Create an annotation based application context wrapped in a parent context
+				annotationChild = getAnnotationContext(context, parent);
+			}
+
+			// Create an XML application context wrapped in a parent context
+			xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
 
 			// Add custom property sources (if any)
 			if (!CollectionUtils.isEmpty(context.getPropertySources())) {
-				addPropertySources(context, child);
+				addPropertySources(context, annotationChild);
+				addPropertySources(context, xmlChild);
 			}
 
 			// Invoke refresh to load the context
-			child.refresh();
+			refreshQuietly(annotationChild);
+			refreshQuietly(xmlChild);
 		} finally {
 			// cleanup
-			closeQuietly(child);
+			closeQuietly(annotationChild);
+			closeQuietly(xmlChild);
 			closeQuietly(parent);
+		}
+	}
+
+	protected AnnotationConfigApplicationContext getAnnotationContext(SpringContext context, ConfigurableApplicationContext parent) {
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+		if (parent != null) {
+			ctx.setParent(parent);
+		}
+		for (Class<?> annotatedClass : context.getAnnotatedClasses()) {
+			ctx.register(annotatedClass);
+		}
+		return ctx;
+	}
+
+	protected void refreshQuietly(ConfigurableApplicationContext context) {
+		if (context != null) {
+			context.refresh();
 		}
 	}
 
