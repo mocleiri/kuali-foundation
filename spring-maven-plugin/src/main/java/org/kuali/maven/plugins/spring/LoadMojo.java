@@ -145,10 +145,10 @@ public class LoadMojo extends AbstractMojo {
 	/**
 	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
 	 * 
-	 * @parameter property="${spring.serviceClassname}" default-value="org.kuali.common.util.service.DefaultSpringService"
+	 * @parameter property="${spring.serviceClass}" default-value="org.kuali.common.util.service.DefaultSpringService"
 	 * @required
 	 */
-	private String serviceClassname = DefaultSpringService.class.getName();
+	private Class<? extends SpringService> serviceClass = DefaultSpringService.class;
 
 	/**
 	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. If <code>forceMojoExecution</code> is
@@ -168,7 +168,7 @@ public class LoadMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		SpringService service = LoadMojoService.getSpringService(serviceClassname);
+		SpringService service = LoadMojoService.newInstance(serviceClass);
 		service.load(LoadMojoConfig.class, AUTOWIRED_QUALIFIER, this);
 	}
 
@@ -236,14 +236,6 @@ public class LoadMojo extends AbstractMojo {
 		this.mavenMojoBeanName = mojoBeanName;
 	}
 
-	public String getServiceClassname() {
-		return serviceClassname;
-	}
-
-	public void setServiceClassname(String serviceClassname) {
-		this.serviceClassname = serviceClassname;
-	}
-
 	public boolean isForceMojoExecution() {
 		return forceMojoExecution;
 	}
@@ -290,6 +282,14 @@ public class LoadMojo extends AbstractMojo {
 
 	public void setProject(MavenProject project) {
 		this.project = project;
+	}
+
+	public Class<? extends SpringService> getServiceClass() {
+		return serviceClass;
+	}
+
+	public void setServiceClass(Class<? extends SpringService> serviceClass) {
+		this.serviceClass = serviceClass;
 	}
 
 }

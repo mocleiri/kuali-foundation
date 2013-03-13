@@ -49,7 +49,7 @@ public class LoadMojoService {
 		SpringContext context = getSpringContext(mojo, mavenProperties);
 
 		// Get the desired SpringService implementation
-		SpringService service = getSpringService(mojo.getServiceClassname());
+		SpringService service = newInstance(mojo.getServiceClass());
 
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
@@ -105,12 +105,9 @@ public class LoadMojoService {
 		}
 	}
 
-	public static SpringService getSpringService(String serviceClassname) {
+	public static <T> T newInstance(Class<T> instanceClass) {
 		try {
-			Class<?> serviceClass = Class.forName(serviceClassname);
-			return (SpringService) serviceClass.newInstance();
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("Unexpected error", e);
+			return (T) instanceClass.newInstance();
 		} catch (IllegalAccessException e) {
 			throw new IllegalStateException("Unexpected error", e);
 		} catch (InstantiationException e) {
