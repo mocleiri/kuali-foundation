@@ -22,6 +22,10 @@ import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
 
+	void load(Class<?> annotatedClass);
+
+	void load(Class<?> annotatedClass, String beanName, Object bean);
+
 	void load(String location);
 
 	void load(String location, String beanName, Object bean);

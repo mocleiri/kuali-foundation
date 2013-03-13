@@ -74,6 +74,31 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	@Override
+	public void load(Class<?> annotatedClass) {
+		load(annotatedClass, null, null);
+	}
+
+	@Override
+	public void load(Class<?> annotatedClass, String beanName, Object bean) {
+		// Make sure the location isn't empty
+		Assert.notNull(annotatedClass);
+
+		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
+		annotatedClasses.add(annotatedClass);
+
+		// Setup a SpringContext
+		SpringContext context = new SpringContext();
+		context.setAnnotatedClasses(annotatedClasses);
+
+		// Null safe handling for non-required parameters
+		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
+		context.setBeans(CollectionUtils.toEmptyList(bean));
+
+		// Load the configuration from the annotated class
+		load(context);
+	}
+
+	@Override
 	public void load(String location) {
 		load(location, null, null);
 	}
