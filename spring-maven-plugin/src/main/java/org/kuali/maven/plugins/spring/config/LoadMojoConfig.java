@@ -14,7 +14,7 @@ public class LoadMojoConfig {
 		return new LoadMojoService();
 	}
 
-	@Bean
+	@Bean(initMethod = "execute")
 	public Executable executable() {
 		LoadMojoExecutable lme = new LoadMojoExecutable();
 		lme.setService(service());

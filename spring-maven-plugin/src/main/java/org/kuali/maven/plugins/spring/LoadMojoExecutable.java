@@ -1,7 +1,5 @@
 package org.kuali.maven.plugins.spring;
 
-import javax.annotation.PostConstruct;
-
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +12,6 @@ public class LoadMojoExecutable implements Executable {
 	LoadMojoService service;
 
 	@Override
-	@PostConstruct
 	public void execute() {
 		service.execute(mojo);
 	}
