@@ -122,13 +122,16 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(SpringContext context) {
-		// Make sure we have at least one location to load
-		Assert.isTrue(context.getLocations().size() > 0);
 
-		// Null-safe handling for non-required parameters
+		// Null-safe handling for parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(context.getBeanNames()));
 		context.setBeans(CollectionUtils.toEmptyList(context.getBeans()));
 		context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
+		context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
+
+		// Make sure we have at least one location or annotated class
+		boolean notEmpty = !CollectionUtils.isEmpty(context.getLocations()) || !CollectionUtils.isEmpty(context.getAnnotatedClasses());
+		Assert.isTrue(notEmpty, "Both locations and annotatedClasses are empty");
 
 		// Make sure we have a name for every bean
 		Assert.isTrue(context.getBeanNames().size() == context.getBeans().size());
@@ -154,15 +157,20 @@ public class DefaultSpringService implements SpringService {
 			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
 				// Create an annotation based application context wrapped in a parent context
 				annotationChild = getAnnotationContext(context, parent);
+				// Add custom property sources (if any)
+				if (!CollectionUtils.isEmpty(context.getPropertySources())) {
+					addPropertySources(context, annotationChild);
+				}
+
 			}
 
-			// Create an XML application context wrapped in a parent context
-			xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
-
-			// Add custom property sources (if any)
-			if (!CollectionUtils.isEmpty(context.getPropertySources())) {
-				addPropertySources(context, annotationChild);
-				addPropertySources(context, xmlChild);
+			if (!CollectionUtils.isEmpty(context.getLocations())) {
+				// Create an XML application context wrapped in a parent context
+				xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+				// Add custom property sources (if any)
+				if (!CollectionUtils.isEmpty(context.getPropertySources())) {
+					addPropertySources(context, xmlChild);
+				}
 			}
 
 			// Invoke refresh to load the context
