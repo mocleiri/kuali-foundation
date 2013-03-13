@@ -51,6 +51,8 @@ import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
  */
 public class LoadMojo extends AbstractMojo {
 
+	public static final String AUTOWIRED_QUALIFIER = "mojo";
+
 	/**
 	 * Maven project
 	 * 
@@ -167,7 +169,7 @@ public class LoadMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = LoadMojoService.getSpringService(serviceClassname);
-		service.load(LoadMojoConfig.class, "mojo", this);
+		service.load(LoadMojoConfig.class, AUTOWIRED_QUALIFIER, this);
 	}
 
 	public String getLocation() {
