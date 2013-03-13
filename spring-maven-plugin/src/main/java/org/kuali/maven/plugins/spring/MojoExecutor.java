@@ -48,7 +48,7 @@ public class MojoExecutor {
 		SpringService service = getService(mojo.getServiceClassname());
 
 		if (mojo.isConfigurePropertySources()) {
-			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourceContextLocation());
+			List<PropertySource<?>> sources = service.getPropertySources(mojo.getPropertySourceContextLocation());
 			context.setPropertySources(sources);
 		}
 
