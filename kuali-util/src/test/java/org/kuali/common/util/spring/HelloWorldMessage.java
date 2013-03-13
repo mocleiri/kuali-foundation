@@ -1,9 +1,10 @@
 package org.kuali.common.util.spring;
 
-public class HelloWorld {
+public class HelloWorldMessage implements Message {
 
 	String message = "Hello World";
 
+	@Override
 	public String getMessage() {
 		return message;
 	}
