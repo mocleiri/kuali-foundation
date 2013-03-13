@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.beans;
 
-public class GoodbyeMesage implements Message {
+public class GoodbyeMessage implements Message {
 
 	String message = "Goodbye";
 
