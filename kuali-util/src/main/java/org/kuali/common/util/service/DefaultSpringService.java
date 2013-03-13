@@ -17,6 +17,7 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,27 +40,9 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(String location) {
-		load(location, (String) null, (Object) null);
-	}
-
-	@Override
-	public void load(String location, String beanName, Object bean) {
-		load(location, CollectionUtils.toEmptyList(beanName), CollectionUtils.toEmptyList(bean));
-	}
-
-	@Override
-	public void load(String location, List<String> beanNames, List<Object> beans) {
-		load(CollectionUtils.toEmptyList(location), beanNames, beans);
-	}
-
-	@Override
-	public void load(List<String> locations) {
-		load(locations, (String) null, (Object) null);
-	}
-
-	@Override
-	public void load(List<String> locations, String beanName, Object bean) {
-		load(locations, CollectionUtils.toEmptyList(beanName), CollectionUtils.toEmptyList(bean));
+		SpringContext context = new SpringContext();
+		context.setLocations(Arrays.asList(location));
+		load(context);
 	}
 
 	@Override
@@ -107,15 +90,6 @@ public class DefaultSpringService implements SpringService {
 			closeQuietly(child);
 			closeQuietly(parent);
 		}
-	}
-
-	@Override
-	public void load(List<String> locations, List<String> beanNames, List<Object> beans) {
-		SpringContext context = new SpringContext();
-		context.setLocations(locations);
-		context.setBeanNames(beanNames);
-		context.setBeans(beans);
-		load(context);
 	}
 
 	/**
