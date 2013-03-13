@@ -61,7 +61,7 @@ public class SpringMojoService {
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
 			// If so, extract PropertySource objects from the PropertySources context
-			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesLocation(), mavenProperties);
+			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesLocation(), mojo.getMavenPropertiesBeanName(), mavenProperties);
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
@@ -70,9 +70,9 @@ public class SpringMojoService {
 		service.load(context);
 	}
 
-	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, Properties mavenProperties) {
+	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
 		String[] locationsArray = { location };
-		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean("mavenProperties", mavenProperties);
+		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
 		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
 		return service.getPropertySources(child);
 	}
