@@ -58,10 +58,10 @@ public class BaseMojoTestConfig {
 	@Bean
 	public MavenProject mavenProject() {
 		TestableMavenProject project = new TestableMavenProject();
-		project.setGroupId("org.kuali.maven.plugins.spring");
-		project.setArtifactId("spring-maven-plugin");
+		project.setGroupId("edu.calpoly.records");
+		project.setArtifactId("power-webapp");
 		project.setProperties(properties());
-		project.setPackaging("jar");
+		project.setPackaging("war");
 		project.setDescription("description");
 		project.setInceptionYear("2013");
 		project.setCiManagement(ci());
