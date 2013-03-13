@@ -15,10 +15,8 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.maven.plugin.logging.Log;
@@ -30,7 +28,8 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertySource;
 
 public class MojoExecutor {
@@ -56,18 +55,11 @@ public class MojoExecutor {
 		service.load(context);
 	}
 
-	protected List<PropertySource<?>> getPropertySources(SpringService service, String location) {
-		GenericXmlApplicationContext context = new GenericXmlApplicationContext(location);
-
-		@SuppressWarnings("rawtypes")
-		Map<String, PropertySource> map = context.getBeansOfType(PropertySource.class);
-
-		context.close();
-		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
-		for (PropertySource<?> source : map.values()) {
-			list.add(source);
-		}
-		return list;
+	protected List<PropertySource<?>> getPropertySources(SpringService service, LoadMojo mojo, Properties mavenProperties) {
+		String[] locationsArray = { mojo.getPropertySourceContextLocation() };
+		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean("mavenProperties", mavenProperties);
+		ClassPathXmlApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
+		return service.getPropertySources(child);
 	}
 
 	protected SpringContext getSpringContext(LoadMojo mojo) {
