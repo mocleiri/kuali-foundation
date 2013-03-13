@@ -27,7 +27,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
@@ -111,6 +110,10 @@ public class SpringMojoService {
 	}
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
+		if (mojo.getAnnotatedClass() == null) {
+			String classname = getDefaultAnnotatedClassname(mojo.getProject());
+		}
+
 		// Combine the main context location with any optional locations
 		List<Class<?>> annotatedClasses = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
 
@@ -180,9 +183,8 @@ public class SpringMojoService {
 
 	protected String getDefaultAnnotatedClassname(MavenProject project) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("classpath:");
-		sb.append(Str.getPath(project.getGroupId()));
-		sb.append("/");
+		sb.append(project.getGroupId());
+		sb.append(".");
 		String artifactId = project.getArtifactId();
 		String[] tokens = StringUtils.split(artifactId, "-");
 		for (String token : tokens) {
