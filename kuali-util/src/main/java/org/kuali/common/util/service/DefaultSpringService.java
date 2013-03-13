@@ -179,7 +179,7 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	/**
-	 * Return true if the context contains any beans or property sources, false otherwise.
+	 * Return true if the context contains any beans or beanNames, false otherwise.
 	 */
 	protected boolean isParentContextRequired(SpringContext context) {
 		if (!CollectionUtils.isEmpty(context.getBeanNames())) {
