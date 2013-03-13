@@ -2,7 +2,6 @@ package org.kuali.maven.plugins.spring.config;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.maven.plugins.spring.MavenConstants;
-import org.kuali.maven.plugins.spring.SpringMojoService;
 import org.kuali.maven.plugins.spring.XmlLoadMojo;
 import org.kuali.maven.plugins.spring.XmlLoadMojoExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,16 @@ import org.springframework.context.annotation.Configuration;
 public class XmlLoadMojoConfig {
 
 	@Autowired
+	BaseConfig baseConfig;
+
+	@Autowired
 	@Qualifier(MavenConstants.AUTOWIRED_MOJO_QUALIFIER)
 	XmlLoadMojo mojo;
-
-	@Bean
-	public SpringMojoService service() {
-		return new SpringMojoService();
-	}
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
 		XmlLoadMojoExecutable executable = new XmlLoadMojoExecutable();
-		executable.setService(service());
+		executable.setService(baseConfig.service());
 		executable.setMojo(mojo);
 		return executable;
 	}
