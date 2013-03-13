@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoadMojoExecutable implements Executable {
+public class XmlLoadMojoExecutable implements Executable {
 
 	@Autowired
 	@Qualifier(AbstractSpringMojo.AUTOWIRED_MOJO_QUALIFIER)
