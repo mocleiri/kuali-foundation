@@ -41,7 +41,7 @@ public class MojoExecutor {
 		}
 
 		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = getMavenProperties(mojo.getProject(), mojo.getProperties());
+		Properties mavenProperties = getMavenProperties(mojo);
 
 		// Aggregate objects into a SpringContext
 		SpringContext context = getSpringContext(mojo, mavenProperties);
@@ -116,14 +116,15 @@ public class MojoExecutor {
 		}
 	}
 
-	protected Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
+	protected Properties getMavenProperties(LoadMojo mojo) {
+		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
 		Properties internal = getInternalProperties(project);
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
 		// ${project.artifactId} needs to always faithfully represent the correct artifactId
-		Properties properties = PropertyUtils.combine(project.getProperties(), mojoProperties, internal);
+		Properties properties = PropertyUtils.combine(project.getProperties(), project.getProperties(), internal);
 		// Explicitly override internal Maven props with system/env props (simulates the default maven behavior)
 		PropertyUtils.overrideWithGlobalValues(properties, GlobalPropertiesMode.BOTH);
 		// Return the overridden properties
