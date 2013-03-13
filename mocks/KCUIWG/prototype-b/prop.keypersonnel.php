@@ -14,7 +14,7 @@ $page = 'personnel';
       <div class="span12 content">
         <div class="box">
           <div class="boxHeader">
-            <h3> Personnel</h3>
+            <h3>Key Personnel</h3>
           </div>
           
           <!-- <div class="boxHeader expandControl">
@@ -28,35 +28,30 @@ $page = 'personnel';
               
             </div>-->
               <!-- Only required for left/right tabs -->
-              
-              <div class="alert alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</div>
+              <p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
               <!--    <div class="boxSubheader">
                 <h4>Personnel</h4>
               </div>-->
-              
-              <ul class="nav nav-tabs" style="display:block" >
-                <li>
-                     <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
+
+              <p>
+                <a href="#" class="btn btn-success btn-mini ajax-modal" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><i class="icon-white icon-plus"></i> Add Person</a>
+              </p>
                   
                   <!-- Modal -->
                   
-                </li>
-              </ul>
             </div>
           </div>
         </div>
         <div style=" padd12px; text-align:center">
-          <a href="prop.proposal.html" class="btn"><i class="icon-chevron-left"></i> back</a>
-          <a href="#" class="btn">save</a>
-          <a href="prop.specialreview.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a>
+          <a href="prop.basics.keywords.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.keypersonnel.creditallocation.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
         </div>
         
-        <!--<div class="box"> <div class="boxHeader expandControl">
+        <!--<div class="box"> <div class="boxHeader">
             <h3> asdfasdfasdf </h3>
           </div>
-          <div class="boxContent expandTarget"> asdfasdfasdf </div>
+          <div class="boxContent"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
         </div>-->
       </div>
@@ -73,6 +68,7 @@ $page = 'personnel';
 
 
 <?php include( 'assets/inc/scripts.global.php' ) ?>
+
 <script type="text/javascript">
     $(document).ready(function () {
         
@@ -82,7 +78,7 @@ $page = 'personnel';
                 value: 1,
                 source: [{
                     value: 1,
-                    text: 'PI/Contact'
+                    text: 'Principal Investigator/Contact'
                 }, {
                     value: 2,
                     text: 'Co-Principal Investigator'

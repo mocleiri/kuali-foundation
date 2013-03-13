@@ -276,9 +276,9 @@ $page = 'attachments-proposal';
           </div>
         </div>
         <div style=" padd12px; text-align:center">
-          <a href="prop.customdata.html" class="btn"><i class="icon-chevron-left"></i> back</a>
+          <a href="prop.compliance.php" class="btn"><i class="icon-chevron-left"></i> back</a>
           <a href="#" class="btn">save</a>
-          <a href="prop.questions.html" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a>
+          <a href="prop.attachments.personnel.php" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a>
         </div>
       </div>
       <!--<div class="box"> <div class="boxHeader">

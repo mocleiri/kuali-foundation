@@ -13,21 +13,7 @@ $page = 'budget-personnel';
 <div id="content" tabindex="-1">
   <form class="form-horizontal">
     <div class="row-fluid">
-      <div class="span12 content">
-        <ul class="breadcrumb">
-          <li class="active"><a href="prop.budget.php">Budget Home</a> <span class="divider">/</span></li>
-          <li >Budget 1</li>
-        </ul> <ul class="nav nav-tabs page">
-          <li><a href="prop.budget.summary.php">Summary</a></li>
-          <li><a href="prop.budget.paramaters.php">Parameters</a></li>
-          <li><a href="prop.budget.rates.php">Rates</a></li>
-          <li class=" active"><a href="prop.budget.personnel.php">Personnel</a></li>
-          <li><a href="prop.budget.nonpersonnel.php">Non-personnel</a></li>
-          <li><a href="prop.budget.distincome.php">Distribution &amp; Income</a></li>
-          <li><a href="prop.budget.modular.php">Modular Budget</a></li>
-          <li><a href="prop.budget.actions.php">Budget Actions</a></li>
-        </ul>
-        <!--<div class="btn-group" style="margin-bottom:20px">
+      <div class="span12 content"><!--<div class="btn-group" style="margin-bottom:20px">
           <button class="btn btn-small">Budget Period 1</button>
           <button class="btn btn-small dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> </button>
           <ul class="dropdown-menu">
@@ -37,21 +23,10 @@ $page = 'budget-personnel';
             <li> <a href="#">Budget Period 4</a></li>
           </ul>
         </div>-->
-        <div class="box"> <div class="boxHeader expandControl">
+        <div class="box"> <div class="boxHeader">
             <h3>Key Personnel</h3>
           </div>
           <div class="boxContent expandTarget" style="" >
-            <h4> Manage Personnel</h4>
-            <div class="sortable" style="margin-bottom:40px">
-              <ul id="sortable1">
-                <li class="ui-state-default hhh1"><span class="delete ddd1"><i class="icon-remove-sign"></i></span><span class="name">Art Tatum</span></li>
-                <li class="ui-state-default hhh2"><span class="delete ddd2"><i class="icon-remove-sign"></i></span><span class="name">Ben Webster</span></li>
-                <li class="ui-state-default hhh3"><span class="delete ddd3"><i class="icon-remove-sign"></i></span><span class="name">Ella Fitzgerald</span></li>
-                <li class="ui-state-default hhh4"><span class="delete ddd4"><i class="icon-remove-sign"></i></span><span class="name">Jimmy Blanton</span></li>
-                <li class="ui-state-default ui-state-disabled"><span class="name"><a href="#" class="ajax-modal" data-backdrop="true" data-controls-modal="res-modal" data-keyboard="true" url="prop.keypersonnel.frame.html"> + add person </a></span></li>
-              </ul>
-              <div class="clearfix"></div>
-            </div>
             <div class="boxSubheader">
               <h4> Details</h4>
               <div class="boxControls"><a href="#" class="disclose-dl1">show</a></div>
@@ -74,7 +49,7 @@ $page = 'budget-personnel';
                   <td><a href="#" id="apptype" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Appointment Type">12M Duration</a></td>
                   <td><a href="#" id="basesal" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Base Salary">87,000.00</a></td>
                   <td><a href="#" id="saleff" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Salary Effective Date">01/01/2013</a></td>
-                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini">delete</a></td>
+                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a></td>
                 </tr>
                 <tr>
                   <td>Tatum, Art</td>
@@ -82,7 +57,7 @@ $page = 'budget-personnel';
                   <td><a href="#">12M  Duration</a></td>
                   <td><a href="#">69,000.00</a></td>
                   <td><a href="#">01/01/2013</a></td>
-                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini">delete</a></td>
+                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a></td>
                 </tr>
                 <tr>
                   <td>Lee, Peggy</td>
@@ -90,27 +65,32 @@ $page = 'budget-personnel';
                   <td><a href="#">12M  Duration</a></td>
                   <td><a href="#">69,000.00</a></td>
                   <td><a href="#">01/01/2013</a></td>
-                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini">delete</a></td>
+                  <td><a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="box"> <div class="boxHeader expandControl">
+        <div class="box"> <div class="boxHeader">
             <h3> Budget Overview <span> (Period 1)</span></h3>
           </div>
         </div>
-        <div class="box"> <div class="boxHeader expandControl">
+        <div class="box"> <div class="boxHeader">
             <h3>Personnel Detail <span> (Period 1)</span></h3>
           </div>
         </div>
         
-        <!--<div class="box"> <div class="boxHeader expandControl">
+        <!--<div class="box"> <div class="boxHeader">
             <h3> asdfasdfasdf </h3>
           </div>
-          <div class="boxContent expandTarget"> asdfasdfasdf </div>
+          <div class="boxContent"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
         </div>--> 
+        <div style=" padd12px; text-align:center">
+          <a href="prop.budget.rates.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="#" class="btn">Save</a>
+          <a href="prop.budget.nonpersonnel.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+        </div>
       </div>
     </div>
   </form>

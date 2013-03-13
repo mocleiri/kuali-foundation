@@ -1,6 +1,6 @@
 <?php
 # Variables
-$page = 'medusa';
+$page = 'review';
 ?>
 
 <?php require_once( 'assets/inc/head.php' ) ?>
@@ -15,7 +15,7 @@ $page = 'medusa';
     <div class="row-fluid">
       <div class="span12 content">
         <div class="box"> <div class="boxHeader ">
-            <h3>Medusa</h3>
+            <h3>Proposal Review</h3>
           </div>
           <div class="boxContent " style="min-height:500px" >
             <p> Coming soon...</p>
@@ -30,9 +30,9 @@ $page = 'medusa';
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
         </div>-->
         <div style=" padd12px; text-align:center">
-          <a href="prop.instspecdata.3.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <a href="prop.medusa.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
           <a href="#" class="btn">Save</a>
-          <a href="prop.reviewapprove.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
+          <a href="#" class="btn btn-inverse">Complete Proposal</a>
         </div>
       </div>
     </div>
