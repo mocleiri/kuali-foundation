@@ -15,8 +15,10 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.maven.plugin.logging.Log;
@@ -28,6 +30,8 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.env.PropertySource;
 
 public class MojoExecutor {
 
@@ -37,16 +41,35 @@ public class MojoExecutor {
 			return;
 		}
 
+		// Aggregate objects into a SpringContext
 		SpringContext context = getSpringContext(mojo);
 
 		// Instantiate the implementation of SpringService we will be using
 		SpringService service = getService(mojo.getServiceClassname());
 
+		if (mojo.isConfigurePropertySources()) {
+			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourceContextLocation());
+		}
+
 		// Invoke the service to load the context and inject it with beans as appropriate
 		service.load(context);
 	}
 
-	public SpringContext getSpringContext(LoadMojo mojo) {
+	@SuppressWarnings("rawtypes")
+	protected List<PropertySource<?>> getPropertySources(SpringService service, String location) {
+		GenericXmlApplicationContext context = new GenericXmlApplicationContext(location);
+		Map<String, PropertySource> map = context.getBeansOfType(PropertySource.class);
+		context.close();
+		List<?> list = new ArrayList<Object>();
+		for (PropertySource source:map.values()) {
+			PropertySource<?> pso = (PropertySource<?>) source;
+			list.add(pso);
+		}
+		list.addAll(map.values());
+		return new ArrayList<PropertySource>(map.values());
+	}
+
+	protected SpringContext getSpringContext(LoadMojo mojo) {
 		// Combine mojo properties, project properties and internal maven properties into a Properties object
 		Properties mavenProperties = getMavenProperties(mojo.getProject(), mojo.getProperties());
 
@@ -84,7 +107,7 @@ public class MojoExecutor {
 		}
 	}
 
-	public SpringService getService(String serviceClassname) {
+	protected SpringService getService(String serviceClassname) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
 			return (SpringService) serviceClass.newInstance();
@@ -97,7 +120,7 @@ public class MojoExecutor {
 		}
 	}
 
-	public Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
+	protected Properties getMavenProperties(MavenProject project, Properties mojoProperties) {
 		// Get internal Maven config as a properties object
 		Properties internal = getInternalProperties(project);
 		// The ordering here is significant.
@@ -111,7 +134,7 @@ public class MojoExecutor {
 		return properties;
 	}
 
-	public Properties getInternalProperties(MavenProject project) {
+	protected Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
 		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());
