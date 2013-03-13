@@ -55,8 +55,6 @@ public class LoadMojoService {
 		if (mojo.isAddPropertySources()) {
 			// If so, extract PropertySource objects from the PropertySources context
 			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesLocation(), mavenProperties);
-			// Custom property sources
-			mojo.getLog().info("Located " + sources.size() + " custom property sources");
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
