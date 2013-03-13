@@ -31,7 +31,9 @@ import org.kuali.common.util.service.SpringService;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertySource;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoadMojoService {
 
 	public void execute(LoadMojo mojo) {
