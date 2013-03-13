@@ -49,8 +49,11 @@ public class MojoExecutor {
 		// Instantiate the implementation of SpringService we will be using
 		SpringService service = getService(mojo.getServiceClassname());
 
+		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
+			// If so, extract PropertySource objects from the PropertySources context
 			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesLocation(), mavenProperties);
+			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
 
