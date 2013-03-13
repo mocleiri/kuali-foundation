@@ -1,17 +1,12 @@
 package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LoadMojoExecutable implements Executable {
 
-	@Autowired
-	@Qualifier(AbstractSpringMojo.AUTOWIRED_MOJO_QUALIFIER)
 	LoadMojo mojo;
-
 	SpringMojoService service;
 
 	@Override
