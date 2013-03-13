@@ -49,24 +49,25 @@ public class MojoExecutor {
 
 		if (mojo.isConfigurePropertySources()) {
 			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourceContextLocation());
+			context.setPropertySources(sources);
 		}
 
 		// Invoke the service to load the context and inject it with beans as appropriate
 		service.load(context);
 	}
 
-	@SuppressWarnings("rawtypes")
 	protected List<PropertySource<?>> getPropertySources(SpringService service, String location) {
 		GenericXmlApplicationContext context = new GenericXmlApplicationContext(location);
+
+		@SuppressWarnings("rawtypes")
 		Map<String, PropertySource> map = context.getBeansOfType(PropertySource.class);
+
 		context.close();
-		List<?> list = new ArrayList<Object>();
-		for (PropertySource source:map.values()) {
-			PropertySource<?> pso = (PropertySource<?>) source;
-			list.add(pso);
+		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
+		for (PropertySource<?> source : map.values()) {
+			list.add(source);
 		}
-		list.addAll(map.values());
-		return new ArrayList<PropertySource>(map.values());
+		return list;
 	}
 
 	protected SpringContext getSpringContext(LoadMojo mojo) {
