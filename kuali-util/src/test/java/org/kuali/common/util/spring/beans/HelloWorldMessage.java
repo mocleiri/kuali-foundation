@@ -1,15 +1,10 @@
 package org.kuali.common.util.spring.beans;
 
-public class HelloWorldMessage implements Message {
+public class HelloWorldMessage extends DefaultMessage {
 
-	String message = "Hello World";
-
-	@Override
-	public String getMessage() {
-		return message;
+	public HelloWorldMessage() {
+		super();
+		this.message = "Hello world";
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
 }

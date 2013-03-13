@@ -1,15 +1,10 @@
 package org.kuali.common.util.spring.beans;
 
-public class GoodbyeMessage implements Message {
+public class GoodbyeMessage extends DefaultMessage {
 
-	String message = "Goodbye";
-
-	@Override
-	public String getMessage() {
-		return message;
+	public GoodbyeMessage() {
+		super();
+		this.message = "Goodbye";
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
 }
