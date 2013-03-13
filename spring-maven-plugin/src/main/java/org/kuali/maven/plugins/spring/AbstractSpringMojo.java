@@ -21,58 +21,45 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
-	public static final String AUTOWIRED_MOJO_QUALIFIER = "mojo";
-	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
-	public static final String DEFAULT_MAVEN_PROJECT_BEAN_NAME = "mavenProject";
-	public static final String DEFAULT_MAVEN_MOJO_BEAN_NAME = "mavenMojo";
-	public static final String DEFAULT_ADD_PROPERTY_SOURCES = "true";
-	public static final String DEFAULT_INJECT_MAVEN_PROPERTIES = "true";
-	public static final String DEFAULT_INJECT_MAVEN_PROJECT = "false";
-	public static final String DEFAULT_INJECT_MAVEN_MOJO = "false";
-	public static final String DEFAULT_FORCE_MOJO_EXECUTION = "false";
-	public static final String DEFAULT_SKIP = "false";
-	public static final Class<? extends SpringService> DEFAULT_SERVICE_CLASS = DefaultSpringService.class;
-
 	@Component
 	MavenProject project;
 
-	@Parameter(property = "spring.addPropertySources", defaultValue = DEFAULT_ADD_PROPERTY_SOURCES)
-	boolean addPropertySources = new Boolean(DEFAULT_ADD_PROPERTY_SOURCES);
+	@Parameter(property = "spring.addPropertySources", defaultValue = MavenConstants.DEFAULT_ADD_PROPERTY_SOURCES)
+	boolean addPropertySources = new Boolean(MavenConstants.DEFAULT_ADD_PROPERTY_SOURCES);
 
-	@Parameter(property = "spring.injectMavenProperties", defaultValue = DEFAULT_INJECT_MAVEN_PROPERTIES)
-	boolean injectMavenProperties = new Boolean(DEFAULT_INJECT_MAVEN_PROPERTIES);
+	@Parameter(property = "spring.injectMavenProperties", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_PROPERTIES)
+	boolean injectMavenProperties = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_PROPERTIES);
 
-	@Parameter(property = "spring.injectMavenProject", defaultValue = DEFAULT_INJECT_MAVEN_PROJECT)
-	boolean injectMavenProject = new Boolean(DEFAULT_INJECT_MAVEN_PROJECT);
+	@Parameter(property = "spring.injectMavenProject", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_PROJECT)
+	boolean injectMavenProject = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_PROJECT);
 
-	@Parameter(property = "spring.injectMavenMojo", defaultValue = DEFAULT_INJECT_MAVEN_MOJO)
-	boolean injectMavenMojo = new Boolean(DEFAULT_INJECT_MAVEN_MOJO);
+	@Parameter(property = "spring.injectMavenMojo", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_MOJO)
+	boolean injectMavenMojo = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_MOJO);
 
-	@Parameter(property = "spring.mavenPropertiesBeanName", defaultValue = DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	String mavenPropertiesBeanName = DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+	@Parameter(property = "spring.mavenPropertiesBeanName", defaultValue = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	String mavenPropertiesBeanName = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
 
-	@Parameter(property = "spring.mavenProjectBeanName", defaultValue = DEFAULT_MAVEN_PROJECT_BEAN_NAME)
-	String mavenProjectBeanName = DEFAULT_MAVEN_PROJECT_BEAN_NAME;
+	@Parameter(property = "spring.mavenProjectBeanName", defaultValue = MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME)
+	String mavenProjectBeanName = MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME;
 
-	@Parameter(property = "spring.mavenMojoBeanName", defaultValue = DEFAULT_MAVEN_MOJO_BEAN_NAME)
-	String mavenMojoBeanName = DEFAULT_MAVEN_MOJO_BEAN_NAME;
+	@Parameter(property = "spring.mavenMojoBeanName", defaultValue = MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME)
+	String mavenMojoBeanName = MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME;
 
 	@Parameter(property = "spring.serviceClass")
-	Class<? extends SpringService> serviceClass = DEFAULT_SERVICE_CLASS;
+	Class<? extends SpringService> serviceClass = MavenConstants.DEFAULT_SERVICE_CLASS;
 
 	@Parameter(property = "spring.properties")
 	Properties properties;
 
-	@Parameter(property = "spring.forceMojoExecution", defaultValue = DEFAULT_FORCE_MOJO_EXECUTION)
-	boolean forceMojoExecution = new Boolean(DEFAULT_FORCE_MOJO_EXECUTION);
+	@Parameter(property = "spring.forceMojoExecution", defaultValue = MavenConstants.DEFAULT_FORCE_MOJO_EXECUTION)
+	boolean forceMojoExecution = new Boolean(MavenConstants.DEFAULT_FORCE_MOJO_EXECUTION);
 
-	@Parameter(property = "spring.skip", defaultValue = DEFAULT_SKIP)
-	boolean skip = new Boolean(DEFAULT_SKIP);
+	@Parameter(property = "spring.skip", defaultValue = MavenConstants.DEFAULT_SKIP)
+	boolean skip = new Boolean(MavenConstants.DEFAULT_SKIP);
 
 	public MavenProject getProject() {
 		return project;

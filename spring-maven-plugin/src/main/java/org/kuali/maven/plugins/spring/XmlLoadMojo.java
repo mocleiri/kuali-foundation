@@ -50,7 +50,7 @@ public class XmlLoadMojo extends AbstractSpringMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = ReflectionUtils.newInstance(serviceClass);
-		service.load(XmlLoadMojoConfig.class, AUTOWIRED_MOJO_QUALIFIER, this);
+		service.load(XmlLoadMojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
 	}
 
 	public String getLocation() {

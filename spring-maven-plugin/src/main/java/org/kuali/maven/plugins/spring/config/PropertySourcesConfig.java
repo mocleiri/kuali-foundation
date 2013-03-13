@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.spring.config;
 
 import java.util.Properties;
 
-import org.kuali.maven.plugins.spring.AbstractSpringMojo;
+import org.kuali.maven.plugins.spring.MavenConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +14,11 @@ public class PropertySourcesConfig {
 
 	@Bean
 	public String propertySourceName() {
-		return AbstractSpringMojo.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+		return MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
 	}
 
 	@Autowired
-	@Qualifier(AbstractSpringMojo.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	@Qualifier(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
 	@Bean

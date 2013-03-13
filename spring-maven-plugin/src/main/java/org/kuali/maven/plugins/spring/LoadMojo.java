@@ -42,7 +42,7 @@ public class LoadMojo extends AbstractSpringMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = ReflectionUtils.newInstance(serviceClass);
-		service.load(LoadMojoConfig.class, AUTOWIRED_MOJO_QUALIFIER, this);
+		service.load(LoadMojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
 	}
 
 	public Class<?> getAnnotatedClass() {
