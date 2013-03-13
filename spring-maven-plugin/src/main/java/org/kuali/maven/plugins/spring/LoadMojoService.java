@@ -48,7 +48,7 @@ public class LoadMojoService {
 		// Aggregate objects into a SpringContext
 		SpringContext context = getSpringContext(mojo, mavenProperties);
 
-		// Instantiate the implementation of SpringService we will be using
+		// Get the desired SpringService implementation
 		SpringService service = getSpringService(mojo.getServiceClassname());
 
 		// Are we adding any custom property sources?
@@ -59,7 +59,7 @@ public class LoadMojoService {
 			context.setPropertySources(sources);
 		}
 
-		// Invoke the service to load the context and inject it with beans as appropriate
+		// Invoke the service to load the context using custom property sources and pre-registered beans
 		service.load(context);
 	}
 
