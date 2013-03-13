@@ -163,7 +163,8 @@ public class LoadMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		new LoadMojoService().execute(this);
+		LoadMojoService service = new LoadMojoService();
+		service.execute(this);
 	}
 
 	public String getLocation() {
