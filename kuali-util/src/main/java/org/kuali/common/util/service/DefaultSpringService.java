@@ -158,9 +158,7 @@ public class DefaultSpringService implements SpringService {
 				// Create an annotation based application context wrapped in a parent context
 				annotationChild = getAnnotationContext(context, parent);
 				// Add custom property sources (if any)
-				if (!CollectionUtils.isEmpty(context.getPropertySources())) {
-					addPropertySources(context, annotationChild);
-				}
+				addPropertySources(context, annotationChild);
 
 			}
 
@@ -168,9 +166,7 @@ public class DefaultSpringService implements SpringService {
 				// Create an XML application context wrapped in a parent context
 				xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
 				// Add custom property sources (if any)
-				if (!CollectionUtils.isEmpty(context.getPropertySources())) {
-					addPropertySources(context, xmlChild);
-				}
+				addPropertySources(context, xmlChild);
 			}
 
 			// Invoke refresh to load the context
@@ -234,6 +230,9 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
+		if (!CollectionUtils.isEmpty(context.getPropertySources())) {
+			return;
+		}
 		List<PropertySource<?>> propertySources = context.getPropertySources();
 		ConfigurableEnvironment environment = applicationContext.getEnvironment();
 		MutablePropertySources sources = environment.getPropertySources();
