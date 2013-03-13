@@ -23,7 +23,6 @@ public class PropertySourcesConfig {
 
 	@Bean
 	public PropertiesPropertySource propertySource() {
-		System.out.println("mavenProperties.size()=" + mavenProperties.size());
 		return new PropertiesPropertySource(propertySourceName(), mavenProperties);
 	}
 
