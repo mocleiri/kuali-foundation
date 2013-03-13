@@ -2,10 +2,9 @@ package org.kuali.common.util;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
-	public static Object newInstance(String className) {
+	public static Class<?> getClass(String className) {
 		try {
-			Class<?> clazz = Class.forName(className);
-			return newInstance(clazz);
+			return Class.forName(className);
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException(e);
 		}
