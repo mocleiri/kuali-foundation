@@ -1,8 +1,5 @@
 package org.kuali.common.util.spring.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.beans.DefaultMessageImpl;
 import org.kuali.common.util.spring.beans.Message;
@@ -40,12 +37,6 @@ public class MessagesConfig {
 	// @Bean(initMethod = "execute")
 	@Bean
 	public Executable printMessagesExecutable() {
-		List<Message> messages = new ArrayList<Message>();
-		messages.add(helloWorldMessage());
-		messages.add(goodbyeMessage());
-
-		PrintMessagesExecutable pme = new PrintMessagesExecutable();
-		pme.setMessages(messages);
-		return pme;
+		return new PrintMessagesExecutable();
 	}
 }

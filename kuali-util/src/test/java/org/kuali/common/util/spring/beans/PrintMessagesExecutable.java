@@ -5,11 +5,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.kuali.common.util.execute.Executable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PrintMessagesExecutable implements Executable {
 
+	@Autowired
 	List<Message> messages;
 
 	@Override
