@@ -1,7 +1,6 @@
 package org.kuali.common.util.spring.config;
 
-import org.kuali.common.util.spring.beans.GoodbyeMessage;
-import org.kuali.common.util.spring.beans.HelloWorldMessage;
+import org.kuali.common.util.spring.beans.DefaultMessage;
 import org.kuali.common.util.spring.beans.Message;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +14,21 @@ public class MessagesConfig {
 	}
 
 	@Bean
+	public String goodbyeString() {
+		return "Good bye";
+	}
+
+	@Bean
 	public Message helloWorldMessage() {
-		HelloWorldMessage hwm = new HelloWorldMessage();
-		hwm.setMessage(helloWorldString());
-		return hwm;
+		DefaultMessage message = new DefaultMessage();
+		message.setMessage(helloWorldString());
+		return message;
 	}
 
 	@Bean
 	public Message goodbyeMessage() {
-		return new GoodbyeMessage();
+		DefaultMessage message = new DefaultMessage();
+		message.setMessage(goodbyeString());
+		return message;
 	}
 }
