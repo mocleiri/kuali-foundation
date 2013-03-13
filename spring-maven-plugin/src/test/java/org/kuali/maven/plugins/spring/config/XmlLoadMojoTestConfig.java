@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LoadMojoServiceTestConfig {
+public class XmlLoadMojoTestConfig {
 
 	@Bean(initMethod = "execute")
 	public AbstractMojo mojo() {
