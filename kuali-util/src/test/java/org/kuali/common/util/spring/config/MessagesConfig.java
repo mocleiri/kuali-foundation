@@ -37,7 +37,8 @@ public class MessagesConfig {
 		return message;
 	}
 
-	@Bean(initMethod = "execute")
+	// @Bean(initMethod = "execute")
+	@Bean
 	public Executable printMessagesExecutable() {
 		PrintMessagesExecutable pme = new PrintMessagesExecutable();
 		List<Message> messages = new ArrayList<Message>();
