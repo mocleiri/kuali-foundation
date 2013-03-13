@@ -2,13 +2,18 @@ package org.kuali.common.util.spring.beans;
 
 import java.util.List;
 
-import org.kuali.common.util.execute.Executable;
+import javax.annotation.PostConstruct;
 
+import org.kuali.common.util.execute.Executable;
+import org.springframework.stereotype.Component;
+
+@Component
 public class PrintMessagesExecutable implements Executable {
 
 	List<Message> messages;
 
 	@Override
+	@PostConstruct
 	public void execute() {
 		for (Message message : messages) {
 			System.out.println(message.getMessage());
