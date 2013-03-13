@@ -23,12 +23,13 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="buildProperties" class="org.kuali.common.util.spring.PropertiesPropertySource">
-    <property name="properties">
-      <props>
+  <bean class="org.kuali.common.util.spring.PropertiesPropertySource">
+    <constructor-arg value="buildProperties" />
+    <constructor-arg type="java.util.Properties">
+      <util:properties>
         <prop key="spring.message">Hello</prop>
-      </props>
-    </property>
+      </util:properties>
+    </constructor-arg>
   </bean>
 
 </beans>

@@ -15,13 +15,10 @@
  */
 package org.kuali.common.util.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import org.junit.Test;
-import org.kuali.common.util.spring.PropertiesPropertySource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.PropertySource;
@@ -34,16 +31,11 @@ public class SpringServiceTest {
 	public void test() {
 		try {
 			logger.debug("");
-			Properties properties = new Properties();
-			properties.setProperty("spring.message", "foo");
-			PropertiesPropertySource pps = new PropertiesPropertySource("properties", properties);
-			List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
-			sources.add(pps);
-
+			SpringService ss = new DefaultSpringService();
+			List<PropertySource<?>> sources = ss.getPropertySources("classpath:org/kuali/common/util/property-source-context.xml");
 			SpringContext context = new SpringContext();
 			context.setPropertySources(sources);
 			context.setLocations(Arrays.asList("classpath:org/kuali/common/util/SimpleExecutable-context.xml"));
-			SpringService ss = new DefaultSpringService();
 			ss.load(context);
 		} catch (Exception e) {
 			e.printStackTrace();
