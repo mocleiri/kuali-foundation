@@ -37,7 +37,11 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoadMojoService {
+public class SpringMojoService {
+
+	public void execute(LoadMojo mojo) {
+		System.out.println("Hello world");
+	}
 
 	public void execute(XmlLoadMojo mojo) {
 		// Might be skipping execution altogether

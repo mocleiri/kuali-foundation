@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class XmlLoadMojoExecutable implements Executable {
+public class LoadMojoExecutable implements Executable {
 
 	@Autowired
 	@Qualifier(AbstractSpringMojo.AUTOWIRED_MOJO_QUALIFIER)
-	XmlLoadMojo mojo;
+	LoadMojo mojo;
 
 	SpringMojoService service;
 
@@ -19,11 +19,11 @@ public class XmlLoadMojoExecutable implements Executable {
 		service.execute(mojo);
 	}
 
-	public XmlLoadMojo getMojo() {
+	public LoadMojo getMojo() {
 		return mojo;
 	}
 
-	public void setMojo(XmlLoadMojo mojo) {
+	public void setMojo(LoadMojo mojo) {
 		this.mojo = mojo;
 	}
 
