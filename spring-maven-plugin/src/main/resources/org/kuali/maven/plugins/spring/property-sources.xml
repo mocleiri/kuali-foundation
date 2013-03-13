@@ -25,8 +25,8 @@
 
   <!-- Declare one PropertySource bean backed by the properties from Maven -->
   <bean class="org.kuali.common.util.spring.PropertiesPropertySource">
-    <constructor-arg value="mavenProperties" /> <!-- Name -->
-    <constructor-arg ref="mavenProperties" /> <!-- Property source -->
+    <constructor-arg value="mavenProperties" /> <!-- name -->
+    <constructor-arg ref="mavenProperties" /> <!-- source -->
   </bean>
 
 </beans>
