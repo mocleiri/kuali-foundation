@@ -79,11 +79,18 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(String location, String beanName, Object bean) {
+		// Make sure the location isn't empty
 		Assert.hasText(location);
+
+		// Setup a SpringContext
 		SpringContext context = new SpringContext();
 		context.setLocations(Arrays.asList(location));
+
+		// Null safe handling for non-required parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
 		context.setBeans(CollectionUtils.toEmptyList(bean));
+
+		// Load the location using a SpringContext
 		load(context);
 	}
 
@@ -173,7 +180,9 @@ public class DefaultSpringService implements SpringService {
 		if (context.isLastOneInWins()) {
 			Collections.reverse(propertySources);
 		}
+		logger.info("Adding {} custom property sources", propertySources.size());
 		for (PropertySource<?> propertySource : propertySources) {
+			logger.info("Adding property source - [{}]", propertySource.getName());
 			sources.addLast(propertySource);
 		}
 	}
