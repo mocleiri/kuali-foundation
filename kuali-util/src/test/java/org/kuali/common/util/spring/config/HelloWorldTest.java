@@ -1,6 +1,7 @@
-package org.kuali.common.util.spring;
+package org.kuali.common.util.spring.config;
 
 import org.junit.Test;
+import org.kuali.common.util.spring.beans.HelloWorldMessage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class HelloWorldTest {

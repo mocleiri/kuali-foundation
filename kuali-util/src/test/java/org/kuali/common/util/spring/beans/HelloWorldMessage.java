@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring;
+package org.kuali.common.util.spring.beans;
 
 public class HelloWorldMessage implements Message {
 

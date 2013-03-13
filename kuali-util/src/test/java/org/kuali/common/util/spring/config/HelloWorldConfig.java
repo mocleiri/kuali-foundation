@@ -1,5 +1,6 @@
-package org.kuali.common.util.spring;
+package org.kuali.common.util.spring.config;
 
+import org.kuali.common.util.spring.beans.HelloWorldMessage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
