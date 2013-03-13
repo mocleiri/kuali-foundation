@@ -105,7 +105,7 @@ public class LoadMojoService {
 		}
 	}
 
-	protected SpringService getService(String serviceClassname) {
+	public SpringService getService(String serviceClassname) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
 			return (SpringService) serviceClass.newInstance();
