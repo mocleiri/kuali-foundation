@@ -197,6 +197,7 @@ public class SpringMojoService {
 			String capitalized = StringUtils.capitalizeFirstLetter(token);
 			sb.append(capitalized);
 		}
+		sb.append("Config");
 		return sb.toString();
 	}
 

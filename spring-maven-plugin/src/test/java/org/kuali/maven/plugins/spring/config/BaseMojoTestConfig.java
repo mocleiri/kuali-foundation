@@ -58,7 +58,7 @@ public class BaseMojoTestConfig {
 	@Bean
 	public MavenProject mavenProject() {
 		TestableMavenProject project = new TestableMavenProject();
-		project.setGroupId("org.kuali.maven.plugins");
+		project.setGroupId("org.kuali.maven.plugins.spring");
 		project.setArtifactId("spring-maven-plugin");
 		project.setProperties(properties());
 		project.setPackaging("jar");
