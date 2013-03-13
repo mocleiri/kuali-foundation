@@ -19,12 +19,12 @@ public class PropertySourcesConfig {
 
 	@Autowired
 	@Qualifier(AbstractSpringMojo.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	Properties propertySourceProperties;
+	Properties mavenProperties;
 
 	@Bean
 	public PropertiesPropertySource propertySource() {
-		System.out.println("propertySourceProperties.size()=" + propertySourceProperties.size());
-		return new PropertiesPropertySource(propertySourceName(), propertySourceProperties);
+		System.out.println("mavenProperties.size()=" + mavenProperties.size());
+		return new PropertiesPropertySource(propertySourceName(), mavenProperties);
 	}
 
 }
