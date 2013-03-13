@@ -39,39 +39,135 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	public static final Class<? extends SpringService> DEFAULT_SERVICE_CLASS = DefaultSpringService.class;
 
 	@Component
-	private MavenProject project;
+	MavenProject project;
 
 	@Parameter(property = "spring.addPropertySources", defaultValue = DEFAULT_ADD_PROPERTY_SOURCES)
-	private boolean addPropertySources = new Boolean(DEFAULT_ADD_PROPERTY_SOURCES);
+	boolean addPropertySources = new Boolean(DEFAULT_ADD_PROPERTY_SOURCES);
 
 	@Parameter(property = "spring.injectMavenProperties", defaultValue = DEFAULT_INJECT_MAVEN_PROPERTIES)
-	private boolean injectMavenProperties = new Boolean(DEFAULT_INJECT_MAVEN_PROPERTIES);
+	boolean injectMavenProperties = new Boolean(DEFAULT_INJECT_MAVEN_PROPERTIES);
 
 	@Parameter(property = "spring.injectMavenProject", defaultValue = DEFAULT_INJECT_MAVEN_PROJECT)
-	private boolean injectMavenProject = new Boolean(DEFAULT_INJECT_MAVEN_PROJECT);
+	boolean injectMavenProject = new Boolean(DEFAULT_INJECT_MAVEN_PROJECT);
 
 	@Parameter(property = "spring.injectMavenMojo", defaultValue = DEFAULT_INJECT_MAVEN_MOJO)
-	private boolean injectMavenMojo = new Boolean(DEFAULT_INJECT_MAVEN_MOJO);
+	boolean injectMavenMojo = new Boolean(DEFAULT_INJECT_MAVEN_MOJO);
 
 	@Parameter(property = "spring.mavenPropertiesBeanName", defaultValue = DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	private String mavenPropertiesBeanName = DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+	String mavenPropertiesBeanName = DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
 
 	@Parameter(property = "spring.mavenProjectBeanName", defaultValue = DEFAULT_MAVEN_PROJECT_BEAN_NAME)
-	private String mavenProjectBeanName = DEFAULT_MAVEN_PROJECT_BEAN_NAME;
+	String mavenProjectBeanName = DEFAULT_MAVEN_PROJECT_BEAN_NAME;
 
 	@Parameter(property = "spring.mavenMojoBeanName", defaultValue = DEFAULT_MAVEN_MOJO_BEAN_NAME)
-	private String mavenMojoBeanName = DEFAULT_MAVEN_MOJO_BEAN_NAME;
+	String mavenMojoBeanName = DEFAULT_MAVEN_MOJO_BEAN_NAME;
 
 	@Parameter(property = "spring.serviceClass")
-	private Class<? extends SpringService> serviceClass = DEFAULT_SERVICE_CLASS;
+	Class<? extends SpringService> serviceClass = DEFAULT_SERVICE_CLASS;
 
 	@Parameter(property = "spring.properties")
-	private Properties properties;
+	Properties properties;
 
 	@Parameter(property = "spring.forceMojoExecution", defaultValue = DEFAULT_FORCE_MOJO_EXECUTION)
-	private boolean forceMojoExecution = new Boolean(DEFAULT_FORCE_MOJO_EXECUTION);
+	boolean forceMojoExecution = new Boolean(DEFAULT_FORCE_MOJO_EXECUTION);
 
 	@Parameter(property = "spring.skip", defaultValue = DEFAULT_SKIP)
-	private boolean skip = new Boolean(DEFAULT_SKIP);
+	boolean skip = new Boolean(DEFAULT_SKIP);
+
+	public MavenProject getProject() {
+		return project;
+	}
+
+	public void setProject(MavenProject project) {
+		this.project = project;
+	}
+
+	public boolean isAddPropertySources() {
+		return addPropertySources;
+	}
+
+	public void setAddPropertySources(boolean addPropertySources) {
+		this.addPropertySources = addPropertySources;
+	}
+
+	public boolean isInjectMavenProperties() {
+		return injectMavenProperties;
+	}
+
+	public void setInjectMavenProperties(boolean injectMavenProperties) {
+		this.injectMavenProperties = injectMavenProperties;
+	}
+
+	public boolean isInjectMavenProject() {
+		return injectMavenProject;
+	}
+
+	public void setInjectMavenProject(boolean injectMavenProject) {
+		this.injectMavenProject = injectMavenProject;
+	}
+
+	public boolean isInjectMavenMojo() {
+		return injectMavenMojo;
+	}
+
+	public void setInjectMavenMojo(boolean injectMavenMojo) {
+		this.injectMavenMojo = injectMavenMojo;
+	}
+
+	public String getMavenPropertiesBeanName() {
+		return mavenPropertiesBeanName;
+	}
+
+	public void setMavenPropertiesBeanName(String mavenPropertiesBeanName) {
+		this.mavenPropertiesBeanName = mavenPropertiesBeanName;
+	}
+
+	public String getMavenProjectBeanName() {
+		return mavenProjectBeanName;
+	}
+
+	public void setMavenProjectBeanName(String mavenProjectBeanName) {
+		this.mavenProjectBeanName = mavenProjectBeanName;
+	}
+
+	public String getMavenMojoBeanName() {
+		return mavenMojoBeanName;
+	}
+
+	public void setMavenMojoBeanName(String mavenMojoBeanName) {
+		this.mavenMojoBeanName = mavenMojoBeanName;
+	}
+
+	public Class<? extends SpringService> getServiceClass() {
+		return serviceClass;
+	}
+
+	public void setServiceClass(Class<? extends SpringService> serviceClass) {
+		this.serviceClass = serviceClass;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public boolean isForceMojoExecution() {
+		return forceMojoExecution;
+	}
+
+	public void setForceMojoExecution(boolean forceMojoExecution) {
+		this.forceMojoExecution = forceMojoExecution;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 
 }
