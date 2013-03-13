@@ -10,6 +10,7 @@ public class TestableMavenProject extends MavenProject {
 	Properties properties;
 	File basedir;
 	String artifactId;
+	String groupId;
 
 	@Override
 	public Properties getProperties() {
@@ -37,6 +38,16 @@ public class TestableMavenProject extends MavenProject {
 	@Override
 	public void setArtifactId(String artifactId) {
 		this.artifactId = artifactId;
+	}
+
+	@Override
+	public String getGroupId() {
+		return groupId;
+	}
+
+	@Override
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 }
