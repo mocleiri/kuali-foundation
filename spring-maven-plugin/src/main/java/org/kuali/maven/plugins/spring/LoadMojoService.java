@@ -92,7 +92,7 @@ public class LoadMojoService {
 		Log log = mojo.getLog();
 		if (mojo.isInjectMavenProperties()) {
 			log.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
-			log.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
+			// log.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
 			log.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
