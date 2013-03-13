@@ -23,6 +23,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
 
 /**
  * <p>
@@ -166,7 +167,7 @@ public class LoadMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = LoadMojoService.getSpringService(serviceClassname);
-		service.load("classpath:org/kuali/maven/plugins/spring/load-mojo-context.xml", "mojo", this);
+		service.load(LoadMojoConfig.class, "mojo", this);
 	}
 
 	public String getLocation() {
