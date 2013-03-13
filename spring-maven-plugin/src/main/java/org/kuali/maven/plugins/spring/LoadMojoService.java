@@ -49,7 +49,7 @@ public class LoadMojoService {
 		SpringContext context = getSpringContext(mojo, mavenProperties);
 
 		// Instantiate the implementation of SpringService we will be using
-		SpringService service = getService(mojo.getServiceClassname());
+		SpringService service = getSpringService(mojo.getServiceClassname());
 
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
@@ -105,7 +105,7 @@ public class LoadMojoService {
 		}
 	}
 
-	public SpringService getService(String serviceClassname) {
+	public static SpringService getSpringService(String serviceClassname) {
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassname);
 			return (SpringService) serviceClass.newInstance();
