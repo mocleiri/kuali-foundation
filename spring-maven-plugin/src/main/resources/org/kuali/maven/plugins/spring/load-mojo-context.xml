@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="executable" class="org.kuali.maven.plugins.spring.LoadMojoExecutable" init-method="execute">
+  <bean class="org.kuali.maven.plugins.spring.LoadMojoExecutable" init-method="execute">
     <property name="mojo" ref="mojo" />
     <property name="service">
       <bean class="org.kuali.maven.plugins.spring.LoadMojoService" />
