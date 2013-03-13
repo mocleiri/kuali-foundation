@@ -49,11 +49,6 @@ public class BaseMojoTestConfig {
 	}
 
 	@Bean
-	public String artifactId() {
-		return "spring-maven-plugin";
-	}
-
-	@Bean
 	public Properties properties() {
 		Properties properties = new Properties();
 		properties.setProperty("spring.message", "Hello");
@@ -63,7 +58,8 @@ public class BaseMojoTestConfig {
 	@Bean
 	public MavenProject mavenProject() {
 		TestableMavenProject project = new TestableMavenProject();
-		project.setArtifactId(artifactId());
+		project.setGroupId("org.kuali.maven.plugins");
+		project.setArtifactId("spring-maven-plugin");
 		project.setProperties(properties());
 		project.setPackaging("jar");
 		project.setDescription("description");
