@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoadMojoService {
 
-	public void execute(LoadMojo mojo) {
+	public void execute(XmlLoadMojo mojo) {
 		// Might be skipping execution altogether
 		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
 			return;
@@ -70,7 +70,7 @@ public class LoadMojoService {
 		return service.getPropertySources(child);
 	}
 
-	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
+	protected SpringContext getSpringContext(XmlLoadMojo mojo, Properties mavenProperties) {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
 
@@ -88,7 +88,7 @@ public class LoadMojoService {
 		return context;
 	}
 
-	protected void logConfiguration(LoadMojo mojo, Properties props, List<String> contextLocations) {
+	protected void logConfiguration(XmlLoadMojo mojo, Properties props, List<String> contextLocations) {
 		Log log = mojo.getLog();
 		if (mojo.isInjectMavenProperties()) {
 			log.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
@@ -115,7 +115,7 @@ public class LoadMojoService {
 		}
 	}
 
-	protected Properties getMavenProperties(LoadMojo mojo) {
+	protected Properties getMavenProperties(XmlLoadMojo mojo) {
 		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
 		Properties internal = getInternalProperties(project);

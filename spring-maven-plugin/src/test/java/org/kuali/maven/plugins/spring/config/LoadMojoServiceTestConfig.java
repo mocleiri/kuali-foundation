@@ -9,7 +9,7 @@ import org.apache.maven.model.IssueManagement;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.maven.plugins.spring.LoadMojo;
+import org.kuali.maven.plugins.spring.XmlLoadMojo;
 import org.kuali.maven.plugins.spring.TestableMavenProject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class LoadMojoServiceTestConfig {
 	public AbstractMojo mojo() {
 		MavenProject project = mavenProject();
 
-		LoadMojo mojo = new LoadMojo();
+		XmlLoadMojo mojo = new XmlLoadMojo();
 		mojo.setProject(project);
 		mojo.setLocation("classpath:" + project.getArtifactId() + "-context.xml");
 		return mojo;

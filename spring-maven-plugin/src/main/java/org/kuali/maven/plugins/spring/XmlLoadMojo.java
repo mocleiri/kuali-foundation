@@ -47,9 +47,9 @@ import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
  *  &lt;/beans&gt;
  * </pre>
  * 
- * @goal load
+ * @goal xmlload
  */
-public class LoadMojo extends AbstractMojo {
+public class XmlLoadMojo extends AbstractMojo {
 
 	public static final String AUTOWIRED_QUALIFIER = "mojo";
 
