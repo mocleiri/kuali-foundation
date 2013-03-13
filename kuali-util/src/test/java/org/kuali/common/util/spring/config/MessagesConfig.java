@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.beans.DefaultMessage;
+import org.kuali.common.util.spring.beans.DefaultMessageImpl;
 import org.kuali.common.util.spring.beans.Message;
 import org.kuali.common.util.spring.beans.PrintMessagesExecutable;
 import org.springframework.context.annotation.Bean;
@@ -25,14 +25,14 @@ public class MessagesConfig {
 
 	@Bean
 	public Message helloWorldMessage() {
-		DefaultMessage message = new DefaultMessage();
+		DefaultMessageImpl message = new DefaultMessageImpl();
 		message.setMessage(helloWorldString());
 		return message;
 	}
 
 	@Bean
 	public Message goodbyeMessage() {
-		DefaultMessage message = new DefaultMessage();
+		DefaultMessageImpl message = new DefaultMessageImpl();
 		message.setMessage(goodbyeString());
 		return message;
 	}

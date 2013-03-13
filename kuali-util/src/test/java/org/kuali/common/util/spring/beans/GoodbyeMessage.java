@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.beans;
 
-public class GoodbyeMessage extends DefaultMessage {
+public class GoodbyeMessage extends DefaultMessageImpl {
 
 	public GoodbyeMessage() {
 		super();

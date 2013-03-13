@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.beans;
 
-public class DefaultMessage implements Message {
+public class DefaultMessageImpl implements Message {
 
 	String message;
 

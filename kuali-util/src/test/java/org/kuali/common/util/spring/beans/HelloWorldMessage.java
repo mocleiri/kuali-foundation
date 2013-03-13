@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.beans;
 
-public class HelloWorldMessage extends DefaultMessage {
+public class HelloWorldMessage extends DefaultMessageImpl {
 
 	public HelloWorldMessage() {
 		super();
