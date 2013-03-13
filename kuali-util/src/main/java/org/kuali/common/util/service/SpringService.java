@@ -15,11 +15,16 @@
  */
 package org.kuali.common.util.service;
 
+import java.util.List;
+
+import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
 
 	void load(String location);
 
 	void load(SpringContext context);
+
+	List<PropertySource<?>> getPropertySources(String location);
 
 }

@@ -20,11 +20,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -37,6 +39,28 @@ import org.springframework.util.Assert;
 public class DefaultSpringService implements SpringService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
+
+	@Override
+	public List<PropertySource<?>> getPropertySources(String location) {
+		// Load the indicated locations
+		GenericXmlApplicationContext context = new GenericXmlApplicationContext(location);
+
+		// Extract all beans that implement the PropertySource interface
+		@SuppressWarnings("rawtypes")
+		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
+
+		// Close the context
+		closeQuietly(context);
+
+		// Convert the Map to a List
+		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
+		for (PropertySource<?> source : map.values()) {
+			list.add(source);
+		}
+
+		// Return the list
+		return list;
+	}
 
 	@Override
 	public void load(String location) {
