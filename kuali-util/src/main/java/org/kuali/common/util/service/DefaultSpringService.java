@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -42,15 +42,25 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public List<PropertySource<?>> getPropertySources(String location) {
-		// Load the indicated locations
-		GenericXmlApplicationContext context = new GenericXmlApplicationContext(location);
+		// Load the indicated location
+		ConfigurableApplicationContext context = new GenericXmlApplicationContext(location);
+
+		// Extract PropertySources (if any)
+		List<PropertySource<?>> sources = getPropertySources(context);
+
+		// Close the context
+		closeQuietly(context);
+
+		// Return the list
+		return sources;
+	}
+
+	@Override
+	public List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
 
 		// Extract all beans that implement the PropertySource interface
 		@SuppressWarnings("rawtypes")
 		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
-
-		// Close the context
-		closeQuietly(context);
 
 		// Convert the Map to a List
 		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
@@ -98,8 +108,8 @@ public class DefaultSpringService implements SpringService {
 		// The Spring classes prefer array's
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
-		AbstractApplicationContext parent = null;
-		AbstractApplicationContext child = null;
+		ConfigurableApplicationContext parent = null;
+		ConfigurableApplicationContext child = null;
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
@@ -127,7 +137,7 @@ public class DefaultSpringService implements SpringService {
 	/**
 	 * Null safe close for a context
 	 */
-	protected void closeQuietly(AbstractApplicationContext context) {
+	protected void closeQuietly(ConfigurableApplicationContext context) {
 		if (context != null) {
 			context.close();
 		}
@@ -137,7 +147,7 @@ public class DefaultSpringService implements SpringService {
 	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> and <code>PropertySource's</code> registered as dictated by the <code>SpringContext</code>
 	 */
 	@Override
-	public GenericXmlApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
+	public ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
 		appContext.refresh();
@@ -152,11 +162,11 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	@Override
-	public GenericXmlApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean) {
+	public ConfigurableApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean) {
 		return getContextWithPreRegisteredBeans(Arrays.asList(beanName), Arrays.asList(bean));
 	}
 
-	protected void addPropertySources(SpringContext context, AbstractApplicationContext applicationContext) {
+	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
 		List<PropertySource<?>> propertySources = context.getPropertySources();
 		ConfigurableEnvironment environment = applicationContext.getEnvironment();
 		MutablePropertySources sources = environment.getPropertySources();

@@ -17,7 +17,7 @@ package org.kuali.common.util.service;
 
 import java.util.List;
 
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
@@ -30,8 +30,10 @@ public interface SpringService {
 
 	List<PropertySource<?>> getPropertySources(String location);
 
-	GenericXmlApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean);
+	List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context);
 
-	GenericXmlApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans);
+	ConfigurableApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean);
+
+	ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans);
 
 }
