@@ -87,15 +87,21 @@ public class DefaultSpringService implements SpringService {
 		AbstractApplicationContext child = null;
 		try {
 			if (isParentContextRequired(context)) {
-				// Build a parent context with pre-registered beans and custom property sources
-				parent = getParentContext(context);
-
-				// Load the locations they provided us, wrapped in a parent context containing pre-registered beans and property sources
-				child = new ClassPathXmlApplicationContext(locationsArray, parent);
-			} else {
-				// Otherwise just load the locations they provided us
-				child = new ClassPathXmlApplicationContext(locationsArray);
+				// Construct a parent context if necessary
+				parent = getContextWithPreRegisteredBeans(context);
 			}
+
+			// Load the locations they provided us
+			// Optionally wrapped in a parent context containing the pre-registered beans (if any)
+			child = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+
+			// Add custom property sources (if any)
+			if (!CollectionUtils.isEmpty(context.getPropertySources())) {
+				addPropertySources(context, child);
+			}
+
+			// Invoke refresh to load the context
+			child.refresh();
 		} finally {
 			// cleanup
 			closeQuietly(child);
@@ -124,27 +130,23 @@ public class DefaultSpringService implements SpringService {
 	/**
 	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> and <code>PropertySource's</code> registered as dictated by the <code>SpringContext</code>
 	 */
-	protected AbstractApplicationContext getParentContext(SpringContext context) {
+	protected AbstractApplicationContext getContextWithPreRegisteredBeans(SpringContext context) {
 		List<String> beanNames = context.getBeanNames();
 		List<Object> beans = context.getBeans();
 		Assert.isTrue(beanNames.size() == beans.size());
-		GenericXmlApplicationContext parentContext = new GenericXmlApplicationContext();
-		if (!CollectionUtils.isEmpty(context.getPropertySources())) {
-			logger.info("Configuring {} custom property sources", context.getPropertySources().size());
-			configureEnvironment(context, parentContext);
-		}
-		parentContext.refresh();
-		ConfigurableListableBeanFactory factory = parentContext.getBeanFactory();
+		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
+		appContext.refresh();
+		ConfigurableListableBeanFactory factory = appContext.getBeanFactory();
 		for (int i = 0; i < beanNames.size(); i++) {
 			String beanName = beanNames.get(i);
 			Object bean = beans.get(i);
 			logger.info("Registering [{} - {}]", beanName, bean.getClass().getName());
 			factory.registerSingleton(beanName, bean);
 		}
-		return parentContext;
+		return appContext;
 	}
 
-	protected void configureEnvironment(SpringContext context, GenericXmlApplicationContext applicationContext) {
+	protected void addPropertySources(SpringContext context, AbstractApplicationContext applicationContext) {
 		List<PropertySource<?>> propertySources = context.getPropertySources();
 		ConfigurableEnvironment environment = applicationContext.getEnvironment();
 		MutablePropertySources sources = environment.getPropertySources();
@@ -163,8 +165,6 @@ public class DefaultSpringService implements SpringService {
 		if (!CollectionUtils.isEmpty(context.getBeanNames())) {
 			return true;
 		} else if (!CollectionUtils.isEmpty(context.getBeans())) {
-			return true;
-		} else if (!CollectionUtils.isEmpty(context.getPropertySources())) {
 			return true;
 		} else {
 			return false;

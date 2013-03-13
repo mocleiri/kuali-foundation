@@ -34,7 +34,9 @@ public class SpringServiceTest {
 	public void test() {
 		try {
 			logger.debug("");
-			PropertiesPropertySource pps = new PropertiesPropertySource("properties", new Properties());
+			Properties properties = new Properties();
+			properties.setProperty("spring.message", "foo");
+			PropertiesPropertySource pps = new PropertiesPropertySource("properties", properties);
 			List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
 			sources.add(pps);
 
