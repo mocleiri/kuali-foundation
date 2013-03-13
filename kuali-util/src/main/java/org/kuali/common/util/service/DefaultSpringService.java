@@ -103,7 +103,7 @@ public class DefaultSpringService implements SpringService {
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
-				parent = getContextWithPreRegisteredBeans(context);
+				parent = getContextWithPreRegisteredBeans(context.getBeanNames(), context.getBeans());
 			}
 
 			// Load the locations they provided us
@@ -136,9 +136,8 @@ public class DefaultSpringService implements SpringService {
 	/**
 	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> and <code>PropertySource's</code> registered as dictated by the <code>SpringContext</code>
 	 */
-	protected AbstractApplicationContext getContextWithPreRegisteredBeans(SpringContext context) {
-		List<String> beanNames = context.getBeanNames();
-		List<Object> beans = context.getBeans();
+	@Override
+	public GenericXmlApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
 		appContext.refresh();
@@ -150,6 +149,11 @@ public class DefaultSpringService implements SpringService {
 			factory.registerSingleton(beanName, bean);
 		}
 		return appContext;
+	}
+
+	@Override
+	public GenericXmlApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean) {
+		return getContextWithPreRegisteredBeans(Arrays.asList(beanName), Arrays.asList(bean));
 	}
 
 	protected void addPropertySources(SpringContext context, AbstractApplicationContext applicationContext) {
