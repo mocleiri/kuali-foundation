@@ -24,19 +24,20 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
+import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
 @Mojo(name = "LoadMojo")
 @Execute(goal = "load")
 public class LoadMojo extends AbstractSpringMojo {
 
 	@Parameter(property = "spring.annotatedClass", required = true)
-	private Class<?> annotatedClass;
+	Class<?> annotatedClass;
 
 	@Parameter(property = "spring.propertySourcesConfig")
-	private Class<?> propertySourcesConfig;
+	Class<?> propertySourcesConfig = PropertySourcesConfig.class;
 
 	@Parameter(property = "spring.annotatedClasses")
-	private List<Class<?>> annotatedClasses;
+	List<Class<?>> annotatedClasses;
 
 	@Override
 	public void execute() throws MojoExecutionException {
