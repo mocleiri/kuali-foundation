@@ -9,15 +9,7 @@ public class TestableMavenProject extends MavenProject {
 
 	Properties properties;
 	File basedir;
-
-	public TestableMavenProject() {
-		this(null);
-	}
-
-	public TestableMavenProject(Properties properties) {
-		super();
-		this.properties = properties;
-	}
+	String artifactId;
 
 	@Override
 	public Properties getProperties() {
@@ -35,6 +27,16 @@ public class TestableMavenProject extends MavenProject {
 
 	public void setBasedir(File basedir) {
 		this.basedir = basedir;
+	}
+
+	@Override
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	@Override
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
 	}
 
 }

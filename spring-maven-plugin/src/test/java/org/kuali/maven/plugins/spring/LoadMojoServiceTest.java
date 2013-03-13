@@ -16,6 +16,8 @@ public class LoadMojoServiceTest {
 		Properties properties = new Properties();
 		properties.setProperty("spring.message", "Hello");
 
+		String artifactId = "spring-maven-plugin";
+
 		CiManagement ci = new CiManagement();
 		ci.setUrl("http://ci.rice.kuali.org");
 		ci.setSystem("jenkins");
@@ -26,13 +28,6 @@ public class LoadMojoServiceTest {
 
 		File basedir = new File(".");
 
-		// properties.setProperty("project.build.directory", project.getBuild().getDirectory());
-		// properties.setProperty("project.build.outputDirectory", project.getBuild().getOutputDirectory());
-		// properties.setProperty("project.build.testOutputDirectory", project.getBuild().getTestOutputDirectory());
-		// properties.setProperty("project.build.sourceDirectory", project.getBuild().getSourceDirectory());
-		// properties.setProperty("project.build.scriptSourceDirectory", project.getBuild().getScriptSourceDirectory());
-		// properties.setProperty("project.build.testSourceDirectory", project.getBuild().getTestSourceDirectory());
-
 		Build build = new Build();
 		build.setSourceDirectory(LocationUtils.getCanonicalPath(new File(basedir, "src/main")));
 		build.setDirectory(LocationUtils.getCanonicalPath(new File(basedir, "target")));
@@ -41,7 +36,9 @@ public class LoadMojoServiceTest {
 		build.setScriptSourceDirectory(LocationUtils.getCanonicalPath(new File(basedir, "src/scripts")));
 		build.setTestSourceDirectory(LocationUtils.getCanonicalPath(new File(basedir, "src/test")));
 
-		TestableMavenProject project = new TestableMavenProject(properties);
+		TestableMavenProject project = new TestableMavenProject();
+		project.setArtifactId(artifactId);
+		project.setProperties(properties);
 		project.setPackaging("jar");
 		project.setDescription("description");
 		project.setInceptionYear("2013");
@@ -55,10 +52,10 @@ public class LoadMojoServiceTest {
 	@Test
 	public void test() {
 		try {
-
 			MavenProject project = getMavenProject();
 			LoadMojo mojo = new LoadMojo();
 			mojo.setProject(project);
+			mojo.setLocation("classpath:" + project.getArtifactId() + "-context.xml");
 			LoadMojoService service = new LoadMojoService();
 			service.execute(mojo);
 		} catch (Exception e) {
