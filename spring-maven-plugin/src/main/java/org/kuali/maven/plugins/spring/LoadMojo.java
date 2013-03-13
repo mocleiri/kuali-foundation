@@ -73,7 +73,7 @@ public class LoadMojo extends AbstractMojo {
 	 * @parameter property="${spring.propertySourcesLocation}" default-value="classpath:org/kuali/maven/plugins/spring/property-sources.xml"
 	 * @required
 	 */
-	private String propertySourcesLocation;
+	private String propertySourcesLocation = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
 
 	/**
 	 * If true, <code>propertySourcesLocation</code> is loaded. Any beans from that context that implement <code>PropertySource</code> are added as property sources.
