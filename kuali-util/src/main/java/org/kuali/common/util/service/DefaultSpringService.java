@@ -180,7 +180,8 @@ public class DefaultSpringService implements SpringService {
 		if (context.isLastOneInWins()) {
 			Collections.reverse(propertySources);
 		}
-		logger.info("Adding {} custom property sources", propertySources.size());
+		String msg = propertySources.size() == 1 ? "source" : "sources";
+		logger.info("Adding {} property {}", propertySources.size(), msg);
 		for (PropertySource<?> propertySource : propertySources) {
 			logger.info("Adding property source - [{}]", propertySource.getName());
 			sources.addLast(propertySource);
