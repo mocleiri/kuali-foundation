@@ -46,10 +46,11 @@ public class AutowiredMessagesConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable printMessagesExecutable() {
-		PrintMessagesExecutable pme = new PrintMessagesExecutable();
 		List<Message> messages = new ArrayList<Message>();
 		messages.add(helloWorldMessage());
 		messages.add(goodbyeMessage());
+
+		PrintMessagesExecutable pme = new PrintMessagesExecutable();
 		pme.setMessages(messages);
 		return pme;
 	}
