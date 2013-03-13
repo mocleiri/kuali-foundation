@@ -26,6 +26,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
@@ -51,7 +52,7 @@ public class LoadMojoService {
 		SpringContext context = getSpringContext(mojo, mavenProperties);
 
 		// Get the desired SpringService implementation
-		SpringService service = newInstance(mojo.getServiceClass());
+		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
 
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
@@ -104,16 +105,6 @@ public class LoadMojoService {
 		}
 		if (contextLocations.size() > 1) {
 			log.info("Loading " + contextLocations.size() + " Spring context files");
-		}
-	}
-
-	public static <T> T newInstance(Class<T> instanceClass) {
-		try {
-			return (T) instanceClass.newInstance();
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException("Unexpected error", e);
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Unexpected error", e);
 		}
 	}
 
