@@ -1,7 +1,10 @@
 package org.kuali.maven.plugins.spring.config;
 
-import org.kuali.maven.plugins.spring.LoadMojo;
+import java.util.Properties;
+
+import org.kuali.maven.plugins.spring.AbstractSpringMojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +12,15 @@ import org.springframework.context.annotation.Configuration;
 public class PropertySourcesConfig {
 
 	@Bean
-	@Autowired(required = true)
-	public LoadMojo mojo() {
-		return null;
+	public String propertySourceName() {
+		return AbstractSpringMojo.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+	}
+
+	@Bean
+	@Autowired
+	@Qualifier(AbstractSpringMojo.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	public Properties propertySourceProperties() {
+		return new Properties();
 	}
 
 }
