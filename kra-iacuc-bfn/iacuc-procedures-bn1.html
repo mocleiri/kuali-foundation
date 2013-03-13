@@ -322,7 +322,7 @@
     <tr>
         <td class="midpanelhead1">&nbsp;</td>
         <td class="midpanelhead2">
-            Procedures
+            Procedure Details
         </td>
         <td class="midpanelhead3">
             <img id="control_panelcontent01" src="../images/tinybutton-hide.gif" alt="hide" style="width:45px; height:15px; border:none;" />
@@ -358,10 +358,10 @@
             <td class="panelcontent1">&nbsp;</td>
             <td class="panelcontent2" colspan="3">
             
-            <img id="c_categoriesstuff" src="../images/tinybutton-a2categories.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="categories" title="Categories" />
-            <img id="c_personnelstuff" src="../images/tinybutton-a1personnel.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="personnel" title="Personnel" />
-            <img id="c_locationstuff" src="../images/tinybutton-a1location.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="location" title="Location" />
-            <img id="c_summarystuff" src="../images/tinybutton-a1summary.gif" style="height:15px; width:69px; cursor:pointer; border:none;" alt="summary" title="Summary" />
+            <img id="c_categoriesstuff" src="../images/tinybuttontoprounds_procedures_opened2.gif" style="margin-bottom:-4px; height:21px; width:75px; cursor:pointer; border:none;" alt="procedures" title="Procedures" />
+            <img id="c_personnelstuff" src="../images/tinybuttontoprounds_personnel_closed.gif" style="margin-bottom:-3px; height:21px; width:75px; cursor:pointer; border:none;" alt="personnel" title="Personnel" />
+            <img id="c_locationstuff" src="../images/tinybuttontoprounds_location_closed.gif" style="margin-bottom:-3px; height:21px; width:75px; cursor:pointer; border:none;" alt="location" title="Location" />
+            <img id="c_summarystuff" src="../images/tinybuttontoprounds_summary_closed.gif" style="margin-bottom:-3px; height:21px; width:75px; cursor:pointer; border:none;" alt="summary" title="Summary" />
             <script type="text/javascript">
 				$(document).ready(function(){
 					$("#c_categoriesstuff").click(
@@ -369,10 +369,14 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#categoriesstuff").slideDown(400);
-							$("#c_categoriesstuff").attr("src","../images/tinybutton-a2categories.gif");
-							$("#c_personnelstuff").attr("src","../images/tinybutton-a1personnel.gif");
-							$("#c_locationstuff").attr("src","../images/tinybutton-a1location.gif");
-							$("#c_summarystuff").attr("src","../images/tinybutton-a1summary.gif");
+							$("#c_categoriesstuff").attr("src","../images/tinybuttontoprounds_procedures_opened2.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybuttontoprounds_personnel_closed.gif");
+							$("#c_locationstuff").attr("src","../images/tinybuttontoprounds_location_closed.gif");
+							$("#c_summarystuff").attr("src","../images/tinybuttontoprounds_summary_closed.gif");
+							$("#c_categoriesstuff").css("margin-bottom","-4px");
+							$("#c_personnelstuff").css("margin-bottom","-3px");
+							$("#c_locationstuff").css("margin-bottom","-3px");
+							$("#c_summarystuff").css("margin-bottom","-3px");
 						}
 					);
 					$("#c_personnelstuff").click(
@@ -380,10 +384,14 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#personnelstuff").slideDown(400);
-							$("#c_categoriesstuff").attr("src","../images/tinybutton-a1categories.gif");
-							$("#c_personnelstuff").attr("src","../images/tinybutton-a2personnel.gif");
-							$("#c_locationstuff").attr("src","../images/tinybutton-a1location.gif");
-							$("#c_summarystuff").attr("src","../images/tinybutton-a1summary.gif");
+							$("#c_categoriesstuff").attr("src","../images/tinybuttontoprounds_procedures_closed.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybuttontoprounds_personnel_opened2.gif");
+							$("#c_locationstuff").attr("src","../images/tinybuttontoprounds_location_closed.gif");
+							$("#c_summarystuff").attr("src","../images/tinybuttontoprounds_summary_closed.gif");
+							$("#c_categoriesstuff").css("margin-bottom","-3px");
+							$("#c_personnelstuff").css("margin-bottom","-4px");
+							$("#c_locationstuff").css("margin-bottom","-3px");
+							$("#c_summarystuff").css("margin-bottom","-3px");
 						}
 					);
 					$("#c_locationstuff").click(
@@ -391,10 +399,14 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#locationstuff").slideDown(400);
-							$("#c_categoriesstuff").attr("src","../images/tinybutton-a1categories.gif");
-							$("#c_personnelstuff").attr("src","../images/tinybutton-a1personnel.gif");
-							$("#c_locationstuff").attr("src","../images/tinybutton-a2location.gif");
-							$("#c_summarystuff").attr("src","../images/tinybutton-a1summary.gif");
+							$("#c_categoriesstuff").attr("src","../images/tinybuttontoprounds_procedures_closed.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybuttontoprounds_personnel_closed.gif");
+							$("#c_locationstuff").attr("src","../images/tinybuttontoprounds_location_opened2.gif");
+							$("#c_summarystuff").attr("src","../images/tinybuttontoprounds_summary_closed.gif");
+							$("#c_categoriesstuff").css("margin-bottom","-3px");
+							$("#c_personnelstuff").css("margin-bottom","-3px");
+							$("#c_locationstuff").css("margin-bottom","-4px");
+							$("#c_summarystuff").css("margin-bottom","-3px");
 						}
 					);
 					$("#c_summarystuff").click(
@@ -402,16 +414,20 @@
 						{
 							$(".buttonarea1").slideUp(200);
 							$("#summarystuff").slideDown(400);
-							$("#c_categoriesstuff").attr("src","../images/tinybutton-a1categories.gif");
-							$("#c_personnelstuff").attr("src","../images/tinybutton-a1personnel.gif");
-							$("#c_locationstuff").attr("src","../images/tinybutton-a1location.gif");
-							$("#c_summarystuff").attr("src","../images/tinybutton-a2summary.gif");
+							$("#c_categoriesstuff").attr("src","../images/tinybuttontoprounds_procedures_closed.gif");
+							$("#c_personnelstuff").attr("src","../images/tinybuttontoprounds_personnel_closed.gif");
+							$("#c_locationstuff").attr("src","../images/tinybuttontoprounds_location_closed.gif");
+							$("#c_summarystuff").attr("src","../images/tinybuttontoprounds_summary_opened2.gif");
+							$("#c_categoriesstuff").css("margin-bottom","-3px");
+							$("#c_personnelstuff").css("margin-bottom","-3px");
+							$("#c_locationstuff").css("margin-bottom","-3px");
+							$("#c_summarystuff").css("margin-bottom","-4px");
 						}
 					);	
 				});
 			</script>
             
-            <!-- Categories -->
+            <!-- Procedures -->
             <div id="categoriesstuff" class="buttonarea1" style="display:block;">
             	<!-- Context -->
                 <table class="elementhead_table">
@@ -434,7 +450,7 @@
 									);	
 								});
 							</script>
-                            Categories
+                            Procedures
                         </th>
                         <th class="elementhead_right">
                             <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
@@ -2824,7 +2840,7 @@
 									});
 								</script>
                                 <div style="display: none;">
-                                    <div id="d_fb01" style="overflow:auto;">
+                                    <div id="d_fb01" style="overflow:auto; max-height:500px; width:400px;">
                                     	<table class="content_table">  
                                             <tr>
                                                 <th class="content_grey" style="text-align:center; background-color:#666; color:#FFF;" colspan="2">
@@ -2832,70 +2848,56 @@
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Group: <input type="text" style="width:30px;" value="A" />
-                                                </td>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Species: <input type="text" style="width:300px;" value="Amphibian-Frog" />
+                                                <td class="content_grey" style="text-align:left;" colspan="2">
+                                                    Species: <input type="text" style="width:300px;" value="Flying Frogs" />
                                                 </td>
                                             </tr> 
                                             <tr>
                                                 <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
                                                     <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Anesthesia<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Physical Method<br />
-                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Aversive Stmuli <span id="" style="display:block; float:right;"><span class="fineprint">Qualifications: </span><input type="text" style="width:200px;" value="Works well under pressure as part of a team." /></span><br />
-                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Blood Sampling <span id="" style="display:block; float:right;"><span class="fineprint">Qualifications: </span><input type="text" style="width:200px;" value="Retractable, one-foot long Adamantium claws." /></span><br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Chemical Restraint<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Non-survival
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Survival<br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Food/Fluid Restriction (not pre-sx)<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Anesthesia
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Group: <input type="text" style="width:30px;" value="B" />
-                                                </td>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Species: <input type="text" style="width:300px;" value="Bird - Chicken For Agricultural Research" />
+                                                <td class="content_grey" style="text-align:left;" colspan="2">
+                                                    Species: <input type="text" style="width:300px;" value="Flying Salamanders " />
                                                 </td>
                                             </tr> 
                                             <tr>
                                                 <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
                                                     <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
-                                                    <input type="checkbox" style="margin-left:10px;" checked="checked"  /> Anesthesia <span id="" style="display:block; float:right;"><span class="fineprint">Qualifications: </span><input type="text" style="width:200px;" value="Beer pong champion of the world." /></span><br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Physical Method
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Survival<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Food/Fluid Restriction (not pre-sx)<br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Anesthesia
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Group: <input type="text" style="width:30px;" value="C" />
-                                                </td>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Species: <input type="text" style="width:300px;" value="Bird - Finch" />
+                                                <td class="content_grey" style="text-align:left;" colspan="2">
+                                                    Qualifications
                                                 </td>
                                             </tr> 
                                             <tr>
                                                 <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
-                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Food/water restriction (not prior to surgery)<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Aversive Stmuli<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Antibody Production
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Group: <input type="text" style="width:30px;" value="D" />
-                                                </td>
-                                                <td class="content_grey" style="text-align:left;">
-                                                    Species: <input type="text" style="width:300px;" value="Amphibian-Frog" />
-                                                </td>
-                                            </tr> 
-                                            <tr>
-                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
-                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
-                                                    <input type="checkbox" style="margin-left:10px;" /> Non-survival
+                                                    
+                                                    <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border:none; background:none;">
+                                                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design.</textarea>
+                                                            </td>
+                                                            <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
+                                                                <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
                                                 </td>
                                             </tr>
                                         </table>
+                                        <div style="text-align:center; padding:10px;">
+                                        	<a href="javascript:void(0);" onclick="parent.$.fancybox.close();"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -2963,7 +2965,7 @@
                             	Room
                             </td>
                             <td class="content_grey" style="vertical-align:top; padding:8px; text-align:center;">
-                            	Description
+                            	Location Description
                             </td>
                             <td class="content_grey" style="vertical-align:top; padding:8px; text-align:center; width:160px;">
                             	Action
@@ -3047,7 +3049,44 @@
 									});
 								</script>
                                 <div style="display: none;">
-                                    <div id="d_fb03" style="overflow:auto;"><img src="./screens/locationproceedures.jpg" alt="screen" style="width:423px; height:227px; padding:10px;" /></div>
+                                    <div id="d_fb03" style="overflow:auto;">
+                                    	<table class="content_table">  
+                                            <tr>
+                                                <th class="content_grey" style="text-align:center; background-color:#666; color:#FFF;" colspan="2">
+                                                   Procedures at Location 1, Room 201
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:left;" colspan="2">
+                                                    Species: <input type="text" style="width:300px;" value="Flying Frogs" />
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
+                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Survival<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Food/Fluid Restriction (not pre-sx)<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Anesthesia
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content_grey" style="text-align:left;" colspan="2">
+                                                    Species: <input type="text" style="width:300px;" value="Flying Salamanders " />
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="content_white" style="vertical-align:top; padding:8px; line-height:24px;" colspan="2">
+                                                    <input type="checkbox" style="margin-bottom:8px;" /> ALL PROCEDURES<br />
+                                                    <input type="checkbox" style="margin-left:10px;" checked="checked" /> Survival<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Food/Fluid Restriction (not pre-sx)<br />
+                                                    <input type="checkbox" style="margin-left:10px;" /> Anesthesia
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div style="text-align:center; padding:10px;">
+                                        	<a href="javascript:void(0);" onclick="parent.$.fancybox.close();"><img src="../images/buttonsmall_save.gif" alt="save" width="53" height="18" hspace="5" border="0" /></a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <input src="../images/tinybutton-delete1.gif" onclick="javascript: alert('This would delete thisrow.'); return false" style="border:none;" alt="delete" title="Delete" type="image" />
                             </td>
@@ -3089,7 +3128,7 @@
                             	<img id="c_fb04" href="#d_fb04" src="../images/tinybutton-assignproceedures.gif" style="height:15px; width:100px; cursor:pointer; border:none;" alt="assign proceedures" title="Assign Proceedures" />
 								<script type="text/javascript">
 									$(document).ready(function() {
-										$("#c_fb04").fancybox();
+										/*$("#c_fb04").fancybox();*/
 									});
 								</script>
                                 <div style="display: none;">
