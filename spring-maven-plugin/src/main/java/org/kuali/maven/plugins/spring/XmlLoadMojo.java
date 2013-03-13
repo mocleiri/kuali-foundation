@@ -16,160 +16,40 @@
 package org.kuali.maven.plugins.spring;
 
 import java.util.List;
-import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.service.DefaultSpringService;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
 
-/**
- * <p>
- * This mojo provides the ability to load a Spring context XML file. It uses a lightweight integration technique between Spring and Maven centered around
- * <code>java.util.Properties</code>. Prior to the Spring context being loaded, it is injected with a <code>java.util.Properties</code> object containing the full set of Maven
- * properties. The <code>java.util.Properties</code> object is registered in the context as a bean under the name <code>mavenProperties</code>.
- * </p>
- * <p>
- * One common use of the injected Maven properties in a Spring context is for replacing property placeholders.
- * </p>
- * <p>
- * For example, to inject the Maven version number into a Spring context:
- * </p>
- * 
- * <pre>
- *  &lt;beans&gt;
- *   &lt;context:property-placeholder properties-ref="mavenProperties" /&gt;
- *   &lt;bean id="version" class="java.lang.String"&gt;
- *    &lt;constructor-arg value="${project.version}" /&gt;
- *   &lt;/bean&gt;
- *  &lt;/beans&gt;
- * </pre>
- * 
- * @goal xmlload
- */
-public class XmlLoadMojo extends AbstractMojo {
+public class XmlLoadMojo extends AbstractSpringMojo {
 
-	public static final String AUTOWIRED_QUALIFIER = "mojo";
-
-	/**
-	 * Maven project
-	 * 
-	 * @parameter default-value="${project}"
-	 * @required
-	 * @readonly
-	 */
-	private MavenProject project;
+	public static final String DEFAULT_LOCATION = "classpath:${project.artifactId}-context.xml";
+	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
 
 	/**
 	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework understands eg
 	 * {@code classpath:my-context.xml}
-	 * 
-	 * @parameter property="${spring.location}" default-value="classpath:${project.artifactId}-context.xml"
-	 * @required
 	 */
-	private String location;
+	@Parameter(property = "spring.location", defaultValue = DEFAULT_LOCATION, required = true)
+	String location;
 
 	/**
 	 * This context registers a single <code>PropertySource</code> bean backed by Maven properties
-	 * 
-	 * @parameter property="${spring.propertySourcesLocation}" default-value="classpath:org/kuali/maven/plugins/spring/property-sources.xml"
-	 * @required
 	 */
-	private String propertySourcesLocation = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
-
-	/**
-	 * If true, <code>propertySourcesLocation</code> is loaded. Any beans from that context that implement <code>PropertySource</code> are added as property sources.
-	 * 
-	 * @parameter property="${spring.addPropertySources}" default-value="true"
-	 */
-	private boolean addPropertySources = true;
+	@Parameter(defaultValue = DEFAULT_PROPERTY_SOURCES_LOCATION)
+	String propertySourcesLocation = DEFAULT_PROPERTY_SOURCES_LOCATION;
 
 	/**
 	 * List of additional Spring context XML files to load (if any).
-	 * 
-	 * @parameter
 	 */
-	private List<String> locations;
-
-	/**
-	 * Additional properties to supply to the Spring context.
-	 * 
-	 * @parameter
-	 */
-	private Properties properties;
-
-	/**
-	 * If true, Maven properties are injected into the Spring context as a <code>java.util.Properties</code> object
-	 * 
-	 * @parameter property="${spring.injectMavenProperties}" default-value="true"
-	 */
-	private boolean injectMavenProperties = true;
-
-	/**
-	 * If true, the <code>MavenProject</code> object is injected into the Spring context
-	 * 
-	 * @parameter property="${spring.injectMavenProject}" default-value="false"
-	 */
-	private boolean injectMavenProject = false;
-
-	/**
-	 * If true, this <code>LoadMojo</code> object is injected into the Spring context
-	 * 
-	 * @parameter property="${spring.injectMavenMojo}" default-value="false"
-	 */
-	private boolean injectMavenMojo = false;
-
-	/**
-	 * The name to use when registering the <code>java.util.Properties</code> object containing Maven build properties as a bean in the Spring context.
-	 * 
-	 * @parameter property="${spring.mavenPropertiesBeanName}" default-value="mavenProperties"
-	 */
-	private String mavenPropertiesBeanName = "mavenProperties";
-
-	/**
-	 * The name to use when registering the <code>MavenProject</code> object as a bean in the Spring context.
-	 * 
-	 * @parameter property="${spring.mavenProjectBeanName}" default-value="mavenProject"
-	 */
-	private String mavenProjectBeanName = "mavenProject";
-
-	/**
-	 * The name to use when registering this <code>mojo</code> object as a bean in the Spring context.
-	 * 
-	 * @parameter property="${spring.mojoBeanName}" default-value="mavenMojo"
-	 */
-	private String mavenMojoBeanName = "mavenMojo";
-
-	/**
-	 * The implementation of {@code org.kuali.common.util.service.SpringService} to use
-	 * 
-	 * @parameter property="${spring.serviceClass}" default-value="org.kuali.common.util.service.DefaultSpringService"
-	 * @required
-	 */
-	private Class<? extends SpringService> serviceClass = DefaultSpringService.class;
-
-	/**
-	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. If <code>forceMojoExecution</code> is
-	 * <code>true</code> this mojo will always execute. <code>forceMojoExecution</code> overrides <code>skip</code>.
-	 * 
-	 * @parameter property="${spring.forceMojoExecution}" default-value="false"
-	 */
-	private boolean forceMojoExecution = false;
-
-	/**
-	 * By default, execution of this mojo is automatically skipped for Maven projects with a packaging of type <code>pom</code>. Set this parameter to <code>true</code> to
-	 * explicitly skip executing this mojo for other scenarios. NOTE: <code>forceMojoExecution</code> overrides <code>skip</code>.
-	 * 
-	 * @parameter property="${spring.skip}" default-value="false"
-	 */
-	private boolean skip = false;
+	@Parameter
+	List<String> locations;
 
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = LoadMojoService.newInstance(serviceClass);
-		service.load(LoadMojoConfig.class, AUTOWIRED_QUALIFIER, this);
+		service.load(LoadMojoConfig.class, AUTOWIRED_MOJO_QUALIFIER, this);
 	}
 
 	public String getLocation() {
@@ -180,116 +60,20 @@ public class XmlLoadMojo extends AbstractMojo {
 		this.location = location;
 	}
 
+	public String getPropertySourcesLocation() {
+		return propertySourcesLocation;
+	}
+
+	public void setPropertySourcesLocation(String propertySourcesLocation) {
+		this.propertySourcesLocation = propertySourcesLocation;
+	}
+
 	public List<String> getLocations() {
 		return locations;
 	}
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
-	}
-
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-
-	public boolean isInjectMavenProperties() {
-		return injectMavenProperties;
-	}
-
-	public void setInjectMavenProperties(boolean injectMavenProperties) {
-		this.injectMavenProperties = injectMavenProperties;
-	}
-
-	public boolean isInjectMavenProject() {
-		return injectMavenProject;
-	}
-
-	public void setInjectMavenProject(boolean injectMavenProject) {
-		this.injectMavenProject = injectMavenProject;
-	}
-
-	public String getMavenPropertiesBeanName() {
-		return mavenPropertiesBeanName;
-	}
-
-	public void setMavenPropertiesBeanName(String mavenPropertiesBeanName) {
-		this.mavenPropertiesBeanName = mavenPropertiesBeanName;
-	}
-
-	public String getMavenProjectBeanName() {
-		return mavenProjectBeanName;
-	}
-
-	public void setMavenProjectBeanName(String mavenProjectBeanName) {
-		this.mavenProjectBeanName = mavenProjectBeanName;
-	}
-
-	public String getMavenMojoBeanName() {
-		return mavenMojoBeanName;
-	}
-
-	public void setMavenMojoBeanName(String mojoBeanName) {
-		this.mavenMojoBeanName = mojoBeanName;
-	}
-
-	public boolean isForceMojoExecution() {
-		return forceMojoExecution;
-	}
-
-	public void setForceMojoExecution(boolean forceMojoExecution) {
-		this.forceMojoExecution = forceMojoExecution;
-	}
-
-	public boolean isSkip() {
-		return skip;
-	}
-
-	public void setSkip(boolean skip) {
-		this.skip = skip;
-	}
-
-	public MavenProject getProject() {
-		return project;
-	}
-
-	public String getPropertySourcesLocation() {
-		return propertySourcesLocation;
-	}
-
-	public void setPropertySourcesLocation(String propertySourceContextLocation) {
-		this.propertySourcesLocation = propertySourceContextLocation;
-	}
-
-	public boolean isAddPropertySources() {
-		return addPropertySources;
-	}
-
-	public void setAddPropertySources(boolean configurePropertySources) {
-		this.addPropertySources = configurePropertySources;
-	}
-
-	public boolean isInjectMavenMojo() {
-		return injectMavenMojo;
-	}
-
-	public void setInjectMavenMojo(boolean injectMavenMojo) {
-		this.injectMavenMojo = injectMavenMojo;
-	}
-
-	public void setProject(MavenProject project) {
-		this.project = project;
-	}
-
-	public Class<? extends SpringService> getServiceClass() {
-		return serviceClass;
-	}
-
-	public void setServiceClass(Class<? extends SpringService> serviceClass) {
-		this.serviceClass = serviceClass;
 	}
 
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LoadMojoExecutable implements Executable {
 
 	@Autowired
-	@Qualifier(XmlLoadMojo.AUTOWIRED_QUALIFIER)
+	@Qualifier(AbstractSpringMojo.AUTOWIRED_MOJO_QUALIFIER)
 	XmlLoadMojo mojo;
 
 	LoadMojoService service;
