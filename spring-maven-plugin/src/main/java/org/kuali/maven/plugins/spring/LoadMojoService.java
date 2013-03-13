@@ -32,7 +32,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertySource;
 
-public class MojoExecutor {
+public class LoadMojoService {
 
 	public void execute(LoadMojo mojo) {
 		// Might be skipping execution altogether
