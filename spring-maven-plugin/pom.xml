@@ -74,6 +74,12 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <version>3.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
       <version>3.0.16-SNAPSHOT</version>
