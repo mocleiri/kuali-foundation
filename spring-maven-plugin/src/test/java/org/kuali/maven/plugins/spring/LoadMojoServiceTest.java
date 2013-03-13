@@ -14,7 +14,7 @@ public class LoadMojoServiceTest {
 
 	protected MavenProject getMavenProject() {
 		Properties properties = new Properties();
-		properties.setProperty("foo", "bar");
+		properties.setProperty("spring.message", "Hello");
 
 		CiManagement ci = new CiManagement();
 		ci.setUrl("http://ci.rice.kuali.org");
