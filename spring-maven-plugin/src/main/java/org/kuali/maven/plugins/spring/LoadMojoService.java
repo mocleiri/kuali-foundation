@@ -21,10 +21,12 @@ import java.util.Properties;
 
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
@@ -128,6 +130,20 @@ public class LoadMojoService {
 		PropertyUtils.overrideWithGlobalValues(properties, GlobalPropertiesMode.BOTH);
 		// Return the overridden properties
 		return properties;
+	}
+
+	protected String getDefaultAnnotatedClassname(MavenProject project) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("classpath:");
+		sb.append(Str.getPath(project.getGroupId()));
+		sb.append("/");
+		String artifactId = project.getArtifactId();
+		String[] tokens = StringUtils.split(artifactId, "-");
+		for (String token : tokens) {
+			String capitalized = StringUtils.capitalizeFirstLetter(token);
+			sb.append(capitalized);
+		}
+		return sb.toString();
 	}
 
 	protected Properties getInternalProperties(MavenProject project) {
