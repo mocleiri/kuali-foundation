@@ -6,6 +6,7 @@ import org.kuali.maven.plugins.spring.LoadMojoExecutable;
 import org.kuali.maven.plugins.spring.MavenConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -27,6 +28,15 @@ public class LoadMojoConfig {
 		executable.setService(baseConfig.service());
 		executable.setMojo(mojo);
 		return executable;
+	}
+
+	@Bean
+	public Object invoker() {
+		MethodInvokingFactoryBean mifb = new MethodInvokingFactoryBean();
+		mifb.setTargetObject(baseConfig.service());
+		mifb.setTargetMethod("execute");
+		mifb.setArguments(new Object[] { mojo });
+		return null;
 	}
 
 }
