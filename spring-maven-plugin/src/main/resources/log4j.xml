@@ -23,14 +23,16 @@
     <layout class="org.apache.log4j.PatternLayout">
       <!--
         This shows the package/class/method name
-        <param name="ConversionPattern" value="[%-4p] %C.%M - %m%n" />
+        <param name="ConversionPattern" value="[%-4p] %C - %m%n" />
       -->
       <param name="ConversionPattern" value="[%-4p] %m%n" />
     </layout>
   </appender>
+  <logger name="org.springframework.beans.factory.xml">
+    <level value="info" />
+  </logger>
   <logger name="org.springframework">
     <level value="warn" />
-    <appender-ref ref="console" />
   </logger>
   <root>
     <priority value="info" />
