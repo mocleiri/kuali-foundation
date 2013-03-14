@@ -52,16 +52,11 @@
               <goal>loadxml</goal>
             </goals>
             <configuration>
-              <location>classpath:kuali-test-context.xml</location>
+              <location>\${project.basedir}/src/main/kuali-test-context.xml</location>
             </configuration>
           </execution>
         </executions>
         <dependencies>
-          <dependency>
-            <groupId>org.kuali.common</groupId>
-            <artifactId>kuali-test</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-          </dependency>
           <dependency>
             <groupId>org.kuali.common</groupId>
             <artifactId>kuali-util</artifactId>
