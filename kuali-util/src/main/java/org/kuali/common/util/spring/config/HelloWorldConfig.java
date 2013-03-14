@@ -1,14 +1,16 @@
 package org.kuali.common.util.spring.config;
 
-import org.kuali.common.util.spring.beans.HelloWorldMessage;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.HelloWorldExecutable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class HelloWorldConfig {
 
-	@Bean
-	public HelloWorldMessage helloWorldMessage() {
-		return new HelloWorldMessage();
+	@Bean(initMethod = "execute")
+	public Executable helloWorld() {
+		return new HelloWorldExecutable();
 	}
+
 }
