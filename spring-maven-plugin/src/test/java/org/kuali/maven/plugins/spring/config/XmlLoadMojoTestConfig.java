@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.spring.config;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
-import org.kuali.maven.plugins.spring.XmlLoadMojo;
+import org.kuali.maven.plugins.spring.LoadXmlMojo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +13,7 @@ public class XmlLoadMojoTestConfig extends BaseMojoTestConfig {
 	public AbstractMojo mojo() {
 		MavenProject project = mavenProject();
 
-		XmlLoadMojo mojo = new XmlLoadMojo();
+		LoadXmlMojo mojo = new LoadXmlMojo();
 		mojo.setProject(project);
 		mojo.setLocation("classpath:" + project.getArtifactId() + "-context.xml");
 		return mojo;

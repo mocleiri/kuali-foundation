@@ -68,7 +68,7 @@ public class SpringMojoService {
 		lc.getService().load(context);
 	}
 
-	public void execute(XmlLoadMojo mojo) {
+	public void execute(LoadXmlMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
@@ -136,7 +136,7 @@ public class SpringMojoService {
 		return context;
 	}
 
-	protected SpringContext getSpringContext(XmlLoadMojo mojo, Properties mavenProperties) {
+	protected SpringContext getSpringContext(LoadXmlMojo mojo, Properties mavenProperties) {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
 

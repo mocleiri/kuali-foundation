@@ -18,12 +18,16 @@ package org.kuali.maven.plugins.spring;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 
-public class XmlLoadMojo extends AbstractSpringMojo {
+@Mojo(name = "load-xml-mojo")
+@Execute(goal = "loadxml")
+public class LoadXmlMojo extends AbstractSpringMojo {
 
 	public static final String DEFAULT_LOCATION = "classpath:${project.artifactId}-context.xml";
 	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
