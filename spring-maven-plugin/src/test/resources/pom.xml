@@ -58,7 +58,7 @@
           </execution>
           <execution>
             <id>loadxml</id>
-            <phase>none</phase>
+            <phase>test</phase>
             <goals>
               <goal>loadxml</goal>
             </goals>
