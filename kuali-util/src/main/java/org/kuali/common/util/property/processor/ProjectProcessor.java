@@ -61,7 +61,6 @@ public class ProjectProcessor implements PropertyProcessor {
 		project.setGroupId(properties.getProperty("project.groupId"));
 		project.setArtifactId(properties.getProperty("project.artifactId"));
 		project.setVersion(properties.getProperty("project.version"));
-		project.setVersion(properties.getProperty("project.classifier"));
 		return project;
 	}
 
