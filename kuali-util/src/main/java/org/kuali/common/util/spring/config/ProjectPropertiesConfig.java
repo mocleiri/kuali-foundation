@@ -28,6 +28,6 @@ public class ProjectPropertiesConfig {
 	@Bean
 	public PropertiesPropertySource propertySource() {
 		String name = Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
-		return new PropertiesPropertySource(name, mavenProperties);
+		return new PropertiesPropertySource(name, augmentedProjectProperties());
 	}
 }
