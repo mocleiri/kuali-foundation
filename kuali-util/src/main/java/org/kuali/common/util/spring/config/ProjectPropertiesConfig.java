@@ -1,6 +1,7 @@
 package org.kuali.common.util.spring.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -26,7 +27,7 @@ public class ProjectPropertiesConfig {
 	public List<PropertyProcessor> processors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		processors.add(new ProjectProcessor());
-		processors.add(new VersionProcessor("project.version"));
+		processors.add(new VersionProcessor(Arrays.asList("project.version"), true));
 		return processors;
 	}
 
