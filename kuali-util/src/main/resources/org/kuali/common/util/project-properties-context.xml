@@ -23,18 +23,23 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <util:list id="propertyProcessors">
-    <bean class="org.kuali.common.util.property.processor.ProjectProcessor" />
-    <bean class="org.kuali.common.util.property.processor.VersionProcessor">
-      <constructor-arg>
-        <util:list>
-          <bean class="java.lang.String">
-            <constructor-arg value="project.version" />
-          </bean>
-        </util:list>
-      </constructor-arg>
-      <constructor-arg value="true" />
-    </bean>
-  </util:list>
+  <bean class="org.kuali.common.util.spring.PropertyProcessorFactoryBean">
+    <property name="properties" ref="mavenProperties" />
+    <property name="processors" ref="propertyProcessors">
+      <util:list>
+        <bean class="org.kuali.common.util.property.processor.ProjectProcessor" />
+        <bean class="org.kuali.common.util.property.processor.VersionProcessor">
+          <constructor-arg>
+            <util:list>
+              <bean class="java.lang.String">
+                <constructor-arg value="project.version" />
+              </bean>
+            </util:list>
+          </constructor-arg>
+          <constructor-arg value="true" />
+        </bean>
+      </util:list>
+    </property>
+  </bean>
 
 </beans>
