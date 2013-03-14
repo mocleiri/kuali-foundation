@@ -17,21 +17,9 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-import org.kuali.common.util.Mode;
 import org.kuali.common.util.Project;
-import org.kuali.common.util.property.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class DefaultOrgProcessor implements PropertyProcessor {
-	private static final Logger logger = LoggerFactory.getLogger(DefaultOrgProcessor.class);
-
-	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
-
-	String orgIdProperty = "project.orgId";
-	String orgCodeProperty = "project.orgId.code";
-	String orgPathProperty = "project.orgId.path";
-	String groupIdProperty = "project.groupId";
+public class ProjectProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
@@ -42,7 +30,9 @@ public class DefaultOrgProcessor implements PropertyProcessor {
 		project.setOrgId(properties.getProperty("project.orgId"));
 		project.setOrgCode(properties.getProperty("project.orgId.code"));
 		project.setOrgPath(properties.getProperty("project.orgId.path"));
-		project.setOrgId(properties.getProperty("project.orgId"));
+		project.setGroupId(properties.getProperty("project.groupId"));
+		project.setArtifactId(properties.getProperty("project.artifactId"));
+		project.setVersion(properties.getProperty("project.version"));
 		return project;
 	}
 

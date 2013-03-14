@@ -26,6 +26,9 @@ public class Project {
 	// 2.0.0
 	String version;
 
+	// Optional - typically "webapp" or something similar
+	String classifier;
+
 	// KS with Rice Bundled
 	String name;
 
@@ -121,6 +124,14 @@ public class Project {
 
 	public void setOrgPath(String orgPath) {
 		this.orgPath = orgPath;
+	}
+
+	public String getClassifier() {
+		return classifier;
+	}
+
+	public void setClassifier(String classifier) {
+		this.classifier = classifier;
 	}
 
 }
