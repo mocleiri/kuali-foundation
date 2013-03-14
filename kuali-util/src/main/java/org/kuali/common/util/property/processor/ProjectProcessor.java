@@ -38,6 +38,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		String orgHome = userHome + FS + DOT + p.getOrgCode();
 		String groupHome = orgHome + FS + groupCode;
 		properties.setProperty("project.groupId.code", groupCode);
+		properties.setProperty("project.groupId.path", Str.getPath(p.getGroupId()));
 		properties.setProperty("project.groupId.base", groupBase);
 		properties.setProperty("project.groupId.base.path", Str.getPath(groupBase));
 		properties.setProperty("project.orgId.home", orgHome);
