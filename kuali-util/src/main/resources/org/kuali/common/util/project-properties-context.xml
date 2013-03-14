@@ -42,7 +42,7 @@
     </property>
   </bean>
 
-  <bean id="projectPropertiesSource" class="org.springframework.core.env.PropertiesPropertySource">
+  <bean id="projectPropertySource" class="org.springframework.core.env.PropertiesPropertySource">
     <constructor-arg value="mavenProperties" />
     <constructor-arg ref="augmentedProjectProperties" />
   </bean>

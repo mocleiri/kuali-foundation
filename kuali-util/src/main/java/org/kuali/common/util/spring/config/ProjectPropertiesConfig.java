@@ -24,22 +24,14 @@ public class ProjectPropertiesConfig {
 	Properties mavenProperties;
 
 	@Bean
-	public List<PropertyProcessor> processors() {
+	public PropertiesPropertySource projectPropertySource() {
+
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		processors.add(new ProjectProcessor());
 		processors.add(new VersionProcessor(Arrays.asList("project.version"), true));
-		return processors;
-	}
+		PropertyUtils.process(mavenProperties, processors);
 
-	@Bean
-	public Properties augmentedProjectProperties() {
-		PropertyUtils.process(mavenProperties, processors());
-		return mavenProperties;
-	}
-
-	@Bean
-	public PropertiesPropertySource propertySource() {
 		String name = Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
-		return new PropertiesPropertySource(name, augmentedProjectProperties());
+		return new PropertiesPropertySource(name, mavenProperties);
 	}
 }
