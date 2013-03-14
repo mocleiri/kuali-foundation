@@ -17,5 +17,6 @@ public final class MavenConstants {
 	public static final String DEFAULT_SKIP = "false";
 	public static final Class<? extends SpringService> DEFAULT_SERVICE_CLASS = DefaultSpringService.class;
 	public static final Class<?> DEFAULT_PROPERTY_SOURCES_CONFIG = PropertySourcesConfig.class;
+	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
 
 }

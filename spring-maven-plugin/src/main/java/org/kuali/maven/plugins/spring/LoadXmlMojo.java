@@ -32,9 +32,6 @@ import org.kuali.maven.plugins.spring.config.MojoConfig;
 @Execute(goal = "loadxml")
 public class LoadXmlMojo extends AbstractSpringMojo {
 
-	public static final String DEFAULT_LOCATION = "classpath:${project.artifactId}-context.xml";
-	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
-
 	/**
 	 * <p>
 	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework understands eg
@@ -51,8 +48,8 @@ public class LoadXmlMojo extends AbstractSpringMojo {
 	/**
 	 * This context registers a single <code>PropertySource</code> bean backed by Maven properties
 	 */
-	@Parameter(defaultValue = DEFAULT_PROPERTY_SOURCES_LOCATION)
-	String propertySourcesLocation = DEFAULT_PROPERTY_SOURCES_LOCATION;
+	@Parameter(defaultValue = MavenConstants.DEFAULT_PROPERTY_SOURCES_LOCATION)
+	String propertySourcesLocation = MavenConstants.DEFAULT_PROPERTY_SOURCES_LOCATION;
 
 	/**
 	 * List of additional Spring context XML files to load (if any).
