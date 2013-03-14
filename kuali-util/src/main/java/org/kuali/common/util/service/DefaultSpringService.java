@@ -79,16 +79,22 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	@Override
-	public void load(Class<?> annotatedClass, String beanName, Object bean) {
+	public void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource) {
 		// Make sure the location isn't empty
 		Assert.notNull(annotatedClass);
 
 		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
 		annotatedClasses.add(annotatedClass);
 
+		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
+		if (propertySource != null) {
+			propertySources.add(propertySource);
+		}
+
 		// Setup a SpringContext
 		SpringContext context = new SpringContext();
 		context.setAnnotatedClasses(annotatedClasses);
+		context.setPropertySources(propertySources);
 
 		// Null safe handling for non-required parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
@@ -99,18 +105,29 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	@Override
+	public void load(Class<?> annotatedClass, String beanName, Object bean) {
+		load(annotatedClass, beanName, bean, null);
+	}
+
+	@Override
 	public void load(String location) {
 		load(location, null, null);
 	}
 
 	@Override
-	public void load(String location, String beanName, Object bean) {
+	public void load(String location, String beanName, Object bean, PropertySource<?> propertySource) {
 		// Make sure the location isn't empty
 		Assert.hasText(location);
+
+		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
+		if (propertySource != null) {
+			propertySources.add(propertySource);
+		}
 
 		// Setup a SpringContext
 		SpringContext context = new SpringContext();
 		context.setLocations(Arrays.asList(location));
+		context.setPropertySources(propertySources);
 
 		// Null safe handling for non-required parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
@@ -118,6 +135,11 @@ public class DefaultSpringService implements SpringService {
 
 		// Load the location using a SpringContext
 		load(context);
+	}
+
+	@Override
+	public void load(String location, String beanName, Object bean) {
+		load(location, beanName, bean, null);
 	}
 
 	@Override
