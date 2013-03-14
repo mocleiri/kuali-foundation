@@ -17,12 +17,26 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
+import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.Project;
+import org.springframework.util.Assert;
 
 public class ProjectProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
+		Project project = getProject(properties);
+		validate(project);
+		String base = OrgUtils.getGroupIdBase(project.getOrgId(), project.getGroupId());
+	}
+
+	protected void validate(Project project) {
+		Assert.notNull(project.getOrgId(), "orgId is null");
+		Assert.notNull(project.getOrgCode(), "orgCode is null");
+		Assert.notNull(project.getOrgPath(), "orgPath is null");
+		Assert.notNull(project.getGroupId(), "groupId is null");
+		Assert.notNull(project.getArtifactId(), "artifactId is null");
+		Assert.notNull(project.getVersion(), "version is null");
 	}
 
 	protected Project getProject(Properties properties) {
@@ -33,6 +47,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		project.setGroupId(properties.getProperty("project.groupId"));
 		project.setArtifactId(properties.getProperty("project.artifactId"));
 		project.setVersion(properties.getProperty("project.version"));
+		project.setVersion(properties.getProperty("project.classifier"));
 		return project;
 	}
 
