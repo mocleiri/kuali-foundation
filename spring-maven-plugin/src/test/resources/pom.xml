@@ -46,7 +46,7 @@
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <id>execute</id>
+            <id>loadxml</id>
             <phase>test</phase>
             <goals>
               <goal>loadxml</goal>
