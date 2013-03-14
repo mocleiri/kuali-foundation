@@ -52,7 +52,7 @@
               <goal>load</goal>
             </goals>
             <configuration>
-              <annotatedClass>org.kuali.common.util.spring.config.HelloWorldConfig</annotatedClass>
+              <annotatedClass>org.kuali.common.util.spring.config.PrintMessageConfig</annotatedClass>
             </configuration>
           </execution>
           <execution>
