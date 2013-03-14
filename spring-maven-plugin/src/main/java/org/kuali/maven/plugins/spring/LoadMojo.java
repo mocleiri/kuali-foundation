@@ -26,7 +26,7 @@ import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 
 /**
- * Load a Spring context from an annotated Java class
+ * Load a Spring context from an annotated class
  */
 @Mojo(name = "load")
 @Execute(goal = "load")
