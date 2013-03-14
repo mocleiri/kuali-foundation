@@ -46,6 +46,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
 
+	@Override
 	public void loadSpring(AbstractSpringMojo mojo) {
 		logger.info("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
@@ -106,7 +107,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			logger.info("Loading property sources - [{}]", source);
 			List<PropertySource<?>> sources = getPropertySources(ctx);
 			String msg = sources.size() == 1 ? "source" : "sources";
-			logger.debug("Located {} property {}", sources.size(), msg);
+			logger.info("Located {} property {}", sources.size(), msg);
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
