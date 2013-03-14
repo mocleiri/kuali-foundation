@@ -15,6 +15,7 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -49,8 +50,29 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	public void execute(AbstractSpringMojo mojo) {
 		logger.info("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
+
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
-		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo, propertySource);
+
+		List<String> beanNames = new ArrayList<String>();
+		beanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
+		beanNames.add(MavenConstants.DEFAULT_SPRING_MOJO_SERVICE_BEAN_NAME);
+
+		List<Object> beans = new ArrayList<Object>();
+		beans.add(mojo);
+		beans.add(this);
+
+		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
+		annotatedClasses.add(MojoConfig.class);
+
+		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
+		propertySources.add(propertySource);
+
+		SpringContext context = new SpringContext();
+		context.setPropertySources(propertySources);
+		context.setAnnotatedClasses(annotatedClasses);
+		context.setBeanNames(beanNames);
+		context.setBeans(beans);
+		service.load(context);
 	}
 
 	protected void execute(LoadMojo mojo) {

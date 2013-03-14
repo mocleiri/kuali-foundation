@@ -1,6 +1,5 @@
 package org.kuali.maven.plugins.spring.config;
 
-import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.maven.plugins.spring.AbstractSpringMojo;
 import org.kuali.maven.plugins.spring.MavenConstants;
@@ -18,15 +17,14 @@ public class MojoConfig {
 	@Qualifier(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME)
 	AbstractSpringMojo mojo;
 
-	@Bean
-	public SpringMojoService service() {
-		return ReflectionUtils.newInstance(mojo.getSpringMojoService());
-	}
+	@Autowired
+	@Qualifier(MavenConstants.DEFAULT_SPRING_MOJO_SERVICE_BEAN_NAME)
+	SpringMojoService service;
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
 		MojoExecutable executable = new MojoExecutable();
-		executable.setService(service());
+		executable.setService(service);
 		executable.setMojo(mojo);
 		return executable;
 	}
