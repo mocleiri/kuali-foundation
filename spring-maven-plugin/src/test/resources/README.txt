@@ -1,6 +1,6 @@
 The pom.xml in this directory is a bootstrap testing pom
 
-It contains executions that test executing the spring-maven-plugin from the Maven command line
+It contains executions that test the spring-maven-plugin using the Maven command line
 
 This provides a simple (but manual) way to quickly perform integration testing of spring-maven-plugin
 in a way that exactly replicates the end user experience. 
