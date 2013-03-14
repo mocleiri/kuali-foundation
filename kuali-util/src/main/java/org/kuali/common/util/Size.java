@@ -17,7 +17,7 @@ package org.kuali.common.util;
 
 public enum Size {
 
-	BYTE(1, "bytes", "bytes/s"), //
+	BYTE(1, "b", "bytes/s"), //
 	KB(1024, "k", "KB/s"), //
 	MB(1024 * Size.KB.getValue(), "m", "MB/s"), //
 	GB(1024 * Size.MB.getValue(), "g", "GB/s"), //

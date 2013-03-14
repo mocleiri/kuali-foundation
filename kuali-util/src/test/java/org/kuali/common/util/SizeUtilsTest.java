@@ -25,7 +25,7 @@ public class SizeUtilsTest {
 	}
 
 	protected void show(String size) {
-		long bytes = SizeUtils.getBytes(size);
+		long bytes = FormatUtils.getBytes(size);
 		String original = lpad(size, 6);
 		String formatted = lpad(FormatUtils.getSize(bytes), 7);
 		String raw = lpad(FormatUtils.getCount(bytes), 25);

@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.spring;
 
-import org.kuali.common.util.SizeUtils;
+import org.kuali.common.util.FormatUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
@@ -26,7 +26,7 @@ public class GetBytesFactoryBean implements FactoryBean<Long> {
 	@Override
 	public Long getObject() throws Exception {
 		Assert.notNull(size, "size is null");
-		return SizeUtils.getBytes(size);
+		return FormatUtils.getBytes(size);
 	}
 
 	@Override

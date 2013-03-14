@@ -16,7 +16,7 @@
 package org.kuali.common.util.spring;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.TimeUtils;
+import org.kuali.common.util.FormatUtils;
 import org.springframework.beans.factory.FactoryBean;
 
 public class GetMillisFactoryBean implements FactoryBean<Long> {
@@ -26,7 +26,7 @@ public class GetMillisFactoryBean implements FactoryBean<Long> {
 	@Override
 	public Long getObject() throws Exception {
 		Assert.notNull(time, "time is null");
-		return TimeUtils.getMillis(time);
+		return FormatUtils.getMillis(time);
 	}
 
 	@Override
