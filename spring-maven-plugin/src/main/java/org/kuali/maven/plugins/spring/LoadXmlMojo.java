@@ -25,7 +25,10 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 
-@Mojo(name = "load-xml-mojo")
+/**
+ * Load a Spring context from an XML file.
+ */
+@Mojo(name = "loadxml")
 @Execute(goal = "loadxml")
 public class LoadXmlMojo extends AbstractSpringMojo {
 

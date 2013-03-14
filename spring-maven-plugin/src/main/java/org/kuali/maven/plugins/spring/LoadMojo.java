@@ -26,13 +26,22 @@ import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
-@Mojo(name = "load-mojo")
+/**
+ * Load a Spring context from an annotated Java class
+ */
+@Mojo(name = "load")
 @Execute(goal = "load")
 public class LoadMojo extends AbstractSpringMojo {
 
+	/**
+	 * The Java class containing the Spring configuration.
+	 */
 	@Parameter(property = "spring.annotatedClass", required = true)
 	Class<?> annotatedClass;
 
+	/**
+	 * The Java class containing <code>PropertySource</code> definitions.
+	 */
 	@Parameter(property = "spring.propertySourcesConfig")
 	Class<?> propertySourcesConfig = PropertySourcesConfig.class;
 
