@@ -43,57 +43,61 @@ public class SpringMojoService {
 	private static final Logger logger = LoggerFactory.getLogger(SpringMojoService.class);
 
 	public void execute(LoadMojo mojo) {
-		// Might be skipping execution altogether
-		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
+		LoadContext lc = getLoadContext(mojo);
+		if (lc == null) {
 			return;
 		}
 
-		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = getMavenProperties(mojo);
-
 		// Aggregate objects into a SpringContext
-		SpringContext context = getSpringContext(mojo, mavenProperties);
-
-		// Get the desired SpringService implementation
-		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
+		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
 
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
 			// If so, extract PropertySource objects from the PropertySources context
-			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesConfig(), mojo.getMavenPropertiesBeanName(), mavenProperties);
+			List<PropertySource<?>> sources = getPropertySources(lc.getService(), mojo.getPropertySourcesConfig(), mojo.getMavenPropertiesBeanName(), lc.getMavenProperties());
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
-		service.load(context);
+		lc.getService().load(context);
+	}
+
+	public LoadContext getLoadContext(AbstractSpringMojo mojo) {
+		// Might be skipping execution altogether
+		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
+			logger.info("Skipping execution");
+			return null;
+		}
+
+		// Combine mojo properties, project properties and internal maven properties into a Properties object
+		Properties mavenProperties = getMavenProperties(mojo);
+
+		// Get the desired SpringService implementation
+		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
+
+		return new LoadContext(mavenProperties, service);
 	}
 
 	public void execute(XmlLoadMojo mojo) {
-		// Might be skipping execution altogether
-		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
+		LoadContext lc = getLoadContext(mojo);
+		if (lc == null) {
 			return;
 		}
 
-		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = getMavenProperties(mojo);
-
 		// Aggregate objects into a SpringContext
-		SpringContext context = getSpringContext(mojo, mavenProperties);
-
-		// Get the desired SpringService implementation
-		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
+		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
 
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
 			// If so, extract PropertySource objects from the PropertySources context
-			List<PropertySource<?>> sources = getPropertySources(service, mojo.getPropertySourcesLocation(), mojo.getMavenPropertiesBeanName(), mavenProperties);
+			List<PropertySource<?>> sources = getPropertySources(lc.getService(), mojo.getPropertySourcesLocation(), mojo.getMavenPropertiesBeanName(), lc.getMavenProperties());
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
-		service.load(context);
+		lc.getService().load(context);
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
