@@ -55,7 +55,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		List<String> beanNames = new ArrayList<String>();
 		beanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
-		beanNames.add(MavenConstants.DEFAULT_SPRING_MOJO_SERVICE_BEAN_NAME);
+		beanNames.add(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME);
 
 		List<Object> beans = new ArrayList<Object>();
 		beans.add(mojo);

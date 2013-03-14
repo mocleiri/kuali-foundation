@@ -18,7 +18,7 @@ public class MojoConfig {
 	AbstractSpringMojo mojo;
 
 	@Autowired
-	@Qualifier(MavenConstants.DEFAULT_SPRING_MOJO_SERVICE_BEAN_NAME)
+	@Qualifier(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME)
 	SpringMojoService service;
 
 	@Bean(initMethod = "execute")
