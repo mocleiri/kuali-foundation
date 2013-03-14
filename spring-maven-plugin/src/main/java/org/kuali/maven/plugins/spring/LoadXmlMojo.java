@@ -17,7 +17,6 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.List;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -53,12 +52,6 @@ public class LoadXmlMojo extends AbstractSpringMojo {
 	 */
 	@Parameter
 	List<String> locations;
-
-	@Override
-	public void execute() throws MojoExecutionException {
-		// Delegate execution to Spring
-		new DefaultSpringMojoService().execute(this);
-	}
 
 	public String getLocation() {
 		return location;
