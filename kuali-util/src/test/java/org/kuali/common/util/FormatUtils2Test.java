@@ -5,9 +5,27 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SizeUtilsTest {
+public class FormatUtils2Test {
 
-	private static final Logger logger = LoggerFactory.getLogger(SizeUtilsTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(FormatUtils2Test.class);
+
+	@Test
+	public void test1() {
+		try {
+			long number = 2;
+			for (int i = 0; i < 45; i++) {
+				long pow = (long) Math.pow(number, i);
+				String time = FormatUtils.getTime(pow);
+				String size = FormatUtils.getSize(pow);
+				System.out.print("pow=" + lpad(FormatUtils.getCount(pow), 20) + "   time=" + lpad(time, 10) + "    size=" + lpad(size, 8));
+				long millis = FormatUtils.getMillis(time);
+				long bytes = FormatUtils.getBytes(size);
+				System.out.println("    time=" + lpad(FormatUtils.getCount(millis), 20) + "    size=" + lpad(FormatUtils.getCount(bytes), 20));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void test() {
