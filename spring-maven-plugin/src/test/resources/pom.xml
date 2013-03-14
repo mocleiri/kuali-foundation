@@ -64,6 +64,7 @@
             </goals>
             <configuration>
               <location>classpath:edu/calpoly/records/spring/power-webapp-context.xml</location>
+              <propertySourcesLocation>classpath:org/kuali/common/util/project-properties-context.xml</propertySourcesLocation>
             </configuration>
           </execution>
         </executions>
