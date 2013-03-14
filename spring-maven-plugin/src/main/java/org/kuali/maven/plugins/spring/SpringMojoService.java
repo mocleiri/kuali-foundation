@@ -192,20 +192,20 @@ public class SpringMojoService {
 	}
 
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
+		logger.info(" --- Loading requested Spring configuration ---- ");
+		for (Object configuration : configurations) {
+			logger.info("[{}]", configuration);
+		}
 		if (mojo.isInjectMavenProperties()) {
-			logger.info("Working with " + props.size() + " Maven properties");
+			Object[] args = { mojo.getMavenPropertiesBeanName(), props.getClass().getName(), props.size() };
+			logger.info("Injecting [{}] -> [{}] - {} total properties", args);
 			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
-			logger.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
+			logger.info("Injecting [{}] -> [{}]", mojo.getMavenProjectBeanName(), mojo.getProject().getClass().getName());
 		}
 		if (mojo.isInjectMavenMojo()) {
-			logger.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMavenMojoBeanName() + "]");
-		}
-		String msg = configurations.size() > 1 ? "configurations" : "configuration";
-		logger.debug("Working with {} Spring {}", configurations.size(), msg);
-		for (Object configuration : configurations) {
-			logger.info("Spring config - [{}]", configuration);
+			logger.info("Injecting [{}] -> [{}]", mojo.getMavenMojoBeanName(), mojo.getClass().getName());
 		}
 	}
 
