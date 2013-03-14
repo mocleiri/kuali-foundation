@@ -224,6 +224,8 @@ public class SpringMojoService {
 		StringBuilder sb = new StringBuilder();
 		sb.append(project.getGroupId());
 		sb.append(".");
+		sb.append("spring");
+		sb.append(".");
 		String artifactId = project.getArtifactId();
 		String[] tokens = StringUtils.split(artifactId, "-");
 		for (String token : tokens) {

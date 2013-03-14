@@ -34,7 +34,7 @@ public class LoadMojo extends AbstractSpringMojo {
 
 	/**
 	 * The annotated class containing the Spring configuration. If not supplied, a class based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of
-	 * <code>org.kuali.rice</code> and an artifactId of <code>rice-sampleapp</code>, this mojo attempts to use <code>org.kuali.rice.RiceSampleappConfig</code>
+	 * <code>org.kuali.rice</code> and an artifactId of <code>rice-sampleapp</code>, this mojo attempts to use <code>org.kuali.rice.spring.RiceSampleappConfig</code>
 	 */
 	@Parameter(property = "spring.annotatedClass", required = true)
 	Class<?> annotatedClass;

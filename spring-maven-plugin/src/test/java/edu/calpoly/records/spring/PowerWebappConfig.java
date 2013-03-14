@@ -1,4 +1,4 @@
-package edu.calpoly.records;
+package edu.calpoly.records.spring;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.HelloWorldExecutable;
