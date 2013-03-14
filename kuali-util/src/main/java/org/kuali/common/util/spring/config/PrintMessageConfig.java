@@ -14,7 +14,7 @@ public class PrintMessageConfig {
 	@Autowired
 	Environment env;
 
-	@Value("${print.message:NONE}")
+	@Value("${print.message}")
 	String printMessage;
 
 	@Bean
