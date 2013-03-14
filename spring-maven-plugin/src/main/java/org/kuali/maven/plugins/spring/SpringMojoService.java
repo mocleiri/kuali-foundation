@@ -51,21 +51,50 @@ public class SpringMojoService {
 		// Aggregate objects into a SpringContext
 		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
 
-		// Are we adding any custom property sources?
-		if (mojo.isAddPropertySources()) {
-			// If so, extract PropertySource objects from the PropertySources context
-			logger.info("Loading property sources - [{}]", mojo.getPropertySourcesConfig().getName());
-			List<PropertySource<?>> sources = getPropertySources(lc.getService(), mojo.getPropertySourcesConfig(), mojo.getMavenPropertiesBeanName(), lc.getMavenProperties());
-			String msg = sources.size() == 1 ? "source" : "sources";
-			logger.info("Located {} property {}", sources.size(), msg);
-			// Add them to the SpringContext
-			context.setPropertySources(sources);
-		}
+		// Provide some context for looking up property sources
+		PropertySourcesContext psc = getPropertySourcesContext(mojo, lc);
 
+		// Add the property sources
+		addPropertySources(psc, mojo, context);
+
+		// Show what we are up to
 		logConfiguration(mojo, lc.getMavenProperties(), context.getAnnotatedClasses());
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
 		lc.getService().load(context);
+	}
+
+	protected void addPropertySources(PropertySourcesContext ctx, AbstractSpringMojo mojo, SpringContext context) {
+		// Are we adding any custom property sources?
+		if (mojo.isAddPropertySources()) {
+			String source = ctx.getLocation() == null ? ctx.getAnnotatedClass().getName() : ctx.getLocation();
+			// If so, extract PropertySource objects from the PropertySources context
+			logger.info("Loading property sources - [{}]", source);
+			List<PropertySource<?>> sources = getPropertySources(ctx);
+			String msg = sources.size() == 1 ? "source" : "sources";
+			logger.debug("Located {} property {}", sources.size(), msg);
+			// Add them to the SpringContext
+			context.setPropertySources(sources);
+		}
+
+	}
+
+	protected PropertySourcesContext getPropertySourcesContext(LoadXmlMojo mojo, LoadContext context) {
+		PropertySourcesContext psc = new PropertySourcesContext();
+		psc.setLocation(mojo.getPropertySourcesLocation());
+		psc.setProperties(context.getMavenProperties());
+		psc.setService(context.getService());
+		psc.setPropertiesBeanName(mojo.getMavenPropertiesBeanName());
+		return psc;
+	}
+
+	protected PropertySourcesContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
+		PropertySourcesContext psc = new PropertySourcesContext();
+		psc.setAnnotatedClass(mojo.getPropertySourcesConfig());
+		psc.setProperties(context.getMavenProperties());
+		psc.setService(context.getService());
+		psc.setPropertiesBeanName(mojo.getMavenPropertiesBeanName());
+		return psc;
 	}
 
 	public void execute(LoadXmlMojo mojo) {
@@ -77,21 +106,26 @@ public class SpringMojoService {
 		// Aggregate objects into a SpringContext
 		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
 
-		// Are we adding any custom property sources?
-		if (mojo.isAddPropertySources()) {
-			logger.info("Loading property sources - [{}]", mojo.getPropertySourcesLocation());
-			// If so, extract PropertySource objects from the PropertySources context
-			List<PropertySource<?>> sources = getPropertySources(lc.getService(), mojo.getPropertySourcesLocation(), mojo.getMavenPropertiesBeanName(), lc.getMavenProperties());
-			String msg = sources.size() == 1 ? "source" : "sources";
-			logger.info("Located {} property {}", sources.size(), msg);
-			// Add them to the SpringContext
-			context.setPropertySources(sources);
-		}
+		// Provide some context for looking up property sources
+		PropertySourcesContext psc = getPropertySourcesContext(mojo, lc);
+
+		// Add the property sources
+		addPropertySources(psc, mojo, context);
 
 		logConfiguration(mojo, lc.getMavenProperties(), context.getLocations());
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
 		lc.getService().load(context);
+	}
+
+	protected List<PropertySource<?>> getPropertySources(PropertySourcesContext ctx) {
+		if (ctx.getLocation() != null) {
+			return getPropertySources(ctx.getService(), ctx.getLocation(), ctx.getPropertiesBeanName(), ctx.getProperties());
+		} else if (ctx.getAnnotatedClass() != null) {
+			return getPropertySources(ctx.getService(), ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties());
+		} else {
+			throw new IllegalArgumentException("Must supply either location or annotated class");
+		}
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
@@ -155,8 +189,8 @@ public class SpringMojoService {
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
 		logger.info("Loading requested Spring configuration");
 		if (mojo.isInjectMavenProperties()) {
-			logger.info("Injecting " + props.size() + " Maven properties");
-			// logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
+			logger.info("Working with " + props.size() + " Maven properties");
+			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
 			logger.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
