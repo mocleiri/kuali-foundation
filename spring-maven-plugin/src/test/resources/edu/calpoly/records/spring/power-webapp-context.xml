@@ -27,8 +27,14 @@
 
   <import resource="classpath:edu/calpoly/records/spring/print-message-context.xml" />
 
-  <bean class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-    <property name="executable" ref="printMessageExecutable" />
+  <bean class="org.kuali.common.util.execute.ExecutablesExecutable" init-method="execute">
+    <property name="executables">
+      <util:list>
+        <ref bean="printMessageExecutable" />
+        <bean class="edu.calpoly.records.spring.ShowPropertiesExecutable">
+          <property name="executables" ref="mavenProperties" />
+        </bean>
+      </util:list>
+    </property>
   </bean>
-
 </beans>
