@@ -15,7 +15,6 @@ public class XmlLoadMojoTestConfig extends BaseMojoTestConfig {
 
 		LoadXmlMojo mojo = new LoadXmlMojo();
 		mojo.setProject(project);
-		mojo.setLocation("classpath:" + project.getArtifactId() + "-context.xml");
 		return mojo;
 	}
 }
