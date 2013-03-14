@@ -164,7 +164,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		} else if (ctx.getAnnotatedClass() != null) {
 			return getPropertySources(ctx.getService(), ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties());
 		} else {
-			throw new IllegalArgumentException("Must supply either location or annotated class");
+			throw new IllegalArgumentException("Must supply either location or an annotated class");
 		}
 	}
 
