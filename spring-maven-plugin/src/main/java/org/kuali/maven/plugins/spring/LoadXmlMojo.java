@@ -29,14 +29,10 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class LoadXmlMojo extends AbstractSpringMojo {
 
 	/**
-	 * <p>
-	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework understands eg
-	 * {@code classpath:my-context.xml}.
-	 * </p>
-	 * <p>
-	 * If not provided, a context based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of <code>org.kuali.rice</code> and an artifactId of
-	 * <code>rice-sampleapp</code> this mojo will load <code>classpath:org/kuali/rice/spring/rice-sampleapp-context.xml</code>
-	 * </p>
+	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework understands eg <br>
+	 * If not provided, a context based on ${project.groupId} + ${project.artifactId} is used.<br>
+	 * Given a groupId of <code>org.kuali.rice</code> and an artifactId of <code>rice-sampleapp</code> this mojo will load
+	 * <code>classpath:org/kuali/rice/spring/rice-sampleapp-context.xml</code>
 	 */
 	@Parameter(property = "spring.location")
 	String location;
