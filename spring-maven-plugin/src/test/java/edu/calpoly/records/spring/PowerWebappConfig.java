@@ -26,7 +26,7 @@ public class PowerWebappConfig {
 	Properties mavenProperties;
 
 	@Bean
-	public PropertySourcesPlaceholderConfigurer pspc() {
+	public static PropertySourcesPlaceholderConfigurer pspc() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
