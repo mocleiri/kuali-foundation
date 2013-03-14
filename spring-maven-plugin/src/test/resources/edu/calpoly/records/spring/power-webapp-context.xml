@@ -25,6 +25,8 @@
 
   <context:property-placeholder />
 
+  <import resource="classpath:edu/calpoly/records/spring/print-message-context.xml" />
+
   <bean class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
     <property name="executable" ref="printMessageExecutable" />
   </bean>
