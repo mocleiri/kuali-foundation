@@ -24,8 +24,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <!--
-    By default, Spring can only automatically resolve placeholders using system and environment properties.
-    The spring-maven-plugin makes Maven properties available to Spring during placeholder resolution.
+    By default, Spring resolves placeholders using only system and environment properties.
+    The spring-maven-plugin makes Maven properties automatically available to Spring during placeholder resolution.
   -->
   <context:property-placeholder />
 
