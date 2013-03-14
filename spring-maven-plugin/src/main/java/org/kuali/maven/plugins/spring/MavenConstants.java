@@ -21,6 +21,6 @@ public final class MavenConstants {
 	public static final Class<? extends SpringService> DEFAULT_SPRING_SERVICE = DefaultSpringService.class;
 	public static final Class<? extends SpringMojoService> DEFAULT_SPRING_MOJO_SERVICE = DefaultSpringMojoService.class;
 	public static final Class<?> DEFAULT_PROPERTY_SOURCES_CONFIG = PropertySourcesConfig.class;
-	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
+	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources-context.xml";
 
 }
