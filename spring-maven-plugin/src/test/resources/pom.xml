@@ -62,7 +62,7 @@
               <goal>loadxml</goal>
             </goals>
             <configuration>
-              <location>\${project.basedir}/src/main/resources/kuali-test-context.xml</location>
+              <location>\${project.basedir}/src/main/resources/bootstrap-test-context.xml</location>
             </configuration>
           </execution>
         </executions>
