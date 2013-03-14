@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.property.processor;
 
+import java.io.File;
 import java.util.Properties;
 
 import org.kuali.common.util.OrgUtils;
@@ -24,15 +25,23 @@ import org.springframework.util.Assert;
 
 public class ProjectProcessor implements PropertyProcessor {
 
+	private static final String FS = File.separator;
+	private static final String DOT = ".";
+
 	@Override
 	public void process(Properties properties) {
 		Project p = getProject(properties);
 		validate(p);
 		String groupCode = OrgUtils.getGroupCode(p.getOrgId(), p.getGroupId());
 		String groupBase = OrgUtils.getGroupBase(p.getOrgId(), p.getGroupId());
+		String userHome = System.getProperty("user.home");
+		String orgHome = userHome + FS + DOT + p.getOrgCode();
+		String groupHome = orgHome + FS + groupCode;
 		properties.setProperty("project.groupId.code", groupCode);
 		properties.setProperty("project.groupId.base", groupBase);
 		properties.setProperty("project.groupId.base.path", Str.getPath(groupBase));
+		properties.setProperty("project.orgId.home", orgHome);
+		properties.setProperty("project.groupId.home", groupHome);
 	}
 
 	protected void validate(Project project) {
