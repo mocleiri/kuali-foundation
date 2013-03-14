@@ -14,7 +14,7 @@ public class MojoExecutable implements Executable {
 	MethodInvoker invoker = new MethodInvoker();
 	String targetMethod = "execute";
 	AbstractSpringMojo mojo;
-	DefaultSpringMojoService service;
+	SpringMojoService service;
 
 	@Override
 	public void execute() {
@@ -36,22 +36,6 @@ public class MojoExecutable implements Executable {
 		}
 	}
 
-	public AbstractSpringMojo getMojo() {
-		return mojo;
-	}
-
-	public void setMojo(AbstractSpringMojo mojo) {
-		this.mojo = mojo;
-	}
-
-	public DefaultSpringMojoService getService() {
-		return service;
-	}
-
-	public void setService(DefaultSpringMojoService service) {
-		this.service = service;
-	}
-
 	public MethodInvoker getInvoker() {
 		return invoker;
 	}
@@ -66,6 +50,22 @@ public class MojoExecutable implements Executable {
 
 	public void setTargetMethod(String targetMethod) {
 		this.targetMethod = targetMethod;
+	}
+
+	public AbstractSpringMojo getMojo() {
+		return mojo;
+	}
+
+	public void setMojo(AbstractSpringMojo mojo) {
+		this.mojo = mojo;
+	}
+
+	public SpringMojoService getService() {
+		return service;
+	}
+
+	public void setService(SpringMojoService service) {
+		this.service = service;
 	}
 
 }
