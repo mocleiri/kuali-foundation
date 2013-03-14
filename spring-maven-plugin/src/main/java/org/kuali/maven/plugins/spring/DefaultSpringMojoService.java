@@ -201,7 +201,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> annotatedClassNames = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
 		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
 		for (String annotatedClassName : annotatedClassNames) {
-			Class<?> annotatedClass = ReflectionUtils.newInstance(annotatedClassName);
+			Class<?> annotatedClass = ReflectionUtils.getClass(annotatedClassName);
 			annotatedClasses.add(annotatedClass);
 		}
 
