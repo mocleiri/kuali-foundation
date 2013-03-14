@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean class="org.kuali.common.util.spring.PropertyProcessorFactoryBean">
+  <bean id="augmentedProjectProperties" class="org.kuali.common.util.spring.PropertyProcessorFactoryBean">
     <property name="properties" ref="mavenProperties" />
     <property name="processors" ref="propertyProcessors">
       <util:list>
@@ -40,6 +40,11 @@
         </bean>
       </util:list>
     </property>
+  </bean>
+
+  <bean id="projectPropertiesSource" class="org.springframework.core.env.PropertiesPropertySource">
+    <constructor-arg value="mavenProperties" />
+    <constructor-arg ref="augmentedProjectProperties" />
   </bean>
 
 </beans>
