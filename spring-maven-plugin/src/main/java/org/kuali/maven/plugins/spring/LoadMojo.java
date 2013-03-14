@@ -41,7 +41,8 @@ public class LoadMojo extends AbstractSpringMojo {
 
 	/**
 	 * The annotated Java class containing <code>PropertySource</code> definitions. By default, this gets set to
-	 * <code>org.kuali.maven.plugins.spring.config.PropertySourcesConfig</code>. PropertySourcesConfig registers a PropertySource object backed by the full set of Maven properties.
+	 * <code>org.kuali.maven.plugins.spring.config.PropertySourcesConfig</code>. <code>PropertySourcesConfig</code> registers a PropertySource object backed by the full set of
+	 * Maven properties.
 	 */
 	@Parameter(property = "spring.propertySourcesConfig")
 	Class<?> propertySourcesConfig = PropertySourcesConfig.class;
