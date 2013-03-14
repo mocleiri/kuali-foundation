@@ -17,8 +17,8 @@ public final class MavenConstants {
 	public static final String DEFAULT_INJECT_MAVEN_MOJO = "false";
 	public static final String DEFAULT_FORCE_MOJO_EXECUTION = "false";
 	public static final String DEFAULT_SKIP = "false";
-	public static final Class<? extends SpringService> DEFAULT_SPRING_SERVICE_CLASS = DefaultSpringService.class;
-	public static final Class<? extends SpringMojoService> DEFAULT_SPRING_MOJO_SERVICE_CLASS = DefaultSpringMojoService.class;
+	public static final Class<? extends SpringService> DEFAULT_SPRING_SERVICE = DefaultSpringService.class;
+	public static final Class<? extends SpringMojoService> DEFAULT_SPRING_MOJO_SERVICE = DefaultSpringMojoService.class;
 	public static final Class<?> DEFAULT_PROPERTY_SOURCES_CONFIG = PropertySourcesConfig.class;
 	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
 

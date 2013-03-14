@@ -73,7 +73,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	 * The implementation of SpringService to use. If not supplied this defaults to <code>org.kuali.common.util.service.DefaultSpringService</code>
 	 */
 	@Parameter(property = "spring.serviceClassName")
-	String serviceClassName = MavenConstants.DEFAULT_SPRING_SERVICE_CLASS.getName();
+	String serviceClassName = MavenConstants.DEFAULT_SPRING_SERVICE.getName();
 
 	/**
 	 * Extra properties supplied directly to the mojo
