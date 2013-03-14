@@ -1,11 +1,15 @@
 package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MethodInvoker;
 
 @Component
 public class MojoExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(MojoExecutable.class);
 
 	MethodInvoker invoker = new MethodInvoker();
 	AbstractSpringMojo mojo;
@@ -13,6 +17,7 @@ public class MojoExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		logger.info("Executing - [{}]", mojo.getClass().getName());
 		invoker.setTargetObject(service);
 		invoker.setTargetMethod("execute");
 		invoker.setArguments(new Object[] { mojo });
@@ -22,6 +27,7 @@ public class MojoExecutable implements Executable {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
+		logger.info("Completed - [{}]", mojo.getClass().getName());
 	}
 
 	public AbstractSpringMojo getMojo() {
