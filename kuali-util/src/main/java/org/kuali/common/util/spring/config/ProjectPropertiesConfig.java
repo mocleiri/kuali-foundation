@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.Str;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,14 +24,13 @@ public class ProjectPropertiesConfig {
 	@Bean
 	public List<PropertyProcessor> processors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+		processors.add(new ProjectProcessor());
 		return processors;
 	}
 
 	@Bean
 	public Properties augmentedProjectProperties() {
-		String groupId = mavenProperties.getProperty("project.groupId");
-		String groupIdPath = Str.getPath(groupId);
-		mavenProperties.setProperty("project.groupId.path", groupIdPath);
+		PropertyUtils.process(mavenProperties, processors());
 		return mavenProperties;
 	}
 
