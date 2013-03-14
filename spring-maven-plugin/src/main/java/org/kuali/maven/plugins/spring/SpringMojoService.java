@@ -63,22 +63,6 @@ public class SpringMojoService {
 		lc.getService().load(context);
 	}
 
-	public LoadContext getLoadContext(AbstractSpringMojo mojo) {
-		// Might be skipping execution altogether
-		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
-			logger.info("Skipping execution");
-			return null;
-		}
-
-		// Combine mojo properties, project properties and internal maven properties into a Properties object
-		Properties mavenProperties = getMavenProperties(mojo);
-
-		// Get the desired SpringService implementation
-		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
-
-		return new LoadContext(mavenProperties, service);
-	}
-
 	public void execute(XmlLoadMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
@@ -229,5 +213,21 @@ public class SpringMojoService {
 		properties.setProperty("project.build.scriptSourceDirectory", project.getBuild().getScriptSourceDirectory());
 		properties.setProperty("project.build.testSourceDirectory", project.getBuild().getTestSourceDirectory());
 		return properties;
+	}
+
+	public LoadContext getLoadContext(AbstractSpringMojo mojo) {
+		// Might be skipping execution altogether
+		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
+			logger.info("Skipping execution");
+			return null;
+		}
+
+		// Combine mojo properties, project properties and internal maven properties into a Properties object
+		Properties mavenProperties = getMavenProperties(mojo);
+
+		// Get the desired SpringService implementation
+		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
+
+		return new LoadContext(mavenProperties, service);
 	}
 }
