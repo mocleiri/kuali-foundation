@@ -58,7 +58,7 @@ public class LoadXmlMojo extends AbstractSpringMojo {
 	public void execute() throws MojoExecutionException {
 		SpringService service = ReflectionUtils.newInstance(serviceClassName);
 		// Delegate execution to Spring
-		service.load(MojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
+		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, this);
 	}
 
 	public String getLocation() {

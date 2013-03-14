@@ -19,7 +19,7 @@ public class MojoConfig {
 	}
 
 	@Autowired
-	@Qualifier(MavenConstants.AUTOWIRED_MOJO_QUALIFIER)
+	@Qualifier(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME)
 	AbstractSpringMojo mojo;
 
 	@Bean(initMethod = "execute")

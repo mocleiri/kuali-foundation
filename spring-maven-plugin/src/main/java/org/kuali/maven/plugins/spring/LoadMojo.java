@@ -34,7 +34,8 @@ import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 public class LoadMojo extends AbstractSpringMojo {
 
 	/**
-	 * The annotated Java class containing the Spring configuration.
+	 * The annotated Java class containing the Spring configuration. If not supplied, a class based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of
+	 * <code>org.kuali.rice</code> and an artifactId of <code>rice-sampleapp</code>, this mojo attempts to use <code>org.kuali.rice.RiceSampleappConfig</code>
 	 */
 	@Parameter(property = "spring.annotatedClass", required = true)
 	Class<?> annotatedClass;
@@ -56,7 +57,7 @@ public class LoadMojo extends AbstractSpringMojo {
 	public void execute() throws MojoExecutionException {
 		SpringService service = ReflectionUtils.newInstance(serviceClassName);
 		// Delegate execution to Spring
-		service.load(MojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
+		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, this);
 	}
 
 	public Class<?> getAnnotatedClass() {
