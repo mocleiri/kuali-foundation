@@ -155,7 +155,7 @@ public class SpringMojoService {
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
 		logger.info("Loading requested Spring configuration");
 		if (mojo.isInjectMavenProperties()) {
-			logger.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
+			logger.info("Injecting " + props.size() + " Maven properties");
 			// logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
