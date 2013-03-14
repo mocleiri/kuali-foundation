@@ -14,13 +14,8 @@ public class PrintMessageConfig {
 	Environment env;
 
 	@Bean
-	public String printMessageProperty() {
-		return env.getProperty("print.message.property", "print.message");
-	}
-
-	@Bean(initMethod = "execute")
 	public Executable printMessageExecutable() {
-		String key = printMessageProperty();
+		String key = env.getProperty("print.message.property", "print.message");
 		String message = env.getProperty(key, "No message was configured");
 
 		PrintMessageExecutable pme = new PrintMessageExecutable();
