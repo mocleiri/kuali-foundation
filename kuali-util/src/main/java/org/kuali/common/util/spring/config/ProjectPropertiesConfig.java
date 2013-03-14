@@ -8,6 +8,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.kuali.common.util.property.processor.VersionProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ public class ProjectPropertiesConfig {
 	public List<PropertyProcessor> processors() {
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		processors.add(new ProjectProcessor());
+		processors.add(new VersionProcessor("project.version"));
 		return processors;
 	}
 
