@@ -54,12 +54,12 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 
 		List<String> beanNames = new ArrayList<String>();
-		beanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
 		beanNames.add(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME);
+		beanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
 
 		List<Object> beans = new ArrayList<Object>();
-		beans.add(mojo);
 		beans.add(this);
+		beans.add(mojo);
 
 		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
 		annotatedClasses.add(MojoConfig.class);
