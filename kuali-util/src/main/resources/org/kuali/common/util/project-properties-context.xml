@@ -24,6 +24,12 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+  <!--
+    Augment the project properties supplied by Maven to include some additional helper properties.
+    This context is supplied to the spring-maven-plugin via the propertySourcesLocation attribute.
+    The plugin auto-detects any beans that implement the PropertySource interface and provides
+    them as a top level PropertySource objects
+  -->
   <bean id="projectPropertySource" class="org.springframework.core.env.PropertiesPropertySource">
     <constructor-arg value="mavenProperties" />
     <constructor-arg>
