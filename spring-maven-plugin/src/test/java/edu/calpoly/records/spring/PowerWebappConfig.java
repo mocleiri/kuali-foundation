@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @Import(PrintMessageConfig.class)
@@ -14,6 +15,11 @@ public class PowerWebappConfig {
 
 	@Autowired
 	PrintMessageConfig pmc;
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer pspc() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 
 	@Bean(initMethod = "execute")
 	public Executable executableExecutable() {

@@ -29,7 +29,6 @@
   <name>Kuali Test POM</name>
   <properties>
     <spring.message>Hello from a Maven pom</spring.message>
-    <print.message>${spring.message}</print.message>
   </properties>
   <build>
     <pluginManagement>
