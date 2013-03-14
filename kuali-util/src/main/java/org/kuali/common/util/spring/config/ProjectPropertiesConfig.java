@@ -1,9 +1,12 @@
 package org.kuali.common.util.spring.config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +19,12 @@ public class ProjectPropertiesConfig {
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
+
+	@Bean
+	public List<PropertyProcessor> processors() {
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+		return processors;
+	}
 
 	@Bean
 	public Properties augmentedProjectProperties() {

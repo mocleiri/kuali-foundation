@@ -5,6 +5,9 @@ public class Project {
 	// org.kuali
 	String orgId;
 
+	// org/kuali
+	String orgPath;
+
 	// kuali
 	String orgCode;
 
@@ -110,6 +113,14 @@ public class Project {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public String getOrgPath() {
+		return orgPath;
+	}
+
+	public void setOrgPath(String orgPath) {
+		this.orgPath = orgPath;
 	}
 
 }
