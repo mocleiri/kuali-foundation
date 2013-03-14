@@ -233,7 +233,7 @@ public class SpringMojoService {
 		Properties mavenProperties = getMavenProperties(mojo);
 
 		// Get the desired SpringService implementation
-		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClass());
+		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClassName());
 
 		return new LoadContext(mavenProperties, service);
 	}

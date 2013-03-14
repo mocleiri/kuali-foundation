@@ -21,7 +21,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.service.SpringService;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
@@ -73,8 +72,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	/**
 	 * The implementation of SpringService to use. If not supplied this defaults to <code>org.kuali.common.util.service.DefaultSpringService</code>
 	 */
-	@Parameter(property = "spring.serviceClass")
-	Class<? extends SpringService> serviceClass = MavenConstants.DEFAULT_SERVICE_CLASS;
+	@Parameter(property = "spring.serviceClassName")
+	String serviceClassName = MavenConstants.DEFAULT_SERVICE_CLASS.getName();
 
 	/**
 	 * Extra properties supplied directly to the mojo
@@ -158,14 +157,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		this.mavenMojoBeanName = mavenMojoBeanName;
 	}
 
-	public Class<? extends SpringService> getServiceClass() {
-		return serviceClass;
-	}
-
-	public void setServiceClass(Class<? extends SpringService> serviceClass) {
-		this.serviceClass = serviceClass;
-	}
-
 	public Properties getProperties() {
 		return properties;
 	}
@@ -188,6 +179,14 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
+	}
+
+	public String getServiceClassName() {
+		return serviceClassName;
+	}
+
+	public void setServiceClassName(String serviceClassName) {
+		this.serviceClassName = serviceClassName;
 	}
 
 }
