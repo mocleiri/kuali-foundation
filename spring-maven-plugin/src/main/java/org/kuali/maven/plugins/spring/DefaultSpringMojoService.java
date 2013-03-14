@@ -63,10 +63,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		annotatedClasses.add(MojoConfig.class);
 
 		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
-		if (mojo.isAddPropertySources()) {
-			PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
-			propertySources.add(propertySource);
-		}
+		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
+		propertySources.add(propertySource);
 
 		SpringContext context = new SpringContext();
 		context.setPropertySources(propertySources);
