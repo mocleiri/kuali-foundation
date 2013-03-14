@@ -33,6 +33,7 @@ public class VersionProcessor implements PropertyProcessor {
 	String qualifierSuffix = Constants.DEFAULT_QUALIFIER_VERSION_SUFFIX;
 	String trimmedSuffix = Constants.DEFAULT_TRIMMED_VERSION_SUFFIX;
 	String snapshotSuffix = Constants.DEFAULT_SNAPSHOT_VERSION_SUFFIX;
+	boolean alwaysAddOrOverride;
 
 	List<String> includes;
 	List<String> excludes;
@@ -63,7 +64,11 @@ public class VersionProcessor implements PropertyProcessor {
 		List<String> versionKeys = PropertyUtils.getSortedKeys(versionProperties);
 		for (String versionKey : versionKeys) {
 			String versionValue = versionProperties.getProperty(versionKey);
-			PropertyUtils.addOrOverrideProperty(properties, versionKey, versionValue, propertyOverwriteMode);
+			if (alwaysAddOrOverride) {
+				PropertyUtils.addOrOverrideProperty(properties, versionKey, versionValue, propertyOverwriteMode);
+			} else {
+				properties.setProperty(versionKey, versionValue);
+			}
 		}
 	}
 
@@ -164,6 +169,14 @@ public class VersionProcessor implements PropertyProcessor {
 
 	public void setPropertyOverwriteMode(Mode propertyOverwriteMode) {
 		this.propertyOverwriteMode = propertyOverwriteMode;
+	}
+
+	public boolean isAlwaysAddOrOverride() {
+		return alwaysAddOrOverride;
+	}
+
+	public void setAlwaysAddOrOverride(boolean alwaysAddOrOverride) {
+		this.alwaysAddOrOverride = alwaysAddOrOverride;
 	}
 
 }
