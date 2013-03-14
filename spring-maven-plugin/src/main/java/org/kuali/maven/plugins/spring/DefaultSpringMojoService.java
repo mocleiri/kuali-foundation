@@ -270,26 +270,44 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	protected Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
-		properties.setProperty("project.id", project.getId());
-		properties.setProperty("project.groupId", project.getGroupId());
-		properties.setProperty("project.artifactId", project.getArtifactId());
-		properties.setProperty("project.version", project.getVersion());
-		properties.setProperty("project.packaging", project.getPackaging());
-		properties.setProperty("project.name", project.getName());
-		properties.setProperty("project.description", project.getDescription());
-		properties.setProperty("project.inceptionYear", project.getInceptionYear());
-		properties.setProperty("project.ciManagement.system", project.getCiManagement().getSystem());
-		properties.setProperty("project.ciManagement.url", project.getCiManagement().getUrl());
-		properties.setProperty("project.issueManagement.system", project.getIssueManagement().getSystem());
-		properties.setProperty("project.issueManagement.url", project.getIssueManagement().getUrl());
-		properties.setProperty("project.basedir", LocationUtils.getCanonicalPath(project.getBasedir()));
-		properties.setProperty("project.build.directory", project.getBuild().getDirectory());
-		properties.setProperty("project.build.outputDirectory", project.getBuild().getOutputDirectory());
-		properties.setProperty("project.build.testOutputDirectory", project.getBuild().getTestOutputDirectory());
-		properties.setProperty("project.build.sourceDirectory", project.getBuild().getSourceDirectory());
-		properties.setProperty("project.build.scriptSourceDirectory", project.getBuild().getScriptSourceDirectory());
-		properties.setProperty("project.build.testSourceDirectory", project.getBuild().getTestSourceDirectory());
+		nullSafeSet(properties, "project.id", project.getId());
+		nullSafeSet(properties, "project.groupId", project.getGroupId());
+		nullSafeSet(properties, "project.artifactId", project.getArtifactId());
+		nullSafeSet(properties, "project.version", project.getVersion());
+		nullSafeSet(properties, "project.packaging", project.getPackaging());
+		nullSafeSet(properties, "project.name", project.getName());
+		nullSafeSet(properties, "project.description", project.getDescription());
+		nullSafeSet(properties, "project.inceptionYear", project.getInceptionYear());
+		nullSafeSet(properties, "project.basedir", LocationUtils.getCanonicalPath(project.getBasedir()));
+		if (project.getCiManagement() != null) {
+			nullSafeSet(properties, "project.ciManagement.system", project.getCiManagement().getSystem());
+			nullSafeSet(properties, "project.ciManagement.url", project.getCiManagement().getUrl());
+		}
+		if (project.getIssueManagement() != null) {
+			nullSafeSet(properties, "project.issueManagement.system", project.getIssueManagement().getSystem());
+			nullSafeSet(properties, "project.issueManagement.url", project.getIssueManagement().getUrl());
+		}
+		if (project.getBuild() != null) {
+			nullSafeSet(properties, "project.build.directory", project.getBuild().getDirectory());
+			nullSafeSet(properties, "project.build.outputDirectory", project.getBuild().getOutputDirectory());
+			nullSafeSet(properties, "project.build.testOutputDirectory", project.getBuild().getTestOutputDirectory());
+			nullSafeSet(properties, "project.build.sourceDirectory", project.getBuild().getSourceDirectory());
+			nullSafeSet(properties, "project.build.scriptSourceDirectory", project.getBuild().getScriptSourceDirectory());
+			nullSafeSet(properties, "project.build.testSourceDirectory", project.getBuild().getTestSourceDirectory());
+		}
+		if (project.getScm() != null) {
+			nullSafeSet(properties, "project.scm.connection", project.getScm().getConnection());
+			nullSafeSet(properties, "project.scm.developerConnection", project.getScm().getDeveloperConnection());
+			nullSafeSet(properties, "project.scm.url", project.getScm().getDeveloperConnection());
+		}
 		return properties;
+	}
+
+	protected void nullSafeSet(Properties properties, String key, String value) {
+		if (value == null) {
+			return;
+		}
+		properties.setProperty(key, value);
 	}
 
 	protected LoadContext getLoadContext(AbstractSpringMojo mojo) {
