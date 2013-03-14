@@ -28,7 +28,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Test POM</name>
   <properties>
-    <spring.message>Hello from Maven</spring.message>
+    <spring.message>Hello from a Maven pom</spring.message>
   </properties>
   <build>
     <pluginManagement>
