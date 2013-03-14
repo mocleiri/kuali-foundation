@@ -15,7 +15,7 @@ public class PrintMessageConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable helloWorld() {
-		String message = env.getProperty("string.message");
+		String message = env.getProperty("spring.message");
 
 		PrintMessageExecutable pme = new PrintMessageExecutable();
 		pme.setMessage(message);
