@@ -49,7 +49,6 @@ public class XmlLoadMojo extends AbstractSpringMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		getLog().info("Maven mojo execution via Spring [" + this.getClass().getName() + "] -> [" + XmlLoadMojoConfig.class.getName() + "]");
 		SpringService service = ReflectionUtils.newInstance(serviceClass);
 		service.load(XmlLoadMojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
 	}
