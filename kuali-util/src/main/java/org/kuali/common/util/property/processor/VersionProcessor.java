@@ -48,8 +48,13 @@ public class VersionProcessor implements PropertyProcessor {
 	}
 
 	public VersionProcessor(List<String> includes) {
+		this(includes, false);
+	}
+
+	public VersionProcessor(List<String> includes, boolean alwaysAddOrOverride) {
 		super();
 		this.includes = includes;
+		this.alwaysAddOrOverride = alwaysAddOrOverride;
 	}
 
 	@Override
