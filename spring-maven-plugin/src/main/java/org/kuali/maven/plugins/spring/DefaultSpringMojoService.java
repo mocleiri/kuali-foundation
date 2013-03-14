@@ -48,7 +48,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	@Override
 	public void execute(AbstractSpringMojo mojo) {
 		logger.info("----------------- Delegating mojo execution to Spring ------------------");
-		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClassName());
+		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo, propertySource);
 	}
@@ -303,7 +303,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		Properties mavenProperties = getMavenProperties(mojo);
 
 		// Get the desired SpringService implementation
-		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClassName());
+		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
 
 		return new LoadContext(mavenProperties, service);
 	}
