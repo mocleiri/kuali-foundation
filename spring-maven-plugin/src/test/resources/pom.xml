@@ -52,12 +52,12 @@
               <goal>load</goal>
             </goals>
             <configuration>
-              <annotatedClass>org.kuali.common.util.spring.config.PrintMessageConfig</annotatedClass>
+              <annotatedClass>edu.calpoly.records.spring.PowerWebappConfig</annotatedClass>
             </configuration>
           </execution>
           <execution>
             <id>loadxml</id>
-            <phase>test</phase>
+            <phase>none</phase>
             <goals>
               <goal>loadxml</goal>
             </goals>
@@ -71,6 +71,12 @@
             <groupId>org.kuali.common</groupId>
             <artifactId>kuali-util</artifactId>
             <version>\${kuali-util.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
           </dependency>
         </dependencies>
       </plugin>

@@ -15,7 +15,7 @@ public class PowerWebappConfig {
 	PrintMessageConfig pmc;
 
 	@Bean(initMethod = "execute")
-	public Executable printMessageExecutable() {
+	public Executable executable() {
 		return pmc.printMessageExecutable();
 	}
 
