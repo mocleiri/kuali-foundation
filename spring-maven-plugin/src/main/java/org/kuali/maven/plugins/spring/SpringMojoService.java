@@ -26,6 +26,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
@@ -172,8 +173,11 @@ public class SpringMojoService {
 	}
 
 	protected SpringContext getSpringContext(LoadXmlMojo mojo, Properties mavenProperties) {
+		// If no location was provided to the mojo, calculate one based on groupId + artifactId
+		String location = mojo.getLocation() == null ? getDefaultLocation(mojo.getProject()) : mojo.getLocation();
+
 		// Combine the main context location with any optional locations
-		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
+		List<String> contextLocations = CollectionUtils.combine(location, mojo.getLocations());
 
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
@@ -218,6 +222,19 @@ public class SpringMojoService {
 		PropertyUtils.overrideWithGlobalValues(properties, GlobalPropertiesMode.BOTH);
 		// Return the overridden properties
 		return properties;
+	}
+
+	protected String getDefaultLocation(MavenProject project) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("classpath:");
+		sb.append(Str.getPath(project.getGroupId()));
+		sb.append("/");
+		sb.append("spring");
+		sb.append("/");
+		sb.append(project.getArtifactId());
+		sb.append("-");
+		sb.append("context.xml");
+		return sb.toString();
 	}
 
 	protected String getDefaultAnnotatedClassname(MavenProject project) {
