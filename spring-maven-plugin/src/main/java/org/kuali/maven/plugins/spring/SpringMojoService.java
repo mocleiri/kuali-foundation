@@ -52,7 +52,7 @@ public class SpringMojoService {
 		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo, propertySource);
 	}
 
-	public void execute(LoadMojo mojo) {
+	protected void execute(LoadMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
@@ -108,7 +108,7 @@ public class SpringMojoService {
 		return psc;
 	}
 
-	public void execute(LoadXmlMojo mojo) {
+	protected void execute(LoadXmlMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
@@ -217,7 +217,7 @@ public class SpringMojoService {
 		}
 	}
 
-	public static Properties getMavenProperties(AbstractSpringMojo mojo) {
+	protected Properties getMavenProperties(AbstractSpringMojo mojo) {
 		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
 		Properties internal = getInternalProperties(project);
@@ -232,7 +232,7 @@ public class SpringMojoService {
 		return properties;
 	}
 
-	public static PropertiesPropertySource getMavenPropertySource(AbstractSpringMojo mojo) {
+	protected PropertiesPropertySource getMavenPropertySource(AbstractSpringMojo mojo) {
 		String name = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
 		Properties source = getMavenProperties(mojo);
 		return new PropertiesPropertySource(name, source);
@@ -267,7 +267,7 @@ public class SpringMojoService {
 		return sb.toString();
 	}
 
-	public static Properties getInternalProperties(MavenProject project) {
+	protected Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
 		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());
@@ -291,7 +291,7 @@ public class SpringMojoService {
 		return properties;
 	}
 
-	public LoadContext getLoadContext(AbstractSpringMojo mojo) {
+	protected LoadContext getLoadContext(AbstractSpringMojo mojo) {
 		// Might be skipping execution altogether
 		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
 			logger.info("Skipping execution");
