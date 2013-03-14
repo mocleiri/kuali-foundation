@@ -23,13 +23,17 @@ public class MojoExecutable implements Executable {
 		invoker.setTargetObject(service);
 		invoker.setTargetMethod(targetMethod);
 		invoker.setArguments(new Object[] { mojo });
+		invoke(invoker);
+		logger.info("Completed - [{}.{}({})]", args);
+	}
+
+	protected void invoke(MethodInvoker invoker) {
 		try {
 			invoker.prepare();
 			invoker.invoke();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-		logger.info("Completed - [{}.{}({})]", args);
 	}
 
 	public AbstractSpringMojo getMojo() {
