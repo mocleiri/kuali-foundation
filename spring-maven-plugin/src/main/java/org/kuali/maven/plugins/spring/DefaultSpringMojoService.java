@@ -41,10 +41,11 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DefaultSpringMojoService {
+public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
 
+	@Override
 	public void execute(AbstractSpringMojo mojo) {
 		logger.info("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClassName());
