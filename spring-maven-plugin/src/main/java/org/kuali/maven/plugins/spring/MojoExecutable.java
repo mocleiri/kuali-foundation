@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.MethodInvoker;
 
 @Component
-public class MojoExecutor implements Executable {
+public class MojoExecutable implements Executable {
 
 	MethodInvoker invoker = new MethodInvoker();
 	AbstractSpringMojo mojo;
