@@ -274,6 +274,7 @@ public class FormatUtils {
 
 	protected static final List<Long> getTimeMultipliers() {
 		List<Long> m = new ArrayList<Long>();
+		m.add(1L);
 		m.add(new Double(SECOND).longValue());
 		m.add(new Double(MINUTE).longValue());
 		m.add(new Double(HOUR).longValue());
