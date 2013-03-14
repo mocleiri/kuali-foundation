@@ -53,6 +53,8 @@ sub foundation_env_status
  foreach $line (@DNS)
  {
    chomp($line);
+   if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
+   if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    #print "\n",$line;
    @parts = split(/\s|\->|,/,$line);
    $name = $parts[1].".kuali.org";
@@ -71,7 +73,7 @@ sub foundation_env_status
       #print "$name, $server, $status, $tags\n";
       print WIKI "$name, $server, $status,$tags\n";
    }
-  else { print WIKI "$name, , no-server\n"; }
+  else { print WIKI "$name,$url , $no_ping\n"; }
   }
 }
 
