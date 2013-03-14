@@ -35,7 +35,7 @@
     Spring's "classpath:context.xml" style notation is supported.   
     From version 2.0.0 on, annotated Java classes can also be used to load a Spring context.
     The full set of Maven properties are injected into the Spring context (both XML and annotation style) as a bean named "mavenProperties".  
-    Maven properties are also registered as a top level Spring PropertySource to help simplify placeholder resolution.  
+    Maven properties are also registered as a top level PropertySource so that Spring's placeholder resolution framework automatically considers them.   
     See Project Reports -> Plugin Documentation for details on plugin goals.
   </description>
   <inceptionYear>2011</inceptionYear>
