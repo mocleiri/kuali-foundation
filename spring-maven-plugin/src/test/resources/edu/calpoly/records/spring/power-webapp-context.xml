@@ -32,7 +32,7 @@
       <util:list>
         <ref bean="printMessageExecutable" />
         <bean class="edu.calpoly.records.spring.ShowPropertiesExecutable">
-          <property name="executables" ref="mavenProperties" />
+          <property name="properties" ref="mavenProperties" />
         </bean>
       </util:list>
     </property>
