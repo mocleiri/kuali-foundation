@@ -204,4 +204,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		this.springService = serviceClassName;
 	}
 
+	public String getSpringMojoService() {
+		return springMojoService;
+	}
+
+	public void setSpringMojoService(String springMojoService) {
+		this.springMojoService = springMojoService;
+	}
+
 }
