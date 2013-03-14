@@ -12,7 +12,7 @@ public class MojoExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(MojoExecutable.class);
 
 	MethodInvoker invoker = new MethodInvoker();
-	String targetMethod = "execute";
+	String targetMethod = "executeMojo";
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 

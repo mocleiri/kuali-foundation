@@ -17,9 +17,11 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.List;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.kuali.common.util.ReflectionUtils;
 
 /**
  * Load a Spring context from an XML file.
@@ -52,6 +54,13 @@ public class LoadXmlMojo extends AbstractSpringMojo {
 	 */
 	@Parameter
 	List<String> locations;
+
+	@Override
+	public void execute() throws MojoExecutionException {
+		// Delegate execution to Spring
+		SpringMojoService service = ReflectionUtils.newInstance(springMojoService);
+		service.loadSpring(this);
+	}
 
 	public String getLocation() {
 		return location;
