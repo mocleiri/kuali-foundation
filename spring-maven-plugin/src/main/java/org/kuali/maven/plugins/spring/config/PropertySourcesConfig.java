@@ -12,18 +12,15 @@ import org.springframework.core.env.PropertiesPropertySource;
 @Configuration
 public class PropertySourcesConfig {
 
-	@Bean
-	public String propertySourceName() {
-		return MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
-	}
-
 	@Autowired
 	@Qualifier(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
 	@Bean
 	public PropertiesPropertySource propertySource() {
-		return new PropertiesPropertySource(propertySourceName(), mavenProperties);
+		String name = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+		Properties source = mavenProperties;
+		return new PropertiesPropertySource(name, source);
 	}
 
 }
