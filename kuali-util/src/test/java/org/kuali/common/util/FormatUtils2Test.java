@@ -13,14 +13,14 @@ public class FormatUtils2Test {
 	public void test1() {
 		try {
 			long number = 2;
-			for (int i = 0; i < 45; i++) {
+			for (int i = 0; i < 55; i++) {
 				long pow = (long) Math.pow(number, i);
 				String time = FormatUtils.getTime(pow);
 				String size = FormatUtils.getSize(pow);
-				System.out.print("pow=" + lpad(FormatUtils.getCount(pow), 20) + "   time=" + lpad(time, 10) + "    size=" + lpad(size, 8));
+				System.out.print("pow=" + lpad(FormatUtils.getCount(pow), 23) + "   time=" + lpad(time, 10) + "    size=" + lpad(size, 8));
 				long millis = FormatUtils.getMillis(time);
 				long bytes = FormatUtils.getBytes(size);
-				System.out.println("    time=" + lpad(FormatUtils.getCount(millis), 20) + "    size=" + lpad(FormatUtils.getCount(bytes), 20));
+				System.out.println("    time=" + lpad(FormatUtils.getCount(millis), 23) + "    size=" + lpad(FormatUtils.getCount(bytes), 23));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
