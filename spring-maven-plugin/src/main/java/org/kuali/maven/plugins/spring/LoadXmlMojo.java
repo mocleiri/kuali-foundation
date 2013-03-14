@@ -36,9 +36,14 @@ public class LoadXmlMojo extends AbstractSpringMojo {
 	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources.xml";
 
 	/**
+	 * <p>
 	 * Location of a Spring context XML file. This can be a file on the local file system, or any URL Spring's Resource loading framework understands eg
-	 * {@code classpath:my-context.xml}. If not provided, a context based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of <code>org.kuali.rice</code> and
-	 * an artifactId of <code>rice-sampleapp</code> this mojo will load <code>classpath:org/kuali/rice/spring/rice-sampleapp-context.xml</code>
+	 * {@code classpath:my-context.xml}.
+	 * </p>
+	 * <p>
+	 * If not provided, a context based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of <code>org.kuali.rice</code> and an artifactId of
+	 * <code>rice-sampleapp</code> this mojo will load <code>classpath:org/kuali/rice/spring/rice-sampleapp-context.xml</code>
+	 * </p>
 	 */
 	@Parameter(property = "spring.location")
 	String location;
