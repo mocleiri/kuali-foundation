@@ -192,7 +192,7 @@ public class SpringMojoService {
 	}
 
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
-		logger.info(" --- Loading requested Spring configuration ---- ");
+		logger.info("---------------- Loading requested Spring configuration ----------------");
 		for (Object configuration : configurations) {
 			logger.info("[{}]", configuration);
 		}
@@ -202,10 +202,10 @@ public class SpringMojoService {
 			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
-			logger.info("Injecting [{}] -> [{}]", mojo.getMavenProjectBeanName(), mojo.getProject().getClass().getName());
+			logger.debug("Injecting [{}] -> [{}]", mojo.getMavenProjectBeanName(), mojo.getProject().getClass().getName());
 		}
 		if (mojo.isInjectMavenMojo()) {
-			logger.info("Injecting [{}] -> [{}]", mojo.getMavenMojoBeanName(), mojo.getClass().getName());
+			logger.debug("Injecting [{}] -> [{}]", mojo.getMavenMojoBeanName(), mojo.getClass().getName());
 		}
 	}
 

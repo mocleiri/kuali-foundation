@@ -54,6 +54,7 @@ public class LoadMojo extends AbstractSpringMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
+		getLog().info("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(serviceClassName);
 		// Delegate execution to Spring
 		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, this);
