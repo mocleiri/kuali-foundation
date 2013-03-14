@@ -240,7 +240,7 @@ public class DefaultSpringService implements SpringService {
 			Collections.reverse(propertySources);
 		}
 		for (PropertySource<?> propertySource : propertySources) {
-			logger.info("Adding property source - [{}]", propertySource.getName());
+			logger.info("Adding property source - [{}] -> [{}]", propertySource.getName(), propertySource.getClass().getName());
 			sources.addLast(propertySource);
 		}
 	}
