@@ -12,14 +12,16 @@ public class MojoExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(MojoExecutable.class);
 
 	MethodInvoker invoker = new MethodInvoker();
+	String targetMethod = "execute";
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 
 	@Override
 	public void execute() {
-		logger.info("Executing - [{}]", mojo.getClass().getName());
+		Object[] args = { service.getClass().getSimpleName(), targetMethod, mojo.getClass().getSimpleName() };
+		logger.info("Invoking - [{}.{}({})]", args);
 		invoker.setTargetObject(service);
-		invoker.setTargetMethod("execute");
+		invoker.setTargetMethod(targetMethod);
 		invoker.setArguments(new Object[] { mojo });
 		try {
 			invoker.prepare();
@@ -27,7 +29,7 @@ public class MojoExecutable implements Executable {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-		logger.info("Completed - [{}]", mojo.getClass().getName());
+		logger.info("Completed - [{}.{}({})]", args);
 	}
 
 	public AbstractSpringMojo getMojo() {
@@ -44,6 +46,22 @@ public class MojoExecutable implements Executable {
 
 	public void setService(SpringMojoService service) {
 		this.service = service;
+	}
+
+	public MethodInvoker getInvoker() {
+		return invoker;
+	}
+
+	public void setInvoker(MethodInvoker invoker) {
+		this.invoker = invoker;
+	}
+
+	public String getTargetMethod() {
+		return targetMethod;
+	}
+
+	public void setTargetMethod(String targetMethod) {
+		this.targetMethod = targetMethod;
 	}
 
 }
