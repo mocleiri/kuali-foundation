@@ -67,6 +67,7 @@ public class SpringMojoService {
 	protected void addPropertySources(PropertySourcesContext ctx, AbstractSpringMojo mojo, SpringContext context) {
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
+			// Source is either an XML file or an annotated class
 			String source = ctx.getLocation() == null ? ctx.getAnnotatedClass().getName() : ctx.getLocation();
 			// If so, extract PropertySource objects from the PropertySources context
 			logger.info("Loading property sources - [{}]", source);
