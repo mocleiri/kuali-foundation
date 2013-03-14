@@ -28,7 +28,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Test POM</name>
   <properties>
-    <print.message>Maven says hi to Spring Group Id Path -> [${project.groupId.path}]</print.message>
+    <print.message>Maven says hi to Spring!!! === Group Id Path -> [${project.groupId.path}]</print.message>
   </properties>
   <build>
     <pluginManagement>
