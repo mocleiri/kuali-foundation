@@ -18,7 +18,7 @@ public class MojoExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		Object[] args = { service.getClass().getSimpleName(), targetMethod, mojo.getClass().getSimpleName() };
+		Object[] args = { service.getClass().getName(), targetMethod, mojo.getClass().getSimpleName() };
 		logger.debug("Invoking  - [{}.{}({})]", args);
 		invoker.setTargetObject(service);
 		invoker.setTargetMethod(targetMethod);
