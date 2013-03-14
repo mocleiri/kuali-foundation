@@ -21,9 +21,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.service.SpringService;
-import org.kuali.maven.plugins.spring.config.MojoConfig;
 
 /**
  * Load a Spring context from an annotated class
@@ -54,9 +51,8 @@ public class LoadMojo extends AbstractSpringMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		getLog().info("----------------- Delegating mojo execution to Spring ------------------");
-		SpringService service = ReflectionUtils.newInstance(serviceClassName);
-		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, this);
+		// Delegate execution to Spring
+		new SpringMojoService().execute(this);
 	}
 
 	public Class<?> getAnnotatedClass() {

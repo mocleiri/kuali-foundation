@@ -30,11 +30,13 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,13 @@ import org.springframework.stereotype.Service;
 public class SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringMojoService.class);
+
+	public void execute(AbstractSpringMojo mojo) {
+		logger.info("----------------- Delegating mojo execution to Spring ------------------");
+		SpringService service = ReflectionUtils.newInstance(mojo.getServiceClassName());
+		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
+		service.load(MojoConfig.class, MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo, propertySource);
+	}
 
 	public void execute(LoadMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
@@ -208,7 +217,7 @@ public class SpringMojoService {
 		}
 	}
 
-	protected Properties getMavenProperties(AbstractSpringMojo mojo) {
+	public static Properties getMavenProperties(AbstractSpringMojo mojo) {
 		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
 		Properties internal = getInternalProperties(project);
@@ -221,6 +230,12 @@ public class SpringMojoService {
 		PropertyUtils.overrideWithGlobalValues(properties, GlobalPropertiesMode.BOTH);
 		// Return the overridden properties
 		return properties;
+	}
+
+	public static PropertiesPropertySource getMavenPropertySource(AbstractSpringMojo mojo) {
+		String name = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+		Properties source = getMavenProperties(mojo);
+		return new PropertiesPropertySource(name, source);
 	}
 
 	protected String getDefaultLocation(MavenProject project) {
@@ -252,7 +267,7 @@ public class SpringMojoService {
 		return sb.toString();
 	}
 
-	protected Properties getInternalProperties(MavenProject project) {
+	public static Properties getInternalProperties(MavenProject project) {
 		Properties properties = new Properties();
 		properties.setProperty("project.id", project.getId());
 		properties.setProperty("project.groupId", project.getGroupId());
