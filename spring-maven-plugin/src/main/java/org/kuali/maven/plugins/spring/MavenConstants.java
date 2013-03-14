@@ -11,7 +11,7 @@ public final class MavenConstants {
 	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
 	public static final String DEFAULT_MAVEN_PROJECT_BEAN_NAME = "mavenProject";
 	public static final String DEFAULT_MAVEN_MOJO_BEAN_NAME = "mavenMojo";
-	public static final String DEFAULT_SPRING_MOJO_SERVICE_BEAN_NAME = "mavenSpringMojoService";
+	public static final String DEFAULT_SPRING_MOJO_SERVICE_BEAN_NAME = "springMojoService";
 	public static final String DEFAULT_ADD_PROPERTY_SOURCES = "true";
 	public static final String DEFAULT_INJECT_MAVEN_PROPERTIES = "true";
 	public static final String DEFAULT_INJECT_MAVEN_PROJECT = "false";
