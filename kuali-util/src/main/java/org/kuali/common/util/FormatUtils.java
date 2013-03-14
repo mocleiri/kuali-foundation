@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class FormatUtils {
 	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
 	private static final List<String> TIME_TOKENS = Arrays.asList("ms", "s", "m", "h", "d", "y");
-	private static final List<Integer> MULTIPLIERS = Arrays.asList(1, 1000, 1000 * 60, 1000 * 60 * 60, 1000 * 60 * 60 * 24, 1000 * 60 * 60 * 24 * 365);
+	private static final List<Long> TIME_MULTIPLIERS = getTimeMultipliers();
 
 	private static final List<String> SIZE_TOKENS = Arrays.asList("b", "k", "m", "g", "t", "p", "e");
 	private static final int BASE = 1024;
@@ -121,15 +122,15 @@ public class FormatUtils {
 	 * </pre>
 	 */
 	public static long getMillis(String time) {
-		return getMillis(time, TIME_TOKENS, MULTIPLIERS);
+		return getMillis(time, TIME_TOKENS, TIME_MULTIPLIERS);
 	}
 
-	public static long getMillis(String time, List<String> tokens, List<Integer> multipliers) {
+	public static long getMillis(String time, List<String> tokens, List<Long> multipliers) {
 		Assert.notBlank(time);
 		Assert.isTrue(tokens.size() == multipliers.size());
 		for (int i = 0; i < tokens.size(); i++) {
 			String token = tokens.get(i);
-			int multiplier = multipliers.get(i);
+			long multiplier = multipliers.get(i);
 			if (StringUtils.endsWithIgnoreCase(time, token)) {
 				return getTimeValue(time, token, multiplier);
 			}
@@ -138,7 +139,7 @@ public class FormatUtils {
 		return getTimeValue(time, "", 1);
 	}
 
-	protected static long getTimeValue(String time, String suffix, int multiplier) {
+	protected static long getTimeValue(String time, String suffix, long multiplier) {
 		int len = StringUtils.length(time);
 		String substring = StringUtils.substring(time, 0, len - suffix.length());
 		Double value = new Double(substring);
@@ -271,4 +272,13 @@ public class FormatUtils {
 		}
 	}
 
+	protected static final List<Long> getTimeMultipliers() {
+		List<Long> m = new ArrayList<Long>();
+		m.add(new Double(SECOND).longValue());
+		m.add(new Double(MINUTE).longValue());
+		m.add(new Double(HOUR).longValue());
+		m.add(new Double(DAY).longValue());
+		m.add(new Double(YEAR).longValue());
+		return m;
+	}
 }
