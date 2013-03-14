@@ -53,7 +53,7 @@ public class OrgUtils {
 	/**
 	 * Given {@code org.kuali} and {@code org.kuali.student.web} return {@code org.kuali.student}<br>
 	 */
-	public static final String getGroupIdBase(String organizationGroupId, String groupId) {
+	public static final String getGroupBase(String organizationGroupId, String groupId) {
 		return organizationGroupId + "." + getGroupCode(organizationGroupId, groupId);
 	}
 

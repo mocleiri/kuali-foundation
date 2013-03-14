@@ -28,7 +28,7 @@ public class GetCommonGroupIdFactoryBean implements FactoryBean<String> {
 	public String getObject() throws Exception {
 		Assert.notNull(organizationGroupId, "organizationGroupId is null");
 		Assert.notNull(groupId, "groupId is null");
-		return OrgUtils.getGroupIdBase(organizationGroupId, groupId);
+		return OrgUtils.getGroupBase(organizationGroupId, groupId);
 	}
 
 	@Override
