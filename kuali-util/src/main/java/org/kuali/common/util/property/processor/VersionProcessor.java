@@ -70,9 +70,9 @@ public class VersionProcessor implements PropertyProcessor {
 		for (String versionKey : versionKeys) {
 			String versionValue = versionProperties.getProperty(versionKey);
 			if (alwaysAddOrOverride) {
-				PropertyUtils.addOrOverrideProperty(properties, versionKey, versionValue, propertyOverwriteMode);
-			} else {
 				properties.setProperty(versionKey, versionValue);
+			} else {
+				PropertyUtils.addOrOverrideProperty(properties, versionKey, versionValue, propertyOverwriteMode);
 			}
 		}
 	}
