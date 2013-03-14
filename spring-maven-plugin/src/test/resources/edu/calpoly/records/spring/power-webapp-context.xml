@@ -25,12 +25,8 @@
 
   <context:property-placeholder />
 
-  <bean class="org.kuali.common.util.execute.HelloWorldExecutable" init-method="execute" />
   <bean class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute">
     <property name="message" value="${spring.message}" />
-  </bean>
-  <bean class="org.kuali.common.util.execute.PrintMessageExecutable" init-method="execute">
-    <property name="message" value="${foo.bar:GoodBye}" />
   </bean>
 
 </beans>
