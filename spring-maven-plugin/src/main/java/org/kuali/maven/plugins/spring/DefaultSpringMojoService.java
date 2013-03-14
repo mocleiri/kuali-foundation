@@ -128,7 +128,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected PropertySourcesContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
-		Class<?> annotatedClass = ReflectionUtils.newInstance(mojo.getPropertySourcesConfig());
+		Class<?> annotatedClass = ReflectionUtils.getClass(mojo.getPropertySourcesConfig());
 
 		PropertySourcesContext psc = new PropertySourcesContext();
 		psc.setAnnotatedClass(annotatedClass);
