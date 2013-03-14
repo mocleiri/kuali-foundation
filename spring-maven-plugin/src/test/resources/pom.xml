@@ -28,7 +28,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Test POM</name>
   <properties>
-    <foo>bar</foo>
+    <spring.message>Hello from Maven</spring.message>
   </properties>
   <build>
     <pluginManagement>
