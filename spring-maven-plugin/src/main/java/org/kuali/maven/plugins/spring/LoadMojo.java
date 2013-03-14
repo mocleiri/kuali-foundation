@@ -24,7 +24,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
-import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
 /**
  * Load a Spring context from an annotated Java class
@@ -34,21 +33,21 @@ import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 public class LoadMojo extends AbstractSpringMojo {
 
 	/**
-	 * The annotated Java class containing the Spring configuration. If not supplied, a class based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of
+	 * The annotated class containing the Spring configuration. If not supplied, a class based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of
 	 * <code>org.kuali.rice</code> and an artifactId of <code>rice-sampleapp</code>, this mojo attempts to use <code>org.kuali.rice.RiceSampleappConfig</code>
 	 */
 	@Parameter(property = "spring.annotatedClass", required = true)
 	Class<?> annotatedClass;
 
 	/**
-	 * The annotated Java class containing <code>PropertySource</code> definitions. By default, this gets set to
-	 * <code>org.kuali.maven.plugins.spring.config.PropertySourcesConfig</code> which registers a single PropertySource object backed by the full set of Maven properties.
+	 * The annotated class containing <code>PropertySource</code> definitions. By default, this gets set to <code>org.kuali.maven.plugins.spring.config.PropertySourcesConfig</code>
+	 * which registers a single PropertySource object backed by the full set of Maven properties.
 	 */
 	@Parameter(property = "spring.propertySourcesConfig")
-	Class<?> propertySourcesConfig = PropertySourcesConfig.class;
+	Class<?> propertySourcesConfig = MavenConstants.DEFAULT_PROPERTY_SOURCES_CONFIG;
 
 	/**
-	 * Additional annotated Java classes containing Spring configuration.
+	 * Additional annotated classes containing Spring configuration.
 	 */
 	@Parameter(property = "spring.annotatedClasses")
 	List<Class<?>> annotatedClasses;
