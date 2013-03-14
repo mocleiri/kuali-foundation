@@ -51,8 +51,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		logger.info("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
 
-		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
-
 		List<String> beanNames = new ArrayList<String>();
 		beanNames.add(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME);
 		beanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
@@ -65,7 +63,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		annotatedClasses.add(MojoConfig.class);
 
 		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
-		propertySources.add(propertySource);
+		if (mojo.isAddPropertySources()) {
+			PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
+			propertySources.add(propertySource);
+		}
 
 		SpringContext context = new SpringContext();
 		context.setPropertySources(propertySources);
