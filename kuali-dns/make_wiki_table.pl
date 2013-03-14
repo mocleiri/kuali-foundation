@@ -1,5 +1,80 @@
 #!/usr/bin/perl
 
+sub build_fn_lst
+{
+$cmd = "ec2-describe-instances";
+$key = `ls ~/.ssh/fn-pk*`;
+$cert = `ls ~/.ssh/fn-cert*`;
+chomp($key);
+chomp($cert);
+#print "\nkey:$key.";
+#print "cert:$cert.";
+$command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" > instance.lst";
+$command_tag = "$cmd -K $key -C $cert | grep \"TAG\" > tag.lst";
+`$command_instance`;
+`$command_tag`;
+open ( FN,  "<instance.lst"); (@INSTANCE =<FN>); close (FN);
+`rm FN.lst`;
+open FNLST, ">>FN.lst" or die "FN.lst : $!\n" ;
+foreach $instance ( @INSTANCE)
+{
+  my @temp = split(/\t/, $instance);
+  my $url = $temp[3];
+  my $status = $temp[5];
+  my $instance_id = $temp[1];
+  my @TAGS = `grep $instance_id tag.lst`;
+  my @tags = ();
+  foreach $tagline ( @TAGS)
+  { chomp($tagline); @tagname = split(/\t/, $tagline ); 
+    push( @tags, $tagname[4]); }
+  $tags = join ( ":", @tags);
+  if ( $url eq "" ){ $temp[3] = "n/a"; }
+  print FNLST  $instance_id," ",$url," ", $status," ", $tags,"\n";
+
+#  foreach $element (@temp) {
+#   print "\n",$i," $element\n";
+#    $i++; }
+}
+}
+
+sub foundation_env_status
+{
+ $project = @_[0];
+
+ $projectfile = "dns_"."$project".".csv";
+ `rm $projectfile`;
+ `echo \"DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
+  open WIKI,  ">>$projectfile" or die "$projectfile $!\n";
+  build_fn_lst();
+ $sourcefile = "dns.$project".".txt";
+ $cmd = "mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice > $sourcefile";
+ `$cmd`;
+ open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
+ foreach $line (@DNS)
+ {
+   chomp($line);
+   #print "\n",$line;
+   @parts = split(/\s|\->|,/,$line);
+   $name = $parts[1].".kuali.org";
+   if ($name eq ""){next;}
+   #print "\nname: $name";
+   @temp = split(//,$parts[2]);
+   pop(@temp); #there's a period there
+   $url = join "", @temp;
+   #@result = `grep $url FN.lst`;
+   @result = `grep $parts[1] FN.lst`;
+   chomp(@result);
+   if ( $result[0] ne "" )
+   {   
+      ($instance_id, $server, $status, $tags) = split (/\s/, $result[0]);
+     
+      #print "$name, $server, $status, $tags\n";
+      print WIKI "$name, $server, $status,$tags\n";
+   }
+  else { print WIKI "$name, , no-server\n"; }
+  }
+}
+
 sub dead_or_alive
 {
 use warnings;
@@ -38,29 +113,25 @@ if ($?) {
 }
 
 
-sub main {
-$project=$ARGV[0];
-chomp($project);
-if ( $project eq "" ){ print "\n\tPlease include a project: ole, rice, ks. Try again.\n\n"; exit;}
-$projectfile = "dns_"."$project".".csv";
-`rm $projectfile`;
-$sourcefile = "dns.$project".".txt";
-$wiki = "root\@ci.rice.kuali.org:/usr/local/tomcat/";
-`echo \"DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
-`mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile`;
-open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
-open WIKI,  ">>$projectfile" or die "$projectfile $!\n";
-$i =0;
-foreach $line (@DNS)
-{
+sub project_env_status {
+ my $project = @_[0];
+ $projectfile = "dns_"."$project".".csv";
+ `rm $projectfile`;
+ $sourcefile = "dns.$project".".txt";
+ $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile";
+ `echo \"DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
+ `$cmd`;
+ open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
+ open WIKI,  ">>$projectfile" or die "$projectfile $!\n";
+ $i =0;
+ foreach $line (@DNS) {
  chomp($line);
  print "\n",$line;
  $no_ping = "";
  if (( $line =~ "env2") && ($project eq "ole")){ next; }
  if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
  if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
- if ($line =~ $project)
- {
+ if (($line =~ $project) ) {
    @parts = split(/\s|\->|,/,$line);
    $name = $parts[1].".kuali.org";
    if ($name eq ""){next;}
@@ -82,10 +153,23 @@ foreach $line (@DNS)
 #  print $item;
 #}
 }
-print "\ncp $projectfile $wiki";
-`scp $projectfile $wiki`;
-exit;
-} #main
+} #project_env_status
+
+
+sub get_status
+{
+my $project = @_[0];
+if (( $project eq "rice") || ( $project eq "ks") ||( $project eq "ole") ){ project_env_status($project)};
+if ( $project eq "fn" ){ foundation_env_status($project) ;}
+#sleep 60; #let the pings timeout
+}
+
+sub main
+{
+  $project=$ARGV[0];
+  chomp($project);
+  if ( $project eq "" ){ print "\n\tPlease include a project: ole, rice, ks. Try again.\n\n"; exit;}
+  get_status( $project);
+}
 
 &main();
-sleep 60; #let the pings timeout
