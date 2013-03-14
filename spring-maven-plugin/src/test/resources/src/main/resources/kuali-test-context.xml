@@ -23,8 +23,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!-- By default, Spring only resolves placeholders against system and environment properties -->
-  <!-- spring-maven-plugin allows Spring to also consider Maven properties when resolving placeholders -->
+  <!--
+    By default, Spring can only automatically resolve placeholders using system and environment properties.
+    The spring-maven-plugin makes Maven properties available to Spring during placeholder resolution.
+  -->
   <context:property-placeholder />
 
   <bean class="org.kuali.common.util.execute.HelloWorldExecutable" init-method="execute" />
