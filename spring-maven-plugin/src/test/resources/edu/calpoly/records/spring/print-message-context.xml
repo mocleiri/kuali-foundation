@@ -23,10 +23,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:property-placeholder />
-
-  <bean class="org.kuali.common.util.execute.ExecutableExecutable" init-method="execute">
-    <property name="executable" ref="printMessageExecutable" />
+  <bean id="printMessageExecutable" class="org.kuali.common.util.execute.PrintMessageExecutable">
+    <property name="message" value="${print.message}" />
   </bean>
 
 </beans>
