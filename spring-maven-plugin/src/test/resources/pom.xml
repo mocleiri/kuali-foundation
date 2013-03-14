@@ -63,7 +63,7 @@
               <goal>loadxml</goal>
             </goals>
             <configuration>
-              <location>\${project.basedir}/src/main/resources/bootstrap-test-context.xml</location>
+              <location>classpath:edu/calpoly/records/spring/power-webapp-context.xml</location>
             </configuration>
           </execution>
         </executions>
