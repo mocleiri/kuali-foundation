@@ -23,8 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.UnixCmds;
 import org.slf4j.Logger;
@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 public class DefaultSecureChannelTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
-	SimpleFormatter formatter = new SimpleFormatter();
 
 	protected SecureChannel getSecureChannel() {
 		String privateKeyString = LocationUtils.toString("/Users/jeffcaddel/.ssh/ole-key.pem");
@@ -78,10 +77,10 @@ public class DefaultSecureChannelTest {
 			logger.info("Exit value = {}", result.getExitValue());
 		}
 		if (result.getStdin() == null) {
-			Object[] args = { result.getCommand(), formatter.getTime(result.getElapsed()) };
+			Object[] args = { result.getCommand(), FormatUtils.getTime(result.getElapsed()) };
 			logger.info("[{}] - {}", args);
 		} else {
-			Object[] args = { result.getCommand(), Str.flatten(result.getStdin(), "\\r", "\\n"), formatter.getTime(result.getElapsed()) };
+			Object[] args = { result.getCommand(), Str.flatten(result.getStdin(), "\\r", "\\n"), FormatUtils.getTime(result.getElapsed()) };
 			logger.info("[{}] < [{}] - {}", args);
 		}
 		String[] stdout = StringUtils.split(result.getStdout(), '\n');

@@ -15,52 +15,103 @@
  */
 package org.kuali.common.util;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Format time, bytes, counts, dates, and transfer rates into human friendly form
+ * 
+ * @author Jeff Caddel
+ * @since May 27, 2010 6:46:17 PM
+ */
 public class FormatUtils {
+	private static final double SECOND = 1000;
+	private static final double MINUTE = 60 * SECOND;
+	private static final double HOUR = 60 * MINUTE;
+	private static final double DAY = 24 * HOUR;
+	private static final double YEAR = 365 * DAY;
+	private static final double DECADE = 10 * YEAR;
+	private static final double CENTURY = 10 * DECADE;
+	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
-	protected static SimpleFormatter SF = new SimpleFormatter();
+	private static NumberFormat largeSizeFormatter = NumberFormat.getInstance();
+	private static NumberFormat sizeFormatter = NumberFormat.getInstance();
+	private static NumberFormat timeFormatter = NumberFormat.getInstance();
+	private static NumberFormat rateFormatter = NumberFormat.getInstance();
+	private static NumberFormat countFormatter = NumberFormat.getInstance();
 
-	/**
-	 * 
-	 */
-	public static String getThroughputInSeconds(long millis, long count, String label) {
-		return SF.getThroughputInSeconds(millis, count, label);
+	static {
+		sizeFormatter.setGroupingUsed(false);
+		sizeFormatter.setMaximumFractionDigits(1);
+		sizeFormatter.setMinimumFractionDigits(1);
+		largeSizeFormatter.setGroupingUsed(false);
+		largeSizeFormatter.setMaximumFractionDigits(3);
+		largeSizeFormatter.setMinimumFractionDigits(3);
+		timeFormatter.setGroupingUsed(false);
+		timeFormatter.setMaximumFractionDigits(3);
+		timeFormatter.setMinimumFractionDigits(3);
+		rateFormatter.setGroupingUsed(false);
+		rateFormatter.setMaximumFractionDigits(3);
+		rateFormatter.setMinimumFractionDigits(3);
+		countFormatter.setGroupingUsed(true);
+		countFormatter.setMaximumFractionDigits(0);
+		countFormatter.setMinimumFractionDigits(0);
 	}
 
 	/**
 	 * Parse a date from the string. The string must be in the same format returned by the getDate() methods
 	 */
 	public static Date parseDate(String date) {
-		return SF.parseDate(date);
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+			return sdf.parse(date);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Can't parse [" + date + "]", e);
+		}
 	}
 
 	/**
 	 * Return a formatted date
 	 */
 	public static String getDate(long millis) {
-		return SF.getDate(millis);
+		return getDate(new Date(millis));
 	}
 
 	/**
 	 * Return a formatted date
 	 */
 	public static String getDate(Date date) {
-		return SF.getDate(date);
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		return sdf.format(date);
+	}
+
+	/**
+	 * 
+	 */
+	public static String getThroughputInSeconds(long millis, long count, String label) {
+		double seconds = millis / SECOND;
+		double countPerSecond = count / seconds;
+		return countFormatter.format(countPerSecond) + " " + label;
 	}
 
 	/**
 	 * Given a number of bytes and the number of milliseconds it took to transfer that number of bytes, return bytes/s, KB/s, MB/s, GB/s, TB/s, PB/s, or EB/s as appropriate
 	 */
 	public static String getRate(long millis, long bytes) {
-		return SF.getRate(millis, bytes);
+		double seconds = millis / SECOND;
+		double bytesPerSecond = bytes / seconds;
+		Size bandwidthLevel = getSizeEnum(bytesPerSecond);
+		double transferRate = bytesPerSecond / bandwidthLevel.getValue();
+		return rateFormatter.format(transferRate) + " " + bandwidthLevel.getRateLabel();
 	}
 
 	/**
 	 * Return a formatted <code>count</code>
 	 */
 	public static String getCount(long count) {
-		return SF.getCount(count);
+		return countFormatter.format(count);
 	}
 
 	/**
@@ -68,29 +119,77 @@ public class FormatUtils {
 	 * approximations since the logic always assumes there are exactly 365 days per year.
 	 */
 	public static String getTime(long millis) {
-		return SF.getTime(millis);
+		long abs = Math.abs(millis);
+		if (abs < SECOND) {
+			return millis + "ms";
+		} else if (abs < MINUTE) {
+			return timeFormatter.format(millis / SECOND) + "s";
+		} else if (abs < HOUR) {
+			return timeFormatter.format(millis / MINUTE) + "m";
+		} else if (abs < DAY) {
+			return timeFormatter.format(millis / HOUR) + "h";
+		} else if (abs < YEAR) {
+			return timeFormatter.format(millis / DAY) + "d";
+		} else if (abs < DECADE) {
+			return timeFormatter.format(millis / YEAR) + "y";
+		} else if (abs < CENTURY) {
+			return timeFormatter.format(millis / DECADE) + " decades";
+		} else {
+			return timeFormatter.format(millis / CENTURY) + " centuries";
+		}
 	}
 
 	/**
 	 * Given a number of bytes return bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, or exabytes as appropriate.
 	 */
 	public static String getSize(long bytes) {
-		return SF.getSize(bytes);
+		return getSize(bytes, null);
 	}
 
 	/**
 	 * Given a number of bytes return a string formatted into the unit of measure indicated
 	 */
 	public static String getSize(long bytes, Size unitOfMeasure) {
-		return SF.getSize(bytes, unitOfMeasure);
+		unitOfMeasure = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
+		StringBuilder sb = new StringBuilder();
+		sb.append(getFormattedSize(bytes, unitOfMeasure));
+		if (unitOfMeasure.equals(Size.BYTE)) {
+			sb.append(" ");
+		}
+		sb.append(unitOfMeasure.getSizeLabel());
+		return sb.toString();
 	}
 
 	public static String getFormattedSize(long bytes, Size size) {
-		return SF.getFormattedSize(bytes, size);
+		switch (size) {
+		case BYTE:
+			return bytes + "";
+		case KB:
+		case MB:
+		case GB:
+			return sizeFormatter.format(bytes / (double) size.getValue());
+		default:
+			return largeSizeFormatter.format(bytes / (double) size.getValue());
+		}
 	}
 
 	public static Size getSizeEnum(double bytes) {
-		return SF.getSizeEnum(bytes);
+		bytes = Math.abs(bytes);
+		if (bytes < Size.KB.getValue()) {
+			return Size.BYTE;
+		} else if (bytes < Size.MB.getValue()) {
+			return Size.KB;
+		} else if (bytes < Size.GB.getValue()) {
+			return Size.MB;
+		} else if (bytes < Size.TB.getValue()) {
+			return Size.GB;
+		} else if (bytes < Size.PB.getValue()) {
+			return Size.TB;
+		} else if (bytes < Size.EB.getValue()) {
+			return Size.PB;
+		} else {
+			return Size.EB;
+		}
 	}
 
 }
