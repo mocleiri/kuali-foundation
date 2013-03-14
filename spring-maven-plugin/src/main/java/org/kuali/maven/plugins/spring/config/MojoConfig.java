@@ -4,7 +4,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.maven.plugins.spring.AbstractSpringMojo;
 import org.kuali.maven.plugins.spring.MavenConstants;
 import org.kuali.maven.plugins.spring.MojoExecutable;
-import org.kuali.maven.plugins.spring.SpringMojoService;
+import org.kuali.maven.plugins.spring.DefaultSpringMojoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class MojoConfig {
 
 	@Bean
-	public SpringMojoService service() {
-		return new SpringMojoService();
+	public DefaultSpringMojoService service() {
+		return new DefaultSpringMojoService();
 	}
 
 	@Autowired

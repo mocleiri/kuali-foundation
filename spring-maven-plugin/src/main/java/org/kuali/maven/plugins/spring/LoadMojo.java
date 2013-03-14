@@ -52,7 +52,7 @@ public class LoadMojo extends AbstractSpringMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		// Delegate execution to Spring
-		new SpringMojoService().execute(this);
+		new DefaultSpringMojoService().execute(this);
 	}
 
 	public Class<?> getAnnotatedClass() {
