@@ -197,8 +197,7 @@ public class SpringMojoService {
 			logger.info("[{}]", configuration);
 		}
 		if (mojo.isInjectMavenProperties()) {
-			Object[] args = { mojo.getMavenPropertiesBeanName(), props.getClass().getName(), props.size() };
-			logger.info("Injecting [{}] -> [{}] - {} total properties", args);
+			logger.info("Injecting Maven properties - {} total", props.size());
 			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
