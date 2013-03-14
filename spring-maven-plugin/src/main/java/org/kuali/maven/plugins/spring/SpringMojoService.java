@@ -54,10 +54,15 @@ public class SpringMojoService {
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
 			// If so, extract PropertySource objects from the PropertySources context
+			logger.info("Loading property sources - [{}]", mojo.getPropertySourcesConfig().getName());
 			List<PropertySource<?>> sources = getPropertySources(lc.getService(), mojo.getPropertySourcesConfig(), mojo.getMavenPropertiesBeanName(), lc.getMavenProperties());
+			String msg = sources.size() == 1 ? "source" : "sources";
+			logger.info("Located {} property {}", sources.size(), msg);
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
+
+		logConfiguration(mojo, lc.getMavenProperties(), context.getAnnotatedClasses());
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
 		lc.getService().load(context);
@@ -74,11 +79,16 @@ public class SpringMojoService {
 
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
+			logger.info("Loading property sources - [{}]", mojo.getPropertySourcesLocation());
 			// If so, extract PropertySource objects from the PropertySources context
 			List<PropertySource<?>> sources = getPropertySources(lc.getService(), mojo.getPropertySourcesLocation(), mojo.getMavenPropertiesBeanName(), lc.getMavenProperties());
+			String msg = sources.size() == 1 ? "source" : "sources";
+			logger.info("Located {} property {}", sources.size(), msg);
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
 		}
+
+		logConfiguration(mojo, lc.getMavenProperties(), context.getLocations());
 
 		// Invoke the service to load the context using custom property sources and pre-registered beans
 		lc.getService().load(context);
@@ -114,8 +124,6 @@ public class SpringMojoService {
 		// Combine the main context location with any optional locations
 		List<Class<?>> annotatedClasses = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
 
-		logConfiguration(mojo, mavenProperties, annotatedClasses);
-
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
 		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
@@ -132,8 +140,6 @@ public class SpringMojoService {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(mojo.getLocation(), mojo.getLocations());
 
-		logConfiguration(mojo, mavenProperties, contextLocations);
-
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
 		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
@@ -147,6 +153,7 @@ public class SpringMojoService {
 	}
 
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
+		logger.info("Loading requested Spring configuration");
 		if (mojo.isInjectMavenProperties()) {
 			logger.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
 			// logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
