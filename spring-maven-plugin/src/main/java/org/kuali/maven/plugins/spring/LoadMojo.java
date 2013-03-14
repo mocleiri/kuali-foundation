@@ -34,17 +34,20 @@ import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 public class LoadMojo extends AbstractSpringMojo {
 
 	/**
-	 * The Java class containing the Spring configuration.
+	 * The annotated Java class containing the Spring configuration.
 	 */
 	@Parameter(property = "spring.annotatedClass", required = true)
 	Class<?> annotatedClass;
 
 	/**
-	 * The Java class containing <code>PropertySource</code> definitions.
+	 * The annotated Java class containing <code>PropertySource</code> definitions.
 	 */
 	@Parameter(property = "spring.propertySourcesConfig")
 	Class<?> propertySourcesConfig = PropertySourcesConfig.class;
 
+	/**
+	 * Additional annotated Java classes containing Spring configuration.
+	 */
 	@Parameter(property = "spring.annotatedClasses")
 	List<Class<?>> annotatedClasses;
 
