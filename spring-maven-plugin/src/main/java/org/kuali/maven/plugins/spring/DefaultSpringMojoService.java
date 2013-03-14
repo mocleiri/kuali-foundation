@@ -46,7 +46,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
 
-	protected void load(AbstractSpringMojo mojo) {
+	public void loadSpring(AbstractSpringMojo mojo) {
 		logger.info("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
 
@@ -72,16 +72,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
 		service.load(context);
-	}
-
-	@Override
-	public void loadSpring(LoadMojo mojo) {
-		load(mojo);
-	}
-
-	@Override
-	public void loadSpring(LoadXmlMojo mojo) {
-		load(mojo);
 	}
 
 	@Override

@@ -18,9 +18,11 @@ package org.kuali.maven.plugins.spring;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.kuali.common.util.ReflectionUtils;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
@@ -98,6 +100,13 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	 */
 	@Parameter(property = "spring.skip", defaultValue = MavenConstants.DEFAULT_SKIP)
 	boolean skip = new Boolean(MavenConstants.DEFAULT_SKIP);
+
+	@Override
+	public void execute() throws MojoExecutionException {
+		// Delegate execution to Spring
+		SpringMojoService service = ReflectionUtils.newInstance(springMojoService);
+		service.loadSpring(this);
+	}
 
 	public MavenProject getProject() {
 		return project;
