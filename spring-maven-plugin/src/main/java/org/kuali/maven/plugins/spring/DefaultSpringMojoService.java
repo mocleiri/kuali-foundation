@@ -304,10 +304,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected void nullSafeSet(Properties properties, String key, String value) {
-		if (value == null) {
-			return;
+		if (value != null) {
+			properties.setProperty(key, value);
 		}
-		properties.setProperty(key, value);
 	}
 
 	protected LoadContext getLoadContext(AbstractSpringMojo mojo) {
