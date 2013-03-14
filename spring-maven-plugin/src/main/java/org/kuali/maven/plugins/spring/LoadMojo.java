@@ -28,8 +28,8 @@ import org.kuali.maven.plugins.spring.config.MojoConfig;
 /**
  * Load a Spring context from an annotated class
  */
-@Mojo(name = "load")
-@Execute(goal = "load")
+@Mojo(name = MavenConstants.LOAD_MOJO)
+@Execute(goal = MavenConstants.LOAD_MOJO)
 public class LoadMojo extends AbstractSpringMojo {
 
 	/**

@@ -6,6 +6,8 @@ import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
 public final class MavenConstants {
 
+	public static final String LOAD_MOJO = "load";
+	public static final String LOAD_XML_MOJO = "loadxml";
 	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
 	public static final String DEFAULT_MAVEN_PROJECT_BEAN_NAME = "mavenProject";
 	public static final String DEFAULT_MAVEN_MOJO_BEAN_NAME = "mavenMojo";
