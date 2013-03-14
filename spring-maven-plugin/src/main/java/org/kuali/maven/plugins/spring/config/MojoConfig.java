@@ -1,32 +1,32 @@
 package org.kuali.maven.plugins.spring.config;
 
 import org.kuali.common.util.execute.Executable;
+import org.kuali.maven.plugins.spring.AbstractSpringMojo;
 import org.kuali.maven.plugins.spring.MavenConstants;
-import org.kuali.maven.plugins.spring.XmlLoadMojo;
-import org.kuali.maven.plugins.spring.XmlLoadMojoExecutable;
+import org.kuali.maven.plugins.spring.MojoExecutable;
+import org.kuali.maven.plugins.spring.SpringMojoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(BaseConfig.class)
-public class XmlLoadMojoConfig {
+public class MojoConfig {
 
-	@Autowired
-	BaseConfig baseConfig;
+	@Bean
+	public SpringMojoService service() {
+		return new SpringMojoService();
+	}
 
 	@Autowired
 	@Qualifier(MavenConstants.AUTOWIRED_MOJO_QUALIFIER)
-	XmlLoadMojo mojo;
+	AbstractSpringMojo mojo;
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
-		XmlLoadMojoExecutable executable = new XmlLoadMojoExecutable();
-		executable.setService(baseConfig.service());
+		MojoExecutable executable = new MojoExecutable();
+		executable.setService(service());
 		executable.setMojo(mojo);
 		return executable;
 	}
-
 }

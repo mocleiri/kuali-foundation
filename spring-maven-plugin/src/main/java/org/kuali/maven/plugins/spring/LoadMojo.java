@@ -23,7 +23,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.service.SpringService;
-import org.kuali.maven.plugins.spring.config.LoadMojoConfig;
+import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
 @Mojo(name = "LoadMojo")
@@ -42,7 +42,7 @@ public class LoadMojo extends AbstractSpringMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		SpringService service = ReflectionUtils.newInstance(serviceClass);
-		service.load(LoadMojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
+		service.load(MojoConfig.class, MavenConstants.AUTOWIRED_MOJO_QUALIFIER, this);
 	}
 
 	public Class<?> getAnnotatedClass() {
