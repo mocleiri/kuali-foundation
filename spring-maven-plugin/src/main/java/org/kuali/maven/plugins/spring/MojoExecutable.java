@@ -17,6 +17,7 @@ public class MojoExecutable implements Executable {
 		invoker.setTargetMethod("execute");
 		invoker.setArguments(new Object[] { mojo });
 		try {
+			invoker.prepare();
 			invoker.invoke();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
