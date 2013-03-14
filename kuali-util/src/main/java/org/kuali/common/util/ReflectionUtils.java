@@ -10,6 +10,12 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T> T newInstance(String className) {
+		Class<?> clazz = getClass(className);
+		return (T) newInstance(clazz);
+	}
+
 	public static <T> T newInstance(Class<T> instanceClass) {
 		try {
 			return (T) instanceClass.newInstance();
