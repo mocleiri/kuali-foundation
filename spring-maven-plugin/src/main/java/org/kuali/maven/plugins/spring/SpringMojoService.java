@@ -188,7 +188,6 @@ public class SpringMojoService {
 	}
 
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
-		logger.info("Loading requested Spring configuration");
 		if (mojo.isInjectMavenProperties()) {
 			logger.info("Working with " + props.size() + " Maven properties");
 			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
@@ -199,8 +198,10 @@ public class SpringMojoService {
 		if (mojo.isInjectMavenMojo()) {
 			logger.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMavenMojoBeanName() + "]");
 		}
-		if (configurations.size() > 1) {
-			logger.info("Loading " + configurations.size() + " Spring configurations");
+		String msg = configurations.size() > 1 ? "configurations" : "configuration";
+		logger.debug("Working with {} Spring {}", configurations.size(), msg);
+		for (Object configuration : configurations) {
+			logger.info("Spring config - [{}]", configuration);
 		}
 	}
 
