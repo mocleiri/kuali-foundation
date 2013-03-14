@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
@@ -30,6 +29,8 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -38,6 +39,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SpringMojoService {
+
+	private static final Logger logger = LoggerFactory.getLogger(SpringMojoService.class);
 
 	public void execute(LoadMojo mojo) {
 		// Might be skipping execution altogether
@@ -156,19 +159,18 @@ public class SpringMojoService {
 	}
 
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
-		Log log = mojo.getLog();
 		if (mojo.isInjectMavenProperties()) {
-			log.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
-			// log.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
+			logger.info("Injecting " + props.size() + " Maven properties as a [" + props.getClass().getName() + "] bean under the id [" + mojo.getMavenPropertiesBeanName() + "]");
+			// logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
-			log.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
+			logger.info("Injecting the Maven project as a [" + mojo.getProject().getClass().getName() + "] bean under the id [" + mojo.getMavenProjectBeanName() + "]");
 		}
 		if (mojo.isInjectMavenMojo()) {
-			log.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMavenMojoBeanName() + "]");
+			logger.info("Injecting this mojo as a [" + mojo.getClass().getName() + "] bean under the id [" + mojo.getMavenMojoBeanName() + "]");
 		}
 		if (configurations.size() > 1) {
-			log.info("Loading " + configurations.size() + " Spring configurations");
+			logger.info("Loading " + configurations.size() + " Spring configurations");
 		}
 	}
 
