@@ -28,7 +28,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Kuali Test POM</name>
   <properties>
-    <print.message>Maven says hi to Spring</print.message>
+    <print.message>Maven says hi to Spring Group Id Path -> [${project.groupId.path}]</print.message>
   </properties>
   <build>
     <pluginManagement>
@@ -53,6 +53,7 @@
             </goals>
             <configuration>
               <annotatedClass>edu.calpoly.records.spring.PowerWebappConfig</annotatedClass>
+              <propertySourcesConfig>org.kuali.common.util.spring.config.ProjectPropertiesConfig</propertySourcesConfig>
             </configuration>
           </execution>
           <execution>
