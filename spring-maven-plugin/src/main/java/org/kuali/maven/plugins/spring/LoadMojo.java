@@ -26,7 +26,7 @@ import org.kuali.common.util.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
-@Mojo(name = "LoadMojo")
+@Mojo(name = "load-mojo")
 @Execute(goal = "load")
 public class LoadMojo extends AbstractSpringMojo {
 
