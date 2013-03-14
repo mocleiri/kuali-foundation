@@ -4,14 +4,15 @@ test.db.ole.kuali.org, ole-dev-2.czqkvue6plby.us-east-1.rds.amazonaws.com, test.
 ole-oracle.ole.kuali.org, ole-oracle-2.czqkvue6plby.us-east-1.rds.amazonaws.com, ole-oracle.ole.kuali.org, RDS-no check
 demo-oracle.ole.kuali.org, ole-demo-oracle-2.czqkvue6plby.us-east-1.rds.amazonaws.com, demo-oracle.ole.kuali.org, RDS-no check
 mysql.ole.kuali.org, ole-dev-2.czqkvue6plby.us-east-1.rds.amazonaws.com, mysql.ole.kuali.org, RDS-no check
+env2.ole.kuali.org, ec2-50-17-124-177.compute-1.amazonaws.com, env2.ole.kuali.org, time-out
 env3.ole.kuali.org, ec2-72-44-35-146.compute-1.amazonaws.com, Fail 65280, 
-dev.rice2.ole.kuali.org, ec2-23-21-35-233.compute-1.amazonaws.com,  22:49:46 up 203 days, 48 min,  0 users,  load average: 0.00, 0.07, 0.08, /dev/xvda1,25G,2.2G,23G,9%,/,
-dev.docstore.ole.kuali.org, ec2-50-16-22-30.compute-1.amazonaws.com,  22:49:50 up 203 days, 44 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.4G,23G,10%,/,
-tst.docstore.ole.kuali.org, ec2-23-23-70-160.compute-1.amazonaws.com,  22:49:53 up 166 days,  4:41,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.3G,23G,10%,/,
-tst.rice2.ole.kuali.org, ec2-107-20-36-167.compute-1.amazonaws.com,  22:49:57 up 166 days,  4:37,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.3G,23G,10%,/,
-env1.ole.kuali.org, ec2-23-23-40-242.compute-1.amazonaws.com,  22:50:01 up 140 days,  8:15,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,4.4G,20G,18%,/,
-dev.ole.kuali.org, ec2-23-23-40-242.compute-1.amazonaws.com,  22:50:04 up 140 days,  8:15,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,4.4G,20G,18%,/,
-tst.ole.kuali.org, ec2-107-20-44-107.compute-1.amazonaws.com,  22:50:07 up 166 days,  4:41,  1 user,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,6.6G,18G,27%,/,
-env7.ole.kuali.org, ec2-54-234-14-237.compute-1.amazonaws.com, Fail 65280, 
-env8.ole.kuali.org, ec2-23-20-0-215.compute-1.amazonaws.com, Fail 65280, 
-env9.ole.kuali.org, ec2-174-129-62-168.compute-1.amazonaws.com, Fail 65280, 
+dev.rice2.ole.kuali.org, ec2-23-21-35-233.compute-1.amazonaws.com,  22:30:17 up 205 days, 29 min,  0 users,  load average: 0.02, 0.12, 0.15, /dev/xvda1,25G,2.2G,23G,9%,/,
+dev.docstore.ole.kuali.org, ec2-50-16-22-30.compute-1.amazonaws.com,  22:30:19 up 205 days, 24 min,  0 users,  load average: 0.08, 0.03, 0.05, /dev/xvda1,25G,2.4G,23G,10%,/,
+tst.docstore.ole.kuali.org, ec2-23-23-70-160.compute-1.amazonaws.com,  22:30:22 up 168 days,  4:21,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.3G,23G,10%,/,
+tst.rice2.ole.kuali.org, ec2-107-20-36-167.compute-1.amazonaws.com,  22:30:24 up 168 days,  4:18,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.3G,23G,10%,/,
+env1.ole.kuali.org, ec2-23-23-40-242.compute-1.amazonaws.com,  22:30:26 up 142 days,  7:55,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,4.4G,21G,18%,/,
+dev.ole.kuali.org, ec2-23-23-40-242.compute-1.amazonaws.com,  22:30:28 up 142 days,  7:55,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,4.4G,21G,18%,/,
+tst.ole.kuali.org, ec2-107-20-44-107.compute-1.amazonaws.com,  22:30:30 up 168 days,  4:21,  0 users,  load average: 0.02, 0.04, 0.05, /dev/xvda1,25G,6.7G,18G,28%,/,
+env7.ole.kuali.org, ec2-54-234-14-237.compute-1.amazonaws.com, env7.ole.kuali.org, time-out
+env8.ole.kuali.org, ec2-23-20-0-215.compute-1.amazonaws.com, Timedout alarm, 
+env9.ole.kuali.org, ec2-174-129-62-168.compute-1.amazonaws.com, Timedout alarm, 

@@ -128,7 +128,8 @@ sub project_env_status {
  chomp($line);
  print "\n",$line;
  $no_ping = "";
- if (( $line =~ "env2") && ($project eq "ole")){ next; }
+ if (( $line =~ "env2") && ($project eq "ole")){ $no_ping = "time-out"; }
+ if (( $line =~ "env7") && ($project eq "ole")){ $no_ping = "time-out"; }
  if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
  if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
  if (($line =~ $project) ) {
