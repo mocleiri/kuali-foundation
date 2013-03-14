@@ -128,8 +128,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected PropertySourcesContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
+		Class<?> annotatedClass = ReflectionUtils.newInstance(mojo.getPropertySourcesConfig());
+
 		PropertySourcesContext psc = new PropertySourcesContext();
-		psc.setAnnotatedClass(mojo.getPropertySourcesConfig());
+		psc.setAnnotatedClass(annotatedClass);
 		psc.setProperties(context.getMavenProperties());
 		psc.setService(context.getService());
 		psc.setPropertiesBeanName(mojo.getMavenPropertiesBeanName());
@@ -189,14 +191,19 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			String className = getDefaultAnnotatedClassname(mojo.getProject());
 			try {
 				Class<?> annotatedClass = ReflectionUtils.getClass(className);
-				mojo.setAnnotatedClass(annotatedClass);
+				mojo.setAnnotatedClass(annotatedClass.getName());
 			} catch (IllegalStateException e) {
 				throw new IllegalStateException("No annotated class was provided and the default class [" + className + "] could not be created", e);
 			}
 		}
 
 		// Combine the main context location with any optional locations
-		List<Class<?>> annotatedClasses = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
+		List<String> annotatedClassNames = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
+		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
+		for (String annotatedClassName : annotatedClassNames) {
+			Class<?> annotatedClass = ReflectionUtils.newInstance(annotatedClassName);
+			annotatedClasses.add(annotatedClass);
+		}
 
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());

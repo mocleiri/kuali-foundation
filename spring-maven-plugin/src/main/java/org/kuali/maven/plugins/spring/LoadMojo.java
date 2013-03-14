@@ -32,43 +32,43 @@ public class LoadMojo extends AbstractSpringMojo {
 	 * The annotated class containing the Spring configuration. If not supplied, a class based on ${project.groupId} + ${project.artifactId} is used. Given a groupId of
 	 * <code>org.kuali.rice</code> and an artifactId of <code>rice-sampleapp</code>, this mojo attempts to use <code>org.kuali.rice.spring.RiceSampleappConfig</code>
 	 */
-	@Parameter(property = "spring.annotatedClass", required = true)
-	Class<?> annotatedClass;
+	@Parameter(property = "spring.annotatedClass")
+	String annotatedClass;
 
 	/**
 	 * The annotated class containing <code>PropertySource</code> definitions. By default, this gets set to <code>org.kuali.maven.plugins.spring.config.PropertySourcesConfig</code>
 	 * which registers a single PropertySource object backed by the full set of Maven properties.
 	 */
 	@Parameter(property = "spring.propertySourcesConfig")
-	Class<?> propertySourcesConfig = MavenConstants.DEFAULT_PROPERTY_SOURCES_CONFIG;
+	String propertySourcesConfig = MavenConstants.DEFAULT_PROPERTY_SOURCES_CONFIG.getName();
 
 	/**
 	 * Additional annotated classes containing Spring configuration.
 	 */
 	@Parameter(property = "spring.annotatedClasses")
-	List<Class<?>> annotatedClasses;
+	List<String> annotatedClasses;
 
-	public Class<?> getAnnotatedClass() {
+	public String getAnnotatedClass() {
 		return annotatedClass;
 	}
 
-	public void setAnnotatedClass(Class<?> annotatedClass) {
+	public void setAnnotatedClass(String annotatedClass) {
 		this.annotatedClass = annotatedClass;
 	}
 
-	public Class<?> getPropertySourcesConfig() {
+	public String getPropertySourcesConfig() {
 		return propertySourcesConfig;
 	}
 
-	public void setPropertySourcesConfig(Class<?> propertySourcesConfig) {
+	public void setPropertySourcesConfig(String propertySourcesConfig) {
 		this.propertySourcesConfig = propertySourcesConfig;
 	}
 
-	public List<Class<?>> getAnnotatedClasses() {
+	public List<String> getAnnotatedClasses() {
 		return annotatedClasses;
 	}
 
-	public void setAnnotatedClasses(List<Class<?>> annotatedClasses) {
+	public void setAnnotatedClasses(List<String> annotatedClasses) {
 		this.annotatedClasses = annotatedClasses;
 	}
 
