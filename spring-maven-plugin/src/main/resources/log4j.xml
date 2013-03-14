@@ -28,11 +28,13 @@
       <param name="ConversionPattern" value="[%-4p] %m%n" />
     </layout>
   </appender>
-  <logger name="org.springframework.beans.factory.xml">
-    <level value="info" />
-  </logger>
+  <!-- Tone down most Spring logging -->
   <logger name="org.springframework">
     <level value="warn" />
+  </logger>
+  <!-- Print log messages related to loading XML based bean definitions -->
+  <logger name="org.springframework.beans.factory.xml">
+    <level value="info" />
   </logger>
   <root>
     <priority value="info" />
