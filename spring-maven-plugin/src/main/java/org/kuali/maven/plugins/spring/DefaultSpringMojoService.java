@@ -75,6 +75,28 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	@Override
+	public void executeCallback(LoadXmlMojo mojo) {
+		LoadContext lc = getLoadContext(mojo);
+		if (lc == null) {
+			return;
+		}
+
+		// Aggregate objects into a SpringContext
+		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
+
+		// Provide some context for looking up property sources
+		PropertySourcesContext psc = getPropertySourcesContext(mojo, lc);
+
+		// Add the property sources
+		addPropertySources(psc, mojo, context);
+
+		logConfiguration(mojo, lc.getMavenProperties(), context.getLocations());
+
+		// Invoke the service to load the context using custom property sources and pre-registered beans
+		lc.getService().load(context);
+	}
+
+	@Override
 	public void executeCallback(LoadMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
@@ -110,7 +132,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			for (PropertySource<?> ps : sources) {
 				String name = ps.getName();
 				String type = ps.getClass().getName();
-				logger.debug("Property source - [{}] -> [{}]", name, type);
+				logger.info("Adding property source - [{}] -> [{}]", name, type);
 			}
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
@@ -136,28 +158,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		psc.setService(context.getService());
 		psc.setPropertiesBeanName(mojo.getMavenPropertiesBeanName());
 		return psc;
-	}
-
-	@Override
-	public void executeCallback(LoadXmlMojo mojo) {
-		LoadContext lc = getLoadContext(mojo);
-		if (lc == null) {
-			return;
-		}
-
-		// Aggregate objects into a SpringContext
-		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
-
-		// Provide some context for looking up property sources
-		PropertySourcesContext psc = getPropertySourcesContext(mojo, lc);
-
-		// Add the property sources
-		addPropertySources(psc, mojo, context);
-
-		logConfiguration(mojo, lc.getMavenProperties(), context.getLocations());
-
-		// Invoke the service to load the context using custom property sources and pre-registered beans
-		lc.getService().load(context);
 	}
 
 	protected List<PropertySource<?>> getPropertySources(PropertySourcesContext ctx) {
@@ -237,7 +237,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
-		logger.info("---------------- Loading requested Spring configuration ----------------");
+		logger.debug("---------------- Loading requested Spring configuration ----------------");
 		for (Object configuration : configurations) {
 			logger.info("[{}]", configuration);
 		}
