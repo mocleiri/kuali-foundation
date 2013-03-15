@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.PropertiesPropertySource;
 
 @Configuration
-public class ProjectPropertiesConfig {
+public class ProjectPropertySourceConfig {
 
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
