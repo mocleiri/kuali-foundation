@@ -66,7 +66,7 @@ public class SpringUtils {
 				Properties sourceProperties = getProperties(eps);
 				list.add(sourceProperties);
 			} else {
-				logger.info("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
+				logger.warn("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
 			}
 		}
 		return list;
@@ -80,6 +80,8 @@ public class SpringUtils {
 			if (object != null) {
 				String value = object.toString();
 				properties.setProperty(name, value);
+			} else {
+				logger.warn("Property [{}] is null", name);
 			}
 		}
 		return properties;
