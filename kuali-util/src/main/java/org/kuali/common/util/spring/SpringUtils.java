@@ -37,7 +37,8 @@ public class SpringUtils {
 
 		// Spring provides PropertySource objects ordered from highest priority to lowest priority
 		// We reverse the order here so we can iterate though the list of Properties objects and use
-		// properties.putAll() as an easy way to make sure the highest priority property value always wins
+		// properties.putAll() as a simple "last one in wins" strategy to make sure the highest priority
+		// property value always wins
 		Collections.reverse(propertiesList);
 
 		// Combine them into a single Properties object
