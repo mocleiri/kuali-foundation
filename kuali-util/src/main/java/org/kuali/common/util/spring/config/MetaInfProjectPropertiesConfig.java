@@ -27,7 +27,7 @@ public class MetaInfProjectPropertiesConfig {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-	@Value("${project.build.directory}/META-INF/${project.groupId.path}/${project.artifactId}.properties")
+	@Value("${project.build.outputDirectory}/META-INF/${project.groupId.path}/${project.artifactId}.properties")
 	File outputFile;
 
 	@Bean
