@@ -51,7 +51,7 @@ public class BaseMojoTestConfig {
 	@Bean
 	public Properties properties() {
 		Properties properties = new Properties();
-		properties.setProperty("spring.message", "Hello");
+		properties.setProperty("print.message", "Hello");
 		return properties;
 	}
 
