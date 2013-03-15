@@ -20,8 +20,7 @@ public class SpringUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
 	/**
-	 * Get a fully resolved property value from the environment. If the property is not found or contains unresolvable placeholders an exception is thrown. This calls
-	 * <code>env.getRequiredProperty</code> and <code>env.resolveRequiredPlaceholders</code>
+	 * Get a fully resolved property value from the environment. If the property is not found or contains unresolvable placeholders an exception is thrown.
 	 */
 	public static String getProperty(Environment env, String key) {
 		String value = env.getRequiredProperty(key);
