@@ -32,9 +32,9 @@
   <logger name="org.springframework">
     <level value="warn" />
   </logger>
-  <!-- Print log messages related to loading XML based bean definitions -->
+  <!-- Turn this back on to get a log message each time Spring loads an XML file -->
   <logger name="org.springframework.beans.factory.xml">
-    <level value="info" />
+    <level value="warn" />
   </logger>
   <root>
     <priority value="info" />
