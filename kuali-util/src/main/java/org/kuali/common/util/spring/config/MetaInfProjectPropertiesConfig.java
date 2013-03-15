@@ -8,6 +8,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.StorePropertiesExecutable;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -35,9 +36,9 @@ public class MetaInfProjectPropertiesConfig {
 	public Executable storePropertiesExecutable() {
 
 		// Extract environment property values
-		String encoding = getResolvedValue(env, "project.encoding");
-		String includesCSV = getResolvedValue(env, "project.metainf.includes");
-		String excludesCSV = getResolvedValue(env, "project.metainf.excludes");
+		String encoding = SpringUtils.getProperty(env, "project.encoding");
+		String includesCSV = SpringUtils.getProperty(env, "project.metainf.includes");
+		String excludesCSV = SpringUtils.getProperty(env, "project.metainf.excludes");
 
 		// Make sure we are configured right
 		Assert.hasText(encoding);
@@ -60,11 +61,6 @@ public class MetaInfProjectPropertiesConfig {
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
 		return spe;
-	}
-
-	protected String getResolvedValue(Environment env, String key) {
-		String value = env.getRequiredProperty(key);
-		return env.resolveRequiredPlaceholders(value);
 	}
 
 	/**
