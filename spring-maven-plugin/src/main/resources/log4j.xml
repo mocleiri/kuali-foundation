@@ -32,7 +32,7 @@
   <logger name="org.springframework">
     <level value="warn" />
   </logger>
-  <!-- Turn this back on to get a log message each time Spring loads an XML file -->
+  <!-- Set this to info to get a log message each time Spring loads an XML file -->
   <logger name="org.springframework.beans.factory.xml">
     <level value="warn" />
   </logger>
