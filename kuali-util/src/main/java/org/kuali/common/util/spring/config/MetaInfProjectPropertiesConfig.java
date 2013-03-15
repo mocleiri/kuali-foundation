@@ -36,7 +36,7 @@ public class MetaInfProjectPropertiesConfig {
 	@Bean(initMethod = "execute")
 	public Executable storePropertiesExecutable() {
 		List<String> includes = Arrays.asList("project.*");
-		List<String> excludes = Arrays.asList("project.basedir", "project.build.*", "project.issueManagement.*", "project.ciManagement.*");
+		List<String> excludes = Arrays.asList("project.basedir", "project.build.*", "project.issueManagement.*", "project.ciManagement.*", "project.*.home");
 
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
 		spe.setEncoding(encoding);
