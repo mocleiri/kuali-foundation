@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.Assert;
 
@@ -20,6 +21,11 @@ public class MetaInfProjectPropertiesConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer pspc() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 
 	@Value("${project.build.directory}/META-INF/${project.groupId.path}/${project.artifactId}.properties")
 	File outputFile;
