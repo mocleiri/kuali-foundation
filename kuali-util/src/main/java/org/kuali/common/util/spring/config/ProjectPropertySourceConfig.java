@@ -25,7 +25,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 public class ProjectPropertySourceConfig {
 
 	/**
-	 * spring-maven-plugin automatically wires in the default set of Maven properties
+	 * spring-maven-plugin auto-wires Maven properties by default
 	 */
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
