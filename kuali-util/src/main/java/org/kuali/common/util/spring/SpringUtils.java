@@ -33,16 +33,16 @@ public class SpringUtils {
 		// Extract the list of PropertySources from the environment
 		List<PropertySource<?>> sources = getPropertySources(env);
 
-		// The Spring iterator provides property sources ordered from highest priority to lowest priority
-		// We reverse that order here so we can iterate though the list of Properties objects and use
-		// properties.putAll() as an easy way to make sure the highest priority property value always wins
-		Collections.reverse(sources);
-
 		// Convert the list of PropertySource's to a list of Properties objects
-		List<Properties> list = getPropertiesList(sources);
+		List<Properties> propertiesList = getPropertiesList(sources);
+
+		// Spring provides PropertySource objects ordered from highest priority to lowest priority
+		// We reverse the order here so we can iterate though the list of Properties objects and use
+		// properties.putAll() as an easy way to make sure the highest priority property value always wins
+		Collections.reverse(propertiesList);
 
 		// Combine them into a single Properties object
-		return PropertyUtils.combine(list);
+		return PropertyUtils.combine(propertiesList);
 	}
 
 	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
