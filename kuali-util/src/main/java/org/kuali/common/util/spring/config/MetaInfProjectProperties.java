@@ -1,37 +1,27 @@
 package org.kuali.common.util.spring.config;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.io.File;
 
-import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.processor.ProjectProcessor;
-import org.kuali.common.util.property.processor.PropertyProcessor;
-import org.kuali.common.util.property.processor.VersionProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.StorePropertiesExecutable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.PropertiesPropertySource;
 
 @Configuration
 public class MetaInfProjectProperties {
 
-	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	Properties mavenProperties;
+	@Value(value = "${project.build.outputDirectory}/META-INF/${project.orgId.path}/${project.artifactId}.properties")
+	File outputFile;
 
-	@Bean
-	public PropertiesPropertySource projectPropertySource() {
+	@Value(value = "${project.encoding}")
+	String encoding;
 
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		processors.add(new ProjectProcessor());
-		processors.add(new VersionProcessor(Arrays.asList("project.version"), true));
-		PropertyUtils.process(mavenProperties, processors);
-
-		String name = Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
-		return new PropertiesPropertySource(name, mavenProperties);
+	@Bean(initMethod = "execute")
+	public Executable storePropertiesExecutable() {
+		StorePropertiesExecutable spe = new StorePropertiesExecutable();
+		spe.setEncoding(encoding);
+		spe.setOutputFile(outputFile);
+		return spe;
 	}
 }
