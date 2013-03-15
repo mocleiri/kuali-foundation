@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.config;
+package org.kuali.common.util.spring;
 
 import java.io.File;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.Properties;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.StorePropertiesExecutable;
-import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

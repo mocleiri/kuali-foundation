@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.config;
+package org.kuali.common.util.spring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
