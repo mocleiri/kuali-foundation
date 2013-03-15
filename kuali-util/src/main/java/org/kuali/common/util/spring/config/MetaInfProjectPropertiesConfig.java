@@ -33,10 +33,11 @@ public class MetaInfProjectPropertiesConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable storePropertiesExecutable() {
+
 		// Extract environment property values
-		String encoding = env.getRequiredProperty("project.encoding");
-		String includesCSV = env.getRequiredProperty("project.metainf.includes");
-		String excludesCSV = env.getRequiredProperty("project.metainf.excludes");
+		String encoding = getResolvedValue(env, "project.encoding");
+		String includesCSV = getResolvedValue(env, "project.metainf.includes");
+		String excludesCSV = getResolvedValue(env, "project.metainf.excludes");
 
 		// Make sure we are configured right
 		Assert.hasText(encoding);
@@ -59,6 +60,11 @@ public class MetaInfProjectPropertiesConfig {
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
 		return spe;
+	}
+
+	protected String getResolvedValue(Environment env, String key) {
+		String value = env.getRequiredProperty(key);
+		return env.resolveRequiredPlaceholders(value);
 	}
 
 	/**
