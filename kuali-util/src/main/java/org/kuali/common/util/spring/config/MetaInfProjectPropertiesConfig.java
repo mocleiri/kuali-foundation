@@ -69,7 +69,7 @@ public class MetaInfProjectPropertiesConfig {
 		sb.append(FS);
 		sb.append("META-INF");
 		sb.append(FS);
-		sb.append(env.getRequiredProperty("project.orgId.path"));
+		sb.append(env.getRequiredProperty("project.groupId.path"));
 		sb.append(FS);
 		sb.append(env.getRequiredProperty("project.artifactId"));
 		sb.append(".properties");
