@@ -49,6 +49,9 @@
       <email>jcaddel@kuali.org</email>
     </developer>
   </developers>
+  <properties>
+    <parent.version>${project.parent.version}</parent.version>
+  </properties>
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</developerConnection>
