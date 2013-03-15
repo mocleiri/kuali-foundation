@@ -59,7 +59,7 @@ public class SpringUtils {
 		List<Properties> list = new ArrayList<Properties>();
 		// Extract property values from the sources and place them in a Properties object
 		for (PropertySource<?> source : sources) {
-			logger.info("Adding [{}]", source.getName());
+			logger.debug("Adding [{}]", source.getName());
 			if (source instanceof EnumerablePropertySource) {
 				EnumerablePropertySource<?> eps = (EnumerablePropertySource<?>) source;
 				Properties sourceProperties = getProperties(eps);
