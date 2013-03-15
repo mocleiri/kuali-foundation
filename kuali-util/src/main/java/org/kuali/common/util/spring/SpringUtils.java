@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -28,21 +29,35 @@ public class SpringUtils {
 	}
 
 	public static Properties getAllProperties(ConfigurableEnvironment env) {
-		MutablePropertySources mps = env.getPropertySources();
-		Properties properties = new Properties();
-		List<Properties> list = new ArrayList<Properties>();
-		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
-		Iterator<PropertySource<?>> itr = mps.iterator();
-		while (itr.hasNext()) {
-			PropertySource<?> source = itr.next();
-			sources.add(source);
-		}
+
+		// Extract the list of PropertySources from the environment
+		List<PropertySource<?>> sources = getPropertySources(env);
 
 		// The Spring iterator provides property sources ordered from highest priority to lowest priority
 		// We reverse that order here so we can iterate though the list of Properties objects and use
 		// properties.putAll() as an easy way to make sure the highest priority property value always wins
 		Collections.reverse(sources);
 
+		// Convert the list of PropertySource's to a list of Properties objects
+		List<Properties> list = getPropertiesList(sources);
+
+		// Combine them into a single Properties object
+		return PropertyUtils.combine(list);
+	}
+
+	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
+		MutablePropertySources mps = env.getPropertySources();
+		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
+		Iterator<PropertySource<?>> itr = mps.iterator();
+		while (itr.hasNext()) {
+			PropertySource<?> source = itr.next();
+			sources.add(source);
+		}
+		return sources;
+	}
+
+	public static List<Properties> getPropertiesList(List<PropertySource<?>> sources) {
+		List<Properties> list = new ArrayList<Properties>();
 		// Extract property values from the sources and place them in a Properties object
 		for (PropertySource<?> source : sources) {
 			logger.info("Adding [{}]", source.getName());
@@ -54,10 +69,7 @@ public class SpringUtils {
 				logger.info("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
 			}
 		}
-		for (Properties p : list) {
-			properties.putAll(p);
-		}
-		return properties;
+		return list;
 	}
 
 	public static Properties getProperties(EnumerablePropertySource<?> source) {
