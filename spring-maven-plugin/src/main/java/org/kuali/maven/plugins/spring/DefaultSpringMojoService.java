@@ -48,7 +48,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	@Override
 	public void loadSpring(AbstractSpringMojo mojo) {
-		logger.info("----------------- Delegating mojo execution to Spring ------------------");
+		logger.debug("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
 
 		List<String> beanNames = new ArrayList<String>();
@@ -103,14 +103,14 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			// Source is either an XML file or an annotated class
 			String source = ctx.getLocation() == null ? ctx.getAnnotatedClass().getName() : ctx.getLocation();
 			// If so, extract PropertySource objects from the PropertySources context
-			logger.info("Acquiring custom property sources - [{}]", source);
+			logger.debug("Acquiring custom property sources - [{}]", source);
 			List<PropertySource<?>> sources = getPropertySources(ctx);
 			String msg = sources.size() == 1 ? "source" : "sources";
-			logger.info("Located {} custom property {}", sources.size(), msg);
+			logger.debug("Located {} custom property {}", sources.size(), msg);
 			for (PropertySource<?> ps : sources) {
 				String name = ps.getName();
 				String type = ps.getClass().getName();
-				logger.info("Property source - [{}] -> [{}]", name, type);
+				logger.debug("Property source - [{}] -> [{}]", name, type);
 			}
 			// Add them to the SpringContext
 			context.setPropertySources(sources);
