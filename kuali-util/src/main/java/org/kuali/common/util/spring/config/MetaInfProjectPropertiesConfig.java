@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MetaInfProjectProperties {
+public class MetaInfProjectPropertiesConfig {
 
 	@Value(value = "${project.build.outputDirectory}/META-INF/${project.orgId.path}/${project.artifactId}.properties")
 	File outputFile;
