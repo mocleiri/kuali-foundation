@@ -7,10 +7,8 @@ import java.util.Properties;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.StorePropertiesExecutable;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -22,15 +20,13 @@ public class MetaInfProjectPropertiesConfig {
 
 	private static final String FS = File.separator;
 
-	/**
-	 * spring-maven-plugin auto-wires Maven properties by default
-	 */
-	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	Properties mavenProperties;
-
 	@Autowired
 	ConfigurableEnvironment env;
+
+	@Bean
+	public Properties springProperties() {
+		return SpringUtils.getAllProperties(env);
+	}
 
 	@Bean(initMethod = "execute")
 	public Executable storePropertiesExecutable() {
@@ -53,11 +49,14 @@ public class MetaInfProjectPropertiesConfig {
 		String filename = getOutputFilename(env);
 		File outputFile = new File(filename);
 
+		// Get the list of all properties spring knows about
+		Properties properties = springProperties();
+
 		// Setup the executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
 		spe.setEncoding(encoding);
 		spe.setOutputFile(outputFile);
-		spe.setProperties(mavenProperties);
+		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
 		return spe;
