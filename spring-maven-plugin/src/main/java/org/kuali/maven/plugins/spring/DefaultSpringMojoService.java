@@ -347,7 +347,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	protected LoadContext getLoadContext(AbstractSpringMojo mojo) {
 		// Might be skipping execution altogether
 		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
-			logger.info("Skipping execution");
+			// The MavenUtils.skip() method already emits a log message informing them that we are skipping execution
 			return null;
 		}
 
