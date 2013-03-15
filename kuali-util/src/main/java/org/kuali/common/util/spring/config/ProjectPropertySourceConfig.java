@@ -36,6 +36,7 @@ public class ProjectPropertySourceConfig {
 
 		// Setup some processors
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+
 		// Add some organization, group, and path properties
 		processors.add(new ProjectProcessor());
 
