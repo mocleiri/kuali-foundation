@@ -53,6 +53,7 @@ sub foundation_env_status
  foreach $line (@DNS)
  {
    chomp($line);
+  $no_ping = "";
    if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    #print "\n",$line;
