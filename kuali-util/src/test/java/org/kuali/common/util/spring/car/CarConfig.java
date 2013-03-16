@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.config.car;
+package org.kuali.common.util.spring.car;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
