@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,9 +55,19 @@ public class SpringUtils {
 	 * Remove any existing property sources and add one property source backed by the properties passed in
 	 */
 	public static void reconfigurePropertySources(ConfigurableEnvironment env, String name, Properties properties) {
+		// Remove all existing property sources
 		removeAllPropertySources(env);
+		
+		// MutablePropertySources allow us to manipulate the list of property sources
 		MutablePropertySources mps = env.getPropertySources();
+
+		// Make sure there are no existing property sources
+		Assert.isTrue(mps.size() == 0);
+		
+		// Create a property source backed by the properties object passed in
 		PropertiesPropertySource pps = new PropertiesPropertySource(name, properties);
+		
+		// Add it to the environment
 		mps.addFirst(pps);
 	}
 
