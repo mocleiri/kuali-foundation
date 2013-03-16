@@ -15,6 +15,7 @@ public class CarConfigTest {
 	public void test() {
 
 		try {
+			System.setProperty("project.encoding", "UTF-8");
 			SpringService ss = new DefaultSpringService();
 
 			List<PropertySource<?>> propertySources = ss.getPropertySources(CarPropertySourcesConfig.class);

@@ -1,5 +1,9 @@
 package org.kuali.common.util.spring.car;
 
+import java.util.Arrays;
+import java.util.Properties;
+
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +19,9 @@ public class CarConfig {
 	@Bean
 	public Object whatever() {
 		SpringUtils.showPropertySources(env);
-		System.out.println(SpringUtils.getProperty(env, "car.make"));
+		Properties all = SpringUtils.getAllEnumerableProperties(env);
+		PropertyUtils.trim(all, Arrays.asList("car.*"), null);
+		PropertyUtils.info(all);
 		return null;
 	}
 }
