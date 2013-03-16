@@ -35,7 +35,7 @@ public class SpringUtils {
 			Object[] row = { name, impl, source };
 			rows.add(row);
 		}
-		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger);
+		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger, true);
 	}
 
 	/**
