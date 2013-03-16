@@ -12,7 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@PropertySource(name = "carProperties", value = "classpath:car.properties")
+@PropertySource(name = "carProperties", value = { "classpath:car.properties", "${car.make}.properties" })
 public class CarConfig {
 
 	@Autowired
