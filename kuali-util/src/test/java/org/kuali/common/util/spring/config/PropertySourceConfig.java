@@ -15,10 +15,10 @@ import org.springframework.core.env.PropertiesPropertySource;
 public class PropertySourceConfig {
 
 	@Autowired
-	private static ConfigurableEnvironment env;
+	ConfigurableEnvironment env;
 
 	@Bean
-	public static PropertiesPropertySource pps() {
+	public PropertiesPropertySource pps() {
 		System.out.println("pps()");
 		String name = "carProperties";
 		Properties properties = new Properties();
@@ -32,7 +32,6 @@ public class PropertySourceConfig {
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer pspc() {
-		pps();
 		System.out.println("pspc()");
 		return new PropertySourcesPlaceholderConfigurer();
 	}
