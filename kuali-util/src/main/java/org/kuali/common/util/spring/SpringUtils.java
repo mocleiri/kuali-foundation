@@ -39,7 +39,7 @@ public class SpringUtils {
 		List<PropertySource<?>> sources = getPropertySources(env);
 
 		// Convert the list of PropertySource's to a list of Properties objects
-		List<Properties> propertiesList = getPropertiesList(sources);
+		List<Properties> propertiesList = convertEnumerablePropertySources(sources);
 
 		// Spring provides PropertySource objects ordered from highest priority to lowest priority
 		// We reverse the order here so we can iterate though the list of Properties objects using
@@ -57,16 +57,16 @@ public class SpringUtils {
 	public static void reconfigurePropertySources(ConfigurableEnvironment env, String name, Properties properties) {
 		// Remove all existing property sources
 		removeAllPropertySources(env);
-		
+
 		// MutablePropertySources allow us to manipulate the list of property sources
 		MutablePropertySources mps = env.getPropertySources();
 
 		// Make sure there are no existing property sources
 		Assert.isTrue(mps.size() == 0);
-		
+
 		// Create a property source backed by the properties object passed in
 		PropertiesPropertySource pps = new PropertiesPropertySource(name, properties);
-		
+
 		// Add it to the environment
 		mps.addFirst(pps);
 	}
@@ -83,6 +83,9 @@ public class SpringUtils {
 		}
 	}
 
+	/**
+	 * Get all PropertySource objects from the environment as a List.
+	 */
 	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
 		MutablePropertySources mps = env.getPropertySources();
 		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
@@ -94,14 +97,17 @@ public class SpringUtils {
 		return sources;
 	}
 
-	public static List<Properties> getPropertiesList(List<PropertySource<?>> sources) {
+	/**
+	 * Convert any PropertySources that extend EnumerablePropertySource into Properties object's
+	 */
+	public static List<Properties> convertEnumerablePropertySources(List<PropertySource<?>> sources) {
 		List<Properties> list = new ArrayList<Properties>();
 		// Extract property values from the sources and place them in a Properties object
 		for (PropertySource<?> source : sources) {
 			logger.debug("Adding [{}]", source.getName());
 			if (source instanceof EnumerablePropertySource) {
 				EnumerablePropertySource<?> eps = (EnumerablePropertySource<?>) source;
-				Properties sourceProperties = getProperties(eps);
+				Properties sourceProperties = convert(eps);
 				list.add(sourceProperties);
 			} else {
 				logger.warn("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
@@ -110,7 +116,10 @@ public class SpringUtils {
 		return list;
 	}
 
-	public static Properties getProperties(EnumerablePropertySource<?> source) {
+	/**
+	 * Convert an EnumerablePropertySource into a Properties object.
+	 */
+	public static Properties convert(EnumerablePropertySource<?> source) {
 		Properties properties = new Properties();
 		String[] names = source.getPropertyNames();
 		for (String name : names) {
