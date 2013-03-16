@@ -13,7 +13,7 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 
 @Configuration
-@PropertySource(name = "", value = "")
+@PropertySource(name = "carProperties", value = { "classpath:car.properties", "classpath:${make}.properties}" })
 public class PropertySourceConfig {
 
 	@Autowired
