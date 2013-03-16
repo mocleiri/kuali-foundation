@@ -1,5 +1,6 @@
 package org.kuali.common.util.spring.config;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
@@ -19,8 +20,9 @@ public class CarConfig {
 
 	@Bean
 	public Object whatever() {
-		Properties p = SpringUtils.getAllProperties(env);
-		PropertyUtils.info(p);
+		Properties car = SpringUtils.getAllProperties(env);
+		PropertyUtils.trim(car, Arrays.asList("car.*"), null);
+		PropertyUtils.info(car);
 		return null;
 	}
 
