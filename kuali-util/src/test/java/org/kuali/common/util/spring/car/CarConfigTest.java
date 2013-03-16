@@ -1,19 +1,22 @@
 package org.kuali.common.util.spring.car;
 
 import org.junit.Test;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = CompositeConfig.class)
 public class CarConfigTest {
+
+	@Autowired
+	ApplicationContext ctx;
 
 	@Test
 	public void test() {
-		try {
-			SpringService ss = new DefaultSpringService();
-			ss.load(CompositeConfig.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		System.out.println("yo");
 	}
 
 }
