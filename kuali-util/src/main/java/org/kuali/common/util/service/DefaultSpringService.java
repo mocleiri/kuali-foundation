@@ -223,7 +223,7 @@ public class DefaultSpringService implements SpringService {
 	 * Null safe close for a context
 	 */
 	protected void closeQuietly(ConfigurableApplicationContext context) {
-		if (context != null) {
+		if (context != null && context.isActive()) {
 			context.close();
 		}
 	}
