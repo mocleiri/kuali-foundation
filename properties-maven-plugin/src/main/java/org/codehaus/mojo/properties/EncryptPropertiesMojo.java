@@ -15,9 +15,10 @@
  */
 package org.codehaus.mojo.properties;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -47,22 +48,6 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 	private String[] properties;
 
 	/**
-	 * If true, the plain text values being encrypted are displayed to the console.
-	 * 
-	 * @parameter expression="${properties.show}" default-value="false"
-	 * @required
-	 */
-	private boolean show;
-
-	/**
-	 * If true, the plugin will emit no logging information
-	 * 
-	 * @parameter expression="${properties.quiet}" default-value="false"
-	 * @required
-	 */
-	private boolean quiet;
-
-	/**
 	 * 
 	 * The password for encrypting property values. This same password can be used to to decrypt the encrypted values.
 	 * 
@@ -71,50 +56,30 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 	 */
 	private String password;
 
-	protected boolean skipValue(String value) {
-		if (StringUtils.isBlank(value)) {
-			return true;
-		}
-		if (PropertyUtils.isEncryptedPropertyValue(value)) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
 	@Override
 	public void execute() throws MojoExecutionException {
+
+		// Setup the encryptor
 		BasicTextEncryptor encryptor = new BasicTextEncryptor();
 		encryptor.setPassword(password);
-		Properties props = project.getProperties();
-		for (String key : properties) {
-			String value = getProperty(key);
-			if (skipValue(value) && !quiet) {
-				getLog().info("Skipping " + key);
-				continue;
-			}
-			String newValue = PropertyUtils.encryptPropertyValue(encryptor, value);
-			props.setProperty(key, newValue);
-			if (quiet) {
-				continue;
-			}
-			if (show) {
-				getLog().info("Setting " + key + "=" + newValue + " - " + value);
-			} else {
-				getLog().info("Setting " + key + "=" + newValue);
-			}
-		}
-	}
 
-	protected String getProperty(String key) {
-		String sys = System.getProperty(key);
-		String proj = project.getProperties().getProperty(key);
-		if (!StringUtils.isBlank(sys)) {
-			return sys;
-		} else {
-			return proj;
+		// Get project properties overridden by system/env properties
+		Properties p = PropertyUtils.getGlobalProperties(project.getProperties());
+
+		// Set up the includes list
+		List<String> includes = PropertyUtils.getSortedKeys(project.getProperties());
+		if (properties != null) {
+			includes = Arrays.asList(properties);
 		}
 
+		// Trim things down to just the properties we want
+		PropertyUtils.trim(p, includes, null);
+
+		// Encrypt the property values
+		PropertyUtils.encrypt(p, encryptor);
+
+		// Update Maven with the encrypted values
+		project.getProperties().putAll(p);
 	}
 
 	public String[] getProperties() {
@@ -123,22 +88,6 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 
 	public void setProperties(String[] properties) {
 		this.properties = properties;
-	}
-
-	public boolean isShow() {
-		return show;
-	}
-
-	public void setShow(boolean show) {
-		this.show = show;
-	}
-
-	public boolean isQuiet() {
-		return quiet;
-	}
-
-	public void setQuiet(boolean quiet) {
-		this.quiet = quiet;
 	}
 
 	public String getPassword() {
