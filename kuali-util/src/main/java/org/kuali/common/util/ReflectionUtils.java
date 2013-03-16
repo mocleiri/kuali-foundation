@@ -6,13 +6,13 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		try {
 			return Class.forName(className);
 		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(String className) {
-		Class<?> clazz = getClass(className);
+		@SuppressWarnings("unchecked")
+		Class<T> clazz = (Class<T>) getClass(className);
 		return (T) newInstance(clazz);
 	}
 
@@ -20,9 +20,9 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		try {
 			return (T) instanceClass.newInstance();
 		} catch (IllegalAccessException e) {
-			throw new IllegalStateException("Unexpected error", e);
+			throw new IllegalArgumentException("Unexpected error", e);
 		} catch (InstantiationException e) {
-			throw new IllegalStateException("Unexpected error", e);
+			throw new IllegalArgumentException("Unexpected error", e);
 		}
 	}
 
