@@ -9,7 +9,7 @@ import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 import org.springframework.core.env.PropertySource;
 
-public class CompositeConfigTest {
+public class CarConfigTest {
 
 	@Test
 	public void test() {
@@ -20,7 +20,7 @@ public class CompositeConfigTest {
 			List<PropertySource<?>> sources = ss.getPropertySources(CarPropertySourcesConfig.class);
 
 			List<Class<?>> acs = new ArrayList<Class<?>>();
-			acs.add(CompositeConfig.class);
+			acs.add(CarConfig.class);
 
 			SpringContext sc = new SpringContext();
 			sc.setAnnotatedClasses(acs);

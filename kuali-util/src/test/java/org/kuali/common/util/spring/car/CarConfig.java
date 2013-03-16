@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-public class CompositeConfig {
+public class CarConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
