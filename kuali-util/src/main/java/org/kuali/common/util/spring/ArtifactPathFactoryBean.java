@@ -18,10 +18,10 @@ package org.kuali.common.util.spring;
 import java.io.File;
 
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.util.Assert;
 
 public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<String> {
 
@@ -32,10 +32,10 @@ public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<Str
 	public String getObject() throws Exception {
 
 		Assert.notNull(localRepositoryDir);
-		Assert.notNull(getGroupId());
-		Assert.notNull(getArtifactId());
-		Assert.notNull(getVersion());
-		Assert.notNull(getPackaging());
+		Assert.hasText(getGroupId());
+		Assert.hasText(getArtifactId());
+		Assert.hasText(getVersion());
+		Assert.hasText(getPackaging());
 
 		File file = RepositoryUtils.getFile(localRepositoryDir, this);
 		validate(file);
