@@ -5,7 +5,7 @@ import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.config.MakeConfig;
 
-public class PropertySourceConfigTest {
+public class CarConfigTest {
 
 	@Test
 	public void test() {
