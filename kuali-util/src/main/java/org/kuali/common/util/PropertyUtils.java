@@ -59,7 +59,7 @@ public class PropertyUtils {
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
 	/**
-	 * Decrypt any encrypted property values. Encrypted values are surrounded by ENC(...).
+	 * Decrypt any encrypted property values. Encrypted values are surrounded by ENC(...), like:
 	 * 
 	 * <pre>
 	 * my.value = ENC(DGA"$S24FaIO)
@@ -67,6 +67,25 @@ public class PropertyUtils {
 	 */
 	public static void decrypt(Properties properties, TextEncryptor encryptor) {
 		decrypt(properties, encryptor, null, null);
+	}
+
+	/**
+	 * Return a new <code>Properties</code> object (never null) containing only those properties whose values are encrypted. Encrypted values are surrounded by ENC(...), like:
+	 * 
+	 * <pre>
+	 * my.value = ENC(DGA"$S24FaIO)
+	 * </pre>
+	 */
+	public static Properties getEncryptedProperties(Properties properties) {
+		List<String> keys = getSortedKeys(properties);
+		Properties encrypted = new Properties();
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			if (isEncryptedPropertyValue(value)) {
+				encrypted.setProperty(key, value);
+			}
+		}
+		return encrypted;
 	}
 
 	/**
