@@ -44,7 +44,7 @@ public class ProjectPropertySourceConfig {
 		// Also add a boolean property indicating if this is a SNAPSHOT build
 		processors.add(new VersionProcessor(Arrays.asList("project.version"), true));
 
-		// Process default Maven properties to add in our custom properties
+		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
 
 		// Return the augmented set of Maven properties as a Spring PropertySource
