@@ -71,12 +71,12 @@ public class LoggerUtils {
 		}
 	}
 
-	public static void logTable(List<String> columns, List<Object[]> argsList, LoggerLevel level, Logger logger) {
-		int[] padding = getPadding(columns, argsList);
+	public static void logTable(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger) {
+		int[] padding = getPadding(columns, rows);
 		logMsg(getHeader(columns, padding), logger, level);
 		String msg = getMsg(padding.length);
-		updateArgsList(argsList, padding);
-		for (Object[] args : argsList) {
+		updateArgsList(rows, padding);
+		for (Object[] args : rows) {
 			logMsg(msg, args, logger, level);
 		}
 	}

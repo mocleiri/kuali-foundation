@@ -1,12 +1,15 @@
 package org.kuali.common.util.spring;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.LoggerLevel;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +26,16 @@ public class SpringUtils {
 
 	public static void showPropertySources(ConfigurableEnvironment env) {
 		List<PropertySource<?>> propertySources = getPropertySources(env);
+		List<String> columns = Arrays.asList("Name", "Impl", "Source");
+		List<Object[]> rows = new ArrayList<Object[]>();
 		for (PropertySource<?> propertySource : propertySources) {
 			String name = propertySource.getName();
 			String impl = propertySource.getClass().getName();
 			String source = propertySource.getSource().getClass().getName();
-			Object[] args = { name, impl, source };
-			logger.info("Name:[{}]  Impl:[{}]  Source:[{}]", args);
+			Object[] row = { name, impl, source };
+			rows.add(row);
 		}
+		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger);
 	}
 
 	/**
