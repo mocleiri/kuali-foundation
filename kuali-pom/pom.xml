@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -91,8 +91,18 @@
     <kuali.release.use.maven.profile>false</kuali.release.use.maven.profile>
     <kuali.release.goals>deploy site-deploy</kuali.release.goals>
     <kuali.release.prepare.goals>clean verify</kuali.release.prepare.goals>
-    <!-- Used by the GPG plugin during a release -->
-    <kuali.gpg.passphrase.encrypted>2rRGp7BREsY4QxTwlTSX3NRdtqZTP5fR</kuali.gpg.passphrase.encrypted>
+
+    <!--
+      The GPG passphrase is used by the GPG plugin during a release.
+      The reason for the .encrypted suffix comes from Maven's property resolution logic.
+      It appears that Maven locks down plugin configuration values globally based on the default
+      values in it's internal properties object. If an existing property value is UPDATED by something other
+      than the <properties> tag inside a Maven pom, plugins do not see the change.
+      However, if a new property is ADDED by something else, the plugins pick it up.
+      Thus, the properties-maven-plugin detects encrypted property values by suffix, strips the suffix,
+      and creates a new property containing the decrypted value.
+    -->
+    <kuali.gpg.passphrase.encrypted>ENC(2rRGp7BREsY4QxTwlTSX3NRdtqZTP5fR)</kuali.gpg.passphrase.encrypted>
     <kuali.svn.prefix>svn</kuali.svn.prefix>
     <kuali.svn.depth>empty</kuali.svn.depth>
     <kuali.svn.verbose>false</kuali.svn.verbose>
@@ -184,12 +194,12 @@
     <plugin.metainf.version>2.0.2</plugin.metainf.version>
     <plugin.nexus.version>2.1</plugin.nexus.version>
     <plugin.project-info-reports.version>2.6</plugin.project-info-reports.version>
-    <plugin.properties.version>1.5.3</plugin.properties.version>
+    <plugin.properties.version>2.0.1</plugin.properties.version>
     <plugin.release.version>2.4</plugin.release.version>
     <plugin.resources.version>2.6</plugin.resources.version>
     <plugin.scm.version>1.8.1</plugin.scm.version>
 
-    <!-- 3.0 fixes MSITE-532 but has MSITE-600. 3.1 should fix both -->
+    <!-- 3.0 fixes MSITE-532 but has MSITE-600. As of 3.2 this is still an issue -->
     <plugin.site.version>3.0-beta-3</plugin.site.version>
 
     <plugin.sonar.version>2.0</plugin.sonar.version>
@@ -363,9 +373,6 @@
         <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${plugin.gpg.version}</version>
-          <configuration>
-            <passphrase>${kuali.gpg.passphrase}</passphrase>
-          </configuration>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
@@ -666,7 +673,7 @@
         <sonar.host.url>http://${sonar.host}</sonar.host.url>
         <sonar.jdbc.url>jdbc:mysql://${sonar.host}/sonar</sonar.jdbc.url>
         <sonar.jdbc.username>sonar</sonar.jdbc.username>
-        <sonar.jdbc.password.encrypted>AcSSoTW9f+wXEYR4GGnrMw==</sonar.jdbc.password.encrypted>
+        <sonar.jdbc.password.encrypted>ENC(AcSSoTW9f+wXEYR4GGnrMw==)</sonar.jdbc.password.encrypted>
         <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
       </properties>
       <build>
@@ -978,7 +985,7 @@
       </properties>
       <build>
         <plugins>
-          <!-- Needed to decrypt the gpg password -->
+          <!-- Decrypts the gpg password -->
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>properties-maven-plugin</artifactId>
@@ -1040,6 +1047,9 @@
                 <goals>
                   <goal>sign</goal>
                 </goals>
+                <configuration>
+                  <passphrase>${kuali.gpg.passphrase}</passphrase>
+                </configuration>
               </execution>
             </executions>
           </plugin>
