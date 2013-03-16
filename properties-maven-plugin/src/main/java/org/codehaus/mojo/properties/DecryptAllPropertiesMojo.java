@@ -15,8 +15,6 @@
  */
 package org.codehaus.mojo.properties;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -100,13 +98,8 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 		if (includeSystemProperties) {
 			props.putAll(System.getProperties());
 		}
-		List<String> keys = new ArrayList<String>(props.stringPropertyNames());
-		Collections.sort(keys);
+		List<String> keys = PropertyUtils.getEndsWithKeys(props, endsWith);
 		for (String key : keys) {
-			boolean decrypt = key.endsWith(endsWith);
-			if (!decrypt) {
-				continue;
-			}
 			String value = props.getProperty(key);
 			if (StringUtils.isBlank(value) && !quiet) {
 				getLog().info("Skipping blank property " + key);
