@@ -24,7 +24,7 @@ public class CarPropertySourcesConfig {
 
 	@Bean
 	public PropertiesPropertySource pps() {
-		String name = "carProperties";
+		String name = "springProperties";
 		Properties source = PropertyUtils.combine(base(), make());
 		return new PropertiesPropertySource(name, source);
 	}
