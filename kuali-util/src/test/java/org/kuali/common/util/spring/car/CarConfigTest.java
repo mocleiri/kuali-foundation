@@ -10,7 +10,7 @@ public class CarConfigTest {
 	public void test() {
 		try {
 			SpringService ss = new DefaultSpringService();
-			ss.load(CarConfig.class);
+			ss.load(CompositeConfig.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
