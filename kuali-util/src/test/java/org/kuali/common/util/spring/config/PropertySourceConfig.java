@@ -15,10 +15,11 @@ import org.springframework.core.env.PropertiesPropertySource;
 public class PropertySourceConfig {
 
 	@Autowired
-	ConfigurableEnvironment env;
+	private static ConfigurableEnvironment env;
 
 	@Bean
-	public PropertiesPropertySource pps() {
+	public static PropertiesPropertySource pps() {
+		System.out.println("pps()");
 		String name = "carProperties";
 		Properties properties = new Properties();
 		properties.setProperty("model", "ford");
@@ -31,6 +32,8 @@ public class PropertySourceConfig {
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer pspc() {
+		pps();
+		System.out.println("pspc()");
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
@@ -38,7 +41,8 @@ public class PropertySourceConfig {
 	String model;
 
 	@Bean
-	Object whatever() {
+	public Object whatever() {
+		System.out.println("whatever()");
 		System.out.println(model);
 		return null;
 	}
