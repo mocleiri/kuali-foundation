@@ -41,13 +41,13 @@ public class LoggerUtils {
 		return padding;
 	}
 
-	public static String getHeader(List<String> columns, int[] padding, boolean rightAlign) {
+	public static String getHeader(List<String> columns, int[] padding, boolean leftAlign) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < columns.size(); i++) {
 			if (i != 0) {
 				sb.append("  ");
 			}
-			if (rightAlign) {
+			if (leftAlign) {
 				sb.append(StringUtils.rightPad(columns.get(i), padding[i]));
 			} else {
 				sb.append(StringUtils.leftPad(columns.get(i), padding[i]));
@@ -67,10 +67,10 @@ public class LoggerUtils {
 		return sb.toString();
 	}
 
-	public static void updateArgsList(List<Object[]> argsList, int[] padding, boolean rightAlign) {
+	public static void updateArgsList(List<Object[]> argsList, int[] padding, boolean leftAlign) {
 		for (Object[] args : argsList) {
 			for (int i = 0; i < args.length; i++) {
-				if (rightAlign) {
+				if (leftAlign) {
 					args[i] = StringUtils.rightPad(args[i].toString(), padding[i]);
 				} else {
 					args[i] = StringUtils.leftPad(args[i].toString(), padding[i]);
@@ -83,11 +83,11 @@ public class LoggerUtils {
 		logTable(columns, rows, level, logger, false);
 	}
 
-	public static void logTable(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger, boolean rightAlign) {
+	public static void logTable(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger, boolean leftAlign) {
 		int[] padding = getPadding(columns, rows);
-		logMsg(getHeader(columns, padding, rightAlign), logger, level);
+		logMsg(getHeader(columns, padding, leftAlign), logger, level);
 		String msg = getMsg(padding.length);
-		updateArgsList(rows, padding, rightAlign);
+		updateArgsList(rows, padding, leftAlign);
 		for (Object[] args : rows) {
 			logMsg(msg, args, logger, level);
 		}
