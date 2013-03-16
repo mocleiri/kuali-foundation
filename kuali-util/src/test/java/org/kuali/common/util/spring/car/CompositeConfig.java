@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ MakeConfig.class, CarConfig.class })
+@Import({ CarConfig.class, MakeConfig.class })
 public class CompositeConfig {
 
 	@Autowired
