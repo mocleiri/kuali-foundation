@@ -3,7 +3,7 @@ package org.kuali.common.util.spring.test;
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.config.PropertySourceConfig;
+import org.kuali.common.util.spring.config.CarConfig;
 
 public class PropertySourceConfigTest {
 
@@ -11,7 +11,7 @@ public class PropertySourceConfigTest {
 	public void test() {
 		try {
 			SpringService ss = new DefaultSpringService();
-			ss.load(PropertySourceConfig.class);
+			ss.load(CarConfig.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
