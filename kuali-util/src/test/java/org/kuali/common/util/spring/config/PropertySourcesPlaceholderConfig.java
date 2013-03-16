@@ -7,7 +7,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
 
 @Configuration
-public class PropertySourcePlaceholderConfig {
+public class PropertySourcesPlaceholderConfig {
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer pspc1() {
