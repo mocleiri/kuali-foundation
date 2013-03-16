@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:${car.make}.properties")
+@PropertySource("classpath:chevy.properties")
 public class MakeConfig {
 
 }
