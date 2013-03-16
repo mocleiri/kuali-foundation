@@ -28,7 +28,7 @@ public class SpringUtils {
 			String impl = propertySource.getClass().getName();
 			String source = propertySource.getSource().getClass().getName();
 			Object[] args = { name, impl, source };
-			logger.info("Name: {}  Impl: [{}]  Source: [{}]", args);
+			logger.info("Name:[{}]  Impl:[{}]  Source:[{}]", args);
 		}
 	}
 
