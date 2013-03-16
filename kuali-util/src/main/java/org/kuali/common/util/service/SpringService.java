@@ -38,6 +38,8 @@ public interface SpringService {
 
 	List<PropertySource<?>> getPropertySources(String location);
 
+	List<PropertySource<?>> getPropertySources(Class<?> annotatedClass);
+
 	List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context);
 
 	ConfigurableApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean);

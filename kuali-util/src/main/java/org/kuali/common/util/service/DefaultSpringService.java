@@ -42,6 +42,21 @@ public class DefaultSpringService implements SpringService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
 	@Override
+	public List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
+		// Load the indicated location
+		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
+
+		// Extract PropertySources (if any)
+		List<PropertySource<?>> sources = getPropertySources(context);
+
+		// Close the context
+		closeQuietly(context);
+
+		// Return the list
+		return sources;
+	}
+
+	@Override
 	public List<PropertySource<?>> getPropertySources(String location) {
 		// Load the indicated location
 		ConfigurableApplicationContext context = new GenericXmlApplicationContext(location);
