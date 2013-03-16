@@ -22,6 +22,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.jasypt.util.text.BasicTextEncryptor;
+import org.kuali.common.util.PropertyUtils;
 
 /**
  * Generate encrypted values for the specified system or project properties.
@@ -69,9 +70,14 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 	 * @required
 	 */
 	private String password;
-	
+
 	protected boolean skipValue(String value) {
 		if (StringUtils.isBlank(value)) {
+			return true;
+		}
+		if (PropertyUtils.isEncryptedPropertyValue(value)) {
+			return false;
+		} else {
 			return true;
 		}
 	}
@@ -83,20 +89,19 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 		Properties props = project.getProperties();
 		for (String key : properties) {
 			String value = getProperty(key);
-			if (StringUtils.isBlank(value) && !quiet) {
+			if (skipValue(value) && !quiet) {
 				getLog().info("Skipping " + key);
 				continue;
 			}
-			String newValue = encryptor.encrypt(value);
-			String newKey = key + "." + suffix;
-			props.setProperty(newKey, newValue);
+			String newValue = PropertyUtils.encryptPropertyValue(encryptor, value);
+			props.setProperty(key, newValue);
 			if (quiet) {
 				continue;
 			}
 			if (show) {
-				getLog().info("Setting " + newKey + "=" + newValue + " - " + value);
+				getLog().info("Setting " + key + "=" + newValue + " - " + value);
 			} else {
-				getLog().info("Setting " + newKey + "=" + newValue);
+				getLog().info("Setting " + key + "=" + newValue);
 			}
 		}
 	}
@@ -118,14 +123,6 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 
 	public void setProperties(String[] properties) {
 		this.properties = properties;
-	}
-
-	public String getSuffix() {
-		return suffix;
-	}
-
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
 	}
 
 	public boolean isShow() {
