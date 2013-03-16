@@ -116,6 +116,7 @@
     <deploy.version>${project.version}</deploy.version>
     <poms.reset><![CDATA[<param>classpath:org/kuali/common/deploy/mvn/noop.xml</param>]]></poms.reset>
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
+    <project.metainf.skip>false</project.metainf.skip>
 
     <!-- Internal kuali library versions -->
     <kuali-util.version>4.1.0</kuali-util.version>
@@ -864,6 +865,7 @@
               <annotatedClass>org.kuali.common.util.spring.MetaInfProjectPropertiesConfig</annotatedClass>
               <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertySourceConfig</propertySourcesConfig>
               <injectMavenProperties>false</injectMavenProperties>
+              <skip>${project.metainf.skip}</skip>
             </configuration>
           </execution>
         </executions>
