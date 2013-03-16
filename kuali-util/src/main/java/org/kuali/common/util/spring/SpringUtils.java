@@ -49,14 +49,12 @@ public class SpringUtils {
 		// Extract the list of PropertySources from the environment
 		List<PropertySource<?>> sources = getPropertySources(env);
 
+		// Spring provides PropertySource objects ordered from highest priority to lowest priority
+		// We reverse the order here so things follow the typical "last one in wins" strategy
+		Collections.reverse(sources);
+
 		// Convert the list of PropertySource's to a list of Properties objects
 		List<Properties> propertiesList = convertEnumerablePropertySources(sources);
-
-		// Spring provides PropertySource objects ordered from highest priority to lowest priority
-		// We reverse the order here so we can iterate though the list of Properties objects using
-		// properties.putAll() as a simple "last one in wins" strategy to make sure the highest priority
-		// property value always wins
-		Collections.reverse(propertiesList);
 
 		// Combine them into a single Properties object
 		return PropertyUtils.combine(propertiesList);
