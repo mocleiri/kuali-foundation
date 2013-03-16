@@ -13,6 +13,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 public class SpringUtils {
@@ -47,6 +48,28 @@ public class SpringUtils {
 
 		// Combine them into a single Properties object
 		return PropertyUtils.combine(propertiesList);
+	}
+
+	/**
+	 * Remove any existing property sources and add one property source backed by the properties passed in
+	 */
+	public static void reconfigurePropertySources(ConfigurableEnvironment env, String name, Properties properties) {
+		removeAllPropertySources(env);
+		MutablePropertySources mps = env.getPropertySources();
+		PropertiesPropertySource pps = new PropertiesPropertySource(name, properties);
+		mps.addFirst(pps);
+	}
+
+	/**
+	 * Remove any existing property sources
+	 */
+	public static void removeAllPropertySources(ConfigurableEnvironment env) {
+		MutablePropertySources mps = env.getPropertySources();
+		List<PropertySource<?>> sources = getPropertySources(env);
+		for (PropertySource<?> source : sources) {
+			String name = source.getName();
+			mps.remove(name);
+		}
 	}
 
 	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
