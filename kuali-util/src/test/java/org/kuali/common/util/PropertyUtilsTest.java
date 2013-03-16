@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -115,10 +116,22 @@ public class PropertyUtilsTest {
 
 	@Test
 	public void encryptTest() {
-		TextEncryptor crypto = EncUtils.getTextEncryptor(EncryptionStrength.BASIC, password)
+		TextEncryptor encryptor = EncUtils.getTextEncryptor();
 		Properties props = new Properties();
 		props.setProperty("foo", "bar");
-		String foo = props.getProperty("foo");
-		Assert.assertEquals("bar", foo);
+		PropertyUtils.encrypt(props, encryptor);
+		PropertyUtils.info(props);
+		List<String> keys = PropertyUtils.getSortedKeys(props);
+		for (String key : keys) {
+			String value = props.getProperty(key);
+			Assert.assertTrue("property value " + value + " is not encrypted correctly", PropertyUtils.isEncryptedPropertyValue(value));
+		}
+		PropertyUtils.decrypt(props, encryptor);
+		PropertyUtils.info(props);
+		keys = PropertyUtils.getSortedKeys(props);
+		for (String key : keys) {
+			String value = props.getProperty(key);
+			Assert.assertFalse("property value " + value + " is encrypted", PropertyUtils.isEncryptedPropertyValue(value));
+		}
 	}
 }
