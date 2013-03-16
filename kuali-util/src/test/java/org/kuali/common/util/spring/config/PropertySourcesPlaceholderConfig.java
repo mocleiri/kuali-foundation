@@ -12,7 +12,7 @@ public class PropertySourcesPlaceholderConfig {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer pspc1() {
 		int order = 1;
-		Resource resource = LocationUtils.getResource("claspath:car.properties");
+		Resource resource = LocationUtils.getResource("classpath:car.properties");
 
 		PropertySourcesPlaceholderConfigurer pspc = new PropertySourcesPlaceholderConfigurer();
 		pspc.setLocation(resource);
@@ -23,7 +23,7 @@ public class PropertySourcesPlaceholderConfig {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer pspc2() {
 		int order = 2;
-		Resource resource = LocationUtils.getResource("claspath:chevy.properties");
+		Resource resource = LocationUtils.getResource("classpath:chevy.properties");
 
 		PropertySourcesPlaceholderConfigurer pspc = new PropertySourcesPlaceholderConfigurer();
 		pspc.setLocation(resource);
