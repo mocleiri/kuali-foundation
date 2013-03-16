@@ -26,8 +26,7 @@ public class MavenUtils {
 	public static final String POM = "pom";
 
 	/**
-	 * Always return false if <code>forceMojoExecution</code> is false, otherwise return true only if <code>skip</code> is true or
-	 * <code>packaging</code> is pom.
+	 * Always return false if <code>forceMojoExecution</code> is true, otherwise return true only if <code>skip</code> is true or <code>packaging</code> is pom.
 	 */
 	public static final boolean skip(boolean forceMojoExecution, boolean skip, String packaging) {
 		if (forceMojoExecution) {
