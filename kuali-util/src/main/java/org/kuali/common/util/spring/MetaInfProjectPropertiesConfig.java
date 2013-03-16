@@ -31,7 +31,7 @@ public class MetaInfProjectPropertiesConfig {
 
 	@Bean
 	public Properties springProperties() {
-		return SpringUtils.getAllProperties(env);
+		return SpringUtils.getAllEnumerableProperties(env);
 	}
 
 	@Bean(initMethod = "execute")

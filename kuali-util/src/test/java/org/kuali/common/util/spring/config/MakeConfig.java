@@ -21,7 +21,7 @@ public class MakeConfig {
 
 	@Bean
 	public Object whatever() {
-		Properties p = SpringUtils.getAllProperties(env);
+		Properties p = SpringUtils.getAllEnumerableProperties(env);
 		PropertyUtils.info(p);
 		return null;
 	}

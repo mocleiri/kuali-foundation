@@ -27,7 +27,11 @@ public class SpringUtils {
 		return env.resolveRequiredPlaceholders(value);
 	}
 
-	public static Properties getAllProperties(ConfigurableEnvironment env) {
+	/**
+	 * Examine <code>ConfigurableEnvironment</code> for <code>PropertySource</code>'s that extend <code>EnumerablePropertySource</code> and aggregate them into a single
+	 * <code>Properties</code> object
+	 */
+	public static Properties getAllEnumerableProperties(ConfigurableEnvironment env) {
 
 		// Extract the list of PropertySources from the environment
 		List<PropertySource<?>> sources = getPropertySources(env);

@@ -17,7 +17,7 @@ public class PropertiesConfig {
 
 	@Bean
 	public Object whatever() {
-		Properties properties = SpringUtils.getAllProperties(env);
+		Properties properties = SpringUtils.getAllEnumerableProperties(env);
 		PropertyUtils.info(properties);
 		return null;
 	}

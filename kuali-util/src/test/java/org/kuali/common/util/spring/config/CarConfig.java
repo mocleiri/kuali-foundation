@@ -20,7 +20,7 @@ public class CarConfig {
 
 	@Bean
 	public Object whatever() {
-		Properties car = SpringUtils.getAllProperties(env);
+		Properties car = SpringUtils.getAllEnumerableProperties(env);
 		PropertyUtils.trim(car, Arrays.asList("car.*"), null);
 		PropertyUtils.info(car);
 		return null;
