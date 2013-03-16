@@ -21,7 +21,8 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.PropertyUtils;
 
 /**
@@ -57,16 +58,47 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(password);
+		TextEncryptor encryptor = EncUtils.getTextEncryptor(password);
 		Properties props = PropertyUtils.getGlobalProperties(project.getProperties());
 		List<String> keys = PropertyUtils.getEndsWithKeys(props, endsWith);
 		for (String key : keys) {
 			String value = props.getProperty(key);
-			String newValue = PropertyUtils.decryptPropertyValue(encryptor, value);
+			String decryptedValue = getDecryptedValue(encryptor, value);
 			int length = endsWith.length();
 			String newKey = key.substring(0, key.length() - length);
-			project.getProperties().setProperty(newKey, newValue);
+			project.getProperties().setProperty(newKey, decryptedValue);
 		}
+	}
+
+	protected String getDecryptedValue(TextEncryptor encryptor, String value) {
+		if (PropertyUtils.isEncryptedPropertyValue(value)) {
+			return PropertyUtils.decryptPropertyValue(encryptor, value);
+		} else {
+			return encryptor.decrypt(value);
+		}
+	}
+
+	public MavenProject getProject() {
+		return project;
+	}
+
+	public void setProject(MavenProject project) {
+		this.project = project;
+	}
+
+	public String getEndsWith() {
+		return endsWith;
+	}
+
+	public void setEndsWith(String endsWith) {
+		this.endsWith = endsWith;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
