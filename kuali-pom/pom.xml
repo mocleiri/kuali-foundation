@@ -100,7 +100,7 @@
       than the <properties> tag inside a Maven pom, plugins do not see the change.
       However, if a new property is ADDED by something else, the plugins pick it up.
       Thus, the properties-maven-plugin detects encrypted property values by suffix, strips the suffix,
-      and creates a new property containing the decrypted value.
+      and creates new properties containing the decrypted values.
     -->
     <kuali.gpg.passphrase.encrypted>ENC(2rRGp7BREsY4QxTwlTSX3NRdtqZTP5fR)</kuali.gpg.passphrase.encrypted>
     <kuali.svn.prefix>svn</kuali.svn.prefix>
