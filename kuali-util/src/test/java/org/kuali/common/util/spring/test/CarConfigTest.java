@@ -3,7 +3,7 @@ package org.kuali.common.util.spring.test;
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.config.CarConfig;
+import org.kuali.common.util.spring.config.car.CarConfig;
 
 public class CarConfigTest {
 

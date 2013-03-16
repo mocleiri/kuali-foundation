@@ -1,6 +1,5 @@
-package org.kuali.common.util.spring.config;
+package org.kuali.common.util.spring.config.car;
 
-import java.util.Arrays;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
@@ -8,21 +7,22 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@PropertySource(name = "carProperties", value = { "classpath:car.properties" })
-public class CarConfig {
+@Import(CarConfig.class)
+@PropertySource(name = "makeProperties", value = "classpath:${make}.properties")
+public class MakeConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
 
 	@Bean
 	public Object whatever() {
-		Properties car = SpringUtils.getAllEnumerableProperties(env);
-		PropertyUtils.trim(car, Arrays.asList("car.*"), null);
-		PropertyUtils.info(car);
+		Properties p = SpringUtils.getAllEnumerableProperties(env);
+		PropertyUtils.info(p);
 		return null;
 	}
 
