@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.jasypt.util.text.TextEncryptor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -108,6 +109,15 @@ public class PropertyUtilsTest {
 	@Test
 	public void getPropertiesUTF8Test() {
 		Properties props = PropertyUtils.load(location, "UTF-8");
+		String foo = props.getProperty("foo");
+		Assert.assertEquals("bar", foo);
+	}
+
+	@Test
+	public void encryptTest() {
+		TextEncryptor crypto = EncUtils.getTextEncryptor(EncryptionStrength.BASIC, password)
+		Properties props = new Properties();
+		props.setProperty("foo", "bar");
 		String foo = props.getProperty("foo");
 		Assert.assertEquals("bar", foo);
 	}
