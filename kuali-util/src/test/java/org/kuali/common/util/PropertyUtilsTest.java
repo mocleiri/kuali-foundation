@@ -116,7 +116,7 @@ public class PropertyUtilsTest {
 
 	@Test
 	public void encryptTest() {
-		TextEncryptor encryptor = EncUtils.getTextEncryptor();
+		TextEncryptor encryptor = EncUtils.getTextEncryptor("password");
 		Properties props = new Properties();
 		props.setProperty("foo", "bar");
 		PropertyUtils.encrypt(props, encryptor);

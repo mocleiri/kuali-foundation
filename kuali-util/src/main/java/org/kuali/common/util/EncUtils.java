@@ -21,15 +21,6 @@ import org.jasypt.util.text.TextEncryptor;
 
 public class EncUtils {
 
-	private static final String DEFAULT_PASSWORD = "password";
-
-	/**
-	 * Return a <code>BasicTextEncryptor</code> who's password is <code>password</code>.
-	 */
-	public static final TextEncryptor getTextEncryptor() {
-		return getTextEncryptor(EncryptionStrength.BASIC, DEFAULT_PASSWORD);
-	}
-
 	/**
 	 * Return a <code>BasicTextEncryptor</code>
 	 */
