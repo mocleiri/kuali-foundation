@@ -26,8 +26,7 @@ import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.PropertyUtils;
 
 /**
- * Inspect project and system properties for any keys ending with <code>endsWith</code>. Any matching properties are assumed to be encrypted. They are decrypted and stored as
- * project properties minus the <code>endsWith</code> suffix. For example, the value for the property "dba.password.encrypted" will be decrypted and stored as "dba.password"
+ * Any system, environment, or Maven properties ending with .encrypted are decrypted and stored as Maven properties under a new property key with the .encrypted suffix trimmed off.
  * 
  * @goal decryptall
  */
@@ -74,6 +73,7 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 		if (PropertyUtils.isEncryptedPropertyValue(value)) {
 			return PropertyUtils.decryptPropertyValue(encryptor, value);
 		} else {
+			// Some legacy .encrypted properties don't follow the ENC(...) syntax for property values
 			return encryptor.decrypt(value);
 		}
 	}
