@@ -196,9 +196,9 @@ public class DefaultSpringService implements SpringService {
 			refreshQuietly(xmlChild);
 		} finally {
 			// cleanup
-			closeQuietly(annotationChild);
-			closeQuietly(xmlChild);
-			closeQuietly(parent);
+			// closeQuietly(annotationChild);
+			// closeQuietly(xmlChild);
+			// closeQuietly(parent);
 		}
 	}
 
