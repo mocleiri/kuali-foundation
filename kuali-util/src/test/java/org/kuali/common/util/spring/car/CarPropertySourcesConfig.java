@@ -22,10 +22,11 @@ public class CarPropertySourcesConfig {
 		return PropertyUtils.load("classpath:" + make + ".properties");
 	}
 
-	@Bean
+	@Bean()
 	public PropertiesPropertySource pps() {
 		String name = "springProperties";
-		Properties source = PropertyUtils.combine(base(), make());
+		Properties source = PropertyUtils.combine(base(), make(), PropertyUtils.getEnvAsProperties());
 		return new PropertiesPropertySource(name, source);
 	}
+
 }
