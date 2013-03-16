@@ -25,6 +25,7 @@ import org.springframework.util.Assert;
 public class StorePropertiesExecutable implements Executable {
 
 	String encoding = "UTF-8";
+	boolean skipIfEmpty;
 	Properties properties;
 	File outputFile;
 	List<String> includes;
@@ -40,7 +41,11 @@ public class StorePropertiesExecutable implements Executable {
 			String value = properties.getProperty(key);
 			outputProperties.setProperty(key, value);
 		}
-		PropertyUtils.store(outputProperties, outputFile, encoding);
+		boolean empty = outputProperties.size() == 0;
+		boolean skip = empty && skipIfEmpty;
+		if (!skip) {
+			PropertyUtils.store(outputProperties, outputFile, encoding);
+		}
 	}
 
 	public Properties getProperties() {
