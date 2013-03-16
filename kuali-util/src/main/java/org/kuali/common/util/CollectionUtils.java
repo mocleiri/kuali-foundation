@@ -33,6 +33,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CollectionUtils {
 
+	public static List<Class<?>> getClassList(Class<?>... classes) {
+		List<Class<?>> list = new ArrayList<Class<?>>();
+		for (Class<?> element : classes) {
+			list.add(element);
+		}
+		return list;
+	}
+
 	/**
 	 * Return an array of int's that represents as even of a split as possible
 	 * 
