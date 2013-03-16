@@ -22,7 +22,8 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.PropertyUtils;
 
 /**
@@ -60,15 +61,15 @@ public class EncryptPropertiesMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException {
 
 		// Setup the encryptor
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(password);
+		TextEncryptor encryptor = EncUtils.getTextEncryptor(password);
 
 		// Get project properties overridden by system/env properties
 		Properties p = PropertyUtils.getGlobalProperties(project.getProperties());
 
-		// Set up the includes list
+		// Limit ourselves to just the project properties
 		List<String> includes = PropertyUtils.getSortedKeys(project.getProperties());
 		if (properties != null) {
+			// Unless they've specified something else
 			includes = Arrays.asList(properties);
 		}
 
