@@ -21,6 +21,17 @@ public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
+	public static void showPropertySources(ConfigurableEnvironment env) {
+		List<PropertySource<?>> propertySources = getPropertySources(env);
+		for (PropertySource<?> propertySource : propertySources) {
+			String name = propertySource.getName();
+			String impl = propertySource.getClass().getName();
+			String source = propertySource.getSource().getClass().getName();
+			Object[] args = { name, impl, source };
+			logger.info("Name: {}  Impl: [{}]  Source: [{}]", args);
+		}
+	}
+
 	/**
 	 * Get a fully resolved property value from the environment. If the property is not found or contains unresolvable placeholders an exception is thrown.
 	 */
