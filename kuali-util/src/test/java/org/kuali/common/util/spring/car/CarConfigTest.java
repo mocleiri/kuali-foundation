@@ -16,10 +16,11 @@ public class CarConfigTest {
 
 		try {
 			System.setProperty("project.encoding", "UTF-8");
+			System.setProperty("car.make", "ford");
+
 			SpringService ss = new DefaultSpringService();
 
 			List<PropertySource<?>> propertySources = ss.getPropertySources(CarPropertySourcesConfig.class);
-
 			List<Class<?>> annotatedClasses = CollectionUtils.getClassList(CarConfig.class);
 
 			SpringContext sc = new SpringContext();

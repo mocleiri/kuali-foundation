@@ -43,9 +43,11 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
-		// Load the indicated location
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
+		return extractPropertySources(context);
+	}
 
+	protected List<PropertySource<?>> extractPropertySources(ConfigurableApplicationContext context) {
 		// Extract PropertySources (if any)
 		List<PropertySource<?>> sources = getPropertySources(context);
 
@@ -58,17 +60,8 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public List<PropertySource<?>> getPropertySources(String location) {
-		// Load the indicated location
 		ConfigurableApplicationContext context = new GenericXmlApplicationContext(location);
-
-		// Extract PropertySources (if any)
-		List<PropertySource<?>> sources = getPropertySources(context);
-
-		// Close the context
-		closeQuietly(context);
-
-		// Return the list
-		return sources;
+		return extractPropertySources(context);
 	}
 
 	@Override
