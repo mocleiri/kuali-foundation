@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
 public class StorePropertiesExecutable implements Executable {
 
 	String encoding = "UTF-8";
-	boolean skipIfEmpty;
+	boolean skip;
 	Properties properties;
 	File outputFile;
 	List<String> includes;
@@ -33,6 +33,9 @@ public class StorePropertiesExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		if (skip) {
+			return;
+		}
 		Assert.notNull(properties, "properties is null");
 		Assert.notNull(outputFile, "outputFile is null");
 		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
@@ -41,11 +44,7 @@ public class StorePropertiesExecutable implements Executable {
 			String value = properties.getProperty(key);
 			outputProperties.setProperty(key, value);
 		}
-		boolean empty = outputProperties.size() == 0;
-		boolean skip = empty && skipIfEmpty;
-		if (!skip) {
-			PropertyUtils.store(outputProperties, outputFile, encoding);
-		}
+		PropertyUtils.store(outputProperties, outputFile, encoding);
 	}
 
 	public Properties getProperties() {
@@ -86,6 +85,14 @@ public class StorePropertiesExecutable implements Executable {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
