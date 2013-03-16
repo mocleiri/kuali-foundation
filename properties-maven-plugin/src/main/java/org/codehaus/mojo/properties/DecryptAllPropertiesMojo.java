@@ -18,7 +18,6 @@ package org.codehaus.mojo.properties;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -41,42 +40,12 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 	private MavenProject project;
 
 	/**
-	 * If true, the plugin will include system properties when decrypting properties
-	 * 
-	 * @parameter default-value="false" expression="${properties.includeSystemProperties}"
-	 */
-	private boolean includeSystemProperties;
-
-	/**
-	 * If true, the plugin will include environment variables when decrypting properties.
-	 * 
-	 * @parameter default-value="false" expression="${properties.includeEnvironmentVariables}"
-	 */
-	private boolean includeEnvironmentVariables;
-
-	/**
-	 * If true, the plugin will emit no logging information
-	 * 
-	 * @parameter expression="${properties.quiet}" default-value="false"
-	 * @required
-	 */
-	private boolean quiet;
-
-	/**
 	 * The pattern for matching properties in need of decryption
 	 * 
 	 * @parameter expression="${properties.endsWith}" default-value=".encrypted"
 	 * @required
 	 */
 	private String endsWith;
-
-	/**
-	 * If true the plain text decrypted values are displayed to the console.
-	 * 
-	 * @parameter expression="${properties.show}" default-value="false"
-	 * @required
-	 */
-	private boolean show;
 
 	/**
 	 * The password for decrypting property values. This same password must have been used to encrypt them.
@@ -90,86 +59,14 @@ public class DecryptAllPropertiesMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException {
 		BasicTextEncryptor encryptor = new BasicTextEncryptor();
 		encryptor.setPassword(password);
-		Properties props = new Properties();
-		props.putAll(project.getProperties());
-		if (includeEnvironmentVariables) {
-			props.putAll(PropertyUtils.getEnvAsProperties());
-		}
-		if (includeSystemProperties) {
-			props.putAll(System.getProperties());
-		}
+		Properties props = PropertyUtils.getGlobalProperties(project.getProperties());
 		List<String> keys = PropertyUtils.getEndsWithKeys(props, endsWith);
 		for (String key : keys) {
 			String value = props.getProperty(key);
-			if (StringUtils.isBlank(value) && !quiet) {
-				getLog().info("Skipping blank property " + key);
-				continue;
-			}
-			String newValue = encryptor.decrypt(value);
+			String newValue = PropertyUtils.decryptPropertyValue(encryptor, value);
 			int length = endsWith.length();
 			String newKey = key.substring(0, key.length() - length);
 			project.getProperties().setProperty(newKey, newValue);
-			if (quiet) {
-				continue;
-			}
-			if (show) {
-				getLog().info("Setting " + newKey + "=" + newValue + " - " + value);
-			} else {
-				getLog().info("Setting " + newKey);
-			}
 		}
-		PropertyUtils.decrypt(project.getProperties(), encryptor);
-	}
-
-	public boolean isQuiet() {
-		return quiet;
-	}
-
-	public void setQuiet(boolean quiet) {
-		this.quiet = quiet;
-	}
-
-	public String getEndsWith() {
-		return endsWith;
-	}
-
-	public void setEndsWith(String endsWith) {
-		this.endsWith = endsWith;
-	}
-
-	public boolean isShow() {
-		return show;
-	}
-
-	public void setShow(boolean show) {
-		this.show = show;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public MavenProject getProject() {
-		return project;
-	}
-
-	public boolean isIncludeSystemProperties() {
-		return includeSystemProperties;
-	}
-
-	public void setIncludeSystemProperties(boolean includeSystemProperties) {
-		this.includeSystemProperties = includeSystemProperties;
-	}
-
-	public boolean isIncludeEnvironmentVariables() {
-		return includeEnvironmentVariables;
-	}
-
-	public void setIncludeEnvironmentVariables(boolean includeEnvironmentVariables) {
-		this.includeEnvironmentVariables = includeEnvironmentVariables;
 	}
 }
