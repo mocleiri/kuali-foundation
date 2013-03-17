@@ -38,6 +38,9 @@ public class Project {
 	// UTF-8
 	String encoding;
 
+	// Jar, war
+	String packaging;
+
 	public String getOrgId() {
 		return orgId;
 	}
@@ -132,6 +135,14 @@ public class Project {
 
 	public void setClassifier(String classifier) {
 		this.classifier = classifier;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
 	}
 
 }
