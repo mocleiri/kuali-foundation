@@ -124,7 +124,6 @@ public class ProjectUtils {
 		properties.setProperty("project.artifactId", project.getArtifactId());
 
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
-
 	}
 
 }
