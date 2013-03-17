@@ -1,5 +1,7 @@
 package org.kuali.maven.plugins.spring;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,16 +14,16 @@ public class MojoExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(MojoExecutable.class);
 
 	MethodInvoker invoker = new MethodInvoker();
-	String targetMethod = "executeCallback";
+	String serviceMethod = "executeCallback";
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 
 	@Override
 	public void execute() {
-		Object[] args = { service.getClass().getName(), targetMethod, mojo.getClass().getSimpleName() };
+		Object[] args = { service.getClass().getName(), serviceMethod, mojo.getClass().getSimpleName() };
 		logger.debug("Invoking  - [{}.{}({})]", args);
 		invoker.setTargetObject(service);
-		invoker.setTargetMethod(targetMethod);
+		invoker.setTargetMethod(serviceMethod);
 		invoker.setArguments(new Object[] { mojo });
 		invoke(invoker);
 		logger.debug("Completed - [{}.{}({})]", args);
@@ -31,7 +33,13 @@ public class MojoExecutable implements Executable {
 		try {
 			invoker.prepare();
 			invoker.invoke();
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException(e);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		} catch (IllegalAccessException e) {
 			throw new IllegalStateException(e);
 		}
 	}
@@ -44,12 +52,12 @@ public class MojoExecutable implements Executable {
 		this.invoker = invoker;
 	}
 
-	public String getTargetMethod() {
-		return targetMethod;
+	public String getServiceMethod() {
+		return serviceMethod;
 	}
 
-	public void setTargetMethod(String targetMethod) {
-		this.targetMethod = targetMethod;
+	public void setServiceMethod(String serviceMethod) {
+		this.serviceMethod = serviceMethod;
 	}
 
 	public AbstractSpringMojo getMojo() {
