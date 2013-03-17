@@ -16,7 +16,6 @@ public class CarConfigTest {
 	public void test() {
 
 		try {
-			System.setProperty("project.encoding", "UTF-8");
 			System.setProperty("car.make", "ford");
 
 			SpringService ss = new DefaultSpringService();
