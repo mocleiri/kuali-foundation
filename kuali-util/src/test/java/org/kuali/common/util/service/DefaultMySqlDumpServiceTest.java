@@ -2,11 +2,13 @@ package org.kuali.common.util.service;
 
 import java.io.File;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DefaultMySqlDumpServiceTest {
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 
