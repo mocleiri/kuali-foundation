@@ -20,67 +20,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
-import org.springframework.util.Assert;
 
 public class DefaultSpringService implements SpringService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
-
-	@Override
-	public List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
-		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
-		return extractPropertySources(context);
-	}
-
-	protected List<PropertySource<?>> extractPropertySources(ConfigurableApplicationContext context) {
-		// Extract PropertySources (if any)
-		List<PropertySource<?>> sources = getPropertySources(context);
-
-		// Close the context
-		closeQuietly(context);
-
-		// Return the list
-		return sources;
-	}
-
-	@Override
-	public List<PropertySource<?>> getPropertySources(String location) {
-		ConfigurableApplicationContext context = new GenericXmlApplicationContext(location);
-		return extractPropertySources(context);
-	}
-
-	@Override
-	public List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
-
-		// Extract all beans that implement the PropertySource interface
-		@SuppressWarnings("rawtypes")
-		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
-
-		// Convert the Map to a List
-		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
-		for (PropertySource<?> source : map.values()) {
-			list.add(source);
-		}
-
-		// Return the list
-		return list;
-	}
 
 	@Override
 	public void load(Class<?> annotatedClass) {
@@ -148,14 +104,14 @@ public class DefaultSpringService implements SpringService {
 		context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
 
 		// Make sure we have at least one location or annotated class
-		boolean notEmpty = !CollectionUtils.isEmpty(context.getLocations()) || !CollectionUtils.isEmpty(context.getAnnotatedClasses());
-		Assert.isTrue(notEmpty, "Both locations and annotatedClasses are empty");
+		boolean empty = CollectionUtils.isEmpty(context.getLocations()) && CollectionUtils.isEmpty(context.getAnnotatedClasses());
+		Assert.isFalse(empty, "Both locations and annotatedClasses are empty");
 
 		// Make sure we have a name for every bean
 		Assert.isTrue(context.getBeanNames().size() == context.getBeans().size());
 
 		// Make sure all of the locations exist
-		validate(context.getLocations());
+		SpringUtils.validateExists(context.getLocations());
 
 		// Convert any file names to fully qualified file system URL's
 		List<String> convertedLocations = getConvertedLocations(context.getLocations());
@@ -169,7 +125,7 @@ public class DefaultSpringService implements SpringService {
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
-				parent = getContextWithPreRegisteredBeans(context.getBeanNames(), context.getBeans());
+				parent = SpringUtils.getContextWithPreRegisteredBeans(context.getBeanNames(), context.getBeans());
 			}
 
 			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
@@ -188,8 +144,8 @@ public class DefaultSpringService implements SpringService {
 			}
 
 			// Invoke refresh to load the context
-			refreshQuietly(annotationChild);
-			refreshQuietly(xmlChild);
+			SpringUtils.refreshQuietly(annotationChild);
+			SpringUtils.refreshQuietly(xmlChild);
 		} finally {
 			// cleanup
 			// closeQuietly(annotationChild);
@@ -207,44 +163,6 @@ public class DefaultSpringService implements SpringService {
 			ctx.register(annotatedClass);
 		}
 		return ctx;
-	}
-
-	protected void refreshQuietly(ConfigurableApplicationContext context) {
-		if (context != null) {
-			context.refresh();
-		}
-	}
-
-	/**
-	 * Null safe close for a context
-	 */
-	protected void closeQuietly(ConfigurableApplicationContext context) {
-		if (context != null) {
-			context.close();
-		}
-	}
-
-	/**
-	 * Return an <code>AbstractApplicationContext</code> with <code>beans</code> and <code>PropertySource's</code> registered as dictated by the <code>SpringContext</code>
-	 */
-	@Override
-	public ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
-		Assert.isTrue(beanNames.size() == beans.size());
-		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
-		appContext.refresh();
-		ConfigurableListableBeanFactory factory = appContext.getBeanFactory();
-		for (int i = 0; i < beanNames.size(); i++) {
-			String beanName = beanNames.get(i);
-			Object bean = beans.get(i);
-			logger.debug("Registering bean - [{}] -> [{}]", beanName, bean.getClass().getName());
-			factory.registerSingleton(beanName, bean);
-		}
-		return appContext;
-	}
-
-	@Override
-	public ConfigurableApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean) {
-		return getContextWithPreRegisteredBeans(Arrays.asList(beanName), Arrays.asList(bean));
 	}
 
 	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
@@ -283,22 +201,7 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	/**
-	 * Make sure all of the locations actually exist
-	 */
-	protected void validate(List<String> locations) {
-		StringBuilder sb = new StringBuilder();
-		for (String location : locations) {
-			if (!LocationUtils.exists(location)) {
-				sb.append("Location [" + location + "] does not exist\n");
-			}
-		}
-		if (sb.length() > 0) {
-			throw new IllegalArgumentException(sb.toString());
-		}
-	}
-
-	/**
-	 * Format file names into fully qualified file system URL's
+	 * Convert any locations representing an existing file into a fully qualified file system url. Leave any locations that do not resolve to an existing file alone.
 	 */
 	protected List<String> getConvertedLocations(List<String> locations) {
 		List<String> converted = new ArrayList<String>();

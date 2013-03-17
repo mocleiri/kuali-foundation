@@ -5,14 +5,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactoryUtils;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
@@ -23,6 +30,97 @@ import org.springframework.core.env.PropertySource;
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
+
+	/**
+	 * Make sure all of the locations actually exist
+	 */
+	public static void validateExists(List<String> locations) {
+		StringBuilder sb = new StringBuilder();
+		for (String location : locations) {
+			if (!LocationUtils.exists(location)) {
+				sb.append("Location [" + location + "] does not exist\n");
+			}
+		}
+		if (sb.length() > 0) {
+			throw new IllegalArgumentException(sb.toString());
+		}
+	}
+
+	/**
+	 * Null safe refresh for a context
+	 */
+	public static void refreshQuietly(ConfigurableApplicationContext context) {
+		if (context != null) {
+			context.refresh();
+		}
+	}
+
+	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
+		Assert.isTrue(beanNames.size() == beans.size());
+		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
+		appContext.refresh();
+		ConfigurableListableBeanFactory factory = appContext.getBeanFactory();
+		for (int i = 0; i < beanNames.size(); i++) {
+			String beanName = beanNames.get(i);
+			Object bean = beans.get(i);
+			logger.debug("Registering bean - [{}] -> [{}]", beanName, bean.getClass().getName());
+			factory.registerSingleton(beanName, bean);
+		}
+		return appContext;
+	}
+
+	/**
+	 * Null safe close for a context
+	 */
+	public static void closeQuietly(ConfigurableApplicationContext context) {
+		if (context != null) {
+			context.close();
+		}
+	}
+
+	public static ConfigurableApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean) {
+		return getContextWithPreRegisteredBeans(Arrays.asList(beanName), Arrays.asList(bean));
+	}
+
+	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
+		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
+		return extractPropertySourcesAndClose(context);
+	}
+
+	public static List<PropertySource<?>> extractPropertySourcesAndClose(ConfigurableApplicationContext context) {
+		// Extract PropertySources (if any)
+		List<PropertySource<?>> sources = getPropertySources(context);
+
+		// Close the context
+		closeQuietly(context);
+
+		// Return the list
+		return sources;
+	}
+
+	/**
+	 * Scan the XML Spring context for any beans that implement <code>PropertySource</code>
+	 */
+	public static List<PropertySource<?>> getPropertySources(String location) {
+		ConfigurableApplicationContext context = new GenericXmlApplicationContext(location);
+		return extractPropertySourcesAndClose(context);
+	}
+
+	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
+
+		// Extract all beans that implement the PropertySource interface
+		@SuppressWarnings("rawtypes")
+		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
+
+		// Convert the Map to a List
+		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
+		for (PropertySource<?> source : map.values()) {
+			list.add(source);
+		}
+
+		// Return the list
+		return list;
+	}
 
 	/**
 	 * Null safe method for converting an untyped array of property sources into a list. Never returns null.

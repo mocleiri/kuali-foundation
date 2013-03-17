@@ -8,6 +8,10 @@ public abstract class Assert extends org.springframework.util.Assert {
 		isTrue(!condition);
 	}
 
+	public static void isFalse(boolean condition, String message) {
+		isTrue(!condition, message);
+	}
+
 	public static void notBlank(String... strings) {
 		for (String string : strings) {
 			isFalse(StringUtils.isBlank(string));
