@@ -8,6 +8,7 @@ import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.PropertySource;
 
 public class CarConfigTest {
@@ -20,7 +21,7 @@ public class CarConfigTest {
 
 			SpringService ss = new DefaultSpringService();
 
-			List<PropertySource<?>> propertySources = ss.getPropertySources(CarPropertySourcesConfig.class);
+			List<PropertySource<?>> propertySources = SpringUtils.getPropertySources(CarPropertySourcesConfig.class);
 
 			SpringContext sc = new SpringContext();
 			sc.setAnnotatedClasses(CollectionUtils.asList(CarConfig.class));
