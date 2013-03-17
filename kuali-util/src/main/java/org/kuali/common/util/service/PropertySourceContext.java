@@ -17,7 +17,7 @@ public class PropertySourceContext {
 	boolean lastOneInWins = DEFAULT_LAST_ONE_IN_WINS;
 
 	// Can add property sources before or after existing property sources
-	PropertySourceAddPriority priority;
+	PropertySourceAddPriority priority = PropertySourceAddPriority.LAST;
 
 	// The list of property source objects to add to the environment
 	List<PropertySource<?>> sources;
