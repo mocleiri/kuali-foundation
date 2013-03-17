@@ -16,6 +16,9 @@ public class PropertySourceContext {
 	// That is to say, Spring will search for property values starting at the bottom of the list and work its way upwards
 	boolean lastOneInWins = DEFAULT_LAST_ONE_IN_WINS;
 
+	// Can add property sources before or after existing property sources
+	PropertySourceAddPriority priority;
+
 	// The list of property source objects to add to the environment
 	List<PropertySource<?>> sources;
 
@@ -55,6 +58,14 @@ public class PropertySourceContext {
 
 	public void setSources(List<PropertySource<?>> sources) {
 		this.sources = sources;
+	}
+
+	public PropertySourceAddPriority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(PropertySourceAddPriority priority) {
+		this.priority = priority;
 	}
 
 }
