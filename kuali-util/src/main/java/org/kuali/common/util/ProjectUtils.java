@@ -35,6 +35,12 @@ public class ProjectUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	public static Project loadProject(String gav) {
+		Project project = getProject(gav);
+		Properties properties = getProperties(project);
+		return getProject(properties);
+	}
+
 	public static Project getProject(String gav) {
 		logger.debug("Processing [{}]", gav);
 		String[] tokens = StringUtils.split(gav, ":");
@@ -53,29 +59,6 @@ public class ProjectUtils {
 			project.setVersion(StringUtils.trim(tokens[3]));
 		}
 		return project;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected static Map<String, Object> describe(Object bean) {
-		try {
-			return BeanUtils.describe(bean);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		} catch (InvocationTargetException e) {
-			throw new IllegalStateException(e);
-		} catch (NoSuchMethodException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	protected static void copyProperty(Object bean, String name, Object value) {
-		try {
-			BeanUtils.copyProperty(bean, name, value);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		} catch (InvocationTargetException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	public static Project getProject(Properties properties) {
@@ -97,8 +80,13 @@ public class ProjectUtils {
 		String s = StringUtils.substring(key, startsWith.length());
 		String[] tokens = StringUtils.split(s, ".");
 		StringBuilder sb = new StringBuilder();
-		for (String token : tokens) {
-			sb.append(StringUtils.capitalize(token));
+		for (int i = 0; i < tokens.length; i++) {
+			String token = tokens[i];
+			if (i != 0) {
+				sb.append(token);
+			} else {
+				sb.append(StringUtils.capitalize(token));
+			}
 		}
 		return sb.toString();
 	}
@@ -124,6 +112,29 @@ public class ProjectUtils {
 		properties.setProperty("project.artifactId", project.getArtifactId());
 
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected static Map<String, Object> describe(Object bean) {
+		try {
+			return BeanUtils.describe(bean);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	protected static void copyProperty(Object bean, String name, Object value) {
+		try {
+			BeanUtils.copyProperty(bean, name, value);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 }

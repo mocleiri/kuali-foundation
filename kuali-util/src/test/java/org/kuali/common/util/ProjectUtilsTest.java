@@ -34,8 +34,8 @@ public class ProjectUtilsTest {
 	@Test
 	public void testLoad() {
 		String gav = "org.kuali.common:kuali-car";
-		Project p = ProjectUtils.getProject(gav);
-		String location = ProjectUtils.getPropertiesLocation(p);
-		logger.info(location);
+		Project p = ProjectUtils.loadProject(gav);
+		Assert.hasText(p.getGroupId());
+		Assert.hasText(p.getArtifactId());
 	}
 }
