@@ -26,7 +26,7 @@ public class CarPropertySourcesConfig {
 	@Bean
 	public String projectPropertiesLocation() {
 		String groupId = "org.kuali.common";
-		String artifactId = "kuali-util";
+		String artifactId = "kuali-car";
 
 		Properties properties = new Properties();
 		properties.setProperty("project.groupId.path", Str.getPath(groupId));
