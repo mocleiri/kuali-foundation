@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.StorePropertiesExecutable;
+import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ public class MetaInfProjectPropertiesConfig {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-	@Value("${project.build.outputDirectory}/META-INF/${project.groupId.path}/${project.artifactId}/project.properties")
+	@Value(Constants.PROJECT_PROPERTIES_OUTPUTFILE)
 	File outputFile;
 
 	@Bean
