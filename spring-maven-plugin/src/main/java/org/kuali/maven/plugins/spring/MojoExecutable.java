@@ -14,7 +14,7 @@ public class MojoExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(MojoExecutable.class);
 
 	MethodInvoker invoker = new MethodInvoker();
-	String serviceMethod = "executeCallback";
+	String serviceMethod = "mojoCallback";
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 
