@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -88,21 +89,13 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource) {
-		// Make sure the location isn't empty
-		Assert.notNull(annotatedClass);
-
-		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-		annotatedClasses.add(annotatedClass);
-
-		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
-		if (propertySource != null) {
-			propertySources.add(propertySource);
-		}
+		// Make sure the annotatedClass isn't null
+		Assert.notNull(annotatedClass, "annotatedClass is null");
 
 		// Setup a SpringContext
 		SpringContext context = new SpringContext();
-		context.setAnnotatedClasses(annotatedClasses);
-		context.setPropertySources(propertySources);
+		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 
 		// Null safe handling for non-required parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
@@ -125,17 +118,12 @@ public class DefaultSpringService implements SpringService {
 	@Override
 	public void load(String location, String beanName, Object bean, PropertySource<?> propertySource) {
 		// Make sure the location isn't empty
-		Assert.hasText(location);
-
-		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
-		if (propertySource != null) {
-			propertySources.add(propertySource);
-		}
+		Assert.hasText(location, "location is null");
 
 		// Setup a SpringContext
 		SpringContext context = new SpringContext();
 		context.setLocations(Arrays.asList(location));
-		context.setPropertySources(propertySources);
+		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 
 		// Null safe handling for non-required parameters
 		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
@@ -260,13 +248,19 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
-		if (CollectionUtils.isEmpty(context.getPropertySources())) {
+		PropertySourceContext psc = context.getPropertySourceContext();
+		ConfigurableEnvironment env = applicationContext.getEnvironment();
+		if (psc.isRemoveExistingSources()) {
+			logger.debug("Removing all existing property sources");
+			SpringUtils.removeAllPropertySources(env);
+		}
+
+		if (CollectionUtils.isEmpty(psc.getSources())) {
 			return;
 		}
-		List<PropertySource<?>> propertySources = context.getPropertySources();
-		ConfigurableEnvironment environment = applicationContext.getEnvironment();
-		MutablePropertySources sources = environment.getPropertySources();
-		if (context.isLastOneInWins()) {
+		List<PropertySource<?>> propertySources = psc.getSources();
+		MutablePropertySources sources = env.getPropertySources();
+		if (psc.isLastOneInWins()) {
 			Collections.reverse(propertySources);
 		}
 		for (PropertySource<?> propertySource : propertySources) {

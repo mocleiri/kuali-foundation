@@ -33,8 +33,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CollectionUtils {
 
-	public static List<Class<?>> getClassList(Class<?>... classes) {
+	/**
+	 * Null safe method for converting an untyped array of classes into a list.  Never returns null.
+	 */
+	public static List<Class<?>> asList(Class<?>... classes) {
 		List<Class<?>> list = new ArrayList<Class<?>>();
+		if (classes == null) {
+			return list;
+		}
 		for (Class<?> element : classes) {
 			list.add(element);
 		}

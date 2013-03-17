@@ -34,7 +34,7 @@ public class PropertySourceTest {
 			SpringService ss = new DefaultSpringService();
 			List<PropertySource<?>> sources = ss.getPropertySources("classpath:org/kuali/common/util/property-source-context.xml");
 			SpringContext context = new SpringContext();
-			context.setPropertySources(sources);
+			context.setPropertySourceContext(new PropertySourceContext(sources));
 			context.setLocations(Arrays.asList("classpath:org/kuali/common/util/SimpleExecutable-context.xml"));
 			ss.load(context);
 		} catch (Exception e) {

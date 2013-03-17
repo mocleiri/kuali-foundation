@@ -24,6 +24,21 @@ public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
+	/**
+	 * Null safe method for converting an untyped array of property sources into a list. Never returns null.
+	 */
+	public static List<PropertySource<?>> asList(PropertySource<?>... sources) {
+		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
+		if (sources == null) {
+			return list;
+		}
+		for (PropertySource<?> element : sources) {
+			list.add(element);
+		}
+		return list;
+
+	}
+
 	public static void showPropertySources(ConfigurableEnvironment env) {
 		List<PropertySource<?>> propertySources = getPropertySources(env);
 		List<String> columns = Arrays.asList("Name", "Impl", "Source");
