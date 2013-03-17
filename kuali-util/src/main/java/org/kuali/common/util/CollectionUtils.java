@@ -34,7 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CollectionUtils {
 
 	/**
-	 * Null safe method for converting an untyped array of classes into a list.  Never returns null.
+	 * Null safe method for converting an untyped array of classes into a list. Never returns null.
 	 */
 	public static List<Class<?>> asList(Class<?>... classes) {
 		List<Class<?>> list = new ArrayList<Class<?>>();
@@ -42,7 +42,9 @@ public class CollectionUtils {
 			return list;
 		}
 		for (Class<?> element : classes) {
-			list.add(element);
+			if (element != null) {
+				list.add(element);
+			}
 		}
 		return list;
 	}

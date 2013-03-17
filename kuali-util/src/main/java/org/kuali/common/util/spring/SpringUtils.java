@@ -131,7 +131,9 @@ public class SpringUtils {
 			return list;
 		}
 		for (PropertySource<?> element : sources) {
-			list.add(element);
+			if (element != null) {
+				list.add(element);
+			}
 		}
 		return list;
 
