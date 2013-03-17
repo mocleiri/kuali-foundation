@@ -20,11 +20,13 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class UnixUtilsTest {
 
 	@Test
+	@Ignore
 	public void testRsync() {
 		try {
 			String source = "root@env7.ole.kuali.org:/home/tomcat";
