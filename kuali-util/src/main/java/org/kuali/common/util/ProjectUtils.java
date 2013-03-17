@@ -15,7 +15,9 @@
  */
 package org.kuali.common.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -53,17 +55,39 @@ public class ProjectUtils {
 		return project;
 	}
 
+	@SuppressWarnings("unchecked")
+	protected static Map<String, Object> describe(Object bean) {
+		try {
+			return BeanUtils.describe(bean);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	protected static void copyProperty(Object bean, String name, Object value) {
+		try {
+			BeanUtils.copyProperty(bean, name, value);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 	public static Project getProject(Properties properties) {
 		String startsWith = "project.";
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, startsWith);
 		Project project = new Project();
+		Map<String, Object> description = describe(project);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
 			String beanProperty = getBeanProperty(key, startsWith);
-			try {
-				BeanUtils.copyProperty(project, beanProperty, value);
-			} catch (Exception e) {
-				// ignore
+			if (description.keySet().contains(beanProperty)) {
+				copyProperty(project, beanProperty, value);
 			}
 		}
 		return project;
