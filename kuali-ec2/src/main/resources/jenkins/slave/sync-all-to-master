@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -xe
-cd /root/kuali-ec2/src/main/resources/jenkins/slave
-mvn -Psync-to-master jenkins:syncworkspace -Djenkins.excludeTarget=false
