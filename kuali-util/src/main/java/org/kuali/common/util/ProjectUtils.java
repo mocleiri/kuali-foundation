@@ -37,20 +37,20 @@ public class ProjectUtils {
 
 	public static Project getProject(String gav) {
 		logger.debug("Processing [{}]", gav);
-		String[] tokens = StringUtils.split(gav);
+		String[] tokens = StringUtils.split(gav, ":");
 
 		Project project = new Project();
 		if (tokens.length > 0) {
-			project.setGroupId(StringUtils.trim(tokens[1]));
+			project.setGroupId(StringUtils.trim(tokens[0]));
 		}
 		if (tokens.length > 1) {
-			project.setArtifactId(StringUtils.trim(tokens[2]));
+			project.setArtifactId(StringUtils.trim(tokens[1]));
 		}
 		if (tokens.length > 2) {
-			project.setPackaging(StringUtils.trim(tokens[3]));
+			project.setPackaging(StringUtils.trim(tokens[2]));
 		}
 		if (tokens.length > 3) {
-			project.setVersion(StringUtils.trim(tokens[4]));
+			project.setVersion(StringUtils.trim(tokens[3]));
 		}
 		return project;
 	}
@@ -103,13 +103,16 @@ public class ProjectUtils {
 		return sb.toString();
 	}
 
+	public static Properties getProperties(String gav) {
+		return getProperties(getProject(gav));
+	}
+
 	public static Properties getProperties(Project project) {
 		String location = getPropertiesLocation(project);
 		if (!LocationUtils.exists(location)) {
 			throw new IllegalArgumentException("[" + location + "] does not exist");
 		}
 		return PropertyUtils.load(location);
-
 	}
 
 	public static String getPropertiesLocation(Project project) {
