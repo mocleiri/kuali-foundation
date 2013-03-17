@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,6 +27,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringContextLoadingTest {
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 

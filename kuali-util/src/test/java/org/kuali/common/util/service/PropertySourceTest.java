@@ -15,14 +15,9 @@
  */
 package org.kuali.common.util.service;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
-import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.PropertySource;
 
 public class PropertySourceTest {
 
@@ -32,12 +27,6 @@ public class PropertySourceTest {
 	public void test() {
 		try {
 			logger.debug("");
-			SpringService ss = new DefaultSpringService();
-			List<PropertySource<?>> sources = SpringUtils.getPropertySources("classpath:org/kuali/common/util/property-source-context.xml");
-			SpringContext context = new SpringContext();
-			context.setPropertySourceContext(new PropertySourceContext(sources));
-			context.setLocations(Arrays.asList("classpath:org/kuali/common/util/SimpleExecutable-context.xml"));
-			ss.load(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

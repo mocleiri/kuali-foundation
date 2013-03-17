@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.spring;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
@@ -26,6 +27,7 @@ public class ApplicationPropertiesTest {
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationPropertiesTest.class);
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			logger.debug("");

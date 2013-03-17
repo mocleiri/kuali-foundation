@@ -15,38 +15,7 @@
  */
 package org.kuali.common.util.service;
 
-import java.util.Properties;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.PropertyLoadContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
 public class PropertyServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(PropertyServiceTest.class);
-
-	@Autowired
-	private PropertyLoadContext context = null;
-
-	@Autowired
-	private PropertyService service = null;
-
-	@Test
-	public void test() {
-		try {
-			logger.info("");
-			Properties properties = service.load(context);
-			PropertyUtils.info(properties);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
