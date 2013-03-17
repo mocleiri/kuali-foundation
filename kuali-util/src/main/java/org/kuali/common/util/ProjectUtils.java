@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -67,10 +68,11 @@ public class ProjectUtils {
 		Project project = new Project();
 		project.setProperties(properties);
 		Map<String, Object> description = describe(project);
+		Set<String> beanProperties = description.keySet();
 		for (String key : keys) {
 			String value = properties.getProperty(key);
 			String beanProperty = getBeanProperty(key, startsWith);
-			if (description.keySet().contains(beanProperty)) {
+			if (beanProperties.contains(beanProperty)) {
 				copyProperty(project, beanProperty, value);
 			}
 		}
