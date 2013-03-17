@@ -855,7 +855,7 @@
         <artifactId>spring-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>kuali-metainf</id>
+            <id>project-metainf</id>
             <phase>${project.metainf.phase}</phase>
             <goals>
               <goal>load</goal>
