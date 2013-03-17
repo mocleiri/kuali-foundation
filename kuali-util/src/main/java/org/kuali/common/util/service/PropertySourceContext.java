@@ -6,12 +6,15 @@ import org.springframework.core.env.PropertySource;
 
 public class PropertySourceContext {
 
+	public static final boolean DEFAULT_REMOVE_EXISTING_SOURCES = false;
+	public static final boolean DEFAULT_LAST_ONE_IN_WINS = true;
+
 	// If true, any existing property sources are removed and replaced by the list from this context
-	boolean removeExistingSources;
+	boolean removeExistingSources = DEFAULT_REMOVE_EXISTING_SOURCES;
 
 	// If true, the last PropertySource in the list has the highest priority
 	// That is to say, Spring will search for property values starting at the bottom of the list and work its way upwards
-	boolean lastOneInWins = true;
+	boolean lastOneInWins = DEFAULT_LAST_ONE_IN_WINS;
 
 	// The list of property source objects to add to the environment
 	List<PropertySource<?>> sources;
@@ -21,8 +24,13 @@ public class PropertySourceContext {
 	}
 
 	public PropertySourceContext(List<PropertySource<?>> sources) {
+		this(sources, DEFAULT_REMOVE_EXISTING_SOURCES);
+	}
+
+	public PropertySourceContext(List<PropertySource<?>> sources, boolean removeExistingSources) {
 		super();
 		this.sources = sources;
+		this.removeExistingSources = removeExistingSources;
 	}
 
 	public boolean isRemoveExistingSources() {
