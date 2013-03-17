@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class CarPropertySourcesConfig {
 		String artifactId = "kuali-util";
 
 		Properties properties = new Properties();
-		properties.setProperty("project.groupId", groupId);
+		properties.setProperty("project.groupId.path", Str.getPath(groupId));
 		properties.setProperty("project.artifactId", artifactId);
 
 		return pph.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
