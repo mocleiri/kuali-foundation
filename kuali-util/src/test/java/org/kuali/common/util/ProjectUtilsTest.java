@@ -25,6 +25,7 @@ public class ProjectUtilsTest {
 
 	@Test
 	public void testGav() {
+		logger.debug("");
 		String gav = "org.kuali.common:kuali-car";
 		Project p = ProjectUtils.getProject(gav);
 		Assert.hasText(p.getGroupId());

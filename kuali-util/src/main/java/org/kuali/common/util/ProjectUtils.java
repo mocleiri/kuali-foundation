@@ -82,7 +82,7 @@ public class ProjectUtils {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < tokens.length; i++) {
 			String token = tokens[i];
-			if (i != 0) {
+			if (i == 0) {
 				sb.append(token);
 			} else {
 				sb.append(StringUtils.capitalize(token));
