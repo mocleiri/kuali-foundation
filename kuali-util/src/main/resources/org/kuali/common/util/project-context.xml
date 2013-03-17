@@ -23,8 +23,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="${project.groupId}-${project.artifactId}" class="org.kuali.common.util.Project">
+  <bean id="${project.groupId}:${project.artifactId}" class="org.kuali.common.util.spring.ProjectFactoryBean">
+    <property name="gav" value="${project.groupId}:${project.artifactId}" />
   </bean>
-
 
 </beans>
