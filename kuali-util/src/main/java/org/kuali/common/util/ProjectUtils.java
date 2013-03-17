@@ -59,6 +59,9 @@ public class ProjectUtils {
 		if (tokens.length > 3) {
 			project.setVersion(StringUtils.trim(tokens[3]));
 		}
+		if (tokens.length > 4) {
+			project.setClassifier(StringUtils.trim(tokens[4]));
+		}
 		return project;
 	}
 
