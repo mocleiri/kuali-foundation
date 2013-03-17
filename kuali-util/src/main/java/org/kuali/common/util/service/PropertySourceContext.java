@@ -8,6 +8,7 @@ public class PropertySourceContext {
 
 	public static final boolean DEFAULT_REMOVE_EXISTING_SOURCES = false;
 	public static final boolean DEFAULT_LAST_ONE_IN_WINS = true;
+	public static final PropertySourceAddPriority DEFAULT_PRIORITY = PropertySourceAddPriority.LAST;
 
 	// If true, any existing property sources are removed and replaced by the list from this context
 	boolean removeExistingSources = DEFAULT_REMOVE_EXISTING_SOURCES;
@@ -17,7 +18,7 @@ public class PropertySourceContext {
 	boolean lastOneInWins = DEFAULT_LAST_ONE_IN_WINS;
 
 	// Can add property sources before or after existing property sources
-	PropertySourceAddPriority priority = PropertySourceAddPriority.LAST;
+	PropertySourceAddPriority priority = DEFAULT_PRIORITY;
 
 	// The list of property source objects to add to the environment
 	List<PropertySource<?>> sources;
