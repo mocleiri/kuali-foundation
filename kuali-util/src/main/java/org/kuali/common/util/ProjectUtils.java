@@ -51,6 +51,11 @@ public class ProjectUtils {
 		return project;
 	}
 
+	public static Project getProject(Properties properties) {
+		Project project = new Project();
+		return project;
+	}
+
 	public static Properties getProperties(Project project) {
 		String location = getPropertiesLocation(project);
 		if (!LocationUtils.exists(location)) {
