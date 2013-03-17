@@ -26,7 +26,7 @@ public class CarConfigTest {
 
 			SpringContext sc = new SpringContext();
 			sc.setAnnotatedClasses(annotatedClasses);
-			sc.setPropertySourceContext(new PropertySourceContext(propertySources));
+			sc.setPropertySourceContext(new PropertySourceContext(propertySources, true));
 			ss.load(sc);
 		} catch (Exception e) {
 			e.printStackTrace();
