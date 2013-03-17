@@ -59,7 +59,7 @@ public class ProjectUtils {
 	public static Properties getProperties(Project project) {
 		String location = getPropertiesLocation(project);
 		if (!LocationUtils.exists(location)) {
-			throw new IllegalArgumentException(location + " does not exist");
+			throw new IllegalArgumentException("[" + location + "] does not exist");
 		}
 		return PropertyUtils.load(location);
 
