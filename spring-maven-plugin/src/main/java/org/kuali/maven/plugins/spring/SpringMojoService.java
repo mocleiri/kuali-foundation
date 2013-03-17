@@ -4,8 +4,8 @@ public interface SpringMojoService {
 
 	void loadSpring(AbstractSpringMojo mojo);
 
-	void executeCallback(LoadMojo mojo);
+	void mojoCallback(LoadMojo mojo);
 
-	void executeCallback(LoadXmlMojo mojo);
+	void mojoCallback(LoadXmlMojo mojo);
 
 }

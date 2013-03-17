@@ -72,7 +72,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	@Override
-	public void executeCallback(LoadXmlMojo mojo) {
+	public void mojoCallback(LoadXmlMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
@@ -94,7 +94,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	@Override
-	public void executeCallback(LoadMojo mojo) {
+	public void mojoCallback(LoadMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
