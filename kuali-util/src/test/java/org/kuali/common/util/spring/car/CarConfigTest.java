@@ -22,10 +22,9 @@ public class CarConfigTest {
 			SpringService ss = new DefaultSpringService();
 
 			List<PropertySource<?>> propertySources = ss.getPropertySources(CarPropertySourcesConfig.class);
-			List<Class<?>> annotatedClasses = CollectionUtils.asList(CarConfig.class);
 
 			SpringContext sc = new SpringContext();
-			sc.setAnnotatedClasses(annotatedClasses);
+			sc.setAnnotatedClasses(CollectionUtils.asList(CarConfig.class));
 			sc.setPropertySourceContext(new PropertySourceContext(propertySources, true));
 			ss.load(sc);
 		} catch (Exception e) {
