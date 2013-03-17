@@ -65,6 +65,7 @@ public class ProjectUtils {
 		String startsWith = "project.";
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, startsWith);
 		Project project = new Project();
+		project.setProperties(properties);
 		Map<String, Object> description = describe(project);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
