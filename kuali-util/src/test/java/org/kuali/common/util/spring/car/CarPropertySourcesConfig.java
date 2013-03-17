@@ -37,7 +37,7 @@ public class CarPropertySourcesConfig {
 
 	@Bean()
 	public PropertiesPropertySource pps() {
-		// Default to UTF-8 to load the project properties unless they've specified something else
+		// Default to UTF-8 for project properties unless they've specified something else
 		String ppenc = env.getProperty("project.properties.encoding", "UTF-8");
 		String pploc = projectPropertiesLocation();
 		Properties projectProperties = PropertyUtils.load(pploc, ppenc);
