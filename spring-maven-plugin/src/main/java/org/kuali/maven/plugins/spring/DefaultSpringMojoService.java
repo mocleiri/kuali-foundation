@@ -29,8 +29,10 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,16 +61,11 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		beans.add(this);
 		beans.add(mojo);
 
-		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-		annotatedClasses.add(MojoConfig.class);
-
-		List<PropertySource<?>> propertySources = new ArrayList<PropertySource<?>>();
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
-		propertySources.add(propertySource);
 
 		SpringContext context = new SpringContext();
-		context.setPropertySources(propertySources);
-		context.setAnnotatedClasses(annotatedClasses);
+		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+		context.setAnnotatedClasses(CollectionUtils.asList(MojoConfig.class));
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
 		service.load(context);
@@ -124,7 +121,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		if (mojo.isAddPropertySources()) {
 			// Source is either an XML file or an annotated class
 			String source = ctx.getLocation() == null ? ctx.getAnnotatedClass().getName() : ctx.getLocation();
-			// If so, extract PropertySource objects from the PropertySources context
+			// Extract PropertySource objects from the Spring application context
 			logger.debug("Acquiring custom property sources - [{}]", source);
 			List<PropertySource<?>> sources = getPropertySources(ctx);
 			String msg = sources.size() == 1 ? "source" : "sources";
@@ -135,7 +132,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 				logger.info("Adding property source - [{}] -> [{}]", name, type);
 			}
 			// Add them to the SpringContext
-			context.setPropertySources(sources);
+			context.setPropertySourceContext(new PropertySourceContext(sources));
 		}
 
 	}
