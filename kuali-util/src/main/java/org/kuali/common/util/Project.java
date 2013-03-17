@@ -17,7 +17,7 @@ public class Project {
 	String groupId;
 
 	// org.kuali.student
-	String groupIdCommon;
+	String groupIdBase;
 
 	// student
 	String groupCode;
@@ -70,12 +70,12 @@ public class Project {
 		this.groupId = groupId;
 	}
 
-	public String getGroupIdCommon() {
-		return groupIdCommon;
+	public String getGroupIdBase() {
+		return groupIdBase;
 	}
 
-	public void setGroupIdCommon(String groupIdCommon) {
-		this.groupIdCommon = groupIdCommon;
+	public void setGroupIdBase(String groupIdBase) {
+		this.groupIdBase = groupIdBase;
 	}
 
 	public String getGroupCode() {
