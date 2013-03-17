@@ -168,19 +168,19 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+		ConfigurableApplicationContext parent = SpringUtils.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
 		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
 		child.setParent(parent);
 		child.register(annotatedClass);
 		child.refresh();
-		return service.getPropertySources(child);
+		return SpringUtils.getPropertySources(child);
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
 		String[] locationsArray = { location };
-		ConfigurableApplicationContext parent = service.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+		ConfigurableApplicationContext parent = SpringUtils.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
 		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
-		return service.getPropertySources(child);
+		return SpringUtils.getPropertySources(child);
 	}
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
