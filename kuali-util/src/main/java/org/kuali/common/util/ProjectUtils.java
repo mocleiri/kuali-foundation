@@ -15,9 +15,11 @@
  */
 package org.kuali.common.util;
 
+import java.util.List;
 import java.util.Properties;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +54,29 @@ public class ProjectUtils {
 	}
 
 	public static Project getProject(Properties properties) {
+		String startsWith = "project.";
+		List<String> keys = PropertyUtils.getStartsWithKeys(properties, startsWith);
 		Project project = new Project();
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String beanProperty = getBeanProperty(key, startsWith);
+			try {
+				BeanUtils.copyProperty(project, beanProperty, value);
+			} catch (Exception e) {
+				// ignore
+			}
+		}
 		return project;
+	}
+
+	protected static String getBeanProperty(String key, String startsWith) {
+		String s = StringUtils.substring(key, startsWith.length());
+		String[] tokens = StringUtils.split(s, ".");
+		StringBuilder sb = new StringBuilder();
+		for (String token : tokens) {
+			sb.append(StringUtils.capitalize(token));
+		}
+		return sb.toString();
 	}
 
 	public static Properties getProperties(Project project) {
