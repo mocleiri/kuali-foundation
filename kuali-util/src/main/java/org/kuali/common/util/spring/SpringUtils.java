@@ -46,15 +46,6 @@ public class SpringUtils {
 		}
 	}
 
-	/**
-	 * Null safe refresh for a context
-	 */
-	public static void refreshQuietly(ConfigurableApplicationContext context) {
-		if (context != null) {
-			context.refresh();
-		}
-	}
-
 	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
@@ -67,6 +58,15 @@ public class SpringUtils {
 			factory.registerSingleton(beanName, bean);
 		}
 		return appContext;
+	}
+
+	/**
+	 * Null safe refresh for a context
+	 */
+	public static void refreshQuietly(ConfigurableApplicationContext context) {
+		if (context != null) {
+			context.refresh();
+		}
 	}
 
 	/**
