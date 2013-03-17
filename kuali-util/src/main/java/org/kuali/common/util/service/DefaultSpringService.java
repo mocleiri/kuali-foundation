@@ -181,9 +181,20 @@ public class DefaultSpringService implements SpringService {
 		if (psc.isLastOneInWins()) {
 			Collections.reverse(propertySources);
 		}
+		PropertySourceAddPriority priority = psc.getPriority();
 		for (PropertySource<?> propertySource : propertySources) {
-			logger.debug("Adding property source - [{}] -> [{}]", propertySource.getName(), propertySource.getClass().getName());
-			sources.addLast(propertySource);
+			Object[] args = { propertySource.getName(), propertySource.getClass().getName(), priority };
+			logger.debug("Adding property source - [{}] -> [{}] Priority=[{}]", args);
+			switch (priority) {
+			case FIRST:
+				sources.addFirst(propertySource);
+				break;
+			case LAST:
+				sources.addLast(propertySource);
+				break;
+			default:
+				throw new IllegalStateException(priority + " is an unknown priority");
+			}
 		}
 	}
 
