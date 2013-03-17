@@ -1,5 +1,7 @@
 package org.kuali.common.util;
 
+import java.util.Properties;
+
 public class Project {
 
 	// org.kuali
@@ -40,6 +42,9 @@ public class Project {
 
 	// Jar, war
 	String packaging;
+
+	// Allow for storage of miscellaneous other properties related to the project
+	Properties properties;
 
 	public String getOrgId() {
 		return orgId;
@@ -143,6 +148,14 @@ public class Project {
 
 	public void setPackaging(String packaging) {
 		this.packaging = packaging;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }
