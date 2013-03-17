@@ -117,6 +117,7 @@
     <poms.reset><![CDATA[<param>classpath:org/kuali/common/deploy/mvn/noop.xml</param>]]></poms.reset>
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
     <project.metainf.skip>false</project.metainf.skip>
+    <project.metainf.phase>generate-resources</project.metainf.phase>
 
     <!-- Internal kuali library versions -->
     <kuali-util.version>4.1.1-SNAPSHOT</kuali-util.version>
@@ -857,7 +858,7 @@
         <executions>
           <execution>
             <id>kuali-metainf</id>
-            <phase>prepare-package</phase>
+            <phase>${project.metainf.phase}</phase>
             <goals>
               <goal>load</goal>
             </goals>
