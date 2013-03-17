@@ -14,7 +14,7 @@ public class PropertySourceContext {
 	boolean removeExistingSources = DEFAULT_REMOVE_EXISTING_SOURCES;
 
 	// If true, the last PropertySource in the list has the highest priority
-	// That is to say, Spring will search for property values starting at the bottom of the list and work its way upwards
+	// That is to say, Spring will search for property values starting at the bottom of the list and work its way upwards, stopping as soon as it has a match
 	boolean lastOneInWins = DEFAULT_LAST_ONE_IN_WINS;
 
 	// Can add property sources before or after existing property sources
