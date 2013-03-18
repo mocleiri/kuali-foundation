@@ -46,13 +46,15 @@ public class RepositoryUtils {
 	 * Order is <code>groupId:artifactId:version:classifier:type</code>. There are always 4 colon's in returned string. Empty fields are simply omitted.
 	 * 
 	 * <pre>
+	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar  - groupId + artifactId + version + classifier + type
+	 *   org.kuali.common:kuali-jdbc:1.0.0::jar        - no classifier
 	 *   ::::                                          - Every field is blank
 	 *   org.kuali.common::::                          - groupId only
+	 *   ::::jar                                       - type only
+	 *   :kuali-jdbc:::jar                             - artifactId + type 
 	 *   org.kuali.common:kuali-jdbc:::                - groupId + artifactId
 	 *   org.kuali.common:kuali-jdbc:1.0.0::           - groupId + artifactId + version 
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:     - groupId + artifactId + version + classifier
-	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar  - groupId + artifactId + version + classifier + type
-	 *   org.kuali.common:kuali-jdbc:1.0.0::jar        - no classifier
 	 *   org.kuali.common:kuali-jdbc:1.0.0::           - no classifier or type
 	 *   org.kuali.common:kuali-jdbc::webapp:jar       - no version
 	 * </pre>
@@ -71,6 +73,9 @@ public class RepositoryUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Return the empty string if token is blank, "NULL", or "NONE"
+	 */
 	protected static String toEmpty(String token) {
 		if (StringUtils.isBlank(token)) {
 			return "";
