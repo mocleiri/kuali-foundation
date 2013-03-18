@@ -141,8 +141,7 @@ public class SpringUtils {
 		return list;
 	}
 
-	public static void showPropertySources(ConfigurableEnvironment env) {
-		List<PropertySource<?>> propertySources = getPropertySources(env);
+	public static void showPropertySources(List<PropertySource<?>> propertySources) {
 		List<String> columns = Arrays.asList("Name", "Impl", "Source");
 		List<Object[]> rows = new ArrayList<Object[]>();
 		for (PropertySource<?> propertySource : propertySources) {
@@ -153,6 +152,10 @@ public class SpringUtils {
 			rows.add(row);
 		}
 		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger, true);
+	}
+
+	public static void showPropertySources(ConfigurableEnvironment env) {
+		showPropertySources(getPropertySources(env));
 	}
 
 	/**
