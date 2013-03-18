@@ -1,5 +1,8 @@
 package org.kuali.common.util;
 
+/**
+ * This is a pojo to uniquely identify and represent a physical artifact.
+ */
 public class Artifact {
 
 	String groupId;
