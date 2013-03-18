@@ -111,6 +111,7 @@ public class SpringUtils {
 	 * This method returns a list of any PropertySource objects registered in the indicated context. They are sorted by property source name.
 	 */
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
+		// Sort them by name
 		return getPropertySources(context, new PropertySourceNameComparator());
 	}
 
@@ -128,7 +129,7 @@ public class SpringUtils {
 			list.add(source);
 		}
 
-		// Sort them by name
+		// Sort them using the provided comparator
 		Collections.sort(list, comparator);
 
 		// Return the list
