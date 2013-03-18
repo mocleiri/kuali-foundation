@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
@@ -333,7 +334,42 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			nullSafeSet(properties, "project.scm.url", project.getScm().getDeveloperConnection());
 		}
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
+		if (project.getDependencies() != null) {
+			nullSafeSet(properties, "project.dependencies", getPomLocation(project));
+		} else {
+			nullSafeSet(properties, "project.dependencies", "NONE");
+		}
 		return properties;
+	}
+
+	protected String getDependenciesCSV(List<Dependency> dependencies) {
+		if (CollectionUtils.isEmpty(dependencies)) {
+			return "NONE";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < dependencies.size(); i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			Dependency dependency = dependencies.get(i);
+			sb.append(getGavString(dependency));
+		}
+		return sb.toString();
+	}
+
+	protected String getGavString(Dependency dep) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(dep.getGroupId());
+		sb.append(":");
+		sb.append(dep.getArtifactId());
+		sb.append(":");
+		sb.append(dep.getType());
+		sb.append(":");
+		sb.append(dep.getVersion());
+		if (!StringUtils.isBlank(dep.getClassifier())) {
+			sb.append(dep.getClassifier());
+		}
+		return sb.toString();
 	}
 
 	// Maven automatically stores the pom to this location
