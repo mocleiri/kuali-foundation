@@ -28,6 +28,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.PropertySourceContext;
@@ -335,17 +336,35 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		}
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
 		if (project.getDependencies() != null) {
-			nullSafeSet(properties, "project.dependencies", getDependenciesCSV(project.getDependencies()));
+			List<org.kuali.common.util.Dependency> pojos = convertToSimplePojos(project.getDependencies());
+			nullSafeSet(properties, "project.dependencies", getDependenciesCSV(pojos));
 		} else {
 			nullSafeSet(properties, "project.dependencies", "NONE");
 		}
 		return properties;
 	}
 
+	protected List<org.kuali.common.util.Dependency> convertToSimplePojos(List<Dependency> dependencies) {
+
+		List<org.kuali.common.util.Dependency> pojos = new ArrayList<org.kuali.common.util.Dependency>();
+		for (Dependency d : dependencies) {
+			org.kuali.common.util.Dependency pojo = new org.kuali.common.util.Dependency();
+			pojo.setGroupId(d.getGroupId());
+			pojo.setArtifactId(d.getArtifactId());
+			pojo.setVersion(d.getVersion());
+			pojo.setClassifier(d.getClassifier());
+			pojo.setType(d.getType());
+			pojo.setScope(d.getScope());
+			pojos.add(pojo);
+		}
+		return pojos;
+
+	}
+
 	/**
 	 * Convert the list of dependencies into a CSV string
 	 */
-	protected String getDependenciesCSV(List<Dependency> dependencies) {
+	protected String getDependenciesCSV(List<org.kuali.common.util.Dependency> dependencies) {
 		if (CollectionUtils.isEmpty(dependencies)) {
 			return "NONE";
 		}
@@ -354,32 +373,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			if (i != 0) {
 				sb.append(",");
 			}
-			Dependency dependency = dependencies.get(i);
-			sb.append(getGavString(dependency));
+			org.kuali.common.util.Dependency dependency = dependencies.get(i);
+			sb.append(RepositoryUtils.toString(dependency));
 		}
-		return sb.toString();
-	}
-
-	/**
-	 * Convert a dependency object into a GAV string
-	 */
-	protected String getGavString(Dependency dep) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(dep.getGroupId());
-		sb.append(":");
-		sb.append(dep.getArtifactId());
-		sb.append(":");
-		sb.append(dep.getType());
-		sb.append(":");
-		sb.append(dep.getVersion());
-		sb.append(":");
-		if (StringUtils.isBlank(dep.getClassifier())) {
-			sb.append("NONE");
-		} else {
-			sb.append(dep.getClassifier());
-		}
-		sb.append(":");
-		sb.append(dep.getScope());
 		return sb.toString();
 	}
 
@@ -408,7 +404,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	protected LoadContext getLoadContext(AbstractSpringMojo mojo) {
 		// Might be skipping execution altogether
 		if (MavenUtils.skip(mojo.isForceMojoExecution(), mojo.isSkip(), mojo.getProject().getPackaging())) {
-			// The MavenUtils.skip() method already emits a log message informing them that we are skipping execution
+			// The MavenUtils.skip() method emits a log message explaining why execution is being skipped
 			return null;
 		}
 
