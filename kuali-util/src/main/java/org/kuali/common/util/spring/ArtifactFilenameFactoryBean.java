@@ -28,7 +28,7 @@ public class ArtifactFilenameFactoryBean extends Artifact implements FactoryBean
 		Assert.notNull(getGroupId());
 		Assert.notNull(getArtifactId());
 		Assert.notNull(getVersion());
-		Assert.notNull(getPackaging());
+		Assert.notNull(getType());
 
 		return RepositoryUtils.getFilename(this);
 	}

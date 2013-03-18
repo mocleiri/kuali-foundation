@@ -9,7 +9,7 @@ public class Artifact {
 	String artifactId;
 	String version;
 	String classifier;
-	String packaging;
+	String type;
 
 	public String getGroupId() {
 		return groupId;
@@ -43,12 +43,12 @@ public class Artifact {
 		this.classifier = classifier;
 	}
 
-	public String getPackaging() {
-		return packaging;
+	public String getType() {
+		return type;
 	}
 
-	public void setPackaging(String packaging) {
-		this.packaging = packaging;
+	public void setType(String packaging) {
+		this.type = packaging;
 	}
 
 }

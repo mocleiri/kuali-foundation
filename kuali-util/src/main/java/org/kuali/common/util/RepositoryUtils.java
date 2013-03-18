@@ -42,6 +42,9 @@ public class RepositoryUtils {
 		LocationUtils.copyLocationToFile(location, file);
 	}
 
+	// groupId:artifactId:version:classifier:type
+	// org.kuali.common:kuali-jdbc:1.0.0::jar
+	// org.kuali.common:kuali-jdbc:1.0.0:webapp:jar
 	public static final String toString(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(artifact.getGroupId());
@@ -49,12 +52,12 @@ public class RepositoryUtils {
 		sb.append(artifact.getArtifactId());
 		sb.append(":");
 		sb.append(artifact.getVersion());
+		sb.append(":");
 		if (!isSkipClassifier(artifact)) {
-			sb.append(":");
 			sb.append(artifact.getClassifier());
 		}
 		sb.append(":");
-		sb.append(artifact.getPackaging());
+		sb.append(artifact.getType());
 		return sb.toString();
 	}
 
@@ -82,7 +85,7 @@ public class RepositoryUtils {
 			sb.append(artifact.getClassifier());
 		}
 		sb.append(".");
-		sb.append(artifact.getPackaging());
+		sb.append(artifact.getType());
 		return sb.toString();
 	}
 

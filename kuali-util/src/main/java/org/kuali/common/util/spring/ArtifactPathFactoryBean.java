@@ -35,7 +35,7 @@ public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<Str
 		Assert.hasText(getGroupId());
 		Assert.hasText(getArtifactId());
 		Assert.hasText(getVersion());
-		Assert.hasText(getPackaging());
+		Assert.hasText(getType());
 
 		File file = RepositoryUtils.getFile(localRepositoryDir, this);
 		validate(file);
