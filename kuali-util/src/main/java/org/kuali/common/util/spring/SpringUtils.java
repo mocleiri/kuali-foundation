@@ -107,26 +107,22 @@ public class SpringUtils {
 	}
 
 	/**
-	 * This method returns a list of any PropertySource objects registered in the indicated context. The property source objects are sorted by sorted by the name used to identify
-	 * the bean in the context.
+	 * This method returns a list of any PropertySource objects registered in the indicated context. The property source objects are sorted by name.
 	 */
-	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
 
 		// Extract all beans that implement the PropertySource interface
 		@SuppressWarnings("rawtypes")
 		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
 
-		// Extract the bean names and sort, so the property source ordering is deterministic
-		List<String> contextBeanNames = new ArrayList<String>(map.keySet());
-		Collections.sort(contextBeanNames);
-
-		// Extract the PropertySource beans in order and add them to the list
+		// Extract the PropertySource beans into a list
 		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
-		for (String contextBeanName : contextBeanNames) {
-			PropertySource<?> source = map.get(contextBeanName);
+		for (PropertySource<?> source : map.values()) {
 			list.add(source);
 		}
+
+		// Sort them by name
+		Collections.sort(list, new PropertySourceNameComparator());
 
 		// Return the list
 		return list;
