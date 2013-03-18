@@ -342,6 +342,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return properties;
 	}
 
+	/**
+	 * Convert the list of dependencies into a CSV string
+	 */
 	protected String getDependenciesCSV(List<Dependency> dependencies) {
 		if (CollectionUtils.isEmpty(dependencies)) {
 			return "NONE";
@@ -357,6 +360,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return sb.toString();
 	}
 
+	/**
+	 * Convert a dependency object into a GAV string
+	 */
 	protected String getGavString(Dependency dep) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(dep.getGroupId());
