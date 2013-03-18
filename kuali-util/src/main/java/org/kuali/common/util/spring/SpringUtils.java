@@ -106,6 +106,7 @@ public class SpringUtils {
 		return extractPropertySourcesAndClose(context);
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
 
 		// Extract all beans that implement the PropertySource interface
