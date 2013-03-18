@@ -16,26 +16,33 @@
   limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
-  xsi:schemaLocation="http://www.springframework.org/schema/util 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="jdbc.defaultProperties" class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
-    <property name="listOfProperties">
-      <list>
-        <util:properties location="classpath:org/kuali/common/jdbc/jdbc.properties" />
-        <util:properties location="classpath:org/kuali/common/jdbc/service.properties" />
-        <util:properties location="classpath:org/kuali/common/sql/sql.xml" />
-        <util:properties location="classpath:org/kuali/common/sql/mysql.xml" />
-        <util:properties location="classpath:org/kuali/common/sql/oracle.xml" />
-        <util:properties location="classpath:org/kuali/common/sql/h2.xml" />
-        <util:properties location="classpath:org/kuali/common/sql/derby.xml" />
-      </list>
+  <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.ProjectPropertiesContext">
+    <property name="project">
+      <bean class="org.kuali.common.util.spring.ProjectFactoryBean">
+        <property name="gav" value="${project.groupId}:${project.artifactId}" />
+      </bean>
+    </property>
+    <property name="properties">
+      <bean class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
+        <property name="listOfProperties">
+          <list>
+            <util:properties location="classpath:org/kuali/common/jdbc/jdbc.properties" />
+            <util:properties location="classpath:org/kuali/common/jdbc/service.properties" />
+            <util:properties location="classpath:org/kuali/common/sql/sql.xml" />
+            <util:properties location="classpath:org/kuali/common/sql/mysql.xml" />
+            <util:properties location="classpath:org/kuali/common/sql/oracle.xml" />
+            <util:properties location="classpath:org/kuali/common/sql/h2.xml" />
+            <util:properties location="classpath:org/kuali/common/sql/derby.xml" />
+          </list>
+        </property>
+      </bean>
     </property>
   </bean>
-
 </beans>
