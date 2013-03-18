@@ -1,15 +1,19 @@
 package org.kuali.common.util;
 
 /**
- * This is a pojo to uniquely identify and represent a physical artifact, strongly modeled after Maven's Artifact object
+ * This is a simple pojo representing a Maven dependency
  */
-public class Artifact {
+public class Dependency {
 
 	String groupId;
 	String artifactId;
 	String version;
 	String classifier;
-	String packaging;
+	// Type is usually the same thing as "packaging" from the Artifact object, but not always.
+	// For example, "test-jar" is physically packaged into a jar file but is labeled in the Maven
+	// dependency list as <type>test-jar</type>
+	String type;
+	String scope;
 
 	public String getGroupId() {
 		return groupId;
@@ -43,12 +47,20 @@ public class Artifact {
 		this.classifier = classifier;
 	}
 
-	public String getPackaging() {
-		return packaging;
+	public String getType() {
+		return type;
 	}
 
-	public void setPackaging(String packaging) {
-		this.packaging = packaging;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
 	}
 
 }
