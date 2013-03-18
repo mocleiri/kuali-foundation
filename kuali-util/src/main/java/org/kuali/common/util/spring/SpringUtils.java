@@ -139,7 +139,6 @@ public class SpringUtils {
 			}
 		}
 		return list;
-
 	}
 
 	public static void showPropertySources(ConfigurableEnvironment env) {
