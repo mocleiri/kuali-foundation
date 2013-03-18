@@ -3,6 +3,7 @@ package org.kuali.common.util.spring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -107,10 +108,16 @@ public class SpringUtils {
 	}
 
 	/**
-	 * This method returns a list of any PropertySource objects registered in the indicated context. The property source objects are sorted by name.
+	 * This method returns a list of any PropertySource objects registered in the indicated context. They are sorted by property source name.
 	 */
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
+		return getPropertySources(context, new PropertySourceNameComparator());
+	}
 
+	/**
+	 * This method returns a list of any PropertySource objects registered in the indicated context. The property source objects are sorted by name.
+	 */
+	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context, Comparator<PropertySource<?>> comparator) {
 		// Extract all beans that implement the PropertySource interface
 		@SuppressWarnings("rawtypes")
 		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
@@ -122,7 +129,7 @@ public class SpringUtils {
 		}
 
 		// Sort them by name
-		Collections.sort(list, new PropertySourceNameComparator());
+		Collections.sort(list, comparator);
 
 		// Return the list
 		return list;
