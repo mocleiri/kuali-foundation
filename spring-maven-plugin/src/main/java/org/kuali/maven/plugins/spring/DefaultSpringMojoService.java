@@ -366,9 +366,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		sb.append(dep.getType());
 		sb.append(":");
 		sb.append(dep.getVersion());
-		if (!StringUtils.isBlank(dep.getClassifier())) {
-			sb.append(dep.getClassifier());
-		}
+		sb.append(":");
+		sb.append(dep.getClassifier());
+		sb.append(":");
+		sb.append(dep.getScope());
 		return sb.toString();
 	}
 
