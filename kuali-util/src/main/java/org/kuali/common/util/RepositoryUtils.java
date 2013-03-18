@@ -92,10 +92,10 @@ public class RepositoryUtils {
 	}
 
 	/**
-	 * Return true if classifier should not become part of the filename
+	 * Return true if classifier should become part of the filename
 	 */
-	protected static boolean isSkipClassifier(String classifier) {
-		return StringUtils.isBlank(classifier) || NullUtils.isNullOrNone(classifier);
+	protected static boolean addClassifierToFilename(String classifier) {
+		return !StringUtils.isBlank(classifier) && !NullUtils.isNullOrNone(classifier);
 	}
 
 	public static final String getFilename(Artifact artifact) {
@@ -103,7 +103,7 @@ public class RepositoryUtils {
 		sb.append(artifact.getArtifactId());
 		sb.append("-");
 		sb.append(artifact.getVersion());
-		if (!isSkipClassifier(artifact.getClassifier())) {
+		if (addClassifierToFilename(artifact.getClassifier())) {
 			sb.append("-");
 			sb.append(artifact.getClassifier());
 		}
