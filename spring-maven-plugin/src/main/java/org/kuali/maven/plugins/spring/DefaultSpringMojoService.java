@@ -335,7 +335,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		}
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
 		if (project.getDependencies() != null) {
-			nullSafeSet(properties, "project.dependencies", getPomLocation(project));
+			nullSafeSet(properties, "project.dependencies", getDependenciesCSV(project.getDependencies()));
 		} else {
 			nullSafeSet(properties, "project.dependencies", "NONE");
 		}
