@@ -184,6 +184,22 @@
     -->
   </dependencies>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/reset-properties.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/reset-properties.xml</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
