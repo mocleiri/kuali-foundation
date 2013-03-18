@@ -29,7 +29,7 @@
     By combining a Properties object with a Project object into a ProjectPropertiesContext object we give clients
     the information they need to aggregate properties from a bunch of different contexts and order them however they need to.
     By scanning for objects of type "ProjectPropertiesContext" we can get an aggregate list of all
-    properties for all contexts, along with a Project object that will inform us what the properties are for.
+    properties for all contexts, along with a bunch of Project objects that inform us what the properties are for.
     We can then order things accordingly and create a PropertySource object such that all placeholders in all contexts
     will auto-resolve without ever having a <context:property-placeholder> entry in them.
     That's the idea anyway, we'll see how it turns out.
