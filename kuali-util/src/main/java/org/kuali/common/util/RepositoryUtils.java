@@ -59,19 +59,19 @@ public class RepositoryUtils {
 	 */
 	public static final String toString(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(toGAVToken(artifact.getGroupId()));
+		sb.append(toEmpty(artifact.getGroupId()));
 		sb.append(":");
-		sb.append(toGAVToken(artifact.getArtifactId()));
+		sb.append(toEmpty(artifact.getArtifactId()));
 		sb.append(":");
-		sb.append(toGAVToken(artifact.getVersion()));
+		sb.append(toEmpty(artifact.getVersion()));
 		sb.append(":");
-		sb.append(toGAVToken(artifact.getClassifier()));
+		sb.append(toEmpty(artifact.getClassifier()));
 		sb.append(":");
-		sb.append(toGAVToken(artifact.getType()));
+		sb.append(toEmpty(artifact.getType()));
 		return sb.toString();
 	}
 
-	protected static String toGAVToken(String token) {
+	protected static String toEmpty(String token) {
 		if (StringUtils.isBlank(token)) {
 			return "";
 		}
