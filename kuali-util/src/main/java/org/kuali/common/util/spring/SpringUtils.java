@@ -106,6 +106,10 @@ public class SpringUtils {
 		return extractPropertySourcesAndClose(context);
 	}
 
+	/**
+	 * This method returns a list of any PropertySource objects registered in the indicated context. The property source objects are sorted by sorted by the name used to identify
+	 * the bean in the context.
+	 */
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
 
@@ -113,12 +117,14 @@ public class SpringUtils {
 		@SuppressWarnings("rawtypes")
 		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
 
-		// TODO This is entirely awful. It adds the property sources in whatever random order the map returns them in. Since this method returns a list, it directly implies the
-		// PropertySource's are sequenced in some meaningful way. In reality, the ordering should be considered to be random since it depends on the Map interface which makes no
-		// promises about the ordering of its elements.
-		// Convert the Map to a List
+		// Extract the bean names and sort, so the property source ordering is deterministic
+		List<String> contextBeanNames = new ArrayList<String>(map.keySet());
+		Collections.sort(contextBeanNames);
+
+		// Extract the PropertySource beans in order and add them to the list
 		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
-		for (PropertySource<?> source : map.values()) {
+		for (String contextBeanName : contextBeanNames) {
+			PropertySource<?> source = map.get(contextBeanName);
 			list.add(source);
 		}
 
