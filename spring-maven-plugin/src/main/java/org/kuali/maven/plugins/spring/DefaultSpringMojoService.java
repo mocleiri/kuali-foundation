@@ -332,7 +332,24 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			nullSafeSet(properties, "project.scm.developerConnection", project.getScm().getDeveloperConnection());
 			nullSafeSet(properties, "project.scm.url", project.getScm().getDeveloperConnection());
 		}
+		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
 		return properties;
+	}
+
+	// Maven automatically stores the pom to this location
+	protected String getPomLocation(MavenProject project) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("classpath:");
+		sb.append("META-INF");
+		sb.append("/");
+		sb.append("maven");
+		sb.append("/");
+		sb.append(project.getGroupId());
+		sb.append("/");
+		sb.append(project.getArtifactId());
+		sb.append("/");
+		sb.append("pom.xml");
+		return sb.toString();
 	}
 
 	protected void nullSafeSet(Properties properties, String key, String value) {
