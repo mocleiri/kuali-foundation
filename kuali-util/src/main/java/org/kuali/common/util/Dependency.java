@@ -1,7 +1,7 @@
 package org.kuali.common.util;
 
 /**
- * This is a simple pojo representing a Maven dependency
+ * Simple pojo representing a Maven dependency.
  */
 public class Dependency {
 
