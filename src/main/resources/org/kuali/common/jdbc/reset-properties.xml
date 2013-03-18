@@ -23,6 +23,18 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <!--
+    This is a work in progress. Does not actually work yet. Needs work.
+    The idea here is that each "project" has knowledge about the order in which to load properties for itself.
+    By combining a Properties object with a Project object into a ProjectPropertiesContext object we give clients
+    the information they need to aggregate properties from a bunch of different contexts and order them however they need to.
+    By scanning for objects of type "ProjectPropertiesContext" we can get an aggregate list of all
+    properties for all contexts, along with a Project object that will inform us what the properties are for.
+    We can then order things accordingly and create a PropertySource object such that all placeholders in all contexts
+    will auto-resolve without ever having a <context:property-placeholder> entry in them.
+    That's the idea anyway, we'll see how it turns out.
+  -->
+
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.ProjectPropertiesContext">
     <property name="project">
       <bean class="org.kuali.common.util.spring.ProjectFactoryBean">
