@@ -1,7 +1,7 @@
 package org.kuali.common.util;
 
 /**
- * This is a pojo to uniquely identify and represent a physical artifact, strongly modeled after Maven's Artifact object
+ * Simple pojo uniquely identifying a physical software artifact. Strongly modeled after Maven's Artifact object
  */
 public class Artifact {
 
