@@ -115,7 +115,7 @@ public class SpringUtils {
 	}
 
 	/**
-	 * This method returns a list of any PropertySource objects registered in the indicated context. The property source objects are sorted by name.
+	 * This method returns a list of any PropertySource objects registered in the indicated context. The comparator is responsible for putting them in correct order.
 	 */
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context, Comparator<PropertySource<?>> comparator) {
 		// Extract all beans that implement the PropertySource interface
