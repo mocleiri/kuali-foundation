@@ -112,7 +112,7 @@ public class SpringUtils {
 		@SuppressWarnings("rawtypes")
 		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
 
-		// TODO This is entirely awful. It adds the property sources in whatever random order the map returns them in. Since this method returns a list it very directly implies the
+		// TODO This is entirely awful. It adds the property sources in whatever random order the map returns them in. Since this method returns a list, it directly implies the
 		// PropertySource's are sequenced in some meaningful way. In reality, the ordering should be considered to be random since it depends on the Map interface which makes no
 		// promises about the ordering of its elements.
 		// Convert the Map to a List
