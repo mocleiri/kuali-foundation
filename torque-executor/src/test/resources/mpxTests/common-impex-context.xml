@@ -182,8 +182,8 @@
 
 
     <util:properties id="testLocationSuppliersFactoryProperties">
-        <prop key="locationKeys">mpxList1</prop>
-        <prop key="mpxList1">classpath:mpxTests/mpxLocations.list</prop>
+        <prop key="locationKeys">mpx.list</prop>
+        <prop key="mpx.list">classpath:mpxTests/mpxLocations.list</prop>
     </util:properties>
 
     <util:map id="testExtensionMappings">
