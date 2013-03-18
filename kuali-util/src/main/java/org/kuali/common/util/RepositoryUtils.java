@@ -42,27 +42,43 @@ public class RepositoryUtils {
 		LocationUtils.copyLocationToFile(location, file);
 	}
 
-	// groupId:artifactId:version:classifier:type
-	// org.kuali.common:kuali-jdbc:1.0.0::jar
-	// org.kuali.common:kuali-jdbc:1.0.0:webapp:jar
+	/**
+	 * Order is <code>groupId:artifactId:version:classifier:type</code>. There are always 4 colon's in returned string. Empty fields are simply omitted.
+	 * 
+	 * <pre>
+	 *   ::::                                          - Every field is blank
+	 *   org.kuali.common::::                          - groupId only
+	 *   org.kuali.common:kuali-jdbc:::                - groupId + artifactId
+	 *   org.kuali.common:kuali-jdbc:1.0.0::           - groupId + artifactId + version 
+	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:     - groupId + artifactId + version + classifier
+	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar  - groupId + artifactId + version + classifier + type
+	 *   org.kuali.common:kuali-jdbc:1.0.0::jar        - no classifier
+	 *   org.kuali.common:kuali-jdbc:1.0.0::           - no classifier or type
+	 *   org.kuali.common:kuali-jdbc::webapp:jar       - no version
+	 * </pre>
+	 */
 	public static final String toString(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(artifact.getGroupId());
+		sb.append(toGAVToken(artifact.getGroupId()));
 		sb.append(":");
-		sb.append(artifact.getArtifactId());
+		sb.append(toGAVToken(artifact.getArtifactId()));
 		sb.append(":");
-		sb.append(artifact.getVersion());
+		sb.append(toGAVToken(artifact.getVersion()));
 		sb.append(":");
-		if (!isSkipClassifier(artifact)) {
-			sb.append(artifact.getClassifier());
-		}
+		sb.append(toGAVToken(artifact.getClassifier()));
 		sb.append(":");
-		sb.append(artifact.getType());
+		sb.append(toGAVToken(artifact.getType()));
 		return sb.toString();
 	}
 
-	protected static boolean isSkipClassifier(Artifact artifact) {
-		return StringUtils.isBlank(artifact.getClassifier()) || NullUtils.isNullOrNone(artifact.getClassifier());
+	protected static String toGAVToken(String token) {
+		if (StringUtils.isBlank(token)) {
+			return "";
+		}
+		if (NullUtils.isNullOrNone(token)) {
+			return "";
+		}
+		return token;
 	}
 
 	public static final String getRepositoryPath(Artifact artifact) {
@@ -75,13 +91,20 @@ public class RepositoryUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Return true if classifier should not become part of the filename
+	 */
+	protected static boolean isSkipClassifier(String classifier) {
+		return StringUtils.isBlank(classifier) || NullUtils.isNullOrNone(classifier);
+	}
+
 	public static final String getFilename(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(artifact.getArtifactId());
 		sb.append("-");
 		sb.append(artifact.getVersion());
-		if (!isSkipClassifier(artifact)) {
-			sb.append(":");
+		if (!isSkipClassifier(artifact.getClassifier())) {
+			sb.append("-");
 			sb.append(artifact.getClassifier());
 		}
 		sb.append(".");

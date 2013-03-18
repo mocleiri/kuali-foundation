@@ -35,6 +35,17 @@ public class Str {
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
 
+	/**
+	 * If s is null return "" otherwise return s
+	 */
+	public static final String toEmpty(String s) {
+		if (s == null) {
+			return "";
+		} else {
+			return s;
+		}
+	}
+
 	public static final String getString(byte[] bytes, String encoding) {
 		if (bytes == null) {
 			return null;
