@@ -36,28 +36,23 @@
   -->
 
   <!-- This bean is populated from the project.properties Maven auto-embeds in META-INF -->
-  <bean id="kualiJdbcProject" class="org.kuali.common.util.spring.ProjectFactoryBean" depends-on="kualiUtilProject">
+  <bean id="kualiJdbcProject" class="org.kuali.common.util.spring.ProjectFactoryBean">
     <!-- The build process replaces groupId and artifactId with their actual values before bundling reset-properties.xml into the jar -->
     <property name="gav" value="${project.groupId}:${project.artifactId}" />
   </bean>
 
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.property.ProjectPropertiesContext">
     <property name="project" ref="kualiJdbcProject" />
-    <property name="properties">
-      <bean class="org.kuali.common.util.spring.PropertiesLoaderFactoryBean">
-        <property name="encoding" value="#{kualiJdbcProject.encoding}" />
-        <property name="locations">
-          <list>
-            <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-            <value>classpath:org/kuali/common/jdbc/service.properties</value>
-            <value>classpath:org/kuali/common/sql/sql.xml</value>
-            <value>classpath:org/kuali/common/sql/mysql.xml</value>
-            <value>classpath:org/kuali/common/sql/oracle.xml</value>
-            <value>classpath:org/kuali/common/sql/h2.xml</value>
-            <value>classpath:org/kuali/common/sql/derby.xml</value>
-          </list>
-        </property>
-      </bean>
+    <property name="locations">
+      <list>
+        <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+        <value>classpath:org/kuali/common/jdbc/service.properties</value>
+        <value>classpath:org/kuali/common/sql/sql.xml</value>
+        <value>classpath:org/kuali/common/sql/mysql.xml</value>
+        <value>classpath:org/kuali/common/sql/oracle.xml</value>
+        <value>classpath:org/kuali/common/sql/h2.xml</value>
+        <value>classpath:org/kuali/common/sql/derby.xml</value>
+      </list>
     </property>
   </bean>
 </beans>
