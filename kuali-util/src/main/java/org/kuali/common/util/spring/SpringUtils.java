@@ -191,10 +191,10 @@ public class SpringUtils {
 		Collections.reverse(sources);
 
 		// Convert the list of PropertySource's to a list of Properties objects
-		List<Properties> propertiesList = convertEnumerablePropertySources(sources);
+		PropertySourceConversionResult result = convertEnumerablePropertySources(sources);
 
 		// Combine them into a single Properties object
-		return PropertyUtils.combine(propertiesList);
+		return PropertyUtils.combine(result.getPropertiesList());
 	}
 
 	/**
@@ -246,8 +246,11 @@ public class SpringUtils {
 	/**
 	 * Convert any PropertySources that extend EnumerablePropertySource into Properties object's
 	 */
-	public static List<Properties> convertEnumerablePropertySources(List<PropertySource<?>> sources) {
+	public static PropertySourceConversionResult convertEnumerablePropertySources(List<PropertySource<?>> sources) {
+		PropertySourceConversionResult result = new PropertySourceConversionResult();
 		List<Properties> list = new ArrayList<Properties>();
+		List<PropertySource<?>> converted = new ArrayList<PropertySource<?>>();
+		List<PropertySource<?>> skipped = new ArrayList<PropertySource<?>>();
 		// Extract property values from the sources and place them in a Properties object
 		for (PropertySource<?> source : sources) {
 			logger.debug("Adding [{}]", source.getName());
@@ -255,11 +258,16 @@ public class SpringUtils {
 				EnumerablePropertySource<?> eps = (EnumerablePropertySource<?>) source;
 				Properties sourceProperties = convert(eps);
 				list.add(sourceProperties);
+				converted.add(source);
 			} else {
-				logger.warn("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
+				logger.debug("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
+				skipped.add(source);
 			}
 		}
-		return list;
+		result.setConverted(converted);
+		result.setSkipped(skipped);
+		result.setPropertiesList(list);
+		return result;
 	}
 
 	/**
