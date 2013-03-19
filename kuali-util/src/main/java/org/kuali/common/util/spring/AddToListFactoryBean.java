@@ -44,7 +44,7 @@ public class AddToListFactoryBean<T> implements FactoryBean<List<T>>, Initializi
 
 	@Override
 	public Class<?> getObjectType() {
-		return null;
+		return List.class;
 	}
 
 	@Override

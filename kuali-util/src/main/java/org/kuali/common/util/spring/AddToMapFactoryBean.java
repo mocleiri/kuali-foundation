@@ -43,7 +43,7 @@ public class AddToMapFactoryBean<K, V> implements FactoryBean<Map<K, V>>, Initia
 
 	@Override
 	public Class<?> getObjectType() {
-		return null;
+		return Map.class;
 	}
 
 	@Override
