@@ -25,7 +25,7 @@ public class PropertiesLoaderContext {
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	String encoding = Constants.DEFAULT_ENCODING;
-	String missingLocationsMode = Mode.INFORM.name();
+	Mode missingLocationsMode = Mode.INFORM;
 	Properties properties;
 	List<String> locations;
 
@@ -45,14 +45,6 @@ public class PropertiesLoaderContext {
 		this.encoding = encoding;
 	}
 
-	public String getMissingLocationsMode() {
-		return missingLocationsMode;
-	}
-
-	public void setMissingLocationsMode(String missingLocationsMode) {
-		this.missingLocationsMode = missingLocationsMode;
-	}
-
 	public Properties getProperties() {
 		return properties;
 	}
@@ -67,6 +59,14 @@ public class PropertiesLoaderContext {
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
+	}
+
+	public Mode getMissingLocationsMode() {
+		return missingLocationsMode;
+	}
+
+	public void setMissingLocationsMode(Mode missingLocationsMode) {
+		this.missingLocationsMode = missingLocationsMode;
 	}
 
 }
