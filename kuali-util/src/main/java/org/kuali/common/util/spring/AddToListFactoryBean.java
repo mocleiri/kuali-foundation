@@ -15,29 +15,30 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.Map;
+import java.util.Collection;
+import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Copy all of the mappings from <code>source</code> to <code>target</code>
+ * Append all of the elements from <code>source</code> to the end of <code>target</code>
  */
-public class PutAllMapFactoryBean<K, V> implements FactoryBean<Map<K, V>>, InitializingBean {
+public class AddToListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean {
 
-	Map<K, V> source;
-	Map<K, V> target;
+	List<T> source;
+	List<T> target;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(source, "source is null");
 		Assert.notNull(target, "target is null");
-		target.putAll(source);
+		target.addAll(source);
 	}
 
 	@Override
-	public Map<K, V> getObject() throws Exception {
+	public List<T> getObject() throws Exception {
 		return target;
 	}
 
@@ -51,19 +52,19 @@ public class PutAllMapFactoryBean<K, V> implements FactoryBean<Map<K, V>>, Initi
 		return false;
 	}
 
-	public Map<K, V> getSource() {
+	public Collection<T> getSource() {
 		return source;
 	}
 
-	public void setSource(Map<K, V> source) {
+	public void setSource(List<T> source) {
 		this.source = source;
 	}
 
-	public Map<K, V> getTarget() {
+	public Collection<T> getTarget() {
 		return target;
 	}
 
-	public void setTarget(Map<K, V> target) {
+	public void setTarget(List<T> target) {
 		this.target = target;
 	}
 

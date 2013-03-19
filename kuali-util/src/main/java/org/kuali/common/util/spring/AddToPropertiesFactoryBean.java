@@ -15,36 +15,35 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Append all of the elements from <code>source</code> to the end of <code>target</code>
+ * Copy all of the mappings from <code>source</code> to <code>target</code>. The <code>source</code> mappings replace any existing <code>target</code> mappings
  */
-public class AddAllListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean {
+public class AddToPropertiesFactoryBean implements FactoryBean<Properties>, InitializingBean {
 
-	List<T> source;
-	List<T> target;
+	Properties source;
+	Properties target;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(source, "source is null");
 		Assert.notNull(target, "target is null");
-		target.addAll(source);
+		target.putAll(source);
 	}
 
 	@Override
-	public List<T> getObject() throws Exception {
+	public Properties getObject() throws Exception {
 		return target;
 	}
 
 	@Override
-	public Class<?> getObjectType() {
-		return null;
+	public Class<Properties> getObjectType() {
+		return Properties.class;
 	}
 
 	@Override
@@ -52,19 +51,19 @@ public class AddAllListFactoryBean<T> implements FactoryBean<List<T>>, Initializ
 		return false;
 	}
 
-	public Collection<T> getSource() {
+	public Properties getSource() {
 		return source;
 	}
 
-	public void setSource(List<T> source) {
+	public void setSource(Properties source) {
 		this.source = source;
 	}
 
-	public Collection<T> getTarget() {
+	public Properties getTarget() {
 		return target;
 	}
 
-	public void setTarget(List<T> target) {
+	public void setTarget(Properties target) {
 		this.target = target;
 	}
 

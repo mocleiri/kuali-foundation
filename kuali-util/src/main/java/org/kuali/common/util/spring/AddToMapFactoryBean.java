@@ -15,19 +15,19 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.Properties;
+import java.util.Map;
 
 import org.kuali.common.util.Assert;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Copy all of the mappings from <code>source</code> to <code>target</code>. The <code>source</code> mappings replace any existing <code>target</code> mappings
+ * Copy all of the mappings from <code>source</code> to <code>target</code>
  */
-public class PutAllPropertiesFactoryBean implements FactoryBean<Properties>, InitializingBean {
+public class AddToMapFactoryBean<K, V> implements FactoryBean<Map<K, V>>, InitializingBean {
 
-	Properties source;
-	Properties target;
+	Map<K, V> source;
+	Map<K, V> target;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -37,13 +37,13 @@ public class PutAllPropertiesFactoryBean implements FactoryBean<Properties>, Ini
 	}
 
 	@Override
-	public Properties getObject() throws Exception {
+	public Map<K, V> getObject() throws Exception {
 		return target;
 	}
 
 	@Override
-	public Class<Properties> getObjectType() {
-		return Properties.class;
+	public Class<?> getObjectType() {
+		return null;
 	}
 
 	@Override
@@ -51,19 +51,19 @@ public class PutAllPropertiesFactoryBean implements FactoryBean<Properties>, Ini
 		return false;
 	}
 
-	public Properties getSource() {
+	public Map<K, V> getSource() {
 		return source;
 	}
 
-	public void setSource(Properties source) {
+	public void setSource(Map<K, V> source) {
 		this.source = source;
 	}
 
-	public Properties getTarget() {
+	public Map<K, V> getTarget() {
 		return target;
 	}
 
-	public void setTarget(Properties target) {
+	public void setTarget(Map<K, V> target) {
 		this.target = target;
 	}
 
