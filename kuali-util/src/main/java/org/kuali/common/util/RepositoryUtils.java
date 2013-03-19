@@ -43,19 +43,29 @@ public class RepositoryUtils {
 	}
 
 	/**
-	 * Order is <code>groupId:artifactId:version:classifier:type</code>. There are always 4 colon's in the returned string. Empty fields are simply omitted.
+	 * <p>
+	 * Order is <code>groupId:artifactId:version:classifier:type</code>.
+	 * </p>
+	 * 
+	 * <p>
+	 * Trailing <code>:</code>'s can be omitted.
+	 * </p>
+	 * 
+	 * <p>
+	 * If every field is left blank, <code>::::</code> is returned.
+	 * </p>
 	 * 
 	 * <pre>
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar  - groupId + artifactId + version + classifier + type
 	 *   org.kuali.common:kuali-jdbc:1.0.0::jar        - no classifier
 	 *   ::::                                          - Every field is blank
-	 *   org.kuali.common::::                          - groupId only
+	 *   org.kuali.common                              - groupId only
 	 *   ::::jar                                       - type only
-	 *   :kuali-jdbc:::jar                             - artifactId + type 
-	 *   org.kuali.common:kuali-jdbc:::                - groupId + artifactId
-	 *   org.kuali.common:kuali-jdbc:1.0.0::           - groupId + artifactId + version 
-	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:     - groupId + artifactId + version + classifier
-	 *   org.kuali.common:kuali-jdbc:1.0.0::           - no classifier or type
+	 *   :kuali-jdbc:::jar                             - no groupId, version, classifier, or type 
+	 *   org.kuali.common:kuali-jdbc                   - groupId + artifactId
+	 *   org.kuali.common:kuali-jdbc:1.0.0             - groupId + artifactId + version 
+	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp      - no type
+	 *   org.kuali.common:kuali-jdbc:1.0.0             - no classifier or type
 	 *   org.kuali.common:kuali-jdbc::webapp:jar       - no version
 	 * </pre>
 	 */
@@ -74,19 +84,29 @@ public class RepositoryUtils {
 	}
 
 	/**
-	 * Order is <code>groupId:artifactId:version:classifier:type:scopy</code>. There are always 5 colon's in the returned string. Empty fields are simply omitted.
+	 * <p>
+	 * Order is <code>groupId:artifactId:version:classifier:type:scopy</code>.
+	 * </p>
+	 * 
+	 * <p>
+	 * Trailing <code>:</code>'s can be omitted.
+	 * </p>
+	 * 
+	 * <p>
+	 * If every field is left blank, <code>:::::</code> is returned.
+	 * </p>
 	 * 
 	 * <pre>
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar:compile - groupId + artifactId + version + classifier + type + scope
 	 *   org.kuali.common:kuali-jdbc:1.0.0::jar:compile       - no classifier
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar:        - no scope
 	 *   :::::                                                - Every field is blank
-	 *   org.kuali.common:::::                                - groupId only
-	 *   ::::jar:                                             - type only
-	 *   :kuali-jdbc:::jar:                                   - artifactId + type 
-	 *   org.kuali.common:kuali-jdbc::::                      - groupId + artifactId
-	 *   org.kuali.common:kuali-jdbc:1.0.0:::                 - groupId + artifactId + version 
-	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp::           - groupId + artifactId + version + classifier
+	 *   org.kuali.common                                     - groupId only
+	 *   ::::jar                                              - type only
+	 *   :kuali-jdbc:::jar                                    - artifactId + type 
+	 *   org.kuali.common:kuali-jdbc                          - groupId + artifactId
+	 *   org.kuali.common:kuali-jdbc:1.0.0                    - groupId + artifactId + version 
+	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp             - groupId + artifactId + version + classifier
 	 *   org.kuali.common:kuali-jdbc:1.0.0:::compile          - no classifier or type
 	 *   org.kuali.common:kuali-jdbc::webapp:jar:compile      - no version
 	 * </pre>
