@@ -95,8 +95,8 @@ public class ProjectUtils {
 				copyProperty(project, beanProperty, value);
 			}
 		}
-		String dependenciesCSV = RepositoryUtils.toEmpty(properties.getProperty("project.dependencies"));
-		List<Dependency> dependencies = getDependencies(dependenciesCSV);
+		String csv = RepositoryUtils.toNull(properties.getProperty("project.dependencies"));
+		List<Dependency> dependencies = getDependencies(csv);
 		project.setDependencies(dependencies);
 		return project;
 	}
