@@ -37,7 +37,7 @@ public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 
 	@Override
 	public boolean isSingleton() {
-		return false;
+		return true;
 	}
 
 	public String getGav() {

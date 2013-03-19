@@ -30,6 +30,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext implements FactoryBean<Properties> {
 
 	protected Properties global = PropertyUtils.getGlobalProperties();
+	boolean singleton = true;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -59,6 +60,10 @@ public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext impleme
 
 	@Override
 	public boolean isSingleton() {
-		return false;
+		return singleton;
+	}
+
+	public void setSingleton(boolean singleton) {
+		this.singleton = singleton;
 	}
 }
