@@ -16,10 +16,12 @@ import org.springframework.util.Assert;
  */
 public class SqlLocationSupplier extends AbstractSupplier implements LocationSupplier {
 
+    private final static String DEFAULT_ENCODING = "UTF-8";
+
 	protected BufferedReader in;
 
 	String location;
-	String encoding = "UTF-8";
+	String encoding = DEFAULT_ENCODING;
 	SqlReader reader = new DefaultSqlReader();
 
 	public SqlLocationSupplier() {

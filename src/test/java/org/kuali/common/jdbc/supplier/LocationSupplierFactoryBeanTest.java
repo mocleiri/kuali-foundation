@@ -15,25 +15,46 @@
  */
 package org.kuali.common.jdbc.supplier;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.Test;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:org/kuali/common/jdbc/location-supplier-test-context.xml" })
 public class LocationSupplierFactoryBeanTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(LocationSupplierFactoryBeanTest.class);
 
+    @Autowired
+    LocationSuppliersFactoryBean factoryBean;
+
 	@Test
-	public void test() {
-		try {
-			logger.debug("");
-			SpringService ss = new DefaultSpringService();
-			// ss.load("classpath:org/kuali/common/jdbc/reset/jdbc-reset-context.xml");
-			ss.load("classpath:org/kuali/common/jdbc/reset/jdbc-reset-client-context.xml");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void test() throws Exception {
+        logger.info("Context loaded");
+
+        List<LocationSupplier> suppliers = factoryBean.getObject();
+
+        assertEquals(2, suppliers.size());
+
+        Collection<String> expectedLocations = new ArrayList<String>(2);
+        expectedLocations.add("classpath:org/kuali/common/jdbc/test1.sql");
+        expectedLocations.add("classpath:org/kuali/common/jdbc/test2.sql");
+
+        for(LocationSupplier supplier : suppliers) {
+            expectedLocations.remove(supplier.getLocation());
+        }
+
+        assertTrue("All expected locations were not accounted for", expectedLocations.isEmpty());
 	}
 }
