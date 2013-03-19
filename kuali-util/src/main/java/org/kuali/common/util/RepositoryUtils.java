@@ -16,6 +16,8 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +50,7 @@ public class RepositoryUtils {
 	 * </p>
 	 * 
 	 * <p>
-	 * Trailing <code>:</code>'s can be omitted.
+	 * Trailing <code>:</code>'s are omitted.
 	 * </p>
 	 * 
 	 * <p>
@@ -89,7 +91,7 @@ public class RepositoryUtils {
 	 * </p>
 	 * 
 	 * <p>
-	 * Trailing <code>:</code>'s can be omitted.
+	 * Trailing <code>:</code>'s are omitted.
 	 * </p>
 	 * 
 	 * <p>
@@ -112,19 +114,37 @@ public class RepositoryUtils {
 	 * </pre>
 	 */
 	public static final String toString(Dependency dependency) {
+		List<String> tokens = new ArrayList<String>();
+		tokens.add(toEmpty(dependency.getGroupId()));
+		tokens.add(toEmpty(dependency.getArtifactId()));
+		tokens.add(toEmpty(dependency.getVersion()));
+		tokens.add(toEmpty(dependency.getClassifier()));
+		tokens.add(toEmpty(dependency.getType()));
+		tokens.add(toEmpty(dependency.getScope()));
+		int delimiterCount = getDelimiterCount(tokens);
+		return getDelimitedString(tokens, delimiterCount, ":");
+	}
+
+	protected static final String getDelimitedString(List<String> tokens, int delimiterCount, String delimiter) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(toEmpty(dependency.getGroupId()));
-		sb.append(":");
-		sb.append(toEmpty(dependency.getArtifactId()));
-		sb.append(":");
-		sb.append(toEmpty(dependency.getVersion()));
-		sb.append(":");
-		sb.append(toEmpty(dependency.getClassifier()));
-		sb.append(":");
-		sb.append(toEmpty(dependency.getType()));
-		sb.append(":");
-		sb.append(toEmpty(dependency.getScope()));
+		for (int i = 0; i < tokens.size(); i++) {
+			if (i != 0 && i < delimiterCount) {
+				sb.append(delimiter);
+			}
+			sb.append(tokens.get(i));
+		}
 		return sb.toString();
+	}
+
+	protected static final int getDelimiterCount(List<String> tokens) {
+		int count = 0;
+		for (int i = 0; i < tokens.size(); i++) {
+			String token = tokens.get(i);
+			if (!StringUtils.isEmpty(token)) {
+				count = i + 1;
+			}
+		}
+		return count;
 	}
 
 	/**
