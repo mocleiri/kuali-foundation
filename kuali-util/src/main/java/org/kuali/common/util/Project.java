@@ -1,5 +1,6 @@
 package org.kuali.common.util;
 
+import java.util.List;
 import java.util.Properties;
 
 public class Project {
@@ -45,6 +46,9 @@ public class Project {
 
 	// Allow for storage of miscellaneous other properties related to the project
 	Properties properties;
+
+	// These are just the dependencies declared directly in the pom, nothing transitive
+	List<Dependency> dependencies;
 
 	public String getOrgId() {
 		return orgId;
@@ -156,6 +160,14 @@ public class Project {
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public List<Dependency> getDependencies() {
+		return dependencies;
+	}
+
+	public void setDependencies(List<Dependency> dependencies) {
+		this.dependencies = dependencies;
 	}
 
 }

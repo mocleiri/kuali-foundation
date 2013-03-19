@@ -16,6 +16,8 @@
 package org.kuali.common.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -65,7 +67,18 @@ public class ProjectUtils {
 		return project;
 	}
 
+	public static List<Dependency> getDependencies(String csv) {
+		List<String> tokens = CollectionUtils.getTrimmedListFromCSV(csv);
+		List<Dependency> dependencies = new ArrayList<Dependency>();
+		for (String token : tokens) {
+			Dependency dependency = RepositoryUtils.parseDependency(token);
+			dependencies.add(dependency);
+		}
+		return dependencies;
+	}
+
 	public static Project getProject(Properties properties) {
+		List<String> skipKeys = Arrays.asList("project.dependencies");
 		String startsWith = "project.";
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, startsWith);
 		Project project = new Project();
@@ -73,12 +86,18 @@ public class ProjectUtils {
 		Map<String, Object> description = describe(project);
 		Set<String> beanProperties = description.keySet();
 		for (String key : keys) {
+			if (skipKeys.contains(key)) {
+				continue;
+			}
 			String value = properties.getProperty(key);
 			String beanProperty = getBeanProperty(key, startsWith);
 			if (beanProperties.contains(beanProperty)) {
 				copyProperty(project, beanProperty, value);
 			}
 		}
+		String dependenciesCSV = properties.getProperty("project.dependencies");
+		List<Dependency> dependencies = getDependencies(dependenciesCSV);
+		project.setDependencies(dependencies);
 		return project;
 	}
 
