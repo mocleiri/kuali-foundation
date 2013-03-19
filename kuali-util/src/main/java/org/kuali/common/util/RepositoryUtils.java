@@ -27,6 +27,7 @@ public class RepositoryUtils {
 
 	private static final String FS = File.separator;
 	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
+	private static final String GAV_DELIMITER = ":";
 
 	public static final void copyArtifact(String repository, Artifact artifact) {
 		File file = getFile(artifact);
@@ -74,13 +75,13 @@ public class RepositoryUtils {
 	public static final String toString(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(toEmpty(artifact.getGroupId()));
-		sb.append(":");
+		sb.append(GAV_DELIMITER);
 		sb.append(toEmpty(artifact.getArtifactId()));
-		sb.append(":");
+		sb.append(GAV_DELIMITER);
 		sb.append(toEmpty(artifact.getVersion()));
-		sb.append(":");
+		sb.append(GAV_DELIMITER);
 		sb.append(toEmpty(artifact.getClassifier()));
-		sb.append(":");
+		sb.append(GAV_DELIMITER);
 		sb.append(toEmpty(artifact.getType()));
 		return sb.toString();
 	}
@@ -122,7 +123,47 @@ public class RepositoryUtils {
 		tokens.add(toEmpty(dependency.getType()));
 		tokens.add(toEmpty(dependency.getScope()));
 		int delimiterCount = getDelimiterCount(tokens);
-		return getDelimitedString(tokens, delimiterCount, ":");
+		return getDelimitedString(tokens, delimiterCount, GAV_DELIMITER);
+	}
+
+	/**
+	 * <p>
+	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>.
+	 * </p>
+	 * 
+	 * <p>
+	 * Trailing <code>:</code>'s are omitted.
+	 * </p>
+	 */
+	public static final Dependency parseDependency(String gav) {
+		Assert.hasText(gav, "gav has no text");
+
+		String[] tokens = StringUtils.split(gav, GAV_DELIMITER);
+		int len = tokens.length;
+		for (int i = 0; i < len; i++) {
+			tokens[i] = toNull(tokens[i]);
+		}
+
+		Dependency d = new Dependency();
+		if (len > 0) {
+			d.setGroupId(tokens[0]);
+		}
+		if (len > 1) {
+			d.setArtifactId(tokens[1]);
+		}
+		if (len > 2) {
+			d.setVersion(tokens[2]);
+		}
+		if (len > 3) {
+			d.setClassifier(tokens[3]);
+		}
+		if (len > 4) {
+			d.setType(tokens[4]);
+		}
+		if (len > 5) {
+			d.setScope(tokens[5]);
+		}
+		return d;
 	}
 
 	protected static final String getDelimitedString(List<String> tokens, int delimiterCount, String delimiter) {
@@ -145,6 +186,19 @@ public class RepositoryUtils {
 			}
 		}
 		return count;
+	}
+
+	/**
+	 * Return null if token is blank, "NULL", or "NONE"
+	 */
+	protected static String toNull(String token) {
+		if (StringUtils.isBlank(token)) {
+			return null;
+		}
+		if (NullUtils.isNullOrNone(token)) {
+			return null;
+		}
+		return token;
 	}
 
 	/**
