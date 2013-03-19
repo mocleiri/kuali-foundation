@@ -47,7 +47,8 @@ public class RepositoryUtils {
 
 	/**
 	 * <p>
-	 * Order is <code>groupId:artifactId:version:classifier:type</code>.
+	 * Order is <code>groupId:artifactId:version:classifier:type</code>. The ordering here matches the order Maven uses to create actual files. Which is different from what the
+	 * toString() method on Maven's Artifact object produces.
 	 * </p>
 	 * 
 	 * <p>
@@ -85,8 +86,8 @@ public class RepositoryUtils {
 
 	/**
 	 * <p>
-	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>. This exactly matches the naming convention for files produced by Maven. As opposed to what the
-	 * toString() method on Maven's Artifact object produces.
+	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>. The ordering here matches the order Maven uses to create actual files. As opposed to what the
+	 * toString() method on Maven's Dependency object produces.
 	 * </p>
 	 * 
 	 * <p>
