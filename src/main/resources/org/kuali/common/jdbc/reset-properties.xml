@@ -43,9 +43,9 @@
 
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.ProjectPropertiesContext">
     <property name="project" ref="kualiJdbcProject" />
-    <property name="encoding" ref="kualiJdbcProject.encoding" />
     <property name="properties">
       <bean class="org.kuali.common.util.spring.PropertiesLoaderFactoryBean">
+        <property name="encoding" value="#{kualiJdbcProject.encoding}" />
         <property name="locations">
           <list>
             <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
