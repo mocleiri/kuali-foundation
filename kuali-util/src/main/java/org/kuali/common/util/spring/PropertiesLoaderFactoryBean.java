@@ -25,7 +25,8 @@ import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * 
+ * The improvement over Springs <code>PropertiesFactoryBean</code> is the ability to automatically resolve property locations based on any of the properties loaded as part of this
+ * factory bean
  */
 public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext implements FactoryBean<Properties> {
 
@@ -38,18 +39,18 @@ public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext impleme
 		Assert.notNull(encoding, "encoding is null");
 		Assert.notNull(missingLocationsMode, "missingLocationsMode is null");
 		this.properties = PropertyUtils.toEmpty(properties);
-		Properties returnProperties = new Properties();
+		Properties result = new Properties();
 		for (String location : locations) {
-			Properties resolverProperties = PropertyUtils.combine(properties, returnProperties, global);
+			Properties resolverProperties = PropertyUtils.combine(properties, result, global);
 			String resolvedLocation = helper.replacePlaceholders(location, resolverProperties);
 			if (LocationUtils.exists(resolvedLocation)) {
 				Properties properties = PropertyUtils.load(location, encoding);
-				returnProperties.putAll(properties);
+				result.putAll(properties);
 			} else {
 				ModeUtils.validate(missingLocationsMode, "Skipping non-existent location [" + resolvedLocation + "]");
 			}
 		}
-		return returnProperties;
+		return result;
 	}
 
 	@Override
