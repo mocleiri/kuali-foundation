@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,18 +27,52 @@ public class RepositoryUtilsTest {
 
 	@Test
 	public void testArtifact() {
-		logger.debug("");
-		String gav = "org.kuali.common:kuali-car";
-		Project p = ProjectUtils.getProject(gav);
-		Assert.hasText(p.getGroupId());
-		Assert.hasText(p.getArtifactId());
+		Artifact a = new Artifact();
+		a.setGroupId("org.kuali.common");
+		a.setArtifactId("kuali-util");
+		a.setVersion("1.0.0");
+		a.setClassifier("webapp");
+		a.setType("jar");
+		String gav1 = RepositoryUtils.toString(a);
+		Artifact parsed = RepositoryUtils.parseArtifact(gav1);
+		String gav2 = RepositoryUtils.toString(parsed);
+		logger.info("gav1={}", gav1);
+		logger.info("gav2={}", gav2);
+		Assert.assertEquals(gav1, gav2);
 	}
 
 	@Test
-	public void testLoad() {
-		String gav = "org.kuali.common:kuali-car";
-		Project p = ProjectUtils.loadProject(gav);
-		Assert.hasText(p.getGroupId());
-		Assert.hasText(p.getArtifactId());
+	public void testEmptyArtifact() {
+		Artifact a = new Artifact();
+		String gav1 = RepositoryUtils.toString(a);
+		Artifact parsed = RepositoryUtils.parseArtifact(gav1);
+		String gav2 = RepositoryUtils.toString(parsed);
+		logger.info("gav1={}", gav1);
+		logger.info("gav2={}", gav2);
+		Assert.assertEquals(gav1, gav2);
+	}
+
+	@Test
+	public void testGroupIdArtifact() {
+		Artifact a = new Artifact();
+		a.setGroupId("org.kuali.common");
+		String gav1 = RepositoryUtils.toString(a);
+		Artifact parsed = RepositoryUtils.parseArtifact(gav1);
+		String gav2 = RepositoryUtils.toString(parsed);
+		logger.info("gav1={}", gav1);
+		logger.info("gav2={}", gav2);
+		Assert.assertEquals(gav1, gav2);
+	}
+
+	@Test
+	public void testTypeArtifact() {
+		Artifact a = new Artifact();
+		a.setType("jar");
+		String gav1 = RepositoryUtils.toString(a);
+		Artifact parsed = RepositoryUtils.parseArtifact(gav1);
+		String gav2 = RepositoryUtils.toString(parsed);
+		logger.info("gav1={}", gav1);
+		logger.info("gav2={}", gav2);
+		Assert.assertEquals(gav1, gav2);
 	}
 }

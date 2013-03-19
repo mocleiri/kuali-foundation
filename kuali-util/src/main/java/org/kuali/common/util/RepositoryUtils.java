@@ -73,17 +73,14 @@ public class RepositoryUtils {
 	 * </pre>
 	 */
 	public static final String toString(Artifact artifact) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(toEmpty(artifact.getGroupId()));
-		sb.append(GAV_DELIMITER);
-		sb.append(toEmpty(artifact.getArtifactId()));
-		sb.append(GAV_DELIMITER);
-		sb.append(toEmpty(artifact.getVersion()));
-		sb.append(GAV_DELIMITER);
-		sb.append(toEmpty(artifact.getClassifier()));
-		sb.append(GAV_DELIMITER);
-		sb.append(toEmpty(artifact.getType()));
-		return sb.toString();
+		List<String> tokens = new ArrayList<String>();
+		tokens.add(toEmpty(artifact.getGroupId()));
+		tokens.add(toEmpty(artifact.getArtifactId()));
+		tokens.add(toEmpty(artifact.getVersion()));
+		tokens.add(toEmpty(artifact.getClassifier()));
+		tokens.add(toEmpty(artifact.getType()));
+		int delimiterCount = getDelimiterCount(tokens);
+		return getDelimitedString(tokens, delimiterCount, GAV_DELIMITER);
 	}
 
 	/**
@@ -138,7 +135,7 @@ public class RepositoryUtils {
 	public static final Artifact parseArtifact(String gav) {
 		Assert.hasText(gav, "gav has no text");
 
-		String[] tokens = StringUtils.split(gav, GAV_DELIMITER);
+		String[] tokens = StringUtils.splitPreserveAllTokens(gav, GAV_DELIMITER);
 		int len = tokens.length;
 		for (int i = 0; i < len; i++) {
 			tokens[i] = toNull(tokens[i]);
@@ -175,7 +172,7 @@ public class RepositoryUtils {
 	public static final Dependency parseDependency(String gav) {
 		Assert.hasText(gav, "gav has no text");
 
-		String[] tokens = StringUtils.split(gav, GAV_DELIMITER);
+		String[] tokens = StringUtils.splitPreserveAllTokens(gav, GAV_DELIMITER);
 		int len = tokens.length;
 		for (int i = 0; i < len; i++) {
 			tokens[i] = toNull(tokens[i]);
