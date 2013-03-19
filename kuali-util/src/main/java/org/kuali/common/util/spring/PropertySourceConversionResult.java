@@ -7,16 +7,16 @@ import org.springframework.core.env.PropertySource;
 
 public class PropertySourceConversionResult {
 
-	Properties properties;
+	List<Properties> propertiesList;
 	List<PropertySource<?>> converted;
 	List<PropertySource<?>> skipped;
 
-	public Properties getProperties() {
-		return properties;
+	public List<Properties> getPropertiesList() {
+		return propertiesList;
 	}
 
-	public void setProperties(Properties properties) {
-		this.properties = properties;
+	public void setPropertiesList(List<Properties> propertiesList) {
+		this.propertiesList = propertiesList;
 	}
 
 	public List<PropertySource<?>> getConverted() {
@@ -34,5 +34,4 @@ public class PropertySourceConversionResult {
 	public void setSkipped(List<PropertySource<?>> skipped) {
 		this.skipped = skipped;
 	}
-
 }
