@@ -47,7 +47,7 @@ public class Project {
 	// Allow for storage of miscellaneous other properties related to the project
 	Properties properties;
 
-	// These are just the dependencies declared directly in the pom, nothing transitive
+	// These are just the dependencies declared directly in the pom, nothing inherited, nothing transitive
 	List<Dependency> dependencies;
 
 	public String getOrgId() {
