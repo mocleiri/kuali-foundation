@@ -1,6 +1,8 @@
-package org.kuali.common.util;
+package org.kuali.common.util.property;
 
 import java.util.Properties;
+
+import org.kuali.common.util.Project;
 
 public class ProjectPropertiesContext {
 
