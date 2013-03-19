@@ -48,19 +48,19 @@ public class ProjectUtils {
 
 		Project project = new Project();
 		if (tokens.length > 0) {
-			project.setGroupId(StringUtils.trim(tokens[0]));
+			project.setGroupId(RepositoryUtils.toNull(tokens[0]));
 		}
 		if (tokens.length > 1) {
-			project.setArtifactId(StringUtils.trim(tokens[1]));
+			project.setArtifactId(RepositoryUtils.toNull(tokens[1]));
 		}
 		if (tokens.length > 2) {
-			project.setPackaging(StringUtils.trim(tokens[2]));
+			project.setPackaging(RepositoryUtils.toNull(tokens[2]));
 		}
 		if (tokens.length > 3) {
-			project.setVersion(StringUtils.trim(tokens[3]));
+			project.setVersion(RepositoryUtils.toNull(tokens[3]));
 		}
 		if (tokens.length > 4) {
-			project.setClassifier(StringUtils.trim(tokens[4]));
+			project.setClassifier(RepositoryUtils.toNull(tokens[4]));
 		}
 		return project;
 	}
