@@ -85,7 +85,7 @@ public class RepositoryUtils {
 
 	/**
 	 * <p>
-	 * Order is <code>groupId:artifactId:version:classifier:type:scopy</code>.
+	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>.
 	 * </p>
 	 * 
 	 * <p>
@@ -102,8 +102,8 @@ public class RepositoryUtils {
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp:jar:        - no scope
 	 *   :::::                                                - Every field is blank
 	 *   org.kuali.common                                     - groupId only
-	 *   ::::jar                                              - type only
-	 *   :kuali-jdbc:::jar                                    - artifactId + type 
+	 *   :::::compile                                         - scope only
+	 *   :kuali-jdbc::jar                                     - artifactId + type 
 	 *   org.kuali.common:kuali-jdbc                          - groupId + artifactId
 	 *   org.kuali.common:kuali-jdbc:1.0.0                    - groupId + artifactId + version 
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp             - groupId + artifactId + version + classifier
