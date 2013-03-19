@@ -29,4 +29,44 @@ public class PropertiesLoaderContext {
 	Properties properties;
 	List<String> locations;
 
+	public PropertyPlaceholderHelper getHelper() {
+		return helper;
+	}
+
+	public void setHelper(PropertyPlaceholderHelper helper) {
+		this.helper = helper;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	public String getMissingLocationsMode() {
+		return missingLocationsMode;
+	}
+
+	public void setMissingLocationsMode(String missingLocationsMode) {
+		this.missingLocationsMode = missingLocationsMode;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
+	}
+
 }
