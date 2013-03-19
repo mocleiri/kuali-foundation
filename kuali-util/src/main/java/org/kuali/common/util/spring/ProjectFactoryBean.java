@@ -23,6 +23,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 
 	String gav;
+	boolean singleton;
 
 	@Override
 	public Project getObject() throws Exception {
@@ -37,7 +38,7 @@ public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 
 	@Override
 	public boolean isSingleton() {
-		return true;
+		return singleton;
 	}
 
 	public String getGav() {
@@ -46,6 +47,10 @@ public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 
 	public void setGav(String gav) {
 		this.gav = gav;
+	}
+
+	public void setSingleton(boolean singleton) {
+		this.singleton = singleton;
 	}
 
 }
