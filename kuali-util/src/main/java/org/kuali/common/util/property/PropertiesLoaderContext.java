@@ -23,11 +23,11 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesLoaderContext {
 
-	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	String encoding = Constants.DEFAULT_ENCODING;
-	Mode missingLocationsMode = Mode.INFORM;
-	Properties properties;
-	List<String> locations;
+	protected PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	protected String encoding = Constants.DEFAULT_ENCODING;
+	protected Mode missingLocationsMode = Mode.INFORM;
+	protected Properties properties;
+	protected List<String> locations;
 
 	public PropertyPlaceholderHelper getHelper() {
 		return helper;
