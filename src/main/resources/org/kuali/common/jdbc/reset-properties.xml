@@ -35,23 +35,26 @@
     That's the idea anyway, we'll see how it turns out.
   -->
 
+  <!-- This bean is populated from the project.properties Maven auto-embeds in META-INF -->
+  <bean id="kualiJdbcProject" class="org.kuali.common.util.spring.ProjectFactoryBean">
+    <!-- The build process replaces these with their actual values before bundling this file into the jar -->
+    <property name="gav" value="${project.groupId}:${project.artifactId}" />
+  </bean>
+
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.ProjectPropertiesContext">
-    <property name="project">
-      <bean class="org.kuali.common.util.spring.ProjectFactoryBean">
-        <property name="gav" value="${project.groupId}:${project.artifactId}" />
-      </bean>
-    </property>
+    <property name="project" ref="kualiJdbcProject" />
+    <property name="encoding" ref="kualiJdbcProject.encoding" />
     <property name="properties">
-      <bean class="org.kuali.common.util.spring.PropertiesCombinerFactoryBean">
-        <property name="listOfProperties">
+      <bean class="org.kuali.common.util.spring.PropertiesLoaderFactoryBean">
+        <property name="locations">
           <list>
-            <util:properties location="classpath:org/kuali/common/jdbc/jdbc.properties" />
-            <util:properties location="classpath:org/kuali/common/jdbc/service.properties" />
-            <util:properties location="classpath:org/kuali/common/sql/sql.xml" />
-            <util:properties location="classpath:org/kuali/common/sql/mysql.xml" />
-            <util:properties location="classpath:org/kuali/common/sql/oracle.xml" />
-            <util:properties location="classpath:org/kuali/common/sql/h2.xml" />
-            <util:properties location="classpath:org/kuali/common/sql/derby.xml" />
+            <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+            <value>classpath:org/kuali/common/jdbc/service.properties</value>
+            <value>classpath:org/kuali/common/sql/sql.xml</value>
+            <value>classpath:org/kuali/common/sql/mysql.xml</value>
+            <value>classpath:org/kuali/common/sql/oracle.xml</value>
+            <value>classpath:org/kuali/common/sql/h2.xml</value>
+            <value>classpath:org/kuali/common/sql/derby.xml</value>
           </list>
         </property>
       </bean>
