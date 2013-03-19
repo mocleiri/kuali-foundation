@@ -135,6 +135,43 @@ public class RepositoryUtils {
 	 * Trailing <code>:</code>'s are omitted.
 	 * </p>
 	 */
+	public static final Artifact parseArtifact(String gav) {
+		Assert.hasText(gav, "gav has no text");
+
+		String[] tokens = StringUtils.split(gav, GAV_DELIMITER);
+		int len = tokens.length;
+		for (int i = 0; i < len; i++) {
+			tokens[i] = toNull(tokens[i]);
+		}
+
+		Artifact a = new Artifact();
+		if (len > 0) {
+			a.setGroupId(tokens[0]);
+		}
+		if (len > 1) {
+			a.setArtifactId(tokens[1]);
+		}
+		if (len > 2) {
+			a.setVersion(tokens[2]);
+		}
+		if (len > 3) {
+			a.setClassifier(tokens[3]);
+		}
+		if (len > 4) {
+			a.setType(tokens[4]);
+		}
+		return a;
+	}
+
+	/**
+	 * <p>
+	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>.
+	 * </p>
+	 * 
+	 * <p>
+	 * Trailing <code>:</code>'s are omitted.
+	 * </p>
+	 */
 	public static final Dependency parseDependency(String gav) {
 		Assert.hasText(gav, "gav has no text");
 
