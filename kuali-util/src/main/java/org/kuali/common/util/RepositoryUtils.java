@@ -104,7 +104,7 @@ public class RepositoryUtils {
 	 *   :::::                                                - Every field is blank
 	 *   org.kuali.common                                     - groupId only
 	 *   :::::compile                                         - scope only
-	 *   :kuali-jdbc:::jar                                     - artifactId + type 
+	 *   :kuali-jdbc:::jar                                    - artifactId + type 
 	 *   org.kuali.common:kuali-jdbc                          - groupId + artifactId
 	 *   org.kuali.common:kuali-jdbc:1.0.0                    - groupId + artifactId + version 
 	 *   org.kuali.common:kuali-jdbc:1.0.0:webapp             - groupId + artifactId + version + classifier
