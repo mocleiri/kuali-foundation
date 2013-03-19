@@ -127,10 +127,6 @@ public class RepositoryUtils {
 	 * <p>
 	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>.
 	 * </p>
-	 * 
-	 * <p>
-	 * Trailing <code>:</code>'s are omitted.
-	 * </p>
 	 */
 	public static final Artifact parseArtifact(String gav) {
 		Assert.hasText(gav, "gav has no text");
@@ -163,10 +159,6 @@ public class RepositoryUtils {
 	/**
 	 * <p>
 	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>.
-	 * </p>
-	 * 
-	 * <p>
-	 * Trailing <code>:</code>'s are omitted.
 	 * </p>
 	 */
 	public static final Dependency parseDependency(String gav) {
@@ -214,7 +206,7 @@ public class RepositoryUtils {
 	protected static final int getDelimiterCount(List<String> tokens) {
 		int count = 0;
 		for (int i = 0; i < tokens.size(); i++) {
-			String token = tokens.get(i);
+			String token = toEmpty(tokens.get(i));
 			if (!StringUtils.isEmpty(token)) {
 				count = i + 1;
 			}
