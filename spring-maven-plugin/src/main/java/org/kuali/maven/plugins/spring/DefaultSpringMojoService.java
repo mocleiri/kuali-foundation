@@ -20,16 +20,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Dependency;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -336,19 +337,21 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		}
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
 		if (project.getDependencies() != null) {
-			List<org.kuali.common.util.Dependency> pojos = convertToSimplePojos(project.getDependencies());
+			List<Dependency> pojos = convertToSimplePojos(project.getDependencies());
 			nullSafeSet(properties, "project.dependencies", getDependenciesCSV(pojos));
 		} else {
-			nullSafeSet(properties, "project.dependencies", "NONE");
+			nullSafeSet(properties, "project.dependencies", Constants.NONE);
 		}
 		return properties;
 	}
 
-	protected List<org.kuali.common.util.Dependency> convertToSimplePojos(List<Dependency> dependencies) {
-
-		List<org.kuali.common.util.Dependency> pojos = new ArrayList<org.kuali.common.util.Dependency>();
-		for (Dependency d : dependencies) {
-			org.kuali.common.util.Dependency pojo = new org.kuali.common.util.Dependency();
+	/**
+	 * Convert the formal Maven dependency objects into vanilla pojo objects
+	 */
+	protected List<Dependency> convertToSimplePojos(List<org.apache.maven.model.Dependency> dependencies) {
+		List<Dependency> pojos = new ArrayList<Dependency>();
+		for (org.apache.maven.model.Dependency d : dependencies) {
+			Dependency pojo = new Dependency();
 			pojo.setGroupId(d.getGroupId());
 			pojo.setArtifactId(d.getArtifactId());
 			pojo.setVersion(d.getVersion());
@@ -364,16 +367,16 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	/**
 	 * Convert the list of dependencies into a CSV string
 	 */
-	protected String getDependenciesCSV(List<org.kuali.common.util.Dependency> dependencies) {
+	protected String getDependenciesCSV(List<Dependency> dependencies) {
 		if (CollectionUtils.isEmpty(dependencies)) {
-			return "NONE";
+			return Constants.NONE;
 		}
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < dependencies.size(); i++) {
 			if (i != 0) {
 				sb.append(",");
 			}
-			org.kuali.common.util.Dependency dependency = dependencies.get(i);
+			Dependency dependency = dependencies.get(i);
 			sb.append(RepositoryUtils.toString(dependency));
 		}
 		return sb.toString();
@@ -395,6 +398,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return sb.toString();
 	}
 
+	/**
+	 * Don't call setProperty() if value is null
+	 */
 	protected void nullSafeSet(Properties properties, String key, String value) {
 		if (value != null) {
 			properties.setProperty(key, value);
