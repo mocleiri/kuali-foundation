@@ -25,8 +25,7 @@ import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * The improvement over Springs <code>PropertiesFactoryBean</code> is the ability to automatically resolve property locations based on any of the properties loaded as part of this
- * factory bean
+ * The improvement over Springs <code>PropertiesFactoryBean</code> is the ability to dynamically resolve placeholders in the property locations themselves.
  */
 public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext implements FactoryBean<Properties> {
 
