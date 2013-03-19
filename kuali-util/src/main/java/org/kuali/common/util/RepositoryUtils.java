@@ -85,7 +85,8 @@ public class RepositoryUtils {
 
 	/**
 	 * <p>
-	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>.
+	 * Order is <code>groupId:artifactId:version:classifier:type:scope</code>. This exactly matches the naming convention for files produced by Maven. As opposed to what the
+	 * toString() method on Maven's Artifact object produces.
 	 * </p>
 	 * 
 	 * <p>
