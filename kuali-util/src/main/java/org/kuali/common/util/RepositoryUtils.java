@@ -219,7 +219,7 @@ public class RepositoryUtils {
 	/**
 	 * Return null if token is blank, "NULL", or "NONE"
 	 */
-	protected static String toNull(String token) {
+	public static String toNull(String token) {
 		if (StringUtils.isBlank(token)) {
 			return null;
 		}
@@ -232,7 +232,7 @@ public class RepositoryUtils {
 	/**
 	 * Return the empty string if token is blank, "NULL", or "NONE"
 	 */
-	protected static String toEmpty(String token) {
+	public static String toEmpty(String token) {
 		if (StringUtils.isBlank(token)) {
 			return "";
 		}
