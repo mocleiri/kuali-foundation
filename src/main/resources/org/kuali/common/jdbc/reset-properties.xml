@@ -41,10 +41,6 @@
     <property name="gav" value="${project.groupId}:${project.artifactId}" />
   </bean>
 
-  <bean id="kualiUtilProject" class="org.kuali.common.util.spring.ProjectFactoryBean">
-    <property name="gav" value="org.kuali.common:kuali-util" />
-  </bean>
-
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.property.ProjectPropertiesContext">
     <property name="project" ref="kualiJdbcProject" />
     <property name="properties">
@@ -59,7 +55,6 @@
             <value>classpath:org/kuali/common/sql/oracle.xml</value>
             <value>classpath:org/kuali/common/sql/h2.xml</value>
             <value>classpath:org/kuali/common/sql/derby.xml</value>
-            <value>classpath:org/kuali/common/sql/foo.xml</value>
           </list>
         </property>
       </bean>
