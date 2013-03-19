@@ -23,7 +23,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 
 	String gav;
-	boolean singleton;
+	boolean singleton = true;
 
 	@Override
 	public Project getObject() throws Exception {
