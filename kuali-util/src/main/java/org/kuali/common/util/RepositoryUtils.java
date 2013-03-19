@@ -219,7 +219,7 @@ public class RepositoryUtils {
 				count = i + 1;
 			}
 		}
-		return count;
+		return count == 0 ? tokens.size() : count;
 	}
 
 	/**
