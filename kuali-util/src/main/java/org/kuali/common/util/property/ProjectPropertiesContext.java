@@ -1,5 +1,6 @@
 package org.kuali.common.util.property;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Project;
@@ -8,6 +9,7 @@ public class ProjectPropertiesContext {
 
 	Project project;
 	Properties properties;
+	List<String> locations;
 
 	public Project getProject() {
 		return project;
@@ -23,6 +25,14 @@ public class ProjectPropertiesContext {
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 
 }
