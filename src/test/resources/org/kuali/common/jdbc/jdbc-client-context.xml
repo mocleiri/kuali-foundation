@@ -24,9 +24,13 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
+    <property name="gavs">
+      <util:list>
+        <value>org.kuali.common:kuali-jdbc</value>
+      </util:list>
+    </property>
     <property name="locations">
       <util:list>
-        <value>classpath:org/kuali/common/jdbc/reset-properties.xml</value>
         <value>classpath:org/kuali/common/jdbc/user-specific-properties.xml</value>
       </util:list>
     </property>
