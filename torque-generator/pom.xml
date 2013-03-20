@@ -31,7 +31,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>3.0.16-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>ant</groupId>
