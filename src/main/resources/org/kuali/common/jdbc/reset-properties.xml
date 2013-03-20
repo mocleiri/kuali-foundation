@@ -26,7 +26,7 @@
   <!--
     This is a work in progress. Does not actually work yet. Needs work.
     The idea here is that each "project" has knowledge about the order in which to load properties for itself.
-    By combining a Properties object with a Project object into a ProjectPropertiesContext object we give clients
+    By combining property loading context with a Project object into a ProjectPropertiesContext object we give clients
     the information they need to aggregate properties from a bunch of different contexts and order them however they need to.
     By scanning for objects of type "ProjectPropertiesContext" we can get an aggregate list of all
     properties for all contexts, along with a bunch of Project objects that inform us what the properties are for.
@@ -43,16 +43,21 @@
 
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.property.ProjectPropertiesContext">
     <property name="project" ref="kualiJdbcProject" />
-    <property name="locations">
-      <list>
-        <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-        <value>classpath:org/kuali/common/jdbc/service.properties</value>
-        <value>classpath:org/kuali/common/sql/sql.xml</value>
-        <value>classpath:org/kuali/common/sql/mysql.xml</value>
-        <value>classpath:org/kuali/common/sql/oracle.xml</value>
-        <value>classpath:org/kuali/common/sql/h2.xml</value>
-        <value>classpath:org/kuali/common/sql/derby.xml</value>
-      </list>
+    <property name="loaderContexts">
+      <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
+        <property name="encoding" value="#{kualiJdbcProject.encoding}" />
+        <property name="locations">
+          <list>
+            <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+            <value>classpath:org/kuali/common/jdbc/service.properties</value>
+            <value>classpath:org/kuali/common/sql/sql.xml</value>
+            <value>classpath:org/kuali/common/sql/mysql.xml</value>
+            <value>classpath:org/kuali/common/sql/oracle.xml</value>
+            <value>classpath:org/kuali/common/sql/h2.xml</value>
+            <value>classpath:org/kuali/common/sql/derby.xml</value>
+          </list>
+        </property>
+      </bean>
     </property>
   </bean>
 </beans>
