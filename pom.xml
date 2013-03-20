@@ -190,14 +190,14 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/reset-properties.xml</include>
+          <include>**/org/kuali/common/${project.artifactId}-properties-context.xml</include>
         </includes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>**/reset-properties.xml</exclude>
+          <include>**/org/kuali/common/${project.artifactId}-properties-context.xml</include>
         </excludes>
       </resource>
     </resources>
