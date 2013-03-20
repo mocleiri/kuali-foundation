@@ -20,9 +20,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.ProjectPropertiesContext;
 import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.slf4j.Logger;
@@ -43,8 +47,8 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	@Override
 	public Properties getObject() throws Exception {
 		long start = System.currentTimeMillis();
-		Assert.notNull(locations, "locations is null");
-		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(locations, ProjectPropertiesContext.class);
+		List<String> contextLocations = getLocations(locations, gavs);
+		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(contextLocations, ProjectPropertiesContext.class);
 		logger.info("Located {} property contexts", beans.size());
 		List<ProjectPropertiesContext> list = new ArrayList<ProjectPropertiesContext>();
 		for (ProjectPropertiesContext bean : beans.values()) {
@@ -62,6 +66,26 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 		String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 		logger.info("Located {} properties.  Total time: {}", properties.size(), elapsed);
 		return properties;
+	}
+
+	protected List<String> getLocations(List<String> locations, List<String> gavs) {
+		List<String> locs = new ArrayList<String>();
+		locs.addAll(CollectionUtils.toEmptyList(locations));
+		locs.addAll(getLocationsFromGavs(CollectionUtils.toEmptyList(gavs)));
+		return locs;
+	}
+
+	protected List<String> getLocationsFromGavs(List<String> gavs) {
+		List<String> locations = new ArrayList<String>();
+		for (String gav : gavs) {
+			Project p = ProjectUtils.getProject(gav);
+			String location = "classpath:" + Str.getPath(p.getGroupId() + "/" + p.getArtifactId() + "-properties-context.xml");
+			if (!LocationUtils.exists(location)) {
+				throw new IllegalStateException("[" + location + "] does not exist");
+			}
+			locations.add(location);
+		}
+		return locations;
 	}
 
 	@Override
