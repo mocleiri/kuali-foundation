@@ -23,6 +23,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="properties" class="org.kuali.common.util.spring.PropertiesLoaderFactoryBean" />
+  <bean id="properties" class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" />
+
+  <bean class="org.kuali.common.util.spring.ShowPropertiesInitializingBean">
+    <property name="properties" ref="properties" />
+  </bean>
 
 </beans>
