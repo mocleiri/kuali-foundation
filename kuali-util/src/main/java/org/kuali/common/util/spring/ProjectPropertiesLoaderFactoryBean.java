@@ -37,6 +37,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	private static final Logger logger = LoggerFactory.getLogger(ProjectPropertiesLoaderFactoryBean.class);
 
 	List<String> locations;
+	List<String> gavs;
 	boolean singleton = true;
 
 	@Override
@@ -83,6 +84,14 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
+	}
+
+	public List<String> getGavs() {
+		return gavs;
+	}
+
+	public void setGavs(List<String> gavs) {
+		this.gavs = gavs;
 	}
 
 }
