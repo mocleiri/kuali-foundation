@@ -15,35 +15,30 @@
  */
 package org.kuali.common.util.spring;
 
+import java.util.Map;
 import java.util.Properties;
 
-import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.property.ProjectPropertiesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 /**
  * 
  */
-public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Properties>, InitializingBean, ApplicationContextAware {
+public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Properties> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectPropertiesLoaderFactoryBean.class);
 
-	ApplicationContext applicationContext;
+	String location;
 	boolean singleton = true;
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
-		logger.info(FormatUtils.getDate(System.currentTimeMillis()));
-	}
-
-	@Override
 	public Properties getObject() throws Exception {
-		logger.info(FormatUtils.getDate(System.currentTimeMillis()));
+		Assert.hasText(location, "location has no text");
+		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(location, ProjectPropertiesContext.class);
+		logger.info("Located {} property contexts", beans.size());
 		return null;
 	}
 
@@ -55,16 +50,6 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	@Override
 	public boolean isSingleton() {
 		return singleton;
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		logger.info(FormatUtils.getDate(System.currentTimeMillis()));
-		this.applicationContext = applicationContext;
-	}
-
-	public ApplicationContext getApplicationContext() {
-		return applicationContext;
 	}
 
 	public void setSingleton(boolean singleton) {

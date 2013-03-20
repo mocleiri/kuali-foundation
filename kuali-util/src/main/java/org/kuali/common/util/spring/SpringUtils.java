@@ -115,6 +115,25 @@ public class SpringUtils {
 		return getPropertySources(context, new PropertySourceNameComparator());
 	}
 
+	public static <T> Map<String, T> getAllBeans(List<String> locations, Class<T> type) {
+		String[] locationsArray = locations.toArray(new String[locations.size()]);
+		ConfigurableApplicationContext ctx = new GenericXmlApplicationContext(locationsArray);
+		Map<String, T> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(ctx, type);
+		ctx.close();
+		return map;
+	}
+
+	public static <T> Map<String, T> getAllBeans(String location, Class<T> type) {
+		ConfigurableApplicationContext ctx = new GenericXmlApplicationContext(location);
+		Map<String, T> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(ctx, type);
+		ctx.close();
+		return map;
+	}
+
+	public static <T> Map<String, T> getAllBeans(ConfigurableApplicationContext ctx, Class<T> type) {
+		return BeanFactoryUtils.beansOfTypeIncludingAncestors(ctx, type);
+	}
+
 	/**
 	 * This method returns a list of any PropertySource objects registered in the indicated context. The comparator is responsible for putting them in correct order.
 	 */
