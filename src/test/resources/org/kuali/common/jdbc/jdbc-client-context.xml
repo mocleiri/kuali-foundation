@@ -26,7 +26,7 @@
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
     <property name="locations">
       <util:list>
-        <value>classpath:org/kuali/</value>
+        <value>classpath:org/kuali/common/jdbc/reset-properties.xml</value>
       </util:list>
     </property>
   </bean>
