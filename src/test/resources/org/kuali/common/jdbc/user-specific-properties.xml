@@ -40,4 +40,21 @@
       </bean>
     </property>
   </bean>
+  <bean class="org.kuali.common.util.property.ProjectPropertiesContext">
+    <property name="project">
+      <bean class="org.kuali.common.util.spring.ProjectFactoryBean">
+        <property name="gav" value="org.kuali.common:kuali-util" />
+      </bean>
+    </property>
+    <property name="loaderContexts">
+      <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
+        <property name="missingLocationsMode" value="INFORM" />
+        <property name="locations">
+          <list>
+            <value>${user.home}/.kuali/ole/ole-fs.properties</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+  </bean>
 </beans>
