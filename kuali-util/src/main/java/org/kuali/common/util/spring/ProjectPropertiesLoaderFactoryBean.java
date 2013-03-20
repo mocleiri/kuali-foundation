@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.spring;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -31,13 +32,13 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectPropertiesLoaderFactoryBean.class);
 
-	String location;
+	List<String> locations;
 	boolean singleton = true;
 
 	@Override
 	public Properties getObject() throws Exception {
-		Assert.hasText(location, "location has no text");
-		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(location, ProjectPropertiesContext.class);
+		Assert.notNull(locations, "locations is null");
+		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(locations, ProjectPropertiesContext.class);
 		logger.info("Located {} property contexts", beans.size());
 		return null;
 	}
@@ -54,6 +55,14 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	public void setSingleton(boolean singleton) {
 		this.singleton = singleton;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<String> locations) {
+		this.locations = locations;
 	}
 
 }
