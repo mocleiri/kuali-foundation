@@ -38,6 +38,7 @@ public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext impleme
 		Assert.notNull(locations, "locations are null");
 		Assert.notNull(encoding, "encoding is null");
 		Assert.notNull(missingLocationsMode, "missingLocationsMode is null");
+		Properties global = PropertyUtils.getGlobalProperties();
 		this.properties = PropertyUtils.toEmpty(properties);
 		Properties result = new Properties();
 		for (String location : locations) {

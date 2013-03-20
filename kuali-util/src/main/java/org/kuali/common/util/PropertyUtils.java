@@ -38,6 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
@@ -57,6 +58,27 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static Properties load(PropertiesLoaderContext context) {
+		Assert.notNull(context.getHelper(), "helper is null");
+		Assert.notNull(context.getLocations(), "locations are null");
+		Assert.notNull(context.getEncoding(), "encoding is null");
+		Assert.notNull(context.getMissingLocationsMode(), "missingLocationsMode is null");
+		Properties global = PropertyUtils.getGlobalProperties();
+		context.setProperties(PropertyUtils.toEmpty(context.getProperties()));
+		Properties result = new Properties();
+		for (String location : context.getLocations()) {
+			Properties resolverProperties = PropertyUtils.combine(context.getProperties(), result, global);
+			String resolvedLocation = context.getHelper().replacePlaceholders(location, resolverProperties);
+			if (LocationUtils.exists(resolvedLocation)) {
+				Properties properties = PropertyUtils.load(location, context.getEncoding());
+				result.putAll(properties);
+			} else {
+				ModeUtils.validate(context.getMissingLocationsMode(), "Skipping non-existent location [" + resolvedLocation + "]");
+			}
+		}
+		return result;
+	}
 
 	/**
 	 * Decrypt any encrypted property values. Encrypted values are surrounded by ENC(...), like:

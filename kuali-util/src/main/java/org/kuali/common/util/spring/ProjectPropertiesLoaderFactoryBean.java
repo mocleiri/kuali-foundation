@@ -15,12 +15,15 @@
  */
 package org.kuali.common.util.spring;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ProjectPropertiesContext;
+import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -40,7 +43,21 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 		Assert.notNull(locations, "locations is null");
 		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(locations, ProjectPropertiesContext.class);
 		logger.info("Located {} property contexts", beans.size());
-		return null;
+		List<ProjectPropertiesContext> list = new ArrayList<ProjectPropertiesContext>();
+		for (ProjectPropertiesContext bean : beans.values()) {
+			list.add(bean);
+		}
+		Properties properties = new Properties();
+		for (ProjectPropertiesContext ppc : list) {
+			for (PropertiesLoaderContext ctx : ppc.getLoaderContexts()) {
+				Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
+				ctx.setProperties(combined);
+				Properties loaded = PropertyUtils.load(ctx);
+				properties.putAll(loaded);
+			}
+		}
+		logger.info("Located {} properties", properties.size());
+		return properties;
 	}
 
 	@Override
