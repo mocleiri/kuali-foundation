@@ -29,11 +29,6 @@
         <value>org.kuali.common:kuali-jdbc</value>
       </util:list>
     </property>
-    <property name="locations">
-      <util:list>
-        <value>classpath:org/kuali/common/jdbc/user-specific-properties.xml</value>
-      </util:list>
-    </property>
   </bean>
 
 </beans>
