@@ -45,6 +45,7 @@
     <!-- These are only used for testing -->
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
+    <spring.properties.context.file>org/kuali/common/${project.artifactId}-properties-context.xml</spring.properties.context.file>
   </properties>
   <developers>
     <developer>
@@ -190,14 +191,14 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>**/org/kuali/common/${project.artifactId}-properties-context.xml</include>
+          <include>${spring.properties.context.file}</include>
         </includes>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
         <excludes>
-          <include>**/org/kuali/common/${project.artifactId}-properties-context.xml</include>
+          <exclude>${spring.properties.context.file}</exclude>
         </excludes>
       </resource>
     </resources>
