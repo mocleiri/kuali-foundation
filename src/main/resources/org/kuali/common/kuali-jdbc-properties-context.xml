@@ -37,7 +37,7 @@
 
   <!-- This bean is populated from the project.properties Maven auto-embeds in the META-INF directory inside kuali-jdbc.jar -->
   <bean id="kualiJdbcProject" class="org.kuali.common.util.spring.ProjectFactoryBean">
-    <!-- The build process replaces groupId and artifactId with their actual values before bundling reset-properties.xml into kuali-jdbc.jar -->
+    <!-- The build process replaces groupId and artifactId with their actual values before bundling kuali-jdbc-properties-context.xml into kuali-jdbc.jar -->
     <property name="gav" value="${project.groupId}:${project.artifactId}" />
   </bean>
 
