@@ -14,6 +14,24 @@
     <oracle.version>11.2.0.2</oracle.version>
     <slf4j.version>1.6.4</slf4j.version>
   </properties>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>${spring.properties.context.file}</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>${spring.properties.context.file}</exclude>
+        </excludes>
+      </resource>
+    </resources>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.kuali.common</groupId>

@@ -37,6 +37,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <kuali-threads.version>1.0.9</kuali-threads.version>
+    <spring.properties.context.file>org/kuali/common/${project.artifactId}-properties-context.xml</spring.properties.context.file>
   </properties>
   <developers>
     <developer>
@@ -102,6 +103,8 @@
       <artifactId>slf4j-log4j12</artifactId>
     </dependency>
   </dependencies>
+  <build>
+  </build>
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/branches/impex-2.0</connection>
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/impex-2.0</developerConnection>
