@@ -1,16 +1,13 @@
 package org.kuali.common.util.property;
 
 import java.util.List;
-import java.util.Properties;
 
 import org.kuali.common.util.Project;
 
 public class ProjectPropertiesContext {
 
 	Project project;
-	Properties properties;
-	List<String> locations;
-	String label;
+	List<PropertiesLoaderContext> loaderContexts;
 
 	public Project getProject() {
 		return project;
@@ -20,28 +17,11 @@ public class ProjectPropertiesContext {
 		this.project = project;
 	}
 
-	public Properties getProperties() {
-		return properties;
+	public List<PropertiesLoaderContext> getLoaderContexts() {
+		return loaderContexts;
 	}
 
-	public void setProperties(Properties properties) {
-		this.properties = properties;
+	public void setLoaderContexts(List<PropertiesLoaderContext> loaderContexts) {
+		this.loaderContexts = loaderContexts;
 	}
-
-	public List<String> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<String> locations) {
-		this.locations = locations;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 }

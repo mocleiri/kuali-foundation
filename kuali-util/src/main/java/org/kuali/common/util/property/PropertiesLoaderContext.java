@@ -28,6 +28,7 @@ public class PropertiesLoaderContext {
 	protected Mode missingLocationsMode = Mode.INFORM;
 	protected Properties properties;
 	protected List<String> locations;
+	protected String label;
 
 	public PropertyPlaceholderHelper getHelper() {
 		return helper;
@@ -67,6 +68,14 @@ public class PropertiesLoaderContext {
 
 	public void setMissingLocationsMode(Mode missingLocationsMode) {
 		this.missingLocationsMode = missingLocationsMode;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 }
