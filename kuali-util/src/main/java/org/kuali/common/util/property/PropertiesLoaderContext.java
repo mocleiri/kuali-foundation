@@ -25,7 +25,7 @@ public class PropertiesLoaderContext {
 
 	protected PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	protected String encoding = Constants.DEFAULT_ENCODING;
-	protected Mode missingLocationsMode = Mode.INFORM;
+	protected Mode missingLocationsMode = Mode.ERROR;
 	protected Properties properties;
 	protected List<String> locations;
 	protected String label;
