@@ -30,7 +30,8 @@ public class ResetContextTest {
 		try {
 			logger.debug("");
 			SpringService ss = new DefaultSpringService();
-			ss.load("classpath:org/kuali/common/jdbc/reset-properties.xml");
+			//ss.load("classpath:org/kuali/common/jdbc/reset-properties.xml");
+			ss.load("classpath:org/kuali/common/jdbc/jdbc-client-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
