@@ -94,15 +94,73 @@ $page = 'compliance';
                     </td>
                     <td>E2, E5, E6</td>
                     <td>
-                    	<a id="delete01" href="#" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i> Delete</a>
+                      <a href="#" class="btn btn-mini btn-success"><i class="icon-white icon-plus"></i>Save</a><br>
+                    	<a id="delete01" href="#">Cancel</a>
                         <script>
 							$(document).ready(function () {
 								$("#delete01").click(function(){
 									$("#addrow01").slideUp(200);
-									$("#norows01").slideDown(200);
 								});
 							});
 						</script>
+                        </td>
+                  </tr>
+                  <tr id="addrow02">
+                    <td>
+                      <select class="input-small" title="Type"><option value="">select</option>
+                        <option value="1">Human Subjects</option>
+                        <option value="2">Animal Usage</option>
+                        <option value="3">Recombinant DNA</option>
+                        <option value="4" selected="selected">Radioactive Isotopes</option>
+                        <option value="5">Biohazard Materials</option>
+                        <option value="6">International Programs</option>
+                        <option value="7">Space Change</option>
+                        <option value="8">TLO Review - No conflict (A)</option>
+                        <option value="9">TLO review - Reviewed, no conflict (B1)</option>
+                        <option value="10">TLO Review - Potential Conflict (B2)</option>
+                        <option value="11">TLO PR-Previously Reviewed</option>
+                        <option value="12">Foundation Relations</option></select>
+                    </td>
+                    <td>
+                        <select class="input-small" title="* Approval Status"><option value="">select</option>
+                        <option value="2">Approved</option>
+                        <option value="4">Exempt</option>
+                        <option value="6">Link to IACUC</option>
+                        <option value="5">Link to IRB</option>
+                        <option value="3">Not yet applied</option>
+                        <option value="1" selected="selected">Pending</option></select>
+                    </td>
+                    <td>
+                      <input type="text" class="input-mini" name="textfield5" id="textfield3" value="9931CD" />
+                    </td>
+                    <td>
+                      <div class="date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                        <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy" value="03-20-2013">
+                        <button class="add-on"><i class="icon-calendar"></i></button>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                        <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy" value="03-20-2013">
+                        <button class="add-on"><i class="icon-calendar"></i></button>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="date" data-date="03-06-2013" data-date-format="mm-dd-yyyy">
+                        <input type="text" class="input-small" id="start_date" name="input" placeholder="mm-dd-yyyy" value="03-20-2013">
+                        <button class="add-on"><i class="icon-calendar"></i></button>
+                      </div>
+                    </td>
+                    <td>E2, E5, E6</td>
+                    <td>
+                      <a id="delete02" href="#" class="btn btn-mini btn-danger"><i class="icon-white icon-minus"></i>Delete</a>
+                        <script>
+              $(document).ready(function () {
+                $("#delete02").click(function(){
+                  $("#addrow02").slideUp(200);
+                });
+              });
+            </script>
                         </td>
                   </tr>
                   <tr style="display:none;">
@@ -137,9 +195,6 @@ $page = 'compliance';
                   </tr>
                 </tbody>
               </table>
-              <div id="norows01" style="display:block; font-style:italic; text-align:center; border:1px solid #DDDDDD; border-bottom-left-radius:5px; border-bottom-right-radius:5px; margin-top:-21px; padding:10px;">
-                There are no compliance protocols.
-              </div>
               <p style="margin-top: 10px;"><a href="#" class="btn btn-mini btn-success addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Row</a></p>
             </div>
           </div>

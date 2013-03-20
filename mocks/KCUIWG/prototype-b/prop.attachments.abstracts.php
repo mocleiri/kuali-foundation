@@ -68,7 +68,7 @@ $page = 'attachments-abstracts';
                 <!-- Text input-->
                 <label class="control-label" for="input01"></label>
                 <div class="controls">
-                  <a href="#" class="btn btn-inverse btn-small"><i class="icon-white icon-plus"></i> Add Abstract</a>
+                  <a href="#" class="btn btn-mini btn-success"><i class="icon-white icon-plus"></i>Upload and add abstract</a>
                 </div>
               </div>
             </fieldset>

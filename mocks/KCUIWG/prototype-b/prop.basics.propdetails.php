@@ -122,7 +122,7 @@ $page = 'basics-propdetails';
           </div>
         </div>
         <div style=" padd12px; text-align:center">
-          <a href="index.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
+          <!-- <a href="index.php" class="btn"><i class="icon-chevron-left"></i> Back</a> -->
           <a href="#" class="btn">Save</a>
           <!-- <a href="#" id="validate_data" class="btn btn-inverse">save and continue<i class="icon-white icon-chevron-right"></i></a> </div> -->
         <a href="prop.basics.grantsgov.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>

@@ -41,7 +41,7 @@ $page = 'attachments-notes';
                 <!-- Text input-->
                 <label class="control-label" for="input01"></label>
                 <div class="controls">
-                  <a href="#" class="btn btn-inverse btn-small"><i class="icon-white icon-plus"></i> Add Note</a>
+                  <a href="#" class="btn btn-mini btn-success"><i class="icon-white icon-plus"></i>Save note</a>
                 </div>
               </div>
             </fieldset>

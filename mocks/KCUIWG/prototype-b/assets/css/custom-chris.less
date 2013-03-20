@@ -7,10 +7,13 @@ Last Mod:	19 Feb 2013, 14:54
 
 LESS Variables:
 --------------------------------------------- */
-@bodyBackground:						#ccc;
+// @bodyBackground:						#ccc;
+@bodyBackground:						#f3f3f3;
 // @headerBackground:						#960000; // Original reddish color
 @headerBackground:						#1f2425;
 @headerBackgroundDarker:				darken(@headerBackground, 20%);
+@linkColor:								#960000;
+@borderColor:							#ccc;
 @compliment:							#81a255;
 @complete:								#5c9b0a;
 @smokeGray:								#aaa;
@@ -29,8 +32,9 @@ html {
 }
 
 body {
-	background-color: @bodyBackground;
-	background-image: url(../img/back.png);
+	background-color: @bodyBackground !important;
+	// background-image: url(../img/back.png);
+	background-image: none !important;
 	font-size: @defaultFontSize;
 	position: relative;
 	z-index: 1;
@@ -362,15 +366,41 @@ i {
 	margin-top: 10px;
 
 	ul {
+		border-bottom: 1px solid @borderColor !important;
 
 		li {
+			border-top: 1px solid @borderColor !important;
+			text-shadow: none !important;
 
+			a {
+				color: @linkColor !important;
+
+				i {
+					background-image: url('../img/glyphicons-halflings.png') !important;
+				}
+			}
+
+			a:hover {
+				background-color: lighten(@headerBackground, 25%);
+				color: @lightest !important;
+
+				i {
+					// background-image: url('../img/glyphicons-halflings-white.png') !important;
+				}
+			}
 		}
 
 		li.active {
+			background-color: #fff !important;
+			color: #000 !important;
+			box-shadow: none !important;
 
 			a {
 				background: #ccc;
+			}
+
+			a:hover {
+				color: @linkColor !important;
 			}
 		}
 
@@ -388,11 +418,51 @@ i {
 				color: @compliment;
 			}
 		}
+
+		li.open {
+			background-color: #fff;
+
+			a {
+				color: #000;
+			}
+		}
+
+		ul {
+			background-color: #fff;
+			border-top: 0px !important;
+			box-shadow: none !important;
+
+			li {
+				border-top: none !important;
+
+				a {
+					padding-left: 39px !important;
+					border: none !important;
+				}
+
+				a:hover {
+					background: lighten(@headerBackground, 25%);
+					color: @lightest !important;
+				}
+			}
+
+			li.active {
+
+				a {
+					background-color: #fff !important;
+					color: @headerBackground !important;
+				}
+
+				a:hover {
+					background-color: #fff !important;
+				}
+			}
+		}
 	}
 }
 
 #ToC.fixed {
-	top: 80px;
+	top: 82px;
 	left: 0;
 	z-index: 997 !important;
 
