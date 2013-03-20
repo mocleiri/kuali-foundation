@@ -79,7 +79,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 		List<String> locations = new ArrayList<String>();
 		for (String gav : gavs) {
 			Project p = ProjectUtils.getProject(gav);
-			String location = "classpath:" + Str.getPath(p.getGroupId() + "/" + p.getArtifactId() + "-properties-context.xml");
+			String location = "classpath:" + Str.getPath(p.getGroupId()) + "/" + p.getArtifactId() + "-properties-context.xml";
 			if (!LocationUtils.exists(location)) {
 				throw new IllegalStateException("[" + location + "] does not exist");
 			}
