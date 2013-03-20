@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ProjectPropertiesContext;
 import org.kuali.common.util.property.PropertiesLoaderContext;
@@ -40,6 +41,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	@Override
 	public Properties getObject() throws Exception {
+		long start = System.currentTimeMillis();
 		Assert.notNull(locations, "locations is null");
 		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(locations, ProjectPropertiesContext.class);
 		logger.info("Located {} property contexts", beans.size());
@@ -56,7 +58,8 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 				properties.putAll(loaded);
 			}
 		}
-		logger.info("Located {} properties", properties.size());
+		String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
+		logger.info("Located {} properties.  Total time: {}", properties.size(), elapsed);
 		return properties;
 	}
 
