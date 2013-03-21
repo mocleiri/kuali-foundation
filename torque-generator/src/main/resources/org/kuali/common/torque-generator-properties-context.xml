@@ -24,6 +24,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <bean id="torqueGeneratorProject" class="org.kuali.common.util.spring.ProjectFactoryBean">
+    <!-- Maven filters groupId and artifactId during the build process -->
     <property name="gav" value="${project.groupId}:${project.artifactId}" />
   </bean>
 
