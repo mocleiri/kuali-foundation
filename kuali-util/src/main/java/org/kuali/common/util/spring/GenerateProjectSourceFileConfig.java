@@ -2,6 +2,7 @@ package org.kuali.common.util.spring;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -14,9 +15,9 @@ import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 @Configuration
@@ -27,24 +28,23 @@ public class GenerateProjectSourceFileConfig {
 	private static final String FS = File.separator;
 
 	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	Properties mavenProperties;
+	Environment env;
 
 	@Bean
 	public Object doFile() {
 		try {
 			String template = ProjectUtils.getJavaSourceFileTemplate();
-			String encoding = mavenProperties.getProperty("project.encoding");
-			String artifactId = mavenProperties.getProperty("project.artifactId");
+			String encoding = SpringUtils.getProperty(env, "project.encoding");
+			String artifactId = SpringUtils.getProperty(env, "project.artifactId");
 			String classname = getJavaClassName(artifactId);
-			String scmUrl = mavenProperties.getProperty("project.scm.developerConnection");
+			String scmUrl = SpringUtils.getProperty(env, "project.scm.developerConnection");
 			ScmServiceFactoryBean ssfb = new ScmServiceFactoryBean();
 			ssfb.setUrl(scmUrl);
 			ScmService service = ssfb.getObject();
-			mavenProperties.setProperty("project.artifactId.classname", classname);
+			Properties p = getPlaceholderProperties(env, classname);
 			PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-			String source = pph.replacePlaceholders(template, mavenProperties);
-			String filename = getFilename(mavenProperties);
+			String source = pph.replacePlaceholders(template, p);
+			String filename = getFilename(env);
 			File outputFile = new File(filename);
 			boolean existing = LocationUtils.exists(outputFile);
 			boolean identical = existingIsIdentical(outputFile, source, encoding);
@@ -64,6 +64,16 @@ public class GenerateProjectSourceFileConfig {
 		return null;
 	}
 
+	protected Properties getPlaceholderProperties(Environment env, String classname) {
+		List<String> keys = Arrays.asList("project.groupId", "project.artifactId", "project.version");
+		Properties p = new Properties();
+		for (String key : keys) {
+			p.setProperty(key, SpringUtils.getProperty(env, key));
+		}
+		p.setProperty("project.artifactId.classname", classname);
+		return p;
+	}
+
 	protected boolean existingIsIdentical(File file, String newContent, String encoding) {
 		if (!LocationUtils.exists(file)) {
 			return false;
@@ -73,10 +83,10 @@ public class GenerateProjectSourceFileConfig {
 		return StringUtils.equals(newContent, oldContent);
 	}
 
-	protected String getFilename(Properties p) {
-		String srcDir = p.getProperty("project.build.sourceDirectory");
-		String groupId = p.getProperty("project.groupId");
-		String artifactId = p.getProperty("project.artifactId");
+	protected String getFilename(Environment env) {
+		String srcDir = SpringUtils.getProperty(env, "project.build.sourceDirectory");
+		String groupId = SpringUtils.getProperty(env, "project.groupId");
+		String artifactId = SpringUtils.getProperty(env, "project.artifactId");
 		String classname = getJavaClassName(artifactId);
 
 		StringBuilder sb = new StringBuilder();
