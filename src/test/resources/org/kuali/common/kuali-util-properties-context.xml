@@ -27,7 +27,7 @@
     <property name="gav" value="org.kuali.common:kuali-util" />
   </bean>
 
-  <bean id="kualiUtilProjectPropertiesContext" class="org.kuali.common.util.property.ProjectProperties">
+  <bean class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="kualiUtilProject" />
     <property name="loaderContexts">
       <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
