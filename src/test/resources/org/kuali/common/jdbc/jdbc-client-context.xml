@@ -29,11 +29,25 @@
     Load any properties files they point to (in order) using a strategy of "last one in wins"
     The combined properties are then used to setup a Spring PropertySource that handles ALL placeholder resolution
   -->
-  <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
+  <bean id="springProperties" class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean">
     <property name="locations">
       <util:list>
         <bean p:gav="org.kuali.common:kuali-util" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
         <bean p:gav="org.kuali.common:kuali-jdbc" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
+      </util:list>
+    </property>
+  </bean>
+
+  <bean id="springPropertySource" class="org.springframework.core.env.PropertiesPropertySource">
+    <constructor-arg value="springProperties" />
+    <constructor-arg ref="springProperties" />
+  </bean>
+
+  <bean id="springPropertySourceContext" class="org.kuali.common.util.service.PropertySourceContext">
+    <property name="removeExistingSourcest" value="true" />
+    <property name="sources">
+      <util:list>
+        <ref bean="springPropertySource" />
       </util:list>
     </property>
   </bean>
