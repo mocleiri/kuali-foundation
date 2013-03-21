@@ -24,12 +24,12 @@ public class ResetCommon {
 	Environment env;
 
 	@Bean
-	public Project project() {
+	public Project jdbcProject() {
 		return ProjectUtils.loadProject(KualiJdbcGAV.GROUP_ID + ":" + KualiJdbcGAV.ARTIFACT_ID);
 	}
 
 	@Bean
-	public SqlReader sqlReader() {
+	public SqlReader jdbcSqlReader() {
 		return new DefaultSqlReader();
 	}
 
@@ -39,11 +39,11 @@ public class ResetCommon {
 	}
 
 	@Bean
-	public Map<String, LocationSupplierSourceBean> extensionMappings() {
-		Project project = project();
+	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
+		Project project = jdbcProject();
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
-		sls.setReader(sqlReader());
+		sls.setReader(jdbcSqlReader());
 		sls.setEncoding(project.getEncoding());
 
 		LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();
