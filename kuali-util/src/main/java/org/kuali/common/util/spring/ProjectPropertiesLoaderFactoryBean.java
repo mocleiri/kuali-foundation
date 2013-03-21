@@ -48,8 +48,8 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 			list.add(bean);
 		}
 		Properties properties = new Properties();
-		for (ProjectProperties ppc : list) {
-			for (PropertiesLoaderContext ctx : ppc.getLoaderContexts()) {
+		for (ProjectProperties pp : list) {
+			for (PropertiesLoaderContext ctx : pp.getLoaderContexts()) {
 				Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
 				ctx.setProperties(combined);
 				Properties loaded = PropertyUtils.load(ctx);
