@@ -28,7 +28,7 @@
     <property name="gav" value="${project.groupId}:${project.artifactId}" />
   </bean>
 
-  <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.property.ProjectPropertiesContext">
+  <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="torqueGeneratorProject" />
     <property name="loaderContexts">
       <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
