@@ -47,7 +47,7 @@
     <impex.version>2.0.0-SNAPSHOT</impex.version>
     <spring.properties.context.file>**/${project.artifactId}-pro*-context.xml</spring.properties.context.file>
     <project.groupId.path>org/kuali/common</project.groupId.path>
-    <project.gav.skip>true</project.gav.skip>
+    <project.gav.phase>none</project.gav.phase>
   </properties>
   <developers>
     <developer>
@@ -187,6 +187,20 @@
       </dependency>
     -->
   </dependencies>
+  <profiles>
+    <profile>
+      <id>gav</id>
+      <properties>
+        <project.gav.phase>validate</project.gav.phase>
+      </properties>
+    </profile>
+    <profile>
+      <id>kuali-release</id>
+      <properties>
+        <project.gav.phase>validate</project.gav.phase>
+      </properties>
+    </profile>
+  </profiles>
   <build>
     <plugins>
       <plugin>
@@ -195,7 +209,7 @@
         <executions>
           <execution>
             <id>generate-gav-source</id>
-            <phase>generate-sources</phase>
+            <phase>${project.gav.phase}</phase>
             <goals>
               <goal>load</goal>
             </goals>
