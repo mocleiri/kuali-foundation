@@ -7,6 +7,7 @@ import org.kuali.common.util.Project;
 public class ProjectProperties {
 
 	Project project;
+	String label;
 	List<PropertiesLoaderContext> loaderContexts;
 
 	public Project getProject() {
@@ -23,5 +24,13 @@ public class ProjectProperties {
 
 	public void setLoaderContexts(List<PropertiesLoaderContext> loaderContexts) {
 		this.loaderContexts = loaderContexts;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }
