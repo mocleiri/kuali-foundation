@@ -58,6 +58,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 			for (ProjectProperties bean : beans.values()) {
 				list.add(bean);
 			}
+			// Sort them by sequence (only relevant if there is more than one which there typically is not)
 			Collections.sort(list);
 			pps.addAll(list);
 		}
