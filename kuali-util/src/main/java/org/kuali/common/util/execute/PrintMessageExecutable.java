@@ -23,10 +23,15 @@ public class PrintMessageExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(PrintMessageExecutable.class);
 
 	String message;
+	boolean skip;
 
 	@Override
 	public void execute() {
-		logger.info(message);
+		if (skip) {
+			logger.info("Skipping execution");
+		} else {
+			logger.info(message);
+		}
 	}
 
 	public String getMessage() {
@@ -35,6 +40,14 @@ public class PrintMessageExecutable implements Executable {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
