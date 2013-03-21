@@ -4,7 +4,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.Project;
+import org.springframework.util.CollectionUtils;
 
 public class ProjectPropertiesComparator implements Comparator<ProjectProperties> {
 
@@ -12,6 +14,9 @@ public class ProjectPropertiesComparator implements Comparator<ProjectProperties
 
 	@Override
 	public int compare(ProjectProperties one, ProjectProperties two) {
+
+		Assert.notNull(order, "order is null");
+		Assert.isFalse(CollectionUtils.isEmpty(order), "order is empty");
 
 		String id1 = getIdString(one);
 		String id2 = getIdString(two);
