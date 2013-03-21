@@ -199,7 +199,7 @@
       </properties>
     </profile>
     <profile>
-      <!-- Automatically re-generate and commit KualiJdbcGAV.java during a release -->
+      <!-- Automatically generate/update/commit KualiJdbcGAV.java during a release -->
       <id>kuali-release</id>
       <properties>
         <project.gav.phase>generate-sources</project.gav.phase>
