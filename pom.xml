@@ -192,6 +192,7 @@
       <!-- "mvn validate -Pgav" generates and commits KualiJdbcGAV.java -->
       <id>gav</id>
       <properties>
+        <project.gav.phase>generate-sources</project.gav.phase>
         <project.gav.validate>false</project.gav.validate>
         <project.gav.update>true</project.gav.update>
         <project.gav.commit>true</project.gav.commit>
@@ -201,6 +202,7 @@
       <!-- Automatically re-generate and commit KualiJdbcGAV.java during a release -->
       <id>kuali-release</id>
       <properties>
+        <project.gav.phase>generate-sources</project.gav.phase>
         <project.gav.validate>false</project.gav.validate>
         <project.gav.update>true</project.gav.update>
         <project.gav.commit>true</project.gav.commit>
