@@ -107,6 +107,7 @@ public class GenerateProjectSourceFileConfig {
 			String capitalized = StringUtils.capitalizeFirstLetter(token);
 			sb.append(capitalized);
 		}
+		sb.append("GAV");
 		return sb.toString();
 	}
 
