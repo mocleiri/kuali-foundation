@@ -199,7 +199,7 @@
               <goal>load</goal>
             </goals>
             <configuration>
-              <annotatedClass>org.kuali.common.util.spring.GenerateProjectSourceFileConfig</annotatedClass>
+              <annotatedClass>org.kuali.common.util.spring.GenerateGAVConfig</annotatedClass>
               <injectMavenProperties>false</injectMavenProperties>
             </configuration>
           </execution>
