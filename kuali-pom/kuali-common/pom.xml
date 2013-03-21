@@ -117,6 +117,11 @@
     <poms.reset><![CDATA[<param>classpath:org/kuali/common/deploy/mvn/noop.xml</param>]]></poms.reset>
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
 
+    <!-- Create a .java file with GAV info embedded inside of it -->
+    <project.gav.phase>none</project.gav.phase>
+    <project.gav.validate>true</project.gav.validate>
+
+
     <!-- Internal kuali library versions -->
     <kuali-util.version>4.1.4</kuali-util.version>
     <kuali-sql.version>2.0.2</kuali-sql.version>
@@ -865,6 +870,18 @@
               <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertySourceConfig</propertySourcesConfig>
               <injectMavenProperties>false</injectMavenProperties>
               <skip>${project.metainf.skip}</skip>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-gav-source</id>
+            <phase>${project.gav.phase}</phase>
+            <goals>
+              <goal>load</goal>
+            </goals>
+            <configuration>
+              <annotatedClass>org.kuali.common.util.spring.GenerateGAVConfig</annotatedClass>
+              <injectMavenProperties>false</injectMavenProperties>
+              <skip>${project.gav.skip}</skip>
             </configuration>
           </execution>
         </executions>
