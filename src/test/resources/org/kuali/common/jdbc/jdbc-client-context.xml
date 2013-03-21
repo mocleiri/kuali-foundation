@@ -29,6 +29,7 @@
         <bean class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean">
           <property name="gav" value="org.kuali.common:kuali-jdbc" />
         </bean>
+        <value>classpath:org/kuali/common/jdbc/user-specific-properties.xml</value>
       </util:list>
     </property>
   </bean>
