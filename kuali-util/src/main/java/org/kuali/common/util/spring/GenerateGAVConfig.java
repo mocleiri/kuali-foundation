@@ -54,6 +54,8 @@ public class GenerateGAVConfig {
 		String sourceCode = pph.replacePlaceholders(template, p);
 		boolean existing = LocationUtils.exists(outputFile);
 		boolean identical = existingIsIdentical(outputFile, sourceCode, encoding);
+
+		// Validate everything matches up, but take no further action
 		if (validate) {
 			if (identical) {
 				logger.info("Verified GAV - [{}]", LocationUtils.getCanonicalPath(outputFile));
@@ -62,15 +64,21 @@ public class GenerateGAVConfig {
 				throw new IllegalStateException("GAV information is out of sync [" + LocationUtils.getCanonicalPath(outputFile) + "]");
 			}
 		}
+
+		// Nothing to update or commit if this is true
+		if (identical) {
+			return null;
+		}
+
+		// Create (or update) the .java file
 		if (update) {
 			String action = existing ? "Updating" : "Creating";
 			logger.info("{} [{}]", action, LocationUtils.getCanonicalPath(outputFile));
 			write(outputFile, sourceCode);
 		}
+
+		// Commit the .java file to SCM
 		if (commit) {
-			if (identical) {
-				return null;
-			}
 			ScmService service = getScmService(env);
 			if (!existing) {
 				service.add(Arrays.asList(outputFile));
