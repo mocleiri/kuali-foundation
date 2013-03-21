@@ -31,20 +31,22 @@
   <bean id="jdbc.projectPropertiesContext" class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="kualiJdbcProject" />
     <property name="loaderContexts">
-      <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
-        <property name="encoding" value="#{kualiJdbcProject.encoding}" />
-        <property name="locations">
-          <list>
-            <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
-            <value>classpath:org/kuali/common/jdbc/service.properties</value>
-            <value>classpath:org/kuali/common/sql/sql.xml</value>
-            <value>classpath:org/kuali/common/sql/mysql.xml</value>
-            <value>classpath:org/kuali/common/sql/oracle.xml</value>
-            <value>classpath:org/kuali/common/sql/h2.xml</value>
-            <value>classpath:org/kuali/common/sql/derby.xml</value>
-          </list>
-        </property>
-      </bean>
+      <list>
+        <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
+          <property name="encoding" value="#{kualiJdbcProject.encoding}" />
+          <property name="locations">
+            <list>
+              <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+              <value>classpath:org/kuali/common/jdbc/service.properties</value>
+              <value>classpath:org/kuali/common/sql/sql.xml</value>
+              <value>classpath:org/kuali/common/sql/mysql.xml</value>
+              <value>classpath:org/kuali/common/sql/oracle.xml</value>
+              <value>classpath:org/kuali/common/sql/h2.xml</value>
+              <value>classpath:org/kuali/common/sql/derby.xml</value>
+            </list>
+          </property>
+        </bean>
+      </list>
     </property>
   </bean>
 </beans>
