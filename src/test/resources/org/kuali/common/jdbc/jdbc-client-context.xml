@@ -23,6 +23,12 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <!--
+    This loads a list of Spring context files containing ProjectPropertiesContext objects.
+    After the context is fully loaded, it is scanned for any beans of type ProjectPropertiesContext.
+    Those beans are then sorted, and the properties files they point to are loaded in the proper order.
+    The combined properties are then used to setup a Spring PropertySource object that can auto-resolve placeholders
+  -->
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
     <property name="locations">
       <util:list>
