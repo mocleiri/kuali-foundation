@@ -33,6 +33,10 @@ public class GenerateGAVConfig {
 	@Bean
 	public Object doFile() {
 		try {
+			String skip = env.getProperty("project.gav.skip");
+			if (Boolean.TRUE.equals(skip)) {
+				return null;
+			}
 			String template = ProjectUtils.getJavaSourceFileTemplate();
 			String encoding = SpringUtils.getProperty(env, "project.encoding");
 			String artifactId = SpringUtils.getProperty(env, "project.artifactId");
