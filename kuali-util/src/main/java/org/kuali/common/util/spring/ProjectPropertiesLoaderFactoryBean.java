@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ProjectProperties;
@@ -29,6 +30,7 @@ import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 
@@ -43,6 +45,8 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	@Override
 	public Properties getObject() throws Exception {
+		Assert.isFalse(CollectionUtils.isEmpty(locations), "locations is empty");
+		Assert.notNull(comparator, "comparator is null");
 		long start = System.currentTimeMillis();
 		// Extract any ProjectProperties beans anywhere in the context
 		Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(locations, ProjectProperties.class);
