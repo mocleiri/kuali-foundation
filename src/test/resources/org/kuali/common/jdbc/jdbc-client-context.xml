@@ -39,7 +39,7 @@
 
   <bean id="springContext" class="org.kuali.common.util.service.SpringContext">
     <property name="propertySourceContext">
-      <bean id="springPropertySourceContext" class="org.kuali.common.util.service.PropertySourceContext">
+      <bean class="org.kuali.common.util.service.PropertySourceContext">
         <property name="removeExistingSources" value="true" />
         <property name="sources">
           <util:list>
