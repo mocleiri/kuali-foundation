@@ -35,6 +35,13 @@ public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
+	/**
+	 * Converts a GAV into Spring's classpath style notation for the default project properties context.
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-jdbc -> classpath:org/kuali/common/kuali-jdbc-properties-context.xml
+	 * </pre>
+	 */
 	public static String getDefaultPropertyContextLocation(String gav) {
 		Assert.hasText(gav, "gav has no text");
 		Project p = ProjectUtils.getProject(gav);
