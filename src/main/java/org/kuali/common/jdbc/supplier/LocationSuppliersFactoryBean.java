@@ -33,7 +33,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		// Make sure we are configured correctly
 		Assert.notNull(properties, "properties is null");
 		Assert.notNull(property, "property is null");
-        Assert.notNull(builders, "applicationContext is null");
+        Assert.notNull(builders, "builders is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
 		List<String> locations = getLocations(properties, property, listSuffix);
