@@ -16,8 +16,7 @@
   limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
-  xsi:schemaLocation="http://www.springframework.org/schema/util
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -27,24 +26,7 @@
   <!-- Resolve placeholders using Maven properties -->
   <context:property-placeholder properties-ref="mavenProperties" />
 
-  <!-- Convert CSV to List<String> -->
-  <bean id="metaInfIncludes" class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
-    <property name="csv" value="${impex.metainf.includes:**/*.mpx}" />
-  </bean>
-
-  <!-- Create metaInfContext beans -->
-  <bean id="metaInfContext" class="org.kuali.common.util.MetaInfContext">
-    <property name="outputFile" value="${impex.metainf.outputFile}" />
-    <property name="includes" ref="metaInfIncludes" />
-    <property name="baseDir" value="${project.build.outputDirectory}" />
-  </bean>
-
-  <!-- Aggregate metaInfContext beans into a list -->
-  <util:list id="metaInfContexts">
-    <ref bean="metaInfContext" />
-  </util:list>
-
-  <!-- Invoke metaInfUtils -->
+  <!-- Invoke MetaInfUtils -->
   <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="targetClass">
       <value>org.kuali.common.util.MetaInfUtils</value>
@@ -53,9 +35,17 @@
       <value>scanAndCreateFiles</value>
     </property>
     <property name="arguments">
-      <list>
-        <ref bean="metaInfContexts" />
-      </list>
+      <util:list>
+        <bean class="org.kuali.common.util.MetaInfContext">
+          <property name="outputFile" value="${impex.metainf.outputFile}" />
+          <property name="includes">
+            <bean class="org.kuali.common.util.spring.GetListFromCSVFactoryBean">
+              <property name="csv" value="${impex.metainf.includes:**/*.mpx}" />
+            </bean>
+          </property>
+          <property name="baseDir" value="${project.build.outputDirectory}" />
+        </bean>
+      </util:list>
     </property>
   </bean>
 
