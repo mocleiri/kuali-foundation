@@ -23,7 +23,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-
   <bean class="org.kuali.common.util.PrintMessageExecutable" init-method="execute">
     <property name="message" value="${print.message}" />
   </bean>
