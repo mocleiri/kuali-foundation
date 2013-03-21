@@ -29,6 +29,7 @@
 
   <bean class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="kualiUtilProject" />
+    <property name="label" value="userjdbc" />
     <property name="loaderContexts">
       <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
         <property name="missingLocationsMode" value="INFORM" />
@@ -42,12 +43,13 @@
   </bean>
   <bean class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="kualiUtilProject" />
+    <property name="label" value="userapp" />
     <property name="loaderContexts">
       <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
         <property name="missingLocationsMode" value="INFORM" />
         <property name="locations">
           <list>
-            <value>${user.home}/.kuali/ole/ole-fs.properties</value>
+            <value>${user.home}/.kuali/rice/sampleapp.properties</value>
           </list>
         </property>
       </bean>
