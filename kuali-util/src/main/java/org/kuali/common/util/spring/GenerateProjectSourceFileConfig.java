@@ -57,6 +57,7 @@ public class GenerateProjectSourceFileConfig {
 			if (!existing) {
 				service.add(Arrays.asList(outputFile));
 			}
+			logger.info("Committing [{}]", LocationUtils.getCanonicalPath(outputFile));
 			service.commit(Arrays.asList(outputFile), "Automatically generated java source code - Maven GAV");
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
