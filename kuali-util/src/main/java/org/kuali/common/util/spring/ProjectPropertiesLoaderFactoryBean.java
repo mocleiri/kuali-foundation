@@ -42,6 +42,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	List<String> locations;
 	boolean singleton = true;
 	ProjectPropertiesComparator comparator;
+	Properties properties;
 
 	@Override
 	public Properties getObject() throws Exception {
@@ -106,6 +107,14 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	public void setComparator(ProjectPropertiesComparator comparator) {
 		this.comparator = comparator;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }
