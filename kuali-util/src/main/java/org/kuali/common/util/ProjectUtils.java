@@ -141,16 +141,15 @@ public class ProjectUtils {
 
 	public static String getJavaSourceFileTemplate() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("		package ${project.groupId.path}\n");
+		sb.append("package ${project.groupId};\n");
 		sb.append("\n");
-		sb.append("		public abstract class ${project.artifactId.classname} {\n");
+		sb.append("public abstract class ${project.artifactId.classname} {\n");
 		sb.append("\n");
-		sb.append("			public static final String GROUP_ID = \"${project.groupId}\";\n");
-		sb.append("			public static final String ARTIFACT_ID = \"${project.artifactId}\";\n");
-		sb.append("			public static final String VERSION = \"${project.version}\";\n");
+		sb.append("	public static final String GROUP_ID = \"${project.groupId}\";\n");
+		sb.append("	public static final String ARTIFACT_ID = \"${project.artifactId}\";\n");
+		sb.append("	public static final String VERSION = \"${project.version}\";\n");
 		sb.append("\n");
-		sb.append("		}\n");
-		sb.append("\n");
+		sb.append("}\n");
 		return sb.toString();
 	}
 

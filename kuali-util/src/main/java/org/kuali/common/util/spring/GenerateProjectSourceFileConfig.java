@@ -1,14 +1,18 @@
 package org.kuali.common.util.spring;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.service.ScmService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +22,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
 @Configuration
 public class GenerateProjectSourceFileConfig {
 
+	private static final Logger logger = LoggerFactory.getLogger(GenerateProjectSourceFileConfig.class);
+
 	private static final String FS = File.separator;
 
 	@Autowired
@@ -26,17 +32,44 @@ public class GenerateProjectSourceFileConfig {
 
 	@Bean
 	public Object doFile() {
-		String template = ProjectUtils.getJavaSourceFileTemplate();
-		PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-		String source = pph.replacePlaceholders(template, mavenProperties);
-		String filename = getFilename(mavenProperties);
-		File outputFile = new File(filename);
 		try {
+			String template = ProjectUtils.getJavaSourceFileTemplate();
+			String encoding = mavenProperties.getProperty("project.encoding");
+			String artifactId = mavenProperties.getProperty("project.artifactId");
+			String classname = getJavaClassName(artifactId);
+			String scmUrl = mavenProperties.getProperty("project.scm.developerConnection");
+			ScmServiceFactoryBean ssfb = new ScmServiceFactoryBean();
+			ssfb.setUrl(scmUrl);
+			ScmService service = ssfb.getObject();
+			mavenProperties.setProperty("project.artifactId.classname", classname);
+			PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+			String source = pph.replacePlaceholders(template, mavenProperties);
+			String filename = getFilename(mavenProperties);
+			File outputFile = new File(filename);
+			boolean existing = LocationUtils.exists(outputFile);
+			boolean identical = existingIsIdentical(outputFile, source, encoding);
+			if (identical) {
+				return null;
+			}
+			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(outputFile));
 			FileUtils.write(outputFile, source);
-		} catch (IOException e) {
+			if (!existing) {
+				service.add(Arrays.asList(outputFile));
+			}
+			service.commit(Arrays.asList(outputFile), "Automatically generated java source code - Maven GAV");
+		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 		return null;
+	}
+
+	protected boolean existingIsIdentical(File file, String newContent, String encoding) {
+		if (!LocationUtils.exists(file)) {
+			return false;
+		}
+		String cpath = LocationUtils.getCanonicalPath(file);
+		String oldContent = LocationUtils.toString(cpath, encoding);
+		return StringUtils.equals(newContent, oldContent);
 	}
 
 	protected String getFilename(Properties p) {
