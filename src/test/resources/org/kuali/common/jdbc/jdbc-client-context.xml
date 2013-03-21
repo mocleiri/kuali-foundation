@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <!--
-    Load Spring context files containing ProjectPropertiesContext objects.
+    Load Spring context files containing ProjectProperties objects.
     Scan them (in order) for any beans of type ProjectProperties.
     Load any properties files they point to (in order) using a strategy of "last one in wins"
     The combined properties are then used to setup a Spring PropertySource that handles ALL placeholder resolution
