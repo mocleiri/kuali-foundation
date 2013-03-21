@@ -38,6 +38,17 @@
         <value>classpath:org/kuali/common/jdbc/user-specific-properties.xml</value>
       </util:list>
     </property>
+    <property name="comparator">
+      <bean class="org.kuali.common.util.property.ProjectPropertiesComparator">
+        <property name="order">
+          <util:list>
+            <value>org.kuali.common:kuali-jdbc</value>
+            <value>org.kuali.common:kuali-util:userapp</value>
+            <value>org.kuali.common:kuali-util:userjdbc</value>
+          </util:list>
+        </property>
+      </bean>
+    </property>
   </bean>
 
 </beans>
