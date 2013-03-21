@@ -31,14 +31,8 @@ public class GetListFromCSVFactoryBean implements FactoryBean<List<String>> {
 
 	@Override
 	public Class<?> getObjectType() {
-		return null;
+		return List.class;
 	}
-
-	// TODO Fix getObjectType() with something along these lines, but without introducing compiler warnings
-	// @Override
-	// public Class<List> getObjectType() {
-	// return List.class;
-	// }
 
 	@Override
 	public boolean isSingleton() {
