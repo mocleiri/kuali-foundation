@@ -25,10 +25,10 @@ public class ProjectPropertiesComparator implements Comparator<ProjectProperties
 		Integer index2 = order.indexOf(id2);
 
 		if (index1 == -1) {
-			throw new IllegalStateException("Could not provide ordering for " + id1);
+			throw new IllegalStateException("Could not find an index for " + id1);
 		}
 		if (index1 == -2) {
-			throw new IllegalStateException("Could not provide ordering for " + id2);
+			throw new IllegalStateException("Could not find an index for " + id2);
 		}
 
 		return index1.compareTo(index2);
