@@ -47,6 +47,7 @@
     <impex.version>2.0.0-SNAPSHOT</impex.version>
     <spring.properties.context.file>**/${project.artifactId}-pro*-context.xml</spring.properties.context.file>
     <project.groupId.path>org/kuali/common</project.groupId.path>
+    <project.gav.skip>true</project.gav.skip>
   </properties>
   <developers>
     <developer>
