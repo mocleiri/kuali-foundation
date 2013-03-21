@@ -50,8 +50,8 @@
     </property>
     <property name="locations">
       <util:list>
-        <value>classpath:org/kuali/common/util/print-message-context.xml</value>
         <value>classpath:org/kuali/common/util/resolve-placeholders-context.xml</value>
+        <value>classpath:org/kuali/common/util/print-message-context.xml</value>
       </util:list>
     </property>
   </bean>
