@@ -27,7 +27,7 @@
     Load Spring context files containing ProjectPropertiesContext objects.
     Scan them (in order) for any beans of type ProjectProperties.
     Load any properties files they point to (in order) using a strategy of "last one in wins"
-    The combined properties are then used to setup a Spring PropertySource object that can auto-resolve placeholders
+    The combined properties are then used to setup a Spring PropertySource that handles ALL placeholder resolution
   -->
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
     <property name="locations">
