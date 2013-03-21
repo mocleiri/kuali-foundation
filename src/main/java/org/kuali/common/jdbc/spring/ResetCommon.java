@@ -3,6 +3,7 @@ package org.kuali.common.jdbc.spring;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.kuali.common.KualiJdbcGAV;
 import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcService;
@@ -24,7 +25,7 @@ public class ResetCommon {
 
 	@Bean
 	public Project project() {
-		return ProjectUtils.getProject("${project.groupId}:${project.artifactId}");
+		return ProjectUtils.loadProject(KualiJdbcGAV.GROUP_ID + ":" + KualiJdbcGAV.ARTIFACT_ID);
 	}
 
 	@Bean
