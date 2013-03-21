@@ -20,13 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.slf4j.Logger;
@@ -64,26 +59,6 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 		String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 		logger.info("Loaded {} properties.  Total time: {}", properties.size(), elapsed);
 		return properties;
-	}
-
-	protected List<String> getLocations(List<String> locations, List<String> gavs) {
-		List<String> locs = new ArrayList<String>();
-		locs.addAll(CollectionUtils.toEmptyList(locations));
-		locs.addAll(getLocationsFromGavs(CollectionUtils.toEmptyList(gavs)));
-		return locs;
-	}
-
-	protected List<String> getLocationsFromGavs(List<String> gavs) {
-		List<String> locations = new ArrayList<String>();
-		for (String gav : gavs) {
-			Project p = ProjectUtils.getProject(gav);
-			String location = "classpath:" + Str.getPath(p.getGroupId()) + "/" + p.getArtifactId() + "-properties-context.xml";
-			if (!LocationUtils.exists(location)) {
-				throw new IllegalStateException("[" + location + "] does not exist");
-			}
-			locations.add(location);
-		}
-		return locations;
 	}
 
 	@Override
