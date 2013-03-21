@@ -189,13 +189,13 @@
   </dependencies>
   <profiles>
     <profile>
-      <!-- "mvn validate -Pgav" generates and commits KualiJdbcGAV.java -->
+      <!-- "mvn generate-sources -Pgav" generates KualiJdbcGAV.java, but does not commit it -->
       <id>gav</id>
       <properties>
         <project.gav.phase>generate-sources</project.gav.phase>
         <project.gav.validate>false</project.gav.validate>
         <project.gav.update>true</project.gav.update>
-        <project.gav.commit>true</project.gav.commit>
+        <project.gav.commit>false</project.gav.commit>
       </properties>
     </profile>
     <profile>
