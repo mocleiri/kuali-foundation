@@ -42,7 +42,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	public Properties getObject() throws Exception {
 		long start = System.currentTimeMillis();
 		Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(locations, ProjectProperties.class);
-		logger.info("Located {} property contexts", beans.size());
+		logger.info("Located {} sets of project properties", beans.size());
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
 		for (ProjectProperties bean : beans.values()) {
 			list.add(bean);
