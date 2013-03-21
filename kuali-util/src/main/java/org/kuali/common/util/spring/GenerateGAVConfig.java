@@ -1,6 +1,7 @@
 package org.kuali.common.util.spring;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -32,52 +33,71 @@ public class GenerateGAVConfig {
 
 	@Bean
 	public Object doGAV() {
-		try {
-			boolean skip = SpringUtils.isTrue(env, "project.gav.skip");
-			boolean commit = SpringUtils.isTrue(env, "project.gav.commit");
-			boolean validateOnly = !commit;
-			if (skip) {
-				logger.info("Skipping GAV check");
+		// Skip everything
+		boolean skip = SpringUtils.isTrue(env, "project.gav.skip");
+		// Validate only, don't create the file or commit it
+		boolean validate = SpringUtils.isTrue(env, "project.gav.validate");
+		// Create (or update) the file
+		boolean update = SpringUtils.isTrue(env, "project.gav.update");
+		// Commit the file to SCM
+		boolean commit = SpringUtils.isTrue(env, "project.gav.commit");
+		if (skip) {
+			logger.info("Skipping GAV check");
+			return null;
+		}
+		String template = ProjectUtils.getJavaSourceFileTemplate();
+		String filename = getFilename(env);
+		File outputFile = new File(filename);
+		String encoding = SpringUtils.getProperty(env, "project.encoding");
+		Properties p = getPlaceholderProperties(env);
+		PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		String sourceCode = pph.replacePlaceholders(template, p);
+		boolean existing = LocationUtils.exists(outputFile);
+		boolean identical = existingIsIdentical(outputFile, sourceCode, encoding);
+		if (validate) {
+			if (identical) {
+				logger.info("Verified GAV - [{}]", LocationUtils.getCanonicalPath(outputFile));
+				return null;
+			} else {
+				throw new IllegalStateException("GAV information is out of sync [" + LocationUtils.getCanonicalPath(outputFile) + "]");
+			}
+		}
+		if (update) {
+			String action = existing ? "Updating" : "Creating";
+			logger.info("{} [{}]", action, LocationUtils.getCanonicalPath(outputFile));
+			write(outputFile, sourceCode);
+		}
+		if (commit) {
+			if (identical) {
 				return null;
 			}
-			String template = ProjectUtils.getJavaSourceFileTemplate();
-			String filename = getFilename(env);
-			File outputFile = new File(filename);
-			String encoding = SpringUtils.getProperty(env, "project.encoding");
-			Properties p = getPlaceholderProperties(env);
-			PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-			String source = pph.replacePlaceholders(template, p);
-			boolean existing = LocationUtils.exists(outputFile);
-			boolean identical = existingIsIdentical(outputFile, source, encoding);
-			if (validateOnly) {
-				if (identical) {
-					logger.info("Verified GAV - [{}]", LocationUtils.getCanonicalPath(outputFile));
-					return null;
-				} else {
-					throw new IllegalStateException("GAV information is out of sync [" + LocationUtils.getCanonicalPath(outputFile) + "]");
-				}
+			ScmService service = getScmService(env);
+			if (!existing) {
+				service.add(Arrays.asList(outputFile));
 			}
-			if (commit) {
-				String scmUrl = SpringUtils.getProperty(env, "project.scm.developerConnection");
-				ScmServiceFactoryBean ssfb = new ScmServiceFactoryBean();
-				ssfb.setUrl(scmUrl);
-				ScmService service = ssfb.getObject();
-				if (identical) {
-					return null;
-				}
-				String action = existing ? "Updating" : "Creating";
-				logger.info("{} [{}]", action, LocationUtils.getCanonicalPath(outputFile));
-				FileUtils.write(outputFile, source);
-				if (!existing) {
-					service.add(Arrays.asList(outputFile));
-				}
-				logger.info("Committing [{}]", LocationUtils.getCanonicalPath(outputFile));
-				service.commit(Arrays.asList(outputFile), "Automatically generated java source code - Maven GAV");
-			}
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
+			logger.info("Committing [{}]", LocationUtils.getCanonicalPath(outputFile));
+			service.commit(Arrays.asList(outputFile), "Automatically generated java source code - Maven GAV");
 		}
 		return null;
+	}
+
+	protected ScmService getScmService(Environment env) {
+		String scmUrl = SpringUtils.getProperty(env, "project.scm.developerConnection");
+		ScmServiceFactoryBean ssfb = new ScmServiceFactoryBean();
+		ssfb.setUrl(scmUrl);
+		try {
+			return ssfb.getObject();
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	protected void write(File file, String content) {
+		try {
+			FileUtils.write(file, content);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	protected boolean isSkip(Environment env) {
