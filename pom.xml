@@ -189,7 +189,7 @@
   </dependencies>
   <profiles>
     <profile>
-      <!-- mvn validate -Pgav generates KualiJdbcGAV.java -->
+      <!-- "mvn validate -Pgav" generates KualiJdbcGAV.java -->
       <id>gav</id>
       <properties>
         <project.gav.phase>validate</project.gav.phase>
