@@ -36,9 +36,7 @@
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
     <property name="locations">
       <util:list>
-        <bean class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean">
-          <property name="gav" ref="kualiJdbcGav" />
-        </bean>
+        <bean class="org.kuali.common.util.spring.PropertyContextLocationFactoryBean" p:gav-ref="kualiJdbcGav" />
         <value>classpath:org/kuali/common/jdbc/user-specific-properties.xml</value>
       </util:list>
     </property>
@@ -49,7 +47,6 @@
             <ref bean="kualiJdbcGav" />
             <value>org.kuali.common:kuali-util:userapp</value>
             <value>org.kuali.common:kuali-util:userjdbc</value>
-            <value>org.kuali.common:kuali-jdbc</value>
           </util:list>
         </property>
       </bean>
