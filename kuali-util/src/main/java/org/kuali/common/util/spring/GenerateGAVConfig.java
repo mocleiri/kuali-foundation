@@ -72,8 +72,9 @@ public class GenerateGAVConfig {
 		String skip = env.getProperty("project.gav.skip");
 		if (StringUtils.isBlank(skip)) {
 			return false;
+		} else {
+			return new Boolean(skip);
 		}
-		return new Boolean(skip);
 	}
 
 	protected Properties getPlaceholderProperties(Environment env, String classname) {
