@@ -13,7 +13,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -31,6 +34,12 @@ import org.springframework.core.env.PropertySource;
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
+
+	public static String getDefaultPropertyContextLocation(String gav) {
+		Assert.hasText(gav, "gav has no text");
+		Project p = ProjectUtils.getProject(gav);
+		return "classpath:" + Str.getPath(p.getGroupId()) + "/" + p.getArtifactId() + "-properties-context.xml";
+	}
 
 	/**
 	 * Make sure all of the locations actually exist
