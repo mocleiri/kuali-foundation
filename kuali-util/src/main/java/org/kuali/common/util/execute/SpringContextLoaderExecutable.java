@@ -15,17 +15,27 @@
  */
 package org.kuali.common.util.execute;
 
+import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SpringContextLoaderExecutable implements Executable {
 
+	private static final Logger logger = LoggerFactory.getLogger(SpringContextLoaderExecutable.class);
+
+	SpringService service = new DefaultSpringService();
 	SpringContext context;
-	SpringService service;
+	boolean skip;
 
 	@Override
 	public void execute() {
-		service.load(context);
+		if (skip) {
+			logger.info("Skipping execution");
+		} else {
+			service.load(context);
+		}
 	}
 
 	public SpringService getService() {
@@ -42,5 +52,13 @@ public class SpringContextLoaderExecutable implements Executable {
 
 	public void setContext(SpringContext context) {
 		this.context = context;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 }
