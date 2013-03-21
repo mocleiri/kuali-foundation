@@ -29,11 +29,15 @@
     Those beans are then sorted, and the properties files they point to are loaded in the proper order.
     The combined properties are then used to setup a Spring PropertySource object that can auto-resolve placeholders
   -->
+  <bean id="kualiJdbcGav" class="java.lang.String">
+    <constructor-arg value="org.kuali.common:kuali-jdbc" />
+  </bean>
+
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
     <property name="locations">
       <util:list>
         <bean class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean">
-          <property name="gav" value="org.kuali.common:kuali-jdbc" />
+          <property name="gav" ref="kualiJdbcGav" />
         </bean>
         <value>classpath:org/kuali/common/jdbc/user-specific-properties.xml</value>
       </util:list>
@@ -42,9 +46,10 @@
       <bean class="org.kuali.common.util.property.ProjectPropertiesComparator">
         <property name="order">
           <util:list>
-            <value>org.kuali.common:kuali-jdbc</value>
+            <ref bean="kualiJdbcGav" />
             <value>org.kuali.common:kuali-util:userapp</value>
             <value>org.kuali.common:kuali-util:userjdbc</value>
+            <value>org.kuali.common:kuali-jdbc</value>
           </util:list>
         </property>
       </bean>
