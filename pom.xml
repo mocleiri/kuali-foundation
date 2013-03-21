@@ -45,7 +45,7 @@
     <!-- These are only used for testing -->
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
-    <spring.properties.context.file>org/kuali/common/${project.artifactId}-properties-context.xml</spring.properties.context.file>
+    <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
   </properties>
   <developers>
     <developer>
