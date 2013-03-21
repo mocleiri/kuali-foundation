@@ -51,7 +51,8 @@ public class GenerateProjectSourceFileConfig {
 			if (identical) {
 				return null;
 			}
-			logger.info("Creating [{}]", LocationUtils.getCanonicalPath(outputFile));
+			String action = existing ? "Updating" : "Creating";
+			logger.info("{} [{}]", action, LocationUtils.getCanonicalPath(outputFile));
 			FileUtils.write(outputFile, source);
 			if (!existing) {
 				service.add(Arrays.asList(outputFile));
