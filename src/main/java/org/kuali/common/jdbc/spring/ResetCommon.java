@@ -1,6 +1,8 @@
 package org.kuali.common.jdbc.spring;
 
+import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
+import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.SqlReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,11 @@ public class ResetCommon {
 	@Bean
 	public SqlReader sqlReader() {
 		return new DefaultSqlReader();
+	}
+
+	@Bean
+	public JdbcService jdbcService() {
+		return new DefaultJdbcService();
 	}
 
 }
