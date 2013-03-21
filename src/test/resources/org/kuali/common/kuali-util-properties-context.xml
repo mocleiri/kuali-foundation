@@ -38,6 +38,11 @@
             <value>classpath:org/kuali/common/${car.make}.properties</value>
           </list>
         </property>
+        <property name="properties">
+          <util:properties>
+            <prop key="print.message">${car.model}</prop>
+          </util:properties>
+        </property>
       </bean>
     </property>
   </bean>
