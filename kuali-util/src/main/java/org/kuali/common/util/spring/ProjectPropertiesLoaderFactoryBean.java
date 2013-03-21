@@ -16,6 +16,7 @@
 package org.kuali.common.util.spring;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -23,6 +24,7 @@ import java.util.Properties;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.property.ProjectPropertiesComparator;
 import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,16 +39,25 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	List<String> locations;
 	boolean singleton = true;
+	ProjectPropertiesComparator comparator;
 
 	@Override
 	public Properties getObject() throws Exception {
 		long start = System.currentTimeMillis();
+		// Extract any ProjectProperties beans anywhere in the context
 		Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(locations, ProjectProperties.class);
 		logger.info("Located {} sets of project properties", beans.size());
+
+		// Add them to a list
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
 		for (ProjectProperties bean : beans.values()) {
 			list.add(bean);
 		}
+
+		// Sort them so the "last one in wins"
+		Collections.sort(list, comparator);
+
+		// Cycle through the list we have adding in properties as we go
 		Properties properties = new Properties();
 		for (ProjectProperties pp : list) {
 			for (PropertiesLoaderContext ctx : pp.getLoaderContexts()) {
