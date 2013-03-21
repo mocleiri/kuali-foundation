@@ -33,8 +33,7 @@ public class GenerateGAVConfig {
 	@Bean
 	public Object doFile() {
 		try {
-			String skip = env.getProperty("project.gav.skip");
-			if (Boolean.TRUE.equals(skip)) {
+			if (isSkip(env)) {
 				return null;
 			}
 			String template = ProjectUtils.getJavaSourceFileTemplate();
@@ -67,6 +66,14 @@ public class GenerateGAVConfig {
 			throw new IllegalStateException(e);
 		}
 		return null;
+	}
+
+	protected boolean isSkip(Environment env) {
+		String skip = env.getProperty("project.gav.skip");
+		if (StringUtils.isBlank(skip)) {
+			return false;
+		}
+		return new Boolean(skip);
 	}
 
 	protected Properties getPlaceholderProperties(Environment env, String classname) {
