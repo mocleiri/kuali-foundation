@@ -41,14 +41,12 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	private static final Logger logger = LoggerFactory.getLogger(ProjectPropertiesLoaderFactoryBean.class);
 
 	List<String> locations;
-	List<String> gavs;
 	boolean singleton = true;
 
 	@Override
 	public Properties getObject() throws Exception {
 		long start = System.currentTimeMillis();
-		List<String> contextLocations = getLocations(locations, gavs);
-		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(contextLocations, ProjectPropertiesContext.class);
+		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(locations, ProjectPropertiesContext.class);
 		logger.info("Located {} property contexts", beans.size());
 		List<ProjectPropertiesContext> list = new ArrayList<ProjectPropertiesContext>();
 		for (ProjectPropertiesContext bean : beans.values()) {
@@ -108,14 +106,6 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	public void setLocations(List<String> locations) {
 		this.locations = locations;
-	}
-
-	public List<String> getGavs() {
-		return gavs;
-	}
-
-	public void setGavs(List<String> gavs) {
-		this.gavs = gavs;
 	}
 
 }
