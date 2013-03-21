@@ -21,9 +21,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 @Configuration
-public class GenerateProjectSourceFileConfig {
+public class GenerateGAVConfig {
 
-	private static final Logger logger = LoggerFactory.getLogger(GenerateProjectSourceFileConfig.class);
+	private static final Logger logger = LoggerFactory.getLogger(GenerateGAVConfig.class);
 
 	private static final String FS = File.separator;
 
