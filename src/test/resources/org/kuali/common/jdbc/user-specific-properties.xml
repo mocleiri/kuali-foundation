@@ -29,7 +29,7 @@
 
   <bean class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="kualiUtilProject" />
-    <property name="label" value="userjdbc" />
+    <property name="sequence" value="1" />
     <property name="loaderContexts">
       <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
         <property name="missingLocationsMode" value="INFORM" />
@@ -43,7 +43,7 @@
   </bean>
   <bean class="org.kuali.common.util.property.ProjectProperties">
     <property name="project" ref="kualiUtilProject" />
-    <property name="label" value="userapp" />
+    <property name="sequence" value="2" />
     <property name="loaderContexts">
       <bean class="org.kuali.common.util.property.PropertiesLoaderContext">
         <property name="missingLocationsMode" value="INFORM" />
