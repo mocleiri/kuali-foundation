@@ -52,6 +52,7 @@ public class GenerateGAVConfig {
 			if (validateOnly) {
 				if (identical) {
 					logger.info("Verified GAV - [{}]", LocationUtils.getCanonicalPath(outputFile));
+					return null;
 				} else {
 					throw new IllegalStateException("GAV information is out of sync [" + LocationUtils.getCanonicalPath(outputFile) + "]");
 				}
