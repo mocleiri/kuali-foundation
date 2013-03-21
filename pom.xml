@@ -46,7 +46,8 @@
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
     <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
-    <project.gav.phase>none</project.gav.phase>
+    <project.gav.phase>validate</project.gav.phase>
+    <project.gav.validate>true</project.gav.validate>
   </properties>
   <developers>
     <developer>
@@ -188,17 +189,21 @@
   </dependencies>
   <profiles>
     <profile>
-      <!-- "mvn validate -Pgav" generates KualiJdbcGAV.java -->
+      <!-- "mvn validate -Pgav" generates and commits KualiJdbcGAV.java -->
       <id>gav</id>
       <properties>
-        <project.gav.phase>validate</project.gav.phase>
+        <project.gav.validate>false</project.gav.validate>
+        <project.gav.update>true</project.gav.update>
+        <project.gav.commit>true</project.gav.commit>
       </properties>
     </profile>
     <profile>
       <!-- Automatically re-generate and commit KualiJdbcGAV.java during a release -->
       <id>kuali-release</id>
       <properties>
-        <project.gav.phase>validate</project.gav.phase>
+        <project.gav.validate>false</project.gav.validate>
+        <project.gav.update>true</project.gav.update>
+        <project.gav.commit>true</project.gav.commit>
       </properties>
     </profile>
   </profiles>
