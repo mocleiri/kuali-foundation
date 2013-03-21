@@ -56,7 +56,7 @@
     <property name="propertySourceContext" ref="springPropertySourceContext" />
     <property name="locations">
       <util:list>
-        <value>classpath:org/kuali/common/util/</value>
+        <value>classpath:org/kuali/common/util/print-message-context.xml</value>
       </util:list>
     </property>
   </bean>
