@@ -23,42 +23,40 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!--
-    Load Spring context files containing ProjectProperties objects.
-    Scan them (in order) for any beans of type ProjectProperties.
-    Load any properties files they point to (in order) using a strategy of "last one in wins"
-    The combined properties are then used to setup a Spring PropertySource that handles ALL placeholder resolution
-  -->
-  <bean id="springProperties" class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean">
-    <property name="locations">
-      <util:list>
-        <bean p:gav="org.kuali.common:kuali-util" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
-        <bean p:gav="org.kuali.common:kuali-jdbc" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
-      </util:list>
-    </property>
-  </bean>
-
   <bean id="springPropertySource" class="org.springframework.core.env.PropertiesPropertySource">
     <constructor-arg value="springProperties" />
-    <constructor-arg ref="springProperties" />
-  </bean>
-
-  <bean id="springPropertySourceContext" class="org.kuali.common.util.service.PropertySourceContext">
-    <property name="removeExistingSources" value="true" />
-    <property name="sources">
-      <util:list>
-        <ref bean="springPropertySource" />
-      </util:list>
-    </property>
+    <constructor-arg>
+      <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean">
+        <property name="locations">
+          <util:list>
+            <bean p:gav="org.kuali.common:kuali-util" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
+            <bean p:gav="org.kuali.common:kuali-jdbc" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
+          </util:list>
+        </property>
+      </bean>
+    </constructor-arg>
   </bean>
 
   <bean id="springContext" class="org.kuali.common.util.service.SpringContext">
-    <property name="propertySourceContext" ref="springPropertySourceContext" />
+    <property name="propertySourceContext">
+      <bean id="springPropertySourceContext" class="org.kuali.common.util.service.PropertySourceContext">
+        <property name="removeExistingSources" value="true" />
+        <property name="sources">
+          <util:list>
+            <ref bean="springPropertySource" />
+          </util:list>
+        </property>
+      </bean>
+    </property>
     <property name="locations">
       <util:list>
         <value>classpath:org/kuali/common/util/print-message-context.xml</value>
       </util:list>
     </property>
+  </bean>
+
+  <bean id="springExecutable" class="org.kuali.common.util.execute.SpringContextLoaderExecutable" init-method="execute">
+    <property name="context" ref="springContext" />
   </bean>
 
 </beans>
