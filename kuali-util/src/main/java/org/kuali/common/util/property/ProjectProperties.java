@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.kuali.common.util.Project;
 
-public class ProjectProperties {
+public class ProjectProperties implements Comparable<ProjectProperties> {
 
 	Project project;
-	String label;
+	int sequence;
 	List<PropertiesLoaderContext> loaderContexts;
+
+	@Override
+	public int compareTo(ProjectProperties other) {
+		return Double.compare(sequence, other.getSequence());
+	}
 
 	public Project getProject() {
 		return project;
@@ -26,11 +31,12 @@ public class ProjectProperties {
 		this.loaderContexts = loaderContexts;
 	}
 
-	public String getLabel() {
-		return label;
+	public int getSequence() {
+		return sequence;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
 	}
+
 }

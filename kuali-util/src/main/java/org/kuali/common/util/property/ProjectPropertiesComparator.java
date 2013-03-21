@@ -3,7 +3,6 @@ package org.kuali.common.util.property;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Project;
 import org.springframework.util.CollectionUtils;
@@ -39,10 +38,6 @@ public class ProjectPropertiesComparator implements Comparator<ProjectProperties
 		sb.append(p.getGroupId());
 		sb.append(":");
 		sb.append(p.getArtifactId());
-		if (!StringUtils.isBlank(pp.getLabel())) {
-			sb.append(":");
-			sb.append(pp.getLabel());
-		}
 		return sb.toString();
 	}
 
