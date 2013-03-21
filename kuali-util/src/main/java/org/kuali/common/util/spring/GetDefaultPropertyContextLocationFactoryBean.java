@@ -17,7 +17,7 @@ package org.kuali.common.util.spring;
 
 import org.springframework.beans.factory.FactoryBean;
 
-public class PropertyContextLocationFactoryBean implements FactoryBean<String> {
+public class GetDefaultPropertyContextLocationFactoryBean implements FactoryBean<String> {
 
 	String gav;
 	boolean singleton = true;
