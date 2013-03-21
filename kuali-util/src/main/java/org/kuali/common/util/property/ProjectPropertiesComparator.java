@@ -39,8 +39,8 @@ public class ProjectPropertiesComparator implements Comparator<ProjectProperties
 		sb.append(p.getGroupId());
 		sb.append(":");
 		sb.append(p.getArtifactId());
-		sb.append(":");
 		if (!StringUtils.isBlank(pp.getLabel())) {
+			sb.append(":");
 			sb.append(pp.getLabel());
 		}
 		return sb.toString();
