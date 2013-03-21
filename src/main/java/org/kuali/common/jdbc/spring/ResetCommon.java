@@ -39,7 +39,7 @@ public class ResetCommon {
 	}
 
 	@Bean
-	public Map<String, LocationSupplierSourceBean> defaultExtensionMappings() {
+	public Map<String, LocationSupplierSourceBean> extensionMappings() {
 		Project project = project();
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
