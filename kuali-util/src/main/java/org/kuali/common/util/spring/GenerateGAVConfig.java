@@ -31,37 +31,48 @@ public class GenerateGAVConfig {
 	Environment env;
 
 	@Bean
-	public Object doFile() {
+	public Object doGAV() {
 		try {
-			if (isSkip(env)) {
+			boolean skip = SpringUtils.isTrue(env, "project.gav.skip");
+			boolean commit = SpringUtils.isTrue(env, "project.gav.commit");
+			boolean validateOnly = !commit;
+			if (skip) {
+				logger.info("Skipping GAV check");
 				return null;
 			}
 			String template = ProjectUtils.getJavaSourceFileTemplate();
-			String encoding = SpringUtils.getProperty(env, "project.encoding");
-			String artifactId = SpringUtils.getProperty(env, "project.artifactId");
-			String classname = getJavaClassName(artifactId);
-			String scmUrl = SpringUtils.getProperty(env, "project.scm.developerConnection");
-			ScmServiceFactoryBean ssfb = new ScmServiceFactoryBean();
-			ssfb.setUrl(scmUrl);
-			ScmService service = ssfb.getObject();
-			Properties p = getPlaceholderProperties(env, classname);
-			PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-			String source = pph.replacePlaceholders(template, p);
 			String filename = getFilename(env);
 			File outputFile = new File(filename);
+			String encoding = SpringUtils.getProperty(env, "project.encoding");
+			Properties p = getPlaceholderProperties(env);
+			PropertyPlaceholderHelper pph = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+			String source = pph.replacePlaceholders(template, p);
 			boolean existing = LocationUtils.exists(outputFile);
 			boolean identical = existingIsIdentical(outputFile, source, encoding);
-			if (identical) {
-				return null;
+			if (validateOnly) {
+				if (identical) {
+					logger.info("Verified GAV - [{}]", LocationUtils.getCanonicalPath(outputFile));
+				} else {
+					throw new IllegalStateException("GAV information is out of sync [" + LocationUtils.getCanonicalPath(outputFile) + "]");
+				}
 			}
-			String action = existing ? "Updating" : "Creating";
-			logger.info("{} [{}]", action, LocationUtils.getCanonicalPath(outputFile));
-			FileUtils.write(outputFile, source);
-			if (!existing) {
-				service.add(Arrays.asList(outputFile));
+			if (commit) {
+				String scmUrl = SpringUtils.getProperty(env, "project.scm.developerConnection");
+				ScmServiceFactoryBean ssfb = new ScmServiceFactoryBean();
+				ssfb.setUrl(scmUrl);
+				ScmService service = ssfb.getObject();
+				if (identical) {
+					return null;
+				}
+				String action = existing ? "Updating" : "Creating";
+				logger.info("{} [{}]", action, LocationUtils.getCanonicalPath(outputFile));
+				FileUtils.write(outputFile, source);
+				if (!existing) {
+					service.add(Arrays.asList(outputFile));
+				}
+				logger.info("Committing [{}]", LocationUtils.getCanonicalPath(outputFile));
+				service.commit(Arrays.asList(outputFile), "Automatically generated java source code - Maven GAV");
 			}
-			logger.info("Committing [{}]", LocationUtils.getCanonicalPath(outputFile));
-			service.commit(Arrays.asList(outputFile), "Automatically generated java source code - Maven GAV");
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
@@ -69,15 +80,11 @@ public class GenerateGAVConfig {
 	}
 
 	protected boolean isSkip(Environment env) {
-		String skip = env.getProperty("project.gav.skip");
-		if (StringUtils.isBlank(skip)) {
-			return false;
-		} else {
-			return new Boolean(skip);
-		}
+		return SpringUtils.isTrue(env, "project.gav.skip");
 	}
 
-	protected Properties getPlaceholderProperties(Environment env, String classname) {
+	protected Properties getPlaceholderProperties(Environment env) {
+		String classname = getJavaClassName(SpringUtils.getProperty(env, "project.artifactId"));
 		List<String> keys = Arrays.asList("project.groupId", "project.artifactId", "project.version");
 		Properties p = new Properties();
 		for (String key : keys) {

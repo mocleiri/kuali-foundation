@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
@@ -321,6 +322,18 @@ public class SpringUtils {
 			}
 		}
 		return properties;
+	}
+
+	/**
+	 * Return true if, and only if, <code>property</code> is set in the environment and evaluates to true.
+	 */
+	public static boolean isTrue(Environment env, String property) {
+		String value = env.getProperty(property);
+		if (StringUtils.isBlank(value)) {
+			return false;
+		} else {
+			return new Boolean(value);
+		}
 	}
 
 }
