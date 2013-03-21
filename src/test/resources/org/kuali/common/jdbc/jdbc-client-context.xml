@@ -32,8 +32,8 @@
   <bean class="org.kuali.common.util.spring.ProjectPropertiesLoaderFactoryBean" init-method="getObject">
     <property name="locations">
       <util:list>
+        <bean p:gav="org.kuali.common:kuali-util" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
         <bean p:gav="org.kuali.common:kuali-jdbc" class="org.kuali.common.util.spring.GetDefaultPropertyContextLocationFactoryBean" />
-        <value>classpath:org/kuali/common/jdbc/some-random-properties-context.xml</value>
       </util:list>
     </property>
   </bean>
