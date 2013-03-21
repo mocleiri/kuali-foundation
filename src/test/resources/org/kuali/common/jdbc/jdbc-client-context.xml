@@ -44,10 +44,19 @@
   </bean>
 
   <bean id="springPropertySourceContext" class="org.kuali.common.util.service.PropertySourceContext">
-    <property name="removeExistingSourcest" value="true" />
+    <property name="removeExistingSources" value="true" />
     <property name="sources">
       <util:list>
         <ref bean="springPropertySource" />
+      </util:list>
+    </property>
+  </bean>
+
+  <bean id="springContext" class="org.kuali.common.util.service.SpringContext">
+    <property name="propertySourceContext" ref="springPropertySourceContext" />
+    <property name="locations">
+      <util:list>
+        <value>classpath:org/kuali/common/util/</value>
       </util:list>
     </property>
   </bean>
