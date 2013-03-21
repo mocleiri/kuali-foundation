@@ -189,12 +189,14 @@
   </dependencies>
   <profiles>
     <profile>
+      <!-- mvn validate -Pgav generates KualiJdbcGAV.java -->
       <id>gav</id>
       <properties>
         <project.gav.phase>validate</project.gav.phase>
       </properties>
     </profile>
     <profile>
+      <!-- Automatically re-generate and commit KualiJdbcGAV.java during a release -->
       <id>kuali-release</id>
       <properties>
         <project.gav.phase>validate</project.gav.phase>
