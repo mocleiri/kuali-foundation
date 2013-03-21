@@ -71,7 +71,7 @@ public class PropertyUtils {
 			Properties resolverProperties = PropertyUtils.combine(context.getProperties(), result, global);
 			String resolvedLocation = context.getHelper().replacePlaceholders(location, resolverProperties);
 			if (LocationUtils.exists(resolvedLocation)) {
-				Properties properties = PropertyUtils.load(location, context.getEncoding());
+				Properties properties = PropertyUtils.load(resolvedLocation, context.getEncoding());
 				result.putAll(properties);
 			} else {
 				ModeUtils.validate(context.getMissingLocationsMode(), "Skipping non-existent location [" + resolvedLocation + "]");
