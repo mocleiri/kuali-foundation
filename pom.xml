@@ -200,6 +200,7 @@
             </goals>
             <configuration>
               <annotatedClass>org.kuali.common.util.spring.GenerateProjectSourceFileConfig</annotatedClass>
+              <injectMavenProperties>false</injectMavenProperties>
             </configuration>
           </execution>
         </executions>
