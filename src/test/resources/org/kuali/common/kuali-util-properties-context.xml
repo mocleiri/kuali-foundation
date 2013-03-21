@@ -34,7 +34,8 @@
         <property name="encoding" value="#{kualiUtilProject.encoding}" />
         <property name="locations">
           <list>
-            <value>classpath:org/kuali/common/jdbc/jdbc.properties</value>
+            <value>classpath:org/kuali/common/car.properties</value>
+            <value>classpath:org/kuali/common/${car.model}.properties</value>
           </list>
         </property>
       </bean>
