@@ -45,7 +45,8 @@
     <!-- These are only used for testing -->
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
-    <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
+    <spring.properties.context.file>**/${project.artifactId}-pro*-context.xml</spring.properties.context.file>
+    <project.groupId.path>org/kuali/common</project.groupId.path>
   </properties>
   <developers>
     <developer>
@@ -186,6 +187,31 @@
     -->
   </dependencies>
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.kuali.maven.plugins</groupId>
+        <artifactId>spring-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-gav-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>load</goal>
+            </goals>
+            <configuration>
+              <annotatedClass>org.kuali.common.util.spring.GenerateProjectSourceFileConfig</annotatedClass>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-util</artifactId>
+            <version>4.1.4-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
