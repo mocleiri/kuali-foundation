@@ -62,7 +62,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 			}
 		}
 		String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
-		logger.info("Located {} properties.  Total time: {}", properties.size(), elapsed);
+		logger.info("Loaded {} properties.  Total time: {}", properties.size(), elapsed);
 		return properties;
 	}
 
