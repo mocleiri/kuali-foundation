@@ -46,24 +46,25 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	@Override
 	public Properties getObject() throws Exception {
 		Assert.isFalse(CollectionUtils.isEmpty(locations), "locations is empty");
-		Assert.notNull(comparator, "comparator is null");
 		long start = System.currentTimeMillis();
+		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		// Extract any ProjectProperties beans anywhere in the context
-		Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(locations, ProjectProperties.class);
-		logger.info("Located {} sets of project properties", beans.size());
+		for (String location : locations) {
+			Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(location, ProjectProperties.class);
+			logger.info("Located {} sets of project properties", beans.size());
 
-		// Add them to a list
-		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-		for (ProjectProperties bean : beans.values()) {
-			list.add(bean);
+			List<ProjectProperties> list = new ArrayList<ProjectProperties>();
+			// Add them to a list
+			for (ProjectProperties bean : beans.values()) {
+				list.add(bean);
+			}
+			Collections.sort(list);
+			pps.addAll(list);
 		}
-
-		// Sort them so the "last one in wins"
-		Collections.sort(list, comparator);
 
 		// Cycle through the list we have adding in properties as we go
 		Properties properties = new Properties();
-		for (ProjectProperties pp : list) {
+		for (ProjectProperties pp : pps) {
 			for (PropertiesLoaderContext ctx : pp.getLoaderContexts()) {
 				Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
 				ctx.setProperties(combined);
