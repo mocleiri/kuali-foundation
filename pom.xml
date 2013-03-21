@@ -45,8 +45,7 @@
     <!-- These are only used for testing -->
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
-    <spring.properties.context.file>**/${project.artifactId}-pro*-context.xml</spring.properties.context.file>
-    <project.groupId.path>org/kuali/common</project.groupId.path>
+    <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
     <project.gav.phase>none</project.gav.phase>
   </properties>
   <developers>
