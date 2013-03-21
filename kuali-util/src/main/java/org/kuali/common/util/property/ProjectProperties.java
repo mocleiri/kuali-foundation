@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.util.Project;
 
-public class ProjectPropertiesContext {
+public class ProjectProperties {
 
 	Project project;
 	List<PropertiesLoaderContext> loaderContexts;

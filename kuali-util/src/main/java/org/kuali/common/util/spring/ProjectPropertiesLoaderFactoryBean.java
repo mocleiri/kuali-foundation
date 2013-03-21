@@ -27,7 +27,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.property.ProjectPropertiesContext;
+import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,14 +46,14 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	@Override
 	public Properties getObject() throws Exception {
 		long start = System.currentTimeMillis();
-		Map<String, ProjectPropertiesContext> beans = SpringUtils.getAllBeans(locations, ProjectPropertiesContext.class);
+		Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(locations, ProjectProperties.class);
 		logger.info("Located {} property contexts", beans.size());
-		List<ProjectPropertiesContext> list = new ArrayList<ProjectPropertiesContext>();
-		for (ProjectPropertiesContext bean : beans.values()) {
+		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
+		for (ProjectProperties bean : beans.values()) {
 			list.add(bean);
 		}
 		Properties properties = new Properties();
-		for (ProjectPropertiesContext ppc : list) {
+		for (ProjectProperties ppc : list) {
 			for (PropertiesLoaderContext ctx : ppc.getLoaderContexts()) {
 				Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
 				ctx.setProperties(combined);
