@@ -139,6 +139,21 @@ public class ProjectUtils {
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
 	}
 
+	public static String getJavaSourceFileTemplate() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("		package ${project.groupId.path}\n");
+		sb.append("\n");
+		sb.append("		public abstract class ${project.artifactId.classname} {\n");
+		sb.append("\n");
+		sb.append("			public static final String GROUP_ID = \"${project.groupId}\";\n");
+		sb.append("			public static final String ARTIFACT_ID = \"${project.artifactId}\";\n");
+		sb.append("			public static final String VERSION = \"${project.version}\";\n");
+		sb.append("\n");
+		sb.append("		}\n");
+		sb.append("\n");
+		return sb.toString();
+	}
+
 	@SuppressWarnings("unchecked")
 	protected static Map<String, Object> describe(Object bean) {
 		try {
