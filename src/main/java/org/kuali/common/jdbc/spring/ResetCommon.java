@@ -24,7 +24,7 @@ public class ResetCommon {
 
 	@Bean
 	public Project project() {
-		return ProjectUtils.getProject("org.kuali.common:kuali-jdbc");
+		return ProjectUtils.getProject("${project.groupId}:${project.artifactId}");
 	}
 
 	@Bean
