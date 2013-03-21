@@ -94,4 +94,12 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 		this.locations = locations;
 	}
 
+	public ProjectPropertiesComparator getComparator() {
+		return comparator;
+	}
+
+	public void setComparator(ProjectPropertiesComparator comparator) {
+		this.comparator = comparator;
+	}
+
 }
