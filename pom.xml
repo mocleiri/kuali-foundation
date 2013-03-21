@@ -37,7 +37,7 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <kuali-threads.version>1.0.9</kuali-threads.version>
-    <spring.properties.context.file>org/kuali/common/${project.artifactId}-properties-context.xml</spring.properties.context.file>
+    <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
   </properties>
   <developers>
     <developer>
