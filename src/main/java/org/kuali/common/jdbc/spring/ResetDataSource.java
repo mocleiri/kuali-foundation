@@ -78,15 +78,14 @@ public class ResetDataSource {
 
 	@Bean
 	public Executable jdbcShowConfigExecutable() {
-		String skipValue = SpringUtils.getProperty(env, "jdbc.showconfig.skip", "false");
-
-		Boolean skip = new Boolean(skipValue);
+		// Don't skip unless they have specifically set this property to true
+		String skip = SpringUtils.getProperty(env, "jdbc.showconfig.skip", "false");
 
 		ShowConfigExecutable sce = new ShowConfigExecutable();
 		sce.setService(resetCommon.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
 		sce.setDataSource(jdbcDbaDataSource());
-		sce.setSkip(skip);
+		sce.setSkip(new Boolean(skip));
 		return sce;
 	}
 }
