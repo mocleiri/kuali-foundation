@@ -16,43 +16,42 @@
   limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/util
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <util:properties id="properties">
-        <prop key="sqlListKey">sql.1,sql.2</prop>
-        <prop key="sql.1">classpath:org/kuali/common/jdbc/test1.sql</prop>
-        <prop key="sql.2">classpath:org/kuali/common/jdbc/test2.sql</prop>
-    </util:properties>
+  <util:properties id="properties">
+    <prop key="sqlListKey">sql.1,sql.2</prop>
+    <prop key="sql.1">classpath:org/kuali/common/jdbc/test1.sql</prop>
+    <prop key="sql.2">classpath:org/kuali/common/jdbc/test2.sql</prop>
+  </util:properties>
 
-    <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
-    <bean id="service" class="org.kuali.common.jdbc.DefaultJdbcService" />
+  <bean id="sqlReader" class="org.kuali.common.jdbc.DefaultSqlReader" />
+  <bean id="service" class="org.kuali.common.jdbc.DefaultJdbcService" />
 
-    <util:map id="extensionMappings">
-        <entry key="sql">
-            <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
-                <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
-                <property name="supplierInstance">
-                    <bean class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
-                        <property name="reader" ref="sqlReader" />
-                        <property name="encoding" value="UTF-8" />
-                    </bean>
-                </property>
-            </bean>
-        </entry>
-    </util:map>
+  <util:map id="extensionMappings">
+    <entry key="sql">
+      <bean id="jdbc.sqlLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
+        <property name="supplierClass" value="org.kuali.common.jdbc.supplier.SqlLocationSupplier" />
+        <property name="supplierInstance">
+          <bean class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
+            <property name="reader" ref="sqlReader" />
+            <property name="encoding" value="UTF-8" />
+          </bean>
+        </property>
+      </bean>
+    </entry>
+  </util:map>
 
-    <bean id="locationSuppliersFactory" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
-        <property name="property" value="sqlListKey" />
-        <property name="properties" ref="properties" />
-        <property name="extensionMappings" ref="extensionMappings" />
-    </bean>
+  <bean id="locationSuppliersFactory" class="org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean">
+    <property name="property" value="sqlListKey" />
+    <property name="properties" ref="properties" />
+    <property name="extensionMappings" ref="extensionMappings" />
+  </bean>
 
-    <bean class="org.kuali.common.jdbc.supplier.SqlExtensionSupplierBuilder"/>
+  <bean class="org.kuali.common.jdbc.supplier.SqlExtensionSupplierBuilder" />
 
 </beans>
