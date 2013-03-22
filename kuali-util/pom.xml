@@ -61,7 +61,6 @@
       <id>kuali-release</id>
       <properties>
         <project.gav.phase>validate</project.gav.phase>
-        <project.gav.validate>false</project.gav.validate>
         <project.gav.update>true</project.gav.update>
         <project.gav.commit>true</project.gav.commit>
       </properties>
