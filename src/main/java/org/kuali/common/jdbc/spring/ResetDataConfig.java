@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
+@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class, ResetListenerConfig.class })
 public class ResetDataConfig {
 
 	@Autowired
@@ -29,6 +29,9 @@ public class ResetDataConfig {
 
 	@Autowired
 	JdbcCommonConfig commonConfig;
+
+	@Autowired
+	ResetListenerConfig listenerConfig;
 
 	@Autowired
 	JdbcDbaConfig dbaConfig;
@@ -62,7 +65,7 @@ public class ResetDataConfig {
 		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
-		ctx.setListener(getConcurrentListener());
+		ctx.setListener(listenerConfig.jdbcSummaryAndProgressListener());
 		return ctx;
 	}
 
