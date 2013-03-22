@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.5-SNAPSHOT</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-util</artifactId>
@@ -46,6 +46,7 @@
     <beanutils.version>1.8.3</beanutils.version>
     <jsch.version>0.1.49</jsch.version>
     <plexus-utils.version>3.0.10</plexus-utils.version>
+    <project.gav.phase>validate</project.gav.phase>
   </properties>
   <developers>
     <developer>
@@ -56,6 +57,28 @@
       <email>jcaddel@kuali.org</email>
     </developer>
   </developers>
+  <profiles>
+    <profile>
+      <!-- "mvn generate-sources -Pgav" generates KualiJdbcGAV.java, but does not commit it -->
+      <id>gav</id>
+      <properties>
+        <project.gav.phase>generate-sources</project.gav.phase>
+        <project.gav.validate>false</project.gav.validate>
+        <project.gav.update>true</project.gav.update>
+        <project.gav.commit>false</project.gav.commit>
+      </properties>
+    </profile>
+    <profile>
+      <!-- Automatically generate/update/commit KualiJdbcGAV.java during a release -->
+      <id>kuali-release</id>
+      <properties>
+        <project.gav.phase>generate-sources</project.gav.phase>
+        <project.gav.validate>false</project.gav.validate>
+        <project.gav.update>true</project.gav.update>
+        <project.gav.commit>true</project.gav.commit>
+      </properties>
+    </profile>
+  </profiles>
   <build>
     <resources>
       <resource>
