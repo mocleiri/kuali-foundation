@@ -40,11 +40,11 @@ public class ResetDataConfig {
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
 		exec.setService(commonConfig.jdbcService());
-		exec.setContext(getJdbcContext());
+		exec.setContext(getConcurrentJdbcContext());
 		return exec;
 	}
 
-	protected JdbcContext getJdbcContext() {
+	protected JdbcContext getConcurrentJdbcContext() {
 		String skip = SpringUtils.getProperty(env, "sql.data.skip", "false");
 		String threads = SpringUtils.getProperty(env, "sql.threads");
 		String message = SpringUtils.getProperty(env, "sql.data.concurrent.message");
@@ -59,11 +59,11 @@ public class ResetDataConfig {
 		ctx.setSkip(new Boolean(skip));
 		ctx.setDataSource(dataSource);
 		ctx.setSuppliers(suppliers);
-		ctx.setListener(getListener());
+		ctx.setListener(getConcurrentListener());
 		return ctx;
 	}
 
-	protected SqlListener getListener() {
+	protected SqlListener getConcurrentListener() {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());
 		listeners.add(new DataSummaryListener());
