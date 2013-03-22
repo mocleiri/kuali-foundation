@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.7</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jdbc</artifactId>
@@ -46,8 +46,7 @@
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
     <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
-    <project.gav.phase>validate</project.gav.phase>
-    <project.gav.validate>true</project.gav.validate>
+    <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
   </properties>
   <developers>
     <developer>
@@ -189,21 +188,14 @@
   </dependencies>
   <profiles>
     <profile>
-      <!-- "mvn generate-sources -Pgav" generates KualiJdbcGAV.java, but does not commit it -->
-      <id>gav</id>
-      <properties>
-        <project.gav.phase>generate-sources</project.gav.phase>
-        <project.gav.validate>false</project.gav.validate>
-        <project.gav.update>true</project.gav.update>
-        <project.gav.commit>false</project.gav.commit>
-      </properties>
-    </profile>
-    <profile>
-      <!-- Automatically generate/update/commit KualiJdbcGAV.java during a release -->
       <id>kuali-release</id>
+      <!--
+        For this to work right you also have to:
+        1 - Add "-Pkuali-release" to the ${kuali.release.arguments} pom property AND
+        2 - Add "mvn validate -Pkuali-release" as an extra build step immediately after "mvn release:prepare release:perform -N"
+      -->
       <properties>
-        <project.gav.phase>generate-sources</project.gav.phase>
-        <project.gav.validate>false</project.gav.validate>
+        <project.gav.phase>validate</project.gav.phase>
         <project.gav.update>true</project.gav.update>
         <project.gav.commit>true</project.gav.commit>
       </properties>
