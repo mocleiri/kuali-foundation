@@ -38,4 +38,9 @@ public class ResetListener {
 	public SqlListener jdbcSummaryAndProgressListener() {
 		return new NotifyingListener(Arrays.asList(jdbcSummaryListener(), jdbcProgressListener()));
 	}
+
+	@Bean
+	public SqlListener jdbcSummaryAndMetaDataListener() {
+		return new NotifyingListener(Arrays.asList(jdbcSummaryListener(), jdbcMetaDataSummaryListener()));
+	}
 }
