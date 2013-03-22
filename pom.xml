@@ -47,6 +47,9 @@
     <impex.version>2.0.0-SNAPSHOT</impex.version>
     <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
+
+    <!-- Remove this once kuali-common is on the same version -->
+    <kuali-util.version>4.1.9-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
@@ -83,7 +86,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>4.1.4-SNAPSHOT</version>
+      <version>${kuali-util.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -223,7 +226,7 @@
           <dependency>
             <groupId>org.kuali.common</groupId>
             <artifactId>kuali-util</artifactId>
-            <version>4.1.9-SNAPSHOT</version>
+            <version>${kuali-util.version}</version>
           </dependency>
         </dependencies>
       </plugin>
