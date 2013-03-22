@@ -16,14 +16,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ResetCommon.class, ResetDataSource.class })
+@Import({ JdbcCommon.class, ResetDataSource.class })
 public class ResetDba {
 
 	@Autowired
 	Environment env;
 
 	@Autowired
-	ResetCommon resetCommon;
+	JdbcCommon common;
 
 	@Autowired
 	ResetDataSource resetDataSource;
@@ -34,7 +34,7 @@ public class ResetDba {
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
-		exec.setService(resetCommon.jdbcService());
+		exec.setService(common.jdbcService());
 		exec.setContext(getJdbcContext());
 		return exec;
 	}
@@ -56,7 +56,7 @@ public class ResetDba {
 		String create = SpringUtils.getProperty(env, "sql.create");
 
 		ComplexStringSupplier css = new ComplexStringSupplier();
-		css.setReader(resetCommon.jdbcSqlReader());
+		css.setReader(common.jdbcSqlReader());
 		css.setStrings(Arrays.asList(validate, drop, create));
 		return css;
 	}

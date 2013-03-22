@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(JdbcProject.class)
-public class ResetCommon {
+public class JdbcCommon {
 
 	@Autowired
 	JdbcProject jdbcProject;

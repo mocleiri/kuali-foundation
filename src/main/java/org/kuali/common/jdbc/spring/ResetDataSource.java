@@ -19,14 +19,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@Import(ResetCommon.class)
+@Import(JdbcCommon.class)
 public class ResetDataSource {
 
 	@Autowired
 	Environment env;
 
 	@Autowired
-	ResetCommon resetCommon;
+	JdbcCommon common;
 
 	@Bean
 	public DatabaseProcessContext jdbcDatabaseProcessContext() {
@@ -82,7 +82,7 @@ public class ResetDataSource {
 		String skip = SpringUtils.getProperty(env, "jdbc.showconfig.skip", "false");
 
 		ShowConfigExecutable sce = new ShowConfigExecutable();
-		sce.setService(resetCommon.jdbcService());
+		sce.setService(common.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
 		sce.setDataSource(jdbcDbaDataSource());
 		sce.setSkip(new Boolean(skip));

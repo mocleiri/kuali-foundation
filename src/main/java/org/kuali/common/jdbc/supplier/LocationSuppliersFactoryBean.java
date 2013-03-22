@@ -1,8 +1,6 @@
 package org.kuali.common.jdbc.supplier;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -13,7 +11,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
@@ -24,31 +21,22 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	String property;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
 
-    @Autowired
-    Collection<LocationExtensionSupplierBuilder> builders;
-
-    @Override
+	@Override
 	public List<LocationSupplier> getObject() throws Exception {
 
 		// Make sure we are configured correctly
 		Assert.notNull(properties, "properties is null");
 		Assert.notNull(property, "property is null");
-        Assert.notNull(builders, "builders is null");
+		Assert.notNull(extensionMappings, "extensionMappings is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
 		List<String> locations = getLocations(properties, property, listSuffix);
 
-        // Map supplier builders by their extension
-        Map<String, LocationExtensionSupplierBuilder> builderMap = new HashMap<String, LocationExtensionSupplierBuilder>(builders.size());
-        for (LocationExtensionSupplierBuilder builder : builders) {
-            builderMap.put(builder.getExtension(), builder);
-        }
-
 		// Convert the locations into LocationSupplier's based on extension
-        return getSuppliers(locations, builderMap);
+		return getSuppliers(locations, extensionMappings);
 	}
 
-	protected List<LocationSupplier> getSuppliers(List<String> locations, Map<String, LocationExtensionSupplierBuilder> mappings) {
+	protected List<LocationSupplier> getSuppliers(List<String> locations, Map<String, LocationSupplierSourceBean> mappings) {
 		// Allocate some storage for our suppliers
 		List<LocationSupplier> suppliers = new ArrayList<LocationSupplier>();
 
@@ -59,15 +47,15 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 			String extension = FilenameUtils.getExtension(location);
 
 			// The map holds the concrete LocationSupplier implementation to use for each extension
-            LocationExtensionSupplierBuilder builder = mappings.get(extension);
+			LocationSupplierSourceBean sourceBean = mappings.get(extension);
 
 			// Unknown extension type
-			if (builder == null) {
+			if (sourceBean == null) {
 				throw new IllegalArgumentException("Unknown extension [" + extension + "]");
 			}
 
 			// Request a new supplier from the builder
-            LocationSupplier supplier = builder.buildSupplier(location);
+			LocationSupplier supplier = sourceBean.getSupplierInstance();
 
 			// Add it to the list
 			suppliers.add(supplier);
@@ -152,11 +140,4 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		this.property = property;
 	}
 
-    public Collection<LocationExtensionSupplierBuilder> getBuilders() {
-        return builders;
-    }
-
-    public void setBuilders(Collection<LocationExtensionSupplierBuilder> builders) {
-        this.builders = builders;
-    }
 }
