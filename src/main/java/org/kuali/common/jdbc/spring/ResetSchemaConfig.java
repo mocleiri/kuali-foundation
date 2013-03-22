@@ -27,7 +27,7 @@ public class ResetSchemaConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	ResetDataSourceConfig resetDataSourceConfig;
+	JdbcDbaConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
@@ -50,7 +50,7 @@ public class ResetSchemaConfig {
 		ctx.setThreads(new Integer(threads));
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
-		ctx.setDataSource(resetDataSourceConfig.jdbcDbaDataSource());
+		ctx.setDataSource(dbaConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(getSqlSuppliers());
 		ctx.setListener(new SummaryListener(false));
 		return ctx;
@@ -59,7 +59,7 @@ public class ResetSchemaConfig {
 	protected List<SqlSupplier> getSqlSuppliers() {
 		LocationSuppliersFactoryBean lsfb = new LocationSuppliersFactoryBean();
 		lsfb.setProperty("sql.schema.concurrent");
-		lsfb.setProperties(SpringUtils.getAllEnumerableProperties(env));
+		lsfb.setEnv(env);
 		try {
 			return new ArrayList<SqlSupplier>(lsfb.getObject());
 		} catch (Exception e) {

@@ -3,21 +3,22 @@ package org.kuali.common.jdbc.supplier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.core.env.Environment;
 
 public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
 	public static final String DEFAULT_LIST_SUFFIX = ".list";
 
 	String listSuffix = DEFAULT_LIST_SUFFIX;
-	Properties properties;
+	Environment env;
 	String property;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
 
@@ -25,12 +26,12 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	public List<LocationSupplier> getObject() throws Exception {
 
 		// Make sure we are configured correctly
-		Assert.notNull(properties, "properties is null");
+		Assert.notNull(env, "environment is null");
 		Assert.notNull(property, "property is null");
 		Assert.notNull(extensionMappings, "extensionMappings is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
-		List<String> locations = getLocations(properties, property, listSuffix);
+		List<String> locations = getLocations(env, property, listSuffix);
 
 		// Convert the locations into LocationSupplier's based on extension
 		return getSuppliers(locations, extensionMappings);
@@ -65,10 +66,10 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		return suppliers;
 	}
 
-	protected List<String> getLocations(Properties properties, String property, String listSuffix) {
+	protected List<String> getLocations(Environment env, String property, String listSuffix) {
 
 		// Extract the list of property keys (comma delimited)
-		String csv = properties.getProperty(property);
+		String csv = SpringUtils.getProperty(env, property, "");
 
 		// If no keys were provided, we are done
 		if (StringUtils.isBlank(csv)) {
@@ -83,7 +84,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		for (String key : keys) {
 
 			// This is a either a list of locations or a location itself
-			String value = properties.getProperty(key);
+			String value = SpringUtils.getProperty(env, key);
 
 			if (StringUtils.endsWithIgnoreCase(key, listSuffix)) {
 				// If the key ends with .list, it's a list of locations
@@ -116,14 +117,6 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		this.listSuffix = listSuffix;
 	}
 
-	public Properties getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Properties properties) {
-		this.properties = properties;
-	}
-
 	public Map<String, LocationSupplierSourceBean> getExtensionMappings() {
 		return extensionMappings;
 	}
@@ -138,6 +131,14 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 
 	public void setProperty(String property) {
 		this.property = property;
+	}
+
+	public Environment getEnv() {
+		return env;
+	}
+
+	public void setEnv(Environment env) {
+		this.env = env;
 	}
 
 }
