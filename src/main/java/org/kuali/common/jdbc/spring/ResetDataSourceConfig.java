@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @Import(JdbcCommonConfig.class)
-public class ResetDataSourceConfig {
+public class ResetDataSourceConfig implements JdbcDbaConfig {
 
 	@Autowired
 	Environment env;
@@ -51,6 +51,7 @@ public class ResetDataSourceConfig {
 		return ctx;
 	}
 
+	@Override
 	@Bean
 	public DataSource jdbcDataSource() {
 		DatabaseProcessContext ctx = jdbcDatabaseProcessContext();
@@ -62,6 +63,7 @@ public class ResetDataSourceConfig {
 		return dmds;
 	}
 
+	@Override
 	@Bean
 	public DataSource jdbcDbaDataSource() {
 		DatabaseProcessContext ctx = jdbcDatabaseProcessContext();

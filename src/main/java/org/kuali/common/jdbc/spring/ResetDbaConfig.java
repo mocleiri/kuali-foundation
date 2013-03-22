@@ -26,7 +26,7 @@ public class ResetDbaConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	ResetDataSourceConfig resetDataSourceConfig;
+	JdbcDbaConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcDbaExecutable() {
@@ -44,7 +44,7 @@ public class ResetDbaConfig {
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(SpringUtils.getProperty(env, "sql.dba.message"));
 		ctx.setSkip(new Boolean(skip));
-		ctx.setDataSource(resetDataSourceConfig.jdbcDbaDataSource());
+		ctx.setDataSource(dbaConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
 		ctx.setListener(new LogSqlListener());
 		return ctx;
