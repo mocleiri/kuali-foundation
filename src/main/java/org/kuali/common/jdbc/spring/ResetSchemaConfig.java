@@ -24,10 +24,10 @@ public class ResetSchemaConfig {
 	ConfigurableEnvironment env;
 
 	@Autowired
-	JdbcCommonConfig common;
+	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	ResetDataSourceConfig resetDataSource;
+	ResetDataSourceConfig resetDataSourceConfig;
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
@@ -35,7 +35,7 @@ public class ResetSchemaConfig {
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
-		exec.setService(common.jdbcService());
+		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getJdbcContext());
 		return exec;
 	}
@@ -50,7 +50,7 @@ public class ResetSchemaConfig {
 		ctx.setThreads(new Integer(threads));
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
-		ctx.setDataSource(resetDataSource.jdbcDbaDataSource());
+		ctx.setDataSource(resetDataSourceConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(getSqlSuppliers());
 		ctx.setListener(new SummaryListener(false));
 		return ctx;

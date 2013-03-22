@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import;
 public class JdbcCommonConfig {
 
 	@Autowired
-	JdbcProjectConfig jdbcProject;
+	JdbcProjectConfig projectConfig;
 
 	@Bean
 	public SqlReader jdbcSqlReader() {
@@ -34,7 +34,7 @@ public class JdbcCommonConfig {
 
 	@Bean
 	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
-		Project project = jdbcProject.jdbcProject();
+		Project project = projectConfig.jdbcProject();
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
 		sls.setReader(jdbcSqlReader());

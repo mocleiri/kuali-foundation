@@ -8,7 +8,6 @@ import org.kuali.common.jdbc.ShowConfigExecutable;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.DefaultBeanNullifier;
-import org.kuali.common.util.nullify.Nullify;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,35 +25,34 @@ public class ResetDataSourceConfig {
 	Environment env;
 
 	@Autowired
-	JdbcCommonConfig common;
+	JdbcCommonConfig commonConfig;
 
 	@Bean
 	public DatabaseProcessContext jdbcDatabaseProcessContext() {
-		DatabaseProcessContext dpc = new DatabaseProcessContext();
-		dpc.setVendor(SpringUtils.getProperty(env, "db.vendor"));
-		dpc.setDriver(SpringUtils.getProperty(env, "jdbc.driver"));
-		dpc.setUrl(SpringUtils.getProperty(env, "jdbc.url"));
-		dpc.setUsername(SpringUtils.getProperty(env, "jdbc.username"));
-		dpc.setPassword(SpringUtils.getProperty(env, "jdbc.password"));
-		dpc.setDbaUrl(SpringUtils.getProperty(env, "jdbc.dba.url"));
-		dpc.setDbaUsername(SpringUtils.getProperty(env, "jdbc.dba.username"));
-		dpc.setDbaPassword(SpringUtils.getProperty(env, "jdbc.dba.password"));
-		dpc.setEncoding(SpringUtils.getProperty(env, "sql.encoding"));
-		return dpc;
-	}
+		DatabaseProcessContext ctx = new DatabaseProcessContext();
+		ctx.setVendor(SpringUtils.getProperty(env, "db.vendor"));
+		ctx.setDriver(SpringUtils.getProperty(env, "jdbc.driver"));
+		ctx.setUrl(SpringUtils.getProperty(env, "jdbc.url"));
+		ctx.setUsername(SpringUtils.getProperty(env, "jdbc.username"));
+		ctx.setPassword(SpringUtils.getProperty(env, "jdbc.password"));
+		ctx.setDbaUrl(SpringUtils.getProperty(env, "jdbc.dba.url"));
+		ctx.setDbaUsername(SpringUtils.getProperty(env, "jdbc.dba.username"));
+		ctx.setDbaPassword(SpringUtils.getProperty(env, "jdbc.dba.password"));
+		ctx.setEncoding(SpringUtils.getProperty(env, "sql.encoding"));
 
-	@Bean
-	public Nullify jdbcNullifier() {
-		DefaultBeanNullifier dbn = new DefaultBeanNullifier();
-		dbn.setBean(jdbcDatabaseProcessContext());
-		dbn.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
-		dbn.setProperties(Arrays.asList("username", "password", "dbaUsername", "dbaPassword"));
-		return dbn;
+		DefaultBeanNullifier nullifier = new DefaultBeanNullifier();
+		nullifier.setBean(ctx);
+		nullifier.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
+		nullifier.setProperties(Arrays.asList("username", "password", "dbaUsername", "dbaPassword"));
+
+		// Null out usernames/passwords that are set to NONE or NULL
+		nullifier.nullify();
+
+		return ctx;
 	}
 
 	@Bean
 	public DataSource jdbcDataSource() {
-		jdbcNullifier().nullify();
 		DatabaseProcessContext ctx = jdbcDatabaseProcessContext();
 		DriverManagerDataSource dmds = new DriverManagerDataSource();
 		dmds.setDriverClassName(ctx.getDriver());
@@ -66,7 +64,6 @@ public class ResetDataSourceConfig {
 
 	@Bean
 	public DataSource jdbcDbaDataSource() {
-		jdbcNullifier().nullify();
 		DatabaseProcessContext ctx = jdbcDatabaseProcessContext();
 		DriverManagerDataSource dmds = new DriverManagerDataSource();
 		dmds.setDriverClassName(ctx.getDriver());
@@ -82,7 +79,7 @@ public class ResetDataSourceConfig {
 		String skip = SpringUtils.getProperty(env, "jdbc.showconfig.skip", "false");
 
 		ShowConfigExecutable sce = new ShowConfigExecutable();
-		sce.setService(common.jdbcService());
+		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
 		sce.setDataSource(jdbcDbaDataSource());
 		sce.setSkip(new Boolean(skip));
