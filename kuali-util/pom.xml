@@ -46,7 +46,6 @@
     <beanutils.version>1.8.3</beanutils.version>
     <jsch.version>0.1.49</jsch.version>
     <plexus-utils.version>3.0.10</plexus-utils.version>
-    <project.gav.phase>validate</project.gav.phase>
   </properties>
   <developers>
     <developer>
@@ -61,6 +60,7 @@
     <profile>
       <id>kuali-release</id>
       <properties>
+        <project.gav.phase>validate</project.gav.phase>
         <project.gav.validate>false</project.gav.validate>
         <project.gav.update>true</project.gav.update>
         <project.gav.commit>true</project.gav.commit>
