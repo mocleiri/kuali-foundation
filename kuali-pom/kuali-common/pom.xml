@@ -117,9 +117,10 @@
     <poms.reset><![CDATA[<param>classpath:org/kuali/common/deploy/mvn/noop.xml</param>]]></poms.reset>
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
 
-    <!-- Create a .java file with GAV info embedded inside of it -->
+    <!-- Create/update a .java file with GAV info embedded inside of it -->
     <project.gav.phase>none</project.gav.phase>
-    <project.gav.validate>true</project.gav.validate>
+    <project.gav.update>true</project.gav.update>
+    <project.gav.commit>true</project.gav.commit>
 
     <!-- Internal kuali library versions -->
     <kuali-util.version>4.1.4</kuali-util.version>
