@@ -19,55 +19,55 @@ import org.kuali.common.jdbc.SqlReader;
 
 /**
  * Simple builder that creates a SqlLocationSupplier for a location
- *
+ * 
  * @author andrewlubbers
  */
 public class SqlExtensionSupplierBuilder implements LocationExtensionSupplierBuilder {
 
-    private final static String DEFAULT_EXTENSION = "sql";
+	private final static String DEFAULT_EXTENSION = "sql";
 
-    String extension = DEFAULT_EXTENSION;
-    String encoding;
-    SqlReader sqlReader;
+	String extension = DEFAULT_EXTENSION;
+	String encoding;
+	SqlReader sqlReader;
 
-    @Override
-    public String getExtension() {
-        return extension;
-    }
+	@Override
+	public String getExtension() {
+		return extension;
+	}
 
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
 
-    @Override
-    public LocationSupplier buildSupplier(String location) {
-        SqlLocationSupplier supplier = new SqlLocationSupplier(location);
+	@Override
+	public LocationSupplier buildSupplier(String location) {
+		SqlLocationSupplier supplier = new SqlLocationSupplier(location);
 
-        // set optional properties.  These have well-defined defaults in SqlLocationSupplier, but may be overridden
-        if(encoding != null) {
-            supplier.setEncoding(encoding);
-        }
+		// set optional properties. These have well-defined defaults in SqlLocationSupplier, but may be overridden
+		if (encoding != null) {
+			supplier.setEncoding(encoding);
+		}
 
-        if(sqlReader != null) {
-            supplier.setReader(sqlReader);
-        }
+		if (sqlReader != null) {
+			supplier.setReader(sqlReader);
+		}
 
-        return supplier;
-    }
+		return supplier;
+	}
 
-    public String getEncoding() {
-        return encoding;
-    }
+	public String getEncoding() {
+		return encoding;
+	}
 
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
 
-    public SqlReader getSqlReader() {
-        return sqlReader;
-    }
+	public SqlReader getSqlReader() {
+		return sqlReader;
+	}
 
-    public void setSqlReader(SqlReader sqlReader) {
-        this.sqlReader = sqlReader;
-    }
+	public void setSqlReader(SqlReader sqlReader) {
+		this.sqlReader = sqlReader;
+	}
 }
