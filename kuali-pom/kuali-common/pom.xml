@@ -121,7 +121,6 @@
     <project.gav.phase>none</project.gav.phase>
     <project.gav.validate>true</project.gav.validate>
 
-
     <!-- Internal kuali library versions -->
     <kuali-util.version>4.1.4</kuali-util.version>
     <kuali-sql.version>2.0.2</kuali-sql.version>
