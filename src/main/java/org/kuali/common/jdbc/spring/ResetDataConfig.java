@@ -44,21 +44,49 @@ public class ResetDataConfig {
 		return exec;
 	}
 
-	protected JdbcContext getConcurrentJdbcContext() {
-		String skip = SpringUtils.getProperty(env, "sql.data.skip", "false");
-		String threads = SpringUtils.getProperty(env, "sql.threads");
-		String message = SpringUtils.getProperty(env, "sql.data.concurrent.message");
-		List<SqlSupplier> suppliers = commonConfig.getSqlSuppliers("sql.data.concurrent");
-		DataSource dataSource = dbaConfig.jdbcDataSource();
+	@Bean
+	public Executable jdbcSequentialDataExecutable() {
+		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
 
-		JdbcContext ctx = new JdbcContext();
+		JdbcExecutable exec = new JdbcExecutable();
+		exec.setSkip(new Boolean(skip));
+		exec.setService(commonConfig.jdbcService());
+		exec.setContext(getSequentialJdbcContext());
+		return exec;
+	}
+
+	protected JdbcContext getSequentialJdbcContext() {
+		String threads = SpringUtils.getProperty(env, "sql.threads");
+
+		JdbcContext ctx = getBaseJdbcContext("sql.data.sequential.message", "sql.data.sequential");
 		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
+		ctx.setListener(getConcurrentListener());
+		return ctx;
+	}
+
+	protected JdbcContext getBaseJdbcContext(String msgProp, String dataProp) {
+		String skip = SpringUtils.getProperty(env, "sql.data.skip", "false");
+		DataSource dataSource = dbaConfig.jdbcDataSource();
+		String message = SpringUtils.getProperty(env, msgProp);
+		List<SqlSupplier> suppliers = commonConfig.getSqlSuppliers(dataProp);
+
+		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
 		ctx.setDataSource(dataSource);
 		ctx.setSuppliers(suppliers);
+		return ctx;
+	}
+
+	protected JdbcContext getConcurrentJdbcContext() {
+		String threads = SpringUtils.getProperty(env, "sql.threads");
+
+		JdbcContext ctx = getBaseJdbcContext("sql.data.concurrent.message", "sql.data.concurrent");
+		ctx.setTrackProgressByUpdateCount(true);
+		ctx.setMultithreaded(true);
+		ctx.setThreads(new Integer(threads));
 		ctx.setListener(getConcurrentListener());
 		return ctx;
 	}
