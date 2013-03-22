@@ -36,7 +36,7 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-util</url>
   </scm>
   <properties>
-    <kuali.release.arguments>-DskipTests</kuali.release.arguments>
+    <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
     <spring.version>3.2.0.RELEASE</spring.version>
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
@@ -46,10 +46,7 @@
     <beanutils.version>1.8.3</beanutils.version>
     <jsch.version>0.1.49</jsch.version>
     <plexus-utils.version>3.0.10</plexus-utils.version>
-    <project.gav.phase>generate-sources</project.gav.phase>
-    <project.gav.validate>false</project.gav.validate>
-    <project.gav.update>true</project.gav.update>
-    <project.gav.commit>true</project.gav.commit>
+    <project.gav.phase>validate</project.gav.phase>
   </properties>
   <developers>
     <developer>
@@ -60,6 +57,16 @@
       <email>jcaddel@kuali.org</email>
     </developer>
   </developers>
+  <profiles>
+    <profile>
+      <id>kuali-release</id>
+      <properties>
+        <project.gav.validate>false</project.gav.validate>
+        <project.gav.update>true</project.gav.update>
+        <project.gav.commit>true</project.gav.commit>
+      </properties>
+    </profile>
+  </profiles>
   <build>
     <resources>
       <resource>
