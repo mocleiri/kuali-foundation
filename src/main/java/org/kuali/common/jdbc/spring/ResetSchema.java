@@ -1,11 +1,12 @@
 package org.kuali.common.jdbc.spring;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.SummaryListener;
-import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
+import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -13,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
 @Import({ ResetCommon.class, ResetDataSource.class })
 public class ResetSchema {
 
 	@Autowired
-	Environment env;
+	ConfigurableEnvironment env;
 
 	@Autowired
 	ResetCommon resetCommon;
@@ -50,20 +51,20 @@ public class ResetSchema {
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
 		ctx.setDataSource(resetDataSource.jdbcDbaDataSource());
-		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
+		ctx.setSuppliers(getSqlSuppliers());
 		ctx.setListener(new SummaryListener(false));
 		return ctx;
 	}
 
-	protected SqlSupplier getSqlSupplier() {
-		String validate = SpringUtils.getProperty(env, "sql.validate");
-		String drop = SpringUtils.getProperty(env, "sql.drop");
-		String create = SpringUtils.getProperty(env, "sql.create");
-
-		ComplexStringSupplier css = new ComplexStringSupplier();
-		css.setReader(resetCommon.jdbcSqlReader());
-		css.setStrings(Arrays.asList(validate, drop, create));
-		return css;
+	protected List<SqlSupplier> getSqlSuppliers() {
+		LocationSuppliersFactoryBean lsfb = new LocationSuppliersFactoryBean();
+		lsfb.setProperty("sql.schema.concurrent");
+		lsfb.setProperties(SpringUtils.getAllEnumerableProperties(env));
+		try {
+			return new ArrayList<SqlSupplier>(lsfb.getObject());
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 }
