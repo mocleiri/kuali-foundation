@@ -12,16 +12,11 @@ import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 @Configuration
 public class ResetCommon {
-
-	@Autowired
-	Environment env;
 
 	@Bean
 	public Project jdbcProject() {
