@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Import;
 public class JdbcProperties {
 
 	@Autowired
-	JdbcProject jdbcProject;
+	JdbcProject projectConfig;
 
 	@Bean
 	public ProjectProperties jdbcProjectProperties() {
-		Project project = jdbcProject.jdbcProject();
+		Project project = projectConfig.jdbcProject();
 
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:org/kuali/common/jdbc/jdbc.properties");
