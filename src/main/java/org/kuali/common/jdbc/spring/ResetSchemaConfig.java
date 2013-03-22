@@ -1,13 +1,8 @@
 package org.kuali.common.jdbc.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.SummaryListener;
-import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,20 +46,9 @@ public class ResetSchemaConfig {
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
 		ctx.setDataSource(dbaConfig.jdbcDataSource());
-		ctx.setSuppliers(getSqlSuppliers());
+		ctx.setSuppliers(commonConfig.getSqlSuppliers("sql.schema.concurrent"));
 		ctx.setListener(new SummaryListener(false));
 		return ctx;
-	}
-
-	protected List<SqlSupplier> getSqlSuppliers() {
-		LocationSuppliersFactoryBean lsfb = new LocationSuppliersFactoryBean();
-		lsfb.setProperty("sql.schema.concurrent");
-		lsfb.setEnv(env);
-		try {
-			return new ArrayList<SqlSupplier>(lsfb.getObject());
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 }

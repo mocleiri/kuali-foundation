@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.listener.SummaryListener;
-import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.jdbc.listener.DataSummaryListener;
+import org.kuali.common.jdbc.listener.MetaDataListener;
+import org.kuali.common.jdbc.listener.NotifyingListener;
+import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,20 +53,16 @@ public class ResetDataConfig {
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
 		ctx.setDataSource(dbaConfig.jdbcDataSource());
-		ctx.setSuppliers(getSqlSuppliers());
-		ctx.setListener(new SummaryListener(false));
+		ctx.setSuppliers(commonConfig.getSqlSuppliers("sql.data.concurrent"));
+		ctx.setListener(getListener());
 		return ctx;
 	}
 
-	protected List<SqlSupplier> getSqlSuppliers() {
-		LocationSuppliersFactoryBean lsfb = new LocationSuppliersFactoryBean();
-		lsfb.setProperty("sql.schema.concurrent");
-		lsfb.setEnv(env);
-		try {
-			return new ArrayList<SqlSupplier>(lsfb.getObject());
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
+	protected SqlListener getListener() {
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new MetaDataListener());
+		listeners.add(new DataSummaryListener());
+		return new NotifyingListener(listeners);
 	}
 
 }
