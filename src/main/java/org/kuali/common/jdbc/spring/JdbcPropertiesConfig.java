@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(JdbcProject.class)
-public class JdbcProperties {
+@Import(JdbcProjectConfig.class)
+public class JdbcPropertiesConfig {
 
 	@Autowired
-	JdbcProject projectConfig;
+	JdbcProjectConfig projectConfig;
 
 	@Bean
 	public ProjectProperties jdbcProjectProperties() {

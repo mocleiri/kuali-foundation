@@ -19,14 +19,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@Import(JdbcCommon.class)
-public class ResetDataSource {
+@Import(JdbcCommonConfig.class)
+public class ResetDataSourceConfig {
 
 	@Autowired
 	Environment env;
 
 	@Autowired
-	JdbcCommon common;
+	JdbcCommonConfig common;
 
 	@Bean
 	public DatabaseProcessContext jdbcDatabaseProcessContext() {

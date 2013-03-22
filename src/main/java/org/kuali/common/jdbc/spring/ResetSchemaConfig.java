@@ -17,17 +17,17 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommon.class, ResetDataSource.class })
-public class ResetSchema {
+@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
+public class ResetSchemaConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
 
 	@Autowired
-	JdbcCommon common;
+	JdbcCommonConfig common;
 
 	@Autowired
-	ResetDataSource resetDataSource;
+	ResetDataSourceConfig resetDataSource;
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {

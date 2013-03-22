@@ -16,11 +16,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(JdbcProject.class)
-public class JdbcCommon {
+@Import(JdbcProjectConfig.class)
+public class JdbcCommonConfig {
 
 	@Autowired
-	JdbcProject jdbcProject;
+	JdbcProjectConfig jdbcProject;
 
 	@Bean
 	public SqlReader jdbcSqlReader() {
