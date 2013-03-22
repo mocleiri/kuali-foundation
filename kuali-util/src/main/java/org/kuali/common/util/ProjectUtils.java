@@ -143,6 +143,14 @@ public class ProjectUtils {
 		StringBuilder sb = new StringBuilder();
 		sb.append("package ${project.groupId};\n");
 		sb.append("\n");
+		sb.append("/**\n");
+		sb.append(" * ############################# WARNING ##############################\n");
+		sb.append(" * \n");
+		sb.append(" * This is a generated file. Do NOT edit.\n");
+		sb.append(" * \n");
+		sb.append(" * Automated process keeps this source file in sync with the Maven POM.\n");
+		sb.append(" * \n");
+		sb.append(" */\n");
 		sb.append("public abstract class ${project.artifactId.classname} {\n");
 		sb.append("\n");
 		sb.append("	public static final String GROUP_ID = \"${project.groupId}\";\n");
