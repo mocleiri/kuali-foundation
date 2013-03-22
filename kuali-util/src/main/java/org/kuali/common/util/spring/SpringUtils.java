@@ -229,6 +229,26 @@ public class SpringUtils {
 	}
 
 	/**
+	 * Always return a fully resolved value. If a value cannot be located in the environment, resolve defaultValue.
+	 */
+	public static String getProperty(Environment env, String key, String defaultValue) {
+		if (defaultValue == null) {
+			// No default value supplied, we must be able to locate this property in the environment
+			return getProperty(env, key);
+		} else {
+			// Look up a value from the environment
+			String value = env.getProperty(key);
+			if (value == null) {
+				// Resolve the default value against the environment
+				return env.resolveRequiredPlaceholders(defaultValue);
+			} else {
+				// Resolve the located value against the environment
+				return env.resolveRequiredPlaceholders(value);
+			}
+		}
+	}
+
+	/**
 	 * Examine <code>ConfigurableEnvironment</code> for <code>PropertySource</code>'s that extend <code>EnumerablePropertySource</code> and aggregate them into a single
 	 * <code>Properties</code> object
 	 */
