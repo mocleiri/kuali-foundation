@@ -18,7 +18,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
 @Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
-public class ResetSchemaConfig {
+public class ResetDataConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
@@ -31,7 +31,7 @@ public class ResetSchemaConfig {
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
-		String skip = SpringUtils.getProperty(env, "jdbc.schema.skip", "false");
+		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
@@ -41,11 +41,12 @@ public class ResetSchemaConfig {
 	}
 
 	protected JdbcContext getJdbcContext() {
-		String skip = SpringUtils.getProperty(env, "sql.schema.skip", "false");
+		String skip = SpringUtils.getProperty(env, "sql.data.skip", "false");
 		String threads = SpringUtils.getProperty(env, "sql.threads");
-		String message = SpringUtils.getProperty(env, "sql.schema.concurrent.message");
+		String message = SpringUtils.getProperty(env, "sql.data.concurrent.message");
 
 		JdbcContext ctx = new JdbcContext();
+		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
 		ctx.setMessage(message);
