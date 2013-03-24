@@ -10,7 +10,9 @@ import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.MetaDataListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
+import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
+import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -21,7 +23,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class, ResetListenerConfig.class })
+@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
 public class ResetDataConfig {
 
 	@Autowired
@@ -29,9 +31,6 @@ public class ResetDataConfig {
 
 	@Autowired
 	JdbcCommonConfig commonConfig;
-
-	@Autowired
-	ResetListenerConfig listenerConfig;
 
 	@Autowired
 	JdbcDbaConfig dbaConfig;
@@ -65,8 +64,15 @@ public class ResetDataConfig {
 		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
-		ctx.setListener(listenerConfig.jdbcSummaryAndProgressListener());
+		ctx.setListener(getSummaryAndProgressListener());
 		return ctx;
+	}
+
+	protected SqlListener getSummaryAndProgressListener() {
+		List<SqlListener> list = new ArrayList<SqlListener>();
+		list.add(new SummaryListener());
+		list.add(new ProgressListener());
+		return new NotifyingListener(list);
 	}
 
 	protected JdbcContext getBaseJdbcContext(String msgProp, String dataProp) {
