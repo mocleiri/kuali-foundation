@@ -36,7 +36,7 @@ public class ResetDataConfig {
 	JdbcDbaConfig dbaConfig;
 
 	@Bean
-	public Executable jdbcConcurrentDataExecutable() {
+	public Executable jdbcDataConcurrentExecutable() {
 		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
 
 		JdbcExecutable exec = new JdbcExecutable();
@@ -47,7 +47,7 @@ public class ResetDataConfig {
 	}
 
 	@Bean
-	public Executable jdbcSequentialDataExecutable() {
+	public Executable jdbcDataSequentialExecutable() {
 		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
 
 		JdbcExecutable exec = new JdbcExecutable();
