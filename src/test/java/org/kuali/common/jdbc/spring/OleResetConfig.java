@@ -20,7 +20,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ JdbcPropertiesConfig.class, OlePropertiesConfig.class })
-public class OleResetContext {
+public class OleResetConfig {
 
 	@Autowired
 	JdbcPropertiesConfig jdbcPropertiesConfig;
