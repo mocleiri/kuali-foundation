@@ -10,6 +10,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringContextLoaderExecutable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesLoaderContext;
+import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.spring.SpringUtils;
@@ -32,14 +33,16 @@ public class OleResetConfig {
 
 	@Bean
 	public SpringContext oleSpringContext() {
-		List<PropertySource<?>> sources = SpringUtils.asList(springPropertySource());
 
+		// Setup the property source for resolving placeholders
 		PropertySourceContext psc = new PropertySourceContext();
 		psc.setRemoveExistingSources(true);
-		psc.setSources(sources);
+		psc.setSources(SpringUtils.asList(springPropertySource()));
 
+		// Setup the class containing annotated configuration
 		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetConfig.class, ResetController.class);
 
+		// Setup the Spring context
 		SpringContext context = new SpringContext();
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
@@ -49,6 +52,7 @@ public class OleResetConfig {
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
 		SpringContextLoaderExecutable scle = new SpringContextLoaderExecutable();
+		scle.setService(new DefaultSpringService());
 		scle.setContext(oleSpringContext());
 		return scle;
 	}
