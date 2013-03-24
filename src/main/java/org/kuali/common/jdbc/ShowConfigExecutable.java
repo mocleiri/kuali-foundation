@@ -39,13 +39,14 @@ public class ShowConfigExecutable implements Executable {
 		logger.info("DBA URL - {}", context.getDbaUrl());
 		logger.info("DBA User - {}", LoggerUtils.getUsername(context.getDbaUsername()));
 		logger.info("DBA Password - {}", LoggerUtils.getPassword(context.getDbaUsername(), context.getDbaPassword()));
+		logger.info("Driver - {}", context.getDriver());
+		logger.info("SQL Encoding - {}", context.getEncoding());
+		// Establish a connection to the db to extract more detailed info
 		JdbcMetaData metadata = service.getJdbcMetaData(dataSource);
 		logger.info("Product Name - {}", metadata.getDatabaseProductName());
 		logger.info("Product Version - {}", metadata.getDatabaseProductVersion());
-		logger.info("Driver - {}", context.getDriver());
 		logger.info("Driver Name - {}", metadata.getDriverName());
 		logger.info("Driver Version - {}", metadata.getDriverVersion());
-		logger.info("SQL Encoding - {}", context.getEncoding());
 		logger.info("------------------------------------------------------------------------");
 	}
 

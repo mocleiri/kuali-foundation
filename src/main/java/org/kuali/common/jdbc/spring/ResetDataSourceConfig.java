@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @Import(JdbcCommonConfig.class)
-public class ResetDataSourceConfig  {
+public class ResetDataSourceConfig {
 
 	@Autowired
 	Environment env;
@@ -56,7 +56,7 @@ public class ResetDataSourceConfig  {
 		DatabaseProcessContext ctx = jdbcDatabaseProcessContext();
 		DriverManagerDataSource dmds = new DriverManagerDataSource();
 		dmds.setDriverClassName(ctx.getDriver());
-		dmds.setUrl(ctx.getDriver());
+		dmds.setUrl(ctx.getUrl());
 		dmds.setUsername(ctx.getUsername());
 		dmds.setPassword(ctx.getPassword());
 		return dmds;
@@ -67,7 +67,7 @@ public class ResetDataSourceConfig  {
 		DatabaseProcessContext ctx = jdbcDatabaseProcessContext();
 		DriverManagerDataSource dmds = new DriverManagerDataSource();
 		dmds.setDriverClassName(ctx.getDriver());
-		dmds.setUrl(ctx.getDriver());
+		dmds.setUrl(ctx.getDbaUrl());
 		dmds.setUsername(ctx.getDbaUsername());
 		dmds.setPassword(ctx.getDbaPassword());
 		return dmds;

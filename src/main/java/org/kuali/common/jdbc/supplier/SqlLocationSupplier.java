@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
  */
 public class SqlLocationSupplier extends AbstractSupplier implements LocationSupplier {
 
-    private final static String DEFAULT_ENCODING = "UTF-8";
+	private final static String DEFAULT_ENCODING = "UTF-8";
 
 	protected BufferedReader in;
 
@@ -35,7 +35,7 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 
 	@Override
 	public void open() throws IOException {
-		Assert.notNull(location, "location is null");
+		Assert.hasText(location, "location has no text");
 		Assert.notNull(reader, "reader is null");
 		in = LocationUtils.getBufferedReader(location, encoding);
 	}
@@ -52,6 +52,7 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 
 	@Override
 	public void fillInMetaData() {
+		Assert.hasText(location, "location has no text");
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(location, encoding);

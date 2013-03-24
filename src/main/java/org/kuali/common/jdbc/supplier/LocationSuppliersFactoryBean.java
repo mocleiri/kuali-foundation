@@ -9,7 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.env.Environment;
 
@@ -58,8 +60,12 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 			// Request a new supplier from the builder
 			LocationSupplier supplier = sourceBean.getSupplierInstance();
 
+			LocationSupplier newInstance = ReflectionUtils.newInstance(supplier.getClass());
+			BeanUtils.copyProperties(supplier, newInstance);
+			newInstance.setLocation(location);
+
 			// Add it to the list
-			suppliers.add(supplier);
+			suppliers.add(newInstance);
 		}
 
 		// Return the fully configured list of suppliers

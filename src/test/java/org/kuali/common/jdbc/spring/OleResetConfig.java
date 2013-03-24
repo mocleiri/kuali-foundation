@@ -12,6 +12,7 @@ import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesLoaderContext;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +21,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-// @Import({ JdbcPropertiesConfig.class, ResetController.class, OlePropertiesConfig.class })
-@Import({ JdbcPropertiesConfig.class, ResetController.class, OlePropertiesConfig.class })
+@Import({ JdbcPropertiesConfig.class, OlePropertiesConfig.class })
 public class OleResetConfig {
 
 	@Autowired
@@ -30,13 +30,9 @@ public class OleResetConfig {
 	@Autowired
 	OlePropertiesConfig olePropertiesConfig;
 
-	// @Autowired
-	// ResetController controller;
-
 	@Bean
 	public SpringContext oleSpringContext() {
-		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
-		sources.add(springPropertySource());
+		List<PropertySource<?>> sources = SpringUtils.asList(springPropertySource());
 
 		PropertySourceContext psc = new PropertySourceContext();
 		psc.setRemoveExistingSources(true);
