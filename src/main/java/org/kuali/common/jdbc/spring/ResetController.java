@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
+@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class, ResetDbaConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class })
 public class ResetController {
 
 	@Autowired
