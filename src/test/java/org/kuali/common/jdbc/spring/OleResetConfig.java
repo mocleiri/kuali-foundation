@@ -18,12 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ JdbcPropertiesConfig.class, OlePropertiesConfig.class })
 public class OleResetConfig {
+
+	@Autowired
+	Environment env;
 
 	@Autowired
 	JdbcPropertiesConfig jdbcPropertiesConfig;
@@ -51,9 +55,12 @@ public class OleResetConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
+		String skip = SpringUtils.getProperty(env, "ole.reset.skip", "false");
+
 		SpringContextLoaderExecutable scle = new SpringContextLoaderExecutable();
 		scle.setService(new DefaultSpringService());
 		scle.setContext(oleSpringContext());
+		scle.setSkip(new Boolean(skip));
 		return scle;
 	}
 
