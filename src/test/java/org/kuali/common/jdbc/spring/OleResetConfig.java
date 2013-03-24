@@ -55,7 +55,7 @@ public class OleResetConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
-		String skip = SpringUtils.getProperty(env, "ole.reset.skip", "false");
+		String skip = SpringUtils.getProperty(env, "db.reset.skip", "false");
 
 		SpringContextLoaderExecutable scle = new SpringContextLoaderExecutable();
 		scle.setService(new DefaultSpringService());
