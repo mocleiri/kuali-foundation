@@ -37,7 +37,7 @@ public class ResetController {
 	@Autowired
 	ResetOtherConfig otherConfig;
 
-	@Bean
+	@Bean(initMethod = "execute")
 	public Executable jdbcResetExecutable() {
 		String skip = SpringUtils.getProperty(env, "jdbc.reset.skip", "false");
 		String timed = SpringUtils.getProperty(env, "jdbc.reset.timed", "true");
