@@ -33,7 +33,7 @@ public class ResetDataConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	JdbcDbaConfig dbaConfig;
+	ResetDbaConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcDataConcurrentExecutable() {

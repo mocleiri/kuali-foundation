@@ -27,7 +27,7 @@ public class ResetSchemaConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	JdbcDbaConfig dbaConfig;
+	ResetDbaConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
