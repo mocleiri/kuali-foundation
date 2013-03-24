@@ -1,0 +1,15 @@
+List of third-party dependencies grouped by their license type.
+
+Apache Software License - Version 2.0 : 
+  * Apache Log4j (log4j:log4j:1.2.16 - http://logging.apache.org/log4j/1.2/)
+
+BSD License : 
+  * Hamcrest Core (org.hamcrest:hamcrest-core:1.1 - no url defined)
+
+Common Public License - Version 1.0 : 
+  * JUnit (junit:junit:4.10 - http://junit.org)
+
+MIT License : 
+  * JCL 1.1.1 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.6.4 - http://www.slf4j.org)
+  * SLF4J API Module (org.slf4j:slf4j-api:1.6.4 - http://www.slf4j.org)
+  * SLF4J LOG4J-12 Binding (org.slf4j:slf4j-log4j12:1.6.4 - http://www.slf4j.org)
