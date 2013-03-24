@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringContextLoaderExecutable;
@@ -37,12 +38,10 @@ public class OleResetConfig {
 		psc.setRemoveExistingSources(true);
 		psc.setSources(sources);
 
-		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:org/kuali/common/util/resolve-placeholders-context.xml");
-		locations.add("classpath:org/kuali/common/util/print-message-context.xml");
+		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetConfig.class, ResetController.class);
 
 		SpringContext context = new SpringContext();
-		context.setLocations(locations);
+		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
 		return context;
 	}
