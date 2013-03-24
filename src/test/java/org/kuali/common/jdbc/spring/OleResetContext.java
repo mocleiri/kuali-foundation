@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.SpringContextLoaderExecutable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesLoaderContext;
+import org.kuali.common.util.service.PropertySourceContext;
+import org.kuali.common.util.service.SpringContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +27,32 @@ public class OleResetContext {
 
 	@Autowired
 	OlePropertiesConfig olePropertiesConfig;
+
+	@Bean
+	public SpringContext oleSpringContext() {
+		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
+		sources.add(springPropertySource());
+
+		PropertySourceContext psc = new PropertySourceContext();
+		psc.setRemoveExistingSources(true);
+		psc.setSources(sources);
+
+		List<String> locations = new ArrayList<String>();
+		locations.add("classpath:org/kuali/common/util/resolve-placeholders-context.xml");
+		locations.add("classpath:org/kuali/common/util/print-message-context.xml");
+
+		SpringContext context = new SpringContext();
+		context.setLocations(locations);
+		context.setPropertySourceContext(psc);
+		return context;
+	}
+
+	@Bean(initMethod = "execute")
+	public Executable springExecutable() {
+		SpringContextLoaderExecutable scle = new SpringContextLoaderExecutable();
+		scle.setContext(oleSpringContext());
+		return scle;
+	}
 
 	@Bean
 	public PropertySource<?> springPropertySource() {
