@@ -27,7 +27,7 @@ public class ResetConstraintsConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	ResetDbaConfig dbaConfig;
+	ResetDataSourceConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcConstraintsExecutable() {
