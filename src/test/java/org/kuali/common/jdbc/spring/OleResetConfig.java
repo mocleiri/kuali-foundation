@@ -20,6 +20,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
+// @Import({ JdbcPropertiesConfig.class, ResetController.class, OlePropertiesConfig.class })
 @Import({ JdbcPropertiesConfig.class, ResetController.class, OlePropertiesConfig.class })
 public class OleResetConfig {
 
@@ -29,8 +30,8 @@ public class OleResetConfig {
 	@Autowired
 	OlePropertiesConfig olePropertiesConfig;
 
-	@Autowired
-	ResetController controller;
+	// @Autowired
+	// ResetController controller;
 
 	@Bean
 	public SpringContext oleSpringContext() {
@@ -78,13 +79,6 @@ public class OleResetConfig {
 			}
 		}
 		return properties;
-	}
-
-	@Bean
-	public Executable execute() {
-		Executable exec = controller.jdbcResetExecutable();
-		exec.execute();
-		return null;
 	}
 
 }
