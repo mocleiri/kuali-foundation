@@ -27,7 +27,7 @@ public class ResetOtherConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	JdbcDbaConfig dbaConfig;
+	ResetDbaConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcOtherConcurrentExecutable() {
