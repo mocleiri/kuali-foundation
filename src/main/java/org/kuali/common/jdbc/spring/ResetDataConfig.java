@@ -58,12 +58,8 @@ public class ResetDataConfig {
 	}
 
 	protected JdbcContext getSequentialJdbcContext() {
-		String threads = SpringUtils.getProperty(env, "sql.threads");
-
 		JdbcContext ctx = getBaseJdbcContext("sql.data.sequential.message", "sql.data.sequential");
 		ctx.setTrackProgressByUpdateCount(true);
-		ctx.setMultithreaded(true);
-		ctx.setThreads(new Integer(threads));
 		ctx.setListener(getSummaryAndProgressListener());
 		return ctx;
 	}
