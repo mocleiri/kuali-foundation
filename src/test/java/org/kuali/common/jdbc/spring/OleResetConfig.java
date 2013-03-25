@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 @Configuration
 @Import({ JdbcPropertiesConfig.class })
@@ -97,13 +98,17 @@ public class OleResetConfig {
 		// Override with system/environment properties
 		source.putAll(PropertyUtils.getGlobalProperties());
 
-		//
+		// Are we resolving placeholders?
 		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
 		if (resolve) {
+			// Configure a helper that will fail on any unresolved placeholders
+			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			rpp.setHelper(helper);
 			rpp.process(source);
 		}
 
+		// Are we decrypting property values?
 		String encryptionMode = SpringUtils.getProperty(env, "properties.decrypt", EncryptionMode.NONE.name());
 		EncryptionMode em = EncryptionMode.valueOf(encryptionMode);
 		boolean decrypt = EncryptionMode.DECRYPT.equals(em);
