@@ -38,12 +38,16 @@ public class MavenResetConfig {
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
+		Project project = ProjectUtils.getProject(mavenProperties);
+
 		List<String> excludes = getList("properties.maven.excludes");
+		mavenProperties.remove("kuali.scm.url");
 		PropertyUtils.trim(mavenProperties, null, excludes);
 
-		Project project = ProjectUtils.getProject(mavenProperties);
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
+
+		PropertyUtils.info(mavenProperties);
 
 		ProjectProperties pp = new ProjectProperties();
 		pp.setProject(project);
