@@ -69,7 +69,6 @@ public class PropertyUtils {
 			Properties loaded = PropertyUtils.load(ctx);
 			properties.putAll(loaded);
 		}
-		properties.putAll(PropertyUtils.getGlobalProperties());
 		return properties;
 	}
 
