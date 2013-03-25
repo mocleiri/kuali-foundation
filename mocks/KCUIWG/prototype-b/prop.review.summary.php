@@ -34,7 +34,7 @@ $page = 'review-summary';
               <dt>Proposal Number</dt>
               <dd>0015753 (Approval In Progress)</dd>
               <dt>Proposal Period</dt>
-              <dd>02/01/2013 &ndash 01/31/2015</dd>
+              <dd>02/01/2013 &ndash; 01/31/2015</dd>
               <dt>Deadline Date</dt>
               <dd>01/23/2013</dd>
             </dl>
@@ -56,7 +56,7 @@ $page = 'review-summary';
               <dt>Cost Share</dt>
               <dd style="text-align:right;">$0.0015</dd>
               <dt>Period</dt>
-              <dd>02/01/2013 &ndash 01/31/2015</dd>
+              <dd>02/01/2013 &ndash; 01/31/2015</dd>
             </dl>
             <div class="clearfix"></div>
             
