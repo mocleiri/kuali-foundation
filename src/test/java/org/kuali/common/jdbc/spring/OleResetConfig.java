@@ -7,7 +7,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.SpringContextLoaderExecutable;
+import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.service.DefaultSpringService;
@@ -67,7 +67,7 @@ public class OleResetConfig {
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
 
-		SpringContextLoaderExecutable scle = new SpringContextLoaderExecutable();
+		SpringExecutable scle = new SpringExecutable();
 		scle.setService(new DefaultSpringService());
 		scle.setContext(context);
 		scle.setSkip(new Boolean(skip));
