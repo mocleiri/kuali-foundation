@@ -1,13 +1,13 @@
 package org.kuali.common.impex.spring;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
-import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ public class MetaInfMpxConfig {
 	Environment env;
 
 	@Bean
-	public Object invokeMethod() {
+	public Object scanAndCreateFiles() {
 		// Extract the CSV include patterns and convert to a list
 		String csv = SpringUtils.getProperty(env, "impex.metainf.includes", "**/*.mpx");
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(csv);
@@ -39,14 +39,12 @@ public class MetaInfMpxConfig {
 		context.setOutputFile(outputFile);
 		context.setIncludes(includes);
 
-		// Make a list of one
-		List<MetaInfContext> contexts = Arrays.asList(context);
-
-		// Setup the reflection config
-		Class<MetaInfUtils> targetClass = MetaInfUtils.class;
-		String targetMethod = "scanAndCreateFiles";
-		Object[] arguments = { contexts };
-
-		return ReflectionUtils.invokeMethod(targetClass, targetMethod, arguments);
+		try {
+			// Invoke MetaInfUtils to create the resource listings
+			MetaInfUtils.scanAndCreateFiles(Arrays.asList(context));
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+		return null;
 	}
 }
