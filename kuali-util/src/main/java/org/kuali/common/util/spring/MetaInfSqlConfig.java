@@ -21,10 +21,10 @@ public class MetaInfSqlConfig {
 	@Bean
 	public Object invokeMethod() {
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		contexts.add(getMetaInfContext("metainf.output.schema", "metainf.includes.schema"));
-		contexts.add(getMetaInfContext("metainf.output.data", "metainf.includes.data"));
-		contexts.add(getMetaInfContext("metainf.output.constraints", "metainf.includes.constraints"));
-		contexts.add(getMetaInfContext("metainf.output.other", "metainf.includes.other"));
+		contexts.add(getMetaInfContext("metainf.output.schema", "metainf.include.schema"));
+		contexts.add(getMetaInfContext("metainf.output.data", "metainf.include.data"));
+		contexts.add(getMetaInfContext("metainf.output.constraints", "metainf.include.constraints"));
+		contexts.add(getMetaInfContext("metainf.output.other", "metainf.include.other"));
 
 		Class<MetaInfUtils> targetClass = MetaInfUtils.class;
 		String targetMethod = "scanAndCreateFiles";
