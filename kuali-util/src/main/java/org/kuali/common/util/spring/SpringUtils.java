@@ -72,6 +72,7 @@ public class SpringUtils {
 		if (decrypt) {
 			// If they asked to decrypt, they must also supply a password
 			String password = SpringUtils.getProperty(env, "properties.enc.password");
+			logger.info("pw=" + password);
 			// Strength is optional (defaults to BASIC)
 			String strength = SpringUtils.getProperty(env, "properties.enc.strength", EncryptionStrength.BASIC.name());
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
