@@ -5,18 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.EncUtils;
-import org.kuali.common.util.EncryptionMode;
-import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringContextLoaderExecutable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
-import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -28,7 +23,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 @Configuration
 @Import({ JdbcPropertiesConfig.class })
@@ -95,30 +89,8 @@ public class OleResetConfig {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
 
-		// Override with system/environment properties
-		source.putAll(PropertyUtils.getGlobalProperties());
-
-		// Are we decrypting property values?
-		String encryptionMode = SpringUtils.getProperty(env, "properties.decrypt", EncryptionMode.NONE.name());
-		EncryptionMode em = EncryptionMode.valueOf(encryptionMode);
-		boolean decrypt = EncryptionMode.DECRYPT.equals(em);
-		if (decrypt) {
-			String password = SpringUtils.getProperty(env, "properties.enc.password");
-			String strength = SpringUtils.getProperty(env, "properties.enc.strength", EncryptionStrength.BASIC.name());
-			EncryptionStrength es = EncryptionStrength.valueOf(strength);
-			TextEncryptor encryptor = EncUtils.getTextEncryptor(es, password);
-			PropertyUtils.decrypt(source, encryptor);
-		}
-
-		// Are we resolving placeholders?
-		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
-		if (resolve) {
-			// Configure a helper that will fail on any unresolved placeholders
-			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
-			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
-			rpp.setHelper(helper);
-			rpp.process(source);
-		}
+		// Process them so they are ready for use
+		SpringUtils.processProperties(env, source);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, source);
