@@ -61,7 +61,7 @@ public class DataSummaryListener extends NoOpSqlListener {
 		String size = FormatUtils.getSize(this.size);
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
-		String throughput = FormatUtils.getThroughputInSeconds(elapsed, this.count, "rows/s");
+		String throughput = FormatUtils.getThroughputInSeconds(elapsed, this.count, throughputLabel);
 		Object[] args = { label, count, sources, size, time, throughput, rate };
 		if (showRate) {
 			LoggerUtils.logMsg("Completed - [{}: {}  Sources: {}  Size: {}  Time: {}  Throughput: {}  Rate: {}]", args, logger, loggerLevel);
