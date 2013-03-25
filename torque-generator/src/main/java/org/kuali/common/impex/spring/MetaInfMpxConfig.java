@@ -21,12 +21,15 @@ public class MetaInfMpxConfig {
 
 	@Bean
 	public Object invokeMethod() {
-		// Extract the CSV patterns and convert to a list
+		// Extract the CSV include patterns and convert to a list
 		String csv = SpringUtils.getProperty(env, "impex.metainf.includes", "**/*.mpx");
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(csv);
 
-		// Setup some directories
+		// This is the base directory to scan
 		File baseDir = new File(SpringUtils.getProperty(env, "project.build.outputDirectory"));
+
+		// Output file contains one line of text for each file that gets located
+		// Each line is an entry similar to this "classpath:MYCONTENT.mpx"
 		File outputFile = new File(SpringUtils.getProperty(env, "impex.metainf.outputFile"));
 
 		// Setup the context
