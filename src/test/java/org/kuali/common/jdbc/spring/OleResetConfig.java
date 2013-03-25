@@ -90,7 +90,7 @@ public class OleResetConfig {
 		Properties source = PropertyUtils.load(pps);
 
 		// Process them so they are ready for use
-		SpringUtils.processProperties(env, source);
+		SpringUtils.processProperties(source);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, source);
