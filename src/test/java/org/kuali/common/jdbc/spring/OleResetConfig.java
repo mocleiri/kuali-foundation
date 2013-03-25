@@ -34,12 +34,13 @@ public class OleResetConfig {
 	@Autowired
 	OlePropertiesConfig olePropertiesConfig;
 
-	@Bean
-	public SpringContext oleSpringContext() {
+	@Bean(initMethod = "execute")
+	public Executable springExecutable() {
+		String skip = SpringUtils.getProperty(env, "db.reset.skip", "false");
 
 		/**
-		 * The effect of this line is that a property source is created containing 100% of the properties needed by Spring to resolve any/all placeholders in any of the contexts.
-		 * It will be the only property source available to Spring so it needs to include system properties and environment variables
+		 * This line creates a property source containing 100% of the properties needed by Spring to resolve any/all placeholders. It will be the only property source available to
+		 * Spring so it needs to include system properties and environment variables
 		 */
 		PropertySourceContext psc = new PropertySourceContext(springPropertySource(), true);
 
@@ -50,16 +51,10 @@ public class OleResetConfig {
 		SpringContext context = new SpringContext();
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
-		return context;
-	}
-
-	@Bean(initMethod = "execute")
-	public Executable springExecutable() {
-		String skip = SpringUtils.getProperty(env, "db.reset.skip", "false");
 
 		SpringContextLoaderExecutable scle = new SpringContextLoaderExecutable();
 		scle.setService(new DefaultSpringService());
-		scle.setContext(oleSpringContext());
+		scle.setContext(context);
 		scle.setSkip(new Boolean(skip));
 		return scle;
 	}
