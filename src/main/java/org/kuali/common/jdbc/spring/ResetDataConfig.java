@@ -98,9 +98,13 @@ public class ResetDataConfig {
 	}
 
 	protected SqlListener getConcurrentListener() {
+		String label = SpringUtils.getProperty(env, "sql.data.concurrent.progress.label", "Rows");
+		DataSummaryListener dsl = new DataSummaryListener();
+		dsl.setLabel(label);
+
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());
-		listeners.add(new DataSummaryListener());
+		listeners.add(dsl);
 		return new NotifyingListener(listeners);
 	}
 
