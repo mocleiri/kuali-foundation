@@ -58,12 +58,18 @@ public class SpringUtils {
 	// Configure a helper that will fail on any unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
-	public static String getResolvedProperty(Properties properties, String key, String defaultValue) {
+	public static String getRequiredResolvedProperty(Properties properties, String key) {
+		return getRequiredResolvedProperty(properties, key, null);
+	}
+
+	public static String getRequiredResolvedProperty(Properties properties, String key, String defaultValue) {
 		String value = properties.getProperty(key);
+		value = StringUtils.isBlank(value) ? defaultValue : value;
 		if (StringUtils.isBlank(value)) {
-			value = defaultValue;
+			throw new IllegalArgumentException("[" + key + "] is not set");
+		} else {
+			return HELPER.replacePlaceholders(value, properties);
 		}
-		return HELPER.replacePlaceholders(value, properties);
 	}
 
 	/**
@@ -79,15 +85,13 @@ public class SpringUtils {
 		properties.putAll(PropertyUtils.getGlobalProperties());
 
 		// Are we decrypting property values?
-		boolean decrypt = new Boolean(getResolvedProperty(properties, "properties.decrypt", "false"));
+		boolean decrypt = new Boolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
 		if (decrypt) {
 			// If they asked to decrypt, they must also supply a password
-			String password = getResolvedProperty(properties, "properties.enc.password", null);
-			if (StringUtils.isBlank(password)) {
-				throw new IllegalStateException("No decryption password was provided.  properties.enc.password=[" + password + "]");
-			}
+			String password = getRequiredResolvedProperty(properties, "properties.enc.password", null);
+
 			// Strength is optional (defaults to BASIC)
-			String strength = getResolvedProperty(properties, "properties.enc.strength", EncryptionStrength.BASIC.name());
+			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", EncryptionStrength.BASIC.name());
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
 			PropertyUtils.decrypt(properties, decryptor);
