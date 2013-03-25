@@ -98,16 +98,6 @@ public class OleResetConfig {
 		// Override with system/environment properties
 		source.putAll(PropertyUtils.getGlobalProperties());
 
-		// Are we resolving placeholders?
-		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
-		if (resolve) {
-			// Configure a helper that will fail on any unresolved placeholders
-			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
-			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
-			rpp.setHelper(helper);
-			rpp.process(source);
-		}
-
 		// Are we decrypting property values?
 		String encryptionMode = SpringUtils.getProperty(env, "properties.decrypt", EncryptionMode.NONE.name());
 		EncryptionMode em = EncryptionMode.valueOf(encryptionMode);
@@ -118,6 +108,16 @@ public class OleResetConfig {
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
 			TextEncryptor encryptor = EncUtils.getTextEncryptor(es, password);
 			PropertyUtils.decrypt(source, encryptor);
+		}
+
+		// Are we resolving placeholders?
+		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
+		if (resolve) {
+			// Configure a helper that will fail on any unresolved placeholders
+			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
+			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			rpp.setHelper(helper);
+			rpp.process(source);
 		}
 
 		// Return a PropertySource backed by the properties
