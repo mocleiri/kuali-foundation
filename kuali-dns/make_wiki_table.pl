@@ -81,6 +81,7 @@ sub foundation_env_status
   $no_ping = "";
    if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
+   if (( lc($line) =~ "s3") ){ $no_ping = "S3 Data Archiver, no check"; }
    #print "\n",$line;
    @parts = split(/\s|\->|,/,$line);
     ($toss,$url,$ec2,$CNAME,$ttl) = split(/\s|\->|,/,$line);
@@ -120,7 +121,12 @@ sub foundation_env_status
     if ( $no_ping ne "" )
     { print WIKI "$name,$url , $no_ping\n"; }
    if ( ( $result_ec2 eq "" ) && ( $result eq "" ) && ($no_ping eq ""  ) )
-    { print WIKI "$name,$url , no ec2 server\n"; }
+      { @result = dead_or_alive($name,$no_ping);
+      chomp(@result);
+      $status = $result[0];
+      $size = $result[1];
+      print WIKI "$name, $server, $status, $size\n"; }
+      #print WIKI "$name,$url , no ec2 server\n"; }
   }
   }
 }
