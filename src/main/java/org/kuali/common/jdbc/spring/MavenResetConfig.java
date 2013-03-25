@@ -40,7 +40,7 @@ public class MavenResetConfig {
 	public ProjectProperties mavenProjectProperties() {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
-		List<String> excludes = getList(env, "properties.maven.excludes");
+		List<String> excludes = getList(env, "properties.maven.exclude");
 		PropertyUtils.trim(mavenProperties, null, excludes);
 
 		PropertiesContext pc = new PropertiesContext();
