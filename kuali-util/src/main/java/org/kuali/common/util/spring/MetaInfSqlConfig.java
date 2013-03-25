@@ -1,13 +1,13 @@
 package org.kuali.common.util.spring;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
-import org.kuali.common.util.ReflectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,17 +20,19 @@ public class MetaInfSqlConfig {
 	Environment env;
 
 	@Bean
-	public Object invokeMethod() {
+	public Object scanAndCreateFiles() {
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
 		contexts.add(getMetaInfContext("metainf.output.schema", "metainf.include.schema"));
 		contexts.add(getMetaInfContext("metainf.output.data", "metainf.include.data"));
 		contexts.add(getMetaInfContext("metainf.output.constraints", "metainf.include.constraints"));
 		contexts.add(getMetaInfContext("metainf.output.other", "metainf.include.other"));
 
-		Class<MetaInfUtils> targetClass = MetaInfUtils.class;
-		String targetMethod = "scanAndCreateFiles";
-		Object[] arguments = { contexts };
-		return ReflectionUtils.invokeMethod(targetClass, targetMethod, arguments);
+		try {
+			MetaInfUtils.scanAndCreateFiles(contexts);
+			return null;
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	protected MetaInfContext getMetaInfContext(String outputFileKey, String includesKey) {
