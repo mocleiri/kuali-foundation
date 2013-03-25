@@ -39,6 +39,12 @@ public class ResetDataConfig {
 	public Executable jdbcDataConcurrentExecutable() {
 		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
 
+		System.out.println("jdbc.data.skip=" + skip);
+		System.out.println("jdbc.data.skip=" + skip);
+		System.out.println("jdbc.data.skip=" + skip);
+		System.out.println("jdbc.data.skip=" + skip);
+		System.out.println("jdbc.data.skip=" + skip);
+
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
 		exec.setService(commonConfig.jdbcService());
