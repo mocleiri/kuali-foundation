@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.kuali.common.util.Project;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.PropertiesLoaderContext;
+import org.kuali.common.util.property.PropertiesContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,7 +24,7 @@ public class OlePropertiesConfig {
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:ole-fs.properties");
 
-		PropertiesLoaderContext plc = new PropertiesLoaderContext();
+		PropertiesContext plc = new PropertiesContext();
 		plc.setEncoding(project.getEncoding());
 		plc.setLocations(locations);
 
