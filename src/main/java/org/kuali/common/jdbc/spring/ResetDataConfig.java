@@ -87,9 +87,10 @@ public class ResetDataConfig {
 
 	protected JdbcContext getConcurrentJdbcContext() {
 		String threads = SpringUtils.getProperty(env, "sql.threads");
+		String trackProgressByUpdateCount = SpringUtils.getProperty(env, "sql.data.concurrent.trackProgressByUpdateCount", "true");
 
 		JdbcContext ctx = getBaseJdbcContext("sql.data.concurrent.message", "sql.data.concurrent");
-		ctx.setTrackProgressByUpdateCount(true);
+		ctx.setTrackProgressByUpdateCount(new Boolean(trackProgressByUpdateCount));
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
 		ctx.setListener(getConcurrentListener());

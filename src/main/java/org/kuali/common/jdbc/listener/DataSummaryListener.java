@@ -30,6 +30,7 @@ public class DataSummaryListener extends NoOpSqlListener {
 	long size;
 	LoggerLevel loggerLevel = LoggerLevel.INFO;
 	boolean showRate = true;
+	String label = "Rows";
 
 	public DataSummaryListener() {
 		this(true);
@@ -47,8 +48,8 @@ public class DataSummaryListener extends NoOpSqlListener {
 		String count = FormatUtils.getCount(this.count);
 		String sources = FormatUtils.getCount(event.getContext().getSuppliers().size());
 		String size = FormatUtils.getSize(this.size);
-		Object[] args = { count, sources, size };
-		LoggerUtils.logMsg("Executing - [Rows: {}  Sources: {}  Size: {}]", args, logger, loggerLevel);
+		Object[] args = { label, count, sources, size };
+		LoggerUtils.logMsg("Executing - [{}: {}  Sources: {}  Size: {}]", args, logger, loggerLevel);
 	}
 
 	@Override
@@ -60,11 +61,11 @@ public class DataSummaryListener extends NoOpSqlListener {
 		String time = FormatUtils.getTime(elapsed);
 		String rate = FormatUtils.getRate(elapsed, this.size);
 		String throughput = FormatUtils.getThroughputInSeconds(elapsed, this.count, "rows/s");
-		Object[] args = { count, sources, size, time, throughput, rate };
+		Object[] args = { label, count, sources, size, time, throughput, rate };
 		if (showRate) {
-			LoggerUtils.logMsg("Completed - [Rows: {}  Sources: {}  Size: {}  Time: {}  Throughput: {}  Rate: {}]", args, logger, loggerLevel);
+			LoggerUtils.logMsg("Completed - [{}: {}  Sources: {}  Size: {}  Time: {}  Throughput: {}  Rate: {}]", args, logger, loggerLevel);
 		} else {
-			LoggerUtils.logMsg("Completed - [Rows: {}  Sources: {}  Size: {}  Time: {}  Throughput: {}]", args, logger, loggerLevel);
+			LoggerUtils.logMsg("Completed - [{}: {}  Sources: {}  Size: {}  Time: {}  Throughput: {}]", args, logger, loggerLevel);
 		}
 	}
 
@@ -74,6 +75,22 @@ public class DataSummaryListener extends NoOpSqlListener {
 
 	public void setShowRate(boolean showRate) {
 		this.showRate = showRate;
+	}
+
+	public LoggerLevel getLoggerLevel() {
+		return loggerLevel;
+	}
+
+	public void setLoggerLevel(LoggerLevel loggerLevel) {
+		this.loggerLevel = loggerLevel;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 }
