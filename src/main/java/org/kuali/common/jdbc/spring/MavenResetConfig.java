@@ -41,6 +41,7 @@ public class MavenResetConfig {
 
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
+		pc.setLocations(new ArrayList<String>());
 
 		ProjectProperties pp = new ProjectProperties();
 		pp.setProject(project);
