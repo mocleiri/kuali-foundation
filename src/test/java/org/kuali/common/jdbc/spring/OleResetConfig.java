@@ -49,8 +49,20 @@ public class OleResetConfig {
 		return pp;
 	}
 
+	@Bean
+	public PropertySource<?> springPropertySource() {
+		// Combine project properties into a list where the "last one in wins"
+		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
+		pps.add(oleProjectProperties());
+
+		// Get a PropertySource object backed by the properties loaded from the list
+		return SpringUtils.getPropertySource("springPropertySource", pps);
+	}
+
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
+		// Simple flag for skipping execution altogether
 		String skip = SpringUtils.getProperty(env, "db.reset.skip", "false");
 
 		/**
@@ -75,14 +87,4 @@ public class OleResetConfig {
 		return se;
 	}
 
-	@Bean
-	public PropertySource<?> springPropertySource() {
-		// Combine project properties into a list where the "last one in wins"
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
-		pps.add(oleProjectProperties());
-
-		// Get a PropertySource object backed by the properties loaded from the list
-		return SpringUtils.getPropertySource("springPropertySource", pps);
-	}
 }
