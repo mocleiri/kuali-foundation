@@ -66,16 +66,10 @@ public class OleResetConfig {
 	@Bean
 	public PropertySource<?> springPropertySource() {
 		String name = "springPropertySource";
-		Properties source = oleResetProperties();
-		return new PropertiesPropertySource(name, source);
-	}
-
-	@Bean
-	public Properties oleResetProperties() {
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
 		pps.add(olePropertiesConfig.oleProjectProperties());
-		return PropertyUtils.load(pps);
+		Properties source = PropertyUtils.load(pps);
+		return new PropertiesPropertySource(name, source);
 	}
-
 }
