@@ -58,23 +58,40 @@ sub foundation_env_status
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    #print "\n",$line;
    @parts = split(/\s|\->|,/,$line);
-   $name = $parts[1].".kuali.org";
+    ($toss,$url,$ec2,$CNAME,$ttl) = split(/\s|\->|,/,$line);
+   print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
+   #$name = $parts[1].".kuali.org";
+   $name = $url.".kuali.org";
    if ($name eq ""){next;}
    #print "\nname: $name";
-   @temp = split(//,$parts[2]);
+   #@temp = split(//,$parts[2]);
+   @temp = split(//,$ec2);
    pop(@temp); #there's a period there
-   $url = join "", @temp;
-   #@result = `grep $url FN.lst`;
-   @result = `grep $parts[1] FN.lst`;
-   chomp(@result);
-   if ( $result[0] ne "" )
+   $ec2 = join "", @temp;
+   #print "\ngrep $name FN.lst";
+   #print "\ngrep $ec2 FN.lst" ;
+   $result = `grep $name FN.lst`;
+   $result_ec2 = `grep $ec2 FN.lst`;
+    
+   chomp($result);
+  # print "\nresult 0:", $result[0];
+  # print " result 1:", $result[1];
+   chomp($result_ec2);
+   if ( $result_ec2 ne "" )
    {   
-      ($instance_id, $server, $status, $tags) = split (/\s/, $result[0]);
-     
-      #print "$name, $server, $status, $tags\n";
-      print WIKI "$name, $server, $status,$tags\n";
+      ($instance_id, $server, $status, $tags) = split (/\s/, $result_ec2);
+       print WIKI "$name, $server, $status,$tags\n";
    }
-  else { print WIKI "$name,$url , $no_ping\n"; }
+   else{
+     if ( $result ne "" )
+     {   
+        ($instance_id, $server, $status, $tags) = split (/\s/, $result);
+     
+        print WIKI "$name, $server, $status,$tags\n";
+     }
+    if ( $no_ping ne "" )
+    { print WIKI "$name,$url , $no_ping\n"; }
+  }
   }
 }
 
