@@ -34,7 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CollectionUtils {
 
 	/**
-	 * Null safe method for converting an untyped array of objects into a list. Never returns null.
+	 * Null safe method for converting an array of objects into a list. Never returns null.
 	 */
 	public static List<Object> asList(Object... objects) {
 		List<Object> list = new ArrayList<Object>();
