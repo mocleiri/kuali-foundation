@@ -1,14 +1,12 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.property.ProjectProperties;
@@ -39,9 +37,6 @@ public class MavenResetConfig {
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
-		List<String> includes = Arrays.asList("project.*");
-		PropertyUtils.trim(mavenProperties, includes, null);
-
 		Project project = ProjectUtils.getProject(mavenProperties);
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
