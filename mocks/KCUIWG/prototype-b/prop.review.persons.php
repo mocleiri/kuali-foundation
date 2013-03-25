@@ -1,6 +1,6 @@
 <?php
 # Variables
-$page = 'personnel';
+$page = 'review-persons';
 ?>
 
 <?php require_once( 'assets/inc/head.php' ) ?>
@@ -16,7 +16,7 @@ $page = 'personnel';
       <div class="span12 content">
         <div class="box">
        <div class="boxHeader">
-            <h3> Personnel</h3>
+            <h3>Key Persons</h3>
           </div>
           
           <!-- <div class="boxHeader expandControl">
@@ -31,8 +31,6 @@ $page = 'personnel';
             </div>-->
               <!-- Only required for left/right tabs -->
             
-            <p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any + Additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
-          
             <ul class="nav nav-tabs" style="display:block" >
               <li class="active">
                 <a href="#art" data-toggle="tab">Haskell, Edward <small>(PI)</small></a>
@@ -53,9 +51,9 @@ $page = 'personnel';
                   </div>
                   <div class="expandTarget" style="display:none">
                     <dl class="table-display" style="margin-top:-13px;">
-                      <dt>Proposal Person Role Id</dt>
+                      <!--<dt>Proposal Person Role Id</dt>
                       <dd>&nbsp;
-                      </dd>
+                      </dd>-->
                       <dt>Full Name</dt>
                       <dd>
                         <a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Full Name">Haskell, Edward</a>
@@ -70,19 +68,19 @@ $page = 'personnel';
                       <dd>
                         <a href="#" id="phone" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Office Phone">917-422-5934</a>
                       </dd>
-                      <dt>Primary Title</dt>
+                      <!--<dt>Primary Title</dt>
                       <dd>
                         <a href="#" id="prititle" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Primary Title">+ Add</a>
                       </dd>
                       <dt>Directory Title</dt>
                       <dd>
                         <a href="#" id="dirtitle" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Directory Title">+ Add</a>
-                      </dd>
+                      </dd>-->
                       <dt>Home Unit</dt>
                       <dd>UA-VPIT</dd>
                       <dt>Division</dt>
                       <dd>UNIVERSITY ADMINISTRATION </dd>
-                      <dt>Fax</dt>
+                      <!--<dt>Fax</dt>
                       <dd>
                         <a href="#" id="fax" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Fax">+ Add</a>
                       </dd>
@@ -101,19 +99,19 @@ $page = 'personnel';
                       <dt>Secondary Office Location</dt>
                       <dd>
                         <a href="#" id="officelocation2" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Secondary Office Location">+ Add</a>
-                      </dd>
+                      </dd>-->
                       <dt>Address Line 1</dt>
                       <dd>
                         <a href="#" id="+ Address1" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 1">CIB, 2709 E 10th Street</a>
                       </dd>
-                      <dt>Address Line 2</dt>
+                      <!--<dt>Address Line 2</dt>
                       <dd>
                         <a href="#" id="+ Address2" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 2">+ Add</a>
                       </dd>
                       <dt>Address Line 3</dt>
                       <dd>
                         <a href="#" id="+ Address3" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Address Line 3">+ Add</a>
-                      </dd>
+                      </dd>-->
                       <dt>City</dt>
                       <dd>
                         <a href="#" id="city" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter City">Bloomington</a>
@@ -132,7 +130,7 @@ $page = 'personnel';
                       <dd>USA</dd>
                       <dt>Faculty</dt>
                       <dd>Yes</dd>
-                      <dt>Education Level</dt>
+                      <!--<dt>Education Level</dt>
                       <dd>
                         <a href="#" id="edlevel" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter Education Level">+ Add</a>
                       </dd>
@@ -151,7 +149,7 @@ $page = 'personnel';
                       <dt>School</dt>
                       <dd>
                         <a href="#" id="school" data-type="text" data-pk="1" data-url="/post" data-original-title="Enter School">+ Add</a>
-                      </dd>
+                      </dd>-->
                     </dl>
                     <div class="clearfix"></div>
                   </div>
@@ -159,7 +157,8 @@ $page = 'personnel';
                     <h4>Extended Details</h4>
                   </div>
                   <div class="expandTarget" style="display:none">
-                    <dl class="table-display" style="margin-top:-13px;">
+                    <p style="font-style:italic;">No expanded details have been provided.</p>
+                    <!--<dl class="table-display" style="margin-top:-13px;">
                       <dt>Age by Fiscal Year </dt>
                       <dd>
                         <a href="#" >+ Add</a>
@@ -272,7 +271,7 @@ $page = 'personnel';
                       <dd>
                         <a href="#" >+ Add</a>
                       </dd>
-                    </dl>
+                    </dl>-->
                     <div class="clearfix"></div>
                   </div>
                   <div class="boxSubheader expandControl closed">
@@ -286,89 +285,26 @@ $page = 'personnel';
                           <th>Description</th>
                           <th>Graduation Year</th>
                           <th>School</th>
-                          <th style="width: 36px;"></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td><select name="select" class=" input-small" title="* Degree Type">
-                              <option value="">select</option>
-                              <option value="AS">Associate in Science</option>
-                              <option value="BA">Bachelor of Arts</option>
-                              <option value="BComm">Bachelor of Commerce (Canada)</option>
-                              <option value="BEd">Bachelor of Education</option>
-                              <option value="BS">Bachelor of Science</option>
-                              <option value="DA">Doctor of Arts</option>
-                              <option value="DC">Doctor of Chiropractics</option>
-                              <option value="DDS">Doctor of Dental Science</option>
-                              <option value="DD">Doctor of Divinity</option>
-                              <option value="DEng">Doctor of Engineering</option>
-                              <option value="DFA">Doctor of Fine Arts</option>
-                              <option value="DHA">Doctor of Hospital Administration</option>
-                              <option value="DH">Doctor of Humanities</option>
-                              <option value="DMin">Doctor of Ministry</option>
-                              <option value="PharD">Doctor of Pharmacy</option>
-                              <option value="PhD">Doctor of Philosophy</option>
-                              <option value="DPA">Doctor of Public Administration</option>
-                              <option value="ScD">Doctor of Science</option>
-                              <option value="ThD">Doctor of Theology, in Religion</option>
-                              <option value="DVM">Doctor of Veterinary Medicine</option>
-                              <option value="DVS">Doctor of Veterinary Science</option>
-                              <option value="DSN">Doctorate of Science, in Nursing</option>
-                              <option value="HS">High School (or GED equivalent)</option>
-                              <option value="JD">Jurum Doctor (Doctor of Laws)</option>
-                              <option value="LLD">Legum Doctor (Doctor of Laws)</option>
-                              <option value="LLM">Legum Magister (Master of Laws)</option>
-                              <option value="MArch">Master of Architecture</option>
-                              <option value="MA">Master of Arts</option>
-                              <option value="MAEd">Master of Arts, in Education</option>
-                              <option value="MBA">Master of Business Administration</option>
-                              <option value="MDiv">Master of Divinity</option>
-                              <option value="MEd">Master of Education</option>
-                              <option value="MEE">Master of Electrical Engineering</option>
-                              <option value="MEng">Master of Engineering</option>
-                              <option value="MFA">Master of Fine Arts</option>
-                              <option value="MIS">Master of Information Systems</option>
-                              <option value="MLS">Master of Library Science</option>
-                              <option value="MDS">Master of Medical Science</option>
-                              <option value="MPd">Master of Pedagogy</option>
-                              <option value="MPhil">Master of Philosophy</option>
-                              <option value="MPA">Master of Public Administration</option>
-                              <option value="MPE">Master of Public Education</option>
-                              <option value="MPH">Master of Public Health</option>
-                              <option value="MST">Master of Sacred Theology</option>
-                              <option value="MS">Master of Science</option>
-                              <option value="MSEd">Master of Science, in Education</option>
-                              <option value="MSW">Master of Social Work</option>
-                              <option value="MTh">Master of Theology, in Religion</option>
-                              <option value="MD">Medical Doctor</option>
-                              <option value="UKNW">No Degree information specified</option>
-                            </select></td>
-                          <td><input type="text" class=" input-medium" name="textfield" value="asdf" id="textfield2" tabindex="1" /></td>
-                          <td><input type="text" class=" input-small" name="textfield5" id="textfield3" tabindex="1" /></td>
-                          <td><input type="text" class=" input-medium" name="textfield6" id="textfield4" tabindex="1" /></td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-plus"></i></a></td>
-                        </tr>
                         <tr>
                           <td>Doctor of Veterinary Medicine</td>
                           <td>Deus meus, recorder in gratiarum actione tibi, et confitear misericordias tuas super me. perfundantur ossa mea dilectione tua,</td>
                           <td>2010</td>
                           <td>Michigan State University</td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a></td>
                         </tr>
                         <tr>
                           <td>Master of Education</td>
                           <td>Deus meus, recorder in gratiarum actione tibi, et confitear misericordias tuas super me. perfundantur ossa mea dilectione tua,</td>
                           <td>2008</td>
                           <td>Stanislaus State University</td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a></td>
                         </tr>
                         <tr>
                           <td>Bachelor of Education</td>
                           <td>Deus meus, recorder in gratiarum actione tibi, et confitear misericordias tuas super me. perfundantur ossa mea dilectione tua,</td>
                           <td>2004</td>
                           <td>Cornell University</td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -382,24 +318,16 @@ $page = 'personnel';
                         <tr>
                           <th>Unit Name</th>
                           <th>Unit Number</th>
-                          <th style="width: 36px;"></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td><input type="text" class=" input-medium" name="textfield2"  tabindex="1" /></td>
-                          <td><input type="text" class=" input-medium" name="textfield"  tabindex="1" /></td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-plus"></i></a></td>
-                        </tr>
-                        <tr>
                           <td>ARCHIVES OF TRADITIONAL MUSIC</td>
                           <td>BL-ARVM</td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a></td>
                         </tr>
                         <tr>
                           <td>BLACK CULTURE CTR LIBRARY</td>
                           <td>BL-BCLB</td>
-                          <td><a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -411,45 +339,45 @@ $page = 'personnel';
                     <fieldset class="question">
                       <legend>I certify that (1) all information provided in this request or application is true, complete and accurate to the best of my knowledge and (2) I understand that any false, fictitious, or fraudulent statements or claims may subject me to criminal, civil or administrative penalties.</legend>
                       <div class="questionControls">
-                        <input type="radio" name="the_question1"  value="1">
+                        <input type="radio" name="the_question1"  value="1" disabled="disabled">
                         <label for="the_question_yes" class="radio inline">Yes</label>
-                        <input type="radio" name="the_question1"  value="0">
+                        <input type="radio" name="the_question1"  value="0" disabled="disabled">
                         <label for="the_question_no" class="radio inline">No</label>
                       </div>
                     </fieldset>
                     <fieldset class="question">
                       <legend>I certify that I agree to accept responsibility for the scientific conduct of the project, to provide the required progress reports, and to comply with the terms and conditions of the sponsoring agency.</legend>
                       <div class="questionControls">
-                        <input type="radio" name="the_question2"  value="1">
+                        <input type="radio" name="the_question2"  value="1" disabled="disabled">
                         <label for="the_question_yes" class="radio inline">Yes</label>
-                        <input type="radio" name="the_question2"  value="0">
+                        <input type="radio" name="the_question2"  value="0" disabled="disabled">
                         <label for="the_question_no" class="radio inline">No</label>
                       </div>
                     </fieldset>
                     <fieldset class="question">
                       <legend>Do you have a financial conflict of interest related to this project? For help, see http://researchadmin.iu.edu/COI/coi_home.html</legend>
                       <div class="questionControls">
-                        <input type="radio" name="the_question3"  value="1">
+                        <input type="radio" name="the_question3"  value="1" disabled="disabled">
                         <label for="the_question_yes" class="radio inline">Yes</label>
-                        <input type="radio" name="the_question3"  value="0">
+                        <input type="radio" name="the_question3"  value="0" disabled="disabled">
                         <label for="the_question_no" class="radio inline">No</label>
                       </div>
                     </fieldset>
                     <fieldset class="question">
                       <legend>If application is to a federal or federal pass-through sponsor, have any lobbying activities been or will any be conducted regarding this proposal?</legend>
                       <div class="questionControls">
-                        <input type="radio" name="the_question4"  value="1">
+                        <input type="radio" name="the_question4"  value="1" disabled="disabled">
                         <label for="the_question_yes" class="radio inline">Yes</label>
-                        <input type="radio" name="the_question4"  value="0">
+                        <input type="radio" name="the_question4"  value="0" disabled="disabled">
                         <label for="the_question_no" class="radio inline">No</label>
                       </div>
                     </fieldset>
                     <fieldset class="question">
                       <legend>Are you currently debarred, suspended, proposed for debarment, declared ineligible or voluntarily excluded from current transactions by a federal department or agency?</legend>
                       <div class="questionControls">
-                        <input type="radio" name="the_question5"  value="1">
+                        <input type="radio" name="the_question5"  value="1" disabled="disabled">
                         <label for="the_question_yes" class="radio inline">Yes</label>
-                        <input type="radio" name="the_question5"  value="0">
+                        <input type="radio" name="the_question5"  value="0" disabled="disabled">
                         <label for="the_question_no" class="radio inline">No</label>
                       </div>
                     </fieldset>
@@ -523,6 +451,7 @@ $page = 'personnel';
             
             </div>
           </div>
+          
         </div>
         <div style=" padd12px; text-align:center">
           <a href="prop.basics.keywords.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
@@ -540,40 +469,7 @@ $page = 'personnel';
   </form>
 </div>
 
-
-<!-- Modal -->
-
-<div class="modal hide fade" id="+ Addemployee"></div>
-<div class="modal hide fade" id="+ Addnonemployee"></div>
-<div class="modal hide fade" id="deletepersonnel"></div>
-
-
 <?php include( 'assets/inc/scripts.global.php' ) ?>
-<script type="text/javascript">
-    $(document).ready(function () {
-        
-        $('#username, #email, #phone, #prititle, #dirtitle, #fax, #pager, #mobile, #officelocation,#officelocation2,#+ Address1,#+ Address2, #+ Address3, #city, #county, #zip, #edlevel, #gradyear, #major, #degree, #school').editable();
-        $(function () {
-            $('#role').editable({
-                value: 1,
-                source: [{
-                    value: 1,
-                    text: 'PI/Contact'
-                }, {
-                    value: 2,
-                    text: 'Co-Principal Investigator'
-                }]
-            });
-        });
-        
-       
-    });
 
-    $(".ajax-modal").live('click', function () {
-        var url = $(this).attr('url');
-        var modal_id = $(this).attr('data-controls-modal');
-        $("#" + modal_id).load(url).modal('show');
-    });
-  </script>
 </body>
 </html>
