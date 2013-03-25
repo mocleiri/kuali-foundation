@@ -73,16 +73,19 @@ public class PropertyUtils {
 	}
 
 	public static Properties load(PropertiesContext context) {
-		Properties result = new Properties();
+		// If there are no locations specified, add the properties supplied directly on the context (if there are any)
 		if (CollectionUtils.isEmpty(context.getLocations())) {
 			return PropertyUtils.toEmpty(context.getProperties());
 		}
+
+		// Load properties as appropriate
 		Assert.notNull(context.getHelper(), "helper is null");
 		Assert.notNull(context.getLocations(), "locations are null");
 		Assert.notNull(context.getEncoding(), "encoding is null");
 		Assert.notNull(context.getMissingLocationsMode(), "missingLocationsMode is null");
 		Properties global = PropertyUtils.getGlobalProperties();
 		context.setProperties(PropertyUtils.toEmpty(context.getProperties()));
+		Properties result = new Properties();
 		result.putAll(PropertyUtils.toEmpty(context.getProperties()));
 		for (String location : context.getLocations()) {
 			Properties resolverProperties = PropertyUtils.combine(context.getProperties(), result, global);
