@@ -15,7 +15,34 @@
  */
 package org.kuali.common.util;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.springframework.util.MethodInvoker;
+
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	public static Object invokeMethod(Class<?> targetClass, String targetMethod, Object... arguments) {
+		MethodInvoker invoker = new MethodInvoker();
+		invoker.setTargetClass(targetClass);
+		invoker.setTargetMethod(targetMethod);
+		invoker.setArguments(arguments);
+		return invoke(invoker);
+	}
+
+	public static Object invoke(MethodInvoker invoker) {
+		try {
+			invoker.prepare();
+			return invoker.invoke();
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException(e);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	public static Class<?> getClass(String className) {
 		try {

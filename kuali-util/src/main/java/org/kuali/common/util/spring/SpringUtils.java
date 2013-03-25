@@ -42,7 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -59,19 +58,6 @@ public class SpringUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 	// Configure a helper that will fail on any unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
-
-	public static Object invokeMethod(Class<?> targetClass, String targetMethod, Object... arguments) {
-		MethodInvokingFactoryBean mifb = new MethodInvokingFactoryBean();
-		mifb.setTargetClass(targetClass);
-		mifb.setTargetMethod(targetMethod);
-		mifb.setArguments(arguments);
-		try {
-			return mifb.getObject();
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
-
-	}
 
 	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
 		// Load them from disk

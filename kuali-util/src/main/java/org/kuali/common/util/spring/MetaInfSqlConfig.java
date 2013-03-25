@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ public class MetaInfSqlConfig {
 		Class<MetaInfUtils> targetClass = MetaInfUtils.class;
 		String targetMethod = "scanAndCreateFiles";
 		Object[] arguments = { contexts };
-		return SpringUtils.invokeMethod(targetClass, targetMethod, arguments);
+		return ReflectionUtils.invokeMethod(targetClass, targetMethod, arguments);
 	}
 
 	protected MetaInfContext getMetaInfContext(String outputFileKey, String includesKey) {
