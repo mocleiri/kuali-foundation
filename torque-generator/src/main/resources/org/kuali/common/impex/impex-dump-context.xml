@@ -46,7 +46,7 @@
         <value>mysql</value>
       </util:list>
     </property>
-    <property name="skip" value="${impex.dump.skip:FALSE}" />
+    <property name="skip" value="${impex.dump.skip:false}" />
   </bean>
 
 </beans>
