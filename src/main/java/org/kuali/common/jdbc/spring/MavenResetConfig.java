@@ -40,7 +40,6 @@ public class MavenResetConfig {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
 		PropertiesContext pc = new PropertiesContext();
-		pc.setEncoding(project.getEncoding());
 		pc.setProperties(mavenProperties);
 
 		ProjectProperties pp = new ProjectProperties();
