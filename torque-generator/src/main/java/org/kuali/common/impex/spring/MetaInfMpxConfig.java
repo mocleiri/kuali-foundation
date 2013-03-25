@@ -1,6 +1,7 @@
 package org.kuali.common.impex.spring;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
@@ -38,11 +39,19 @@ public class MetaInfMpxConfig {
 		context.setOutputFile(outputFile);
 		context.setIncludes(includes);
 
+		// Make a list of one
+		List<MetaInfContext> contexts = Arrays.asList(context);
+
+		// Setup the reflection config
+		Class<MetaInfUtils> targetClass = MetaInfUtils.class;
+		String targetMethod = "scanAndCreateFiles";
+		Object[] arguments = { contexts };
+
 		// Invoke MetaInfUtils to get the desired result
 		MethodInvokingFactoryBean mifb = new MethodInvokingFactoryBean();
-		mifb.setTargetClass(MetaInfUtils.class);
-		mifb.setTargetMethod("scanAndCreateFiles");
-		mifb.setArguments(new Object[] { context });
+		mifb.setTargetClass(targetClass);
+		mifb.setTargetMethod(targetMethod);
+		mifb.setArguments(arguments);
 		try {
 			return mifb.getObject();
 		} catch (Exception e) {
