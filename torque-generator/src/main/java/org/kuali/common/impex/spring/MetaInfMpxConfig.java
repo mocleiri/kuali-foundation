@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +47,6 @@ public class MetaInfMpxConfig {
 		String targetMethod = "scanAndCreateFiles";
 		Object[] arguments = { contexts };
 
-		return SpringUtils.invokeMethod(targetClass, targetMethod, arguments);
+		return ReflectionUtils.invokeMethod(targetClass, targetMethod, arguments);
 	}
 }
