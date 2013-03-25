@@ -9,7 +9,6 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringContextLoaderExecutable;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -73,18 +72,10 @@ public class OleResetConfig {
 
 	@Bean
 	public Properties oleResetProperties() {
-		Properties properties = new Properties();
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
 		pps.add(olePropertiesConfig.oleProjectProperties());
-		for (ProjectProperties pp : pps) {
-			PropertiesContext ctx = pp.getPropertiesContext();
-			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
-			ctx.setProperties(combined);
-			Properties loaded = PropertyUtils.load(ctx);
-			properties.putAll(loaded);
-		}
-		return properties;
+		return PropertyUtils.load(pps);
 	}
 
 }
