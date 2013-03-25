@@ -20,6 +20,8 @@ public class SyncFilesExecutable implements Executable {
 
 	List<ImpexContext> contexts;
 	boolean skip;
+	// Don't commit to SCM unless they specifically override this
+	boolean skipScm = true;
 	ScmService service;
 	String message = "Automated Impex update";
 
@@ -55,9 +57,13 @@ public class SyncFilesExecutable implements Executable {
 		logger.info("Files deleted - {}", deletes.size());
 		logger.info("---------- Sync results ----------");
 
-		service.add(adds);
-		service.delete(deletes);
-		service.commit(paths, message);
+		if (skipScm) {
+			logger.info("Skipping SCM commit");
+		} else {
+			service.add(adds);
+			service.delete(deletes);
+			service.commit(paths, message);
+		}
 	}
 
 	protected File getDatabasePropertiesFile(List<ImpexContext> contexts) {
@@ -102,6 +108,14 @@ public class SyncFilesExecutable implements Executable {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public boolean isSkipScm() {
+		return skipScm;
+	}
+
+	public void setSkipScm(boolean skipScm) {
+		this.skipScm = skipScm;
 	}
 
 }
