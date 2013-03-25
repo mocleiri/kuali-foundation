@@ -38,7 +38,7 @@ public class JdbcExecutable implements Executable {
 		ExecutionResult result = service.executeSql(context);
 		String elapsed = FormatUtils.getTime(result.getElapsed());
 		String updates = FormatUtils.getCount(result.getUpdateCount());
-		logger.info("Update count: {}  Total time: {}", updates, elapsed);
+		logger.info("Rows updated: {}  Total time: {}", updates, elapsed);
 	}
 
 	public JdbcService getService() {
