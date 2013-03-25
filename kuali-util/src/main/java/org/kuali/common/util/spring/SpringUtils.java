@@ -69,6 +69,7 @@ public class SpringUtils {
 
 		// Are we decrypting property values?
 		boolean decrypt = new Boolean(SpringUtils.getProperty(env, "properties.decrypt", "false"));
+		logger.info("decrypt=" + decrypt);
 		if (decrypt) {
 			// If they asked to decrypt, they must also supply a password
 			String password = SpringUtils.getProperty(env, "properties.enc.password");
