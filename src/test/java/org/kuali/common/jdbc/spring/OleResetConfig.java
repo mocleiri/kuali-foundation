@@ -80,10 +80,19 @@ public class OleResetConfig {
 	@Bean
 	public PropertySource<?> springPropertySource() {
 		String name = "springPropertySource";
+
+		// Combine project properties into a list where the "last one in wins"
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
 		pps.add(oleProjectProperties());
+
+		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
+
+		// Override with system/environment properties
+		source.putAll(PropertyUtils.getGlobalProperties());
+
+		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, source);
 	}
 }
