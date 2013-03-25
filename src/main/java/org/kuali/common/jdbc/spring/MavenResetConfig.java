@@ -40,14 +40,11 @@ public class MavenResetConfig {
 	public ProjectProperties mavenProjectProperties() {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
-		List<String> excludes = getList("properties.maven.excludes");
-		mavenProperties.remove("kuali.scm.url");
+		List<String> excludes = getList(env, "properties.maven.excludes");
 		PropertyUtils.trim(mavenProperties, null, excludes);
 
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
-
-		PropertyUtils.info(mavenProperties);
 
 		ProjectProperties pp = new ProjectProperties();
 		pp.setProject(project);
@@ -55,8 +52,8 @@ public class MavenResetConfig {
 		return pp;
 	}
 
-	protected List<String> getList(String key) {
-		String csv = mavenProperties.getProperty(key);
+	protected List<String> getList(Environment env, String key) {
+		String csv = env.getProperty(key);
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
