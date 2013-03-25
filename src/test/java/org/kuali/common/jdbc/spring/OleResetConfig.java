@@ -105,8 +105,8 @@ public class OleResetConfig {
 		}
 
 		String encryptionMode = SpringUtils.getProperty(env, "properties.decrypt", EncryptionMode.NONE.name());
-		EncryptionMode mode = EncryptionMode.valueOf(encryptionMode);
-		boolean decrypt = EncryptionMode.DECRYPT.equals(mode);
+		EncryptionMode em = EncryptionMode.valueOf(encryptionMode);
+		boolean decrypt = EncryptionMode.DECRYPT.equals(em);
 		if (decrypt) {
 			String password = SpringUtils.getProperty(env, "properties.enc.password");
 			String strength = SpringUtils.getProperty(env, "properties.enc.strength", EncryptionStrength.BASIC.name());
