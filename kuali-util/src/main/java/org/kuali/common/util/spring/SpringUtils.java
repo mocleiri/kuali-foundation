@@ -103,7 +103,8 @@ public class SpringUtils {
 			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
 
 			// Strength is optional (defaults to BASIC)
-			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", EncryptionStrength.BASIC.name());
+			String defaultStrength = EncryptionStrength.BASIC.name();
+			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
 			PropertyUtils.decrypt(properties, decryptor);
