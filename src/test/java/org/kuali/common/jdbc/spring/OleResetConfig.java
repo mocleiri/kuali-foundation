@@ -67,11 +67,11 @@ public class OleResetConfig {
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
 
-		SpringExecutable scle = new SpringExecutable();
-		scle.setService(new DefaultSpringService());
-		scle.setContext(context);
-		scle.setSkip(new Boolean(skip));
-		return scle;
+		SpringExecutable se = new SpringExecutable();
+		se.setService(new DefaultSpringService());
+		se.setContext(context);
+		se.setSkip(new Boolean(skip));
+		return se;
 	}
 
 	@Bean
