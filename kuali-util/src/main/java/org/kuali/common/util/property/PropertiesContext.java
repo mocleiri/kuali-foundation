@@ -21,7 +21,7 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class PropertiesLoaderContext {
+public class PropertiesContext {
 
 	protected PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	protected String encoding = Constants.DEFAULT_ENCODING;

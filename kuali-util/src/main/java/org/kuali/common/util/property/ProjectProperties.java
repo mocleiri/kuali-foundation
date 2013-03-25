@@ -15,20 +15,12 @@
  */
 package org.kuali.common.util.property;
 
-import java.util.List;
-
 import org.kuali.common.util.Project;
 
-public class ProjectProperties implements Comparable<ProjectProperties> {
+public class ProjectProperties {
 
 	Project project;
-	int sequence;
-	List<PropertiesLoaderContext> loaderContexts;
-
-	@Override
-	public int compareTo(ProjectProperties other) {
-		return Double.compare(sequence, other.getSequence());
-	}
+	PropertiesContext propertiesContext;
 
 	public Project getProject() {
 		return project;
@@ -38,20 +30,12 @@ public class ProjectProperties implements Comparable<ProjectProperties> {
 		this.project = project;
 	}
 
-	public List<PropertiesLoaderContext> getLoaderContexts() {
-		return loaderContexts;
+	public PropertiesContext getPropertiesContext() {
+		return propertiesContext;
 	}
 
-	public void setLoaderContexts(List<PropertiesLoaderContext> loaderContexts) {
-		this.loaderContexts = loaderContexts;
-	}
-
-	public int getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
+	public void setPropertiesContext(PropertiesContext propertiesContext) {
+		this.propertiesContext = propertiesContext;
 	}
 
 }

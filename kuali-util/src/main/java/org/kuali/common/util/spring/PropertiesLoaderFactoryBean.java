@@ -21,13 +21,13 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.PropertiesLoaderContext;
+import org.kuali.common.util.property.PropertiesContext;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
  * The improvement over Springs <code>PropertiesFactoryBean</code> is the ability to dynamically resolve placeholders in the property locations themselves.
  */
-public class PropertiesLoaderFactoryBean extends PropertiesLoaderContext implements FactoryBean<Properties> {
+public class PropertiesLoaderFactoryBean extends PropertiesContext implements FactoryBean<Properties> {
 
 	protected Properties global = PropertyUtils.getGlobalProperties();
 	boolean singleton = true;

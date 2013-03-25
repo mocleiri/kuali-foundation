@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.property.PropertiesLoaderContext;
+import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
@@ -59,7 +59,7 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
-	public static Properties load(PropertiesLoaderContext context) {
+	public static Properties load(PropertiesContext context) {
 		Assert.notNull(context.getHelper(), "helper is null");
 		Assert.notNull(context.getLocations(), "locations are null");
 		Assert.notNull(context.getEncoding(), "encoding is null");

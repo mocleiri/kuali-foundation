@@ -16,7 +16,6 @@
 package org.kuali.common.util.spring;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -26,7 +25,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.ProjectPropertiesComparator;
-import org.kuali.common.util.property.PropertiesLoaderContext;
+import org.kuali.common.util.property.PropertiesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -59,19 +58,17 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 				list.add(bean);
 			}
 			// Sort them by sequence (only relevant if there is more than one which there typically is not)
-			Collections.sort(list);
 			pps.addAll(list);
 		}
 
 		// Cycle through the list we have adding in properties as we go
 		Properties properties = new Properties();
 		for (ProjectProperties pp : pps) {
-			for (PropertiesLoaderContext ctx : pp.getLoaderContexts()) {
-				Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
-				ctx.setProperties(combined);
-				Properties loaded = PropertyUtils.load(ctx);
-				properties.putAll(loaded);
-			}
+			PropertiesContext ctx = pp.getPropertiesContext();
+			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
+			ctx.setProperties(combined);
+			Properties loaded = PropertyUtils.load(ctx);
+			properties.putAll(loaded);
 		}
 		String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 		logger.info("Loaded {} properties.  Total time: {}", properties.size(), elapsed);
