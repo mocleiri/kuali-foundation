@@ -229,8 +229,8 @@ public class SpringUtils {
 	}
 
 	/**
-	 * Always return a fully resolved value. Use defaultValue if a value cannot be located in the environment. Throw an exception if the return value contains unresolvable
-	 * placeholders.
+	 * Always return a fully resolved value. Use <code>defaultValue</code> if a value cannot be located in the environment. Throw an exception if the return value contains
+	 * unresolvable placeholders.
 	 */
 	public static String getProperty(Environment env, String key, String defaultValue) {
 		if (defaultValue == null) {
