@@ -242,7 +242,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			logger.info("Loading - [{}]", configuration);
 		}
 		if (mojo.isInjectMavenProperties()) {
-			logger.info("Injecting Maven properties - {} total", props.size());
+			logger.debug("Injecting Maven properties - {} total", props.size());
 			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
