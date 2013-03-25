@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.property.ProjectProperties;
@@ -37,6 +38,9 @@ public class MavenResetConfig {
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
+		List<String> excludes = getList("properties.maven.excludes");
+		PropertyUtils.trim(mavenProperties, null, excludes);
+
 		Project project = ProjectUtils.getProject(mavenProperties);
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
@@ -45,6 +49,11 @@ public class MavenResetConfig {
 		pp.setProject(project);
 		pp.setPropertiesContext(pc);
 		return pp;
+	}
+
+	protected List<String> getList(String key) {
+		String csv = mavenProperties.getProperty(key);
+		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
 	@Bean
