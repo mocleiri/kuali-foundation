@@ -55,6 +55,16 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
+	// Configure a helper that will fail on any unresolved placeholders
+	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+
+	public static String getResolvedProperty(Properties properties, String key, String defaultValue) {
+		String value = properties.getProperty(key);
+		if (StringUtils.isBlank(value)) {
+			value = defaultValue;
+		}
+		return HELPER.replacePlaceholders(value, properties);
+	}
 
 	/**
 	 * Process the properties passed in.<br>
@@ -63,31 +73,31 @@ public class SpringUtils {
 	 * 2 - Decrypt any ENC(...) values<br>
 	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
 	 */
-	public static void processProperties(Environment env, Properties properties) {
+	public static void processProperties(Properties properties) {
+
 		// Override with system/environment properties
 		properties.putAll(PropertyUtils.getGlobalProperties());
 
 		// Are we decrypting property values?
-		boolean decrypt = new Boolean(SpringUtils.getProperty(env, "properties.decrypt", "false"));
-		logger.info("decrypt=" + decrypt);
+		boolean decrypt = new Boolean(getResolvedProperty(properties, "properties.decrypt", "false"));
 		if (decrypt) {
 			// If they asked to decrypt, they must also supply a password
-			String password = SpringUtils.getProperty(env, "properties.enc.password");
-			logger.info("pw=" + password);
+			String password = getResolvedProperty(properties, "properties.enc.password", null);
+			if (StringUtils.isBlank(password)) {
+				throw new IllegalStateException("No decryption password was provided.  properties.enc.password=[" + password + "]");
+			}
 			// Strength is optional (defaults to BASIC)
-			String strength = SpringUtils.getProperty(env, "properties.enc.strength", EncryptionStrength.BASIC.name());
+			String strength = getResolvedProperty(properties, "properties.enc.strength", EncryptionStrength.BASIC.name());
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
 			PropertyUtils.decrypt(properties, decryptor);
 		}
 
 		// Are we resolving placeholders?
-		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
+		boolean resolve = new Boolean(properties.getProperty("properties.resolve", "true"));
 		if (resolve) {
-			// Configure a helper that will fail on any unresolved placeholders
-			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
-			rpp.setHelper(helper);
+			rpp.setHelper(HELPER);
 			rpp.process(properties);
 		}
 	}
