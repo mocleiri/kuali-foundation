@@ -73,13 +73,13 @@ public class SpringUtils {
 	}
 
 	/**
-	 * Process the properties passed in.<br>
+	 * Process the properties passed in so they are ready for use by a Spring context.<br>
 	 * 
 	 * 1 - Override with system/environment properties<br>
 	 * 2 - Decrypt any ENC(...) values<br>
 	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
 	 */
-	public static void processProperties(Properties properties) {
+	public static void prepareContextProperties(Properties properties) {
 
 		// Override with system/environment properties
 		properties.putAll(PropertyUtils.getGlobalProperties());
@@ -87,8 +87,8 @@ public class SpringUtils {
 		// Are we decrypting property values?
 		boolean decrypt = new Boolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
 		if (decrypt) {
-			// If they asked to decrypt, they must also supply a password
-			String password = getRequiredResolvedProperty(properties, "properties.enc.password", null);
+			// If they asked to decrypt, a password is required
+			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
 
 			// Strength is optional (defaults to BASIC)
 			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", EncryptionStrength.BASIC.name());
@@ -98,7 +98,7 @@ public class SpringUtils {
 		}
 
 		// Are we resolving placeholders?
-		boolean resolve = new Boolean(properties.getProperty("properties.resolve", "true"));
+		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
 		if (resolve) {
 			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
 			rpp.setHelper(HELPER);
