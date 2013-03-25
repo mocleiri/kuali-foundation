@@ -98,8 +98,10 @@ public class ResetDataConfig {
 
 	protected SqlListener getConcurrentListener() {
 		String label = SpringUtils.getProperty(env, "sql.data.concurrent.progress.label", "Rows");
+		String throughputLabel = SpringUtils.getProperty(env, "sql.data.concurrent.progress.throughputLabel", "rows/s");
 		DataSummaryListener dsl = new DataSummaryListener();
 		dsl.setLabel(label);
+		dsl.setThroughputLabel(throughputLabel);
 
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());
