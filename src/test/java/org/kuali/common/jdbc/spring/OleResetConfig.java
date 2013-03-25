@@ -5,13 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.EncUtils;
+import org.kuali.common.util.EncryptionMode;
+import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringContextLoaderExecutable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
+import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -91,6 +96,24 @@ public class OleResetConfig {
 
 		// Override with system/environment properties
 		source.putAll(PropertyUtils.getGlobalProperties());
+
+		//
+		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
+		if (resolve) {
+			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			rpp.process(source);
+		}
+
+		String encryptionMode = SpringUtils.getProperty(env, "properties.decrypt", EncryptionMode.NONE.name());
+		EncryptionMode mode = EncryptionMode.valueOf(encryptionMode);
+		boolean decrypt = EncryptionMode.DECRYPT.equals(mode);
+		if (decrypt) {
+			String password = SpringUtils.getProperty(env, "properties.enc.password");
+			String strength = SpringUtils.getProperty(env, "properties.enc.strength", EncryptionStrength.BASIC.name());
+			EncryptionStrength es = EncryptionStrength.valueOf(strength);
+			TextEncryptor encryptor = EncUtils.getTextEncryptor(es, password);
+			PropertyUtils.decrypt(source, encryptor);
+		}
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, source);
