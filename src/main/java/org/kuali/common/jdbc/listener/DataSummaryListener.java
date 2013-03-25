@@ -31,6 +31,7 @@ public class DataSummaryListener extends NoOpSqlListener {
 	LoggerLevel loggerLevel = LoggerLevel.INFO;
 	boolean showRate = true;
 	String label = "Rows";
+	String throughputLabel = "rows/s";
 
 	public DataSummaryListener() {
 		this(true);
@@ -91,6 +92,14 @@ public class DataSummaryListener extends NoOpSqlListener {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public String getThroughputLabel() {
+		return throughputLabel;
+	}
+
+	public void setThroughputLabel(String throughputLabel) {
+		this.throughputLabel = throughputLabel;
 	}
 
 }
