@@ -82,6 +82,7 @@ sub foundation_env_status
    if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    if (( lc($line) =~ "s3") ){ $no_ping = "S3 Data Archiver, no check"; }
+   if (( lc($line) =~ "ghs") ){ $no_ping = "Google Hosted Services(ghs), no check"; }
    #print "\n",$line;
    @parts = split(/\s|\->|,/,$line);
     ($toss,$url,$ec2,$CNAME,$ttl) = split(/\s|\->|,/,$line);
