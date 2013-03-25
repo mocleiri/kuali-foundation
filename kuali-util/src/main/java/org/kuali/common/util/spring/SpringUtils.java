@@ -25,7 +25,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.EncUtils;
+import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -33,6 +36,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -46,10 +50,45 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
+
+	/**
+	 * Process the properties passed in.<br>
+	 * 
+	 * 1 - Override with system/environment properties<br>
+	 * 2 - Decrypt any ENC(...) values<br>
+	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
+	 */
+	public static void processProperties(Environment env, Properties properties) {
+		// Override with system/environment properties
+		properties.putAll(PropertyUtils.getGlobalProperties());
+
+		// Are we decrypting property values?
+		boolean decrypt = new Boolean(SpringUtils.getProperty(env, "properties.decrypt", "false"));
+		if (decrypt) {
+			// If they asked to decrypt, they must also supply a password
+			String password = SpringUtils.getProperty(env, "properties.enc.password");
+			// Strength is optional (defaults to BASIC)
+			String strength = SpringUtils.getProperty(env, "properties.enc.strength", EncryptionStrength.BASIC.name());
+			EncryptionStrength es = EncryptionStrength.valueOf(strength);
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
+			PropertyUtils.decrypt(properties, decryptor);
+		}
+
+		// Are we resolving placeholders?
+		boolean resolve = new Boolean(SpringUtils.getProperty(env, "properties.resolve", "true"));
+		if (resolve) {
+			// Configure a helper that will fail on any unresolved placeholders
+			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
+			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			rpp.setHelper(helper);
+			rpp.process(properties);
+		}
+	}
 
 	/**
 	 * Converts a GAV into Spring's classpath style notation for the default project properties context.
