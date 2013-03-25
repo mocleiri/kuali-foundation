@@ -9,7 +9,6 @@ import org.kuali.common.util.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -47,15 +46,6 @@ public class MetaInfMpxConfig {
 		String targetMethod = "scanAndCreateFiles";
 		Object[] arguments = { contexts };
 
-		// Invoke MetaInfUtils to get the desired result
-		MethodInvokingFactoryBean mifb = new MethodInvokingFactoryBean();
-		mifb.setTargetClass(targetClass);
-		mifb.setTargetMethod(targetMethod);
-		mifb.setArguments(arguments);
-		try {
-			return mifb.getObject();
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
+		return SpringUtils.invokeMethod(targetClass, targetMethod, arguments);
 	}
 }
