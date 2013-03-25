@@ -78,12 +78,11 @@ public class OleResetConfig {
 		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
 		pps.add(olePropertiesConfig.oleProjectProperties());
 		for (ProjectProperties pp : pps) {
-			for (PropertiesContext ctx : pp.getLoaderContexts()) {
-				Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
-				ctx.setProperties(combined);
-				Properties loaded = PropertyUtils.load(ctx);
-				properties.putAll(loaded);
-			}
+			PropertiesContext ctx = pp.getPropertiesContext();
+			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
+			ctx.setProperties(combined);
+			Properties loaded = PropertyUtils.load(ctx);
+			properties.putAll(loaded);
 		}
 		return properties;
 	}

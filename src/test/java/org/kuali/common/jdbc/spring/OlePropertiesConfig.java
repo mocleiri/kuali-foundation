@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.Project;
@@ -24,13 +23,13 @@ public class OlePropertiesConfig {
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:ole-fs.properties");
 
-		PropertiesContext plc = new PropertiesContext();
-		plc.setEncoding(project.getEncoding());
-		plc.setLocations(locations);
+		PropertiesContext pc = new PropertiesContext();
+		pc.setEncoding(project.getEncoding());
+		pc.setLocations(locations);
 
 		ProjectProperties pp = new ProjectProperties();
 		pp.setProject(project);
-		pp.setLoaderContexts(Arrays.asList(plc));
+		pp.setPropertiesContext(pc);
 		return pp;
 	}
 
