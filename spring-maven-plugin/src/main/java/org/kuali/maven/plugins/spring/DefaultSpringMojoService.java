@@ -132,7 +132,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			for (PropertySource<?> ps : sources) {
 				String name = ps.getName();
 				String type = ps.getClass().getName();
-				logger.info("Adding property source - [{}] -> [{}]", name, type);
+				logger.debug("Adding property source - [{}] -> [{}]", name, type);
 			}
 			// Add them to the SpringContext
 			context.setPropertySourceContext(new PropertySourceContext(sources));
