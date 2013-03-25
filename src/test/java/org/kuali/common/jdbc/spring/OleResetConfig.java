@@ -67,6 +67,7 @@ public class OleResetConfig {
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
 
+		// Load the context
 		SpringExecutable se = new SpringExecutable();
 		se.setService(new DefaultSpringService());
 		se.setContext(context);
