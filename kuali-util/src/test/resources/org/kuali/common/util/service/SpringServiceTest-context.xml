@@ -43,6 +43,6 @@
 
   <bean id="service" class="org.kuali.common.util.service.DefaultSpringService" />
 
-  <bean id="executable" class="org.kuali.common.util.execute.SpringContextLoaderExecutable" />
+  <bean id="executable" class="org.kuali.common.util.execute.SpringExecutable" />
 
 </beans>

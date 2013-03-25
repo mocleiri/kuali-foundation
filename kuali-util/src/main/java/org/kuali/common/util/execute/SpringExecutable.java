@@ -21,9 +21,9 @@ import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SpringContextLoaderExecutable implements Executable {
+public class SpringExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(SpringContextLoaderExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(SpringExecutable.class);
 
 	SpringService service = new DefaultSpringService();
 	SpringContext context;
