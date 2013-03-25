@@ -36,6 +36,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,17 @@ public class SpringUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 	// Configure a helper that will fail on any unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+
+	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
+		// Load them from disk
+		Properties source = PropertyUtils.load(pps);
+
+		// Prepare them so they are ready for use
+		prepareContextProperties(source);
+
+		// Return a PropertySource backed by the properties
+		return new PropertiesPropertySource(name, source);
+	}
 
 	public static String getRequiredResolvedProperty(Properties properties, String key) {
 		return getRequiredResolvedProperty(properties, key, null);
