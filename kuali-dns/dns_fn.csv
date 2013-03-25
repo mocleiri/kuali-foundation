@@ -1,19 +1,77 @@
 DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%
+www.kuali.org,www , no ec2 server
+cal.kuali.org,cal , no ec2 server
+ci.kc.kuali.org,ci.kc , no ec2 server
+cm.kuali.org,cm , no ec2 server
+code.kuali.org,code , no ec2 server
+docs.kuali.org,docs , no ec2 server
+events.kuali.org,events , no ec2 server
+feeds.kuali.org,feeds , no ec2 server
+groups.kuali.org,groups , no ec2 server
+home.kuali.org,home , no ec2 server
+sandbox.kuali.org,sandbox , no ec2 server
+test.kr.kuali.org,test.kr , no ec2 server
+mail.kuali.org,mail , no ec2 server
+sites.kuali.org,sites , no ec2 server
+video.kuali.org,video , no ec2 server
+kuali.sandbox.kuali.org,kuali.sandbox , no ec2 server
+student.sandbox.kuali.org,student.sandbox , no ec2 server
+moderator.kuali.org,moderator , no ec2 server
+openldap.kuali.org,openldap , no ec2 server
+puppet.kuali.org,puppet , no ec2 server
+us.ready-dev.kuali.org,us.ready-dev , no ec2 server
+us.ready-qa.kuali.org,us.ready-qa , no ec2 server
+us.ready-staging.kuali.org,us.ready-staging , no ec2 server
+testhome.kuali.org,testhome , no ec2 server
+wave.kuali.org,wave , no ec2 server
+dev.cas.kuali.org,dev.cas , no ec2 server
+maven.kuali.org,maven , no ec2 server
+downloads.kfs.kuali.org,downloads.kfs , no ec2 server
+downloads.kc.kuali.org,downloads.kc , no ec2 server
 db.kis.kuali.org,db.kis , RDS-no check
+downloads.kuali.org,downloads , no ec2 server
+help.kuali.org,help , no ec2 server
 db.dev.kuali.org,db.dev , RDS-no check
 db.fisheye.kuali.org,db.fisheye , RDS-no check
 test.db.kfs.kuali.org,test.db.kfs , RDS-no check
+site.origin.kuali.org,site.origin , no ec2 server
 site.kuali.org,site , cloudfront-no check
 site.maven.kuali.org,site.maven , cloudfront-no check
+sakai.kuali.org,sakai , no ec2 server
 stg.db.kfs.kuali.org,stg.db.kfs , RDS-no check
+oracle.kfs.kuali.org,oracle.kfs , no ec2 server
+start.kuali.org,start , no ec2 server
+nexus.kuali.org,nexus , no ec2 server
+newsletter.kuali.org,newsletter , no ec2 server
+test.mm.kfs.kuali.org,test.mm.kfs , no ec2 server
 oracle.kmm.kuali.org,oracle.kmm , RDS-no check
 deploy1.m.kuali.org, ec2-50-17-38-19.compute-1.amazonaws.com, running,mobility1:ProdBalanced
 mysql.m.kuali.org,mysql.m , RDS-no check
+m.kuali.org,m , no ec2 server
+devkd2011.kuali.org,devkd2011 , no ec2 server
+conference.kc.kuali.org,conference.kc , no ec2 server
+kcw.kuali.org,kcw , no ec2 server
 oraclerds.kfs.kuali.org,oraclerds.kfs , RDS-no check
+nexus1.kuali.org,nexus1 , no ec2 server
+nexus2.kuali.org,nexus2 , no ec2 server
+nexus3.kuali.org,nexus3 , no ec2 server
+fossology.kuali.org,fossology , no ec2 server
+new.fossology.kuali.org,new.fossology , no ec2 server
 sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com, running,sonar-new
 db.dev.kis.kuali.org,db.dev.kis , RDS-no check
+kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org,kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey , no ec2 server
+cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org,cyuugtb4obthnropzloyticx3jijqy4u._domainkey , no ec2 server
+jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org,jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey , no ec2 server
+ci.fn.kuali.org,ci.fn , no ec2 server
 db.fecru.kuali.org,db.fecru , RDS-no check
+new-fisheye.kuali.org,new-fisheye , no ec2 server
+new-crowd.kuali.org,new-crowd , no ec2 server
+old-crowd.kuali.org,old-crowd , no ec2 server
+new-www.kuali.org,new-www , no ec2 server
+old-www.kuali.org,old-www , no ec2 server
+dev-drupal.kuali.org,dev-drupal , no ec2 server
 dev-shem.kuali.org, ec2-107-20-106-17.compute-1.amazonaws.com, running,dev-shem:Development
+www.dev-drupal.kuali.org,www.dev-drupal , no ec2 server
 db-dev-www.kuali.org,db-dev-www , RDS-no check
 db-www.kuali.org,db-www , RDS-no check
 dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, running,dev-cas:Development

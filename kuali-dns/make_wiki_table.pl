@@ -91,6 +91,8 @@ sub foundation_env_status
      }
     if ( $no_ping ne "" )
     { print WIKI "$name,$url , $no_ping\n"; }
+   if ( ( $result_ec2 eq "" ) && ( $result eq "" ) && ($no_ping eq ""  ) )
+    { print WIKI "$name,$url , no ec2 server\n"; }
   }
   }
 }
