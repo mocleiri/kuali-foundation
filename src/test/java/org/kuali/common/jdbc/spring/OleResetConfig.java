@@ -3,11 +3,9 @@ package org.kuali.common.jdbc.spring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringContextLoaderExecutable;
 import org.kuali.common.util.property.ProjectProperties;
@@ -21,7 +19,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
@@ -79,20 +76,12 @@ public class OleResetConfig {
 
 	@Bean
 	public PropertySource<?> springPropertySource() {
-		String name = "springPropertySource";
-
 		// Combine project properties into a list where the "last one in wins"
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
 		pps.add(oleProjectProperties());
 
-		// Load them from disk
-		Properties source = PropertyUtils.load(pps);
-
-		// Process them so they are ready for use
-		SpringUtils.processProperties(source);
-
-		// Return a PropertySource backed by the properties
-		return new PropertiesPropertySource(name, source);
+		// Get a PropertySource object backed by the properties loaded from the list
+		return SpringUtils.getPropertySource("springPropertySource", pps);
 	}
 }
