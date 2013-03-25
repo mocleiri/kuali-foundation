@@ -11,8 +11,32 @@ chomp($cert);
 #print "cert:$cert.";
 $command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" > instance.lst";
 $command_tag = "$cmd -K $key -C $cert | grep \"TAG\" > tag.lst";
+$size = `wc -l instance.lst`;
+print "\nfn: $size";
 `$command_instance`;
 `$command_tag`;
+$key = `ls ~/.ssh/kr-pk*`;
+$cert = `ls ~/.ssh/kr-cert*`;
+chomp($key);
+chomp($cert);
+$command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
+$command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
+`$command_instance`;
+`$command_tag`;
+$size = `wc -l instance.lst`;
+print "\nkr: $size";
+
+$key = `ls ~/.ssh/ks-pk*`;
+$cert = `ls ~/.ssh/ks-cert*`;
+chomp($key);
+chomp($cert);
+$command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
+$size = `wc -l instance.lst`;
+print "\nks: $size";
+$command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
+`$command_instance`;
+`$command_tag`;
+
 open ( FN,  "<instance.lst"); (@INSTANCE =<FN>); close (FN);
 `rm FN.lst`;
 open FNLST, ">>FN.lst" or die "FN.lst : $!\n" ;
@@ -49,6 +73,7 @@ sub foundation_env_status
  $sourcefile = "dns.$project".".txt";
  $cmd = "mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice > $sourcefile";
  `$cmd`;
+ print "\n", $cmd;
  open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
  foreach $line (@DNS)
  {
@@ -68,9 +93,12 @@ sub foundation_env_status
    @temp = split(//,$ec2);
    pop(@temp); #there's a period there
    $ec2 = join "", @temp;
-   #print "\ngrep $name FN.lst";
-   #print "\ngrep $ec2 FN.lst" ;
-   $result = `grep $name FN.lst`;
+   if ( $name =~ "ci.fn" )
+   {
+   print "\ngrep $name FN.lst";
+   print "\ngrep $ec2 FN.lst" ;
+   }
+   $result = `grep $url FN.lst`;
    $result_ec2 = `grep $ec2 FN.lst`;
     
    chomp($result);
