@@ -90,11 +90,6 @@ public class ResetDataConfig {
 
 		JdbcContext ctx = getBaseJdbcContext("sql.data.concurrent.message", "sql.data.concurrent");
 		ctx.setTrackProgressByUpdateCount(false);
-		System.out.println("trackProgressByUpdateCount=" + ctx.isTrackProgressByUpdateCount());
-		System.out.println("trackProgressByUpdateCount=" + ctx.isTrackProgressByUpdateCount());
-		System.out.println("trackProgressByUpdateCount=" + ctx.isTrackProgressByUpdateCount());
-		System.out.println("trackProgressByUpdateCount=" + ctx.isTrackProgressByUpdateCount());
-		System.out.println("trackProgressByUpdateCount=" + ctx.isTrackProgressByUpdateCount());
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
 		ctx.setListener(getConcurrentListener());
