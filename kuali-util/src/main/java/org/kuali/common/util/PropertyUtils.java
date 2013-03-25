@@ -38,6 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -58,6 +59,19 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static Properties load(List<ProjectProperties> pps) {
+		Properties properties = new Properties();
+		for (ProjectProperties pp : pps) {
+			PropertiesContext ctx = pp.getPropertiesContext();
+			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
+			ctx.setProperties(combined);
+			Properties loaded = PropertyUtils.load(ctx);
+			properties.putAll(loaded);
+		}
+		properties.putAll(PropertyUtils.getGlobalProperties());
+		return properties;
+	}
 
 	public static Properties load(PropertiesContext context) {
 		Assert.notNull(context.getHelper(), "helper is null");
