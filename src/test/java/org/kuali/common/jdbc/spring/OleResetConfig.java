@@ -37,12 +37,13 @@ public class OleResetConfig {
 	@Bean
 	public SpringContext oleSpringContext() {
 
-		// Setup the property source for resolving placeholders
-		PropertySourceContext psc = new PropertySourceContext();
-		psc.setRemoveExistingSources(true);
-		psc.setSources(SpringUtils.asList(springPropertySource()));
+		/**
+		 * The effect of this line is that a property source is created containing 100% of the properties needed by Spring to resolve any/all placeholders in any of the contexts.
+		 * It will be the only property source available to Spring so it needs to include system properties and environment variables
+		 */
+		PropertySourceContext psc = new PropertySourceContext(springPropertySource(), true);
 
-		// Setup the class containing annotated configuration
+		// Setup the list containing annotated configuration classes
 		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetConfig.class, ResetController.class);
 
 		// Setup the Spring context
