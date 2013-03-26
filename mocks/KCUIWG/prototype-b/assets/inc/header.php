@@ -16,7 +16,7 @@
       <div class="toolset">
         <ul>
           <li><a href="#" class="my-account">Logout</a></li>
-          <li><a href="#" class="action-list">Action List</a></li>
+          <!-- <li><a href="#" class="action-list">Action List</a></li> -->
         </ul>
       </div> 
     </div>

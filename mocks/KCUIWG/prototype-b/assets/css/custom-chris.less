@@ -2,7 +2,7 @@
 Custom styles
 Author: 	Chris Rodriguez, clrux@bu.edu
 Created:	29 Jan 2012, 12:09
-Last Mod:	19 Feb 2013, 14:54
+Last Mod:	26 Mar 2013, 11:56
 
 
 LESS Variables:
@@ -33,7 +33,6 @@ html {
 
 body {
 	background-color: @bodyBackground !important;
-	// background-image: url(../img/back.png);
 	background-image: none !important;
 	font-size: @defaultFontSize;
 	position: relative;
@@ -391,16 +390,25 @@ i {
 		}
 
 		li.active {
-			background-color: #fff !important;
-			color: #000 !important;
+			// background-color: #fff !important;
+			// color: #000 !important;
+			background-color: @headerBackground !important;
+			color: #fff !important;
 			box-shadow: none !important;
 
 			a {
-				background: #ccc;
+				// background: #ccc;
+				background: transparent;
+				color: #fff !important;
+
+				i {
+					background-image: url('../img/glyphicons-halflings-white.png') !important;
+				}
 			}
 
 			a:hover {
-				color: @linkColor !important;
+				// color: @linkColor !important;
+				color: #fff !important;
 			}
 		}
 
@@ -419,16 +427,16 @@ i {
 			}
 		}
 
-		li.open {
-			background-color: #fff;
+		// li.open {
+		// 	background-color: #fff;
 
-			a {
-				color: #000;
-			}
-		}
+		// 	a {
+		// 		color: #000;
+		// 	}
+		// }
 
 		ul {
-			background-color: #fff;
+			background-color: @bodyBackground;
 			border-top: 0px !important;
 			box-shadow: none !important;
 
@@ -449,12 +457,15 @@ i {
 			li.active {
 
 				a {
-					background-color: #fff !important;
-					color: @headerBackground !important;
+					// background-color: #fff !important;
+					background-color: @headerBackground;
+					// color: @headerBackground !important;
+					color: #fff !important;
 				}
 
 				a:hover {
-					background-color: #fff !important;
+					// background-color: #fff !important;
+					color: #fff !important;
 				}
 			}
 		}

@@ -295,15 +295,19 @@ i {
   color: #ffffff !important;
 }
 #ToC ul li.active {
-  background-color: #fff !important;
-  color: #000 !important;
+  background-color: #1f2425 !important;
+  color: #fff !important;
   box-shadow: none !important;
 }
 #ToC ul li.active a {
-  background: #ccc;
+  background: transparent;
+  color: #fff !important;
+}
+#ToC ul li.active a i {
+  background-image: url('../img/glyphicons-halflings-white.png') !important;
 }
 #ToC ul li.active a:hover {
-  color: #960000 !important;
+  color: #fff !important;
 }
 #ToC ul li.complete a {
   color: #81a255;
@@ -312,14 +316,8 @@ i {
   background: #5c9b0a;
   color: #81a255;
 }
-#ToC ul li.open {
-  background-color: #fff;
-}
-#ToC ul li.open a {
-  color: #000;
-}
 #ToC ul ul {
-  background-color: #fff;
+  background-color: #f3f3f3;
   border-top: 0px !important;
   box-shadow: none !important;
 }
@@ -335,11 +333,11 @@ i {
   color: #ffffff !important;
 }
 #ToC ul ul li.active a {
-  background-color: #fff !important;
-  color: #1f2425 !important;
+  background-color: #1f2425;
+  color: #fff !important;
 }
 #ToC ul ul li.active a:hover {
-  background-color: #fff !important;
+  color: #fff !important;
 }
 #ToC.fixed {
   top: 82px;

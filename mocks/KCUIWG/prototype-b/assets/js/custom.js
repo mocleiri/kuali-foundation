@@ -2,8 +2,8 @@
 	Custom scripting for additional functionality
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created: 	29 Jan 2013, 12:09
-	Last Mod: 	19 Feb 2013, 14:04
-	Version: 	0.4.1
+	Last Mod: 	26 Mar 2013, 11:30
+	Version: 	0.4.2
 */
 
 
