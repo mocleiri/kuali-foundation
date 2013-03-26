@@ -1,8 +1,7 @@
 DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%
-www.kuali.org, , stopped,old-www:Decommision
-cal.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, running,awseb-e-rfe2ezagv2-stack-AWSEBAutoScalingGroup-2TXLX56KF4LQ:ricesampleapp:e-rfe2ezagv2:arn:aws:cloudformation:us-east-1:789813968323:stack/awseb-e-rfe2ezagv2-stack/c2b839e0-13c3-11e2-8302-5017c2aa8c86:AWSEBAutoScalingGroup:ricesampleapp:awseb-e-rfe2ezagv2-stack
+,www.kuali.org, , stopped, ,
 cal.kuali.org,cal , Google Hosted Services(ghs), no check
-ci.kc.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 256, 
+,ci.kc.kuali.org, , , ,
 cm.kuali.org,cm , Google Hosted Services(ghs), no check
 code.kuali.org,code , Google Hosted Services(ghs), no check
 docs.kuali.org,docs , Google Hosted Services(ghs), no check
@@ -10,72 +9,72 @@ events.kuali.org,events , Google Hosted Services(ghs), no check
 feeds.kuali.org,feeds , Google Hosted Services(ghs), no check
 groups.kuali.org,groups , Google Hosted Services(ghs), no check
 home.kuali.org,home , Google Hosted Services(ghs), no check
-sandbox.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 65280, 
-test.kr.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 65280, 
+,sandbox.kuali.org, , , ,
+,test.kr.kuali.org, , , ,
 mail.kuali.org,mail , Google Hosted Services(ghs), no check
 sites.kuali.org,sites , Google Hosted Services(ghs), no check
 video.kuali.org,video , Google Hosted Services(ghs), no check
-kuali.sandbox.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 65280, 
-student.sandbox.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 65280, 
+,kuali.sandbox.kuali.org, , , ,
+,student.sandbox.kuali.org, , , ,
 moderator.kuali.org,moderator , Google Hosted Services(ghs), no check
-openldap.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 256, 
-puppet.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 256, 
-us.ready-dev.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 256, 
-us.ready-qa.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 256, 
-us.ready-staging.kuali.org, ec2-204-236-196-78.compute-1.amazonaws.com, Fail 256, 
+,openldap.kuali.org, , , ,
+,puppet.kuali.org, , , ,
+,us.ready-dev.kuali.org, , , ,
+,us.ready-qa.kuali.org, , , ,
+,us.ready-staging.kuali.org, , , ,
 testhome.kuali.org,testhome , Google Hosted Services(ghs), no check
 wave.kuali.org,wave , Google Hosted Services(ghs), no check
-dev.cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, running,dev-cas:Development
+,dev.cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Timedout alarm, ,
 maven.kuali.org,maven , S3 Data Archiver, no check
 downloads.kfs.kuali.org,downloads.kfs , S3 Data Archiver, no check
 downloads.kc.kuali.org,downloads.kc , S3 Data Archiver, no check
 db.kis.kuali.org,db.kis , RDS-no check
 downloads.kuali.org,downloads , S3 Data Archiver, no check
-help.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Fail 256, 
+,help.kuali.org, , , ,
 db.dev.kuali.org,db.dev , RDS-no check
 db.fisheye.kuali.org,db.fisheye , RDS-no check
 test.db.kfs.kuali.org,test.db.kfs , RDS-no check
 site.origin.kuali.org,site.origin , S3 Data Archiver, no check
 site.kuali.org,site , cloudfront-no check
 site.maven.kuali.org,site.maven , cloudfront-no check
-sakai.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Fail 256, 
+,sakai.kuali.org, , , ,
 stg.db.kfs.kuali.org,stg.db.kfs , RDS-no check
-oracle.kfs.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Fail 256, 
+,oracle.kfs.kuali.org, , , ,
 start.kuali.org,start , Google Hosted Services(ghs), no check
-nexus.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com, running,kuali-nexus-as:nexus
+,nexus.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com, Timedout alarm, ,
 newsletter.kuali.org,newsletter , Google Hosted Services(ghs), no check
-test.mm.kfs.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com, Fail 256, 
+,test.mm.kfs.kuali.org, , , ,
 oracle.kmm.kuali.org,oracle.kmm , RDS-no check
-deploy1.m.kuali.org, ec2-50-17-38-19.compute-1.amazonaws.com, running,mobility1:ProdBalanced
+,deploy1.m.kuali.org, ec2-50-17-38-19.compute-1.amazonaws.com,  22:37:37 up 462 days, 18:27,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.7G,21G,15%,/,,
 mysql.m.kuali.org,mysql.m , RDS-no check
-m.kuali.org, , stopped,fossology:Decommision
+,m.kuali.org, , stopped, /dev/xvda1,25G,3.7G,21G,15%,/,,
 devkd2011.kuali.org,devkd2011 , Google Hosted Services(ghs), no check
 conference.kc.kuali.org,conference.kc , Google Hosted Services(ghs), no check
 kcw.kuali.org,kcw , Google Hosted Services(ghs), no check
 oraclerds.kfs.kuali.org,oraclerds.kfs , RDS-no check
-nexus1.kuali.org, , Fail 256, 
-nexus2.kuali.org, , Fail 256, 
+,nexus1.kuali.org, , , /dev/xvda1,25G,3.7G,21G,15%,/,,
+,nexus2.kuali.org, , , /dev/xvda1,25G,3.7G,21G,15%,/,,
 nexus3.kuali.org,nexus3 , S3 Data Archiver, no check
-fossology.kuali.org, , stopped,fossology:Decommision
-new.fossology.kuali.org, , stopped,new.fossology:Decommision
-sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com, running,sonar-new
+,fossology.kuali.org, , stopped, /dev/xvda1,25G,3.7G,21G,15%,/,,
+,new.fossology.kuali.org, , stopped, /dev/xvda1,25G,3.7G,21G,15%,/,,
+,sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com,  22:37:39 up 272 days,  3:18,  0 users,  load average: 0.25, 0.15, 0.09, /dev/xvda1,25G,7.5G,17G,31%,/,,
 db.dev.kis.kuali.org,db.dev.kis , RDS-no check
-kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com, Fail 65280, 
-cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com, Fail 65280, 
-jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com, Fail 65280, 
-ci.fn.kuali.org, ec2-23-22-222-214.compute-1.amazonaws.com, running,ci.fn
+,kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org, , , /dev/xvda1,25G,7.5G,17G,31%,/,,
+,cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org, , , /dev/xvda1,25G,7.5G,17G,31%,/,,
+,jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org, , , /dev/xvda1,25G,7.5G,17G,31%,/,,
+,ci.fn.kuali.org, ec2-23-22-222-214.compute-1.amazonaws.com,  22:37:41 up 176 days,  2:21,  0 users,  load average: 0.02, 0.02, 0.05, /dev/xvda1,99G,70G,28G,72%,/,,
 db.fecru.kuali.org,db.fecru , RDS-no check
-new-fisheye.kuali.org, , stopped,new-fisheye:Decommision
-new-crowd.kuali.org, , Fail 256, 
-old-crowd.kuali.org, , stopped,old-crowd:Decommison
-new-www.kuali.org, , Fail 256, 
-old-www.kuali.org, , stopped,old-www:Decommision
-dev-drupal.kuali.org, , stopped,Decommision:dev-drupal
-dev-shem.kuali.org, ec2-107-20-106-17.compute-1.amazonaws.com, running,dev-shem:Development
-www.dev-drupal.kuali.org, ec2-107-20-106-17.compute-1.amazonaws.com, Fail 256, 
+,new-fisheye.kuali.org, , stopped, /dev/xvda1,99G,70G,28G,72%,/,,
+,new-crowd.kuali.org, , , /dev/xvda1,99G,70G,28G,72%,/,,
+,old-crowd.kuali.org, , stopped, /dev/xvda1,99G,70G,28G,72%,/,,
+,new-www.kuali.org, , , /dev/xvda1,99G,70G,28G,72%,/,,
+,old-www.kuali.org, , stopped, /dev/xvda1,99G,70G,28G,72%,/,,
+,dev-drupal.kuali.org, , stopped, /dev/xvda1,99G,70G,28G,72%,/,,
+,dev-shem.kuali.org, ec2-107-20-106-17.compute-1.amazonaws.com, Timedout alarm, ,
+,www.dev-drupal.kuali.org, , , ,
 db-dev-www.kuali.org,db-dev-www , RDS-no check
 db-www.kuali.org,db-www , RDS-no check
-dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, running,dev-cas:Development
-test-www.kuali.org, ec2-107-20-8-76.compute-1.amazonaws.com, running,test-www:Test
+,dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Timedout alarm, ,
+,test-www.kuali.org, ec2-107-20-8-76.compute-1.amazonaws.com, Timedout alarm, ,
 db-dev-www-rep.kuali.org,db-dev-www-rep , RDS-no check
 db-test-www.kuali.org,db-test-www , RDS-no check
