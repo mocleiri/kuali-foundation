@@ -1,0 +1,26 @@
+[INFO] Loading properties - [classpath:org/kuali/common/deploy/deploy.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/common/deploy/driver.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/common/deploy/jdbc.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/common/jdbc/jdbc.properties] encoding=UTF-8
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/sql.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/mysql.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/oracle.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/h2.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/derby.xml]
+[INFO] Loading properties - [classpath:org/kuali/student/web/deploy.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/student/web/ks-rice-standalone.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/student/web/env11.properties] encoding=UTF-8
+
+
+[INFO] Loading properties - [classpath:org/kuali/common/deploy/deploy.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/common/deploy/driver.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/common/deploy/jdbc.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/common/jdbc/jdbc.properties] encoding=UTF-8
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/sql.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/mysql.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/oracle.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/h2.xml]
+[INFO] Loading XML properties - [classpath:org/kuali/common/sql/derby.xml]
+[INFO] Loading properties - [classpath:org/kuali/student/web/deploy.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/student/web/ks-with-rice-bundled.properties] encoding=UTF-8
+[INFO] Loading properties - [classpath:org/kuali/student/web/env11.properties] encoding=UTF-8
