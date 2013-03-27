@@ -4,35 +4,37 @@ $HOME=$ENV{'HOME'};
 
 sub build_ec2_lst
 {
-$cmd = "ec2-describe-instances";
+ $cmd = "ec2-describe-instances";
+ my @projects = ("fn","ks","kr");
+ my $pj;  #project index
+ #remove some temporary files
+ system("rm ./instance.lst;touch ./instance.lst");
+ system("rm ./tag.lst;touch ./tag.lst");
 
-
-my @projects = ("fn","ks","kr");
-my $pj;
-system("rm ./instance.lst;touch ./instance.lst");
-system("rm ./tag.lst;touch ./tag.lst");
-
-foreach  $pj (@projects)
-{ 
-  $pk_key =  "$HOME/.ssh/$pj-pk*";
+ foreach  $pj (@projects)
+ { 
+  #needed to run the ec2-describe-instance or ensure the environment variables are set
+  $pk_key   =  "$HOME/.ssh/$pj-pk*";
   $cert_key = "$HOME/.ssh/$pj-cert*";
   $key = `ls $pk_key`;
   $cert = `ls $cert_key`;
   chomp($key);
   chomp($cert);
-   $command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
-   $command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
-   `$command_instance`;
-   `$command_tag`;
-}
 
-#make a file with one line for each instance, including the tag name 
-open ( EC2,  "<instance.lst"); (@INSTANCE =<EC2>); close (EC2);
-`rm EC2.lst`;
-open EC2LST, ">>EC2.lst" or die "EC2.lst : $!\n" ;
-foreach $instance ( @INSTANCE)
+  $command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
+  $command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
+  `$command_instance`;
+  `$command_tag`;
+ }
+
+ #make a file with one line for each instance, including the tag name 
+ open ( EC2,  "<instance.lst"); (@INSTANCE =<EC2>); close (EC2);
+ `rm EC2.lst`;
+ open EC2LST, ">>EC2.lst" or die "EC2.lst : $!\n" ;
+ foreach $instance ( @INSTANCE)
  {
   my @temp = split(/\t/, $instance);
+  #This url is the public name, such as the amazon.com or cloud name
   my $url = $temp[3];
   my $status = $temp[5];
   my $instance_id = $temp[1];
@@ -46,7 +48,8 @@ foreach $instance ( @INSTANCE)
 
   $tags = join ( ":", @tags);
   #done with tag for this instance
-
+  
+   
   if ( $url eq "" ){ $temp[3] = "n/a"; }
   
  #let's create a file combining the instance info and tag info.  
@@ -75,7 +78,7 @@ sub project_env_status
  $projectfile = "dns_"."$project".".csv";
  `rm $projectfile`;
  #add the headers, primative, but effective
- `echo \"DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
+ `echo \"Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
 
  #Ok, let put the file in append mode
   open WIKI,  ">>$projectfile" or die "$projectfile $!\n";
@@ -92,7 +95,6 @@ sub project_env_status
  else
  { $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile"; }
 
- `echo \"DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
  #print "\n", $cmd;
  `$cmd`;
  open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
@@ -117,7 +119,7 @@ sub project_env_status
    print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
    $name_url = $url.".kuali.org";
 
-    if ( $no_ping ne "" )
+   if ( $no_ping ne "" )
     { print WIKI "$name_url,$url , $no_ping\n"; next; }
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
@@ -145,7 +147,7 @@ sub project_env_status
    else #let's use the tag query
    { ($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);}
 
-   #only ping if the server is running
+   #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
    if (( $status eq "running") || ( $project eq "ole" ))
       {  
         if (( $line =~ "env2") && ($project eq "ole"))
@@ -165,10 +167,11 @@ sub project_env_status
    #I only are about env_no for this effort
 
    #take the info and print it to the project file
-   print WIKI "$env_no,$name_url, $server, $status, $size,$tag\n"; 
+   print WIKI ",$env_no,$name_url, $server, $status, $size,$tag\n"; 
    }
   }
 
+#Checks to see if a dns name/server combination results in a live or dead outcome 
 sub dead_or_alive
 {
  use warnings;
@@ -177,9 +180,11 @@ sub dead_or_alive
  my @out = ();
  my $value = "";
 
+#set an Signal Alarm to timeout unresponsive ip addresses
 eval {
     local $SIG{ALRM} = sub {die "alarm\n"};
     alarm 5;
+    #I don't want to see the chatter, redirect 
     $value = `ssh root\@$name uptime 2>chatter.txt`;
     alarm 0;
 };
@@ -194,7 +199,8 @@ if ($?) {
     $out[0] = "Timedout ".$@;
     sleep (20);
 } else {
-    #print "didn't time out $name\n";
+    #print "Connection to $name was established\n";
+    #Get size information
     $size = `ssh root\@$name df \-h \/ | tail -1`;
     $size =~ s/\t|\s+/,/g;
     $out[0] =$value;
