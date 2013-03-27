@@ -1,0 +1,27 @@
+<config>
+  <param name="kr.incident.mailing.list"></param>
+  <param name="datasource.username">${impex.username}</param>
+  <param name="datasource.password">${impex.password}</param>
+  <param name="datasource.url">${impex.url}</param>
+  <!-- If not specified this defaults to Oracle
+    <param name="datasource.ojb.platform">MySQL</param>
+    <param name="datasource.platform">org.kuali.rice.core.framework.persistence.platform.MySQLDatabasePlatform</param>
+    <param name="datasource.driver.name">com.mysql.jdbc.Driver</param>
+  -->
+  <param name="keystore.file">/home/tomcat/.ssh/rice.keystore</param>
+  <param name="keystore.alias">rice</param>
+  <param name="keystore.password">r1c3pw</param>
+  <param name="enable.nonproduction.data.unmasking">true</param>
+  <param name="portal.show.sample.app">true</param>
+
+  <!-- Email Settings -->
+  <param name="mail.debug">false</param>
+  <param name="mail.smtp.host">email-smtp.us-east-1.amazonaws.com</param>
+  <param name="mail.smtp.port">465</param>
+  <param name="mail.smtp.ssl.enable">true</param>
+  <param name="mail.smtp.auth">true</param>
+  <param name="mail.smtp.username">AKIAJJUBCVBNS3N2K5WA</param>
+  <param name="mail.smtp.password">${rice.ses.password}</param>
+
+  <param name="encryption.key">foobarbaz123456789</param>
+</config>
