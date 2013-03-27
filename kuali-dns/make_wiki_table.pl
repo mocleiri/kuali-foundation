@@ -139,14 +139,19 @@ sub project_env_status
    $results_ec2tag = `grep $url EC2.lst`; 
    chomp($results_ec2tag);
    
+   #if ( $status eq ""){$status = "$name_url page not found";}  
    #if the ec2 query has returned outcome lets get that info first
    if ( $outcome_ec2com ne "" )
    {   
       ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
    }
    else #let's use the tag query
-   {   if ( $status eq ""){$status = "$name_url page not found";}  
-       ($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);}
+   {   
+       #print "\n$url tag works, but not ec2com";
+       #($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);
+       $server = $ec2;
+       $status = "page not found";
+   }
 
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
    if (( $status eq "running") || ( $project eq "ole" ))
