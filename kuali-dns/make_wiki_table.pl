@@ -109,7 +109,8 @@ sub project_env_status
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    if (( lc($line) =~ "s3") ){ $no_ping = "S3 Data Archiver no check"; }
    if (( lc($line) =~ "ghs") ){ $no_ping = "Google Hosted Services(ghs) no check"; }
-   #if (( $line =~ "env7") && ($project eq "ole")){ $no_ping = "time-out"; }
+   if (( $line =~ "env7") && ($project eq "ole")){ $no_ping = "time-out"; }
+   if (( $line =~ "env2") && ($project eq "ole")){ $no_ping = "time-out"; }
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
 

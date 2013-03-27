@@ -1,27 +1,27 @@
 Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%
-,test.ks.kuali.org, , , ,
-links.kuali.org,links , Google Hosted Services(ghs), no check
-,deploy.ks.kuali.org, ec2-75-101-170-151.compute-1.amazonaws.com,  18:47:20 up 466 days, 19:09,  0 users,  load average: 1.86, 1.73, 1.72, /dev/sda1,50G,47G,0,100%,/,,
-,dev.ks.kuali.org, , , /dev/sda1,50G,47G,0,100%,/,,
-cf.ks.kuali.org,cf.ks , cloudfront-no check
-s3browse.ks.kuali.org,s3browse.ks , cloudfront-no check
-ux.ks.kuali.org,ux.ks , S3 Data Archiver, no check
-,standalone.ks.kuali.org, ec2-50-17-40-108.compute-1.amazonaws.com,  18:47:23 up 284 days, 17:28,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,50G,17G,31G,36%,/,,
-,staging2.ks.kuali.org, , , /dev/sda1,50G,17G,31G,36%,/,,
-,dev2.ks.kuali.org, , , /dev/sda1,50G,17G,31G,36%,/,,
-,deploy2.ks.kuali.org, ec2-50-16-132-150.compute-1.amazonaws.com,  18:47:25 up 337 days,  8:29,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,50G,16G,31G,34%,/,,
+,test.ks.kuali.org, wsa133.uits.indiana.edu, page not found, ,
+,links,links.kuali.org, Google Hosted Services(ghs) no check
+,deploy.ks.kuali.org, ec2-75-101-170-151.compute-1.amazonaws.com,  15:10:56 up 467 days, 15:33,  0 users,  load average: 1.97, 1.77, 1.66, /dev/sda1,50G,47G,0,100%,/,,
+,dev.ks.kuali.org, kuali-dev-lb-52213673.us-east-1.elb.amazonaws.com, page not found, ,
+,cf.ks,cf.ks.kuali.org, cloudfront-no check
+,s3browse.ks,s3browse.ks.kuali.org, cloudfront-no check
+,ux.ks,ux.ks.kuali.org, S3 Data Archiver no check
+,standalone.ks.kuali.org, ec2-50-17-40-108.compute-1.amazonaws.com,  15:10:59 up 285 days, 13:52,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,50G,17G,31G,36%,/,,
+,staging2.ks.kuali.org, ks-staging2-lb-508570320.us-east-1.elb.amazonaws.com, page not found, ,
+,dev2.ks.kuali.org, ks-dev2-lb-1875511927.us-east-1.elb.amazonaws.com, page not found, ,
+,deploy2.ks.kuali.org, ec2-50-16-132-150.compute-1.amazonaws.com,  15:11:02 up 338 days,  4:53,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,50G,16G,31G,34%,/,,
 ,ci.ks.kuali.org, ec2-50-19-187-43.compute-1.amazonaws.com, Fail 256, ,
-,env5.ks.kuali.org, , , ,
-oracle.ks.kuali.org,oracle.ks , RDS-no check
-,env33.ks.kuali.org, , , ,
-,the-most-awesome-environment-ever.ks.kuali.org, , , ,
-2,env2.ks.kuali.org, ec2-50-19-188-168.compute-1.amazonaws.com,  22:47:53 up 279 days, 40 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.3G,23G,10%,/,,
-5,staging.ks.kuali.org, ec2-107-21-74-59.compute-1.amazonaws.com,  22:47:55 up 272 days,  1:54,  0 users,  load average: 0.02, 0.03, 0.05, /dev/xvda1,25G,2.4G,23G,10%,/,,
-,env9.ks.kuali.org, , , /dev/xvda1,25G,2.4G,23G,10%,/,,
-9,demo.ks.kuali.org, ec2-50-19-44-102.compute-1.amazonaws.com,  22:47:57 up 177 days,  7:11,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,
-11,env11.ks.kuali.org, ec2-23-22-189-254.compute-1.amazonaws.com,  22:47:59 up 169 days,  6:01,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,
-,env12.ks.kuali.org, ec2-23-20-153-73.compute-1.amazonaws.com,  22:48:02 up 131 days,  1:19,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,13%,/,,
-oraperf.ks.kuali.org,oraperf.ks , RDS-no check
-,env14.ks.kuali.org, ec2-50-16-132-81.compute-1.amazonaws.com,  22:48:04 up 13 days,  6:34,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,
-15,env15.ks.kuali.org, ec2-23-20-22-137.compute-1.amazonaws.com,  22:48:06 up 13 days,  6:33,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,
-,env16.ks.kuali.org, ec2-54-235-28-193.compute-1.amazonaws.com,  22:48:09 up 25 days,  6:44,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,
+,env5.ks.kuali.org, ec2-23-20-232-244.compute-1.amazonaws.com, page not found, ,
+,oracle.ks,oracle.ks.kuali.org, RDS-no check
+,env33.ks.kuali.org, ec2-107-20-15-140.compute-1.amazonaws.com, page not found, ,
+,the-most-awesome-environment-ever.ks.kuali.org, ec2-184-72-192-98.compute-1.amazonaws.com, page not found, ,
+2,env2.ks.kuali.org, ec2-50-19-188-168.compute-1.amazonaws.com,  19:11:30 up 279 days, 21:03,  0 users,  load average: 0.82, 0.66, 0.51, /dev/xvda1,25G,2.3G,23G,10%,/,,
+5,staging.ks.kuali.org, ec2-107-21-74-59.compute-1.amazonaws.com,  19:11:33 up 272 days, 22:18,  0 users,  load average: 0.15, 0.15, 0.10, /dev/xvda1,25G,2.4G,23G,10%,/,,
+,env9.ks.kuali.org, ec2-23-23-39-241.compute-1.amazonaws.com, page not found, ,
+9,demo.ks.kuali.org, ec2-50-19-44-102.compute-1.amazonaws.com,  19:11:36 up 178 days,  3:35,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,
+11,env11.ks.kuali.org, ec2-23-22-189-254.compute-1.amazonaws.com,  19:11:38 up 170 days,  2:25,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.8G,22G,12%,/,,
+,env12.ks.kuali.org, ec2-23-20-153-73.compute-1.amazonaws.com,  19:11:41 up 131 days, 21:43,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,13%,/,,
+,oraperf.ks,oraperf.ks.kuali.org, RDS-no check
+,env14.ks.kuali.org, ec2-50-16-132-81.compute-1.amazonaws.com,  19:11:43 up 14 days,  2:58,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,
+15,env15.ks.kuali.org, ec2-23-20-22-137.compute-1.amazonaws.com,  19:11:46 up 14 days,  2:56,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,
+,env16.ks.kuali.org, ec2-54-235-28-193.compute-1.amazonaws.com,  19:11:48 up 26 days,  3:08,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,
