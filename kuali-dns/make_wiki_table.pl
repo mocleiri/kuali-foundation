@@ -116,8 +116,10 @@ sub project_env_status
 
    #so I have information, lets parse and clean it up
    ($toss,$url,$ec2,$CNAME,$ttl) = split(/\s|\->|,/,$line);
-   if ( $url !~ /$project$/)
-   {  print "\nproject at end $project"; next; }
+   #filter out any url that does not END with the project name, fn is exempt 
+   if (( $url !~ /$project$/) && ($project ne "fn"))
+   {  next; }
+
    print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
    $name_url = $url.".kuali.org";
 
@@ -149,11 +151,13 @@ sub project_env_status
    }
    elsif ( $tag ne "" ) #let's use the tag query, as ec2com didn't find anything
    {   
-       #print "\n$url tag works, but not ec2com";
-       #($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);
-       $server = $ec2;
-       $status = "page not found";
+       ($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);
    }
+   else
+    {
+       $server = $ec2;
+        $status = "page not found";
+    }
 
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
    if (( $status eq "running") || ( $project eq "ole" ))
