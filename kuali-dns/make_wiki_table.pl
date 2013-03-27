@@ -125,7 +125,7 @@ sub project_env_status
    $name_url = $url.".kuali.org";
 
    if ( $no_ping ne "" )
-    { print WIKI ",$url,$name_url, $no_ping\n"; next; }
+    { print WIKI ",$name_url,$ec2, $no_ping\n"; next; }
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
 
