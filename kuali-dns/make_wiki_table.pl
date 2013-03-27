@@ -64,12 +64,14 @@ sub build_ec2_lst
   foreach $lbline ( @Lb)
   { chomp($lbline); @lbname = split(/\t/, $tagline );
     $lb_id = $lbname[1];
+    $lb_xref = $lbname[2];
     ($toss, $lb_instance_id, $service_status) = `$cmd_lb_health $lb_id`;
     $lb_result = `grep $lb_instance_id instance.lst`;
     chomp( $lb_result );
     @lbout = split(/\t/, $lb_result);
     $instance_id = $lbout[1];
     $status = $lbout[2];
+    $tags = $lb_xref;
   }
 
   print "\nend of creating EC2 List"; 
@@ -132,9 +134,6 @@ sub project_env_status
    if (( lc($line) =~ "ghs") ){ $no_ping = "Google Hosted Services(ghs) no check"; }
    if (( $line =~ "env7") && ($project eq "ole")){ $no_ping = "time-out"; }
    if (( $line =~ "env2") && ($project eq "ole")){ $no_ping = "time-out"; }
-   if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
-   if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
-
 
    #so I have information, lets parse and clean it up
    ($toss,$url,$ec2,$CNAME,$ttl) = split(/\s|\->|,/,$line);
