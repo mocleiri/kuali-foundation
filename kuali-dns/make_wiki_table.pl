@@ -107,8 +107,8 @@ sub project_env_status
    #weed out the known situation that will not need query
    if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
-   if (( lc($line) =~ "s3") ){ $no_ping = "S3 Data Archiver, no check"; }
-   if (( lc($line) =~ "ghs") ){ $no_ping = "Google Hosted Services(ghs), no check"; }
+   if (( lc($line) =~ "s3") ){ $no_ping = "S3 Data Archiver no check"; }
+   if (( lc($line) =~ "ghs") ){ $no_ping = "Google Hosted Services(ghs) no check"; }
    #if (( $line =~ "env7") && ($project eq "ole")){ $no_ping = "time-out"; }
    if (( $line =~ "rds") ){ $no_ping = "RDS-no check"; }
    if (( $line =~ "cloudfront") ){ $no_ping = "cloudfront-no check";  }
@@ -120,7 +120,7 @@ sub project_env_status
    $name_url = $url.".kuali.org";
 
    if ( $no_ping ne "" )
-    { print WIKI "$name_url,$url , $no_ping\n"; next; }
+    { print WIKI ",$name_url,$url , $no_ping\n"; next; }
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
 
@@ -167,7 +167,7 @@ sub project_env_status
    #I only are about env_no for this effort
 
    #take the info and print it to the project file
-   print WIKI ",$env_no,$name_url, $server, $status, $size,$tag\n"; 
+   print WIKI "$env_no,$name_url, $server, $status, $size,$tag\n"; 
    }
   }
 
