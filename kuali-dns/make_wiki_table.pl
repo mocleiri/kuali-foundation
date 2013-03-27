@@ -5,11 +5,14 @@ $HOME=$ENV{'HOME'};
 sub build_ec2_lst
 {
  $cmd = "ec2-describe-instances";
+ $cmd_lb = "elb-describe-lbs";
+ $cmd_lb_health = "elb-describe-instance-health";
  my @projects = ("fn","ks","kr");
  my $pj;  #project index
  #remove some temporary files
  system("rm ./instance.lst;touch ./instance.lst");
  system("rm ./tag.lst;touch ./tag.lst");
+ system("rm ./lb.lst;touch ./lb.lst");
 
  foreach  $pj (@projects)
  { 
@@ -23,8 +26,11 @@ sub build_ec2_lst
 
   $command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
   $command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
+  $command_load_balancer = "$cmd_lb -K $key -C $cert >> lb.lst";
+  print "\n", $command_load_balancer;
   `$command_instance`;
   `$command_tag`;
+  `$command_load_balancer`;
  }
 
  #make a file with one line for each instance, including the tag name 
@@ -51,7 +57,22 @@ sub build_ec2_lst
   
    
   if ( $url eq "" ){ $temp[3] = "n/a"; }
-  
+
+  my @LB = `grep LOAD_BALANCER lb.lst`;
+  my @lbs = ();
+  #there could be more than one tag. So lets combine them with ":"
+  foreach $lbline ( @Lb)
+  { chomp($lbline); @lbname = split(/\t/, $tagline );
+    $lb_id = $lbname[1];
+    ($toss, $lb_instance_id, $service_status) = `$cmd_lb_health $lb_id`;
+    $lb_result = `grep $lb_instance_id instance.lst`;
+    chomp( $lb_result );
+    @lbout = split(/\t/, $lb_result);
+    $instance_id = $lbout[1];
+    $status = $lbout[2];
+  }
+
+  print "\nend of creating EC2 List"; 
  #let's create a file combining the instance info and tag info.  
   print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
  }
@@ -95,7 +116,7 @@ sub project_env_status
  else
  { $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile"; }
 
- #print "\n", $cmd;
+ print "\n", $cmd;
  `$cmd`;
  open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
  foreach $line (@DNS)
