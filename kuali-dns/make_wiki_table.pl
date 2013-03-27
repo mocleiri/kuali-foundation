@@ -125,7 +125,11 @@ sub project_env_status
    $name_url = $url.".kuali.org";
 
    if ( $no_ping ne "" )
-    { print WIKI ",$name_url,$ec2, $no_ping\n"; next; }
+    { 
+      $outcome_ec2com = `grep $ec2 EC2.lst`;
+      ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+      print WIKI ",$name_url,$ec2, $no_ping,$tags\n"; next; }
+
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
 
