@@ -120,7 +120,7 @@ sub project_env_status
    $name_url = $url.".kuali.org";
 
    if ( $no_ping ne "" )
-    { print WIKI ",$name_url,$url , $no_ping\n"; next; }
+    { print WIKI ",$url,$name_url, $no_ping\n"; next; }
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
 
@@ -145,7 +145,8 @@ sub project_env_status
       ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
    }
    else #let's use the tag query
-   { ($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);}
+   {   if ( $status eq ""){$status = "$name_url page not found";}  
+       ($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);}
 
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
    if (( $status eq "running") || ( $project eq "ole" ))
@@ -161,7 +162,7 @@ sub project_env_status
     
     #let look up the index, probably write a routine for this
     $domainservers = "./domainsvr_lookup.txt";
-    $env_no = "";
+
    #print "grep $name_url $domainservers\n";
    ($env_no, $env_name, $projectx) = split(/,/,`grep $name_url $domainservers`);
    #I only are about env_no for this effort
