@@ -156,7 +156,9 @@ sub project_env_status
    else
     {
        $server = $ec2;
-        $status = "page not found";
+       $status = "page not found";
+       $size = "";
+       $tag = "";
     }
 
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
