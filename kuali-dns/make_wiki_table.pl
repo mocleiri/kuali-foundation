@@ -19,6 +19,7 @@ sub build_ec2_lst
   #needed to run the ec2-describe-instance or ensure the environment variables are set
   $pk_key   =  "$HOME/.ssh/$pj-pk*";
   $cert_key = "$HOME/.ssh/$pj-cert*";
+  $lbpjfile = "lb.$pj.lst";
   $key = `ls $pk_key`;
   $cert = `ls $cert_key`;
   chomp($key);
@@ -26,7 +27,7 @@ sub build_ec2_lst
 
   $command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
   $command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
-  $command_load_balancer = "$cmd_lb -K $key -C $cert >> lb.lst";
+  $command_load_balancer = "$cmd_lb -K $key -C $cert >> $lbpjfile";
   print "\n", $command_load_balancer;
   `$command_instance`;
   `$command_tag`;
@@ -58,14 +59,32 @@ sub build_ec2_lst
    
   if ( $url eq "" ){ $temp[3] = "n/a"; }
 
-  my @LB = `grep LOAD_BALANCER lb.lst`;
-  my @lbs = ();
-  #there could be more than one tag. So lets combine them with ":"
-  foreach $lbline ( @Lb)
-  { chomp($lbline); @lbname = split(/\t/, $tagline );
+  print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
+ }
+
+ foreach  $pj (@projects)
+ { 
+  #needed to run the ec2-describe-instance or ensure the environment variables are set
+  $pk_key   =  "$HOME/.ssh/$pj-pk*";
+  $cert_key = "$HOME/.ssh/$pj-cert*";
+  $lbpjfile = "lb.$pj.lst";
+  $key = `ls $pk_key`;
+  $cert = `ls $cert_key`;
+  chomp($key);
+  chomp($cert);
+  my @LB = `grep LOAD_BALANCER $lbpjfile`;
+  #Let organize the load balancer (lb) info
+  #LB has been populated with each domains lb info
+  foreach $lbline ( @LB)
+  { chomp($lbline); @lbname = split(/\t|\s+/, $lbline );
+    print "\nworking with lbline: $lbline";
     $lb_id = $lbname[1];
+    print "\nlb_id:$lb_id";
     $lb_xref = $lbname[2];
-    ($toss, $lb_instance_id, $service_status) = `$cmd_lb_health $lb_id`;
+    print "\nlb_xref: $lb_xref";
+    print "\n$cmd_lb_health $lb_id -K $key -C $cert";
+    ($toss, $lb_instance_id, $service_status) = split(/\t|\s+/,`$cmd_lb_health $lb_id -K $key -C $cert`);
+    print "\ngrep $lb_instance_id instance.lst";
     $lb_result = `grep $lb_instance_id instance.lst`;
     chomp( $lb_result );
     @lbout = split(/\t/, $lb_result);
