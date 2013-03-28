@@ -64,7 +64,6 @@ sub build_ec2_lst
 
  foreach  $pj (@projects)
  { 
-  #needed to run the ec2-describe-instance or ensure the environment variables are set
   $pk_key   =  "$HOME/.ssh/$pj-pk*";
   $cert_key = "$HOME/.ssh/$pj-cert*";
   $lbpjfile = "lb.$pj.lst";
@@ -73,6 +72,7 @@ sub build_ec2_lst
   chomp($key);
   chomp($cert);
   my @LB = `grep LOAD_BALANCER $lbpjfile`;
+    $url = $lbout[3];
   #Let organize the load balancer (lb) info
   #LB has been populated with each domains lb info
   foreach $lbline ( @LB)
@@ -89,13 +89,13 @@ sub build_ec2_lst
     chomp( $lb_result );
     @lbout = split(/\t/, $lb_result);
     $instance_id = $lbout[1];
-    $status = $lbout[2];
+    $url = $lbout[3];
+    $status = $service_status;
     $tags = $lb_xref;
+    print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
   }
 
   print "\nend of creating EC2 List"; 
- #let's create a file combining the instance info and tag info.  
-  print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
  }
  close(EC2LST);
 }
