@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -31,11 +31,17 @@
     The Kuali Impex tooling provides assistance with importing/exporting data from relational databases.
   </description>
   <properties>
+    <!-- Remove these 2 once things are sync'd back up with the top level kuali pom -->
+    <kuali-util.version>4.1.9-SNAPSHOT</kuali-util.version>
+    <kuali-jdbc.version>3.0.0-SNAPSHOT</kuali-jdbc.version>
+
     <!-- The test-javadoc report is throwing a NullPointerException -->
     <kuali.javadoc.report.2>javadoc</kuali.javadoc.report.2>
     <spring.version>3.2.0.RELEASE</spring.version>
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
+    <mysql.version>5.1.22</mysql.version>
+    <oracle.version>11.2.0.2</oracle.version>
     <kuali-threads.version>1.0.9</kuali-threads.version>
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
   </properties>
