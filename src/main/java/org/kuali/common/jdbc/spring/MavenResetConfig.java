@@ -31,7 +31,7 @@ public class MavenResetConfig {
 	Environment env;
 
 	@Autowired
-	JdbcPropertiesConfig jdbcPropertiesConfig;
+	JdbcPropertiesConfig jdbcProperties;
 
 	@Autowired
 	Properties mavenProperties;
@@ -61,7 +61,7 @@ public class MavenResetConfig {
 	public PropertySource<?> springPropertySource() {
 		// Combine project properties into a list where the "last one in wins"
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-		pps.add(jdbcPropertiesConfig.jdbcProjectProperties());
+		pps.add(jdbcProperties.jdbcProjectProperties());
 		pps.add(mavenProjectProperties());
 
 		// Get a PropertySource object backed by the properties loaded from the list
