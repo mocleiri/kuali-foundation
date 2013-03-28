@@ -9,10 +9,12 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.torque.engine.EngineException;
 import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.SchemaType;
 import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.impex.DumpTableResult;
+import org.kuali.common.impex.KualiDatabase;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
@@ -27,6 +29,7 @@ import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.SyncRequest;
 import org.kuali.common.util.SyncResult;
+import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +43,15 @@ public class ImpexUtils {
 	private static final String QUOTE = "\"";
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
 	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
+
+	public static KualiDatabase getDatabase(String vendor, String location) {
+		KualiXmlToAppData parser = new KualiXmlToAppData(vendor);
+		try {
+			return parser.parseResource(location);
+		} catch (EngineException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	public static List<SyncResult> syncFiles(List<ImpexContext> contexts) {
 		logger.info("Syncing {} contexts", contexts.size());
@@ -211,8 +223,7 @@ public class ImpexUtils {
 		return converted;
 	}
 
-	public static void updateAndStoreDatabaseProperties(Properties properties, String location,
-			List<DumpTableResult> results) {
+	public static void updateAndStoreDatabaseProperties(Properties properties, String location, List<DumpTableResult> results) {
 		for (DumpTableResult result : results) {
 			String sizeKey = result.getTable().getName() + ".size";
 			String sizeValue = result.getSize() + "";
@@ -292,8 +303,7 @@ public class ImpexUtils {
 	}
 
 	public static ReportFile getReportFile(ImpexContext context, String databaseVendor) {
-		String relativePath = ".." + FS + "reports" + FS + databaseVendor + FS + context.getArtifactId()
-				+ "-context.generation";
+		String relativePath = ".." + FS + "reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.generation";
 		String absolutePath = context.getWorkingDir() + FS + relativePath;
 		File file = new File(absolutePath);
 		String canonicalPath = LocationUtils.getCanonicalPath(file);
@@ -319,8 +329,7 @@ public class ImpexUtils {
 	}
 
 	public static File getContextPropertiesFile(ImpexContext context, String databaseVendor) {
-		String path = context.getWorkingDir() + "/../reports" + FS + databaseVendor + FS + context.getArtifactId()
-				+ "-context.properties";
+		String path = context.getWorkingDir() + "/../reports" + FS + databaseVendor + FS + context.getArtifactId() + "-context.properties";
 		String canonicalPath = LocationUtils.getCanonicalPath(new File(path));
 		return new File(canonicalPath);
 	}

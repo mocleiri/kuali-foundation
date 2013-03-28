@@ -2,16 +2,15 @@ package org.kuali.common.impex.spring;
 
 import java.util.Map;
 
-import org.apache.torque.engine.EngineException;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.KualiDatabase;
 import org.kuali.common.impex.MpxLocationSupplier;
+import org.kuali.common.impex.service.ImpexUtils;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.spring.JdbcCommonConfig;
 import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
 import org.kuali.common.util.spring.SpringUtils;
-import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,12 +44,7 @@ public class MpxSupplierConfig {
 	public KualiDatabase impexDatabase() {
 		String vendor = SpringUtils.getProperty(env, "db.vendor");
 		String location = SpringUtils.getProperty(env, "impex.schema.location");
-		KualiXmlToAppData parser = new KualiXmlToAppData(vendor);
-		try {
-			return parser.parseResource(location);
-		} catch (EngineException e) {
-			throw new IllegalStateException(e);
-		}
+		return ImpexUtils.getDatabase(vendor, location);
 	}
 
 	@Bean
