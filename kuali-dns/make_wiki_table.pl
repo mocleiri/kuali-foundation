@@ -12,7 +12,6 @@ sub build_ec2_lst
  #remove some temporary files
  system("rm ./instance.lst;touch ./instance.lst");
  system("rm ./tag.lst;touch ./tag.lst");
- system("rm ./lb.lst;touch ./lb.lst");
 
  foreach  $pj (@projects)
  { 
@@ -20,6 +19,7 @@ sub build_ec2_lst
   $pk_key   =  "$HOME/.ssh/$pj-pk*";
   $cert_key = "$HOME/.ssh/$pj-cert*";
   $lbpjfile = "lb.$pj.lst";
+  system("rm ./$lbpjfile;touch ./$lbpjfile");
   $key = `ls $pk_key`;
   $cert = `ls $cert_key`;
   chomp($key);
