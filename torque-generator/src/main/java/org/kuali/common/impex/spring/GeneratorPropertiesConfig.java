@@ -12,18 +12,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(TorqueGeneratorProjectConfig.class)
-public class TorqueGeneratorPropertiesConfig {
+@Import(GeneratorProjectConfig.class)
+public class GeneratorPropertiesConfig {
 
 	@Autowired
-	TorqueGeneratorProjectConfig projectConfig;
+	GeneratorProjectConfig projectConfig;
 
 	@Bean
-	public ProjectProperties jdbcProjectProperties() {
-		Project project = projectConfig.torqueGeneratorProject();
-
+	public ProjectProperties generatorProjectProperties() {
+		Project project = projectConfig.generatorProject();
 		List<String> locations = Arrays.asList("classpath:org/kuali/common/impex/batch.properties");
-
 		return ConfigUtils.getProjectProperties(project, locations);
 	}
 

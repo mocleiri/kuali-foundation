@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class TorqueGeneratorProjectConfig {
+public class GeneratorProjectConfig {
 
 	@Bean
-	public Project torqueGeneratorProject() {
+	public Project generatorProject() {
 		return ProjectUtils.loadProject(TorqueGeneratorGAV.GROUP_ID + ":" + TorqueGeneratorGAV.ARTIFACT_ID);
 	}
 
