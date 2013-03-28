@@ -16,7 +16,7 @@ public class BatchConfig {
 	@Bean
 	public int impexBatchSize() {
 		String size = SpringUtils.getProperty(env, "impex.batch.size");
-		return (int) FormatUtils.getBytes(size);
+		return new Long(FormatUtils.getBytes(size)).intValue();
 	}
 
 	@Bean
