@@ -198,6 +198,24 @@ sub project_env_status
    if ( $outcome_ec2com ne "" )
    {   
       ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+       #This is code to looked for server of particular load balancer  configurations.
+       #I care about Nexus.  So
+       if ($url eq "nexus" )
+       {   #I have this line in outcome_ec2com:
+            #kuali-nexus-lb ec2-50-19-21-45.compute-1.amazonaws.com InService kuali-nexus-lb-287160402.us-east-1.elb.amazonaws.com
+            #Lets save some info 
+            $lb_id = $instance_id;
+            $ec2_name = $server;
+            $lbstatus = $status;
+            $lbcom = $tags;
+            $outcome_ec2com = `grep $ec2_name EC2.lst | grep -v $lbstatus`;  #I don't want the same line
+            #now I should have this: i-bdf85cc0 ec2-50-19-21-45.compute-1.amazonaws.com running kuali-nexus-as:nexus
+            ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+             print WIKI ",$lb_id, $ec2_name, ,$lbstatus,$lbcom\n";
+            #and I'll still lookup the instance_id and report on it, moving on
+       }
+            
+      #if this is a lb: lbname, server, Service, lb ec2.com name
    }
    elsif ( $tag ne "" ) #let's use the tag query, as ec2com didn't find anything
    {   
@@ -214,10 +232,12 @@ sub project_env_status
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
    if (( $status eq "running") || ( $project eq "ole" ))
       {  
-        if (( $line =~ "env2") && ($project eq "ole"))
+        if ((( $line =~ "env2") && ($project eq "ole")) || (($project eq "fn") && ($url eq "nexus")) )
+
          { @results_ec2tag = dead_or_alive($server);  }
         else
-        { @results_ec2tag = dead_or_alive($name_url); }
+        { 
+          @results_ec2tag = dead_or_alive($name_url); }
       chomp(@results_ec2tag);
       $status = $results_ec2tag[0];
       $size = $results_ec2tag[1];
@@ -231,7 +251,7 @@ sub project_env_status
    #I only are about env_no for this effort
 
    #if this is a load balancer entry 
-   if ( $outcome_ec2com  =~ ".elb." )
+   if (( $outcome_ec2com  =~ ".elb." ) && ($instance_id ne "nexus"))
    { print WIKI ",$instance_id, $url, ,$status,$tag\n";}
    else
    {
