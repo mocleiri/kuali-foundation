@@ -77,21 +77,24 @@ sub build_ec2_lst
   #LB has been populated with each domains lb info
   foreach $lbline ( @LB)
   { chomp($lbline); @lbname = split(/\t|\s+/, $lbline );
-    #print "\nworking with lbline: $lbline";
+    print "\nworking with lbline: $lbline";
     $lb_id = $lbname[1];
     #print "\nlb_id:$lb_id";
     $lb_xref = $lbname[2];
-    #print "\nlb_xref: $lb_xref";
-    #print "\n$cmd_lb_health $lb_id -K $key -C $cert";
+    print "\nlb_xref: $lb_xref";
+    print "\n$cmd_lb_health $lb_id -K $key -C $cert";
     ($toss, $lb_instance_id, $service_status) = split(/\t|\s+/,`$cmd_lb_health $lb_id -K $key -C $cert`);
-    #print "\ngrep $lb_instance_id instance.lst";
+    print "\ngrep $lb_instance_id instance.lst";
     $lb_result = `grep $lb_instance_id instance.lst`;
     chomp( $lb_result );
     @lbout = split(/\t/, $lb_result);
-    $instance_id = $lbout[1];
+    #$instance_id = $lbout[1];
+    $instance_id = $lb_id;
     $url = $lbout[3];
     $status = $service_status;
     $tags = $lb_xref;
+
+    print "\n",$instance_id," ",$url," ", $status," ", $tags;    
     print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
   }
 
@@ -163,11 +166,6 @@ sub project_env_status
    print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
    $name_url = $url.".kuali.org";
 
-   if ( $no_ping ne "" )
-    { 
-      $outcome_ec2com = `grep $ec2 EC2.lst`;
-      ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
-      print WIKI ",$name_url,$ec2, $no_ping,$tags\n"; next; }
 
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
@@ -187,6 +185,14 @@ sub project_env_status
    $results_ec2tag = `grep $url EC2.lst`; 
    chomp($results_ec2tag);
    
+   if ( $no_ping ne "" )
+    { 
+      $outcome_ec2com = `grep $ec2 EC2.lst`;
+      ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+      print WIKI ",$name_url,$ec2, $no_ping,$tags\n"; next; }
+
+
+   #otherwise $no_ping is not set and will go on
    #if ( $status eq ""){$status = "$name_url page not found";}  
    #if the ec2 query has returned outcome lets get that info first
    if ( $outcome_ec2com ne "" )
@@ -224,8 +230,13 @@ sub project_env_status
    ($env_no, $env_name, $projectx) = split(/,/,`grep $name_url $domainservers`);
    #I only are about env_no for this effort
 
+   #if this is a load balancer entry 
+   if ( $outcome_ec2com  =~ ".elb." )
+   { print WIKI ",$instance_id, $url, ,$status,$tag\n";}
+   else
+   {
    #take the info and print it to the project file
-   print WIKI "$env_no,$name_url, $server, $status, $size,$tag\n"; 
+   print WIKI "$env_no,$name_url, $server, $status, $size,$tag\n"; }
    }
   }
 
