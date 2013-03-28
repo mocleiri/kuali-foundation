@@ -199,8 +199,6 @@
           2 - Add "mvn validate -Pkuali-release" as an extra build step immediately after "mvn release:prepare release:perform -B"
         -->
         <project.gav.phase>validate</project.gav.phase>
-        <project.gav.update>true</project.gav.update>
-        <project.gav.commit>true</project.gav.commit>
       </properties>
     </profile>
   </profiles>
