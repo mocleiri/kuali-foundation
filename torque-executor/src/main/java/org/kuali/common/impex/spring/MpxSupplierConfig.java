@@ -55,10 +55,12 @@ public class MpxSupplierConfig {
 
 	@Bean
 	public Map<String, LocationSupplierSourceBean> impexExtensionMappings() {
+		// This gets cloned for each .mpx file
 		MpxLocationSupplier mls = new MpxLocationSupplier();
 		mls.setDatabase(impexDatabase());
 		mls.setProducer(impexProducer());
 
+		// This hands out clones of MpxLocationSupplier, one for every .mpx file being parsed
 		LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();
 		lssb.setSupplierClass(MpxLocationSupplier.class);
 		lssb.setSupplierInstance(mls);
