@@ -28,7 +28,7 @@ sub build_ec2_lst
   $command_tag = "$cmd -K $key -C $cert | grep \"TAG\" >> tag.lst";
   $command_instance = "$cmd -K $key -C $cert | grep \"INSTANCE\" >> instance.lst";
   $command_load_balancer = "$cmd_lb -K $key -C $cert >> $lbpjfile";
-  print "\n", $command_load_balancer;
+  #print "\n", $command_load_balancer;
   `$command_instance`;
   `$command_tag`;
   `$command_load_balancer`;
@@ -77,14 +77,14 @@ sub build_ec2_lst
   #LB has been populated with each domains lb info
   foreach $lbline ( @LB)
   { chomp($lbline); @lbname = split(/\t|\s+/, $lbline );
-    print "\nworking with lbline: $lbline";
+    #print "\nworking with lbline: $lbline";
     $lb_id = $lbname[1];
-    print "\nlb_id:$lb_id";
+    #print "\nlb_id:$lb_id";
     $lb_xref = $lbname[2];
-    print "\nlb_xref: $lb_xref";
-    print "\n$cmd_lb_health $lb_id -K $key -C $cert";
+    #print "\nlb_xref: $lb_xref";
+    #print "\n$cmd_lb_health $lb_id -K $key -C $cert";
     ($toss, $lb_instance_id, $service_status) = split(/\t|\s+/,`$cmd_lb_health $lb_id -K $key -C $cert`);
-    print "\ngrep $lb_instance_id instance.lst";
+    #print "\ngrep $lb_instance_id instance.lst";
     $lb_result = `grep $lb_instance_id instance.lst`;
     chomp( $lb_result );
     @lbout = split(/\t/, $lb_result);
@@ -95,7 +95,7 @@ sub build_ec2_lst
     print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
   }
 
-  print "\nend of creating EC2 List"; 
+  #print "\nend of creating EC2 List"; 
  }
  close(EC2LST);
 }
