@@ -20,8 +20,9 @@ public class GeneratorPropertiesConfig {
 
 	@Bean
 	public ProjectProperties generatorProjectProperties() {
+		String batch = "classpath:org/kuali/common/impex/batch.properties";
 		Project project = projectConfig.generatorProject();
-		List<String> locations = Arrays.asList("classpath:org/kuali/common/impex/batch.properties");
+		List<String> locations = Arrays.asList(batch);
 		return ConfigUtils.getProjectProperties(project, locations);
 	}
 
