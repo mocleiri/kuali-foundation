@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.kuali.common.util.Project;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.PropertiesContext;
+import org.kuali.common.util.spring.ConfigUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,14 +24,7 @@ public class TorqueGeneratorPropertiesConfig {
 
 		List<String> locations = Arrays.asList("classpath:org/kuali/common/impex/batch.properties");
 
-		PropertiesContext pc = new PropertiesContext();
-		pc.setEncoding(project.getEncoding());
-		pc.setLocations(locations);
-
-		ProjectProperties pp = new ProjectProperties();
-		pp.setProject(project);
-		pp.setPropertiesContext(pc);
-		return pp;
+		return ConfigUtils.getProjectProperties(project, locations);
 	}
 
 }
