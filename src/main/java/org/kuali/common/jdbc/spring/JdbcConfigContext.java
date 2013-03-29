@@ -1,23 +1,25 @@
 package org.kuali.common.jdbc.spring;
 
-import org.kuali.common.jdbc.context.SqlContext;
+import org.kuali.common.jdbc.context.SqlMode;
 import org.springframework.core.env.Environment;
 
 public class JdbcConfigContext {
 
 	Environment env;
-	SqlContext sqlContext;
+	String type;
+	SqlMode mode;
 	JdbcCommonConfig commonConfig;
 	JdbcDataSourceConfig dataSourceConfig;
 
 	public JdbcConfigContext() {
-		this(null, null, null, null);
+		this(null, null, null, null, null);
 	}
 
-	public JdbcConfigContext(Environment env, SqlContext sqlContext, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
+	public JdbcConfigContext(Environment env, String type, SqlMode mode, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
 		super();
 		this.env = env;
-		this.sqlContext = sqlContext;
+		this.type = type;
+		this.mode = mode;
 		this.commonConfig = commonConfig;
 		this.dataSourceConfig = dataSourceConfig;
 	}
@@ -46,12 +48,20 @@ public class JdbcConfigContext {
 		this.dataSourceConfig = dataSourceConfig;
 	}
 
-	public SqlContext getSqlContext() {
-		return sqlContext;
+	public String getType() {
+		return type;
 	}
 
-	public void setSqlContext(SqlContext sqlContext) {
-		this.sqlContext = sqlContext;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public SqlMode getMode() {
+		return mode;
+	}
+
+	public void setMode(SqlMode mode) {
+		this.mode = mode;
 	}
 
 }
