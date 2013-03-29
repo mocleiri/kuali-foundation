@@ -28,7 +28,6 @@ public class ResetSchemaConfig {
 	@Bean
 	public Executable jdbcSchemaExecutable() {
 		String type = "schema";
-
 		String skip = SpringUtils.getProperty(env, "jdbc." + type + ".skip", "false");
 
 		JdbcConfigContext jcc = new JdbcConfigContext(env, type, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
