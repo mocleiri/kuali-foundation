@@ -11,7 +11,6 @@ import org.kuali.common.jdbc.listener.MetaDataListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +22,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 public class ResetDataConfig {
 
 	public static final String TYPE = "data";
+	public static final String SKIP_KEY = "jdbc.data.skip";
 
 	@Autowired
 	ConfigurableEnvironment env;
@@ -35,9 +35,8 @@ public class ResetDataConfig {
 
 	@Bean
 	public Executable jdbcDataConcurrentExecutable() {
-		String skip = SpringUtils.getProperty(env, "jdbc." + TYPE + ".skip", "false");
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(new Boolean(skip));
+		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getConcurrentJdbcContext());
 		return exec;
@@ -45,10 +44,8 @@ public class ResetDataConfig {
 
 	@Bean
 	public Executable jdbcDataSequentialExecutable() {
-		String skip = SpringUtils.getProperty(env, "jdbc." + TYPE + ".skip", "false");
-
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(new Boolean(skip));
+		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getSequentialJdbcContext());
 		return exec;
@@ -66,8 +63,8 @@ public class ResetDataConfig {
 		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
 		String propertyPrefix = JdbcConfigUtils.getPropertyPrefix(jcc);
 		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
-		String trackProgressByUpdateCount = SpringUtils.getProperty(env, propertyPrefix + ".trackProgressByUpdateCount", "true");
-		ctx.setTrackProgressByUpdateCount(new Boolean(trackProgressByUpdateCount));
+		String key = propertyPrefix + ".trackProgressByUpdateCount";
+		ctx.setTrackProgressByUpdateCount(JdbcConfigUtils.getBoolean(env, key, true));
 		ctx.setListener(getConcurrentListener());
 		return ctx;
 	}
