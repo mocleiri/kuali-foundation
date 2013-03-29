@@ -47,7 +47,7 @@ public class ResetOtherConfig {
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
 		exec.setService(commonConfig.jdbcService());
-		exec.setContext(getConcurrentJdbcContext());
+		exec.setContext(getSequentialJdbcContext());
 		return exec;
 	}
 
