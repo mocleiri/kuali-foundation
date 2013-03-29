@@ -54,17 +54,13 @@ public class ResetDataConfig {
 	protected JdbcContext getSequentialJdbcContext() {
 		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dbaConfig);
 		JdbcContext ctx = JdbcConfigUtils.getSequentialJdbcContext(jcc);
-		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setListener(JdbcConfigUtils.getSummaryAndProgressListener());
 		return ctx;
 	}
 
 	protected JdbcContext getConcurrentJdbcContext() {
 		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
-		String propertyPrefix = JdbcConfigUtils.getPropertyPrefix(jcc);
 		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
-		String key = propertyPrefix + ".trackProgressByUpdateCount";
-		ctx.setTrackProgressByUpdateCount(JdbcConfigUtils.getBoolean(env, key, true));
 		ctx.setListener(getConcurrentListener());
 		return ctx;
 	}
