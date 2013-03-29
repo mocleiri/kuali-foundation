@@ -11,12 +11,12 @@ import org.springframework.core.env.Environment;
 
 public class ConfigUtils {
 
-	public static JdbcContext getConcurrentJdbcContext(Environment env, String fragment, JdbcCommonConfig jcc, JdbcDataSourceConfig rdc) {
+	public static JdbcContext getConcurrentJdbcContext(Environment env, String fragment, JdbcCommonConfig jcc, JdbcDataSourceConfig jdsc) {
 		String skip = SpringUtils.getProperty(env, "sql." + fragment + ".skip", "false");
 		String threads = SpringUtils.getProperty(env, "sql.threads");
 		String message = SpringUtils.getProperty(env, "sql." + fragment + ".concurrent.message");
 		List<SqlSupplier> suppliers = jcc.getSqlSuppliers("sql." + fragment + ".concurrent");
-		DataSource dataSource = rdc.jdbcDataSource();
+		DataSource dataSource = jdsc.jdbcDataSource();
 
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMultithreaded(true);
