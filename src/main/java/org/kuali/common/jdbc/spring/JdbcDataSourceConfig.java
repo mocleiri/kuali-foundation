@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @Import(JdbcCommonConfig.class)
-public class ResetDataSourceConfig {
+public class JdbcDataSourceConfig {
 
 	@Autowired
 	Environment env;

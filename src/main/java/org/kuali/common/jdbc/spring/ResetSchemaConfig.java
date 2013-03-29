@@ -2,6 +2,7 @@ package org.kuali.common.jdbc.spring;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
+@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetSchemaConfig {
 
 	@Autowired
@@ -21,7 +22,7 @@ public class ResetSchemaConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	ResetDataSourceConfig dbaConfig;
+	JdbcDataSourceConfig dataSourceConfig;
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
@@ -29,7 +30,8 @@ public class ResetSchemaConfig {
 
 		String skip = SpringUtils.getProperty(env, "jdbc." + fragment + ".skip", "false");
 
-		JdbcContext context = ConfigUtils.getConcurrentJdbcContext(env, fragment, commonConfig, dbaConfig);
+		JdbcContext context = ConfigUtils.getConcurrentJdbcContext(env, fragment, commonConfig, dataSourceConfig);
+		context.setListener(new SummaryListener(false));
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));

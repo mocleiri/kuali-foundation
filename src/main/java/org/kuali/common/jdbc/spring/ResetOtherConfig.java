@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, ResetDataSourceConfig.class })
+@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetOtherConfig {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class ResetOtherConfig {
 	JdbcCommonConfig commonConfig;
 
 	@Autowired
-	ResetDataSourceConfig dbaConfig;
+	JdbcDataSourceConfig dbaConfig;
 
 	@Bean
 	public Executable jdbcOtherConcurrentExecutable() {
