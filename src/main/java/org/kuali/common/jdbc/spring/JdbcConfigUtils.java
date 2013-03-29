@@ -9,7 +9,7 @@ import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.Environment;
 
-public class ConfigUtils {
+public class JdbcConfigUtils {
 
 	public static JdbcContext getConcurrentJdbcContext(Environment env, String fragment, JdbcCommonConfig jcc, JdbcDataSourceConfig jdsc) {
 		String skip = SpringUtils.getProperty(env, "sql." + fragment + ".skip", "false");
