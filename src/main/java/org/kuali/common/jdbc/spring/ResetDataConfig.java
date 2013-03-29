@@ -8,9 +8,7 @@ import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.MetaDataListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
-import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
-import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,15 +54,8 @@ public class ResetDataConfig {
 	protected JdbcContext getSequentialJdbcContext() {
 		JdbcContext ctx = getBaseJdbcContext("sql.data.sequential.message", "sql.data.sequential");
 		ctx.setTrackProgressByUpdateCount(true);
-		ctx.setListener(getSummaryAndProgressListener());
+		ctx.setListener(JdbcConfigUtils.getSummaryAndProgressListener());
 		return ctx;
-	}
-
-	protected SqlListener getSummaryAndProgressListener() {
-		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener());
-		list.add(new ProgressListener());
-		return new NotifyingListener(list);
 	}
 
 	protected JdbcContext getConcurrentJdbcContext() {
