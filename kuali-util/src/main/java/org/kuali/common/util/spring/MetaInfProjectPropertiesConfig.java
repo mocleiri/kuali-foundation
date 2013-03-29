@@ -31,6 +31,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.Assert;
 
+/**
+ * Create project.properties and embed it inside META-INF for jar's/war's
+ */
 @Configuration
 public class MetaInfProjectPropertiesConfig {
 
@@ -60,8 +63,6 @@ public class MetaInfProjectPropertiesConfig {
 
 		// Make sure we are configured right
 		Assert.hasText(encoding);
-		Assert.hasText(includesCSV);
-		Assert.hasText(excludesCSV);
 
 		// Convert the lists to CSV
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
