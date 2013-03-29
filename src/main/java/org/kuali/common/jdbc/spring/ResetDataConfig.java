@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.context.SqlContext;
+import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.MetaDataListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
@@ -21,6 +23,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetDataConfig {
 
+	public static final String TYPE = "data";
+
 	@Autowired
 	ConfigurableEnvironment env;
 
@@ -32,7 +36,7 @@ public class ResetDataConfig {
 
 	@Bean
 	public Executable jdbcDataConcurrentExecutable() {
-		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
+		String skip = SpringUtils.getProperty(env, "jdbc." + TYPE + ".skip", "false");
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
 		exec.setService(commonConfig.jdbcService());
@@ -42,7 +46,7 @@ public class ResetDataConfig {
 
 	@Bean
 	public Executable jdbcDataSequentialExecutable() {
-		String skip = SpringUtils.getProperty(env, "jdbc.data.skip", "false");
+		String skip = SpringUtils.getProperty(env, "jdbc." + TYPE + ".skip", "false");
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(new Boolean(skip));
@@ -52,30 +56,28 @@ public class ResetDataConfig {
 	}
 
 	protected JdbcContext getSequentialJdbcContext() {
-		JdbcContext ctx = getBaseJdbcContext("sql.data.sequential.message", "sql.data.sequential");
+		SqlContext sc = new SqlContext(TYPE, SqlMode.SEQUENTIAL);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dbaConfig);
+		JdbcContext ctx = JdbcConfigUtils.getSequentialJdbcContext(jcc);
 		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setListener(JdbcConfigUtils.getSummaryAndProgressListener());
 		return ctx;
 	}
 
 	protected JdbcContext getConcurrentJdbcContext() {
-		String threads = SpringUtils.getProperty(env, "sql.threads");
+		SqlContext sc = new SqlContext(TYPE, SqlMode.CONCURRENT);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dbaConfig);
+		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		String trackProgressByUpdateCount = SpringUtils.getProperty(env, "sql.data.concurrent.trackProgressByUpdateCount", "true");
-
-		JdbcContext ctx = getBaseJdbcContext("sql.data.concurrent.message", "sql.data.concurrent");
 		ctx.setTrackProgressByUpdateCount(new Boolean(trackProgressByUpdateCount));
-		ctx.setMultithreaded(true);
-		ctx.setThreads(new Integer(threads));
 		ctx.setListener(getConcurrentListener());
 		return ctx;
 	}
 
 	protected SqlListener getConcurrentListener() {
-		String label = SpringUtils.getProperty(env, "sql.data.concurrent.progress.label", "Rows");
-		String throughputLabel = SpringUtils.getProperty(env, "sql.data.concurrent.progress.label.throughput", "rows/s");
-		DataSummaryListener dsl = new DataSummaryListener();
-		dsl.setLabel(label);
-		dsl.setThroughputLabel(throughputLabel);
+		SqlContext sc = new SqlContext(TYPE, SqlMode.CONCURRENT);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dbaConfig);
+		DataSummaryListener dsl = JdbcConfigUtils.getConcurrentDataSummaryListener(jcc);
 
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());

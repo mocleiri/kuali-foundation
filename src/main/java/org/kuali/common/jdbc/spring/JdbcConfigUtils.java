@@ -6,6 +6,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.context.SqlContext;
+import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -15,28 +17,71 @@ import org.kuali.common.util.spring.SpringUtils;
 
 public class JdbcConfigUtils {
 
+	public static DataSummaryListener getConcurrentDataSummaryListener(JdbcConfigContext jcc) {
+		String propertyPrefix = getPropertyPrefix(jcc.getSqlContext());
+		String label = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
+		String throughputLabel = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
+		DataSummaryListener dsl = new DataSummaryListener();
+		dsl.setLabel(label);
+		dsl.setThroughputLabel(throughputLabel);
+		return dsl;
+	}
+
 	public static JdbcContext getConcurrentJdbcContext(JdbcConfigContext jcc) {
 		String threads = SpringUtils.getProperty(jcc.getEnv(), "sql.threads");
-
 		JdbcContext ctx = getBaseJdbcContext(jcc);
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
 		return ctx;
 	}
 
+	public static JdbcContext getSequentialJdbcContext(JdbcConfigContext jcc) {
+		JdbcContext ctx = getBaseJdbcContext(jcc);
+		ctx.setMultithreaded(false);
+		ctx.setThreads(1);
+		return ctx;
+	}
+
+	/**
+	 * <pre>
+	 *   sql.dba.concurrent
+	 *   sql.dba.sequential
+	 *   sql.schema.concurrent
+	 *   sql.schema.sequential
+	 *   sql.constraints.concurrent
+	 *   sql.constraints.sequential
+	 *   sql.other.concurrent
+	 *   sql.other.sequential
+	 * </pre>
+	 */
+	public static String getPropertyPrefix(SqlContext context) {
+		String mode = context.getMode().name().toLowerCase();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("sql");
+		sb.append(".");
+		sb.append(context.getType());
+		sb.append(".");
+		sb.append(mode);
+		return sb.toString();
+	}
+
 	public static JdbcContext getBaseJdbcContext(JdbcConfigContext jcc) {
-		String skip = SpringUtils.getProperty(jcc.getEnv(), "sql." + jcc.getFragment() + ".skip", "false");
+		// dba, schema, data, constraints, other
+		String fragment = jcc.getSqlContext().getType();
+		String propertyPrefix = getPropertyPrefix(jcc.getSqlContext());
+		String message = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".message");
+		String skip = SpringUtils.getProperty(jcc.getEnv(), "sql." + fragment + ".skip", "false");
+		String trackProgressByUpdateCount = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", "false");
+		List<SqlSupplier> suppliers = jcc.getCommonConfig().getSqlSuppliers(propertyPrefix);
 		DataSource dataSource = jcc.getDataSourceConfig().jdbcDataSource();
-		String message = SpringUtils.getProperty(jcc.getEnv(), "sql." + jcc.getFragment() + ".concurrent.message");
-		List<SqlSupplier> suppliers = jcc.getCommonConfig().getSqlSuppliers("sql." + jcc.getFragment() + ".concurrent");
-		String trackProgressByUpdateCount = SpringUtils.getProperty(jcc.getEnv(), "sql." + jcc.getFragment() + ".concurrent.trackProgressByUpdateCount", "false");
 
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(message);
 		ctx.setSkip(new Boolean(skip));
 		ctx.setDataSource(dataSource);
-		ctx.setSuppliers(suppliers);
 		ctx.setTrackProgressByUpdateCount(new Boolean(trackProgressByUpdateCount));
+		ctx.setSuppliers(suppliers);
 		return ctx;
 	}
 

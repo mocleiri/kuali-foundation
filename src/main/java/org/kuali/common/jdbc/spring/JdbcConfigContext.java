@@ -1,11 +1,12 @@
 package org.kuali.common.jdbc.spring;
 
+import org.kuali.common.jdbc.context.SqlContext;
 import org.springframework.core.env.Environment;
 
 public class JdbcConfigContext {
 
 	Environment env;
-	String fragment;
+	SqlContext sqlContext;
 	JdbcCommonConfig commonConfig;
 	JdbcDataSourceConfig dataSourceConfig;
 
@@ -13,10 +14,10 @@ public class JdbcConfigContext {
 		this(null, null, null, null);
 	}
 
-	public JdbcConfigContext(Environment env, String fragment, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
+	public JdbcConfigContext(Environment env, SqlContext sqlContext, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
 		super();
 		this.env = env;
-		this.fragment = fragment;
+		this.sqlContext = sqlContext;
 		this.commonConfig = commonConfig;
 		this.dataSourceConfig = dataSourceConfig;
 	}
@@ -27,14 +28,6 @@ public class JdbcConfigContext {
 
 	public void setEnv(Environment env) {
 		this.env = env;
-	}
-
-	public String getFragment() {
-		return fragment;
-	}
-
-	public void setFragment(String fragment) {
-		this.fragment = fragment;
 	}
 
 	public JdbcCommonConfig getCommonConfig() {
@@ -51,6 +44,14 @@ public class JdbcConfigContext {
 
 	public void setDataSourceConfig(JdbcDataSourceConfig dataSourceConfig) {
 		this.dataSourceConfig = dataSourceConfig;
+	}
+
+	public SqlContext getSqlContext() {
+		return sqlContext;
+	}
+
+	public void setSqlContext(SqlContext sqlContext) {
+		this.sqlContext = sqlContext;
 	}
 
 }
