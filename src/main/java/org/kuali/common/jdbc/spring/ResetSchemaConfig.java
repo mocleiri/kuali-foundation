@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetSchemaConfig {
+
 	public static final String TYPE = "schema";
 	public static final String SKIP_KEY = "jdbc.schema.skip";
 
