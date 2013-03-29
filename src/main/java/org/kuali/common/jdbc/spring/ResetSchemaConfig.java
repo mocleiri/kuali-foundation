@@ -5,7 +5,6 @@ import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +14,8 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetSchemaConfig {
+	public static final String TYPE = "schema";
+	public static final String SKIP_KEY = "jdbc.schema.skip";
 
 	@Autowired
 	Environment env;
@@ -27,15 +28,11 @@ public class ResetSchemaConfig {
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
-		String type = "schema";
-		String skip = SpringUtils.getProperty(env, "jdbc." + type + ".skip", "false");
-
-		JdbcConfigContext jcc = new JdbcConfigContext(env, type, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext context = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		context.setListener(new SummaryListener(false));
-
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(new Boolean(skip));
+		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(context);
 		return exec;
