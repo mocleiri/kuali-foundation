@@ -1,5 +1,5 @@
 Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%
-,www.kuali.org, kuali.org, page not found, ,
+,www.kuali.org, , stopped, ,old-www:Decommision
 ,cal.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,ci.kc.kuali.org, ec2-174-129-80-250.compute-1.amazonaws.com, page not found, ,
 ,cm.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
@@ -24,7 +24,7 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,us.ready-staging.kuali.org, us1.ready-staging.kuali.org, page not found, ,
 ,testhome.kuali.org,ghs.google.co, Google Hosted Services(ghs) no check,
 ,wave.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,dev.cas.kuali.org, ec2-174-129-170-136.compute-1.amazonaws.com, page not found, ,
+,dev.cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Timedout alarm, ,dev-cas:Development
 ,maven.kuali.org,maven.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
 ,downloads.kfs.kuali.org,downloads.kfs.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
 ,downloads.kc.kuali.org,downloads.kc.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
@@ -42,40 +42,40 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,oracle.kfs.kuali.org, ci.kf, page not found, ,
 ,start.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,kuali-nexus-lb, ec2-50-19-21-45.compute-1.amazonaws.com, ,InService,kuali-nexus-lb-287160402.us-east-1.elb.amazonaws.com
-,nexus.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com,  19:45:32 up 180 days,  4:53,  0 users,  load average: 0.01, 0.01, 0.03, /dev/sda1,60G,36G,22G,63%,/,,
+,nexus.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com,  16:22:41 up 181 days,  1:30,  0 users,  load average: 0.00, 0.00, 0.02, /dev/sda1,60G,36G,21G,64%,/,,kuali-nexus-as:nexus
 ,newsletter.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,test.mm.kfs.kuali.org, ec2-50-16-173-234.compute-1.amazonaws.com, page not found, ,
+,test.mm.kfs.kuali.org, ec2-50-16-173-234.compute-1.amazonaws.com, page not found, /dev/sda1,60G,36G,21G,64%,/,,
 ,oracle.kmm.kuali.org,kmm-cnv.cddaaptdzgz4.us-east-1.rds.amazonaws.co, RDS-no check,
-,i-45b94026, deploy1.m, , 23:45:35 up 464 days, 19:35,  0 users,  load average: 0.00, 0.01, 0.05,
+,i-45b94026, deploy1.m, , 20:22:45 up 465 days, 16:12,  0 users,  load average: 0.00, 0.01, 0.05,mobility1:ProdBalanced
 ,mysql.m.kuali.org,mobility-mysql.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,mobility-env1-lb, m, ,InService,
+,mobility-env1-lb, m, ,InService,mobility-env1-lb-1316468708.us-east-1.elb.amazonaws.com
 ,devkd2011.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,conference.kc.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,kcw.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,oraclerds.kfs.kuali.org,kfs.cddaaptdzgz4.us-east-1.rds.amazonaws.com, RDS-no check,
-,nexus1.kuali.org, ec2-107-22-101-0.compute-1.amazonaws.com, page not found, ,
-,nexus2.kuali.org, ec2-23-20-86-20.compute-1.amazonaws.com, page not found, ,
+,nexus1.kuali.org, ec2-107-22-101-0.compute-1.amazonaws.com, page not found, /dev/xvda1,25G,3.7G,21G,15%,/,,
+,nexus2.kuali.org, ec2-23-20-86-20.compute-1.amazonaws.com, page not found, /dev/xvda1,25G,3.7G,21G,15%,/,,
 ,nexus3.kuali.org,ec2-50-17-62-119.compute-1.amazonaws.com, S3 Data Archiver no check,
-,fossology.kuali.org, ec2-204-236-209-164.compute-1.amazonaws.com, page not found, ,
-,new.fossology.kuali.org, ec2-107-21-187-22.compute-1.amazonaws.com, page not found, ,
-,sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com,  23:45:37 up 274 days,  4:26,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,7.5G,17G,31%,/,,
+,fossology.kuali.org, , stopped, /dev/xvda1,25G,3.7G,21G,15%,/,,fossology:Decommision
+,new.fossology.kuali.org, , stopped, /dev/xvda1,25G,3.7G,21G,15%,/,,new.fossology:Decommision
+,sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com,  20:22:47 up 275 days,  1:03,  0 users,  load average: 0.01, 0.03, 0.05, /dev/xvda1,25G,7.5G,17G,31%,/,,sonar-new
 ,db.dev.kis.kuali.org,db-dev-kis.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org, kam4jcm3y5kb76or5eico7tf4fh3f7yr.dkim.amazonses.com, page not found, ,
-,cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org, cyuugtb4obthnropzloyticx3jijqy4u.dkim.amazonses.com, page not found, ,
-,jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org, jlwnqoirgbne5v4x5b22mvjcayqyy7wr.dkim.amazonses.com, page not found, ,
-,ci.fn.kuali.org, ec2-23-22-222-214.compute-1.amazonaws.com,  23:45:40 up 178 days,  3:29,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,99G,74G,24G,76%,/,,
+,kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org, kam4jcm3y5kb76or5eico7tf4fh3f7yr.dkim.amazonses.com, page not found, /dev/xvda1,25G,7.5G,17G,31%,/,,
+,cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org, cyuugtb4obthnropzloyticx3jijqy4u.dkim.amazonses.com, page not found, /dev/xvda1,25G,7.5G,17G,31%,/,,
+,jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org, jlwnqoirgbne5v4x5b22mvjcayqyy7wr.dkim.amazonses.com, page not found, /dev/xvda1,25G,7.5G,17G,31%,/,,
+,ci.fn.kuali.org, ec2-23-22-222-214.compute-1.amazonaws.com,  20:22:50 up 179 days, 6 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,99G,74G,24G,76%,/,,ci.fn
 ,db.fecru.kuali.org,fecru.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,new-fisheye.kuali.org, ec2-174-129-169-206.compute-1.amazonaws.com, page not found, ,
-,new-crowd.kuali.org, ec2-50-17-163-28.compute-1.amazonaws.com, page not found, ,
-,old-crowd.kuali.org, ec2-54-242-2-231.compute-1.amazonaws.com, page not found, ,
-,new-www.kuali.org, ec2-50-17-39-239.compute-1.amazonaws.com, page not found, ,
-,old-www.kuali.org, ec2-54-242-143-187.compute-1.amazonaws.com, page not found, ,
-,dev-drupal.kuali.org, ec2-174-129-65-161.compute-1.amazonaws.com, page not found, ,
-,dev-shem.kuali.org, ec2-107-20-106-17.compute-1.amazonaws.com, Timedout alarm, ,
-,www.dev-drupal.kuali.org, ec2-174-129-65-161.compute-1.amazonaws.com, page not found, ,
+,new-fisheye.kuali.org, , stopped, /dev/xvda1,99G,74G,24G,76%,/,,new-fisheye:Decommision
+,new-crowd.kuali.org, ec2-50-17-163-28.compute-1.amazonaws.com, stopped, /dev/xvda1,99G,74G,24G,76%,/,,new-fisheye:Decommision
+,old-crowd.kuali.org, , stopped, /dev/xvda1,99G,74G,24G,76%,/,,old-crowd:Decommison
+,new-www.kuali.org, ec2-50-17-39-239.compute-1.amazonaws.com, stopped, /dev/xvda1,99G,74G,24G,76%,/,,old-crowd:Decommison
+,old-www.kuali.org, , stopped, /dev/xvda1,99G,74G,24G,76%,/,,old-www:Decommision
+,dev-drupal.kuali.org, , stopped, /dev/xvda1,99G,74G,24G,76%,/,,Decommision:dev-drupal
+,dev-shem.kuali.org, ec2-107-20-106-17.compute-1.amazonaws.com, Timedout alarm, ,dev-shem:Development
+,www.dev-drupal.kuali.org, ec2-174-129-65-161.compute-1.amazonaws.com, Timedout alarm, ,dev-shem:Development
 ,db-dev-www.kuali.org,db-dev-www.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,db-www.kuali.org,www.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Timedout alarm, ,
-,test-www.kuali.org, ec2-107-20-8-76.compute-1.amazonaws.com, Timedout alarm, ,
+,dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com, Timedout alarm, ,dev-cas:Development
+,test-www.kuali.org, ec2-107-20-8-76.compute-1.amazonaws.com, Timedout alarm, ,test-www:Test
 ,db-dev-www-rep.kuali.org,db-dev-www-rep.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,db-test-www.kuali.org,db-test-www.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,

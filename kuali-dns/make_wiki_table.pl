@@ -57,9 +57,9 @@ sub build_ec2_lst
   #done with tag for this instance
   
    
-  if ( $url eq "" ){ $temp[3] = "n/a"; }
+  #if ( $url eq "" ){ $url = "n/a"; }
 
-  print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
+  print EC2LST  $instance_id,"," ,$url,",", $status,",", $tags,"\n";
  }
 
  foreach  $pj (@projects)
@@ -113,7 +113,7 @@ sub project_env_status
  my $server =  "";
  my $status = "";
  my $size = "";
- my $tag = "";
+ my $tags = "";
 
  my $project = @_[0];
  my $skip_ec2_list = @_[1];
@@ -136,7 +136,7 @@ sub project_env_status
  $sourcefile = "dns.$project".".txt";
  
  if ( $project eq "fn" )
- { $cmd = "mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice > $sourcefile"; }
+ { $cmd = "mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice  > $sourcefile"; }
  else
  { $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile"; }
 
@@ -176,6 +176,7 @@ sub project_env_status
 
    #if the amazon.com name match in the EC2 List, lets use that info 
    #query ec2 list for the amazon DNS name 
+   #print "\ngrep $ec2 EC2.lst";
    $outcome_ec2com = `grep $ec2 EC2.lst`;
    chomp($outcome_ec2com);
 
@@ -188,7 +189,7 @@ sub project_env_status
    if ( $no_ping ne "" )
     { 
       $outcome_ec2com = `grep $ec2 EC2.lst`;
-      ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+      ($instance_id, $server, $status, $tags) = split (/\s+|,/, $outcome_ec2com);
       print WIKI ",$name_url,$ec2, $no_ping,$tags\n"; next; }
 
 
@@ -197,7 +198,7 @@ sub project_env_status
    #if the ec2 query has returned outcome lets get that info first
    if ( $outcome_ec2com ne "" )
    {   
-      ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+      ($instance_id, $server, $status, $tags) = split (/\s|,/, $outcome_ec2com);
        #This is code to looked for server of particular load balancer  configurations.
        #I care about Nexus.  So
        if ($url eq "nexus" )
@@ -210,23 +211,23 @@ sub project_env_status
             $lbcom = $tags;
             $outcome_ec2com = `grep $ec2_name EC2.lst | grep -v $lbstatus`;  #I don't want the same line
             #now I should have this: i-bdf85cc0 ec2-50-19-21-45.compute-1.amazonaws.com running kuali-nexus-as:nexus
-            ($instance_id, $server, $status, $tags) = split (/\s/, $outcome_ec2com);
+            ($instance_id, $server, $status, $tags) = split (/\s|,/, $outcome_ec2com);
              print WIKI ",$lb_id, $ec2_name, ,$lbstatus,$lbcom\n";
             #and I'll still lookup the instance_id and report on it, moving on
        }
             
       #if this is a lb: lbname, server, Service, lb ec2.com name
    }
-   elsif ( $tag ne "" ) #let's use the tag query, as ec2com didn't find anything
+   elsif ( $results_ec2tag ne "" ) #let's use the tag query, as ec2com didn't find anything
    {   
-       ($instance_id, $server, $status, $tags) = split (/\s/, $results_ec2tag);
+       ($instance_id, $server, $status, $tags) = split (/\s+|,/, $results_ec2tag);
    }
    else
     {
        $server = $ec2;
-       $status = "page not found";
-       $size = "";
-       $tag = "";
+       if ( $status eq "" ){ $status = "page not found"};
+       #$size = "";
+       #$tag = "";
     }
 
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
@@ -252,11 +253,11 @@ sub project_env_status
 
    #if this is a load balancer entry 
    if (( $outcome_ec2com  =~ ".elb." ) && ($instance_id ne "nexus"))
-   { print WIKI ",$instance_id, $url, ,$status,$tag\n";}
+   { print WIKI ",$instance_id, $url, ,$status,$tags\n";}
    else
    {
    #take the info and print it to the project file
-   print WIKI "$env_no,$name_url, $server, $status, $size,$tag\n"; }
+   print WIKI "$env_no,$name_url, $server, $status, $size,$tags\n"; }
    }
   }
 
