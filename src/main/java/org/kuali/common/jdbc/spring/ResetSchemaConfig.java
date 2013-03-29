@@ -30,7 +30,8 @@ public class ResetSchemaConfig {
 
 		String skip = SpringUtils.getProperty(env, "jdbc." + fragment + ".skip", "false");
 
-		JdbcContext context = JdbcConfigUtils.getConcurrentJdbcContext(env, fragment, commonConfig, dataSourceConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, fragment, commonConfig, dataSourceConfig);
+		JdbcContext context = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		context.setListener(new SummaryListener(false));
 
 		JdbcExecutable exec = new JdbcExecutable();

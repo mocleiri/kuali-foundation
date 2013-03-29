@@ -3,8 +3,6 @@ package org.kuali.common.jdbc.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
@@ -13,7 +11,6 @@ import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,20 +65,6 @@ public class ResetDataConfig {
 		list.add(new SummaryListener());
 		list.add(new ProgressListener());
 		return new NotifyingListener(list);
-	}
-
-	protected JdbcContext getBaseJdbcContext(String msgProp, String dataProp) {
-		String skip = SpringUtils.getProperty(env, "sql.data.skip", "false");
-		DataSource dataSource = dbaConfig.jdbcDataSource();
-		String message = SpringUtils.getProperty(env, msgProp);
-		List<SqlSupplier> suppliers = commonConfig.getSqlSuppliers(dataProp);
-
-		JdbcContext ctx = new JdbcContext();
-		ctx.setMessage(message);
-		ctx.setSkip(new Boolean(skip));
-		ctx.setDataSource(dataSource);
-		ctx.setSuppliers(suppliers);
-		return ctx;
 	}
 
 	protected JdbcContext getConcurrentJdbcContext() {
