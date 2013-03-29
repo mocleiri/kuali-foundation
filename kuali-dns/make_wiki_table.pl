@@ -220,13 +220,14 @@ sub project_env_status
    }
    elsif ( $results_ec2tag ne "" ) #let's use the tag query, as ec2com didn't find anything
    {   
+       $size = "";
        ($instance_id, $server, $status, $tags) = split (/\s+|,/, $results_ec2tag);
    }
    else
     {
        $server = $ec2;
        if ( $status eq "" ){ $status = "page not found"};
-       #$size = "";
+       $size = "";
        #$tag = "";
     }
 
