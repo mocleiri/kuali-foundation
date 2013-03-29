@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetOtherConfig {
+
 	public static final String TYPE = "other";
 	public static final String SKIP_KEY = "jdbc.other.skip";
 
