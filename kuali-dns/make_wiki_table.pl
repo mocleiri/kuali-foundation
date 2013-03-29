@@ -77,14 +77,14 @@ sub build_ec2_lst
   #LB has been populated with each domains lb info
   foreach $lbline ( @LB)
   { chomp($lbline); @lbname = split(/\t|\s+/, $lbline );
-    print "\nworking with lbline: $lbline";
+    #print "\nworking with lbline: $lbline";
     $lb_id = $lbname[1];
     #print "\nlb_id:$lb_id";
     $lb_xref = $lbname[2];
-    print "\nlb_xref: $lb_xref";
-    print "\n$cmd_lb_health $lb_id -K $key -C $cert";
+    #print "\nlb_xref: $lb_xref";
+    #print "\n$cmd_lb_health $lb_id -K $key -C $cert";
     ($toss, $lb_instance_id, $service_status) = split(/\t|\s+/,`$cmd_lb_health $lb_id -K $key -C $cert`);
-    print "\ngrep $lb_instance_id instance.lst";
+    #print "\ngrep $lb_instance_id instance.lst";
     $lb_result = `grep $lb_instance_id instance.lst`;
     chomp( $lb_result );
     @lbout = split(/\t/, $lb_result);
@@ -94,7 +94,7 @@ sub build_ec2_lst
     $status = $service_status;
     $tags = $lb_xref;
 
-    print "\n",$instance_id," ",$url," ", $status," ", $tags;    
+    #print "\n",$instance_id," ",$url," ", $status," ", $tags;    
     print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
   }
 
@@ -140,7 +140,7 @@ sub project_env_status
  else
  { $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile"; }
 
- print "\n", $cmd;
+ #print "\n", $cmd;
  `$cmd`;
  open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
  foreach $line (@DNS)
@@ -163,7 +163,7 @@ sub project_env_status
    if (( $url !~ /$project$/) && ($project ne "fn"))
    {  next; }
 
-   print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
+   #print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
    $name_url = $url.".kuali.org";
 
 
