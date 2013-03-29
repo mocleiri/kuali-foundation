@@ -5,6 +5,16 @@ public class SqlContext {
 	String type;
 	SqlMode mode;
 
+	public SqlContext() {
+		this(null, null);
+	}
+
+	public SqlContext(String type, SqlMode mode) {
+		super();
+		this.type = type;
+		this.mode = mode;
+	}
+
 	public String getType() {
 		return type;
 	}
