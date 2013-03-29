@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.context.SqlContext;
 import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.MetaDataListener;
@@ -56,8 +55,7 @@ public class ResetDataConfig {
 	}
 
 	protected JdbcContext getSequentialJdbcContext() {
-		SqlContext sc = new SqlContext(TYPE, SqlMode.SEQUENTIAL);
-		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dbaConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dbaConfig);
 		JdbcContext ctx = JdbcConfigUtils.getSequentialJdbcContext(jcc);
 		ctx.setTrackProgressByUpdateCount(true);
 		ctx.setListener(JdbcConfigUtils.getSummaryAndProgressListener());
@@ -65,18 +63,17 @@ public class ResetDataConfig {
 	}
 
 	protected JdbcContext getConcurrentJdbcContext() {
-		SqlContext sc = new SqlContext(TYPE, SqlMode.CONCURRENT);
-		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dbaConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
+		String propertyPrefix = JdbcConfigUtils.getPropertyPrefix(jcc);
 		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
-		String trackProgressByUpdateCount = SpringUtils.getProperty(env, "sql.data.concurrent.trackProgressByUpdateCount", "true");
+		String trackProgressByUpdateCount = SpringUtils.getProperty(env, propertyPrefix + ".trackProgressByUpdateCount", "true");
 		ctx.setTrackProgressByUpdateCount(new Boolean(trackProgressByUpdateCount));
 		ctx.setListener(getConcurrentListener());
 		return ctx;
 	}
 
 	protected SqlListener getConcurrentListener() {
-		SqlContext sc = new SqlContext(TYPE, SqlMode.CONCURRENT);
-		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dbaConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
 		DataSummaryListener dsl = JdbcConfigUtils.getConcurrentDataSummaryListener(jcc);
 
 		List<SqlListener> listeners = new ArrayList<SqlListener>();

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.context.SqlContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
@@ -18,7 +17,7 @@ import org.kuali.common.util.spring.SpringUtils;
 public class JdbcConfigUtils {
 
 	public static DataSummaryListener getConcurrentDataSummaryListener(JdbcConfigContext jcc) {
-		String propertyPrefix = getPropertyPrefix(jcc.getSqlContext());
+		String propertyPrefix = getPropertyPrefix(jcc);
 		String label = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
 		String throughputLabel = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
 		DataSummaryListener dsl = new DataSummaryListener();
@@ -54,13 +53,13 @@ public class JdbcConfigUtils {
 	 *   sql.other.sequential
 	 * </pre>
 	 */
-	public static String getPropertyPrefix(SqlContext context) {
-		String mode = context.getMode().name().toLowerCase();
+	public static String getPropertyPrefix(JdbcConfigContext jcc) {
+		String mode = jcc.getMode().name().toLowerCase();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("sql");
 		sb.append(".");
-		sb.append(context.getType());
+		sb.append(jcc.getType());
 		sb.append(".");
 		sb.append(mode);
 		return sb.toString();
@@ -68,8 +67,8 @@ public class JdbcConfigUtils {
 
 	public static JdbcContext getBaseJdbcContext(JdbcConfigContext jcc) {
 		// dba, schema, data, constraints, other
-		String fragment = jcc.getSqlContext().getType();
-		String propertyPrefix = getPropertyPrefix(jcc.getSqlContext());
+		String fragment = jcc.getType();
+		String propertyPrefix = getPropertyPrefix(jcc);
 		String message = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".message");
 		String skip = SpringUtils.getProperty(jcc.getEnv(), "sql." + fragment + ".skip", "false");
 		String trackProgressByUpdateCount = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", "false");

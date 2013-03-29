@@ -2,7 +2,6 @@ package org.kuali.common.jdbc.spring;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.context.SqlContext;
 import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.util.execute.Executable;
@@ -31,9 +30,8 @@ public class ResetSchemaConfig {
 		String type = "schema";
 
 		String skip = SpringUtils.getProperty(env, "jdbc." + type + ".skip", "false");
-		SqlContext sc = new SqlContext(type, SqlMode.CONCURRENT);
 
-		JdbcConfigContext jcc = new JdbcConfigContext(env, sc, commonConfig, dataSourceConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, type, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext context = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		context.setListener(new SummaryListener(false));
 
