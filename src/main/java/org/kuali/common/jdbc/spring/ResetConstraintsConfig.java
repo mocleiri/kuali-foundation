@@ -13,9 +13,10 @@ import org.springframework.context.annotation.Configuration;
 public class ResetConstraintsConfig extends ResetBaseConfig {
 
 	public static final String TYPE = "constraints";
+	public static final String NAME = "jdbc." + TYPE + "Executable";
 	public static final String SKIP_KEY = "jdbc.constraints.skip";
 
-	@Bean
+	@Bean(name = NAME)
 	public Executable jdbcConstraintsExecutable() {
 		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
