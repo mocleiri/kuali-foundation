@@ -147,8 +147,8 @@ public class DefaultSpringService implements SpringService {
 			// Invoke refresh to load the context
 			SpringUtils.refreshQuietly(annotationChild);
 			SpringUtils.refreshQuietly(xmlChild);
-			showQuietly(annotationChild);
-			showQuietly(xmlChild);
+			debugQuietly(annotationChild);
+			debugQuietly(xmlChild);
 		} finally {
 			// cleanup
 			// closeQuietly(annotationChild);
@@ -157,9 +157,9 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
-	protected void showQuietly(ApplicationContext ctx) {
-		if (ctx != null) {
-			SpringUtils.showContext(ctx);
+	protected void debugQuietly(ApplicationContext ctx) {
+		if (ctx != null && logger.isDebugEnabled()) {
+			SpringUtils.debug(ctx);
 		}
 	}
 

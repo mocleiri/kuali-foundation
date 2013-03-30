@@ -277,12 +277,12 @@ public class SpringUtils {
 		return list;
 	}
 
-	public static void showContext(ApplicationContext ctx) {
-		logger.info("------------------------ Spring Context ------------------------------");
-		logger.info("Id: [{}]", ctx.getId());
-		logger.info("Display Name: [{}]", ctx.getDisplayName());
-		logger.info("Application Name: [{}]", ctx.getApplicationName());
-		logger.info("----------------------------------------------------------------------");
+	public static void debug(ApplicationContext ctx) {
+		logger.debug("------------------------ Spring Context ------------------------------");
+		logger.debug("Id: [{}]", ctx.getId());
+		logger.debug("Display Name: [{}]", ctx.getDisplayName());
+		logger.debug("Application Name: [{}]", ctx.getApplicationName());
+		logger.debug("----------------------------------------------------------------------");
 		List<String> names = Arrays.asList(BeanFactoryUtils.beanNamesIncludingAncestors(ctx));
 		List<String> columns = Arrays.asList("Name", "Instance", "Hex");
 		List<Object[]> rows = new ArrayList<Object[]>();
@@ -294,8 +294,8 @@ public class SpringUtils {
 			Object[] row = { name, instance, hex };
 			rows.add(row);
 		}
-		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger, true);
-		logger.info("----------------------------------------------------------------------");
+		LoggerUtils.logTable(columns, rows, LoggerLevel.DEBUG, logger, true);
+		logger.debug("----------------------------------------------------------------------");
 	}
 
 	public static void showPropertySources(List<PropertySource<?>> propertySources) {
