@@ -51,7 +51,7 @@ import org.springframework.stereotype.Service;
 public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
-	LongCounter counter = new LongCounter();
+	private static final LongCounter COUNTER = new LongCounter();
 
 	@Override
 	public void loadSpring(AbstractSpringMojo mojo) {
@@ -68,7 +68,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 
-		long id = counter.increment();
+		long id = COUNTER.increment();
 		SpringContext context = new SpringContext();
 		context.setId("spring-maven-plugin : " + id);
 		context.setDisplayName("Spring Maven Plugin : " + id);
