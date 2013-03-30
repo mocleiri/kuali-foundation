@@ -35,34 +35,26 @@ public class ResetDataConfig {
 
 	@Bean
 	public Executable jdbcDataConcurrentExecutable() {
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
+		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
+		ctx.setListener(getConcurrentListener());
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
-		exec.setContext(getConcurrentJdbcContext());
+		exec.setContext(ctx);
 		return exec;
 	}
 
 	@Bean
 	public Executable jdbcDataSequentialExecutable() {
-		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
-		exec.setService(commonConfig.jdbcService());
-		exec.setContext(getSequentialJdbcContext());
-		return exec;
-	}
-
-	protected JdbcContext getSequentialJdbcContext() {
 		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dbaConfig);
 		JdbcContext ctx = JdbcConfigUtils.getSequentialJdbcContext(jcc);
 		ctx.setListener(JdbcConfigUtils.getSummaryAndProgressListener());
-		return ctx;
-	}
-
-	protected JdbcContext getConcurrentJdbcContext() {
-		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
-		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
-		ctx.setListener(getConcurrentListener());
-		return ctx;
+		JdbcExecutable exec = new JdbcExecutable();
+		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
+		exec.setService(commonConfig.jdbcService());
+		exec.setContext(ctx);
+		return exec;
 	}
 
 	protected SqlListener getConcurrentListener() {
