@@ -19,9 +19,6 @@ import org.springframework.core.env.Environment;
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetDbaConfig {
 
-	public static final String TYPE = "dba";
-	public static final String SKIP_KEY = "jdbc.dba.skip";
-
 	@Autowired
 	Environment env;
 
@@ -34,7 +31,7 @@ public class ResetDbaConfig {
 	@Bean
 	public Executable jdbcDbaExecutable() {
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
+		exec.setSkip(JdbcConfigUtils.getBoolean(env, "jdbc.dba.skip", false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getJdbcContext());
 		return exec;
