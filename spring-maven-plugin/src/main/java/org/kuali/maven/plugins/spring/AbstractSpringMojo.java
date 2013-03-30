@@ -113,16 +113,23 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	}
 
 	protected void configureLogging() {
+		// We are not in debug mode, don't do anything
 		if (!getLog().isDebugEnabled()) {
 			return;
 		}
+
+		// This makes log4j show how it is initializing itself
 		getLog().debug("Setting System property log4j.debug=true");
 		System.setProperty("log4j.debug", "true");
+
+		// Did they supply a log4j.configuration setting already?
 		String currentValue = System.getProperty("log4j.configuration");
 		if (StringUtils.isBlank(currentValue)) {
+			// If not, use the log4jdebug.xml bundled with the plugin
 			getLog().debug("Setting System property log4j.configuration=log4jdebug.xml");
 			System.setProperty("log4j.configuration", "log4jdebug.xml");
 		} else {
+			// If so, just use they one they specified
 			getLog().debug("Using existing value for the system property log4j.configuration=[" + currentValue + "]");
 		}
 	}
