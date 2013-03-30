@@ -277,13 +277,14 @@ public class SpringUtils {
 		return list;
 	}
 
-	public static void showBeans(ApplicationContext ctx) {
-		String[] names = BeanFactoryUtils.beanNamesIncludingAncestors(ctx);
+	public static void showContext(ApplicationContext ctx) {
+		List<String> names = Arrays.asList(BeanFactoryUtils.beanNamesIncludingAncestors(ctx));
 		List<String> columns = Arrays.asList("Name", "Instance", "Hex");
 		List<Object[]> rows = new ArrayList<Object[]>();
+		Collections.sort(names);
 		for (String name : names) {
 			Object bean = ctx.getBean(name);
-			String instance = bean.getClass().getName();
+			String instance = bean.getClass().getSimpleName();
 			String hex = Integer.toHexString(bean.hashCode());
 			Object[] row = { name, instance, hex };
 			rows.add(row);

@@ -159,7 +159,7 @@ public class DefaultSpringService implements SpringService {
 
 	protected void showQuietly(ApplicationContext ctx) {
 		if (ctx != null) {
-			SpringUtils.showBeans(ctx);
+			SpringUtils.showContext(ctx);
 		}
 	}
 
