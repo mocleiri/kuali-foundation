@@ -10,24 +10,11 @@ import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
-public class ResetConstraintsConfig {
-
-	@Autowired
-	ConfigurableEnvironment env;
-
-	@Autowired
-	JdbcCommonConfig commonConfig;
-
-	@Autowired
-	JdbcDataSourceConfig dbaConfig;
+public class ResetConstraintsConfig extends ResetBaseConfig {
 
 	@Bean
 	public Executable jdbcConstraintsExecutable() {
@@ -45,7 +32,7 @@ public class ResetConstraintsConfig {
 		String threads = SpringUtils.getProperty(env, "sql.threads");
 		String message = SpringUtils.getProperty(env, "sql.constraints.concurrent.message");
 		List<SqlSupplier> suppliers = commonConfig.getSqlSuppliers("sql.constraints.concurrent");
-		DataSource dataSource = dbaConfig.jdbcDataSource();
+		DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMultithreaded(true);

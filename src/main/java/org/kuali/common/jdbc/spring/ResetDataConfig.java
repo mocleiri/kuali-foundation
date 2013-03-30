@@ -11,31 +11,18 @@ import org.kuali.common.jdbc.listener.MetaDataListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.util.execute.Executable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
-public class ResetDataConfig {
+public class ResetDataConfig extends ResetBaseConfig {
 
 	public static final String TYPE = "data";
 	public static final String SKIP_KEY = "jdbc.data.skip";
 
-	@Autowired
-	ConfigurableEnvironment env;
-
-	@Autowired
-	JdbcCommonConfig commonConfig;
-
-	@Autowired
-	JdbcDataSourceConfig dbaConfig;
-
 	@Bean
 	public Executable jdbcDataConcurrentExecutable() {
-		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		ctx.setListener(getConcurrentListener());
 		JdbcExecutable exec = new JdbcExecutable();
@@ -47,7 +34,7 @@ public class ResetDataConfig {
 
 	@Bean
 	public Executable jdbcDataSequentialExecutable() {
-		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dbaConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext ctx = JdbcConfigUtils.getSequentialJdbcContext(jcc);
 		ctx.setListener(JdbcConfigUtils.getSummaryAndProgressListener());
 		JdbcExecutable exec = new JdbcExecutable();
@@ -58,7 +45,7 @@ public class ResetDataConfig {
 	}
 
 	protected SqlListener getConcurrentListener() {
-		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dbaConfig);
+		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		DataSummaryListener dsl = JdbcConfigUtils.getConcurrentDataSummaryListener(jcc);
 
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
