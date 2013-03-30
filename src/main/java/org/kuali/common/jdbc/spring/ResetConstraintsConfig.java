@@ -14,7 +14,7 @@ public class ResetConstraintsConfig extends ResetBaseConfig {
 
 	public static final String TYPE = "constraints";
 	public static final String NAME = "jdbc." + TYPE + "Executable";
-	public static final String SKIP_KEY = "jdbc.constraints.skip";
+	public static final String SKIP_KEY = "jdbc." + TYPE + ".skip";
 
 	@Bean(name = NAME)
 	public Executable jdbcConstraintsExecutable() {
