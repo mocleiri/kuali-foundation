@@ -9,24 +9,11 @@ import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
-public class ResetDbaConfig {
-
-	@Autowired
-	Environment env;
-
-	@Autowired
-	JdbcCommonConfig commonConfig;
-
-	@Autowired
-	JdbcDataSourceConfig dbaConfig;
+public class ResetDbaConfig extends ResetBaseConfig {
 
 	@Bean
 	public Executable jdbcDbaExecutable() {
@@ -41,7 +28,7 @@ public class ResetDbaConfig {
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(SpringUtils.getProperty(env, "sql.dba.message"));
 		ctx.setSkip(JdbcConfigUtils.getBoolean(env, "sql.dba.skip", false));
-		ctx.setDataSource(dbaConfig.jdbcDbaDataSource());
+		ctx.setDataSource(dataSourceConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
 		ctx.setListener(new LogSqlListener());
 		return ctx;
