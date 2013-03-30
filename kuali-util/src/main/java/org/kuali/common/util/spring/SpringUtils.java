@@ -59,6 +59,11 @@ public class SpringUtils {
 	// Configure a helper that will fail on any unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
+	public static boolean getBoolean(Environment env, String key, boolean defaultValue) {
+		String value = getProperty(env, key, defaultValue + "");
+		return new Boolean(value);
+	}
+
 	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
