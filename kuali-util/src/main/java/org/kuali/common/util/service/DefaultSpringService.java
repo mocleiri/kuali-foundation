@@ -126,7 +126,7 @@ public class DefaultSpringService implements SpringService {
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
-				parent = SpringUtils.getContextWithPreRegisteredBeans(context.getBeanNames(), context.getBeans());
+				parent = SpringUtils.getContextWithPreRegisteredBeans("spring-parent-context", "Spring Parent Context", context.getBeanNames(), context.getBeans());
 			}
 
 			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
@@ -147,8 +147,7 @@ public class DefaultSpringService implements SpringService {
 			// Invoke refresh to load the context
 			SpringUtils.refreshQuietly(annotationChild);
 			SpringUtils.refreshQuietly(xmlChild);
-			debugQuietly(annotationChild);
-			debugQuietly(xmlChild);
+			debugQuietly(parent, annotationChild, xmlChild);
 		} finally {
 			// cleanup
 			// closeQuietly(annotationChild);
@@ -157,9 +156,19 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
-	protected void debugQuietly(ApplicationContext ctx) {
-		if (ctx != null && logger.isDebugEnabled()) {
-			SpringUtils.debug(ctx);
+	protected void debugQuietly(ApplicationContext parent, ApplicationContext child1, ApplicationContext child2) {
+		if (!logger.isDebugEnabled()) {
+			return;
+		}
+		if (parent != null) {
+			SpringUtils.debug(parent);
+		} else {
+			if (child1 != null) {
+				SpringUtils.debug(child1);
+			}
+			if (child2 != null) {
+				SpringUtils.debug(child2);
+			}
 		}
 	}
 

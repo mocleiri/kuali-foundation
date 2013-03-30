@@ -153,9 +153,15 @@ public class SpringUtils {
 		}
 	}
 
-	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
+	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, List<String> beanNames, List<Object> beans) {
 		Assert.isTrue(beanNames.size() == beans.size());
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
+		if (!StringUtils.isBlank(id)) {
+			appContext.setId(id);
+		}
+		if (!StringUtils.isBlank(displayName)) {
+			appContext.setDisplayName(displayName);
+		}
 		appContext.refresh();
 		ConfigurableListableBeanFactory factory = appContext.getBeanFactory();
 		for (int i = 0; i < beanNames.size(); i++) {
@@ -165,6 +171,10 @@ public class SpringUtils {
 			factory.registerSingleton(beanName, bean);
 		}
 		return appContext;
+	}
+
+	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
+		return getContextWithPreRegisteredBeans(null, null, beanNames, beans);
 	}
 
 	/**
