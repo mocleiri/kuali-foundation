@@ -65,21 +65,22 @@ public class JdbcConfigUtils {
 		return sb.toString();
 	}
 
-	public static JdbcContext getBaseJdbcContext(JdbcConfigContext jcc) {
+	protected static JdbcContext getBaseJdbcContext(JdbcConfigContext jcc) {
 		// dba, schema, data, constraints, other
-		String fragment = jcc.getType();
+		String type = jcc.getType();
+		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc
 		String propertyPrefix = getPropertyPrefix(jcc);
 		String message = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".message");
-		String skip = SpringUtils.getProperty(jcc.getEnv(), "sql." + fragment + ".skip", "false");
-		String trackProgressByUpdateCount = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", "false");
+		boolean skip = SpringUtils.getBoolean(jcc.getEnv(), "sql." + type + ".skip", false);
+		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(jcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", false);
 		List<SqlSupplier> suppliers = jcc.getCommonConfig().getSqlSuppliers(propertyPrefix);
 		DataSource dataSource = jcc.getDataSourceConfig().jdbcDataSource();
 
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(message);
-		ctx.setSkip(new Boolean(skip));
+		ctx.setSkip(skip);
 		ctx.setDataSource(dataSource);
-		ctx.setTrackProgressByUpdateCount(new Boolean(trackProgressByUpdateCount));
+		ctx.setTrackProgressByUpdateCount(trackProgressByUpdateCount);
 		ctx.setSuppliers(suppliers);
 		return ctx;
 	}
