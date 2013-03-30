@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
@@ -126,7 +127,9 @@ public class DefaultSpringService implements SpringService {
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
-				parent = SpringUtils.getContextWithPreRegisteredBeans("spring-parent-context", "Spring Parent Context", context.getBeanNames(), context.getBeans());
+				String id = StringUtils.isBlank(context.getId()) ? "spring-parent-context" : context.getId();
+				String displayName = StringUtils.isBlank(context.getDisplayName()) ? "Spring Parent Context" : context.getDisplayName();
+				parent = SpringUtils.getContextWithPreRegisteredBeans(id, displayName, context.getBeanNames(), context.getBeans());
 			}
 
 			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
