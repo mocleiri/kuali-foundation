@@ -23,9 +23,9 @@ import java.util.Properties;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Counter;
 import org.kuali.common.util.Dependency;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
@@ -51,7 +51,7 @@ import org.springframework.stereotype.Service;
 public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
-	Counter counter = new Counter();
+	LongCounter counter = new LongCounter();
 
 	@Override
 	public void loadSpring(AbstractSpringMojo mojo) {
@@ -68,8 +68,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 
+		long id = counter.increment();
 		SpringContext context = new SpringContext();
-		context.set
+		context.setId("spring-maven-plugin : " + id);
+		context.setDisplayName("Spring Maven Plugin : " + id);
 		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 		context.setAnnotatedClasses(CollectionUtils.asList(MojoConfig.class));
 		context.setBeanNames(beanNames);
