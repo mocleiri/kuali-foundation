@@ -27,6 +27,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -146,11 +147,19 @@ public class DefaultSpringService implements SpringService {
 			// Invoke refresh to load the context
 			SpringUtils.refreshQuietly(annotationChild);
 			SpringUtils.refreshQuietly(xmlChild);
+			showQuietly(annotationChild);
+			showQuietly(xmlChild);
 		} finally {
 			// cleanup
 			// closeQuietly(annotationChild);
 			// closeQuietly(xmlChild);
 			// closeQuietly(parent);
+		}
+	}
+
+	protected void showQuietly(ApplicationContext ctx) {
+		if (ctx != null) {
+			SpringUtils.showBeans(ctx);
 		}
 	}
 
