@@ -123,14 +123,14 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		System.setProperty("log4j.debug", "true");
 
 		// Did they supply a log4j.configuration setting already?
-		String currentValue = System.getProperty("log4j.configuration");
-		if (StringUtils.isBlank(currentValue)) {
+		String log4jConfig = System.getProperty("log4j.configuration");
+		if (StringUtils.isBlank(log4jConfig)) {
 			// If not, use the log4jdebug.xml bundled with the plugin
 			getLog().debug("Setting system property - [log4j.configuration=log4jdebug.xml]");
 			System.setProperty("log4j.configuration", "log4jdebug.xml");
 		} else {
 			// If so, just use they one they specified
-			getLog().debug("Using existing value for the system property log4j.configuration=[" + currentValue + "]");
+			getLog().debug("Using existing value for the system property log4j.configuration=[" + log4jConfig + "]");
 		}
 	}
 
