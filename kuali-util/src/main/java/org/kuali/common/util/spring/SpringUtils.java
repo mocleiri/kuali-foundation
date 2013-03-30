@@ -36,6 +36,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
@@ -299,8 +300,8 @@ public class SpringUtils {
 		Collections.sort(names);
 		for (String name : names) {
 			Object bean = ctx.getBean(name);
-			String instance = bean.getClass().getSimpleName();
-			String hashcode = Integer.toHexString(bean.hashCode());
+			String instance = (bean == null) ? Constants.NULL : bean.getClass().getSimpleName();
+			String hashcode = (bean == null) ? Constants.NULL : Integer.toHexString(bean.hashCode());
 			Object[] row = { name, instance, hashcode };
 			rows.add(row);
 		}

@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 public class DuplicateBeanConfig1 {
 
 	@Bean
-	public Object whatever() {
+	public String whatever() {
 		return "whatever1";
 	}
 

@@ -16,15 +16,17 @@
 package org.kuali.common.util.spring.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ DuplicateBeanConfig1.class, DuplicateBeanConfig2.class })
+@Import({ DuplicateBeanConfig2.class, DuplicateBeanConfig1.class })
 public class DuplicateBeanConfig {
 
 	@Autowired
+	@Qualifier("whatever")
 	String whatever;
 
 	@Bean
