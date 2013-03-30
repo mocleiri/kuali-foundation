@@ -19,6 +19,9 @@ import org.springframework.core.env.Environment;
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class ResetDbaConfig {
 
+	public static final String TYPE = "dba";
+	public static final String SKIP_KEY = "jdbc.dba.skip";
+
 	@Autowired
 	Environment env;
 
@@ -30,20 +33,17 @@ public class ResetDbaConfig {
 
 	@Bean
 	public Executable jdbcDbaExecutable() {
-		String skip = SpringUtils.getProperty(env, "jdbc.dba.skip", "false");
-
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(new Boolean(skip));
+		exec.setSkip(JdbcConfigUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getJdbcContext());
 		return exec;
 	}
 
 	protected JdbcContext getJdbcContext() {
-		String skip = SpringUtils.getProperty(env, "sql.dba.skip", "false");
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(SpringUtils.getProperty(env, "sql.dba.message"));
-		ctx.setSkip(new Boolean(skip));
+		ctx.setSkip(JdbcConfigUtils.getBoolean(env, "sql.dba.skip", false));
 		ctx.setDataSource(dbaConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
 		ctx.setListener(new LogSqlListener());
@@ -54,7 +54,6 @@ public class ResetDbaConfig {
 		String validate = SpringUtils.getProperty(env, "sql.validate");
 		String drop = SpringUtils.getProperty(env, "sql.drop");
 		String create = SpringUtils.getProperty(env, "sql.create");
-
 		ComplexStringSupplier css = new ComplexStringSupplier();
 		css.setReader(commonConfig.jdbcSqlReader());
 		css.setStrings(Arrays.asList(validate, drop, create));
