@@ -179,6 +179,8 @@ public class DefaultSpringService implements SpringService {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		if (parent != null) {
 			ctx.setParent(parent);
+		} else {
+			ctx.
 		}
 		for (Class<?> annotatedClass : context.getAnnotatedClasses()) {
 			ctx.register(annotatedClass);
