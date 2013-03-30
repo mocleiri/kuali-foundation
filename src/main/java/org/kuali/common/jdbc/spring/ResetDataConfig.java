@@ -26,6 +26,7 @@ public class ResetDataConfig extends ResetBaseConfig {
 		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		ctx.setListener(getConcurrentListener());
+		
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
