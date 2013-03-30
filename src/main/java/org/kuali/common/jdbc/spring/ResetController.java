@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+/**
+ * Default database reset controller class. It displays the JDBC configuration, then executes dba SQL followed by schema->data->constraints->other, in that order.
+ */
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, ResetDbaConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class })
 public class ResetController {
