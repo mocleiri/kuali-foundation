@@ -104,6 +104,9 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
+		// Keep log4j in sync with Maven logging with regards to debug mode
+		configureLogging();
+
 		// Delegate execution to Spring
 		SpringMojoService service = ReflectionUtils.newInstance(springMojoService);
 		service.loadSpring(this);
