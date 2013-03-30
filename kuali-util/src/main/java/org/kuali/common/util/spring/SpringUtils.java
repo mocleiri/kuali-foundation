@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -274,6 +275,20 @@ public class SpringUtils {
 			}
 		}
 		return list;
+	}
+
+	public static void showBeans(ApplicationContext ctx) {
+		String[] names = BeanFactoryUtils.beanNamesIncludingAncestors(ctx);
+		List<String> columns = Arrays.asList("Name", "Instance", "Hex");
+		List<Object[]> rows = new ArrayList<Object[]>();
+		for (String name : names) {
+			Object bean = ctx.getBean(name);
+			String instance = bean.getClass().getName();
+			String hex = Integer.toHexString(bean.hashCode());
+			Object[] row = { name, instance, hex };
+			rows.add(row);
+		}
+		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger, true);
 	}
 
 	public static void showPropertySources(List<PropertySource<?>> propertySources) {
