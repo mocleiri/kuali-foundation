@@ -128,11 +128,9 @@ public class DefaultMavenService extends DefaultExecService implements MavenServ
 		List<String> keys = context.getPassThroughPropertyKeys();
 		Properties properties = new Properties();
 		Collections.sort(keys);
-		Properties internal = context.getProperties();
-		internal.putAll(PropertyUtils.getEnvAsProperties());
-		internal.putAll(System.getProperties());
+		Properties global = PropertyUtils.getGlobalProperties(context.getProperties());
 		for (String key : keys) {
-			String value = internal.getProperty(key);
+			String value = global.getProperty(key);
 			if (!StringUtils.isBlank(value)) {
 				properties.setProperty(key, value);
 			}
