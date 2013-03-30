@@ -17,6 +17,7 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -106,6 +107,19 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Delegate execution to Spring
 		SpringMojoService service = ReflectionUtils.newInstance(springMojoService);
 		service.loadSpring(this);
+	}
+
+	protected void configureLogging() {
+		if (!getLog().isDebugEnabled()) {
+			return;
+		}
+		String currentValue = System.getProperty("log4j.configuration");
+		if (StringUtils.isBlank(currentValue)) {
+			getLog().debug("Setting log4j.configuration=log4jdebug.xml");
+			System.setProperty("log4j.configuration", "log4jdebug.xml");
+		} else {
+			getLog().debug("log4j.configuration=" + currentValue);
+		}
 	}
 
 	public MavenProject getProject() {
