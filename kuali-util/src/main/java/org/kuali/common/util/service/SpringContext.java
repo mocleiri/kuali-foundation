@@ -19,6 +19,8 @@ import java.util.List;
 
 public class SpringContext {
 
+	String id;
+	String displayName;
 	List<String> locations;
 	List<Class<?>> annotatedClasses;
 	List<String> beanNames;
@@ -63,6 +65,22 @@ public class SpringContext {
 
 	public void setPropertySourceContext(PropertySourceContext propertySourceContext) {
 		this.propertySourceContext = propertySourceContext;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 }
