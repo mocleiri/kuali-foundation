@@ -29,12 +29,12 @@ public class Counter {
 	}
 
 	public int increment() {
-		Assert.isFalse(count == Integer.MAX_VALUE);
+		Assert.isFalse(count == Integer.MAX_VALUE, "max value exceeded");
 		return count++;
 	}
 
 	public int decrement() {
-		Assert.isFalse(count == Integer.MIN_VALUE);
+		Assert.isFalse(count == Integer.MIN_VALUE, "min value exceeded");
 		return count--;
 	}
 }
