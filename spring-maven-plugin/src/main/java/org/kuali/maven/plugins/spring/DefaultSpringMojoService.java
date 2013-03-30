@@ -51,7 +51,7 @@ import org.springframework.stereotype.Service;
 public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
-	private static final LongCounter COUNTER = new LongCounter();
+	private static final LongCounter SEQUENCE = new LongCounter();
 
 	@Override
 	public void loadSpring(AbstractSpringMojo mojo) {
@@ -69,7 +69,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 
 		SpringContext context = new SpringContext();
-		context.setDisplayName("Spring Maven Plugin : " + COUNTER.increment());
+		context.setDisplayName("Spring Maven Plugin : " + SEQUENCE.increment());
 		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 		context.setAnnotatedClasses(CollectionUtils.asList(MojoConfig.class));
 		context.setBeanNames(beanNames);
@@ -214,7 +214,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		SpringContext context = new SpringContext();
-		context.setDisplayName("Spring Maven Plugin : Load : " + COUNTER.increment());
+		context.setDisplayName("Spring Maven Plugin : Load : " + SEQUENCE.increment());
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
@@ -234,7 +234,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		SpringContext context = new SpringContext();
-		context.setDisplayName("Spring Maven Plugin : LoadXML : " + COUNTER.increment());
+		context.setDisplayName("Spring Maven Plugin : LoadXML : " + SEQUENCE.increment());
 		context.setLocations(contextLocations);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
