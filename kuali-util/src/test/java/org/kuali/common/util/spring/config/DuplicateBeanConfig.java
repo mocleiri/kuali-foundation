@@ -26,12 +26,20 @@ import org.springframework.context.annotation.Import;
 public class DuplicateBeanConfig {
 
 	@Autowired
+	DuplicateBeanConfig1 config1;
+
+	@Autowired
+	DuplicateBeanConfig1 config2;
+
+	@Autowired
 	@Qualifier("whatever")
 	String whatever;
 
 	@Bean
 	public Object yo() {
 		System.out.println("whatever=" + whatever);
+		System.out.println(config1.whatever());
+		System.out.println(config2.whatever());
 		return null;
 	}
 
