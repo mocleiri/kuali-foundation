@@ -68,10 +68,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 
-		long id = COUNTER.increment();
 		SpringContext context = new SpringContext();
-		context.setId("spring-maven-plugin : " + id);
-		context.setDisplayName("Spring Maven Plugin : " + id);
+		context.setDisplayName("Spring Maven Plugin : " + COUNTER.increment());
 		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 		context.setAnnotatedClasses(CollectionUtils.asList(MojoConfig.class));
 		context.setBeanNames(beanNames);
@@ -216,6 +214,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		SpringContext context = new SpringContext();
+		context.setDisplayName("Spring Maven Plugin : Load : " + COUNTER.increment());
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
@@ -235,6 +234,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		SpringContext context = new SpringContext();
+		context.setDisplayName("Spring Maven Plugin : LoadXML : " + COUNTER.increment());
 		context.setLocations(contextLocations);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
