@@ -63,7 +63,7 @@ public class OleResetConfig {
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
 		// Simple flag for skipping execution altogether
-		String skip = SpringUtils.getProperty(env, "db.reset.skip", "false");
+		boolean skip = SpringUtils.getBoolean(env, "db.reset.skip", false);
 
 		/**
 		 * This line creates a property source containing 100% of the properties needed by Spring to resolve any/all placeholders. It will be the only property source available to
@@ -83,7 +83,7 @@ public class OleResetConfig {
 		SpringExecutable se = new SpringExecutable();
 		se.setService(new DefaultSpringService());
 		se.setContext(context);
-		se.setSkip(new Boolean(skip));
+		se.setSkip(skip);
 		return se;
 	}
 
