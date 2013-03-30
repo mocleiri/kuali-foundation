@@ -24,7 +24,7 @@ public class GetMillisFactoryBean implements FactoryBean<Long> {
 	String time;
 
 	@Override
-	public Long getObject() throws Exception {
+	public Long getObject() {
 		Assert.hasText(time, "time has no text");
 		return FormatUtils.getMillis(time);
 	}
