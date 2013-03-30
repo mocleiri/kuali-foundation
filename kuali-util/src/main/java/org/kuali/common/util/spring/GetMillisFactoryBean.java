@@ -25,7 +25,7 @@ public class GetMillisFactoryBean implements FactoryBean<Long> {
 
 	@Override
 	public Long getObject() throws Exception {
-		Assert.notNull(time, "time is null");
+		Assert.hasText(time, "time has no text");
 		return FormatUtils.getMillis(time);
 	}
 
