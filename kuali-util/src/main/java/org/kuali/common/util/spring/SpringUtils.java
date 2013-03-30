@@ -294,14 +294,14 @@ public class SpringUtils {
 		logger.debug("Application Name: [{}]", ctx.getApplicationName());
 		logger.debug("----------------------------------------------------------------------");
 		List<String> names = Arrays.asList(BeanFactoryUtils.beanNamesIncludingAncestors(ctx));
-		List<String> columns = Arrays.asList("Name", "Instance", "Hex");
+		List<String> columns = Arrays.asList("Name", "Type", "Hashcode");
 		List<Object[]> rows = new ArrayList<Object[]>();
 		Collections.sort(names);
 		for (String name : names) {
 			Object bean = ctx.getBean(name);
 			String instance = bean.getClass().getSimpleName();
-			String hex = Integer.toHexString(bean.hashCode());
-			Object[] row = { name, instance, hex };
+			String hashcode = Integer.toHexString(bean.hashCode());
+			Object[] row = { name, instance, hashcode };
 			rows.add(row);
 		}
 		LoggerUtils.logTable(columns, rows, LoggerLevel.DEBUG, logger, true);
