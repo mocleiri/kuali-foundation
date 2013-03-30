@@ -25,6 +25,7 @@ public class DuplicateBeanConfigTest {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("log4j.configuration", "log4jdebug.xml");
 			SpringService ss = new DefaultSpringService();
 			ss.load(DuplicateBeanConfig.class);
 		} catch (Exception e) {
