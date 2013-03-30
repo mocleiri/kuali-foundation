@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,8 +50,8 @@ public class ResetController {
 		executables.add(otherConfig.jdbcOtherSequentialExecutable());
 
 		ExecutablesExecutable exec = new ExecutablesExecutable();
-		exec.setSkip(JdbcConfigUtils.getBoolean(env, "jdbc.reset.skip", false));
-		exec.setTimed(JdbcConfigUtils.getBoolean(env, "jdbc.reset.timed", true));
+		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.reset.skip", false));
+		exec.setTimed(SpringUtils.getBoolean(env, "jdbc.reset.timed", true));
 		exec.setExecutables(executables);
 		return exec;
 	}

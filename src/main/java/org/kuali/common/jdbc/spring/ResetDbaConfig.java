@@ -18,7 +18,7 @@ public class ResetDbaConfig extends ResetBaseConfig {
 	@Bean
 	public Executable jdbcDbaExecutable() {
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(JdbcConfigUtils.getBoolean(env, "jdbc.dba.skip", false));
+		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.dba.skip", false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getJdbcContext());
 		return exec;
@@ -27,7 +27,7 @@ public class ResetDbaConfig extends ResetBaseConfig {
 	protected JdbcContext getJdbcContext() {
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(SpringUtils.getProperty(env, "sql.dba.message"));
-		ctx.setSkip(JdbcConfigUtils.getBoolean(env, "sql.dba.skip", false));
+		ctx.setSkip(SpringUtils.getBoolean(env, "sql.dba.skip", false));
 		ctx.setDataSource(dataSourceConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
 		ctx.setListener(new LogSqlListener());

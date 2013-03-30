@@ -13,14 +13,8 @@ import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.spring.SpringUtils;
-import org.springframework.core.env.Environment;
 
 public class JdbcConfigUtils {
-
-	public static Boolean getBoolean(Environment env, String key, boolean defaultValue) {
-		String value = SpringUtils.getProperty(env, key, defaultValue + "");
-		return new Boolean(value);
-	}
 
 	public static DataSummaryListener getConcurrentDataSummaryListener(JdbcConfigContext jcc) {
 		String propertyPrefix = getPropertyPrefix(jcc);
