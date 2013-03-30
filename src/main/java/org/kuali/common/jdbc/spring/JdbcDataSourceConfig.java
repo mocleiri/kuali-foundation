@@ -75,14 +75,11 @@ public class JdbcDataSourceConfig {
 
 	@Bean
 	public Executable jdbcShowConfigExecutable() {
-		// Don't skip unless they have specifically set this property to true
-		String skip = SpringUtils.getProperty(env, "jdbc.showconfig.skip", "false");
-
 		ShowConfigExecutable sce = new ShowConfigExecutable();
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
 		sce.setDataSource(jdbcDbaDataSource());
-		sce.setSkip(new Boolean(skip));
+		sce.setSkip(SpringUtils.getBoolean(env, "jdbc.showconfig.skip", false));
 		return sce;
 	}
 }
