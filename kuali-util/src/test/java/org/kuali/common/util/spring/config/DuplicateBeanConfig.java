@@ -15,11 +15,22 @@
  */
 package org.kuali.common.util.spring.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ DuplicateBeanConfig1.class, DuplicateBeanConfig2.class })
 public class DuplicateBeanConfig {
+
+	@Autowired
+	String whatever;
+
+	@Bean
+	public Object yo() {
+		System.out.println("whatever=" + whatever);
+		return null;
+	}
 
 }
