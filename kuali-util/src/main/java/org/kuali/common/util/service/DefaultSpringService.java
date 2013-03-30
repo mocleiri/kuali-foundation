@@ -122,14 +122,12 @@ public class DefaultSpringService implements SpringService {
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
 		ConfigurableApplicationContext parent = null;
-		ConfigurableApplicationContext xmlChild = null;
+		ClassPathXmlApplicationContext xmlChild = null;
 		AnnotationConfigApplicationContext annotationChild = null;
 		try {
 			if (isParentContextRequired(context)) {
 				// Construct a parent context if necessary
-				String id = StringUtils.isBlank(context.getId()) ? "spring-parent-context" : context.getId();
-				String displayName = StringUtils.isBlank(context.getDisplayName()) ? "Spring Parent Context" : context.getDisplayName();
-				parent = SpringUtils.getContextWithPreRegisteredBeans(id, displayName, context.getBeanNames(), context.getBeans());
+				parent = SpringUtils.getContextWithPreRegisteredBeans(context.getId(), context.getDisplayName(), context.getBeanNames(), context.getBeans());
 			}
 
 			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
@@ -143,6 +141,9 @@ public class DefaultSpringService implements SpringService {
 			if (!CollectionUtils.isEmpty(context.getLocations())) {
 				// Create an XML application context wrapped in a parent context
 				xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+				if (parent == null) {
+					addMetaInfo(xmlChild, context);
+				}
 				// Add custom property sources (if any)
 				addPropertySources(context, xmlChild);
 			}
@@ -175,12 +176,36 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
+	/**
+	 * Add id and display name to the ApplicationContext if they are not blank
+	 */
+	protected void addMetaInfo(AnnotationConfigApplicationContext ctx, SpringContext sc) {
+		if (!StringUtils.isBlank(sc.getId())) {
+			ctx.setId(sc.getId());
+		}
+		if (!StringUtils.isBlank(sc.getDisplayName())) {
+			ctx.setDisplayName(sc.getDisplayName());
+		}
+	}
+
+	/**
+	 * Add id and display name to the ApplicationContext if they are not blank
+	 */
+	protected void addMetaInfo(ClassPathXmlApplicationContext ctx, SpringContext sc) {
+		if (!StringUtils.isBlank(sc.getId())) {
+			ctx.setId(sc.getId());
+		}
+		if (!StringUtils.isBlank(sc.getDisplayName())) {
+			ctx.setDisplayName(sc.getDisplayName());
+		}
+	}
+
 	protected AnnotationConfigApplicationContext getAnnotationContext(SpringContext context, ConfigurableApplicationContext parent) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		if (parent != null) {
 			ctx.setParent(parent);
 		} else {
-			ctx.
+			addMetaInfo(ctx, context);
 		}
 		for (Class<?> annotatedClass : context.getAnnotatedClasses()) {
 			ctx.register(annotatedClass);
