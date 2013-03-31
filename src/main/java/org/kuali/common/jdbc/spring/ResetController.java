@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
 
 /**
  * Default database reset controller class. It displays the JDBC configuration, then executes dba SQL followed by schema->data->constraints->other, in that order.
@@ -20,7 +20,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 public class ResetController {
 
 	@Autowired
-	ConfigurableEnvironment env;
+	Environment env;
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
