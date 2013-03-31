@@ -16,7 +16,7 @@ import org.kuali.common.util.spring.SpringUtils;
 
 public class JdbcConfigUtils {
 
-	public static DataSummaryListener getConcurrentDataSummaryListener(JdbcConfigContext jcc) {
+	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext jcc) {
 		String propertyPrefix = getPropertyPrefix(jcc);
 		String label = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
 		String throughputLabel = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
@@ -26,7 +26,7 @@ public class JdbcConfigUtils {
 		return dsl;
 	}
 
-	public static JdbcContext getConcurrentJdbcContext(JdbcConfigContext jcc) {
+	public static JdbcContext getConcurrentJdbcContext(ResetConfigContext jcc) {
 		String threads = SpringUtils.getProperty(jcc.getEnv(), "sql.threads");
 		JdbcContext ctx = getBaseJdbcContext(jcc);
 		ctx.setMultithreaded(true);
@@ -34,7 +34,7 @@ public class JdbcConfigUtils {
 		return ctx;
 	}
 
-	public static JdbcContext getSequentialJdbcContext(JdbcConfigContext jcc) {
+	public static JdbcContext getSequentialJdbcContext(ResetConfigContext jcc) {
 		JdbcContext ctx = getBaseJdbcContext(jcc);
 		ctx.setMultithreaded(false);
 		ctx.setThreads(1);
@@ -53,7 +53,7 @@ public class JdbcConfigUtils {
 	 *   sql.other.sequential
 	 * </pre>
 	 */
-	public static String getPropertyPrefix(JdbcConfigContext jcc) {
+	public static String getPropertyPrefix(ResetConfigContext jcc) {
 		String mode = jcc.getMode().name().toLowerCase();
 
 		StringBuilder sb = new StringBuilder();
@@ -65,7 +65,7 @@ public class JdbcConfigUtils {
 		return sb.toString();
 	}
 
-	protected static JdbcContext getBaseJdbcContext(JdbcConfigContext jcc) {
+	protected static JdbcContext getBaseJdbcContext(ResetConfigContext jcc) {
 		// dba, schema, data, constraints, other
 		String type = jcc.getType();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc

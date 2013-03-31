@@ -17,7 +17,7 @@ public class ResetSchemaConfig extends ResetBaseConfig {
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
-		JdbcConfigContext jcc = new JdbcConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
+		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext context = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
 		context.setListener(new SummaryListener(false));
 		JdbcExecutable exec = new JdbcExecutable();
