@@ -18,7 +18,7 @@ public class ResetOtherConfig extends ResetBaseConfig {
 	public Executable jdbcOtherConcurrentExecutable() {
 
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
-		JdbcContext context = JdbcConfigUtils.getSequentialJdbcContext(jcc);
+		JdbcContext context = ResetConfigUtils.getSequentialJdbcContext(jcc);
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
@@ -31,7 +31,7 @@ public class ResetOtherConfig extends ResetBaseConfig {
 	public Executable jdbcOtherSequentialExecutable() {
 
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
-		JdbcContext context = JdbcConfigUtils.getSequentialJdbcContext(jcc);
+		JdbcContext context = ResetConfigUtils.getSequentialJdbcContext(jcc);
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));

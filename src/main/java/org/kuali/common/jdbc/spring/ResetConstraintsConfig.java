@@ -19,7 +19,7 @@ public class ResetConstraintsConfig extends ResetBaseConfig {
 	@Bean(name = NAME)
 	public Executable jdbcConstraintsExecutable() {
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
-		JdbcContext ctx = JdbcConfigUtils.getConcurrentJdbcContext(jcc);
+		JdbcContext ctx = ResetConfigUtils.getConcurrentJdbcContext(jcc);
 		ctx.setListener(new SummaryListener(false));
 
 		JdbcExecutable exec = new JdbcExecutable();

@@ -14,7 +14,7 @@ import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.spring.SpringUtils;
 
-public class JdbcConfigUtils {
+public class ResetConfigUtils {
 
 	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext jcc) {
 		String propertyPrefix = getPropertyPrefix(jcc);
