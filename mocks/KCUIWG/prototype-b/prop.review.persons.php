@@ -14,6 +14,7 @@ $page = 'review-persons';
   <form class="form-horizontal">
     <div class="row-fluid">
       <div class="span12 content">
+      
         <div class="box">
        <div class="boxHeader">
             <h3>Key Persons</h3>
@@ -453,6 +454,7 @@ $page = 'review-persons';
           </div>
           
         </div>
+        
         <div style=" padd12px; text-align:center">
           <a href="prop.basics.keywords.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
           <a href="#" class="btn">Save</a>
