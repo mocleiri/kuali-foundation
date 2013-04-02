@@ -47,8 +47,8 @@ public class ResetDataConfig extends ResetBaseConfig {
 	}
 
 	protected SqlListener getConcurrentListener() {
-		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
-		DataSummaryListener dsl = ResetConfigUtils.getConcurrentDataSummaryListener(jcc);
+		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
+		DataSummaryListener dsl = ResetConfigUtils.getConcurrentDataSummaryListener(rcc);
 
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());
