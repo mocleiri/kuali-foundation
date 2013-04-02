@@ -25,9 +25,22 @@ import org.slf4j.LoggerFactory;
 public class LogSqlListener extends NoOpSqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
-	LoggerLevel level = LoggerLevel.INFO;
+	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;
+	public static final LogSqlMode DEFAULT_MODE = LogSqlMode.BEFORE;
+
+	LoggerLevel level = DEFAULT_LOGGER_LEVEL;
 	boolean flatten = true;
-	LogSqlMode mode = LogSqlMode.BEFORE;
+	LogSqlMode mode = DEFAULT_MODE;
+
+	public LogSqlListener() {
+		this(DEFAULT_LOGGER_LEVEL, DEFAULT_MODE);
+	}
+
+	public LogSqlListener(LoggerLevel level, LogSqlMode mode) {
+		super();
+		this.level = level;
+		this.mode = mode;
+	}
 
 	@Override
 	public void beforeExecuteSql(SqlEvent event) {
