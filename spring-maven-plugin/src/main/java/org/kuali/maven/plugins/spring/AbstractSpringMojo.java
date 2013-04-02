@@ -118,9 +118,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 			return;
 		}
 
-		// This makes log4j show how it is initializing itself
-		getLog().debug("Setting system property - [log4j.debug=true]");
-		System.setProperty("log4j.debug", "true");
+		String log4jDebug = System.getProperty("log4j.debug");
+		if (StringUtils.isBlank(log4jDebug)) {
+			// This makes log4j show how it is initializing itself
+			getLog().debug("Setting system property - [log4j.debug=true]");
+			System.setProperty("log4j.debug", "true");
+		}
 
 		// Did they supply a log4j.configuration setting already?
 		String log4jConfig = System.getProperty("log4j.configuration");
