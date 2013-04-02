@@ -34,8 +34,8 @@ public class OleResetConfig {
 	@Bean
 	public ProjectProperties oleProjectProperties() {
 		Project project = new Project();
-		project.setArtifactId("ole-fs");
 		project.setGroupId("org.kuali.ole");
+		project.setArtifactId("ole-fs");
 		project.setVersion("0.8.1-s-r11074");
 		project.setEncoding("UTF-8");
 
