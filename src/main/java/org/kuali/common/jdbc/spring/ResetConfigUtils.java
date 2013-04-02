@@ -103,6 +103,13 @@ public class ResetConfigUtils {
 		return ctx;
 	}
 
+	public static NotifyingListener getConstraintsListener(Environment env) {
+		List<SqlListener> list = new ArrayList<SqlListener>();
+		list.add(new SummaryListener(false));
+		list.add(getLogSqlListener(env));
+		return new NotifyingListener(list);
+	}
+
 	public static NotifyingListener getSchemaListener(Environment env) {
 		List<SqlListener> list = new ArrayList<SqlListener>();
 		list.add(new SummaryListener(false));
