@@ -26,7 +26,7 @@ public class ResetDataConfig extends ResetBaseConfig {
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext ctx = ResetConfigUtils.getConcurrentJdbcContext(jcc);
 		ctx.setListener(getConcurrentListener());
-		
+
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
@@ -53,6 +53,7 @@ public class ResetDataConfig extends ResetBaseConfig {
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());
 		listeners.add(dsl);
+		listeners.add(ResetConfigUtils.getLogSqlListener(env));
 		return new NotifyingListener(listeners);
 	}
 
