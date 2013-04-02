@@ -3,10 +3,6 @@ package org.kuali.common.jdbc.spring;
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlMode;
-import org.kuali.common.jdbc.listener.LogSqlListener;
-import org.kuali.common.jdbc.listener.LogSqlMode;
-import org.kuali.common.jdbc.listener.NotifyingListener;
-import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.context.annotation.Bean;
@@ -23,9 +19,7 @@ public class ResetOtherConfig extends ResetBaseConfig {
 
 		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext context = ResetConfigUtils.getSequentialJdbcContext(rcc);
-		NotifyingListener nl = ResetConfigUtils.getSummaryAndProgressListener();
-		nl.getListeners().add(new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER));
-		context.setListener(nl);
+		context.setListener(ResetConfigUtils.getOtherListener(env));
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
@@ -39,9 +33,7 @@ public class ResetOtherConfig extends ResetBaseConfig {
 
 		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext context = ResetConfigUtils.getSequentialJdbcContext(rcc);
-		NotifyingListener nl = ResetConfigUtils.getSummaryAndProgressListener();
-		nl.getListeners().add(new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER));
-		context.setListener(nl);
+		context.setListener(ResetConfigUtils.getOtherListener(env));
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
