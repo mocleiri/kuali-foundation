@@ -30,7 +30,9 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.BucketEvent;
+import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.MultiThreadedExecutionListener;
+import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.SqlEvent;
 import org.kuali.common.jdbc.listener.SqlExecutionEvent;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -140,9 +142,13 @@ public class DefaultJdbcService implements JdbcService {
 		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener();
 		etl.setTrackProgressByUpdateCount(context.isTrackProgressByUpdateCount());
 		etl.setInformer(informer);
+		List<SqlListener> listeners = new ArrayList<SqlListener>();
+		listeners.add(new LogSqlListener());
+		listeners.add(etl);
+		NotifyingListener nl = new NotifyingListener(listeners);
 
 		// Provide some context for each bucket
-		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, etl);
+		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, nl);
 
 		// Store some context for the thread handler
 		ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
