@@ -79,10 +79,9 @@ public class ResetConfigUtils {
 		return lsl;
 	}
 
-	public static SqlListener getOtherListener() {
-
+	public static NotifyingListener getOtherListener(Environment env) {
 		NotifyingListener nl = getSummaryAndProgressListener();
-		nl.getListeners().add(new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER));
+		nl.getListeners().add(getLogSqlListener(env));
 		return nl;
 	}
 
