@@ -3,6 +3,7 @@ package org.kuali.common.jdbc.spring;
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlMode;
+import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ public class ResetOtherConfig extends ResetBaseConfig {
 
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext context = ResetConfigUtils.getSequentialJdbcContext(jcc);
+		context.setListener(new LogSqlListener());
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
