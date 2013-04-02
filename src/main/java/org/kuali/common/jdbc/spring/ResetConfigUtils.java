@@ -20,26 +20,26 @@ import org.springframework.core.env.Environment;
 
 public class ResetConfigUtils {
 
-	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext jcc) {
-		String propertyPrefix = getPropertyPrefix(jcc);
-		String label = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
-		String throughputLabel = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
+	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext rcc) {
+		String propertyPrefix = getPropertyPrefix(rcc);
+		String label = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
+		String throughputLabel = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
 		DataSummaryListener dsl = new DataSummaryListener();
 		dsl.setLabel(label);
 		dsl.setThroughputLabel(throughputLabel);
 		return dsl;
 	}
 
-	public static JdbcContext getConcurrentJdbcContext(ResetConfigContext jcc) {
-		String threads = SpringUtils.getProperty(jcc.getEnv(), "sql.threads");
-		JdbcContext ctx = getBaseJdbcContext(jcc);
+	public static JdbcContext getConcurrentJdbcContext(ResetConfigContext rcc) {
+		String threads = SpringUtils.getProperty(rcc.getEnv(), "sql.threads");
+		JdbcContext ctx = getBaseJdbcContext(rcc);
 		ctx.setMultithreaded(true);
 		ctx.setThreads(new Integer(threads));
 		return ctx;
 	}
 
-	public static JdbcContext getSequentialJdbcContext(ResetConfigContext jcc) {
-		JdbcContext ctx = getBaseJdbcContext(jcc);
+	public static JdbcContext getSequentialJdbcContext(ResetConfigContext rcc) {
+		JdbcContext ctx = getBaseJdbcContext(rcc);
 		ctx.setMultithreaded(false);
 		ctx.setThreads(1);
 		return ctx;
@@ -57,13 +57,13 @@ public class ResetConfigUtils {
 	 *   sql.other.sequential
 	 * </pre>
 	 */
-	public static String getPropertyPrefix(ResetConfigContext jcc) {
-		String mode = jcc.getMode().name().toLowerCase();
+	public static String getPropertyPrefix(ResetConfigContext rcc) {
+		String mode = rcc.getMode().name().toLowerCase();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("sql");
 		sb.append(".");
-		sb.append(jcc.getType());
+		sb.append(rcc.getType());
 		sb.append(".");
 		sb.append(mode);
 		return sb.toString();
@@ -85,16 +85,16 @@ public class ResetConfigUtils {
 		return nl;
 	}
 
-	protected static JdbcContext getBaseJdbcContext(ResetConfigContext jcc) {
+	protected static JdbcContext getBaseJdbcContext(ResetConfigContext rcc) {
 		// dba, schema, data, constraints, other
-		String type = jcc.getType();
+		String type = rcc.getType();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc
-		String propertyPrefix = getPropertyPrefix(jcc);
-		String message = SpringUtils.getProperty(jcc.getEnv(), propertyPrefix + ".message");
-		boolean skip = SpringUtils.getBoolean(jcc.getEnv(), "sql." + type + ".skip", false);
-		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(jcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", false);
-		List<SqlSupplier> suppliers = jcc.getCommonConfig().getSqlSuppliers(propertyPrefix);
-		DataSource dataSource = jcc.getDataSourceConfig().jdbcDataSource();
+		String propertyPrefix = getPropertyPrefix(rcc);
+		String message = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".message");
+		boolean skip = SpringUtils.getBoolean(rcc.getEnv(), "sql." + type + ".skip", false);
+		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(rcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", false);
+		List<SqlSupplier> suppliers = rcc.getCommonConfig().getSqlSuppliers(propertyPrefix);
+		DataSource dataSource = rcc.getDataSourceConfig().jdbcDataSource();
 
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(message);
