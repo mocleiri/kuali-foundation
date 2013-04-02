@@ -38,7 +38,7 @@ public class ResetDataConfig extends ResetBaseConfig {
 	public Executable jdbcDataSequentialExecutable() {
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext ctx = ResetConfigUtils.getSequentialJdbcContext(jcc);
-		ctx.setListener(ResetConfigUtils.getSummaryAndProgressListener());
+		ctx.setListener(ResetConfigUtils.getSummaryAndProgressListener(env));
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());

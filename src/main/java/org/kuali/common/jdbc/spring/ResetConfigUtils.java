@@ -80,9 +80,7 @@ public class ResetConfigUtils {
 	}
 
 	public static NotifyingListener getOtherListener(Environment env) {
-		NotifyingListener nl = getSummaryAndProgressListener();
-		nl.getListeners().add(getLogSqlListener(env));
-		return nl;
+		return getSummaryAndProgressListener(env);
 	}
 
 	protected static JdbcContext getBaseJdbcContext(ResetConfigContext rcc) {
@@ -112,10 +110,11 @@ public class ResetConfigUtils {
 		return new NotifyingListener(list);
 	}
 
-	public static NotifyingListener getSummaryAndProgressListener() {
+	public static NotifyingListener getSummaryAndProgressListener(Environment env) {
 		List<SqlListener> list = new ArrayList<SqlListener>();
 		list.add(new SummaryListener());
 		list.add(new ProgressListener());
+		list.add(getLogSqlListener(env));
 		return new NotifyingListener(list);
 	}
 
