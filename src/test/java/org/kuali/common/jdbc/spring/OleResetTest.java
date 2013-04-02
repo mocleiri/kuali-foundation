@@ -9,6 +9,7 @@ public class OleResetTest {
 	@Test
 	public void test() {
 		try {
+			System.setProperty("sql.log.level", "INFO");
 			SpringService ss = new DefaultSpringService();
 			ss.load(OleResetConfig.class);
 		} catch (Exception e) {
