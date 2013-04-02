@@ -7,12 +7,16 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
+import org.kuali.common.jdbc.listener.LogSqlListener;
+import org.kuali.common.jdbc.listener.LogSqlMode;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.core.env.Environment;
 
 public class ResetConfigUtils {
 
@@ -63,6 +67,23 @@ public class ResetConfigUtils {
 		sb.append(".");
 		sb.append(mode);
 		return sb.toString();
+	}
+
+	public static LogSqlListener getLogSqlListener(Environment env) {
+		String level = SpringUtils.getProperty(env, "sql.log.level", LogSqlListener.DEFAULT_LOGGER_LEVEL.name());
+		String mode = SpringUtils.getProperty(env, "sql.log.mode", LogSqlListener.DEFAULT_MODE.name());
+
+		LogSqlListener lsl = new LogSqlListener();
+		lsl.setLevel(LoggerLevel.valueOf(level));
+		lsl.setMode(LogSqlMode.valueOf(mode));
+		return lsl;
+	}
+
+	public static SqlListener getOtherListener() {
+
+		NotifyingListener nl = getSummaryAndProgressListener();
+		nl.getListeners().add(new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER));
+		return nl;
 	}
 
 	protected static JdbcContext getBaseJdbcContext(ResetConfigContext jcc) {

@@ -5,8 +5,10 @@ import java.util.Arrays;
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogSqlListener;
+import org.kuali.common.jdbc.listener.LogSqlMode;
 import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +32,7 @@ public class ResetDbaConfig extends ResetBaseConfig {
 		ctx.setSkip(SpringUtils.getBoolean(env, "sql.dba.skip", false));
 		ctx.setDataSource(dataSourceConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
-		ctx.setListener(new LogSqlListener());
+		ctx.setListener(new LogSqlListener(LoggerLevel.INFO, LogSqlMode.BEFORE));
 		return ctx;
 	}
 
