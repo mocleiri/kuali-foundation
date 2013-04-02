@@ -85,7 +85,7 @@ public class ResetConfigUtils {
 		return ctx;
 	}
 
-	public static SqlListener getSummaryAndProgressListener() {
+	public static NotifyingListener getSummaryAndProgressListener() {
 		List<SqlListener> list = new ArrayList<SqlListener>();
 		list.add(new SummaryListener());
 		list.add(new ProgressListener());
