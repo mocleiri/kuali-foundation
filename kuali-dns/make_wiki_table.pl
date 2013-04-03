@@ -183,8 +183,12 @@ sub project_env_status
 
 
    #query ec2 list for the tag name 
-   #print "\ngrep $url EC2.lst";
-   $results_ec2tag = `grep $url EC2.lst`; 
+   #this is a little more complicated 
+   if ( $urlsize < 3 ){ $result_ec2tag = ""; }
+   ($result_ec2tag) = find_url_tagname($url, "EC2.lst");
+
+   #$results_ec2tag = `grep $url EC2.lst`; 
+   print "\n$results_ec2tag = grep $url EC2.lst";
    chomp($results_ec2tag);
    
    if ( $no_ping ne "" )
@@ -263,6 +267,28 @@ sub project_env_status
    }
   }
 
+   sub find_url_tagname
+   {
+     my $url = @_[0];
+     my $EC2file = @_[1];
+     my $output = "";
+     my @ProjectEC2 = ();
+     #so let go through each line of the EC2.lst
+     open ( EC2X,  "<$EC2file"); (@ProjectEC2 =<EC2X>); close (EC2X);
+     foreach $line (@ProjectEC2)
+     {
+      chomp($line);
+      print "\n",$line;
+      #So here is an instance, or perhaps a load balancer.  It could have lots of info in the tag section.
+      #split on words stopped or running
+      my @RAWLINE = ();
+      (@RAWLINE) = split(/running\,|stopped\,/, $line);
+      my @RAWTAG = split(/:/,$RAWLINE[1]);
+      if ( ($RAWTAG[0] eq $url ) || ( $RAWTAG[1] eq $url ))
+      { $output = $line; last; }
+      }
+      return( $output); 
+   } # find_url_tagname
 #Checks to see if a dns name/server combination results in a live or dead outcome 
 sub dead_or_alive
 {
