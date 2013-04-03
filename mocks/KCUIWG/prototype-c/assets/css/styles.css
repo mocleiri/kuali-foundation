@@ -1506,7 +1506,7 @@ th {
 .formfields {
 	/* [disabled]padding-top: 10px; */
 	position: relative;
-	min-height: 450px;
+	/* [disabled]min-height: 400px; */
 	padding-bottom: 80px;
 }
 .formfields .control-group.buttons {
@@ -1576,9 +1576,13 @@ h3 {
 	background-image: url(../img/nav-back.png);
 	background-repeat: repeat-y;
 	background-position: -22px;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
-	border-bottom-color: #ddd;	
+	border-bottom-color: #ddd; min-height:510px;
 	
+}
+.docControls {
+	text-align: center;
+	margin-bottom: 10px;
 }

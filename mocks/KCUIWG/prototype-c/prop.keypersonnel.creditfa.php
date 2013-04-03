@@ -36,7 +36,7 @@ $page = 'personnel-creditfa';
           </div>
           <div class="clearfix"></div>
         </div>
-      </div>
+      </div>     <div class="docControls"> <a href="prop.keypersonnel.creditintel.php" class="btn"><i class="icon-chevron-left"></i> Back</a> <a href="#" class="btn">Save</a> <a href="prop.compliance.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
     </div>
   </div>
   <?php require_once( 'assets/inc/document-thirdTier.php' ) ?>

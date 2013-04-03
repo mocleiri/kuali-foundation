@@ -14,7 +14,7 @@ $page = 'index';
     <div class="container">
       <div class="row-fluid">
         <div class="span12" style="padding-top:20px">
-          <div class="">
+          <div >
             <h2>Kuali Coeus 6.0</h2>
             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           </div>

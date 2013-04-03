@@ -22,7 +22,7 @@
           <a href="docsearch.php"><!--<i class="icon icon-search"></i>-->
           <span>Doc Search</span></a>
         </li>
-        <li class="">
+        <li >
           <a href="#" ><!--<i class="icon icon-inbox"></i>-->
           <span>Action List</span>
           <span class="arrow"></span><span class="expand"></span></a>

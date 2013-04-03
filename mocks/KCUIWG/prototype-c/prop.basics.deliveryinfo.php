@@ -7,19 +7,19 @@ $page = 'basics-deliveryinfo';
 <section>
   <div class="sectionContents">
     <?php require_once( 'assets/inc/portal-toolbar.php' ) ?>
-    <div class="container"> <?php require_once( 'assets/inc/document-header.php' ) ?>
+    <div class="container">
+      <?php require_once( 'assets/inc/document-header.php' ) ?>
       <div class="row-fluid column-navleft">
         <div class="span2 vertNav">
-             <?php require_once( 'assets/inc/document-nav.php' ) ?>
-        </div>  <div class="span10">
+          <?php require_once( 'assets/inc/document-nav.php' ) ?>
+        </div>
+        <div class="span10">
           <h3> Delivery Info</h3>
           <div class=" formfields">
             <form  class="form-horizontal" method="get" action="">
               <fieldset style="">
                 <div class="boxSubheader">
-                  <h4>Recipient
-                    <a class="tool-link" href="../asdf.html" class="">change</a>
-                  </h4>
+                  <h4>Recipient <a class="tool-link" href="../asdf.html" >change</a> </h4>
                 </div>
                 <dl class="table-display" style="margin-top:-13px;">
                   <dt>Organization</dt>
@@ -67,7 +67,7 @@ $page = 'basics-deliveryinfo';
                     <input type="text" id="Description3" placeholder="" class="input-xlarge">
                   </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group"> 
                   <!-- Textarea -->
                   <label class="control-label">Mail Description</label>
                   <div class="controls">
@@ -77,21 +77,12 @@ $page = 'basics-deliveryinfo';
                   </div>
                 </div>
               </fieldset>
-              <div class="control-group buttons">
-                <label class="control-label"></label>
-                <!-- Button -->
-                <!-- Button -->
-                <div class="controls">
-                  <a href="prop.basics.orgloc.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
-                  <a href="#" class="btn">Save</a>
-                  <a href="prop.basics.keywords.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
-                </div>
-              </div>
             </form>
           </div>
           <div class="clearfix"></div>
         </div>
       </div>
+      <div class="docControls"> <a href="prop.basics.orgloc.php" class="btn"><i class="icon-chevron-left"></i> Back</a> <a href="#" class="btn">Save</a> <a href="prop.basics.keywords.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
     </div>
   </div>
   <?php require_once( 'assets/inc/document-thirdTier.php' ) ?>

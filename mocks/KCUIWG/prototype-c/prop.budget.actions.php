@@ -207,15 +207,13 @@ $page = 'budget-actions';
               </table>
             </div>
           </div>
-          <!--<div class="box"> <div class="boxHeader">
+        <!--<div class="box"> <div class="boxHeader">
             <h4> asdfasdfasdf </h4>
           </div>
           <div class="boxContent"> asdfasdfasdf </div>
           <div class="action_bar"> <a href="#" class="btn btn-small">Export data</a> </div>
-        </div>-->
-          <div style=" padd12px; text-align:center"> <a href="prop.budget.modular.php" class="btn"><i class="icon-chevron-left"></i> Back</a> <a href="#" class="btn">Save</a> <a href="prop.instspecdata.1.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
-        </div>
-      </div>
+        </div>--></div>
+      </div><div class="docControls"> <a href="prop.budget.modular.php" class="btn"><i class="icon-chevron-left"></i> Back</a> <a href="#" class="btn">Save</a> <a href="prop.instspecdata.1.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
     </div>
   </div>
   <?php require_once( 'assets/inc/document-thirdTier.php' ) ?>

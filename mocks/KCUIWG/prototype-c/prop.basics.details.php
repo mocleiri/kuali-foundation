@@ -2,19 +2,20 @@
 # Variables
 $page = 'basics-details';
 ?>
-
 <?php require_once( 'assets/inc/head.php' ) ?>
 <?php require_once( 'assets/inc/portal-nav.php' ) ?>
 <section>
   <div class="sectionContents">
     <?php require_once( 'assets/inc/portal-toolbar.php' ) ?>
-    <div class="container"> <?php require_once( 'assets/inc/document-header.php' ) ?>
+    <div class="container">
+      <?php require_once( 'assets/inc/document-header.php' ) ?>
       <div class="row-fluid column-navleft">
         <div class="span2 vertNav">
-             <?php require_once( 'assets/inc/document-nav.php' ) ?>
-        </div>  <div class="span10">
+          <?php require_once( 'assets/inc/document-nav.php' ) ?>
+        </div>
+        <div class="span10">
           <h3> Proposal Details</h3>
-          <div class=" formfields">
+          <div class=" formfields" style="display:">
             <form  class="form-horizontal" method="get" action="">
               <fieldset style="">
                 <div class="control-group">
@@ -60,7 +61,7 @@ $page = 'basics-details';
                     </select>
                   </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group"> 
                   <!-- Text input-->
                   <label class="control-label" for="input01">Date Range</label>
                   <div class="controls">
@@ -68,14 +69,12 @@ $page = 'basics-details';
                       <div style="display:inline">
                         <input type="text" placeholder="mm/dd/yyyy" class="input-small">
                       </div>
-                      <span style="display:block; width:100px; color:#999"><small>start</small></span>
-                    </div>
+                      <span style="display:block; width:100px; color:#999"><small>start</small></span> </div>
                     <div style="display:inline-block" >
                       <div style="display:inline">
                         <input type="text" placeholder="mm/dd/yyyy" class="input-small">
                       </div>
-                      <span style="display:block; width:100px;color:#999"><small>end</small></span>
-                    </div>
+                      <span style="display:block; width:100px;color:#999"><small>end</small></span> </div>
                   </div>
                 </div>
                 <div class="control-group">
@@ -85,41 +84,29 @@ $page = 'basics-details';
                       <option>select</option>
                       <option value="1">Chemistry - Physical Sciences B.02</option>
                     </select>
-                    <!-- <input type="text" id="Description" placeholder="" class=" input-small"> -->
-                    <!-- <a href="#" class="btn lookup"><span>lookup</span></a> -->
+                    <!-- <input type="text" id="Description" placeholder="" class=" input-small"> --> 
+                    <!-- <a href="#" class="btn lookup"><span>lookup</span></a> --> 
                   </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group"> 
                   <!-- Textarea -->
                   <label class="control-label" for="projectTitle">Project Title</label>
                   <div class="controls">
                     <textarea name="textarea" id="projectTitle" class="input-xlarge" required></textarea>
                   </div>
                 </div>
-       
               </fieldset>
-              <div class="control-group buttons">
-                <label class="control-label"></label>
-                
-                <!-- Button -->
-                <!-- Button -->
-                <div class="controls">
-                  <a href="#" class="btn">Save</a>
-                  <a href="prop.basics.grantsgov.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
-                </div>
-              </div>
             </form>
           </div>
-          <div class="clearfix"></div>
         </div>
       </div>
+      <div class="docControls"> <a href="#" class="btn">Save</a> <a href="prop.basics.grantsgov.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
     </div>
   </div>
-    <?php require_once( 'assets/inc/document-thirdTier.php' ) ?>
+  <?php require_once( 'assets/inc/document-thirdTier.php' ) ?>
 </section>
-    <?php require_once( 'assets/inc/portal-footer.php' ) ?>
+<?php require_once( 'assets/inc/portal-footer.php' ) ?>
 <!-- /container -->
-
 
 </body>
 </html>

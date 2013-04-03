@@ -273,22 +273,11 @@ $page = 'attachments-proposal';
           </div>
        
               </fieldset>
-              <div class="control-group buttons">
-                <label class="control-label"></label>
-                
-                <!-- Button -->
-                <!-- Button -->
-                <div class="controls">
-                  <a href="prop.basics.deliveryinfo.php" class="btn"><i class="icon-chevron-left"></i> Back</a>
-                  <a href="#" class="btn">Save</a>
-                  <a href="#" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a>
-                </div>
-              </div>
             </form>
           </div>
           <div class="clearfix"></div>
         </div>
-      </div>
+      </div><div class="docControls"> <a href="prop.compliance.php" class="btn"><i class="icon-chevron-left"></i> Back</a> <a href="#" class="btn">Save</a> <a href="prop.attachments.personnel.php" class="btn btn-inverse">Save and Continue <i class="icon-white icon-chevron-right"></i></a> </div>
     </div>
   </div>
     <?php require_once( 'assets/inc/document-thirdTier.php' ) ?>
