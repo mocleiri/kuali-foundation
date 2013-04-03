@@ -53,7 +53,7 @@ sub build_ec2_lst
     push( @tagsx, $tagname[4]); 
   }
 
-  $tags = join ( ":", @tags);
+  $tags = join ( ":", @tagsx);
   #done with tag for this instance
   
    
@@ -72,13 +72,13 @@ sub build_ec2_lst
   chomp($key);
   chomp($cert);
   @LB = ();
-  my @LB = `grep LOAD_BALANCER $lbpjfile`;
+  my @LB = split(/\n/,`grep LOAD_BALANCER $lbpjfile`);
   $url = $lbout[3];
   #Let organize the load balancer (lb) info
   #LB has been populated with each domains lb info
   foreach $lbline ( @LB)
   { chomp($lbline); @lbname = split(/\t|\s+/, $lbline );
-    #print "\nworking with lbline: $lbline";
+    print "\nworking with lbline: $lbline";
     $lb_id = $lbname[1];
     #print "\nlb_id:$lb_id";
     $lb_xref = $lbname[2];
