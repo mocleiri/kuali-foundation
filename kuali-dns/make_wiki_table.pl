@@ -46,11 +46,11 @@ sub build_ec2_lst
   my $status = $temp[5];
   my $instance_id = $temp[1];
   my @TAGS = `grep $instance_id tag.lst`;
-  my @tags = ();
+  my @tagsx = ();
   #there could be more than one tag. So lets combine them with ":" 
   foreach $tagline ( @TAGS)
   { chomp($tagline); @tagname = split(/\t/, $tagline ); 
-    push( @tags, $tagname[4]); 
+    push( @tagsx, $tagname[4]); 
   }
 
   $tags = join ( ":", @tags);
@@ -71,8 +71,9 @@ sub build_ec2_lst
   $cert = `ls $cert_key`;
   chomp($key);
   chomp($cert);
+  @LB = ();
   my @LB = `grep LOAD_BALANCER $lbpjfile`;
-    $url = $lbout[3];
+  $url = $lbout[3];
   #Let organize the load balancer (lb) info
   #LB has been populated with each domains lb info
   foreach $lbline ( @LB)
@@ -92,10 +93,10 @@ sub build_ec2_lst
     $instance_id = $lb_id;
     $url = $lbout[3];
     $status = $service_status;
-    $tags = $lb_xref;
+    $tags_lb = $lb_xref;
 
     #print "\n",$instance_id," ",$url," ", $status," ", $tags;    
-    print EC2LST  $instance_id," ",$url," ", $status," ", $tags,"\n";
+    print EC2LST  $instance_id," ",$url," ", $status," ", $tags_lb,"\n";
   }
 
   #print "\nend of creating EC2 List"; 
