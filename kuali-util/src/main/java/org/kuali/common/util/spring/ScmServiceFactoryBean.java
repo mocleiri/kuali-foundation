@@ -27,7 +27,7 @@ public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 	String url;
 
 	@Override
-	public ScmService getObject() throws Exception {
+	public ScmService getObject() {
 		Assert.hasText(url, "URL has no text");
 		// scm:svn:https://svn.kuali.org/repos/student/trunk
 		String[] tokens = StringUtils.split(url, ":");
