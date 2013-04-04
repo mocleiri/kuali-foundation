@@ -23,8 +23,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:property-placeholder properties-ref="dumpProperties" />
-
   <bean id="sourceContext" class="org.kuali.common.impex.ImpexContextFactoryBean">
     <property name="dataSource">
       <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -34,7 +32,7 @@
         <property name="password" value="${impex.password}" />
       </bean>
     </property>
-    <property name="properties" ref="dumpProperties" />
+    <property name="properties" ref="mavenProperties" />
   </bean>
 
   <bean id="dumpExecutable" class="org.kuali.common.impex.DumpExecutable" init-method="execute">

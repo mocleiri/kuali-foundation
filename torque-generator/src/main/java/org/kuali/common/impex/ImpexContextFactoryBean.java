@@ -30,7 +30,7 @@ public class ImpexContextFactoryBean implements FactoryBean<ImpexContext> {
 	DataSource dataSource;
 
 	@Override
-	public ImpexContext getObject() throws Exception {
+	public ImpexContext getObject() {
 		Assert.notNull(properties);
 		Assert.notNull(dataSource);
 		ImpexContext context = ImpexUtils.getImpexContext(properties);
