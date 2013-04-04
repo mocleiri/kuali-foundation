@@ -92,8 +92,8 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 		return finalDirectory;
 	}
 
-	public void setFinalDirectory(File scmBaseDirectory) {
-		this.finalDirectory = scmBaseDirectory;
+	public void setFinalDirectory(File finalDirectory) {
+		this.finalDirectory = finalDirectory;
 	}
 
 	public boolean isCopyDataFiles() {
