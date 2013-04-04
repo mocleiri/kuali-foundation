@@ -41,7 +41,7 @@ h3 {
 	float: right;
 }
 .navbar-inverse .navbar-inner {
-	background: #900;
+	background: #aa003e;
 	background-image: none;
 }
 .navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
@@ -1092,8 +1092,6 @@ th {
 
 
 
-
-
 #ToC .icon.icon-access {
 	background-position: 0 0, 0 0px;
 	width: 16px;
@@ -1187,11 +1185,47 @@ th {
 	border-bottom-style: solid;
 	border-bottom-color: #dddddd;
 }
+
+
+
+#ToC > ul > li:hover {
+	
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #7A0013;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #7A0013;
+}
+
+
+
+#ToC > ul > li.open {
+	display: block;
+	/*border-bottom: 1px solid #282828 !important;*/
+	color: #d1d0d0 !important;
+	/* [disabled]text-shadow: 0 1px 1px #333 !important;
+*/
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #aa003e;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #dddddd;
+}
+
+
+
+
+
+
 #ToC > ul > li.active {
 	/* [disabled]box-shadow: 0 2px 4px rgba(0,0,0,0.2) inset;
 */
 	background-color: #FFF;
-	border-top-style: none;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #aa003e;
 }
 #ToC > ul > li > a {
 	display: block;
@@ -1199,20 +1233,28 @@ th {
 	padding-top: 5px;
 	padding-right: 0;
 	padding-bottom: 5px;
-	padding-left: 15px;
+	padding-left: 5px;
 }
 #ToC > ul > li > a:hover {
-	background-color: #EFEFEF;
+	background-color: #aa003e;
+	color: #FFF;
 	background-image: url(../img/border.png);
 	background-repeat: repeat-y;
 	background-position: right;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	
+	
 }
 #ToC > ul > li > a > i {
 	margin-right: 10px;
 }
 #ToC > ul > li.active > a {
 	background-attachment: scroll;
-	background-color: #f5f5f5;
+	background-color: #aa003e;
+	color:#fff;
 	background-image: url(../img/active.png), url(../img/border.png);
 	background-repeat: no-repeat, repeat-y;
 	background-position: right center, right;
@@ -1269,7 +1311,7 @@ th {
 	padding-top: 5px;
 	padding-right: 20px;
 	padding-bottom: 5px;
-	padding-left: 50px;
+	padding-left: 40px;
 	font-size: 12px;
 	background-image: url(../img/border.png);
 	background-repeat: repeat-y;
@@ -1281,6 +1323,7 @@ th {
 	background-image: url(../img/active.png), url(../img/border.png);
 	background-repeat: no-repeat, repeat-y;
 	background-position: right center, right;
+	
 }
 #ToC > ul ul li a:hover {
 	background-attachment: scroll;
@@ -1300,6 +1343,29 @@ th {
 #ToC a {
 	text-decoration: none;
 }
+
+
+#ToC li.open { background:#aa003e}
+
+
+#ToC li.open a {
+	color: #FFF;
+	/* [disabled]font-weight:bold; */
+}
+
+
+
+#ToC li.open a ul a { color:green; font-weight:bold}
+
+
+
+
+
+
+
+
+
+
 
 .tools .alistdocsearch {
 	margin-left: 70px;
@@ -1585,4 +1651,13 @@ h3 {
 .docControls {
 	text-align: center;
 	margin-bottom: 10px;
+}
+#ToC ul .submenu.open ul li a {
+	color: #333; font-weight:normal;
+}
+
+#ToC ul .submenu.open ul li.active a {
+	color: #000;
+	font-weight: bold;
+	background-color: #ffe5e5;
 }
