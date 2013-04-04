@@ -16,6 +16,7 @@
 package org.kuali.common.impex;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -33,10 +34,14 @@ public class ImpexContextCloningFactoryBean implements FactoryBean<ImpexContext>
 	String schemaFileInclude;
 
 	@Override
-	public ImpexContext getObject() throws Exception {
-		ImpexContext context = ImpexUtils.clone(sourceContext, include, artifactId);
-		copyProperties(context, this);
-		return context;
+	public ImpexContext getObject() {
+		try {
+			ImpexContext context = ImpexUtils.clone(sourceContext, include, artifactId);
+			copyProperties(context, this);
+			return context;
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
 	}
 
 	protected void copyProperties(ImpexContext dest, ImpexContextCloningFactoryBean orig) {
