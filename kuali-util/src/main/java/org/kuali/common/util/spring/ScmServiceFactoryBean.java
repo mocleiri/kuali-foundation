@@ -25,6 +25,7 @@ import org.springframework.util.Assert;
 public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 
 	String url;
+	boolean singleton = true;
 
 	@Override
 	public ScmService getObject() {
@@ -50,7 +51,7 @@ public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 
 	@Override
 	public boolean isSingleton() {
-		return false;
+		return singleton;
 	}
 
 	public String getUrl() {
@@ -59,6 +60,10 @@ public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public void setSingleton(boolean singleton) {
+		this.singleton = singleton;
 	}
 
 }
