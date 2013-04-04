@@ -12,7 +12,7 @@ $page = 'compliance';
         <div class="span2 vertNav">
              <?php require_once( 'assets/inc/document-nav.php' ) ?>
         </div>  <div class="span10">
-          <h3>Keywords</h3>
+          <h3>Compliance</h3>
           <div class=" formfields">
             <form  class="form-horizontal" method="get" action="">
               <fieldset style="">         
