@@ -45,7 +45,6 @@
     <!-- These are only used for testing -->
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
     <impex.version>2.0.0-SNAPSHOT</impex.version>
-    <spring.properties.context.file>**/${project.artifactId}-properties-context.xml</spring.properties.context.file>
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
 
     <!-- Remove this once kuali-common is on the same version -->
@@ -203,22 +202,6 @@
     </profile>
   </profiles>
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>${spring.properties.context.file}</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>${spring.properties.context.file}</exclude>
-        </excludes>
-      </resource>
-    </resources>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
