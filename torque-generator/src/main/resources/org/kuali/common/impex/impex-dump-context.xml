@@ -47,6 +47,7 @@
       </util:list>
     </property>
     <property name="skip" value="${impex.dump.skip:false}" />
+    <property name="skipScm" value="${impex.scm.skip:true}" />
   </bean>
 
 </beans>
