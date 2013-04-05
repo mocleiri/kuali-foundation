@@ -33,4 +33,9 @@ public class DumpConfig {
 		factory.setProperties(mavenProperties);
 		return factory.getObject();
 	}
+
+	@Bean
+	public Properties dumpProperties() {
+		return mavenProperties;
+	}
 }
