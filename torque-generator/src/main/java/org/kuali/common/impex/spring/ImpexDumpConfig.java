@@ -20,6 +20,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 public class ImpexDumpConfig {
 
+	public static final String DUMP_CONTEXTS_QUALIFIER = "dumpContexts";
+
 	@Autowired
 	Environment env;
 
@@ -27,7 +29,7 @@ public class ImpexDumpConfig {
 	Properties mavenProperties;
 
 	@Autowired
-	@Qualifier("dumpContexts")
+	@Qualifier(DUMP_CONTEXTS_QUALIFIER)
 	List<ImpexContext> dumpContexts;
 
 	@Bean
