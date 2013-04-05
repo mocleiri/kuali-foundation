@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-public class ImpexDumpConfig {
+public class DumpConfig {
 
 	@Autowired
 	Environment env;
