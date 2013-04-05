@@ -1,13 +1,16 @@
       <div class="docHeader clearfix">
-        <h2 style="display:block; margin-bottom:0px; line-height:30px">Proposal: <span style="color: #666">Doc# 1234</span></h2>
-        <div style="margin-bottom:6px; font-size:11px; float:left" >
-          <div style="display:inline-block">
-            <span>Initiator:</span>
-            <span style="font-style: ; color:#666">thrclark</span></div>
-          <div style="display:inline-block; margin-left:10px;">
-            <span>Updated:</span>
-            <span style="font-style: ; color:#666">02:53 PM 03/27/2013</span></div>
-          <div style="display:inline-block; margin-left:10px; font-style:italic">
+        <h2>Proposal: <span>Doc# 1234</span></h2>
+
+        <div class="header-meta">
+          <div class="initiator">
+            Initiator: <span>thrclark</span>
+          </div>
+
+          <div class="updated">
+            Updated: <span>02:53 PM 03/27/2013</span>
+          </div>
+
+          <div class="more">
             <span>
             <a href="#" id="more" class="show-popover" rel="popover" data-placement="bottom" data-original-title="Document meta information" data-content="
             &lt;ul&gt;
@@ -16,16 +19,18 @@
               &lt;li&gt;&lt;p&gt;&lt;span&gt;PI:&lt;/span&gt;Sam Witwicky&lt;/p&gt;&lt;/li&gt;
               &lt;li&gt;&lt;p&gt;&lt;span&gt;Sponsor:&lt;/span&gt;Optimus Prime&lt;/p&gt;&lt;/li&gt;
             &lt;/ul&gt;
-            ">more</a>
+            ">More...</a>
             </span>
           </div>
         </div>
-        <div style="margin-bottom:6px; font-size:11px; float:right" >
-          <div style="display:inline-block">
-            <span>Completion:</span>
-            <span style="font-style: ; color:#666">--------</span></div>
-          <div style="display:inline-block; margin-left:10px;">
-            <span>Actions</span>
+
+        <div class="header-status">
+          <div class="completion">
+            Completion: <span>--------</span>
+          </div>
+
+          <div class="actions">
+            Actions
           </div>
         </div>
       </div>

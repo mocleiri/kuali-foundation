@@ -6,15 +6,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <!--  styles -->
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/styles.css" rel="stylesheet">
-<!--  HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--  fav and touch icons -->
+<link href="assets/css/custom.css" rel="stylesheet">
+
+<!--  HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<!--  fav and touch icons -->
 <link rel="shortcut icon" href="assets/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+<!-- Scriptage -->
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap-transition.js"></script>
@@ -34,16 +41,8 @@
 <script src="assets/js/application.js"></script>
 <script src="assets/js/site.js" type="text/javascript"></script>
 <script src="assets/js/toolbar.js" type="text/javascript"></script>
-
-
-
 <script type="text/javascript" src="assets/js/jquery.jqplot.min.js"></script>
-
-
 <script type="text/javascript" src="assets/js/jqplot.pieRenderer.min.js"></script>
-
-
-
 
 <script type="text/javascript" src="assets/js/fancybox/jquery.fancybox.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/js/fancybox/jquery.fancybox.css" media="screen" />
@@ -77,8 +76,6 @@
     //]]>
 </script>
 
-
-
 <script type="text/javascript">
     $(document).ready(function () {
         $("#triggerEditSearch").click(function () {
@@ -87,15 +84,11 @@
     });
 </script>
 
-
 <script>  
 $(function ()  
 { $("#more").popover();  
 });  
 </script>
-
-
-
 
 <script type='text/javascript'>
     //<![CDATA[ 
@@ -152,11 +145,5 @@ $(function ()
         });
     }); //]]>
 </script>
-
-
-
-
-
-
 </head>
 <body>
