@@ -28,9 +28,9 @@ public class ImpexDumpConfig {
 		dmds.setUsername(SpringUtils.getProperty(env, "impex.username"));
 		dmds.setPassword(SpringUtils.getProperty(env, "impex.password"));
 
-		ImpexContextFactoryBean icfb = new ImpexContextFactoryBean();
-		icfb.setDataSource(dmds);
-		icfb.setProperties(mavenProperties);
-		return icfb.getObject();
+		ImpexContextFactoryBean factory = new ImpexContextFactoryBean();
+		factory.setDataSource(dmds);
+		factory.setProperties(mavenProperties);
+		return factory.getObject();
 	}
 }
