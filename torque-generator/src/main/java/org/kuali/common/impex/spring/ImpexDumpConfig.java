@@ -11,7 +11,6 @@ import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -29,8 +28,7 @@ public class ImpexDumpConfig {
 	Properties mavenProperties;
 
 	@Autowired
-	@Qualifier(DUMP_CONTEXTS_QUALIFIER)
-	List<ImpexContext> dumpContexts;
+	ImpexContextDumpConfig impexContextDumpConfig;
 
 	@Bean
 	public ImpexContext impexSourceContext() {
@@ -48,6 +46,7 @@ public class ImpexDumpConfig {
 
 	@Bean(initMethod = "execute")
 	public DumpExecutable dumpExecutable() {
+		List<ImpexContext> dumpContexts = impexContextDumpConfig.dumpContexts();
 		Assert.notNull(dumpContexts, "dumpContexts is null");
 		DumpExecutable executable = new DumpExecutable();
 		executable.setSourceContext(impexSourceContext());
