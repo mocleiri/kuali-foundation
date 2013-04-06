@@ -59,7 +59,7 @@ public class DefaultExecService implements ExecService {
 
 	protected int execute(ExecContext context, Commandline cl) {
 		try {
-			logger.info("[{}]", cl);
+			logger.debug("[{}]", cl);
 			StreamConsumer stdout = getStreamConsumer(context.getStandardOutConsumer(), logger, LoggerLevel.INFO);
 			StreamConsumer stderr = getStreamConsumer(context.getStandardErrConsumer(), logger, LoggerLevel.WARN);
 			return CommandLineUtils.executeCommandLine(cl, context.getInput(), stdout, stderr, context.getTimeoutInSeconds());
