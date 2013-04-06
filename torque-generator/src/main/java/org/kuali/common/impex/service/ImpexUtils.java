@@ -255,9 +255,9 @@ public class ImpexUtils {
 		String rate = FormatUtils.getRate(wallTimeElapsed, totalSize);
 
 		// This is the amount of time saved by running multiple threads
-		String threadsEffect = FormatUtils.getTime(totalTime - wallTimeElapsed);
-		Object[] args = { rows, size, time, rate, threadsEffect };
-		logger.info("Dump Summary - Rows: {}  Size: {}  Time: {}  Rate: {}  Threads effect: {}", args);
+		String totalThreadTime = FormatUtils.getTime(totalTime - wallTimeElapsed);
+		Object[] args = { rows, size, time, rate, totalThreadTime };
+		logger.info("Dump Summary - Rows: {}  Size: {}  Time: {}  Rate: {}  Total thread time: {}", args);
 	}
 
 	public static ImpexContext clone(ImpexContext source) {
