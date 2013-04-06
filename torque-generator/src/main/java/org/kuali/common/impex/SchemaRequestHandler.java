@@ -11,26 +11,12 @@ import org.kuali.common.impex.service.ImpexContext;
 import org.kuali.common.impex.service.ImpexGeneratorService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
-import org.kuali.common.util.PercentCompleteInformer;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket> {
 
-	PercentCompleteInformer informer;
-	boolean startInformer = true;
-
-	public SchemaRequestHandler() {
-		this(null);
-	}
-
-	public SchemaRequestHandler(PercentCompleteInformer informer) {
-		super();
-		this.informer = informer;
-	}
-
 	@Override
 	public void handleElement(ListIteratorContext<SchemaRequestBucket> context, int index, SchemaRequestBucket element) {
-		informerCheck();
 		List<SchemaRequest> requests = element.getRequests();
 		DataSource dataSource = element.getDataSource();
 		ImpexContext impex = element.getImpexContext();
@@ -64,21 +50,6 @@ public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket>
 				DataSourceUtils.releaseConnection(conn, dataSource);
 			}
 		}
-	}
-
-	protected synchronized void informerCheck() {
-		if (startInformer && informer != null) {
-			informer.start();
-		}
-		startInformer = false;
-	}
-
-	public PercentCompleteInformer getInformer() {
-		return informer;
-	}
-
-	public void setInformer(PercentCompleteInformer informer) {
-		this.informer = informer;
 	}
 
 }
