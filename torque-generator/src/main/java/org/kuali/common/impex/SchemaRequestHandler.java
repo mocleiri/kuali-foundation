@@ -69,8 +69,8 @@ public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket>
 	protected synchronized void informerCheck() {
 		if (startInformer && informer != null) {
 			informer.start();
-			startInformer = false;
 		}
+		startInformer = false;
 	}
 
 	public PercentCompleteInformer getInformer() {
