@@ -1101,7 +1101,7 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		}
 
 		// Create and invoke threads to fill in the metadata
-		ExecutionStatistics stats = ImpexUtils.invokeThreads(buckets, new SchemaRequestHandler());
+		ExecutionStatistics stats = ImpexUtils.invokeThreads(buckets, new SchemaRequestHandler(pci));
 		pci.stop();
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		logger.info("Metadata acquired.  Time: {}", time);
