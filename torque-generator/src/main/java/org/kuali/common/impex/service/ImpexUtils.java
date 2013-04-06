@@ -257,7 +257,7 @@ public class ImpexUtils {
 		// This is the aggregated amount of time the threads spent executing
 		String totalThreadTime = FormatUtils.getTime(totalTime - wallTimeElapsed);
 		Object[] args = { rows, size, time, rate, totalThreadTime };
-		logger.info("Dump Summary - Rows: {}  Size: {}  Time: {}  Rate: {}  Total thread time: {}", args);
+		logger.info("Dump Summary - Rows: {}  Size: {}  Time: {}  Rate: {}  Aggregate thread time: {}", args);
 	}
 
 	public static ImpexContext clone(ImpexContext source) {
