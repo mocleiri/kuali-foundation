@@ -1085,14 +1085,14 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		List<List<SchemaRequest>> listOfLists = CollectionUtils.splitEvenly(requests, context.getMetaDataThreads());
 
 		// Print a dot any time we complete 1% of our requests
-		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		progressTracker.setTotal(requests.size());
+		PercentCompleteInformer pci = new PercentCompleteInformer();
+		pci.setTotal(requests.size());
 
 		// Each bucket holds a bunch of requests
 		List<SchemaRequestBucket> buckets = new ArrayList<SchemaRequestBucket>();
 		for (List<SchemaRequest> list : listOfLists) {
 			SchemaRequestBucket bucket = new SchemaRequestBucket();
-			bucket.setProgressTracker(progressTracker);
+			bucket.setProgressTracker(pci);
 			bucket.setDataSource(context.getDataSource());
 			bucket.setRequests(list);
 			bucket.setImpexContext(context);
@@ -1101,7 +1101,9 @@ public class DefaultImpexGeneratorService implements ImpexGeneratorService {
 		}
 
 		// Create and invoke threads to fill in the metadata
+		pci.start();
 		ExecutionStatistics stats = ImpexUtils.invokeThreads(buckets, new SchemaRequestHandler());
+		pci.stop();
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		logger.info("Metadata acquired.  Time: {}", time);
 		logger.info("Disconnecting from database.");
