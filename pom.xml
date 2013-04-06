@@ -41,6 +41,7 @@
     <oracle.version>11.2.0.2</oracle.version>
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
+    <kuali-threads.version>1.0.10</kuali-threads.version>
 
     <!-- These are only used for testing -->
     <ole.version>0.8.0-u-SNAPSHOT</ole.version>
@@ -80,7 +81,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-threads</artifactId>
-      <version>1.0.9</version>
+      <version>${kuali-threads.version}</version>
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
