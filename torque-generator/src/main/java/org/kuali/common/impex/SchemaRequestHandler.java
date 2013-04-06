@@ -17,7 +17,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 public class SchemaRequestHandler implements ElementHandler<SchemaRequestBucket> {
 
 	PercentCompleteInformer informer;
-	boolean startInformer;
+	boolean startInformer = true;
 
 	public SchemaRequestHandler() {
 		this(null);
