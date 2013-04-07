@@ -26,4 +26,6 @@ public interface ScmService {
 
 	void commit(List<File> paths, String message);
 
+	void version();
+
 }

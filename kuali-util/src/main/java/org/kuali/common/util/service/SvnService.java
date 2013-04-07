@@ -29,6 +29,11 @@ public class SvnService extends DefaultExecService implements ScmService {
 	private static final String SVN = "svn";
 
 	@Override
+	public void version() {
+		executeAndValidate(SVN, Arrays.asList("--version", "--quiet"));
+	}
+
+	@Override
 	public void add(List<File> paths) {
 		if (CollectionUtils.isEmpty(paths)) {
 			// Nothing to do
