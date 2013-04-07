@@ -20,8 +20,8 @@ public class SyncFilesExecutable implements Executable {
 
 	List<ImpexContext> contexts;
 	boolean skip;
-	// Don't commit to SCM unless they specifically override this
-	boolean skipScm = true;
+	// Don't commit changes unless they specifically set this to true
+	boolean commitChanges;
 	ScmService service;
 	String message = "Automated Impex update";
 
@@ -57,7 +57,7 @@ public class SyncFilesExecutable implements Executable {
 		logger.info("Files deleted - {}", deletes.size());
 		logger.info("---------- Sync results ----------");
 
-		if (skipScm) {
+		if (commitChanges) {
 			logger.info("Skipping SCM commit");
 		} else {
 			service.add(adds);
@@ -110,12 +110,12 @@ public class SyncFilesExecutable implements Executable {
 		this.message = message;
 	}
 
-	public boolean isSkipScm() {
-		return skipScm;
+	public boolean isCommitChanges() {
+		return commitChanges;
 	}
 
-	public void setSkipScm(boolean skipScm) {
-		this.skipScm = skipScm;
+	public void setCommitChanges(boolean commitChanges) {
+		this.commitChanges = commitChanges;
 	}
 
 }
