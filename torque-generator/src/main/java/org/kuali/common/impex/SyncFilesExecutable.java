@@ -58,11 +58,11 @@ public class SyncFilesExecutable implements Executable {
 		logger.info("---------- Sync results ----------");
 
 		if (commitChanges) {
-			logger.info("Skipping SCM commit");
-		} else {
 			service.add(adds);
 			service.delete(deletes);
 			service.commit(paths, message);
+		} else {
+			logger.info("Skipping SCM commit");
 		}
 	}
 
