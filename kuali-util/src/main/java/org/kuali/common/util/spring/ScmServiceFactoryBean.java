@@ -18,7 +18,7 @@ package org.kuali.common.util.spring;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.service.ScmService;
 import org.kuali.common.util.service.ScmType;
-import org.kuali.common.util.service.SubversionService;
+import org.kuali.common.util.service.SvnService;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
@@ -36,7 +36,7 @@ public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 		ScmType type = ScmType.valueOf(scmType);
 		switch (type) {
 		case SVN:
-			return new SubversionService();
+			return new SvnService();
 		case GIT:
 			throw new IllegalArgumentException("GIT support is coming soon!");
 		default:

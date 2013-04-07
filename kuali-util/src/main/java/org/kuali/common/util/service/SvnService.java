@@ -24,7 +24,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 
-public class SubversionService extends DefaultExecService implements ScmService {
+public class SvnService extends DefaultExecService implements ScmService {
 
 	private static final String SVN = "svn";
 
