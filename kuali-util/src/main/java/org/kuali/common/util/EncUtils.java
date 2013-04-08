@@ -22,7 +22,7 @@ import org.jasypt.util.text.TextEncryptor;
 public class EncUtils {
 
 	/**
-	 * Return a <code>BasicTextEncryptor</code>
+	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
 	 */
 	public static final TextEncryptor getTextEncryptor(String password) {
 		return getTextEncryptor(EncryptionStrength.BASIC, password);
