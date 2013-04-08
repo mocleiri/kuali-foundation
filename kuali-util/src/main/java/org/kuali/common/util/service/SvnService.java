@@ -30,7 +30,7 @@ public class SvnService extends DefaultExecService implements ScmService {
 
 	@Override
 	public void version() {
-		executeAndValidate(SVN, Arrays.asList("--version", "--quiet"));
+		executeAndValidate(SVN, Arrays.asList("--version"));
 	}
 
 	@Override
