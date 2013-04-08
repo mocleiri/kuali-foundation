@@ -20,12 +20,24 @@ import java.util.List;
 
 public interface ScmService {
 
+	/**
+	 * Add <code>paths</code> so they are included in files managed by the SCM system.
+	 */
 	void add(List<File> paths);
 
+	/**
+	 * Delete <code>paths</code> so they are no longer managed by the SCM system.
+	 */
 	void delete(List<File> paths);
 
+	/**
+	 * Commit <code>paths</code> with a commit message.
+	 */
 	void commit(List<File> paths, String message);
 
+	/**
+	 * Display version information.
+	 */
 	void version();
 
 }
