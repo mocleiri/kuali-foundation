@@ -30,7 +30,7 @@ public class KSResetConfig extends AbstractMavenResetConfig {
 		project.setVersion("1.0.0");
 
 		PropertiesContext pc = new PropertiesContext();
-		pc.setLocations(Arrays.asList("classpath:ks-with-rice-bundled.properties"));
+		pc.setLocations(Arrays.asList("classpath:ks-impex-rice-db.properties"));
 
 		ProjectProperties pp = new ProjectProperties();
 		pp.setProject(project);
