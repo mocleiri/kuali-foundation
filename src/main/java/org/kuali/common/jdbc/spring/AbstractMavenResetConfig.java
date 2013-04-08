@@ -27,13 +27,13 @@ import org.springframework.core.env.PropertySource;
 public abstract class AbstractMavenResetConfig {
 
 	@Autowired
-	Environment env;
+	protected Environment env;
 
 	@Autowired
-	JdbcPropertiesConfig jdbcProperties;
+	protected JdbcPropertiesConfig jdbcProperties;
 
 	@Autowired
-	Properties mavenProperties;
+	protected Properties mavenProperties;
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
