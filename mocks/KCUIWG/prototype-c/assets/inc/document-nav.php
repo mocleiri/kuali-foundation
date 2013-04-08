@@ -62,28 +62,8 @@
  
     <!--<li><a href="prop.medusa.php"><i class="icon icon-medusa"></i><span>Medusa</span></a></li>--> 
     
-    
-    
-    
-    
-     <li class="submenu <?php if( ($page == 'review') || (strpos($page, "review-") !== false) ) { echo 'open'; } ?>">
-      <a href="#" onClick="window.open('prop.review.summary.php','_self');"><i class="icon icon-review"></i><span>Review &amp; Approve</span></a>
-      <ul>
-        <li <?php if( $page == 'review-summary' ) { echo 'class="active"'; } ?> ><a href="prop.review.summary.php"><span>Proposal Summary</span></a></li>
-        <?PHP
-		/*
-        <li <?php if( $page == 'review-persons' ) { echo 'class="active"'; } ?> ><a href="prop.review.persons.php"><span>Key Persons</span></a></li>
-        <li <?php if( $page == 'review-budget' ) { echo 'class="active"'; } ?> ><a href="prop.review.budget.php"><span>Budget Summary</span></a></li>
-        <li <?php if( $page == 'review-attachments' ) { echo 'class="active"'; } ?> ><a href="prop.review.attachments.php"><span>Attachments</span></a></li>
-        <li <?php if( $page == 'review-specialreview' ) { echo 'class="active"'; } ?> ><a href="prop.review.specialreview.php"><span>Special Review</span></a></li>
-        <li <?php if( $page == 'review-print' ) { echo 'class="active"'; } ?> ><a href="prop.review.print.php"><span>Proposal Print</span></a></li>
-        */
-        ?>
-        <li <?php if( $page == 'review-actions' ) { echo 'class="active"'; } ?> ><a href="prop.review.actions.php"><span>Proposal Actions</span></a></li>
-      </ul>
-    </li>
-    
-    
+    <li <?php if( $page == 'review-summary' ) { echo 'class="active"'; } ?>><a href="prop.review.summary.php"><i class="icon icon-review"></i><span>Proposal Summary</span></a></li>
+    <li <?php if( $page == 'review-actions' ) { echo 'class="active"'; } ?>><a href="prop.review.actions.php"><i class="icon icon-review"></i><span>Approver Actions</span></a></li>
     
   </ul>
 </div>

@@ -63,3 +63,15 @@ Chris Rodriguez, clrux@bu.edu
 .docHeader .header-status .actions span {
   color: #888;
 }
+
+.questionControls
+{
+	padding-top:5px;
+	padding-bottom:20px;
+}
+
+.panelhead
+{
+	background-color:#CCC;
+	margin-top:20px;
+}
