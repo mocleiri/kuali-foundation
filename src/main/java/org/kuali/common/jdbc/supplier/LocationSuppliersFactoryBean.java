@@ -25,7 +25,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	Map<String, LocationSupplierSourceBean> extensionMappings;
 
 	@Override
-	public List<LocationSupplier> getObject() throws Exception {
+	public List<LocationSupplier> getObject() {
 
 		// Make sure we are configured correctly
 		Assert.notNull(env, "environment is null");

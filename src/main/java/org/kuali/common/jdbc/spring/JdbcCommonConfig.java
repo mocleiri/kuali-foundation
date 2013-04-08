@@ -9,6 +9,7 @@ import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.SqlReader;
+import org.kuali.common.jdbc.supplier.LocationSupplier;
 import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
 import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
@@ -58,14 +59,11 @@ public class JdbcCommonConfig {
 	}
 
 	public List<SqlSupplier> getSqlSuppliers(String property) {
-		LocationSuppliersFactoryBean lsfb = new LocationSuppliersFactoryBean();
-		lsfb.setProperty(property);
-		lsfb.setEnv(env);
-		lsfb.setExtensionMappings(jdbcExtensionMappings());
-		try {
-			return new ArrayList<SqlSupplier>(lsfb.getObject());
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
+		LocationSuppliersFactoryBean factory = new LocationSuppliersFactoryBean();
+		factory.setProperty(property);
+		factory.setEnv(env);
+		factory.setExtensionMappings(jdbcExtensionMappings());
+		List<LocationSupplier> list = factory.getObject();
+		return new ArrayList<SqlSupplier>(list);
 	}
 }
