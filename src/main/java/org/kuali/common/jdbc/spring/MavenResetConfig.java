@@ -80,7 +80,7 @@ public class MavenResetConfig {
 		PropertySourceContext psc = new PropertySourceContext(springPropertySource(), true);
 
 		// Setup the list containing annotated configuration classes
-		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetController.class);
+		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetConfig.class, ResetController.class);
 
 		// Setup the Spring context
 		SpringContext context = new SpringContext();
