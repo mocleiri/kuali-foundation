@@ -19,8 +19,8 @@ body {
 	background: #000
 }
 h2 {
-	font-size: 1.7em;
-	font-weight: normal;
+	font-size: 1.9em;
+	/* [disabled]font-weight: normal; */
 }
 h3 {
 	font-size: 1.3em;
@@ -46,7 +46,7 @@ h3 {
 }
 .navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
 	color: #ffffff;
-	background: #900;
+	background: #aa003e;
 }
 .navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse .nav li {
 	text-transform: uppercase;
@@ -696,7 +696,13 @@ body {
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
 	color: #fff;
 	text-decoration: none;
-	background-color: #900;
+	background-color: #aa003e;
+	
+
+	
+	
+	
+	
 	-webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5);
 	box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5);
@@ -991,6 +997,7 @@ th {
 	border-bottom-color: #dddddd;
 	margin-bottom: 0px;
 	margin-top: 12px;
+	padding-bottom:4px;
 }
 .docHeader h2 {
 	display: inline;
@@ -1660,4 +1667,39 @@ h3 {
 	color: #000;
 	font-weight: bold;
 	background-color: #ffe5e5;
+}
+.docHeader h2 span {
+	color: #666;
+	font-weight: normal;
+}
+.sectionContents .container .docHeader .docMeta ul {
+	list-style: none;
+	margin: 0px;
+	margin-top: 20px;
+}
+.docHeader .docMeta ul li {
+	display: inline;
+	color: #666;
+
+}
+.docHeader .docMeta ul li a {
+	margin-left: 18px;
+	padding-left:16px;
+}
+
+
+
+.docHeader .docMeta ul li a { 	background-image: url(../img/icons-docheader.png);
+	background-repeat: no-repeat;
+	background-position: left top;}
+
+
+.docHeader .docMeta ul li a.icons-docheader-access{ background-position: 0 0; width: 12px; height: 12px; } 
+.docHeader .docMeta ul li a.icons-docheader-copy{ background-position: 0 -62px; width: 12px; height: 12px; } 
+.docHeader .docMeta ul li a.icons-docheader-hierarchy{ background-position: 0 -124px; width: 12px; height: 12px; } 
+.docHeader .docMeta ul li a.icons-docheader-medusa{ background-position: 0 -186px; width: 12px; height: 12px; } 
+.docHeader .docMeta ul li a.icons-docheader-print{ background-position: 0 -248px; width: 12px; height: 12px; } 
+.docHeader .docMeta ul li span {
+	color: #000;
+	font-weight: bold;
 }

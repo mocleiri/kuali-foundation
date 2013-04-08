@@ -8,6 +8,7 @@ $page = 'basics-details';
   <div class="sectionContents">
     <?php require_once( 'assets/inc/portal-toolbar.php' ) ?>
     <div class="container">
+      
       <?php require_once( 'assets/inc/document-header.php' ) ?>
       <div class="row-fluid column-navleft">
         <div class="span2 vertNav">

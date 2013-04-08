@@ -10,7 +10,7 @@
         </div>
         </a>
         
-        <!-------------------- TABS -------------------->
+       <!--Tabs-->
         
         <div class="nav-collapse collapse">
           <ul class="nav" >
@@ -32,7 +32,7 @@
           </ul>
         </div>
         
-        <!-------------------- PANELS -------------------->
+           <!--Panels-->
         <div style="position:absolute; margin-top:53px;">
           <div id="menu1" class="subnav" style="">
             <div class="row-fluid" style="min-height:300px">
