@@ -27,7 +27,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class, MpxSupplierConfig.class })
+@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class })
 public class MavenResetConfig {
 
 	@Autowired
