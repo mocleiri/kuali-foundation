@@ -56,23 +56,6 @@
     </developer>
   </developers>
   <dependencies>
-    <!--
-      <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>torque-generator</artifactId>
-      <version>${impex.version}</version>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>jdbc-support</artifactId>
-      <version>${impex.version}</version>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>torque-templates</artifactId>
-      <version>${impex.version}</version>
-      </dependency>
-    -->
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-threads</artifactId>
@@ -128,60 +111,6 @@
       <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
-    <!--
-      <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-impex-server-bootstrap</artifactId>
-      <version>2.2.1-r36819</version>
-      <classifier>sql</classifier>
-      <scope>test</scope>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.student.core</groupId>
-      <artifactId>ks-core-sql</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.student.core</groupId>
-      <artifactId>ks-rice-sql</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.student.enroll</groupId>
-      <artifactId>ks-enroll-sql</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.student.lum</groupId>
-      <artifactId>ks-lum-sql</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.student</groupId>
-      <artifactId>ks-app-db</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-      <classifier>sql</classifier>
-      <scope>test</scope>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.ole</groupId>
-      <artifactId>ole-rice-sql</artifactId>
-      <version>${ole.version}</version>
-      <scope>test</scope>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.ole</groupId>
-      <artifactId>ole-master-sql</artifactId>
-      <version>${ole.version}</version>
-      <scope>test</scope>
-      </dependency>
-      <dependency>
-      <groupId>org.kuali.ole</groupId>
-      <artifactId>ole-liquibase-sql</artifactId>
-      <version>${ole.version}</version>
-      <scope>test</scope>
-      </dependency>
-    -->
   </dependencies>
   <profiles>
     <profile>
