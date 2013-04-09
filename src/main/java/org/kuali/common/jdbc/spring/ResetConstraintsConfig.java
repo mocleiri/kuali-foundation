@@ -31,7 +31,7 @@ public class ResetConstraintsConfig extends ResetBaseConfig {
 	public Executable jdbcConstraintsSequentialExecutable() {
 		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext ctx = ResetConfigUtils.getSequentialJdbcContext(rcc);
-		ctx.setListener(ResetConfigUtils.getConstraintsListener(env));
+		ctx.setListener(ResetConfigUtils.getSummaryAndProgressListener(env));
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
