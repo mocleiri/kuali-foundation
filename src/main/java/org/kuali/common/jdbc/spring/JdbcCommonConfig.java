@@ -31,6 +31,8 @@ public class JdbcCommonConfig {
 	@Autowired
 	JdbcProjectConfig projectConfig;
 
+    private Map<String, LocationSupplierSourceBean> extensionMappingsBean;
+
 	@Bean
 	public SqlReader jdbcSqlReader() {
 		return new DefaultSqlReader();
@@ -55,6 +57,9 @@ public class JdbcCommonConfig {
 
 		Map<String, LocationSupplierSourceBean> map = new HashMap<String, LocationSupplierSourceBean>();
 		map.put("sql", lssb);
+
+        extensionMappingsBean = map;
+
 		return map;
 	}
 
@@ -62,7 +67,7 @@ public class JdbcCommonConfig {
 		LocationSuppliersFactoryBean factory = new LocationSuppliersFactoryBean();
 		factory.setProperty(property);
 		factory.setEnv(env);
-		factory.setExtensionMappings(jdbcExtensionMappings());
+		factory.setExtensionMappings(extensionMappingsBean);
 		List<LocationSupplier> list = factory.getObject();
 		return new ArrayList<SqlSupplier>(list);
 	}
