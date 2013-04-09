@@ -16,9 +16,13 @@ import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.spring.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 public class ResetConfigUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(ResetConfigUtils.class);
 
 	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext rcc) {
 		String propertyPrefix = getPropertyPrefix(rcc);
@@ -90,7 +94,9 @@ public class ResetConfigUtils {
 		String propertyPrefix = getPropertyPrefix(rcc);
 		String message = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".message");
 		boolean skip = SpringUtils.getBoolean(rcc.getEnv(), "sql." + type + ".skip", false);
-		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(rcc.getEnv(), propertyPrefix + ".trackProgressByUpdateCount", false);
+		String key = propertyPrefix + ".trackProgressByUpdateCount";
+		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(rcc.getEnv(), key, false);
+		logger.debug("{}={}", key, trackProgressByUpdateCount);
 		List<SqlSupplier> suppliers = rcc.getCommonConfig().getSqlSuppliers(propertyPrefix);
 		DataSource dataSource = rcc.getDataSourceConfig().jdbcDataSource();
 
