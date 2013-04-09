@@ -123,7 +123,7 @@
     <project.gav.commit>true</project.gav.commit>
 
     <!-- Internal kuali library versions -->
-    <kuali-util.version>4.1.8</kuali-util.version>
+    <kuali-util.version>4.1.9</kuali-util.version>
     <kuali-sql.version>2.0.2</kuali-sql.version>
     <kuali-jdbc.version>2.0.4</kuali-jdbc.version>
     <kuali-deploy.version>2.1.8</kuali-deploy.version>
