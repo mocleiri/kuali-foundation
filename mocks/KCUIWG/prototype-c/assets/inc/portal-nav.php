@@ -1,9 +1,8 @@
 
 <header>
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-        <a href="#" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></a>
         <a class="brand" href="index.php">
         <div class="logoBrand">
           <h1><span>Kuali Rice - Krad</span></h1>

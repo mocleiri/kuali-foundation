@@ -37,7 +37,7 @@ h3 {
 	padding-bottom: 17px;
 	padding-left: 20px;
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse {
+.navbar.navbar-inverse .navbar-inner .container .nav-collapse.collapse {
 	float: right;
 }
 .navbar-inverse .navbar-inner {
@@ -48,21 +48,21 @@ h3 {
 	color: #ffffff;
 	background: #aa003e;
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse .nav li {
+.navbar.navbar-inverse .navbar-inner .container .nav-collapse.collapse .nav li {
 	text-transform: uppercase;
 	font-size: 1.1em;
 	border-top-style: none;
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse .nav {
+.navbar.navbar-inverse .navbar-inner .container .nav-collapse.collapse .nav {
 	margin: 0px;
 }
-.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+ .navbar-inner, .navbar-fixed-bottom .navbar-inner {
 	padding-bottom: 0px;
 }
-.navbar-fixed-top {
+ {
 	margin-bottom: 0px;
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner {
+.navbar.navbar-inverse .navbar-inner {
 /*-webkit-box-shadow: 0px 4px 8px 4px rgba(00, 00, 00, .2);
 	box-shadow: 0px 4px 8px 4px rgba(00, 00, 00, .2);*/
 
@@ -104,7 +104,7 @@ ol.linenums li {
 
 .sectionContents h2 {
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .brand .logoBrand h1 span {
+.navbar.navbar-inverse .navbar-inner .brand .logoBrand h1 span {
 	display: none;
 }
 .splash {
@@ -266,6 +266,7 @@ ol.linenums li {
 .sectionContents {
 	background: #FFF;
 	min-height: 500px;
+	margin-top: -18px;
 }
 .libraryHome h3 {
 	background-image: url(../img/sprite-navIcons.png);
@@ -560,9 +561,9 @@ ol.linenums li {
 .xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx {
 }
 body {
-	padding-top: 53px; /* 56px to make the container go all the way to the bottom of the topbar */
+	/*padding-top: 53px;*/ /* 56px to make the container go all the way to the bottom of the topbar */
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .brand div.logoBrand {
+.navbar.navbar-inverse .navbar-inner .brand div.logoBrand {
 	width: 200px;
 	height: 69px;
 	background-image: url(../img/logo.png);
@@ -675,7 +676,7 @@ body {
 .footer .credit {
 	color: red;
 	float: right;
-	background-image: url(../../../mocks-responsive/assets/img/kradCredit.png);
+	/*background-image: url(../../../mocks-responsive/assets/img/kradCredit.png);*/
 	height: 45px;
 	width: 93px;
 	margin-top: 10px;
@@ -992,9 +993,7 @@ th {
 	display: none;
 }
 .docHeader {
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #dddddd;
+	border-bottom: 1px solid #ddd;
 	margin-bottom: 0px;
 	margin-top: 12px;
 	padding-bottom:4px;
@@ -1044,7 +1043,7 @@ th {
 .form-horizontal .formfields {
 	min-height: 500px;
 }
-.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container #menu1 .row .span3 ul li {
+.navbar.navbar-inverse .navbar-inner .container #menu1 .row .span3 ul li {
 	font-size: 12px;
 }
 .boxSubheader h4 {
@@ -1629,9 +1628,9 @@ h3 {
 
 .container,
 .navbar-static-top .container,
-.navbar-fixed-top .container,
+ .container,
 .navbar-fixed-bottom .container {
-  width: 1200px;
+  width: 1200px !important;
   
   
 }
@@ -1652,7 +1651,8 @@ h3 {
 	margin-bottom: 10px;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
-	border-bottom-color: #ddd; min-height:510px;
+	border-bottom-color: #ddd;
+	min-height:510px;
 	
 }
 .docControls {
@@ -1702,4 +1702,30 @@ h3 {
 .docHeader .docMeta ul li span {
 	color: #000;
 	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+#sticky.fixed {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+	background: white;
+	box-shadow: 3px 0px 8px #bbb;
+}
+#sticky.fixed .padded {
+	padding-left: 2em;
+	padding-right: 2em;
+}
+#sticky.fixed .docHeader {
+	border-bottom: 0px;
 }

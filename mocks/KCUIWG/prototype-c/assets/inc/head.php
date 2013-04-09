@@ -40,9 +40,10 @@
 <script src="assets/js/bootstrap-affix.js"></script>
 <script src="assets/js/application.js"></script>
 <script src="assets/js/site.js" type="text/javascript"></script>
-<script src="assets/js/toolbar.js" type="text/javascript"></script>
+<!-- <script src="assets/js/toolbar.js" type="text/javascript"></script> -->
 <script type="text/javascript" src="assets/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="assets/js/jqplot.pieRenderer.min.js"></script>
+<script src="assets/js/custom.js"></script>
 
 <script type="text/javascript" src="assets/js/fancybox/jquery.fancybox.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/js/fancybox/jquery.fancybox.css" media="screen" />

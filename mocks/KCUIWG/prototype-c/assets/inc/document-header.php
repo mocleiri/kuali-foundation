@@ -31,7 +31,8 @@
       </div>-->
 
 
-<div class="row-fluid">
+<div class="row-fluid" id="sticky">
+  <div class="padded">
         <div class="docHeader clearfix" style="position:relative">
           <div class="span6">
             <h2> Proposal: <span>Doc# 3643</span></h2>
@@ -75,4 +76,5 @@
             
           </div>
         </div>
+      </div>
       </div>

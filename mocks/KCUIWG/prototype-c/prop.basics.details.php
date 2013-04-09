@@ -25,7 +25,7 @@ $page = 'basics-details';
                     <select name="ProposalType" class="input-xlarge" id="ProposalType" required="required">
                       <option value="">select</option>
                       <option value="4">Continuation</option>
-                      <option value="1">New</option>
+                      <option value="1" selected="selected">New</option>
                       <option value="3">Renewal</option>
                       <option value="2">Resubmission</option>
                       <option value="5">Revision</option>
@@ -38,7 +38,7 @@ $page = 'basics-details';
                   <div class="controls">
                     <select name="select" id="leadUnit" class="input-xlarge" title="Lead Unit" required="required">
                       <option value="">select</option>
-                      <option value="000001">000001 - University</option>
+                      <option value="000001" selected="selected">000001 - University</option>
                       <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
                       <option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
                       <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
@@ -50,7 +50,7 @@ $page = 'basics-details';
                   <div class="controls">
                     <select name="select" id="activityType" class="input-xlarge" title="Activity Type" required="required">
                       <option value="">select</option>
-                      <option value="4">Clinical Trial</option>
+                      <option value="4" selected="selected">Clinical Trial</option>
                       <option value="9">Construction</option>
                       <option value="7">Fellowship - Post-Doctoral</option>
                       <option value="6">Fellowship - Pre-Doctoral</option>
@@ -68,12 +68,12 @@ $page = 'basics-details';
                   <div class="controls">
                     <div style="display:inline-block; margin-right:12px;" >
                       <div style="display:inline">
-                        <input type="text" placeholder="mm/dd/yyyy" class="input-small">
+                        <input type="text" placeholder="mm/dd/yyyy" class="input-small" value="<?php echo date('m/d/Y') ?>">
                       </div>
                       <span style="display:block; width:100px; color:#999"><small>start</small></span> </div>
                     <div style="display:inline-block" >
                       <div style="display:inline">
-                        <input type="text" placeholder="mm/dd/yyyy" class="input-small">
+                        <input type="text" placeholder="mm/dd/yyyy" class="input-small" value="<?php $y = date('Y') + 1; echo date('m/d/') . $y; ?>">
                       </div>
                       <span style="display:block; width:100px;color:#999"><small>end</small></span> </div>
                   </div>
@@ -83,7 +83,7 @@ $page = 'basics-details';
                   <div class="controls">
                     <select name="orgdocnum" class="input-xlarge">
                       <option>select</option>
-                      <option value="1">Chemistry - Physical Sciences B.02</option>
+                      <option value="1" selected="selected">Chemistry - Physical Sciences B.02</option>
                     </select>
                     <!-- <input type="text" id="Description" placeholder="" class=" input-small"> --> 
                     <!-- <a href="#" class="btn lookup"><span>lookup</span></a> --> 
@@ -93,7 +93,7 @@ $page = 'basics-details';
                   <!-- Textarea -->
                   <label class="control-label" for="projectTitle">Project Title</label>
                   <div class="controls">
-                    <textarea name="textarea" id="projectTitle" class="input-xlarge" required></textarea>
+                    <textarea name="textarea" id="projectTitle" class="input-xlarge" required>This is a test project</textarea>
                   </div>
                 </div>
               </fieldset>
