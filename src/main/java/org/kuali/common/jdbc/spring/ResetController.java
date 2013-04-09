@@ -48,7 +48,7 @@ public class ResetController {
 		executables.add(schemaConfig.jdbcSchemaExecutable());
 		executables.add(dataConfig.jdbcDataConcurrentExecutable());
 		executables.add(dataConfig.jdbcDataSequentialExecutable());
-		executables.add(constraintsConfig.jdbcConstraintsExecutable());
+		executables.add(constraintsConfig.jdbcConstraintsConcurrentExecutable());
 		executables.add(otherConfig.jdbcOtherConcurrentExecutable());
 		executables.add(otherConfig.jdbcOtherSequentialExecutable());
 

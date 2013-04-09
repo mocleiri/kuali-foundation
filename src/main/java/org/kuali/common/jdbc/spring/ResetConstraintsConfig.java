@@ -15,9 +15,22 @@ public class ResetConstraintsConfig extends ResetBaseConfig {
 	public static final String SKIP_KEY = "jdbc." + TYPE + ".skip";
 
 	@Bean
-	public Executable jdbcConstraintsExecutable() {
+	public Executable jdbcConstraintsConcurrentExecutable() {
 		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext ctx = ResetConfigUtils.getConcurrentJdbcContext(rcc);
+		ctx.setListener(ResetConfigUtils.getConstraintsListener(env));
+
+		JdbcExecutable exec = new JdbcExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
+		exec.setService(commonConfig.jdbcService());
+		exec.setContext(ctx);
+		return exec;
+	}
+
+	@Bean
+	public Executable jdbcConstraintsSequentialExecutable() {
+		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
+		JdbcContext ctx = ResetConfigUtils.getSequentialJdbcContext(rcc);
 		ctx.setListener(ResetConfigUtils.getConstraintsListener(env));
 
 		JdbcExecutable exec = new JdbcExecutable();
