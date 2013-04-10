@@ -273,7 +273,7 @@ $page = 'review-summary';
                         </div>
                         <div class="boxContent expandTarget" style="min-height:500px">
                           
-                          <div style="margin-bottom:10px;"><a href="#" class="btn btn-mini btn-success" onClick="alert('open modal with add attachment form')"><i class="icon-white icon-plus"></i>Upload and add attachment</a></div>
+                          <div style="margin-bottom:10px;"><a href="#" class="btn btn-mini" onClick="alert('open modal with add attachment form')"><i class="icon icon-plus"></i>Upload and add attachment</a></div>
                           
                           <div class="boxSubheader">
                             <h4>Proposal</h4>
@@ -791,17 +791,17 @@ $page = 'review-summary';
                         <div class="boxContent">
                           
                           <div style="margin-bottom:30px;">
-                            <a href="#" class="btn btn-success">Approve</a>
-                            <a href="#" class="btn btn-success">Reject</a>
-                            <a href="#" class="btn btn-success">Send Notification</a>
-                            <a href="#" class="btn btn-success">Recall</a>
-                            <a href="#" class="btn btn-success">Submit to Sponsor</a>
+                            <a href="#" class="btn">Approve</a>
+                            <a href="#" class="btn">Reject</a>
+                            <a href="#" class="btn">Send Notification</a>
+                            <a href="#" class="btn">Recall</a>
+                            <a href="#" class="btn">Submit to Sponsor</a>
                           </div>
                           
                           <div class="boxSubheader">
                             <h4>Comments</h4>
                           </div>
-                          <div style="margin-bottom:10px;"> <a href="#" class="btn btn-mini btn-success addcomplianceprotocol"><i class="icon-white icon-plus"></i> Add Comment</a> </div>
+                          <div style="margin-bottom:10px;"> <a href="#" class="btn btn-mini addcomplianceprotocol"><i class="icon icon-plus"></i> Add Comment</a> </div>
                           <div id="dl3" style="display:block">
                             <table class="table table-striped table-bordered table-condensed">
                               <thead>
@@ -833,11 +833,11 @@ $page = 'review-summary';
                     
               	</div>
             </div>
-            <script>
-			  $(function () {
-				$('#myTab a:last').tab('show');
-			  })
-			</script>
+<script>
+$(function () {
+  $('#myTab a:first').tab('show');
+})
+</script>
           
           
                     
