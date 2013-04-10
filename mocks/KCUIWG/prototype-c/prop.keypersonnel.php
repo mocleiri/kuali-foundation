@@ -39,12 +39,6 @@ $page = 'personnel-pers';
                   <li class="active">
                   <a href="#art" data-toggle="tab">Haskell, Edward <small>(PI)</small></a>
                 </li>
-                  <li >
-                  <a href="#ben" data-toggle="tab">Hensler, Judith</a>
-                </li>
-                  <li>
-                  <a href="#ella" data-toggle="tab">Rutherford, Violet</a>
-                </li>
                   <li>
                   <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
                 </li>

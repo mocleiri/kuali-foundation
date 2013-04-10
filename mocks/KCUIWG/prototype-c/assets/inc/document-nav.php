@@ -11,9 +11,9 @@
         <li <?php if( $page == 'basics-keywords' ) { echo 'class="active"'; } ?> ><a href="prop.basics.keywords.php"><span>Keywords</span></a></li>
       </ul>
     </li>
-    <li class="submenu <?php if( ($page == 'personnel') || (strpos($page, "personnel-") !== false) ) { echo 'open'; } ?>"><a href="prop.keypersonnel.php"><i class="icon icon-personnel"></i><span>Key Personnel</span></a>
+    <li class="submenu <?php if( ($page == 'personnel') || (strpos($page, "personnel-") !== false) ) { echo 'open'; } ?>"><a href="prop.keypersonnel.start.php"><i class="icon icon-personnel"></i><span>Key Personnel</span></a>
       <ul>
-        <li <?php if( $page == 'personnel-pers' ) { echo 'class="active"'; } ?> ><a href="prop.keypersonnel.php"><span>Personnel</span></a></li>
+        <li <?php if( $page == 'personnel-pers' ) { echo 'class="active"'; } ?> ><a href="prop.keypersonnel.start.php"><span>Personnel</span></a></li>
         <li <?php if( $page == 'personnel-creditintel' ) { echo 'class="active"'; } ?> ><a href="prop.keypersonnel.creditintel.php"><span>Intellectual Credit</span></a></li>
          <li <?php if( $page == 'personnel-creditfa' ) { echo 'class="active"'; } ?> ><a href="prop.keypersonnel.creditfa.php"><span>F &amp; A Credit</span></a></li>
       </ul>
