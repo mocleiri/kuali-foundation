@@ -63,8 +63,8 @@
  
     <!--<li><a href="prop.medusa.php"><i class="icon icon-medusa"></i><span>Medusa</span></a></li>--> 
     
-    <li <?php if( $page == 'review-summary' ) { echo 'class="active"'; } ?>><a href="prop.review.summary.php"><i class="icon icon-review"></i><span>Proposal Summary</span></a></li>
-    <li <?php if( $page == 'review-actions' ) { echo 'class="active"'; } ?>><a href="prop.review.actions.php"><i class="icon icon-review"></i><span>Approver Actions</span></a></li>
+    <li <?php if( $page == 'review-summary' ) { echo 'class="active"'; } ?>><a href="prop.review.summary.php"><i class="icon icon-review"></i><span>Summary/Submit</span></a></li>
+    <!--<li <?php if( $page == 'review-actions' ) { echo 'class="active"'; } ?>><a href="prop.review.actions.php"><i class="icon icon-review"></i><span>Approver Actions</span></a></li>-->
     
   </ul>
 </div>
