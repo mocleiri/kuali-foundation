@@ -1196,12 +1196,12 @@ th {
 
 #ToC > ul > li:hover {
 	
-	border-top-width: 1px;
+	/*border-top-width: 1px;
 	border-top-style: solid;
 	border-top-color: #7A0013;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
-	border-bottom-color: #7A0013;
+	border-bottom-color: #7A0013;*/
 }
 
 
@@ -1722,10 +1722,18 @@ h3 {
 	background: white;
 	box-shadow: 3px 0px 8px #bbb;
 }
+
 #sticky.fixed .padded {
 	padding-left: 2em;
 	padding-right: 2em;
 }
+
 #sticky.fixed .docHeader {
 	border-bottom: 0px;
+}
+
+#ToC.fixed {
+	position: fixed;
+	top: 117px;
+	width: 13.25%;
 }

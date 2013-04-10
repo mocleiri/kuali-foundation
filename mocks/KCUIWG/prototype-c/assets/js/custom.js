@@ -40,6 +40,7 @@ $(document).ready(function() {
 
 		function init_sticky_elems() {
 
+			// Doc header
 			if ($window.scrollTop() > sOffset.top) {
 				$('#sticky').addClass('fixed');
 				$('.column-navleft').css({
@@ -50,6 +51,13 @@ $(document).ready(function() {
 				$('.column-navleft').css({
 					paddingTop: '0'
 				});
+			}
+
+			// ToC
+			if ($window.scrollTop() > nOffset.top - 117) {
+				$('#ToC').addClass('fixed');
+			} else {
+				$('#ToC').removeClass('fixed');
 			}
 
 		}
