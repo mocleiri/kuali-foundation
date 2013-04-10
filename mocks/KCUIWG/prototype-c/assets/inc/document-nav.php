@@ -1,6 +1,7 @@
-<div id="ToC"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
+<div id="ToC">
+  <a href="#" class="visible-phone"><i class="icon icon-home"></i> Navigate</a>
   <ul style="display: block;">
-    <li class="submenu <?php if( ($page == 'basics') || (strpos($page, "basics-") !== false) ) { echo 'open'; } ?>"><a href="#" onClick="window.open('prop.basics.details.php','_self');"><i class="icon icon-basics"></i><span>Basics </span></a>
+    <li class="submenu <?php if( ($page == 'basics') || (strpos($page, "basics-") !== false) ) { echo 'open'; } ?>"><a href="prop.basics.details.php"><i class="icon icon-basics"></i><span>Basics </span></a>
       <ul>
         <li <?php if( $page == 'basics-details' ) { echo 'class="active"'; } ?> ><a href="prop.basics.details.php"><span>Proposal Details</span></a></li>
         <li <?php if( $page == 'basics-grantsgov' ) { echo 'class="active"'; } ?> ><a href="prop.basics.grantsgov.php"><span>Grants.gov</span></a></li>
@@ -10,7 +11,7 @@
         <li <?php if( $page == 'basics-keywords' ) { echo 'class="active"'; } ?> ><a href="prop.basics.keywords.php"><span>Keywords</span></a></li>
       </ul>
     </li>
-    <li class="submenu <?php if( ($page == 'personnel') || (strpos($page, "personnel-") !== false) ) { echo 'open'; } ?>"><a href="#" onClick="window.open('prop.keypersonnel.php','_self');"><i class="icon icon-personnel"></i><span>Key Personnel</span></a>
+    <li class="submenu <?php if( ($page == 'personnel') || (strpos($page, "personnel-") !== false) ) { echo 'open'; } ?>"><a href="prop.keypersonnel.php"><i class="icon icon-personnel"></i><span>Key Personnel</span></a>
       <ul>
         <li <?php if( $page == 'personnel-pers' ) { echo 'class="active"'; } ?> ><a href="prop.keypersonnel.php"><span>Personnel</span></a></li>
         <li <?php if( $page == 'personnel-creditintel' ) { echo 'class="active"'; } ?> ><a href="prop.keypersonnel.creditintel.php"><span>Intellectual Credit</span></a></li>
@@ -21,7 +22,7 @@
     <!--  <li><a href="prop.access.php"><i class="icon icon-access"></i><span>Access</span></a></li>--> 
     
     <li <?php if( $page == 'compliance' ) { echo 'class="active"'; } ?>><a href="prop.compliance.php"><i class="icon icon-compliance"></i><span>Compliance</span></a></li>
-    <li class="submenu <?php if( ($page == 'attachments') || (strpos($page, "attachments-") !== false) ) { echo 'open'; } ?>"><a href="#" onClick="window.open('prop.attachments.proposal.php','_self');"><i class="icon icon-attachments"></i><span>Attachments </span></a>
+    <li class="submenu <?php if( ($page == 'attachments') || (strpos($page, "attachments-") !== false) ) { echo 'open'; } ?>"><a href="prop.attachments.proposal.php"><i class="icon icon-attachments"></i><span>Attachments </span></a>
       <ul>
         <li <?php if( $page == 'attachments-proposal' ) { echo 'class="active"'; } ?> ><a href="prop.attachments.proposal.php"><span>Proposal</span></a></li>
         <li <?php if( $page == 'attachments-personnel' ) { echo 'class="active"'; } ?> ><a href="prop.attachments.personnel.php"><span>Personnel</span></a></li>
@@ -36,7 +37,7 @@
    
    
     <li class="submenu <?php if( ($page == 'budget') || (strpos($page, "budget-") !== false) ) { echo 'open'; } ?>">
-      <a href="#" onClick="window.open('prop.budget.summary.php','_self');"><i class="icon icon-budget"></i><span>Budget</span></a>
+      <a href="prop.budget.summary.php"><i class="icon icon-budget"></i><span>Budget</span></a>
       <ul>
         <li <?php if( $page == 'budget-summary' ) { echo 'class="active"'; } ?> ><a href="prop.budget.summary.php"><span>Summary</span></a></li>
         <li <?php if( $page == 'budget-parameters' ) { echo 'class="active"'; } ?> ><a href="prop.budget.paramaters.php"><span>Parameters</span></a></li>
@@ -51,7 +52,7 @@
    
    
     <li class="submenu <?php if( ($page == 'instspecdata') || (strpos($page, "instspecdata-") !== false) ) { echo 'open'; } ?>">
-      <a href="#" onClick="window.open('prop.instspecdata.1.php','_self');"><i class="icon icon-institutiondata"></i><span>Institution Data</span></a>
+      <a href="prop.instspecdata.1.php"><i class="icon icon-institutiondata"></i><span>Institution Data</span></a>
       <ul>
         <li <?php if( $page == 'instspecdata-1' ) { echo 'class="active"'; } ?> ><a href="prop.instspecdata.1.php"><span>Page 1</span></a></li>
         <li <?php if( $page == 'instspecdata-2' ) { echo 'class="active"'; } ?> ><a href="prop.instspecdata.2.php"><span>Page 2</span></a></li>

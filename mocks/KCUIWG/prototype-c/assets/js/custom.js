@@ -33,9 +33,10 @@ $(document).ready(function() {
 	/*
 	Sticky table of contents
 	---------------------------------- */
-	if ($('#sticky').length) {
+	if ( $('#sticky').length && $('#ToC').length ) {
 			
 		var sOffset = $('#sticky').offset();
+		var nOffset = $('#ToC').offset();
 
 		function init_sticky_elems() {
 
