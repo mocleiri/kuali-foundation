@@ -68,7 +68,7 @@
             
             
             
-            <div class="docStatus" style="position:absolute; right:0px; bottom:4px; font-size:.85em"><span style="margin-right:8px;" class="label label-warning">In Progress</span> <span style="color:#666; font-style: italic; margin-right:8px">updated 4/8/ 2013 8:38am</span> <a href="#">more info...</a></div>
+            <div class="docStatus" style="position:absolute; right:0px; bottom:4px; font-size:.85em"><span style="margin-right:8px;" class="label label-warning">Final Institutional Review</span> <span style="color:#666; font-style: italic; margin-right:8px">updated 4/8/ 2013 8:38am</span> <a href="#">more info...</a></div>
             
             
             
