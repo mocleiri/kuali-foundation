@@ -11,6 +11,6 @@ public abstract class TorqueExecutorGAV {
 
 	public static final String GROUP_ID = "org.kuali.common";
 	public static final String ARTIFACT_ID = "torque-executor";
-	public static final String VERSION = "2.1.4-SNAPSHOT";
+	public static final String VERSION = "2.1.4";
 
 }
