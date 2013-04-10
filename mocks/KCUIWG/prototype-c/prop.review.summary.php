@@ -32,11 +32,11 @@ $page = 'review-summary';
                         <div class="boxContent" > 
                           
                           	<div class="progress" style="height:30px;">
-                              <div class="bar bar-success" style="width: 30%; height:30px; padding-top:7px;" title="Completed">Order Placed</div>
-                              <div class="bar bar-success" style="width: 20%; height:30px; padding-top:7px;" title="Completed">Prep</div>
-                              <div class="bar bar-warning" style="width: 30%; height:30px; padding-top:7px;" title="In Progress">Bake</div>
-                              <div class="bar bar-danger" style="width: 10%; height:30px; padding-top:7px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started">Quality Check</div>
-                              <div class="bar bar-danger" style="width: 10%; height:30px; padding-top:7px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started">Out for Delivery</div>
+                              <div class="bar bar-success" style="width: 30%; height:30px; padding-top:7px;" title="Completed">In Progress</div>
+                              <div class="bar bar-success" style="width: 20%; height:30px; padding-top:7px;" title="Completed">Routing &amp; Review</div>
+                              <div class="bar bar-warning" style="width: 15%; height:30px; padding-top:7px;" title="In Progress">Final Institutional Review</div>
+                              <div class="bar bar-danger" style="width: 15%; height:30px; padding-top:7px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started">Approved</div>
+                              <div class="bar bar-danger" style="width: 20%; height:30px; padding-top:7px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started">Submited to Sponsor</div>
                             </div>
                           
                         </div>
