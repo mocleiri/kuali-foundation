@@ -695,18 +695,15 @@ body {
 	min-height:;
 }
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
-	color: #fff;
+	/*color: #fff;*/
+	color: #333;
 	text-decoration: none;
-	background-color: #aa003e;
-	
-
-	
-	
-	
-	
+	/*background-color: #aa003e;*/
+	background-color: white;
 	-webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5);
 	box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.5);
+	border-bottom: 1px solid white;
 }
 .navbar-inverse .brand, .navbar-inverse .nav > li > a {
 	color: #CCC;
