@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE FP_BANK_T
 /
 INSERT INTO FP_BANK_T (BNK_CD,OBJ_ID,VER_NBR,BNK_NM,BNK_SHRT_NM,BNK_RTNG_NBR,ROW_ACTV_IND,BNK_ACCT_NBR,BNK_ACCT_DESC,CSH_OFST_FIN_COA_CD,CSH_OFST_ACCT_NBR,CSH_OFST_OBJ_CD,BNK_DPST_IND,BNK_DISB_IND,BNK_ACH_IND,BNK_CHK_IND)

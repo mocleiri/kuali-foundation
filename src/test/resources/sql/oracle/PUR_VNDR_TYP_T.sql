@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE PUR_VNDR_TYP_T DROP STORAGE
 /
 INSERT INTO PUR_VNDR_TYP_T (VNDR_TYP_CD,OBJ_ID,VER_NBR,VNDR_TYP_DESC,DOBJ_MAINT_CD_ACTV_IND,VNDR_TAX_NBR_REQ_IND,VNDR_TYP_CHG_ALLW_IND,VNDR_ADDR_TYP_REQ_CD,VNDR_SHOW_RVW_IND,VNDR_RVW_TXT)

@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE FS_OPTION_T DROP STORAGE
 /
 INSERT INTO FS_OPTION_T (UNIV_FISCAL_YR,OBJ_ID,VER_NBR,ACT_FIN_BAL_TYP_CD,BDGT_CHK_BALTYP_CD,BDGT_CHK_OPTN_CD,UNIV_FSCYR_STRT_YR,UNIV_FSCYR_STRT_MO,FOBJTP_INC_CSH_CD,FOBJTP_XPND_EXP_CD,FOBJTP_XPNDNEXP_CD,FOBJTP_EXPNXPND_CD,FOBJ_TYP_ASSET_CD,FOBJ_TYP_LBLTY_CD,FOBJ_TYP_FNDBAL_CD,EXT_ENC_FBALTYP_CD,INT_ENC_FBALTYP_CD,PRE_ENC_FBALTYP_CD,ELIM_FINBAL_TYP_CD,FOBJTP_INC_NCSH_CD,FOBJTP_CSH_NINC_CD,UNIV_FIN_COA_CD,UNIV_FISCAL_YR_NM,FIN_BEGBALLOAD_IND,CSTSHR_ENCUM_FIN_BAL_TYP_CD,BASE_BDGT_FIN_BAL_TYP_CD,MO_BDGT_FIN_BAL_TYP_CD,FIN_OBJECT_TYP_TRNFR_INC_CD,FIN_OBJECT_TYP_TRNFR_EXP_CD,NMNL_FIN_BAL_TYP_CD)

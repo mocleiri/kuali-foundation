@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE FP_CSH_DRWR_T
 /
 INSERT INTO FP_CSH_DRWR_T (CAMPUS_CD,OBJ_ID,VER_NBR,FDOC_OPEN_DPST_CD,CSH_DRWR_TOT_AMT,FDOC_100_DLR_AMT,FDOC_50_DLR_AMT,FDOC_20_DLR_AMT,FDOC_10_DLR_AMT,FDOC_5_DLR_AMT,FDOC_2_DLR_AMT,FDOC_1_DLR_AMT,FDOC_OTHR_DLR_AMT,FDOC_50_CENT_AMT,FDOC_25_CENT_AMT,FDOC_10_CENT_AMT,FDOC_5_CENT_AMT,FDOC_1_CENT_AMT,FDOC_OTHR_CENT_AMT,FDOC_100_CENT_AMT,FDOC_MISC_ADV_AMT)

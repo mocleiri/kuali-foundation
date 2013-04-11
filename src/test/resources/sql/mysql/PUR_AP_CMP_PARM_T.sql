@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE PUR_AP_CMP_PARM_T
 /
 INSERT INTO PUR_AP_CMP_PARM_T (CAMPUS_CD,OBJ_ID,VER_NBR,CMP_PUR_DRCTR_NM,CMP_PUR_DRCTR_TTL,PUR_INST_NM,PUR_DEPT_NM,PUR_DEPT_LN1_ADDR,PUR_DEPT_CTY_NM,PUR_DEPT_ST_CD,PUR_DEPT_ZIP_CD,PUR_DEPT_CNTRY_CD,ACTV_IND)

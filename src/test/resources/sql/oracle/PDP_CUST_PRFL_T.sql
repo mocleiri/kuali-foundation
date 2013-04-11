@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE PDP_CUST_PRFL_T DROP STORAGE
 /
 INSERT INTO PDP_CUST_PRFL_T (CUST_ID,OBJ_ID,VER_NBR,FIN_COA_CD,UNT_CD,SBUNT_CD,CUST_DESC,CUST_ACTV_IND,CUST_PRCS_EMAIL_ADDR,PMT_THRSHLD_AMT,CUST_PMT_THRSHLD_EMAIL_ADDR,FL_THRSHLD_AMT,CUST_FILE_THRSHLD_EMAIL_ADDR,DFLT_COA_CD,DFLT_ACCT_NBR,DFLT_SUB_ACCT_NBR,DFLT_OBJ_CD,DFLT_SUB_OBJ_CD,ADV_CRTE_IND,ACH_PMT_DESC,ACH_TRANS_TYP,CUST_CNTC_FULL_NM,CUST_LN1_ADDR,CUST_CTY_NM,CUST_ST_CD,CUST_ZIP_CD,CHK_HDR_NTE_LN1_TXT,ADV_HDR_TXT,ADV_SUBJ_LN_TXT,ADV_RTRN_EMAIL_ADDR,DFLT_PHYS_CMP_PROC_CD,CUST_NRA_RVW_IND,ACCTG_EDIT_REQ_IND,CUST_EMP_CHK_IND,CUST_OWNR_CD_REQ_IND,CUST_PAYEE_ID_REQ_IND,FIN_OBJECT_CD_LBLTY_RLF_CD,ACTV_IND)

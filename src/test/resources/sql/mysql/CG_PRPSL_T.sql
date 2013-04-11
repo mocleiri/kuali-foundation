@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE CG_PRPSL_T
 /
 INSERT INTO CG_PRPSL_T (CGPRPSL_NBR,OBJ_ID,VER_NBR,CGPRPSL_BEG_DT,CGPRPSL_END_DT,CGPRPSL_TOT_AMT,CGPRPSL_DRCTCS_AMT,CGPRPSL_INDRCS_AMT,CGPRPSL_LSTUPDT_DT,CGPRPSL_TOTPRJ_AMT,CGPRPSL_SUBMSSN_DT,CGPRPSL_FEDPT_IND,CG_OLD_PRPSL_NBR,CG_GRANT_NBR,CGPRPSL_CLOSING_DT,CGPRPSL_AWD_TYP_CD,CG_AGENCY_NBR,CGPRPSL_STAT_CD,CGPRPSL_PURPOSE_CD,CGPRPSL_PROJ_TTL,ROW_ACTV_IND)

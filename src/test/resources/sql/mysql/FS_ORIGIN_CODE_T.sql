@@ -1,3 +1,19 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
 TRUNCATE TABLE FS_ORIGIN_CODE_T
 /
 INSERT INTO FS_ORIGIN_CODE_T (FS_ORIGIN_CD,OBJ_ID,VER_NBR,FS_SERVER_NM,FS_DATABASE_NM,FS_DATABASE_DESC,NEXT_CPTLAST_NBR,NEXT_NONCA_NBR,NEXT_CG_AGENCY_NBR,NEXT_CG_SUBCNR_NBR,NXT_DV_PAYEEID_NBR,NXT_FDOC_ATT_ID,AR_NEXT_CUST_NBR,FDOC_NEXT_ITEM_ID,ROW_ACTV_IND)
