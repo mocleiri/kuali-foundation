@@ -239,7 +239,7 @@
                 <id>load</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>load</goal>
+                  <goal>loadxml</goal>
                 </goals>
                 <configuration>
                   <location>classpath:org/kuali/common/deploy/spring/deploy-context.xml</location>
