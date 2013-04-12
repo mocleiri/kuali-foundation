@@ -1,8 +1,8 @@
 package org.kuali.common.deploy;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
@@ -15,7 +15,7 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 	private static final Logger logger = LoggerFactory.getLogger(SpringDatabaseHandler.class);
 
 	SpringService service = new DefaultSpringService();
-	String contextLocation;
+	Class<?> annotatedClass;
 	List<Object> beans;
 	List<String> beanNames;
 	boolean skip;
@@ -27,10 +27,10 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 			return;
 		}
 		Assert.notNull(service);
-		Assert.notNull(contextLocation);
+		Assert.notNull(annotatedClass);
 		logger.info("Database reset");
 		SpringContext sc = new SpringContext();
-		sc.setLocations(Arrays.asList(contextLocation));
+		sc.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
 		sc.setBeanNames(beanNames);
 		sc.setBeans(beans);
 		service.load(sc);
@@ -42,14 +42,6 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 
 	public void setService(SpringService service) {
 		this.service = service;
-	}
-
-	public String getContextLocation() {
-		return contextLocation;
-	}
-
-	public void setContextLocation(String contextLocation) {
-		this.contextLocation = contextLocation;
 	}
 
 	public List<Object> getBeans() {
