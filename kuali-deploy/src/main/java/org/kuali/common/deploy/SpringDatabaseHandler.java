@@ -32,7 +32,7 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		Assert.notNull(annotatedClass);
 		Assert.notNull(properties);
 		logger.info("Database reset");
-		PropertiesPropertySource ps = new PropertiesPropertySource("", properties);
+		PropertiesPropertySource ps = new PropertiesPropertySource("springPropertySource", properties);
 		PropertySourceContext psc = new PropertySourceContext();
 		psc.setLastOneInWins(true);
 		psc.setRemoveExistingSources(true);
