@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.deploy.AppServerController;
+import org.kuali.common.deploy.DefaultFileSystemHandler;
 import org.kuali.common.deploy.DefaultTomcatController;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
+import org.kuali.common.deploy.FileSystemHandler;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -233,5 +235,25 @@ public class DeployConfig {
 		list.add(kdoApplication());
 		return list;
 	}
+	
+	@Bean
+	public FileSystemHandler kdoHandler() {
+		DefaultFileSystemHandler h = new DefaultFileSystemHandler();
+		h.setChannel(kdoSecureChannel());
+		h.setFilesToDelete(kdoFilesToDelete());
+		h.setDirectoriesToDelete(kdoDirectoriesToDelete());
+		h.setDirectoriesToCreate(kdoDirectoriesToCreate());
+		h.setDirectoriesToChown(kdoDirectoriesToChown());
+		h.setDeployables(kdoDeployables());
+		
+		// TODO set this correctly
+		h.setProperties(null);
+		
+		h.setOwner(SpringUtils.getProperty(env, "tomcat.owner"));
+		h.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
+		
+		return h;
+	}
+	
 
 }
