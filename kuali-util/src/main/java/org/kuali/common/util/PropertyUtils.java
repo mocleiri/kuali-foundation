@@ -95,7 +95,7 @@ public class PropertyUtils {
 				result.putAll(context.getProperties());
 				result.putAll(properties);
 			} else {
-				ModeUtils.validate(context.getMissingLocationsMode(), "Skipping non-existent location [" + resolvedLocation + "]");
+				ModeUtils.validate(context.getMissingLocationsMode(), "Non-existent location [" + resolvedLocation + "]");
 			}
 		}
 		return result;
