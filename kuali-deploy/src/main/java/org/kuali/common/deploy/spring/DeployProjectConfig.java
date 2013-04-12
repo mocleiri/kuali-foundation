@@ -23,9 +23,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DeployProjectConfig {
 
+	public static final String GROUP_ID = "org.kuali.common";
+	public static final String ARTIFACT_ID = "kuali-deploy";
+
 	@Bean
 	public Project deployProject() {
-		return ProjectUtils.loadProject("org.kuali.common:kuali-deploy");
+		return ProjectUtils.loadProject(GROUP_ID + ":" + ARTIFACT_ID);
 	}
 
 }
