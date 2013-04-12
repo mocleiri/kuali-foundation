@@ -38,13 +38,11 @@ public class DeployPropertiesConfig {
 		Project project = projectConfig.jdbcProject();
 
 		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:org/kuali/common/jdbc/jdbc.properties");
-		locations.add("classpath:org/kuali/common/jdbc/service.properties");
-		locations.add("classpath:org/kuali/common/sql/sql.xml");
-		locations.add("classpath:org/kuali/common/sql/mysql.xml");
-		locations.add("classpath:org/kuali/common/sql/oracle.xml");
-		locations.add("classpath:org/kuali/common/sql/h2.xml");
-		locations.add("classpath:org/kuali/common/sql/derby.xml");
+		locations.add("classpath:org/kuali/deploy/deploy.properties");
+		locations.add("classpath:org/kuali/common/deploy/driver.properties");
+		locations.add("classpath:${project.groupId.path}/deploy.properties");
+		locations.add("classpath:${project.groupId.path}/${project.artifactId}.properties");
+		locations.add("classpath:${project.groupId.path}/env${deploy.env}.properties");
 
 		return ConfigUtils.getProjectProperties(project, locations);
 	}
