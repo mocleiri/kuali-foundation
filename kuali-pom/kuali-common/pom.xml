@@ -234,12 +234,13 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>spring-maven-plugin</artifactId>
+            <version>1.2.5</version>
             <executions>
               <execution>
                 <id>load</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>loadxml</goal>
+                  <goal>load</goal>
                 </goals>
                 <configuration>
                   <location>classpath:org/kuali/common/deploy/spring/deploy-context.xml</location>
