@@ -1,7 +1,6 @@
 package org.kuali.common.deploy;
 
 import org.junit.Test;
-import org.kuali.common.deploy.spring.MavenDeployConfig;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 
@@ -13,7 +12,7 @@ public class DeployTest {
 	public void test() {
 		try {
 			System.setProperty("properties.resolve", "false");
-			ss.load(MavenDeployConfig.class);
+			ss.load(KSDeployConfig.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
