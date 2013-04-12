@@ -27,14 +27,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ MpxSupplierConfig.class, ResetConfig.class, DatabaseResetController.class })
+@Import({ MpxSupplierConfig.class, ResetConfig.class, ResetController.class })
 public class DeployConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
 
 	@Autowired
-	DatabaseResetController databaseResetController;
+	ResetController databaseResetController;
 
 	@Bean
 	public Artifact kdoJdbcDriverArtifact() {
