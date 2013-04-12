@@ -37,7 +37,7 @@
           <div class="span6">
             <h2> Proposal: <span>Doc# 3643</span></h2>
             <div class="docTitle" style="font-size: 1.1em; line-height: 8px">Occupational Therapy Community Program</div>
-            <div class="docMeta" style="font-size:.85em">
+            <div class="docMeta">
               <ul >
                 <li><span>PI:</span> Ken Graves</li>
                 <li><a href="#"  class="icons-docheader-print">Print</a></li>
@@ -50,7 +50,7 @@
           </div>
           <div class="span6">
             <div class="btn-group" style=" position:absolute; right:0px; top:12px;">
-              <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Document Routing <span class="caret"></span></button>
+              <button class="btn dropdown-toggle" data-toggle="dropdown">Document Routing TBD <span class="caret"></span></button>
               <ul class="dropdown-menu right">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
@@ -68,7 +68,7 @@
             
             
             
-            <div class="docStatus" style="position:absolute; right:0px; bottom:4px; font-size:.85em"><span style="margin-right:8px;" class="label label-warning">Final Institutional Review</span> <span style="color:#666; font-style: italic; margin-right:8px">updated 4/8/ 2013 8:38am</span> <a href="#">more info...</a></div>
+            <div class="docStatus" style="position:absolute; right:0px; bottom:4px;"><span style="margin-right:8px;" class="label label-warning">Final Institutional Review</span> <span style="color:#666; font-style: italic; margin-right:8px">updated 4/8/ 2013 8:38am</span> <a href="#">See more</a></div>
             
             
             

@@ -17,7 +17,7 @@ $page = 'personnel-creditintel';
           <h3>Intellectual Credit</h3>
           <div class=" formfields">
             <div  id="chart1" style="height:300px; width:500px; margin-left:auto; margin-right:auto"></div>
-            <div style=" text-align:center; margin-bottom:30px"><a href="#" class="ajax-modal btn btn-small" data-backdrop="true" data-controls-modal="res-modal" data-keyboard="true" url="prop.keypersonnel.credit.frame.html">edit allocation</a> </div>
+            <div style=" text-align:center; margin-bottom:30px"><a href="#" class="ajax-modal btn" data-backdrop="true" data-controls-modal="res-modal" data-keyboard="true" url="prop.keypersonnel.credit.frame.html"><i class="icon icon-edit"></i> Edit allocation</a> </div>
           </div>
           <div class="clearfix"></div>
         </div>

@@ -1654,7 +1654,7 @@ h3 {
 }
 .docControls {
 	text-align: center;
-	margin-bottom: 10px;
+	height: 75px;
 }
 #ToC ul .submenu.open ul li a {
 	color: #333; font-weight:normal;
@@ -1714,15 +1714,13 @@ h3 {
 	display: block;
 	position: fixed;
 	top: 0;
-	left: 0;
 	z-index: 99999;
 	background: white;
-	box-shadow: 3px 0px 8px #bbb;
+	box-shadow: 0 6px 8px -4px #ddd;
 }
 
 #sticky.fixed .padded {
-	padding-left: 2em;
-	padding-right: 2em;
+	border-bottom: 1px solid #ccc;
 }
 
 #sticky.fixed .docHeader {
@@ -1733,4 +1731,43 @@ h3 {
 	position: fixed;
 	top: 117px;
 	width: 179px;
+}
+
+.boxContent .well {
+	padding: 19px 19px 3px 19px !important;
+}
+
+.boxContent .well h4 {
+	margin: 0 0 12px 0 !important;
+}
+
+.boxContent .well .progress-details {
+
+}
+
+.boxContent .well .progress-details .empty {
+	float: left;
+	text-align: center;
+	padding: 4px 0 6px 0;
+	color: #aaa;
+}
+
+.boxContent .well .progress-details .empty.active {
+	color: inherit;
+}
+
+.boxContent .well .progress-details .empty.complete {
+	color: inherit;
+}
+
+.boxContent .well .progress-details .empty.active {
+	font-weight: 700;
+}
+
+.boxContent .well .progress {
+	clear: both;
+}
+
+.boxContent .well .progress .bar.active {
+	/*background: ;*/
 }

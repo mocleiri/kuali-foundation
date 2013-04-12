@@ -2,8 +2,8 @@
 	Custom scripting for additional functionality
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created: 	8 Apr 2013, 16:34
-	Last Mod: 	9 Apr 2013, 11:17
-	Version: 	0.1.3
+	Last Mod: 	12 Apr 2013, 09:16
+	Version: 	0.1.4
 */
 
 
@@ -42,12 +42,18 @@ $(document).ready(function() {
 
 			// Doc header
 			if ($window.scrollTop() > sOffset.top) {
-				$('#sticky').addClass('fixed');
+				$('#sticky').addClass('fixed').css({
+					width: $('.column-navleft').width()
+				});
+
 				$('.column-navleft').css({
 					paddingTop: $('#sticky').height()
 				});
 			} else {
-				$('#sticky').removeClass('fixed');
+				$('#sticky').removeClass('fixed').css({
+					width: 'auto'
+				});
+
 				$('.column-navleft').css({
 					paddingTop: '0'
 				});

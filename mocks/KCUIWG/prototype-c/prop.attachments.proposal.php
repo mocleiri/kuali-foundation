@@ -104,7 +104,7 @@ $page = 'attachments-proposal';
                 <!-- Text input-->
                 <label class="control-label" for="input01"></label>
                 <div class="controls">
-                  <a href="#" class="btn btn-mini btn-inverse">Add attachment</a>
+                  <a href="#" class="btn">Add attachment</a>
                 </div>
               </div>
             </fieldset>

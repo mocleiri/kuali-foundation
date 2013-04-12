@@ -32,42 +32,42 @@ $page = 'budget-actions';
                   <tr>
                     <td>Budget Costshare Summary Report</td>
                     <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Budget Cumulative Report</td>
                     <td><input type="checkbox" id="inlineCheckbox2" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Budget Salary Report</td>
                     <td><input type="checkbox" id="inlineCheckbox3" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Budget Summary Report</td>
                     <td><input type="checkbox" id="inlineCheckbox4" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Budget Summary Total Report</td>
                     <td><input type="checkbox" id="inlineCheckbox5" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Budget Total Report</td>
                     <td><input type="checkbox" id="inlineCheckbox6" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Industrial Budget Report</td>
                     <td><input type="checkbox" id="inlineCheckbox7" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                   <tr>
                     <td>Industrial Cumulative Budget Report</td>
                     <td><input type="checkbox" id="inlineCheckbox8" value="option1"></td>
-                    <td><a class="btn btn-mini btn-inverse" href="#">Print</a></td>
+                    <td><a class="btn pull-right" href="#">Print</a></td>
                   </tr>
                 </tbody>
               </table>

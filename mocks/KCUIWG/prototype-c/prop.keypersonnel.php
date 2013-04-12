@@ -29,7 +29,8 @@ $page = 'personnel-pers';
               
             </div>--> 
                 <!-- Only required for left/right tabs -->
-                <p> Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
+                <p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
+                        <p><a id="personnel_add_step_1" class="btn" href="#"><i class="icon icon-plus"></i> Add Personnel</a></p>
                 <hr>
                 <!--    <div class="boxSubheader">
                 <h4>Personnel</h4>
@@ -38,9 +39,6 @@ $page = 'personnel-pers';
                 <ul class="nav nav-tabs" style="display:block" >
                   <li class="active">
                   <a href="#art" data-toggle="tab">Haskell, Edward <small>(PI)</small></a>
-                </li>
-                  <li>
-                  <a href="#" class="ajax-modal notab" data-backdrop="true" data-controls-modal="addemployee" data-keyboard="true" url="modal-addpersonnel/frame.html"><small><em>add person...</em></small></a>
                 </li>
                 </ul>
                 <div class="tab-content">

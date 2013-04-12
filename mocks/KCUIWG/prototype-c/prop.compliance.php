@@ -83,7 +83,7 @@ $page = 'compliance';
                             <span class="add-on"><i class="icon-calendar"></i></span></div>
                         </div></td>
                       <td>E2, E5, E6</td>
-                      <td><a href="#" class="btn btn-mini btn-inverse">Save</a> <a id="delete01" href="#">Cancel</a> 
+                      <td><a href="#" class="btn">Save</a> <a id="delete01" href="#">Cancel</a> 
                         <script>
 							$(document).ready(function () {
 								$("#delete01").click(function(){
@@ -134,7 +134,7 @@ $page = 'compliance';
                             <span class="add-on"><i class="icon-calendar"></i></span></div>
                         </div></td>
                       <td>E2, E5, E6</td>
-                      <td><a id="delete02" href="#" class="btn btn-mini">Delete</a> 
+                      <td><a id="delete02" href="#" class="btn btn-danger">Delete</a> 
                         <script>
               $(document).ready(function () {
                 $("#delete02").click(function(){
@@ -151,7 +151,7 @@ $page = 'compliance';
                       <td>01/12/2013</td>
                       <td>01/01/2018</td>
                       <td>E2, E5, E6</td>
-                      <td><a href="#" class="btn btn-mini">delete</a></td>
+                      <td><a href="#" class="btn btn-danger">Delete</a></td>
                     </tr>
                     <tr style="display:none;">
                       <td>Space Change</td>
@@ -161,7 +161,7 @@ $page = 'compliance';
                       <td>01/12/2013</td>
                       <td>01/01/2018</td>
                       <td>E2, E5, E6</td>
-                      <td><a href="#" class="btn btn-mini">delete</a></td>
+                      <td><a href="#" class="btn btn-danger">Delete</a></td>
                     </tr>
                     <tr style="display:none;">
                       <td>Biohazard Materials</td>
@@ -171,11 +171,11 @@ $page = 'compliance';
                       <td>01/12/2013</td>
                       <td>01/01/2018</td>
                       <td>E2, E5, E6</td>
-                      <td><a href="#" class="btn btn-mini">delete</a></td>
+                      <td><a href="#" class="btn btn-danger">Delete</a></td>
                     </tr>
                   </tbody>
                 </table>
-                <p style="margin-top: 10px;"><a href="#" class="btn btn-mini addcomplianceprotocol"> Add Row</a></p>
+                <p style="margin-top: 10px;"><a href="#" class="btn addcomplianceprotocol"><i class="icon icon-plus"></i> Add Row</a></p>
               </fieldset>
             </form>
           </div>

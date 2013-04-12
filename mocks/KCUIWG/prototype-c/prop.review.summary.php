@@ -18,7 +18,7 @@ $page = 'review-summary';
           
           	<ul id="myTab" class="nav nav-tabs" style="margin-top:25px;">
               <li><a href="#Summary" data-toggle="tab">Summary</a></li>
-              <li><a href="#Submit" data-toggle="tab">Submit</a></li>
+              <li><a href="#Submit" data-toggle="tab">Workflow Actions</a></li>
             </ul>
           
             <div class="tab-content">
@@ -27,17 +27,27 @@ $page = 'review-summary';
                     <!-- Progress Indication -->
                       <div class="box" style="margin-bottom:30px;">
                         <div class="boxHeader">
-                          <h3>Progress</h3>
+                          <h3>Workflow routing</h3>
                         </div>
                         <div class="boxContent" > 
                           
-                          	<div class="progress" style="height:30px;">
-                              <div class="bar bar-success" style="width: 30%; height:30px; padding-top:7px;" title="Completed">In Progress</div>
-                              <div class="bar bar-success" style="width: 20%; height:30px; padding-top:7px;" title="Completed">Routing &amp; Review</div>
-                              <div class="bar bar-warning" style="width: 15%; height:30px; padding-top:7px;" title="In Progress">Final Institutional Review</div>
-                              <div class="bar bar-danger" style="width: 15%; height:30px; padding-top:7px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started">Approved</div>
-                              <div class="bar bar-danger" style="width: 20%; height:30px; padding-top:7px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started">Submited to Sponsor</div>
+                          <div class="well">
+                            <h4>Proposal progress</h4>
+                            <div class="progress-details">
+                              <div class="empty complete" style="width: 20%">In Progress</div>
+                              <div class="empty complete" style="width: 20%">Routing &amp; Review</div>
+                              <div class="empty active" style="width: 20%">Final Institutional Review</div>
+                              <div class="empty" style="width: 20%">Approved</div>
+                              <div class="empty" style="width: 20%">Submitted to Sponsor</div>
                             </div>
+                          	<div class="progress" style="height:3px;">
+                              <div class="bar bar-success" style="width: 20%; height:3px;" title="Completed"></div>
+                              <div class="bar bar-success" style="width: 20%; height:3px;" title="Completed"></div>
+                              <div class="bar bar-warning" style="width: 20%; height:3px;" title="In Progress"></div>
+                              <div class="bar bar-danger" style="width: 20%; height:3px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started"></div>
+                              <div class="bar bar-danger" style="width: 20%; height:3px; background-image:none; background-color:#CCC; color:#999; text-shadow:none;" title="Not Started"></div>
+                            </div>
+                          </div>
                           
                         </div>
                       </div>
@@ -52,7 +62,7 @@ $page = 'review-summary';
                           <!-- Proposal Summary -->
                           <div class="boxSubheader">
                             <h4 style="border-bottom:none;">Items to Note</h4>
-                            <!--<div class="boxControls"><a href="#" class="btn btn-mini btn-inverse">Edit</a></div>--> 
+                            <!--<div class="boxControls"><a href="#" class="btn ">Edit</a></div>--> 
                           </div>
                           <div class="alert alert-info" style="margin-top:-13px;">
                             <ul>
@@ -68,7 +78,7 @@ $page = 'review-summary';
                           <!-- Overview -->
                           <div class="boxSubheader">
                             <h4>Overview</h4>
-                            <!--<div class="boxControls"><a href="#" class="btn btn-mini btn-inverse">Edit</a></div>--> 
+                            <!--<div class="boxControls"><a href="#" class="btn ">Edit</a></div>--> 
                           </div>
                           <dl class="table-display" style="margin-top:-13px;">
                             <dt>Investigator</dt>
@@ -89,7 +99,7 @@ $page = 'review-summary';
                           <!-- Budget Total -->
                           <div class="boxSubheader">
                             <h4 style="border-bottom:none;">Budget Total</h4>
-                            <!--<div class="boxControls"><a href="#" class="btn btn-mini btn-inverse">Edit</a></div>--> 
+                            <!--<div class="boxControls"><a href="#" class="btn ">Edit</a></div>--> 
                           </div>
                           <table class="table table-striped table-bordered table-condensed" style="margin-top:-13px;">
                             <thead>
@@ -273,7 +283,7 @@ $page = 'review-summary';
                         </div>
                         <div class="boxContent expandTarget" style="min-height:500px">
                           
-                          <div style="margin-bottom:10px;"><a href="#" class="btn btn-mini" onClick="alert('open modal with add attachment form')"><i class="icon icon-plus"></i>Upload and add attachment</a></div>
+                          <div style="margin-bottom:10px;"><a href="#" class="btn" onClick="alert('open modal with add attachment form')">Upload and add attachment</a></div>
                           
                           <div class="boxSubheader">
                             <h4>Proposal</h4>
@@ -644,7 +654,7 @@ $page = 'review-summary';
                             <div class="control-group"> 
                               <!-- Text input-->
                               <label class="control-label" for="input01"></label>
-                              <div class="controls"> <a href="#" class="btn btn-mini btn-success"><i class="icon-white icon-plus"></i>Upload and add attachment</a> </div>
+                              <div class="controls"> <a href="#" class="btn btn-success"><i class="icon-white icon-plus"></i>Upload and add attachment</a> </div>
                             </div>
                             
                             </fieldset>
@@ -679,7 +689,7 @@ $page = 'review-summary';
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><a href="#" class="btn btn-mini btn-inverse" role="button" data-toggle="modal">View</a></td>
+                                <td><a href="#" class="btn " role="button" data-toggle="modal">View</a></td>
                               </tr>
                               <tr>
                                 <td>Animal Usage</td>
@@ -687,7 +697,7 @@ $page = 'review-summary';
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><a href="#" class="btn btn-mini btn-inverse" role="button" data-toggle="modal">View</a></td>
+                                <td><a href="#" class="btn " role="button" data-toggle="modal">View</a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -717,22 +727,22 @@ $page = 'review-summary';
                               <tr>
                                 <td>Budget Summary by Period</td>
                                 <td><input type="checkbox" value="true" name="group"></td>
-                                <td><a href="#" class="btn btn-mini btn-inverse" role="button" data-toggle="modal">View</a></td>
+                                <td><a href="#" class="btn " role="button" data-toggle="modal">View</a></td>
                               </tr>
                               <tr>
                                 <td>Cost Sharing Summary by Period</td>
                                 <td><input type="checkbox" value="true" name="group"></td>
-                                <td><a href="#" class="btn btn-mini btn-inverse" role="button" data-toggle="modal">View</a></td>
+                                <td><a href="#" class="btn " role="button" data-toggle="modal">View</a></td>
                               </tr>
                               <tr>
                                 <td>Cumulative Budget</td>
                                 <td><input type="checkbox" value="true" name="group"></td>
-                                <td><a href="#" class="btn btn-mini btn-inverse" role="button" data-toggle="modal">View</a></td>
+                                <td><a href="#" class="btn " role="button" data-toggle="modal">View</a></td>
                               </tr>
                               <tr>
                                 <td>Industrial Budget by Period</td>
                                 <td><input type="checkbox" value="true" name="group"></td>
-                                <td><a href="#" class="btn btn-mini btn-inverse" role="button" data-toggle="modal">View</a></td>
+                                <td><a href="#" class="btn " role="button" data-toggle="modal">View</a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -786,22 +796,23 @@ $page = 'review-summary';
                     <!-- Submit -->
                     <div class="box">
                         <div class="boxHeader">
-                          <h3>Submit</h3>
+                          <h3>Workflow Actions</h3>
                         </div>
                         <div class="boxContent">
                           
-                          <div style="margin-bottom:30px;">
-                            <a href="#" class="btn">Approve</a>
-                            <a href="#" class="btn">Reject</a>
-                            <a href="#" class="btn">Send Notification</a>
+                          <div class="well" style="padding-bottom: 19px !important; margin-bottom:30px;">
+                            <h4>Proposal actions</h4>
+                            <a href="#" class="btn btn-success">Approve</a>
+                            <a href="#" class="btn btn-danger">Reject</a>
                             <a href="#" class="btn">Recall</a>
-                            <a href="#" class="btn">Submit to Sponsor</a>
+                            <a href="#" class="btn">Send Notification</a>
+                            <a href="#" class="btn btn-inverse pull-right">Submit to Sponsor</a>
                           </div>
                           
                           <div class="boxSubheader">
                             <h4>Comments</h4>
                           </div>
-                          <div style="margin-bottom:10px;"> <a href="#" class="btn btn-mini addcomplianceprotocol"><i class="icon icon-plus"></i> Add Comment</a> </div>
+                          <div style="margin-bottom:10px;"> <a href="#" class="btn addcomplianceprotocol"><i class="icon icon-plus"></i> Add Comment</a> </div>
                           <div id="dl3" style="display:block">
                             <table class="table table-striped table-bordered table-condensed">
                               <thead>
@@ -851,7 +862,7 @@ $(function () {
           <a href="http://localhost/kuali/prototype-c/prop.instspecdata.3.php" class="btn"><i class="icon-chevron-left"></i> Back</a> 
           <!--<a href="#" class="btn btn-success">Print</a>
           <a href="#" class="btn btn-success">Submit Proposal</a> 
-          <a href="prop.review.actions.php" class="btn btn-inverse">Continue <i class="icon-white icon-chevron-right"></i></a> -->
+          <a href="prop.review.actions.php" class="btn ">Continue <i class="icon-white icon-chevron-right"></i></a> -->
       </div>
       
     </div>
