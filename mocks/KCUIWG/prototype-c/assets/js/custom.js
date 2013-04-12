@@ -2,8 +2,8 @@
 	Custom scripting for additional functionality
 	Author: 	Chris Rodriguez, clrux@bu.edu
 	Created: 	8 Apr 2013, 16:34
-	Last Mod: 	12 Apr 2013, 09:16
-	Version: 	0.1.4
+	Last Mod: 	12 Apr 2013, 15:56
+	Version: 	0.2.0
 */
 
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 
 	/*
-	Sticky table of contents
+	Sticky elements
 	---------------------------------- */
 	if ( $('#sticky').length && $('#ToC').length ) {
 			
@@ -40,7 +40,6 @@ $(document).ready(function() {
 
 		function init_sticky_elems() {
 
-			// Doc header
 			if ($window.scrollTop() > sOffset.top) {
 				$('#sticky').addClass('fixed').css({
 					width: $('.column-navleft').width()
@@ -59,7 +58,6 @@ $(document).ready(function() {
 				});
 			}
 
-			// ToC
 			if ($window.scrollTop() > nOffset.top - 117) {
 				$('#ToC').addClass('fixed');
 			} else {
@@ -71,8 +69,36 @@ $(document).ready(function() {
 
 	init_sticky_elems();
 
+	if ( $('.docControls').length ) {
+
+		var d 		= $(document).height();
+		var w 		= $(window).height();
+		var s 		= $(window).scrollTop();
+		var b 		= 98;
+
+		function init_sticky_controls() {
+
+			if ( $('.docControls').offset().top >= ( d - b ) ) {
+	        	$('.docControls').css({
+					bottom: b,
+					width: $('.column-navleft').width()
+				});
+    		} else {
+				$('.docControls').css({
+		            bottom: 0, 
+		            width: $('.column-navleft').width()
+				});
+		    }
+
+		}
+
+	}
+
+	init_sticky_controls();
+
 	$(window).bind("resize, scroll", function() {
 		init_sticky_elems();
+		init_sticky_controls();
 	});
 
 });	

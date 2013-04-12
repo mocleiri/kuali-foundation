@@ -1716,7 +1716,7 @@ h3 {
 	top: 0;
 	z-index: 99999;
 	background: white;
-	box-shadow: 0 6px 8px -4px #ddd;
+	box-shadow: 0 6px 8px -4px rgba(0,0,0,.15);
 }
 
 #sticky.fixed .padded {
@@ -1731,6 +1731,15 @@ h3 {
 	position: fixed;
 	top: 117px;
 	width: 179px;
+}
+
+.docControls {
+	position: fixed;
+	box-shadow: 0 -6px 8px -4px rgba(0,0,0,.15);
+	background: white;
+	padding-top: 1.5em;
+	padding-bottom: 1.5em;
+	height: auto !important;
 }
 
 .boxContent .well {

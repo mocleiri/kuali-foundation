@@ -34,7 +34,7 @@ $page = 'review-summary';
                           <div class="well">
                             <h4>Proposal progress</h4>
                             <div class="progress-details">
-                              <div class="empty complete" style="width: 20%">In Progress</div>
+                              <div class="empty complete" style="width: 20%">Basics</div>
                               <div class="empty complete" style="width: 20%">Routing &amp; Review</div>
                               <div class="empty active" style="width: 20%">Final Institutional Review</div>
                               <div class="empty" style="width: 20%">Approved</div>
