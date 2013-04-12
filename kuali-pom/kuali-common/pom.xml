@@ -242,7 +242,7 @@
                   <goal>load</goal>
                 </goals>
                 <configuration>
-                  <annotatedClass>org.kuali.common.deploy.spring.DeployConfig</annotatedClass>
+                  <annotatedClass>org.kuali.common.deploy.spring.MavenDeployConfig</annotatedClass>
                 </configuration>
               </execution>
             </executions>
