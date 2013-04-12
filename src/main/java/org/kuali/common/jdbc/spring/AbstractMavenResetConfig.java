@@ -20,11 +20,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.PropertySourceContext;
-import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -66,29 +62,8 @@ public abstract class AbstractMavenResetConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
-		// Simple flag for skipping execution altogether
 		boolean skip = SpringUtils.getBoolean(env, "db.reset.skip", false);
-
-		/**
-		 * This line creates a property source containing 100% of the properties needed by Spring to resolve any/all placeholders. It will be the only property source available to
-		 * Spring so it needs to include system properties and environment variables
-		 */
-		PropertySourceContext psc = new PropertySourceContext(springPropertySource(), true);
-
-		// Setup the list containing annotated configuration classes
-		List<Class<?>> annotatedClasses = getAnnotatedClasses();
-
-		// Setup the Spring context
-		SpringContext context = new SpringContext();
-		context.setAnnotatedClasses(annotatedClasses);
-		context.setPropertySourceContext(psc);
-
-		// Load the context
-		SpringExecutable se = new SpringExecutable();
-		se.setService(new DefaultSpringService());
-		se.setContext(context);
-		se.setSkip(skip);
-		return se;
+		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), getAnnotatedClasses());
 	}
 
 }
