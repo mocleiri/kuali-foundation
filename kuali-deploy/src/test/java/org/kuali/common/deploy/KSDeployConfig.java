@@ -25,7 +25,6 @@ import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
@@ -103,12 +102,8 @@ public class KSDeployConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
-		PropertySource<?> ps = springPropertySource();
-		Properties properties = (Properties) ps.getSource();
-		PropertyUtils.info(properties);
-		// return null;
-		// Setup a flag for skipping execution completely
-		boolean skip = false; // SpringUtils.getBoolean(env, "db.reset.skip", false);
+		// Setup a flag for skipping the deploy completely
+		boolean skip = SpringUtils.getBoolean(env, "kdo.deploy.skip", false);
 		// Get an executable, backed by the correct set of properties, loading the correct config
 		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), CollectionUtils.asList(DeployConfig.class));
 	}
