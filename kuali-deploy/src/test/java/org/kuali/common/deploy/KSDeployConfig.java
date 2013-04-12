@@ -97,12 +97,6 @@ public class KSDeployConfig {
 		// Combine project properties into a list where the "last one in wins"
 		List<ProjectProperties> pps = getProjectPropertiesList();
 
-		for (ProjectProperties pp : pps) {
-			if (pp.getPropertiesContext().getProperties() != null) {
-				System.out.println("size=" + pp.getPropertiesContext().getProperties().size());
-			}
-		}
-
 		// Get a PropertySource object backed by the properties loaded from the list
 		return SpringUtils.getPropertySource("springPropertySource", pps);
 	}
