@@ -36,9 +36,14 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
+import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.PropertySourceContext;
+import org.kuali.common.util.service.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -60,6 +65,26 @@ public class SpringUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 	// Configure a helper that will fail on any unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+
+	public static Executable getSpringExecutable(Environment env, boolean skip, PropertySource<?> ps, List<Class<?>> annotatedClasses) {
+		/**
+		 * This line creates a property source containing 100% of the properties needed by Spring to resolve any/all placeholders. It will be the only property source available to
+		 * Spring so it needs to include system properties and environment variables
+		 */
+		PropertySourceContext psc = new PropertySourceContext(ps, true);
+
+		// Setup the Spring context
+		SpringContext context = new SpringContext();
+		context.setAnnotatedClasses(annotatedClasses);
+		context.setPropertySourceContext(psc);
+
+		// Load the context
+		SpringExecutable se = new SpringExecutable();
+		se.setService(new DefaultSpringService());
+		se.setContext(context);
+		se.setSkip(skip);
+		return se;
+	}
 
 	public static boolean getBoolean(Environment env, String key, boolean defaultValue) {
 		String value = getProperty(env, key, defaultValue + "");
