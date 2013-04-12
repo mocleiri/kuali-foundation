@@ -29,7 +29,7 @@ public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<Str
 	boolean mustExist;
 
 	@Override
-	public String getObject() throws Exception {
+	public String getObject() {
 
 		Assert.notNull(localRepositoryDir);
 		Assert.hasText(getGroupId());

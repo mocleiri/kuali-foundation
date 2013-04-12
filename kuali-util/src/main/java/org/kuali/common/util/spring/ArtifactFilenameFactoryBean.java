@@ -23,7 +23,7 @@ import org.springframework.util.Assert;
 public class ArtifactFilenameFactoryBean extends Artifact implements FactoryBean<String> {
 
 	@Override
-	public String getObject() throws Exception {
+	public String getObject() {
 
 		Assert.notNull(getGroupId());
 		Assert.notNull(getArtifactId());
