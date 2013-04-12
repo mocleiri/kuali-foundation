@@ -18,14 +18,10 @@ package org.kuali.common.jdbc.spring;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -52,23 +48,7 @@ public abstract class AbstractMavenResetConfig {
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
-		Project project = ProjectUtils.getProject(mavenProperties);
-
-		List<String> excludes = getList(env, "properties.maven.exclude");
-		PropertyUtils.trim(mavenProperties, null, excludes);
-
-		PropertiesContext pc = new PropertiesContext();
-		pc.setProperties(mavenProperties);
-
-		ProjectProperties pp = new ProjectProperties();
-		pp.setProject(project);
-		pp.setPropertiesContext(pc);
-		return pp;
-	}
-
-	protected List<String> getList(Environment env, String key) {
-		String csv = env.getProperty(key);
-		return CollectionUtils.getTrimmedListFromCSV(csv);
+		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
 	}
 
 	protected abstract List<ProjectProperties> getProjectPropertiesList();
