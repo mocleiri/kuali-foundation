@@ -22,13 +22,13 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
 public class DeployConfig {
 
 	@Autowired
-	Environment env;
+	ConfigurableEnvironment env;
 
 	@Bean
 	public Artifact kdoJdbcDriverArtifact() {
@@ -250,7 +250,7 @@ public class DeployConfig {
 		h.setDeployables(kdoDeployables());
 
 		// TODO set this correctly
-		h.setProperties(null);
+		h.setProperties(SpringUtils.getAllEnumerableProperties(env));
 
 		h.setOwner(SpringUtils.getProperty(env, "tomcat.owner"));
 		h.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
