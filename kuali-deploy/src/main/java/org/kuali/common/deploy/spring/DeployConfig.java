@@ -13,6 +13,7 @@ import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
 import org.kuali.common.deploy.SpringDatabaseHandler;
+import org.kuali.common.jdbc.spring.MavenResetConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -248,24 +249,17 @@ public class DeployConfig {
 		h.setDirectoriesToCreate(kdoDirectoriesToCreate());
 		h.setDirectoriesToChown(kdoDirectoriesToChown());
 		h.setDeployables(kdoDeployables());
-
-		// TODO set this correctly
 		h.setProperties(SpringUtils.getAllEnumerableProperties(env));
-
 		h.setOwner(SpringUtils.getProperty(env, "tomcat.owner"));
 		h.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
-
 		return h;
 	}
 
 	@Bean
 	public SpringDatabaseHandler kdoDatabaseHandler() {
 		SpringDatabaseHandler h = new SpringDatabaseHandler();
-
-		// TODO Set these correctly
-		h.setAnnotatedClass(null);
+		h.setAnnotatedClass(MavenResetConfig.class);
 		h.setProperties(SpringUtils.getAllEnumerableProperties(env));
-
 		h.setSkip(SpringUtils.getBoolean(env, "kdo.db.skip", true));
 		return h;
 	}
