@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class DeployProjectConfig {
 
 	@Bean
-	public Project jdbcProject() {
+	public Project deployProject() {
 		return ProjectUtils.loadProject("org.kuali.common:kuali-deploy");
 	}
 

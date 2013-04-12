@@ -34,8 +34,8 @@ public class DeployPropertiesConfig {
 	DeployProjectConfig projectConfig;
 
 	@Bean
-	public ProjectProperties jdbcProjectProperties() {
-		Project project = projectConfig.jdbcProject();
+	public ProjectProperties deployProjectProperties() {
+		Project project = projectConfig.deployProject();
 
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:org/kuali/deploy/deploy.properties");
