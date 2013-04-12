@@ -264,8 +264,6 @@ public class DeployConfig {
 
 		// TODO Set these correctly
 		h.setAnnotatedClass(null);
-		h.setBeanNames(null);
-		h.setBeanNames(null);
 
 		h.setSkip(SpringUtils.getBoolean(env, "kdo.db.skip", true));
 		return h;

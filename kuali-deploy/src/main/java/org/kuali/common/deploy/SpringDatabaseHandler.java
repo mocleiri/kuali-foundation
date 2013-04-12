@@ -1,6 +1,6 @@
 package org.kuali.common.deploy;
 
-import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.service.DefaultSpringService;
@@ -16,8 +16,7 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 
 	SpringService service = new DefaultSpringService();
 	Class<?> annotatedClass;
-	List<Object> beans;
-	List<String> beanNames;
+	Properties properties;
 	boolean skip;
 
 	@Override
@@ -31,8 +30,6 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		logger.info("Database reset");
 		SpringContext sc = new SpringContext();
 		sc.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-		sc.setBeanNames(beanNames);
-		sc.setBeans(beans);
 		service.load(sc);
 	}
 
@@ -44,20 +41,20 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		this.service = service;
 	}
 
-	public List<Object> getBeans() {
-		return beans;
+	public Class<?> getAnnotatedClass() {
+		return annotatedClass;
 	}
 
-	public void setBeans(List<Object> beans) {
-		this.beans = beans;
+	public void setAnnotatedClass(Class<?> annotatedClass) {
+		this.annotatedClass = annotatedClass;
 	}
 
-	public List<String> getBeanNames() {
-		return beanNames;
+	public Properties getProperties() {
+		return properties;
 	}
 
-	public void setBeanNames(List<String> beanNames) {
-		this.beanNames = beanNames;
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 	public boolean isSkip() {
@@ -66,14 +63,6 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
-	}
-
-	public Class<?> getAnnotatedClass() {
-		return annotatedClass;
-	}
-
-	public void setAnnotatedClass(Class<?> annotatedClass) {
-		this.annotatedClass = annotatedClass;
 	}
 
 }
