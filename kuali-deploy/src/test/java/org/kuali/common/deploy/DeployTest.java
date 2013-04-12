@@ -11,7 +11,8 @@ public class DeployTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("properties.resolve", "false");
+			System.setProperty("properties.resolve", "true");
+			System.setProperty("deploy.env", "16");
 			ss.load(KSDeployConfig.class);
 		} catch (Exception e) {
 			e.printStackTrace();
