@@ -64,6 +64,9 @@ public class KSDeployConfig {
 	@Bean
 	public ProjectProperties mavenProperties() {
 		Properties p = new Properties();
+		p.setProperty("project.orgId", "org.kuali");
+		p.setProperty("project.orgId.code", "kuali");
+		p.setProperty("project.orgId.path", "org/kuali");
 		p.setProperty("project.groupId", "org.kuali.student.web");
 		p.setProperty("project.artifactId", "ks-with-rice-bundled");
 		p.setProperty("project.version", "2.0.0-build-353");
