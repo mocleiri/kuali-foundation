@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
@@ -32,11 +33,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ DeployPropertiesConfig.class })
+@Import({ JdbcPropertiesConfig.class, DeployPropertiesConfig.class })
 public class MavenDeployConfig {
 
 	@Autowired
 	protected Environment env;
+
+	@Autowired
+	protected JdbcPropertiesConfig jdbcProperties;
 
 	@Autowired
 	protected DeployPropertiesConfig deployProperties;
@@ -53,6 +57,7 @@ public class MavenDeployConfig {
 
 	public List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+		pps.add(jdbcProperties.jdbcProjectProperties());
 		pps.add(deployProperties.deployProjectProperties());
 		pps.add(mavenProjectProperties());
 		return pps;
