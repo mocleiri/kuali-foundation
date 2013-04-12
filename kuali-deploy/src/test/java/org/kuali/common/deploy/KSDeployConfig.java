@@ -22,9 +22,12 @@ import java.util.Properties;
 import org.kuali.common.deploy.spring.DeployPropertiesConfig;
 import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
+import org.kuali.common.util.Project;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.property.PropertiesContext;
+import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -51,10 +54,37 @@ public class KSDeployConfig {
 
 	public List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+		pps.add(mavenProperties());
 		pps.add(jdbcProperties.jdbcProjectProperties());
 		pps.add(generatorProperties.generatorProjectProperties());
 		pps.add(deployProperties.deployProjectProperties());
 		return pps;
+	}
+
+	@Bean
+	public ProjectProperties mavenProperties() {
+		Properties p = new Properties();
+		p.setProperty("project.groupId", "org.kuali.student.web");
+		p.setProperty("project.artifactId", "ks-with-rice-bundled");
+		p.setProperty("project.version", "2.0.0-build-353");
+
+		ProjectProcessor processor = new ProjectProcessor();
+		processor.process(p);
+
+		Project project = new Project();
+		project.setGroupId(p.getProperty("project.groupId"));
+		project.setArtifactId(p.getProperty("project.artifactId"));
+		project.setVersion(p.getProperty("project.version"));
+		project.setEncoding("UTF-8");
+
+		PropertiesContext pc = new PropertiesContext();
+		pc.setEncoding(project.getEncoding());
+		pc.setProperties(p);
+
+		ProjectProperties pp = new ProjectProperties();
+		pp.setProject(project);
+		pp.setPropertiesContext(pc);
+		return pp;
 	}
 
 	@Bean
