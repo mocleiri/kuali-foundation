@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
@@ -60,12 +61,6 @@ public class MavenDeployConfig {
 		return pps;
 	}
 
-	public List<Class<?>> getAnnotatedClasses() {
-		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-		annotatedClasses.add(DeployConfig.class);
-		return annotatedClasses;
-	}
-
 	@Bean
 	public PropertySource<?> springPropertySource() {
 		// Combine project properties into a list where the "last one in wins"
@@ -79,8 +74,8 @@ public class MavenDeployConfig {
 	public Executable springExecutable() {
 		// Setup a flag for skipping execution completely
 		boolean skip = SpringUtils.getBoolean(env, "db.reset.skip", false);
-		// Get an executable, backed by the properties we want, that will execute the specified config
-		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), getAnnotatedClasses());
+		// Get an executable, backed by the correct set of properties, loading the correct config
+		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), CollectionUtils.asList(DeployConfig.class));
 	}
 
 }
