@@ -61,14 +61,30 @@ public class PropertyUtils {
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
 	public static Properties load(List<ProjectProperties> pps) {
+
+		// Create some storage for the Properties object we will be returning
 		Properties properties = new Properties();
+
+		// Cycle through the list of project properties, loading them as we go
 		for (ProjectProperties pp : pps) {
+
+			// Extract the properties context object
 			PropertiesContext ctx = pp.getPropertiesContext();
+
+			// Override any existing property values with properties stored directly on the context
 			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
+
+			// Store the combined properties on the context itself
 			ctx.setProperties(combined);
-			Properties loaded = PropertyUtils.load(ctx);
+
+			// Load properties as dictated by the context
+			Properties loaded = load(ctx);
+
+			// Override any existing property values with those we just loaded
 			properties.putAll(loaded);
 		}
+
+		// Return the property values we now have
 		return properties;
 	}
 
@@ -78,26 +94,49 @@ public class PropertyUtils {
 			return PropertyUtils.toEmpty(context.getProperties());
 		}
 
-		// Load properties as appropriate
+		// Make sure we are configured correctly
 		Assert.notNull(context.getHelper(), "helper is null");
 		Assert.notNull(context.getLocations(), "locations are null");
 		Assert.notNull(context.getEncoding(), "encoding is null");
 		Assert.notNull(context.getMissingLocationsMode(), "missingLocationsMode is null");
+
+		// Get system/environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
+
+		// Convert null to an empty properties object (if necessary)
 		context.setProperties(PropertyUtils.toEmpty(context.getProperties()));
+
+		// Create new storage for the properties we are loading
 		Properties result = new Properties();
+
+		// Add in any properties stored directly on the context itself (these get overridden by properties loaded elsewhere)
 		result.putAll(PropertyUtils.toEmpty(context.getProperties()));
+
+		// Cycle through the locations, loading and storing properties as we go
 		for (String location : context.getLocations()) {
+
+			// Get a combined Properties object capable of resolving any placeholders that exist in the property location strings
 			Properties resolverProperties = PropertyUtils.combine(context.getProperties(), result, global);
+
+			// Make sure we have a fully resolved location to load Properties from
 			String resolvedLocation = context.getHelper().replacePlaceholders(location, resolverProperties);
+
+			// If the location exists, load properties from it
 			if (LocationUtils.exists(resolvedLocation)) {
+
+				// Load this set of Properties
 				Properties properties = PropertyUtils.load(resolvedLocation, context.getEncoding());
-				result.putAll(context.getProperties());
+
+				// Add these properties to the result. This follows the traditional "last one in wins" strategy
 				result.putAll(properties);
 			} else {
+
+				// Handle missing locations (might be fine, may need to emit a logging statement, may need to error out)
 				ModeUtils.validate(context.getMissingLocationsMode(), "Non-existent location [" + resolvedLocation + "]");
 			}
 		}
+
+		// Return the properties we loaded
 		return result;
 	}
 
