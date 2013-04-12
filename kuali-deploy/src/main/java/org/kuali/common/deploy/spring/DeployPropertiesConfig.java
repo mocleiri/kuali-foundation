@@ -18,6 +18,7 @@ package org.kuali.common.deploy.spring;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.ConfigUtils;
@@ -44,7 +45,9 @@ public class DeployPropertiesConfig {
 		locations.add("classpath:${project.groupId.path}/${project.artifactId}.properties");
 		locations.add("classpath:${project.groupId.path}/env${deploy.env}.properties");
 
-		return ConfigUtils.getProjectProperties(project, locations);
+		ProjectProperties pp = ConfigUtils.getProjectProperties(project, locations);
+		pp.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
+		return pp;
 	}
 
 }
