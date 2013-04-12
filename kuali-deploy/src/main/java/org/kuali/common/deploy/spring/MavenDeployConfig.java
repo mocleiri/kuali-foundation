@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.jdbc.spring.ResetConfig;
-import org.kuali.common.jdbc.spring.ResetController;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
@@ -59,8 +57,7 @@ public class MavenDeployConfig {
 
 	public List<Class<?>> getAnnotatedClasses() {
 		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-		annotatedClasses.add(ResetConfig.class);
-		annotatedClasses.add(ResetController.class);
+		annotatedClasses.add(DeployConfig.class);
 		return annotatedClasses;
 	}
 
