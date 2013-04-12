@@ -12,6 +12,7 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
+import org.kuali.common.jdbc.spring.ResetConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -21,13 +22,18 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
+@Import({ ResetConfig.class, DatabaseResetController.class })
 public class DeployConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
+
+	@Autowired
+	DatabaseResetController databaseResetController;
 
 	@Bean
 	public Artifact kdoJdbcDriverArtifact() {
@@ -258,6 +264,7 @@ public class DeployConfig {
 		DefaultDeployService s = new DefaultDeployService();
 		s.setChannel(kdoSecureChannel());
 		s.setController(kdoController());
+		s.setDatabaseResetExecutable(databaseResetController.jdbcResetExecutable());
 		s.setHandler(kdoHandler());
 		s.setContext(kdoContext());
 		return s;
