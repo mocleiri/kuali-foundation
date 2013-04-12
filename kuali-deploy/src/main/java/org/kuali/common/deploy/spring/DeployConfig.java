@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.deploy.AppServerController;
+import org.kuali.common.deploy.DefaultDeployService;
 import org.kuali.common.deploy.DefaultFileSystemHandler;
 import org.kuali.common.deploy.DefaultTomcatController;
 import org.kuali.common.deploy.DeployContext;
+import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
 import org.kuali.common.deploy.SpringDatabaseHandler;
@@ -267,6 +269,17 @@ public class DeployConfig {
 
 		h.setSkip(SpringUtils.getBoolean(env, "kdo.db.skip", true));
 		return h;
+	}
+
+	@Bean(initMethod = "deploy")
+	public DeployService kdoDeployService() {
+		DefaultDeployService s = new DefaultDeployService();
+		s.setChannel(kdoSecureChannel());
+		s.setController(kdoController());
+		s.setHandler(kdoHandler());
+		s.setDatabaseHandler(kdoDatabaseHandler());
+		s.setContext(kdoContext());
+		return s;
 	}
 
 }
