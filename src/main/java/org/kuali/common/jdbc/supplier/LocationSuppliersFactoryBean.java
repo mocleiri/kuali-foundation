@@ -13,8 +13,11 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+@Configuration
 public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
 	public static final String DEFAULT_LIST_SUFFIX = ".list";
@@ -25,6 +28,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	Map<String, LocationSupplierSourceBean> extensionMappings;
 
 	@Override
+    @Bean
 	public List<LocationSupplier> getObject() {
 
 		// Make sure we are configured correctly
