@@ -11,6 +11,8 @@ import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
+import org.kuali.common.util.spring.ArtifactFilenameFactoryBean;
+import org.kuali.common.util.spring.ArtifactPathFactoryBean;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -158,6 +160,67 @@ public class DeployConfig {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.tail"));
 		d.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.tail.local"));
+		return d;
+	}
+
+	@Bean
+	public String kdoJdbcDriverFilename() {
+		Artifact jdbcDriver = kdoJdbcDriverArtifact();
+
+		ArtifactFilenameFactoryBean factory = new ArtifactFilenameFactoryBean();
+		factory.setGroupId(jdbcDriver.getGroupId());
+		factory.setArtifactId(jdbcDriver.getArtifactId());
+		factory.setVersion(jdbcDriver.getVersion());
+		factory.setType(jdbcDriver.getType());
+		return factory.getObject();
+	}
+
+	@Bean
+	public String kdoJdbcDriverPath() {
+		Artifact jdbcDriver = kdoJdbcDriverArtifact();
+		ArtifactPathFactoryBean factory = new ArtifactPathFactoryBean();
+		factory.setGroupId(jdbcDriver.getGroupId());
+		factory.setArtifactId(jdbcDriver.getArtifactId());
+		factory.setVersion(jdbcDriver.getVersion());
+		factory.setType(jdbcDriver.getType());
+		return factory.getObject();
+	}
+
+	@Bean
+	public String kdoApplicationPath() {
+		Artifact app = kdoApplicationArtifact();
+		ArtifactPathFactoryBean factory = new ArtifactPathFactoryBean();
+		factory.setGroupId(app.getGroupId());
+		factory.setArtifactId(app.getArtifactId());
+		factory.setVersion(app.getVersion());
+		factory.setType(app.getType());
+		factory.setMustExist(true);
+		return factory.getObject();
+	}
+
+	@Bean
+	public Deployable kdoJdbcDriver() {
+		String lib = SpringUtils.getProperty(env, "tomcat.lib");
+		Deployable d = new Deployable();
+		d.setRemote(lib + "/" + kdoJdbcDriverFilename());
+		d.setLocal(kdoJdbcDriverPath());
+		return d;
+	}
+
+	@Bean
+	public Deployable kdoApplication() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "tomcat.root.war"));
+		d.setLocal(kdoApplicationPath());
+		return d;
+	}
+
+	@Bean
+	public Deployable kdoConfig() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "kdo.config"));
+		d.setLocal(SpringUtils.getProperty(env, "kdo.config.local"));
+		d.setFilter(SpringUtils.getBoolean(env, "kdo.config.filter", true));
 		return d;
 	}
 
