@@ -234,20 +234,18 @@
           <plugin>
             <groupId>org.kuali.maven.plugins</groupId>
             <artifactId>spring-maven-plugin</artifactId>
-            <version>1.2.5</version>
             <executions>
               <execution>
                 <id>load</id>
                 <phase>initialize</phase>
                 <goals>
-                  <goal>load</goal>
+                  <goal>loadxml</goal>
                 </goals>
                 <configuration>
                   <location>classpath:org/kuali/common/deploy/spring/deploy-context.xml</location>
                   <locations>
                     <location>classpath:org/kuali/common/http/http-wait-context.xml</location>
                   </locations>
-                  <propertiesBeanName>kdo.mavenProperties</propertiesBeanName>
                 </configuration>
               </execution>
             </executions>
