@@ -22,14 +22,11 @@ import java.util.Properties;
 import org.kuali.common.deploy.spring.DeployPropertiesConfig;
 import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
-import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -52,21 +49,11 @@ public class KSDeployConfig {
 	@Autowired
 	protected DeployPropertiesConfig deployProperties;
 
-	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	protected Properties mavenProperties;
-
-	@Bean
-	public ProjectProperties mavenProjectProperties() {
-		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
-	}
-
 	public List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		pps.add(jdbcProperties.jdbcProjectProperties());
 		pps.add(generatorProperties.generatorProjectProperties());
 		pps.add(deployProperties.deployProjectProperties());
-		pps.add(mavenProjectProperties());
 		return pps;
 	}
 
