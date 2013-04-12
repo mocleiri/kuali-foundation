@@ -221,4 +221,17 @@ public class DeployConfig {
 		return d;
 	}
 
+	@Bean
+	public List<Deployable> kdoDeployables() {
+		List<Deployable> list = new ArrayList<Deployable>();
+		list.add(kdoSetEnv());
+		list.add(kdoAppDynamics());
+		list.add(kdoJspEnv());
+		list.add(kdoJspTail());
+		list.add(kdoConfig());
+		list.add(kdoJdbcDriver());
+		list.add(kdoApplication());
+		return list;
+	}
+
 }
