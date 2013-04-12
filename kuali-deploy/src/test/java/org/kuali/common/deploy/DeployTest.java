@@ -12,6 +12,7 @@ public class DeployTest {
 	public void test() {
 		try {
 			System.setProperty("properties.resolve", "true");
+			System.setProperty("properties.decrypt", "true");
 			System.setProperty("deploy.env", "16");
 			ss.load(KSDeployConfig.class);
 		} catch (Exception e) {
