@@ -55,7 +55,7 @@
 
   <bean id="kdo.properties" class="org.kuali.common.util.spring.PropertyFactoryBean">
     <property name="locations" ref="kdo.locations" />
-    <property name="locationHelperProperties" ref="kdo.mavenProperties" />
+    <property name="locationHelperProperties" ref="mavenProperties" />
     <property name="encryptionMode" value="${kuali.enc.mode:NONE}" />
     <property name="encryptionPassword" value="${kuali.enc.password:NONE}" />
     <property name="organizationGroupId" value="${kuali.groupId}" />
