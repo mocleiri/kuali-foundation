@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,11 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		Assert.notNull(service);
 		Assert.notNull(contextLocation);
 		logger.info("Database reset");
-		service.load(Arrays.asList(contextLocation), beanNames, beans);
+		SpringContext sc = new SpringContext();
+		sc.setLocations(Arrays.asList(contextLocation));
+		sc.setBeanNames(beanNames);
+		sc.setBeans(beans);
+		service.load(sc);
 	}
 
 	public SpringService getService() {

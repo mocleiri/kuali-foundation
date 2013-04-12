@@ -17,7 +17,7 @@ package org.kuali.common.deploy;
 
 import java.util.Date;
 
-import org.kuali.common.util.SimpleFormatter;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
@@ -28,7 +28,6 @@ public class DefaultTomcatController implements AppServerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultTomcatController.class);
 
-	SimpleFormatter formatter = new SimpleFormatter();
 	UnixCmds cmds = new UnixCmds();
 	boolean validateShutdownExitValue = false;
 	SecureChannel channel;
@@ -38,7 +37,7 @@ public class DefaultTomcatController implements AppServerController {
 
 	@Override
 	public void stop() {
-		logger.info("Shutting down Tomcat - {}", formatter.getDate(new Date()));
+		logger.info("Shutting down Tomcat - {}", FormatUtils.getDate(new Date()));
 		executeCommand(cmds.su(username, shutdown), validateShutdownExitValue);
 	}
 

@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.SimpleFormatter;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.secure.RemoteFile;
@@ -24,7 +24,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	SimpleFormatter formatter = new SimpleFormatter();
 	UnixCmds cmds = new UnixCmds();
 	Properties properties;
 	SecureChannel channel;
@@ -62,7 +61,7 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 				String resolvedContent = helper.replacePlaceholders(originalContent, properties);
 				channel.copyStringToFile(resolvedContent, destination);
 				long elapsed = System.currentTimeMillis() - start;
-				Object[] args = { properties.size(), location, destination.getAbsolutePath(), formatter.getTime(elapsed) };
+				Object[] args = { properties.size(), location, destination.getAbsolutePath(), FormatUtils.getTime(elapsed) };
 				logger.info("Used {} properties to filter [{}] -> [{}] - {}", args);
 			} else {
 				long start = System.currentTimeMillis();
@@ -82,9 +81,9 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 		String rate = "";
 		if (LocationUtils.isExistingFile(src)) {
 			long bytes = new File(src).length();
-			rate = formatter.getRate(elapsed, bytes);
+			rate = FormatUtils.getRate(elapsed, bytes);
 		}
-		Object[] args = { src, dst, formatter.getTime(elapsed), rate };
+		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate };
 		logger.info("[{}] -> [{}] - {} {}", args);
 	}
 
@@ -187,14 +186,6 @@ public class DefaultFileSystemHandler implements FileSystemHandler {
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
-	}
-
-	public SimpleFormatter getFormatter() {
-		return formatter;
-	}
-
-	public void setFormatter(SimpleFormatter formatter) {
-		this.formatter = formatter;
 	}
 
 }

@@ -69,7 +69,7 @@
     <property name="groupId" value="${jdbc.driver.groupId}" />
     <property name="artifactId" value="${jdbc.driver.artifactId}" />
     <property name="version" value="${jdbc.driver.version}" />
-    <property name="packaging" value="jar" />
+    <property name="type" value="jar" />
   </bean>
 
   <bean id="kdoApplicationArtifact" class="org.kuali.common.util.Artifact">
@@ -77,7 +77,7 @@
     <property name="artifactId" value="${project.artifactId}" />
     <property name="version" value="${project.version}" />
     <property name="classifier" value="${project.classifier:NONE}" />
-    <property name="packaging" value="war" />
+    <property name="type" value="war" />
   </bean>
 
   <bean id="kdoContext" class="org.kuali.common.deploy.DeployContext">
@@ -167,14 +167,14 @@
     <property name="groupId" value="${jdbc.driver.groupId}" />
     <property name="artifactId" value="${jdbc.driver.artifactId}" />
     <property name="version" value="${jdbc.driver.version}" />
-    <property name="packaging" value="jar" />
+    <property name="type" value="jar" />
   </bean>
 
   <bean id="kdoJdbcDriverPath" class="org.kuali.common.util.spring.ArtifactPathFactoryBean">
     <property name="groupId" value="#{kdoJdbcDriverArtifact.groupId}" />
     <property name="artifactId" value="#{kdoJdbcDriverArtifact.artifactId}" />
     <property name="version" value="#{kdoJdbcDriverArtifact.version}" />
-    <property name="packaging" value="#{kdoJdbcDriverArtifact.packaging}" />
+    <property name="type" value="#{kdoJdbcDriverArtifact.type}" />
     <property name="mustExist" value="true" />
   </bean>
 
@@ -183,7 +183,7 @@
     <property name="artifactId" value="#{kdoApplicationArtifact.artifactId}" />
     <property name="version" value="#{kdoApplicationArtifact.version}" />
     <property name="classifier" value="#{kdoApplicationArtifact.classifier}" />
-    <property name="packaging" value="#{kdoApplicationArtifact.packaging}" />
+    <property name="type" value="#{kdoApplicationArtifact.type}" />
     <property name="mustExist" value="true" />
   </bean>
 
