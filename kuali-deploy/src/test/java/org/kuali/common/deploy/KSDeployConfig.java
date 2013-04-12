@@ -71,7 +71,7 @@ public class KSDeployConfig {
 		p.setProperty("project.orgId.path", "org/kuali");
 		p.setProperty("project.groupId", "org.kuali.student.web");
 		p.setProperty("project.artifactId", "ks-with-rice-bundled");
-		p.setProperty("project.version", "2.0.0-build-353");
+		p.setProperty("project.version", "2.0.0-SNAPSHOT");
 
 		ProjectProcessor processor = new ProjectProcessor();
 		processor.process(p);
