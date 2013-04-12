@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
+import org.kuali.common.jdbc.spring.ResetConfig;
+import org.kuali.common.jdbc.spring.ResetController;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
@@ -75,7 +77,7 @@ public class MavenDeployConfig {
 		// Setup a flag for skipping execution completely
 		boolean skip = SpringUtils.getBoolean(env, "db.reset.skip", false);
 		// Get an executable, backed by the correct set of properties, loading the correct config
-		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), CollectionUtils.asList(DeployConfig.class));
+		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), CollectionUtils.asList(DeployConfig.class, ResetConfig.class, ResetController.class));
 	}
 
 }
