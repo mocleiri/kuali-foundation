@@ -62,7 +62,9 @@ public abstract class AbstractMavenResetConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
+		// Setup a flag for skipping execution completely
 		boolean skip = SpringUtils.getBoolean(env, "db.reset.skip", false);
+		// Get an executable, backed by the properties we want, that will execute the specified config
 		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), getAnnotatedClasses());
 	}
 
