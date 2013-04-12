@@ -12,6 +12,7 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
+import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.spring.ResetConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
@@ -26,7 +27,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ ResetConfig.class, DatabaseResetController.class })
+@Import({ MpxSupplierConfig.class, ResetConfig.class, DatabaseResetController.class })
 public class DeployConfig {
 
 	@Autowired

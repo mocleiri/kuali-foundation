@@ -3,7 +3,9 @@ package org.kuali.common.deploy.spring;
 import org.kuali.common.jdbc.spring.ResetController;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class DatabaseResetController extends ResetController {
 
 	@Override

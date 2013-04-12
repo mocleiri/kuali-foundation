@@ -22,7 +22,6 @@ import java.util.Properties;
 import org.kuali.common.deploy.spring.DeployConfig;
 import org.kuali.common.deploy.spring.DeployPropertiesConfig;
 import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
-import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
@@ -39,7 +38,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class, MpxSupplierConfig.class, DeployPropertiesConfig.class })
+@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class, DeployPropertiesConfig.class })
 public class KSDeployConfig {
 
 	@Autowired
