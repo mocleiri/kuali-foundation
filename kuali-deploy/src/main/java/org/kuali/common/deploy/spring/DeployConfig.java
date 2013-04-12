@@ -263,7 +263,7 @@ public class DeployConfig {
 		SpringDatabaseHandler h = new SpringDatabaseHandler();
 
 		// TODO Set these correctly
-		h.setContextLocation(null);
+		h.setAnnotatedClass(null);
 		h.setBeanNames(null);
 		h.setBeanNames(null);
 

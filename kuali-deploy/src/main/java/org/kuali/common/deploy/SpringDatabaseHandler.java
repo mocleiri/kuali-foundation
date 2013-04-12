@@ -68,4 +68,12 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		this.skip = skip;
 	}
 
+	public Class<?> getAnnotatedClass() {
+		return annotatedClass;
+	}
+
+	public void setAnnotatedClass(Class<?> annotatedClass) {
+		this.annotatedClass = annotatedClass;
+	}
+
 }
