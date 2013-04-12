@@ -12,8 +12,6 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
-import org.kuali.common.deploy.SpringDatabaseHandler;
-import org.kuali.common.jdbc.spring.MavenResetConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -255,22 +253,12 @@ public class DeployConfig {
 		return h;
 	}
 
-	@Bean
-	public SpringDatabaseHandler kdoDatabaseHandler() {
-		SpringDatabaseHandler h = new SpringDatabaseHandler();
-		h.setAnnotatedClass(MavenResetConfig.class);
-		h.setProperties(SpringUtils.getAllEnumerableProperties(env));
-		h.setSkip(SpringUtils.getBoolean(env, "kdo.db.skip", true));
-		return h;
-	}
-
 	@Bean(initMethod = "deploy")
 	public DeployService kdoDeployService() {
 		DefaultDeployService s = new DefaultDeployService();
 		s.setChannel(kdoSecureChannel());
 		s.setController(kdoController());
 		s.setHandler(kdoHandler());
-		s.setDatabaseHandler(kdoDatabaseHandler());
 		s.setContext(kdoContext());
 		return s;
 	}

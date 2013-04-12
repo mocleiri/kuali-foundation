@@ -1,6 +1,8 @@
 package org.kuali.common.deploy;
 
 import org.kuali.common.util.RepositoryUtils;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.NoOpExecutable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +16,7 @@ public class DefaultDeployService implements DeployService {
 	AppServerController controller;
 	FileSystemHandler handler;
 	DeployContext context;
-	DatabaseHandler databaseHandler = new NoOpDatabaseHandler();
+	Executable databaseResetExecutable = new NoOpExecutable();
 
 	@Override
 	public void deploy() {
@@ -34,7 +36,7 @@ public class DefaultDeployService implements DeployService {
 			logger.info("----------------------------------------------------");
 			channel.open();
 			controller.stop();
-			databaseHandler.reset();
+			databaseResetExecutable.execute();
 			handler.clean();
 			handler.prepare();
 			controller.start();
@@ -77,12 +79,12 @@ public class DefaultDeployService implements DeployService {
 		this.context = context;
 	}
 
-	public DatabaseHandler getDatabaseHandler() {
-		return databaseHandler;
+	public Executable getDatabaseResetExecutable() {
+		return databaseResetExecutable;
 	}
 
-	public void setDatabaseHandler(DatabaseHandler databaseHandler) {
-		this.databaseHandler = databaseHandler;
+	public void setDatabaseResetExecutable(Executable databaseResetExecutable) {
+		this.databaseResetExecutable = databaseResetExecutable;
 	}
 
 }
