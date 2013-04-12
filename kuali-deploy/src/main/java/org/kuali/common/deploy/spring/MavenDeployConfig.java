@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.MavenUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.SpringUtils;
@@ -72,7 +73,8 @@ public class MavenDeployConfig {
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
 		PropertySource<?> ps = springPropertySource();
-		System.out.println(ps);
+		Properties properties = (Properties) ps.getSource();
+		PropertyUtils.info(properties);
 		return null;
 		// Setup a flag for skipping execution completely
 		// boolean skip = SpringUtils.getBoolean(env, "db.reset.skip", false);
