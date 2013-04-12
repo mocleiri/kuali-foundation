@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +46,8 @@ public class MavenDeployConfig {
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
+		ProjectProcessor pp = new ProjectProcessor();
+		pp.process(mavenProperties);
 		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
 	}
 
