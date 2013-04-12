@@ -10,6 +10,7 @@ import org.kuali.common.deploy.DefaultTomcatController;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
+import org.kuali.common.deploy.SpringDatabaseHandler;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -235,7 +236,7 @@ public class DeployConfig {
 		list.add(kdoApplication());
 		return list;
 	}
-	
+
 	@Bean
 	public FileSystemHandler kdoHandler() {
 		DefaultFileSystemHandler h = new DefaultFileSystemHandler();
@@ -245,15 +246,27 @@ public class DeployConfig {
 		h.setDirectoriesToCreate(kdoDirectoriesToCreate());
 		h.setDirectoriesToChown(kdoDirectoriesToChown());
 		h.setDeployables(kdoDeployables());
-		
+
 		// TODO set this correctly
 		h.setProperties(null);
-		
+
 		h.setOwner(SpringUtils.getProperty(env, "tomcat.owner"));
 		h.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
-		
+
 		return h;
 	}
-	
+
+	@Bean
+	public SpringDatabaseHandler kdoDatabaseHandler() {
+		SpringDatabaseHandler h = new SpringDatabaseHandler();
+
+		// TODO Set these correctly
+		h.setContextLocation(null);
+		h.setBeanNames(null);
+		h.setBeanNames(null);
+
+		h.setSkip(SpringUtils.getBoolean(env, "kdo.db.skip", true));
+		return h;
+	}
 
 }
