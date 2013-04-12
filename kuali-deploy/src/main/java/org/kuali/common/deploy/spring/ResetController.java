@@ -29,6 +29,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
@@ -61,6 +62,7 @@ public class ResetController {
 	@Autowired
 	ResetOtherConfig otherConfig;
 
+	@Bean
 	public Executable jdbcResetExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
 		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
