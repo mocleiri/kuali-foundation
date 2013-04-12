@@ -54,10 +54,7 @@ public class DeployConfig {
 		ctx.setUsername(SpringUtils.getProperty(env, "deploy.username"));
 		ctx.setJdbcDriver(kdoJdbcDriverArtifact());
 		ctx.setApplication(kdoApplicationArtifact());
-
-		// TODO Set this appropriately
-		ctx.setConfig(null);
-
+		ctx.setConfig(kdoConfig());
 		return ctx;
 	}
 
