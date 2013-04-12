@@ -4,10 +4,13 @@ import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.util.Assert;
 
 public class SpringDatabaseHandler implements DatabaseHandler {
@@ -27,8 +30,15 @@ public class SpringDatabaseHandler implements DatabaseHandler {
 		}
 		Assert.notNull(service);
 		Assert.notNull(annotatedClass);
+		Assert.notNull(properties);
 		logger.info("Database reset");
+		PropertiesPropertySource ps = new PropertiesPropertySource("", properties);
+		PropertySourceContext psc = new PropertySourceContext();
+		psc.setLastOneInWins(true);
+		psc.setRemoveExistingSources(true);
+		psc.setSources(SpringUtils.asList(ps));
 		SpringContext sc = new SpringContext();
+		sc.setPropertySourceContext(psc);
 		sc.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
 		service.load(sc);
 	}
