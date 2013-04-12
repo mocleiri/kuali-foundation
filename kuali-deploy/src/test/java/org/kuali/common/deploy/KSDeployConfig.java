@@ -25,6 +25,7 @@ import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
@@ -96,12 +97,21 @@ public class KSDeployConfig {
 		// Combine project properties into a list where the "last one in wins"
 		List<ProjectProperties> pps = getProjectPropertiesList();
 
+		for (ProjectProperties pp : pps) {
+			if (pp.getPropertiesContext().getProperties() != null) {
+				System.out.println("size=" + pp.getPropertiesContext().getProperties().size());
+			}
+		}
+
 		// Get a PropertySource object backed by the properties loaded from the list
 		return SpringUtils.getPropertySource("springPropertySource", pps);
 	}
 
 	@Bean(initMethod = "execute")
 	public Executable springExecutable() {
+		PropertySource<?> ps = springPropertySource();
+		Properties p = (Properties) ps.getSource();
+		PropertyUtils.info(p);
 		// Setup a flag for skipping the deploy completely
 		boolean skip = SpringUtils.getBoolean(env, "kdo.deploy.skip", false);
 		// Get an executable, backed by the correct set of properties, loading the correct config
