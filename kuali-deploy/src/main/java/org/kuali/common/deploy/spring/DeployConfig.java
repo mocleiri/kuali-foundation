@@ -46,7 +46,7 @@ public class DeployConfig {
 		a.setGroupId(SpringUtils.getProperty(env, "project.groupId"));
 		a.setArtifactId(SpringUtils.getProperty(env, "project.artifactId"));
 		a.setVersion(SpringUtils.getProperty(env, "project.version"));
-		a.setClassifier(SpringUtils.getProperty(env, "project.version", "NONE"));
+		a.setClassifier(SpringUtils.getProperty(env, "project.classifier", "NONE"));
 		a.setType("war");
 		return a;
 	}
