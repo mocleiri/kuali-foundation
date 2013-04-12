@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.deploy.spring.DeployPropertiesConfig;
+import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -36,7 +37,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ JdbcPropertiesConfig.class, DeployPropertiesConfig.class })
+@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class, DeployPropertiesConfig.class })
 public class KSDeployConfig {
 
 	@Autowired
@@ -44,6 +45,9 @@ public class KSDeployConfig {
 
 	@Autowired
 	protected JdbcPropertiesConfig jdbcProperties;
+
+	@Autowired
+	protected GeneratorPropertiesConfig generatorProperties;
 
 	@Autowired
 	protected DeployPropertiesConfig deployProperties;
@@ -60,6 +64,7 @@ public class KSDeployConfig {
 	public List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
 		pps.add(jdbcProperties.jdbcProjectProperties());
+		pps.add(generatorProperties.generatorProjectProperties());
 		pps.add(deployProperties.deployProjectProperties());
 		pps.add(mavenProjectProperties());
 		return pps;
