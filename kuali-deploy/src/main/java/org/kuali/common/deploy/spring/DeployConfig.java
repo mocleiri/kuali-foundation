@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.deploy.AppServerController;
 import org.kuali.common.deploy.DefaultTomcatController;
 import org.kuali.common.deploy.DeployContext;
+import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -104,6 +105,60 @@ public class DeployConfig {
 		list.add(SpringUtils.getProperty(env, "tomcat.work"));
 		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
 		return list;
+	}
+
+	@Bean
+	public List<String> kdoDirectoriesToCreate() {
+		List<String> list = new ArrayList<String>();
+		list.add(SpringUtils.getProperty(env, "tomcat.logs"));
+		list.add(SpringUtils.getProperty(env, "tomcat.webapps"));
+		list.add(SpringUtils.getProperty(env, "tomcat.home.kuali"));
+		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		return list;
+	}
+
+	@Bean
+	public List<String> kdoDirectoriesToChown() {
+		List<String> list = new ArrayList<String>();
+		list.add(SpringUtils.getProperty(env, "tomcat.base"));
+		list.add(SpringUtils.getProperty(env, "tomcat.home"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.base"));
+		return list;
+	}
+
+	@Bean
+	public Deployable kdoSetEnv() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "tomcat.setenv"));
+		d.setLocal(SpringUtils.getProperty(env, "tomcat.setenv.local"));
+		d.setFilter(true);
+		d.setPermissions("755");
+		return d;
+	}
+
+	@Bean
+	public Deployable kdoAppDynamics() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "appdynamics.controller"));
+		d.setLocal(SpringUtils.getProperty(env, "appdynamics.controller.local"));
+		d.setFilter(true);
+		return d;
+	}
+
+	@Bean
+	public Deployable kdoJspEnv() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.env"));
+		d.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.env.local"));
+		return d;
+	}
+
+	@Bean
+	public Deployable kdoJspTail() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.tail"));
+		d.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.tail.local"));
+		return d;
 	}
 
 }
