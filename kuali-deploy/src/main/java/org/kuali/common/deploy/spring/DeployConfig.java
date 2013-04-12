@@ -56,8 +56,8 @@ public class DeployConfig {
 	public DeployContext kdoContext() {
 		DeployContext ctx = new DeployContext();
 		ctx.setEnvironment(SpringUtils.getProperty(env, "deploy.env"));
-		ctx.setHostname(SpringUtils.getProperty(env, "kdo.channel.username"));
-		ctx.setUsername(SpringUtils.getProperty(env, "kdo.channel.hostname"));
+		ctx.setHostname(SpringUtils.getProperty(env, "kdo.channel.hostname"));
+		ctx.setUsername(SpringUtils.getProperty(env, "kdo.channel.username"));
 		ctx.setJdbcDriver(kdoJdbcDriverArtifact());
 		ctx.setApplication(kdoApplicationArtifact());
 		ctx.setConfig(kdoConfig());
