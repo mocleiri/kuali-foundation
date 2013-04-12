@@ -15,15 +15,41 @@
  */
 package org.kuali.common.util;
 
+import java.util.List;
+import java.util.Properties;
+
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.property.PropertiesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 
 public class MavenUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
 
 	public static final String POM = "pom";
+
+	public static ProjectProperties getMavenProjectProperties(Environment env, Properties mavenProperties) {
+		Project project = ProjectUtils.getProject(mavenProperties);
+
+		List<String> excludes = getList(env, "properties.maven.exclude");
+		PropertyUtils.trim(mavenProperties, null, excludes);
+
+		PropertiesContext pc = new PropertiesContext();
+		pc.setProperties(mavenProperties);
+
+		ProjectProperties pp = new ProjectProperties();
+		pp.setProject(project);
+		pp.setPropertiesContext(pc);
+		return pp;
+	}
+
+	protected static List<String> getList(Environment env, String key) {
+		String csv = env.getProperty(key);
+		return CollectionUtils.getTrimmedListFromCSV(csv);
+	}
 
 	/**
 	 * Always return false if <code>forceMojoExecution</code> is true, otherwise return true only if <code>skip</code> is true or <code>packaging</code> is pom.
