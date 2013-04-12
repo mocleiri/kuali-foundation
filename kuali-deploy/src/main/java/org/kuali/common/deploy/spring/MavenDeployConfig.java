@@ -55,15 +55,6 @@ public class MavenDeployConfig {
 	@Autowired
 	protected Properties mavenProperties;
 
-	public List<ProjectProperties> getProjectPropertiesList() {
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-		pps.add(mavenProperties());
-		pps.add(jdbcProperties.jdbcProjectProperties());
-		pps.add(generatorProperties.generatorProjectProperties());
-		pps.add(deployProperties.deployProjectProperties());
-		return pps;
-	}
-
 	@Bean
 	public ProjectProperties mavenProperties() {
 
@@ -101,6 +92,15 @@ public class MavenDeployConfig {
 		boolean skip = SpringUtils.getBoolean(env, "kdo.deploy.skip", false);
 		// Get an executable, backed by the correct set of properties, loading the correct config
 		return SpringUtils.getSpringExecutable(env, skip, springPropertySource(), CollectionUtils.asList(DeployConfig.class));
+	}
+
+	protected List<ProjectProperties> getProjectPropertiesList() {
+		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+		pps.add(mavenProperties());
+		pps.add(jdbcProperties.jdbcProjectProperties());
+		pps.add(generatorProperties.generatorProjectProperties());
+		pps.add(deployProperties.deployProjectProperties());
+		return pps;
 	}
 
 }
