@@ -283,9 +283,9 @@ public class DeployConfig {
 		context.setRequestTimeoutMillis(requestTimeoutMillis.intValue());
 
 		// Setup the executable
-		HttpWaitExecutable hwe = new HttpWaitExecutable();
-		hwe.setContext(context);
-		return hwe;
+		HttpWaitExecutable executable = new HttpWaitExecutable();
+		executable.setContext(context);
+		return executable;
 	}
 
 	@Bean(initMethod = "deploy")
