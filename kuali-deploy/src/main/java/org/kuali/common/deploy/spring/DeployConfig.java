@@ -12,9 +12,12 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
+import org.kuali.common.http.HttpContext;
+import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.spring.ResetConfig;
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.ArtifactFilenameFactoryBean;
@@ -261,15 +264,26 @@ public class DeployConfig {
 		return h;
 	}
 
+	@Bean
+	public Executable kdoHttpWaitExecutable() {
+		String url = SpringUtils.getProperty(env, "public.url");
+		HttpContext context = new HttpContext();
+		context.setUrl(url);
+		HttpWaitExecutable hwe = new HttpWaitExecutable();
+		hwe.setContext(context);
+		return hwe;
+	}
+
 	@Bean(initMethod = "deploy")
 	public DeployService kdoDeployService() {
-		DefaultDeployService s = new DefaultDeployService();
-		s.setChannel(kdoSecureChannel());
-		s.setController(kdoController());
-		s.setDatabaseResetExecutable(databaseResetController.jdbcResetExecutable());
-		s.setHandler(kdoHandler());
-		s.setContext(kdoContext());
-		return s;
+		DefaultDeployService dds = new DefaultDeployService();
+		dds.setChannel(kdoSecureChannel());
+		dds.setController(kdoController());
+		dds.setDatabaseResetExecutable(databaseResetController.jdbcResetExecutable());
+		dds.setHandler(kdoHandler());
+		dds.setContext(kdoContext());
+		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
+		return dds;
 	}
 
 }
