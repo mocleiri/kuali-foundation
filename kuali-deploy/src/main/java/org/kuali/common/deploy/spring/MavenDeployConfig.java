@@ -22,13 +22,10 @@ import java.util.Properties;
 import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.PropertiesContext;
-import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,41 +40,24 @@ import org.springframework.core.env.PropertySource;
 public class MavenDeployConfig {
 
 	@Autowired
-	protected Environment env;
+	Environment env;
 
 	@Autowired
-	protected JdbcPropertiesConfig jdbcProperties;
+	JdbcPropertiesConfig jdbcProperties;
 
 	@Autowired
-	protected GeneratorPropertiesConfig generatorProperties;
+	GeneratorPropertiesConfig generatorProperties;
 
 	@Autowired
-	protected DeployPropertiesConfig deployProperties;
+	DeployPropertiesConfig deployProperties;
 
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	protected Properties mavenProperties;
+	Properties mavenProperties;
 
 	@Bean
 	public ProjectProperties mavenProjectProperties() {
-
-		// Make sure orgId, and all that junk is filled in
-		ProjectProcessor processor = new ProjectProcessor();
-		processor.process(mavenProperties);
-
-		// Get a Project pojo from the Maven properties
-		Project project = ProjectUtils.getProject(mavenProperties);
-
-		// Set encoding and store the properties on the context
-		PropertiesContext pc = new PropertiesContext();
-		pc.setEncoding(project.getEncoding());
-		pc.setProperties(mavenProperties);
-
-		// Fill in the project properties object and return
-		ProjectProperties pp = new ProjectProperties();
-		pp.setProject(project);
-		pp.setPropertiesContext(pc);
-		return pp;
+		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
 	}
 
 	@Bean
