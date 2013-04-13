@@ -267,7 +267,7 @@ public class DeployConfig {
 
 	@Bean
 	public Executable kdoHttpWaitExecutable() {
-		// Exract properties from the environment
+		// Extract properties from the environment
 		String overallTimeout = SpringUtils.getProperty(env, "http.timeout");
 		String requestTimeout = SpringUtils.getProperty(env, "http.requestTimeout");
 		String url = SpringUtils.getProperty(env, "public.url");
