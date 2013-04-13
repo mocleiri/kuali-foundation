@@ -25,11 +25,13 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -53,6 +55,7 @@ public class MavenDeployConfig {
 	protected DeployPropertiesConfig deployProperties;
 
 	@Autowired
+	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	protected Properties mavenProperties;
 
 	@Bean
