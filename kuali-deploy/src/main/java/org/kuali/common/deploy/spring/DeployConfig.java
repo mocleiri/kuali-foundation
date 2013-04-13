@@ -17,6 +17,7 @@ import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.spring.ResetConfig;
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -266,9 +267,22 @@ public class DeployConfig {
 
 	@Bean
 	public Executable kdoHttpWaitExecutable() {
+		// Exract properties from the environment
+		String overallTimeout = SpringUtils.getProperty(env, "http.timeout");
+		String requestTimeout = SpringUtils.getProperty(env, "http.requestTimeout");
 		String url = SpringUtils.getProperty(env, "public.url");
+
+		// Convert as needed
+		Long overallTimeoutMillis = FormatUtils.getMillis(overallTimeout);
+		Long requestTimeoutMillis = FormatUtils.getMillis(requestTimeout);
+
+		// Setup the context
 		HttpContext context = new HttpContext();
 		context.setUrl(url);
+		context.setOverallTimeoutMillis(overallTimeoutMillis.intValue());
+		context.setRequestTimeoutMillis(requestTimeoutMillis.intValue());
+
+		// Setup the executable
 		HttpWaitExecutable hwe = new HttpWaitExecutable();
 		hwe.setContext(context);
 		return hwe;
