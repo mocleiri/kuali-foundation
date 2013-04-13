@@ -20,8 +20,8 @@
   <param name="app.context.name" />
   <param name="datasource.driver.name">${jdbc.driver}</param>
   <param name="datasource.url">${jdbc.url}</param>
-  <param name="datasource.username">${ks.rice.impex.username}</param>
-  <param name="datasource.password">${ks.rice.impex.password}</param>
+  <param name="datasource.username">${ks.rice.jdbc.username}</param>
+  <param name="datasource.password">${ks.rice.jdbc.password}</param>
   <param name="datasource.pool.minSize">15</param>
   <param name="datasource.pool.maxSize">100</param>
   <param name="datasource.pool.maxWait">600000</param>
