@@ -59,7 +59,7 @@ public class MavenDeployConfig {
 	protected Properties mavenProperties;
 
 	@Bean
-	public ProjectProperties mavenProperties() {
+	public ProjectProperties mavenProjectProperties() {
 
 		// Make sure orgId, and all that junk is filled in
 		ProjectProcessor processor = new ProjectProcessor();
@@ -99,7 +99,7 @@ public class MavenDeployConfig {
 
 	protected List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-		pps.add(mavenProperties());
+		pps.add(mavenProjectProperties());
 		pps.add(jdbcProperties.jdbcProjectProperties());
 		pps.add(generatorProperties.generatorProjectProperties());
 		pps.add(deployProperties.deployProjectProperties());
