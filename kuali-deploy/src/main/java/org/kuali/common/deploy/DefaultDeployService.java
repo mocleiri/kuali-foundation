@@ -14,9 +14,9 @@ public class DefaultDeployService implements DeployService {
 
 	SecureChannel channel;
 	AppServerController controller;
+	Executable databaseResetExecutable = new NoOpExecutable();
 	FileSystemHandler handler;
 	DeployContext context;
-	Executable databaseResetExecutable = new NoOpExecutable();
 	Executable httpWaitExecutable = new NoOpExecutable();
 
 	@Override
