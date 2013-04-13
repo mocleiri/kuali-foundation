@@ -17,6 +17,7 @@ public class DefaultDeployService implements DeployService {
 	FileSystemHandler handler;
 	DeployContext context;
 	Executable databaseResetExecutable = new NoOpExecutable();
+	Executable httpWaitExecutable = new NoOpExecutable();
 
 	@Override
 	public void deploy() {
@@ -40,6 +41,7 @@ public class DefaultDeployService implements DeployService {
 			handler.clean();
 			handler.prepare();
 			controller.start();
+			httpWaitExecutable.execute();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -85,6 +87,14 @@ public class DefaultDeployService implements DeployService {
 
 	public void setDatabaseResetExecutable(Executable databaseResetExecutable) {
 		this.databaseResetExecutable = databaseResetExecutable;
+	}
+
+	public Executable getHttpWaitExecutable() {
+		return httpWaitExecutable;
+	}
+
+	public void setHttpWaitExecutable(Executable httpWaitExecutable) {
+		this.httpWaitExecutable = httpWaitExecutable;
 	}
 
 }
