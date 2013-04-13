@@ -220,6 +220,7 @@
     <profile>
       <id>kdo</id>
       <properties>
+        <properties.maven.exclude>kuali.scm.url</properties.maven.exclude>
         <mysql.groupId>mysql</mysql.groupId>
         <mysql.artifactId>mysql-connector-java</mysql.artifactId>
         <mysql.version>5.1.20</mysql.version>
