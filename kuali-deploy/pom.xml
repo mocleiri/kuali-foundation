@@ -136,13 +136,11 @@
       <groupId>org.kuali.common</groupId>
       <artifactId>torque-executor</artifactId>
       <version>${impex.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>${oracle.groupId}</groupId>
       <artifactId>${oracle.artifactId}</artifactId>
       <version>${oracle.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kuali.student.db</groupId>
