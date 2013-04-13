@@ -22,7 +22,7 @@
   <param name="datasource.url">${jdbc.url}</param>
   <param name="datasource.username">${jdbc.username}</param>
   <param name="datasource.password">${jdbc.password}</param>
-  <param name="datasource.driver.name">oracle.jdbc.driver.OracleDriver</param>
+  <param name="datasource.driver.name">${jdbc.driver}</param>
   <param name="datasource.pool.minSize">15</param>
   <param name="datasource.pool.maxSize">200</param>
   <param name="datasource.pool.maxWait">600000</param>
@@ -36,7 +36,7 @@
   <param name="ks.core.datasource.maxSize">200</param>
   <param name="ks.core.datasource.maxWait">600000</param>
   <param name="ks.core.datasource.maxOpenPreparedStatements">500</param>
-  <param name="keystore.file">/home/tomcat/.ssh/rice.keystore</param>
+  <param name="keystore.file">${keystore.file.default}</param>
   <param name="keystore.alias">rice</param>
   <param name="keystore.password">r1c3pw</param>
   <param name="kim.cache.permission.max.size">3000</param>
