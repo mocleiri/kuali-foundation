@@ -123,10 +123,10 @@
     <project.gav.commit>true</project.gav.commit>
 
     <!-- Internal kuali library versions -->
-    <kuali-util.version>4.1.11-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.1.11</kuali-util.version>
     <kuali-sql.version>2.0.2</kuali-sql.version>
-    <kuali-jdbc.version>3.0.1-SNAPSHOT</kuali-jdbc.version>
-    <kuali-deploy.version>2.1.9-SNAPSHOT</kuali-deploy.version>
+    <kuali-jdbc.version>3.0.0</kuali-jdbc.version>
+    <kuali-deploy.version>2.1.8</kuali-deploy.version>
     <impex.version>2.1.4</impex.version>
     <kuali-http.version>1.0.1</kuali-http.version>
   </properties>
