@@ -102,7 +102,8 @@ public class DeployConfig {
 		list.add(lib + "/orai18n*.jar");
 		list.add(SpringUtils.getProperty(env, "tomcat.setenv"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.controller"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.kuali"));
+		list.add(SpringUtils.getProperty(env, "tomcat.home.org"));
+		list.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
 		return list;
 	}
 
@@ -111,7 +112,8 @@ public class DeployConfig {
 		List<String> list = new ArrayList<String>();
 		list.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		list.add(SpringUtils.getProperty(env, "tomcat.webapps"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.kuali"));
+		list.add(SpringUtils.getProperty(env, "tomcat.home.org"));
+		list.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
 		list.add(SpringUtils.getProperty(env, "tomcat.work"));
 		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
 		return list;
@@ -122,7 +124,6 @@ public class DeployConfig {
 		List<String> list = new ArrayList<String>();
 		list.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		list.add(SpringUtils.getProperty(env, "tomcat.webapps"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.kuali"));
 		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
 		return list;
 	}
