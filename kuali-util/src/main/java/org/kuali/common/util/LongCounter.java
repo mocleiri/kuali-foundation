@@ -29,12 +29,12 @@ public class LongCounter {
 	}
 
 	public long increment() {
-		Assert.isFalse(count == Long.MAX_VALUE);
+		Assert.isFalse(count == Long.MAX_VALUE, "max counter value exceeded");
 		return count++;
 	}
 
 	public long decrement() {
-		Assert.isFalse(count == Long.MIN_VALUE);
+		Assert.isFalse(count == Long.MIN_VALUE, "min counter value exceeded");
 		return count--;
 	}
 }
