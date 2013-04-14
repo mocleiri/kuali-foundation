@@ -43,7 +43,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 	ProjectPropertiesComparator comparator;
 
 	@Override
-	public Properties getObject() throws Exception {
+	public Properties getObject() {
 		Assert.isFalse(CollectionUtils.isEmpty(locations), "locations is empty");
 		long start = System.currentTimeMillis();
 		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
