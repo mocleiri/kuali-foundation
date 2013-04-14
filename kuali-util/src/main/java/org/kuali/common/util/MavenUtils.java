@@ -38,6 +38,7 @@ public class MavenUtils {
 	public static final String POM = "pom";
 	public static final String INCLUDE = "properties.maven.include";
 	public static final String EXCLUDE = "properties.maven.exclude";
+	public static final String PROJECT_VERSION_KEY = "project.version";
 
 	/**
 	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
@@ -52,7 +53,7 @@ public class MavenUtils {
 
 		// Tokenize the version number and add properties for each token (major/minor/incremental)
 		// Also add a boolean property indicating if this is a SNAPSHOT build
-		processors.add(new VersionProcessor(Arrays.asList("project.version"), true));
+		processors.add(new VersionProcessor(Arrays.asList(PROJECT_VERSION_KEY), true));
 
 		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
