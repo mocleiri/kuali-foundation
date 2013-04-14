@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.spring;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -34,7 +35,7 @@ import org.springframework.util.Assert;
  * object.
  */
 @Configuration
-public abstract class AbstractMavenPropertySourceConfig {
+public class DefaultMavenPropertySourceConfig {
 
 	public static final String SPRING_PROPERTY_SOURCE = "springPropertySource";
 
@@ -57,7 +58,12 @@ public abstract class AbstractMavenPropertySourceConfig {
 		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
 	}
 
-	protected abstract List<ProjectProperties> getProjectPropertiesList();
+	/**
+	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate.
+	 */
+	protected List<ProjectProperties> getProjectPropertiesList() {
+		return new ArrayList<ProjectProperties>();
+	}
 
 	@Bean
 	public PropertySource<?> springPropertySource() {
@@ -67,7 +73,7 @@ public abstract class AbstractMavenPropertySourceConfig {
 		// Add the current project's Maven properties last
 		pps.add(mavenProjectProperties());
 
-		// Get a PropertySource object backed by the properties loaded from the list
+		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return SpringUtils.getGlobalPropertySource(SPRING_PROPERTY_SOURCE, pps);
 	}
 
