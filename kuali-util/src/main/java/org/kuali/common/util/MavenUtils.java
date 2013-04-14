@@ -15,12 +15,17 @@
  */
 package org.kuali.common.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
+import org.kuali.common.util.property.processor.ProjectProcessor;
+import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -30,6 +35,25 @@ public class MavenUtils {
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
 
 	public static final String POM = "pom";
+
+	/**
+	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
+	 * build
+	 */
+	public static void augmentProjectProperties(Properties mavenProperties) {
+		// Setup some processors
+		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
+
+		// Add some organization, group, and path properties
+		processors.add(new ProjectProcessor());
+
+		// Tokenize the version number and add properties for each token (major/minor/incremental)
+		// Also add a boolean property indicating if this is a SNAPSHOT build
+		processors.add(new VersionProcessor(Arrays.asList("project.version"), true));
+
+		// Process default Maven properties and add in our custom properties
+		PropertyUtils.process(mavenProperties, processors);
+	}
 
 	public static ProjectProperties getMavenProjectProperties(Environment env, Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
