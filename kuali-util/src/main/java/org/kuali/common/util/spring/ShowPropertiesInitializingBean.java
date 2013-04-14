@@ -25,7 +25,7 @@ public class ShowPropertiesInitializingBean implements InitializingBean {
 	Properties properties;
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		PropertyUtils.info(properties);
 	}
 
