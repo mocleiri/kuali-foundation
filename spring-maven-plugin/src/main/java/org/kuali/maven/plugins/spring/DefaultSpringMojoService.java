@@ -123,7 +123,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	/**
-	 * Load the annotated class (or xml file) they provided.  Scan it for any beans that implement <code>PropertySource</code> 
+	 * Load the annotated class (or xml file) they provided. Scan it for any beans that implement <code>PropertySource</code>. Any <code>PropertySource</code> beans are sorted
+	 * alphabetically by name, and added to the <code>SpringContext</code>
 	 */
 	protected void addPropertySources(PropertySourcesContext ctx, AbstractSpringMojo mojo, SpringContext context) {
 		// Are we adding any custom property sources?
@@ -141,7 +142,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 				logger.debug("Adding property source - [{}] -> [{}]", name, type);
 			}
 			// Add them to the SpringContext
-			context.setPropertySourceContext(new PropertySourceContext(sources));
+			context.setPropertySourceContext(new PropertySourceContext(sources, mojo.isRemoveExistingPropertySources()));
 		}
 
 	}
