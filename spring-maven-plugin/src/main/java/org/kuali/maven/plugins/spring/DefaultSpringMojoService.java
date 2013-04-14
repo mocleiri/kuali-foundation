@@ -122,6 +122,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		lc.getService().load(context);
 	}
 
+	/**
+	 * Load the annotated class (or xml file) they provided.  Scan it for any beans that implement <code>PropertySource</code> 
+	 */
 	protected void addPropertySources(PropertySourcesContext ctx, AbstractSpringMojo mojo, SpringContext context) {
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
