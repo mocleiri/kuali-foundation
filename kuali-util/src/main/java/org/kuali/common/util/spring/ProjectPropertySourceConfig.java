@@ -43,7 +43,7 @@ public class ProjectPropertySourceConfig {
 	@Bean
 	public PropertiesPropertySource projectPropertySource() {
 
-		// organization, group, path and tokenized version properties
+		// organization, group, path and token'ized version properties
 		MavenUtils.augmentProjectProperties(mavenProperties);
 
 		// Return the augmented set of Maven properties as a Spring PropertySource
