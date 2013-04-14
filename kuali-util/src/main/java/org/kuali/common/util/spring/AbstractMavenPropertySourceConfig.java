@@ -68,7 +68,7 @@ public abstract class AbstractMavenPropertySourceConfig {
 		pps.add(mavenProjectProperties());
 
 		// Get a PropertySource object backed by the properties loaded from the list
-		return SpringUtils.getPropertySource(SPRING_PROPERTY_SOURCE, pps);
+		return SpringUtils.getGlobalPropertySource(SPRING_PROPERTY_SOURCE, pps);
 	}
 
 }
