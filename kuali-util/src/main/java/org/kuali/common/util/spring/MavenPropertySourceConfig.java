@@ -59,7 +59,7 @@ public class MavenPropertySourceConfig {
 	}
 
 	/**
-	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate.
+	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate. Properties from this list use a "last one in wins" strategy.
 	 */
 	protected List<ProjectProperties> getProjectPropertiesList() {
 		return new ArrayList<ProjectProperties>();
