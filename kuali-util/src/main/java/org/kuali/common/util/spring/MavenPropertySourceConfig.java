@@ -67,7 +67,7 @@ public class MavenPropertySourceConfig {
 
 	@Bean
 	public PropertySource<?> springPropertySource() {
-		// Combine project properties into a list where the "last one in wins"
+		// Get the list of project properties we will be loading where properties use a "last one in wins" strategy
 		List<ProjectProperties> pps = getProjectPropertiesList();
 
 		// Add the current project's Maven properties last
