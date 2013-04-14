@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
@@ -55,6 +56,9 @@ public class MavenUtils {
 
 		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
+
+		// Make sure system/environment properties still always win
+		PropertyUtils.overrideWithGlobalValues(mavenProperties, GlobalPropertiesMode.BOTH);
 	}
 
 	public static void trim(Environment env, Properties mavenProperties) {
