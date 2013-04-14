@@ -37,13 +37,13 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	boolean addPropertySources = new Boolean(MavenConstants.DEFAULT_ADD_PROPERTY_SOURCES);
 
 	/**
-	 * If true, any PropertySource's supplied to the mojo are added to the configured Spring environment.
+	 * If true, any existing PropertySource's are removed before adding property sources supplied to the plugin
 	 */
 	@Parameter(property = "spring.removeExistingPropertySources", defaultValue = MavenConstants.DEFAULT_REMOVE_EXISTING_PROPERTY_SOURCES)
 	boolean removeExistingPropertySources = new Boolean(MavenConstants.DEFAULT_REMOVE_EXISTING_PROPERTY_SOURCES);
 
 	/**
-	 * If true, Maven properties are injected into the context as a java.util.Properties bean
+	 * If true, Maven properties are injected into the context as a <code>java.util.Properties</code> bean
 	 */
 	@Parameter(property = "spring.injectMavenProperties", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_PROPERTIES)
 	boolean injectMavenProperties = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_PROPERTIES);
