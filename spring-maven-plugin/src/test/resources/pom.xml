@@ -29,6 +29,7 @@
   <name>Kuali Test POM</name>
   <properties>
     <print.message>Maven says hi to Spring!!! === Group Id Path -> [${project.groupId.path}]</print.message>
+    <project.password>ENC(jJ+fKUY4KHMWQqA9k8i1sg==)</project.password>
     <properties.maven.exclude>kuali.scm.url</properties.maven.exclude>
     <properties.decrypt>true</properties.decrypt>
     <properties.enc.password>${kuali.enc.password}</properties.enc.password>
