@@ -35,6 +35,8 @@ public class MavenUtils {
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
 
 	public static final String POM = "pom";
+	public static final String INCLUDE = "properties.maven.include";
+	public static final String EXCLUDE = "properties.maven.exclude";
 
 	/**
 	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
@@ -55,11 +57,16 @@ public class MavenUtils {
 		PropertyUtils.process(mavenProperties, processors);
 	}
 
+	public static void trim(Environment env, Properties mavenProperties) {
+		List<String> excludes = getList(env, EXCLUDE);
+		List<String> includes = getList(env, INCLUDE);
+		PropertyUtils.trim(mavenProperties, includes, excludes);
+	}
+
 	public static ProjectProperties getMavenProjectProperties(Environment env, Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
-		List<String> excludes = getList(env, "properties.maven.exclude");
-		PropertyUtils.trim(mavenProperties, null, excludes);
+		trim(env, mavenProperties);
 
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
