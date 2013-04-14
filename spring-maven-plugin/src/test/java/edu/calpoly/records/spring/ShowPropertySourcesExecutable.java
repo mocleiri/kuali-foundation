@@ -18,9 +18,9 @@ public class ShowPropertySourcesExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		SpringUtils.showPropertySources(environment);
 		Properties properties = SpringUtils.getAllEnumerableProperties(environment);
 		PropertyUtils.info(properties);
+		SpringUtils.showPropertySources(environment);
 	}
 
 	public ConfigurableEnvironment getEnvironment() {
