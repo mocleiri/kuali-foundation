@@ -53,7 +53,8 @@
             </goals>
             <configuration>
               <annotatedClass>edu.calpoly.records.spring.PowerWebappConfig</annotatedClass>
-              <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertySourceConfig</propertySourcesConfig>
+              <propertySourcesConfig>org.kuali.common.util.spring.MavenPropertySourceConfig</propertySourcesConfig>
+              <removeExistingPropertySources>true</removeExistingPropertySources>
             </configuration>
           </execution>
           <execution>
