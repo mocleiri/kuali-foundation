@@ -1,5 +1,8 @@
 package edu.calpoly.records.spring;
 
+import java.util.Properties;
+
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -16,6 +19,8 @@ public class ShowPropertySourcesExecutable implements Executable {
 	@Override
 	public void execute() {
 		SpringUtils.showPropertySources(environment);
+		Properties properties = SpringUtils.getAllEnumerableProperties(environment);
+		PropertyUtils.info(properties);
 	}
 
 	public ConfigurableEnvironment getEnvironment() {
