@@ -35,7 +35,7 @@ import org.springframework.util.Assert;
  * object.
  */
 @Configuration
-public class DefaultMavenPropertySourceConfig {
+public class MavenPropertySourceConfig {
 
 	public static final String SPRING_PROPERTY_SOURCE = "springPropertySource";
 
