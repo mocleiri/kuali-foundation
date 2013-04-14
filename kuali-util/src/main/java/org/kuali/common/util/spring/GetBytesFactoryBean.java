@@ -24,7 +24,7 @@ public class GetBytesFactoryBean implements FactoryBean<Long> {
 	String size;
 
 	@Override
-	public Long getObject() throws Exception {
+	public Long getObject() {
 		Assert.notNull(size, "size is null");
 		return FormatUtils.getBytes(size);
 	}
