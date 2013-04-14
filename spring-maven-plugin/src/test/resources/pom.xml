@@ -52,7 +52,7 @@
               <goal>load</goal>
             </goals>
             <configuration>
-              <annotatedClass>edu.calpoly.records.spring.PowerWebppConfig</annotatedClass>
+              <annotatedClass>edu.calpoly.records.spring.PowerWebappConfig</annotatedClass>
               <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertiesConfig</propertySourcesConfig>
             </configuration>
           </execution>
