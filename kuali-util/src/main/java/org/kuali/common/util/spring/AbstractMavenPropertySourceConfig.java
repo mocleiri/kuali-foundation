@@ -50,6 +50,9 @@ public abstract class AbstractMavenPropertySourceConfig {
 		// Combine project properties into a list where the "last one in wins"
 		List<ProjectProperties> pps = getProjectPropertiesList();
 
+		// Add the current project's maven properties last45
+		pps.add(mavenProjectProperties());
+
 		// Get a PropertySource object backed by the properties loaded from the list
 		return SpringUtils.getPropertySource("springPropertySource", pps);
 	}
