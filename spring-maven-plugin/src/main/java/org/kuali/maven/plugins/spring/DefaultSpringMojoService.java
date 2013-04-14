@@ -191,7 +191,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
 
-		// Fill in a default annotated classname if they didn't explicitly supply one
+		// Make sure we always have an annotated classname, use the one they provided or fill in a default from project info
 		String annotatedClassName = getAnnotatedClassName(mojo);
 		mojo.setAnnotatedClass(annotatedClassName);
 
