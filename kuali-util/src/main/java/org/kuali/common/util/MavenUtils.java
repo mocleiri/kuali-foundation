@@ -63,8 +63,8 @@ public class MavenUtils {
 	}
 
 	public static void trim(Environment env, Properties mavenProperties) {
-		List<String> excludes = getList(env, EXCLUDE);
-		List<String> includes = getList(env, INCLUDE);
+		List<String> excludes = getList(env, mavenProperties, EXCLUDE);
+		List<String> includes = getList(env, mavenProperties, INCLUDE);
 		PropertyUtils.trim(mavenProperties, includes, excludes);
 	}
 
@@ -82,9 +82,13 @@ public class MavenUtils {
 		return pp;
 	}
 
-	protected static List<String> getList(Environment env, String key) {
-		String csv = env.getProperty(key);
-		return CollectionUtils.getTrimmedListFromCSV(csv);
+	protected static List<String> getList(Environment env, Properties properties, String key) {
+		String csv1 = env.getProperty(key);
+		String csv2 = properties.getProperty(key);
+		List<String> list = new ArrayList<String>();
+		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv1));
+		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv2));
+		return list;
 	}
 
 	/**
