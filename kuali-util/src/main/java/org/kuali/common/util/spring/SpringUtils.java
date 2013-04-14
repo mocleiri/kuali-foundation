@@ -91,6 +91,20 @@ public class SpringUtils {
 		return new Boolean(value);
 	}
 
+	public static PropertySource<?> getGlobalPropertySource(String name, List<ProjectProperties> pps) {
+		// Load them from disk
+		Properties source = PropertyUtils.load(pps);
+
+		// Add in system/environment properties
+		Properties globalSource = PropertyUtils.getGlobalProperties(source);
+
+		// Prepare them so they are ready for use
+		prepareContextProperties(globalSource);
+
+		// Return a PropertySource backed by the properties
+		return new PropertiesPropertySource(name, globalSource);
+	}
+
 	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
