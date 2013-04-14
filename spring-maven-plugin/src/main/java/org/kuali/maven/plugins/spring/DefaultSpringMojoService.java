@@ -190,35 +190,55 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
-		if (mojo.getAnnotatedClass() == null) {
-			String className = getDefaultAnnotatedClassname(mojo.getProject());
-			try {
-				Class<?> annotatedClass = ReflectionUtils.getClass(className);
-				mojo.setAnnotatedClass(annotatedClass.getName());
-			} catch (IllegalStateException e) {
-				throw new IllegalStateException("No annotated class was provided and the default class [" + className + "] could not be created", e);
-			}
-		}
 
-		// Combine the main context location with any optional locations
+		// Fill in a default annotated classname if they didn't explicitly supply one
+		String annotatedClassName = getAnnotatedClassName(mojo);
+		mojo.setAnnotatedClass(annotatedClassName);
+
+		// Combine the main annotated class with any optional annotated classes
 		List<String> annotatedClassNames = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
-		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-		for (String annotatedClassName : annotatedClassNames) {
-			Class<?> annotatedClass = ReflectionUtils.getClass(annotatedClassName);
-			annotatedClasses.add(annotatedClass);
-		}
+
+		// Convert the strings into actual classes
+		List<Class<?>> annotatedClasses = getAnnotatedClasses(annotatedClassNames);
 
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
 		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
+		// Assemble a SpringContext from the information we have
 		SpringContext context = new SpringContext();
 		context.setDisplayName("Spring Maven Plugin : Load : " + SEQUENCE.increment());
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
 		return context;
+	}
+
+	/**
+	 * If they supplied an annotated class, use it. Otherwise, use the artifactId to generate a default annotated class name to use.
+	 */
+	protected String getAnnotatedClassName(LoadMojo mojo) {
+		if (!StringUtils.isBlank(mojo.getAnnotatedClass())) {
+			return mojo.getAnnotatedClass();
+		} else {
+			String className = getDefaultAnnotatedClassname(mojo.getProject());
+			try {
+				Class<?> annotatedClass = ReflectionUtils.getClass(className);
+				return annotatedClass.getName();
+			} catch (IllegalStateException e) {
+				throw new IllegalStateException("No annotated class was provided and the default class [" + className + "] could not be created", e);
+			}
+		}
+	}
+
+	protected List<Class<?>> getAnnotatedClasses(List<String> annotatedClassNames) {
+		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
+		for (String annotatedClassName : annotatedClassNames) {
+			Class<?> annotatedClass = ReflectionUtils.getClass(annotatedClassName);
+			annotatedClasses.add(annotatedClass);
+		}
+		return annotatedClasses;
 	}
 
 	protected SpringContext getSpringContext(LoadXmlMojo mojo, Properties mavenProperties) {
@@ -343,7 +363,11 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
 		if (project.getDependencies() != null) {
 			List<Dependency> pojos = convertToSimplePojos(project.getDependencies());
-			nullSafeSet(properties, "project.dependencies", getDependenciesCSV(pojos));
+			if (pojos.size() == 0) {
+				nullSafeSet(properties, "project.dependencies", Constants.NONE);
+			} else {
+				nullSafeSet(properties, "project.dependencies", getDependenciesCSV(pojos));
+			}
 		} else {
 			nullSafeSet(properties, "project.dependencies", Constants.NONE);
 		}
