@@ -30,6 +30,15 @@ public class ExecutablesExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecutablesExecutable.class);
 
+	public ExecutablesExecutable() {
+		this(null);
+	}
+
+	public ExecutablesExecutable(List<Executable> executables) {
+		super();
+		this.executables = executables;
+	}
+
 	List<Executable> executables;
 	boolean skip;
 	boolean timed;
