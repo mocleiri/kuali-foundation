@@ -9,6 +9,11 @@ public class ShowPropertiesExecutable implements Executable {
 
 	Properties properties;
 
+	public ShowPropertiesExecutable(Properties properties) {
+		super();
+		this.properties = properties;
+	}
+
 	@Override
 	public void execute() {
 		PropertyUtils.info(properties);
