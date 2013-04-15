@@ -21,15 +21,21 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
+import org.kuali.common.util.service.PropertySourceContext;
+import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.PropertySource;
 
 public class MavenUtils {
 
@@ -39,6 +45,40 @@ public class MavenUtils {
 	public static final String INCLUDE = "properties.maven.include";
 	public static final String EXCLUDE = "properties.maven.exclude";
 	public static final String PROJECT_VERSION_KEY = "project.version";
+
+	public static SpringContext getMavenizedSpringContext(SpringService service, Properties mavenProperties, Class<?> propertySourceConfig) {
+		// This PropertySource object is backed by a set of properties that has been
+		// 1 - fully resolved
+		// 2 - contains all properties needed by Spring
+		// 3 - contains system/environment properties where system/env properties override loaded properties
+		PropertySource<?> source = getPropertySource(service, mavenProperties, propertySourceConfig);
+
+		// Setup a property source context such that our single property source is the only one registered with Spring
+		// This will make it so our PropertySource is the ONLY thing to resolve placeholders
+		PropertySourceContext psc = new PropertySourceContext(source, true);
+
+		// Setup a Spring context
+		SpringContext context = new SpringContext();
+
+		// Supply Spring with our PropertySource
+		context.setPropertySourceContext(psc);
+
+		// Return a Spring context configured with a single property source
+		return context;
+	}
+
+	protected static PropertySource<?> getPropertySource(SpringService service, Properties mavenProperties, Class<?> annotatedClass) {
+		return getPropertySource(service, annotatedClass, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
+	}
+
+	protected static PropertySource<?> getPropertySource(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+		List<PropertySource<?>> sources = SpringUtils.getPropertySources(service, annotatedClass, mavenPropertiesBeanName, mavenProperties);
+		if (sources.size() > 1) {
+			throw new IllegalStateException("More than one PropertySource was registered in the context");
+		} else {
+			return sources.get(0);
+		}
+	}
 
 	/**
 	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
