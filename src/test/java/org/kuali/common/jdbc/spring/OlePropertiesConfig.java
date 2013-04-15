@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Import;
 @Import(JdbcPropertiesConfig.class)
 public class OlePropertiesConfig {
 
+	// Simulate the properties supplied by Maven for OLE
 	public static final Properties OLE_MAVEN_PROPS = getOleMavenProperties();
 
 	@Bean
