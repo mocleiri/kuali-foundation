@@ -47,9 +47,11 @@ sub build_ec2_lst
   my $instance_id = $temp[1];
   my @TAGS = `grep $instance_id tag.lst`;
   my @tagsx = ();
+  $tags = "";
   #there could be more than one tag. So lets combine them with ":" 
   foreach $tagline ( @TAGS)
-  { chomp($tagline); @tagname = split(/\t/, $tagline ); 
+  { 
+    chomp($tagline); @tagname = split(/\t/, $tagline ); 
     push( @tagsx, $tagname[4]); 
   }
 
@@ -110,14 +112,15 @@ sub project_env_status
 {
 
  my $env_no = "";
- my $name_url = "";
+ my $anyname_kuali_org = "";
  my $server =  "";
+ my $ec2_status = "";
  my $status = "";
  my $size = "";
  my $tags = "";
 
- my $project = @_[0];
- my $skip_ec2_list = @_[1];
+ my $project = $_[0];
+ my $skip_ec2_list = $_[1];
  chomp ($project);
  chomp ($skip_ec2_list);
  #lets setup the individual project comma delimited files
@@ -126,7 +129,7 @@ sub project_env_status
  #add the headers, primative, but effective
  `echo \"Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%\" > $projectfile`;
 
- #Ok, let put the file in append mode
+ #Ok, let put the files in append mode
   open WIKI,  ">>$projectfile" or die "$projectfile $!\n";
 
  #using ec2-describe-instances, let build a file with all info about fn, rice and student.  I don't have key for ole.
@@ -136,18 +139,22 @@ sub project_env_status
  #ok, now we'll do some dnsme and find out what's in our dns tables.
  $sourcefile = "dns.$project".".txt";
  
- if ( $project eq "fn" )
+ if ( $project eq "fn" )  #any line with greater than symbol is data
  { $cmd = "mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice  > $sourcefile"; }
  else
  { $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile"; }
 
  #print "\n", $cmd;
  `$cmd`;
+ #so lets go through this table
  open( dns,  "<$sourcefile"); (@DNS =<dns>); close (dns);
  foreach $line (@DNS)
  {
    chomp($line);
+   print "\nworking on $line";
    if ( $line !~ /\->/ ){ next; }
+   #some dns entries are not being interrogated at this time. So for each entry
+   #default to no ping, and then see if there are any indicators to skip the ping
    $no_ping = "";
 
    #weed out the known situation that will not need query
@@ -161,62 +168,64 @@ sub project_env_status
    #so I have information, lets parse and clean it up
    ($toss,$url,$ec2,$CNAME,$ttl) = split(/\s|\->|,/,$line);
    #filter out any url that does not END with the project name, fn is exempt 
+   #print "\n$no_ping";
+   #print "\n$url !~ $project)";
    if (( $url !~ /$project$/) && ($project ne "fn"))
-   {  next; }
+   { print "\n$url !~ $project)"; next; }
 
    #print "\n(toss:$toss,url:$url,ec2:$ec2,cname:$CNAME,ttl:$ttl)";
-   $name_url = $url.".kuali.org";
+   $anyname_kuali_org = $url.".kuali.org";
+   if ( $anyname_kuali_org eq "www.kuali.org" ) # the server with a name of www needs special attention 
+    { $ec2 = "ec2-174-129-193-43.compute-1.amazonaws.com." } #let's hard code it for now.
 
 
    #get rid of that dot at the end of amazon.com name
    @temp = split(//,$ec2);
-
-   pop(@temp); #there's a period there
+   pop(@temp); #there's a period there pop it off
    $ec2 = join "", @temp; #put it back together
 
 
    #if the amazon.com name match in the EC2 List, lets use that info 
    #query ec2 list for the amazon DNS name 
    #print "\ngrep $ec2 EC2.lst";
-   $outcome_ec2com = `grep $ec2 EC2.lst`;
-   chomp($outcome_ec2com);
+   $dns_ec2_grep_ec2livelist = `grep $ec2 EC2.lst`;
 
 
    #query ec2 list for the tag name 
-   #this is a little more complicated 
-   if ( $urlsize < 3 ){ $result_ec2tag = ""; }
-   ($result_ec2tag) = find_url_tagname($url, "EC2.lst");
-
-   #$results_ec2tag = `grep $url EC2.lst`; 
-   print "\n$results_ec2tag = grep $url EC2.lst";
+   #this is a little more complicated, as the tag/name info is not consistent
+   if ( $urlsize < 3 ){ $results_ec2tag = ""; } #if the name is too small it tends to match everything.  Skip that value.
+   @tagoutput = ();
+   (@tagoutput) = find_url_tagname($url, "EC2.lst");
+   $results_ec2tag = $tagoutput[0];
    chomp($results_ec2tag);
-   
+
+   if ( $results_ec2tag ne "" ){ print "\nresult_ec2tag: $results_ec2tag = grep $url EC2.lst";}
    if ( $no_ping ne "" )
     { 
-      $outcome_ec2com = `grep $ec2 EC2.lst`;
-      ($instance_id, $server, $status, $tags) = split (/\s+|,/, $outcome_ec2com);
-      print WIKI ",$name_url,$ec2, $no_ping,$tags\n"; next; }
+      chomp($dns_ec2_grep_ec2livelist);
+      ($instance_id, $server, $ec2_status, $tags) = split (/\s+|,/, $dns_ec2_grep_ec2livelist);
+      print WIKI ",$anyname_kuali_org,$ec2, $no_ping,$tags\n"; next; }
 
 
    #otherwise $no_ping is not set and will go on
-   #if ( $status eq ""){$status = "$name_url page not found";}  
+   #if ( $status eq ""){$status = "$anyname_kuali_org page not found";}  
    #if the ec2 query has returned outcome lets get that info first
-   if ( $outcome_ec2com ne "" )
+   if ( $dns_ec2_grep_ec2livelist ne "" )
    {   
-      ($instance_id, $server, $status, $tags) = split (/\s|,/, $outcome_ec2com);
+      ($instance_id, $server, $ec2_status, $tags) = split (/\s|,/, $dns_ec2_grep_ec2livelist);
        #This is code to looked for server of particular load balancer  configurations.
        #I care about Nexus.  So
        if ($url eq "nexus" )
-       {   #I have this line in outcome_ec2com:
+       {   #I have this line in dns_ec2_grep_ec2livelist:
             #kuali-nexus-lb ec2-50-19-21-45.compute-1.amazonaws.com InService kuali-nexus-lb-287160402.us-east-1.elb.amazonaws.com
             #Lets save some info 
             $lb_id = $instance_id;
             $ec2_name = $server;
-            $lbstatus = $status;
+            $lbstatus = $ec2_status;
             $lbcom = $tags;
-            $outcome_ec2com = `grep $ec2_name EC2.lst | grep -v $lbstatus`;  #I don't want the same line
+            $dns_ec2_grep_ec2livelist = `grep $ec2_name EC2.lst | grep -v $lbstatus`;  #I don't want the same line
             #now I should have this: i-bdf85cc0 ec2-50-19-21-45.compute-1.amazonaws.com running kuali-nexus-as:nexus
-            ($instance_id, $server, $status, $tags) = split (/\s|,/, $outcome_ec2com);
+            ($instance_id, $server, $ec2_status, $tags) = split (/\s|,/, $dns_ec2_grep_ec2livelist);  ## what is this for?
              print WIKI ",$lb_id, $ec2_name, ,$lbstatus,$lbcom\n";
             #and I'll still lookup the instance_id and report on it, moving on
        }
@@ -226,7 +235,7 @@ sub project_env_status
    elsif ( $results_ec2tag ne "" ) #let's use the tag query, as ec2com didn't find anything
    {   
        $size = "";
-       ($instance_id, $server, $status, $tags) = split (/\s+|,/, $results_ec2tag);
+       ($instance_id, $server, $ec2_status, $tags) = split (/\s+|,/, $results_ec2tag);
    }
    else
     {
@@ -237,73 +246,90 @@ sub project_env_status
     }
 
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
-   if (( $status eq "running") || ( $project eq "ole" ))
+   $user = "root"; #default
+   @results_ec2tag = ();
+   if (( $ec2_status eq "running") || ( $project eq "ole" ))
       {  
         if ((( $line =~ "env2") && ($project eq "ole")) || (($project eq "fn") && ($url eq "nexus")) )
-
-         { @results_ec2tag = dead_or_alive($server);  }
+         { @results_ping = dead_or_alive($server,$user);  }
         else
         { 
-          @results_ec2tag = dead_or_alive($name_url); }
-      chomp(@results_ec2tag);
-      $status = $results_ec2tag[0];
-      $size = $results_ec2tag[1];
+          if (( $anyname_kuali_org eq "www.kuali.org") || ( $anyname_kuali_org eq "dev-cas.kuali.org") || ( $anyname_kuali_org eq "test-www.kuali.org")){ $user = "ubuntu"; }
+          if (( $anyname_kuali_org eq "env16.rice.kuali.org") || ( $anyname_kuali_org eq "env29.rice.kuali.org") ||( $anyname_kuali_org eq "env67.rice.kuali.org")){ $user = "ubuntu"; }
+          @results_ping = dead_or_alive($anyname_kuali_org,$user); 
+          print "\n@results_ping = dead_or_alive($anyname_kuali_org,$user)"; 
+       } 
+      chomp(@results_ping);
+      $status = $results_ping[0];
+      $size = $results_ping[1];
       }
     
     #let look up the index, probably write a routine for this
     $domainservers = "./domainsvr_lookup.txt";
 
-   #print "grep $name_url $domainservers\n";
-   ($env_no, $env_name, $projectx) = split(/,/,`grep $name_url $domainservers`);
+   #print "grep $anyname_kuali_org $domainservers\n";
+   ($env_no, $env_name, $projectx) = split(/,/,`grep $anyname_kuali_org $domainservers`);
    #I only are about env_no for this effort
+   #ws.rice.kuali.org, ec2-204-236-253-122.compute-1.amazonaws.com,  22:46:51 up 56 days, 11:29,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvde1,252G,183G,57G,77%,/,,ci.ws.server
+   #,env16.rice.kuali.org, ec2-75-101-184-187.compute-1.amazonaws.com, Fail 256, ,ci.ws.server
 
    #if this is a load balancer entry 
-   if (( $outcome_ec2com  =~ ".elb." ) && ($instance_id ne "nexus"))
-   { print WIKI ",$instance_id, $url, ,$status,$tags\n";}
+   if (( $dns_ec2_grep_ec2livelist  =~ ".elb." ) && ($instance_id ne "nexus"))
+   { print WIKI ",$instance_id, $url, ,$ec2_status,$tags\n";}
    else
    {
    #take the info and print it to the project file
-   print WIKI "$env_no,$name_url, $server, $status, $size,$tags\n"; }
+   print WIKI "$env_no,$anyname_kuali_org, $server, $status, $size,$tags\n"; }
    }
   }
 
    sub find_url_tagname
    {
-     my $url = @_[0];
-     my $EC2file = @_[1];
-     my $output = "";
+     my $url = $_[0];
+     my $EC2file = $_[1];
+     my @output = ();
      my @ProjectEC2 = ();
      #so let go through each line of the EC2.lst
      open ( EC2X,  "<$EC2file"); (@ProjectEC2 =<EC2X>); close (EC2X);
      foreach $line (@ProjectEC2)
      {
       chomp($line);
-      print "\n",$line;
+      #print "\nEC2: ",$line;
       #So here is an instance, or perhaps a load balancer.  It could have lots of info in the tag section.
       #split on words stopped or running
       my @RAWLINE = ();
       (@RAWLINE) = split(/running\,|stopped\,/, $line);
+      print "\n",@RAWLINE;
+      print "\nRAWLINE[0]: ",$RAWLINE[0];
+      print "\nRAWLINE[1]: ",$RAWLINE[1];
+      print "\nRAWLINE[2]: ",$RAWLINE[2];
       my @RAWTAG = split(/:/,$RAWLINE[1]);
+      $rl = @RAWTAG;
+      if ( $rl == 0 ){ next; }
+      #print "\n ($RAWTAG[0] eq $url ) || ( $RAWTAG[1] eq $url )";
       if ( ($RAWTAG[0] eq $url ) || ( $RAWTAG[1] eq $url ))
-      { $output = $line; last; }
+      { $output[0] = $line; last; }
       }
-      return( $output); 
+      return( @output); 
    } # find_url_tagname
+
 #Checks to see if a dns name/server combination results in a live or dead outcome 
 sub dead_or_alive
 {
  use warnings;
  my $name = $_[0];
+ my $user = $_[1];
  my $output = "";
  my @out = ();
  my $value = "";
+ my $size = "";
 
 #set an Signal Alarm to timeout unresponsive ip addresses
 eval {
     local $SIG{ALRM} = sub {die "alarm\n"};
     alarm 5;
     #I don't want to see the chatter, redirect 
-    $value = `ssh root\@$name uptime 2>chatter.txt`;
+    $value = `ssh $user\@$name uptime 2>chatter.txt`;
     alarm 0;
 };
 
@@ -319,7 +345,7 @@ if ($?) {
 } else {
     #print "Connection to $name was established\n";
     #Get size information
-    $size = `ssh root\@$name df \-h \/ | tail -1`;
+    $size = `ssh $user\@$name df \-h \/ | tail -1`;
     $size =~ s/\t|\s+/,/g;
     $out[0] =$value;
     $out[1] = $size;
@@ -332,7 +358,7 @@ if ($?) {
 sub main
 {
   $project=$ARGV[0];
-  $skip_ec2_list = @_[1];
+  $skip_ec2_list = $ARGV[1];
   chomp($project);
   chomp($skip_ec2_list);
   if ( $project eq "" ){ print "\n\tPlease include a project: ole, rice, ks. Try again.\n\n"; exit;}
