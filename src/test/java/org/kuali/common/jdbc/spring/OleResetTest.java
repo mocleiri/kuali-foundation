@@ -15,9 +15,19 @@
  */
 package org.kuali.common.jdbc.spring;
 
+import java.util.List;
+import java.util.Properties;
+
 import org.junit.Test;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.PropertySourceContext;
+import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.PropertySource;
 
 public class OleResetTest {
 
@@ -25,10 +35,33 @@ public class OleResetTest {
 	public void test() {
 		try {
 			SpringService ss = new DefaultSpringService();
-			ss.load(OleResetConfig.class);
+			List<PropertySource<?>> sources = getPropertySources(ss, OleMavenPropertySourceConfig.class);
+			PropertySourceContext psc = new PropertySourceContext();
+			psc.setRemoveExistingSources(true);
+			psc.setSources(sources);
+			SpringContext context = new SpringContext();
+			context.setPropertySourceContext(psc);
+			context.setAnnotatedClasses(CollectionUtils.asList(ResetConfig.class, ResetController.class));
+			ss.load(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
+
+	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass) {
+		String name = "mavenProperties";
+		Properties props = OlePropertiesConfig.OLE_MAVEN_PROPS;
+		return getPropertySources(service, annotatedClass, name, props);
+	}
+
+	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+		ConfigurableApplicationContext parent = SpringUtils.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
+		child.setParent(parent);
+		child.register(annotatedClass);
+		child.refresh();
+		return SpringUtils.getPropertySources(child);
+	}
+
 }

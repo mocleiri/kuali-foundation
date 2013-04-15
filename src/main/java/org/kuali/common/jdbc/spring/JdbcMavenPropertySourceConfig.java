@@ -19,24 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.spring.MavenPropertySourceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-public class MavenResetConfig extends AbstractMavenResetConfig {
+@Import({ JdbcPropertiesConfig.class })
+public class JdbcMavenPropertySourceConfig extends MavenPropertySourceConfig {
+
+	@Autowired
+	protected JdbcPropertiesConfig jdbcProperties;
 
 	@Override
-	public List<ProjectProperties> getProjectPropertiesList() {
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-		pps.add(jdbcProperties.jdbcProjectProperties());
-		pps.add(mavenProjectProperties());
-		return pps;
+	protected List<ProjectProperties> getProjectPropertiesList() {
+		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
+		list.add(jdbcProperties.jdbcProjectProperties());
+		return list;
 	}
 
-	@Override
-	public List<Class<?>> getAnnotatedClasses() {
-		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-		annotatedClasses.add(ResetConfig.class);
-		annotatedClasses.add(ResetController.class);
-		return annotatedClasses;
-	}
 }
