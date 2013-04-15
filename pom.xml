@@ -56,19 +56,6 @@
     <module>torque-generator</module>
     <module>torque-executor</module>
   </modules>
-  <profiles>
-    <profile>
-      <id>kuali-release</id>
-      <properties>
-        <!--
-          For this GAV processing to work right you also have to:
-          1 - Add <kuali.release.arguments>-Pkuali-release</kuali.release.arguments> as a pom property AND
-          2 - Add "mvn validate -Pkuali-release" as an extra build step immediately after "mvn release:prepare release:perform -B"
-        -->
-        <project.gav.phase>validate</project.gav.phase>
-      </properties>
-    </profile>
-  </profiles>
   <dependencyManagement>
     <dependencies>
       <dependency>
