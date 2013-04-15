@@ -39,7 +39,7 @@ public class OleResetTest {
 
 			// This PropertySource object is backed by a set of properties that has been
 			// 1 - fully resolved
-			// 2 - contains any other properties needed by OLE's db process
+			// 2 - contains all properties needed by OLE's db process
 			// 3 - contains system/environment properties
 			PropertySource<?> source = getPropertySource(ss, OleMavenPropertySourceConfig.class);
 
