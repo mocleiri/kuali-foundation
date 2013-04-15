@@ -75,10 +75,9 @@ public class ResetController {
 		executables.add(otherConfig.jdbcOtherConcurrentExecutable());
 		executables.add(otherConfig.jdbcOtherSequentialExecutable());
 
-		ExecutablesExecutable exec = new ExecutablesExecutable();
+		ExecutablesExecutable exec = new ExecutablesExecutable(executables);
 		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.reset.skip", false));
 		exec.setTimed(SpringUtils.getBoolean(env, "jdbc.reset.timed", true));
-		exec.setExecutables(executables);
 		return exec;
 	}
 }
