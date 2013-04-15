@@ -16,7 +16,6 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.property.ProjectProperties;
@@ -38,7 +37,8 @@ public class OleMavenPropertySourceConfig extends MavenPropertySourceConfig {
 	@Override
 	protected List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-		list.addAll(Arrays.asList(jdbcProperties.jdbcProjectProperties(), oleProperties.oleProjectProperties()));
+		list.add(jdbcProperties.jdbcProjectProperties());
+		list.add(oleProperties.oleProjectProperties());
 		return list;
 	}
 
