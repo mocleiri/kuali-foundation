@@ -36,9 +36,7 @@ public class OleResetTest {
 		try {
 			SpringService ss = new DefaultSpringService();
 			List<PropertySource<?>> sources = getPropertySources(ss, OleMavenPropertySourceConfig.class);
-			PropertySourceContext psc = new PropertySourceContext();
-			psc.setRemoveExistingSources(true);
-			psc.setSources(sources);
+			PropertySourceContext psc = new PropertySourceContext(sources, true);
 			SpringContext context = new SpringContext();
 			context.setPropertySourceContext(psc);
 			context.setAnnotatedClasses(CollectionUtils.asList(ResetConfig.class, ResetController.class));
