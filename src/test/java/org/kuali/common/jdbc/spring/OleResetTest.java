@@ -37,7 +37,7 @@ public class OleResetTest {
 			// Default Spring service will do what we need
 			SpringService ss = new DefaultSpringService();
 
-			// Setup a Spring context
+			// Setup a Spring context that uses maven properties for placeholder resolution
 			SpringContext context = MavenUtils.getMavenizedSpringContext(ss, OlePropertiesConfig.OLE_MAVEN_PROPS, OleMavenPropertySourceConfig.class);
 
 			// Use the default Reset annotated config
