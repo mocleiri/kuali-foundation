@@ -44,7 +44,7 @@ public class OleResetTest {
 			PropertySource<?> source = getPropertySource(ss, OleMavenPropertySourceConfig.class);
 
 			// Setup a property source context such that our single property source is the only one registered with Spring
-			// This will make it so our PropertySource is the ONLY spot used to resolve placeholders
+			// This will make it so our PropertySource is the ONLY thing to resolve placeholders
 			PropertySourceContext psc = new PropertySourceContext(source, true);
 
 			// Setup a Spring context
