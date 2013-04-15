@@ -50,9 +50,7 @@ public class OleResetTest {
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass) {
-		String name = "mavenProperties";
-		Properties props = OlePropertiesConfig.OLE_MAVEN_PROPS;
-		return getPropertySources(service, annotatedClass, name, props);
+		return getPropertySources(service, annotatedClass, "mavenProperties", OlePropertiesConfig.OLE_MAVEN_PROPS);
 	}
 
 	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
