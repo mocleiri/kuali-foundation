@@ -20,8 +20,8 @@ import java.util.Properties;
 
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringUtils;
@@ -37,21 +37,8 @@ public class OleResetTest {
 			// Default Spring service will do what we need
 			SpringService ss = new DefaultSpringService();
 
-			// This PropertySource object is backed by a set of properties that has been
-			// 1 - fully resolved
-			// 2 - contains all properties needed by OLE's db process
-			// 3 - contains system/environment properties
-			PropertySource<?> source = getPropertySource(ss, OleMavenPropertySourceConfig.class);
-
-			// Setup a property source context such that our single property source is the only one registered with Spring
-			// This will make it so our PropertySource is the ONLY thing to resolve placeholders
-			PropertySourceContext psc = new PropertySourceContext(source, true);
-
 			// Setup a Spring context
-			SpringContext context = new SpringContext();
-
-			// Supply Spring with our PropertySource
-			context.setPropertySourceContext(psc);
+			SpringContext context = MavenUtils.getMavenizedSpringContext(ss, OlePropertiesConfig.OLE_MAVEN_PROPS, OleMavenPropertySourceConfig.class);
 
 			// Use the default Reset annotated config
 			context.setAnnotatedClasses(CollectionUtils.asList(ResetConfig.class, ResetController.class));
