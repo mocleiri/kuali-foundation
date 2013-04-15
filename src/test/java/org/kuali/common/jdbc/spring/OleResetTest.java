@@ -43,16 +43,17 @@ public class OleResetTest {
 			// 3 - contains system/environment properties
 			PropertySource<?> source = getPropertySource(ss, OleMavenPropertySourceConfig.class);
 
-			// Setup a property source context such that our single property source is the only spot Spring will be able to obtain property values from
+			// Setup a property source context such that our single property source is the only one registered with Spring
+			// This will make it so our PropertySource is the ONLY spot used to resolve placeholders
 			PropertySourceContext psc = new PropertySourceContext(source, true);
 
 			// Setup a Spring context
 			SpringContext context = new SpringContext();
 
-			// Make sure the only thing Spring can use to resolve placeholder values is our property source
+			// Supply Spring with our PropertySource
 			context.setPropertySourceContext(psc);
 
-			// Use the default Reset config
+			// Use the default Reset annotated config
 			context.setAnnotatedClasses(CollectionUtils.asList(ResetConfig.class, ResetController.class));
 
 			// Execute Spring
