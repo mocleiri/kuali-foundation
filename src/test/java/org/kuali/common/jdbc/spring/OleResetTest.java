@@ -15,6 +15,7 @@
  */
 package org.kuali.common.jdbc.spring;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -72,7 +73,12 @@ public class OleResetTest {
 		child.setParent(parent);
 		child.register(annotatedClass);
 		child.refresh();
-		return SpringUtils.getPropertySources(child).get(0);
+		List<PropertySource<?>> sources = SpringUtils.getPropertySources(child);
+		if (sources.size() > 1) {
+			throw new IllegalStateException("More than one PropertySource<?> was registered in the context");
+		} else {
+			return sources.get(0);
+		}
 	}
 
 }
