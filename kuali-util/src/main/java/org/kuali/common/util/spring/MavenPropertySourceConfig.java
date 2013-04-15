@@ -71,7 +71,9 @@ public class MavenPropertySourceConfig {
 		List<ProjectProperties> pps = getProjectPropertiesList();
 
 		// Add the current project's Maven properties last
-		pps.add(mavenProjectProperties());
+		ProjectProperties mavenProjectProperties = mavenProjectProperties();
+		
+		pps.add(mavenProjectProperties);
 
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return SpringUtils.getGlobalPropertySource(SPRING_PROPERTY_SOURCE, pps);
