@@ -176,12 +176,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
 
-		// Make sure we always have an annotated classname, use the one they provided or fill in a default from project info
-		String annotatedClassName = getAnnotatedClassName(mojo);
-		mojo.setAnnotatedClass(annotatedClassName);
-
 		// Combine the main annotated class with any optional annotated classes
-		List<String> annotatedClassNames = CollectionUtils.combine(mojo.getAnnotatedClass(), mojo.getAnnotatedClasses());
+		List<String> annotatedClassNames = getAnnotatedClassNames(mojo);
 
 		// Convert the strings into actual classes
 		List<Class<?>> annotatedClasses = getAnnotatedClasses(annotatedClassNames);
@@ -198,6 +194,21 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
 		return context;
+	}
+
+	protected List<String> getAnnotatedClassNames(LoadMojo mojo) {
+		List<String> acns = new ArrayList<String>();
+		if (!StringUtils.isBlank(mojo.getAnnotatedClass())) {
+			acns.add(mojo.getAnnotatedClass());
+		}
+		if (!CollectionUtils.isEmpty(mojo.getAnnotatedClasses())) {
+			acns.addAll(mojo.getAnnotatedClasses());
+		}
+		if (acns.size() == 0) {
+			String acn = getDefaultAnnotatedClassname(mojo.getProject());
+			acns.add(acn);
+		}
+		return acns;
 	}
 
 	/**
