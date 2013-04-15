@@ -40,9 +40,6 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Service;
@@ -169,28 +166,12 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	protected List<PropertySource<?>> getPropertySources(PropertySourcesContext ctx) {
 		if (ctx.getLocation() != null) {
-			return getPropertySources(ctx.getService(), ctx.getLocation(), ctx.getPropertiesBeanName(), ctx.getProperties());
+			return SpringUtils.getPropertySources(ctx.getService(), ctx.getLocation(), ctx.getPropertiesBeanName(), ctx.getProperties());
 		} else if (ctx.getAnnotatedClass() != null) {
-			return getPropertySources(ctx.getService(), ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties());
+			return SpringUtils.getPropertySources(ctx.getService(), ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties());
 		} else {
 			throw new IllegalArgumentException("Must supply either location or an annotated class");
 		}
-	}
-
-	protected List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		ConfigurableApplicationContext parent = SpringUtils.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
-		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
-		child.setParent(parent);
-		child.register(annotatedClass);
-		child.refresh();
-		return SpringUtils.getPropertySources(child);
-	}
-
-	protected List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
-		String[] locationsArray = { location };
-		ConfigurableApplicationContext parent = SpringUtils.getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
-		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
-		return SpringUtils.getPropertySources(child);
 	}
 
 	protected SpringContext getSpringContext(LoadMojo mojo, Properties mavenProperties) {
