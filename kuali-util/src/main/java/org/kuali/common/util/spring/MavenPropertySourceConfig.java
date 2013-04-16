@@ -68,7 +68,7 @@ public class MavenPropertySourceConfig {
 	@Bean
 	public PropertySource<?> springPropertySource() {
 		// Get the list of project properties we will be loading. Property loading uses a "last one in wins" strategy
-		List<ProjectProperties> pps = getProjectPropertiesList();
+		List<ProjectProperties> pps = new ArrayList<ProjectProperties>(getProjectPropertiesList());
 
 		// Add the current project's Maven properties last
 		pps.add(mavenProjectProperties());
