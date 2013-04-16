@@ -21,7 +21,7 @@ public class KSResetTest {
 			SpringContext context = MavenUtils.getMavenizedSpringContext(ss, KSPropertiesConfig.KS_MAVEN_PROPS, KSMavenPropertySourceConfig.class);
 
 			// Reset the db using annotated config
-			context.setAnnotatedClasses(CollectionUtils.asList(ResetConfig.class, MpxSupplierConfig.class, ResetController.class));
+			context.setAnnotatedClasses(CollectionUtils.asList(MpxSupplierConfig.class, ResetConfig.class, ResetController.class));
 
 			// Execute Spring
 			ss.load(context);
