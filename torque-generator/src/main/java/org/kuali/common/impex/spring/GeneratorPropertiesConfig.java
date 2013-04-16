@@ -1,7 +1,6 @@
 package org.kuali.common.impex.spring;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.kuali.common.util.Project;
 import org.kuali.common.util.property.ProjectProperties;
@@ -22,8 +21,7 @@ public class GeneratorPropertiesConfig {
 	public ProjectProperties generatorProjectProperties() {
 		String batch = "classpath:org/kuali/common/impex/batch.properties";
 		Project project = projectConfig.generatorProject();
-		List<String> locations = Arrays.asList(batch);
-		return ConfigUtils.getProjectProperties(project, locations);
+		return ConfigUtils.getProjectProperties(project, Arrays.asList(batch));
 	}
 
 }
