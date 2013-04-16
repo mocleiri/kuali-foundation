@@ -1733,13 +1733,23 @@ h3 {
 	width: 179px;
 }
 
-.docControls {
+/*.docControls {
+	border-top: 1px solid #ccc;
+	background: white;
+	padding-top: 1.5em;
+	padding-bottom: 1.5em;
+	height: auto !important;
+	box-shadow: none;
+}*/
+
+.docControls.fixed {
 	position: fixed;
 	box-shadow: 0 -6px 8px -4px rgba(0,0,0,.15);
 	background: white;
 	padding-top: 1.5em;
 	padding-bottom: 1.5em;
 	height: auto !important;
+	bottom: 0;
 }
 
 .boxContent .well {
