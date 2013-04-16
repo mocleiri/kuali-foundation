@@ -16,12 +16,13 @@
             <li><a href="#" class="icons-docheader-medusa">Medusa</a></li>
             <li><a href="#" class=" icons-docheader-hierarchy">Hierarchy</a></li>
             <li><a href="#" class=" icons-docheader-access">Access</a></li>
+            <li><a href="#" class="icons-docheader-hierarchy">Routing</a></li>
           </ul>
         </div>
       </div>
 
       <div class="span6">
-        <div class="btn-group" style=" position:absolute; right:0px; top:12px;">
+        <!-- <div class="btn-group" style=" position:absolute; right:0px; top:12px;">
           <button class="btn dropdown-toggle" data-toggle="dropdown">Document Routing TBD <span class="caret"></span></button>
           <ul class="dropdown-menu right">
             <li><a href="#">Action</a></li>
@@ -30,7 +31,7 @@
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
-        </div>
+        </div> -->
 
         <div class="docStatus" style="position:absolute; right:0px; bottom: -6px;">
           <div style="float: right;">
