@@ -43,6 +43,7 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
+      <version>4.1.12-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>ant</groupId>
