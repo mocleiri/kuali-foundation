@@ -26,20 +26,24 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class })
+@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class, KSPropertiesConfig.class })
 public class KSMavenPropertySourceConfig extends MavenPropertySourceConfig {
 
 	@Autowired
-	protected JdbcPropertiesConfig jdbcProperties;
+	JdbcPropertiesConfig jdbcProperties;
 
 	@Autowired
-	protected GeneratorPropertiesConfig generatorProperties;
+	GeneratorPropertiesConfig generatorProperties;
+
+	@Autowired
+	KSPropertiesConfig ksProperties;
 
 	@Override
 	protected List<ProjectProperties> getProjectPropertiesList() {
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
 		list.add(jdbcProperties.jdbcProjectProperties());
 		list.add(generatorProperties.generatorProjectProperties());
+		list.add(ksProperties.ksProjectProperties());
 		return list;
 	}
 

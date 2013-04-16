@@ -37,7 +37,7 @@ public class KSPropertiesConfig {
 	public static final Properties KS_MAVEN_PROPS = getKSMavenProperties();
 
 	@Bean
-	public ProjectProperties oleProjectProperties() {
+	public ProjectProperties ksProjectProperties() {
 		Project project = ProjectUtils.getProject(KS_MAVEN_PROPS);
 		List<String> locations = Arrays.asList("classpath:ks-impex-rice-db.properties");
 		return ConfigUtils.getProjectProperties(project, locations);
