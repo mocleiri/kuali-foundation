@@ -46,21 +46,31 @@ public class MetaInfUtils {
 	public static List<File> getFiles(MetaInfContext context) throws IOException {
 		Assert.notNull(context.getBaseDir(), "baseDir is null");
 		Assert.notNull(context.getOutputFile(), "outputFile is null");
+		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getBaseDir()));
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
-		logger.debug("Examining - " + context.getBaseDir().getCanonicalPath());
-		String incl = CollectionUtils.getSpaceSeparatedString(includes);
-		String excl = CollectionUtils.getSpaceSeparatedString(excludes);
+		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
+		List<File> files = scanner.getFiles();
+		return files;
+	}
+
+	protected static String getPatternFragment(MetaInfContext context) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("include: " + incl);
+		String incl = CollectionUtils.getSpaceSeparatedString(context.getIncludes());
+		String excl = CollectionUtils.getSpaceSeparatedString(context.getExcludes());
+		sb.append("[");
+		if (!StringUtils.isBlank(incl)) {
+			sb.append("include: " + incl);
+		}
 		if (!StringUtils.isBlank(excl)) {
 			sb.append(", exclude:" + excl);
 		}
-		logger.info("[" + sb.toString() + "]");
-		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
-		List<File> files = scanner.getFiles();
-		logger.debug("Located " + files.size() + " files");
-		return files;
+		boolean includeEverything = StringUtils.isBlank(incl) && StringUtils.isBlank(excl);
+		if (includeEverything) {
+			sb.append("include: *");
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 
 	public static void doLocations(MetaInfContext context, List<MetaInfResource> resources) throws IOException {
@@ -71,7 +81,8 @@ public class MetaInfUtils {
 		String path1 = LocationUtils.getCanonicalPath(context.getBaseDir());
 		String path2 = LocationUtils.getCanonicalPath(context.getOutputFile());
 		String path = StringUtils.remove(path2, path1);
-		logger.info("Creating [" + path + "] - {} resources", locations.size());
+		String fragment = getPatternFragment(context);
+		logger.info("{} Creating [" + path + "] - {} resources", fragment, locations.size());
 		FileUtils.writeLines(context.getOutputFile(), locations);
 	}
 
