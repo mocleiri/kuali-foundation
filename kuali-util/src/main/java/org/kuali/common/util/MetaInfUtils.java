@@ -49,7 +49,14 @@ public class MetaInfUtils {
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
 		logger.debug("Examining - " + context.getBaseDir().getCanonicalPath());
-		logger.info("[include:" + CollectionUtils.getSpaceSeparatedString(includes) + ", exclude:" + CollectionUtils.getSpaceSeparatedString(excludes) + "]");
+		String incl = CollectionUtils.getSpaceSeparatedString(includes);
+		String excl = CollectionUtils.getSpaceSeparatedString(excludes);
+		StringBuilder sb = new StringBuilder();
+		sb.append("include: " + incl);
+		if (!StringUtils.isBlank(excl)) {
+			sb.append(", exclude:" + excl);
+		}
+		logger.info("[" + sb.toString() + "]");
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
 		List<File> files = scanner.getFiles();
 		logger.debug("Located " + files.size() + " files");
