@@ -120,7 +120,7 @@
     <!-- Internal kuali library versions -->
     <kuali-util.version>4.1.13</kuali-util.version>
     <kuali-sql.version>2.0.2</kuali-sql.version>
-    <kuali-jdbc.version>3.0.2</kuali-jdbc.version>
+    <kuali-jdbc.version>3.0.3</kuali-jdbc.version>
     <kuali-deploy.version>2.1.9</kuali-deploy.version>
     <impex.version>2.1.6</impex.version>
     <kuali-http.version>1.0.1</kuali-http.version>
