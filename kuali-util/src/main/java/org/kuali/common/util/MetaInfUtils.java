@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +61,10 @@ public class MetaInfUtils {
 		if (context.isSort()) {
 			Collections.sort(locations);
 		}
-		logger.info("[" + context.getOutputFile().getCanonicalPath() + "] - {} resources", locations.size());
+		String path1 = LocationUtils.getCanonicalPath(context.getBaseDir());
+		String path2 = LocationUtils.getCanonicalPath(context.getOutputFile());
+		String path = StringUtils.remove(path2, path1);
+		logger.info("Creating [" + path + "] - {} resources", locations.size());
 		FileUtils.writeLines(context.getOutputFile(), locations);
 	}
 
