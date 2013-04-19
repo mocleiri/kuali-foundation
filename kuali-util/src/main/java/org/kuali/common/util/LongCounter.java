@@ -28,12 +28,12 @@ public class LongCounter {
 		this.count = startValue;
 	}
 
-	public long increment() {
+	public synchronized long increment() {
 		Assert.isFalse(count == Long.MAX_VALUE, "max counter value exceeded");
 		return count++;
 	}
 
-	public long decrement() {
+	public synchronized long decrement() {
 		Assert.isFalse(count == Long.MIN_VALUE, "min counter value exceeded");
 		return count--;
 	}
