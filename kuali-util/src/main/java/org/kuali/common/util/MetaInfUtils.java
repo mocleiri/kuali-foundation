@@ -48,12 +48,11 @@ public class MetaInfUtils {
 		Assert.notNull(context.getOutputFile(), "outputFile is null");
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
-		logger.info("Examining - " + context.getBaseDir().getCanonicalPath());
-		logger.info("Include - " + CollectionUtils.getSpaceSeparatedString(includes));
-		logger.info("Exclude - " + CollectionUtils.getSpaceSeparatedString(excludes));
+		logger.debug("Examining - " + context.getBaseDir().getCanonicalPath());
+		logger.info("[incl:" + CollectionUtils.getSpaceSeparatedString(includes) + ", excl:" + CollectionUtils.getSpaceSeparatedString(excludes));
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
 		List<File> files = scanner.getFiles();
-		logger.info("Located " + files.size() + " files");
+		logger.debug("Located " + files.size() + " files");
 		return files;
 	}
 
@@ -62,7 +61,7 @@ public class MetaInfUtils {
 		if (context.isSort()) {
 			Collections.sort(locations);
 		}
-		logger.info("Creating " + context.getOutputFile().getCanonicalPath());
+		logger.info("{} resources - [" + context.getOutputFile().getCanonicalPath() + "]", locations.size());
 		FileUtils.writeLines(context.getOutputFile(), locations);
 	}
 
