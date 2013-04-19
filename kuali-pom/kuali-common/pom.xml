@@ -240,7 +240,9 @@
                   <goal>load</goal>
                 </goals>
                 <configuration>
-                  <annotatedClass>org.kuali.common.deploy.spring.MavenDeployConfig</annotatedClass>
+                  <propertySourcesConfig>org.kuali.common.deploy.spring.DeployMavenPropertySourceConfig</propertySourcesConfig>
+                  <removeExistingPropertySources>true</removeExistingPropertySources>
+                  <annotatedClass>org.kuali.common.deploy.spring.DeployConfig</annotatedClass>
                 </configuration>
               </execution>
             </executions>
