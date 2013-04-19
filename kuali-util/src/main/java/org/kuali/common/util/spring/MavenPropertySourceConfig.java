@@ -67,11 +67,16 @@ public class MavenPropertySourceConfig {
 
 	@Bean
 	public PropertySource<?> springPropertySource() {
-		// Get the list of project properties we will be loading. Property loading uses a "last one in wins" strategy
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>(getProjectPropertiesList());
+		ProjectProperties mpp = mavenProjectProperties();
 
-		// Add the current project's Maven properties last
-		pps.add(mavenProjectProperties());
+		// Property loading uses a "last one in wins" strategy
+		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+		// Add maven properties first so they can be used to resolve locations
+		pps.add(mpp);
+		// Load in project properties
+		pps.addAll(getProjectPropertiesList());
+		// Add maven properties last so they override loaded properties
+		pps.add(mpp);
 
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return SpringUtils.getGlobalPropertySource(SPRING_PROPERTY_SOURCE, pps);
