@@ -55,6 +55,11 @@
     DROP TABLE IF EXISTS DATABASECHANGELOGLOCK
     /
   </entry>
+  <!-- Just a placeholder.  MySQL does not actually need to do anything for this. -->
+  <entry key="mysql.schemaStats">
+    SELECT 1
+    /
+  </entry>
   <entry key="mysql.liquibase.create">
     CREATE TABLE DATABASECHANGELOG (ID VARCHAR(63) NOT NULL
     , AUTHOR VARCHAR(63)
