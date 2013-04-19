@@ -49,7 +49,7 @@ public class MetaInfUtils {
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
 		logger.debug("Examining - " + context.getBaseDir().getCanonicalPath());
-		logger.info("[incl:" + CollectionUtils.getSpaceSeparatedString(includes) + ", excl:" + CollectionUtils.getSpaceSeparatedString(excludes));
+		logger.info("[include:" + CollectionUtils.getSpaceSeparatedString(includes) + ", exclude:" + CollectionUtils.getSpaceSeparatedString(excludes) + "]");
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
 		List<File> files = scanner.getFiles();
 		logger.debug("Located " + files.size() + " files");
@@ -61,7 +61,7 @@ public class MetaInfUtils {
 		if (context.isSort()) {
 			Collections.sort(locations);
 		}
-		logger.info("{} resources - [" + context.getOutputFile().getCanonicalPath() + "]", locations.size());
+		logger.info("[" + context.getOutputFile().getCanonicalPath() + "] - {} resources", locations.size());
 		FileUtils.writeLines(context.getOutputFile(), locations);
 	}
 
