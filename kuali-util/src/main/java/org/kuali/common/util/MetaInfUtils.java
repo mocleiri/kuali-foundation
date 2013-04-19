@@ -47,6 +47,7 @@ public class MetaInfUtils {
 		Assert.notNull(context.getBaseDir(), "baseDir is null");
 		Assert.notNull(context.getOutputFile(), "outputFile is null");
 		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getBaseDir()));
+		logger.debug("Patterns - {}", getPatternLogMessage(context));
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
@@ -54,7 +55,7 @@ public class MetaInfUtils {
 		return files;
 	}
 
-	protected static String getPatternFragment(MetaInfContext context) {
+	protected static String getPatternLogMessage(MetaInfContext context) {
 		StringBuilder sb = new StringBuilder();
 		String incl = CollectionUtils.getSpaceSeparatedString(context.getIncludes());
 		String excl = CollectionUtils.getSpaceSeparatedString(context.getExcludes());
@@ -81,8 +82,7 @@ public class MetaInfUtils {
 		String path1 = LocationUtils.getCanonicalPath(context.getBaseDir());
 		String path2 = LocationUtils.getCanonicalPath(context.getOutputFile());
 		String path = StringUtils.remove(path2, path1);
-		String fragment = getPatternFragment(context);
-		logger.info("{} Creating [" + path + "] - {} resources", fragment, locations.size());
+		logger.info("Creating [" + path + "] - {} resources", locations.size());
 		FileUtils.writeLines(context.getOutputFile(), locations);
 	}
 
