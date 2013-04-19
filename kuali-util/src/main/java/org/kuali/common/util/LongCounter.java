@@ -37,4 +37,8 @@ public class LongCounter {
 		Assert.isFalse(count == Long.MIN_VALUE, "min counter value exceeded");
 		return count--;
 	}
+
+	public synchronized long getValue() {
+		return count;
+	}
 }

@@ -37,4 +37,8 @@ public class Counter {
 		Assert.isFalse(count == Integer.MIN_VALUE, "min value exceeded");
 		return count--;
 	}
+
+	public synchronized int getValue() {
+		return count;
+	}
 }
