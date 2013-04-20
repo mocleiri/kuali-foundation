@@ -230,29 +230,28 @@ final class JRobin {
 			endTime = Math.min(range.getEndDate().getTime() / 1000, Util.getTime());
 			startTime = range.getStartDate().getTime() / 1000;
 		} else {
-			if (range.getValue().equals("hour")) { // kuali patch1
+			//System.out.println("Range Value: " + range.getValue());
+			if (range.getValue().equals("hour")) {
+				//System.out.println("trying to make an hour graph");
 				endTime = Util.getTime();
+				//System.out.println("Current Time" + endTime);
 				startTime = Util.getTime() - 3600; //3600 seconds in a hour 3 600 000 ms in an hour
+				//System.out.println("Start time" + startTime);
 			} else {
 				endTime = Util.getTime();
+				//System.out.println("Current Time" + endTime);
 				startTime = endTime - range.getPeriod().getDurationSeconds();
+				//System.out.println("Start time" + startTime);
 			}
 		}
-		final String label = getLabel();
-		final String titleStart;
-		if (label.length() > 31 && width <= 200) {
-			// si le label est trop long, on raccourci le titre sinon il ne rentre pas
-			titleStart = label;
-		} else {
-			titleStart = label + " - " + range.getLabel();
-		}
+		final String titleStart = getLabel() + " - " + range.getLabel();
 		final String titleEnd;
 		if (width > 400) {
 			if (range.getPeriod() == null) {
-				titleEnd = " - " + I18N.getFormattedString("sur", getApplication());
+				titleEnd = " - " + I18N.getString("sur") + ' ' + getApplication();
 			} else {
-				titleEnd = " - " + I18N.getCurrentDate() + ' '
-						+ I18N.getFormattedString("sur", getApplication());
+				titleEnd = " - " + I18N.getCurrentDate() + ' ' + I18N.getString("sur") + ' '
+						+ getApplication();
 			}
 		} else {
 			titleEnd = "";
@@ -266,16 +265,10 @@ final class JRobin {
 		graphDef.setStartTime(startTime);
 		graphDef.setEndTime(endTime);
 		graphDef.setTitle(titleStart + titleEnd);
-		graphDef.setFirstDayOfWeek(Calendar.getInstance(I18N.getCurrentLocale())
-				.getFirstDayOfWeek());
-		// or if the user locale patch is merged we should do:
-		// (https://sourceforge.net/tracker/?func=detail&aid=3403733&group_id=82668&atid=566807)
-		//graphDef.setLocale(I18N.getCurrentLocale());
-
 		// rq : la largeur et la hauteur de l'image sont plus grandes que celles fournies
 		// car jrobin ajoute la largeur et la hauteur des textes et autres
-		graphDef.setWidth(width);
-		graphDef.setHeight(height);
+		graphDef.setWidth((int) (width * 2.5));
+		graphDef.setHeight((int) (height * 2.5));
 		if (width <= 100) {
 			graphDef.setNoLegend(true);
 			graphDef.setUnitsLength(0);

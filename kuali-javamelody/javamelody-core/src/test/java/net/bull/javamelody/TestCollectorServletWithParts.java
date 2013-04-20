@@ -19,7 +19,6 @@
 package net.bull.javamelody; // NOPMD
 
 import static net.bull.javamelody.HttpParameters.ACTION_PARAMETER;
-import static net.bull.javamelody.HttpParameters.CACHE_ID_PARAMETER;
 import static net.bull.javamelody.HttpParameters.CONNECTIONS_PART;
 import static net.bull.javamelody.HttpParameters.COUNTER_PARAMETER;
 import static net.bull.javamelody.HttpParameters.COUNTER_SUMMARY_PER_CLASS_PART;
@@ -225,8 +224,6 @@ public class TestCollectorServletWithParts {
 		doPart(parameters);
 		parameters.put(PART_PARAMETER, THREADS_PART);
 		doPart(parameters);
-		parameters.put(PART_PARAMETER, CURRENT_REQUESTS_PART);
-		doPart(parameters);
 		parameters.put(WIDTH_PARAMETER, "80");
 		parameters.put(HEIGHT_PARAMETER, "80");
 		parameters.put(PART_PARAMETER, JROBINS_PART);
@@ -271,9 +268,6 @@ public class TestCollectorServletWithParts {
 		doPart(parameters);
 		parameters.put(ACTION_PARAMETER, Action.PAUSE_JOB.toString());
 		parameters.put(JOB_ID_PARAMETER, "all");
-		doPart(parameters);
-		parameters.put(ACTION_PARAMETER, Action.CLEAR_CACHE.toString());
-		parameters.put(CACHE_ID_PARAMETER, "aCacheId");
 		doPart(parameters);
 		parameters.put(ACTION_PARAMETER, "remove_application");
 		doPart(parameters);

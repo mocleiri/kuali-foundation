@@ -24,14 +24,19 @@ import java.util.List;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Rapport pdf pour les informations sur la base de données.
  * @author Emeric Vernat
  */
-class PdfDatabaseInformationsReport extends PdfAbstractTableReport {
+class PdfDatabaseInformationsReport extends PdfAbstractReport {
 	private final DatabaseInformations databaseInformations;
+	private final Font cellFont = PdfFonts.TABLE_CELL.getFont();
+	private PdfPTable currentTable;
 
 	PdfDatabaseInformationsReport(DatabaseInformations databaseInformations, Document document) {
 		super(document);
@@ -49,23 +54,30 @@ class PdfDatabaseInformationsReport extends PdfAbstractTableReport {
 		final String[] headerValues = values[0];
 		writeTableHeaders(headerValues);
 		int index = 0;
+		final PdfPCell defaultCell = getDefaultCell();
+		boolean odd = false;
 		for (final String[] row : values) {
 			if (index == 0) {
 				index++;
 				continue;
 			}
-			nextRow();
+			if (odd) {
+				defaultCell.setGrayFill(0.97f);
+			} else {
+				defaultCell.setGrayFill(1);
+			}
+			odd = !odd; // NOPMD
 			writeRow(row);
 			index++;
 		}
-		addTableToDocument();
+		addToDocument(currentTable);
 	}
 
 	private void writeTableHeaders(String[] headerValues) throws DocumentException {
 		final List<String> headers = Arrays.asList(headerValues);
 		final int[] relativeWidths = new int[headers.size()];
 		Arrays.fill(relativeWidths, 0, headers.size(), 1);
-		initTable(headers, relativeWidths);
+		currentTable = PdfDocumentFactory.createPdfPTable(headers, relativeWidths);
 	}
 
 	private void writeRow(String[] row) {
@@ -94,5 +106,13 @@ class PdfDatabaseInformationsReport extends PdfAbstractTableReport {
 			}
 		}
 		return true;
+	}
+
+	private PdfPCell getDefaultCell() {
+		return currentTable.getDefaultCell();
+	}
+
+	private void addCell(String string) {
+		currentTable.addCell(new Phrase(string, cellFont));
 	}
 }

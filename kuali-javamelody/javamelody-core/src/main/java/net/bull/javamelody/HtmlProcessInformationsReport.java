@@ -46,14 +46,14 @@ class HtmlProcessInformationsReport extends HtmlAbstractReport {
 		writeLinks();
 		writeln("<br/>");
 
-		writeTitle("processes.png", getString("Processus"));
+		writeln("<img src='?resource=processes.png' width='24' height='24' alt='#Processus#' />&nbsp;");
+		writeln("<b>#Processus#</b>");
 		writeTable();
 	}
 
 	void writeTable() throws IOException {
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(getString("Processus"));
-		write("<th>#Utilisateur#</th>");
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Processus#'>");
+		write("<thead><tr><th>#Utilisateur#</th>");
 		write("<th class='sorttable_numeric'>#PID#</th>");
 		if (!windows) {
 			write("<th class='sorttable_numeric'>#cpu#</th><th class='sorttable_numeric'>#mem#</th>");
@@ -64,11 +64,19 @@ class HtmlProcessInformationsReport extends HtmlAbstractReport {
 			write("<th>#stat#</th><th>#start#</th>");
 		}
 		write("<th>#cpuTime#</th><th>#command#</th>");
+		writeln("</tr></thead><tbody>");
+		boolean odd = false;
 		for (final ProcessInformations processInformations : processInformationsList) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeProcessInformations(processInformations);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 		if (!windows) {
 			write("<div align='right'>");
 			write("<a href='http://en.wikipedia.org/wiki/Ps_(Unix)' target='_blank'>ps command reference</a></div>");

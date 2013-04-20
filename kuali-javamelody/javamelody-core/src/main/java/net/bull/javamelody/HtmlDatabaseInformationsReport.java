@@ -42,47 +42,49 @@ class HtmlDatabaseInformationsReport extends HtmlAbstractReport {
 		void toHtml() throws IOException {
 			final int rowsByColumn;
 			if (nbColumns > 1) {
-				rowsByColumn = (values.length - 1) / nbColumns + 1;
+				rowsByColumn = values.length / nbColumns + 1;
 				writeln("<table width='100%' cellspacing='0' cellpadding='2' summary=''><tr><td valign='top'>");
 			} else {
 				rowsByColumn = -1;
 			}
-			if (values.length <= 1) {
-				return;
-			}
 			final String[] headerValues = values[0];
-			HtmlTable table = new HtmlTable();
-			table.beginTable(getString("database"));
 			writeTableHeaders(headerValues);
 			int index = 0;
+			boolean odd = false;
 			for (final String[] row : values) {
 				if (index == 0) {
 					index++;
 					continue;
 				}
-				table.nextRow();
+				if (odd) {
+					write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+				} else {
+					write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+				}
+				odd = !odd; // NOPMD
 				writeRow(row);
+				writeln("</tr>");
 				index++;
-				if (rowsByColumn > 0 && (index - 1) % rowsByColumn == 0 && index != values.length) {
-					table.endTable();
-					writeln("</td><td valign='top'>");
-					table = new HtmlTable();
-					table.beginTable(getString("database"));
+				if (rowsByColumn > 0 && (index - 1) % rowsByColumn == 0) {
+					writeln("</tbody></table></td><td valign='top'>");
 					writeTableHeaders(headerValues);
 				}
 			}
-			table.endTable();
+			writeln("</tbody></table>");
 			if (nbColumns > 1) {
 				writeln("</td></tr></table>");
 			}
 		}
 
 		private void writeTableHeaders(String[] headerValues) throws IOException {
+			writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#database#'>");
+			write("<thead><tr>");
 			for (final String value : headerValues) {
 				write("<th>");
 				writeDirectly(value.replace("\n", "<br/>"));
 				write("</th>");
 			}
+			writeln("</tr></thead><tbody>");
 		}
 
 		private void writeRow(String[] row) throws IOException {
@@ -125,9 +127,9 @@ class HtmlDatabaseInformationsReport extends HtmlAbstractReport {
 		writeLinks();
 		writeln("<br/>");
 
-		final String title = getString("database") + " : "
-				+ getString(databaseInformations.getSelectedRequestName());
-		writeTitle("db.png", title);
+		writeln("<img src='?resource=db.png' width='24' height='24' alt='#database#' />&nbsp;");
+		final String selectedRequestName = databaseInformations.getSelectedRequestName();
+		writeln("<b>#database# : #" + selectedRequestName + "#</b>");
 
 		final String[][] values = databaseInformations.getResult();
 		final int nbColumns = databaseInformations.getNbColumns();

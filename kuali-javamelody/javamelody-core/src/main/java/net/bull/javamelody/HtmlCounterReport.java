@@ -187,22 +187,29 @@ class HtmlCounterReport extends HtmlAbstractReport {
 				return;
 			}
 			final boolean someUsagesDisplayed = getUsagesDisplayed(requests);
-			final HtmlTable table = new HtmlTable();
-			table.beginTable(getString("Utilisations_de"));
-			write("<th>#Requete#</th>");
+			writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Utilisations_de#'>");
+			write("<thead><tr><th>#Requete#</th>");
 			if (someUsagesDisplayed) {
 				write("<th class='noPrint'>#Chercher_utilisations#</th>");
 			}
+			writeln("</tr></thead><tbody>");
+			boolean odd = false;
 			for (final CounterRequest request : requests) {
-				table.nextRow();
+				if (odd) {
+					write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+				} else {
+					write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+				}
+				odd = !odd; // NOPMD
 				writeUsedRequest(request, someUsagesDisplayed);
+				writeln("</tr>");
 			}
-			table.endTable();
+			writeln("</tbody></table>");
 		}
 
 		private void writeUsedRequest(CounterRequest request, boolean someUsageDisplayed)
 				throws IOException {
-			writeln(" <td>");
+			writeln("<td>");
 			writeCounterIcon(request);
 			writeRequestGraph(request.getId(), request.getName());
 			if (someUsageDisplayed) {
@@ -228,10 +235,8 @@ class HtmlCounterReport extends HtmlAbstractReport {
 
 		private void writeRequest(CounterRequest request) throws IOException {
 			final Map<String, Long> childRequests = request.getChildRequestsExecutionsByRequestId();
-			writeln(" <br/>");
-			final HtmlTable table = new HtmlTable();
-			table.beginTable(getString("Drill_down"));
-			writeln("<th>#Requete#</th>");
+			writeln("<br/><table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Drill_down#'>");
+			writeln("<thead><tr><th>#Requete#</th>");
 			final boolean hasChildren = !childRequests.isEmpty();
 			if (hasChildren) {
 				writeln("<th class='sorttable_numeric'>#Hits_par_requete#</th>");
@@ -249,20 +254,20 @@ class HtmlCounterReport extends HtmlAbstractReport {
 				writeln("</th><th class='sorttable_numeric'>"
 						+ getFormattedString("temps_fils_moyen", childCounterName) + "</th>");
 			}
-			table.nextRow();
-			write("<td>");
+			writeln("</tr></thead><tbody>");
+			writeln("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\"><td>");
 			writeCounterIcon(request);
 			writeDirectly(htmlEncodeButNotSpace(request.getName()));
 			if (hasChildren) {
 				writeln("</td><td>&nbsp;");
 			}
 			writeRequestValues(request, allChildHitsDisplayed);
-			writeln("</td> ");
+			writeln("</td></tr>");
 
 			if (hasChildren) {
-				writeChildRequests(request, childRequests, allChildHitsDisplayed, table);
+				writeChildRequests(request, childRequests, allChildHitsDisplayed);
 			}
-			table.endTable();
+			writeln("</tbody></table>");
 			if (doesRequestDisplayUsages(request)) {
 				writeln("<div align='right' class='noPrint'>");
 				writeln("<a href='?part=usages&amp;graph=" + request.getId() + "'>");
@@ -280,14 +285,21 @@ class HtmlCounterReport extends HtmlAbstractReport {
 		}
 
 		private void writeChildRequests(CounterRequest request, Map<String, Long> childRequests,
-				boolean allChildHitsDisplayed, HtmlTable table) throws IOException {
+				boolean allChildHitsDisplayed) throws IOException {
+			boolean odd = true;
 			for (final Map.Entry<String, Long> entry : childRequests.entrySet()) {
 				final CounterRequest childRequest = requestsById.get(entry.getKey());
 				if (childRequest != null) {
-					table.nextRow();
+					if (odd) {
+						writeln("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+					} else {
+						writeln("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+					}
+					odd = !odd; // NOPMD
 					final Long nbExecutions = entry.getValue();
 					final float executionsByRequest = (float) nbExecutions / request.getHits();
 					writeChildRequest(childRequest, executionsByRequest, allChildHitsDisplayed);
+					writeln("</tr>");
 				}
 			}
 		}
@@ -557,23 +569,31 @@ class HtmlCounterReport extends HtmlAbstractReport {
 			List<CounterRequest> requestList, boolean includeGraph, boolean includeDetailLink,
 			boolean includeSummaryPerClassLink) throws IOException {
 		assert requestList != null;
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(tableName);
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='"
+				+ tableName + "'>");
 		writeTableHead(childCounterName);
+		writeln("<tbody>");
+		boolean odd = false;
 		for (final CounterRequest request : requestList) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeRequest(request, includeGraph, includeDetailLink, includeSummaryPerClassLink);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 	}
 
 	private void writeTableHead(String childCounterName) throws IOException {
 		if (isJobCounter()) {
-			write("<th>#Job#</th>");
+			write("<thead><tr><th>#Job#</th>");
 		} else if (isErrorCounter()) {
-			write("<th>#Erreur#</th>");
+			write("<thead><tr><th>#Erreur#</th>");
 		} else {
-			write("<th>#Requete#</th>");
+			write("<thead><tr><th>#Requete#</th>");
 		}
 		if (counterRequestAggregation.isTimesDisplayed()) {
 			write("<th class='sorttable_numeric'>#temps_cumule#</th>");
@@ -600,6 +620,7 @@ class HtmlCounterReport extends HtmlAbstractReport {
 			write("</th><th class='sorttable_numeric'>"
 					+ getFormattedString("temps_fils_moyen", childCounterName) + "</th>");
 		}
+		writeln("</tr></thead>");
 	}
 
 	private void writeRequest(CounterRequest request, boolean includeGraph,

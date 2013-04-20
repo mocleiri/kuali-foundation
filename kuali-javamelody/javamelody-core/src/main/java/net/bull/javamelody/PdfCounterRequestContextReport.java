@@ -38,12 +38,13 @@ import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Partie du rapport pdf pour les contextes de requêtes en cours.
  * @author Emeric Vernat
  */
-class PdfCounterRequestContextReport extends PdfAbstractTableReport {
+class PdfCounterRequestContextReport extends PdfAbstractReport {
 	private final List<CounterRequestContext> rootCurrentContexts;
 	private final Map<String, PdfCounterReport> counterReportsByCounterName;
 	private final Map<Long, ThreadInformations> threadInformationsByThreadId;
@@ -54,6 +55,7 @@ class PdfCounterRequestContextReport extends PdfAbstractTableReport {
 	private final Font cellFont = PdfFonts.TABLE_CELL.getFont();
 	private final Font normalFont = PdfFonts.NORMAL.getFont();
 	private final Font infoCellFont = PdfFonts.INFO_CELL.getFont();
+	private PdfPTable currentTable;
 	private final PdfDocumentFactory pdfDocumentFactory;
 
 	PdfCounterRequestContextReport(List<CounterRequestContext> rootCurrentContexts,
@@ -124,11 +126,17 @@ class PdfCounterRequestContextReport extends PdfAbstractTableReport {
 		defaultCell.setLeading(2, 1);
 		defaultCell.setPaddingTop(0);
 
+		boolean odd = false;
 		for (final CounterRequestContext context : contexts) {
-			nextRow();
+			if (odd) {
+				defaultCell.setGrayFill(0.97f);
+			} else {
+				defaultCell.setGrayFill(1);
+			}
+			odd = !odd; // NOPMD
 			writeContext(context, displayRemoteUser);
 		}
-		addTableToDocument();
+		addToDocument(currentTable);
 
 		writeFooter();
 	}
@@ -147,7 +155,7 @@ class PdfCounterRequestContextReport extends PdfAbstractTableReport {
 			relativeWidths[headers.size() - 1] = 3; // méthode exécutée
 		}
 
-		initTable(headers, relativeWidths);
+		currentTable = PdfDocumentFactory.createPdfPTable(headers, relativeWidths);
 	}
 
 	private List<String> createHeaders(List<CounterRequestContext> contexts,
@@ -252,7 +260,7 @@ class PdfCounterRequestContextReport extends PdfAbstractTableReport {
 			paragraph.add(new Phrase(integerFormat.format(duration), slaFont));
 			first = false;
 		}
-		addCell(paragraph);
+		currentTable.addCell(paragraph);
 	}
 
 	private void writeRequests(List<CounterRequestContext> contexts) throws DocumentException,
@@ -270,7 +278,7 @@ class PdfCounterRequestContextReport extends PdfAbstractTableReport {
 		requestCell.addElement(phrase);
 		requestCell.setGrayFill(defaultCell.getGrayFill());
 		requestCell.setPaddingTop(defaultCell.getPaddingTop());
-		addCell(requestCell);
+		currentTable.addCell(requestCell);
 	}
 
 	private void writeRequest(CounterRequestContext context, PdfPCell cell, int margin)
@@ -298,6 +306,14 @@ class PdfCounterRequestContextReport extends PdfAbstractTableReport {
 			first = false;
 		}
 		addCell(sb.toString());
+	}
+
+	private PdfPCell getDefaultCell() {
+		return currentTable.getDefaultCell();
+	}
+
+	private void addCell(String string) {
+		currentTable.addCell(new Phrase(string, cellFont));
 	}
 
 	private Image getImage(String resourceFileName) throws DocumentException, IOException {

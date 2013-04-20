@@ -402,8 +402,9 @@ class HtmlCoreReport extends HtmlAbstractReport {
 		writeln("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ");
 		writeln("<a href='?part=threads'><img src='?resource=action_refresh.png' alt='#Actualiser#'/> #Actualiser#</a>");
 		writeln("</div> <br/>");
-		writeTitle("threads.png", getString("Threads"));
-		write(" <br/>");
+		writeln("<img src='?resource=threads.png' width='24' height='24' alt='#Threads#' />&nbsp;");
+		writeln("<b>#Threads#</b>");
+		writeln("<br/><br/>");
 
 		for (final JavaInformations javaInformations : javaInformationsList) {
 			write(" <b>");

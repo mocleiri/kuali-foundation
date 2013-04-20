@@ -65,8 +65,9 @@ class HtmlConnectionInformationsReport extends HtmlAbstractReport {
 		writeBackAndRefreshLinks();
 		writeln("<br/>");
 
-		writeTitle("db.png", getString("Connexions_jdbc_ouvertes"));
-		writeln("<br/>#connexions_intro#<br/><br/>");
+		writeln("<img width='24' height='24' src='?resource=db.png' alt='#Connexions_jdbc_ouvertes#' />&nbsp;");
+		writeln("<b>#Connexions_jdbc_ouvertes#</b>");
+		writeln("<br/><br/>#connexions_intro#<br/><br/>");
 		writeConnections();
 	}
 
@@ -75,19 +76,26 @@ class HtmlConnectionInformationsReport extends HtmlAbstractReport {
 			writeln("#Aucune_connexion_jdbc_ouverte#");
 			return;
 		}
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(getString("Connexions_jdbc_ouvertes"));
-		write("<th class='sorttable_date'>#Date_et_stack_trace_ouverture#</th>");
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Connexions_jdbc_ouvertes#'>");
+		write("<thead><tr><th class='sorttable_date'>#Date_et_stack_trace_ouverture#</th>");
 		if (JavaInformations.STACK_TRACES_ENABLED) {
 			write("<th>#Thread_et_stack_trace_actuelle#</th>");
 		} else {
 			write("<th>#Thread#</th>");
 		}
+		writeln("</tr></thead><tbody>");
+		boolean odd = false;
 		for (final ConnectionInformations connection : connectionsInformations) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeConnection(connection);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 		final int nbConnections = connectionsInformations.size();
 		writeln("<div align='right'>" + getFormattedString("nb_connexions_ouvertes", nbConnections)
 				+ "</div>");

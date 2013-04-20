@@ -31,16 +31,18 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Rapport pdf pour l'histogramme mémoire.
  * @author Emeric Vernat
  */
-class PdfHeapHistogramReport extends PdfAbstractTableReport {
+class PdfHeapHistogramReport extends PdfAbstractReport {
 	private final HeapHistogram heapHistogram;
 	private final DecimalFormat integerFormat = I18N.createIntegerFormat();
 	private final Font cellFont = PdfFonts.TABLE_CELL.getFont();
 	private final Font boldFont = PdfFonts.BOLD_CELL.getFont();
+	private PdfPTable currentTable;
 
 	PdfHeapHistogramReport(HeapHistogram heapHistogram, Document document) {
 		super(document);
@@ -88,7 +90,7 @@ class PdfHeapHistogramReport extends PdfAbstractTableReport {
 			relativeWidths[headers.size() - 1] = 6; // Source
 		}
 
-		initTable(headers, relativeWidths);
+		currentTable = PdfDocumentFactory.createPdfPTable(headers, relativeWidths);
 	}
 
 	private List<String> createHeaders(boolean sourceDisplayed, boolean deltaDisplayed) {
@@ -110,12 +112,19 @@ class PdfHeapHistogramReport extends PdfAbstractTableReport {
 	private void writeClassInfo(List<ClassInfo> classHistogram, long totalInstances,
 			long totalBytes, boolean sourceDisplayed, boolean deltaDisplayed)
 			throws DocumentException {
+		final PdfPCell defaultCell = getDefaultCell();
+		boolean odd = false;
 		for (final ClassInfo classInfo : classHistogram) {
-			nextRow();
+			if (odd) {
+				defaultCell.setGrayFill(0.97f);
+			} else {
+				defaultCell.setGrayFill(1);
+			}
+			odd = !odd; // NOPMD
 			writeClassInfoRow(classInfo, totalInstances, totalBytes, sourceDisplayed,
 					deltaDisplayed);
 		}
-		addTableToDocument();
+		addToDocument(currentTable);
 	}
 
 	private void writeClassInfoRow(ClassInfo classInfo, long totalInstances, long totalBytes,
@@ -146,5 +155,13 @@ class PdfHeapHistogramReport extends PdfAbstractTableReport {
 				addCell(source);
 			}
 		}
+	}
+
+	private PdfPCell getDefaultCell() {
+		return currentTable.getDefaultCell();
+	}
+
+	private void addCell(String string) {
+		currentTable.addCell(new Phrase(string, cellFont));
 	}
 }

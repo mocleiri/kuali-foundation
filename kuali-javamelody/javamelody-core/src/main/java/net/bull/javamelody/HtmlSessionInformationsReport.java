@@ -53,7 +53,8 @@ class HtmlSessionInformationsReport extends HtmlAbstractReport {
 			writeln("#Aucune_session#");
 			return;
 		}
-		writeTitle("system-users.png", getString("Sessions"));
+		writeln("<img width='24' height='24' src='?resource=system-users.png' alt='#Sessions#' />&nbsp;");
+		writeln("<b>#Sessions#</b>");
 		writeSessions(sessionsInformations);
 		long totalSerializedSize = 0;
 		int nbSerializableSessions = 0;
@@ -83,9 +84,8 @@ class HtmlSessionInformationsReport extends HtmlAbstractReport {
 				break;
 			}
 		}
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(getString("Sessions"));
-		write("<th>#Session_id#</th><th class='sorttable_numeric'>#Dernier_acces#</th>");
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Sessions#'>");
+		write("<thead><tr><th>#Session_id#</th><th class='sorttable_numeric'>#Dernier_acces#</th>");
 		write("<th class='sorttable_numeric'>#Age#</th><th class='sorttable_date'>#Expiration#</th>");
 		write("<th class='sorttable_numeric'>#Nb_attributs#</th><th>#Serialisable#</th><th>#Taille_serialisee#</th>");
 		write("<th class='sorttable_numeric'>#Adresse_IP#</th><th>#Pays#</th>");
@@ -93,11 +93,19 @@ class HtmlSessionInformationsReport extends HtmlAbstractReport {
 			write("<th>#Utilisateur#</th>");
 		}
 		write("<th class='noPrint'>#Invalider#</th>");
+		writeln("</tr></thead><tbody>");
+		boolean odd = false;
 		for (final SessionInformations session : sessions) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeSession(session, displayUser);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 	}
 
 	private void writeBackAndRefreshLinks() throws IOException {
@@ -212,8 +220,9 @@ class HtmlSessionInformationsReport extends HtmlAbstractReport {
 			writeln(getFormattedString("session_invalidee", htmlEncodeButNotSpace(sessionId)));
 			return;
 		}
-		writeTitle("system-users.png",
-				getFormattedString("Details_session", htmlEncodeButNotSpace(sessionId)));
+		writeln("<img width='24' height='24' src='?resource=system-users.png' alt='#Sessions#' />&nbsp;");
+		writeln("<b>" + getFormattedString("Details_session", htmlEncodeButNotSpace(sessionId))
+				+ "</b>");
 		writeSessions(Collections.singletonList(sessionInformations));
 
 		writeln("<br/><b>#Attributs#</b>");
@@ -221,14 +230,21 @@ class HtmlSessionInformationsReport extends HtmlAbstractReport {
 	}
 
 	private void writeSessionAttributes(SessionInformations sessionInformations) throws IOException {
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(getString("Attributs"));
-		write("<th>#Nom#</th><th>Type</th><th>#Serialisable#</th><th>#Taille_serialisee#</th><th>#Contenu#</th>");
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Attributs#'>");
+		write("<thead><tr><th>#Nom#</th><th>Type</th><th>#Serialisable#</th><th>#Taille_serialisee#</th><th>#Contenu#</th>");
+		writeln("</tr></thead><tbody>");
+		boolean odd = false;
 		for (final SessionAttribute sessionAttribute : sessionInformations.getAttributes()) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeAttribute(sessionAttribute);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 	}
 
 	private void writeAttribute(SessionAttribute sessionAttribute) throws IOException {

@@ -20,7 +20,6 @@ package net.bull.javamelody;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.naming.Binding;
@@ -41,18 +40,12 @@ class JndiBinding implements Serializable {
 	private final String name;
 	private final String className;
 	private final String contextPath;
-	private final String value;
 
-	JndiBinding(String name, String className, String contextPath, String value) {
+	JndiBinding(String name, String className, String contextPath) {
 		super();
 		this.name = name;
 		this.className = className;
 		this.contextPath = contextPath;
-		this.value = value;
-	}
-
-	String getValue() {
-		return value;
 	}
 
 	String getName() {
@@ -124,10 +117,8 @@ class JndiBinding implements Serializable {
 	private static JndiBinding createJndiBinding(String path, Binding binding) {
 		final String name = getBindingName(path, binding);
 		final String className = binding.getClassName();
-		final Object object = binding.getObject();
 		final String contextPath;
-		String value;
-		if (object instanceof Context || "javax.naming.Context".equals(className)) {
+		if (binding.getObject() instanceof Context || "javax.naming.Context".equals(className)) {
 			// "javax.naming.Context".equals(className) nécessaire pour le path "comp" dans JBoss 6.0
 			if (path.length() > 0) {
 				contextPath = path + '/' + name;
@@ -135,32 +126,10 @@ class JndiBinding implements Serializable {
 				// nécessaire pour jonas 5.1.0
 				contextPath = name;
 			}
-			value = null;
 		} else {
 			contextPath = null;
-			try {
-				if (object instanceof Collection) {
-					final StringBuilder sb = new StringBuilder();
-					sb.append('[');
-					boolean first = true;
-					for (final Object aItem : (Collection<?>) object) {
-						if (first) {
-							first = false;
-						} else {
-							sb.append(",\n");
-						}
-						sb.append(String.valueOf(aItem));
-					}
-					sb.append(']');
-					value = sb.toString();
-				} else {
-					value = String.valueOf(object);
-				}
-			} catch (final Exception e) {
-				value = e.toString();
-			}
 		}
-		return new JndiBinding(name, className, contextPath, value);
+		return new JndiBinding(name, className, contextPath);
 	}
 
 	private static String getBindingName(String path, Binding binding) {

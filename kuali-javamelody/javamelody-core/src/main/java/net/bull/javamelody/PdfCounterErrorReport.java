@@ -28,17 +28,21 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Partie du rapport pdf pour les erreurs http et dans les logs.
  * @author Emeric Vernat
  */
-class PdfCounterErrorReport extends PdfAbstractTableReport {
+class PdfCounterErrorReport extends PdfAbstractReport {
 	private final Counter counter;
 	private final DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT,
 			DateFormat.MEDIUM, I18N.getCurrentLocale());
+	private final Font cellFont = PdfFonts.TABLE_CELL.getFont();
 	private final Font severeFont = PdfFonts.SEVERE_CELL.getFont();
 	private final Font normalFont = PdfFonts.NORMAL.getFont();
+	private PdfPTable currentTable;
 
 	PdfCounterErrorReport(Counter counter, Document document) {
 		super(document);
@@ -67,11 +71,18 @@ class PdfCounterErrorReport extends PdfAbstractTableReport {
 		}
 		writeHeader(displayUser, displayHttpRequest);
 
+		final PdfPCell defaultCell = getDefaultCell();
+		boolean odd = false;
 		for (final CounterError error : errors) {
-			nextRow();
+			if (odd) {
+				defaultCell.setGrayFill(0.97f);
+			} else {
+				defaultCell.setGrayFill(1);
+			}
+			odd = !odd; // NOPMD
 			writeError(error, displayUser, displayHttpRequest);
 		}
-		addTableToDocument();
+		addToDocument(currentTable);
 	}
 
 	private void writeHeader(boolean displayUser, boolean displayHttpRequest)
@@ -84,7 +95,7 @@ class PdfCounterErrorReport extends PdfAbstractTableReport {
 		}
 		relativeWidths[headers.size() - 1] = 4; // message d'erreur
 
-		initTable(headers, relativeWidths);
+		currentTable = PdfDocumentFactory.createPdfPTable(headers, relativeWidths);
 	}
 
 	private List<String> createHeaders(boolean displayUser, boolean displayHttpRequest) {
@@ -119,5 +130,13 @@ class PdfCounterErrorReport extends PdfAbstractTableReport {
 			}
 		}
 		addCell(error.getMessage());
+	}
+
+	private PdfPCell getDefaultCell() {
+		return currentTable.getDefaultCell();
+	}
+
+	private void addCell(String string) {
+		currentTable.addCell(new Phrase(string, cellFont));
 	}
 }

@@ -60,9 +60,9 @@ class HtmlCounterErrorReport extends HtmlAbstractReport {
 			write("</div>");
 		}
 		final String tableName = counter.getName();
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(tableName);
-		write("<th class='sorttable_date'>#Date#</th>");
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='"
+				+ tableName + "'>");
+		write("<thead><tr><th class='sorttable_date'>#Date#</th>");
 		if (displayHttpRequest) {
 			write("<th>#Requete#</th>");
 		}
@@ -70,11 +70,19 @@ class HtmlCounterErrorReport extends HtmlAbstractReport {
 			write("<th>#Utilisateur#</th>");
 		}
 		write("<th>#Erreur#</th>");
+		writeln("</tr></thead><tbody>");
+		boolean odd = false;
 		for (final CounterError error : errors) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeError(error, displayUser, displayHttpRequest);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 	}
 
 	private void writeError(CounterError error, boolean displayUser, boolean displayHttpRequest)

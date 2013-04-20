@@ -33,17 +33,19 @@ import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Partie du rapport pdf pour les threads sur le serveur.
  * @author Emeric Vernat
  */
-class PdfThreadInformationsReport extends PdfAbstractTableReport {
+class PdfThreadInformationsReport extends PdfAbstractReport {
 	private final List<ThreadInformations> threadInformationsList;
 	private final DecimalFormat integerFormat = I18N.createIntegerFormat();
 	private final boolean stackTraceEnabled;
 	private final boolean cpuTimeEnabled;
 	private final Font cellFont = PdfFonts.TABLE_CELL.getFont();
+	private PdfPTable currentTable;
 	private final PdfDocumentFactory pdfDocumentFactory;
 
 	PdfThreadInformationsReport(List<ThreadInformations> threadInformationsList,
@@ -63,11 +65,18 @@ class PdfThreadInformationsReport extends PdfAbstractTableReport {
 	void toPdf() throws DocumentException, IOException {
 		writeHeader();
 
+		final PdfPCell defaultCell = getDefaultCell();
+		boolean odd = false;
 		for (final ThreadInformations threadInformations : threadInformationsList) {
-			nextRow();
+			if (odd) {
+				defaultCell.setGrayFill(0.97f);
+			} else {
+				defaultCell.setGrayFill(1);
+			}
+			odd = !odd; // NOPMD
 			writeThreadInformations(threadInformations);
 		}
-		addTableToDocument();
+		addToDocument(currentTable);
 
 		final Paragraph tempsThreads = new Paragraph(getString("Temps_threads") + '\n', cellFont);
 		tempsThreads.setAlignment(Element.ALIGN_RIGHT);
@@ -118,7 +127,7 @@ class PdfThreadInformationsReport extends PdfAbstractTableReport {
 			relativeWidths[4] = 6; // méthode exécutée
 		}
 
-		initTable(headers, relativeWidths);
+		currentTable = PdfDocumentFactory.createPdfPTable(headers, relativeWidths);
 	}
 
 	private List<String> createHeaders() {
@@ -158,7 +167,7 @@ class PdfThreadInformationsReport extends PdfAbstractTableReport {
 				+ HtmlThreadInformationsReport.getStateIcon(threadInformations)), 0, -1));
 		paragraph.add(new Phrase(String.valueOf(threadInformations.getState()), cellFont));
 		cell.addElement(paragraph);
-		addCell(cell);
+		currentTable.addCell(cell);
 		if (stackTraceEnabled) {
 			addCell(threadInformations.getExecutedMethod());
 		}
@@ -171,5 +180,13 @@ class PdfThreadInformationsReport extends PdfAbstractTableReport {
 
 	private Image getImage(String resourceFileName) throws DocumentException, IOException {
 		return pdfDocumentFactory.getSmallImage(resourceFileName);
+	}
+
+	private PdfPCell getDefaultCell() {
+		return currentTable.getDefaultCell();
+	}
+
+	private void addCell(String string) {
+		currentTable.addCell(new Phrase(string, cellFont));
 	}
 }

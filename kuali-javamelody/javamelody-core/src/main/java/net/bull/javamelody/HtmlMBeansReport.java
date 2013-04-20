@@ -45,7 +45,9 @@ class HtmlMBeansReport extends HtmlAbstractReport {
 		writeLinks();
 		writeln(BR);
 
-		writeTitle("mbeans.png", getString("MBeans"));
+		writeln("<img src='?resource=mbeans.png' width='24' height='24' alt='#MBeans#' />&nbsp;");
+		writeln("<b>#MBeans#</b>");
+		writeln("<br/><br/>");
 
 		writeTree();
 	}

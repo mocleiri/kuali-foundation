@@ -32,15 +32,16 @@ import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Partie du rapport pdf pour l'arbre JNDI.
  * @author Emeric Vernat
  */
-class PdfJndiReport extends PdfAbstractTableReport {
+class PdfJndiReport extends PdfAbstractReport {
 	private final List<JndiBinding> jndiBindings;
 	private final Font cellFont = PdfFonts.TABLE_CELL.getFont();
-	private Image folderImage;
+	private PdfPTable currentTable;
 
 	PdfJndiReport(List<JndiBinding> jndiBindings, Document document) {
 		super(document);
@@ -52,11 +53,18 @@ class PdfJndiReport extends PdfAbstractTableReport {
 	void toPdf() throws DocumentException, IOException {
 		writeHeader();
 
+		final PdfPCell defaultCell = getDefaultCell();
+		boolean odd = false;
 		for (final JndiBinding jndiBinding : jndiBindings) {
-			nextRow();
+			if (odd) {
+				defaultCell.setGrayFill(0.97f);
+			} else {
+				defaultCell.setGrayFill(1);
+			}
+			odd = !odd; // NOPMD
 			writeJndiBinding(jndiBinding);
 		}
-		addTableToDocument();
+		addToDocument(currentTable);
 	}
 
 	private void writeHeader() throws DocumentException {
@@ -64,14 +72,13 @@ class PdfJndiReport extends PdfAbstractTableReport {
 		final int[] relativeWidths = new int[headers.size()];
 		Arrays.fill(relativeWidths, 0, headers.size(), 1);
 
-		initTable(headers, relativeWidths);
+		currentTable = PdfDocumentFactory.createPdfPTable(headers, relativeWidths);
 	}
 
 	private List<String> createHeaders() {
 		final List<String> headers = new ArrayList<String>();
 		headers.add(getString("Nom"));
 		headers.add(getString("Type"));
-		headers.add(getString("Value"));
 		return headers;
 	}
 
@@ -81,26 +88,25 @@ class PdfJndiReport extends PdfAbstractTableReport {
 		final String name = jndiBinding.getName();
 		final String className = jndiBinding.getClassName();
 		final String contextPath = jndiBinding.getContextPath();
-		final String value = jndiBinding.getValue();
 		if (contextPath != null) {
-			final Image image = getFolderImage();
+			final Image image = PdfDocumentFactory.getImage("folder.png");
+			image.scalePercent(40);
 			final Phrase phrase = new Phrase("", cellFont);
 			phrase.add(new Chunk(image, 0, 0));
 			phrase.add(" ");
 			phrase.add(name);
-			addCell(phrase);
+			currentTable.addCell(phrase);
 		} else {
 			addCell(name);
 		}
 		addCell(className != null ? className : "");
-		addCell(value != null ? value : "");
 	}
 
-	private Image getFolderImage() throws BadElementException, IOException {
-		if (folderImage == null) {
-			folderImage = PdfDocumentFactory.getImage("folder.png");
-			folderImage.scalePercent(40);
-		}
-		return folderImage;
+	private PdfPCell getDefaultCell() {
+		return currentTable.getDefaultCell();
+	}
+
+	private void addCell(String string) {
+		currentTable.addCell(new Phrase(string, cellFont));
 	}
 }

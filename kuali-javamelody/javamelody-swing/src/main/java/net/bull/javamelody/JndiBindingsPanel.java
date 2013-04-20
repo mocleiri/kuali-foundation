@@ -124,7 +124,6 @@ class JndiBindingsPanel extends MelodyPanel {
 		final MTable<JndiBinding> myTable = tableScrollPane.getTable();
 		myTable.addColumn("name", I18N.getString("Nom"));
 		myTable.addColumn("className", I18N.getString("Type"));
-		myTable.addColumn("value", I18N.getString("Value"));
 
 		myTable.setColumnCellRenderer("name", new NameTableCellRenderer());
 

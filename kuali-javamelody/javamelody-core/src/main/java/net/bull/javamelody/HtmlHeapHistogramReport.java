@@ -45,10 +45,11 @@ class HtmlHeapHistogramReport extends HtmlAbstractReport {
 		writeLinks();
 		writeln("<br/>");
 
-		final String title = getFormattedString("heap_histo_du", I18N.createDateAndTimeFormat()
-				.format(heapHistogram.getTime()));
-		writeTitle("memory.png", title);
-		writeln("<br/><b>#Heap#</b>");
+		writeln("<img src='?resource=memory.png' width='24' height='24' alt='#memoire#' />&nbsp;");
+		writeln("<b>"
+				+ getFormattedString("heap_histo_du",
+						I18N.createDateAndTimeFormat().format(heapHistogram.getTime())) + "</b>");
+		writeln("<br/><br/><b>#Heap#</b>");
 		final String separator = "&nbsp;&nbsp;&nbsp;";
 		writeln(separator);
 		final List<ClassInfo> heap = heapHistogram.getHeapHistogram();
@@ -115,18 +116,24 @@ class HtmlHeapHistogramReport extends HtmlAbstractReport {
 	private void writeClassInfo(List<ClassInfo> classHistogram, long totalInstances,
 			long totalBytes, boolean heap, boolean sourceDisplayed, boolean deltaDisplayed)
 			throws IOException {
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(getString("histogramme"));
-		write("<th>#Classe#</th><th>#Taille#</th><th>#pct_taille#</th>"
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#histogramme#'>");
+		write("<thead><tr><th>#Classe#</th><th>#Taille#</th><th>#pct_taille#</th>"
 				+ (deltaDisplayed ? "<th>#Delta#</th>" : "")
 				+ "<th>#Instances#</th><th>#pct_instances#</th>"
-				+ (sourceDisplayed ? "<th>#Source#</th>" : ""));
+				+ (sourceDisplayed ? "<th>#Source#</th>" : "") + "</tr></thead><tbody>");
+		boolean odd = false;
 		for (final ClassInfo classInfo : classHistogram) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
 			writeClassInfoRow(classInfo, totalInstances, totalBytes, heap, sourceDisplayed,
 					deltaDisplayed);
+			writeln("</tr>");
+			odd = !odd; // NOPMD
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 	}
 
 	private void writeClassInfoRow(ClassInfo classInfo, long totalInstances, long totalBytes,

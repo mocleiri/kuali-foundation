@@ -25,7 +25,8 @@ import java.util.Locale;
  * @author Emeric Vernat
  */
 enum Period {
-	HOUR(123, "calendar_view_day.png", "hour"), // kuali patch1
+	/** Hour. */
+	HOUR(123, "calendar_view_day.png", "hour"),
 	/** Jour. */
 	JOUR(1, "calendar_view_day.png", "day"),
 	/** Semaine. */

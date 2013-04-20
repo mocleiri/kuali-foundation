@@ -171,7 +171,7 @@ class HtmlCounterRequestContextReport extends HtmlAbstractReport {
 				integerFormat.format(rootCurrentContexts.size())));
 		if (isPdfEnabled()) {
 			writeln("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-			write("<a href='?part=currentRequests&amp;format=pdf' title='#afficher_PDF#' class='noPrint'>");
+			write("<a href='?part=currentRequests&amp;format=pdf' title='#afficher_PDF#'>");
 			write("<img src='?resource=pdf.png' alt='#PDF#'/> #PDF#</a>");
 		}
 		writeln("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
@@ -193,8 +193,9 @@ class HtmlCounterRequestContextReport extends HtmlAbstractReport {
 	}
 
 	void writeTitleAndDetails() throws IOException {
-		writeTitle("hourglass.png", getString("Requetes_en_cours"));
-		write("<br/>");
+		writeln("<img src='?resource=hourglass.png' width='24' height='24' alt='#Requetes_en_cours#' />&nbsp;");
+		writeln("<b>#Requetes_en_cours#</b>");
+		writeln("<br/><br/>");
 
 		if (rootCurrentContexts.isEmpty()) {
 			writeln("#Aucune_requete_en_cours#");
@@ -216,9 +217,8 @@ class HtmlCounterRequestContextReport extends HtmlAbstractReport {
 				break;
 			}
 		}
-		final HtmlTable table = new HtmlTable();
-		table.beginTable(getString("Requetes_en_cours"));
-		write("<th>#Thread#</th>");
+		writeln("<table class='sortable' width='100%' border='1' cellspacing='0' cellpadding='2' summary='#Requetes_en_cours#'>");
+		write("<thead><tr><th>#Thread#</th>");
 		if (displayRemoteUser) {
 			write("<th>#Utilisateur#</th>");
 		}
@@ -241,11 +241,19 @@ class HtmlCounterRequestContextReport extends HtmlAbstractReport {
 		if (stackTraceEnabled) {
 			write("<th>#Methode_executee#</th>");
 		}
+		writeln("</tr></thead><tbody>");
+		boolean odd = false;
 		for (final CounterRequestContext context : contexts) {
-			table.nextRow();
+			if (odd) {
+				write("<tr class='odd' onmouseover=\"this.className='highlight'\" onmouseout=\"this.className='odd'\">");
+			} else {
+				write("<tr onmouseover=\"this.className='highlight'\" onmouseout=\"this.className=''\">");
+			}
+			odd = !odd; // NOPMD
 			writeContext(context, displayRemoteUser);
+			writeln("</tr>");
 		}
-		table.endTable();
+		writeln("</tbody></table>");
 	}
 
 	private void writeContext(CounterRequestContext rootContext, boolean displayRemoteUser)
