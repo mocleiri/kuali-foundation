@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogSqlListener;
@@ -12,6 +13,8 @@ import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.LoggerLevel;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.NoOpExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +29,11 @@ public class OracleSchemaStats {
 	Environment env;
 
 	@Bean(initMethod = "execute")
-	public JdbcExecutable jdbcExecutable() {
+	public Executable jdbcExecutable() {
+		String vendor = SpringUtils.getProperty(env, "db.vendor");
+		if (!StringUtils.equalsIgnoreCase(vendor, "oracle")) {
+			return new NoOpExecutable();
+		}
 		DataSource dataSource = getDataSource();
 		String sql = SpringUtils.getProperty(env, "oracle.schemaStats");
 		SqlSupplier supplier = new ComplexStringSupplier(sql);
