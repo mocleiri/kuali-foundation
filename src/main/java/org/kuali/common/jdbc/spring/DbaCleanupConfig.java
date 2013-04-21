@@ -22,6 +22,7 @@ public class DbaCleanupConfig extends ResetBaseConfig {
 
 	@Bean
 	public Executable jdbcDbaCleanupExecutable() {
+		boolean skip = SpringUtils.getBoolean(env, "jdbc.cleanup.skip",false);
 		DataSource dataSource = dataSourceConfig.jdbcDbaDataSource();
 		String sql = SpringUtils.getProperty(env, "sql.dba.cleanup");
 		SqlSupplier supplier = new ComplexStringSupplier(sql);
@@ -31,6 +32,7 @@ public class DbaCleanupConfig extends ResetBaseConfig {
 		context.setDataSource(dataSource);
 		context.setSuppliers(Arrays.asList(supplier));
 		context.setListener(listener);
+		context.setSkip(skip);
 
 		return new JdbcExecutable(context);
 	}
