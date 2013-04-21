@@ -9,7 +9,7 @@ import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
 import org.kuali.common.jdbc.listener.SqlListener;
-import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
+import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.spring.SpringUtils;
@@ -29,7 +29,7 @@ public class OracleSchemaStats {
 	public JdbcExecutable jdbcExecutable() {
 		DataSource dataSource = getDataSource();
 		String sql = SpringUtils.getProperty(env, "oracle.schemaStats");
-		SqlSupplier supplier = new SimpleStringSupplier(sql);
+		SqlSupplier supplier = new ComplexStringSupplier(sql);
 		SqlListener listener = new LogSqlListener(LoggerLevel.INFO, LogSqlMode.BEFORE);
 
 		JdbcContext context = new JdbcContext();
