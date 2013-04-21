@@ -15,16 +15,13 @@
  */
 package org.kuali.common.jdbc.spring;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
@@ -32,15 +29,10 @@ import org.springframework.core.env.PropertySource;
 public class OracleSchemaStatsPropertySourceConfig {
 
 	@Autowired
-	Environment env;
-
-	@Autowired
 	JdbcPropertiesConfig jdbcProperties;
 
 	@Bean
 	public PropertySource<?> springPropertySource() {
-		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-		list.add(jdbcProperties.jdbcProjectProperties());
-		return SpringUtils.getGlobalPropertySource("springPropertySource", list);
+		return SpringUtils.getGlobalPropertySource("springPropertySource", Arrays.asList(jdbcProperties.jdbcProjectProperties()));
 	}
 }
