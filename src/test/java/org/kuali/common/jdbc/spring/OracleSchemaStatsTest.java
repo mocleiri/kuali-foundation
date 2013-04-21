@@ -31,7 +31,7 @@ public class OracleSchemaStatsTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("jdbc.username", "KSENV5");
+			System.setProperty("jdbc.username", "KSENV2");
 			System.setProperty("db.vendor", "oracle");
 			System.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 			System.setProperty("oracle.dba.username", "master");
@@ -42,10 +42,9 @@ public class OracleSchemaStatsTest {
 
 			List<PropertySource<?>> sources = SpringUtils.getPropertySources(OracleSchemaStatsPropertySourceConfig.class);
 
-			PropertySourceContext psc = new PropertySourceContext();
-			psc.setSources(sources);
+			PropertySourceContext psc = new PropertySourceContext(sources);
 
-			// Setup a Spring context that uses maven properties for placeholder resolution
+			// Setup a Spring context
 			SpringContext context = new SpringContext();
 			context.setPropertySourceContext(psc);
 
