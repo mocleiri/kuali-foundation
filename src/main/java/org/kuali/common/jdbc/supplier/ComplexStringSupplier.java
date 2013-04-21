@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.supplier;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -39,7 +40,11 @@ public class ComplexStringSupplier extends AbstractSupplier {
 	SqlReader reader = new DefaultSqlReader();
 
 	public ComplexStringSupplier() {
-		this(null);
+		this((String) null);
+	}
+
+	public ComplexStringSupplier(String sql) {
+		this(Arrays.asList(sql));
 	}
 
 	public ComplexStringSupplier(List<String> strings) {
