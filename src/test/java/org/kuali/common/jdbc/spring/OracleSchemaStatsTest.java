@@ -35,7 +35,6 @@ public class OracleSchemaStatsTest {
 			System.setProperty("db.vendor", "oracle");
 			System.setProperty("oracle.dba.url", "jdbc:oracle:thin:@oracle.ks.kuali.org:1521:ORACLE");
 			System.setProperty("oracle.dba.username", "master");
-			System.setProperty("oracle.dba.password", "gw570229");
 
 			// Default Spring service will do what we need
 			SpringService ss = new DefaultSpringService();
