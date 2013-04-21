@@ -30,7 +30,8 @@ import org.springframework.core.env.Environment;
  * Default database reset controller class. It displays the JDBC configuration, then executes a series of SQL statements in order [dba->schema->data->constraints->other].
  */
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, ResetDbaConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class })
+@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, ResetDbaConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class,
+		DbaCleanupConfig.class })
 public abstract class AbstractResetController {
 
 	@Autowired
@@ -54,6 +55,9 @@ public abstract class AbstractResetController {
 	@Autowired
 	ResetOtherConfig otherConfig;
 
+	@Autowired
+	DbaCleanupConfig dbaCleanupConfig;
+
 	protected Executable getResetExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
 		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
@@ -65,6 +69,7 @@ public abstract class AbstractResetController {
 		executables.add(constraintsConfig.jdbcConstraintsSequentialExecutable());
 		executables.add(otherConfig.jdbcOtherConcurrentExecutable());
 		executables.add(otherConfig.jdbcOtherSequentialExecutable());
+		executables.add(dbaCleanupConfig.jdbcDbaCleanupExecutable());
 
 		ExecutablesExecutable exec = new ExecutablesExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.reset.skip", false));
