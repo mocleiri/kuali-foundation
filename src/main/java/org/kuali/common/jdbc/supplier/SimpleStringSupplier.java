@@ -15,6 +15,7 @@
  */
 package org.kuali.common.jdbc.supplier;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.jdbc.SqlMetaData;
@@ -29,7 +30,11 @@ public class SimpleStringSupplier extends AbstractSupplier {
 	boolean closed = true;
 
 	public SimpleStringSupplier() {
-		this(null);
+		this((String) null);
+	}
+
+	public SimpleStringSupplier(String sql) {
+		this(Arrays.asList(sql));
 	}
 
 	public SimpleStringSupplier(List<String> strings) {

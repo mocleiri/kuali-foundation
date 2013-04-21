@@ -25,13 +25,18 @@ import org.springframework.util.Assert;
 public class JdbcExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcExecutable.class);
+	public static final JdbcService DEFAULT_JDBC_SERVICE = new DefaultJdbcService();
 
-	JdbcService service = new DefaultJdbcService();
+	JdbcService service = DEFAULT_JDBC_SERVICE;
 	JdbcContext context;
 	boolean skip;
 
 	public JdbcExecutable() {
-		this(null, null);
+		this(DEFAULT_JDBC_SERVICE, null);
+	}
+
+	public JdbcExecutable(JdbcContext context) {
+		this(DEFAULT_JDBC_SERVICE, context);
 	}
 
 	public JdbcExecutable(JdbcService service, JdbcContext context) {
