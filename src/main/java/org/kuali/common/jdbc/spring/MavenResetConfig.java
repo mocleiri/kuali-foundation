@@ -21,7 +21,7 @@ public class MavenResetConfig extends AbstractMavenResetConfig {
 	public List<Class<?>> getAnnotatedClasses() {
 		List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
 		annotatedClasses.add(ResetConfig.class);
-		annotatedClasses.add(ResetController.class);
+		annotatedClasses.add(SqlExecutionController.class);
 		return annotatedClasses;
 	}
 }
