@@ -25,7 +25,7 @@ import org.springframework.core.env.Environment;
  */
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, ResetDbaConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class })
-public class SqlExecutionController {
+public class SqlControllerConfig {
 
 	public static final String RESET_SKIP_KEY = "jdbc.reset.skip";
 	public static final String RESET_TIMED_KEY = "jdbc.reset.timed";

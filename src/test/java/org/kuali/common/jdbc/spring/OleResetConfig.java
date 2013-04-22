@@ -72,7 +72,7 @@ public class OleResetConfig {
 		PropertySourceContext psc = new PropertySourceContext(springPropertySource(), true);
 
 		// Setup the list containing annotated configuration classes
-		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetConfig.class, SqlExecutionController.class);
+		List<Class<?>> annotatedClasses = CollectionUtils.asList(ResetConfig.class, SqlControllerConfig.class);
 
 		// Setup the Spring context
 		SpringContext context = new SpringContext();
