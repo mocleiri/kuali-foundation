@@ -24,7 +24,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Load a Spring context from an annotated class
  */
-@Mojo(name = MavenConstants.LOAD_MOJO)
+@Mojo(name = MavenConstants.LOAD_MOJO, threadSafe = true)
 @Execute(goal = MavenConstants.LOAD_MOJO)
 public class LoadMojo extends AbstractSpringMojo {
 

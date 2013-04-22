@@ -24,7 +24,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Load a Spring context from an XML file.
  */
-@Mojo(name = MavenConstants.LOAD_XML_MOJO)
+@Mojo(name = MavenConstants.LOAD_XML_MOJO, threadSafe = true)
 @Execute(goal = MavenConstants.LOAD_XML_MOJO)
 public class LoadXmlMojo extends AbstractSpringMojo {
 
