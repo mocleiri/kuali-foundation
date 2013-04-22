@@ -24,7 +24,7 @@ import org.springframework.core.env.Environment;
  * Default database reset controller class. It displays the JDBC configuration, then executes a series of SQL statements in order [dba->schema->data->constraints->other].
  */
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, ResetDbaConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class })
+@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class })
 public class SqlControllerConfig {
 
 	public static final String RESET_SKIP_KEY = "jdbc.reset.skip";
@@ -40,7 +40,7 @@ public class SqlControllerConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
-	ResetDbaConfig dbaConfig;
+	SqlDbaBeforeConfig dbaConfig;
 
 	private static final String SCHEMA_GROUP_KEY = "sql.schema";
 	private static final String DATA_GROUP_KEY = "sql.data";

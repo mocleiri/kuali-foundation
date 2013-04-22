@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ResetDbaConfig extends BaseSqlExecutionConfig {
+public class SqlDbaBeforeConfig extends BaseSqlExecutionConfig {
 
 	@Bean
 	public Executable jdbcDbaExecutable() {
