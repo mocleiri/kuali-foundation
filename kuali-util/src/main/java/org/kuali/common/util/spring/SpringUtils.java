@@ -29,6 +29,7 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -102,6 +103,41 @@ public class SpringUtils {
 		se.setContext(context);
 		se.setSkip(skip);
 		return se;
+	}
+
+	public static int getInteger(Environment env, String key, int defaultValue) {
+		String value = getProperty(env, key, defaultValue + "");
+		return new Integer(value);
+	}
+
+	public static long getLong(Environment env, String key, long defaultValue) {
+		String value = getProperty(env, key, defaultValue + "");
+		return new Long(value);
+	}
+
+	public static double getDouble(Environment env, String key, double defaultValue) {
+		String value = getProperty(env, key, defaultValue + "");
+		return new Double(value);
+	}
+
+	/**
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getMillis(String time)
+	 */
+	public static long getMillis(Environment env, String key, String defaultValue) {
+		String value = getProperty(env, key, defaultValue + "");
+		return FormatUtils.getMillis(value);
+	}
+
+	/**
+	 * Parse bytes from a size string that ends with a unit of measure. If no unit of measure is provided, bytes is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getBytes(String size)
+	 */
+	public static long getBytes(Environment env, String key, String defaultValue) {
+		String value = getProperty(env, key, defaultValue + "");
+		return FormatUtils.getBytes(value);
 	}
 
 	public static boolean getBoolean(Environment env, String key, boolean defaultValue) {
