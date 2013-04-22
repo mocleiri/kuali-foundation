@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ResetOtherConfig extends ResetBaseConfig {
+public class ResetOtherConfig extends BaseSqlExecutionConfig {
 
 	public static final String TYPE = "other";
 	public static final String SKIP_KEY = "jdbc.other.skip";
