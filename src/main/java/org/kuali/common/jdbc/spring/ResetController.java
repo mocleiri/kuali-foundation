@@ -42,8 +42,8 @@ public class ResetController {
 	@Autowired
 	ResetDbaConfig dbaConfig;
 
-	private static final String DATA_GROUP_KEY = "sql.data";
 	private static final String SCHEMA_GROUP_KEY = "sql.schema";
+	private static final String DATA_GROUP_KEY = "sql.data";
 	private static final String CONSTRAINT_GROUP_KEY = "sql.constraints";
 	private static final String OTHER_GROUP_KEY = "sql.other";
 
