@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
-public abstract class BaseSqlExecutionConfig {
+public abstract class AbstractSqlExecutionConfig {
 
 	@Autowired
 	Environment env;

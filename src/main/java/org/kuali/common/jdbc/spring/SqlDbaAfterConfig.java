@@ -15,12 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SqlDbaBeforeConfig extends AbstractSqlExecutionConfig {
+public class SqlDbaAfterConfig extends AbstractSqlExecutionConfig {
 
 	@Bean
 	public Executable jdbcDbaExecutable() {
 		JdbcExecutable exec = new JdbcExecutable();
-		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.dba.before.skip", false));
+		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.dba.after.skip", false));
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(getJdbcContext());
 		return exec;
@@ -28,8 +28,8 @@ public class SqlDbaBeforeConfig extends AbstractSqlExecutionConfig {
 
 	protected JdbcContext getJdbcContext() {
 		JdbcContext ctx = new JdbcContext();
-		ctx.setMessage(SpringUtils.getProperty(env, "sql.dba.before.message"));
-		ctx.setSkip(SpringUtils.getBoolean(env, "sql.dba.before.skip", false));
+		ctx.setMessage(SpringUtils.getProperty(env, "sql.dba.after.message"));
+		ctx.setSkip(SpringUtils.getBoolean(env, "sql.dba.after.skip", false));
 		ctx.setDataSource(dataSourceConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
 		ctx.setListener(new LogSqlListener(LoggerLevel.INFO, LogSqlMode.BEFORE));
@@ -37,12 +37,10 @@ public class SqlDbaBeforeConfig extends AbstractSqlExecutionConfig {
 	}
 
 	protected SqlSupplier getSqlSupplier() {
-		String validate = SpringUtils.getProperty(env, "sql.validate");
-		String drop = SpringUtils.getProperty(env, "sql.drop");
-		String create = SpringUtils.getProperty(env, "sql.create");
+		String sql = SpringUtils.getProperty(env, "sql.dba.after");
 		ComplexStringSupplier css = new ComplexStringSupplier();
 		css.setReader(commonConfig.jdbcSqlReader());
-		css.setStrings(Arrays.asList(validate, drop, create));
+		css.setStrings(Arrays.asList(sql));
 		return css;
 	}
 

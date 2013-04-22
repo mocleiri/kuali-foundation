@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ResetDataConfig extends BaseSqlExecutionConfig {
+public class ResetDataConfig extends AbstractSqlExecutionConfig {
 
 	public static final String TYPE = "data";
 	public static final String SKIP_KEY = "jdbc.data.skip";
