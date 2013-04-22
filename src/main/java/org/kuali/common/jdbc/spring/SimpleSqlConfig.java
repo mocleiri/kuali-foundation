@@ -15,15 +15,12 @@
 
 package org.kuali.common.jdbc.spring;
 
-import java.util.List;
-
 import org.kuali.common.jdbc.GroupedSqlConfig;
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.JdbcContextUtils;
 import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.SqlListener;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,69 +31,70 @@ import org.springframework.core.env.Environment;
 
 /**
  * This class configures a simple JdbcContext, with one set of scripts from a fixed property key in the environment
+ * 
  * @author andrewlubbers
- *
+ * 
  */
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public class SimpleSqlConfig implements GroupedSqlConfig {
 
-    @Autowired
-    Environment env;
+	@Autowired
+	Environment env;
 
-    @Autowired
-    JdbcCommonConfig commonConfig;
+	@Autowired
+	JdbcCommonConfig commonConfig;
 
-    @Autowired
-    JdbcDataSourceConfig dataSourceConfig;
+	@Autowired
+	JdbcDataSourceConfig dataSourceConfig;
 
-    private static final String LOCATIONS_KEY = "kjdbc.sql.locations";
+	private static final String LOCATIONS_KEY = "kjdbc.sql.locations";
 
-    private static final String SQLMODE_KEY = "kjdbc.sql.mode";
+	private static final String SQLMODE_KEY = "kjdbc.sql.mode";
 
-    public static final String SKIP_KEY = "kjdbc.sql.skip";
+	public static final String SKIP_KEY = "kjdbc.sql.skip";
 
-    @Bean
-    public Executable jdbcSimpleSqlExecutable() {
+	@Bean
+	public Executable jdbcSimpleSqlExecutable() {
 
-        JdbcContext context = JdbcContextUtils.buildJdbcContextFromGroupedSql(this);
+		JdbcContext context = JdbcContextUtils.buildJdbcContextFromGroupedSql(this);
 
-        JdbcExecutable exec = new JdbcExecutable();
-        exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
-        exec.setService(commonConfig.jdbcService());
-        exec.setContext(context);
-        return exec;
-    }
+		JdbcExecutable exec = new JdbcExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
+		exec.setService(commonConfig.jdbcService());
+		exec.setContext(context);
+		return exec;
+	}
 
-    @Override
-    public String getGroupKey() {
-        return LOCATIONS_KEY;
-    }
+	@Override
+	public String getGroupKey() {
+		return LOCATIONS_KEY;
+	}
 
-    @Override
-    public SqlMode getSqlMode() {
-        String sqlMode = SpringUtils.getProperty(env, SQLMODE_KEY);
+	@Override
+	public SqlMode getSqlMode() {
+		String sqlMode = SpringUtils.getProperty(env, SQLMODE_KEY);
 
-        return SqlMode.valueOf(sqlMode.toUpperCase());
-    }
+		return SqlMode.valueOf(sqlMode.toUpperCase());
+	}
 
-    @Override
-    public JdbcDataSourceConfig getDataSourceConfig() {
-        return dataSourceConfig;
-    }
+	@Override
+	public JdbcDataSourceConfig getDataSourceConfig() {
+		return dataSourceConfig;
+	}
 
-    @Override
-    public Environment getEnvironment() {
-        return env;
-    }
+	@Override
+	public Environment getEnvironment() {
+		return env;
+	}
 
-    @Override
-    public JdbcCommonConfig getJdbcCommonConfig() {
-        return commonConfig;
-    }
+	@Override
+	public JdbcCommonConfig getJdbcCommonConfig() {
+		return commonConfig;
+	}
 
-    @Override
-    public SqlListener getSqlListener() {
-        return JdbcContextUtils.buildSummaryListener(env);
-    }
+	@Override
+	public SqlListener getSqlListener() {
+		return JdbcContextUtils.buildSummaryListener(env);
+	}
 }

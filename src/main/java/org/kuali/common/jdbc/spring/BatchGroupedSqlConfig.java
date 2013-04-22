@@ -28,86 +28,44 @@ import org.springframework.core.env.Environment;
 
 /**
  * Represents a set of GroupedSqlConfig objects with the same base configuration
- *
+ * 
  * @author andrewlubbers
  */
 public class BatchGroupedSqlConfig {
 
-    Environment env;
+	Environment env;
 
-    JdbcCommonConfig commonConfig;
+	JdbcCommonConfig commonConfig;
 
-    JdbcDataSourceConfig dataSourceConfig;
+	JdbcDataSourceConfig dataSourceConfig;
 
-    List<BatchEntry> batchEntries;
+	List<BatchEntry> batchEntries;
 
-    private class BatchEntry {
-        String groupKey;
+	public BatchGroupedSqlConfig(Environment env, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
+		this.env = env;
+		this.commonConfig = commonConfig;
+		this.dataSourceConfig = dataSourceConfig;
+		this.batchEntries = new ArrayList<BatchEntry>();
+	}
 
-        SqlMode sqlMode;
+	public void addBatch(String groupKey, SqlMode sqlMode, SqlListener listener) {
+		batchEntries.add(new BatchEntry(groupKey, sqlMode, listener));
+	}
 
-        SqlListener sqlListener;
+	public void clearBatches() {
+		batchEntries.clear();
+	}
 
-        public BatchEntry() {
-            this(null, null, null);
-        }
+	public List<JdbcContext> buildContexts() {
+		List<JdbcContext> results = new ArrayList<JdbcContext>();
 
-        public BatchEntry(String groupKey, SqlMode sqlMode, SqlListener sqlListener) {
-            this.groupKey = groupKey;
-            this.sqlMode = sqlMode;
-            this.sqlListener = sqlListener;
-        }
+		for (BatchEntry entry : batchEntries) {
+			GroupedSqlConfig groupedConfig = new DefaultGroupedSqlConfigImpl(entry.getGroupKey(), entry.getSqlMode(), env, commonConfig, dataSourceConfig, entry.getSqlListener());
+			JdbcContext context = JdbcContextUtils.buildJdbcContextFromGroupedSql(groupedConfig);
 
-        public String getGroupKey() {
-            return groupKey;
-        }
+			results.add(context);
+		}
 
-        public void setGroupKey(String groupKey) {
-            this.groupKey = groupKey;
-        }
-
-        public SqlMode getSqlMode() {
-            return sqlMode;
-        }
-
-        public void setSqlMode(SqlMode sqlMode) {
-            this.sqlMode = sqlMode;
-        }
-
-        public SqlListener getSqlListener() {
-            return sqlListener;
-        }
-
-        public void setSqlListener(SqlListener sqlListener) {
-            this.sqlListener = sqlListener;
-        }
-    }
-
-    public BatchGroupedSqlConfig(Environment env, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
-        this.env = env;
-        this.commonConfig = commonConfig;
-        this.dataSourceConfig = dataSourceConfig;
-        this.batchEntries = new ArrayList<BatchEntry>();
-    }
-
-    public void addBatch(String groupKey, SqlMode sqlMode, SqlListener listener) {
-        batchEntries.add(new BatchEntry(groupKey, sqlMode, listener));
-    }
-
-    public void clearBatches() {
-        batchEntries.clear();
-    }
-
-    public List<JdbcContext> buildContexts() {
-        List<JdbcContext> results = new ArrayList<JdbcContext>();
-
-        for(BatchEntry entry : batchEntries) {
-            GroupedSqlConfig groupedConfig = new DefaultGroupedSqlConfigImpl(entry.getGroupKey(), entry.getSqlMode(), env, commonConfig, dataSourceConfig, entry.getSqlListener());
-            JdbcContext context = JdbcContextUtils.buildJdbcContextFromGroupedSql(groupedConfig);
-
-            results.add(context);
-        }
-
-        return results;
-    }
+		return results;
+	}
 }
