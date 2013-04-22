@@ -60,8 +60,8 @@ public class SqlControllerConfig {
 
 		BatchGroupedSqlConfig batchConfig = new BatchGroupedSqlConfig(env, commonConfig, dataSourceConfig);
 		batchConfig.addBatch(SCHEMA_GROUP_KEY, SqlMode.CONCURRENT, JdbcContextUtils.buildSummaryListener(env));
-		batchConfig.addBatch(DATA_GROUP_KEY, SqlMode.SEQUENTIAL, JdbcContextUtils.buildSummaryAndProgressListener(env));
 		batchConfig.addBatch(DATA_GROUP_KEY, SqlMode.CONCURRENT, concurrentDataListener);
+		batchConfig.addBatch(DATA_GROUP_KEY, SqlMode.SEQUENTIAL, JdbcContextUtils.buildSummaryAndProgressListener(env));
 		batchConfig.addBatch(CONSTRAINT_GROUP_KEY, SqlMode.SEQUENTIAL, JdbcContextUtils.buildSummaryAndProgressListener(env));
 		batchConfig.addBatch(CONSTRAINT_GROUP_KEY, SqlMode.CONCURRENT, JdbcContextUtils.buildSummaryListener(env));
 		batchConfig.addBatch(OTHER_GROUP_KEY, SqlMode.SEQUENTIAL, JdbcContextUtils.buildSummaryAndProgressListener(env));
