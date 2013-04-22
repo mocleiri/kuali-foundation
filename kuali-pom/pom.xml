@@ -611,7 +611,11 @@
               </manifestEntries>
             </archive>
           </configuration>
-          <!-- Remove this dependency override once maven-war-plugin upgrades itself to version >= 2.3 of plexus-archiver -->
+          <!-- 
+            Remove this dependency override once maven-war-plugin upgrades itself to version >= 2.3 of plexus-archiver.
+            Using plexus-archiver >= 2.3 provides a massive performance gain when doing war overlays on mac/linux systems.
+            Sorting out the underlying issue and coming up with this fix for it comes courtesy of Jonathan Keller.
+           -->
           <dependencies>
             <dependency>
               <groupId>org.codehaus.plexus</groupId>
