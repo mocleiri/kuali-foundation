@@ -62,8 +62,9 @@ public class SqlConfigUtils {
 			String csv = SpringUtils.getProperty(env, key);
 			List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
 
-			// Validate that every value from the csv points to a property that exists
+			// Validate that every key exists
 			for (String k : keys) {
+				// Validate that every location exists
 				String location = SpringUtils.getProperty(env, k);
 				boolean exists = LocationUtils.exists(location);
 				Assert.isTrue(exists, "[" + location + "] does not exist");
