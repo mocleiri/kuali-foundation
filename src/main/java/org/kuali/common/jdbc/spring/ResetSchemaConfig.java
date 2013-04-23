@@ -31,7 +31,7 @@ public class ResetSchemaConfig extends SqlBaseConfig {
 
 	@Bean
 	public Executable jdbcSchemaExecutable() {
-		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
+		SqlConfigContext rcc = new SqlConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext context = SqlConfigUtils.getConcurrentJdbcContext(rcc);
 		context.setListener(SqlConfigUtils.getSchemaListener(env));
 		JdbcExecutable exec = new JdbcExecutable();

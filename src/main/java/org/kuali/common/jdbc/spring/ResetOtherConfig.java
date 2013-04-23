@@ -32,7 +32,7 @@ public class ResetOtherConfig extends SqlBaseConfig {
 	@Bean
 	public Executable jdbcOtherConcurrentExecutable() {
 
-		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
+		SqlConfigContext rcc = new SqlConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext context = SqlConfigUtils.getSequentialJdbcContext(rcc);
 		context.setListener(SqlConfigUtils.getOtherListener(env));
 
@@ -46,7 +46,7 @@ public class ResetOtherConfig extends SqlBaseConfig {
 	@Bean
 	public Executable jdbcOtherSequentialExecutable() {
 
-		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
+		SqlConfigContext rcc = new SqlConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext context = SqlConfigUtils.getSequentialJdbcContext(rcc);
 		context.setListener(SqlConfigUtils.getOtherListener(env));
 

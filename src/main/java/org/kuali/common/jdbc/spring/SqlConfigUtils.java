@@ -119,7 +119,7 @@ public class SqlConfigUtils {
 		return list;
 	}
 
-	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext rcc) {
+	public static DataSummaryListener getConcurrentDataSummaryListener(SqlConfigContext rcc) {
 		String propertyPrefix = getPropertyPrefix(rcc);
 		String label = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
 		String throughputLabel = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
@@ -130,7 +130,7 @@ public class SqlConfigUtils {
 		return dsl;
 	}
 
-	public static JdbcContext getConcurrentJdbcContext(ResetConfigContext rcc) {
+	public static JdbcContext getConcurrentJdbcContext(SqlConfigContext rcc) {
 		String threads = SpringUtils.getProperty(rcc.getEnv(), "sql.threads");
 		JdbcContext ctx = getBaseJdbcContext(rcc);
 		ctx.setMultithreaded(true);
@@ -138,7 +138,7 @@ public class SqlConfigUtils {
 		return ctx;
 	}
 
-	public static JdbcContext getSequentialJdbcContext(ResetConfigContext rcc) {
+	public static JdbcContext getSequentialJdbcContext(SqlConfigContext rcc) {
 		JdbcContext ctx = getBaseJdbcContext(rcc);
 		ctx.setMultithreaded(false);
 		ctx.setThreads(1);
@@ -157,7 +157,7 @@ public class SqlConfigUtils {
 	 *   sql.other.sequential
 	 * </pre>
 	 */
-	public static String getPropertyPrefix(ResetConfigContext rcc) {
+	public static String getPropertyPrefix(SqlConfigContext rcc) {
 		String mode = rcc.getMode().name().toLowerCase();
 
 		StringBuilder sb = new StringBuilder();
@@ -183,7 +183,7 @@ public class SqlConfigUtils {
 		return getSummaryAndProgressListener(env);
 	}
 
-	protected static JdbcContext getBaseJdbcContext(ResetConfigContext rcc) {
+	protected static JdbcContext getBaseJdbcContext(SqlConfigContext rcc) {
 		// dba, schema, data, constraints, other
 		String type = rcc.getType();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc

@@ -18,7 +18,7 @@ package org.kuali.common.jdbc.spring;
 import org.kuali.common.jdbc.context.SqlMode;
 import org.springframework.core.env.Environment;
 
-public class ResetConfigContext {
+public class SqlConfigContext {
 
 	Environment env;
 	String type;
@@ -26,11 +26,11 @@ public class ResetConfigContext {
 	JdbcCommonConfig commonConfig;
 	JdbcDataSourceConfig dataSourceConfig;
 
-	public ResetConfigContext() {
+	public SqlConfigContext() {
 		this(null, null, null, null, null);
 	}
 
-	public ResetConfigContext(Environment env, String type, SqlMode mode, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
+	public SqlConfigContext(Environment env, String type, SqlMode mode, JdbcCommonConfig commonConfig, JdbcDataSourceConfig dataSourceConfig) {
 		super();
 		this.env = env;
 		this.type = type;

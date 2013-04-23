@@ -31,7 +31,7 @@ public class ResetConstraintsConfig extends SqlBaseConfig {
 
 	@Bean
 	public Executable jdbcConstraintsConcurrentExecutable() {
-		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
+		SqlConfigContext rcc = new SqlConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
 		JdbcContext ctx = SqlConfigUtils.getConcurrentJdbcContext(rcc);
 		ctx.setListener(SqlConfigUtils.getConstraintsListener(env));
 
@@ -44,7 +44,7 @@ public class ResetConstraintsConfig extends SqlBaseConfig {
 
 	@Bean
 	public Executable jdbcConstraintsSequentialExecutable() {
-		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
+		SqlConfigContext rcc = new SqlConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
 		JdbcContext ctx = SqlConfigUtils.getSequentialJdbcContext(rcc);
 		ctx.setListener(SqlConfigUtils.getSummaryAndProgressListener(env));
 
