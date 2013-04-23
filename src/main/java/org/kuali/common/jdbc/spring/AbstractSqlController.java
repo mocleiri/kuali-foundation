@@ -32,7 +32,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class,
 		SqlDbaAfterConfig.class })
-public abstract class AbstractResetController {
+public abstract class AbstractSqlController {
 
 	@Autowired
 	Environment env;
