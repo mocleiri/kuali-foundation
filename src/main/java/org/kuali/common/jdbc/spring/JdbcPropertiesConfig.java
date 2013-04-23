@@ -39,7 +39,6 @@ public class JdbcPropertiesConfig {
 
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:org/kuali/common/jdbc/jdbc.properties");
-		locations.add("classpath:org/kuali/common/jdbc/service.properties");
 		locations.add("classpath:org/kuali/common/sql/sql.xml");
 		locations.add("classpath:org/kuali/common/sql/mysql.xml");
 		locations.add("classpath:org/kuali/common/sql/oracle.xml");
