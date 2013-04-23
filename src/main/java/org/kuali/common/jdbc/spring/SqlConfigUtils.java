@@ -50,9 +50,17 @@ public class SqlConfigUtils {
 	public static final String LIST_SUFFIX = ".list";
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
+		// Extract csv from the environment
 		String csv = SpringUtils.getProperty(env, SQL_ORDER_KEY);
+
+		// Convert the csv to a list
 		List<String> values = CollectionUtils.getTrimmedListFromCSV(csv);
+
+		// Validate that all the properties correctly reference each other
+		// and that any/all resource locations they point to can be located
 		validateSqlExecutionOrderValues(env, values);
+
+		// Convert the text values into pojo's
 		return getSqlExecutionContexts(values);
 	}
 
