@@ -25,22 +25,20 @@ public class DateParsingTest {
 	@Test
 	public void test() {
 		try {
-			String format = ImpexContext.MPX_DATE_FORMAT;
+			String format = ImpexContext.MPX_DATE_FORMAT + "Z";
 			Comparator<TimeZone> c = new TimeZoneComparator();
 			List<TimeZone> timeZones = getSortedTimeZones(c);
 			List<SimpleDateFormat> formatters = new ArrayList<SimpleDateFormat>();
 			List<Object[]> rows = new ArrayList<Object[]>();
+			Date now = new Date();
 			for (TimeZone timeZone : timeZones) {
 				String offset = FormatUtils.getTime(timeZone.getRawOffset());
-				if (!StringUtils.equals("2.000h", offset)) {
-					// continue;
-				}
-				rows.add(new Object[] { offset, timeZone.getDisplayName(), timeZone.getID() });
 				SimpleDateFormat sdf = new SimpleDateFormat(format);
 				sdf.setTimeZone(timeZone);
+				rows.add(new Object[] { offset, timeZone.getDisplayName(), timeZone.getID(), sdf.format(now) });
 				formatters.add(sdf);
 			}
-			List<String> columns = Arrays.asList("UTC Offset", "Name", "Id");
+			List<String> columns = Arrays.asList("UTC Offset", "Name", "Id", "Timestamp");
 			LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger);
 
 			String dateString = "2013-02-18T13:23:34.000+0000";
