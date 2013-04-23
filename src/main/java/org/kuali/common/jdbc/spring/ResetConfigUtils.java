@@ -46,6 +46,7 @@ public class ResetConfigUtils {
 		DataSummaryListener dsl = new DataSummaryListener();
 		dsl.setLabel(label);
 		dsl.setThroughputLabel(throughputLabel);
+		dsl.setLoggerLevel(LoggerLevel.DEBUG);
 		return dsl;
 	}
 
@@ -126,21 +127,21 @@ public class ResetConfigUtils {
 
 	public static NotifyingListener getConstraintsListener(Environment env) {
 		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener(false));
+		list.add(new SummaryListener(false, LoggerLevel.DEBUG));
 		list.add(getLogSqlListener(env));
 		return new NotifyingListener(list);
 	}
 
 	public static NotifyingListener getSchemaListener(Environment env) {
 		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener(false));
+		list.add(new SummaryListener(false, LoggerLevel.DEBUG));
 		list.add(getLogSqlListener(env));
 		return new NotifyingListener(list);
 	}
 
 	public static NotifyingListener getSummaryAndProgressListener(Environment env) {
 		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener());
+		list.add(new SummaryListener(true, LoggerLevel.DEBUG));
 		list.add(new ProgressListener());
 		list.add(getLogSqlListener(env));
 		return new NotifyingListener(list);

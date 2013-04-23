@@ -36,8 +36,13 @@ public class SummaryListener extends NoOpSqlListener {
 	}
 
 	public SummaryListener(boolean showRate) {
+		this(showRate, LoggerLevel.INFO);
+	}
+
+	public SummaryListener(boolean showRate, LoggerLevel loggerLevel) {
 		super();
 		this.showRate = showRate;
+		this.loggerLevel = loggerLevel;
 	}
 
 	@Override
