@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.context;
 
-public class SqlContext {
+public class SqlExecutionContext {
 
 	String group;
 	SqlMode mode;

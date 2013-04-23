@@ -21,7 +21,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.context.SqlContext;
+import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
@@ -40,8 +40,8 @@ public class SqlConfigUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
 
-	public List<SqlContext> getSqlContexts(Environment env) {
-		List<SqlContext> list = new ArrayList<SqlContext>();
+	public List<SqlExecutionContext> getSqlContexts(Environment env) {
+		List<SqlExecutionContext> list = new ArrayList<SqlExecutionContext>();
 		return list;
 	}
 
