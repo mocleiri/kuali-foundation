@@ -28,7 +28,6 @@ import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
-import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -55,7 +54,7 @@ public class SqlConfigUtils {
 		String skipKey = "jdbc." + scc.getContext().getGroup() + ".skip";
 
 		JdbcContext context = getJdbcContext(scc);
-		context.setListener(new NoOpSqlListener());
+		context.setListener(new LogSqlListener());
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(scc.getEnv(), skipKey, false));
