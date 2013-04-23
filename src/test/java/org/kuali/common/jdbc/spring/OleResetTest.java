@@ -27,7 +27,6 @@ public class OleResetTest {
 	@Test
 	public void test() {
 		try {
-			// System.setProperty("db.vendor", "oracle");
 			// Default Spring service will do what we need
 			SpringService ss = new DefaultSpringService();
 
