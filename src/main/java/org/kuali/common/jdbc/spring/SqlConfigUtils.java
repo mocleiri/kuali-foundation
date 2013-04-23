@@ -33,6 +33,7 @@ import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
@@ -63,7 +64,9 @@ public class SqlConfigUtils {
 
 			// Validate that every value from the csv points to a property that exists
 			for (String k : keys) {
-				SpringUtils.getProperty(env, k);
+				String location = SpringUtils.getProperty(env, k);
+				boolean exists = LocationUtils.exists(location);
+				Assert.isTrue(exists, "[" + location + "] does not exist");
 			}
 		}
 	}
