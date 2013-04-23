@@ -32,7 +32,7 @@ public abstract class AbstractSqlDbaConfig extends SqlBaseConfig {
 
 	protected abstract String getPhase();
 
-	public abstract Executable getExecutable();
+	public abstract Executable getDbaPhaseExecutable();
 
 	protected Executable getDbaExecutable() {
 		JdbcExecutable exec = new JdbcExecutable();

@@ -31,7 +31,7 @@ public class SqlDbaAfterConfig extends AbstractSqlDbaConfig {
 
 	@Override
 	@Bean(name = "sqlDba" + PHASE + "Executable")
-	public Executable getExecutable() {
+	public Executable getDbaPhaseExecutable() {
 		return getDbaExecutable();
 	}
 
