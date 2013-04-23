@@ -59,9 +59,11 @@ public class SqlConfigUtils {
 			// Validate there is a key for every value
 			String key = SQL_PREFIX + "." + value;
 			String csv = SpringUtils.getProperty(env, key);
-			List<String> subValues = CollectionUtils.getTrimmedListFromCSV(csv);
-			for (String subValue : subValues) {
-				SpringUtils.getProperty(env, subValue);
+			List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
+
+			// Validate that every value from the csv points to a property that exists
+			for (String k : keys) {
+				SpringUtils.getProperty(env, k);
 			}
 		}
 	}
