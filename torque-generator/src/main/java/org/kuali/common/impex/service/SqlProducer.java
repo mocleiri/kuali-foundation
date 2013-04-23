@@ -8,13 +8,13 @@ import org.apache.torque.engine.database.model.Table;
 
 public interface SqlProducer {
 
-	public List<String> getSql(Table table, BufferedReader reader) throws IOException;
+	List<String> getSql(Table table, BufferedReader reader) throws IOException;
 
-    int getBatchDataSizeLimit();
+	int getBatchDataSizeLimit();
 
-    int getBatchRowCountLimit();
+	int getBatchRowCountLimit();
 
-    void setBatchDataSizeLimit(int batchDataSizeLimit);
+	void setBatchDataSizeLimit(int batchDataSizeLimit);
 
-    void setBatchRowCountLimit(int batchRowCountLimit);
+	void setBatchRowCountLimit(int batchRowCountLimit);
 }
