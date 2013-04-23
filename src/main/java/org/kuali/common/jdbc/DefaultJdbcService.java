@@ -172,7 +172,7 @@ public class DefaultJdbcService implements JdbcService {
 		String sqlCount = FormatUtils.getCount(etl.getAggregateSqlCount());
 		String sqlSize = FormatUtils.getSize(etl.getAggregateSqlSize());
 		Object[] args = { buckets.size(), wTime, aTime, avgMillis, sqlCount, sqlSize };
-		logger.info("Threads - [count: {}  time: {}  aggregate: {}  avg: {}  sql: {} - {}]", args);
+		logger.debug("Threads - [count: {}  time: {}  aggregate: {}  avg: {}  sql: {} - {}]", args);
 
 		return etl.getAggregateUpdateCount();
 	}
