@@ -77,14 +77,14 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-sql</artifactId>
+      <version>2.0.5-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-sql</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
