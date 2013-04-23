@@ -30,8 +30,7 @@ import org.springframework.core.env.Environment;
  * Default database reset controller class. It displays the JDBC configuration, then executes a series of SQL statements in order [dba->schema->data->constraints->other].
  */
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, ResetSchemaConfig.class, ResetConstraintsConfig.class, ResetOtherConfig.class,
-		SqlDbaAfterConfig.class })
+@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, SqlDbaAfterConfig.class })
 public abstract class AbstractSqlController {
 
 	@Autowired
@@ -44,31 +43,12 @@ public abstract class AbstractSqlController {
 	SqlDbaBeforeConfig dbaBeforeConfig;
 
 	@Autowired
-	ResetSchemaConfig schemaConfig;
-
-	@Autowired
-	ResetDataConfig dataConfig;
-
-	@Autowired
-	ResetConstraintsConfig constraintsConfig;
-
-	@Autowired
-	ResetOtherConfig otherConfig;
-
-	@Autowired
 	SqlDbaAfterConfig dbaAfterConfig;
 
 	protected Executable getSqlExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
 		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
 		executables.add(dbaBeforeConfig.getDbaPhaseExecutable());
-		executables.add(schemaConfig.jdbcSchemaExecutable());
-		executables.add(dataConfig.jdbcDataConcurrentExecutable());
-		executables.add(dataConfig.jdbcDataSequentialExecutable());
-		executables.add(constraintsConfig.jdbcConstraintsConcurrentExecutable());
-		executables.add(constraintsConfig.jdbcConstraintsSequentialExecutable());
-		executables.add(otherConfig.jdbcOtherConcurrentExecutable());
-		executables.add(otherConfig.jdbcOtherSequentialExecutable());
 		executables.add(dbaAfterConfig.getDbaPhaseExecutable());
 
 		ExecutablesExecutable exec = new ExecutablesExecutable();

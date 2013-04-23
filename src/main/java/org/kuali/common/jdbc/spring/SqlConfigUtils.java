@@ -21,6 +21,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
+import org.kuali.common.jdbc.context.SqlContext;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
@@ -35,9 +36,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
-public class ResetConfigUtils {
+public class SqlConfigUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(ResetConfigUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
+
+	public List<SqlContext> getSqlContexts(Environment env) {
+		String
+		
+		List<SqlContext> list = new ArrayList<SqlContext>();
+		return list;
+	}
 
 	public static DataSummaryListener getConcurrentDataSummaryListener(ResetConfigContext rcc) {
 		String propertyPrefix = getPropertyPrefix(rcc);

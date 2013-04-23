@@ -39,7 +39,7 @@ public class ResetDataConfig extends SqlBaseConfig {
 	@Bean
 	public Executable jdbcDataConcurrentExecutable() {
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
-		JdbcContext ctx = ResetConfigUtils.getConcurrentJdbcContext(jcc);
+		JdbcContext ctx = SqlConfigUtils.getConcurrentJdbcContext(jcc);
 		ctx.setListener(getConcurrentListener());
 
 		JdbcExecutable exec = new JdbcExecutable();
@@ -52,8 +52,8 @@ public class ResetDataConfig extends SqlBaseConfig {
 	@Bean
 	public Executable jdbcDataSequentialExecutable() {
 		ResetConfigContext jcc = new ResetConfigContext(env, TYPE, SqlMode.SEQUENTIAL, commonConfig, dataSourceConfig);
-		JdbcContext ctx = ResetConfigUtils.getSequentialJdbcContext(jcc);
-		ctx.setListener(ResetConfigUtils.getSummaryAndProgressListener(env));
+		JdbcContext ctx = SqlConfigUtils.getSequentialJdbcContext(jcc);
+		ctx.setListener(SqlConfigUtils.getSummaryAndProgressListener(env));
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
 		exec.setService(commonConfig.jdbcService());
@@ -63,12 +63,12 @@ public class ResetDataConfig extends SqlBaseConfig {
 
 	protected SqlListener getConcurrentListener() {
 		ResetConfigContext rcc = new ResetConfigContext(env, TYPE, SqlMode.CONCURRENT, commonConfig, dataSourceConfig);
-		DataSummaryListener dsl = ResetConfigUtils.getConcurrentDataSummaryListener(rcc);
+		DataSummaryListener dsl = SqlConfigUtils.getConcurrentDataSummaryListener(rcc);
 
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new MetaDataListener());
 		listeners.add(dsl);
-		listeners.add(ResetConfigUtils.getLogSqlListener(env));
+		listeners.add(SqlConfigUtils.getLogSqlListener(env));
 		return new NotifyingListener(listeners);
 	}
 
