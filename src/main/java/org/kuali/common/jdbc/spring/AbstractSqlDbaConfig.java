@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
 import org.kuali.common.jdbc.supplier.ComplexStringSupplier;
@@ -47,7 +46,7 @@ public abstract class AbstractSqlDbaConfig extends SqlBaseConfig {
 	protected JdbcContext getJdbcContext() {
 		JdbcContext ctx = new JdbcContext();
 		// All dba SQL executes sequentially
-		ctx.setMessage("[dba:" + getPhase() + ":" + SqlMode.SEQUENTIAL.name().toLowerCase() + "]");
+		ctx.setMessage("[dba:" + getPhase() + "]");
 		ctx.setSkip(SpringUtils.getBoolean(env, "sql.dba." + getPhase() + ".skip", false));
 		ctx.setDataSource(dataSourceConfig.jdbcDbaDataSource());
 		ctx.setSuppliers(Arrays.asList(getSqlSupplier()));
