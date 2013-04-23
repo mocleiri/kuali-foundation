@@ -41,8 +41,6 @@ public class SqlConfigUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
 
 	public List<SqlContext> getSqlContexts(Environment env) {
-		String
-		
 		List<SqlContext> list = new ArrayList<SqlContext>();
 		return list;
 	}
