@@ -428,6 +428,13 @@ public class SpringUtils {
 	}
 
 	/**
+	 * Return true if the environment value for key is not null.
+	 */
+	public static boolean exists(Environment env, String key) {
+		return env.getProperty(key) != null;
+	}
+
+	/**
 	 * Always return a fully resolved value. Use <code>defaultValue</code> if a value cannot be located in the environment. Throw an exception if the return value contains
 	 * unresolvable placeholders.
 	 */
