@@ -56,9 +56,13 @@ public class JdbcExecutable implements Executable {
 		Assert.notNull(context, "context is null");
 
 		ExecutionResult result = service.executeSql(context);
-		String elapsed = FormatUtils.getTime(result.getElapsed());
-		String updates = FormatUtils.getCount(result.getUpdateCount());
-		logger.info("Rows updated: {}  Total time: {}", updates, elapsed);
+		if (result.getStatementsExecuted() > 0) {
+			String updates = FormatUtils.getCount(result.getUpdateCount());
+			String statements = FormatUtils.getCount(result.getStatementsExecuted());
+			String elapsed = FormatUtils.getTime(result.getElapsed());
+			Object[] args = { updates, statements, elapsed };
+			logger.info("Rows updated: {}  SQL Statements: {}  Total time: {}", args);
+		}
 	}
 
 	public JdbcService getService() {
