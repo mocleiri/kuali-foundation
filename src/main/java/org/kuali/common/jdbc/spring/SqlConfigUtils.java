@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlExecutionContext;
+import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
@@ -30,6 +31,7 @@ import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
@@ -40,8 +42,47 @@ public class SqlConfigUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
 
-	public List<SqlExecutionContext> getSqlContexts(Environment env) {
+	public static final String SQL_PREFIX = "sql";
+	public static final String SQL_GROUPS_KEY = "sql.execution.groups";
+
+	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
+		String csv = SpringUtils.getProperty(env, SQL_GROUPS_KEY);
+		List<String> groups = CollectionUtils.getTrimmedListFromCSV(csv);
+		List<SqlExecutionContext> all = getSqlExecutionContexts(groups);
+		return getExistingContexts(env, all);
+	}
+
+	public static List<SqlExecutionContext> getExistingContexts(Environment env, List<SqlExecutionContext> contexts) {
+		List<SqlExecutionContext> existingContexts = new ArrayList<SqlExecutionContext>();
+		for (SqlExecutionContext context : contexts) {
+			String key = getPropertyKey(context);
+			if (SpringUtils.exists(env, key)) {
+				existingContexts.add(context);
+			}
+		}
+		return existingContexts;
+	}
+
+	public static String getPropertyKey(SqlExecutionContext context) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(SQL_PREFIX);
+		sb.append(".");
+		sb.append(context.getGroup());
+		sb.append(".");
+		sb.append(context.getMode().name());
+		return sb.toString().toLowerCase();
+	}
+
+	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> groups) {
 		List<SqlExecutionContext> list = new ArrayList<SqlExecutionContext>();
+		for (String group : groups) {
+			for (SqlMode mode : SqlMode.values()) {
+				SqlExecutionContext sec = new SqlExecutionContext();
+				sec.setGroup(group);
+				sec.setMode(mode);
+				list.add(sec);
+			}
+		}
 		return list;
 	}
 
