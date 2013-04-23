@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Configuration;
 public class SqlControllerConfig extends AbstractSqlController {
 
 	@Bean(initMethod = "execute")
-	public Executable jdbcResetExecutable() {
-		return getResetExecutable();
+	public Executable sqlExecutable() {
+		return getSqlExecutable();
 	}
 
 }

@@ -58,7 +58,7 @@ public abstract class AbstractSqlController {
 	@Autowired
 	SqlDbaAfterConfig dbaAfterConfig;
 
-	protected Executable getResetExecutable() {
+	protected Executable getSqlExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
 		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
 		executables.add(dbaBeforeConfig.getDbaPhaseExecutable());
