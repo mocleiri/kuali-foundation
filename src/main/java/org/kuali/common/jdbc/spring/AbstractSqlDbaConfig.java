@@ -30,8 +30,10 @@ import org.kuali.common.util.spring.SpringUtils;
 
 public abstract class AbstractSqlDbaConfig extends SqlBaseConfig {
 
+	// This indicates before/after
 	protected abstract String getPhase();
 
+	// This must return the fully prepared executable to use and must have a unique bean name for the context
 	public abstract Executable getDbaPhaseExecutable();
 
 	protected Executable getDbaExecutable() {
