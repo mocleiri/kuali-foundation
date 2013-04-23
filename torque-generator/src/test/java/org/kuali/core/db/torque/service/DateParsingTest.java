@@ -33,7 +33,7 @@ public class DateParsingTest {
 			for (TimeZone timeZone : timeZones) {
 				String offset = FormatUtils.getTime(timeZone.getRawOffset());
 				if (!StringUtils.equals("2.000h", offset)) {
-					continue;
+					// continue;
 				}
 				rows.add(new Object[] { offset, timeZone.getDisplayName(), timeZone.getID() });
 				SimpleDateFormat sdf = new SimpleDateFormat(format);

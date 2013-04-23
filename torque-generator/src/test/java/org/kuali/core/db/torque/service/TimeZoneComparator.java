@@ -9,9 +9,7 @@ public class TimeZoneComparator implements Comparator<TimeZone> {
 	public int compare(TimeZone one, TimeZone two) {
 		int compare = Double.compare(one.getRawOffset(), two.getRawOffset());
 		if (compare == 0) {
-			String s1 = one.getDisplayName();
-			String s2 = two.getDisplayName();
-			return s1.compareTo(s2);
+			return one.getDisplayName().compareTo(two.getDisplayName());
 		} else {
 			return compare;
 		}
