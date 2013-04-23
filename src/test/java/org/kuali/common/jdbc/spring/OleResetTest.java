@@ -34,7 +34,7 @@ public class OleResetTest {
 			SpringContext context = MavenUtils.getMavenizedSpringContext(ss, OlePropertiesConfig.OLE_MAVEN_PROPS, OleMavenPropertySourceConfig.class);
 
 			// Reset the db using annotated config
-			context.setAnnotatedClasses(CollectionUtils.asList(ResetConfig.class, SqlControllerConfig.class));
+			context.setAnnotatedClasses(CollectionUtils.asList(SqlControllerConfig.class));
 
 			// Execute Spring
 			ss.load(context);

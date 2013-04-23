@@ -21,12 +21,14 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.kuali.common.jdbc.context.SqlMode;
 import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
 import org.kuali.common.jdbc.listener.LogSqlMode;
+import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
@@ -48,6 +50,32 @@ public class SqlConfigUtils {
 	public static final String SQL_PREFIX = "sql";
 	public static final String SQL_ORDER_KEY = "sql.execution.order";
 	public static final String LIST_SUFFIX = ".list";
+
+	public static JdbcExecutable getJdbcExecutable(SqlConfigContext scc) {
+		String skipKey = "jdbc." + scc.getContext().getGroup() + ".skip";
+
+		JdbcContext context = getJdbcContext(scc);
+		context.setListener(new NoOpSqlListener());
+
+		JdbcExecutable exec = new JdbcExecutable();
+		exec.setSkip(SpringUtils.getBoolean(scc.getEnv(), skipKey, false));
+		exec.setService(scc.getCommonConfig().jdbcService());
+		exec.setContext(context);
+		return exec;
+	}
+
+	public static JdbcContext getJdbcContext(SqlConfigContext scc) {
+		SqlExecutionContext ctx = scc.getContext();
+		SqlMode mode = ctx.getMode();
+		switch (mode) {
+		case CONCURRENT:
+			return getConcurrentJdbcContext(scc);
+		case SEQUENTIAL:
+			return getSequentialJdbcContext(scc);
+		default:
+			throw new IllegalArgumentException("mode [" + mode.name() + "] is unknown");
+		}
+	}
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
 		// Extract csv from the environment
