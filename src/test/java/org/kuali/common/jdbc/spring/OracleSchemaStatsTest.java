@@ -48,7 +48,7 @@ public class OracleSchemaStatsTest {
 			context.setPropertySourceContext(psc);
 
 			// Reset the db using annotated config
-			context.setAnnotatedClasses(CollectionUtils.asList(DbaCleanupConfig.class));
+			context.setAnnotatedClasses(CollectionUtils.asList(SqlDbaAfterConfig.class));
 
 			// Execute Spring
 			ss.load(context);

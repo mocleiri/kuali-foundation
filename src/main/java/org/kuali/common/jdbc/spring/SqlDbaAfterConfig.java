@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DbaCleanupConfig extends ResetBaseConfig {
+public class SqlDbaAfterConfig extends SqlBaseConfig {
 
 	@Bean
 	public Executable jdbcDbaCleanupExecutable() {

@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ResetOtherConfig extends ResetBaseConfig {
+public class ResetOtherConfig extends SqlBaseConfig {
 
 	public static final String TYPE = "other";
 	public static final String SKIP_KEY = "jdbc.other.skip";

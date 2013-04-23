@@ -22,7 +22,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
-public abstract class ResetBaseConfig {
+public abstract class SqlBaseConfig {
 
 	@Autowired
 	Environment env;

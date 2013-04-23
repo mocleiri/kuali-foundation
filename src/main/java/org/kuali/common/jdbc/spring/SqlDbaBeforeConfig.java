@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ResetDbaConfig extends ResetBaseConfig {
+public class SqlDbaBeforeConfig extends SqlBaseConfig {
 
 	@Bean
 	public Executable jdbcDbaExecutable() {
