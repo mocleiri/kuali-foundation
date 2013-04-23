@@ -18,8 +18,10 @@ package org.kuali.common.jdbc.spring;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
+import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +51,12 @@ public abstract class AbstractSqlController {
 		List<Executable> executables = new ArrayList<Executable>();
 		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
 		executables.add(dbaBeforeConfig.getDbaPhaseExecutable());
+		List<SqlExecutionContext> contexts = SqlConfigUtils.getSqlExecutionContexts(env);
+		for (SqlExecutionContext context : contexts) {
+			PrintMessageExecutable pme = new PrintMessageExecutable();
+			pme.setMessage("[" + context.getGroup() + ":" + context.getMode().name().toLowerCase() + "]");
+			executables.add(pme);
+		}
 		executables.add(dbaAfterConfig.getDbaPhaseExecutable());
 
 		ExecutablesExecutable exec = new ExecutablesExecutable();

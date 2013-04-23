@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.kuali.common.jdbc.context.SqlMode;
@@ -37,30 +38,19 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
+import org.springframework.util.Assert;
 
 public class SqlConfigUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
 
 	public static final String SQL_PREFIX = "sql";
-	public static final String SQL_GROUPS_KEY = "sql.execution.groups";
+	public static final String SQL_ORDER_KEY = "sql.execution.order";
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
-		String csv = SpringUtils.getProperty(env, SQL_GROUPS_KEY);
-		List<String> groups = CollectionUtils.getTrimmedListFromCSV(csv);
-		List<SqlExecutionContext> all = getSqlExecutionContexts(groups);
-		return getExistingContexts(env, all);
-	}
-
-	public static List<SqlExecutionContext> getExistingContexts(Environment env, List<SqlExecutionContext> contexts) {
-		List<SqlExecutionContext> existingContexts = new ArrayList<SqlExecutionContext>();
-		for (SqlExecutionContext context : contexts) {
-			String key = getPropertyKey(context);
-			if (SpringUtils.exists(env, key)) {
-				existingContexts.add(context);
-			}
-		}
-		return existingContexts;
+		String csv = SpringUtils.getProperty(env, SQL_ORDER_KEY);
+		List<String> values = CollectionUtils.getTrimmedListFromCSV(csv);
+		return getSqlExecutionContexts(values);
 	}
 
 	public static String getPropertyKey(SqlExecutionContext context) {
@@ -73,15 +63,18 @@ public class SqlConfigUtils {
 		return sb.toString().toLowerCase();
 	}
 
-	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> groups) {
+	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> values) {
 		List<SqlExecutionContext> list = new ArrayList<SqlExecutionContext>();
-		for (String group : groups) {
-			for (SqlMode mode : SqlMode.values()) {
-				SqlExecutionContext sec = new SqlExecutionContext();
-				sec.setGroup(group);
-				sec.setMode(mode);
-				list.add(sec);
-			}
+		for (String value : values) {
+			String[] tokens = StringUtils.split(value, ".");
+			Assert.isTrue(tokens.length == 2, "tokens.length != 2");
+			String group = StringUtils.trim(tokens[0]);
+			String modeString = StringUtils.trim(tokens[1].toUpperCase());
+			SqlMode mode = SqlMode.valueOf(modeString);
+			SqlExecutionContext context = new SqlExecutionContext();
+			context.setGroup(group);
+			context.setMode(mode);
+			list.add(context);
 		}
 		return list;
 	}
