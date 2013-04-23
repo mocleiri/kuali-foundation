@@ -11,7 +11,8 @@ import org.apache.torque.engine.platform.Platform;
 public class ImpexContext {
 
 	public static final String DATA_CONTROL_TEMPLATE = "data/Control.vm";
-	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZZ";
+	// -------------------------------------------2013-02-18'T'13:26:07.000+0000
+	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
 	boolean processTables = true;
 	boolean processSequences = true;
@@ -55,9 +56,9 @@ public class ImpexContext {
 	File finalDirectory;
 	boolean copyDataFiles = true;
 	List<String> dataLocations;
-    private String tablesXmlLocation;
+	private String tablesXmlLocation;
 
-    public boolean isProcessTables() {
+	public boolean isProcessTables() {
 		return processTables;
 	}
 
@@ -385,12 +386,11 @@ public class ImpexContext {
 		this.schemaFileInclude = schemaFileInclude;
 	}
 
+	public String getTablesXmlLocation() {
+		return tablesXmlLocation;
+	}
 
-    public String getTablesXmlLocation() {
-        return tablesXmlLocation;
-    }
-
-    public void setTablesXmlLocation(String tablesXmlLocation) {
-        this.tablesXmlLocation = tablesXmlLocation;
-    }
+	public void setTablesXmlLocation(String tablesXmlLocation) {
+		this.tablesXmlLocation = tablesXmlLocation;
+	}
 }
