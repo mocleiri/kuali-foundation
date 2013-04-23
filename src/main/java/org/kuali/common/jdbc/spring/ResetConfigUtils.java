@@ -107,7 +107,7 @@ public class ResetConfigUtils {
 		String type = rcc.getType();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc
 		String propertyPrefix = getPropertyPrefix(rcc);
-		String message = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".message");
+		String message = "[" + rcc.getType() + ":" + rcc.getMode().name().toLowerCase() + "]";
 		boolean skip = SpringUtils.getBoolean(rcc.getEnv(), "sql." + type + ".skip", false);
 		String key = propertyPrefix + ".trackProgressByUpdateCount";
 		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(rcc.getEnv(), key, false);
