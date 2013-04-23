@@ -41,7 +41,7 @@ public abstract class AbstractSqlController {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
-	SqlDbaBeforeConfig dbaConfig;
+	SqlDbaBeforeConfig dbaBeforeConfig;
 
 	@Autowired
 	ResetSchemaConfig schemaConfig;
@@ -56,12 +56,12 @@ public abstract class AbstractSqlController {
 	ResetOtherConfig otherConfig;
 
 	@Autowired
-	SqlDbaAfterConfig dbaCleanupConfig;
+	SqlDbaAfterConfig dbaAfterConfig;
 
 	protected Executable getResetExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
 		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
-		executables.add(dbaConfig.jdbcDbaExecutable());
+		executables.add(dbaBeforeConfig.getExecutable());
 		executables.add(schemaConfig.jdbcSchemaExecutable());
 		executables.add(dataConfig.jdbcDataConcurrentExecutable());
 		executables.add(dataConfig.jdbcDataSequentialExecutable());
@@ -69,7 +69,7 @@ public abstract class AbstractSqlController {
 		executables.add(constraintsConfig.jdbcConstraintsSequentialExecutable());
 		executables.add(otherConfig.jdbcOtherConcurrentExecutable());
 		executables.add(otherConfig.jdbcOtherSequentialExecutable());
-		executables.add(dbaCleanupConfig.jdbcDbaCleanupExecutable());
+		executables.add(dbaAfterConfig.getExecutable());
 
 		ExecutablesExecutable exec = new ExecutablesExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.reset.skip", false));
