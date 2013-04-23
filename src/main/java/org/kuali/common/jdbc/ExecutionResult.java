@@ -21,16 +21,18 @@ public class ExecutionResult {
 	long startTimeMillis;
 	long stopTimeMillis;
 	long elapsed;
+	long statementsExecuted;
 
 	public ExecutionResult() {
-		this(0, 0, 0);
+		this(0, 0, 0, 0);
 	}
 
-	public ExecutionResult(long updateCount, long startTimeMillis, long stopTimeMillis) {
+	public ExecutionResult(long updateCount, long startTimeMillis, long stopTimeMillis, long statementsExecuted) {
 		super();
 		this.updateCount = updateCount;
 		this.startTimeMillis = startTimeMillis;
 		this.stopTimeMillis = stopTimeMillis;
+		this.statementsExecuted = statementsExecuted;
 		this.elapsed = stopTimeMillis - startTimeMillis;
 	}
 
@@ -64,6 +66,14 @@ public class ExecutionResult {
 
 	public void setElapsed(long elapsed) {
 		this.elapsed = elapsed;
+	}
+
+	public long getStatementsExecuted() {
+		return statementsExecuted;
+	}
+
+	public void setStatementsExecuted(long statementsExecuted) {
+		this.statementsExecuted = statementsExecuted;
 	}
 
 }

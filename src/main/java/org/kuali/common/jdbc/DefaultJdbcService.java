@@ -59,7 +59,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public ExecutionResult executeSql(JdbcContext context) {
-		long updateCount = 0;
+		ExecutionStats stats = new ExecutionStats();
 		long start = System.currentTimeMillis();
 
 		// Log a message if provided
@@ -70,7 +70,7 @@ public class DefaultJdbcService implements JdbcService {
 		// Make sure we have something to do
 		if (CollectionUtils.isEmpty(context.getSuppliers())) {
 			logger.info("Skipping execution.  No suppliers");
-			return new ExecutionResult(0, start, System.currentTimeMillis());
+			return new ExecutionResult(0, start, System.currentTimeMillis(), 0);
 		}
 
 		// Calculate metadata
@@ -84,15 +84,15 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Execute the SQL as dictated by the context
 		if (context.isMultithreaded()) {
-			updateCount = executeMultiThreaded(context);
+			stats = executeMultiThreaded(context);
 		} else {
-			updateCount = executeSequentially(context);
+			stats = executeSequentially(context);
 		}
 
 		// Fire an event now that all SQL execution is complete
 		context.getListener().afterExecution(new SqlExecutionEvent(context, sqlStart, System.currentTimeMillis()));
 
-		return new ExecutionResult(updateCount, start, System.currentTimeMillis());
+		return new ExecutionResult(stats.getUpdateCount(), start, System.currentTimeMillis(), stats.getStatementCount());
 	}
 
 	protected void doMetaData(JdbcContext context) {
@@ -112,7 +112,7 @@ public class DefaultJdbcService implements JdbcService {
 		context.getListener().afterMetaData(new SqlMetaDataEvent(context, start, System.currentTimeMillis()));
 	}
 
-	protected long executeMultiThreaded(JdbcContext context) {
+	protected ExecutionStats executeMultiThreaded(JdbcContext context) {
 
 		// Divide the SQL we have to execute up into buckets as "evenly" as possible
 		List<SqlBucket> buckets = getSqlBuckets(context);
@@ -174,7 +174,7 @@ public class DefaultJdbcService implements JdbcService {
 		Object[] args = { buckets.size(), wTime, aTime, avgMillis, sqlCount, sqlSize };
 		logger.debug("Threads - [count: {}  time: {}  aggregate: {}  avg: {}  sql: {} - {}]", args);
 
-		return etl.getAggregateUpdateCount();
+		return new ExecutionStats(etl.getAggregateUpdateCount(), etl.getAggregateSqlCount());
 	}
 
 	@Override
@@ -258,22 +258,25 @@ public class DefaultJdbcService implements JdbcService {
 		return buckets;
 	}
 
-	protected long executeSequentially(JdbcContext context) {
+	protected ExecutionStats executeSequentially(JdbcContext context) {
 		Connection conn = null;
 		Statement statement = null;
 		try {
 			long updateCount = 0;
+			long statementCount = 0;
 			conn = DataSourceUtils.doGetConnection(context.getDataSource());
 			boolean originalAutoCommitSetting = conn.getAutoCommit();
 			conn.setAutoCommit(false);
 			statement = conn.createStatement();
 			List<SqlSupplier> suppliers = context.getSuppliers();
 			for (SqlSupplier supplier : suppliers) {
-				updateCount += excecuteSupplier(statement, context, supplier);
+				ExecutionStats stats = excecuteSupplier(statement, context, supplier);
+				updateCount += stats.getUpdateCount();
+				statementCount += stats.getStatementCount();
 				conn.commit();
 			}
 			conn.setAutoCommit(originalAutoCommitSetting);
-			return updateCount;
+			return new ExecutionStats(updateCount, statementCount);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -281,18 +284,20 @@ public class DefaultJdbcService implements JdbcService {
 		}
 	}
 
-	protected long excecuteSupplier(Statement statement, JdbcContext context, SqlSupplier supplier) throws SQLException {
+	protected ExecutionStats excecuteSupplier(Statement statement, JdbcContext context, SqlSupplier supplier) throws SQLException {
 		try {
 			long updateCount = 0;
+			long statementCount = 0;
 			supplier.open();
 			List<String> sql = supplier.getSql();
 			while (sql != null) {
 				for (String s : sql) {
 					updateCount += executeSql(statement, s, context);
+					statementCount++;
 				}
 				sql = supplier.getSql();
 			}
-			return updateCount;
+			return new ExecutionStats(updateCount, statementCount);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
