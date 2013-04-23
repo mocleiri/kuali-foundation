@@ -22,26 +22,26 @@ import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.springframework.core.env.Environment;
 
 /**
- *
+ * 
  * @author andrewlubbers
  */
 public interface GroupedSqlConfig {
 
-    /**
-     * The label for the group, which should be the same as the key to the the location properties
-     *
-     * @return the group key
-     */
-    public String getGroupKey();
+	/**
+	 * The label for the group, which should be the same as the key to the the location properties
+	 * 
+	 * @return the group key
+	 */
+	String getGroupKey();
 
-    public SqlMode getSqlMode();
+	SqlMode getSqlMode();
 
-    public Environment getEnvironment();
+	Environment getEnvironment();
 
-    public JdbcCommonConfig getJdbcCommonConfig();
+	JdbcCommonConfig getJdbcCommonConfig();
 
-    public JdbcDataSourceConfig getDataSourceConfig();
+	JdbcDataSourceConfig getDataSourceConfig();
 
-    public SqlListener getSqlListener();
+	SqlListener getSqlListener();
 
 }
