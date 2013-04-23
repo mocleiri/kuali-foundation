@@ -50,12 +50,20 @@ public class SqlConfigUtils {
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
 		String csv = SpringUtils.getProperty(env, SQL_ORDER_KEY);
 		List<String> values = CollectionUtils.getTrimmedListFromCSV(csv);
+		validateSqlExecutionOrderValues(env, values);
+		return getSqlExecutionContexts(values);
+	}
+
+	public static void validateSqlExecutionOrderValues(Environment env, List<String> values) {
 		for (String value : values) {
 			// Validate there is a key for every value
 			String key = SQL_PREFIX + "." + value;
-			SpringUtils.getProperty(env, key);
+			String csv = SpringUtils.getProperty(env, key);
+			List<String> subValues = CollectionUtils.getTrimmedListFromCSV(csv);
+			for (String subValue : subValues) {
+				SpringUtils.getProperty(env, subValue);
+			}
 		}
-		return getSqlExecutionContexts(values);
 	}
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> values) {
