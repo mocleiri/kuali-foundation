@@ -157,13 +157,13 @@ public class SqlConfigUtils {
 	 *   sql.other.sequential
 	 * </pre>
 	 */
-	public static String getPropertyPrefix(SqlConfigContext rcc) {
-		String mode = rcc.getMode().name().toLowerCase();
+	public static String getPropertyPrefix(SqlConfigContext scc) {
+		String mode = scc.getContext().getMode().name().toLowerCase();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("sql");
 		sb.append(".");
-		sb.append(rcc.getType());
+		sb.append(scc.getContext().getGroup());
 		sb.append(".");
 		sb.append(mode);
 		return sb.toString();
@@ -183,18 +183,19 @@ public class SqlConfigUtils {
 		return getSummaryAndProgressListener(env);
 	}
 
-	protected static JdbcContext getBaseJdbcContext(SqlConfigContext rcc) {
+	protected static JdbcContext getBaseJdbcContext(SqlConfigContext scc) {
+		SqlExecutionContext sec = scc.getContext();
 		// dba, schema, data, constraints, other
-		String type = rcc.getType();
+		String group = sec.getGroup();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc
-		String propertyPrefix = getPropertyPrefix(rcc);
-		String message = "[" + rcc.getType() + ":" + rcc.getMode().name().toLowerCase() + "]";
-		boolean skip = SpringUtils.getBoolean(rcc.getEnv(), "sql." + type + ".skip", false);
+		String propertyPrefix = getPropertyPrefix(scc);
+		String message = "[" + sec.getGroup() + ":" + sec.getMode().name().toLowerCase() + "]";
+		boolean skip = SpringUtils.getBoolean(scc.getEnv(), "sql." + group + ".skip", false);
 		String key = propertyPrefix + ".trackProgressByUpdateCount";
-		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(rcc.getEnv(), key, false);
+		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(scc.getEnv(), key, false);
 		logger.debug("{}={}", key, trackProgressByUpdateCount);
-		List<SqlSupplier> suppliers = rcc.getCommonConfig().getSqlSuppliers(propertyPrefix);
-		DataSource dataSource = rcc.getDataSourceConfig().jdbcDataSource();
+		List<SqlSupplier> suppliers = scc.getCommonConfig().getSqlSuppliers(propertyPrefix);
+		DataSource dataSource = scc.getDataSourceConfig().jdbcDataSource();
 
 		JdbcContext ctx = new JdbcContext();
 		ctx.setMessage(message);
