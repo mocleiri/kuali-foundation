@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.kuali.common.jdbc.context.SqlMode;
@@ -47,6 +47,7 @@ public class SqlConfigUtils {
 
 	public static final String SQL_PREFIX = "sql";
 	public static final String SQL_ORDER_KEY = "sql.execution.order";
+	public static final String LIST_SUFFIX = ".list";
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
 		String csv = SpringUtils.getProperty(env, SQL_ORDER_KEY);
@@ -65,11 +66,33 @@ public class SqlConfigUtils {
 			// Validate that every key exists
 			for (String k : keys) {
 				// Validate that every location exists
-				String location = SpringUtils.getProperty(env, k);
-				boolean exists = LocationUtils.exists(location);
-				Assert.isTrue(exists, "[" + location + "] does not exist");
+				List<String> locations = getLocations(env, k, LIST_SUFFIX);
+				for (String location : locations) {
+					boolean exists = LocationUtils.exists(location);
+					Assert.isTrue(exists, "[" + location + "] does not exist");
+				}
 			}
 		}
+	}
+
+	public static List<String> getLocations(Environment env, String key, String suffix) {
+
+		// Allocate some storage for the locations we find
+		List<String> locations = new ArrayList<String>();
+
+		// This is a either a list of locations or a location itself
+		String value = SpringUtils.getProperty(env, key);
+
+		if (StringUtils.endsWithIgnoreCase(key, suffix)) {
+			// If the key ends with .list, it's a list of locations
+			locations.addAll(LocationUtils.getLocations(value));
+		} else {
+			// Otherwise it is a location itself
+			locations.add(value);
+		}
+
+		// Return the list of locations
+		return locations;
 	}
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> values) {
