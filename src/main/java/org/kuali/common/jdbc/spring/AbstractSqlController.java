@@ -61,7 +61,6 @@ public abstract class AbstractSqlController {
 			// PrintMessageExecutable pme = new PrintMessageExecutable();
 			// pme.setMessage("[" + context.getGroup() + ":" + context.getMode().name().toLowerCase() + "]");
 			executables.add(executable);
-			break;
 		}
 		executables.add(dbaAfterConfig.getDbaPhaseExecutable());
 

@@ -54,13 +54,27 @@ public class SqlConfigUtils {
 		String skipKey = "jdbc." + scc.getContext().getGroup() + ".skip";
 
 		JdbcContext context = getJdbcContext(scc);
-		context.setListener(new LogSqlListener());
+		context.setListener(getSqlListener(scc.getContext().getMode()));
 
 		JdbcExecutable exec = new JdbcExecutable();
 		exec.setSkip(SpringUtils.getBoolean(scc.getEnv(), skipKey, false));
 		exec.setService(scc.getCommonConfig().jdbcService());
 		exec.setContext(context);
 		return exec;
+	}
+
+	public static SqlListener getSqlListener(SqlMode mode) {
+		switch (mode) {
+		case CONCURRENT:
+			return new LogSqlListener();
+		case SEQUENTIAL:
+			List<SqlListener> listeners = new ArrayList<SqlListener>();
+			listeners.add(new LogSqlListener());
+			listeners.add(new ProgressListener());
+			return new NotifyingListener(listeners);
+		default:
+			throw new IllegalArgumentException("mode [" + mode.name() + "] is unknown");
+		}
 	}
 
 	public static JdbcContext getJdbcContext(SqlConfigContext scc) {
