@@ -15,7 +15,6 @@ import org.kuali.common.deploy.FileSystemHandler;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
-import org.kuali.common.jdbc.spring.ResetConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
@@ -31,14 +30,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ MpxSupplierConfig.class, ResetConfig.class, ResetController.class })
+@Import({ MpxSupplierConfig.class, SqlControllerConfig.class })
 public class DeployConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
 
 	@Autowired
-	ResetController databaseResetController;
+	SqlControllerConfig databaseResetController;
 
 	@Bean
 	public Artifact kdoJdbcDriverArtifact() {
@@ -293,7 +292,7 @@ public class DeployConfig {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
 		dds.setController(kdoController());
-		dds.setDatabaseResetExecutable(databaseResetController.jdbcResetExecutable());
+		dds.setDatabaseResetExecutable(databaseResetController.sqlExecutable());
 		dds.setHandler(kdoHandler());
 		dds.setContext(kdoContext());
 		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());

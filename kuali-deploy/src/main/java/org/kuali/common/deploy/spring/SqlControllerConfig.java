@@ -15,7 +15,7 @@
  */
 package org.kuali.common.deploy.spring;
 
-import org.kuali.common.jdbc.spring.AbstractResetController;
+import org.kuali.common.jdbc.spring.AbstractSqlController;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +24,11 @@ import org.springframework.context.annotation.Configuration;
  * Default database reset controller class. It displays the JDBC configuration, then executes a series of SQL statements in order [dba->schema->data->constraints->other].
  */
 @Configuration
-public class ResetController extends AbstractResetController {
+public class SqlControllerConfig extends AbstractSqlController {
 
 	@Bean
-	public Executable jdbcResetExecutable() {
-		return getResetExecutable();
+	public Executable sqlExecutable() {
+		return super.getSqlExecutable();
 	}
 
 }
