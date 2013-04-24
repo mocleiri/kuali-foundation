@@ -118,9 +118,17 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		service.loadSpring(this);
 	}
 
+	/**
+	 * Returns true if the System property <code>spring.debug</code> is set to true OR debug logging has been enabled for the execution of this mojo (typically done via -X on the
+	 * Maven command line)
+	 */
+	protected boolean isDebugLoggingEnabled() {
+		return Boolean.getBoolean("spring.debug") || getLog().isDebugEnabled();
+	}
+
 	protected void configureLogging() {
 		// We are not in debug mode, don't do anything
-		if (!getLog().isDebugEnabled()) {
+		if (!isDebugLoggingEnabled()) {
 			return;
 		}
 
