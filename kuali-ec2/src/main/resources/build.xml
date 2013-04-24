@@ -256,10 +256,10 @@
     <!-- Remove previous installation of this version (if any) -->
     <delete dir="${appdynamics.ma.dir}" />
 
-    <!-- Inflate the zip into /usr/local/server-agent-[version] -->
+    <!-- Inflate the zip into /usr/local/machine-agent-[version] -->
     <unzip src="${appdynamics.ma.zip}" dest="${appdynamics.ma.dir}" />
 
-    <!-- Symlink /usr/local/server-agent to the versioned App Dynamics directory -->
+    <!-- Symlink /usr/local/machine-agent to the versioned App Dynamics directory -->
     <symlink link="${appdynamics.ma.symlink}" resource="${appdynamics.ma.dir}" />
 
     <exec executable="chown">
