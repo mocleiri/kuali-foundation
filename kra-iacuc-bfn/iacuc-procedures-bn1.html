@@ -734,7 +734,6 @@
                                 </td>
                                 <td class="content_white" style="text-align:left;">
                                     Group 1 : Flying Frogs
-                                    Group 2 : Flying Frogs
                                 </td>
                                 <td class="content_white" style="text-align:left;">
                                     <select style="width:100%;">
@@ -2825,7 +2824,7 @@
                         <tr>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
                             	Derby, Emily<br />
-                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Training Details" />
+                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
                             </td>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
                             	Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. 
@@ -2910,7 +2909,7 @@
                     	<tr>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
                             	Szulc, Katarzyna<br />
-                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Training Details" />
+                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Can change a distributer on a 1969 Camero in under twenty minutes." />
                             </td>
                             <td class="content_white" style="vertical-align:top; padding:8px;">
                             	Worked both as a crew member and independently. Get along well with employers and coworkers. Experienced in customer relations. 
@@ -3184,78 +3183,353 @@
                             <td class="content_white" style="vertical-align:top; padding:8px;">
                             	
                                 <p>
-                                	View by: <a href="#">Group</a> or <a href="#">Species</a>
+                                	View by:
+                                    <img src="../images/tinybutton-group.gif" style="border:none; width:60px; height:15px; vertical-align:middle;" alt="sync" title="view by group" type="image" id="viewbygroup" />
+                                    <img src="../images/tinybutton-species.gif" style="border:none; width:60px; height:15px; vertical-align:middle;" alt="sync" title="view by species" type="image" id="viewbyspecies" />
+                                    <script>
+										$(document).ready(function () {
+											$("#viewbyspecies").click(function()
+											{
+												$("#grouplabel").slideUp(500);
+												$("#specieslabel").slideDown(800);
+											});
+											$("#viewbygroup").click(function()
+											{
+												$("#specieslabel").slideUp(500);
+												$("#grouplabel").slideDown(800);
+											});
+										});
+									</script>
                                 </p>
                                 
-                                <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; background-image:url('../BFN/images/black05.png');">
-                                	
-                                    <div style="width:150px; float:left;">
-                                        <strong>Group: A</strong><br />
-                                        Species: Flying Frogs<br />
-                                        Total Count: 15
+                                <div id="grouplabel">
+                                
+                                    <!-- Group 1: Flying Frogs -->
+                                    <div style="border:1px solid #999; padding:0px; margin-top:10px; margin-bottom:10px; padding-right:0px; background-image:url('../BFN/images/black05.png');">
+                                        
+                                        <!-- header -->
+                                        <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
+                                            <div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Group 1: Flying Frogs</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 15</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Surgical Procedures: Survival  -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Surgical Procedures: Survival</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 10</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Surgery Description: Lorum ipsum...<br />
+                                                Surgical Preparationn: Lorum ipsum...<br />
+                                                Anesthetic Monitoring: Lorum ipsum...<br />
+                                                Post Op Care Including Analgesics: Lorum ipsum...
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- Non-surgical Procedures: Food/Fluid Restriction (not pre-sx) -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Non-surgical Procedures: Food/Fluid Restriction (not pre-sx)</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 5</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Surgery Description: Lorum ipsum...<br />
+                                                Surgical Preparationn: Lorum ipsum...<br />
+                                                Anesthetic Monitoring: Lorum ipsum...<br />
+                                                Post Op Care Including Analgesics: Lorum ipsum...
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
                                     </div>
                                     
-                                    <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:175px; background-image:url('../BFN/images/black05.png');">
-                                    	<strong>Procedure</strong><br />
-                                        Procedure Category: Surgery<br />
-                                        Procedure: Survival<br />
-                                        Count: 10
+                                    <!-- Group 1: Flying Salamanders  -->
+                                    <div style="border:1px solid #999; padding:0px; margin-top:10px; margin-bottom:10px; padding-right:0px; background-image:url('../BFN/images/black05.png');">
                                         
-                                        <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:40px; background-image:url('../BFN/images/black05.png');">
-                                        	<strong>Custom Data</strong><br />
-                                            Surgery Description: Lorum ipsum...<br />
-                                            Surgical Preparationn: Lorum ipsum...<br />
-                                            Anesthetic Monitoring: Lorum ipsum...<br />
-                                            Post Op Care Including Analgesics: Lorum ipsum...
+                                        <!-- header -->
+                                        <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
+                                            <div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Group 1: Flying Salamanders </strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 8</div>
+                                            </div>
                                         </div>
                                         
-                                        <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:40px; background-image:url('../BFN/images/black05.png');">
-                                        	<strong>Procedure Personnel</strong><br />
-                                            Derby, Emily<br />
-                                           	Trainedn: yes<br />
-                                            <a href="#">Training Details</a>
-                                        </div>
-                                        
-                                        <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:40px; background-image:url('../BFN/images/black05.png');">
-                                        	<strong>Locations</strong><br />
-                                            Location Type: Proposal Organization<br />
-                                            Location Name: Location 2<br />
-                                            Room: RM 50<br />
-                                            Description
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                    <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:175px; background-image:url('../BFN/images/black05.png');">
-                                    	<strong>Procedure</strong><br />
-                                        Procedure Category: Non-surgical Procedures<br />
-                                        Procedure: Food/Fluid Restriction (not pre-sx)<br />
-                                        Count: 5
-                                        
-                                        <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:40px; background-image:url('../BFN/images/black05.png');">
-                                        	<strong>Custom Data</strong><br />
-                                            Procedure Description: Lorum ipsum...
-                                        </div>
-                                        
-                                        <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:40px; background-image:url('../BFN/images/black05.png');">
-                                        	<strong>Procedure Personnel</strong><br />
-                                            Derby, Emily<br />
-                                           	Trainedn: yes<br />
-                                            <a href="#">Training Details</a>
-                                        </div>
-                                        
-                                        <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-left:40px; background-image:url('../BFN/images/black05.png');">
-                                        	<strong>Locations</strong><br />
-                                            Location Type: Proposal Organization<br />
-                                            Location Name: Location 2<br />
-                                            Room: RM 50<br />
-                                            Description
+                                        <!-- Surgical Procedures: Survival  -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Surgical Procedures: Survival</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 8</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Surgery Description: Lorum ipsum...<br />
+                                                Surgical Preparationn: Lorum ipsum...<br />
+                                                Anesthetic Monitoring: Lorum ipsum...<br />
+                                                Post Op Care Including Analgesics: Lorum ipsum...
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
                                         </div>
                                         
                                     </div>
                                     
+                                    <!-- Group 2: Flying Salamanders  -->
+                                    <div style="border:1px solid #999; padding:0px; margin-top:10px; margin-bottom:10px; padding-right:0px; background-image:url('../BFN/images/black05.png');">
+                                        
+                                        <!-- header -->
+                                        <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
+                                            <div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Group 2: Flying Salamanders </strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 20</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Drugs: Anesthesia Species -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Drugs: Anesthesia Species </strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 20</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Agent: Guinness<br />
+                                                Dose (mg/kg): Pint<br />
+                                                Route: Cute Waitress<br />
+                                                Frequency: Not often enough.
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                
                                 </div>
                                 
+                                <div id="specieslabel">
+                                
+                                    <!-- Flying Frogs -->
+                                    <div style="border:1px solid #999; padding:0px; margin-top:10px; margin-bottom:10px; padding-right:0px; background-image:url('../BFN/images/black05.png');">
+                                        
+                                        <!-- header -->
+                                        <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
+                                            <div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Flying Frogs</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 15</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Surgical Procedures: Survival  -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Surgical Procedures: Survival</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 10</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Surgery Description: Lorum ipsum...<br />
+                                                Surgical Preparationn: Lorum ipsum...<br />
+                                                Anesthetic Monitoring: Lorum ipsum...<br />
+                                                Post Op Care Including Analgesics: Lorum ipsum...
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- Non-surgical Procedures: Food/Fluid Restriction (not pre-sx) -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Non-surgical Procedures: Food/Fluid Restriction (not pre-sx)</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 5</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Surgery Description: Lorum ipsum...<br />
+                                                Surgical Preparationn: Lorum ipsum...<br />
+                                                Anesthetic Monitoring: Lorum ipsum...<br />
+                                                Post Op Care Including Analgesics: Lorum ipsum...
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <!-- Flying Salamanders  -->
+                                    <div style="border:1px solid #999; padding:0px; margin-top:10px; margin-bottom:10px; padding-right:0px; background-image:url('../BFN/images/black05.png');">
+                                        
+                                        <!-- header -->
+                                        <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
+                                            <div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Flying Salamanders </strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 28</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Surgical Procedures: Survival  -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Surgical Procedures: Survival</strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 8</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Surgery Description: Lorum ipsum...<br />
+                                                Surgical Preparationn: Lorum ipsum...<br />
+                                                Anesthetic Monitoring: Lorum ipsum...<br />
+                                                Post Op Care Including Analgesics: Lorum ipsum...
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- Drugs: Anesthesia Species -->
+                                        <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
+                                            <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px; min-width:750px;">
+                                                <div style="float:left; width:600px; padding:3px; height:15px;"><strong>Drugs: Anesthesia Species </strong></div>
+                                                <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Count: 20</div>
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Custom Data</strong><br />
+                                                Agent: Guinness<br />
+                                                Dose (mg/kg): Pint<br />
+                                                Route: Cute Waitress<br />
+                                                Frequency: Not often enough.
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Procedure Personnel</strong><br />
+                                                Derby, Emily<br />
+                                                Trainedn: yes<br />
+                                                <img src="../images/tinybutton-viewtrainingdetails.gif" style="height:15px; width:110px; cursor:pointer; border:none; margin-top:4px;" alt="view training details" title="Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design." />
+                                            </div>
+                                            
+                                            <div style="border:1px solid #999; padding:10px; margin-top:10px; margin-bottom:10px; margin-right:10px; margin-left:20px; background-image:url('../BFN/images/black05.png');">
+                                                <strong>Locations</strong><br />
+                                                Location Type: Proposal Organization<br />
+                                                Location Name: Location 2<br />
+                                                Room: RM 50<br />
+                                                Description
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                
+                                </div>
                                 
                             </td>
                         </tr>
