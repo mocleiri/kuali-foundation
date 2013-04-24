@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project name="Tomcat Instance Manager">
@@ -244,28 +244,62 @@
   </target>
 
   <target name="installappdynamics">
+    <antcall target="install-machine-agent" />
+    <antcall target="install-server-agent" />
+  </target>
+
+  <target name="install-machine-agent">
+
     <!-- Remove the symbolic link to whatever version was being used before (if any) -->
-    <symlink action="delete" link="${appdynamics.symlink}" />
+    <symlink action="delete" link="${appdynamics.ma.symlink}" />
 
     <!-- Remove previous installation of this version (if any) -->
-    <delete dir="${appdynamics.dir}" />
+    <delete dir="${appdynamics.ma.dir}" />
 
     <!-- Inflate the zip into /usr/local/server-agent-[version] -->
-    <unzip src="${appdynamics.zip}" dest="${appdynamics.dir}" />
+    <unzip src="${appdynamics.ma.zip}" dest="${appdynamics.ma.dir}" />
 
     <!-- Symlink /usr/local/server-agent to the versioned App Dynamics directory -->
-    <symlink link="${appdynamics.symlink}" resource="${appdynamics.dir}" />
+    <symlink link="${appdynamics.ma.symlink}" resource="${appdynamics.ma.dir}" />
 
     <exec executable="chown">
       <arg value="-R" />
       <arg value="tomcat:tomcat" />
-      <arg value="${appdynamics.symlink}" />
+      <arg value="${appdynamics.ma.symlink}" />
     </exec>
 
     <exec executable="chown">
       <arg value="-R" />
       <arg value="tomcat:tomcat" />
-      <arg value="${appdynamics.dir}" />
+      <arg value="${appdynamics.ma.dir}" />
+    </exec>
+
+  </target>
+
+  <target name="install-server-agent">
+
+    <!-- Remove the symbolic link to whatever version was being used before (if any) -->
+    <symlink action="delete" link="${appdynamics.sa.symlink}" />
+
+    <!-- Remove previous installation of this version (if any) -->
+    <delete dir="${appdynamics.sa.dir}" />
+
+    <!-- Inflate the zip into /usr/local/server-agent-[version] -->
+    <unzip src="${appdynamics.sa.zip}" dest="${appdynamics.sa.dir}" />
+
+    <!-- Symlink /usr/local/server-agent to the versioned App Dynamics directory -->
+    <symlink link="${appdynamics.sa.symlink}" resource="${appdynamics.sa.dir}" />
+
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="tomcat:tomcat" />
+      <arg value="${appdynamics.sa.symlink}" />
+    </exec>
+
+    <exec executable="chown">
+      <arg value="-R" />
+      <arg value="tomcat:tomcat" />
+      <arg value="${appdynamics.sa.dir}" />
     </exec>
 
   </target>
