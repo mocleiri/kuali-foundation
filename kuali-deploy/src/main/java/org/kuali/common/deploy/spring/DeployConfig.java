@@ -270,6 +270,7 @@ public class DeployConfig {
 		String overallTimeout = SpringUtils.getProperty(env, "http.timeout");
 		String requestTimeout = SpringUtils.getProperty(env, "http.requestTimeout");
 		String url = SpringUtils.getProperty(env, "public.url");
+		boolean skip = SpringUtils.getBoolean(env, "http.wait.skip", false);
 
 		// Convert as needed
 		Long overallTimeoutMillis = FormatUtils.getMillis(overallTimeout);
@@ -284,6 +285,7 @@ public class DeployConfig {
 		// Setup the executable
 		HttpWaitExecutable executable = new HttpWaitExecutable();
 		executable.setContext(context);
+		executable.setSkip(skip);
 		return executable;
 	}
 
