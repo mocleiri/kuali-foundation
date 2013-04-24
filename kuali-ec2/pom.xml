@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -276,13 +276,21 @@
       <id>appdynamics</id>
       <properties>
         <appdynamics.groupId>com.appdynamics</appdynamics.groupId>
-        <appdynamics.artifactId>server-agent</appdynamics.artifactId>
-        <appdynamics.version>3.5.7</appdynamics.version>
+        <appdynamics.version>3.6.2</appdynamics.version>
+        <appdynamics.sa.artifactId>server-agent</appdynamics.sa.artifactId>
+        <appdynamics.ma.artifactId>machine-agent</appdynamics.ma.artifactId>
         <ant.phase>process-resources</ant.phase>
         <ant.target>installappdynamics</ant.target>
-        <appdynamics.zip>target/dependency/${appdynamics.artifactId}-${appdynamics.version}.zip</appdynamics.zip>
-        <appdynamics.dir>/usr/local/${appdynamics.artifactId}-${appdynamics.version}</appdynamics.dir>
-        <appdynamics.symlink>/usr/local/${appdynamics.artifactId}</appdynamics.symlink>
+        
+        <!-- Server Agent -->
+        <appdynamics.sa.zip>target/dependency/${appdynamics.sa.artifactId}-${appdynamics.version}.zip</appdynamics.sa.zip>
+        <appdynamics.sa.dir>/usr/local/${appdynamics.sa.artifactId}-${appdynamics.version}</appdynamics.sa.dir>
+        <appdynamics.sa.symlink>/usr/local/${appdynamics.sa.artifactId}</appdynamics.sa.symlink>
+
+        <!-- Machine Agent -->
+        <appdynamics.ma.zip>target/dependency/${appdynamics.ma.artifactId}-${appdynamics.version}.zip</appdynamics.ma.zip>
+        <appdynamics.ma.dir>/usr/local/${appdynamics.ma.artifactId}-${appdynamics.version}</appdynamics.ma.dir>
+        <appdynamics.ma.symlink>/usr/local/${appdynamics.ma.artifactId}</appdynamics.ma.symlink>
       </properties>
       <build>
         <plugins>
@@ -299,7 +307,13 @@
                   <artifactItems>
                     <artifactItem>
                       <groupId>${appdynamics.groupId}</groupId>
-                      <artifactId>${appdynamics.artifactId}</artifactId>
+                      <artifactId>${appdynamics.ma.artifactId}</artifactId>
+                      <version>${appdynamics.version}</version>
+                      <type>zip</type>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${appdynamics.groupId}</groupId>
+                      <artifactId>${appdynamics.sa.artifactId}</artifactId>
                       <version>${appdynamics.version}</version>
                       <type>zip</type>
                     </artifactItem>
