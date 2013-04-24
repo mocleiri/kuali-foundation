@@ -37,7 +37,7 @@ public class DeployConfig {
 	ConfigurableEnvironment env;
 
 	@Autowired
-	SqlControllerConfig databaseResetController;
+	SqlControllerConfig sqlController;
 
 	@Bean
 	public Artifact kdoJdbcDriverArtifact() {
@@ -294,7 +294,7 @@ public class DeployConfig {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
 		dds.setController(kdoController());
-		dds.setDatabaseResetExecutable(databaseResetController.sqlExecutable());
+		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setHandler(kdoHandler());
 		dds.setContext(kdoContext());
 		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
