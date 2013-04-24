@@ -104,7 +104,8 @@ public class DeployConfig {
 		list.add(lib + "/classes12*.jar");
 		list.add(lib + "/orai18n*.jar");
 		list.add(SpringUtils.getProperty(env, "tomcat.setenv"));
-		list.add(SpringUtils.getProperty(env, "appdynamics.controller"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
 		list.add(SpringUtils.getProperty(env, "tomcat.home.org"));
 		list.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
 		return list;
@@ -119,6 +120,8 @@ public class DeployConfig {
 		list.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
 		list.add(SpringUtils.getProperty(env, "tomcat.work"));
 		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
 		return list;
 	}
 
@@ -128,6 +131,8 @@ public class DeployConfig {
 		list.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		list.add(SpringUtils.getProperty(env, "tomcat.webapps"));
 		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
 		return list;
 	}
 
@@ -136,7 +141,8 @@ public class DeployConfig {
 		List<String> list = new ArrayList<String>();
 		list.add(SpringUtils.getProperty(env, "tomcat.base"));
 		list.add(SpringUtils.getProperty(env, "tomcat.home"));
-		list.add(SpringUtils.getProperty(env, "appdynamics.base"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.sa.base"));
+		list.add(SpringUtils.getProperty(env, "appdynamics.ma.base"));
 		return list;
 	}
 
@@ -151,10 +157,19 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public Deployable kdoAppDynamics() {
+	public Deployable kdoAppDynamicsServerAgent() {
 		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "appdynamics.controller"));
-		d.setLocal(SpringUtils.getProperty(env, "appdynamics.controller.local"));
+		d.setRemote(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
+		d.setLocal(SpringUtils.getProperty(env, "appdynamics.sa.controller.local"));
+		d.setFilter(true);
+		return d;
+	}
+
+	@Bean
+	public Deployable kdoAppDynamicsMachineAgent() {
+		Deployable d = new Deployable();
+		d.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
+		d.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
 		d.setFilter(true);
 		return d;
 	}
@@ -240,7 +255,8 @@ public class DeployConfig {
 	public List<Deployable> kdoDeployables() {
 		List<Deployable> list = new ArrayList<Deployable>();
 		list.add(kdoSetEnv());
-		list.add(kdoAppDynamics());
+		list.add(kdoAppDynamicsServerAgent());
+		list.add(kdoAppDynamicsMachineAgent());
 		list.add(kdoJspEnv());
 		list.add(kdoJspTail());
 		list.add(kdoConfig());
