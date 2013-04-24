@@ -293,9 +293,9 @@ public class DeployConfig {
 	public DeployService kdoDeployService() {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
-		dds.setController(kdoController());
+		dds.setAppServer(kdoController());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
-		dds.setHandler(kdoHandler());
+		dds.setFileSystem(kdoHandler());
 		dds.setContext(kdoContext());
 		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
 		return dds;

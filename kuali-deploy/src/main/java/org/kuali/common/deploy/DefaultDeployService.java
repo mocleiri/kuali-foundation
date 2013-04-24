@@ -13,17 +13,17 @@ public class DefaultDeployService implements DeployService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
 	SecureChannel channel;
-	AppServerController controller;
+	AppServerController appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
-	FileSystemHandler handler;
+	FileSystemHandler fileSystem;
 	DeployContext context;
 	Executable httpWaitExecutable = new NoOpExecutable();
 
 	@Override
 	public void deploy() {
 		Assert.notNull(channel);
-		Assert.notNull(controller);
-		Assert.notNull(handler);
+		Assert.notNull(appServer);
+		Assert.notNull(fileSystem);
 		Assert.notNull(context);
 		try {
 			logger.info("---------------- Deploy Application ----------------");
@@ -36,11 +36,11 @@ public class DefaultDeployService implements DeployService {
 			logger.info("Config - [{}]", context.getConfig().getLocal());
 			logger.info("----------------------------------------------------");
 			channel.open();
-			controller.stop();
+			appServer.stop();
 			databaseResetExecutable.execute();
-			handler.clean();
-			handler.prepare();
-			controller.start();
+			fileSystem.clean();
+			fileSystem.prepare();
+			appServer.start();
 			httpWaitExecutable.execute();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
@@ -49,12 +49,12 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
-	public AppServerController getController() {
-		return controller;
+	public AppServerController getAppServer() {
+		return appServer;
 	}
 
-	public void setController(AppServerController controller) {
-		this.controller = controller;
+	public void setAppServer(AppServerController controller) {
+		this.appServer = controller;
 	}
 
 	public SecureChannel getChannel() {
@@ -65,12 +65,12 @@ public class DefaultDeployService implements DeployService {
 		this.channel = channel;
 	}
 
-	public FileSystemHandler getHandler() {
-		return handler;
+	public FileSystemHandler getFileSystem() {
+		return fileSystem;
 	}
 
-	public void setHandler(FileSystemHandler handler) {
-		this.handler = handler;
+	public void setFileSystem(FileSystemHandler handler) {
+		this.fileSystem = handler;
 	}
 
 	public DeployContext getContext() {
