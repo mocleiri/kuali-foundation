@@ -28,7 +28,7 @@ public class SqlControllerConfig extends AbstractSqlController {
 
 	@Bean
 	public Executable sqlExecutable() {
-		return super.getSqlExecutable();
+		return getSqlExecutable();
 	}
 
 }
