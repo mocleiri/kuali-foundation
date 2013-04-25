@@ -18,6 +18,7 @@
 #
 
 set -xe
+rm -rf /root/kuali-ec2
 svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
 cd /root/kuali-ec2
 MVN=/opt/asf/mvn/bin/mvn
