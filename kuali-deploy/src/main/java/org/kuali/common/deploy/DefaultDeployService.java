@@ -43,9 +43,9 @@ public class DefaultDeployService implements DeployService {
 			fileSystem.clean();
 			fileSystem.prepare();
 			monitoring.prepare();
-			monitoring.start();
 			appServer.start();
 			httpWaitExecutable.execute();
+			monitoring.start();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
