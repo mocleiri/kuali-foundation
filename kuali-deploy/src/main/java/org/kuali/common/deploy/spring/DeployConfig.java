@@ -86,7 +86,7 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public AppServerController kdoController() {
+	public AppServerController kdoAppServerController() {
 		DefaultTomcatController dtc = new DefaultTomcatController();
 		dtc.setChannel(kdoSecureChannel());
 		dtc.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
@@ -266,7 +266,7 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public FileSystemHandler kdoHandler() {
+	public FileSystemHandler kdoFileSystemHandler() {
 		DefaultFileSystemHandler h = new DefaultFileSystemHandler();
 		h.setChannel(kdoSecureChannel());
 		h.setFilesToDelete(kdoFilesToDelete());
@@ -309,9 +309,9 @@ public class DeployConfig {
 	public DeployService kdoDeployService() {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
-		dds.setAppServer(kdoController());
+		dds.setAppServer(kdoAppServerController());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
-		dds.setFileSystem(kdoHandler());
+		dds.setFileSystem(kdoFileSystemHandler());
 		dds.setContext(kdoContext());
 		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
 		return dds;
