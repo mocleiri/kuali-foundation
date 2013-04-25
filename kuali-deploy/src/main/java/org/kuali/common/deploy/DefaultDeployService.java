@@ -13,7 +13,7 @@ public class DefaultDeployService implements DeployService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
 	SecureChannel channel;
-	Monitoring monitoring;
+	Monitoring monitoring = new NoOpMonitoring();
 	AppServerController appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
 	FileSystemHandler fileSystem;
