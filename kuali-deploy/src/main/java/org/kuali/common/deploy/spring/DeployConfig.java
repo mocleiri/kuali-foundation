@@ -322,6 +322,7 @@ public class DeployConfig {
 	public DeployService kdoDeployService() {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
+		dds.setMonitoring(kdoMonitoring());
 		dds.setAppServer(kdoAppServerController());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setFileSystem(kdoFileSystemHandler());
