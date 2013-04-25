@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.deploy.AppDynamicsMonitoring;
 import org.kuali.common.deploy.AppServerController;
 import org.kuali.common.deploy.DefaultDeployService;
 import org.kuali.common.deploy.DefaultFileSystemHandler;
@@ -12,6 +13,8 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystemHandler;
+import org.kuali.common.deploy.Monitoring;
+import org.kuali.common.deploy.NoOpMonitoring;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
@@ -303,6 +306,16 @@ public class DeployConfig {
 		executable.setContext(context);
 		executable.setSkip(skip);
 		return executable;
+	}
+
+	@Bean
+	public Monitoring kdoMonitoring() {
+		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
+		if (enabled) {
+			return new AppDynamicsMonitoring();
+		} else {
+			return new NoOpMonitoring();
+		}
 	}
 
 	@Bean(initMethod = "deploy")
