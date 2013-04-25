@@ -13,6 +13,7 @@ public class DefaultDeployService implements DeployService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
 	SecureChannel channel;
+	Monitoring monitoring;
 	AppServerController appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
 	FileSystemHandler fileSystem;
@@ -36,10 +37,13 @@ public class DefaultDeployService implements DeployService {
 			logger.info("Config - [{}]", context.getConfig().getLocal());
 			logger.info("----------------------------------------------------");
 			channel.open();
+			monitoring.stop();
 			appServer.stop();
 			databaseResetExecutable.execute();
 			fileSystem.clean();
 			fileSystem.prepare();
+			monitoring.prepare();
+			monitoring.start();
 			appServer.start();
 			httpWaitExecutable.execute();
 		} catch (Exception e) {
@@ -95,6 +99,14 @@ public class DefaultDeployService implements DeployService {
 
 	public void setHttpWaitExecutable(Executable httpWaitExecutable) {
 		this.httpWaitExecutable = httpWaitExecutable;
+	}
+
+	public Monitoring getMonitoring() {
+		return monitoring;
+	}
+
+	public void setMonitoring(Monitoring monitoring) {
+		this.monitoring = monitoring;
 	}
 
 }

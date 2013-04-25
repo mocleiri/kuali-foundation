@@ -3,7 +3,7 @@ package org.kuali.common.deploy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AppDynamics implements MonitorTooling {
+public class AppDynamics implements Monitoring {
 
 	private static final Logger logger = LoggerFactory.getLogger(AppDynamics.class);
 

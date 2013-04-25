@@ -1,6 +1,6 @@
 package org.kuali.common.deploy;
 
-public interface MonitorTooling {
+public interface Monitoring {
 
 	void stop();
 
