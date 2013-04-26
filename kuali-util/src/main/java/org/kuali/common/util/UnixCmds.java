@@ -32,6 +32,10 @@ public class UnixCmds {
 	private static final String PS = "ps";
 	private static final String KILL = "kill";
 
+	public String kill(int pid) {
+		return kill(Arrays.asList(pid));
+	}
+
 	public String kill(List<Integer> pids) {
 		Assert.notEmpty(pids);
 		List<String> args = new ArrayList<String>();
