@@ -41,8 +41,8 @@ public class DefaultDeployService implements DeployService {
 			appServer.stop();
 			databaseResetExecutable.execute();
 			fileSystem.clean();
-			fileSystem.prepare();
 			monitoring.prepare();
+			fileSystem.prepare();
 			monitoring.start();
 			appServer.start();
 			httpWaitExecutable.execute();
