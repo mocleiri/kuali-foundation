@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.deploy.AppDynamicsMonitoring;
-import org.kuali.common.deploy.AppServerController;
+import org.kuali.common.deploy.ApplicationServer;
 import org.kuali.common.deploy.DefaultDeployService;
-import org.kuali.common.deploy.DefaultFileSystemHandler;
-import org.kuali.common.deploy.DefaultTomcatController;
+import org.kuali.common.deploy.DefaultFileSystem;
+import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
-import org.kuali.common.deploy.FileSystemHandler;
+import org.kuali.common.deploy.FileSystem;
 import org.kuali.common.deploy.Monitoring;
 import org.kuali.common.deploy.NoOpMonitoring;
 import org.kuali.common.http.HttpContext;
@@ -88,8 +88,8 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public AppServerController kdoAppServerController() {
-		DefaultTomcatController dtc = new DefaultTomcatController();
+	public ApplicationServer kdoAppServerController() {
+		TomcatApplicationServer dtc = new TomcatApplicationServer();
 		dtc.setChannel(kdoSecureChannel());
 		dtc.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
 		dtc.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
@@ -268,8 +268,8 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public FileSystemHandler kdoFileSystemHandler() {
-		DefaultFileSystemHandler h = new DefaultFileSystemHandler();
+	public FileSystem kdoFileSystemHandler() {
+		DefaultFileSystem h = new DefaultFileSystem();
 		h.setChannel(kdoSecureChannel());
 		h.setFilesToDelete(kdoFilesToDelete());
 		h.setDirectoriesToDelete(kdoDirectoriesToDelete());

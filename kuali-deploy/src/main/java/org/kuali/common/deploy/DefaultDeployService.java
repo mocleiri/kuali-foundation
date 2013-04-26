@@ -12,20 +12,20 @@ public class DefaultDeployService implements DeployService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
+	DeployContext context;
 	SecureChannel channel;
 	Monitoring monitoring = new NoOpMonitoring();
-	AppServerController appServer;
+	ApplicationServer appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
-	FileSystemHandler fileSystem;
-	DeployContext context;
+	FileSystem fileSystem;
 	Executable httpWaitExecutable = new NoOpExecutable();
 
 	@Override
 	public void deploy() {
+		Assert.notNull(context);
 		Assert.notNull(channel);
 		Assert.notNull(appServer);
 		Assert.notNull(fileSystem);
-		Assert.notNull(context);
 		try {
 			logger.info("---------------- Deploy Application ----------------");
 			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getHostname());
@@ -53,11 +53,11 @@ public class DefaultDeployService implements DeployService {
 		}
 	}
 
-	public AppServerController getAppServer() {
+	public ApplicationServer getAppServer() {
 		return appServer;
 	}
 
-	public void setAppServer(AppServerController controller) {
+	public void setAppServer(ApplicationServer controller) {
 		this.appServer = controller;
 	}
 
@@ -69,11 +69,11 @@ public class DefaultDeployService implements DeployService {
 		this.channel = channel;
 	}
 
-	public FileSystemHandler getFileSystem() {
+	public FileSystem getFileSystem() {
 		return fileSystem;
 	}
 
-	public void setFileSystem(FileSystemHandler handler) {
+	public void setFileSystem(FileSystem handler) {
 		this.fileSystem = handler;
 	}
 
