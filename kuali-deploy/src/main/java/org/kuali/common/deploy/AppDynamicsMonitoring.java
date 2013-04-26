@@ -2,10 +2,12 @@ package org.kuali.common.deploy;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.secure.Result;
@@ -25,7 +27,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void stop() {
-		logger.info("Shutting down AppDynamics");
+		logger.info("Shutting down AppDynamics - {}", FormatUtils.getDate(new Date()));
 		String command = unixCmds.ps(user, true);
 		Result result = channel.executeCommand(command);
 		List<UnixProcess> processes = getUnixProcesses(result);
@@ -41,7 +43,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		if (process == null) {
 			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
 		} else {
-			logger.info("Killing AppDynamics machine agent. [pid:{}]", process.getProcessId());
+			logger.info("Killing AppDynamics machine agent - [pid:{}]", process.getProcessId());
 		}
 	}
 

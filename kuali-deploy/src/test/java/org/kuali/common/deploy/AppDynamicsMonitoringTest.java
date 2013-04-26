@@ -21,7 +21,7 @@ public class AppDynamicsMonitoringTest {
 
 			AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 			adm.setUser("tomcat");
-			adm.setMachineAgentCommand("java -jar /usr/local/machine-agent");
+			adm.setMachineAgentCommand("java -jar /usr/local/machine-agent/machineagent.jar");
 			adm.setChannel(channel);
 
 			channel.open();
