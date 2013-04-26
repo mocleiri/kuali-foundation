@@ -41,11 +41,19 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 		if (process != null) {
 			// Kill the machine agent process
-			logger.info("Killing AppDynamics machine agent - [pid:{}]", process.getProcessId());
+			logger.info("Killing AppDynamics machine agent process - [{}]", process.getProcessId());
+			kill(process);
 		} else {
 			// Otherwise, nothing to do
 			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
 		}
+	}
+
+	protected void kill(UnixProcess process) {
+		String command = unixCmds.kill(process.getProcessId());
+		Result result = channel.executeCommand(command);
+		ServiceUtils.logResult(result, logger);
+		ServiceUtils.validateResult(result);
 	}
 
 	protected List<UnixProcess> getUnixProcesses(String user) {
