@@ -28,23 +28,31 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void stop() {
 		logger.info("Shutting down AppDynamics - {}", FormatUtils.getDate(new Date()));
-		String command = unixCmds.ps(user, true);
-		Result result = channel.executeCommand(command);
-		List<UnixProcess> processes = getUnixProcesses(result);
+		List<UnixProcess> processes = getUnixProcesses(user);
 
-		// No existing process, we are done
+		// No existing processes, we are done
 		if (processes.size() == 0) {
 			logger.info("No running processes for user [{}]", user);
 			return;
 		}
 
-		// Determine if machine agent is running
+		// Figure out if any of the running processes are machine agent
 		UnixProcess process = getMachineAgentProcess(processes, machineAgentCommand);
-		if (process == null) {
-			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
-		} else {
+
+		if (process != null) {
+			// Kill the machine agent process
 			logger.info("Killing AppDynamics machine agent - [pid:{}]", process.getProcessId());
+		} else {
+			// Otherwise, nothing to do
+			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
 		}
+	}
+
+	protected List<UnixProcess> getUnixProcesses(String user) {
+		String command = unixCmds.ps(user, true);
+		Result result = channel.executeCommand(command);
+		return getUnixProcesses(result);
+
 	}
 
 	protected UnixProcess getMachineAgentProcess(List<UnixProcess> processes, String command) {
