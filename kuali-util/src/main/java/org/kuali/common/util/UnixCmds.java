@@ -15,9 +15,12 @@
  */
 package org.kuali.common.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class UnixCmds {
 	private static final String SU = "su";
@@ -25,6 +28,42 @@ public class UnixCmds {
 	private static final String RM = "rm";
 	private static final String CHOWN = "chown";
 	private static final String CHMOD = "chmod";
+	private static final String HOSTNAME = "hostname";
+	private static final String PS = "ps";
+
+	public String ps() {
+		return cmd(PS);
+	}
+
+	public String ps(String user) {
+		return cmd(PS, Arrays.asList("-u", user));
+	}
+
+	public String ps(String user, boolean full) {
+		List<String> args = new ArrayList<String>();
+		if (!StringUtils.isBlank(user)) {
+			args.add("-u");
+			args.add(user);
+		}
+		if (full) {
+			args.add("-f");
+		}
+		return cmd(PS, args);
+	}
+
+	/**
+	 * Returns the current hostname
+	 */
+	public String hostname() {
+		return cmd(HOSTNAME);
+	}
+
+	/**
+	 * Sets the current hostname
+	 */
+	public String hostname(String hostname) {
+		return cmd(HOSTNAME, Arrays.asList(hostname));
+	}
 
 	public String chmod(String mode, String path) {
 		Assert.notBlank(path);
@@ -148,6 +187,10 @@ public class UnixCmds {
 	public String chown(String owner, String group, String path) {
 		Assert.notBlank(path);
 		return chown(null, owner, group, Collections.singletonList(path));
+	}
+
+	public String cmd(String executable) {
+		return cmd(executable, null);
 	}
 
 	public String cmd(String executable, List<String> args) {
