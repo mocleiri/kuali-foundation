@@ -310,6 +310,7 @@ public class DeployConfig {
 			AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 			adm.setMachineAgentCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
 			adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
+			adm.setChannel(kdoSecureChannel());
 			return adm;
 		} else {
 			return new NoOpMonitoring();
