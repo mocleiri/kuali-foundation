@@ -1,6 +1,7 @@
 package org.kuali.common.deploy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +50,19 @@ public class AppDynamicsMonitoring implements Monitoring {
 			// Otherwise, nothing to do
 			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
 		}
+	}
+
+	@Override
+	public void prepare() {
+		logger.info("Preparing AppDynamics");
+		List<String> dirs = Arrays.asList(tmpDir, logDir);
+		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs);
+		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs);
+	}
+
+	@Override
+	public void start() {
+		logger.info("Starting AppDynamics");
 	}
 
 	protected void kill(UnixProcess process) {
@@ -144,16 +158,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 		process.setProcessId(Integer.parseInt(processId));
 		process.setCommand(command);
 		return process;
-	}
-
-	@Override
-	public void prepare() {
-		logger.info("Preparing AppDynamics");
-	}
-
-	@Override
-	public void start() {
-		logger.info("Starting AppDynamics");
 	}
 
 	public String getMachineAgentCommand() {
