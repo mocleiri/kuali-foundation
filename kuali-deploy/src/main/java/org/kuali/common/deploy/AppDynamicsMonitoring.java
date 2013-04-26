@@ -1,11 +1,11 @@
 package org.kuali.common.deploy;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.LocationUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.kuali.common.util.UnixCmds;
+import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -26,16 +26,29 @@ public class AppDynamicsMonitoring implements Monitoring {
 		String command = unixCmds.ps(user, true);
 		Result result = channel.executeCommand(command);
 		ServiceUtils.validateResult(result);
-		processResult(result);
+		getUnixProcesses(result);
 	}
 
-	protected void processResult(Result result) {
-		try {
-			List<String> lines = IOUtils.readLines(LocationUtils.getBufferedReaderFromString(result.getStdout()));
-			logger.info("size=" + lines.size());
-		} catch (IOException e) {
-			throw new IllegalArgumentException("Unexpected IO error", e);
+	protected List<UnixProcess> getUnixProcesses(Result result) {
+		List<String> lines = ServiceUtils.getOutputLines(result);
+		List<UnixProcess> processes = new ArrayList<UnixProcess>();
+		if (CollectionUtils.isEmpty(lines)) {
+			throw new IllegalStateException("There should at least be a header line");
 		}
+		if (lines.size() == 1) {
+			return processes;
+		}
+		for (int i = 1; i < lines.size(); i++) {
+			String line = lines.get(i);
+			UnixProcess process = getUnixProcess(line);
+			processes.add(process);
+		}
+		return processes;
+	}
+
+	protected UnixProcess getUnixProcess(String line) {
+		UnixProcess process = new UnixProcess();
+		return process;
 	}
 
 	@Override

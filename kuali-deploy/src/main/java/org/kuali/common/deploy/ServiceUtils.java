@@ -1,9 +1,12 @@
 package org.kuali.common.deploy;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.secure.Result;
@@ -13,6 +16,14 @@ import org.slf4j.LoggerFactory;
 public class ServiceUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServiceUtils.class);
+
+	public static List<String> getOutputLines(Result result) {
+		try {
+			return IOUtils.readLines(LocationUtils.getBufferedReaderFromString(result.getStdout()));
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
+	}
 
 	public static void logResult(Result result, Logger logger) {
 		logger.info("[{}] - {}", result.getCommand(), FormatUtils.getTime(result.getElapsed()));
