@@ -1,7 +1,7 @@
 package org.kuali.common.util;
 
 /**
- * This is a pojo representing what is returned when executing "ps -f" on a Uinux machine
+ * This is a pojo representing what is returned when executing "ps -f" on a Unix machine
  */
 public class UnixProcess {
 	// UID PID PPID C STIME TTY TIME CMD
