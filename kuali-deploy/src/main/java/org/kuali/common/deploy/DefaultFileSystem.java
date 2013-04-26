@@ -2,7 +2,6 @@ package org.kuali.common.deploy;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -11,7 +10,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.secure.RemoteFile;
-import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,15 +35,15 @@ public class DefaultFileSystem implements FileSystem {
 
 	@Override
 	public void clean() {
-		executeCommand(unixCmds.rmrf(filesToDelete), filesToDelete);
-		executeCommand(unixCmds.rmrf(directoriesToDelete), directoriesToDelete);
+		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(filesToDelete), filesToDelete);
+		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(directoriesToDelete), directoriesToDelete);
 	}
 
 	@Override
 	public void prepare() {
-		executeCommand(unixCmds.mkdirp(directoriesToCreate), directoriesToCreate);
+		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(directoriesToCreate), directoriesToCreate);
 		copyDeployables();
-		executeCommand(unixCmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
+		ServiceUtils.executePathCommand(channel, unixCmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
 	}
 
 	protected void copyDeployables() {
@@ -72,7 +70,7 @@ public class DefaultFileSystem implements FileSystem {
 				String path = deployable.getRemote();
 				String perms = deployable.getPermissions();
 				String command = unixCmds.chmod(perms, path);
-				executeCommand(command, path);
+				ServiceUtils.executePathCommand(channel, command, path);
 			}
 		}
 	}
@@ -85,19 +83,6 @@ public class DefaultFileSystem implements FileSystem {
 		}
 		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate };
 		logger.info("[{}] -> [{}] - {} {}", args);
-	}
-
-	protected void executeCommand(String command, String path) {
-		executeCommand(command, Collections.singletonList(path));
-	}
-
-	protected void executeCommand(String command, List<String> paths) {
-		if (CollectionUtils.isEmpty(paths)) {
-			return;
-		}
-		Result result = channel.executeCommand(command);
-		ServiceUtils.logResult(result, logger);
-		ServiceUtils.validateResult(result);
 	}
 
 	public UnixCmds getUnixCmds() {

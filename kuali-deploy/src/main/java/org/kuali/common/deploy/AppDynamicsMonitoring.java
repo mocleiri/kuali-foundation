@@ -24,6 +24,8 @@ public class AppDynamicsMonitoring implements Monitoring {
 	String machineAgentCommand;
 	String user;
 	SecureChannel channel;
+	String tmpDir;
+	String logDir;
 
 	@Override
 	public void stop() {
@@ -184,6 +186,22 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setChannel(SecureChannel channel) {
 		this.channel = channel;
+	}
+
+	public String getTmpDir() {
+		return tmpDir;
+	}
+
+	public void setTmpDir(String tmpDir) {
+		this.tmpDir = tmpDir;
+	}
+
+	public String getLogDir() {
+		return logDir;
+	}
+
+	public void setLogDir(String logDir) {
+		this.logDir = logDir;
 	}
 
 }
