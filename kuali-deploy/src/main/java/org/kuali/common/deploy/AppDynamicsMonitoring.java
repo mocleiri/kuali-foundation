@@ -1,5 +1,10 @@
 package org.kuali.common.deploy;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
@@ -20,8 +25,17 @@ public class AppDynamicsMonitoring implements Monitoring {
 		logger.info("Shutting down AppDynamics");
 		String command = unixCmds.ps(user, true);
 		Result result = channel.executeCommand(command);
-		ServiceUtils.logResult(result, logger);
 		ServiceUtils.validateResult(result);
+		processResult(result);
+	}
+
+	protected void processResult(Result result) {
+		try {
+			List<String> lines = IOUtils.readLines(LocationUtils.getBufferedReaderFromString(result.getStdout()));
+			logger.info("size=" + lines.size());
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Unexpected IO error", e);
+		}
 	}
 
 	@Override
