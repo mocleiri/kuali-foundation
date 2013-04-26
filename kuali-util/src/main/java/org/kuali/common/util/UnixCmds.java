@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class UnixCmds {
 	private static final String SU = "su";
 	private static final String MKDIR = "mkdir";
@@ -50,18 +48,16 @@ public class UnixCmds {
 	}
 
 	public String ps(String user) {
+		Assert.hasText(user);
 		return cmd(PS, Arrays.asList("-u", user));
 	}
 
-	public String ps(String user, boolean full) {
+	public String psf(String user) {
+		Assert.hasText(user);
 		List<String> args = new ArrayList<String>();
-		if (!StringUtils.isBlank(user)) {
-			args.add("-u");
-			args.add(user);
-		}
-		if (full) {
-			args.add("-f");
-		}
+		args.add("-u");
+		args.add(user);
+		args.add("-f");
 		return cmd(PS, args);
 	}
 

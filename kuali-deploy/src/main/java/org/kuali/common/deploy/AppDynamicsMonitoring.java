@@ -73,7 +73,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	}
 
 	protected List<UnixProcess> getUnixProcesses(String user) {
-		String command = unixCmds.ps(user, true);
+		String command = unixCmds.psf(user);
 		Result result = channel.executeCommand(command);
 		return getUnixProcesses(result);
 
