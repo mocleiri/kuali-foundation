@@ -24,6 +24,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	public void stop() {
 		logger.info("Shutting down AppDynamics");
 		String command = unixCmds.ps(user, true);
+		logger.info("[" + command + "]");
 		Result result = channel.executeCommand(command);
 		ServiceUtils.validateResult(result);
 		List<UnixProcess> processes = getUnixProcesses(result);
