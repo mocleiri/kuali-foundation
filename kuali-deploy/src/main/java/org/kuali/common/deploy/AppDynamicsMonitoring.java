@@ -41,7 +41,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 		if (process != null) {
 			// Kill the machine agent process
-			logger.info("Killing AppDynamics machine agent process - [{}]", process.getProcessId());
+			logger.info("Stopping AppDynamics machine agent process - [{}]", process.getProcessId());
 			kill(process);
 		} else {
 			// Otherwise, nothing to do
