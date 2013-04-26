@@ -8,13 +8,13 @@ import org.kuali.common.deploy.AppDynamicsMonitoring;
 import org.kuali.common.deploy.ApplicationServer;
 import org.kuali.common.deploy.DefaultDeployService;
 import org.kuali.common.deploy.DefaultFileSystem;
-import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystem;
 import org.kuali.common.deploy.Monitoring;
 import org.kuali.common.deploy.NoOpMonitoring;
+import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
@@ -307,7 +307,10 @@ public class DeployConfig {
 	public Monitoring kdoMonitoring() {
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
 		if (enabled) {
-			return new AppDynamicsMonitoring();
+			AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
+			adm.setMachineAgentCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
+			adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
+			return adm;
 		} else {
 			return new NoOpMonitoring();
 		}
