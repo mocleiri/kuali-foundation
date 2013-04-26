@@ -1,9 +1,11 @@
 package org.kuali.common.deploy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.secure.Result;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 public class AppDynamicsMonitoring implements Monitoring {
 
 	private static final Logger logger = LoggerFactory.getLogger(AppDynamicsMonitoring.class);
+	private static final String CMD = "CMD";
 
 	UnixCmds unixCmds = new UnixCmds();
 	String machineAgentCommand;
@@ -26,30 +29,79 @@ public class AppDynamicsMonitoring implements Monitoring {
 		String command = unixCmds.ps(user, true);
 		logger.info("[" + command + "]");
 		Result result = channel.executeCommand(command);
-		// ServiceUtils.validateResult(result);
 		List<UnixProcess> processes = getUnixProcesses(result);
 		logger.info("Processes: " + processes.size());
 	}
 
 	protected List<UnixProcess> getUnixProcesses(Result result) {
+		// Convert stdout to a list of strings
 		List<String> lines = ServiceUtils.getOutputLines(result);
-		List<UnixProcess> processes = new ArrayList<UnixProcess>();
+
+		// Something has gone wrong
 		if (CollectionUtils.isEmpty(lines)) {
-			throw new IllegalStateException("There should at least be a header line");
+			throw new IllegalStateException("There should be a header line");
 		}
-		if (lines.size() == 1) {
-			return processes;
+
+		// If there are no processes running, exit value is 1
+		if (lines.size() == 1 && result.getExitValue() == 1) {
+			// return an empty list
+			return Collections.emptyList();
 		}
+
+		// Make sure exit value was zero
+		ServiceUtils.validateResult(result);
+
+		// Need the header line in order to parse the process lines
+		String header = lines.get(0);
+
+		// Setup some storage for the list of running processes
+		List<UnixProcess> processes = new ArrayList<UnixProcess>();
+
+		// Convert each line into a UnixProcess pojo
 		for (int i = 1; i < lines.size(); i++) {
+
+			// Extract a line
 			String line = lines.get(i);
-			UnixProcess process = getUnixProcess(line);
+
+			// Convert to a pojo
+			UnixProcess process = getUnixProcess(header, line);
+
+			// Add to the list
 			processes.add(process);
 		}
+
+		// return what we've found
 		return processes;
 	}
 
-	protected UnixProcess getUnixProcess(String line) {
+	/**
+	 * Output looks like this:
+	 * 
+	 * <pre>
+	 *   UID        PID  PPID  C STIME TTY          TIME CMD
+	 * 	 tomcat   15461 15460  0 22:51 pts/0    00:00:00 -bash
+	 * 	 tomcat   15480 15461  0 22:52 pts/0    00:00:02 java -jar /usr/local/machine-agent/machineagent.jar
+	 * </pre>
+	 */
+	protected UnixProcess getUnixProcess(String header, String line) {
+		// Split the strings up into tokens
+		String[] tokens = StringUtils.split(line, " ");
+		// First token is the user id
+		String userId = StringUtils.trim(tokens[0]);
+		// Second token is the process id
+		String processId = StringUtils.trim(tokens[1]);
+		// The command starts where "CMD" starts in the header line
+		int pos = header.indexOf(CMD);
+		if (pos == -1) {
+			throw new IllegalStateException(line + " does not contain [" + CMD + "]");
+		}
+		String command = StringUtils.trim(StringUtils.substring(line, pos));
+
+		//
 		UnixProcess process = new UnixProcess();
+		process.setUserId(userId);
+		process.setProcessId(Integer.parseInt(processId));
+		process.setCommand(command);
 		return process;
 	}
 
