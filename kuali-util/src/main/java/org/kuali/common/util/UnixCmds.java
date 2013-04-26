@@ -30,6 +30,16 @@ public class UnixCmds {
 	private static final String CHMOD = "chmod";
 	private static final String HOSTNAME = "hostname";
 	private static final String PS = "ps";
+	private static final String KILL = "kill";
+
+	public String kill(List<Integer> pids) {
+		Assert.notEmpty(pids);
+		List<String> args = new ArrayList<String>();
+		for (Integer pid : pids) {
+			args.add(pid.toString());
+		}
+		return cmd(KILL, args);
+	}
 
 	public String ps() {
 		return cmd(PS);
