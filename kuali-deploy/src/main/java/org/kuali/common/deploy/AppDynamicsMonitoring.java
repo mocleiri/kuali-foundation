@@ -26,7 +26,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		String command = unixCmds.ps(user, true);
 		logger.info("[" + command + "]");
 		Result result = channel.executeCommand(command);
-		ServiceUtils.validateResult(result);
+		// ServiceUtils.validateResult(result);
 		List<UnixProcess> processes = getUnixProcesses(result);
 		logger.info("Processes: " + processes.size());
 	}
