@@ -24,7 +24,7 @@ public class DefaultFileSystem implements FileSystem {
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 
 	PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	UnixCmds cmds = new UnixCmds();
+	UnixCmds unixCmds = new UnixCmds();
 	Properties properties;
 	SecureChannel channel;
 	List<String> filesToDelete;
@@ -37,15 +37,15 @@ public class DefaultFileSystem implements FileSystem {
 
 	@Override
 	public void clean() {
-		executeCommand(cmds.rmrf(filesToDelete), filesToDelete);
-		executeCommand(cmds.rmrf(directoriesToDelete), directoriesToDelete);
+		executeCommand(unixCmds.rmrf(filesToDelete), filesToDelete);
+		executeCommand(unixCmds.rmrf(directoriesToDelete), directoriesToDelete);
 	}
 
 	@Override
 	public void prepare() {
-		executeCommand(cmds.mkdirp(directoriesToCreate), directoriesToCreate);
+		executeCommand(unixCmds.mkdirp(directoriesToCreate), directoriesToCreate);
 		copyDeployables();
-		executeCommand(cmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
+		executeCommand(unixCmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
 	}
 
 	protected void copyDeployables() {
@@ -71,7 +71,7 @@ public class DefaultFileSystem implements FileSystem {
 			if (deployable.getPermissions() != null) {
 				String path = deployable.getRemote();
 				String perms = deployable.getPermissions();
-				String command = cmds.chmod(perms, path);
+				String command = unixCmds.chmod(perms, path);
 				executeCommand(command, path);
 			}
 		}
@@ -100,12 +100,12 @@ public class DefaultFileSystem implements FileSystem {
 		ServiceUtils.validateResult(result);
 	}
 
-	public UnixCmds getCmds() {
-		return cmds;
+	public UnixCmds getUnixCmds() {
+		return unixCmds;
 	}
 
-	public void setCmds(UnixCmds cmds) {
-		this.cmds = cmds;
+	public void setUnixCmds(UnixCmds cmds) {
+		this.unixCmds = cmds;
 	}
 
 	public SecureChannel getChannel() {
