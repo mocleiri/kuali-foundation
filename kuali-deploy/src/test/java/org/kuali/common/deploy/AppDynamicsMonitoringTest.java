@@ -26,6 +26,7 @@ public class AppDynamicsMonitoringTest {
 
 			channel.open();
 			adm.stop();
+			adm.prepare();
 			channel.close();
 
 		} catch (Exception e) {
