@@ -6,15 +6,10 @@
   <enable-orchestration>${appdynamics.enableOrchestration}</enable-orchestration>
   <account-name>${appdynamics.accountName}</account-name>
   <account-access-key>${appdynamics.accountAccessKey}</account-access-key>
+  <application-name>${deploy.artifactId}-${project.version.major}.${project.version.minor}</application-name>
+  <tier-name>${appdynamics.tierName}</tier-name>
   <!--
-    Since we are running both machine-agent and server-agent on the same server, AppDynamics picks these 3
-    settings up automatically from the server-agent.
-
-    The startup order is significant. Tomcat must be started up first, then machine agent can be started.
-
-    <application-name>${deploy.artifactId}-${project.version.major}.${project.version.minor}</application-name>
-    <tier-name>${appdynamics.tierName}</tier-name>
     <node-name>${dns.hostname}</node-name>
   -->
-  <force-agent-registration>${appdynamics.forceAgentRegistration}</force-agent-registration>
+  <force-agent-registration>true</force-agent-registration>
 </controller-info>
