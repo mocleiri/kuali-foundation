@@ -3,6 +3,7 @@ package org.kuali.common.deploy.spring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.deploy.AppDynamicsMonitoring;
 import org.kuali.common.deploy.ApplicationServer;
@@ -125,6 +126,9 @@ public class DeployConfig {
 		// If true, skip transferring files to the remote machine
 		boolean skipFiles = SpringUtils.getBoolean(env, "tomcat.files.skip", false);
 
+		// Properties used to filter content
+		Properties filterProperties = SpringUtils.getAllEnumerableProperties(env);
+
 		// Setup Tomcat with what it needs to stop/prepare/start correctly
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
@@ -136,6 +140,7 @@ public class DeployConfig {
 		tomcat.setDeployables(deployables);
 		tomcat.setPathsToChown(pathsToChown);
 		tomcat.setSkipFiles(skipFiles);
+		tomcat.setFilterProperties(filterProperties);
 		return tomcat;
 	}
 
