@@ -121,9 +121,14 @@ public class DeployConfig {
 		deployables.addAll(getJsps());
 		deployables.add(getApplicationConfig());
 		deployables.add(getJdbcDriver());
-		deployables.add(getApplication());
 
-		// If true, skip transferring files to the remote machine
+		// The war files can be quite large ~100mb's, add a simple flag to skip it
+		boolean skipWar = SpringUtils.getBoolean(env, "tomcat.war.skip", false);
+		if (!skipWar) {
+			deployables.add(getApplication());
+		}
+
+		// If true, skip transferring all tomcat related files to the remote machine
 		boolean skipFiles = SpringUtils.getBoolean(env, "tomcat.files.skip", false);
 
 		// Properties used to filter content
