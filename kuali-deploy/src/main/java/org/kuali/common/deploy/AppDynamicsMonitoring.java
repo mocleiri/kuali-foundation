@@ -41,15 +41,17 @@ public class AppDynamicsMonitoring implements Monitoring {
 		}
 
 		// Figure out if any of the running processes are machine agent
-		UnixProcess process = getMachineAgentProcess(processes, machineAgentCommand);
+		List<UnixProcess> machineAgents = getMachineAgents(processes, machineAgentCommand);
 
-		if (process != null) {
-			// Kill the machine agent process
-			logger.info("Stopping AppDynamics machine agent process - [{}]", process.getProcessId());
-			kill(process);
-		} else {
-			// Otherwise, nothing to do
+		if (CollectionUtils.isEmpty(machineAgents)) {
+			// Nothing to do
 			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
+		} else {
+			// Kill the machine agent process
+			for (UnixProcess machineAgent : machineAgents) {
+				logger.info("Stopping AppDynamics machine agent process - [{}]", machineAgent.getProcessId());
+				kill(machineAgent);
+			}
 		}
 	}
 
@@ -62,9 +64,34 @@ public class AppDynamicsMonitoring implements Monitoring {
 		ServiceUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs);
 	}
 
+	protected String getNoHup() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("exec");
+		sb.append(" ");
+		sb.append("su");
+		sb.append(" - ");
+		sb.append(user);
+		sb.append(" ");
+		sb.append("--command");
+		sb.append("=");
+		sb.append("'");
+		sb.append(unixCmds.nohup(machineAgentCommand));
+		sb.append(" ");
+		sb.append("&");
+		sb.append("'");
+		return sb.toString();
+	}
+
 	@Override
 	public void start() {
 		logger.info("Starting AppDynamics");
+		String nohup = unixCmds.nohup(machineAgentCommand);
+		String su = unixCmds.su(user, nohup) + " &";
+		su = getNoHup();
+		logger.info(su);
+		Result result = channel.executeCommand(su);
+		ServiceUtils.logResult(result, logger);
+		ServiceUtils.validateResult(result);
 	}
 
 	protected void kill(UnixProcess process) {
@@ -81,13 +108,14 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	}
 
-	protected UnixProcess getMachineAgentProcess(List<UnixProcess> processes, String command) {
+	protected List<UnixProcess> getMachineAgents(List<UnixProcess> processes, String command) {
+		List<UnixProcess> machineAgents = new ArrayList<UnixProcess>();
 		for (UnixProcess process : processes) {
 			if (StringUtils.equals(process.getCommand(), command)) {
-				return process;
+				machineAgents.add(process);
 			}
 		}
-		return null;
+		return machineAgents;
 	}
 
 	protected List<UnixProcess> getUnixProcesses(Result result) {

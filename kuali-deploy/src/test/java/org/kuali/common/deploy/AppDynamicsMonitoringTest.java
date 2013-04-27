@@ -30,6 +30,7 @@ public class AppDynamicsMonitoringTest {
 			channel.open();
 			adm.stop();
 			adm.prepare();
+			adm.start();
 			channel.close();
 
 		} catch (Exception e) {
