@@ -36,9 +36,12 @@ public class TomcatApplicationServer implements ApplicationServer {
 	String group;
 	String shutdown;
 	String startup;
-	List<String> deleteDirs;
-	List<String> createDirs;
-	List<String> chownDirs;
+	// Can be either files or dirs
+	List<String> pathsToDelete;
+	// Must be dirs
+	List<String> dirsToCreate;
+	// Can be either files or dirs
+	List<String> pathsToChown;
 	List<Deployable> deployables;
 
 	@Override
@@ -121,28 +124,36 @@ public class TomcatApplicationServer implements ApplicationServer {
 		this.group = group;
 	}
 
-	public List<String> getDeleteDirs() {
-		return deleteDirs;
+	public List<String> getPathsToDelete() {
+		return pathsToDelete;
 	}
 
-	public void setDeleteDirs(List<String> deleteDirs) {
-		this.deleteDirs = deleteDirs;
+	public void setPathsToDelete(List<String> pathsToDelete) {
+		this.pathsToDelete = pathsToDelete;
 	}
 
-	public List<String> getCreateDirs() {
-		return createDirs;
+	public List<String> getDirsToCreate() {
+		return dirsToCreate;
 	}
 
-	public void setCreateDirs(List<String> createDirs) {
-		this.createDirs = createDirs;
+	public void setDirsToCreate(List<String> dirsToCreate) {
+		this.dirsToCreate = dirsToCreate;
 	}
 
-	public List<String> getChownDirs() {
-		return chownDirs;
+	public List<String> getPathsToChown() {
+		return pathsToChown;
 	}
 
-	public void setChownDirs(List<String> chownDirs) {
-		this.chownDirs = chownDirs;
+	public void setPathsToChown(List<String> pathsToChown) {
+		this.pathsToChown = pathsToChown;
+	}
+
+	public List<Deployable> getDeployables() {
+		return deployables;
+	}
+
+	public void setDeployables(List<Deployable> deployables) {
+		this.deployables = deployables;
 	}
 
 }

@@ -41,8 +41,7 @@ public class DeployConfig {
 	@Autowired
 	SqlControllerConfig sqlController;
 
-	@Bean
-	public Artifact kdoJdbcDriverArtifact() {
+	protected Artifact getJdbcDriverArtifact() {
 		Artifact a = new Artifact();
 		a.setGroupId(SpringUtils.getProperty(env, "jdbc.driver.groupId"));
 		a.setArtifactId(SpringUtils.getProperty(env, "jdbc.driver.artifactId"));
@@ -51,8 +50,7 @@ public class DeployConfig {
 		return a;
 	}
 
-	@Bean
-	public Artifact kdoApplicationArtifact() {
+	protected Artifact getpplicationArtifact() {
 		Artifact a = new Artifact();
 		a.setGroupId(SpringUtils.getProperty(env, "project.groupId"));
 		a.setArtifactId(SpringUtils.getProperty(env, "project.artifactId"));
@@ -62,21 +60,20 @@ public class DeployConfig {
 		return a;
 	}
 
-	@Bean
-	public DeployContext kdoContext() {
+	protected DeployContext getDeployContext() {
 		DeployContext ctx = new DeployContext();
 		ctx.setEnvironment(SpringUtils.getProperty(env, "deploy.env"));
 		ctx.setHostname(SpringUtils.getProperty(env, "kdo.channel.hostname"));
 		ctx.setUsername(SpringUtils.getProperty(env, "kdo.channel.username"));
-		ctx.setJdbcDriver(kdoJdbcDriverArtifact());
-		ctx.setApplication(kdoApplicationArtifact());
-		ctx.setConfig(kdoConfig());
+		ctx.setJdbcDriver(getJdbcDriverArtifact());
+		ctx.setApplication(getpplicationArtifact());
+		ctx.setConfig(getApplicationConfig());
 		return ctx;
 	}
 
 	@Bean
 	public SecureChannel kdoSecureChannel() {
-		DeployContext ctx = kdoContext();
+		DeployContext ctx = getDeployContext();
 		DefaultSecureChannel dsc = new DefaultSecureChannel();
 		dsc.setUsername(ctx.getUsername());
 		dsc.setHostname(ctx.getHostname());
@@ -89,11 +86,46 @@ public class DeployConfig {
 
 	@Bean
 	public ApplicationServer kdoApplicationServer() {
+		// /usr/local/tomcat/lib
+		String lib = SpringUtils.getProperty(env, "tomcat.lib");
+
+		List<String> deletes = new ArrayList<String>();
+		deletes.add(lib + "/mysql*.jar");
+		deletes.add(lib + "/ojdbc*.jar");
+		deletes.add(lib + "/classes12*.jar");
+		deletes.add(lib + "/orai18n*.jar");
+		deletes.add(SpringUtils.getProperty(env, "tomcat.setenv"));
+		deletes.add(SpringUtils.getProperty(env, "tomcat.home.org"));
+		deletes.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
+		deletes.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		deletes.add(SpringUtils.getProperty(env, "tomcat.logs"));
+		deletes.add(SpringUtils.getProperty(env, "tomcat.webapps"));
+		deletes.add(SpringUtils.getProperty(env, "tomcat.work"));
+
+		List<String> dirsToCreate = new ArrayList<String>();
+		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.logs"));
+		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.webapps"));
+		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+
+		List<String> dirsToChown = new ArrayList<String>();
+		dirsToChown.add(SpringUtils.getProperty(env, "tomcat.base"));
+		dirsToChown.add(SpringUtils.getProperty(env, "tomcat.home"));
+
+		List<Deployable> deployables = new ArrayList<Deployable>();
+		deployables.add(getSetEnv());
+		deployables.addAll(getJsps());
+		deployables.add(getApplicationConfig());
+		deployables.add(getJdbcDriver());
+		deployables.add(getApplication());
+
 		TomcatApplicationServer dtc = new TomcatApplicationServer();
 		dtc.setChannel(kdoSecureChannel());
 		dtc.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
 		dtc.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
 		dtc.setStartup(SpringUtils.getProperty(env, "tomcat.startup"));
+		dtc.setPathsToDelete(deletes);
+		dtc.setDirsToCreate(dirsToCreate);
+		dtc.setDeployables(deployables);
 		return dtc;
 	}
 
@@ -148,8 +180,7 @@ public class DeployConfig {
 		return list;
 	}
 
-	@Bean
-	public Deployable kdoSetEnv() {
+	protected Deployable getSetEnv() {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "tomcat.setenv"));
 		d.setLocal(SpringUtils.getProperty(env, "tomcat.setenv.local"));
@@ -158,8 +189,7 @@ public class DeployConfig {
 		return d;
 	}
 
-	@Bean
-	public Deployable kdoAppDynamicsServerAgent() {
+	protected Deployable getServerAgentConfig() {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
 		d.setLocal(SpringUtils.getProperty(env, "appdynamics.sa.controller.local"));
@@ -167,8 +197,7 @@ public class DeployConfig {
 		return d;
 	}
 
-	@Bean
-	public Deployable kdoAppDynamicsMachineAgent() {
+	protected Deployable getMachineAgentConfig() {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
 		d.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
@@ -176,25 +205,23 @@ public class DeployConfig {
 		return d;
 	}
 
-	@Bean
-	public Deployable kdoJspEnv() {
-		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.env"));
-		d.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.env.local"));
-		return d;
+	protected List<Deployable> getJsps() {
+		Deployable environment = new Deployable();
+		environment.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.env"));
+		environment.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.env.local"));
+
+		Deployable tail = new Deployable();
+		tail.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.tail"));
+		tail.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.tail.local"));
+
+		List<Deployable> jsps = new ArrayList<Deployable>();
+		jsps.add(environment);
+		jsps.add(tail);
+		return jsps;
 	}
 
-	@Bean
-	public Deployable kdoJspTail() {
-		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.tail"));
-		d.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.tail.local"));
-		return d;
-	}
-
-	@Bean
-	public String kdoJdbcDriverFilename() {
-		Artifact jdbcDriver = kdoJdbcDriverArtifact();
+	protected String getJdbcDriverFilename() {
+		Artifact jdbcDriver = getJdbcDriverArtifact();
 
 		ArtifactFilenameFactoryBean factory = new ArtifactFilenameFactoryBean();
 		factory.setGroupId(jdbcDriver.getGroupId());
@@ -204,9 +231,8 @@ public class DeployConfig {
 		return factory.getObject();
 	}
 
-	@Bean
-	public String kdoJdbcDriverPath() {
-		Artifact jdbcDriver = kdoJdbcDriverArtifact();
+	protected String getJdbcDriverPath() {
+		Artifact jdbcDriver = getJdbcDriverArtifact();
 		ArtifactPathFactoryBean factory = new ArtifactPathFactoryBean();
 		factory.setGroupId(jdbcDriver.getGroupId());
 		factory.setArtifactId(jdbcDriver.getArtifactId());
@@ -215,9 +241,8 @@ public class DeployConfig {
 		return factory.getObject();
 	}
 
-	@Bean
-	public String kdoApplicationPath() {
-		Artifact app = kdoApplicationArtifact();
+	protected String getApplicationPath() {
+		Artifact app = getpplicationArtifact();
 		ArtifactPathFactoryBean factory = new ArtifactPathFactoryBean();
 		factory.setGroupId(app.getGroupId());
 		factory.setArtifactId(app.getArtifactId());
@@ -227,25 +252,22 @@ public class DeployConfig {
 		return factory.getObject();
 	}
 
-	@Bean
-	public Deployable kdoJdbcDriver() {
+	protected Deployable getJdbcDriver() {
 		String lib = SpringUtils.getProperty(env, "tomcat.lib");
 		Deployable d = new Deployable();
-		d.setRemote(lib + "/" + kdoJdbcDriverFilename());
-		d.setLocal(kdoJdbcDriverPath());
+		d.setRemote(lib + "/" + getJdbcDriverFilename());
+		d.setLocal(getJdbcDriverPath());
 		return d;
 	}
 
-	@Bean
-	public Deployable kdoApplication() {
+	protected Deployable getApplication() {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "tomcat.root.war"));
-		d.setLocal(kdoApplicationPath());
+		d.setLocal(getApplicationPath());
 		return d;
 	}
 
-	@Bean
-	public Deployable kdoConfig() {
+	protected Deployable getApplicationConfig() {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "kdo.config"));
 		d.setLocal(SpringUtils.getProperty(env, "kdo.config.local"));
@@ -256,14 +278,14 @@ public class DeployConfig {
 	@Bean
 	public List<Deployable> kdoDeployables() {
 		List<Deployable> list = new ArrayList<Deployable>();
-		list.add(kdoSetEnv());
-		list.add(kdoAppDynamicsServerAgent());
-		list.add(kdoAppDynamicsMachineAgent());
-		list.add(kdoJspEnv());
-		list.add(kdoJspTail());
-		list.add(kdoConfig());
-		list.add(kdoJdbcDriver());
-		list.add(kdoApplication());
+		list.add(getSetEnv());
+		list.add(getServerAgentConfig());
+		list.add(getMachineAgentConfig());
+		// list.add(kdoJspEnv());
+		// list.add(kdoJspTail());
+		list.add(getApplicationConfig());
+		list.add(getJdbcDriver());
+		list.add(getApplication());
 		return list;
 	}
 
@@ -325,7 +347,7 @@ public class DeployConfig {
 		dds.setAppServer(kdoApplicationServer());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setFileSystem(kdoFileSystemHandler());
-		dds.setContext(kdoContext());
+		dds.setContext(getDeployContext());
 		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
 		return dds;
 	}
