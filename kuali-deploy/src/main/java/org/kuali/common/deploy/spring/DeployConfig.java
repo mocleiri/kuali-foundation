@@ -122,7 +122,7 @@ public class DeployConfig {
 		deployables.add(getApplicationConfig());
 		deployables.add(getJdbcDriver());
 
-		// The war files can be quite large ~100mb's, add a simple flag to skip it
+		// The war files can be quite large ~100mb's, add a simple flag to skip the overhead of the war file upload
 		boolean skipWar = SpringUtils.getBoolean(env, "tomcat.war.skip", false);
 		if (!skipWar) {
 			deployables.add(getApplication());
@@ -335,6 +335,7 @@ public class DeployConfig {
 			adm.setMachineAgentCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
 			adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
 			adm.setChannel(kdoSecureChannel());
+			adm.setMonitoringJavaOpts(SpringUtils.getProperty(env, "appdynamics.sa."));
 			return adm;
 		} else {
 			return new NoOpMonitoring();
