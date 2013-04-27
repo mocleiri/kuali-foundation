@@ -43,6 +43,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	List<String> pathsToChown;
 	// Files that need to be transferred
 	List<Deployable> deployables;
+	// If true, no files are transferred from local to remote
 	boolean skipFiles;
 
 	@Override
