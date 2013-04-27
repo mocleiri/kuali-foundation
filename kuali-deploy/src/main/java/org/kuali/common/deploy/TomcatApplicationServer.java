@@ -42,6 +42,11 @@ public class TomcatApplicationServer implements ApplicationServer {
 	}
 
 	@Override
+	public void prepare() {
+		//
+	}
+
+	@Override
 	public void start() {
 		executeCommand(cmds.su(username, startup), true);
 	}
