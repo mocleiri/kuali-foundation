@@ -65,12 +65,14 @@ public class DeployUtils {
 
 	protected static void logCopy(String src, String dst, long elapsed) {
 		String rate = "";
+		String size = "";
 		if (LocationUtils.isExistingFile(src)) {
 			long bytes = new File(src).length();
 			rate = FormatUtils.getRate(elapsed, bytes);
+			size = FormatUtils.getSize(bytes);
 		}
-		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate };
-		logger.info("[{}] -> [{}] - {} {}", args);
+		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate, size };
+		logger.info("[{}] -> [{}] - {} {} {}", args);
 	}
 
 	/**
