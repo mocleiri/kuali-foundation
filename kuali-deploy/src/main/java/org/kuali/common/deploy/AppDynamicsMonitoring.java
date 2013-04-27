@@ -66,8 +66,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	protected String getNoHup() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("exec");
-		sb.append(" ");
 		sb.append("su");
 		sb.append(" - ");
 		sb.append(user);
@@ -89,9 +87,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		String su = unixCmds.su(user, nohup) + " &";
 		su = getNoHup();
 		logger.info(su);
-		Result result = channel.executeCommand(su);
-		ServiceUtils.logResult(result, logger);
-		ServiceUtils.validateResult(result);
+		channel.executeNoWait(su);
 	}
 
 	protected void kill(UnixProcess process) {
