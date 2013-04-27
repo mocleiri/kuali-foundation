@@ -42,9 +42,10 @@ public class TomcatApplicationServer implements ApplicationServer {
 	List<String> pathsToChown;
 	// Files that need to be transferred
 	List<Deployable> deployables;
+	// Properties used to filter deployables (if filter=true)
+	Properties filterProperties;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
-	Properties filterProperties;
 
 	@Override
 	public void stop() {
