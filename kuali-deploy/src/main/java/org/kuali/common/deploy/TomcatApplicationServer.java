@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.UnixCmds;
-import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +46,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	@Override
 	public void stop() {
 		logger.info("Shutting down Tomcat - {}", FormatUtils.getDate(new Date()));
-		executeCommand(cmds.su(username, shutdown), validateShutdownExitValue);
+		DeployUtils.executeCommand(channel, cmds.su(username, shutdown), validateShutdownExitValue);
 	}
 
 	@Override
@@ -57,15 +56,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	@Override
 	public void start() {
-		executeCommand(cmds.su(username, startup), true);
-	}
-
-	protected void executeCommand(String command, boolean validateResult) {
-		Result result = channel.executeCommand(command);
-		DeployUtils.logResult(result, logger);
-		if (validateResult) {
-			DeployUtils.validateResult(result);
-		}
+		DeployUtils.executeCommand(channel, cmds.su(username, startup), true);
 	}
 
 	public UnixCmds getCmds() {
