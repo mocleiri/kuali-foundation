@@ -88,7 +88,7 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public ApplicationServer kdoAppServerController() {
+	public ApplicationServer kdoApplicationServer() {
 		TomcatApplicationServer dtc = new TomcatApplicationServer();
 		dtc.setChannel(kdoSecureChannel());
 		dtc.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
@@ -322,7 +322,7 @@ public class DeployConfig {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
 		dds.setMonitoring(kdoMonitoring());
-		dds.setAppServer(kdoAppServerController());
+		dds.setAppServer(kdoApplicationServer());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setFileSystem(kdoFileSystemHandler());
 		dds.setContext(kdoContext());
