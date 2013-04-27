@@ -71,8 +71,8 @@ public class DeployUtils {
 			rate = FormatUtils.getRate(elapsed, bytes);
 			size = FormatUtils.getSize(bytes);
 		}
-		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate, size };
-		logger.info("[{}] -> [{}] - {} {} {}", args);
+		Object[] args = { src, dst, size, FormatUtils.getTime(elapsed), rate };
+		logger.info("[{}] -> [{}] - [{} {} {}]", args);
 	}
 
 	/**
