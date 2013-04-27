@@ -35,6 +35,8 @@ public class TomcatApplicationServer implements ApplicationServer {
 	String group;
 	String shutdown;
 	String startup;
+	// Tomcat automatically invokes - /usr/local/tomcat/bin/setenv.sh at startup
+	Deployable setenv;
 
 	@Override
 	public void stop() {
