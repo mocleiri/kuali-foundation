@@ -16,9 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
-public class ServiceUtils {
+public class DeployUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(ServiceUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(DeployUtils.class);
 
 	public static void executePathCommand(SecureChannel channel, String command, String path) {
 		executePathCommand(channel, command, Collections.singletonList(path));

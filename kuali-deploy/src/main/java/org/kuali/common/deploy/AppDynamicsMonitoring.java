@@ -60,9 +60,9 @@ public class AppDynamicsMonitoring implements Monitoring {
 	public void prepare() {
 		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(tmpDir, logDir);
-		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs, LoggerLevel.DEBUG);
-		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs, LoggerLevel.DEBUG);
-		ServiceUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs, LoggerLevel.DEBUG);
+		DeployUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs, LoggerLevel.DEBUG);
+		DeployUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs, LoggerLevel.DEBUG);
+		DeployUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs, LoggerLevel.DEBUG);
 	}
 
 	@Override
@@ -92,8 +92,8 @@ public class AppDynamicsMonitoring implements Monitoring {
 	protected void kill(UnixProcess process) {
 		String command = unixCmds.kill(process.getProcessId());
 		Result result = channel.executeCommand(command);
-		ServiceUtils.logResult(result, logger, LoggerLevel.DEBUG);
-		ServiceUtils.validateResult(result);
+		DeployUtils.logResult(result, logger, LoggerLevel.DEBUG);
+		DeployUtils.validateResult(result);
 	}
 
 	protected List<UnixProcess> getUnixProcesses(String user) {
@@ -115,7 +115,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	protected List<UnixProcess> getUnixProcesses(Result result) {
 		// Convert stdout to a list of strings
-		List<String> lines = ServiceUtils.getOutputLines(result);
+		List<String> lines = DeployUtils.getOutputLines(result);
 
 		// Something has gone wrong
 		if (CollectionUtils.isEmpty(lines)) {
@@ -129,7 +129,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		}
 
 		// Make sure exit value was zero
-		ServiceUtils.validateResult(result);
+		DeployUtils.validateResult(result);
 
 		// Need the header line in order to parse the process lines
 		String header = lines.get(0);

@@ -48,9 +48,9 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	protected void executeCommand(String command, boolean validateResult) {
 		Result result = channel.executeCommand(command);
-		ServiceUtils.logResult(result, logger);
+		DeployUtils.logResult(result, logger);
 		if (validateResult) {
-			ServiceUtils.validateResult(result);
+			DeployUtils.validateResult(result);
 		}
 	}
 

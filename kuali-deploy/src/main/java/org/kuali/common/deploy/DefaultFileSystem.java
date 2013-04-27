@@ -35,15 +35,15 @@ public class DefaultFileSystem implements FileSystem {
 
 	@Override
 	public void clean() {
-		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(filesToDelete), filesToDelete);
-		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(directoriesToDelete), directoriesToDelete);
+		DeployUtils.executePathCommand(channel, unixCmds.rmrf(filesToDelete), filesToDelete);
+		DeployUtils.executePathCommand(channel, unixCmds.rmrf(directoriesToDelete), directoriesToDelete);
 	}
 
 	@Override
 	public void prepare() {
-		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(directoriesToCreate), directoriesToCreate);
+		DeployUtils.executePathCommand(channel, unixCmds.mkdirp(directoriesToCreate), directoriesToCreate);
 		copyDeployables();
-		ServiceUtils.executePathCommand(channel, unixCmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
+		DeployUtils.executePathCommand(channel, unixCmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
 	}
 
 	protected void copyDeployables() {
@@ -70,7 +70,7 @@ public class DefaultFileSystem implements FileSystem {
 				String path = deployable.getRemote();
 				String perms = deployable.getPermissions();
 				String command = unixCmds.chmod(perms, path);
-				ServiceUtils.executePathCommand(channel, command, path);
+				DeployUtils.executePathCommand(channel, command, path);
 			}
 		}
 	}
