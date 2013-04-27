@@ -34,7 +34,7 @@ public class DeployUtils {
 	private static final UnixCmds CMDS = new UnixCmds();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
-	public static void copyDeployables(SecureChannel channel, List<Deployable> deployables, Properties filterProperties) {
+	public static void copyFiles(SecureChannel channel, List<Deployable> deployables, Properties filterProperties) {
 		if (CollectionUtils.isEmpty(deployables)) {
 			return;
 		}

@@ -58,7 +58,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 		DeployUtils.delete(channel, pathsToDelete);
 		DeployUtils.mkdirs(channel, dirsToCreate);
 		if (!skipFiles) {
-			DeployUtils.copyDeployables(channel, deployables, filterProperties);
+			DeployUtils.copyFiles(channel, deployables, filterProperties);
 		}
 		DeployUtils.chown(channel, username, group, pathsToChown);
 	}
