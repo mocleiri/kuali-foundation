@@ -62,7 +62,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	@Override
 	public void start() {
-		DeployUtils.runscript(channel, username, shutdown, true);
+		DeployUtils.runscript(channel, username, shutdown);
 	}
 
 	public boolean isValidateShutdownExitValue() {
