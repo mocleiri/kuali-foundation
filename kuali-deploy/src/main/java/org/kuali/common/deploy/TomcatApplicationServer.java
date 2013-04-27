@@ -39,9 +39,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	List<String> deleteDirs;
 	List<String> createDirs;
 	List<String> chownDirs;
-	// Tomcat automatically invokes - /usr/local/tomcat/bin/setenv.sh at startup
-	Deployable setenv;
-	List<Deployable> jsps;
+	List<Deployable> deployables;
 
 	@Override
 	public void stop() {
@@ -145,22 +143,6 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setChownDirs(List<String> chownDirs) {
 		this.chownDirs = chownDirs;
-	}
-
-	public Deployable getSetenv() {
-		return setenv;
-	}
-
-	public void setSetenv(Deployable setenv) {
-		this.setenv = setenv;
-	}
-
-	public List<Deployable> getJsps() {
-		return jsps;
-	}
-
-	public void setJsps(List<Deployable> jsps) {
-		this.jsps = jsps;
 	}
 
 }
