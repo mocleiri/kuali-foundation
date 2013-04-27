@@ -309,7 +309,7 @@ public class DeployConfig {
 	@Bean
 	public Executable kdoHttpWaitExecutable() {
 		// Extract properties from the environment
-		Long overallTimeoutMillis = SpringUtils.getMillis(env, "http.timeout", "30m");
+		Long overallTimeoutMillis = SpringUtils.getMillis(env, "http.overallTimeout", "30m");
 		Long requestTimeoutMillis = SpringUtils.getMillis(env, "http.requestTimeout", "15s");
 		String url = SpringUtils.getProperty(env, "http.url");
 		boolean skip = SpringUtils.getBoolean(env, "http.wait.skip", false);
