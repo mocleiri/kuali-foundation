@@ -122,6 +122,9 @@ public class DeployConfig {
 		deployables.add(getJdbcDriver());
 		deployables.add(getApplication());
 
+		// If true, skip transferring files to the remote machine
+		boolean skipFiles = SpringUtils.getBoolean(env, "tomcat.files.skip", false);
+
 		// Setup Tomcat with what it needs to stop/prepare/start correctly
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
@@ -132,34 +135,21 @@ public class DeployConfig {
 		tomcat.setDirsToCreate(dirsToCreate);
 		tomcat.setDeployables(deployables);
 		tomcat.setPathsToChown(pathsToChown);
+		tomcat.setSkipFiles(skipFiles);
 		return tomcat;
 	}
 
 	@Bean
 	public List<String> kdoFilesToDelete() {
-		String lib = SpringUtils.getProperty(env, "tomcat.lib");
 		List<String> list = new ArrayList<String>();
-		list.add(lib + "/mysql*.jar");
-		list.add(lib + "/ojdbc*.jar");
-		list.add(lib + "/classes12*.jar");
-		list.add(lib + "/orai18n*.jar");
-		list.add(SpringUtils.getProperty(env, "tomcat.setenv"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.org"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
 		return list;
 	}
 
 	@Bean
 	public List<String> kdoDirectoriesToDelete() {
 		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "tomcat.logs"));
-		list.add(SpringUtils.getProperty(env, "tomcat.webapps"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.org"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
-		list.add(SpringUtils.getProperty(env, "tomcat.work"));
-		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
 		return list;
@@ -168,9 +158,6 @@ public class DeployConfig {
 	@Bean
 	public List<String> kdoDirectoriesToCreate() {
 		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "tomcat.logs"));
-		list.add(SpringUtils.getProperty(env, "tomcat.webapps"));
-		list.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
 		return list;
@@ -179,8 +166,6 @@ public class DeployConfig {
 	@Bean
 	public List<String> kdoDirectoriesToChown() {
 		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "tomcat.base"));
-		list.add(SpringUtils.getProperty(env, "tomcat.home"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.sa.base"));
 		list.add(SpringUtils.getProperty(env, "appdynamics.ma.base"));
 		return list;
