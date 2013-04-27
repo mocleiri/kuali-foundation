@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,6 @@ public class TomcatApplicationServer implements ApplicationServer {
 	private static final Logger logger = LoggerFactory.getLogger(TomcatApplicationServer.class);
 
 	SecureChannel channel;
-	UnixCmds cmds = new UnixCmds();
 	boolean validateShutdownExitValue = false;
 	String username;
 	String group;
@@ -65,14 +63,6 @@ public class TomcatApplicationServer implements ApplicationServer {
 	@Override
 	public void start() {
 		DeployUtils.runscript(channel, username, shutdown, true);
-	}
-
-	public UnixCmds getCmds() {
-		return cmds;
-	}
-
-	public void setCmds(UnixCmds cmds) {
-		this.cmds = cmds;
 	}
 
 	public boolean isValidateShutdownExitValue() {
