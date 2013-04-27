@@ -72,6 +72,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	List<File> privateKeys;
 	List<String> privateKeyStrings;
 	Properties options;
+	boolean waitForClosed;
 
 	protected Session session;
 	protected ChannelSftp sftp;
@@ -130,13 +131,17 @@ public class DefaultSecureChannel implements SecureChannel {
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, null);
-			// Convert stdout and stderr to String's
-			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding);
-			String stderr = Str.getString(stderrStream.toByteArray(), encoding);
-			// Make sure the channel is closed
-			waitForClosed(exec, waitForClosedSleepMillis);
-			// Return the result of executing the command
-			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, command, stdin, stdout, stderr, encoding);
+			if (waitForClosed) {
+				// Convert stdout and stderr to String's
+				String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding);
+				String stderr = Str.getString(stderrStream.toByteArray(), encoding);
+				// Make sure the channel is closed
+				waitForClosed(exec, waitForClosedSleepMillis);
+				// Return the result of executing the command
+				return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, command, stdin, stdout, stderr, encoding);
+			} else {
+				return null;
+			}
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -680,6 +685,14 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	public void setUseConfigFile(boolean useConfigFile) {
 		this.useConfigFile = useConfigFile;
+	}
+
+	public boolean isWaitForClosed() {
+		return waitForClosed;
+	}
+
+	public void setWaitForClosed(boolean waitForClosed) {
+		this.waitForClosed = waitForClosed;
 	}
 
 }
