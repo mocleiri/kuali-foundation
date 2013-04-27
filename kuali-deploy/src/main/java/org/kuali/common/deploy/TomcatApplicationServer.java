@@ -28,9 +28,9 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	private static final Logger logger = LoggerFactory.getLogger(TomcatApplicationServer.class);
 
+	SecureChannel channel;
 	UnixCmds cmds = new UnixCmds();
 	boolean validateShutdownExitValue = false;
-	SecureChannel channel;
 	String username;
 	String group;
 	String shutdown;
