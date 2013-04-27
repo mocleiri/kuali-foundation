@@ -24,6 +24,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	String group;
 	String tmpDir;
 	String logDir;
+	String monitoringJavaOpts;
 
 	@Override
 	public void stop() {
@@ -138,6 +139,15 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setGroup(String group) {
 		this.group = group;
+	}
+
+	@Override
+	public String getMonitoringJavaOpts() {
+		return monitoringJavaOpts;
+	}
+
+	public void setMonitoringJavaOpts(String monitoringJavaOpts) {
+		this.monitoringJavaOpts = monitoringJavaOpts;
 	}
 
 }

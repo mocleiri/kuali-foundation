@@ -46,6 +46,8 @@ public class TomcatApplicationServer implements ApplicationServer {
 	Properties filterProperties;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
+	boolean enableMonitoring;
+	String monitoringJavaOpts;
 
 	@Override
 	public void stop() {
@@ -58,9 +60,23 @@ public class TomcatApplicationServer implements ApplicationServer {
 		DeployUtils.delete(channel, pathsToDelete);
 		DeployUtils.mkdirs(channel, dirsToCreate);
 		if (!skipFiles) {
+			doMonitoringJavaOpts(filterProperties);
 			DeployUtils.copyFiles(channel, deployables, filterProperties);
 		}
 		DeployUtils.chown(channel, username, group, pathsToChown);
+	}
+
+	protected void doMonitoringJavaOpts(Properties filterProperties) {
+		if (!enableMonitoring) {
+			return;
+		}
+		String key = "setenv.env.content";
+		String value = filterProperties.getProperty(key);
+		if (value == null) {
+			value = "";
+		}
+		value += "\n" + monitoringJavaOpts;
+		filterProperties.setProperty(key, value);
 	}
 
 	@Override

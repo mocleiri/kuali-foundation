@@ -1,6 +1,5 @@
 package org.kuali.common.deploy;
 
-
 public class NoOpMonitoring implements Monitoring {
 
 	@Override
@@ -16,6 +15,11 @@ public class NoOpMonitoring implements Monitoring {
 	@Override
 	public void start() {
 		// nothing to do
+	}
+
+	@Override
+	public String getMonitoringJavaOpts() {
+		return null;
 	}
 
 }
