@@ -311,7 +311,7 @@ public class DeployConfig {
 		// Extract properties from the environment
 		Long overallTimeoutMillis = SpringUtils.getMillis(env, "http.timeout", "30m");
 		Long requestTimeoutMillis = SpringUtils.getMillis(env, "http.requestTimeout", "15s");
-		String url = SpringUtils.getProperty(env, "public.url");
+		String url = SpringUtils.getProperty(env, "http.url");
 		boolean skip = SpringUtils.getBoolean(env, "http.wait.skip", false);
 
 		// Setup the context
