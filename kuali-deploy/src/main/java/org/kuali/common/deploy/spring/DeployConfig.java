@@ -89,27 +89,30 @@ public class DeployConfig {
 		// /usr/local/tomcat/lib
 		String lib = SpringUtils.getProperty(env, "tomcat.lib");
 
-		List<String> deletes = new ArrayList<String>();
-		deletes.add(lib + "/mysql*.jar");
-		deletes.add(lib + "/ojdbc*.jar");
-		deletes.add(lib + "/classes12*.jar");
-		deletes.add(lib + "/orai18n*.jar");
-		deletes.add(SpringUtils.getProperty(env, "tomcat.setenv"));
-		deletes.add(SpringUtils.getProperty(env, "tomcat.home.org"));
-		deletes.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
-		deletes.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
-		deletes.add(SpringUtils.getProperty(env, "tomcat.logs"));
-		deletes.add(SpringUtils.getProperty(env, "tomcat.webapps"));
-		deletes.add(SpringUtils.getProperty(env, "tomcat.work"));
+		// rm -rf gets invoked on all of these
+		List<String> pathsToDelete = new ArrayList<String>();
+		pathsToDelete.add(lib + "/mysql*.jar");
+		pathsToDelete.add(lib + "/ojdbc*.jar");
+		pathsToDelete.add(lib + "/classes12*.jar");
+		pathsToDelete.add(lib + "/orai18n*.jar");
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.setenv"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.home.org"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.logs"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.webapps"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.work"));
 
+		// mkdir -p gets invoked on all of these
 		List<String> dirsToCreate = new ArrayList<String>();
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.webapps"));
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
 
-		List<String> dirsToChown = new ArrayList<String>();
-		dirsToChown.add(SpringUtils.getProperty(env, "tomcat.base"));
-		dirsToChown.add(SpringUtils.getProperty(env, "tomcat.home"));
+		// chown -L -R gets invoked on all of these
+		List<String> pathsToChown = new ArrayList<String>();
+		pathsToChown.add(SpringUtils.getProperty(env, "tomcat.base"));
+		pathsToChown.add(SpringUtils.getProperty(env, "tomcat.home"));
 
 		List<Deployable> deployables = new ArrayList<Deployable>();
 		deployables.add(getSetEnv());
@@ -123,9 +126,10 @@ public class DeployConfig {
 		dtc.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
 		dtc.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
 		dtc.setStartup(SpringUtils.getProperty(env, "tomcat.startup"));
-		dtc.setPathsToDelete(deletes);
+		dtc.setPathsToDelete(pathsToDelete);
 		dtc.setDirsToCreate(dirsToCreate);
 		dtc.setDeployables(deployables);
+		dtc.setPathsToChown(pathsToChown);
 		return dtc;
 	}
 
