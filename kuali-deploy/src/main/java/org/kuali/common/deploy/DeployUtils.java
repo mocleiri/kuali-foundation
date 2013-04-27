@@ -1,10 +1,12 @@
 package org.kuali.common.deploy;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.util.StringUtils;
@@ -14,11 +16,14 @@ import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.UnixProcess;
+import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.secure.RemoteFile;
 import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DeployUtils {
 
@@ -27,6 +32,46 @@ public class DeployUtils {
 	private static final String CMD = "CMD";
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 	private static final UnixCmds CMDS = new UnixCmds();
+	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+
+	public static void copyDeployables(SecureChannel channel, List<Deployable> deployables, Properties filterProperties) {
+		if (CollectionUtils.isEmpty(deployables)) {
+			return;
+		}
+		for (Deployable deployable : deployables) {
+			RemoteFile destination = new RemoteFile(deployable.getRemote());
+			String location = deployable.getLocal();
+			if (deployable.isFilter()) {
+				long start = System.currentTimeMillis();
+				String originalContent = LocationUtils.toString(location);
+				String resolvedContent = HELPER.replacePlaceholders(originalContent, filterProperties);
+				channel.copyStringToFile(resolvedContent, destination);
+				long elapsed = System.currentTimeMillis() - start;
+				Object[] args = { filterProperties.size(), location, destination.getAbsolutePath(), FormatUtils.getTime(elapsed) };
+				logger.info("Used {} properties to filter [{}] -> [{}] - {}", args);
+			} else {
+				long start = System.currentTimeMillis();
+				channel.copyLocationToFile(location, destination);
+				logCopy(location, destination.getAbsolutePath(), System.currentTimeMillis() - start);
+			}
+			if (deployable.getPermissions() != null) {
+				String path = deployable.getRemote();
+				String perms = deployable.getPermissions();
+				String command = CMDS.chmod(perms, path);
+				DeployUtils.executePathCommand(channel, command, path);
+			}
+		}
+	}
+
+	protected static void logCopy(String src, String dst, long elapsed) {
+		String rate = "";
+		if (LocationUtils.isExistingFile(src)) {
+			long bytes = new File(src).length();
+			rate = FormatUtils.getRate(elapsed, bytes);
+		}
+		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate };
+		logger.info("[{}] -> [{}] - {} {}", args);
+	}
 
 	/**
 	 * Return a list of any processes where the command exactly matches the command passed in.

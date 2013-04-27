@@ -1,19 +1,14 @@
 package org.kuali.common.deploy;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.secure.RemoteFile;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultFileSystem implements FileSystem {
@@ -42,47 +37,8 @@ public class DefaultFileSystem implements FileSystem {
 	@Override
 	public void prepare() {
 		DeployUtils.executePathCommand(channel, unixCmds.mkdirp(directoriesToCreate), directoriesToCreate);
-		copyDeployables();
+		// copyDeployables();
 		DeployUtils.executePathCommand(channel, unixCmds.chownr(Arrays.asList(TRAVERSE_SYMBOLIC_LINKS), owner, group, directoriesToChown), directoriesToChown);
-	}
-
-	protected void copyDeployables() {
-		if (CollectionUtils.isEmpty(deployables)) {
-			return;
-		}
-		for (Deployable deployable : deployables) {
-			RemoteFile destination = new RemoteFile(deployable.getRemote());
-			String location = deployable.getLocal();
-			if (deployable.isFilter()) {
-				long start = System.currentTimeMillis();
-				String originalContent = LocationUtils.toString(location);
-				String resolvedContent = helper.replacePlaceholders(originalContent, properties);
-				channel.copyStringToFile(resolvedContent, destination);
-				long elapsed = System.currentTimeMillis() - start;
-				Object[] args = { properties.size(), location, destination.getAbsolutePath(), FormatUtils.getTime(elapsed) };
-				logger.info("Used {} properties to filter [{}] -> [{}] - {}", args);
-			} else {
-				long start = System.currentTimeMillis();
-				channel.copyLocationToFile(location, destination);
-				logCopy(location, destination.getAbsolutePath(), System.currentTimeMillis() - start);
-			}
-			if (deployable.getPermissions() != null) {
-				String path = deployable.getRemote();
-				String perms = deployable.getPermissions();
-				String command = unixCmds.chmod(perms, path);
-				DeployUtils.executePathCommand(channel, command, path);
-			}
-		}
-	}
-
-	protected void logCopy(String src, String dst, long elapsed) {
-		String rate = "";
-		if (LocationUtils.isExistingFile(src)) {
-			long bytes = new File(src).length();
-			rate = FormatUtils.getRate(elapsed, bytes);
-		}
-		Object[] args = { src, dst, FormatUtils.getTime(elapsed), rate };
-		logger.info("[{}] -> [{}] - {} {}", args);
 	}
 
 	public UnixCmds getUnixCmds() {
