@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.secure.Result;
@@ -31,7 +32,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void stop() {
-		logger.info("Shutting down AppDynamics - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:shutdown] - {}", FormatUtils.getDate(new Date()));
 		List<UnixProcess> processes = getUnixProcesses(user);
 
 		// No existing processes, we are done
@@ -45,11 +46,11 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 		if (CollectionUtils.isEmpty(machineAgents)) {
 			// Nothing to do
-			logger.info("AppDynamics machine agent was not detected. Total running processes: {}", processes.size());
+			logger.info("  no machine agents detected. total running processes: [{}]", processes.size());
 		} else {
 			// Kill the machine agent process
 			for (UnixProcess machineAgent : machineAgents) {
-				logger.info("Stopping AppDynamics machine agent process - [{}]", machineAgent.getProcessId());
+				logger.info("  killing machine agent process - [{}]", machineAgent.getProcessId());
 				kill(machineAgent);
 			}
 		}
@@ -57,18 +58,18 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void prepare() {
-		logger.info("Preparing AppDynamics     - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(tmpDir, logDir);
-		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs);
-		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs);
-		ServiceUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs);
+		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs, LoggerLevel.DEBUG);
+		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs, LoggerLevel.DEBUG);
+		ServiceUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs, LoggerLevel.DEBUG);
 	}
 
 	@Override
 	public void start() {
-		logger.info("Starting AppDynamics      - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
 		String command = getCommand();
-		logger.info(command);
+		logger.debug(command);
 		channel.executeNoWait(command);
 	}
 
@@ -91,7 +92,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	protected void kill(UnixProcess process) {
 		String command = unixCmds.kill(process.getProcessId());
 		Result result = channel.executeCommand(command);
-		ServiceUtils.logResult(result, logger);
+		ServiceUtils.logResult(result, logger, LoggerLevel.DEBUG);
 		ServiceUtils.validateResult(result);
 	}
 

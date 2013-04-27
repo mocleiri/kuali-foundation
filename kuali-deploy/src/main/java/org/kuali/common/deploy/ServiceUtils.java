@@ -25,12 +25,16 @@ public class ServiceUtils {
 	}
 
 	public static void executePathCommand(SecureChannel channel, String command, List<String> paths) {
+		executePathCommand(channel, command, paths, LoggerLevel.INFO);
+	}
+
+	public static void executePathCommand(SecureChannel channel, String command, List<String> paths, LoggerLevel level) {
 		if (CollectionUtils.isEmpty(paths)) {
 			return;
 		}
 		Result result = channel.executeCommand(command);
-		ServiceUtils.logResult(result, logger);
-		ServiceUtils.validateResult(result);
+		logResult(result, logger, level);
+		validateResult(result);
 	}
 
 	public static List<String> getOutputLines(Result result) {
@@ -41,13 +45,17 @@ public class ServiceUtils {
 		}
 	}
 
-	public static void logResult(Result result, Logger logger) {
-		logger.info("[{}] - {}", result.getCommand(), FormatUtils.getTime(result.getElapsed()));
-		LoggerUtils.logLines(result.getStdout(), logger, LoggerLevel.INFO);
+	public static void logResult(Result result, Logger logger, LoggerLevel level) {
+		LoggerUtils.logLines("[" + result.getCommand() + "] - " + FormatUtils.getTime(result.getElapsed()), logger, level);
+		LoggerUtils.logLines(result.getStdout(), logger, level);
 		LoggerUtils.logLines(result.getStderr(), logger, LoggerLevel.WARN);
 		if (result.getExitValue() != 0) {
 			logger.warn("Exit value = {}", result.getExitValue());
 		}
+	}
+
+	public static void logResult(Result result, Logger logger) {
+		logResult(result, logger, LoggerLevel.INFO);
 	}
 
 	public static void validateResult(Result result) {
