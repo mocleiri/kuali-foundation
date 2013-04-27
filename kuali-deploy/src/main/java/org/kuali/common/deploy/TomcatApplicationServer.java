@@ -17,6 +17,7 @@ package org.kuali.common.deploy;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.secure.SecureChannel;
@@ -43,6 +44,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	List<Deployable> deployables;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
+	Properties filterProperties;
 
 	@Override
 	public void stop() {
@@ -55,7 +57,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 		DeployUtils.delete(channel, pathsToDelete);
 		DeployUtils.mkdirs(channel, dirsToCreate);
 		if (!skipFiles) {
-
+			DeployUtils.copyDeployables(channel, deployables, filterProperties);
 		}
 		DeployUtils.chown(channel, username, group, pathsToChown);
 	}
@@ -151,6 +153,14 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setSkipFiles(boolean skipFiles) {
 		this.skipFiles = skipFiles;
+	}
+
+	public Properties getFilterProperties() {
+		return filterProperties;
+	}
+
+	public void setFilterProperties(Properties filterProperties) {
+		this.filterProperties = filterProperties;
 	}
 
 }
