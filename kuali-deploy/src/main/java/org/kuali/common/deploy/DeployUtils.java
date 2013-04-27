@@ -40,6 +40,15 @@ public class DeployUtils {
 		return matches;
 	}
 
+	/**
+	 * Output looks like this:
+	 * 
+	 * <pre>
+	 *   UID        PID  PPID  C STIME TTY          TIME CMD
+	 * 	 tomcat   15461 15460  0 22:51 pts/0    00:00:00 -bash
+	 * 	 tomcat   15480 15461  0 22:52 pts/0    00:00:02 java -jar /usr/local/machine-agent/machineagent.jar
+	 * </pre>
+	 */
 	public static List<UnixProcess> getUnixProcesses(Result result) {
 		// Convert stdout to a list of strings
 		List<String> lines = DeployUtils.getOutputLines(result);
