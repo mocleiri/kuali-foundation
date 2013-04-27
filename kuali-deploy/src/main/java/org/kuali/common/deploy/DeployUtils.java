@@ -25,6 +25,7 @@ public class DeployUtils {
 	private static final Logger logger = LoggerFactory.getLogger(DeployUtils.class);
 
 	private static final String CMD = "CMD";
+	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 	private static final UnixCmds CMDS = new UnixCmds();
 
 	/**
@@ -141,6 +142,28 @@ public class DeployUtils {
 		Result result = channel.executeCommand(command);
 		return getUnixProcesses(result);
 
+	}
+
+	public static void runscript(SecureChannel channel, String username, String script) {
+		executeCommand(channel, CMDS.su(username, script), true);
+	}
+
+	public static void runscript(SecureChannel channel, String username, String script, boolean validateExitValue) {
+		executeCommand(channel, CMDS.su(username, script), validateExitValue);
+	}
+
+	public static void delete(SecureChannel channel, List<String> paths) {
+		executePathCommand(channel, CMDS.rmrf(paths), paths);
+	}
+
+	public static void mkdirs(SecureChannel channel, List<String> paths) {
+		executePathCommand(channel, CMDS.mkdirp(paths), paths);
+	}
+
+	public static void chown(SecureChannel channel, String owner, String group, List<String> paths) {
+		List<String> options = Arrays.asList(TRAVERSE_SYMBOLIC_LINKS);
+		String cmd = CMDS.chownr(options, owner, group, paths);
+		executePathCommand(channel, cmd, paths);
 	}
 
 	public static void executePathCommand(SecureChannel channel, String command, String path) {

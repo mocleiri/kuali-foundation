@@ -43,21 +43,27 @@ public class TomcatApplicationServer implements ApplicationServer {
 	List<String> pathsToChown;
 	// Files that need to be transferred
 	List<Deployable> deployables;
+	boolean skipFiles;
 
 	@Override
 	public void stop() {
 		logger.info("Shutting down Tomcat - {}", FormatUtils.getDate(new Date()));
-		DeployUtils.executeCommand(channel, cmds.su(username, shutdown), validateShutdownExitValue);
+		DeployUtils.runscript(channel, username, shutdown, false);
 	}
 
 	@Override
 	public void prepare() {
-		//
+		DeployUtils.delete(channel, pathsToDelete);
+		DeployUtils.mkdirs(channel, dirsToCreate);
+		if (!skipFiles) {
+
+		}
+		DeployUtils.chown(channel, username, group, pathsToChown);
 	}
 
 	@Override
 	public void start() {
-		DeployUtils.executeCommand(channel, cmds.su(username, startup), true);
+		DeployUtils.runscript(channel, username, shutdown, true);
 	}
 
 	public UnixCmds getCmds() {
@@ -146,6 +152,14 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setDeployables(List<Deployable> deployables) {
 		this.deployables = deployables;
+	}
+
+	public boolean isSkipFiles() {
+		return skipFiles;
+	}
+
+	public void setSkipFiles(boolean skipFiles) {
+		this.skipFiles = skipFiles;
 	}
 
 }
