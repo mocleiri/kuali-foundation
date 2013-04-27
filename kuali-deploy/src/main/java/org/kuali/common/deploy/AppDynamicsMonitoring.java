@@ -57,14 +57,14 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void prepare() {
-		logger.info("Preparing AppDynamics");
+		logger.info("Preparing AppDynamics - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(tmpDir, logDir);
 		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs);
 		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs);
 		ServiceUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs);
 	}
 
-	protected String getNoHup() {
+	protected String getCommand() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("su");
 		sb.append(" - ");
@@ -82,12 +82,10 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void start() {
-		logger.info("Starting AppDynamics");
-		String nohup = unixCmds.nohup(machineAgentCommand);
-		String su = unixCmds.su(user, nohup) + " &";
-		su = getNoHup();
-		logger.info(su);
-		channel.executeNoWait(su);
+		logger.info("Starting AppDynamics - {}", FormatUtils.getDate(new Date()));
+		String command = getCommand();
+		logger.info(command);
+		channel.executeNoWait(command);
 	}
 
 	protected void kill(UnixProcess process) {
