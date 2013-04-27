@@ -16,6 +16,7 @@
 package org.kuali.common.deploy;
 
 import java.util.Date;
+import java.util.List;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.UnixCmds;
@@ -35,8 +36,12 @@ public class TomcatApplicationServer implements ApplicationServer {
 	String group;
 	String shutdown;
 	String startup;
+	List<String> deleteDirs;
+	List<String> createDirs;
+	List<String> chownDirs;
 	// Tomcat automatically invokes - /usr/local/tomcat/bin/setenv.sh at startup
 	Deployable setenv;
+	List<Deployable> jsps;
 
 	@Override
 	public void stop() {
@@ -116,6 +121,46 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setGroup(String group) {
 		this.group = group;
+	}
+
+	public List<String> getDeleteDirs() {
+		return deleteDirs;
+	}
+
+	public void setDeleteDirs(List<String> deleteDirs) {
+		this.deleteDirs = deleteDirs;
+	}
+
+	public List<String> getCreateDirs() {
+		return createDirs;
+	}
+
+	public void setCreateDirs(List<String> createDirs) {
+		this.createDirs = createDirs;
+	}
+
+	public List<String> getChownDirs() {
+		return chownDirs;
+	}
+
+	public void setChownDirs(List<String> chownDirs) {
+		this.chownDirs = chownDirs;
+	}
+
+	public Deployable getSetenv() {
+		return setenv;
+	}
+
+	public void setSetenv(Deployable setenv) {
+		this.setenv = setenv;
+	}
+
+	public List<Deployable> getJsps() {
+		return jsps;
+	}
+
+	public void setJsps(List<Deployable> jsps) {
+		this.jsps = jsps;
 	}
 
 }
