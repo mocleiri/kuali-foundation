@@ -133,6 +133,7 @@ public class DeployConfig {
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
 		tomcat.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
+		tomcat.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
 		tomcat.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
 		tomcat.setStartup(SpringUtils.getProperty(env, "tomcat.startup"));
 		tomcat.setPathsToDelete(pathsToDelete);
