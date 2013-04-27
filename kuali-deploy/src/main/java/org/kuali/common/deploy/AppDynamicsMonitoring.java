@@ -32,7 +32,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void stop() {
-		logger.info("[appdynamics:shutdown] - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:stop] - {}", FormatUtils.getDate(new Date()));
 		List<UnixProcess> processes = getUnixProcesses(user);
 
 		// No existing processes, we are done
