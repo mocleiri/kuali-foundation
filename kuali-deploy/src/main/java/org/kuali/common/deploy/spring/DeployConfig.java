@@ -114,6 +114,7 @@ public class DeployConfig {
 		pathsToChown.add(SpringUtils.getProperty(env, "tomcat.base"));
 		pathsToChown.add(SpringUtils.getProperty(env, "tomcat.home"));
 
+		// Tomcat related files that get deployed
 		List<Deployable> deployables = new ArrayList<Deployable>();
 		deployables.add(getSetEnv());
 		deployables.addAll(getJsps());
@@ -121,6 +122,7 @@ public class DeployConfig {
 		deployables.add(getJdbcDriver());
 		deployables.add(getApplication());
 
+		// Setup Tomcat with what it needs to stop/prepare/start correctly
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
 		tomcat.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
