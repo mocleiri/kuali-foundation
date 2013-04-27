@@ -10,7 +10,7 @@
   <tier-name>${appdynamics.tierName}</tier-name>
   <!--
     Providing this caused java -jar machine-agent.jar to throw an error.
-    Machine Agent is smart enough to hook itself up correctly with Server Agent if both are running on the same server
+    Machine Agent is smart enough to figure out the correct node name automatically if Server Agent is running on the same server.
 
     <node-name>${dns.hostname}</node-name>
   -->
