@@ -1,12 +1,10 @@
 package org.kuali.common.deploy;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.UnixCmds;
@@ -39,7 +37,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		}
 
 		// Figure out if any of the running processes are machine agent
-		List<UnixProcess> machineAgents = getMachineAgents(processes, machineAgentCommand);
+		List<UnixProcess> machineAgents = DeployUtils.getMatchingProcesses(processes, machineAgentCommand);
 
 		if (CollectionUtils.isEmpty(machineAgents)) {
 			// Nothing to do
@@ -84,16 +82,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 		sb.append("&");
 		sb.append("'");
 		return sb.toString();
-	}
-
-	protected List<UnixProcess> getMachineAgents(List<UnixProcess> processes, String command) {
-		List<UnixProcess> machineAgents = new ArrayList<UnixProcess>();
-		for (UnixProcess process : processes) {
-			if (StringUtils.equals(process.getCommand(), command)) {
-				machineAgents.add(process);
-			}
-		}
-		return machineAgents;
 	}
 
 	public String getMachineAgentCommand() {

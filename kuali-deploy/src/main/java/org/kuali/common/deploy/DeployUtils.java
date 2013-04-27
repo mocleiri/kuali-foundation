@@ -27,6 +27,19 @@ public class DeployUtils {
 	private static final String CMD = "CMD";
 	private static final UnixCmds CMDS = new UnixCmds();
 
+	/**
+	 * Return a list of any processes where the command exactly matches the command passed in.
+	 */
+	public static List<UnixProcess> getMatchingProcesses(List<UnixProcess> processes, String command) {
+		List<UnixProcess> matches = new ArrayList<UnixProcess>();
+		for (UnixProcess process : processes) {
+			if (StringUtils.equals(process.getCommand(), command)) {
+				matches.add(process);
+			}
+		}
+		return matches;
+	}
+
 	public static List<UnixProcess> getUnixProcesses(Result result) {
 		// Convert stdout to a list of strings
 		List<String> lines = DeployUtils.getOutputLines(result);
