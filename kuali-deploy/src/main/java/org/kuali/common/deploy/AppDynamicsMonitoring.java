@@ -24,6 +24,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	UnixCmds unixCmds = new UnixCmds();
 	String machineAgentCommand;
 	String user;
+	String group;
 	SecureChannel channel;
 	String tmpDir;
 	String logDir;
@@ -58,6 +59,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		List<String> dirs = Arrays.asList(tmpDir, logDir);
 		ServiceUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs);
 		ServiceUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs);
+		ServiceUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs);
 	}
 
 	@Override
@@ -206,6 +208,14 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setLogDir(String logDir) {
 		this.logDir = logDir;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 }
