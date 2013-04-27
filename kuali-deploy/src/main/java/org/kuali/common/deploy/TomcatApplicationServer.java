@@ -41,6 +41,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	List<String> dirsToCreate;
 	// Can be either files or dirs
 	List<String> pathsToChown;
+	// Files that need to be transferred
 	List<Deployable> deployables;
 
 	@Override
