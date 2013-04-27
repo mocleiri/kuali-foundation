@@ -22,11 +22,11 @@ public class AppDynamicsMonitoring implements Monitoring {
 	private static final Logger logger = LoggerFactory.getLogger(AppDynamicsMonitoring.class);
 	private static final String CMD = "CMD";
 
+	SecureChannel channel;
 	UnixCmds unixCmds = new UnixCmds();
 	String machineAgentCommand;
 	String user;
 	String group;
-	SecureChannel channel;
 	String tmpDir;
 	String logDir;
 
