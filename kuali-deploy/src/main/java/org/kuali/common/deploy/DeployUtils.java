@@ -100,7 +100,7 @@ public class DeployUtils {
 		// The command starts where "CMD" starts in the header line
 		int pos = header.indexOf(CMD);
 		if (pos == -1) {
-			throw new IllegalStateException(line + " does not contain [" + CMD + "]");
+			throw new IllegalStateException("[" + line + "] does not contain [" + CMD + "]");
 		}
 		String command = StringUtils.trim(StringUtils.substring(line, pos));
 
