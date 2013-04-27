@@ -121,16 +121,16 @@ public class DeployConfig {
 		deployables.add(getJdbcDriver());
 		deployables.add(getApplication());
 
-		TomcatApplicationServer dtc = new TomcatApplicationServer();
-		dtc.setChannel(kdoSecureChannel());
-		dtc.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
-		dtc.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
-		dtc.setStartup(SpringUtils.getProperty(env, "tomcat.startup"));
-		dtc.setPathsToDelete(pathsToDelete);
-		dtc.setDirsToCreate(dirsToCreate);
-		dtc.setDeployables(deployables);
-		dtc.setPathsToChown(pathsToChown);
-		return dtc;
+		TomcatApplicationServer tomcat = new TomcatApplicationServer();
+		tomcat.setChannel(kdoSecureChannel());
+		tomcat.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
+		tomcat.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
+		tomcat.setStartup(SpringUtils.getProperty(env, "tomcat.startup"));
+		tomcat.setPathsToDelete(pathsToDelete);
+		tomcat.setDirsToCreate(dirsToCreate);
+		tomcat.setDeployables(deployables);
+		tomcat.setPathsToChown(pathsToChown);
+		return tomcat;
 	}
 
 	@Bean
