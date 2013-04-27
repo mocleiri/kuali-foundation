@@ -32,6 +32,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	boolean validateShutdownExitValue = false;
 	SecureChannel channel;
 	String username;
+	String group;
 	String shutdown;
 	String startup;
 
@@ -105,6 +106,14 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setStartup(String startup) {
 		this.startup = startup;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 }
