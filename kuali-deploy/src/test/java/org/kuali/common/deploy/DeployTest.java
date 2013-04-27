@@ -11,7 +11,6 @@ public class DeployTest {
 	@Test
 	public void test() {
 		try {
-			// System.setProperty("properties.resolve", "true");
 			System.setProperty("properties.decrypt", "true");
 			System.setProperty("deploy.env", "16");
 			System.setProperty("kdo.db.skip", "true");
