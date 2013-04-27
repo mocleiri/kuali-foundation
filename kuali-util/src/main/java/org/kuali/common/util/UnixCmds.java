@@ -29,6 +29,19 @@ public class UnixCmds {
 	private static final String HOSTNAME = "hostname";
 	private static final String PS = "ps";
 	private static final String KILL = "kill";
+	private static final String NOHUP = "nohup";
+
+	public String nohup(String command) {
+		return nohup(command, new ArrayList<String>());
+	}
+
+	public String nohup(String command, List<String> nohupArgs) {
+		Assert.hasText(command);
+		List<String> args = new ArrayList<String>();
+		args.add(command);
+		args.addAll(nohupArgs);
+		return cmd(NOHUP, args);
+	}
 
 	public String kill(int pid) {
 		return kill(Arrays.asList(pid));
