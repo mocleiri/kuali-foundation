@@ -57,4 +57,6 @@ public interface SecureChannel {
 
 	Result executeCommand(String command, String stdin);
 
+	void executeNoWait(String command);
+
 }
