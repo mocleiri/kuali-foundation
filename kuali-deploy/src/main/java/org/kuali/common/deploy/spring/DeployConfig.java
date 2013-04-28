@@ -84,8 +84,7 @@ public class DeployConfig {
 		return dsc;
 	}
 
-	@Bean
-	public ApplicationServer kdoApplicationServer() {
+	protected List<String> getTomcatDeletes() {
 		// /usr/local/tomcat/lib
 		String lib = SpringUtils.getProperty(env, "tomcat.lib");
 
@@ -102,26 +101,52 @@ public class DeployConfig {
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.webapps"));
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.work"));
+		return pathsToDelete;
+	}
 
+	protected List<String> getTomcatCreates() {
 		// mkdir -p gets invoked on all of these
 		List<String> dirsToCreate = new ArrayList<String>();
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.webapps"));
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		return dirsToCreate;
+	}
 
+	protected List<String> getTomcatChowns() {
 		// chown -L -R gets invoked on all of these
 		List<String> pathsToChown = new ArrayList<String>();
 		pathsToChown.add(SpringUtils.getProperty(env, "tomcat.base"));
 		pathsToChown.add(SpringUtils.getProperty(env, "tomcat.home"));
+		return pathsToChown;
+	}
 
+	protected List<Deployable> getTomcatDeployables() {
 		// Tomcat related files that get deployed
 		List<Deployable> deployables = new ArrayList<Deployable>();
 		deployables.add(getSetEnv());
 		deployables.addAll(getJsps());
 		deployables.add(getApplicationConfig());
 		deployables.add(getJdbcDriver());
+		return deployables;
+	}
 
-		// The war files can be quite large ~100mb's, add a simple flag to skip the overhead of the war file upload
+	@Bean
+	public ApplicationServer kdoApplicationServer() {
+		// rm -rf gets invoked on all of these
+		List<String> pathsToDelete = getTomcatDeletes();
+
+		// mkdir -p gets invoked on all of these
+		List<String> dirsToCreate = getTomcatCreates();
+
+		// chown -L -R gets invoked on all of these
+		List<String> pathsToChown = getTomcatChowns();
+
+		// Tomcat related files that get deployed
+		List<Deployable> deployables = getTomcatDeployables();
+
+		// The war files can be quite large ~100mb's
+		// This flag provides a simple way to skip the overhead of the war file upload
 		boolean skipWar = SpringUtils.getBoolean(env, "tomcat.war.skip", false);
 		if (!skipWar) {
 			deployables.add(getApplication());
@@ -136,6 +161,7 @@ public class DeployConfig {
 		// Setup Tomcat with what it needs to stop/prepare/start correctly
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
+		tomcat.setMonitoring(kdoMonitoring());
 		tomcat.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
 		tomcat.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
 		tomcat.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));

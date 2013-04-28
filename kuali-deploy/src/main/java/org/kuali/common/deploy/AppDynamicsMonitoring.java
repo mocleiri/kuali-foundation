@@ -1,6 +1,5 @@
 package org.kuali.common.deploy;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -54,10 +53,10 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void prepare() {
 		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
-		List<String> dirs = Arrays.asList(tmpDir, logDir);
-		DeployUtils.delete(channel, dirs);
-		DeployUtils.mkdirs(channel, dirs);
-		DeployUtils.chown(channel, user, group, dirs);
+		// List<String> dirs = Arrays.asList(tmpDir, logDir);
+		// DeployUtils.delete(channel, dirs);
+		// DeployUtils.mkdirs(channel, dirs);
+		// DeployUtils.chown(channel, user, group, dirs);
 	}
 
 	@Override
