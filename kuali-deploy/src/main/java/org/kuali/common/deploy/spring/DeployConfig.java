@@ -8,13 +8,12 @@ import java.util.Properties;
 import org.kuali.common.deploy.AppDynamicsMonitoring;
 import org.kuali.common.deploy.ApplicationServer;
 import org.kuali.common.deploy.DefaultDeployService;
-import org.kuali.common.deploy.DefaultFileSystem;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
-import org.kuali.common.deploy.FileSystem;
 import org.kuali.common.deploy.MachineAgent;
 import org.kuali.common.deploy.Monitoring;
+import org.kuali.common.deploy.ServerAgent;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
@@ -217,18 +216,18 @@ public class DeployConfig {
 		return d;
 	}
 
-	protected Deployable getServerAgentConfig() {
+	protected Deployable getMachineAgentController() {
 		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
-		d.setLocal(SpringUtils.getProperty(env, "appdynamics.sa.controller.local"));
+		d.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
+		d.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
 		d.setFilter(true);
 		return d;
 	}
 
-	protected Deployable getMachineAgentConfig() {
+	protected Deployable getServerAgentController() {
 		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
-		d.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
+		d.setRemote(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
+		d.setLocal(SpringUtils.getProperty(env, "appdynamics.sa.controller.local"));
 		d.setFilter(true);
 		return d;
 	}
@@ -304,35 +303,6 @@ public class DeployConfig {
 	}
 
 	@Bean
-	public List<Deployable> kdoDeployables() {
-		List<Deployable> list = new ArrayList<Deployable>();
-		list.add(getSetEnv());
-		list.add(getServerAgentConfig());
-		list.add(getMachineAgentConfig());
-		// list.add(kdoJspEnv());
-		// list.add(kdoJspTail());
-		list.add(getApplicationConfig());
-		list.add(getJdbcDriver());
-		list.add(getApplication());
-		return list;
-	}
-
-	@Bean
-	public FileSystem kdoFileSystemHandler() {
-		DefaultFileSystem h = new DefaultFileSystem();
-		h.setChannel(kdoSecureChannel());
-		h.setFilesToDelete(kdoFilesToDelete());
-		h.setDirectoriesToDelete(kdoDirectoriesToDelete());
-		h.setDirectoriesToCreate(kdoDirectoriesToCreate());
-		h.setDirectoriesToChown(kdoDirectoriesToChown());
-		h.setDeployables(kdoDeployables());
-		h.setProperties(SpringUtils.getAllEnumerableProperties(env));
-		h.setOwner(SpringUtils.getProperty(env, "tomcat.owner"));
-		h.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
-		return h;
-	}
-
-	@Bean
 	public Executable kdoHttpWaitExecutable() {
 		// Extract properties from the environment
 		Long overallTimeoutMillis = SpringUtils.getMillis(env, "http.overallTimeout", "30m");
@@ -354,16 +324,20 @@ public class DeployConfig {
 	}
 
 	protected MachineAgent getMachineAgent() {
-		Deployable controller = new Deployable();
-		controller.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
-		controller.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
-		controller.setFilter(true);
-
 		MachineAgent agent = new MachineAgent();
 		agent.setStartupCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
+		agent.setBaseDir(SpringUtils.getProperty(env, "appdynamics.ma.base"));
 		agent.setTmpDir(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
 		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
-		agent.setController(controller);
+		agent.setController(getMachineAgentController());
+		return agent;
+	}
+
+	protected ServerAgent getServerAgent() {
+		ServerAgent agent = new ServerAgent();
+		agent.setBaseDir(SpringUtils.getProperty(env, "appdynamics.sa.base"));
+		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.sa.logs"));
+		agent.setController(getServerAgentController());
 		return agent;
 	}
 
@@ -374,6 +348,7 @@ public class DeployConfig {
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
 		adm.setChannel(kdoSecureChannel());
 		adm.setMachineAgent(getMachineAgent());
+		adm.setServerAgent(getServerAgent());
 		adm.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		adm.setEnabled(enabled);
 		return adm;
@@ -386,7 +361,6 @@ public class DeployConfig {
 		dds.setMonitoring(kdoMonitoring());
 		dds.setAppServer(kdoApplicationServer());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
-		dds.setFileSystem(kdoFileSystemHandler());
 		dds.setContext(getDeployContext());
 		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
 		return dds;
