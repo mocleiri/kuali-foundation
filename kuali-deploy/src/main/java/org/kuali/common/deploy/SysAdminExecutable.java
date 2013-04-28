@@ -31,6 +31,7 @@ public class SysAdminExecutable implements Executable {
 		long begin = System.currentTimeMillis();
 		logger.info("[sysadmin:begin] - {}", FormatUtils.getDate(new Date(begin)));
 		for (String command : commands) {
+			logger.info(command);
 			channel.executeCommand(command);
 		}
 		long end = System.currentTimeMillis();
