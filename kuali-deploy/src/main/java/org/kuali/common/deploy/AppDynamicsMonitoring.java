@@ -62,6 +62,10 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void start() {
+		if (!enabled) {
+			logger.info("[appdynamics:start]    - skipping startup, monitoring is not enabled");
+			return;
+		}
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
 		String command = DeployUtils.getAppDynamicsMachineAgentStartupCommand(user, machineAgentCommand);
 		logger.debug(command);
