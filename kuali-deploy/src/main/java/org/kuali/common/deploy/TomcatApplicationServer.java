@@ -64,7 +64,8 @@ public class TomcatApplicationServer implements ApplicationServer {
 		DeployUtils.mkdirs(channel, dirsToCreate);
 		// Copy files to the remote server
 		if (!skipFiles) {
-			// If monitoring is turned on we need to alter some of the Tomcat startup options
+			// If monitoring is turned on we need to alter a property used when filtering setenv.sh so it includes
+			// monitoring related java startup options
 			if (monitoring.isEnabled()) {
 				PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + monitoring.getJavaStartupOptions());
 			}
