@@ -40,6 +40,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		if (CollectionUtils.isEmpty(machineAgents)) {
 			// Nothing to do
 			logger.info("  no machine agents detected. total running processes - {}", processes.size());
+			return;
 		} else {
 			// Kill the machine agent process
 			for (UnixProcess machineAgent : machineAgents) {
