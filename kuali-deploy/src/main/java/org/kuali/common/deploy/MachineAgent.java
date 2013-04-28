@@ -3,6 +3,7 @@ package org.kuali.common.deploy;
 public class MachineAgent {
 
 	String startupCommand;
+	String baseDir;
 	String tmpDir;
 	String logsDir;
 	Deployable controller;
@@ -37,6 +38,14 @@ public class MachineAgent {
 
 	public void setController(Deployable controller) {
 		this.controller = controller;
+	}
+
+	public String getBaseDir() {
+		return baseDir;
+	}
+
+	public void setBaseDir(String baseDir) {
+		this.baseDir = baseDir;
 	}
 
 }
