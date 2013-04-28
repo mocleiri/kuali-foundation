@@ -19,7 +19,6 @@ import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.util.Artifact;
-import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.ArtifactFilenameFactoryBean;
@@ -173,40 +172,8 @@ public class DeployConfig {
 		tomcat.setPathsToChown(pathsToChown);
 		tomcat.setSkipFiles(skipFiles);
 		tomcat.setFilterProperties(kdoFilterProperties());
-		tomcat.setHttpWait(kdoHttpWaitExecutable());
+		tomcat.setHttpWait(getHttpWaitExecutable());
 		return tomcat;
-	}
-
-	@Bean
-	public List<String> kdoFilesToDelete() {
-		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
-		list.add(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
-		return list;
-	}
-
-	@Bean
-	public List<String> kdoDirectoriesToDelete() {
-		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
-		list.add(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
-		return list;
-	}
-
-	@Bean
-	public List<String> kdoDirectoriesToCreate() {
-		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
-		list.add(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
-		return list;
-	}
-
-	@Bean
-	public List<String> kdoDirectoriesToChown() {
-		List<String> list = new ArrayList<String>();
-		list.add(SpringUtils.getProperty(env, "appdynamics.sa.base"));
-		list.add(SpringUtils.getProperty(env, "appdynamics.ma.base"));
-		return list;
 	}
 
 	protected Deployable getSetEnv() {
@@ -304,8 +271,7 @@ public class DeployConfig {
 		return d;
 	}
 
-	@Bean
-	public Executable kdoHttpWaitExecutable() {
+	protected HttpWaitExecutable getHttpWaitExecutable() {
 		// Extract properties from the environment
 		Long overallTimeoutMillis = SpringUtils.getMillis(env, "http.overallTimeout", "30m");
 		Long requestTimeoutMillis = SpringUtils.getMillis(env, "http.requestTimeout", "15s");
