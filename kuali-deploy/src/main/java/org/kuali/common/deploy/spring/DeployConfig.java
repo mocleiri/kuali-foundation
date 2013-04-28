@@ -13,6 +13,7 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystem;
+import org.kuali.common.deploy.MachineAgent;
 import org.kuali.common.deploy.Monitoring;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
@@ -352,13 +353,27 @@ public class DeployConfig {
 		return executable;
 	}
 
+	protected MachineAgent getMachineAgent() {
+		Deployable controller = new Deployable();
+		controller.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
+		controller.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
+		controller.setFilter(true);
+
+		MachineAgent agent = new MachineAgent();
+		agent.setStartupCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
+		agent.setTmpDir(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
+		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
+		agent.setController(controller);
+		return agent;
+	}
+
 	@Bean
 	public Monitoring kdoMonitoring() {
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
 		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
-		adm.setMachineAgentCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
 		adm.setChannel(kdoSecureChannel());
+		adm.setMachineAgent(getMachineAgent());
 		adm.setJavaStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		adm.setEnabled(enabled);
 		return adm;

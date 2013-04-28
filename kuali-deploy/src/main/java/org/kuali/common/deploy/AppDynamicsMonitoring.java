@@ -12,18 +12,16 @@ public class AppDynamicsMonitoring implements Monitoring {
 	private static final Logger logger = LoggerFactory.getLogger(AppDynamicsMonitoring.class);
 
 	SecureChannel channel;
-	String machineAgentCommand;
+	MachineAgent machineAgent;
 	String user;
 	String group;
-	String tmpDir;
-	String logDir;
 	String javaStartupOptions;
 	boolean enabled;
 
 	@Override
 	public void stop() {
 		logger.info("[appdynamics:stop] - {}", FormatUtils.getDate(new Date()));
-		DeployUtils.killProcesses(channel, user, machineAgentCommand, "machine agent");
+		DeployUtils.killProcesses(channel, user, machineAgent.getStartupCommand(), "machine agent");
 	}
 
 	@Override
@@ -42,17 +40,9 @@ public class AppDynamicsMonitoring implements Monitoring {
 			return;
 		}
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
-		String command = DeployUtils.getAppDynamicsMachineAgentStartupCommand(user, machineAgentCommand);
+		String command = DeployUtils.getAppDynamicsMachineAgentStartupCommand(user, machineAgent.getStartupCommand());
 		logger.debug(command);
 		channel.executeNoWait(command);
-	}
-
-	public String getMachineAgentCommand() {
-		return machineAgentCommand;
-	}
-
-	public void setMachineAgentCommand(String machineAgentCommand) {
-		this.machineAgentCommand = machineAgentCommand;
 	}
 
 	public String getUser() {
@@ -69,22 +59,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setChannel(SecureChannel channel) {
 		this.channel = channel;
-	}
-
-	public String getTmpDir() {
-		return tmpDir;
-	}
-
-	public void setTmpDir(String tmpDir) {
-		this.tmpDir = tmpDir;
-	}
-
-	public String getLogDir() {
-		return logDir;
-	}
-
-	public void setLogDir(String logDir) {
-		this.logDir = logDir;
 	}
 
 	public String getGroup() {
@@ -111,6 +85,14 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public MachineAgent getMachineAgent() {
+		return machineAgent;
+	}
+
+	public void setMachineAgent(MachineAgent machineAgent) {
+		this.machineAgent = machineAgent;
 	}
 
 }

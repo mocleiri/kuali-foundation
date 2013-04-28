@@ -22,9 +22,7 @@ public class AppDynamicsMonitoringTest {
 			AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 			adm.setUser("tomcat");
 			adm.setGroup("tomcat");
-			adm.setTmpDir("/usr/local/machine-agent/tmp");
-			adm.setLogDir("/usr/local/machine-agent/logs");
-			adm.setMachineAgentCommand("java -jar /usr/local/machine-agent/machineagent.jar");
+			adm.setMachineAgent(getMachineAgent());
 			adm.setChannel(channel);
 
 			channel.open();
@@ -36,6 +34,14 @@ public class AppDynamicsMonitoringTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected MachineAgent getMachineAgent() {
+		MachineAgent agent = new MachineAgent();
+		agent.setTmpDir("/usr/local/machine-agent/tmp");
+		agent.setLogsDir("/usr/local/machine-agent/logs");
+		agent.setStartupCommand("java -jar /usr/local/machine-agent/machineagent.jar");
+		return agent;
 	}
 
 	protected List<String> getPrivateKeys() {
