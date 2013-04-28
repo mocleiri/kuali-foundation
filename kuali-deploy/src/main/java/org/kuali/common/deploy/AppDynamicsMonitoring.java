@@ -43,7 +43,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
 		if (enabled) {
-			PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", appServerStartupOptions);
+			PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + appServerStartupOptions);
 			String value = filterProperties.getProperty("setenv.env.content");
 			logger.info("setenv.env.content=" + value);
 		}
