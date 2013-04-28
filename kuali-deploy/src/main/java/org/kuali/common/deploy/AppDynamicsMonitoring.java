@@ -98,7 +98,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 		this.group = group;
 	}
 
-	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
