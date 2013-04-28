@@ -14,7 +14,6 @@ import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.FileSystem;
 import org.kuali.common.deploy.Monitoring;
-import org.kuali.common.deploy.NoOpMonitoring;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
@@ -330,16 +329,13 @@ public class DeployConfig {
 	@Bean
 	public Monitoring kdoMonitoring() {
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
-		if (enabled) {
-			AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
-			adm.setMachineAgentCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
-			adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
-			adm.setChannel(kdoSecureChannel());
-			adm.setMonitoringJavaOpts(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
-			return adm;
-		} else {
-			return new NoOpMonitoring();
-		}
+		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
+		adm.setMachineAgentCommand(SpringUtils.getProperty(env, "appdynamics.ma.cmd"));
+		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
+		adm.setChannel(kdoSecureChannel());
+		adm.setJavaStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
+		adm.setEnabled(enabled);
+		return adm;
 	}
 
 	@Bean(initMethod = "deploy")

@@ -21,7 +21,8 @@ public class AppDynamicsMonitoring implements Monitoring {
 	String group;
 	String tmpDir;
 	String logDir;
-	String monitoringJavaOpts;
+	String javaStartupOptions;
+	boolean enabled;
 
 	@Override
 	public void stop() {
@@ -117,11 +118,20 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public String getJavaStartupOptions() {
-		return monitoringJavaOpts;
+		return javaStartupOptions;
 	}
 
-	public void setMonitoringJavaOpts(String monitoringJavaOpts) {
-		this.monitoringJavaOpts = monitoringJavaOpts;
+	public void setJavaStartupOptions(String javaStartupOptions) {
+		this.javaStartupOptions = javaStartupOptions;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }
