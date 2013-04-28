@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,15 +50,19 @@ public class TomcatApplicationServer implements ApplicationServer {
 	boolean skipFiles;
 	// Controls any monitoring that goes on in the environment where the app is being deployed
 	Monitoring monitoring;
+	// The signal that tomcat has started up correctly is getting an HTTP 200 from an application url
+	Executable httpWait;
 
 	@Override
 	public void stop() {
-		logger.info("Shutting down Tomcat - {}", FormatUtils.getDate(new Date()));
+		logger.info("[tomcat:stop] - {}", FormatUtils.getDate(new Date()));
 		DeployUtils.runscript(channel, username, shutdown, false);
+		logger.info("[tomcat:stopped] - {}", FormatUtils.getDate(new Date()));
 	}
 
 	@Override
 	public void prepare() {
+		logger.info("[tomcat:prepare] - {}", FormatUtils.getDate(new Date()));
 		// Remove old stuff (jdbc drivers, logs, applications, configuration files in /home/tomcat etc)
 		DeployUtils.delete(channel, pathsToDelete);
 		// Re-create directories that need to be there
@@ -74,11 +79,15 @@ public class TomcatApplicationServer implements ApplicationServer {
 		}
 		// Make sure everything is owned by tomcat:tomcat
 		DeployUtils.chown(channel, username, group, pathsToChown);
+		logger.info("[tomcat:prepared] - {}", FormatUtils.getDate(new Date()));
 	}
 
 	@Override
 	public void start() {
+		logger.info("[tomcat:start] - {}", FormatUtils.getDate(new Date()));
 		DeployUtils.runscript(channel, username, startup);
+		httpWait.execute();
+		logger.info("[tomcat:started] - {}", FormatUtils.getDate(new Date()));
 	}
 
 	public boolean isValidateShutdownExitValue() {
@@ -183,6 +192,14 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setMonitoring(Monitoring monitoring) {
 		this.monitoring = monitoring;
+	}
+
+	public Executable getHttpWait() {
+		return httpWait;
+	}
+
+	public void setHttpWait(Executable httpWait) {
+		this.httpWait = httpWait;
 	}
 
 }
