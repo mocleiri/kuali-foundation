@@ -44,6 +44,7 @@ import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -59,6 +60,16 @@ public class PropertyUtils {
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static void appendToOrSetProperty(Properties properties, String key, String value) {
+		Assert.hasText(value);
+		String existingValue = properties.getProperty(key);
+		if (existingValue == null) {
+			existingValue = "";
+		}
+		String newValue = existingValue + value;
+		properties.setProperty(key, newValue);
+	}
 
 	public static Properties load(List<ProjectProperties> pps) {
 
