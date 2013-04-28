@@ -21,7 +21,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void stop() {
 		logger.info("[appdynamics:stop] - {}", FormatUtils.getDate(new Date()));
-		DeployUtils.killProcesses(channel, user, machineAgent.getStartupCommand(), "machine agent");
+		DeployUtils.killMatchingProcesses(channel, user, machineAgent.getStartupCommand(), "machine agent");
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 			return;
 		}
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
-		String command = DeployUtils.getAppDynamicsMachineAgentStartupCommand(user, machineAgent.getStartupCommand());
+		String command = DeployUtils.getNohupBackgroundProcessCommand(user, machineAgent.getStartupCommand());
 		logger.debug(command);
 		channel.executeNoWait(command);
 	}

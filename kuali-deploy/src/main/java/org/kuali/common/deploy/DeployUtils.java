@@ -34,7 +34,7 @@ public class DeployUtils {
 	private static final UnixCmds CMDS = new UnixCmds();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
-	public static void killProcesses(SecureChannel channel, String user, String cmd, String msg) {
+	public static void killMatchingProcesses(SecureChannel channel, String user, String cmd, String msg) {
 		List<UnixProcess> processes = DeployUtils.getUnixProcesses(channel, user);
 
 		// No existing processes, we are done
@@ -59,7 +59,7 @@ public class DeployUtils {
 		}
 	}
 
-	public static String getAppDynamicsMachineAgentStartupCommand(String user, String cmd) {
+	public static String getNohupBackgroundProcessCommand(String user, String cmd) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("su");
 		sb.append(" - ");
