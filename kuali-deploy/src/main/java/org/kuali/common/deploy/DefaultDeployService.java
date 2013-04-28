@@ -14,6 +14,7 @@ public class DefaultDeployService implements DeployService {
 
 	DeployContext context;
 	SecureChannel channel;
+	Executable systemAdministration;
 	Monitoring monitoring;
 	ApplicationServer appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
@@ -36,10 +37,9 @@ public class DefaultDeployService implements DeployService {
 			channel.open();
 			monitoring.stop();
 			appServer.stop();
-			// databaseResetExecutable.execute();
-			// fileSystem.clean();
+			systemAdministration.execute();
+			databaseResetExecutable.execute();
 			monitoring.prepare();
-			// fileSystem.prepare();
 			monitoring.start();
 			appServer.prepare();
 			appServer.start();
@@ -88,6 +88,14 @@ public class DefaultDeployService implements DeployService {
 
 	public void setMonitoring(Monitoring monitoring) {
 		this.monitoring = monitoring;
+	}
+
+	public Executable getSystemAdministration() {
+		return systemAdministration;
+	}
+
+	public void setSystemAdministration(Executable systemAdministration) {
+		this.systemAdministration = systemAdministration;
 	}
 
 }
