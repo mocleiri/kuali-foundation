@@ -35,7 +35,7 @@ public class DeployUtils {
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	public static void killMatchingProcesses(SecureChannel channel, String user, String cmd, String msg) {
-		List<UnixProcess> processes = DeployUtils.getUnixProcesses(channel, user);
+		List<UnixProcess> processes = getUnixProcesses(channel, user);
 
 		// No existing processes, we are done
 		if (processes.size() == 0) {
