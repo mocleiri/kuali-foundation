@@ -19,7 +19,7 @@ public class NoOpMonitoring implements Monitoring {
 
 	@Override
 	public String getJavaStartupOptions() {
-		return null;
+		return "";
 	}
 
 }
