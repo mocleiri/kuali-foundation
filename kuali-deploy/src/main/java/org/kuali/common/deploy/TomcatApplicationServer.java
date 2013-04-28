@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 public class TomcatApplicationServer implements ApplicationServer {
 
@@ -47,6 +47,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	Properties filterProperties;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
+	// Controls any monitoring that goes on in the environment where the app is being deployed
 	Monitoring monitoring;
 
 	@Override
@@ -57,27 +58,21 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	@Override
 	public void prepare() {
+		// Remove old stuff (jdbc drivers, logs, applications, configuration files in /home/tomcat etc)
 		DeployUtils.delete(channel, pathsToDelete);
+		// Re-create directories that need to be there
 		DeployUtils.mkdirs(channel, dirsToCreate);
+		// Copy files to the remote server
 		if (!skipFiles) {
-			doMonitoringJavaOpts(filterProperties);
+			// If monitoring is turned on we need to alter some of the Tomcat startup options
+			if (monitoring.isEnabled()) {
+				PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + monitoring.getJavaStartupOptions());
+			}
+			// Copy files from local to remote
 			DeployUtils.copyFiles(channel, deployables, filterProperties);
 		}
+		// Make sure everything is owned by tomcat:tomcat
 		DeployUtils.chown(channel, username, group, pathsToChown);
-	}
-
-	protected void doMonitoringJavaOpts(Properties filterProperties) {
-		if (!monitoring.isEnabled()) {
-			return;
-		}
-		Assert.hasText(monitoring.getJavaStartupOptions());
-		String key = "setenv.env.content";
-		String value = filterProperties.getProperty(key);
-		if (value == null) {
-			value = "";
-		}
-		value += "\n" + monitoring.getJavaStartupOptions();
-		filterProperties.setProperty(key, value);
 	}
 
 	@Override
