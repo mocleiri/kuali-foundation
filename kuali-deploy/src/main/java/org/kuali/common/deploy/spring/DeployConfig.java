@@ -149,7 +149,7 @@ public class DeployConfig {
 		List<Deployable> deployables = getTomcatDeployables();
 
 		// The war files can be quite large ~100mb's
-		// This flag provides a simple way to skip the overhead of the war file upload
+		// This flag provides a simple way to skip the overhead of uploading a war file
 		boolean skipWar = SpringUtils.getBoolean(env, "tomcat.war.skip", false);
 		if (!skipWar) {
 			deployables.add(getApplication());
