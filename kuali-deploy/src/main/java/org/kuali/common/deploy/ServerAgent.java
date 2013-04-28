@@ -2,18 +2,9 @@ package org.kuali.common.deploy;
 
 public class ServerAgent {
 
-	String javaStartupOptions;
 	Deployable controller;
 	String baseDir;
 	String logsDir;
-
-	public String getJavaStartupOptions() {
-		return javaStartupOptions;
-	}
-
-	public void setJavaStartupOptions(String javaStartupOptions) {
-		this.javaStartupOptions = javaStartupOptions;
-	}
 
 	public Deployable getController() {
 		return controller;
