@@ -30,7 +30,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 		// No existing processes, we are done
 		if (processes.size() == 0) {
-			logger.info("No running processes for user [{}]", user);
+			logger.info("  no running processes for user [{}]", user);
 			return;
 		}
 
@@ -62,7 +62,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void start() {
 		if (!enabled) {
-			logger.info("[appdynamics:start]    - skipping startup, monitoring is not enabled");
+			logger.info("[appdynamics:start]    - monitoring is not enabled");
 			return;
 		}
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
