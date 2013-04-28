@@ -1,5 +1,6 @@
 package org.kuali.common.deploy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -33,10 +34,13 @@ public class AppDynamicsMonitoring implements Monitoring {
 	public void prepare() {
 		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(machineAgent.getLogsDir(), machineAgent.getTmpDir(), serverAgent.getLogsDir());
+		List<String> chownDirs = new ArrayList<String>();
+		chownDirs.addAll(dirs);
+		chownDirs.add(machineAgent.getBaseDir());
+		chownDirs.add(serverAgent.getBaseDir());
 		DeployUtils.delete(channel, dirs);
 		DeployUtils.mkdirs(channel, dirs);
-		DeployUtils.chown(channel, user, group, dirs);
-		DeployUtils.chown(channel, user, group, Arrays.asList(machineAgent.getBaseDir(), serverAgent.getBaseDir()));
+		DeployUtils.chown(channel, user, group, chownDirs);
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
 	}
