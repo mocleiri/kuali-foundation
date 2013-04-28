@@ -17,7 +17,6 @@ public class DefaultDeployService implements DeployService {
 	Monitoring monitoring;
 	ApplicationServer appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
-	FileSystem fileSystem;
 	Executable httpWaitExecutable = new NoOpExecutable();
 
 	@Override
@@ -25,7 +24,6 @@ public class DefaultDeployService implements DeployService {
 		Assert.notNull(context);
 		Assert.notNull(channel);
 		Assert.notNull(appServer);
-		Assert.notNull(fileSystem);
 		try {
 			logger.info("---------------- Deploy Application ----------------");
 			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getHostname());
@@ -68,14 +66,6 @@ public class DefaultDeployService implements DeployService {
 
 	public void setChannel(SecureChannel channel) {
 		this.channel = channel;
-	}
-
-	public FileSystem getFileSystem() {
-		return fileSystem;
-	}
-
-	public void setFileSystem(FileSystem handler) {
-		this.fileSystem = handler;
 	}
 
 	public DeployContext getContext() {
