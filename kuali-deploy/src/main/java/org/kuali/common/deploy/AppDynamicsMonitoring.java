@@ -35,16 +35,21 @@ public class AppDynamicsMonitoring implements Monitoring {
 	public void prepare() {
 		logger.info("[appdynamics:prepare] - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(machineAgent.getLogsDir(), machineAgent.getTmpDir(), serverAgent.getLogsDir());
-		List<String> chownDirs = new ArrayList<String>();
-		chownDirs.addAll(dirs);
-		chownDirs.add(machineAgent.getBaseDir());
-		chownDirs.add(serverAgent.getBaseDir());
+		List<String> chownDirs = getChownDirs(dirs);
 		DeployUtils.delete(channel, dirs);
 		DeployUtils.mkdirs(channel, dirs);
 		DeployUtils.chown(channel, user, group, chownDirs);
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
 		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
+	}
+
+	protected List<String> getChownDirs(List<String> dirs) {
+		List<String> chownDirs = new ArrayList<String>();
+		chownDirs.addAll(dirs);
+		chownDirs.add(machineAgent.getBaseDir());
+		chownDirs.add(serverAgent.getBaseDir());
+		return chownDirs;
 	}
 
 	@Override
