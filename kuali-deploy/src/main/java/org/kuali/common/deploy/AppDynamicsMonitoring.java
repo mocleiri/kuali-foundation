@@ -44,6 +44,8 @@ public class AppDynamicsMonitoring implements Monitoring {
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
 		if (enabled) {
 			PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", appServerStartupOptions);
+			String value = filterProperties.getProperty("setenv.env.content");
+			logger.info("setenv.env.content=" + value);
 		}
 		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
 	}
