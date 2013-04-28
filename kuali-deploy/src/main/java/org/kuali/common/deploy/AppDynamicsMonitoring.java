@@ -142,7 +142,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	}
 
 	@Override
-	public String getMonitoringJavaOpts() {
+	public String getJavaStartupOptions() {
 		return monitoringJavaOpts;
 	}
 

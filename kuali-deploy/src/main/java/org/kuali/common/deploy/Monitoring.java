@@ -8,6 +8,6 @@ public interface Monitoring {
 
 	void start();
 
-	String getMonitoringJavaOpts();
+	String getJavaStartupOptions();
 
 }
