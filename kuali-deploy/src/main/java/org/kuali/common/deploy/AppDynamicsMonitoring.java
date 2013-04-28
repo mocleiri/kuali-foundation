@@ -28,6 +28,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	public void stop() {
 		logger.info("[appdynamics:stop] - {}", FormatUtils.getDate(new Date()));
 		DeployUtils.killMatchingProcesses(channel, user, machineAgent.getStartupCommand(), "machine agent");
+		logger.info("[appdynamics:stopped] - {}", FormatUtils.getDate(new Date()));
 	}
 
 	@Override
@@ -43,12 +44,13 @@ public class AppDynamicsMonitoring implements Monitoring {
 		DeployUtils.chown(channel, user, group, chownDirs);
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
+		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
 	}
 
 	@Override
 	public void start() {
 		if (!enabled) {
-			logger.info("[appdynamics:start]    - monitoring is not enabled");
+			logger.info("[appdynamics:start]    - (skipped) - monitoring is not enabled");
 			return;
 		}
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
@@ -59,6 +61,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		String command = DeployUtils.getNohupBackgroundProcessCommand(user, machineAgent.getStartupCommand());
 		logger.info(command);
 		channel.executeNoWait(command);
+		logger.info("[appdynamics:started]    - {}", FormatUtils.getDate(new Date()));
 	}
 
 	public String getUser() {
