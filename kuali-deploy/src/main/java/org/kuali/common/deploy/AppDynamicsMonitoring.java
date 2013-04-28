@@ -1,11 +1,8 @@
 package org.kuali.common.deploy;
 
 import java.util.Date;
-import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,28 +23,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void stop() {
 		logger.info("[appdynamics:stop] - {}", FormatUtils.getDate(new Date()));
-		List<UnixProcess> processes = DeployUtils.getUnixProcesses(channel, user);
-
-		// No existing processes, we are done
-		if (processes.size() == 0) {
-			logger.info("  no running processes for user [{}]", user);
-			return;
-		}
-
-		// Figure out if any of the running processes are machine agent
-		List<UnixProcess> machineAgents = DeployUtils.getMatchingProcesses(processes, machineAgentCommand);
-
-		if (CollectionUtils.isEmpty(machineAgents)) {
-			// Nothing to do
-			logger.info("  no machine agents detected. total running processes - {}", processes.size());
-			return;
-		} else {
-			// Kill the machine agent process
-			for (UnixProcess machineAgent : machineAgents) {
-				logger.info("  killing machine agent - [{}]", machineAgent.getProcessId());
-				DeployUtils.kill(channel, machineAgent);
-			}
-		}
+		DeployUtils.killProcesses(channel, user, machineAgentCommand, "machine agent");
 	}
 
 	@Override

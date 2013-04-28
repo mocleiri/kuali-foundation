@@ -34,6 +34,31 @@ public class DeployUtils {
 	private static final UnixCmds CMDS = new UnixCmds();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	public static void killProcesses(SecureChannel channel, String user, String cmd, String msg) {
+		List<UnixProcess> processes = DeployUtils.getUnixProcesses(channel, user);
+
+		// No existing processes, we are done
+		if (processes.size() == 0) {
+			logger.info("  no running processes for user [{}]", user);
+			return;
+		}
+
+		// Figure out if any of the running processes are machine agent
+		List<UnixProcess> matches = getMatchingProcesses(processes, cmd);
+
+		if (CollectionUtils.isEmpty(matches)) {
+			// Nothing to do
+			logger.info("  no machine agents detected. total running processes - {}", processes.size());
+			return;
+		} else {
+			// Kill the machine agent process
+			for (UnixProcess machineAgent : matches) {
+				logger.info("  killing {} - [{}]", msg, machineAgent.getProcessId());
+				kill(channel, machineAgent);
+			}
+		}
+	}
+
 	public static String getAppDynamicsMachineAgentStartupCommand(String user, String cmd) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("su");
