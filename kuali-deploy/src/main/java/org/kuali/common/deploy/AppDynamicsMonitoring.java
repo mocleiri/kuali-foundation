@@ -1,6 +1,9 @@
 package org.kuali.common.deploy;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.secure.SecureChannel;
@@ -18,6 +21,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	String group;
 	String appServerStartupOptions;
 	boolean enabled;
+	Properties filterProperties;
 
 	@Override
 	public void stop() {
@@ -28,10 +32,13 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void prepare() {
 		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
-		// List<String> dirs = Arrays.asList(tmpDir, logDir);
-		// DeployUtils.delete(channel, dirs);
-		// DeployUtils.mkdirs(channel, dirs);
-		// DeployUtils.chown(channel, user, group, dirs);
+		List<String> dirs = Arrays.asList(machineAgent.getLogsDir(), machineAgent.getTmpDir(), serverAgent.getLogsDir());
+		DeployUtils.delete(channel, dirs);
+		DeployUtils.mkdirs(channel, dirs);
+		DeployUtils.chown(channel, user, group, dirs);
+		DeployUtils.chown(channel, user, group, Arrays.asList(machineAgent.getBaseDir(), serverAgent.getBaseDir()));
+		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
+		DeployUtils.copyFiles(channel, deployables, filterProperties);
 	}
 
 	@Override
