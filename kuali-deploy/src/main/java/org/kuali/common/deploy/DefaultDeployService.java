@@ -37,16 +37,16 @@ public class DefaultDeployService implements DeployService {
 			logger.info("Config - [{}]", context.getConfig().getLocal());
 			logger.info("----------------------------------------------------");
 			channel.open();
-			// monitoring.stop();
+			monitoring.stop();
 			appServer.stop();
 			// databaseResetExecutable.execute();
 			// fileSystem.clean();
-			// monitoring.prepare();
+			monitoring.prepare();
 			// fileSystem.prepare();
-			// monitoring.start();
+			monitoring.start();
 			appServer.prepare();
 			appServer.start();
-			// httpWaitExecutable.execute();
+			httpWaitExecutable.execute();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
