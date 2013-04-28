@@ -14,7 +14,7 @@ public class DefaultDeployService implements DeployService {
 
 	DeployContext context;
 	SecureChannel channel;
-	Executable systemAdministration = new NoOpExecutable();
+	Executable sysAdminExecutable = new NoOpExecutable();
 	Monitoring monitoring;
 	ApplicationServer appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
@@ -24,7 +24,7 @@ public class DefaultDeployService implements DeployService {
 		// Make sure we are configured correctly
 		Assert.notNull(context);
 		Assert.notNull(channel);
-		Assert.notNull(systemAdministration);
+		Assert.notNull(sysAdminExecutable);
 		Assert.notNull(monitoring);
 		Assert.notNull(appServer);
 		Assert.notNull(databaseResetExecutable);
@@ -41,7 +41,7 @@ public class DefaultDeployService implements DeployService {
 			channel.open();
 			monitoring.stop();
 			appServer.stop();
-			systemAdministration.execute();
+			sysAdminExecutable.execute();
 			databaseResetExecutable.execute();
 			monitoring.prepare();
 			monitoring.start();
@@ -94,12 +94,12 @@ public class DefaultDeployService implements DeployService {
 		this.monitoring = monitoring;
 	}
 
-	public Executable getSystemAdministration() {
-		return systemAdministration;
+	public Executable getSysAdminExecutable() {
+		return sysAdminExecutable;
 	}
 
-	public void setSystemAdministration(Executable systemAdministration) {
-		this.systemAdministration = systemAdministration;
+	public void setSysAdminExecutable(Executable systemAdministration) {
+		this.sysAdminExecutable = systemAdministration;
 	}
 
 }

@@ -20,6 +20,7 @@ import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.ArtifactFilenameFactoryBean;
@@ -324,8 +325,14 @@ public class DeployConfig {
 	}
 
 	protected SysAdminExecutable getSysAdminExecutable() {
+		boolean skip = SpringUtils.getBoolean(env, "sysadmin.skip", false);
+		String hostname = SpringUtils.getProperty(env, "dns.hostname");
+		UnixCmds cmds = new UnixCmds();
+		List<String> commands = Arrays.asList(cmds.hostname(hostname));
 		SysAdminExecutable sysadmin = new SysAdminExecutable();
-		sysadmin.
+		sysadmin.setChannel(kdoSecureChannel());
+		sysadmin.setCommands(commands);
+		sysadmin.setSkip(skip);
 		return sysadmin;
 	}
 
@@ -337,6 +344,7 @@ public class DeployConfig {
 		dds.setAppServer(getApplicationServer());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setContext(getDeployContext());
+		dds.setSysAdminExecutable(getSysAdminExecutable());
 		return dds;
 	}
 
