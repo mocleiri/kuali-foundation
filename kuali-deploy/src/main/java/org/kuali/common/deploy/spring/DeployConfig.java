@@ -14,6 +14,7 @@ import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.MachineAgent;
 import org.kuali.common.deploy.Monitoring;
 import org.kuali.common.deploy.ServerAgent;
+import org.kuali.common.deploy.SysAdminExecutable;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
@@ -320,6 +321,12 @@ public class DeployConfig {
 		adm.setEnabled(enabled);
 		adm.setFilterProperties(kdoFilterProperties());
 		return adm;
+	}
+
+	protected SysAdminExecutable getSysAdminExecutable() {
+		SysAdminExecutable sysadmin = new SysAdminExecutable();
+		sysadmin.
+		return sysadmin;
 	}
 
 	@Bean(initMethod = "deploy")

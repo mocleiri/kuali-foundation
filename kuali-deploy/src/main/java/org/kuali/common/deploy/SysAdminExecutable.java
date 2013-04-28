@@ -40,4 +40,28 @@ public class SysAdminExecutable implements Executable {
 
 	}
 
+	public SecureChannel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(SecureChannel channel) {
+		this.channel = channel;
+	}
+
+	public List<String> getCommands() {
+		return commands;
+	}
+
+	public void setCommands(List<String> commands) {
+		this.commands = commands;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+
 }
