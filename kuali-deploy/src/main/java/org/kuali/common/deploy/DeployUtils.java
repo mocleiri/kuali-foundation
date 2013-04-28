@@ -210,12 +210,12 @@ public class DeployUtils {
 		return process;
 	}
 
-	public static void executeCommand(SecureChannel channel, String command, boolean validateResult) {
+	public static Result executeCommand(SecureChannel channel, String command, boolean validateResult) {
 		Result result = channel.executeCommand(command);
-		DeployUtils.logResult(result, logger);
 		if (validateResult) {
 			DeployUtils.validateResult(result);
 		}
+		return result;
 	}
 
 	public static void kill(SecureChannel channel, UnixProcess process) {
