@@ -67,7 +67,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 			// If monitoring is turned on, we need to alter a property used when filtering setenv.sh so it includes
 			// monitoring related java startup options
 			if (monitoring.isEnabled()) {
-				PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + monitoring.getJavaStartupOptions());
+				PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + monitoring.getAppServerStartupOptions());
 			}
 			// Copy files from local to remote
 			DeployUtils.copyFiles(channel, deployables, filterProperties);

@@ -374,7 +374,7 @@ public class DeployConfig {
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
 		adm.setChannel(kdoSecureChannel());
 		adm.setMachineAgent(getMachineAgent());
-		adm.setJavaStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
+		adm.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		adm.setEnabled(enabled);
 		return adm;
 	}

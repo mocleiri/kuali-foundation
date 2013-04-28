@@ -16,7 +16,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	ServerAgent serverAgent;
 	String user;
 	String group;
-	String javaStartupOptions;
+	String appServerStartupOptions;
 	boolean enabled;
 
 	@Override
@@ -71,15 +71,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 	}
 
 	@Override
-	public String getJavaStartupOptions() {
-		return javaStartupOptions;
-	}
-
-	public void setJavaStartupOptions(String javaStartupOptions) {
-		this.javaStartupOptions = javaStartupOptions;
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -102,6 +93,15 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setServerAgent(ServerAgent serverAgent) {
 		this.serverAgent = serverAgent;
+	}
+
+	@Override
+	public String getAppServerStartupOptions() {
+		return appServerStartupOptions;
+	}
+
+	public void setAppServerStartupOptions(String appServerStartupOptions) {
+		this.appServerStartupOptions = appServerStartupOptions;
 	}
 
 }
