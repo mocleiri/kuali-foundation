@@ -21,9 +21,13 @@ public class DefaultDeployService implements DeployService {
 
 	@Override
 	public void deploy() {
+		// Make sure we are configured correctly
 		Assert.notNull(context);
 		Assert.notNull(channel);
+		Assert.notNull(systemAdministration);
+		Assert.notNull(monitoring);
 		Assert.notNull(appServer);
+		Assert.notNull(databaseResetExecutable);
 		try {
 			logger.info("---------------- Deploy Application ----------------");
 			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getHostname());
