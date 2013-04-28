@@ -1,6 +1,10 @@
 package org.kuali.common.deploy;
 
-import org.kuali.common.util.UnixCmds;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -11,12 +15,27 @@ public class SysAdminExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(SysAdminExecutable.class);
 
 	SecureChannel channel;
-	UnixCmds cmds = new UnixCmds();
-	String hostname;
+	List<String> commands;
 	boolean skip;
 
 	@Override
 	public void execute() {
+		if (skip) {
+			logger.info("[sysadmin:skipped]");
+			return;
+		}
+		if (CollectionUtils.isEmpty(commands)) {
+			logger.info("[sysadmin:nocmds]");
+			return;
+		}
+		long begin = System.currentTimeMillis();
+		logger.info("[sysadmin:begin] - {}", FormatUtils.getDate(new Date(begin)));
+		for (String command : commands) {
+			channel.executeCommand(command);
+		}
+		long end = System.currentTimeMillis();
+		String elapsed = FormatUtils.getTime(end - begin);
+		logger.info("[sysadmin:complete] - {} - {}", FormatUtils.getDate(new Date(end)), elapsed);
 
 	}
 
