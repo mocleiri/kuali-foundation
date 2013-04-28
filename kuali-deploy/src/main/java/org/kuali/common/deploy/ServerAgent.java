@@ -2,6 +2,7 @@ package org.kuali.common.deploy;
 
 public class ServerAgent {
 
+	String appServerStartupOptions;
 	Deployable controller;
 	String baseDir;
 	String logsDir;
@@ -28,6 +29,14 @@ public class ServerAgent {
 
 	public void setLogsDir(String logsDir) {
 		this.logsDir = logsDir;
+	}
+
+	public String getAppServerStartupOptions() {
+		return appServerStartupOptions;
+	}
+
+	public void setAppServerStartupOptions(String appServerStartupOptions) {
+		this.appServerStartupOptions = appServerStartupOptions;
 	}
 
 }

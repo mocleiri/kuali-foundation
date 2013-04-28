@@ -22,7 +22,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 	ServerAgent serverAgent;
 	String user;
 	String group;
-	String appServerStartupOptions;
 	boolean enabled;
 	Properties filterProperties;
 
@@ -44,7 +43,8 @@ public class AppDynamicsMonitoring implements Monitoring {
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
 		if (enabled) {
-			PropertyUtils.appendToOrSetProperty(filterProperties, setEnvPropertyKey, "\n" + appServerStartupOptions);
+			String value = "\n" + serverAgent.getAppServerStartupOptions();
+			PropertyUtils.appendToOrSetProperty(filterProperties, setEnvPropertyKey, value);
 		}
 		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
 	}
@@ -120,14 +120,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setServerAgent(ServerAgent serverAgent) {
 		this.serverAgent = serverAgent;
-	}
-
-	public String getAppServerStartupOptions() {
-		return appServerStartupOptions;
-	}
-
-	public void setAppServerStartupOptions(String appServerStartupOptions) {
-		this.appServerStartupOptions = appServerStartupOptions;
 	}
 
 	public Properties getFilterProperties() {

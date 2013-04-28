@@ -302,6 +302,7 @@ public class DeployConfig {
 
 	protected ServerAgent getServerAgent() {
 		ServerAgent agent = new ServerAgent();
+		agent.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		agent.setBaseDir(SpringUtils.getProperty(env, "appdynamics.sa.base"));
 		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.sa.logs"));
 		agent.setController(getServerAgentController());
@@ -316,7 +317,6 @@ public class DeployConfig {
 		adm.setChannel(kdoSecureChannel());
 		adm.setMachineAgent(getMachineAgent());
 		adm.setServerAgent(getServerAgent());
-		adm.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		adm.setEnabled(enabled);
 		adm.setFilterProperties(kdoFilterProperties());
 		return adm;
