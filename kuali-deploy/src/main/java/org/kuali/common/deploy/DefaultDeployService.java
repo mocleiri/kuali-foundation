@@ -14,7 +14,7 @@ public class DefaultDeployService implements DeployService {
 
 	DeployContext context;
 	SecureChannel channel;
-	Executable systemAdministration;
+	Executable systemAdministration = new NoOpExecutable();
 	Monitoring monitoring;
 	ApplicationServer appServer;
 	Executable databaseResetExecutable = new NoOpExecutable();
