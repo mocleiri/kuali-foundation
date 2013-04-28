@@ -23,6 +23,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class TomcatApplicationServer implements ApplicationServer {
 
@@ -46,8 +47,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	Properties filterProperties;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
-	boolean enableMonitoring;
-	String monitoringJavaOpts;
+	Monitoring monitoring;
 
 	@Override
 	public void stop() {
@@ -67,15 +67,16 @@ public class TomcatApplicationServer implements ApplicationServer {
 	}
 
 	protected void doMonitoringJavaOpts(Properties filterProperties) {
-		if (!enableMonitoring) {
+		if (!monitoring.isEnabled()) {
 			return;
 		}
+		Assert.hasText(monitoring.getJavaStartupOptions());
 		String key = "setenv.env.content";
 		String value = filterProperties.getProperty(key);
 		if (value == null) {
 			value = "";
 		}
-		value += "\n" + monitoringJavaOpts;
+		value += "\n" + monitoring.getJavaStartupOptions();
 		filterProperties.setProperty(key, value);
 	}
 
@@ -178,6 +179,14 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setFilterProperties(Properties filterProperties) {
 		this.filterProperties = filterProperties;
+	}
+
+	public Monitoring getMonitoring() {
+		return monitoring;
+	}
+
+	public void setMonitoring(Monitoring monitoring) {
+		this.monitoring = monitoring;
 	}
 
 }
