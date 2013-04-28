@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LoggerLevel;
-import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -18,7 +16,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 	private static final Logger logger = LoggerFactory.getLogger(AppDynamicsMonitoring.class);
 
 	SecureChannel channel;
-	UnixCmds unixCmds = new UnixCmds();
 	String machineAgentCommand;
 	String user;
 	String group;
@@ -56,33 +53,17 @@ public class AppDynamicsMonitoring implements Monitoring {
 	public void prepare() {
 		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(tmpDir, logDir);
-		DeployUtils.executePathCommand(channel, unixCmds.rmrf(dirs), dirs, LoggerLevel.DEBUG);
-		DeployUtils.executePathCommand(channel, unixCmds.mkdirp(dirs), dirs, LoggerLevel.DEBUG);
-		DeployUtils.executePathCommand(channel, unixCmds.chownr(user, group, dirs), dirs, LoggerLevel.DEBUG);
+		DeployUtils.delete(channel, dirs);
+		DeployUtils.mkdirs(channel, dirs);
+		DeployUtils.chown(channel, user, group, dirs);
 	}
 
 	@Override
 	public void start() {
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
-		String command = getMachineAgentStartupCommand();
+		String command = DeployUtils.getAppDynamicsMachineAgentStartupCommand(user, machineAgentCommand);
 		logger.debug(command);
 		channel.executeNoWait(command);
-	}
-
-	protected String getMachineAgentStartupCommand() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("su");
-		sb.append(" - ");
-		sb.append(user);
-		sb.append(" ");
-		sb.append("--command");
-		sb.append("=");
-		sb.append("'");
-		sb.append(unixCmds.nohup(machineAgentCommand));
-		sb.append(" ");
-		sb.append("&");
-		sb.append("'");
-		return sb.toString();
 	}
 
 	public String getMachineAgentCommand() {
@@ -99,14 +80,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setUser(String user) {
 		this.user = user;
-	}
-
-	public UnixCmds getUnixCmds() {
-		return unixCmds;
-	}
-
-	public void setUnixCmds(UnixCmds cmds) {
-		this.unixCmds = cmds;
 	}
 
 	public SecureChannel getChannel() {

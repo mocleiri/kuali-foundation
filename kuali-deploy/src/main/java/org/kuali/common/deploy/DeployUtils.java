@@ -34,6 +34,22 @@ public class DeployUtils {
 	private static final UnixCmds CMDS = new UnixCmds();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	public static String getAppDynamicsMachineAgentStartupCommand(String user, String cmd) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("su");
+		sb.append(" - ");
+		sb.append(user);
+		sb.append(" ");
+		sb.append("--command");
+		sb.append("=");
+		sb.append("'");
+		sb.append(CMDS.nohup(cmd));
+		sb.append(" ");
+		sb.append("&");
+		sb.append("'");
+		return sb.toString();
+	}
+
 	public static void copyFiles(SecureChannel channel, List<Deployable> deployables, Properties filterProperties) {
 		if (CollectionUtils.isEmpty(deployables)) {
 			return;
