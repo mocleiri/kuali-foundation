@@ -13,6 +13,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	SecureChannel channel;
 	MachineAgent machineAgent;
+	ServerAgent serverAgent;
 	String user;
 	String group;
 	String javaStartupOptions;
@@ -93,6 +94,14 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setMachineAgent(MachineAgent machineAgent) {
 		this.machineAgent = machineAgent;
+	}
+
+	public ServerAgent getServerAgent() {
+		return serverAgent;
+	}
+
+	public void setServerAgent(ServerAgent serverAgent) {
+		this.serverAgent = serverAgent;
 	}
 
 }
