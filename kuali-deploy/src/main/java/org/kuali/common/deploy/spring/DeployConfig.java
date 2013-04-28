@@ -346,6 +346,7 @@ public class DeployConfig {
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
 		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
+		adm.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
 		adm.setChannel(kdoSecureChannel());
 		adm.setMachineAgent(getMachineAgent());
 		adm.setServerAgent(getServerAgent());
