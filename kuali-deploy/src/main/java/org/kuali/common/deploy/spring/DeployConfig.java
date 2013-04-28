@@ -172,6 +172,7 @@ public class DeployConfig {
 		tomcat.setPathsToChown(pathsToChown);
 		tomcat.setSkipFiles(skipFiles);
 		tomcat.setFilterProperties(filterProperties);
+		tomcat.setHttpWait(kdoHttpWaitExecutable());
 		return tomcat;
 	}
 
@@ -366,7 +367,6 @@ public class DeployConfig {
 		dds.setAppServer(kdoApplicationServer());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setContext(getDeployContext());
-		dds.setHttpWaitExecutable(kdoHttpWaitExecutable());
 		return dds;
 	}
 
