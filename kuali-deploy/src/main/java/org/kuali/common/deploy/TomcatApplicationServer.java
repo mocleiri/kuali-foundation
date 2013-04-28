@@ -47,8 +47,6 @@ public class TomcatApplicationServer implements ApplicationServer {
 	Properties filterProperties;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
-	// Controls any monitoring that goes on in the environment where the app is being deployed
-	Monitoring monitoring;
 	// The signal that tomcat has started up correctly is getting an HTTP 200 from an application url
 	Executable httpWait;
 
@@ -178,14 +176,6 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	public void setFilterProperties(Properties filterProperties) {
 		this.filterProperties = filterProperties;
-	}
-
-	public Monitoring getMonitoring() {
-		return monitoring;
-	}
-
-	public void setMonitoring(Monitoring monitoring) {
-		this.monitoring = monitoring;
 	}
 
 	public Executable getHttpWait() {

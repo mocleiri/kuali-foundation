@@ -10,6 +10,4 @@ public interface Monitoring {
 
 	void start();
 
-	String getAppServerStartupOptions();
-
 }

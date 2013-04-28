@@ -163,7 +163,6 @@ public class DeployConfig {
 		// Setup Tomcat with what it needs to stop/prepare/start correctly
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
-		tomcat.setMonitoring(kdoMonitoring());
 		tomcat.setUsername(SpringUtils.getProperty(env, "tomcat.user"));
 		tomcat.setGroup(SpringUtils.getProperty(env, "tomcat.group"));
 		tomcat.setShutdown(SpringUtils.getProperty(env, "tomcat.shutdown"));
