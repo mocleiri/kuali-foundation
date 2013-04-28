@@ -33,7 +33,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void prepare() {
-		logger.info("[appdynamics:prepare]  - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:prepare] - {}", FormatUtils.getDate(new Date()));
 		List<String> dirs = Arrays.asList(machineAgent.getLogsDir(), machineAgent.getTmpDir(), serverAgent.getLogsDir());
 		List<String> chownDirs = new ArrayList<String>();
 		chownDirs.addAll(dirs);
@@ -50,10 +50,10 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void start() {
 		if (!enabled) {
-			logger.info("[appdynamics:start]    - (skipped) - monitoring is not enabled");
+			logger.info("[appdynamics:start] - (skipped) - monitoring is not enabled");
 			return;
 		}
-		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:start] - {}", FormatUtils.getDate(new Date()));
 		// This command starts up Machine Agent running as tomcat using nohup so it will continue running after the session closes
 		// The danger here is that we have absolutely no idea if the process started successfully because we can't wait around
 		// for the command to complete and thus get an exit value. The command will never complete. It just runs in the background
@@ -61,7 +61,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		String command = DeployUtils.getNohupBackgroundProcessCommand(user, machineAgent.getStartupCommand());
 		logger.info(command);
 		channel.executeNoWait(command);
-		logger.info("[appdynamics:started]    - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:started] - {}", FormatUtils.getDate(new Date()));
 	}
 
 	public String getUser() {
