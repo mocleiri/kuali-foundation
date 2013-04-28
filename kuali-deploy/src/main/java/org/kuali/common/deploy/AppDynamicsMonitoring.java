@@ -53,7 +53,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		// for the command to complete and thus get an exit value. The command will never complete. It just runs in the background
 		// forever.
 		String command = DeployUtils.getNohupBackgroundProcessCommand(user, machineAgent.getStartupCommand());
-		logger.debug(command);
+		logger.info(command);
 		channel.executeNoWait(command);
 	}
 
