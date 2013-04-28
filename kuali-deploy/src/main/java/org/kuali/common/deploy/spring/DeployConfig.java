@@ -133,9 +133,7 @@ public class DeployConfig {
 
 	@Bean
 	public Properties kdoFilterProperties() {
-		Properties properties = SpringUtils.getAllEnumerableProperties(env);
-		System.out.println("properties=" + properties.hashCode());
-		return properties;
+		return SpringUtils.getAllEnumerableProperties(env);
 	}
 
 	@Bean

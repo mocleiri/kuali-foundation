@@ -17,6 +17,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	private static final Logger logger = LoggerFactory.getLogger(AppDynamicsMonitoring.class);
 
 	SecureChannel channel;
+	String setEnvPropertyKey = "setenv.env.content";
 	MachineAgent machineAgent;
 	ServerAgent serverAgent;
 	String user;
@@ -43,9 +44,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
 		if (enabled) {
-			PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + appServerStartupOptions);
-			String value = filterProperties.getProperty("setenv.env.content");
-			logger.info("setenv.env.content=" + value);
+			PropertyUtils.appendToOrSetProperty(filterProperties, setEnvPropertyKey, "\n" + appServerStartupOptions);
 		}
 		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
 	}
@@ -138,6 +137,14 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	public void setFilterProperties(Properties filterProperties) {
 		this.filterProperties = filterProperties;
+	}
+
+	public String getSetEnvPropertyKey() {
+		return setEnvPropertyKey;
+	}
+
+	public void setSetEnvPropertyKey(String setEnvPropertyKey) {
+		this.setEnvPropertyKey = setEnvPropertyKey;
 	}
 
 }
