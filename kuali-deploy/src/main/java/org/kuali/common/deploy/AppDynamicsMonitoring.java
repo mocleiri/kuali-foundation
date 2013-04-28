@@ -64,12 +64,12 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void start() {
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
-		String command = getCommand();
+		String command = getMachineAgentStartupCommand();
 		logger.debug(command);
 		channel.executeNoWait(command);
 	}
 
-	protected String getCommand() {
+	protected String getMachineAgentStartupCommand() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("su");
 		sb.append(" - ");
