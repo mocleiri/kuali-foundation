@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -69,11 +68,6 @@ public class TomcatApplicationServer implements ApplicationServer {
 		DeployUtils.mkdirs(channel, dirsToCreate);
 		// Copy files to the remote server
 		if (!skipFiles) {
-			// If monitoring is turned on, we need to alter a property used when filtering setenv.sh so it includes
-			// monitoring related java startup options
-			if (monitoring.isEnabled()) {
-				PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", "\n" + monitoring.getAppServerStartupOptions());
-			}
 			// Copy files from local to remote
 			DeployUtils.copyFiles(channel, deployables, filterProperties);
 		}
