@@ -48,6 +48,10 @@ public class AppDynamicsMonitoring implements Monitoring {
 			return;
 		}
 		logger.info("[appdynamics:start]    - {}", FormatUtils.getDate(new Date()));
+		// This command starts up Machine Agent running as tomcat using nohup so it will continue running after the session closes
+		// The danger here is that we have absolutely no idea if the process started successfully because we can't wait around
+		// for the command to complete and thus get an exit value. The command will never complete. It just runs in the background
+		// forever.
 		String command = DeployUtils.getNohupBackgroundProcessCommand(user, machineAgent.getStartupCommand());
 		logger.debug(command);
 		channel.executeNoWait(command);
