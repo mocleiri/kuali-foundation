@@ -132,6 +132,11 @@ public class DeployConfig {
 	}
 
 	@Bean
+	public Properties kdoFilterProperties() {
+		return SpringUtils.getAllEnumerableProperties(env);
+	}
+
+	@Bean
 	public ApplicationServer kdoApplicationServer() {
 		// rm -rf gets invoked on all of these
 		List<String> pathsToDelete = getTomcatDeletes();
@@ -155,9 +160,6 @@ public class DeployConfig {
 		// If true, skip transferring all tomcat related files to the remote machine
 		boolean skipFiles = SpringUtils.getBoolean(env, "tomcat.files.skip", false);
 
-		// Properties used to filter content
-		Properties filterProperties = SpringUtils.getAllEnumerableProperties(env);
-
 		// Setup Tomcat with what it needs to stop/prepare/start correctly
 		TomcatApplicationServer tomcat = new TomcatApplicationServer();
 		tomcat.setChannel(kdoSecureChannel());
@@ -171,7 +173,7 @@ public class DeployConfig {
 		tomcat.setDeployables(deployables);
 		tomcat.setPathsToChown(pathsToChown);
 		tomcat.setSkipFiles(skipFiles);
-		tomcat.setFilterProperties(filterProperties);
+		tomcat.setFilterProperties(kdoFilterProperties());
 		tomcat.setHttpWait(kdoHttpWaitExecutable());
 		return tomcat;
 	}
@@ -344,8 +346,6 @@ public class DeployConfig {
 
 	@Bean
 	public Monitoring kdoMonitoring() {
-		// Properties used to filter content
-		Properties filterProperties = SpringUtils.getAllEnumerableProperties(env);
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
 		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
@@ -355,7 +355,7 @@ public class DeployConfig {
 		adm.setServerAgent(getServerAgent());
 		adm.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		adm.setEnabled(enabled);
-		adm.setFilterProperties(filterProperties);
+		adm.setFilterProperties(kdoFilterProperties());
 		return adm;
 	}
 

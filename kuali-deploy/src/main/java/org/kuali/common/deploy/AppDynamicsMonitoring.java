@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,9 @@ public class AppDynamicsMonitoring implements Monitoring {
 		DeployUtils.chown(channel, user, group, chownDirs);
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
+		if (enabled) {
+			PropertyUtils.appendToOrSetProperty(filterProperties, "setenv.env.content", appServerStartupOptions);
+		}
 		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
 	}
 
