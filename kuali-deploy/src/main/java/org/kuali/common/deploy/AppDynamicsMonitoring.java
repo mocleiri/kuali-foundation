@@ -115,4 +115,12 @@ public class AppDynamicsMonitoring implements Monitoring {
 		this.appServerStartupOptions = appServerStartupOptions;
 	}
 
+	public Properties getFilterProperties() {
+		return filterProperties;
+	}
+
+	public void setFilterProperties(Properties filterProperties) {
+		this.filterProperties = filterProperties;
+	}
+
 }

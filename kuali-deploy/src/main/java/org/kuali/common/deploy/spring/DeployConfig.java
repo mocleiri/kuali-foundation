@@ -343,6 +343,8 @@ public class DeployConfig {
 
 	@Bean
 	public Monitoring kdoMonitoring() {
+		// Properties used to filter content
+		Properties filterProperties = SpringUtils.getAllEnumerableProperties(env);
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
 		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
@@ -352,6 +354,7 @@ public class DeployConfig {
 		adm.setServerAgent(getServerAgent());
 		adm.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
 		adm.setEnabled(enabled);
+		adm.setFilterProperties(filterProperties);
 		return adm;
 	}
 
