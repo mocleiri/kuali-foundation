@@ -135,8 +135,7 @@ public class DeployConfig {
 		return SpringUtils.getAllEnumerableProperties(env);
 	}
 
-	@Bean
-	public ApplicationServer kdoApplicationServer() {
+	protected ApplicationServer getApplicationServer() {
 		// rm -rf gets invoked on all of these
 		List<String> pathsToDelete = getTomcatDeletes();
 
@@ -309,8 +308,7 @@ public class DeployConfig {
 		return agent;
 	}
 
-	@Bean
-	public Monitoring kdoMonitoring() {
+	protected Monitoring getMonitoring() {
 		boolean enabled = SpringUtils.getBoolean(env, "monitoring.enabled", false);
 		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 		adm.setUser(SpringUtils.getProperty(env, "tomcat.user"));
@@ -328,8 +326,8 @@ public class DeployConfig {
 	public DeployService kdoDeployService() {
 		DefaultDeployService dds = new DefaultDeployService();
 		dds.setChannel(kdoSecureChannel());
-		dds.setMonitoring(kdoMonitoring());
-		dds.setAppServer(kdoApplicationServer());
+		dds.setMonitoring(getMonitoring());
+		dds.setAppServer(getApplicationServer());
 		dds.setDatabaseResetExecutable(sqlController.sqlExecutable());
 		dds.setContext(getDeployContext());
 		return dds;
