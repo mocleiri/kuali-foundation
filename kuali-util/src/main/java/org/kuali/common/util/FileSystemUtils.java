@@ -33,18 +33,18 @@ public class FileSystemUtils {
 	/**
 	 * Examine the contents of a text file, stopping as soon as it contains <code>token</code>, or <code>timeout</code> is exceeded, whichever comes first.
 	 */
-	public static MonitorTextFileResult monitorTextFile(File file, String token, int interval, int timeout, String encoding) {
+	public static MonitorTextFileResult monitorTextFile(File file, String token, int intervalMillis, int timeoutMillis, String encoding) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(file, "file is null");
 		Assert.hasText(token, "token has no text");
 		Assert.hasText(encoding, "encoding has no text");
-		Assert.isTrue(interval > 0, "interval must be a positive integer");
-		Assert.isTrue(timeout > 0, "timeout must be a positive integer");
+		Assert.isTrue(intervalMillis > 0, "interval must be a positive integer");
+		Assert.isTrue(intervalMillis > 0, "timeout must be a positive integer");
 
 		// Setup some member variables to record what happens
 		long start = System.currentTimeMillis();
-		long stop = start + timeout;
+		long stop = start + timeoutMillis;
 		boolean exists = false;
 		boolean contains = false;
 		boolean timeoutExceeded = false;
@@ -56,7 +56,7 @@ public class FileSystemUtils {
 
 			// Always pause (unless this is the first iteration)
 			if (now != -1) {
-				sleep(interval);
+				sleep(intervalMillis);
 			}
 
 			// Check to make sure we haven't exceeded our timeout limit
