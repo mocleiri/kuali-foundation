@@ -1,5 +1,7 @@
 package org.kuali.common.deploy;
 
+import java.io.File;
+
 public class MachineAgent {
 
 	String startupCommand;
@@ -7,6 +9,8 @@ public class MachineAgent {
 	String tmpDir;
 	String logsDir;
 	Deployable controller;
+	File logFile;
+	String startupToken;
 
 	public String getStartupCommand() {
 		return startupCommand;
@@ -46,6 +50,22 @@ public class MachineAgent {
 
 	public void setBaseDir(String baseDir) {
 		this.baseDir = baseDir;
+	}
+
+	public File getLogFile() {
+		return logFile;
+	}
+
+	public void setLogFile(File logFile) {
+		this.logFile = logFile;
+	}
+
+	public String getStartupToken() {
+		return startupToken;
+	}
+
+	public void setStartupToken(String startupToken) {
+		this.startupToken = startupToken;
 	}
 
 }

@@ -299,6 +299,8 @@ public class DeployConfig {
 		agent.setTmpDir(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
 		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
 		agent.setController(getMachineAgentController());
+		agent.setLogFile(SpringUtils.getFile(env, "appdynamics.ma.logFile"));
+		agent.setStartupToken(SpringUtils.getProperty(env, "appdynamics.ma.startupToken"));
 		return agent;
 	}
 
