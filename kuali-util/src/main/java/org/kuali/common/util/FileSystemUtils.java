@@ -31,7 +31,7 @@ public class FileSystemUtils {
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
 	/**
-	 * Examine the contents of a text file, stopping as soon as it contains <code>token</code> or <code>timeout</code> is exceeded, whichever comes first.
+	 * Examine the contents of a text file, stopping as soon as it contains <code>token</code>, or <code>timeout</code> is exceeded, whichever comes first.
 	 */
 	public static MonitorTextFileResult monitorTextFile(File file, String token, int interval, int timeout, String encoding) {
 
