@@ -168,7 +168,7 @@ public class DeployUtils {
 				String path = deployable.getRemote();
 				String perms = deployable.getPermissions();
 				String command = CMDS.chmod(perms, path);
-				DeployUtils.executePathCommand(channel, command, path);
+				executePathCommand(channel, command, path);
 			}
 		}
 	}
@@ -181,8 +181,9 @@ public class DeployUtils {
 			rate = FormatUtils.getRate(elapsed, bytes);
 			size = FormatUtils.getSize(bytes);
 		}
-		Object[] args = { src, dst, size, FormatUtils.getTime(elapsed), rate };
-		logger.info("[{}] -> [{}] - [{} {} {}]", args);
+		Object[] args = { dst, size, FormatUtils.getTime(elapsed), rate };
+		logger.debug("Source -> [{}]", src);
+		logger.info("Created [{}] - [{} {} {}]", args);
 	}
 
 	/**
