@@ -37,7 +37,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void prepare() {
 		long start = System.currentTimeMillis();
-		logger.info("[appdynamics:prepare]");
+		logger.info("[appdynamics:preparing]");
 		List<String> dirs = Arrays.asList(machineAgent.getLogsDir(), machineAgent.getTmpDir(), serverAgent.getLogsDir());
 		List<String> chownDirs = getChownDirs(dirs);
 		DeployUtils.delete(channel, dirs);
