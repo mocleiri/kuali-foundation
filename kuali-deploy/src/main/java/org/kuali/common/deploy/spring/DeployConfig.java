@@ -303,6 +303,7 @@ public class DeployConfig {
 		agent.setStartupToken(SpringUtils.getProperty(env, "appdynamics.ma.logFile.startupToken"));
 		agent.setStartupTimeoutMillis(new Long(SpringUtils.getMillis(env, "appdynamics.ma.logFile.monitor.timeout", "5m")).intValue());
 		agent.setLogFileIntervalMillis(new Long(SpringUtils.getMillis(env, "appdynamics.ma.logFile.monitor.interval", "500ms")).intValue());
+		agent.setLogFileEncoding(SpringUtils.getProperty(env, "appdynamics.ma.logFile.encoding"));
 		return agent;
 	}
 
