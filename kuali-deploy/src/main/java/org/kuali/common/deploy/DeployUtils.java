@@ -10,10 +10,13 @@ import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.MonitorTextFileResult;
+import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.UnixProcess;
 import org.kuali.common.util.property.Constants;
@@ -33,6 +36,69 @@ public class DeployUtils {
 	private static final String TRAVERSE_SYMBOLIC_LINKS = "-L";
 	private static final UnixCmds CMDS = new UnixCmds();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+
+	/**
+	 * Examine the contents of a text file, stopping as soon as it contains <code>token</code>, or <code>timeout</code> is exceeded, whichever comes first.
+	 */
+	public static MonitorTextFileResult monitorTextFile(SecureChannel channel, String path, String token, int intervalMillis, int timeoutMillis, String encoding) {
+
+		// Make sure we are configured correctly
+		Assert.notNull(channel, "channel is null");
+		Assert.notNull(path, "path is null");
+		Assert.hasText(token, "token has no text");
+		Assert.hasText(encoding, "encoding has no text");
+		Assert.isTrue(intervalMillis > 0, "interval must be a positive integer");
+		Assert.isTrue(intervalMillis > 0, "timeout must be a positive integer");
+
+		// Setup some member variables to record what happens
+		long start = System.currentTimeMillis();
+		long stop = start + timeoutMillis;
+		boolean exists = false;
+		boolean contains = false;
+		boolean timeoutExceeded = false;
+		long now = -1;
+		String content = null;
+
+		// loop until timeout is exceeded or we find the token inside the file
+		for (;;) {
+
+			// Always pause (unless this is the first iteration)
+			if (now != -1) {
+				ThreadUtils.sleep(intervalMillis);
+			}
+
+			// Check to make sure we haven't exceeded our timeout limit
+			now = System.currentTimeMillis();
+			if (now > stop) {
+				timeoutExceeded = true;
+				break;
+			}
+
+			// If the file does not exist, no point in going any further
+			exists = channel.exists(path);
+			if (!exists) {
+				continue;
+			}
+
+			// The file exists, check to see if the token we are looking for is present in the file
+			RemoteFile remoteFile = new RemoteFile(path);
+			content = channel.toString(remoteFile);
+			contains = StringUtils.contains(content, token);
+			if (contains) {
+				// We found what we are looking for, we are done
+				break;
+			}
+		}
+
+		// Record how long the overall process took
+		long elapsed = now - start;
+
+		// Fill in a pojo detailing what happened
+		MonitorTextFileResult mtfr = new MonitorTextFileResult(exists, contains, timeoutExceeded, elapsed);
+		mtfr.setAbsolutePath(path);
+		mtfr.setContent(content);
+		return mtfr;
+	}
 
 	public static void killMatchingProcesses(SecureChannel channel, String user, String cmd, String processLabel) {
 		List<UnixProcess> processes = getUnixProcesses(channel, user);

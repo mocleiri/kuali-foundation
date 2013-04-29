@@ -1,6 +1,5 @@
 package org.kuali.common.deploy;
 
-import java.io.File;
 
 public class MachineAgent {
 
@@ -9,8 +8,11 @@ public class MachineAgent {
 	String tmpDir;
 	String logsDir;
 	Deployable controller;
-	File logFile;
+	String logFile;
+	String logFileEncoding;
 	String startupToken;
+	int logFileIntervalMillis;
+	int startupTimeoutMillis;
 
 	public String getStartupCommand() {
 		return startupCommand;
@@ -52,11 +54,11 @@ public class MachineAgent {
 		this.baseDir = baseDir;
 	}
 
-	public File getLogFile() {
+	public String getLogFile() {
 		return logFile;
 	}
 
-	public void setLogFile(File logFile) {
+	public void setLogFile(String logFile) {
 		this.logFile = logFile;
 	}
 
@@ -66,6 +68,30 @@ public class MachineAgent {
 
 	public void setStartupToken(String startupToken) {
 		this.startupToken = startupToken;
+	}
+
+	public int getStartupTimeoutMillis() {
+		return startupTimeoutMillis;
+	}
+
+	public void setStartupTimeoutMillis(int startupTimeoutMillis) {
+		this.startupTimeoutMillis = startupTimeoutMillis;
+	}
+
+	public int getLogFileIntervalMillis() {
+		return logFileIntervalMillis;
+	}
+
+	public void setLogFileIntervalMillis(int logFileIntervalMillis) {
+		this.logFileIntervalMillis = logFileIntervalMillis;
+	}
+
+	public String getLogFileEncoding() {
+		return logFileEncoding;
+	}
+
+	public void setLogFileEncoding(String logFileEncoding) {
+		this.logFileEncoding = logFileEncoding;
 	}
 
 }

@@ -299,8 +299,10 @@ public class DeployConfig {
 		agent.setTmpDir(SpringUtils.getProperty(env, "appdynamics.ma.tmp"));
 		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.ma.logs"));
 		agent.setController(getMachineAgentController());
-		agent.setLogFile(SpringUtils.getFile(env, "appdynamics.ma.logFile"));
+		agent.setLogFile(SpringUtils.getProperty(env, "appdynamics.ma.logFile"));
 		agent.setStartupToken(SpringUtils.getProperty(env, "appdynamics.ma.startupToken"));
+		agent.setStartupTimeoutMillis(new Long(SpringUtils.getMillis(env, "appdynamics.ma.logFile.monitor.timeout", "5m")).intValue());
+		agent.setLogFileIntervalMillis(new Long(SpringUtils.getMillis(env, "appdynamics.ma.logFile.monitor.interval", "500ms")).intValue());
 		return agent;
 	}
 

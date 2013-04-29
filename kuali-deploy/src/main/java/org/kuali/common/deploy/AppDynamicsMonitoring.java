@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.MonitorTextFileResult;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
@@ -49,14 +51,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
 	}
 
-	protected List<String> getChownDirs(List<String> dirs) {
-		List<String> chownDirs = new ArrayList<String>();
-		chownDirs.addAll(dirs);
-		chownDirs.add(machineAgent.getBaseDir());
-		chownDirs.add(serverAgent.getBaseDir());
-		return chownDirs;
-	}
-
 	@Override
 	public void start() {
 		if (!enabled) {
@@ -64,14 +58,36 @@ public class AppDynamicsMonitoring implements Monitoring {
 			return;
 		}
 		logger.info("[appdynamics:start] - {}", FormatUtils.getDate(new Date()));
-		// This command starts up Machine Agent running as tomcat using nohup so it will continue running after the session closes
-		// The danger here is that we have absolutely no idea if the process started successfully because we can't wait around
-		// for the command to complete and thus get an exit value. The command will never complete. It just runs in the background
-		// forever.
-		String command = DeployUtils.getNohupBackgroundProcess(user, machineAgent.getStartupCommand());
-		logger.info(command);
-		channel.executeNoWait(command);
+		startMachineAgent(channel, machineAgent);
 		logger.info("[appdynamics:started] - {}", FormatUtils.getDate(new Date()));
+	}
+
+	protected void startMachineAgent(SecureChannel channel, MachineAgent machineAgent) {
+		logger.info("[appdynamics:machineagent:start]");
+		boolean exists = channel.exists(machineAgent.getLogFile());
+		Assert.isFalse(exists, "machine agent log file [" + machineAgent.getLogFile() + "] already exists");
+		String command = DeployUtils.getNohupBackgroundProcess(user, machineAgent.getStartupCommand());
+		logger.debug(command);
+		channel.executeNoWait(command);
+		String path = machineAgent.getLogFile();
+		String token = machineAgent.getStartupToken();
+		int intervalMillis = machineAgent.getLogFileIntervalMillis();
+		int timeoutMillis = machineAgent.getStartupTimeoutMillis();
+		String encoding = machineAgent.getLogFileEncoding();
+		MonitorTextFileResult result = DeployUtils.monitorTextFile(channel, path, token, intervalMillis, timeoutMillis, encoding);
+		if (!result.isContains()) {
+			throw new IllegalStateException("Could not verify AppDynamics Machine Agent startup");
+		} else {
+			logger.info("[appdynamics:machineagent:started] - {}", FormatUtils.getTime(result.getElapsed()));
+		}
+	}
+
+	protected List<String> getChownDirs(List<String> dirs) {
+		List<String> chownDirs = new ArrayList<String>();
+		chownDirs.addAll(dirs);
+		chownDirs.add(machineAgent.getBaseDir());
+		chownDirs.add(serverAgent.getBaseDir());
+		return chownDirs;
 	}
 
 	public String getUser() {
