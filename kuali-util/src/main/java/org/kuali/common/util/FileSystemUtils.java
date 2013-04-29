@@ -31,43 +31,59 @@ public class FileSystemUtils {
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
 	public static MonitorTextFileResult monitorTextFile(File file, String token, int interval, int timeout, String encoding) {
+
+		// Make sure we are configured correctly
 		Assert.notNull(file, "file is null");
 		Assert.hasText(token, "token has no text");
+		Assert.isTrue(interval > 0, "interval must be a positive integer");
+		Assert.isTrue(timeout > 0, "timeout must be a positive integer");
+
+		// Setup some member variables to record what happens
 		long start = System.currentTimeMillis();
 		long stop = start + timeout;
 		boolean exists = false;
 		boolean contains = false;
-		long locatedMillis = -1;
 		boolean timeoutExceeded = false;
 		long now = -1;
 		String content = null;
 		for (;;) {
+
+			// Always pause (unless this is the first iteration)
+			if (now != -1) {
+				sleep(interval);
+			}
+
+			// Check to make sure we haven't exceeded our timeout limit
 			now = System.currentTimeMillis();
 			if (now > stop) {
 				timeoutExceeded = true;
 				break;
 			}
+
+			// If the file does not exist, no point in going any further
 			exists = LocationUtils.exists(file);
 			if (!exists) {
-				sleep(interval);
 				continue;
 			}
+
+			// The file exists, check to see if the token we are looking for is present in the file
 			content = LocationUtils.toString(file, encoding);
 			contains = StringUtils.contains(content, token);
-			if (!contains) {
-				sleep(interval);
-				continue;
-			} else {
-				locatedMillis = System.currentTimeMillis();
+			if (contains) {
+				// We found what we are looking for, we are done
 				break;
 			}
 		}
+
+		// Record how long the overall process took
 		long elapsed = -1;
 		if (contains) {
-			elapsed = locatedMillis - start;
+			elapsed = System.currentTimeMillis() - start;
 		} else {
 			elapsed = now - start;
 		}
+
+		// Fill in a pojo detailing what happened
 		MonitorTextFileResult mtfr = new MonitorTextFileResult(exists, contains, timeoutExceeded, elapsed);
 		mtfr.setFile(file);
 		mtfr.setContent(content);
