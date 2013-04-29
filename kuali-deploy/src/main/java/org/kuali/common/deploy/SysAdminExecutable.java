@@ -29,14 +29,14 @@ public class SysAdminExecutable implements Executable {
 			return;
 		}
 		long begin = System.currentTimeMillis();
-		logger.info("[sysadmin:begin] - {}", FormatUtils.getDate(new Date(begin)));
+		logger.info("[sysadmin:start] - {}", FormatUtils.getDate(new Date(begin)));
 		for (String command : commands) {
 			logger.info(command);
 			channel.executeCommand(command);
 		}
 		long end = System.currentTimeMillis();
 		String elapsed = FormatUtils.getTime(end - begin);
-		logger.info("[sysadmin:complete] - {} - {}", FormatUtils.getDate(new Date(end)), elapsed);
+		logger.info("[sysadmin:stop] - {} - {}", FormatUtils.getDate(new Date(end)), elapsed);
 
 	}
 
