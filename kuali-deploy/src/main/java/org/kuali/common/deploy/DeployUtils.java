@@ -48,7 +48,7 @@ public class DeployUtils {
 		Assert.hasText(token, "token has no text");
 		Assert.hasText(encoding, "encoding has no text");
 		Assert.isTrue(intervalMillis > 0, "interval must be a positive integer");
-		Assert.isTrue(intervalMillis > 0, "timeout must be a positive integer");
+		Assert.isTrue(timeoutMillis > 0, "timeout must be a positive integer");
 
 		// Setup some member variables to record what happens
 		long start = System.currentTimeMillis();
