@@ -18,6 +18,7 @@ package org.kuali.common.util.secure;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public interface SecureChannel {
 
@@ -58,5 +59,11 @@ public interface SecureChannel {
 	Result executeCommand(String command, String stdin);
 
 	void executeNoWait(String command);
+
+	void copyRemoteFile(String absolutePath, OutputStream out) throws IOException;
+
+	void copyFile(RemoteFile source, OutputStream out) throws IOException;
+
+	String toString(RemoteFile source);
 
 }

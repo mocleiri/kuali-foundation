@@ -1,14 +1,12 @@
 package org.kuali.common.util;
 
-import java.io.File;
-
 public class MonitorTextFileResult {
 
 	boolean exists;
 	boolean contains;
 	boolean timeoutExceeded;
 	long elapsed;
-	File file;
+	String absolutePath;
 	String content;
 
 	public MonitorTextFileResult() {
@@ -55,20 +53,20 @@ public class MonitorTextFileResult {
 		this.timeoutExceeded = timeoutExceeded;
 	}
 
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getAbsolutePath() {
+		return absolutePath;
+	}
+
+	public void setAbsolutePath(String absolutePath) {
+		this.absolutePath = absolutePath;
 	}
 
 }

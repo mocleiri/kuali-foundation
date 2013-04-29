@@ -432,6 +432,22 @@ public class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
+	public String toString(RemoteFile source) {
+		Assert.notNull(source);
+		Assert.hasText(source.getAbsolutePath());
+		Assert.notBlank(encoding);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			copyFile(source, out);
+			return out.toString(encoding);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(out);
+		}
+	}
+
+	@Override
 	public void copyInputStreamToFile(InputStream source, RemoteFile destination) {
 		Assert.notNull(source);
 		try {
@@ -469,12 +485,26 @@ public class DefaultSecureChannel implements SecureChannel {
 		OutputStream out = null;
 		try {
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
-			sftp.get(source.getAbsolutePath(), out);
+			copyFile(source, out);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
+
+	@Override
+	public void copyRemoteFile(String absolutePath, OutputStream out) throws IOException {
+		try {
+			sftp.get(absolutePath, out);
+		} catch (SftpException e) {
+			throw new IOException("Unexpected IO error", e);
+		}
+	}
+
+	@Override
+	public void copyFile(RemoteFile source, OutputStream out) throws IOException {
+		copyRemoteFile(source.getAbsolutePath(), out);
 	}
 
 	@Override

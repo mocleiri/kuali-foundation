@@ -86,7 +86,7 @@ public class FileSystemUtils {
 
 		// Fill in a pojo detailing what happened
 		MonitorTextFileResult mtfr = new MonitorTextFileResult(exists, contains, timeoutExceeded, elapsed);
-		mtfr.setFile(file);
+		mtfr.setAbsolutePath(LocationUtils.getCanonicalPath(file));
 		mtfr.setContent(content);
 		return mtfr;
 	}
