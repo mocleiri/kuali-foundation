@@ -301,12 +301,12 @@ public class DeployUtils {
 
 	}
 
-	public static void runscript(SecureChannel channel, String username, String script) {
-		executeCommand(channel, CMDS.su(username, script), true);
+	public static Result runscript(SecureChannel channel, String username, String script) {
+		return executeCommand(channel, CMDS.su(username, script), true);
 	}
 
-	public static void runscript(SecureChannel channel, String username, String script, boolean validateExitValue) {
-		executeCommand(channel, CMDS.su(username, script), validateExitValue);
+	public static Result runscript(SecureChannel channel, String username, String script, boolean validateExitValue) {
+		return executeCommand(channel, CMDS.su(username, script), validateExitValue);
 	}
 
 	public static void delete(SecureChannel channel, List<String> paths) {
