@@ -22,8 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.monitor.FileAlterationMonitor;
-import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +30,23 @@ public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
-	public static void monitorFile(File file, String token, int interval) {
-		FileAlterationMonitor monitor = new FileAlterationMonitor(interval);
-		FileAlterationObserver observer = new FileAlterationObserver(file);
+	public static void monitorTextFile(File file, String token, int interval, int timeout) {
+		long start = System.currentTimeMillis();
+		long stop = start + timeout;
+		for (;;) {
+			boolean exists = file.exists();
+			if (!exists) {
+				sleep(interval);
+			}
+		}
+	}
+
+	protected static void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	public static List<SyncResult> syncFiles(List<SyncRequest> requests) throws IOException {
