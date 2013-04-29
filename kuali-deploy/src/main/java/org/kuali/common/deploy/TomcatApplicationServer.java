@@ -48,7 +48,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	Properties filterProperties;
 	// If true, no files are transferred from local to remote
 	boolean skipFiles;
-	// The signal that tomcat has started up correctly is getting an HTTP 200 from an application url
+	// The sign that tomcat has started up correctly is getting an HTTP 200 from an application url
 	Executable httpWait;
 
 	@Override
