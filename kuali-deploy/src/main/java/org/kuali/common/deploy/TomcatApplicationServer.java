@@ -52,7 +52,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	@Override
 	public void stop() {
 		long start = System.currentTimeMillis();
-		logger.info("[tomcat:stop]");
+		logger.info("[tomcat:stopping]");
 		DeployUtils.runscript(channel, username, shutdown, false);
 		logger.info("[tomcat:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
@@ -60,7 +60,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	@Override
 	public void prepare() {
 		long start = System.currentTimeMillis();
-		logger.info("[tomcat:prepare]");
+		logger.info("[tomcat:preparing]");
 		// Remove old stuff (jdbc drivers, logs, applications, configuration files in /home/tomcat etc)
 		DeployUtils.delete(channel, pathsToDelete);
 		// Re-create directories that need to be there
@@ -72,13 +72,13 @@ public class TomcatApplicationServer implements ApplicationServer {
 		}
 		// Make sure everything is owned by tomcat:tomcat
 		DeployUtils.chown(channel, username, group, pathsToChown);
-		logger.info("[tomcat:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
+		logger.info("[tomcat:prepared] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	@Override
 	public void start() {
 		long start = System.currentTimeMillis();
-		logger.info("[tomcat:start]");
+		logger.info("[tomcat:starting]");
 		DeployUtils.runscript(channel, username, startup);
 		httpWait.execute();
 		logger.info("[tomcat:started] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
