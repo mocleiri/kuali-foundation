@@ -2,7 +2,6 @@ package org.kuali.common.deploy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -29,14 +28,16 @@ public class AppDynamicsMonitoring implements Monitoring {
 
 	@Override
 	public void stop() {
-		logger.info("[appdynamics:stop] - {}", FormatUtils.getDate(new Date()));
+		long start = System.currentTimeMillis();
+		logger.info("[appdynamics:stop]");
 		DeployUtils.killMatchingProcesses(channel, user, machineAgent.getStartupCommand(), "machine agent");
-		logger.info("[appdynamics:stopped] - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	@Override
 	public void prepare() {
-		logger.info("[appdynamics:prepare] - {}", FormatUtils.getDate(new Date()));
+		long start = System.currentTimeMillis();
+		logger.info("[appdynamics:prepare]");
 		List<String> dirs = Arrays.asList(machineAgent.getLogsDir(), machineAgent.getTmpDir(), serverAgent.getLogsDir());
 		List<String> chownDirs = getChownDirs(dirs);
 		DeployUtils.delete(channel, dirs);
@@ -48,7 +49,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 			String value = "\n" + serverAgent.getAppServerStartupOptions();
 			PropertyUtils.appendToOrSetProperty(filterProperties, setEnvPropertyKey, value);
 		}
-		logger.info("[appdynamics:prepared]  - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:prepared] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	@Override
@@ -57,9 +58,10 @@ public class AppDynamicsMonitoring implements Monitoring {
 			logger.info("[appdynamics:start] - (skipped) - monitoring is not enabled");
 			return;
 		}
-		logger.info("[appdynamics:start] - {}", FormatUtils.getDate(new Date()));
+		long start = System.currentTimeMillis();
+		logger.info("[appdynamics:start]");
 		startMachineAgent(channel, machineAgent);
-		logger.info("[appdynamics:started] - {}", FormatUtils.getDate(new Date()));
+		logger.info("[appdynamics:started] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	protected void startMachineAgent(SecureChannel channel, MachineAgent machineAgent) {
@@ -78,7 +80,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		if (!result.isContains()) {
 			throw new IllegalStateException("Could not verify AppDynamics Machine Agent startup");
 		} else {
-			logger.info("[appdynamics:machineagent:started] - {}", FormatUtils.getTime(result.getElapsed()));
+			logger.info("[appdynamics:machineagent:started]");
 		}
 	}
 
