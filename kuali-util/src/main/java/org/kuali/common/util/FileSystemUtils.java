@@ -38,6 +38,7 @@ public class FileSystemUtils {
 		// Make sure we are configured correctly
 		Assert.notNull(file, "file is null");
 		Assert.hasText(token, "token has no text");
+		Assert.hasText(encoding, "encoding has no text");
 		Assert.isTrue(interval > 0, "interval must be a positive integer");
 		Assert.isTrue(timeout > 0, "timeout must be a positive integer");
 
@@ -49,6 +50,8 @@ public class FileSystemUtils {
 		boolean timeoutExceeded = false;
 		long now = -1;
 		String content = null;
+
+		// loop until timeout is exceeded or we find the token inside the file
 		for (;;) {
 
 			// Always pause (unless this is the first iteration)
