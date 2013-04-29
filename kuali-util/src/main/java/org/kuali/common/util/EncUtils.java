@@ -42,7 +42,7 @@ public class EncUtils {
 			strong.setPassword(password);
 			return strong;
 		default:
-			throw new IllegalArgumentException("Encryption strength '" + strength + "' is unknown");
+			throw new IllegalArgumentException("Encryption strength [" + strength + "] is unknown");
 		}
 	}
 }
