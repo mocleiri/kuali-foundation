@@ -59,7 +59,10 @@ public class DeployUtils {
 		}
 	}
 
-	public static String getNohupBackgroundProcessCommand(String user, String cmd) {
+	/**
+	 * Execute <code>cmd</code> as <code>user</code> using <code>nohup</code> and running it in the background.
+	 */
+	public static String getNohupBackgroundProcess(String user, String cmd) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("su");
 		sb.append(" - ");

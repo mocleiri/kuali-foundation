@@ -68,7 +68,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 		// The danger here is that we have absolutely no idea if the process started successfully because we can't wait around
 		// for the command to complete and thus get an exit value. The command will never complete. It just runs in the background
 		// forever.
-		String command = DeployUtils.getNohupBackgroundProcessCommand(user, machineAgent.getStartupCommand());
+		String command = DeployUtils.getNohupBackgroundProcess(user, machineAgent.getStartupCommand());
 		logger.info(command);
 		channel.executeNoWait(command);
 		logger.info("[appdynamics:started] - {}", FormatUtils.getDate(new Date()));
