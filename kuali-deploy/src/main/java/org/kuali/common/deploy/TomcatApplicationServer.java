@@ -15,7 +15,6 @@
  */
 package org.kuali.common.deploy;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -52,14 +51,16 @@ public class TomcatApplicationServer implements ApplicationServer {
 
 	@Override
 	public void stop() {
-		logger.info("[tomcat:stop] - {}", FormatUtils.getDate(new Date()));
+		long start = System.currentTimeMillis();
+		logger.info("[tomcat:stop]");
 		DeployUtils.runscript(channel, username, shutdown, false);
-		logger.info("[tomcat:stopped] - {}", FormatUtils.getDate(new Date()));
+		logger.info("[tomcat:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	@Override
 	public void prepare() {
-		logger.info("[tomcat:prepare] - {}", FormatUtils.getDate(new Date()));
+		long start = System.currentTimeMillis();
+		logger.info("[tomcat:prepare]");
 		// Remove old stuff (jdbc drivers, logs, applications, configuration files in /home/tomcat etc)
 		DeployUtils.delete(channel, pathsToDelete);
 		// Re-create directories that need to be there
@@ -71,15 +72,16 @@ public class TomcatApplicationServer implements ApplicationServer {
 		}
 		// Make sure everything is owned by tomcat:tomcat
 		DeployUtils.chown(channel, username, group, pathsToChown);
-		logger.info("[tomcat:prepared] - {}", FormatUtils.getDate(new Date()));
+		logger.info("[tomcat:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	@Override
 	public void start() {
-		logger.info("[tomcat:start] - {}", FormatUtils.getDate(new Date()));
+		long start = System.currentTimeMillis();
+		logger.info("[tomcat:start]");
 		DeployUtils.runscript(channel, username, startup);
 		httpWait.execute();
-		logger.info("[tomcat:started] - {}", FormatUtils.getDate(new Date()));
+		logger.info("[tomcat:started] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	public boolean isValidateShutdownExitValue() {
