@@ -309,35 +309,28 @@ public class DeployUtils {
 		return executeCommand(channel, CMDS.su(username, script), validateExitValue);
 	}
 
-	public static void delete(SecureChannel channel, List<String> paths) {
-		executePathCommand(channel, CMDS.rmrf(paths), paths);
+	public static Result delete(SecureChannel channel, List<String> paths) {
+		return executePathCommand(channel, CMDS.rmrf(paths), paths);
 	}
 
-	public static void mkdirs(SecureChannel channel, List<String> paths) {
-		executePathCommand(channel, CMDS.mkdirp(paths), paths);
+	public static Result mkdirs(SecureChannel channel, List<String> paths) {
+		return executePathCommand(channel, CMDS.mkdirp(paths), paths);
 	}
 
-	public static void chown(SecureChannel channel, String owner, String group, List<String> paths) {
+	public static Result chown(SecureChannel channel, String owner, String group, List<String> paths) {
 		List<String> options = Arrays.asList(TRAVERSE_SYMBOLIC_LINKS);
 		String cmd = CMDS.chownr(options, owner, group, paths);
-		executePathCommand(channel, cmd, paths);
+		return executePathCommand(channel, cmd, paths);
 	}
 
 	public static void executePathCommand(SecureChannel channel, String command, String path) {
 		executePathCommand(channel, command, Collections.singletonList(path));
 	}
 
-	public static void executePathCommand(SecureChannel channel, String command, List<String> paths) {
-		executePathCommand(channel, command, paths, LoggerLevel.INFO);
-	}
-
-	public static void executePathCommand(SecureChannel channel, String command, List<String> paths, LoggerLevel level) {
-		if (CollectionUtils.isEmpty(paths)) {
-			return;
-		}
+	public static Result executePathCommand(SecureChannel channel, String command, List<String> paths) {
 		Result result = channel.executeCommand(command);
-		logResult(result, logger, level);
 		validateResult(result);
+		return result;
 	}
 
 	public static List<String> getOutputLines(Result result) {
