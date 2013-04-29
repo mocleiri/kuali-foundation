@@ -1,6 +1,5 @@
 package org.kuali.common.deploy;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -28,15 +27,13 @@ public class SysAdminExecutable implements Executable {
 			logger.info("[sysadmin:nocmds]");
 			return;
 		}
-		long begin = System.currentTimeMillis();
-		logger.info("[sysadmin:start] - {}", FormatUtils.getDate(new Date(begin)));
+		long start = System.currentTimeMillis();
+		logger.info("[sysadmin:starting]");
 		for (String command : commands) {
 			logger.info(command);
 			channel.executeCommand(command);
 		}
-		long end = System.currentTimeMillis();
-		String elapsed = FormatUtils.getTime(end - begin);
-		logger.info("[sysadmin:stop] - {} - {}", FormatUtils.getDate(new Date(end)), elapsed);
+		logger.info("[sysadmin:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 	}
 
