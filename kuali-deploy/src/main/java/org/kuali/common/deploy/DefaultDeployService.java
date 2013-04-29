@@ -1,5 +1,6 @@
 package org.kuali.common.deploy;
 
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.NoOpExecutable;
@@ -21,6 +22,8 @@ public class DefaultDeployService implements DeployService {
 
 	@Override
 	public void deploy() {
+		long start = System.currentTimeMillis();
+		logger.info("[deploy:starting]");
 		// Make sure we are configured correctly
 		Assert.notNull(context);
 		Assert.notNull(channel);
@@ -52,6 +55,7 @@ public class DefaultDeployService implements DeployService {
 		} finally {
 			channel.close();
 		}
+		logger.info("[deploy:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	public ApplicationServer getAppServer() {
