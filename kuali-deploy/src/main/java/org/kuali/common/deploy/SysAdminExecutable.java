@@ -34,7 +34,7 @@ public class SysAdminExecutable implements Executable {
 			logger.debug(command);
 			channel.executeCommand(command);
 		}
-		logger.info("[sysadmin:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
+		logger.info("[sysadmin:completed] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 	}
 

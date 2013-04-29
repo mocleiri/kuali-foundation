@@ -59,13 +59,13 @@ public class AppDynamicsMonitoring implements Monitoring {
 			return;
 		}
 		long start = System.currentTimeMillis();
-		logger.info("[appdynamics:start]");
+		logger.info("[appdynamics:starting]");
 		startMachineAgent(channel, machineAgent);
 		logger.info("[appdynamics:started] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
 	protected void startMachineAgent(SecureChannel channel, MachineAgent machineAgent) {
-		logger.info("[appdynamics:machineagent:start]");
+		logger.info("[appdynamics:machineagent:starting]");
 		boolean exists = channel.exists(machineAgent.getLogFile());
 		Assert.isFalse(exists, "machine agent log file [" + machineAgent.getLogFile() + "] already exists");
 		String command = DeployUtils.getNohupBackgroundProcess(user, machineAgent.getStartupCommand());
