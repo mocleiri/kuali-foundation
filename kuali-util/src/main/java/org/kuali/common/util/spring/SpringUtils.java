@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.spring;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -138,6 +139,11 @@ public class SpringUtils {
 	public static long getBytes(Environment env, String key, String defaultValue) {
 		String value = getProperty(env, key, defaultValue + "");
 		return FormatUtils.getBytes(value);
+	}
+
+	public static File getFile(Environment env, String key) {
+		String value = getProperty(env, key);
+		return new File(value);
 	}
 
 	public static boolean getBoolean(Environment env, String key, boolean defaultValue) {
