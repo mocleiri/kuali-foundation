@@ -35,7 +35,6 @@ public class SysAdminExecutable implements Executable {
 			channel.executeCommand(command);
 		}
 		logger.info("[sysadmin:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
-
 	}
 
 	public SecureChannel getChannel() {
