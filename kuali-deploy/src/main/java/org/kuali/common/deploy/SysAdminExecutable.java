@@ -29,6 +29,7 @@ public class SysAdminExecutable implements Executable {
 		}
 		long start = System.currentTimeMillis();
 		logger.info("[sysadmin:starting]");
+		logger.info("  executing {} commands", commands.size());
 		for (String command : commands) {
 			logger.info(command);
 			channel.executeCommand(command);
