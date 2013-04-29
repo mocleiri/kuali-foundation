@@ -76,12 +76,7 @@ public class FileSystemUtils {
 		}
 
 		// Record how long the overall process took
-		long elapsed = -1;
-		if (contains) {
-			elapsed = System.currentTimeMillis() - start;
-		} else {
-			elapsed = now - start;
-		}
+		long elapsed = now - start;
 
 		// Fill in a pojo detailing what happened
 		MonitorTextFileResult mtfr = new MonitorTextFileResult(exists, contains, timeoutExceeded, elapsed);
