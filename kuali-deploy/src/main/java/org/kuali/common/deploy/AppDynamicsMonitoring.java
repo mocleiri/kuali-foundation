@@ -29,7 +29,7 @@ public class AppDynamicsMonitoring implements Monitoring {
 	@Override
 	public void stop() {
 		long start = System.currentTimeMillis();
-		logger.info("[appdynamics:stop]");
+		logger.info("[appdynamics:stopping]");
 		DeployUtils.killMatchingProcesses(channel, user, machineAgent.getStartupCommand(), "machine agent");
 		logger.info("[appdynamics:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
