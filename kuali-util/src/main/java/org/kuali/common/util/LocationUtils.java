@@ -376,6 +376,20 @@ public class LocationUtils {
 	}
 
 	/**
+	 * Get the contents of <code>file</code> as a <code>String</code> using the platform's default character encoding.
+	 */
+	public static final String toString(File file) {
+		return toString(file, null);
+	}
+
+	/**
+	 * Get the contents of <code>file</code> as a <code>String</code> using the specified character encoding.
+	 */
+	public static final String toString(File file, String encoding) {
+		return toString(getCanonicalPath(file), encoding);
+	}
+
+	/**
 	 * Get the contents of <code>location</code> as a <code>String</code> using the platform's default character encoding.
 	 */
 	public static final String toString(String location) {

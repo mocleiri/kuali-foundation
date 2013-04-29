@@ -30,15 +30,48 @@ public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
-	public static void monitorTextFile(File file, String token, int interval, int timeout) {
+	public static MonitorTextFileResult monitorTextFile(File file, String token, int interval, int timeout, String encoding) {
+		Assert.notNull(file, "file is null");
+		Assert.hasText(token, "token has no text");
 		long start = System.currentTimeMillis();
 		long stop = start + timeout;
+		boolean exists = false;
+		boolean contains = false;
+		long locatedMillis = -1;
+		boolean timeoutExceeded = false;
+		long now = -1;
+		String content = null;
 		for (;;) {
-			boolean exists = file.exists();
+			now = System.currentTimeMillis();
+			if (now > stop) {
+				timeoutExceeded = true;
+				break;
+			}
+			exists = LocationUtils.exists(file);
 			if (!exists) {
 				sleep(interval);
+				continue;
+			}
+			content = LocationUtils.toString(file, encoding);
+			contains = StringUtils.contains(content, token);
+			if (!contains) {
+				sleep(interval);
+				continue;
+			} else {
+				locatedMillis = System.currentTimeMillis();
+				break;
 			}
 		}
+		long elapsed = -1;
+		if (contains) {
+			elapsed = locatedMillis - start;
+		} else {
+			elapsed = now - start;
+		}
+		MonitorTextFileResult mtfr = new MonitorTextFileResult(exists, contains, timeoutExceeded, elapsed);
+		mtfr.setFile(file);
+		mtfr.setContent(content);
+		return mtfr;
 	}
 
 	protected static void sleep(int millis) {
