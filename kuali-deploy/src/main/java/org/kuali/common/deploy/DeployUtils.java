@@ -119,7 +119,7 @@ public class DeployUtils {
 		} else {
 			// Kill any matching processes
 			for (UnixProcess match : matches) {
-				logger.info("  killing {} - [{}]", processLabel, match.getProcessId());
+				logger.info("  killing {} - [pid:{}]", processLabel, match.getProcessId());
 				kill(channel, match);
 			}
 		}
