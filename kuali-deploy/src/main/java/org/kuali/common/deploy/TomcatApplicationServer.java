@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.secure.Result;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +55,10 @@ public class TomcatApplicationServer implements ApplicationServer {
 	public void stop() {
 		long start = System.currentTimeMillis();
 		logger.info("[tomcat:stopping]");
-		DeployUtils.runscript(channel, username, shutdown, false);
+		Result result = DeployUtils.runscript(channel, username, shutdown, false);
+		if (result.getExitValue() != 0) {
+			DeployUtils.logResult(result, logger, LoggerLevel.WARN);
+		}
 		logger.info("[tomcat:stopped] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
