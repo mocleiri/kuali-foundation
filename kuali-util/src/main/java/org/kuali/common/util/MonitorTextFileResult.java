@@ -6,7 +6,7 @@ public class MonitorTextFileResult {
 
 	boolean exists;
 	boolean contains;
-	boolean timeout;
+	boolean timeoutExceeded;
 	long elapsed;
 	File file;
 	String content;
@@ -15,11 +15,11 @@ public class MonitorTextFileResult {
 		this(false, false, false, -1);
 	}
 
-	public MonitorTextFileResult(boolean exists, boolean contains, boolean timeout, long elapsed) {
+	public MonitorTextFileResult(boolean exists, boolean contains, boolean timeoutExceeded, long elapsed) {
 		super();
 		this.exists = exists;
 		this.contains = contains;
-		this.timeout = timeout;
+		this.timeoutExceeded = timeoutExceeded;
 		this.elapsed = elapsed;
 	}
 
@@ -47,12 +47,12 @@ public class MonitorTextFileResult {
 		this.elapsed = elapsed;
 	}
 
-	public boolean isTimeout() {
-		return timeout;
+	public boolean isTimeoutExceeded() {
+		return timeoutExceeded;
 	}
 
-	public void setTimeout(boolean timeout) {
-		this.timeout = timeout;
+	public void setTimeoutExceeded(boolean timeoutExceeded) {
+		this.timeoutExceeded = timeoutExceeded;
 	}
 
 	public File getFile() {
