@@ -156,9 +156,10 @@ public class DeployUtils {
 				String originalContent = LocationUtils.toString(location);
 				String resolvedContent = HELPER.replacePlaceholders(originalContent, filterProperties);
 				channel.copyStringToFile(resolvedContent, destination);
-				long elapsed = System.currentTimeMillis() - start;
-				Object[] args = { filterProperties.size(), location, destination.getAbsolutePath(), FormatUtils.getTime(elapsed) };
-				logger.info("Used {} properties to filter [{}] -> [{}] - {}", args);
+				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
+				Object[] args = { filterProperties.size(), location, destination.getAbsolutePath(), elapsed };
+				logger.debug("Used {} properties to filter [{}] -> [{}] - {}", args);
+				logger.info("  created [{}] - {}", destination, elapsed);
 			} else {
 				long start = System.currentTimeMillis();
 				channel.copyLocationToFile(location, destination);
@@ -183,7 +184,7 @@ public class DeployUtils {
 		}
 		Object[] args = { dst, size, FormatUtils.getTime(elapsed), rate };
 		logger.debug("Source -> [{}]", src);
-		logger.info("Created [{}] - [{} {} {}]", args);
+		logger.info("  created [{}] - [{} {} {}]", args);
 	}
 
 	/**
