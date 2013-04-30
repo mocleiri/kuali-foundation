@@ -5,27 +5,9 @@
     <artifactId>impex</artifactId>
     <version>2.1.8-SNAPSHOT</version>
   </parent>
-  <artifactId>torque-generator</artifactId>
-  <name>Torque Generator</name>
-  <description>This is the Kuali version of ASF's torque generator</description>
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>${spring.properties.context.file}</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>${spring.properties.context.file}</exclude>
-        </excludes>
-      </resource>
-    </resources>
-  </build>
+  <artifactId>torque-parser</artifactId>
+  <name>Torque Parser</name>
+  <description>Torque Parser</description>
   <dependencies>
     <dependency>
       <groupId>org.kuali.common</groupId>
@@ -43,21 +25,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>ant</groupId>
-      <artifactId>ant</artifactId>
-      <version>1.6.5</version>
-    </dependency>
-    <dependency>
-      <groupId>ant-contrib</groupId>
-      <artifactId>ant-contrib</artifactId>
-      <version>1.0b3</version>
-    </dependency>
-    <dependency>
-      <groupId>antlr</groupId>
-      <artifactId>antlr</artifactId>
-      <version>2.7.5</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -79,21 +46,6 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
-    </dependency>
-    <dependency>
-      <groupId>velocity</groupId>
-      <artifactId>texen</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>village</groupId>
-      <artifactId>village</artifactId>
-      <version>2.0</version>
     </dependency>
     <dependency>
       <groupId>werken-xpath</groupId>
