@@ -18,7 +18,6 @@ package org.kuali.common.maven.spring;
 import java.util.List;
 
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ShowPropertiesExecutable;
@@ -49,11 +48,6 @@ public class ShowMavenPropertiesConfig {
 		executable.setExcludes(excludes);
 		executable.setIncludes(includes);
 		return executable;
-	}
-
-	protected List<String> getList(String key, String defaultValue) {
-		String csv = SpringUtils.getProperty(env, key, defaultValue);
-		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
 }
