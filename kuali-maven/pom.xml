@@ -37,6 +37,14 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-maven</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-maven</url>
   </scm>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
