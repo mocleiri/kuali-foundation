@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.2.1</version>
+    <version>${project.parent.version}</version>
   </parent>
   <groupId>${project.groupId}</groupId>
   <artifactId>${project.artifactId}</artifactId>
