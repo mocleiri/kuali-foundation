@@ -40,7 +40,6 @@ public class SetSourceDbSchemaNameConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable setSourceDbSchemaNameExecutable() {
-
 		boolean skip = SpringUtils.getBoolean(env, "jdbc.source.db.setSchemaName.skip", false);
 		String baseSourceDbSchemaName = SpringUtils.getProperty(env, "jdbc.source.db.base");
 		Properties mavenProperties = mavenProject.getProperties();
