@@ -38,7 +38,6 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 	@Override
 	public void execute() {
-
 		// Might be skipping execution altogether
 		if (skip) {
 			logger.info("Skipping execution");
@@ -64,7 +63,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 		// Update the internal Maven properties object with the new value
 		mavenProperties.setProperty(sourceDbSchemaNameKey, sourceDbSchemaName);
-		logger.debug("Set property - [{}={}]", sourceDbSchemaNameKey, sourceDbSchemaName);
+		logger.info("Set property - [{}={}]", sourceDbSchemaNameKey, sourceDbSchemaName);
 	}
 
 	protected String getQualifier(Properties mavenProperties, String explicitQualifierKey, String version) {
