@@ -110,4 +110,28 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 		this.skip = skip;
 	}
 
+	public String getSourceDbSchemaName() {
+		return sourceDbSchemaName;
+	}
+
+	public void setSourceDbSchemaName(String sourceDbSchemaName) {
+		this.sourceDbSchemaName = sourceDbSchemaName;
+	}
+
+	public String getSourceDbSchemaNameKey() {
+		return sourceDbSchemaNameKey;
+	}
+
+	public void setSourceDbSchemaNameKey(String sourceDbSchemaNameKey) {
+		this.sourceDbSchemaNameKey = sourceDbSchemaNameKey;
+	}
+
+	public String getDbBranchQualifierKey() {
+		return dbBranchQualifierKey;
+	}
+
+	public void setDbBranchQualifierKey(String dbBranchQualifierKey) {
+		this.dbBranchQualifierKey = dbBranchQualifierKey;
+	}
+
 }
