@@ -58,7 +58,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 		String newSourceDbSchemaName = sourceDbSchemaName + qualifier;
 
-		logger.info("Setting property - [{}={}]", sourceDbSchemaNameKey, newSourceDbSchemaName);
+		logger.debug("Setting property - [{}={}]", sourceDbSchemaNameKey, newSourceDbSchemaName);
 		mavenProperties.setProperty(sourceDbSchemaNameKey, newSourceDbSchemaName);
 	}
 
