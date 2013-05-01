@@ -40,7 +40,7 @@
         <artifactId>spring-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>test</id>
+            <id>1</id>
             <phase>initialize</phase>
             <goals>
               <goal>load</goal>
@@ -48,6 +48,20 @@
             <configuration>
               <annotatedClasses>
                 <annotatedClass>org.kuali.common.maven.spring.SetSourceDbSchemaNameConfig</annotatedClass>
+                <annotatedClass>org.kuali.common.maven.spring.ShowMavenPropertiesConfig</annotatedClass>
+              </annotatedClasses>
+              <injectMavenProject>true</injectMavenProject>
+              <forceMojoExecution>true</forceMojoExecution>
+            </configuration>
+          </execution>
+          <execution>
+            <id>2</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>load</goal>
+            </goals>
+            <configuration>
+              <annotatedClasses>
                 <annotatedClass>org.kuali.common.util.spring.ShowMavenPropertiesConfig</annotatedClass>
               </annotatedClasses>
               <injectMavenProject>true</injectMavenProject>
