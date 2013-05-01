@@ -15,19 +15,21 @@
  */
 package org.kuali.common.maven.spring;
 
+import java.util.Properties;
+
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
+import org.kuali.common.util.execute.DbBranchQualifierExecutable;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-/**
- * 
- */
 @Configuration
-public class AlterMavenPropertiesConfig {
+public class DbBranchQualifierConfig {
 
 	@Autowired
 	Environment env;
@@ -37,10 +39,17 @@ public class AlterMavenPropertiesConfig {
 	MavenProject mavenProject;
 
 	@Bean
-	public Object whatup() {
-		int size = mavenProject.getProperties().size();
-		System.out.println("size=" + size);
-		return null;
+	public Executable dbBranchQualifierExecutable() {
+
+		boolean skip = SpringUtils.getBoolean(env, "db.branch.qualifier.skip", false);
+		Properties mavenProperties = mavenProject.getProperties();
+		String version = mavenProject.getVersion();
+
+		DbBranchQualifierExecutable executable = new DbBranchQualifierExecutable();
+		executable.setMavenProperties(mavenProperties);
+		executable.setSkip(skip);
+		executable.setVersion(version);
+		return executable;
 	}
 
 }
