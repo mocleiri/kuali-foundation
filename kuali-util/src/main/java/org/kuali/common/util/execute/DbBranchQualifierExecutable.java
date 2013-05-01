@@ -74,4 +74,28 @@ public class DbBranchQualifierExecutable implements Executable {
 		mavenProperties.setProperty("db.branch.qualifier", qualifier);
 	}
 
+	public Properties getMavenProperties() {
+		return mavenProperties;
+	}
+
+	public void setMavenProperties(Properties mavenProperties) {
+		this.mavenProperties = mavenProperties;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+
 }
