@@ -54,12 +54,15 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 			return;
 		}
 
+		// Get the qualifier we will append to KS_SOURCE_DB for this branch
 		String qualifier = getQualifier(mavenProperties, dbBranchQualifierKey, version);
 
+		// This is the full schema name that Impex will use
 		String newSourceDbSchemaName = sourceDbSchemaName + qualifier;
 
-		logger.debug("Setting property - [{}={}]", sourceDbSchemaNameKey, newSourceDbSchemaName);
+		// Update the internal Maven properties object with the new value
 		mavenProperties.setProperty(sourceDbSchemaNameKey, newSourceDbSchemaName);
+		logger.debug("Set property - [{}={}]", sourceDbSchemaNameKey, newSourceDbSchemaName);
 	}
 
 	protected String getQualifier(Properties mavenProperties, String explicitQualifierKey, String version) {
