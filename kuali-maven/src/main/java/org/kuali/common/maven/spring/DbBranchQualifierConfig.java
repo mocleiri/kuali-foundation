@@ -38,7 +38,7 @@ public class DbBranchQualifierConfig {
 	@Qualifier(MavenConstants.MAVEN_PROJECT_BEAN_NAME)
 	MavenProject mavenProject;
 
-	@Bean
+	@Bean(initMethod = "execute")
 	public Executable dbBranchQualifierExecutable() {
 
 		boolean skip = SpringUtils.getBoolean(env, "db.branch.qualifier.skip", false);
