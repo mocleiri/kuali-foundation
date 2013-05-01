@@ -28,6 +28,7 @@ import java.util.Properties;
 import org.codehaus.plexus.util.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.EncUtils;
 import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.FormatUtils;
@@ -69,6 +70,11 @@ public class SpringUtils {
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 	// Configure a helper that will fail on any unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+
+	public static List<String> getListFromCSV(Environment env, String key, String defaultValue) {
+		String csv = SpringUtils.getProperty(env, key, defaultValue);
+		return CollectionUtils.getTrimmedListFromCSV(csv);
+	}
 
 	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
 		ConfigurableApplicationContext parent = getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
