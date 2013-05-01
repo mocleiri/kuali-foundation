@@ -41,6 +41,7 @@
             </goals>
             <configuration>
               <annotatedClass>org.kuali.common.maven.spring.AlterMavenPropertiesConfig</annotatedClass>
+              <injectMavenProject>true</injectMavenProject>
             </configuration>
           </execution>
         </executions>
