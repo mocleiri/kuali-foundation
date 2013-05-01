@@ -53,22 +53,25 @@
               </annotatedClasses>
               <injectMavenProject>true</injectMavenProject>
               <forceMojoExecution>true</forceMojoExecution>
+              <removeExistingPropertySources>true</removeExistingPropertySources>
             </configuration>
           </execution>
-          <execution>
+          <!--
+            <execution>
             <id>2</id>
             <phase>initialize</phase>
             <goals>
-              <goal>load</goal>
+            <goal>load</goal>
             </goals>
             <configuration>
-              <annotatedClasses>
-                <annotatedClass>org.kuali.common.util.spring.ShowMavenPropertiesConfig</annotatedClass>
-              </annotatedClasses>
-              <injectMavenProject>true</injectMavenProject>
-              <forceMojoExecution>true</forceMojoExecution>
+            <annotatedClasses>
+            <annotatedClass>org.kuali.common.util.spring.ShowMavenPropertiesConfig</annotatedClass>
+            </annotatedClasses>
+            <injectMavenProject>true</injectMavenProject>
+            <forceMojoExecution>true</forceMojoExecution>
             </configuration>
-          </execution>
+            </execution>
+          -->
         </executions>
         <dependencies>
           <dependency>
