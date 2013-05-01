@@ -47,7 +47,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(mavenProperties, "mavenProperties is null");
-		Assert.hasText(baseSourceDbSchemaName, "sourceDbSchemaName is blank");
+		Assert.hasText(baseSourceDbSchemaName, "baseSourceDbSchemaName is blank");
 
 		// Check to see if the source db name is already set
 		String existingValue = mavenProperties.getProperty(sourceDbSchemaNameKey);
@@ -60,11 +60,11 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 		String qualifier = getQualifier(mavenProperties, dbBranchQualifierKey, version);
 
 		// This is the full schema name that Impex will use
-		String newSourceDbSchemaName = baseSourceDbSchemaName + qualifier;
+		String sourceDbSchemaName = baseSourceDbSchemaName + qualifier;
 
 		// Update the internal Maven properties object with the new value
-		mavenProperties.setProperty(sourceDbSchemaNameKey, newSourceDbSchemaName);
-		logger.debug("Set property - [{}={}]", sourceDbSchemaNameKey, newSourceDbSchemaName);
+		mavenProperties.setProperty(sourceDbSchemaNameKey, sourceDbSchemaName);
+		logger.debug("Set property - [{}={}]", sourceDbSchemaNameKey, sourceDbSchemaName);
 	}
 
 	protected String getQualifier(Properties mavenProperties, String explicitQualifierKey, String version) {
