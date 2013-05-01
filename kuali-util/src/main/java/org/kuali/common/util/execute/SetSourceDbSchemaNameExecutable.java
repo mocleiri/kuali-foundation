@@ -28,9 +28,9 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(SetSourceDbSchemaNameExecutable.class);
 
-	String sourceDbSchemaName = "KS_SOURCE_DB";
 	String sourceDbSchemaNameKey = "jdbc.source.db.name";
 	String dbBranchQualifierKey = "db.branch.qualifier";
+	String sourceDbSchemaName;
 	Properties mavenProperties;
 	String version;
 	boolean skip;
@@ -46,6 +46,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(mavenProperties, "mavenProperties is null");
+		Assert.hasText(sourceDbSchemaName, "sourceDbSchemaName is blank");
 
 		// Check to see if the source db name is already set
 		String existingValue = mavenProperties.getProperty(sourceDbSchemaNameKey);
