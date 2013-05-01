@@ -15,8 +15,10 @@
  */
 package org.kuali.common.util.spring;
 
+import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ShowPropertiesExecutable;
 import org.kuali.common.util.property.Constants;
@@ -24,9 +26,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 @Configuration
 public class ShowMavenPropertiesConfig {
+
+	@Autowired
+	Environment env;
 
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
@@ -34,9 +40,19 @@ public class ShowMavenPropertiesConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable showPropertiesExecutable() {
+		List<String> includes = getList("properties.show.includes", "*");
+		List<String> excludes = getList("properties.show.excludes", "");
+
 		ShowPropertiesExecutable executable = new ShowPropertiesExecutable();
 		executable.setProperties(mavenProperties);
+		executable.setExcludes(excludes);
+		executable.setIncludes(includes);
 		return executable;
+	}
+
+	protected List<String> getList(String key, String defaultValue) {
+		String csv = SpringUtils.getProperty(env, key, defaultValue);
+		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
 }
