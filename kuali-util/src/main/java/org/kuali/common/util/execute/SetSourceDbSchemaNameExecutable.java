@@ -66,7 +66,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 		// Determine if the qualifier is already set
 		String qualifier = mavenProperties.getProperty(explicitQualifierKey);
 		if (!StringUtils.isBlank(qualifier)) {
-			return qualifier;
+			return "_" + qualifier;
 		}
 
 		// Parse the version string into a version pojo
