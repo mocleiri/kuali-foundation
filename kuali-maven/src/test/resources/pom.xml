@@ -35,8 +35,8 @@
         <artifactId>spring-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>test</id>
-            <phase>test</phase>
+            <id>initialize</id>
+            <phase>initialize</phase>
             <goals>
               <goal>load</goal>
             </goals>
