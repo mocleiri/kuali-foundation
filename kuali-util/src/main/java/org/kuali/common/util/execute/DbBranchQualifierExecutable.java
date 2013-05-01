@@ -53,7 +53,7 @@ public class DbBranchQualifierExecutable implements Executable {
 		}
 
 		// Parse the version string into a version pojo
-		Version v = VersionUtils.getVersion(qualifier);
+		Version v = VersionUtils.getVersion(version);
 
 		// If the version qualifier is blank there is nothing more to do
 		blank = StringUtils.isBlank(v.getQualifier());
