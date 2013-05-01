@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.property;
 
+import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.processor.NoOpProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -24,7 +25,7 @@ public final class Constants {
 
 	public static final String UTF8 = "UTF-8";
 	public static final String DEFAULT_ENCODING = UTF8;
-	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
+	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = MavenConstants.MAVEN_PROPERTIES_BEAN_NAME;
 	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 	public static final String DEFAULT_VALUE_SEPARATOR = ":";
