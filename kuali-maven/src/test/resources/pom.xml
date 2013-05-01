@@ -53,6 +53,11 @@
             <artifactId>${project.artifactId}</artifactId>
             <version>${project.version}</version>
           </dependency>
+          <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-util</artifactId>
+            <version>${kuali-util.version}</version>
+          </dependency>
         </dependencies>
       </plugin>
     </plugins>
