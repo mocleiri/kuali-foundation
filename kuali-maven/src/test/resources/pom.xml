@@ -47,7 +47,7 @@
             </goals>
             <configuration>
               <annotatedClasses>
-                <annotatedClass>org.kuali.common.maven.spring.DbBranchQualifierConfig</annotatedClass>
+                <annotatedClass>org.kuali.common.maven.spring.SetSourceDbSchemaNameConfig</annotatedClass>
                 <annotatedClass>org.kuali.common.maven.spring.ShowMavenPropertiesConfig</annotatedClass>
               </annotatedClasses>
               <injectMavenProject>true</injectMavenProject>
