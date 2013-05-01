@@ -19,8 +19,8 @@ import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
-import org.kuali.common.util.execute.DbBranchQualifierExecutable;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.SetSourceDbSchemaNameExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class DbBranchQualifierConfig {
+public class SetSourceDbSchemaNameConfig {
 
 	@Autowired
 	Environment env;
@@ -39,13 +39,13 @@ public class DbBranchQualifierConfig {
 	MavenProject mavenProject;
 
 	@Bean(initMethod = "execute")
-	public Executable dbBranchQualifierExecutable() {
+	public Executable setSourceDbSchemaNameExecutable() {
 
-		boolean skip = SpringUtils.getBoolean(env, "db.branch.qualifier.skip", false);
+		boolean skip = SpringUtils.getBoolean(env, "jdbc.source.db.setSchemaName.skip", false);
 		Properties mavenProperties = mavenProject.getProperties();
 		String version = mavenProject.getVersion();
 
-		DbBranchQualifierExecutable executable = new DbBranchQualifierExecutable();
+		SetSourceDbSchemaNameExecutable executable = new SetSourceDbSchemaNameExecutable();
 		executable.setMavenProperties(mavenProperties);
 		executable.setSkip(skip);
 		executable.setVersion(version);

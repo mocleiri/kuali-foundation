@@ -31,6 +31,7 @@
   <properties>
     <db.branch.qualifier></db.branch.qualifier>
     <jdbc.username>KS_SOURCE_DB${db.branch.qualifier}</jdbc.username>
+    <properties.show.includes>db.*,jdbc.*</properties.show.includes>
   </properties>
   <build>
     <plugins>
