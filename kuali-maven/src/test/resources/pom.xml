@@ -43,7 +43,7 @@
             <configuration>
               <annotatedClasses>
                 <annotatedClass>org.kuali.common.maven.spring.DbBranchQualifierConfig</annotatedClass>
-                <annotatedClass>org.kuali.common.util.spring.ShowMavenPropertiesConfig</annotatedClass>
+                <annotatedClass>org.kuali.common.maven.spring.ShowMavenPropertiesConfig</annotatedClass>
               </annotatedClasses>
               <injectMavenProject>true</injectMavenProject>
               <forceMojoExecution>true</forceMojoExecution>
