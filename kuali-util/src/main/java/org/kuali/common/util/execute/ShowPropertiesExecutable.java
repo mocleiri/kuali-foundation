@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.execute;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
@@ -27,11 +28,15 @@ public class ShowPropertiesExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(ShowPropertiesExecutable.class);
 
 	Properties properties;
+	List<String> includes;
+	List<String> excludes;
 
 	@Override
 	public void execute() {
 		Assert.notNull(properties, "properties is null");
-		logger.info("Displaying {} properties\n\n{}", properties.size(), PropertyUtils.toString(properties));
+		Properties duplicate = PropertyUtils.duplicate(properties);
+		PropertyUtils.trim(duplicate, includes, excludes);
+		logger.info("Displaying {} properties\n\n{}", duplicate.size(), PropertyUtils.toString(duplicate));
 	}
 
 	public Properties getProperties() {
@@ -40,6 +45,22 @@ public class ShowPropertiesExecutable implements Executable {
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 }
