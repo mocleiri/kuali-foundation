@@ -30,7 +30,7 @@
   <name>Test Harness</name>
   <properties>
     <db.branch.qualifier></db.branch.qualifier>
-    <jdbc.username>KS_SOURCE_DB${db.branch.qualifier}</jdbc.username>
+    <jdbc.username>${jdbc.source.db.name}</jdbc.username>
     <properties.show.includes>db.*,jdbc.*</properties.show.includes>
   </properties>
   <build>
