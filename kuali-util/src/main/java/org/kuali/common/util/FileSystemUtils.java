@@ -56,7 +56,7 @@ public class FileSystemUtils {
 
 			// Always pause (unless this is the first iteration)
 			if (now != -1) {
-				sleep(intervalMillis);
+				ThreadUtils.sleep(intervalMillis);
 			}
 
 			// Check to make sure we haven't exceeded our timeout limit
@@ -89,14 +89,6 @@ public class FileSystemUtils {
 		mtfr.setAbsolutePath(LocationUtils.getCanonicalPath(file));
 		mtfr.setContent(content);
 		return mtfr;
-	}
-
-	protected static void sleep(int millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	public static List<SyncResult> syncFiles(List<SyncRequest> requests) throws IOException {
