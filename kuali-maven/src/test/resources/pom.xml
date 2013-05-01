@@ -29,8 +29,9 @@
   <packaging>pom</packaging>
   <name>Test Harness</name>
   <properties>
+    <jdbc.source.db.base>KS_SOURCE_DB</jdbc.source.db.base>
     <db.branch.qualifier></db.branch.qualifier>
-    <jdbc.username>${jdbc.source.db.name}</jdbc.username>
+    <jdbc.username>${jdbc.source.db.username}</jdbc.username>
     <properties.show.includes>db.*,jdbc.*</properties.show.includes>
   </properties>
   <build>
