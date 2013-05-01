@@ -24,10 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class DbBranchQualifierExecutable implements Executable {
+public class SetSourceDbSchemaNameExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(DbBranchQualifierExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(SetSourceDbSchemaNameExecutable.class);
 
+	String sourceDbSchemaName = "KS_SOURCE_DB";
+	String sourceDbSchemaNameKey = "jdbc.source.db.name";
+	String dbBranchQualifierKey = "db.branch.qualifier";
 	Properties mavenProperties;
 	String version;
 	boolean skip;
@@ -44,22 +47,34 @@ public class DbBranchQualifierExecutable implements Executable {
 		// Make sure we are configured correctly
 		Assert.notNull(mavenProperties, "mavenProperties is null");
 
-		// Determine if the qualifier is already set
-		String qualifier = mavenProperties.getProperty("db.branch.qualifier");
-		boolean blank = StringUtils.isBlank(qualifier);
-		if (!blank) {
-			logger.info("Already set - [db.branch.qualifier={}]", qualifier);
+		// Check to see if the source db name is already set
+		String existingValue = mavenProperties.getProperty(sourceDbSchemaNameKey);
+		if (!StringUtils.isBlank(existingValue)) {
+			logger.info("Existing value - [{}={}]", sourceDbSchemaNameKey, existingValue);
 			return;
+		}
+
+		String qualifier = getQualifier(mavenProperties, dbBranchQualifierKey, version);
+
+		String newSourceDbSchemaName = sourceDbSchemaName + qualifier;
+
+		logger.info("Setting property - [{}={}]", sourceDbSchemaNameKey, newSourceDbSchemaName);
+		mavenProperties.setProperty(sourceDbSchemaNameKey, newSourceDbSchemaName);
+	}
+
+	protected String getQualifier(Properties mavenProperties, String explicitQualifierKey, String version) {
+		// Determine if the qualifier is already set
+		String qualifier = mavenProperties.getProperty(explicitQualifierKey);
+		if (!StringUtils.isBlank(qualifier)) {
+			return qualifier;
 		}
 
 		// Parse the version string into a version pojo
 		Version v = VersionUtils.getVersion(version);
 
 		// If the version qualifier is blank there is nothing more to do
-		blank = StringUtils.isBlank(v.getQualifier());
-		if (blank) {
-			logger.info("Version qualifier is blank - [db.branch.qualifier={}]", qualifier);
-			return;
+		if (StringUtils.isBlank(v.getQualifier())) {
+			return qualifier;
 		}
 
 		// Transform and append the qualifier based on the qualifier from the version
@@ -68,10 +83,7 @@ public class DbBranchQualifierExecutable implements Executable {
 		qualifier = StringUtils.replace(qualifier, "-", "_");
 		qualifier = StringUtils.replace(qualifier, ".", "_");
 		qualifier = "_" + qualifier;
-
-		// Log what we are up to
-		logger.info("Setting qualifier - [db.branch.qualifier={}]", qualifier);
-		mavenProperties.setProperty("db.branch.qualifier", qualifier);
+		return qualifier;
 	}
 
 	public Properties getMavenProperties() {
