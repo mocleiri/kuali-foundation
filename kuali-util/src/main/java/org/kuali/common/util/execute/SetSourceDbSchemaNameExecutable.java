@@ -28,9 +28,10 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(SetSourceDbSchemaNameExecutable.class);
 
-	String sourceDbSchemaNameKey = "jdbc.source.db.name";
+	String sourceDbSchemaNameKey = "jdbc.source.db.username";
 	String dbBranchQualifierKey = "db.branch.qualifier";
-	String sourceDbSchemaName;
+	// eg KS_SOURCE_DB
+	String baseSourceDbSchemaName;
 	Properties mavenProperties;
 	String version;
 	boolean skip;
@@ -46,7 +47,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(mavenProperties, "mavenProperties is null");
-		Assert.hasText(sourceDbSchemaName, "sourceDbSchemaName is blank");
+		Assert.hasText(baseSourceDbSchemaName, "sourceDbSchemaName is blank");
 
 		// Check to see if the source db name is already set
 		String existingValue = mavenProperties.getProperty(sourceDbSchemaNameKey);
@@ -59,7 +60,7 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 		String qualifier = getQualifier(mavenProperties, dbBranchQualifierKey, version);
 
 		// This is the full schema name that Impex will use
-		String newSourceDbSchemaName = sourceDbSchemaName + qualifier;
+		String newSourceDbSchemaName = baseSourceDbSchemaName + qualifier;
 
 		// Update the internal Maven properties object with the new value
 		mavenProperties.setProperty(sourceDbSchemaNameKey, newSourceDbSchemaName);
@@ -114,12 +115,12 @@ public class SetSourceDbSchemaNameExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public String getSourceDbSchemaName() {
-		return sourceDbSchemaName;
+	public String getBaseSourceDbSchemaName() {
+		return baseSourceDbSchemaName;
 	}
 
-	public void setSourceDbSchemaName(String sourceDbSchemaName) {
-		this.sourceDbSchemaName = sourceDbSchemaName;
+	public void setBaseSourceDbSchemaName(String sourceDbSchemaName) {
+		this.baseSourceDbSchemaName = sourceDbSchemaName;
 	}
 
 	public String getSourceDbSchemaNameKey() {
