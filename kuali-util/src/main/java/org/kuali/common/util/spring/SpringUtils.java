@@ -209,6 +209,24 @@ public class SpringUtils {
 		properties.putAll(PropertyUtils.getGlobalProperties());
 
 		// Are we decrypting property values?
+		decrypt(properties);
+
+		// Are we resolving placeholders
+		resolve(properties);
+	}
+
+	public static void resolve(Properties properties) {
+		// Are we resolving placeholders?
+		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
+		if (resolve) {
+			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			rpp.setHelper(HELPER);
+			rpp.process(properties);
+		}
+	}
+
+	public static void decrypt(Properties properties) {
+		// Are we decrypting property values?
 		boolean decrypt = new Boolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
 		if (decrypt) {
 			// If they asked to decrypt, a password is required
@@ -220,14 +238,6 @@ public class SpringUtils {
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
 			PropertyUtils.decrypt(properties, decryptor);
-		}
-
-		// Are we resolving placeholders?
-		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
-		if (resolve) {
-			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
-			rpp.setHelper(HELPER);
-			rpp.process(properties);
 		}
 	}
 

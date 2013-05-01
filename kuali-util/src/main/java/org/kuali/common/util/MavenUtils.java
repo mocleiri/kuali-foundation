@@ -100,6 +100,16 @@ public class MavenUtils {
 
 		// Make sure system/environment properties still always win
 		PropertyUtils.overrideWithGlobalValues(mavenProperties, GlobalPropertiesMode.BOTH);
+
+		SpringUtils.decrypt(mavenProperties);
+		trim(mavenProperties);
+		SpringUtils.resolve(mavenProperties);
+	}
+
+	public static void trim(Properties mavenProperties) {
+		List<String> excludes = getList(mavenProperties, EXCLUDE);
+		List<String> includes = getList(mavenProperties, INCLUDE);
+		PropertyUtils.trim(mavenProperties, includes, excludes);
 	}
 
 	public static void trim(Environment env, Properties mavenProperties) {
@@ -122,12 +132,18 @@ public class MavenUtils {
 		return pp;
 	}
 
-	protected static List<String> getList(Environment env, Properties properties, String key) {
-		String csv1 = env.getProperty(key);
-		String csv2 = properties.getProperty(key);
+	protected static List<String> getList(Properties properties, String key) {
+		String csv = properties.getProperty(key);
 		List<String> list = new ArrayList<String>();
-		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv1));
-		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv2));
+		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv));
+		return list;
+	}
+
+	protected static List<String> getList(Environment env, Properties properties, String key) {
+		String csv = env.getProperty(key);
+		List<String> list = new ArrayList<String>();
+		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv));
+		list.addAll(getList(properties, key));
 		return list;
 	}
 
