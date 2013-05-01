@@ -40,7 +40,7 @@ public class ShowMavenPropertiesConfig {
 	MavenProject mavenProject;
 
 	@Bean(initMethod = "execute")
-	public Executable showPropertiesExecutable() {
+	public Executable showNativeMavenPropertiesExecutable() {
 		List<String> includes = getList("properties.show.includes", "*");
 		List<String> excludes = getList("properties.show.excludes", "");
 
