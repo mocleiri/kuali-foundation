@@ -50,8 +50,8 @@
     </plugins>
   </build>
   <modules>
-    <module>project1</module>
-    <module>project2</module>
-    <module>project3</module>
+    <module>kuali-sample1</module>
+    <module>kuali-sample2</module>
+    <module>kuali-sample3</module>
   </modules>
 </project>
