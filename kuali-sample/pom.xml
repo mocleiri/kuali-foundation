@@ -26,7 +26,7 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-sample</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.0.0 -SNAPSHOT</version>
   <name>Kuali Sample</name>
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <scm>
@@ -34,4 +34,23 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-sample</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-sample</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.4.4</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>sonatype-nexus</serverId>
+          <nexusUrl>https://oss.sonatype.org</nexusUrl>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <modules>
+    <module>project1</module>
+    <module>project2</module>
+    <module>project3</module>
+  </modules>
 </project>
