@@ -30,9 +30,13 @@ public class MpxSupplierConfig {
 	@Autowired
 	BatchConfig batchConfig;
 
+    private static final String DB_VENDOR_KEY = "db.vendor";
+
+    private static final String IMPEX_SCHEMA_LOCATION_KEY = "impex.schema.location";
+
 	@Bean
 	public SqlProducer impexProducer() {
-		String vendor = SpringUtils.getProperty(env, "db.vendor");
+		String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		Platform platform = PlatformFactory.getPlatformFor(vendor);
 		SqlProducer producer = platform.getSqlProducer();
 		producer.setBatchDataSizeLimit(batchConfig.impexBatchSize());
@@ -42,8 +46,8 @@ public class MpxSupplierConfig {
 
 	@Bean
 	public KualiDatabase impexDatabase() {
-		String vendor = SpringUtils.getProperty(env, "db.vendor");
-		String location = SpringUtils.getProperty(env, "impex.schema.location");
+		String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+		String location = SpringUtils.getProperty(env, IMPEX_SCHEMA_LOCATION_KEY);
 		return ImpexUtils.getDatabase(vendor, location);
 	}
 
