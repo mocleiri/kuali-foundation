@@ -24,5 +24,5 @@
     <artifactId>kuali-sample</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>project1</artifactId>
+  <artifactId>kuali-sample1</artifactId>
 </project>
