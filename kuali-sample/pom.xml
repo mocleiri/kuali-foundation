@@ -62,6 +62,7 @@
           <skipLocalStaging>false</skipLocalStaging>
           <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
           <skipStaging>${kuali.repo.skip.staging}</skipStaging>
+          <description>Release ${project.artifactId} - ${project.version}</description>
         </configuration>
       </plugin>
     </plugins>
