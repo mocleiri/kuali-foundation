@@ -198,7 +198,7 @@
     <plugin.ksite.version>1.1.3</plugin.ksite.version>
     <plugin.license.version>1.9.0</plugin.license.version>
     <plugin.metainf.version>2.0.2</plugin.metainf.version>
-    <plugin.nexus.version>2.1</plugin.nexus.version>
+    <plugin.nexus.version>1.4.4</plugin.nexus.version>
     <plugin.project-info-reports.version>2.6</plugin.project-info-reports.version>
     <plugin.properties.version>2.0.1</plugin.properties.version>
     <plugin.release.version>2.4</plugin.release.version>
@@ -901,41 +901,6 @@
       </build>
     </profile>
     <profile>
-      <id>sonatype-oss-release</id>
-      <properties>
-        <kuali.nexus.sonatype.url>https://oss.sonatype.org</kuali.nexus.sonatype.url>
-        <kuali.nexus.sonatype.description>Releasing ${project.artifactId} version ${project.version}</kuali.nexus.sonatype.description>
-        <kuali.nexus.sonatype.phase>deploy</kuali.nexus.sonatype.phase>
-        <kuali.nexus.sonatype.automatic>true</kuali.nexus.sonatype.automatic>
-        <kuali.nexus.sonatype.promote.auto.select.override>true</kuali.nexus.sonatype.promote.auto.select.override>
-        <kuali.nexus.sonatype.release.repository.id>releases</kuali.nexus.sonatype.release.repository.id>
-        <kuali.repo.release.id>sonatype-nexus-staging</kuali.repo.release.id>
-        <kuali.repo.release.name>Sonatype Nexus Release Repository</kuali.repo.release.name>
-        <kuali.repo.release.url>${kuali.nexus.sonatype.url}/service/local/staging/deploy/maven2</kuali.repo.release.url>
-        <!-- These are for reference only. Not currently publishing snapshots to Sonatype's Nexus instance
-          <kuali.repo.snapshot.id>sonatype-nexus-snapshots</kuali.repo.snapshot.id>
-          <kuali.repo.snapshot.name>Sonatype Nexus Snapshots</kuali.repo.snapshot.name>
-          <kuali.repo.snapshot.url>https://oss.sonatype.org/content/repositories/snapshots/</kuali.repo.snapshot.url>
-        -->
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-maven-plugin</artifactId>
-            <configuration>
-              <nexusUrl>${kuali.nexus.sonatype.url}</nexusUrl>
-              <serverAuthId>${kuali.repo.release.id}</serverAuthId>
-              <automatic>${kuali.nexus.sonatype.automatic}</automatic>
-              <promoteAutoSelectOverride>${kuali.nexus.sonatype.promote.auto.select.override}</promoteAutoSelectOverride>
-              <description>${kuali.nexus.sonatype.description}</description>
-              <targetRepositoryId>${kuali.nexus.sonatype.release.repository.id}</targetRepositoryId>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>scm</id>
       <build>
         <plugins>
@@ -1008,8 +973,19 @@
       </build>
     </profile>
     <profile>
+      <id>sonatype-oss-release</id>
+      <properties>
+        <nexus.serverId>sonatype-nexus-staging</nexus.serverId>
+        <nexus.url>https://oss.sonatype.org</nexus.url>
+        <nexus.staging.skip>false</nexus.staging.skip>
+      </properties>
+    </profile>
+    <profile>
       <id>kuali-release</id>
       <properties>
+        <nexus.serverId>${kuali.repo.release.id}</nexus.serverId>
+        <nexus.url>${kuali.repo.release.url}</nexus.url>
+        <nexus.staging.skip>true</nexus.staging.skip>
         <license.phase>generate-resources</license.phase>
         <decrypt.phase>initialize</decrypt.phase>
       </properties>
@@ -1063,12 +1039,6 @@
             </executions>
           </plugin>
           <plugin>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <configuration>
-              <updateReleaseInfo>true</updateReleaseInfo>
-            </configuration>
-          </plugin>
-          <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
             <executions>
               <execution>
@@ -1093,6 +1063,23 @@
                 </goals>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>${plugin.nexus.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <nexusUrl>${nexus.url}</nexusUrl>
+              <serverId>${nexus.serverId}</serverId>
+              <skipStaging>${nexus.staging.skip}</skipStaging>
+            </configuration>
           </plugin>
           <plugin>
             <artifactId>maven-site-plugin</artifactId>
