@@ -60,7 +60,7 @@
                   <goal>load</goal>
                 </goals>
                 <configuration>
-                  <annotatedClass>org.kuali.common.maven.SetNexusStagingRepositoryIdConfig</annotatedClass>
+                  <annotatedClass>org.kuali.common.maven.spring.SetNexusStagingRepositoryIdConfig</annotatedClass>
                 </configuration>
               </execution>
             </executions>
