@@ -221,6 +221,9 @@
     <plugin.war.version>2.3</plugin.war.version>
     <!-- maven-war-plugin ships with version 2.2 of plexus-archiver which has SERIOUS performance issues -->
     <plugin.war.archiver.version>2.4</plugin.war.archiver.version>
+
+    <!-- This gets set to false in the sonatype-oss-release profile -->
+    <nexus.staging.skip>true</nexus.staging.skip>
   </properties>
   <prerequisites>
     <maven>${maven.min.version}</maven>
@@ -977,7 +980,6 @@
       <properties>
         <!-- Override default Kuali repo's with Sonatype's Nexus repo -->
         <kuali.repo.release.id>sonatype-nexus-staging</kuali.repo.release.id>
-        <kuali.repo.release.name>Sonatype Nexus</kuali.repo.release.name>
         <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
         <nexus.staging.skip>false</nexus.staging.skip>
       </properties>
@@ -985,7 +987,6 @@
     <profile>
       <id>kuali-release</id>
       <properties>
-        <nexus.staging.skip>true</nexus.staging.skip>
         <license.phase>generate-resources</license.phase>
         <decrypt.phase>initialize</decrypt.phase>
       </properties>
