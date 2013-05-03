@@ -35,6 +35,9 @@
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-sample</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-sample</url>
   </scm>
+  <properties>
+    <kuali.release.arguments>-e</kuali.release.arguments>
+  </properties>
   <build>
     <plugins>
       <plugin>
