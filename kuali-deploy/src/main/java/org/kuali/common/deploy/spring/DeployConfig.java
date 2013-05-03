@@ -285,7 +285,7 @@ public class DeployConfig {
 		// kdo.config.1.local
 		String[] tokens = StringUtils.split(localKey, ".");
 
-		// Should alwasy be 4 tokens
+		// Should always be 4 tokens
 		if (tokens.length != 4) {
 			throw new IllegalStateException("Expected 4 tokens [" + localKey + "]");
 		}
