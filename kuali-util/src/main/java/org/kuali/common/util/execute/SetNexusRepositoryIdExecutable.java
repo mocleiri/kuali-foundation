@@ -16,9 +16,13 @@
 package org.kuali.common.util.execute;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.SimpleScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -45,7 +49,26 @@ public class SetNexusRepositoryIdExecutable implements Executable {
 
 		logger.info(LocationUtils.getCanonicalPath(buildDirectory));
 
-		mavenProperties.setProperty("nexus.stagingRepositoryId", "orgkuali-99999");
+		File nexusDirectory = new File(buildDirectory, "nexus-staging");
+
+		SimpleScanner scanner = new SimpleScanner(nexusDirectory, "*.properties", null);
+		List<File> files = scanner.getFiles();
+
+		if (files.size() != 1) {
+			throw new IllegalStateException("There can be only one!");
+		}
+
+		File nexusPropertiesFile = files.get(0);
+
+		Properties nexusProperties = PropertyUtils.load(nexusPropertiesFile);
+
+		String value = nexusProperties.getProperty("stagingRepository.id");
+
+		if (StringUtils.isBlank(value)) {
+			throw new IllegalStateException("stagingRepository.id is blank");
+		}
+
+		mavenProperties.setProperty("nexus.stagingRepository.id", value);
 
 	}
 
