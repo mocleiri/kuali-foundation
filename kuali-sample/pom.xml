@@ -37,6 +37,7 @@
   <properties>
     <kuali.release.arguments>-e</kuali.release.arguments>
     <kuali.repo.skip.staging>true</kuali.repo.skip.staging>
+    <plugin.nexus-staging.version>1.4.4</plugin.nexus-staging.version>
   </properties>
   <profiles>
     <profile>
@@ -46,6 +47,43 @@
         <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
         <kuali.repo.skip.staging>false</kuali.repo.skip.staging>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>spring-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>rc-release</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>load</goal>
+                </goals>
+                <configuration>
+                  <annotatedClass>org.kuali.common.maven.SetNexusStagingRepositoryIdConfig</annotatedClass>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>${plugin.nexus-staging.version}</version>
+            <executions>
+              <execution>
+                <id>rc-release</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>rc-release</goal>
+                </goals>
+                <configuration>
+                  <stagingRepositoryId>${nexus.stagingRepositoryId}</stagingRepositoryId>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
   <build>
@@ -53,7 +91,7 @@
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.4.4</version>
+        <version>${plugin.nexus-staging.version}</version>
         <extensions>true</extensions>
         <configuration>
           <nexusUrl>${kuali.repo.release.url}</nexusUrl>
