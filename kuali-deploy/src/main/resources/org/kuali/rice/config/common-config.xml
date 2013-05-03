@@ -37,7 +37,7 @@
   <!-- Email Settings -->
   <param name="mail.debug">${ses.debug}</param>
   <param name="mail.smtp.host">${ses.host}</param>
-  <param name="mail.smtp.port">${ses.debug}</param>
+  <param name="mail.smtp.port">${ses.port}</param>
   <param name="mail.smtp.ssl.enable">${ses.ssl.enable}</param>
   <param name="mail.smtp.auth">${ses.auth}</param>
   <param name="mail.smtp.username">${ses.username}</param>
