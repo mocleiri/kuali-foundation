@@ -15,12 +15,12 @@
  */
 package org.kuali.common.maven.spring;
 
-import java.util.Properties;
+import java.io.File;
 
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.SetSourceDbSchemaNameExecutable;
+import org.kuali.common.util.execute.SetNexusRepositoryIdExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,16 +40,13 @@ public class SetNexusStagingRepositoryIdConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable setNexusRepositoryStagingId() {
-		boolean skip = SpringUtils.getBoolean(env, "jdbc.source.db.setSchemaName.skip", false);
-		String baseSourceDbSchemaName = SpringUtils.getProperty(env, "jdbc.source.db.base");
-		Properties mavenProperties = mavenProject.getProperties();
-		String version = mavenProject.getVersion();
+		boolean skip = SpringUtils.getBoolean(env, "nexus.repo.setId.skip", false);
+		File buildDirectory = new File(mavenProject.getBuild().getDirectory());
 
-		SetSourceDbSchemaNameExecutable executable = new SetSourceDbSchemaNameExecutable();
-		executable.setBaseSourceDbSchemaName(baseSourceDbSchemaName);
-		executable.setMavenProperties(mavenProperties);
+		SetNexusRepositoryIdExecutable executable = new SetNexusRepositoryIdExecutable();
+		executable.setBuildDirectory(buildDirectory);
+		executable.setMavenProperties(mavenProject.getProperties());
 		executable.setSkip(skip);
-		executable.setVersion(version);
 		return executable;
 	}
 
