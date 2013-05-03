@@ -85,7 +85,7 @@
             <executions>
               <execution>
                 <id>rc-release</id>
-                <phase>deploy</phase>
+                <phase>none</phase>
                 <goals>
                   <goal>rc-release</goal>
                 </goals>
