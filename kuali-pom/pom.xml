@@ -979,6 +979,7 @@
         <kuali.repo.release.id>sonatype-nexus-staging</kuali.repo.release.id>
         <kuali.repo.release.name>Sonatype Nexus</kuali.repo.release.name>
         <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
+        <nexus.staging.skip>false</nexus.staging.skip>
       </properties>
     </profile>
     <profile>
