@@ -35,8 +35,6 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-sample</url>
   </scm>
   <properties>
-    <kuali.release.profiles>kuali-release,sonatype-oss-release</kuali.release.profiles>
-    <kuali.release.arguments>-e</kuali.release.arguments>
     <kuali.repo.skip.staging>true</kuali.repo.skip.staging>
     <plugin.nexus-staging.version>1.4.4</plugin.nexus-staging.version>
   </properties>
@@ -47,58 +45,7 @@
         <kuali.repo.release.id>sonatype-nexus</kuali.repo.release.id>
         <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
         <kuali.repo.skip.staging>false</kuali.repo.skip.staging>
-        <nexus.release.phase>none</nexus.release.phase>
       </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>spring-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>rc-release</id>
-                <phase>${nexus.release.phase}</phase>
-                <goals>
-                  <goal>load</goal>
-                </goals>
-                <configuration>
-                  <annotatedClass>org.kuali.common.maven.spring.SetNexusStagingRepositoryIdConfig</annotatedClass>
-                  <injectMavenProject>true</injectMavenProject>
-                </configuration>
-              </execution>
-            </executions>
-            <dependencies>
-              <dependency>
-                <groupId>org.kuali.common</groupId>
-                <artifactId>kuali-maven</artifactId>
-                <version>1.0.1-tmp</version>
-              </dependency>
-              <dependency>
-                <groupId>org.kuali.common</groupId>
-                <artifactId>kuali-util</artifactId>
-                <version>4.2.2-tmp</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${plugin.nexus-staging.version}</version>
-            <executions>
-              <execution>
-                <id>rc-release</id>
-                <phase>${nexus.release.phase}</phase>
-                <goals>
-                  <goal>rc-release</goal>
-                </goals>
-                <configuration>
-                  <stagingRepositoryId>${nexus.stagingRepository.id}</stagingRepositoryId>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
   </profiles>
   <build>
@@ -114,7 +61,6 @@
           <skipLocalStaging>false</skipLocalStaging>
           <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
           <skipStaging>${kuali.repo.skip.staging}</skipStaging>
-          <description>Release ${project.artifactId} - ${project.version}</description>
         </configuration>
       </plugin>
     </plugins>
