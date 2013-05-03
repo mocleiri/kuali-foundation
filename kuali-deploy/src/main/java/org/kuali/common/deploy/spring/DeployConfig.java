@@ -299,8 +299,17 @@ public class DeployConfig {
 		boolean filter = SpringUtils.getBoolean(env, filterKey, true);
 		boolean required = SpringUtils.getBoolean(env, requiredKey, true);
 
-		if (required && !LocationUtils.exists(local)) {
+		// Check to see if the resource exists
+		boolean exists = LocationUtils.exists(local);
+
+		// If it is required but does not exist, we have a problem
+		if (required && !exists) {
 			throw new IllegalStateException("[" + local + "] is required, but does not exist");
+		}
+
+		// It's not required and does not exist, skip it
+		if (!exists) {
+			return null;
 		}
 
 		Deployable d = new Deployable();
