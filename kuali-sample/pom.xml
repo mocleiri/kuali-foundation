@@ -37,12 +37,14 @@
   </scm>
   <properties>
     <kuali.release.arguments>-e</kuali.release.arguments>
+    <kuali.repo.skip.staging>true</kuali.repo.skip.staging>
   </properties>
   <profiles>
     <profile>
       <id>sonatype-oss-release</id>
       <properties>
         <kuali.repo.release.url>${kuali.nexus.sonatype.url}</kuali.repo.release.url>
+        <kuali.repo.skip.staging>false</kuali.repo.skip.staging>
       </properties>
     </profile>
   </profiles>
@@ -58,7 +60,7 @@
           <serverId>${kuali.repo.release.id}</serverId>
           <skipLocalStaging>false</skipLocalStaging>
           <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
-          <skipStaging>true</skipStaging>
+          <skipStaging>${kuali.repo.skip.staging}</skipStaging>
         </configuration>
       </plugin>
     </plugins>
