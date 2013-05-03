@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import junit.framework.Assert;
 import org.kuali.common.impex.DatabaseContext;
@@ -39,11 +38,9 @@ import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.ResourceUtils;
 
 import static junit.framework.Assert.assertEquals;
@@ -64,10 +61,6 @@ public abstract class AbstractTestImpexProcess {
 
 	@Resource
 	protected JdbcService jdbcService;
-
-	protected final static String DATABASE_VENDOR_KEY = "databaseVendor";
-	protected final static String LOCATION_KEY = "location";
-	protected final static String MPX_LOCATION_SUPPLIER_PROPERTY = "locationKeys";
 
 	protected byte[] getDataBytes(List<DumpTableResult> results) throws IOException {
 		StringBuilder dataBuilder = new StringBuilder();
@@ -138,7 +131,7 @@ public abstract class AbstractTestImpexProcess {
         return p;
     }
 
-	protected void doTest(String initialPropertiesFile, String mpxPropertiesFile) throws Exception, IOException {
+	protected void doTest(String initialPropertiesFile, String mpxPropertiesFile) throws Exception {
         ImpexUtils.log(impexContext);
 
         // Default Spring service will do what we need
