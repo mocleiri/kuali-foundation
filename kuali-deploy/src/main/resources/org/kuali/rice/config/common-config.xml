@@ -35,11 +35,11 @@
   <param name="travel.externalizable.images.url">${externalizable.images.url}</param>
 
   <!-- Email Settings -->
-  <param name="mail.debug">false</param>
-  <param name="mail.smtp.host">email-smtp.us-east-1.amazonaws.com</param>
-  <param name="mail.smtp.port">465</param>
-  <param name="mail.smtp.ssl.enable">true</param>
-  <param name="mail.smtp.auth">true</param>
-  <param name="mail.smtp.username">AKIAJJUBCVBNS3N2K5WA</param>
-  <param name="mail.smtp.password">${rice.ses.password}</param>
+  <param name="mail.debug">${ses.debug}</param>
+  <param name="mail.smtp.host">${ses.host}</param>
+  <param name="mail.smtp.port">${ses.debug}</param>
+  <param name="mail.smtp.ssl.enable">${ses.ssl.enable}</param>
+  <param name="mail.smtp.auth">${ses.auth}</param>
+  <param name="mail.smtp.username">${ses.username}</param>
+  <param name="mail.smtp.password">${ses.password}</param>
 </config>
