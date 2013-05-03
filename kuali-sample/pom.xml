@@ -38,6 +38,14 @@
   <properties>
     <kuali.release.arguments>-e</kuali.release.arguments>
   </properties>
+  <profiles>
+    <profile>
+      <id>sonatype-oss-release</id>
+      <properties>
+        <kuali.repo.release.url>${kuali.nexus.sonatype.url}</kuali.repo.release.url>
+      </properties>
+    </profile>
+  </profiles>
   <build>
     <plugins>
       <plugin>
