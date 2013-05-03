@@ -984,8 +984,6 @@
     <profile>
       <id>kuali-release</id>
       <properties>
-        <nexus.serverId>${kuali.repo.release.id}</nexus.serverId>
-        <nexus.url>${kuali.repo.release.url}</nexus.url>
         <nexus.staging.skip>true</nexus.staging.skip>
         <license.phase>generate-resources</license.phase>
         <decrypt.phase>initialize</decrypt.phase>
