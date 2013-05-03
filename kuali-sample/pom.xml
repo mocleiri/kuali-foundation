@@ -46,6 +46,8 @@
         <version>1.4.4</version>
         <extensions>true</extensions>
         <configuration>
+          <nexusUrl>http://oss.sonatype.org</nexusUrl>
+          <serverId>sonatype-nexus</serverId>
           <skipLocalStaging>false</skipLocalStaging>
           <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
         </configuration>
