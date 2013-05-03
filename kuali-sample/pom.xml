@@ -91,7 +91,7 @@
                   <goal>rc-release</goal>
                 </goals>
                 <configuration>
-                  <stagingRepositoryId>${nexus.stagingRepositoryId}</stagingRepositoryId>
+                  <stagingRepositoryId>${nexus.stagingRepository.id}</stagingRepositoryId>
                 </configuration>
               </execution>
             </executions>
