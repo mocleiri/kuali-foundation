@@ -285,15 +285,20 @@ public class DeployConfig {
 		// kdo.config.1.local
 		String[] tokens = StringUtils.split(localKey, ".");
 
+		// Should alwasy be 4 tokens
 		if (tokens.length != 4) {
 			throw new IllegalStateException("Expected 4 tokens [" + localKey + "]");
 		}
 
+		// Third token should be a unique identifier for this config file
 		String identifier = tokens[2];
+
+		// Assemble property keys
 		String remoteKey = "kdo.config." + identifier + ".remote";
 		String filterKey = "kdo.config." + identifier + ".filter";
 		String requiredKey = "kdo.config." + identifier + ".required";
 
+		// Extract information using the property keys
 		String local = SpringUtils.getProperty(env, localKey);
 		String remote = SpringUtils.getProperty(env, remoteKey);
 		boolean filter = SpringUtils.getBoolean(env, filterKey, true);
@@ -312,6 +317,7 @@ public class DeployConfig {
 			return null;
 		}
 
+		// Create a new deployable from the information we gathered from the environment
 		Deployable d = new Deployable();
 		d.setRemote(remote);
 		d.setLocal(local);
