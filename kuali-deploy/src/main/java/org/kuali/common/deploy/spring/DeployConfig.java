@@ -283,7 +283,7 @@ public class DeployConfig {
 
 	protected Deployable getApplicationConfig(String localKey) {
 		// kdo.config.1.local
-		String[] tokens = StringUtils.split(localKey);
+		String[] tokens = StringUtils.split(localKey, ".");
 
 		if (tokens.length != 4) {
 			throw new IllegalStateException("Expected 4 tokens [" + localKey + "]");
