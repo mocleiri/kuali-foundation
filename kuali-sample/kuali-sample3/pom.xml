@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kuali.common</groupId>
     <artifactId>kuali-sample</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>kuali-sample3</artifactId>
   <name>Kuali Sample 3</name>
