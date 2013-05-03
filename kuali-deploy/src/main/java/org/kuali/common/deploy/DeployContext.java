@@ -1,5 +1,7 @@
 package org.kuali.common.deploy;
 
+import java.util.List;
+
 import org.kuali.common.util.Artifact;
 
 public class DeployContext {
@@ -9,7 +11,7 @@ public class DeployContext {
 	String hostname;
 	Artifact application;
 	Artifact jdbcDriver;
-	Deployable config;
+	List<Deployable> configFiles;
 
 	public String getEnvironment() {
 		return environment;
@@ -51,12 +53,12 @@ public class DeployContext {
 		this.jdbcDriver = jdbcDriver;
 	}
 
-	public Deployable getConfig() {
-		return config;
+	public List<Deployable> getConfigFiles() {
+		return configFiles;
 	}
 
-	public void setConfig(Deployable config) {
-		this.config = config;
+	public void setConfigFiles(List<Deployable> configFiles) {
+		this.configFiles = configFiles;
 	}
 
 }

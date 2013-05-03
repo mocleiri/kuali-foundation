@@ -20,6 +20,7 @@ import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
@@ -68,7 +69,7 @@ public class DeployConfig {
 		ctx.setUsername(SpringUtils.getProperty(env, "kdo.channel.username"));
 		ctx.setJdbcDriver(getJdbcDriverArtifact());
 		ctx.setApplication(getpplicationArtifact());
-		ctx.setConfig(getApplicationConfig());
+		ctx.setConfigFiles(getApplicationConfig());
 		return ctx;
 	}
 
@@ -127,7 +128,7 @@ public class DeployConfig {
 		List<Deployable> deployables = new ArrayList<Deployable>();
 		deployables.add(getSetEnv());
 		deployables.addAll(getJsps());
-		deployables.add(getApplicationConfig());
+		deployables.addAll(getApplicationConfig());
 		deployables.add(getJdbcDriver());
 		return deployables;
 	}
@@ -264,7 +265,21 @@ public class DeployConfig {
 		return d;
 	}
 
-	protected Deployable getApplicationConfig() {
+	protected List<Deployable> getApplicationConfig() {
+		Properties properties = SpringUtils.getAllEnumerableProperties(env);
+		Properties configProperties = PropertyUtils.getProperties(properties, "kdo.config.*.local", null);
+		List<String> keys = PropertyUtils.getSortedKeys(configProperties);
+		List<Deployable> deployables = new ArrayList<Deployable>();
+		for (String key : keys) {
+			Deployable deployable = getApplicationConfig(key);
+			if (deployable != null) {
+				deployables.add(deployable);
+			}
+		}
+		return deployables;
+	}
+
+	protected Deployable getApplicationConfig(String key) {
 		Deployable d = new Deployable();
 		d.setRemote(SpringUtils.getProperty(env, "kdo.config"));
 		d.setLocal(SpringUtils.getProperty(env, "kdo.config.local"));
