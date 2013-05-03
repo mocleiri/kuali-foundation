@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.slf4j.Logger;
@@ -46,8 +45,6 @@ public class SetNexusRepositoryIdExecutable implements Executable {
 		Assert.notNull(mavenProperties, "mavenProperties are null");
 		Assert.notNull(buildDirectory, "buildDirectory is null");
 		Assert.isTrue(buildDirectory.exists(), "buildDirectory does not exist");
-
-		logger.info(LocationUtils.getCanonicalPath(buildDirectory));
 
 		File nexusDirectory = new File(buildDirectory, "nexus-staging");
 
