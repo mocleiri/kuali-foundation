@@ -43,7 +43,8 @@
     <profile>
       <id>sonatype-oss-release</id>
       <properties>
-        <kuali.repo.release.url>${kuali.nexus.sonatype.url}</kuali.repo.release.url>
+        <kuali.repo.release.id>sonatype-nexus</kuali.repo.release.id>
+        <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
         <kuali.repo.skip.staging>false</kuali.repo.skip.staging>
       </properties>
     </profile>
