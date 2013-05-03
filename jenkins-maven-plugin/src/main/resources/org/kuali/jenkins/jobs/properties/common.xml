@@ -96,10 +96,10 @@ mvn clean deploy site-deploy -Pkuali-release -e
 
   <!-- shell script for releasing a Maven project -->
   <entry key="jenkins.job.builders.shell.command.release"><![CDATA[mvn validate -Pscm -N
-mvn release:prepare release:perform -B -e
-mvn validate -Pkuali-release
+mvn clean release:prepare release:perform -B
 cd $WORKSPACE/target/checkout
-mvn deploy nexus:staging-close nexus:staging-release -Pkuali-release,sonatype-oss-release -DskipTests -e  
+mvn clean deploy -Pkuali-release,sonatype-oss-release
+mvn nexus-staging:release -Pkuali-release,sonatype-oss-release -N || true
 mvn site-deploy -Pkuali-release -Dkuali.site.latest=true
   ]]></entry>
 
