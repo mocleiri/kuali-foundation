@@ -27,12 +27,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:mpxTests/oracle-impex-context.xml" })
-// @Ignore
 public class TestOracleImpexProcess extends AbstractTestImpexProcess {
 
-	@Test
+    private static final String INITIAL_PROPERTIES = "classpath:mpxTests/mpxtest-initialize-oracle-db.properties";
+    private static final String MPX_PROPERTIES = "classpath:mpxTests/mpxtest-mpxload-oracle-db.properties";
+
+    @Test
 	public void test() throws Exception {
-		doTest();
+		doTest(INITIAL_PROPERTIES, MPX_PROPERTIES);
 	}
 
 }

@@ -36,6 +36,8 @@
         <prop key="project.build.directory">${project.build.directory}</prop>
         <prop key="kuali.groupId">${kuali.groupId}</prop>
         <prop key="jdbc.username">TRQ_GEN_TEST_DB</prop>
+        <prop key="impex.batch.rows">50</prop>
+        <prop key="impex.batch.size">51200</prop>
     </util:properties>
 
     <context:property-placeholder properties-ref="mavenProperties" system-properties-mode="NEVER" />
@@ -129,16 +131,6 @@
         <property name="password" value="#{databaseProcessContext.dbaPassword}" />
     </bean>
 
-    <util:list id="resetSqls">
-        <value>#{commonProperties['sql.validate']}</value>
-        <value>#{commonProperties['sql.drop']}</value>
-        <value>#{commonProperties['sql.create']}</value>
-    </util:list>
-
-    <bean id="dbResetSupplier" class="org.kuali.common.jdbc.supplier.ComplexStringSupplier">
-        <property name="strings" ref="resetSqls"/>
-    </bean>
-
     <util:properties id="impexContextProperties">
         <prop key="project.artifactId">${project.artifactId}</prop>
         <prop key="project.basedir">${project.basedir}</prop>
@@ -160,95 +152,8 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <util:properties id="kdfProperties">
-        <prop key="databaseVendor">#{databaseProcessContext.vendor}</prop>
-        <prop key="location">${project.build.directory}/impex/${project.artifactId}.xml</prop>
-    </util:properties>
-
-    <bean id="prototypeMpxLocationSupplier" class="org.kuali.common.impex.MpxLocationSupplier">
-        <property name="producer" ref="impex.producer" />
-    </bean>
-
-    <bean id="impex.producer" class="org.kuali.common.impex.SqlProducerFactoryBean">
-        <property name="databaseVendor" value="${db.vendor}" />
-        <property name="batchRowCountLimit" ref="impex.batchRows" />
-        <property name="batchDataSizeLimit" ref="impex.batchSize" />
-    </bean>
-
-    <bean id="mpxLocationSourceBean" class="org.kuali.common.jdbc.supplier.LocationSupplierSourceBean">
-        <property name="supplierClass" value="org.kuali.common.impex.MpxLocationSupplier" />
-    </bean>
-
-
-
-    <util:properties id="testLocationSuppliersFactoryProperties">
-        <prop key="locationKeys">mpx.list</prop>
-        <prop key="mpx.list">classpath:mpxTests/mpxLocations.list</prop>
-    </util:properties>
-
-    <util:map id="testExtensionMappings">
-        <entry key="mpx" value-ref="mpxLocationSourceBean" />
-    </util:map>
-
-    <bean id="resetContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dbaDataSource" />
-        <property name="suppliers">
-            <list>
-                <ref bean="dbResetSupplier"/>
-            </list>
-        </property>
-        <property name="message" value="Reset DB"/>
-    </bean>
-
-    <bean id="initialContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource" />
-        <property name="suppliers" ref="initialSupplierList"/>
-        <property name="message" value="First pass data and schema"/>
-    </bean>
-
-    <bean id="schemaContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource" />
-        <property name="suppliers">
-            <list>
-                <ref bean="schemaSupplier"/>
-            </list>
-        </property>
-        <property name="message" value="Second pass schema"/>
-    </bean>
-
-    <bean id="mpxContext" class="org.kuali.common.jdbc.context.JdbcContext">
-        <property name="dataSource" ref="dataSource" />
-        <property name="message" value="Second pass data"/>
-    </bean>
-
-    <bean id="sqlLogger" class="org.kuali.common.jdbc.listener.LogSqlListener">
-        <property name="mode" value="BEFORE"/>
-        <property name="flatten" value="false"/>
-    </bean>
-
     <bean id="impexService" class="org.kuali.common.impex.service.DefaultImpexGeneratorService"/>
 
     <bean id="jdbcService" class="org.kuali.common.jdbc.DefaultJdbcService"/>
-
-    <bean id="schemaSupplier" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
-        <property name="encoding" value="${kuali.encoding}"/>
-        <property name="location" value="classpath:mpxTests/${db.vendor}/test-db-schema.sql"/>
-    </bean>
-
-    <bean id="dataSupplier1" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
-        <property name="encoding" value="${kuali.encoding}"/>
-        <property name="location" value="classpath:mpxTests/${db.vendor}/FOO_T.sql"/>
-    </bean>
-
-    <bean id="dataSupplier2" class="org.kuali.common.jdbc.supplier.SqlLocationSupplier">
-        <property name="encoding" value="${kuali.encoding}"/>
-        <property name="location" value="classpath:mpxTests/${db.vendor}/BAZ_T.sql"/>
-    </bean>
-
-    <util:list id="initialSupplierList">
-        <ref bean="schemaSupplier"/>
-        <ref bean="dataSupplier1"/>
-        <ref bean="dataSupplier2"/>
-    </util:list>
 
 </beans>

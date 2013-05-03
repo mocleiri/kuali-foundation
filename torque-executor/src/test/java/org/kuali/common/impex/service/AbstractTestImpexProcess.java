@@ -15,11 +15,9 @@
 
 package org.kuali.common.impex.service;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,21 +27,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import junit.framework.Assert;
-
 import org.kuali.common.impex.DatabaseContext;
 import org.kuali.common.impex.DumpTableResult;
-import org.kuali.common.impex.KualiDatabaseFactoryBean;
-import org.kuali.common.impex.MpxLocationSupplier;
+import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.JdbcService;
-import org.kuali.common.jdbc.context.JdbcContext;
-import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
-import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.jdbc.spring.SqlControllerConfig;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.MavenUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.service.DefaultSpringService;
+import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.service.SpringService;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.util.ResourceUtils;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * @author andrewlubbers
@@ -56,37 +60,10 @@ public abstract class AbstractTestImpexProcess {
 	protected ImpexContext impexContext;
 
 	@Resource
-	protected JdbcContext resetContext;
-
-	@Resource
-	protected JdbcContext initialContext;
-
-	@Resource
-	protected JdbcContext schemaContext;
-
-	@Resource
-	protected JdbcContext mpxContext;
-
-	@Resource
 	protected ImpexGeneratorService impexService;
 
 	@Resource
 	protected JdbcService jdbcService;
-
-	@Resource
-	protected MpxLocationSupplier prototypeMpxLocationSupplier;
-
-	@Resource
-	protected Properties kdfProperties;
-
-	@Resource
-	protected LocationSupplierSourceBean mpxLocationSourceBean;
-
-	@Resource
-	protected Map<String, LocationSupplierSourceBean> testExtensionMappings;
-
-	@Resource
-	protected Properties testLocationSuppliersFactoryProperties;
 
 	protected final static String DATABASE_VENDOR_KEY = "databaseVendor";
 	protected final static String LOCATION_KEY = "location";
@@ -144,14 +121,40 @@ public abstract class AbstractTestImpexProcess {
 		return colMap;
 	}
 
-	protected void doTest() throws Exception, IOException {
-		ImpexUtils.log(impexContext);
+    private static Properties getTestMavenProperties(String fileName) throws IOException {
+        Properties p = new Properties();
+        p.load(new FileInputStream(ResourceUtils.getFile(fileName)));
 
-		// clear db of data
-		jdbcService.executeSql(resetContext);
+        p.setProperty("project.groupId", "org.kuali.foundation");
+        p.setProperty("project.artifactId", "torque-executor");
+        p.setProperty("project.version", "2.1.8-SNAPSHOT");
+        p.setProperty("project.encoding", "UTF-8");
+        p.setProperty("project.orgId", "org.kuali");
+        p.setProperty("project.orgId.code", "kuali");
+        p.setProperty("project.orgId.path", "org/kuali");
 
-		// load the db with data
-		jdbcService.executeSql(initialContext);
+        MavenUtils.augmentProjectProperties(p);
+
+        return p;
+    }
+
+	protected void doTest(String initialPropertiesFile, String mpxPropertiesFile) throws Exception, IOException {
+        ImpexUtils.log(impexContext);
+
+        // Default Spring service will do what we need
+        SpringService ss = new DefaultSpringService();
+
+        // Setup a Spring context that uses maven properties for placeholder resolution
+        SpringContext context = MavenUtils.getMavenizedSpringContext(ss, getTestMavenProperties(initialPropertiesFile), TestMavenPropertySourceConfig.class);
+
+        // Reset the db using annotated config
+        context.setAnnotatedClasses(CollectionUtils.asList(SqlControllerConfig.class));
+
+        // Execute Spring
+        ss.load(context);
+
+
+
 
 		List<ImpexContext> contexts = Collections.singletonList(impexContext);
 
@@ -166,33 +169,18 @@ public abstract class AbstractTestImpexProcess {
 
 		ImpexUtils.doStats(initialLoadResults);
 
-		// clear db of data
-		jdbcService.executeSql(resetContext);
+        // reset the db with the generated mpx files
+        // Default Spring service will do what we need
+        SpringService ssMpx = new DefaultSpringService();
 
-		// load only schema
-		jdbcService.executeSql(schemaContext);
+        // Setup a Spring context that uses maven properties for placeholder resolution
+        SpringContext mpxContext = MavenUtils.getMavenizedSpringContext(ssMpx, getTestMavenProperties(mpxPropertiesFile), TestMavenPropertySourceConfig.class);
 
-		// import the data from the generated mpx files
-		// Have to create a kuali database factory here because the table meta data does not exist at startup,
-		// it is created by the previous call to impexService.serializeSchemas(contexts, database)
-		KualiDatabaseFactoryBean kdfBean = new KualiDatabaseFactoryBean();
-		kdfBean.setDatabaseVendor(kdfProperties.getProperty(DATABASE_VENDOR_KEY));
-		kdfBean.setLocation(kdfProperties.getProperty(LOCATION_KEY));
+        // Reset the db using annotated config
+        mpxContext.setAnnotatedClasses(CollectionUtils.asList(MpxSupplierConfig.class, SqlControllerConfig.class));
 
-		prototypeMpxLocationSupplier.setDatabase(kdfBean.getObject());
-
-		mpxLocationSourceBean.setSupplierInstance(prototypeMpxLocationSupplier);
-
-		LocationSuppliersFactoryBean mpxLocationSupplier = new LocationSuppliersFactoryBean();
-		mpxLocationSupplier.setExtensionMappings(testExtensionMappings);
-		mpxLocationSupplier.setProperty(MPX_LOCATION_SUPPLIER_PROPERTY);
-		// mpxLocationSupplier.setProperties(testLocationSuppliersFactoryProperties);
-
-		List<SqlSupplier> sqlSuppliers = new ArrayList<SqlSupplier>(mpxLocationSupplier.getObject());
-
-		mpxContext.setSuppliers(sqlSuppliers);
-
-		jdbcService.executeSql(mpxContext);
+        // Execute Spring
+        ssMpx.load(context);
 
 		// dump the tables again to compare the results
 		List<DumpTableResult> secondaryLoadResults = impexService.dumpTables(impexContext, database);
