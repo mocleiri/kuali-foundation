@@ -15,18 +15,16 @@
  */
 package org.kuali.common.maven.spring;
 
-import java.io.File;
-
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.SetNexusRepositoryIdExecutable;
-import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+
+//import org.kuali.common.util.execute.SetNexusRepositoryIdExecutable;
 
 @Configuration
 public class SetNexusStagingRepositoryIdConfig {
@@ -40,14 +38,15 @@ public class SetNexusStagingRepositoryIdConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable setNexusRepositoryStagingId() {
-		boolean skip = SpringUtils.getBoolean(env, "nexus.repo.setId.skip", false);
-		File buildDirectory = new File(mavenProject.getBuild().getDirectory());
+		// boolean skip = SpringUtils.getBoolean(env, "nexus.repo.setId.skip", false);
+		// File buildDirectory = new File(mavenProject.getBuild().getDirectory());
 
-		SetNexusRepositoryIdExecutable executable = new SetNexusRepositoryIdExecutable();
-		executable.setBuildDirectory(buildDirectory);
-		executable.setMavenProperties(mavenProject.getProperties());
-		executable.setSkip(skip);
-		return executable;
+		// SetNexusRepositoryIdExecutable executable = new SetNexusRepositoryIdExecutable();
+		// executable.setBuildDirectory(buildDirectory);
+		// executable.setMavenProperties(mavenProject.getProperties());
+		// executable.setSkip(skip);
+		// return executable;
+		return null;
 	}
 
 }

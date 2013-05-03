@@ -53,7 +53,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-util</artifactId>
-      <version>4.2.2-tmp</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
