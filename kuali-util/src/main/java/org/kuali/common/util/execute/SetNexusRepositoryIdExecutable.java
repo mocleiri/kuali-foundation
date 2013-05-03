@@ -47,4 +47,28 @@ public class SetNexusRepositoryIdExecutable implements Executable {
 
 	}
 
+	public Properties getMavenProperties() {
+		return mavenProperties;
+	}
+
+	public void setMavenProperties(Properties mavenProperties) {
+		this.mavenProperties = mavenProperties;
+	}
+
+	public File getBuildDirectory() {
+		return buildDirectory;
+	}
+
+	public void setBuildDirectory(File buildDirectory) {
+		this.buildDirectory = buildDirectory;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+
 }
