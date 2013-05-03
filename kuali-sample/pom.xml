@@ -46,8 +46,8 @@
         <version>1.4.4</version>
         <extensions>true</extensions>
         <configuration>
-          <nexusUrl>http://oss.sonatype.org</nexusUrl>
-          <serverId>sonatype-nexus</serverId>
+          <nexusUrl>${kuali.repo.release.url}</nexusUrl>
+          <serverId>${kuali.repo.release.id}</serverId>
           <skipLocalStaging>false</skipLocalStaging>
           <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
           <skipStaging>true</skipStaging>
