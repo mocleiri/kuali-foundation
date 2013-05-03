@@ -35,13 +35,14 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-sample</url>
   </scm>
   <properties>
+    <kuali.release.profiles>kuali-release,sonatype-oss-release</kuali.release.profiles>
     <kuali.release.arguments>-e</kuali.release.arguments>
     <kuali.repo.skip.staging>true</kuali.repo.skip.staging>
     <plugin.nexus-staging.version>1.4.4</plugin.nexus-staging.version>
   </properties>
   <profiles>
     <profile>
-      <id>kuali-release</id>
+      <id>sonatype-oss-release</id>
       <properties>
         <kuali.repo.release.id>sonatype-nexus</kuali.repo.release.id>
         <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
