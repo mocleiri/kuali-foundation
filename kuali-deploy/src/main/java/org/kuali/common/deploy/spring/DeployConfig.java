@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.deploy.AppDynamicsMonitoring;
 import org.kuali.common.deploy.ApplicationServer;
 import org.kuali.common.deploy.DefaultDeployService;
@@ -20,6 +21,7 @@ import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.util.Artifact;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.secure.DefaultSecureChannel;
@@ -279,11 +281,32 @@ public class DeployConfig {
 		return deployables;
 	}
 
-	protected Deployable getApplicationConfig(String key) {
+	protected Deployable getApplicationConfig(String localKey) {
+		// kdo.config.1.local
+		String[] tokens = StringUtils.split(localKey);
+
+		if (tokens.length != 4) {
+			throw new IllegalStateException("Expected 4 tokens [" + localKey + "]");
+		}
+
+		String identifier = tokens[2];
+		String remoteKey = "kdo.config." + identifier + ".remote";
+		String filterKey = "kdo.config." + identifier + ".filter";
+		String requiredKey = "kdo.config." + identifier + ".required";
+
+		String local = SpringUtils.getProperty(env, localKey);
+		String remote = SpringUtils.getProperty(env, remoteKey);
+		boolean filter = SpringUtils.getBoolean(env, filterKey, true);
+		boolean required = SpringUtils.getBoolean(env, requiredKey, true);
+
+		if (required && !LocationUtils.exists(local)) {
+			throw new IllegalStateException("[" + local + "] is required, but does not exist");
+		}
+
 		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "kdo.config"));
-		d.setLocal(SpringUtils.getProperty(env, "kdo.config.local"));
-		d.setFilter(SpringUtils.getBoolean(env, "kdo.config.filter", true));
+		d.setRemote(remote);
+		d.setLocal(local);
+		d.setFilter(filter);
 		return d;
 	}
 
