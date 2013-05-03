@@ -98,7 +98,7 @@ mvn clean deploy site-deploy -Pkuali-release -e
   <entry key="jenkins.job.builders.shell.command.release"><![CDATA[mvn validate -Pscm -N
 mvn clean release:prepare release:perform -B
 cd $WORKSPACE/target/checkout
-mvn clean deploy -Pkuali-release,sonatype-oss-release
+mvn clean deploy -Pkuali-release,sonatype-oss-release -DskipTests
 # The || true at the end here is ridiculous and insanely evil
 # Remove it when Sonatype resolves https://issues.sonatype.org/browse/OSSRH-5976
 # Maven always reports a bogus BUILD FAILURE, even though the binaries got released correctly
