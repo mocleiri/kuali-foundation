@@ -12,24 +12,25 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,slave2.rice.kuali.org, ec2-107-20-108-43.compute-1.amazonaws.co, page not found, ,
 ,deploy3.rice.kuali.org, ec2-50-17-152-58.compute-1.amazonaws.com, page not found, ,
 ,old.ci.rice.kuali.org, ec2-23-20-1-17.compute-1.amazonaws.com, page not found, ,
-5,env5.rice.kuali.org, ec2-23-22-33-206.compute-1.amazonaws.com,  17:30:51 up 338 days, 18:50,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.1G,23G,9%,/,,env5
-9,env9.rice.kuali.org, ec2-23-21-7-214.compute-1.amazonaws.com,  17:30:54 up 127 days, 18:14,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.2G,23G,9%,/,,env9
-7,env7.rice.kuali.org, ec2-23-22-4-183.compute-1.amazonaws.com,  17:30:57 up 316 days, 20:36,  0 users,  load average: 0.09, 0.16, 0.17, /dev/xvda1,25G,2.1G,23G,9%,/,,env7
-8,env8.rice.kuali.org, ec2-23-20-229-33.compute-1.amazonaws.com,  17:31:00 up 316 days, 20:18,  0 users,  load average: 0.00, 0.03, 0.05, /dev/xvda1,25G,3.6G,21G,15%,/,,env8
-2,env2.rice.kuali.org, ec2-50-17-145-88.compute-1.amazonaws.com,  17:31:04 up 316 days, 17:47,  0 users,  load average: 0.24, 0.18, 0.14, /dev/xvda1,25G,2.2G,23G,9%,/,,env2
-10,env10.rice.kuali.org, ec2-107-22-103-56.compute-1.amazonaws.com,  17:31:07 up 279 days, 19:44,  0 users,  load average: 0.26, 0.29, 0.52, /dev/xvda1,25G,2.1G,23G,9%,/,,env10
-3,env3.rice.kuali.org, ec2-107-22-133-235.compute-1.amazonaws.com,  17:31:10 up 287 days, 18:49,  0 users,  load average: 0.34, 0.21, 0.23, /dev/xvda1,25G,2.1G,23G,9%,/,,env3
-4,env4.rice.kuali.org, ec2-23-20-220-86.compute-1.amazonaws.com,  17:31:13 up 297 days,  1:51,  0 users,  load average: 0.00, 0.03, 0.19, /dev/xvda1,25G,2.1G,23G,9%,/,,env4
+5,env5.rice.kuali.org, ec2-23-22-33-206.compute-1.amazonaws.com,  21:59:53 up 352 days, 23:19,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.1G,23G,9%,/,,env5
+9,env9.rice.kuali.org, ec2-23-21-7-214.compute-1.amazonaws.com,  21:59:56 up 141 days, 22:43,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.2G,23G,9%,/,,env9
+7,env7.rice.kuali.org, ec2-23-22-4-183.compute-1.amazonaws.com,  21:59:58 up 331 days,  1:05,  0 users,  load average: 0.00, 0.02, 0.09, /dev/xvda1,25G,2.1G,23G,9%,/,,env7
+8,env8.rice.kuali.org, ec2-23-20-229-33.compute-1.amazonaws.com,  22:00:01 up 331 days, 47 min,  0 users,  load average: 0.00, 0.03, 0.12, /dev/xvda1,25G,3.6G,21G,15%,/,,env8
+2,env2.rice.kuali.org, ec2-50-17-145-88.compute-1.amazonaws.com,  22:00:03 up 330 days, 22:16,  0 users,  load average: 0.24, 0.22, 0.21, /dev/xvda1,25G,2.2G,23G,9%,/,,env2
+3,env3.rice.kuali.org, ec2-107-22-133-235.compute-1.amazonaws.com,  22:00:05 up 301 days, 23:18,  0 users,  load average: 0.79, 0.70, 0.60, /dev/xvda1,25G,2.1G,23G,9%,/,,env3
+4,env4.rice.kuali.org, ec2-23-20-220-86.compute-1.amazonaws.com,  22:00:08 up 311 days,  6:20,  0 users,  load average: 0.00, 0.02, 0.13, /dev/xvda1,25G,2.1G,23G,9%,/,,env4
 ,env99.rice.kuali.org, ec2-23-22-82-225.compute-1.amazonaws.com, Fail 256, ,env4
-1,env1.rice.kuali.org, ec2-184-72-185-248.compute-1.amazonaws.com, Timedout alarm, ,env1
-12,env12.rice.kuali.org, ec2-50-16-149-235.compute-1.amazonaws.com,  17:32:08 up 219 days, 20:03,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.2G,23G,9%,/,,env12
-13,env13.rice.kuali.org, ec2-184-73-83-112.compute-1.amazonaws.com,  17:32:11 up 219 days, 20:03,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.1G,23G,9%,/,,env13
-,ws.rice.kuali.org, ec2-204-236-253-122.compute-1.amazonaws.com,  17:26:32 up 71 days,  6:09,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvde1,252G,188G,52G,79%,/,,ci.ws.server
+1,env1.rice.kuali.org, ec2-184-72-185-248.compute-1.amazonaws.com,  22:00:35 up 261 days,  1:19,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.5G,23G,10%,/,,env1
+12,env12.rice.kuali.org, ec2-50-16-149-235.compute-1.amazonaws.com,  22:00:37 up 234 days, 32 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.2G,23G,9%,/,,env12
+13,env13.rice.kuali.org, ec2-184-73-83-112.compute-1.amazonaws.com,  22:00:40 up 234 days, 32 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.1G,23G,9%,/,,env13
+,ws.rice.kuali.org, ec2-204-236-253-122.compute-1.amazonaws.com,  21:53:49 up 85 days, 10:36,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvde1,252G,196G,44G,82%,/,,ci.ws.server
 ,env16.rice.kuali.org, ec2-75-101-184-187.compute-1.amazonaws.com, Fail 256, ,ci.ws.server
 ,env29.rice.kuali.org, ec2-23-22-185-166.compute-1.amazonaws.com, Fail 256, ,ci.ws.server
 ,env67.rice.kuali.org, ec2-50-17-126-224.compute-1.amazonaws.com, Fail 65280, ,ci.ws.server
-,env14.rice.kuali.org, ec2-50-16-15-22.compute-1.amazonaws.com,  17:33:31 up 183 days, 20:15,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.8G,22G,12%,/,,env14
+,env14.rice.kuali.org, ec2-50-16-15-22.compute-1.amazonaws.com,  22:01:56 up 198 days, 43 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.7G,22G,12%,/,,env14
 ,env15.rice.kuali.org, ec2-23-20-26-232.compute-1.amazonaws.com, Fail 256, ,env14
-,ci.rice.kuali.org, ec2-50-19-200-109.compute-1.amazonaws.com, Timedout alarm, ,ci.rice
-6,demo.rice.kuali.org, ec2-23-22-220-55.compute-1.amazonaws.com,  17:34:25 up 176 days, 23:47,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.8G,22G,12%,/,,env6
-11,env11.rice.kuali.org, ec2-23-22-187-5.compute-1.amazonaws.com,  17:34:27 up 162 days, 22:59,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,env11
+,ci.rice.kuali.org, ec2-50-19-200-109.compute-1.amazonaws.com,  22:02:24 up 52 days,  2:33,  0 users,  load average: 0.16, 0.07, 0.13, /dev/xvde1,493G,362G,106G,78%,/,,ci.rice
+6,demo.rice.kuali.org, ec2-23-22-220-55.compute-1.amazonaws.com,  22:02:27 up 191 days,  4:15,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.8G,22G,12%,/,,env6
+11,env11.rice.kuali.org, ec2-23-22-187-5.compute-1.amazonaws.com,  22:02:30 up 177 days,  3:27,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,env11
+,blog.rice.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
+10,env10.rice.kuali.org, ec2-23-20-78-128.compute-1.amazonaws.com,  22:02:32 up 57 min,  0 users,  load average: 0.03, 0.17, 0.13, /dev/xvda1,25G,2.8G,22G,12%,/,,env10
