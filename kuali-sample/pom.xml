@@ -50,6 +50,7 @@
           <serverId>sonatype-nexus</serverId>
           <skipLocalStaging>false</skipLocalStaging>
           <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
+          <skipStaging>true</skipStaging>
         </configuration>
       </plugin>
     </plugins>
