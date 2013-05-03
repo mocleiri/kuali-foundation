@@ -45,6 +45,8 @@ public class SetNexusRepositoryIdExecutable implements Executable {
 
 		logger.info(LocationUtils.getCanonicalPath(buildDirectory));
 
+		mavenProperties.setProperty("nexus.stagingRepositoryId", "orgkuali-99999");
+
 	}
 
 	public Properties getMavenProperties() {
