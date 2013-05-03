@@ -46,6 +46,7 @@
         <kuali.repo.release.id>sonatype-nexus</kuali.repo.release.id>
         <kuali.repo.release.url>https://oss.sonatype.org</kuali.repo.release.url>
         <kuali.repo.skip.staging>false</kuali.repo.skip.staging>
+        <nexus.release.phase>none</nexus.release.phase>
       </properties>
       <build>
         <plugins>
@@ -85,7 +86,7 @@
             <executions>
               <execution>
                 <id>rc-release</id>
-                <phase>none</phase>
+                <phase>${nexus.release.phase}</phase>
                 <goals>
                   <goal>rc-release</goal>
                 </goals>
