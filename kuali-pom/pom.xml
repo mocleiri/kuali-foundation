@@ -77,9 +77,6 @@
     <project.metainf.skip>false</project.metainf.skip>
     <project.metainf.phase>generate-resources</project.metainf.phase>
 
-    <!-- Exclude this by default since it is only ever resolved when the kuali-release profile is active -->
-    <properties.maven.exclude>kuali.scm.url</properties.maven.exclude>
-
     <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
     <kuali.properties.global>BOTH</kuali.properties.global>
     <kuali.properties.missing>INFORM</kuali.properties.missing>
@@ -164,8 +161,6 @@
     <ksite.downloadBase>http://shrub.appspot.com/maven.kuali.org</ksite.downloadBase>
     <!-- Used by both the surefire plugin and the sonar plugin -->
     <surefire.reportsDirectory>${project.build.directory}/surefire-reports</surefire.reportsDirectory>
-    <!-- Used by both the "scm" and "updatescm" profiles -->
-    <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
     <!-- Wagon versions -->
     <wagon.s3.version>1.1.18</wagon.s3.version>
     <!-- Plugin versions (ordered alphabetically) -->
@@ -905,6 +900,9 @@
     </profile>
     <profile>
       <id>scm</id>
+      <properties>
+        <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -941,6 +939,9 @@
     </profile>
     <profile>
       <id>updatescm</id>
+      <properties>
+        <kuali.scm.url>${svn.repository}/${svn.path}</kuali.scm.url>
+      </properties>
       <build>
         <plugins>
           <plugin>
