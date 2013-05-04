@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
 import org.kuali.common.impex.service.MySqlProducer;
@@ -35,7 +35,7 @@ import org.kuali.common.impex.service.SqlProducer;
 
 /**
  * MySql Platform implementation.
- *
+ * 
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: PlatformMysqlImpl.java,v 1.1.6.1 2008-04-18 17:04:37 jkeller Exp $
  */
@@ -178,7 +178,7 @@ public class PlatformMysqlImpl extends PlatformDefaultImpl {
 
 	private boolean isSequence(String sequenceName) {
 		return sequenceName.toUpperCase().startsWith("SEQ_") || sequenceName.toUpperCase().startsWith("SEQUENCE_") || sequenceName.toUpperCase().endsWith("_SEQ")
-		        || sequenceName.toUpperCase().endsWith("_SEQUENCE") || sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
+				|| sequenceName.toUpperCase().endsWith("_SEQUENCE") || sequenceName.toUpperCase().endsWith("_ID") || sequenceName.toUpperCase().endsWith("_S");
 	}
 
 	@Override

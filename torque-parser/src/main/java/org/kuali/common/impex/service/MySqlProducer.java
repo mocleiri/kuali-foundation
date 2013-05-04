@@ -33,7 +33,7 @@ public class MySqlProducer extends AbstractSqlProducer {
 	public List<String> getSql(Table table, BufferedReader reader) throws IOException {
 
 		// Extract the columns into a list
-		List<Column> columns = ImpexUtils.getColumns(table);
+		List<Column> columns = ParseUtils.getColumns(table);
 
 		// Setup some storage
 		StringBuilder sb = new StringBuilder();

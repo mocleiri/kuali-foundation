@@ -45,7 +45,7 @@ public class MpxParser {
 
 		// Convert mpx special values (i.e. ${mpx.lf} -> \n )
 		for (int i = 0; i < values.length; i++) {
-			values[i] = ImpexUtils.parse(values[i]);
+			values[i] = ParseUtils.parse(values[i]);
 		}
 
 		// These are the original string values with all of the .mpx related
@@ -94,7 +94,7 @@ public class MpxParser {
         String line = reader.readLine();
 
         // skip the first header line to get an accurate row count
-        if (ImpexUtils.isHeaderLine(line)) {
+        if (ParseUtils.isHeaderLine(line)) {
             line = reader.readLine();
         }
 

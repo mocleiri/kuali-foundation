@@ -15,33 +15,10 @@
 
 package org.kuali.common.impex.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
-import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.MavenPropertySourceConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class })
 public class TestMavenPropertySourceConfig extends MavenPropertySourceConfig {
-
-    @Autowired
-    JdbcPropertiesConfig jdbcProperties;
-
-    @Autowired
-    GeneratorPropertiesConfig generatorProperties;
-
-    @Override
-    protected List<ProjectProperties> getProjectPropertiesList() {
-        List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-        list.add(jdbcProperties.jdbcProjectProperties());
-        list.add(generatorProperties.generatorProjectProperties());
-        return list;
-    }
 
 }

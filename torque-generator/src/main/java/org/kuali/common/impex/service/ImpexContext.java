@@ -7,12 +7,13 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.torque.engine.platform.Platform;
+import org.kuali.common.impex.Constants;
 
 public class ImpexContext {
 
 	public static final String DATA_CONTROL_TEMPLATE = "data/Control.vm";
 	// -------------------------------------------2013-02-18'T'13:26:07.000+0000
-	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+	public static final String MPX_DATE_FORMAT = Constants.MPX_DATE_FORMAT;
 
 	boolean processTables = true;
 	boolean processSequences = true;

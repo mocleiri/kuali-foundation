@@ -6,7 +6,7 @@ import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.KualiDatabase;
 import org.kuali.common.impex.MpxLocationSupplier;
-import org.kuali.common.impex.service.ImpexUtils;
+import org.kuali.common.impex.service.ParseUtils;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.spring.JdbcCommonConfig;
 import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
@@ -48,7 +48,7 @@ public class MpxSupplierConfig {
 	public KualiDatabase impexDatabase() {
 		String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		String location = SpringUtils.getProperty(env, IMPEX_SCHEMA_LOCATION_KEY);
-		return ImpexUtils.getDatabase(vendor, location);
+		return ParseUtils.getDatabase(vendor, location);
 	}
 
 	@Bean

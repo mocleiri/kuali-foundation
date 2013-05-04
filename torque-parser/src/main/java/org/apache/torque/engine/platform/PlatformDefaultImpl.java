@@ -29,13 +29,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.database.model.Domain;
 import org.apache.torque.engine.database.model.SchemaType;
 
 /**
  * Default implementation for the Platform interface.
- *
+ * 
  * @author <a href="mailto:mpoeschl@marmot.at">Martin Poeschl</a>
  * @version $Id: PlatformDefaultImpl.java,v 1.1.6.2 2008-04-18 17:04:37 jkeller Exp $
  */
@@ -65,13 +65,13 @@ public abstract class PlatformDefaultImpl implements Platform {
 	}
 
 	@Override
-    public String getServerUrl(String url) {
+	public String getServerUrl(String url) {
 		// By default just return the existing url
 		return url;
 	}
 
 	@Override
-    public String getSchemaName(String artifactId) {
+	public String getSchemaName(String artifactId) {
 		String suffix = "-db";
 		if (artifactId.endsWith(suffix)) {
 			int length = artifactId.length();
@@ -84,7 +84,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#getMaxColumnNameLength()
 	 */
 	@Override
-    public int getMaxColumnNameLength() {
+	public int getMaxColumnNameLength() {
 		return 64;
 	}
 
@@ -92,7 +92,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#getNativeIdMethod()
 	 */
 	@Override
-    public String getNativeIdMethod() {
+	public String getNativeIdMethod() {
 		return Platform.IDENTITY;
 	}
 
@@ -100,7 +100,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#getDomainForSchemaType(SchemaType)
 	 */
 	@Override
-    public Domain getDomainForSchemaType(SchemaType jdbcType) {
+	public Domain getDomainForSchemaType(SchemaType jdbcType) {
 		return schemaDomainMap.get(jdbcType);
 	}
 
@@ -109,7 +109,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#getNullString(boolean)
 	 */
 	@Override
-    public String getNullString(boolean notNull) {
+	public String getNullString(boolean notNull) {
 		// TODO: Check whether this is true for all DBs. Also verify
 		// the old Sybase templates.
 		return (notNull ? "NOT NULL" : "");
@@ -119,7 +119,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#getAutoIncrement()
 	 */
 	@Override
-    public String getAutoIncrement() {
+	public String getAutoIncrement() {
 		return "IDENTITY";
 	}
 
@@ -127,7 +127,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#hasScale(String) TODO collect info for all platforms
 	 */
 	@Override
-    public boolean hasScale(String sqlType) {
+	public boolean hasScale(String sqlType) {
 		return true;
 	}
 
@@ -135,7 +135,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#hasSize(String) TODO collect info for all platforms
 	 */
 	@Override
-    public boolean hasSize(String sqlType) {
+	public boolean hasSize(String sqlType) {
 		return true;
 	}
 
@@ -143,33 +143,33 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @see Platform#createNotNullBeforeAutoincrement()
 	 */
 	@Override
-    public boolean createNotNullBeforeAutoincrement() {
+	public boolean createNotNullBeforeAutoincrement() {
 		return true;
 	}
 
 	@Override
-    public String filterInvalidDefaultValues(String defaultValue) {
+	public String filterInvalidDefaultValues(String defaultValue) {
 		return defaultValue;
 	}
 
 	@Override
-    public boolean isSpecialDefault(String defaultValue) {
+	public boolean isSpecialDefault(String defaultValue) {
 		return false;
 	}
 
 	@Override
-    public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
+	public Long getSequenceNextVal(Connection con, String schema, String sequenceName) {
 		throw new UnsupportedOperationException("getSequenceDefinition");
 	}
 
 	@Override
-    public String getViewDefinition(Connection con, String schema, String viewName) {
+	public String getViewDefinition(Connection con, String schema, String viewName) {
 		throw new UnsupportedOperationException("getViewDefinition");
 	}
 
 	/**
 	 * Retrieves a list of the columns composing the primary key for a given table.
-	 *
+	 * 
 	 * @param dbMeta
 	 *            JDBC metadata.
 	 * @param tableName
@@ -178,7 +178,7 @@ public abstract class PlatformDefaultImpl implements Platform {
 	 * @throws SQLException
 	 */
 	@Override
-    public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
+	public List<String> getPrimaryKeys(DatabaseMetaData dbMeta, String dbSchema, String tableName) throws SQLException {
 		List<String> pk = new ArrayList<String>();
 		ResultSet parts = null;
 		try {
@@ -217,19 +217,19 @@ public abstract class PlatformDefaultImpl implements Platform {
 
 	/**
 	 * Get all the table names in the current database that are not system tables.
-	 *
+	 * 
 	 * @param dbMeta
 	 *            JDBC database metadata.
 	 * @return The list of all the tables in a database.
 	 * @throws SQLException
 	 */
 	@Override
-    public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+	public List<String> getTableNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return this.getTableNames(dbMeta, databaseSchema, "TABLE");
 	}
 
 	@Override
-    public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
+	public List<String> getSequenceNames(DatabaseMetaData dbMeta, String databaseSchema) throws SQLException {
 		return this.getTableNames(dbMeta, databaseSchema, "SEQUENCE");
 	}
 }

@@ -15,7 +15,7 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
-      <artifactId>torque-generator</artifactId>
+      <artifactId>torque-parser</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

@@ -16,7 +16,6 @@
 package org.kuali.common.impex.service;
 
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,13 +27,4 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:mpxTests/mysql-impex-context.xml" })
 @Ignore
 public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
-
-    private static final String INITIAL_PROPERTIES = "classpath:mpxTests/mpxtest-initialize-mysql-db.properties";
-    private static final String MPX_PROPERTIES = "classpath:mpxTests/mpxtest-mpxload-mysql-db.properties";
-
-    @Test
-    public void test() throws Exception {
-        doTest(INITIAL_PROPERTIES, MPX_PROPERTIES);
-    }
-
 }

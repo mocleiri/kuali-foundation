@@ -51,7 +51,7 @@ public class OracleProducer extends AbstractSqlProducer {
 		List<String> sql = new ArrayList<String>();
 
 		// Extract the list of columns
-		List<Column> columns = ImpexUtils.getColumns(table);
+		List<Column> columns = ParseUtils.getColumns(table);
 
 		// Determine if there are clob's
 		boolean hasClobColumns = hasClobColumns(columns);
@@ -166,7 +166,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	}
 
 	protected boolean isColumnClobType(Column column) {
-		return ImpexUtils.getColumnType(column).equals(SchemaType.CLOB);
+		return ParseUtils.getColumnType(column).equals(SchemaType.CLOB);
 	}
 
 	protected String continueClob(Table table, List<OracleLongClob> longClobRows) {

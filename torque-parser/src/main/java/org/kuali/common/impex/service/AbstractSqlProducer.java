@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.apache.torque.engine.database.model.Column;
 import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.impex.Constants;
 import org.kuali.common.util.CollectionUtils;
 
 /**
@@ -53,7 +54,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		// First check to see if the reader is at the Header line.
 		// If it is, skip that line
 		String line = reader.readLine();
-		if (ImpexUtils.isHeaderLine(line)) {
+		if (ParseUtils.isHeaderLine(line)) {
 			line = reader.readLine();
 		}
 
@@ -80,7 +81,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 		if (token == null) {
 			result.setValue(null);
 			result.setDateValue(null);
-		} else if (ImpexUtils.isColumnDateType(column)) {
+		} else if (ParseUtils.isColumnDateType(column)) {
 			Date parsedDate = getDate(token);
 			result.setValue(null);
 			result.setDateValue(parsedDate);
@@ -96,16 +97,16 @@ public abstract class AbstractSqlProducer implements SqlProducer {
 	}
 
 	protected Date getDate(String token) {
-		SimpleDateFormat sdf = new SimpleDateFormat(ImpexContext.MPX_DATE_FORMAT);
+		SimpleDateFormat sdf = new SimpleDateFormat(Constants.MPX_DATE_FORMAT);
 		try {
 			return sdf.parse(token);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + ImpexContext.MPX_DATE_FORMAT + "]");
+			throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + Constants.MPX_DATE_FORMAT + "]");
 		}
 	}
 
 	protected String getColumnNamesCSV(Table table) {
-		List<Column> columns = ImpexUtils.getColumns(table);
+		List<Column> columns = ParseUtils.getColumns(table);
 		List<String> colNames = new ArrayList<String>(columns.size());
 		for (Column col : columns) {
 			colNames.add(col.getName());
