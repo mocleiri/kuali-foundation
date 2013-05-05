@@ -16,12 +16,12 @@ public class BatchConfig {
 	@Bean
 	public int impexBatchSize() {
 		String size = SpringUtils.getProperty(env, "impex.batch.size");
-		return new Long(FormatUtils.getBytes(size)).intValue();
+		return (int) FormatUtils.getBytes(size);
 	}
 
 	@Bean
 	public int impexBatchRows() {
 		String rows = SpringUtils.getProperty(env, "impex.batch.rows");
-		return new Integer(rows);
+		return Integer.parseInt(rows);
 	}
 }
