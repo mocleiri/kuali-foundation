@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ParserProjectConfig {
 
 	public static final String GROUP_ID = MavenConstants.KUALI_COMMON_GROUP_ID;
-	public static final String ARTIFACT_ID = "torque-generator";
+	public static final String ARTIFACT_ID = "torque-parser";
 
 	@Bean
 	public Project generatorProject() {
