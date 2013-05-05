@@ -68,7 +68,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
-	// Configure a helper that will fail on any unresolved placeholders
+
+	// Configure a helper that fails on unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
 	public static List<String> getListFromCSV(Environment env, String key, String defaultValue) {
@@ -112,19 +113,34 @@ public class SpringUtils {
 		return se;
 	}
 
+	public static int getInteger(Environment env, String key) {
+		String value = getProperty(env, key);
+		return Integer.parseInt(value);
+	}
+
 	public static int getInteger(Environment env, String key, int defaultValue) {
-		String value = getProperty(env, key, defaultValue + "");
-		return new Integer(value);
+		String value = getProperty(env, key, Integer.toString(defaultValue));
+		return Integer.parseInt(value);
+	}
+
+	public static long getLong(Environment env, String key) {
+		String value = getProperty(env, key);
+		return Long.parseLong(value);
 	}
 
 	public static long getLong(Environment env, String key, long defaultValue) {
-		String value = getProperty(env, key, defaultValue + "");
-		return new Long(value);
+		String value = getProperty(env, key, Long.toString(defaultValue));
+		return Long.parseLong(value);
+	}
+
+	public static double getDouble(Environment env, String key) {
+		String value = getProperty(env, key);
+		return Double.parseDouble(value);
 	}
 
 	public static double getDouble(Environment env, String key, double defaultValue) {
-		String value = getProperty(env, key, defaultValue + "");
-		return new Double(value);
+		String value = getProperty(env, key, Double.toString(defaultValue));
+		return Double.parseDouble(value);
 	}
 
 	/**
@@ -133,7 +149,7 @@ public class SpringUtils {
 	 * @see FormatUtils.getMillis(String time)
 	 */
 	public static long getMillis(Environment env, String key, String defaultValue) {
-		String value = getProperty(env, key, defaultValue + "");
+		String value = getProperty(env, key, defaultValue);
 		return FormatUtils.getMillis(value);
 	}
 
@@ -143,7 +159,17 @@ public class SpringUtils {
 	 * @see FormatUtils.getBytes(String size)
 	 */
 	public static long getBytes(Environment env, String key, String defaultValue) {
-		String value = getProperty(env, key, defaultValue + "");
+		String value = getProperty(env, key, defaultValue);
+		return FormatUtils.getBytes(value);
+	}
+
+	/**
+	 * Parse bytes from a size string that ends with a unit of measure. If no unit of measure is provided, bytes is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getBytes(String size)
+	 */
+	public static long getBytes(Environment env, String key) {
+		String value = getProperty(env, key);
 		return FormatUtils.getBytes(value);
 	}
 
@@ -153,8 +179,13 @@ public class SpringUtils {
 	}
 
 	public static boolean getBoolean(Environment env, String key, boolean defaultValue) {
-		String value = getProperty(env, key, defaultValue + "");
-		return new Boolean(value);
+		String value = getProperty(env, key, Boolean.toString(defaultValue));
+		return Boolean.parseBoolean(value);
+	}
+
+	public static boolean getBoolean(Environment env, String key) {
+		String value = getProperty(env, key);
+		return Boolean.parseBoolean(value);
 	}
 
 	public static PropertySource<?> getGlobalPropertySource(String name, List<ProjectProperties> pps) {
