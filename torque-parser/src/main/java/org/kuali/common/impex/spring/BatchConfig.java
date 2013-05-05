@@ -1,6 +1,5 @@
 package org.kuali.common.impex.spring;
 
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,13 +14,11 @@ public class BatchConfig {
 
 	@Bean
 	public int impexBatchSize() {
-		String size = SpringUtils.getProperty(env, "impex.batch.size");
-		return (int) FormatUtils.getBytes(size);
+		return (int) SpringUtils.getBytes(env, "impex.batch.size", "50k");
 	}
 
 	@Bean
 	public int impexBatchRows() {
-		String rows = SpringUtils.getProperty(env, "impex.batch.rows");
-		return Integer.parseInt(rows);
+		return SpringUtils.getInteger(env, "impex.batch.rows", 50);
 	}
 }
