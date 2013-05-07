@@ -18,6 +18,7 @@ package org.kuali.common.aws.s3;
 
 import java.util.ArrayList;
 import java.util.Date; 
+import java.util.Map;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -127,9 +128,10 @@ public class s3Metrics {
 	
 	@Test
 	
-	public void execute() throws InterruptedException {
+	//public void execute() throws InterruptedException {
+		public void execute()  {
 		String bucketName = "maven.kuali.org";
-	
+		String HOME = System.getenv("HOME"); 
 		AmazonS3Client client = getClient();
 		
 		Date now=new Date();
@@ -143,31 +145,31 @@ public class s3Metrics {
 	
 	   	List<S3Types> dataArray = new ArrayList<S3Types>();
 
+		String resource_location = HOME+"/ws/kuali-s3/src/test/resources";
+		String BucketChart01  = resource_location+"/BucketChart1.cvs";   //metric for Rice, Student, Ole
+		String BucketChart01a = resource_location+"/BucketChart1a.cvs";  //Metric for Maven Build,Release,Snapshot
+		String BucketChart02  = resource_location+"/BucketChart2.cvs";   //Data for Snapshot
+		String BucketChart02a = resource_location+"/BucketChart2a.cvs";  //Data for External
+		String BucketChart02b = resource_location+"/BucketChart2b.cvs";  //Data for Private
+		String BucketChart03  = resource_location+"/BucketChart3.cvs";   //Data for Builds
+		String BucketChart04  = resource_location+"/BucketChart4.cvs";   //Data for Release
+		String BucketChart05  = resource_location+"/BucketChart5.cvs";   //Snapshot, pie, Keep Data
+		String BucketChart06  = resource_location+"/BucketChart6.cvs";  //Snapshot, pie, Expire Data
+
+		String BucketChart05a = resource_location+"/BucketChart5a.cvs";  //Release, pie, Keep Data
+		String BucketChart06a = resource_location+"/BucketChart6a.cvs";  //Release, pie, Expire Data
+
 		
-		String BucketChart01  = "/tmp/BucketChart1.cvs";   //metric for Rice, Student, Ole
-		String BucketChart01a = "/tmp/BucketChart1a.cvs";  //Metric for Maven Build,Release,Snapshot
-		String BucketChart02  = "/tmp/BucketChart2.cvs";   //Data for Snapshot
-		String BucketChart02a = "/tmp/BucketChart2a.cvs";  //Data for External
-		String BucketChart02b = "/tmp/BucketChart2b.cvs";  //Data for Private
-		String BucketChart03  = "/tmp/BucketChart3.cvs";   //Data for Builds
-		String BucketChart04  = "/tmp/BucketChart4.cvs";   //Data for Release
-		String BucketChart05  = "/tmp/BucketChart5.cvs";   //Snapshot, pie, Keep Data
-		String BucketChart06  = "/tmp/BucketChart6.cvs";  //Snapshot, pie, Expire Data
+		String BucketListA = resource_location+"/BucketListA.cvs";  //Table Listing of Release Areas Summary
+		String BucketListB = resource_location+"/BucketListB.cvs";  //Snapshot Table Listing
+		String BucketListC = resource_location+"/BucketListC.cvs";  //Release Table Listing
+		String BucketListD = resource_location+"/BucketListD.cvs";  //Captures The Date of the Report
+		String BucketListE = resource_location+"/BucketListE.cvs";  //Total Expire and Release for all Areas
 
-		String BucketChart05a = "/tmp/BucketChart5a.cvs";  //Release, pie, Keep Data
-		String BucketChart06a = "/tmp/BucketChart6a.cvs";  //Release, pie, Expire Data
-
-		
-		String BucketListA = "/tmp/BucketListA.cvs";  //Table Listing of Release Areas Summary
-		String BucketListB = "/tmp/BucketListB.cvs";  //Snapshot Table Listing
-		String BucketListC = "/tmp/BucketListC.cvs";  //Release Table Listing
-		String BucketListD = "/tmp/BucketListD.cvs";  //Captures The Date of the Report
-		String BucketListE = "/tmp/BucketListE.cvs";  //Total Expire and Release for all Areas
-
-		String BucketListExpired= "/tmp/ExpiredList.txt";
+		String BucketListExpired= resource_location+"/ExpiredList.txt";
 	   	writeLinesToFile(BucketListExpired,  "ExpiredFile", true); 
 
-		String CaptureDate = "/tmp/CaptureDate.cvs"; // The date the report was ran
+		String CaptureDate = resource_location+"/CaptureDate.cvs"; // The date the report was ran
 		writeLinesToFile( CaptureDate, "Captured "+Date, true);
 		
 		
@@ -535,58 +537,9 @@ public class s3Metrics {
 	 //BucketListE
  	 PrintLine  = ("A ,"+ Long.toString(ExpireTotalGB) +","+Long.toString(KeepTotalGB));
      writeLinesToFile(BucketListE,  PrintLine, false);
-    
-	  	
-    
-	 try{
-		 
-		 String report[] = { 
-				 "BucketChart1.cvs",
-				 "BucketChart1a.cvs",
-				 "BucketChart2.cvs",
-				 "BucketChart2a.cvs",
-				 "BucketChart2b.cvs",
-				 "BucketChart3.cvs",
-				 "BucketChart4.cvs",
-				 "BucketChart5.cvs",
-				 "BucketChart5a.cvs",
-				 "BucketChart6.cvs",
-				 "BucketChart6a.cvs",
-				 "BucketListA.cvs",
-				 "BucketListB.cvs",
-				 "BucketListC.cvs",
-				 "BucketListD.cvs",
-				 "BucketListE.cvs",
-				 "CaptureDate.cvs"  
-			   }; 
-		 
-		String cmdlinux;
-		String filetocopy;
-		int rs = report.length - 1;
-		for (int r = 0; r <= rs; r++)
-		  { 
-		  	
-			filetocopy = report[r]; 
- 	        cmdlinux = "scp /tmp/"+filetocopy+" root"+ "@" +"ec2-50-19-200-109.compute-1.amazonaws.com" +":"+  "/usr/local/tomcat";
- 	      	Runtime runtime = Runtime.getRuntime();
- 	        setProcess(runtime.exec(cmdlinux));
- 	        Thread.sleep(1000);
-            System.out.println(cmdlinux);
-		  }
-  }
-  catch(IOException ex){
-      System.out.println (ex.toString());
-		System.out.println("Could not find file " );
   
-	
-	
-	
-	    
-	}; //testDateListing
-	
-	 
 
-	}
+	};
 	
 	
 }; //subroutine
