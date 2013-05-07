@@ -3,7 +3,7 @@ package org.kuali.common.impex.service;
 import java.util.Deque;
 import java.util.List;
 
-import org.apache.torque.engine.database.model.Column;
+import org.kuali.common.impex.model.Column;
 
 public class OracleLongClob {
 

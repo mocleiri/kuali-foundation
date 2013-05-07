@@ -18,10 +18,13 @@ package org.kuali.common.impex;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
+import liquibase.snapshot.DatabaseSnapshot;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.model.impl.liquibase.LiquibaseTableImpl;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
@@ -44,13 +47,18 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 
 	String extension = DEFAULT_MPX_EXTENSION;
 	String encoding = UTF8;
-	KualiDatabase database;
 	SqlProducer producer;
 	String location;
 
+    /**
+     * Liquibase database snapshot.  Used to find column information
+     *
+     */
+    DatabaseSnapshot databaseSnapshot;
+
 	@Override
 	public void open() throws IOException {
-		this.table = getTable(location, database, extension);
+		this.table = getTable(location, databaseSnapshot, extension);
 		this.reader = LocationUtils.getBufferedReader(location, encoding);
 	}
 
@@ -65,22 +73,22 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		this.table = null;
 	}
 
-	protected Table getTable(String location, KualiDatabase database, String extension) {
+	protected Table getTable(String location, DatabaseSnapshot snapshot, String extension) {
 		String filename = LocationUtils.getFilename(location);
 		if (!StringUtils.endsWithIgnoreCase(filename, extension)) {
 			throw new IllegalArgumentException(location + " does not end with " + extension);
 		}
 		int end = filename.length() - extension.length();
 		String tableName = StringUtils.substring(filename, 0, end);
-		return getTable(database, tableName);
+		return getTable(snapshot, tableName);
 	}
 
-	protected Table getTable(KualiDatabase database, String tableName) {
-		List<?> tables = database.getTables();
-		for (Object element : tables) {
-			Table table = (Table) element;
-			if (StringUtils.equalsIgnoreCase(tableName, table.getName())) {
-				return table;
+	protected Table getTable(DatabaseSnapshot database, String tableName) {
+        Set<liquibase.structure.core.Table> tables = database.get(liquibase.structure.core.Table.class);
+		for (liquibase.structure.core.Table element : tables) {
+			Table t = new LiquibaseTableImpl(element);
+			if (StringUtils.equalsIgnoreCase(tableName, t.getName())) {
+				return t;
 			}
 		}
 		throw new IllegalArgumentException("Unable to locate table [" + tableName + "]");
@@ -118,14 +126,6 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		this.producer = producer;
 	}
 
-	public KualiDatabase getDatabase() {
-		return database;
-	}
-
-	public void setDatabase(KualiDatabase database) {
-		this.database = database;
-	}
-
 	public String getExtension() {
 		return extension;
 	}
@@ -133,4 +133,12 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 	public void setExtension(String extension) {
 		this.extension = extension;
 	}
+
+    public DatabaseSnapshot getDatabaseSnapshot() {
+        return databaseSnapshot;
+    }
+
+    public void setDatabaseSnapshot(DatabaseSnapshot databaseSnapshot) {
+        this.databaseSnapshot = databaseSnapshot;
+    }
 }

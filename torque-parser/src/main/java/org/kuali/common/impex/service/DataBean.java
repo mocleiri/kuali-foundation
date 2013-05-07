@@ -15,9 +15,9 @@
 
 package org.kuali.common.impex.service;
 
-import org.apache.torque.engine.database.model.Column;
-
 import java.util.Date;
+
+import org.kuali.common.impex.model.Column;
 
 /**
  * @author andrewlubbers

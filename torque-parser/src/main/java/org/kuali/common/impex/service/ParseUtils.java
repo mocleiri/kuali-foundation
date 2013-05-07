@@ -1,12 +1,7 @@
 package org.kuali.common.impex.service;
 
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.torque.engine.EngineException;
-import org.apache.torque.engine.database.model.Column;
-import org.apache.torque.engine.database.model.SchemaType;
-import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.impex.KualiDatabase;
 import org.kuali.core.db.torque.KualiXmlToAppData;
 import org.slf4j.Logger;
@@ -18,7 +13,6 @@ public class ParseUtils {
 
 	private static final String QUOTE = "\"";
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
-	private static final SchemaType[] COLUMN_DATE_TYPES = { SchemaType.DATE, SchemaType.TIMESTAMP };
 
 	public static KualiDatabase getDatabase(String vendor, String location) {
 		KualiXmlToAppData parser = new KualiXmlToAppData(vendor);
@@ -86,33 +80,6 @@ public class ParseUtils {
 		converted = StringUtils.replace(converted, "\n", "${mpx.lf}");
 		converted = StringUtils.replace(converted, "\"", "${mpx.quote}");
 		return converted;
-	}
-
-	@SuppressWarnings("unchecked")
-	/**
-	 * Gets the parameterized version of the columns list from a @Table
-	 *
-	 * @return the List&lt;Column&gt; of columns from the table
-	 */
-	public static List<Column> getColumns(Table table) {
-		return table.getColumns();
-	}
-
-	public static boolean isColumnDateType(Column column) {
-		SchemaType columnType = getColumnType(column);
-
-		boolean result = false;
-		for (SchemaType dateType : COLUMN_DATE_TYPES) {
-			if (dateType.equals(columnType)) {
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
-
-	public static SchemaType getColumnType(Column column) {
-		return SchemaType.getEnum((String) column.getTorqueType());
 	}
 
 }
