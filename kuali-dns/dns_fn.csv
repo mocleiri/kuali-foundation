@@ -1,7 +1,7 @@
 Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for 1 , for 5 min,15 min,disk,size,GB,used,%
-,www.kuali.org, ec2-174-129-193-43.compute-1.amazonaws.com,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, /dev/xvda1,8.0G,1.5G,6.2G,19%,/,,www:Production
+,www.kuali.org, ec2-174-129-193-43.compute-1.amazonaws.com,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, /dev/xvda1,8.0G,1.5G,6.2G,19%,/,,www:Production
 ,cal.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,ci.kc.kuali.org, ec2-174-129-80-250.compute-1.amazonaws.com,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,ci.kc.kuali.org, ec2-174-129-80-250.compute-1.amazonaws.com,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,cm.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,code.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,docs.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
@@ -9,41 +9,41 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,feeds.kuali.org,1682iaw.feedproxy.ghs.google.com, Google Hosted Services(ghs) no check,
 ,groups.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,home.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,sandbox.kuali.org, wsa139.uits.indiana.edu,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
-,test.kr.kuali.org, wsa131.uits.indiana.edu,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,sandbox.kuali.org, wsa139.uits.indiana.edu,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
+,test.kr.kuali.org, wsa131.uits.indiana.edu,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,mail.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,sites.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,video.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,kuali.sandbox.kuali.org, wsa139.uits.indiana.edu,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
-,student.sandbox.kuali.org, wsa139.uits.indiana.edu,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,kuali.sandbox.kuali.org, wsa139.uits.indiana.edu,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
+,student.sandbox.kuali.org, wsa139.uits.indiana.edu,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,moderator.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,openldap.kuali.org, ec2-72-44-63-236.compute-1.amazonaws.com,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
-,us.ready-dev.kuali.org, us1.ready-dev.kuali.org,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
-,us.ready-qa.kuali.org, us1.ready-qa.kuali.org,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
-,us.ready-staging.kuali.org, us1.ready-staging.kuali.org,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,openldap.kuali.org, ec2-72-44-63-236.compute-1.amazonaws.com,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
+,us.ready-dev.kuali.org, us1.ready-dev.kuali.org,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
+,us.ready-qa.kuali.org, us1.ready-qa.kuali.org,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
+,us.ready-staging.kuali.org, us1.ready-staging.kuali.org,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,testhome.kuali.org,ghs.google.co, Google Hosted Services(ghs) no check,
 ,wave.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,dev.cas.kuali.org, ec2-174-129-170-136.compute-1.amazonaws.com,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,dev.cas.kuali.org, ec2-174-129-170-136.compute-1.amazonaws.com,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,maven.kuali.org,maven.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
 ,downloads.kfs.kuali.org,downloads.kfs.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
 ,downloads.kc.kuali.org,downloads.kc.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
 ,db.kis.kuali.org,kis.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,downloads.kuali.org,downloads.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
-,help.kuali.org, kuali.estreamdesk.com,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,help.kuali.org, kuali.estreamdesk.com,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,db.dev.kuali.org,dev.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,db.fisheye.kuali.org,fisheye.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,test.db.kfs.kuali.org,kfs-test.cddaaptdzgz4.us-east-1.rds.amazonaws.com, RDS-no check,
 ,site.origin.kuali.org,site.origin.kuali.org.s3.amazonaws.com, S3 Data Archiver no check,
 ,site.kuali.org,d25qhq2wna27m6.cloudfront.net, cloudfront-no check,
 ,site.maven.kuali.org,d25qhq2wna27m6.cloudfront.net, cloudfront-no check,
-,sakai.kuali.org, ec2-67-202-28-53.compute-1.amazonaws.com,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,sakai.kuali.org, ec2-67-202-28-53.compute-1.amazonaws.com,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,stg.db.kfs.kuali.org,kfs-stg.cddaaptdzgz4.us-east-1.rds.amazonaws.com, RDS-no check,
-,oracle.kfs.kuali.org, ci.kf,  14:06:15 up 82 days, 14:15,  0 users,  load average: 0.20, 0.12, 0.13, ,
+,oracle.kfs.kuali.org, ci.kf,  17:58:04 up 101 days, 18:07,  0 users,  load average: 0.06, 0.08, 0.11, ,
 ,start.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,kuali-nexus-lb, ec2-50-19-21-45.compute-1.amazonaws.com, ,InService,kuali-nexus-lb-287160402.us-east-1.elb.amazonaws.com
-,nexus.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com,  14:05:18 up 201 days, 23:14,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,60G,47G,11G,83%,/,,kuali-nexus-as:nexus
+,nexus.kuali.org, ec2-50-19-21-45.compute-1.amazonaws.com,  17:56:56 up 221 days,  3:08,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,60G,34G,23G,61%,/,,kuali-nexus-as:nexus
 ,newsletter.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
-,test.mm.kfs.kuali.org, ec2-50-16-173-234.compute-1.amazonaws.com,  14:05:18 up 201 days, 23:14,  0 users,  load average: 0.00, 0.00, 0.00, ,
+,test.mm.kfs.kuali.org, ec2-50-16-173-234.compute-1.amazonaws.com,  17:56:56 up 221 days,  3:08,  0 users,  load average: 0.00, 0.00, 0.00, ,
 ,oracle.kmm.kuali.org,kmm-cnv.cddaaptdzgz4.us-east-1.rds.amazonaws.co, RDS-no check,
 ,i-45b94026, deploy1.m, ,running,mobility1:ProdBalanced
 ,mysql.m.kuali.org,mobility-mysql.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
@@ -52,28 +52,30 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,conference.kc.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,kcw.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
 ,oraclerds.kfs.kuali.org,kfs.cddaaptdzgz4.us-east-1.rds.amazonaws.com, RDS-no check,
-,nexus1.kuali.org, ec2-107-22-101-0.compute-1.amazonaws.com,  18:05:23 up 486 days, 13:54,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,nexus2.kuali.org, ec2-23-20-86-20.compute-1.amazonaws.com,  18:05:23 up 486 days, 13:54,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,nexus1.kuali.org, ec2-107-22-101-0.compute-1.amazonaws.com,  21:56:59 up 505 days, 17:46,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,nexus2.kuali.org, ec2-23-20-86-20.compute-1.amazonaws.com,  21:56:59 up 505 days, 17:46,  0 users,  load average: 0.00, 0.01, 0.05, ,
 ,nexus3.kuali.org,ec2-50-17-62-119.compute-1.amazonaws.com, S3 Data Archiver no check,
-,fossology.kuali.org, ,  18:05:23 up 486 days, 13:54,  0 users,  load average: 0.00, 0.01, 0.05, ,fossology:Decommision
-,new.fossology.kuali.org, ,  18:05:23 up 486 days, 13:54,  0 users,  load average: 0.00, 0.01, 0.05, ,new.fossology:Decommision
-,sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com,  18:05:26 up 295 days, 22:46,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,7.5G,17G,31%,/,,sonar-new
+,fossology.kuali.org, ,  21:56:59 up 505 days, 17:46,  0 users,  load average: 0.00, 0.01, 0.05, ,fossology:Decommision
+,new.fossology.kuali.org, ,  21:56:59 up 505 days, 17:46,  0 users,  load average: 0.00, 0.01, 0.05, ,new.fossology:Decommision
+,sonar.kuali.org, ec2-107-20-123-235.compute-1.amazonaws.com,  21:57:01 up 315 days,  2:38,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,7.5G,17G,31%,/,,sonar-new
 ,db.dev.kis.kuali.org,db-dev-kis.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org, kam4jcm3y5kb76or5eico7tf4fh3f7yr.dkim.amazonses.com,  18:05:26 up 295 days, 22:46,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org, cyuugtb4obthnropzloyticx3jijqy4u.dkim.amazonses.com,  18:05:26 up 295 days, 22:46,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org, jlwnqoirgbne5v4x5b22mvjcayqyy7wr.dkim.amazonses.com,  18:05:26 up 295 days, 22:46,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,ci.fn.kuali.org, ec2-23-22-222-214.compute-1.amazonaws.com,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,99G,91G,7.4G,93%,/,,ci.fn
+,kam4jcm3y5kb76or5eico7tf4fh3f7yr._domainkey.kuali.org, kam4jcm3y5kb76or5eico7tf4fh3f7yr.dkim.amazonses.com,  21:57:01 up 315 days,  2:38,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,cyuugtb4obthnropzloyticx3jijqy4u._domainkey.kuali.org, cyuugtb4obthnropzloyticx3jijqy4u.dkim.amazonses.com,  21:57:01 up 315 days,  2:38,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,jlwnqoirgbne5v4x5b22mvjcayqyy7wr._domainkey.kuali.org, jlwnqoirgbne5v4x5b22mvjcayqyy7wr.dkim.amazonses.com,  21:57:01 up 315 days,  2:38,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,ci.fn.kuali.org, ec2-23-22-222-214.compute-1.amazonaws.com,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,99G,96G,2.5G,98%,/,,ci.fn
 ,db.fecru.kuali.org,fecru.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,new-fisheye.kuali.org, ec2-174-129-169-206.compute-1.amazonaws.com,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,new-crowd.kuali.org, ec2-50-17-163-28.compute-1.amazonaws.com,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,old-crowd.kuali.org, ec2-54-242-2-231.compute-1.amazonaws.com,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,new-www.kuali.org, ec2-50-17-39-239.compute-1.amazonaws.com,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,
-,old-www.kuali.org, ,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,old-www:Decommision
-,dev-drupal.kuali.org, ,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,Decommision:dev-drupal
-,www.dev-drupal.kuali.org, ec2-174-129-65-161.compute-1.amazonaws.com,  18:05:29 up 199 days, 21:49,  0 users,  load average: 0.00, 0.01, 0.05, ,Decommision:dev-drupal
+,new-fisheye.kuali.org, ec2-174-129-169-206.compute-1.amazonaws.com,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,new-crowd.kuali.org, ec2-50-17-163-28.compute-1.amazonaws.com,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,old-crowd.kuali.org, ec2-54-242-2-231.compute-1.amazonaws.com,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,new-www.kuali.org, ec2-50-17-39-239.compute-1.amazonaws.com,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,
+,old-www.kuali.org, ,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,old-www:Decommision
+,dev-drupal.kuali.org, ,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,Decommision:dev-drupal
+,www.dev-drupal.kuali.org, ec2-174-129-65-161.compute-1.amazonaws.com,  21:57:04 up 219 days,  1:40,  0 users,  load average: 0.00, 0.01, 0.05, ,Decommision:dev-drupal
 ,db-dev-www.kuali.org,db-dev-www.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,db-www.kuali.org,www.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
-,dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com,  14:05:22 up 76 days, 20:48,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,7.9G,1.1G,6.5G,14%,/,,dev-cas:Development
+,dev-cas.kuali.org, ec2-54-234-59-29.compute-1.amazonaws.com,  17:56:54 up 96 days, 39 min,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,7.9G,1.1G,6.5G,14%,/,,dev-cas:Development
 ,test-www.kuali.org, ec2-107-20-8-76.compute-1.amazonaws.com, Timedout alarm, ,test-www:Test
 ,db-dev-www-rep.kuali.org,db-dev-www-rep.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
 ,db-test-www.kuali.org,db-test-www.cbrgy2t2gji6.us-east-1.rds.amazonaws.com, RDS-no check,
+,blog.kuali.org,ghs.google.com, Google Hosted Services(ghs) no check,
+,kmbn2dk6p56c.kuali.org, gv-tth5zvdovvmrbq.dv.googlehosted.com, Timedout alarm, ,

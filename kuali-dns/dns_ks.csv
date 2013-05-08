@@ -6,22 +6,28 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,cf.ks.kuali.org,d1qfka0f5mzsdv.cloudfront.net, cloudfront-no check,
 ,s3browse.ks.kuali.org,d2rowqzyjjug61.cloudfront.net, S3 Data Archiver no check,
 ,ux.ks.kuali.org,ux.ks.kuali.org.s3-website-us-east-1.amazonaws.com, S3 Data Archiver no check,
-,standalone.ks.kuali.org, ec2-50-17-40-108.compute-1.amazonaws.com,  13:57:16 up 308 days, 12:40,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,50G,17G,31G,36%,/,,standalone-deploy
+,standalone.ks.kuali.org, ec2-50-17-40-108.compute-1.amazonaws.com,  18:49:48 up 327 days, 17:34,  0 users,  load average: 0.00, 0.00, 0.00, /dev/sda1,50G,17G,31G,36%,/,,standalone-deploy
 ,ks-staging2-lb, staging2.ks, ,OutOfService,ks-staging2-lb-508570320.us-east-1.elb.amazonaws.com
 ,ks-dev2-lb, dev2.ks, ,OutOfService,ks-dev2-lb-1875511927.us-east-1.elb.amazonaws.com
 ,i-040ba964, deploy2.ks, ,running,deploy-1.3
 ,ci.ks.kuali.org, ec2-50-19-187-43.compute-1.amazonaws.com, Timedout alarm, ,Jenkins
 ,env5.ks.kuali.org, ec2-23-20-232-244.compute-1.amazonaws.com, Fail 256, ,Jenkins
 ,env33.ks.kuali.org, ec2-107-20-15-140.compute-1.amazonaws.com, Fail 65280, ,Jenkins
-,the-most-awesome-environment-ever.ks.kuali.org, ec2-184-72-192-98.compute-1.amazonaws.com, Fail 65280, ,Jenkins
-2,env2.ks.kuali.org, ec2-50-19-188-168.compute-1.amazonaws.com, Timedout alarm, ,env2
-5,staging.ks.kuali.org, ec2-107-21-74-59.compute-1.amazonaws.com,  17:59:23 up 295 days, 21:06,  0 users,  load average: 0.02, 0.04, 0.10, /dev/xvda1,25G,2.3G,23G,10%,/,,env5
+,the-most-awesome-environment-ever.ks.kuali.org, ec2-184-72-192-98.compute-1.amazonaws.com, Fail 256, ,Jenkins
+5,staging.ks.kuali.org, ec2-107-21-74-59.compute-1.amazonaws.com,  22:51:30 up 315 days,  1:58,  0 users,  load average: 0.20, 0.25, 0.20, /dev/xvda1,25G,2.3G,23G,10%,/,,env5
 ,env9.ks.kuali.org, ec2-23-23-39-241.compute-1.amazonaws.com, Fail 256, ,env5
-9,demo.ks.kuali.org, ec2-50-19-44-102.compute-1.amazonaws.com,  17:59:51 up 201 days,  2:23,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,13%,/,,env9
-11,env11.ks.kuali.org, ec2-23-22-189-254.compute-1.amazonaws.com,  17:59:54 up 193 days,  1:13,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,env11
-,env12.ks.kuali.org, ec2-23-20-153-73.compute-1.amazonaws.com,  17:59:57 up 154 days, 20:31,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,13%,/,,env12
+9,demo.ks.kuali.org, ec2-50-19-44-102.compute-1.amazonaws.com,  22:51:57 up 220 days,  7:15,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,13%,/,,env9
 ,oraperf.ks.kuali.org,oraperf.cmoi3j9ebowf.us-east-1.rds.amazonaws.com, RDS-no check,
-,env14.ks.kuali.org, ec2-50-16-132-81.compute-1.amazonaws.com,  18:00:00 up 14 days, 22:41,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,env14
-15,env15.ks.kuali.org, ec2-23-20-22-137.compute-1.amazonaws.com, Timedout alarm, ,env15
-,env16.ks.kuali.org, ec2-54-234-251-162.compute-1.amazonaws.com,  18:00:27 up 6 days, 23:54,  0 users,  load average: 0.00, 0.01, 0.09, /dev/xvda1,25G,2.8G,22G,12%,/,,env16
-,oracle.ks.kuali.org,oracle.cmoi3j9ebowf.us-east-1.rds.amazonaws.com, RDS-no check,
+,env14.ks.kuali.org, ec2-50-16-132-81.compute-1.amazonaws.com,  22:52:00 up 34 days,  3:33,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.9G,22G,12%,/,,env14
+15,env15.ks.kuali.org, ec2-23-20-22-137.compute-1.amazonaws.com,  22:52:02 up 34 days,  3:31,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,13%,/,,env15
+,oracle.ks.kuali.org,oracle-xlarge-iops.cmoi3j9ebowf.us-east-1.rds.amazonaws.com, RDS-no check,
+,jc.ks.kuali.org, ec2-23-22-202-228.compute-1.amazonaws.com,  22:52:04 up 102 days,  6:59,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,7.9G,7.6G,222M,98%,/,,temp-server-for-jc
+,env16.ks.kuali.org, ec2-67-202-43-235.compute-1.amazonaws.com,  22:52:07 up 13 days, 21:54,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.0G,22G,12%,/,,env16
+2,env2.ks.kuali.org, ec2-54-242-47-249.compute-1.amazonaws.com,  22:52:09 up 13 days, 15:35,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,env2
+,env17.ks.kuali.org, ec2-54-224-226-92.compute-1.amazonaws.com, Fail 256, ,env2
+11,env11.ks.kuali.org, ec2-54-235-231-193.compute-1.amazonaws.com,  22:52:36 up 2 days,  8:06,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,2.8G,22G,12%,/,,env11
+,env12.ks.kuali.org, ec2-174-129-55-17.compute-1.amazonaws.com,  22:52:39 up 2 days,  8:05,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.2G,22G,14%,/,,env12
+,env1.ks.kuali.org, ec2-23-22-152-140.compute-1.amazonaws.com,  22:52:41 up 2 days,  3:00,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,env1
+,env4.ks.kuali.org, ec2-67-202-51-70.compute-1.amazonaws.com,  22:52:43 up 2 days,  3:00,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,env4
+,env3.ks.kuali.org, ec2-23-22-7-191.compute-1.amazonaws.com,  22:52:45 up 2 days,  3:00,  0 users,  load average: 0.04, 0.03, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,env3
+,env6.ks.kuali.org, ec2-54-224-255-243.compute-1.amazonaws.com,  22:52:48 up 2 days,  2:52,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvda1,25G,3.1G,22G,13%,/,,env6
