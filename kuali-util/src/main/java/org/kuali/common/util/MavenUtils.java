@@ -98,6 +98,9 @@ public class MavenUtils {
 		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
 
+		// Add the current milliseconds value as a project property
+		mavenProperties.setProperty("project.timestamp.millis", Long.toString(System.currentTimeMillis()));
+
 		// Make sure system/environment properties still always win
 		PropertyUtils.overrideWithGlobalValues(mavenProperties, GlobalPropertiesMode.BOTH);
 
