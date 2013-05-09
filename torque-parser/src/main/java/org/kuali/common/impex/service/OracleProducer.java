@@ -261,7 +261,7 @@ public class OracleProducer extends AbstractSqlProducer {
         sb.append(table.getName());
         sb.append(SPACE);
         sb.append(ARG_LIST_START);
-        sb.append(getColumnNamesCSV(table));
+        sb.append(ProducerUtils.getCsvColumnNames(table.getColumns()));
         sb.append(ARG_LIST_END);
         sb.append(VALUES_PREFIX);
         sb.append(ARG_LIST_START);

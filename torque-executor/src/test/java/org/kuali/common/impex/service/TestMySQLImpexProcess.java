@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.service;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,7 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:mpxTests/mysql-impex-context.xml" })
-@Ignore
 public class TestMySQLImpexProcess extends AbstractTestImpexProcess {
 
     private static final String INITIAL_PROPERTIES = "classpath:mpxTests/mpxtest-initialize-mysql-db.properties";
