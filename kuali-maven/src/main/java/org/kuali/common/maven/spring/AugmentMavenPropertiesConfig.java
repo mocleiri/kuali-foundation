@@ -19,14 +19,19 @@ import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.Assert;
+import org.springframework.core.env.Environment;
 
 @Configuration
 public class AugmentMavenPropertiesConfig {
+
+	@Autowired
+	Environment env;
 
 	@Autowired
 	@Qualifier(MavenConstants.MAVEN_PROJECT_BEAN_NAME)
@@ -36,12 +41,13 @@ public class AugmentMavenPropertiesConfig {
 	@Qualifier(MavenConstants.MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
-	@Bean
-	public Object augmentMavenProperties() {
-		Assert.notNull(mavenProperties, "mavenProperties is null");
-		Assert.notNull(mavenProject.getProperties(), "mavenProject.getProperties() is null");
-		mavenProject.getProperties().putAll(mavenProperties);
-		return null;
+	@Bean(initMethod = "execute")
+	public Executable augmentMavenProperties() {
+		AugmentMavenPropertiesExecutable e = new AugmentMavenPropertiesExecutable();
+		e.setAugmentedMavenProperties(mavenProperties);
+		e.setMavenProject(mavenProject);
+		e.setSkip(SpringUtils.getBoolean(env, "properties.maven.augment.skip", false));
+		return e;
 	}
 
 }
