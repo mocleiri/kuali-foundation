@@ -15,13 +15,15 @@
  */
 package org.kuali.common.maven.spring;
 
+import java.util.Properties;
+
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
-import org.kuali.common.util.MavenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Assert;
 
 @Configuration
 public class AugmentMavenPropertiesConfig {
@@ -30,9 +32,15 @@ public class AugmentMavenPropertiesConfig {
 	@Qualifier(MavenConstants.MAVEN_PROJECT_BEAN_NAME)
 	MavenProject mavenProject;
 
+	@Autowired
+	@Qualifier(MavenConstants.MAVEN_PROPERTIES_BEAN_NAME)
+	Properties mavenProperties;
+
 	@Bean
 	public Object augmentMavenProperties() {
-		MavenUtils.augmentProjectProperties(mavenProject.getProperties());
+		Assert.notNull(mavenProperties, "mavenProperties is null");
+		Assert.notNull(mavenProject.getProperties(), "mavenProject.getProperties() is null");
+		mavenProject.getProperties().putAll(mavenProperties);
 		return null;
 	}
 
