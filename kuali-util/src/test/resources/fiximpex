@@ -1,9 +1,0 @@
-SRC=https://svn.kuali.org/repos/foundation/branches/impex-2.0
-DST=https://svn.kuali.org/repos/foundation/sandbox/branches/impex-2.0-embedded
-MSG="Modularize Impex so it could be realistically embedded in an app"
-
-svn rm -m '$MSG' $DST
-svn cp -m '$MSG' $SRC $DST --parents
-svn cp -m '$MSG' $DST/torque-generator $DST/torque-parser
-svn rm -m '$MSG' $DST/torque-parser/src/main/java/org $DST/torque-parser/src/main/resources/org $DST/torque-parser/src/test/resources/org $DST/torque-parser/src/test/java/org
- 
