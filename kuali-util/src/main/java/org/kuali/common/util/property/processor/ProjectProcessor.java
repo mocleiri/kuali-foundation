@@ -43,6 +43,9 @@ public class ProjectProcessor implements PropertyProcessor {
 		properties.setProperty("project.groupId.base.path", Str.getPath(groupBase));
 		properties.setProperty("project.orgId.home", orgHome);
 		properties.setProperty("project.groupId.home", groupHome);
+		// Add the current milliseconds value as a project property
+		properties.setProperty("project.build.timestamp.millis", Long.toString(System.currentTimeMillis()));
+
 	}
 
 	protected void validate(Project project) {
