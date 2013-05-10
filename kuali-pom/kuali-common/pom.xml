@@ -115,12 +115,13 @@
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
 
     <!-- Internal kuali library versions -->
-    <kuali-util.version>4.2.2</kuali-util.version>
-    <kuali-sql.version>2.0.5</kuali-sql.version>
-    <kuali-jdbc.version>3.1.0</kuali-jdbc.version>
     <kuali-deploy.version>2.2.3</kuali-deploy.version>
-    <impex.version>2.1.7</impex.version>
     <kuali-http.version>1.0.1</kuali-http.version>
+    <kuali-jdbc.version>3.1.0</kuali-jdbc.version>
+    <kuali-maven.version>1.0.0</kuali-maven.version>
+    <kuali-sql.version>2.0.5</kuali-sql.version>
+    <kuali-util.version>4.2.3</kuali-util.version>
+    <impex.version>2.1.7</impex.version>
   </properties>
   <profiles>
     <profile>
@@ -858,15 +859,31 @@
         <artifactId>spring-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>project-augment</id>
+            <!--
+              <phase>${project.augment.phase}</phase>
+            -->
+            <phase>none</phase>
+            <goals>
+              <goal>load</goal>
+            </goals>
+            <configuration>
+              <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertySourceConfig</propertySourcesConfig>
+              <annotatedClass>org.kuali.common.maven.spring.AugmentMavenPropertiesConfig</annotatedClass>
+              <injectMavenProject>true</injectMavenProject>
+              <skip>${project.augment.skip}</skip>
+            </configuration>
+          </execution>
+          <execution>
             <id>project-metainf</id>
             <phase>${project.metainf.phase}</phase>
             <goals>
               <goal>load</goal>
             </goals>
             <configuration>
-              <annotatedClass>org.kuali.common.util.spring.MetaInfProjectPropertiesConfig</annotatedClass>
               <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertySourceConfig</propertySourcesConfig>
-              <injectMavenProperties>false</injectMavenProperties>
+              <annotatedClass>org.kuali.common.util.spring.MetaInfProjectPropertiesConfig</annotatedClass>
+              <injectMavenProject>true</injectMavenProject>
               <skip>${project.metainf.skip}</skip>
             </configuration>
           </execution>
@@ -876,6 +893,11 @@
             <groupId>org.kuali.common</groupId>
             <artifactId>kuali-util</artifactId>
             <version>${kuali-util.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-maven</artifactId>
+            <version>${kuali-maven.version}</version>
           </dependency>
         </dependencies>
       </plugin>
