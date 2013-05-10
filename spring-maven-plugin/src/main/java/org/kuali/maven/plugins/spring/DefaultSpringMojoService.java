@@ -22,16 +22,13 @@ import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.maven.spring.MavenAwareUtils;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Dependency;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -277,7 +274,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	protected Properties getMavenProperties(AbstractSpringMojo mojo) {
 		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
-		Properties internal = getInternalProperties(project);
+		Properties internal = MavenAwareUtils.getInternalProperties(project);
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.
@@ -322,114 +319,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		}
 		sb.append("Config");
 		return sb.toString();
-	}
-
-	protected Properties getInternalProperties(MavenProject project) {
-		Properties properties = new Properties();
-		nullSafeSet(properties, "project.id", project.getId());
-		nullSafeSet(properties, "project.groupId", project.getGroupId());
-		nullSafeSet(properties, "project.artifactId", project.getArtifactId());
-		nullSafeSet(properties, "project.version", project.getVersion());
-		nullSafeSet(properties, "project.packaging", project.getPackaging());
-		nullSafeSet(properties, "project.name", project.getName());
-		nullSafeSet(properties, "project.description", project.getDescription());
-		nullSafeSet(properties, "project.inceptionYear", project.getInceptionYear());
-		nullSafeSet(properties, "project.basedir", LocationUtils.getCanonicalPath(project.getBasedir()));
-		if (project.getCiManagement() != null) {
-			nullSafeSet(properties, "project.ciManagement.system", project.getCiManagement().getSystem());
-			nullSafeSet(properties, "project.ciManagement.url", project.getCiManagement().getUrl());
-		}
-		if (project.getIssueManagement() != null) {
-			nullSafeSet(properties, "project.issueManagement.system", project.getIssueManagement().getSystem());
-			nullSafeSet(properties, "project.issueManagement.url", project.getIssueManagement().getUrl());
-		}
-		if (project.getBuild() != null) {
-			nullSafeSet(properties, "project.build.directory", project.getBuild().getDirectory());
-			nullSafeSet(properties, "project.build.outputDirectory", project.getBuild().getOutputDirectory());
-			nullSafeSet(properties, "project.build.testOutputDirectory", project.getBuild().getTestOutputDirectory());
-			nullSafeSet(properties, "project.build.sourceDirectory", project.getBuild().getSourceDirectory());
-			nullSafeSet(properties, "project.build.scriptSourceDirectory", project.getBuild().getScriptSourceDirectory());
-			nullSafeSet(properties, "project.build.testSourceDirectory", project.getBuild().getTestSourceDirectory());
-		}
-		if (project.getScm() != null) {
-			nullSafeSet(properties, "project.scm.connection", project.getScm().getConnection());
-			nullSafeSet(properties, "project.scm.developerConnection", project.getScm().getDeveloperConnection());
-			nullSafeSet(properties, "project.scm.url", project.getScm().getDeveloperConnection());
-		}
-		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
-		if (project.getDependencies() != null) {
-			List<Dependency> pojos = convertToSimplePojos(project.getDependencies());
-			if (pojos.size() == 0) {
-				nullSafeSet(properties, "project.dependencies", Constants.NONE);
-			} else {
-				nullSafeSet(properties, "project.dependencies", getDependenciesCSV(pojos));
-			}
-		} else {
-			nullSafeSet(properties, "project.dependencies", Constants.NONE);
-		}
-		return properties;
-	}
-
-	/**
-	 * Convert the formal Maven dependency objects into vanilla pojo objects
-	 */
-	protected List<Dependency> convertToSimplePojos(List<org.apache.maven.model.Dependency> dependencies) {
-		List<Dependency> pojos = new ArrayList<Dependency>();
-		for (org.apache.maven.model.Dependency d : dependencies) {
-			Dependency pojo = new Dependency();
-			pojo.setGroupId(d.getGroupId());
-			pojo.setArtifactId(d.getArtifactId());
-			pojo.setVersion(d.getVersion());
-			pojo.setClassifier(d.getClassifier());
-			pojo.setType(d.getType());
-			pojo.setScope(d.getScope());
-			pojos.add(pojo);
-		}
-		return pojos;
-
-	}
-
-	/**
-	 * Convert the list of dependencies into a CSV string
-	 */
-	protected String getDependenciesCSV(List<Dependency> dependencies) {
-		if (CollectionUtils.isEmpty(dependencies)) {
-			return Constants.NONE;
-		}
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < dependencies.size(); i++) {
-			if (i != 0) {
-				sb.append(",");
-			}
-			Dependency dependency = dependencies.get(i);
-			sb.append(RepositoryUtils.toString(dependency));
-		}
-		return sb.toString();
-	}
-
-	// Maven automatically stores the pom to this location
-	protected String getPomLocation(MavenProject project) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("classpath:");
-		sb.append("META-INF");
-		sb.append("/");
-		sb.append("maven");
-		sb.append("/");
-		sb.append(project.getGroupId());
-		sb.append("/");
-		sb.append(project.getArtifactId());
-		sb.append("/");
-		sb.append("pom.xml");
-		return sb.toString();
-	}
-
-	/**
-	 * Don't call setProperty() if value is null
-	 */
-	protected void nullSafeSet(Properties properties, String key, String value) {
-		if (value != null) {
-			properties.setProperty(key, value);
-		}
 	}
 
 	protected LoadContext getLoadContext(AbstractSpringMojo mojo) {
