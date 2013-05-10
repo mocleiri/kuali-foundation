@@ -101,8 +101,13 @@ public class MavenUtils {
 		// Make sure system/environment properties still always win
 		PropertyUtils.overrideWithGlobalValues(mavenProperties, GlobalPropertiesMode.BOTH);
 
+		// Optionally decrypt if properties.decrypt=true
 		SpringUtils.decrypt(mavenProperties);
+
+		// Remove properties that are not desired
 		trim(mavenProperties);
+
+		// Make sure every single property can be fully resolved
 		SpringUtils.resolve(mavenProperties);
 	}
 
