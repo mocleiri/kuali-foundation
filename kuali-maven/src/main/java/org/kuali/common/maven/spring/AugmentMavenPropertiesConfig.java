@@ -15,8 +15,6 @@
  */
 package org.kuali.common.maven.spring;
 
-import java.util.Properties;
-
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.execute.Executable;
@@ -37,14 +35,9 @@ public class AugmentMavenPropertiesConfig {
 	@Qualifier(MavenConstants.MAVEN_PROJECT_BEAN_NAME)
 	MavenProject mavenProject;
 
-	@Autowired
-	@Qualifier(MavenConstants.MAVEN_PROPERTIES_BEAN_NAME)
-	Properties mavenProperties;
-
 	@Bean(initMethod = "execute")
 	public Executable augmentMavenProperties() {
 		AugmentMavenPropertiesExecutable e = new AugmentMavenPropertiesExecutable();
-		e.setAugmentedMavenProperties(mavenProperties);
 		e.setMavenProject(mavenProject);
 		e.setSkip(SpringUtils.getBoolean(env, "properties.maven.augment.skip", false));
 		return e;

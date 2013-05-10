@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(AugmentMavenPropertiesExecutable.class);
 
 	MavenProject mavenProject;
-	Properties augmentedMavenProperties;
 	boolean skip;
 
 	@Override
@@ -29,20 +29,25 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 		// This is the original Maven project object created by Maven and injected into the context by spring-maven-plugin
 		Assert.notNull(mavenProject, "mavenProject is null");
 
-		// This is a derived set of properties mostly populated by Maven, but augmented by other logic that enhances the default set of Maven properties
-		// eg project.groupId.path=org/kuali/rice
-		// eg project.version.snapshot=true
-		// eg project.build.timestamp.millis=123456789
-		Assert.notNull(augmentedMavenProperties, "augmentedMavenProperties is null");
+		// Extract the Properties object Maven is using
+		Properties mavenProperties = mavenProject.getProperties();
 
-		// The augmented set of properties is mostly the same as the original with ~5% new properties added
-		mavenProject.getProperties().putAll(augmentedMavenProperties);
+		// Create a new properties object that aggregates important information from the Maven model
+		// eg project.getGroupId() gets inserted into the properties object as project.groupId
+		Properties augmented = MavenAwareUtils.getInternalProperties(mavenProject);
+
+		// Add organization, group, and path properties and tokenize the version number adding properties for each token along with
+		// a boolean property indicating if this is a SNAPSHOT build
+		MavenUtils.augmentProjectProperties(augmented);
+
+		// Retain the original size of the native Maven properties
+		int originalSize = mavenProperties.size();
+
+		// Add the augmented properties to the properties object Maven is using
+		mavenProject.getProperties().putAll(augmented);
 
 		// Print something useful if we are in debug mode
-		int size1 = mavenProject.getProperties().size();
-		int size2 = augmentedMavenProperties.size();
-		String diff = FormatUtils.getCount(size2 - size1);
-		logger.debug("Added {} properties", diff);
+		logger.debug("Added {} properties", FormatUtils.getCount(mavenProperties.size() - originalSize));
 
 	}
 
@@ -52,14 +57,6 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 
 	public void setMavenProject(MavenProject mavenProject) {
 		this.mavenProject = mavenProject;
-	}
-
-	public Properties getAugmentedMavenProperties() {
-		return augmentedMavenProperties;
-	}
-
-	public void setAugmentedMavenProperties(Properties augmentedMavenProperties) {
-		this.augmentedMavenProperties = augmentedMavenProperties;
 	}
 
 	public boolean isSkip() {
