@@ -37,6 +37,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
+/**
+ * Maven related utilities that do not need depend on classes that are Maven specific.
+ */
 public class MavenUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
