@@ -32,19 +32,19 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 		// Extract the Properties object Maven is using
 		Properties mavenProperties = mavenProject.getProperties();
 
-		// Create a new properties object that aggregates important information from the Maven model
-		// eg project.getGroupId() gets inserted into the properties object as project.groupId
-		Properties augmented = MavenAwareUtils.getInternalProperties(mavenProject);
-
-		// Add organization, group, and path properties and tokenize the version number adding properties for each token along with
-		// a boolean property indicating if this is a SNAPSHOT build
-		MavenUtils.augmentProjectProperties(augmented);
-
 		// Retain the original size of the native Maven properties
 		int originalSize = mavenProperties.size();
 
-		// Add the augmented properties to the properties object Maven is using
-		mavenProject.getProperties().putAll(augmented);
+		// Create a new properties object that aggregates important information from the Maven model
+		// eg project.getGroupId() gets inserted into the properties object as project.groupId
+		Properties internal = MavenAwareUtils.getInternalProperties(mavenProject);
+
+		// Add the internal properties to the properties object Maven is using
+		mavenProperties.putAll(internal);
+
+		// Add organization, group, and path properties and tokenize the version number adding properties for each token along with
+		// a boolean property indicating if this is a SNAPSHOT build
+		MavenUtils.augmentProjectProperties(mavenProperties);
 
 		// Print something useful if we are in debug mode
 		logger.debug("Added {} properties", FormatUtils.getCount(mavenProperties.size() - originalSize));
