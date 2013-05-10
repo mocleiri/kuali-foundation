@@ -860,10 +860,7 @@
         <executions>
           <execution>
             <id>project-augment</id>
-            <!--
-              <phase>${project.augment.phase}</phase>
-            -->
-            <phase>none</phase>
+            <phase>${project.augment.phase}</phase>
             <goals>
               <goal>load</goal>
             </goals>
