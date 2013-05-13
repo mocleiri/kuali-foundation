@@ -25,6 +25,7 @@ public abstract class ImpexDumpConfig {
 
 	@Bean
 	public ImpexContext impexSourceContext() {
+		// This sets up a DataSource which is why it is registered in the context as a Spring managed bean
 		return DumpUtils.getImpexSourceContext(env, mavenProperties);
 	}
 
