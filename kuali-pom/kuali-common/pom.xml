@@ -868,6 +868,7 @@
               <propertySourcesConfig>org.kuali.common.util.spring.ProjectPropertySourceConfig</propertySourcesConfig>
               <annotatedClass>org.kuali.common.maven.spring.AugmentMavenPropertiesConfig</annotatedClass>
               <injectMavenProject>true</injectMavenProject>
+              <forceMojoExecution>true</forceMojoExecution>
               <skip>${project.augment.skip}</skip>
             </configuration>
           </execution>
