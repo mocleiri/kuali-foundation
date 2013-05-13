@@ -22,6 +22,19 @@ public class DumpUtils {
 
 	private static final String FS = File.separator;
 
+	public static String getCSVFromPropertyKeys(Environment env, String... keys) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < keys.length; i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			String key = keys[i];
+			String value = SpringUtils.getProperty(env, key);
+			sb.append(value);
+		}
+		return sb.toString();
+	}
+
 	public static ImpexContext getImpexContext(Environment env, String artifactId, ImpexContext sourceContext) {
 		String includes = SpringUtils.getProperty(env, "impex.includes");
 		return getBaseContext(env, artifactId, includes, sourceContext);
