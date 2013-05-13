@@ -118,6 +118,10 @@ sub project_env_status
  my $status = "";
  my $size = "";
  my $tags = "";
+ $instance_id = "";
+ $server = "";
+ $ec2_status = "";
+ $tags = "";
 
  my $project = $_[0];
  my $skip_ec2_list = $_[1];
@@ -185,7 +189,7 @@ sub project_env_status
    $ec2 = join "", @temp; #put it back together
 
 
-   #if the amazon.com name match in the EC2 List, lets use that info 
+   #if the amazon.com name match in the EC2 List generated at the start of this script for each project, lets use that info 
    #query ec2 list for the amazon DNS name 
    #print "\ngrep $ec2 EC2.lst";
    $dns_ec2_grep_ec2livelist = `grep $ec2 EC2.lst`;
@@ -216,6 +220,7 @@ sub project_env_status
        #This is code to looked for server of particular load balancer  configurations.
        #I care about Nexus.  So
        if ($url eq "nexus" )
+       #if ($url =~ "nexus" )
        {   #I have this line in dns_ec2_grep_ec2livelist:
             #kuali-nexus-lb ec2-50-19-21-45.compute-1.amazonaws.com InService kuali-nexus-lb-287160402.us-east-1.elb.amazonaws.com
             #Lets save some info 
