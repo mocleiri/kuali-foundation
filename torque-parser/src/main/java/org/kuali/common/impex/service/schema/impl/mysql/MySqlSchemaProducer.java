@@ -22,20 +22,25 @@ import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.service.schema.SchemaSqlProducer;
+import org.kuali.common.impex.service.schema.impl.NoOpProvider;
 
 public class MySqlSchemaProducer implements SchemaSqlProducer {
 
-    private MySqlTableSqlProducer mysqlTableSqlProducer;
+    private MySqlTableSqlProducer tableSqlProducer = new MySqlTableSqlProducer();
 
-    private MySqlViewSqlProducer viewSqlProducer;
+    private MySqlViewSqlProducer viewSqlProducer = new MySqlViewSqlProducer();
 
-    private MySqlSequenceSqlProducer sequenceSqlProducer;
+    private MySqlSequenceSqlProducer sequenceSqlProducer = new MySqlSequenceSqlProducer();
 
-    private MySqlForeignKeySqlProducer foreignKeySqlProducer;
+    private MySqlForeignKeySqlProducer foreignKeySqlProducer = new MySqlForeignKeySqlProducer();
+
+    public MySqlSchemaProducer() {
+        tableSqlProducer.setMappingProvider(new NoOpProvider());
+    }
 
     @Override
     public List<String> getTablesSql(List<Table> tables) {
-        return mysqlTableSqlProducer.getTablesSql(tables);
+        return tableSqlProducer.getTablesSql(tables);
     }
 
     @Override

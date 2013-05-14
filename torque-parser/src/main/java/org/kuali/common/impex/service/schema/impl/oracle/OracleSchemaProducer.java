@@ -22,16 +22,24 @@ import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.service.schema.SchemaSqlProducer;
+import org.kuali.common.impex.service.schema.impl.NoOpProvider;
 
 public class OracleSchemaProducer implements SchemaSqlProducer {
 
-    protected OracleTableSqlProducer tableSqlProducer;
+    protected OracleTableSqlProducer tableSqlProducer = new OracleTableSqlProducer();
 
-    protected OracleViewSqlProducer viewSqlProducer;
+    protected OracleViewSqlProducer viewSqlProducer = new OracleViewSqlProducer();
 
-    protected OracleSequenceSqlProducer sequenceSqlProducer;
+    protected OracleSequenceSqlProducer sequenceSqlProducer = new OracleSequenceSqlProducer();
 
-    protected OracleForeignKeySqlProducer foreignKeySqlProducer;
+    protected OracleForeignKeySqlProducer foreignKeySqlProducer = new OracleForeignKeySqlProducer();
+
+    /**
+     * By default, the tableSqlProducer is set with a no-op data mapping provider
+     */
+    public OracleSchemaProducer() {
+        tableSqlProducer.setMappingProvider(new NoOpProvider());
+    }
 
     public OracleTableSqlProducer getTableSqlProducer() {
         return tableSqlProducer;
