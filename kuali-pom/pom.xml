@@ -64,15 +64,15 @@
     <maven.resources.escapeString>\</maven.resources.escapeString>
     <maven.min.version>3.0.4</maven.min.version>
 
-    <kuali.encoding>UTF-8</kuali.encoding>
-    <project.build.sourceEncoding>${kuali.encoding}</project.build.sourceEncoding>
+    <kuali.encoding>${project.encoding}</kuali.encoding>
+    <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
     <!-- Explicitly set build timestamp. The maven-resource-plugin is not filtering values correctly without this -->
     <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
 
     <!-- "Extra" project properties -->
-    <project.encoding>${kuali.encoding}</project.encoding>
+    <project.encoding>UTF-8</project.encoding>
     <project.orgId>${kuali.groupId}</project.orgId>
     <project.orgId.path>org/kuali</project.orgId.path>
     <project.orgId.code>kuali</project.orgId.code>
@@ -346,9 +346,9 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${plugin.compiler.version}</version>
           <configuration>
-            <source>${kuali.compile.source}</source>
-            <target>${kuali.compile.target}</target>
-            <encoding>${project.build.sourceEncoding}</encoding>
+            <source>${project.compile.source}</source>
+            <target>${project.compile.target}</target>
+            <encoding>${project.encoding}</encoding>
           </configuration>
         </plugin>
         <plugin>
@@ -429,8 +429,8 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${plugin.javadoc.version}</version>
           <configuration>
-            <encoding>${project.build.sourceEncoding}</encoding>
-            <source>${kuali.compile.source}</source>
+            <encoding>${project.encoding}</encoding>
+            <source>${project.compile.source}</source>
           </configuration>
         </plugin>
         <plugin>
@@ -528,7 +528,7 @@
           <artifactId>maven-resources-plugin</artifactId>
           <version>${plugin.resources.version}</version>
           <configuration>
-            <encoding>${project.build.sourceEncoding}</encoding>
+            <encoding>${project.encoding}</encoding>
             <escapeString>${maven.resources.escapeString}</escapeString>
           </configuration>
         </plugin>
@@ -789,7 +789,7 @@
               <groupId>com.mycila.maven-license-plugin</groupId>
               <artifactId>maven-license-plugin</artifactId>
               <configuration>
-                <encoding>${project.build.sourceEncoding}</encoding>
+                <encoding>${project.encoding}</encoding>
                 <strictCheck>${license.strictCheck}</strictCheck>
                 <header>${license.header}</header>
                 <properties>

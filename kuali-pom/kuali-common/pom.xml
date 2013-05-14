@@ -482,17 +482,17 @@
             <javadocVersion>${kuali.javadoc.tool.version}</javadocVersion>
             <show>${kuali.javadoc.show}</show>
             <debug>${kuali.javadoc.debug}</debug>
-            <source>${kuali.compile.source}</source>
+            <source>${project.compile.source}</source>
             <quiet>${kuali.javadoc.quiet}</quiet>
             <aggregate>${kuali.javadoc.aggregate}</aggregate>
-            <encoding>${project.build.sourceEncoding}</encoding>
+            <encoding>${project.encoding}</encoding>
           </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jxr-plugin</artifactId>
           <version>${plugin.jxr.version}</version>
           <configuration>
-            <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+            <inputEncoding>${project.encoding}</inputEncoding>
             <aggregate>${kuali.reporting.aggregate}</aggregate>
           </configuration>
         </plugin>
@@ -509,7 +509,7 @@
           <artifactId>maven-pmd-plugin</artifactId>
           <version>${plugin.pmd.version}</version>
           <configuration>
-            <targetJdk>${kuali.compile.source}</targetJdk>
+            <targetJdk>${project.compile.source}</targetJdk>
           </configuration>
         </plugin>
         <plugin>
@@ -720,10 +720,10 @@
                   <javadocVersion>${kuali.javadoc.tool.version}</javadocVersion>
                   <show>${kuali.javadoc.show}</show>
                   <debug>${kuali.javadoc.debug}</debug>
-                  <source>${kuali.compile.source}</source>
+                  <source>${project.compile.source}</source>
                   <quiet>${kuali.javadoc.quiet}</quiet>
                   <aggregate>${kuali.javadoc.aggregate}</aggregate>
-                  <encoding>${project.build.sourceEncoding}</encoding>
+                  <encoding>${project.encoding}</encoding>
                 </configuration>
                 <reportSets>
                   <reportSet>
@@ -801,7 +801,7 @@
               <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <configuration>
-                  <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+                  <inputEncoding>${project.encoding}</inputEncoding>
                   <aggregate>${kuali.reporting.aggregate}</aggregate>
                 </configuration>
               </plugin>
@@ -822,7 +822,7 @@
               <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                  <targetJdk>${kuali.compile.source}</targetJdk>
+                  <targetJdk>${project.compile.source}</targetJdk>
                   <aggregate>${kuali.reporting.aggregate}</aggregate>
                 </configuration>
               </plugin>
