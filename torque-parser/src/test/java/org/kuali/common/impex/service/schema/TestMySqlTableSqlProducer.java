@@ -23,40 +23,26 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.service.schema.impl.NoOpProvider;
-import org.kuali.common.impex.service.schema.impl.oracle.OracleTableSqlProducer;
+import org.kuali.common.impex.service.schema.impl.mysql.MySqlTableSqlProducer;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-public class TestOracleTableSqlProducer {
+public class TestMySqlTableSqlProducer {
 
-    private final static String[] EXPECTED_SIMPLE_SQL = {"DECLARE temp NUMBER;\n" +
-            "BEGIN\n" +
-            "\tSELECT COUNT(*) INTO temp FROM user_tables WHERE table_name = 'FOO_T';\n" +
-            "\tIF temp > 0 THEN EXECUTE IMMEDIATE 'DROP TABLE FOO_T CASCADE CONSTRAINTS PURGE'; END IF;\n" +
-            "END;\n" +
-            "/",
-
+    private final static String[] EXPECTED_SIMPLE_SQL = {"DROP TABLE IF EXISTS FOO_T\n/",
             "CREATE TABLE FOO_T\n" +
             "(\n" +
-            "\tID VARCHAR2(36),\n" +
+            "\tID VARCHAR(36),\n" +
             "\tCREATETIME TIMESTAMP NOT NULL,\n" +
-            "\tNAME VARCHAR2(255),\n" +
-            "\tCONSTRAINT FOO_U1_NAME UNIQUE (NAME)\n" +
-            ")\n" +
-            "/",
-
-            "ALTER TABLE FOO_T\n" +
-            "\tADD CONSTRAINT FOO_TP1\n" +
-            "PRIMARY KEY (ID)\n" +
+            "\tNAME VARCHAR(255),\n" +
+            "\tCONSTRAINT FOO_TP1 PRIMARY KEY(ID),\n" +
+            "\tCONSTRAINT FOO_TP1 UNIQUE (NAME)\n" +
+            ") ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_bin\n" +
             "/"};
-
-
 
     @Test
     public void simpleTableTest() {
-
-        OracleTableSqlProducer producer = new OracleTableSqlProducer();
+        MySqlTableSqlProducer producer = new MySqlTableSqlProducer();
 
         producer.setMappingProvider(new NoOpProvider());
 
@@ -64,24 +50,20 @@ public class TestOracleTableSqlProducer {
 
         List<String> results = producer.getTablesSql(Collections.singletonList(table));
 
-        assertEquals(EXPECTED_SIMPLE_SQL.length, results.size());
-
         List<String> expected = Arrays.asList(EXPECTED_SIMPLE_SQL);
 
         List<String> foundExpected = new ArrayList<String>(expected);
         for (String e : expected) {
-            if(results.contains(e)) {
+            if (results.contains(e)) {
                 foundExpected.remove(e);
-            }
-            else {
+            } else {
                 fail("Expected sql statment **" + e + "** not found in generated statements.");
             }
         }
 
-        if(!foundExpected.isEmpty()) {
+        if (!foundExpected.isEmpty()) {
             fail("Following expected sql statements not found in generated statements: \n" + foundExpected.toString());
         }
-
     }
 
 }

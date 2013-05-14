@@ -15,23 +15,22 @@
 
 package org.kuali.common.impex.model;
 
-import java.util.List;
+public class Sequence implements NamedElement {
 
-public class Index extends Constraint {
+    protected String name;
 
-    protected boolean unique;
+    protected String startValue;
 
-    public Index(List<String> colNames, String name) {
-        super(colNames, name);
-        this.unique = false;
+    public Sequence(String n, String s) {
+        name = n;
+        startValue = s;
     }
 
-    public Index(List<String> colNames, String name, boolean unique) {
-        this(colNames, name);
-        this.unique = unique;
+    public String getName() {
+        return name;
     }
 
-    public boolean isUnique() {
-        return unique;
+    public String getStartValue() {
+        return startValue;
     }
 }

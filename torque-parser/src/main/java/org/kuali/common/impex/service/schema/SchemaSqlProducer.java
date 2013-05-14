@@ -2,16 +2,19 @@ package org.kuali.common.impex.service.schema;
 
 import java.util.List;
 
+import org.kuali.common.impex.model.ForeignKey;
+import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.model.View;
 
 public interface SchemaSqlProducer {
 
     List<String> getTablesSql(List<Table> tables);
 
-    //List<String> getConstraintsSql(List<Constraint> constraints);
+    List<String> getForeignKeySql(List<ForeignKey> foreignKeys);
 
-    //List<String> getSequencesSql(List<Sequence> sequences);
+    List<String> getSequencesSql(List<Sequence> sequences);
 
-    //List<String> getViewsSql(List<Vew> views);
+    List<String> getViewsSql(List<View> views);
 
 }

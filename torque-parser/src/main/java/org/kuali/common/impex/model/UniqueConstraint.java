@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class UniqueConstraint extends Constraint {
 
-    public UniqueConstraint(List<Column> columns, String name) {
-        super(columns, name);
+    public UniqueConstraint(List<String> colNames, String name) {
+        super(colNames, name);
     }
 
 }

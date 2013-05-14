@@ -3,24 +3,86 @@ package org.kuali.common.impex.model;
 /**
  * This interface provides an implementation-independent API to access database column model information
  */
-public interface Column {
+public class Column implements NamedElement {
 
-    String getName();
+    protected String name;
+    protected DataType columnDataType;
+    protected Table table;
+    protected TypeSize typeSize;
+    protected String defaultValue;
+    protected String description;
 
-    boolean isDateType();
+    protected boolean primaryKey;
+    protected boolean nullable;
 
-    DataType getDataType();
+    /**
+     * Create a new instance of a Column
+     *
+     * All values are initialized, with a special note that nullable is initially set to true
+     */
+    public Column(String n, DataType d, Table t) {
+        name = n;
+        columnDataType = d;
+        table = t;
 
-    boolean isPrimaryKey();
+        primaryKey = false;
+        typeSize = null;
+        defaultValue = null;
 
-    TypeSize getTypeSize();
+        // As a more sensible default, set nullable to true
+        nullable = true;
+    }
 
-    String getDefaultValue();
+    public DataType getDataType() {
+        return columnDataType;
+    }
 
-    boolean isTextType();
+    public String getName() {
+        return name;
+    }
 
-    boolean isNullable();
+    public Table getTable() {
+        return table;
+    }
 
-    String getDescription();
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public TypeSize getTypeSize() {
+        return typeSize;
+    }
+
+    public void setTypeSize(TypeSize typeSize) {
+        this.typeSize = typeSize;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

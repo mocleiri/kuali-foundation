@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.service.schema.impl.oracle;
+package org.kuali.common.impex.service.schema.impl.mysql;
 
 import java.util.List;
 
@@ -23,27 +23,19 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.service.schema.SchemaSqlProducer;
 
-public class OracleSchemaProducer implements SchemaSqlProducer {
+public class MySqlSchemaProducer implements SchemaSqlProducer {
 
-    protected OracleTableSqlProducer tableSqlProducer;
+    private MySqlTableSqlProducer mysqlTableSqlProducer;
 
-    protected OracleViewSqlProducer viewSqlProducer;
+    private MySqlViewSqlProducer viewSqlProducer;
 
-    protected OracleSequenceSqlProducer sequenceSqlProducer;
+    private MySqlSequenceSqlProducer sequenceSqlProducer;
 
-    protected OracleForeignKeySqlProducer foreignKeySqlProducer;
-
-    public OracleTableSqlProducer getTableSqlProducer() {
-        return tableSqlProducer;
-    }
-
-    public void setTableSqlProducer(OracleTableSqlProducer tableSqlProducer) {
-        this.tableSqlProducer = tableSqlProducer;
-    }
+    private MySqlForeignKeySqlProducer foreignKeySqlProducer;
 
     @Override
     public List<String> getTablesSql(List<Table> tables) {
-        return tableSqlProducer.getTablesSql(tables);
+        return mysqlTableSqlProducer.getTablesSql(tables);
     }
 
     @Override
@@ -60,5 +52,4 @@ public class OracleSchemaProducer implements SchemaSqlProducer {
     public List<String> getViewsSql(List<View> views) {
         return viewSqlProducer.getViewsSql(views);
     }
-
 }

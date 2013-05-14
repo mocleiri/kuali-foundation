@@ -73,15 +73,6 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
     protected static final String COLUMN_DESCRIPTION_PREFIX = "\n\nCOMMENT ON COLUMN ";
     protected static final String COLUMN_DESCRIPTION_SUFFIX = "'\n/";
 
-    protected static final String SPACE = " ";
-    protected static final String TYPE_SIZE_PREFIX = "(";
-    protected static final String COMMA = ",";
-    protected static final String DOT = ".";
-    protected static final String TYPE_SIZE_SUFFIX = ")";
-    protected static final String NOT_NULL = "NOT NULL";
-    protected static final String NEWLINE_TAB = "\n\t";
-    protected static final String NEWLINE = "\n";
-
     /**
      * Oracle data types
      */
@@ -104,13 +95,13 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         results = new ArrayList<String>();
 
         for (Table t : tables) {
-            results.addAll(generateCreateTableStatement(t));
+            results.addAll(generateCreateTableStatements(t));
         }
 
         return results;
     }
 
-    protected List<String> generateCreateTableStatement(Table t) {
+    protected List<String> generateCreateTableStatements(Table t) {
         List<String> results = new ArrayList<String>();
 
 
@@ -149,10 +140,10 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         for (Column column : t.getColumns()) {
             if (firstColumn) {
                 firstColumn = false;
-                sb.append(NEWLINE_TAB);
+                sb.append(ProducerUtils.NEWLINE_TAB);
             } else {
-                sb.append(COMMA);
-                sb.append(NEWLINE_TAB);
+                sb.append(ProducerUtils.COMMA);
+                sb.append(ProducerUtils.NEWLINE_TAB);
             }
             sb.append(generateColumnDefinition(column));
         }
@@ -171,27 +162,27 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 
             // build the definition as <column name> <column type> <default value> <null/not null>
             sb.append(column.getName());
-            sb.append(SPACE);
+            sb.append(ProducerUtils.SPACE);
 
             // column type
             sb.append(translateDataType(column.getDataType()));
 
             TypeSize typeSize = column.getTypeSize();
             if(typeSize != null) {
-                sb.append(TYPE_SIZE_PREFIX);
+                sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
                 sb.append(typeSize.getSize());
                 if(typeSize.hasScale()) {
-                    sb.append(COMMA);
+                    sb.append(ProducerUtils.COMMA);
                     sb.append(typeSize.getScale());
                 }
-                sb.append(TYPE_SIZE_SUFFIX);
+                sb.append(ProducerUtils.TYPE_SIZE_SUFFIX);
             }
 
             // default value
             if(StringUtils.isNotEmpty(column.getDefaultValue())) {
-                sb.append(SPACE);
-                if(column.isTextType()) {
-                    sb.append('\'').append(column.getDefaultValue()).append('\'');
+                sb.append(ProducerUtils.SPACE);
+                if(ProducerUtils.isTextType(column.getDataType())) {
+                    sb.append(ProducerUtils.SINGLE_QUOTE).append(column.getDefaultValue()).append(ProducerUtils.SINGLE_QUOTE);
                 }
                 else {
                     sb.append(column.getDefaultValue());
@@ -199,7 +190,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
             }
 
             if(!column.isNullable()) {
-                sb.append(SPACE).append(NOT_NULL);
+                sb.append(ProducerUtils.SPACE).append(ProducerUtils.NOT_NULL);
             }
 
         }
@@ -211,12 +202,12 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         StringBuilder sb = new StringBuilder();
 
         for(UniqueConstraint unique : t.getUniqueConstraints()) {
-            sb.append(COMMA);
-            sb.append(NEWLINE_TAB);
+            sb.append(ProducerUtils.COMMA);
+            sb.append(ProducerUtils.NEWLINE_TAB);
             sb.append(UNIQUE_PREFIX);
             sb.append(unique.getName());
             sb.append(UNIQUE_MIDDLE);
-            sb.append(ProducerUtils.getCsvColumnNames(unique.getColumns()));
+            sb.append(CollectionUtils.getCSV(unique.getColumnNames()));
             sb.append(UNIQUE_SUFFIX);
         }
 
@@ -231,6 +222,15 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         return dataType.name();
     }
 
+    /**
+     * This method should incorporate information from the given DataTypeMapping to override
+     * information from the Column model as appropriate to generate an oracle column definition.
+     *
+     * @param column the model data of the Column
+     * @param mapping the mapping data
+     *
+     * @return sql snippet of the column definition
+     */
     protected String generateColumnDefinition(Column column, DataTypeMapping mapping) {
         return "";
     }
@@ -288,7 +288,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
                 sb.append(INDEX_TABLE_NAME_PREFIX);
                 sb.append(t.getName());
                 sb.append(INDEX_COLUMN_LIST_PREFIX);
-                sb.append(ProducerUtils.getCsvColumnNames(index.getColumns()));
+                sb.append(CollectionUtils.getCSV(index.getColumnNames()));
                 sb.append(INDEX_FOOTER);
 
                 results.add(sb.toString());
@@ -320,7 +320,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 
                 sb.append(COLUMN_DESCRIPTION_PREFIX);
                 sb.append(t.getName());
-                sb.append(DOT);
+                sb.append(ProducerUtils.DOT);
                 sb.append(c.getName());
                 sb.append(DESCRIPTION_IS_KEYWORD);
                 sb.append(COLUMN_DESCRIPTION_SUFFIX);

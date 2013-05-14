@@ -15,23 +15,14 @@
 
 package org.kuali.common.impex.model;
 
-import java.util.List;
+/**
+ * This interface allows for any database model element to be treated as a simple named element.
+ * Used primarily for sorting lists of elements by name
+ *
+ * @author andrewlubbers
+ */
+public interface NamedElement {
 
-public class Index extends Constraint {
+    String getName();
 
-    protected boolean unique;
-
-    public Index(List<String> colNames, String name) {
-        super(colNames, name);
-        this.unique = false;
-    }
-
-    public Index(List<String> colNames, String name, boolean unique) {
-        this(colNames, name);
-        this.unique = unique;
-    }
-
-    public boolean isUnique() {
-        return unique;
-    }
 }

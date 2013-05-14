@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.CollectionUtils;
 
@@ -26,6 +27,13 @@ import org.kuali.common.util.CollectionUtils;
  * String utility methods for classes creating sql from schema model data
  */
 public class ProducerUtils {
+
+    // Constants in common between many producer classes
+    public static final String NEWLINE = "\n";
+    public static final String COMMA = ",";
+    public static final String DOT = ".";
+    public static final String SPACE = " ";
+    public static final String STATEMENT_SEPARATOR = "/";
 
     /**
      * This value was retrieved from the Velocity templates that were generating
@@ -37,6 +45,11 @@ public class ProducerUtils {
     private static final int MAX_TABLE_NAME_SNIPPET_SIZE_FOR_PK = 27;
 
     private static final String PRIMARY_KEY_SUFFIX = "P1";
+    public static final char SINGLE_QUOTE = '\'';
+    public static final String TYPE_SIZE_PREFIX = "(";
+    public static final String TYPE_SIZE_SUFFIX = ")";
+    public static final String NOT_NULL = "NOT NULL";
+    public static final String NEWLINE_TAB = "\n\t";
 
     public static String getCsvColumnNames(List<Column> columns) {
         List<String> names = new ArrayList<String>(columns.size());
@@ -70,5 +83,21 @@ public class ProducerUtils {
         sb.append(truncated).append(PRIMARY_KEY_SUFFIX);
 
         return sb.toString();
+    }
+
+    public static boolean isDateType(DataType dataType) {
+        if(dataType == null) {
+            return false;
+        }
+
+        return dataType == DataType.DATE || dataType == DataType.TIMESTAMP;
+    }
+
+    public static boolean isTextType(DataType dataType) {
+        if(dataType == null) {
+            return false;
+        }
+
+        return dataType == DataType.STRING || dataType == DataType.CLOB;
     }
 }

@@ -18,13 +18,11 @@ package org.kuali.common.impex;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
-import liquibase.snapshot.DatabaseSnapshot;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.impl.liquibase.LiquibaseTableImpl;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
@@ -51,14 +49,13 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 	String location;
 
     /**
-     * Liquibase database snapshot.  Used to find column information
-     *
+     * Data model provider
      */
-    DatabaseSnapshot databaseSnapshot;
+    ModelProvider modelProvider;
 
 	@Override
 	public void open() throws IOException {
-		this.table = getTable(location, databaseSnapshot, extension);
+		this.table = getTable();
 		this.reader = LocationUtils.getBufferedReader(location, encoding);
 	}
 
@@ -73,25 +70,21 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		this.table = null;
 	}
 
-	protected Table getTable(String location, DatabaseSnapshot snapshot, String extension) {
+	protected Table getTable() {
 		String filename = LocationUtils.getFilename(location);
 		if (!StringUtils.endsWithIgnoreCase(filename, extension)) {
 			throw new IllegalArgumentException(location + " does not end with " + extension);
 		}
 		int end = filename.length() - extension.length();
 		String tableName = StringUtils.substring(filename, 0, end);
-		return getTable(snapshot, tableName);
-	}
 
-	protected Table getTable(DatabaseSnapshot database, String tableName) {
-        Set<liquibase.structure.core.Table> tables = database.get(liquibase.structure.core.Table.class);
-		for (liquibase.structure.core.Table element : tables) {
-			Table t = new LiquibaseTableImpl(element);
-			if (StringUtils.equalsIgnoreCase(tableName, t.getName())) {
-				return t;
-			}
-		}
-		throw new IllegalArgumentException("Unable to locate table [" + tableName + "]");
+        for (Table t : modelProvider.getTables()) {
+            if(t.getName().equalsIgnoreCase(tableName)) {
+                return t;
+            }
+        }
+
+        throw new IllegalArgumentException("Unable to locate table [" + tableName + "]");
 	}
 
 	@Override
@@ -134,11 +127,11 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		this.extension = extension;
 	}
 
-    public DatabaseSnapshot getDatabaseSnapshot() {
-        return databaseSnapshot;
+    public ModelProvider getModelProvider() {
+        return modelProvider;
     }
 
-    public void setDatabaseSnapshot(DatabaseSnapshot databaseSnapshot) {
-        this.databaseSnapshot = databaseSnapshot;
+    public void setModelProvider(ModelProvider modelProvider) {
+        this.modelProvider = modelProvider;
     }
 }

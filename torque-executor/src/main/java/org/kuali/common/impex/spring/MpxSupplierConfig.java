@@ -2,18 +2,12 @@ package org.kuali.common.impex.spring;
 
 import java.util.Map;
 
-import liquibase.database.Database;
 import liquibase.exception.DatabaseException;
-import liquibase.integration.commandline.CommandLineUtils;
-import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.InvalidExampleException;
-import liquibase.snapshot.SnapshotControl;
-import liquibase.snapshot.SnapshotGeneratorFactory;
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.MpxLocationSupplier;
 import org.kuali.common.impex.service.SqlProducer;
-import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcCommonConfig;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
@@ -25,7 +19,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, BatchConfig.class, JdbcDataSourceConfig.class })
+@Import({ JdbcCommonConfig.class, BatchConfig.class, JdbcDataSourceConfig.class, LiquibaseModelProviderConfig.class })
 public class MpxSupplierConfig {
 
 	@Autowired
@@ -39,6 +33,9 @@ public class MpxSupplierConfig {
 
 	@Autowired
 	BatchConfig batchConfig;
+
+    @Autowired
+    LiquibaseModelProviderConfig liquibaseModelConfig;
 
     private static final String DB_VENDOR_KEY = "db.vendor";
 
@@ -54,24 +51,12 @@ public class MpxSupplierConfig {
 		return producer;
 	}
 
-    @Bean
-    public DatabaseSnapshot databaseSnapshot() throws DatabaseException, InvalidExampleException {
-        DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
-
-        Database database = CommandLineUtils.createDatabaseObject(MpxSupplierConfig.class.getClassLoader(), context.getUrl(), context.getUsername(), context.getPassword(), context.getDriver(), null, context.getUsername(), null, null);
-
-        return SnapshotGeneratorFactory.getInstance().createSnapshot(database.getDefaultSchema(), database, new SnapshotControl());
-    }
-
 	@Bean
 	public Map<String, LocationSupplierSourceBean> impexExtensionMappings() throws DatabaseException, InvalidExampleException {
 		// This gets cloned for each .mpx file
 		MpxLocationSupplier mls = new MpxLocationSupplier();
-		mls.setDatabaseSnapshot(databaseSnapshot());
+		mls.setModelProvider(liquibaseModelConfig.liquibaseModelProvider());
 		mls.setProducer(impexProducer());
-
-        // clean up connection on the database snapshot
-        databaseSnapshot().getDatabase().getConnection().close();
 
 		// This hands out clones of MpxLocationSupplier, one for every .mpx file being parsed
 		LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();

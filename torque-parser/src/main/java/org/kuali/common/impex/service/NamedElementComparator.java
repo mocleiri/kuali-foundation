@@ -13,25 +13,22 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.model;
+package org.kuali.common.impex.service;
 
-import java.util.List;
+import java.util.Comparator;
 
-public class Index extends Constraint {
+import org.kuali.common.impex.model.NamedElement;
 
-    protected boolean unique;
+public class NamedElementComparator implements Comparator<NamedElement> {
 
-    public Index(List<String> colNames, String name) {
-        super(colNames, name);
-        this.unique = false;
+    private static final NamedElementComparator instance = new NamedElementComparator();
+
+    public static NamedElementComparator getInstance() {
+        return instance;
     }
 
-    public Index(List<String> colNames, String name, boolean unique) {
-        this(colNames, name);
-        this.unique = unique;
-    }
-
-    public boolean isUnique() {
-        return unique;
+    @Override
+    public int compare(NamedElement o1, NamedElement o2) {
+        return o1.getName().compareTo(o2.getName());
     }
 }

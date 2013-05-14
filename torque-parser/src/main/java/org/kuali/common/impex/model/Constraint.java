@@ -20,19 +20,19 @@ import java.util.List;
 /**
  * This class represents any named connection between columns
  */
-public abstract class Constraint {
+public abstract class Constraint implements NamedElement {
 
     protected String name;
 
-    protected List<Column> columns;
+    protected List<String> columnNames;
 
-    public Constraint(List<Column> columns, String name) {
-        this.columns = columns;
+    public Constraint(List<String> colNames, String name) {
+        this.columnNames = colNames;
         this.name = name;
     }
 
-    public List<Column> getColumns() {
-        return columns;
+    public List<String> getColumnNames() {
+        return columnNames;
     }
 
     public String getName() {

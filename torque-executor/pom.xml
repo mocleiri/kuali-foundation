@@ -51,13 +51,11 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.oracle</groupId>
       <artifactId>ojdbc6_g</artifactId>
       <version>${oracle.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -78,7 +76,6 @@
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-sql</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.liquibase</groupId>

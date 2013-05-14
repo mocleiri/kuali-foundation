@@ -82,7 +82,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
         if (token == null) {
             result.setValue(null);
             result.setDateValue(null);
-        } else if (column.isDateType()) {
+        } else if (ProducerUtils.isDateType(column.getDataType())) {
             Date parsedDate = getDate(token);
             result.setValue(null);
             result.setDateValue(parsedDate);
