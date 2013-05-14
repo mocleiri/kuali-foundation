@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -58,11 +58,11 @@
     <jdk7.artifactId>jdk7</jdk7.artifactId>
     <jdk7.version>1.7.0-u21</jdk7.version>
     <jdk7.zip>target/dependency/${jdk7.artifactId}-${jdk7.version}-${jdk.classifier}.zip</jdk7.zip>
-    <jdk7.dir>/usr/java/jdk${jdk7.version}</jdk7.dir>
+    <jdk7.dir>/usr/java/jdk7-${jdk7.version}</jdk7.dir>
     <jdk6.artifactId>jdk6</jdk6.artifactId>
     <jdk6.version>1.6.0-u43</jdk6.version>
     <jdk6.zip>target/dependency/${jdk6.artifactId}-${jdk6.version}-${jdk.classifier}.zip</jdk6.zip>
-    <jdk6.dir>/usr/java/jdk${jdk6.version}</jdk6.dir>
+    <jdk6.dir>/usr/java/jdk6-${jdk6.version}</jdk6.dir>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
     <tomcat.zip>target/dependency/${tomcat.artifactId}-${tomcat.version}.zip</tomcat.zip>
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
@@ -281,7 +281,7 @@
         <appdynamics.ma.artifactId>machine-agent</appdynamics.ma.artifactId>
         <ant.phase>process-resources</ant.phase>
         <ant.target>installappdynamics</ant.target>
-        
+
         <!-- Server Agent -->
         <appdynamics.sa.zip>target/dependency/${appdynamics.sa.artifactId}-${appdynamics.version}.zip</appdynamics.sa.zip>
         <appdynamics.sa.dir>/usr/local/${appdynamics.sa.artifactId}-${appdynamics.version}</appdynamics.sa.dir>
