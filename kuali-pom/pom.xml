@@ -83,8 +83,9 @@
     <project.augment.phase>initialize</project.augment.phase>
     <project.augment.skip>false</project.augment.skip>
     <project.build.timestamp>${kuali.build.timestamp}</project.build.timestamp>
-    <project.compile.source>1.6</project.compile.source>
-    <project.compile.target>1.6</project.compile.target>
+    <project.java.version>1.6</project.java.version>
+    <project.compile.source>${project.java.version}</project.compile.source>
+    <project.compile.target>${project.java.version}</project.compile.target>
 
     <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
     <kuali.properties.global>BOTH</kuali.properties.global>
