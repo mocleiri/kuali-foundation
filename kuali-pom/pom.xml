@@ -68,8 +68,9 @@
     <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm z</maven.build.timestamp.format>
+
     <!-- Explicitly set build timestamp. The maven-resource-plugin is not filtering values correctly without this -->
-    <kuali.build.timestamp>${maven.build.timestamp}</kuali.build.timestamp>
+    <kuali.build.timestamp>${project.build.timestamp}</kuali.build.timestamp>
 
     <!-- "Extra" project properties -->
     <project.encoding>UTF-8</project.encoding>
@@ -82,7 +83,7 @@
     <project.metainf.phase>generate-resources</project.metainf.phase>
     <project.augment.phase>initialize</project.augment.phase>
     <project.augment.skip>false</project.augment.skip>
-    <project.build.timestamp>${kuali.build.timestamp}</project.build.timestamp>
+    <project.build.timestamp>${maven.build.timestamp}</project.build.timestamp>
     <project.java.version>1.6</project.java.version>
     <project.compile.source>${project.java.version}</project.compile.source>
     <project.compile.target>${project.java.version}</project.compile.target>
