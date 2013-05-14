@@ -73,7 +73,7 @@
 
     <!-- "Extra" project properties -->
     <project.encoding>UTF-8</project.encoding>
-    <project.orgId>${kuali.groupId}</project.orgId>
+    <project.orgId>org.kuali</project.orgId>
     <project.orgId.path>org/kuali</project.orgId.path>
     <project.orgId.code>kuali</project.orgId.code>
     <project.metainf.includes>project.*</project.metainf.includes>
@@ -123,7 +123,7 @@
     <kuali.ecl.license.url>http://maven.kuali.org/external/org/opensource/ecl/2.0/ecl-2.0.txt</kuali.ecl.license.url>
 
     <!-- Identifier for the Kuali organization -->
-    <kuali.groupId>org.kuali</kuali.groupId>
+    <kuali.groupId>${project.orgId}</kuali.groupId>
 
     <kuali.pom.1>org.kuali.pom:kuali-pom</kuali.pom.1>
     <kuali.pom.2>org.kuali.pom:kuali-common</kuali.pom.2>
