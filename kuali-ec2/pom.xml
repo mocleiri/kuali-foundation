@@ -56,11 +56,11 @@
     <environment>ec2</environment>
     <jdk.classifier>linux-x64</jdk.classifier>
     <jdk7.artifactId>jdk7</jdk7.artifactId>
-    <jdk7.version>1.7.0-u07</jdk7.version>
+    <jdk7.version>1.7.0-u21</jdk7.version>
     <jdk7.zip>target/dependency/${jdk7.artifactId}-${jdk7.version}-${jdk.classifier}.zip</jdk7.zip>
     <jdk7.dir>/usr/java/jdk${jdk7.version}</jdk7.dir>
     <jdk6.artifactId>jdk6</jdk6.artifactId>
-    <jdk6.version>1.6.0-u35</jdk6.version>
+    <jdk6.version>1.6.0-u43</jdk6.version>
     <jdk6.zip>target/dependency/${jdk6.artifactId}-${jdk6.version}-${jdk.classifier}.zip</jdk6.zip>
     <jdk6.dir>/usr/java/jdk${jdk6.version}</jdk6.dir>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
