@@ -34,6 +34,7 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 	String artifactId;
 	String tableListingLocation;
 	File outputDir;
+	boolean skip;
 
 	@Override
 	public void execute() {
@@ -138,6 +139,14 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 
 	public void setOutputDir(File outputDir) {
 		this.outputDir = outputDir;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }
