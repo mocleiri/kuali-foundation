@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.service.schema.SchemaSqlProducer;
 import org.kuali.common.impex.spring.LiquibaseModelProviderConfig;
@@ -34,82 +35,81 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({LiquibaseModelProviderConfig.class, SchemaSqlProducerConfig.class})
+@Import({ LiquibaseModelProviderConfig.class, SchemaSqlProducerConfig.class })
 public class DumpExecutable implements Executable {
 
-    @Autowired
-    Environment env;
+	@Autowired
+	Environment env;
 
-    @Autowired
-    ModelProvider modelProvider;
+	@Autowired
+	ModelProvider modelProvider;
 
-    @Autowired
-    SchemaSqlProducer schemaProducer;
+	@Autowired
+	SchemaSqlProducer schemaProducer;
 
-    /**
-     * This property key points to the user defined folder to output sql files
-     * A property with the key is required to build the executable
-     */
-    final static String DUMP_FOLDER_KEY = "impex.schemadump.folder";
+	/**
+	 * This property key points to the user defined folder to output sql files A property with the key is required to build the executable
+	 */
+	final static String DUMP_FOLDER_KEY = "impex.schemadump.folder";
 
-    /**
-     * This property key points to the user defined prefix for dumped file names
-     */
-    final static String FILENAME_PREFIX_KEY = "impex.schemadump.prefix";
+	/**
+	 * This property key points to the user defined prefix for dumped file names
+	 */
+	final static String FILENAME_PREFIX_KEY = "impex.schemadump.prefix";
 
-    final static String DEFAULT_FILENAME_PREFIX = "dump-";
+	final static String DEFAULT_FILENAME_PREFIX = "dump-";
 
-    final static String TABLE_FILE = "tables.sql";
-    final static String FOREIGN_KEY_FILE = "foreignKeys.sql";
-    final static String SEQUENCE_FILE = "sequences.sql";
-    final static String VIEW_FILE = "views.sql";
+	final static String TABLE_FILE = "tables.sql";
+	final static String FOREIGN_KEY_FILE = "foreignKeys.sql";
+	final static String SEQUENCE_FILE = "sequences.sql";
+	final static String VIEW_FILE = "views.sql";
 
-    @Override
-    public void execute() {
+	@Override
+	public void execute() {
 
-        Map<String, List<String>> fileNamesToSqls = new HashMap<String, List<String>>();
+		Map<String, List<String>> fileNamesToSqls = new HashMap<String, List<String>>();
 
-        fileNamesToSqls.put(getFileName(TABLE_FILE), schemaProducer.getTablesSql(modelProvider.getTables()));
-        fileNamesToSqls.put(getFileName(FOREIGN_KEY_FILE), schemaProducer.getForeignKeySql(modelProvider.getForeignKeys()));
-        fileNamesToSqls.put(getFileName(SEQUENCE_FILE), schemaProducer.getSequencesSql(modelProvider.getSequences()));
-        fileNamesToSqls.put(getFileName(VIEW_FILE), schemaProducer.getViewsSql(modelProvider.getViews()));
+		fileNamesToSqls.put(getFileName(TABLE_FILE), schemaProducer.getTablesSql(modelProvider.getTables()));
+		fileNamesToSqls.put(getFileName(FOREIGN_KEY_FILE), schemaProducer.getForeignKeySql(modelProvider.getForeignKeys()));
+		fileNamesToSqls.put(getFileName(SEQUENCE_FILE), schemaProducer.getSequencesSql(modelProvider.getSequences()));
+		fileNamesToSqls.put(getFileName(VIEW_FILE), schemaProducer.getViewsSql(modelProvider.getViews()));
 
-        dumpFiles(fileNamesToSqls);
+		dumpFiles(fileNamesToSqls);
 
-    }
+	}
 
-    protected String getFileName(String fileNameSuffix) {
-        StringBuilder sb = new StringBuilder();
+	protected String getFileName(String fileNameSuffix) {
+		StringBuilder sb = new StringBuilder();
 
-        String dumpFolder = SpringUtils.getProperty(env, DUMP_FOLDER_KEY);
-        String fileNamePrefix = SpringUtils.getProperty(env, FILENAME_PREFIX_KEY, DEFAULT_FILENAME_PREFIX);
+		String dumpFolder = SpringUtils.getProperty(env, DUMP_FOLDER_KEY);
+		String fileNamePrefix = SpringUtils.getProperty(env, FILENAME_PREFIX_KEY, DEFAULT_FILENAME_PREFIX);
 
-        sb.append(dumpFolder).append(fileNamePrefix).append(fileNameSuffix);
+		sb.append(dumpFolder).append(fileNamePrefix).append(fileNameSuffix);
 
-        return sb.toString();
-    }
+		return sb.toString();
+	}
 
-    protected static void dumpFiles(Map<String, List<String>> fileNamesToSqls) {
+	protected static void dumpFiles(Map<String, List<String>> fileNamesToSqls) {
 
+		for (String fileName : fileNamesToSqls.keySet()) {
+			List<String> sqls = fileNamesToSqls.get(fileName);
+			BufferedWriter writer = null;
+			try {
+				writer = new BufferedWriter(new FileWriter(fileName));
 
-        for (String fileName : fileNamesToSqls.keySet()) {
-            List<String> sqls = fileNamesToSqls.get(fileName);
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+				for (String s : sqls) {
+					writer.write(s);
+					writer.newLine();
+					writer.newLine();
+				}
 
-                for(String s : sqls) {
-                    writer.write(s);
-                    writer.newLine();
-                    writer.newLine();
-                }
+			} catch (IOException e) {
+				throw new IllegalStateException("Could not write to file " + fileName + ", IOException was thrown: " + e.getMessage(), e);
+			} finally {
+				IOUtils.closeQuietly(writer);
+			}
+		}
 
-            } catch (IOException e) {
-                throw new RuntimeException("Could not write to file " + fileName + ", IOException was thrown: " + e.getMessage(), e);
-            }
-        }
-
-
-    }
-
+	}
 
 }
