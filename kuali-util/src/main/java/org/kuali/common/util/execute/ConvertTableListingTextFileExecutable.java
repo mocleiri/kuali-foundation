@@ -1,0 +1,87 @@
+/**
+ * Copyright 2010-2013 The Kuali Foundation
+ *
+ * Licensed under the Educational Community License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.opensource.org/licenses/ecl2.php
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.kuali.common.util.execute;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.kuali.common.util.LocationUtils;
+import org.springframework.util.Assert;
+
+public class ConvertTableListingTextFileExecutable implements Executable {
+
+	List<String> vendors = Arrays.asList("mysql", "oracle");
+	String suffix = "sql";
+	String prefix = "META-INF/sql";
+	String encoding;
+	String artifactId;
+	String tableListingLocation;
+	File outputDir;
+
+	@Override
+	public void execute() {
+		Assert.notNull(artifactId, "artifactId is null");
+		Assert.notNull(vendors, "vendors is null");
+		Assert.notNull(tableListingLocation, "tableListingLocation is null");
+		Assert.notNull(suffix, "suffix is null");
+		Assert.notNull(prefix, "prefix is null");
+		Assert.notNull(encoding, "encoding is null");
+		Assert.notNull(outputDir, "outputDir is null");
+		Assert.isTrue(LocationUtils.exists(tableListingLocation), "tableListingLocation does not exist");
+
+		List<String> tableNames = LocationUtils.readLines(tableListingLocation);
+		for (String vendor : vendors) {
+			List<String> resources = getResources(tableNames, vendor, prefix, suffix);
+			validateResources(resources);
+			File outputFile = getOutputFile(outputDir, prefix, vendor, artifactId);
+			writeLines(outputFile, resources, encoding);
+		}
+	}
+
+	protected void validateResources(List<String> resources) {
+		for (String resource : resources) {
+			Assert.isTrue(LocationUtils.exists(resource), "[" + resource + "] does not exist");
+		}
+	}
+
+	protected void writeLines(File file, List<String> lines, String encoding) {
+		try {
+			FileUtils.writeLines(file, lines, encoding);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	protected File getOutputFile(File outputDir, String prefix, String vendor, String artifactId) {
+		String filename = prefix + "/" + vendor + "/" + artifactId + ".resources";
+		return new File(outputDir, filename);
+
+	}
+
+	protected List<String> getResources(List<String> tableNames, String vendor, String prefix, String suffix) {
+		List<String> resources = new ArrayList<String>();
+		for (String tableName : tableNames) {
+			String resource = "classpath:" + prefix + "/" + vendor + "/" + tableName + "." + suffix;
+			resources.add(resource);
+		}
+		return resources;
+	}
+
+}
