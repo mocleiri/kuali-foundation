@@ -4,6 +4,7 @@ import java.util.Map;
 
 import liquibase.exception.DatabaseException;
 import liquibase.snapshot.InvalidExampleException;
+
 import org.apache.torque.engine.platform.Platform;
 import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.MpxLocationSupplier;
@@ -28,18 +29,18 @@ public class MpxSupplierConfig {
 	@Autowired
 	JdbcCommonConfig jdbcCommonConfig;
 
-    @Autowired
-    JdbcDataSourceConfig dataSourceConfig;
+	@Autowired
+	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
 	BatchConfig batchConfig;
 
-    @Autowired
-    LiquibaseModelProviderConfig liquibaseModelConfig;
+	@Autowired
+	LiquibaseModelProviderConfig liquibaseModelConfig;
 
-    private static final String DB_VENDOR_KEY = "db.vendor";
+	private static final String DB_VENDOR_KEY = "db.vendor";
 
-    private static final String IMPEX_SCHEMA_LOCATION_KEY = "impex.schema.location";
+	// private static final String IMPEX_SCHEMA_LOCATION_KEY = "impex.schema.location";
 
 	@Bean
 	public SqlProducer impexProducer() {
