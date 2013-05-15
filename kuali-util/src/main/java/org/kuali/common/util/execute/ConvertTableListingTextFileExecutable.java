@@ -84,4 +84,60 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 		return resources;
 	}
 
+	public List<String> getVendors() {
+		return vendors;
+	}
+
+	public void setVendors(List<String> vendors) {
+		this.vendors = vendors;
+	}
+
+	public String getSuffix() {
+		return suffix;
+	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
+	}
+
+	public String getTableListingLocation() {
+		return tableListingLocation;
+	}
+
+	public void setTableListingLocation(String tableListingLocation) {
+		this.tableListingLocation = tableListingLocation;
+	}
+
+	public File getOutputDir() {
+		return outputDir;
+	}
+
+	public void setOutputDir(File outputDir) {
+		this.outputDir = outputDir;
+	}
+
 }
