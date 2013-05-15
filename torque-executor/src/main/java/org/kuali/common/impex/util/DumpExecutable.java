@@ -18,6 +18,7 @@ package org.kuali.common.impex.util;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,8 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({ LiquibaseModelProviderConfig.class, SchemaSqlProducerConfig.class })
 public class DumpExecutable implements Executable {
+
+	private static final String LF = "\n";
 
 	@Autowired
 	Environment env;
@@ -93,14 +96,14 @@ public class DumpExecutable implements Executable {
 
 		for (String fileName : fileNamesToSqls.keySet()) {
 			List<String> sqls = fileNamesToSqls.get(fileName);
-			BufferedWriter writer = null;
+			Writer writer = null;
 			try {
 				writer = new BufferedWriter(new FileWriter(fileName));
 
 				for (String s : sqls) {
 					writer.write(s);
-					writer.newLine();
-					writer.newLine();
+					writer.write(LF);
+					writer.write(LF);
 				}
 
 			} catch (IOException e) {
