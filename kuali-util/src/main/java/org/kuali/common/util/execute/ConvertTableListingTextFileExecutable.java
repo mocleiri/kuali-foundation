@@ -28,10 +28,11 @@ import org.springframework.util.Assert;
 public class ConvertTableListingTextFileExecutable implements Executable {
 
 	private static String SQL = "sql";
+	private static String METAINF = "META-INF";
 
 	List<String> vendors = Arrays.asList("mysql", "oracle");
 	String suffix = SQL;
-	String prefix = "META-INF/" + SQL;
+	String prefix = SQL;
 	String encoding;
 	String artifactId;
 	File outputDir;
@@ -71,7 +72,7 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 	}
 
 	protected File getOutputFile(File outputDir, String prefix, String vendor, String artifactId) {
-		String filename = prefix + "/" + vendor + "/" + artifactId + ".resources";
+		String filename = METAINF + "/" + prefix + "/" + vendor + "/" + artifactId + ".resources";
 		return new File(outputDir, filename);
 
 	}
