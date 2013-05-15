@@ -33,7 +33,6 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 	List<String> vendors = Arrays.asList("mysql", "oracle");
 	String suffix = SQL;
 	String prefix = SQL;
-	String encoding;
 	String artifactId;
 	File outputDir;
 	boolean skip;
@@ -44,7 +43,6 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 		Assert.notNull(vendors, "vendors is null");
 		Assert.notNull(suffix, "suffix is null");
 		Assert.notNull(prefix, "prefix is null");
-		Assert.notNull(encoding, "encoding is null");
 		Assert.notNull(outputDir, "outputDir is null");
 
 		for (String vendor : vendors) {
@@ -53,7 +51,7 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 			List<String> resources = getResources(tableNames, vendor, prefix, suffix);
 			validateResources(resources);
 			File outputFile = getOutputFile(outputDir, prefix, vendor, artifactId);
-			writeLines(outputFile, resources, encoding);
+			writeLines(outputFile, resources);
 		}
 	}
 
@@ -63,9 +61,9 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 		}
 	}
 
-	protected void writeLines(File file, List<String> lines, String encoding) {
+	protected void writeLines(File file, List<String> lines) {
 		try {
-			FileUtils.writeLines(file, lines, encoding);
+			FileUtils.writeLines(file, lines, "\n");
 		} catch (IOException e) {
 			throw new IllegalArgumentException(e);
 		}
@@ -108,14 +106,6 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
 	}
 
 	public String getArtifactId() {

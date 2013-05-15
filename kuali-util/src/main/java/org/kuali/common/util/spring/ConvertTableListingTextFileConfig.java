@@ -32,13 +32,11 @@ public class ConvertTableListingTextFileConfig {
 	@Bean(initMethod = "execute")
 	public ConvertTableListingTextFileExecutable convertTableListingTextFileExecutable() {
 
-		String encoding = SpringUtils.getProperty(env, "impex.txt.encoding");
 		String artifactId = SpringUtils.getProperty(env, "impex.txt.artifactId");
 		File outputDir = SpringUtils.getFile(env, "project.build.outputDirectory");
 		boolean skip = SpringUtils.getBoolean(env, "impex.txt.skip", false);
 
 		ConvertTableListingTextFileExecutable e = new ConvertTableListingTextFileExecutable();
-		e.setEncoding(encoding);
 		e.setArtifactId(artifactId);
 		e.setOutputDir(outputDir);
 		e.setSkip(skip);
