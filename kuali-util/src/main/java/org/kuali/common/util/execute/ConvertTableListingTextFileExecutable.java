@@ -70,7 +70,7 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 	}
 
 	protected File getOutputFile(File outputDir, String prefix, String vendor, String artifactId) {
-		String filename = METAINF + "/" + prefix + "/" + vendor + "/" + artifactId + ".resources";
+		String filename = METAINF + "/" + prefix + "/" + vendor + "/" + artifactId + "-data.resources";
 		return new File(outputDir, filename);
 
 	}
