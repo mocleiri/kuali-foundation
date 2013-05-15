@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.torque.engine.database.model.Table;
+import org.kuali.common.impex.model.Table;
 
 public interface SqlProducer {
 

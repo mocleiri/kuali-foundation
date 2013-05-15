@@ -11,7 +11,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.kuali.common.impex.service.ImpexContext;
+import org.kuali.common.impex.Constants;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -25,7 +25,7 @@ public class DateParsingTest {
 	@Test
 	public void test() {
 		try {
-			String format = ImpexContext.MPX_DATE_FORMAT + "Z";
+			String format = Constants.MPX_DATE_FORMAT + "Z";
 			Comparator<TimeZone> c = new TimeZoneComparator();
 			List<TimeZone> timeZones = getSortedTimeZones(c);
 			List<SimpleDateFormat> formatters = new ArrayList<SimpleDateFormat>();

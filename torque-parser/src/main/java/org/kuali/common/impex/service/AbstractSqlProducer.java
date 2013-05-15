@@ -23,9 +23,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.torque.engine.database.model.Column;
-import org.apache.torque.engine.database.model.Table;
 import org.kuali.common.impex.Constants;
+import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.DataType;
+import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.CollectionUtils;
 
 /**
@@ -33,105 +34,105 @@ import org.kuali.common.util.CollectionUtils;
  */
 public abstract class AbstractSqlProducer implements SqlProducer {
 
-	protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
-	public static final int DEFAULT_BATCH_ROW_COUNT_LIMIT = 50;
-	public static final int DEFAULT_DATA_SIZE_LIMIT = 50 * 1024;
+    protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
+    public static final int DEFAULT_BATCH_ROW_COUNT_LIMIT = 50;
+    public static final int DEFAULT_DATA_SIZE_LIMIT = 50 * 1024;
 
-	int batchRowCountLimit = DEFAULT_BATCH_ROW_COUNT_LIMIT;
-	int batchDataSizeLimit = DEFAULT_DATA_SIZE_LIMIT;
+    int batchRowCountLimit = DEFAULT_BATCH_ROW_COUNT_LIMIT;
+    int batchDataSizeLimit = DEFAULT_DATA_SIZE_LIMIT;
 
-	protected boolean batchLimitReached(int rows, int length) {
-		if (rows > getBatchRowCountLimit()) {
-			return true;
-		} else if (length > getBatchDataSizeLimit()) {
-			return true;
-		}
+    protected boolean batchLimitReached(int rows, int length) {
+        if (rows > getBatchRowCountLimit()) {
+            return true;
+        } else if (length > getBatchDataSizeLimit()) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	protected String readLineSkipHeader(BufferedReader reader) throws IOException {
-		// First check to see if the reader is at the Header line.
-		// If it is, skip that line
-		String line = reader.readLine();
-		if (ParseUtils.isHeaderLine(line)) {
-			line = reader.readLine();
-		}
+    protected String readLineSkipHeader(BufferedReader reader) throws IOException {
+        // First check to see if the reader is at the Header line.
+        // If it is, skip that line
+        String line = reader.readLine();
+        if (ParseUtils.isHeaderLine(line)) {
+            line = reader.readLine();
+        }
 
-		return line;
-	}
+        return line;
+    }
 
-	protected abstract String getEscapedValue(Column column, String token);
+    protected abstract String getEscapedValue(Column column, String token);
 
-	protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
-		List<DataBean> result = new ArrayList<DataBean>();
+    protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
+        List<DataBean> result = new ArrayList<DataBean>();
 
-		for (int i = 0; i < tokens.length; i++) {
-			result.add(processToken(columns.get(i), tokens[i]));
-		}
+        for (int i = 0; i < tokens.length; i++) {
+            result.add(processToken(columns.get(i), tokens[i]));
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public DataBean processToken(Column column, String token) {
-		DataBean result = new DataBean();
+    public DataBean processToken(Column column, String token) {
+        DataBean result = new DataBean();
 
-		result.setColumn(column);
+        result.setColumn(column);
 
-		if (token == null) {
-			result.setValue(null);
-			result.setDateValue(null);
-		} else if (ParseUtils.isColumnDateType(column)) {
-			Date parsedDate = getDate(token);
-			result.setValue(null);
-			result.setDateValue(parsedDate);
-		} else if (column.needEscapedValue()) {
-			result.setValue(getEscapedValue(column, token));
-			result.setDateValue(null);
-		} else {
-			result.setDateValue(null);
-			result.setValue(token);
-		}
+        if (token == null) {
+            result.setValue(null);
+            result.setDateValue(null);
+        } else if (ProducerUtils.isDateType(column.getDataType())) {
+            Date parsedDate = getDate(token);
+            result.setValue(null);
+            result.setDateValue(parsedDate);
+        } else if (column.getDataType() == DataType.STRING || column.getDataType() == DataType.CLOB) {
+            result.setValue(getEscapedValue(column, token));
+            result.setDateValue(null);
+        } else {
+            result.setDateValue(null);
+            result.setValue(token);
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	protected Date getDate(String token) {
-		SimpleDateFormat sdf = new SimpleDateFormat(Constants.MPX_DATE_FORMAT);
-		try {
-			return sdf.parse(token);
-		} catch (ParseException e) {
-			throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + Constants.MPX_DATE_FORMAT + "]");
-		}
-	}
+    protected Date getDate(String token) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.MPX_DATE_FORMAT);
+        try {
+            return sdf.parse(token);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + Constants.MPX_DATE_FORMAT + "]");
+        }
+    }
 
-	protected String getColumnNamesCSV(Table table) {
-		List<Column> columns = ParseUtils.getColumns(table);
-		List<String> colNames = new ArrayList<String>(columns.size());
-		for (Column col : columns) {
-			colNames.add(col.getName());
-		}
-		return CollectionUtils.getCSV(colNames);
-	}
+    protected String getColumnNamesCSV(Table table) {
+        List<Column> columns = table.getColumns();
+        List<String> colNames = new ArrayList<String>(columns.size());
+        for (Column col : columns) {
+            colNames.add(col.getName());
+        }
+        return CollectionUtils.getCSV(colNames);
+    }
 
-	@Override
-	public int getBatchRowCountLimit() {
-		return batchRowCountLimit;
-	}
+    @Override
+    public int getBatchRowCountLimit() {
+        return batchRowCountLimit;
+    }
 
-	@Override
-	public int getBatchDataSizeLimit() {
-		return batchDataSizeLimit;
-	}
+    @Override
+    public int getBatchDataSizeLimit() {
+        return batchDataSizeLimit;
+    }
 
-	@Override
-	public void setBatchDataSizeLimit(int batchDataSizeLimit) {
-		this.batchDataSizeLimit = batchDataSizeLimit;
-	}
+    @Override
+    public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+        this.batchDataSizeLimit = batchDataSizeLimit;
+    }
 
-	@Override
-	public void setBatchRowCountLimit(int batchRowCountLimit) {
-		this.batchRowCountLimit = batchRowCountLimit;
-	}
+    @Override
+    public void setBatchRowCountLimit(int batchRowCountLimit) {
+        this.batchRowCountLimit = batchRowCountLimit;
+    }
 
 }
