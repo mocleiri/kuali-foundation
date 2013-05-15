@@ -62,6 +62,10 @@ sub build_ec2_lst
   #if ( $url eq "" ){ $url = "n/a"; }
 
   print EC2LST  $instance_id,"," ,$url,",", $status,",", $tags,"\n";
+  $instance_id = "";
+  $url = "";
+  $status = "";
+ $tags = "";
  }
 
  foreach  $pj (@projects)
@@ -99,6 +103,10 @@ sub build_ec2_lst
 
     #print "\n",$instance_id," ",$url," ", $status," ", $tags;    
     print EC2LST  $instance_id," ",$url," ", $status," ", $tags_lb,"\n";
+    $instance_id = "";
+    $url = "";
+    $status = "";
+    $tags_lb = "";
   }
 
   #print "\nend of creating EC2 List"; 
@@ -122,6 +130,7 @@ sub project_env_status
  $server = "";
  $ec2_status = "";
  $tags = "";
+ $url = "";
 
  my $project = $_[0];
  my $skip_ec2_list = $_[1];
@@ -208,7 +217,12 @@ sub project_env_status
     { 
       chomp($dns_ec2_grep_ec2livelist);
       ($instance_id, $server, $ec2_status, $tags) = split (/\s+|,/, $dns_ec2_grep_ec2livelist);
-      print WIKI ",$anyname_kuali_org,$ec2, $no_ping,$tags\n"; next; }
+      print WIKI ",$anyname_kuali_org,$ec2, $no_ping,$tags\n";
+      $anyname_kuali_org = "";
+      $ec2= "";
+      $no_ping = "";
+      $tags = "";
+      next; }
 
 
    #otherwise $no_ping is not set and will go on
@@ -232,6 +246,10 @@ sub project_env_status
             #now I should have this: i-bdf85cc0 ec2-50-19-21-45.compute-1.amazonaws.com running kuali-nexus-as:nexus
             ($instance_id, $server, $ec2_status, $tags) = split (/\s|,/, $dns_ec2_grep_ec2livelist);  ## what is this for?
              print WIKI ",$lb_id, $ec2_name, ,$lbstatus,$lbcom\n";
+             $lb_id = "";
+             $ec2_name = "";
+             $lbstatus = "";
+             $lbcom = "";
             #and I'll still lookup the instance_id and report on it, moving on
        }
             
@@ -253,6 +271,7 @@ sub project_env_status
    #only ping if the server is running, or its ole.  I don't have passkeys to access ole with command line tools
    $user = "root"; #default
    @results_ec2tag = ();
+   @results_ping = ();
    if (( $ec2_status eq "running") || ( $project eq "ole" ))
       {  
         if ((( $line =~ "env2") && ($project eq "ole")) || (($project eq "fn") && ($url eq "nexus")) )
@@ -285,6 +304,12 @@ sub project_env_status
    {
    #take the info and print it to the project file
    print WIKI "$env_no,$anyname_kuali_org, $server, $status, $size,$tags\n"; }
+   $env_no = "";
+   $anyname_kuali_org = "";
+   $server = "";
+   $status = "";
+   $size = "";
+   $tags = "";
    }
   }
 
@@ -328,6 +353,7 @@ sub dead_or_alive
  my @out = ();
  my $value = "";
  my $size = "";
+ print "\ndead_or_alive $name, $user";
 
 #set an Signal Alarm to timeout unresponsive ip addresses
 eval {
@@ -343,7 +369,7 @@ if ($?) {
     $out[0] =  "Fail ".$?;
     sleep (20);
 } elsif ($@) {
-    die unless $@ eq "alarm\n";
+    die "dieing, ",$@ unless $@ eq "alarm\n";
     #print "timed out $name \n";
     $out[0] = "Timedout ".$@;
     sleep (20);
