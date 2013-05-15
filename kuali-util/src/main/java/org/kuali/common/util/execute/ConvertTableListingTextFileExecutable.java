@@ -27,12 +27,13 @@ import org.springframework.util.Assert;
 
 public class ConvertTableListingTextFileExecutable implements Executable {
 
+	private static String SQL = "sql";
+
 	List<String> vendors = Arrays.asList("mysql", "oracle");
-	String suffix = "sql";
-	String prefix = "META-INF/sql";
+	String suffix = SQL;
+	String prefix = "META-INF/" + SQL;
 	String encoding;
 	String artifactId;
-	String tableListingLocation;
 	File outputDir;
 	boolean skip;
 
@@ -40,15 +41,14 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 	public void execute() {
 		Assert.notNull(artifactId, "artifactId is null");
 		Assert.notNull(vendors, "vendors is null");
-		Assert.notNull(tableListingLocation, "tableListingLocation is null");
 		Assert.notNull(suffix, "suffix is null");
 		Assert.notNull(prefix, "prefix is null");
 		Assert.notNull(encoding, "encoding is null");
 		Assert.notNull(outputDir, "outputDir is null");
-		Assert.isTrue(LocationUtils.exists(tableListingLocation), "tableListingLocation does not exist");
 
-		List<String> tableNames = LocationUtils.readLines(tableListingLocation);
 		for (String vendor : vendors) {
+			String tableListing = SQL + "/" + vendor + "/" + artifactId + "-tables.txt";
+			List<String> tableNames = LocationUtils.readLines(tableListing);
 			List<String> resources = getResources(tableNames, vendor, prefix, suffix);
 			validateResources(resources);
 			File outputFile = getOutputFile(outputDir, prefix, vendor, artifactId);
@@ -123,14 +123,6 @@ public class ConvertTableListingTextFileExecutable implements Executable {
 
 	public void setArtifactId(String artifactId) {
 		this.artifactId = artifactId;
-	}
-
-	public String getTableListingLocation() {
-		return tableListingLocation;
-	}
-
-	public void setTableListingLocation(String tableListingLocation) {
-		this.tableListingLocation = tableListingLocation;
 	}
 
 	public File getOutputDir() {

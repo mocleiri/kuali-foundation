@@ -34,7 +34,6 @@ public class ConvertTableListingTextFileConfig {
 
 		String encoding = SpringUtils.getProperty(env, "impex.txt.encoding");
 		String artifactId = SpringUtils.getProperty(env, "impex.txt.artifactId");
-		String tableListingLocation = SpringUtils.getProperty(env, "impex.txt.location");
 		File outputDir = SpringUtils.getFile(env, "project.build.outputDirectory");
 		boolean skip = SpringUtils.getBoolean(env, "impex.txt.skip", false);
 
@@ -42,7 +41,6 @@ public class ConvertTableListingTextFileConfig {
 		e.setEncoding(encoding);
 		e.setArtifactId(artifactId);
 		e.setOutputDir(outputDir);
-		e.setTableListingLocation(tableListingLocation);
 		e.setSkip(skip);
 		return e;
 	}
