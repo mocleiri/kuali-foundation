@@ -40,6 +40,9 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return null;
 	}
 
+	/**
+	 * Recurse the bucket starting at <code>prefix</code> acquiring an <code>ObjectListing</code> for each prefix along the way.
+	 */
 	protected List<ObjectListing> getObjectListings(TreeContext context, PercentCompleteInformer informer) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
