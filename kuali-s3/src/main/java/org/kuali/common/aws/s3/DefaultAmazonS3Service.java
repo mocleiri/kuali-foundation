@@ -1,7 +1,6 @@
 package org.kuali.common.aws.s3;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -10,7 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ProgressInformer;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -33,19 +32,15 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
 		logger.info("[s3://{}{}{}] - building tree", args);
-		ProgressInformer informer = new ProgressInformer(context.getPrefixCountEstimate() / 100);
+		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixCountEstimate());
 		informer.start();
 		List<String> prefixes = buildPrefixList(context, informer);
 		informer.stop();
-		logger.info("prefixes: " + prefixes.size());
-		Collections.sort(prefixes);
-		for (String prefix : prefixes) {
-			logger.info(prefix);
-		}
+		logger.debug("prefixes: {}", prefixes.size());
 		return null;
 	}
 
-	protected List<String> buildPrefixList(TreeContext context, ProgressInformer informer) {
+	protected List<String> buildPrefixList(TreeContext context, PercentCompleteInformer informer) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
