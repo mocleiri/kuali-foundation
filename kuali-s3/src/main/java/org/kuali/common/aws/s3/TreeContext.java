@@ -6,13 +6,16 @@ import com.amazonaws.services.s3.AmazonS3Client;
 
 public class TreeContext {
 
+	public static final long DEFAULT_PREFIX_COUNT_ESTIMATE = 100;
+	public static final String DEFAULT_DELIMITER = "/";
+
+	String delimiter = DEFAULT_DELIMITER;
+	long prefixCountEstimate = DEFAULT_PREFIX_COUNT_ESTIMATE;
 	AmazonS3Client client;
 	String bucket;
 	String prefix;
-	String delimiter;
 	List<String> includes;
 	List<String> excludes;
-	long prefixCountEstimate;
 
 	public AmazonS3Client getClient() {
 		return client;
