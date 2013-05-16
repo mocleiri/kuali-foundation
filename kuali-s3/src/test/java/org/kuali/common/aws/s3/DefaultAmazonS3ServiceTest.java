@@ -13,12 +13,16 @@ public class DefaultAmazonS3ServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3ServiceTest.class);
 
-	@Test
-	public void test() {
+	protected AmazonS3Client getClient() {
 		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
 		String secretKey = System.getProperty("s3.secretKey");
+		return S3Utils.getInstance().getClient(accessKey, secretKey);
+	}
+
+	@Test
+	public void test() {
 		try {
-			AmazonS3Client client = S3Utils.getInstance().getClient(accessKey, secretKey);
+			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
 			String prefix = "maven/plugins/spring-maven-plugin/latest";
 			if (System.getProperty("s3.prefix") != null) {
@@ -41,12 +45,24 @@ public class DefaultAmazonS3ServiceTest {
 			context.setPrefixCountEstimate(prefixCountEstimate);
 
 			AmazonS3Service service = new DefaultAmazonS3Service();
+
+			service.getTree(context);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetBucket() {
+		try {
+			AmazonS3Client client = getClient();
+			String bucket = "site.origin.kuali.org";
+
+			AmazonS3Service service = new DefaultAmazonS3Service();
 			Bucket b = service.getBucket(client, bucket);
 			logger.info("Owner: {}", b.getOwner().getDisplayName());
 			logger.info("Name: {}", b.getName());
 			logger.info("Created On: {}", b.getCreationDate());
-
-			service.getTree(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

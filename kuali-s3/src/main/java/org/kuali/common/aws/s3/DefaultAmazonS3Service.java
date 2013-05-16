@@ -1,6 +1,7 @@
 package org.kuali.common.aws.s3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,6 +37,11 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		informer.start();
 		List<String> prefixes = buildPrefixList(context, informer);
 		informer.stop();
+		logger.info("prefixes: " + prefixes.size());
+		Collections.sort(prefixes);
+		for (String prefix : prefixes) {
+			logger.info(prefix);
+		}
 		return null;
 	}
 
@@ -47,6 +53,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		informer.incrementProgress();
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		List<String> prefixes = new ArrayList<String>();
+		prefixes.add(context.getPrefix());
 		for (String commonPrefix : commonPrefixes) {
 			if (include(context, commonPrefix)) {
 				TreeContext clone = clone(context, commonPrefix);
