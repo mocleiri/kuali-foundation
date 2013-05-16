@@ -16,7 +16,7 @@ public class DefaultAmazonS3ServiceTest {
 	@Test
 	public void test() {
 		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
-		String secretKey = System.getProperty("aws.secretKey");
+		String secretKey = System.getProperty("s3.secretKey");
 		try {
 			AmazonS3Client client = S3Utils.getInstance().getClient(accessKey, secretKey);
 			String bucket = "site.origin.kuali.org";
