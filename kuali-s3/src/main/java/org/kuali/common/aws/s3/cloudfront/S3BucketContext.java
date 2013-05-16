@@ -16,6 +16,9 @@
 package org.kuali.common.aws.s3.cloudfront;
 
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
+import org.kuali.common.aws.s3.TreeContext;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -24,103 +27,118 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
  * Holds context information for S3
  */
 public class S3BucketContext {
-    AmazonS3Client client;
-    String bucket;
-    String delimiter;
-    String fileImage;
-    String directoryImage;
-    String css;
-    String defaultObject;
-    SimpleDateFormat lastModifiedDateFormatter;
-    String about;
-    CannedAccessControlList acl;
-    Integer maxKeys;
 
-    public AmazonS3Client getClient() {
-        return client;
-    }
+	public static final String DEFAULT_FILE_IMAGE = "http://s3browse.ks.kuali.org/images/page_white.png";
+	public static final String DEFAULT_DIR_IMAGE = "http://s3browse.ks.kuali.org/images/folder.png";
+	public static final String DEFAULT_CSS = "http://s3browse.ks.kuali.org/css/style.css";
+	public static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
+	public static final String DEFAULT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
+	public static final String DEFAULT_TIMEZONE = "UTC";
 
-    public void setClient(final AmazonS3Client client) {
-        this.client = client;
-    }
+	String fileImage = DEFAULT_FILE_IMAGE;
+	String directoryImage = DEFAULT_DIR_IMAGE;
+	String css = DEFAULT_CSS;
+	CannedAccessControlList acl = DEFAULT_ACL;
+	String delimiter = TreeContext.DEFAULT_DELIMITER;
+	SimpleDateFormat lastModifiedDateFormatter = getDefaultLastModifiedDateFormatter();
 
-    public String getBucket() {
-        return bucket;
-    }
+	AmazonS3Client client;
+	String bucket;
+	String defaultObject;
+	String about;
+	Integer maxKeys;
 
-    public void setBucket(final String bucket) {
-        this.bucket = bucket;
-    }
+	protected static SimpleDateFormat getDefaultLastModifiedDateFormatter() {
+		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+		sdf.setTimeZone(TimeZone.getTimeZone(DEFAULT_TIMEZONE));
+		return sdf;
+	}
 
-    public String getDelimiter() {
-        return delimiter;
-    }
+	public AmazonS3Client getClient() {
+		return client;
+	}
 
-    public void setDelimiter(final String delimiter) {
-        this.delimiter = delimiter;
-    }
+	public void setClient(final AmazonS3Client client) {
+		this.client = client;
+	}
 
-    public String getFileImage() {
-        return fileImage;
-    }
+	public String getBucket() {
+		return bucket;
+	}
 
-    public void setFileImage(final String fileImage) {
-        this.fileImage = fileImage;
-    }
+	public void setBucket(final String bucket) {
+		this.bucket = bucket;
+	}
 
-    public String getDirectoryImage() {
-        return directoryImage;
-    }
+	public String getDelimiter() {
+		return delimiter;
+	}
 
-    public void setDirectoryImage(final String directoryImage) {
-        this.directoryImage = directoryImage;
-    }
+	public void setDelimiter(final String delimiter) {
+		this.delimiter = delimiter;
+	}
 
-    public String getCss() {
-        return css;
-    }
+	public String getFileImage() {
+		return fileImage;
+	}
 
-    public void setCss(final String css) {
-        this.css = css;
-    }
+	public void setFileImage(final String fileImage) {
+		this.fileImage = fileImage;
+	}
 
-    public String getDefaultObject() {
-        return defaultObject;
-    }
+	public String getDirectoryImage() {
+		return directoryImage;
+	}
 
-    public void setDefaultObject(final String defaultObject) {
-        this.defaultObject = defaultObject;
-    }
+	public void setDirectoryImage(final String directoryImage) {
+		this.directoryImage = directoryImage;
+	}
 
-    public SimpleDateFormat getLastModifiedDateFormatter() {
-        return lastModifiedDateFormatter;
-    }
+	public String getCss() {
+		return css;
+	}
 
-    public void setLastModifiedDateFormatter(final SimpleDateFormat dateFormatter) {
-        this.lastModifiedDateFormatter = dateFormatter;
-    }
+	public void setCss(final String css) {
+		this.css = css;
+	}
 
-    public String getAbout() {
-        return about;
-    }
+	public String getDefaultObject() {
+		return defaultObject;
+	}
 
-    public void setAbout(final String about) {
-        this.about = about;
-    }
+	public void setDefaultObject(final String defaultObject) {
+		this.defaultObject = defaultObject;
+	}
 
-    public CannedAccessControlList getAcl() {
-        return acl;
-    }
+	public SimpleDateFormat getLastModifiedDateFormatter() {
+		return lastModifiedDateFormatter;
+	}
 
-    public void setAcl(CannedAccessControlList acl) {
-        this.acl = acl;
-    }
+	public void setLastModifiedDateFormatter(final SimpleDateFormat dateFormatter) {
+		this.lastModifiedDateFormatter = dateFormatter;
+	}
 
-    public Integer getMaxKeys() {
-        return maxKeys;
-    }
+	public String getAbout() {
+		return about;
+	}
 
-    public void setMaxKeys(Integer maxKeys) {
-        this.maxKeys = maxKeys;
-    }
+	public void setAbout(final String about) {
+		this.about = about;
+	}
+
+	public CannedAccessControlList getAcl() {
+		return acl;
+	}
+
+	public void setAcl(CannedAccessControlList acl) {
+		this.acl = acl;
+	}
+
+	public Integer getMaxKeys() {
+		return maxKeys;
+	}
+
+	public void setMaxKeys(Integer maxKeys) {
+		this.maxKeys = maxKeys;
+	}
 }

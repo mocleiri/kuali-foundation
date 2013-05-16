@@ -7,6 +7,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.aws.s3.cloudfront.CloudFrontHtmlGenerator;
+import org.kuali.common.aws.s3.cloudfront.S3BucketContext;
+import org.kuali.common.aws.s3.cloudfront.S3DataConverter;
+import org.kuali.common.aws.s3.cloudfront.S3PrefixContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PercentCompleteInformer;
@@ -155,4 +159,54 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return request;
 	}
 
+	/**
+	 * Convert ObjectListing objects into S3PrefixContext objects
+	 */
+	protected List<S3PrefixContext> getS3PrefixContexts(S3BucketContext context, List<ObjectListing> listings) {
+		List<S3PrefixContext> contexts = new ArrayList<S3PrefixContext>();
+		for (ObjectListing listing : listings) {
+			S3PrefixContext prefixContext = getS3PrefixContext(context, listing);
+			contexts.add(prefixContext);
+		}
+		return contexts;
+	}
+
+	/**
+	 * Convert an ObjectListing into an S3PrefixContext
+	 */
+	protected S3PrefixContext getS3PrefixContext(S3BucketContext context, ObjectListing objectListing) {
+
+		// TODO Move this out to somewhere else
+		CloudFrontHtmlGenerator generator = new CloudFrontHtmlGenerator(context);
+		S3DataConverter converter = new S3DataConverter(context);
+		converter.setBrowseKey(S3PrefixContext.BROWSE_HTML);
+
+		String prefix = objectListing.getPrefix();
+		String delimiter = context.getDelimiter();
+		List<String[]> data = converter.getData(objectListing, prefix, delimiter);
+		String html = generator.getHtml(data, prefix, delimiter);
+		String defaultObjectKey = StringUtils.isEmpty(prefix) ? S3PrefixContext.INDEX_HTML : prefix + S3PrefixContext.INDEX_HTML;
+		String browseHtmlKey = StringUtils.isEmpty(prefix) ? S3PrefixContext.BROWSE_HTML : prefix + S3PrefixContext.BROWSE_HTML;
+		// Is this the root of the bucket?
+		boolean isRoot = StringUtils.isEmpty(prefix);
+
+		S3PrefixContext prefixContext = new S3PrefixContext();
+		prefixContext.setObjectListing(objectListing);
+		prefixContext.setHtml(html);
+		prefixContext.setRoot(isRoot);
+		prefixContext.setDefaultObjectKey(defaultObjectKey);
+		prefixContext.setPrefix(prefix);
+		prefixContext.setBucketContext(context);
+		prefixContext.setBrowseHtmlKey(browseHtmlKey);
+		return prefixContext;
+	}
+
+	/**
+	 * Get context information about the bucket we are operating on
+	 */
+	protected S3BucketContext getS3BucketContext(AmazonS3Client client) {
+		S3BucketContext context = new S3BucketContext();
+		context.setClient(client);
+		return context;
+	}
 }
