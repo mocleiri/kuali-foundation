@@ -18,16 +18,16 @@ package org.kuali.common.aws.s3;
 import java.util.Date;
 
 import org.junit.Test;
+import org.kuali.common.util.FormatUtils;
 
 public class SimpleFormatterTest {
-	SimpleFormatter formatter = new SimpleFormatter();
 
 	@Test
 	public void testNegativeNumbers() {
 		try {
 			int negative = Integer.MIN_VALUE;
-			System.out.println(formatter.getTime(negative));
-			System.out.println(formatter.getSize(negative));
+			System.out.println(FormatUtils.getTime(negative));
+			System.out.println(FormatUtils.getSize(negative));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,8 +37,8 @@ public class SimpleFormatterTest {
 	public void testDateFormatting() {
 		try {
 			Date now = new Date();
-			String s = formatter.getDate(now);
-			formatter.parseDate(s);
+			String s = FormatUtils.getDate(now);
+			FormatUtils.parseDate(s);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

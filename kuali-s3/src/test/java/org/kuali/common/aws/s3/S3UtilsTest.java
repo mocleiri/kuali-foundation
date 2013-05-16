@@ -21,16 +21,14 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.kuali.common.aws.s3.BucketPrefixSummaryHandler;
-import org.kuali.common.aws.s3.S3Utils;
-import org.kuali.common.aws.s3.SimpleFormatter;
-import org.kuali.common.aws.s3.Size;
 import org.kuali.common.aws.s3.pojo.BucketPrefixSummary;
 import org.kuali.common.aws.s3.pojo.S3PrefixContext;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.threads.listener.PercentCompleteListener;
+import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.Size;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,17 +63,16 @@ public class S3UtilsTest {
 	// @Test
 	public void testGetStructure() {
 		try {
-			Size[] values = Size.values();
+			org.kuali.common.util.Size[] values = Size.values();
 			for (Size value : values) {
 				log.info(value.getSizeLabel() + " " + value.getValue());
 			}
 			long now = System.currentTimeMillis();
 			long bytes = Long.MAX_VALUE;
-			SimpleFormatter sf = new SimpleFormatter();
-			log.info(sf.getSize(bytes));
-			log.info(sf.getRate(now, bytes));
-			log.info(sf.getTime(now));
-			log.info(sf.getTime(bytes));
+			log.info(FormatUtils.getSize(bytes));
+			log.info(FormatUtils.getRate(now, bytes));
+			log.info(FormatUtils.getTime(now));
+			log.info(FormatUtils.getTime(bytes));
 			String delimiter = "/";
 			String bucket = "maven.kuali.org";
 			AmazonS3Client client = getClient();
@@ -98,7 +95,7 @@ public class S3UtilsTest {
 			long elapsed1 = System.currentTimeMillis() - start1;
 			DefaultMutableTreeNode node = utils.buildTree(prefixes, delimiter);
 			log.info("Total Prefixes: " + prefixes.size());
-			log.info("Total Time: " + sf.getTime(elapsed1));
+			log.info("Total Time: " + FormatUtils.getTime(elapsed1));
 			List<DefaultMutableTreeNode> leaves = utils.getLeaves(node);
 			log.info("Total Leaves: " + leaves.size());
 			// long start2 = System.currentTimeMillis();
@@ -128,11 +125,11 @@ public class S3UtilsTest {
 			// Show some stats
 			long millis = stats.getExecutionTime();
 			long iterationCount = stats.getIterationCount();
-			log.info("Elapsed: " + sf.getTime(millis));
+			log.info("Elapsed: " + FormatUtils.getTime(millis));
 			log.info("Iteration Count: " + iterationCount);
 			BucketPrefixSummary summary = (BucketPrefixSummary) node.getUserObject();
 			utils.fillInSummaries(node);
-			log.info("Total Bucket Size: " + sf.getSize(summary.getSize()));
+			log.info("Total Bucket Size: " + FormatUtils.getSize(summary.getSize()));
 			log.info("Total Object Count: " + summary.getCount());
 
 			// log.info("S3 Bucket Summary\n" + utils.toString(node, Size.MB));

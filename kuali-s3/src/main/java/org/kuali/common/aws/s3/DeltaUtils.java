@@ -31,9 +31,9 @@ import org.kuali.common.aws.s3.pojo.BucketDeltaLine;
 import org.kuali.common.aws.s3.pojo.BucketDeltaSummary;
 import org.kuali.common.aws.s3.pojo.BucketSummaryLine;
 import org.kuali.common.aws.s3.pojo.BucketSummaryLineComparator;
+import org.kuali.common.util.FormatUtils;
 
 public class DeltaUtils {
-	SimpleFormatter formatter = new SimpleFormatter();
 	SimpleDateFormat shortDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	private static DeltaUtils instance;
@@ -98,11 +98,11 @@ public class DeltaUtils {
 		List<String[]> rows = new ArrayList<String[]>();
 		for (BucketDeltaSummary bds : summary.getBucketDeltaSummaries()) {
 			rows.addAll(getRows(bds.getBucket(), bds.getDeltaLines()));
-			String files = formatter.getCount(bds.getFileDelta());
-			String bytes = formatter.getSize(bds.getByteDelta());
+			String files = FormatUtils.getCount(bds.getFileDelta());
+			String bytes = FormatUtils.getSize(bds.getByteDelta());
 			String start = shortDateFormatter.format(bds.getStartDate());
 			String end = shortDateFormatter.format(bds.getEndDate());
-			String interval = formatter.getTime(bds.getInterval());
+			String interval = FormatUtils.getTime(bds.getInterval());
 			rows.add(new String[] { "", "", "", "", "", "" });
 			rows.add(new String[] { "totals", files, bytes, start, end, interval });
 			rows.add(getPerDayRow(bds));
@@ -121,22 +121,22 @@ public class DeltaUtils {
 
 	protected String[] getPerDayRow(BucketDeltaSummary bds) {
 		String perDay = "per day";
-		double days = bds.getInterval() / SimpleFormatter.DAY;
-		String files = formatter.getCount((long) (bds.getFileDelta() / days));
+		double days = bds.getInterval() / FormatUtils.DAY;
+		String files = FormatUtils.getCount((long) (bds.getFileDelta() / days));
 		long byteDelta = bds.getByteDelta();
 		long bytesPerDay = (long) (byteDelta / days);
-		String bytes = formatter.getSize(bytesPerDay);
+		String bytes = FormatUtils.getSize(bytesPerDay);
 		return new String[] { perDay, files, bytes, "", "", "" };
 	}
 
 	public List<String[]> getRows(String bucket, List<BucketDeltaLine> deltaLines) {
 		List<String[]> rows = new ArrayList<String[]>();
 		for (BucketDeltaLine deltaLine : deltaLines) {
-			String files = formatter.getCount(deltaLine.getFileDelta());
-			String size = formatter.getSize(deltaLine.getByteDelta());
+			String files = FormatUtils.getCount(deltaLine.getFileDelta());
+			String size = FormatUtils.getSize(deltaLine.getByteDelta());
 			String start = shortDateFormatter.format(deltaLine.getStartDate());
 			String end = shortDateFormatter.format(deltaLine.getEndDate());
-			String interval = formatter.getTime(deltaLine.getInterval());
+			String interval = FormatUtils.getTime(deltaLine.getInterval());
 			String[] row = new String[] { bucket, files, size, start, end, interval };
 			rows.add(row);
 		}
@@ -168,7 +168,7 @@ public class DeltaUtils {
 			String bucket = tokens[0];
 			Long files = new Long(tokens[1]);
 			Long bytes = new Long(tokens[2]);
-			Date date = formatter.parseDate(tokens[3]);
+			Date date = FormatUtils.parseDate(tokens[3]);
 			BucketSummaryLine bsl = new BucketSummaryLine();
 			bsl.setBucket(bucket);
 			bsl.setFiles(files);

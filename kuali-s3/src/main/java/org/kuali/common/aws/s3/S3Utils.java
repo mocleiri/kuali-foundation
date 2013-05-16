@@ -38,6 +38,8 @@ import org.kuali.common.aws.s3.pojo.BucketDisplay;
 import org.kuali.common.aws.s3.pojo.BucketPrefixSummary;
 import org.kuali.common.aws.s3.pojo.BucketSummary;
 import org.kuali.common.aws.s3.pojo.S3PrefixContext;
+import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.Size;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +65,6 @@ public class S3Utils {
 	private static final String PREFIX = "prefix";
 	private static final String COUNT = "count";
 	private static final String SIZE = "size";
-	SimpleFormatter formatter = new SimpleFormatter();
 
 	private static S3Utils instance;
 
@@ -88,9 +89,9 @@ public class S3Utils {
 	}
 
 	/**
-	 * Upload a single file to Amazon S3. If the file is larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code> a multi-part upload is used.
-	 * Multi-part uploads split the file into several smaller chunks with each chunk being uploaded in a different thread. Once all the
-	 * threads have completed the file is automatically reassembled on S3 as a single file.
+	 * Upload a single file to Amazon S3. If the file is larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code> a multi-part upload is used. Multi-part uploads split the file into
+	 * several smaller chunks with each chunk being uploaded in a different thread. Once all the threads have completed the file is automatically reassembled on S3 as a single
+	 * file.
 	 */
 	public void upload(File file, PutObjectRequest request, AmazonS3Client client, TransferManager manager) {
 		// Store the file on S3
@@ -105,12 +106,11 @@ public class S3Utils {
 	}
 
 	/**
-	 * Use this method to reliably upload large files and wait until they are fully uploaded before continuing. Behind the scenes this is
-	 * accomplished by splitting the file up into manageable chunks and using separate threads to upload each chunk. Consider using
-	 * multi-part uploads on files larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code>. When this method returns, all threads have finished
-	 * and the file has been reassembled on S3. The benefit to this method is that if any one thread fails, only the portion of the file
-	 * that particular thread was handling will have to be re-uploaded (instead of the entire file). A reasonable number of automatic
-	 * retries occurs if an individual upload thread fails. If the file upload fails this method throws <code>AmazonS3Exception</code>
+	 * Use this method to reliably upload large files and wait until they are fully uploaded before continuing. Behind the scenes this is accomplished by splitting the file up into
+	 * manageable chunks and using separate threads to upload each chunk. Consider using multi-part uploads on files larger than <code>MULTI_PART_UPLOAD_THRESHOLD</code>. When this
+	 * method returns, all threads have finished and the file has been reassembled on S3. The benefit to this method is that if any one thread fails, only the portion of the file
+	 * that particular thread was handling will have to be re-uploaded (instead of the entire file). A reasonable number of automatic retries occurs if an individual upload thread
+	 * fails. If the file upload fails this method throws <code>AmazonS3Exception</code>
 	 */
 	public void blockingMultiPartUpload(PutObjectRequest request, TransferManager manager) {
 		// Use multi-part upload for large files
@@ -266,7 +266,7 @@ public class S3Utils {
 			long start = System.currentTimeMillis();
 			System.out.print("[INFO] " + count + " - " + bucket.getName() + " - ");
 			BucketSummary summary = getBucketSummary(client, bucket);
-			System.out.println(formatter.getTime(System.currentTimeMillis() - start));
+			System.out.println(FormatUtils.getTime(System.currentTimeMillis() - start));
 			summaries.add(summary);
 			count++;
 		}
@@ -324,14 +324,14 @@ public class S3Utils {
 			summary.setSize(summary.getSize() + element.getSize());
 			summary.setCount(summary.getCount() + 1);
 			if (log.isDebugEnabled()) {
-				log.debug(summary.getCount() + " - " + element.getKey() + " - " + formatter.getSize(element.getSize()));
+				log.debug(summary.getCount() + " - " + element.getKey() + " - " + FormatUtils.getSize(element.getSize()));
 			}
 		}
 		if (log.isDebugEnabled()) {
 			String prefix = summary.getPrefix();
 			long count = summary.getCount();
 			long bytes = summary.getSize();
-			log.debug(rpad(prefix, 40) + " Total Count: " + lpad(count + "", 3) + " Total Size: " + lpad(formatter.getSize(bytes), 9));
+			log.debug(rpad(prefix, 40) + " Total Count: " + lpad(count + "", 3) + " Total Size: " + lpad(FormatUtils.getSize(bytes), 9));
 		}
 	}
 
@@ -369,7 +369,7 @@ public class S3Utils {
 			BucketDisplay display = new BucketDisplay();
 			display.setPrefix(summary.getPrefix() == null ? "/" : summary.getPrefix());
 			display.setCount(summary.getCount());
-			display.setSize(formatter.getSize(summary.getSize(), size));
+			display.setSize(FormatUtils.getSize(summary.getSize(), size));
 			list.add(display);
 		}
 		return list;
@@ -460,8 +460,8 @@ public class S3Utils {
 		rows.add(new String[] { "", "", "" });
 
 		// Add a row showing total count and size
-		String count = formatter.getCount(summary.getCount());
-		String size = formatter.getSize(summary.getSize());
+		String count = FormatUtils.getCount(summary.getCount());
+		String size = FormatUtils.getSize(summary.getSize());
 		rows.add(new String[] { "Totals", count, size });
 
 		// Convert the rows to a string and return
@@ -583,8 +583,8 @@ public class S3Utils {
 	protected String[] getRow(BucketSummary summary) {
 		String[] row = new String[3];
 		row[0] = summary.getBucket().getName();
-		row[1] = formatter.getCount(summary.getCount());
-		row[2] = formatter.getSize(summary.getSize());
+		row[1] = FormatUtils.getCount(summary.getCount());
+		row[2] = FormatUtils.getSize(summary.getSize());
 		return row;
 	}
 
@@ -611,7 +611,7 @@ public class S3Utils {
 		row[0] = summary.getBucket().getName();
 		row[1] = summary.getCount() + "";
 		row[2] = summary.getSize() + "";
-		row[3] = formatter.getDate(date);
+		row[3] = FormatUtils.getDate(date);
 		return row;
 	}
 
@@ -624,4 +624,3 @@ public class S3Utils {
 	}
 
 }
-
