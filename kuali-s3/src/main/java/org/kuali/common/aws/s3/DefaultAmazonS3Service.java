@@ -30,7 +30,8 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");
 		Bucket b = getBucket(context.getClient(), context.getBucket());
-		logger.info("[s3://{}:{}] - building tree", context.getBucket(), context.getPrefix());
+		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
+		logger.info("[s3://{}{}{}] - building tree", args);
 		System.out.print("[INFO] Progress: ");
 		buildTree(context, b);
 		System.out.println();
