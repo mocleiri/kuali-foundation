@@ -16,6 +16,7 @@ import com.amazonaws.services.s3.model.ObjectListing;
 public class DefaultAmazonS3Service implements AmazonS3Service {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
+	private static long count = 0;
 
 	@Override
 	public DefaultMutableTreeNode getTree(AmazonS3Client client, String bucketName) {
@@ -29,7 +30,8 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		ObjectListing listing = client.listObjects(request);
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
-			logger.info(commonPrefix);
+			count++;
+			logger.info(count + " - " + commonPrefix);
 			buildTree(client, bucket, commonPrefix, delimiter);
 		}
 	}
