@@ -33,7 +33,9 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
 		logger.info("[s3://{}{}{}] - building tree", args);
 		ProgressInformer informer = new ProgressInformer(10);
+		informer.start();
 		List<String> prefixes = buildPrefixList(context, informer);
+		informer.stop();
 		return null;
 	}
 
