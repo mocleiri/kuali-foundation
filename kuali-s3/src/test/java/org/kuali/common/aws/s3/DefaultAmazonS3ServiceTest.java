@@ -21,7 +21,7 @@ public class DefaultAmazonS3ServiceTest {
 		try {
 			AmazonS3Client client = S3Utils.getInstance().getClient(accessKey, secretKey);
 			String bucket = "site.origin.kuali.org";
-			String prefix = "rice";
+			String prefix = null;
 			List<String> excludes = Arrays.asList("apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			String delimiter = "/";
 
