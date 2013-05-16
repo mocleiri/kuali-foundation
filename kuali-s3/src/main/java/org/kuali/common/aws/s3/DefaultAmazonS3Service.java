@@ -7,6 +7,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -41,14 +42,21 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 			total++;
 			if (include(context, commonPrefix)) {
 				count++;
-				logger.info(total + " - " + commonPrefix + " - " + count);
-				TreeContext newContext = clone(context, commonPrefix);
-				buildTree(newContext, bucket);
+				log(commonPrefix, count, skipped);
+				buildTree(clone(context, commonPrefix), bucket);
 			} else {
 				skipped++;
-				logger.info(total + " - " + commonPrefix + " - skipped - " + skipped);
+				log(commonPrefix, count, skipped);
 			}
 		}
+	}
+
+	protected void log(String prefix, long count, long skipped) {
+		String t = StringUtils.leftPad(FormatUtils.getCount(count + skipped), 10);
+		String c = StringUtils.leftPad(FormatUtils.getCount(count), 10);
+		String s = StringUtils.leftPad(FormatUtils.getCount(skipped), 10);
+		Object[] args = { t, c, s, prefix };
+		logger.info("{} {} {} - {}", args);
 	}
 
 	protected String getPrefix(String prefix, String delimiter) {
