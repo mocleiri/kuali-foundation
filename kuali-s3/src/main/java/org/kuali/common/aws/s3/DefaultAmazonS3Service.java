@@ -20,13 +20,18 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	@Override
 	public DefaultMutableTreeNode getTree(AmazonS3Client client, String bucketName) {
 		Bucket bucket = getBucket(client, bucketName);
-		ListObjectsRequest request = getListObjectsRequest(bucket, null, "/", null);
+		buildTree(client, bucket, null, "/");
+		return null;
+	}
+
+	protected void buildTree(AmazonS3Client client, Bucket bucket, String prefix, String delimiter) {
+		ListObjectsRequest request = getListObjectsRequest(bucket, prefix, delimiter, null);
 		ObjectListing listing = client.listObjects(request);
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
 			logger.info(commonPrefix);
+			buildTree(client, bucket, commonPrefix, delimiter);
 		}
-		return null;
 	}
 
 	@Override
