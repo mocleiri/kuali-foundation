@@ -1,5 +1,6 @@
 package org.kuali.common.aws.s3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -8,6 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.ProgressInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -20,43 +22,37 @@ import com.amazonaws.services.s3.model.ObjectListing;
 public class DefaultAmazonS3Service implements AmazonS3Service {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
-	private static long count = 0;
-	private static long skipped = 0;
-	private static long requests = 0;
 
 	@Override
 	public DefaultMutableTreeNode getTree(TreeContext context) {
 		Assert.notNull(context.getClient(), "client is null");
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");
-		Bucket b = getBucket(context.getClient(), context.getBucket());
+		boolean exists = context.getClient().doesBucketExist(context.getBucket());
+		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
 		logger.info("[s3://{}{}{}] - building tree", args);
-		System.out.print("[INFO] Progress: ");
-		buildTree(context, b);
-		System.out.println();
+		ProgressInformer informer = new ProgressInformer(10);
+		List<String> prefixes = buildPrefixList(context, informer);
 		return null;
 	}
 
-	protected void buildTree(TreeContext context, Bucket bucket) {
+	protected List<String> buildPrefixList(TreeContext context, ProgressInformer informer) {
+		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
-		ListObjectsRequest request = getListObjectsRequest(bucket, prefix, context.getDelimiter(), null);
-		ObjectListing listing = context.getClient().listObjects(request);
-		requests++;
-		if (requests % 50 == 0) {
-			System.out.print(".");
-		}
+		ListObjectsRequest request = getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
+		ObjectListing listing = client.listObjects(request);
+		informer.incrementProgress();
 		List<String> commonPrefixes = listing.getCommonPrefixes();
+		List<String> prefixes = new ArrayList<String>();
 		for (String commonPrefix : commonPrefixes) {
 			if (include(context, commonPrefix)) {
-				count++;
-				log(commonPrefix, count, skipped, requests);
-				buildTree(clone(context, commonPrefix), bucket);
-			} else {
-				skipped++;
-				log(commonPrefix, count, skipped, requests);
+				TreeContext clone = clone(context, commonPrefix);
+				List<String> children = buildPrefixList(clone, informer);
+				prefixes.addAll(children);
 			}
 		}
+		return prefixes;
 	}
 
 	protected void log(String prefix, long count, long skipped, long requests) {
@@ -143,9 +139,9 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return null;
 	}
 
-	protected ListObjectsRequest getListObjectsRequest(Bucket bucket, String prefix, String delimiter, Integer maxKeys) {
+	protected ListObjectsRequest getListObjectsRequest(String bucket, String prefix, String delimiter, Integer maxKeys) {
 		ListObjectsRequest request = new ListObjectsRequest();
-		request.setBucketName(bucket.getName());
+		request.setBucketName(bucket);
 		request.setDelimiter(delimiter);
 		request.setPrefix(prefix);
 		request.setMaxKeys(maxKeys);
