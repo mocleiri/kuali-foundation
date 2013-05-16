@@ -61,6 +61,10 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-util</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
       <artifactId>kuali-threads</artifactId>
       <version>1.0.9</version>
     </dependency>

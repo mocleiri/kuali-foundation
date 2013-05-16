@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.Bucket;
 
 public interface AmazonS3Service {
 
-	DefaultMutableTreeNode getTree(AmazonS3Client client, String bucketName);
+	DefaultMutableTreeNode getTree(TreeContext context);
 
 	Bucket getBucket(AmazonS3Client client, String bucketName);
 
