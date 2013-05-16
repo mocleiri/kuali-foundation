@@ -16,12 +16,14 @@ public class DefaultAmazonS3ServiceTest {
 		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
 		String secretKey = System.getProperty("aws.secretKey");
 		try {
+			String bucketName = "site.origin.kuali.org";
 			AmazonS3Client client = S3Utils.getInstance().getClient(accessKey, secretKey);
 			AmazonS3Service service = new DefaultAmazonS3Service();
-			Bucket bucket = service.getBucket(client, "site.origin.kuali.org");
+			Bucket bucket = service.getBucket(client, bucketName);
 			logger.info("Owner: {}", bucket.getOwner().getDisplayName());
 			logger.info("Name: {}", bucket.getName());
 			logger.info("Created On: {}", bucket.getCreationDate());
+			service.getTree(client, bucketName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
