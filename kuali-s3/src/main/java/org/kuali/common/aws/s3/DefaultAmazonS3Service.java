@@ -26,7 +26,8 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	@Override
 	public DefaultMutableTreeNode getTree(TreeContext context) {
 		Assert.notNull(context.getClient(), "client is null");
-		Assert.notNull(context.getDelimiter(), "delimiter is null");
+		Assert.hasText(context.getDelimiter(), "delimiter has no text");
+		Assert.hasText(context.getBucket(), "bucket has no text");
 		Bucket b = getBucket(context.getClient(), context.getBucket());
 		buildTree(context, b);
 		return null;
