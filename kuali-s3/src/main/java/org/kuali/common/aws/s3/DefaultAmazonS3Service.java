@@ -30,7 +30,10 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");
 		Bucket b = getBucket(context.getClient(), context.getBucket());
+		logger.info("Building tree for [{}]", context.getPrefix());
+		System.out.print("[INFO] Progress: ");
 		buildTree(context, b);
+		System.out.println();
 		return null;
 	}
 
@@ -39,6 +42,9 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		ListObjectsRequest request = getListObjectsRequest(bucket, prefix, context.getDelimiter(), null);
 		ObjectListing listing = context.getClient().listObjects(request);
 		requests++;
+		if (requests % 50 == 0) {
+			System.out.print(".");
+		}
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
 			if (include(context, commonPrefix)) {
@@ -59,7 +65,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		String c = StringUtils.leftPad(FormatUtils.getCount(count), padding);
 		String s = StringUtils.leftPad(FormatUtils.getCount(skipped), padding);
 		Object[] args = { r, t, c, s, prefix };
-		logger.info("{} {} {} {} - {}", args);
+		logger.debug("{} {} {} {} - {}", args);
 	}
 
 	protected String getPrefix(String prefix, String delimiter) {
