@@ -50,9 +50,10 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	}
 
 	protected void log(String prefix, long count, long skipped) {
-		String t = StringUtils.leftPad(FormatUtils.getCount(count + skipped), 10);
-		String c = StringUtils.leftPad(FormatUtils.getCount(count), 10);
-		String s = StringUtils.leftPad(FormatUtils.getCount(skipped), 10);
+		int padding = 10;
+		String t = StringUtils.leftPad(FormatUtils.getCount(count + skipped), padding);
+		String c = StringUtils.leftPad(FormatUtils.getCount(count), padding);
+		String s = StringUtils.leftPad(FormatUtils.getCount(skipped), padding);
 		Object[] args = { t, c, s, prefix };
 		logger.info("{} {} {} - {}", args);
 	}
