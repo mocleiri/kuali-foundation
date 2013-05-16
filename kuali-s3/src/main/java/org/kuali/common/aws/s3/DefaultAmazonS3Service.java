@@ -70,7 +70,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		}
 	}
 
-	protected String getPattern(String pattern, String delimiter) {
+	protected String getSuffixPattern(String pattern, String delimiter) {
 		Assert.hasText(pattern, "pattern has no text");
 		Assert.hasText(delimiter, "delimiter has no text");
 		StringBuilder sb = new StringBuilder();
@@ -85,7 +85,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	}
 
 	protected boolean isMatch(String prefix, String pattern, String delimiter) {
-		String suffix = getPattern(pattern, delimiter);
+		String suffix = getSuffixPattern(pattern, delimiter);
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
