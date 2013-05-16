@@ -1,5 +1,7 @@
 package org.kuali.common.aws.s3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -8,9 +10,12 @@ public class TreeContext {
 
 	public static final long DEFAULT_PREFIX_COUNT_ESTIMATE = 100;
 	public static final String DEFAULT_DELIMITER = "/";
+	public static final String CACHE_CONTROL = "max-age=3600, must-revalidate";
+	public static final List<String> DEFAULT_WELCOME_FILES = new ArrayList<String>(Arrays.asList("index.html", "portal.html"));
 
 	String delimiter = DEFAULT_DELIMITER;
 	long prefixCountEstimate = DEFAULT_PREFIX_COUNT_ESTIMATE;
+	List<String> welcomeFiles = DEFAULT_WELCOME_FILES;
 	AmazonS3Client client;
 	String bucket;
 	String prefix;
