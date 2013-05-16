@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
 
 public class DefaultAmazonS3Service implements AmazonS3Service {
 
@@ -17,7 +18,8 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return null;
 	}
 
-	protected Bucket getBucket(AmazonS3Client client, String bucketName) {
+	@Override
+	public Bucket getBucket(AmazonS3Client client, String bucketName) {
 		List<Bucket> buckets = client.listBuckets();
 		for (Bucket bucket : buckets) {
 			if (StringUtils.equals(bucketName, bucket.getName())) {
@@ -25,6 +27,15 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 			}
 		}
 		return null;
+	}
+
+	protected ListObjectsRequest getListObjectsRequest(String bucketName, String prefix, String delimiter, Integer maxKeys) {
+		ListObjectsRequest request = new ListObjectsRequest();
+		request.setBucketName(bucketName);
+		request.setDelimiter(delimiter);
+		request.setPrefix(prefix);
+		request.setMaxKeys(maxKeys);
+		return request;
 	}
 
 }
