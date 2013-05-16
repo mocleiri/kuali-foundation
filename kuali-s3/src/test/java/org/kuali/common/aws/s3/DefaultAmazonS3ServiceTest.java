@@ -1,6 +1,5 @@
 package org.kuali.common.aws.s3;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,8 +20,8 @@ public class DefaultAmazonS3ServiceTest {
 		try {
 			AmazonS3Client client = S3Utils.getInstance().getClient(accessKey, secretKey);
 			String bucket = "site.origin.kuali.org";
-			String prefix = "";
-			List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
+			String prefix = "rice/latest";
+			List<String> excludes = null;// Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			String delimiter = "/";
 
 			TreeContext context = new TreeContext();
