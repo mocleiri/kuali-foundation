@@ -34,6 +34,7 @@ public class S3BucketContext {
 	public static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
 	public static final String DEFAULT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
 	public static final String DEFAULT_TIMEZONE = "UTC";
+	public static final Integer DEFAULT_MAX_KEYS = 1000;
 
 	String fileImage = DEFAULT_FILE_IMAGE;
 	String directoryImage = DEFAULT_DIR_IMAGE;
@@ -41,12 +42,12 @@ public class S3BucketContext {
 	CannedAccessControlList acl = DEFAULT_ACL;
 	String delimiter = TreeContext.DEFAULT_DELIMITER;
 	SimpleDateFormat lastModifiedDateFormatter = getDefaultLastModifiedDateFormatter();
+	String defaultObject = S3PrefixContext.INDEX_HTML;
+	Integer maxKeys = DEFAULT_MAX_KEYS;
 
 	AmazonS3Client client;
 	String bucket;
-	String defaultObject;
 	String about;
-	Integer maxKeys;
 
 	protected static SimpleDateFormat getDefaultLastModifiedDateFormatter() {
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);

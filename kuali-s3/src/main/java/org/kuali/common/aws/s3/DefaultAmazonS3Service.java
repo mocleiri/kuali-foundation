@@ -1,6 +1,7 @@
 package org.kuali.common.aws.s3;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -41,7 +42,52 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		List<ObjectListing> listings = getObjectListings(context, informer);
 		informer.stop();
 		logger.info("listings: {}", listings.size());
+		S3BucketContext sbc = getS3BucketContext(context);
+		List<S3PrefixContext> contexts = getS3PrefixContexts(sbc, listings);
+		// Convert S3PrefixContext objects into UpdateDirectoryContext objects
+		List<UpdateDirectoryContext> udcs = getUpdateDirContexts(sbc, contexts);
 		return null;
+	}
+
+	/**
+	 * Convert S3PrefixContext objects into UpdateDirectoryContext objects. Each S3PrefixContext object generates two S3 calls. One for the prefix with the delimiter and one for
+	 * the prefix without the delimiter.
+	 * 
+	 * @param contexts
+	 * @return
+	 */
+	protected List<UpdateDirectoryContext> getUpdateDirContexts(S3BucketContext sbc, List<S3PrefixContext> contexts) {
+		S3DataConverter converter = new S3DataConverter(sbc);
+		List<UpdateDirectoryContext> list = new ArrayList<UpdateDirectoryContext>();
+		for (S3PrefixContext context : contexts) {
+
+			// Root object requires special handling
+			if (context.isRoot()) {
+				UpdateDirectoryContext udc = new UpdateDirectoryContext();
+				udc.setContext(context);
+				list.add(udc);
+				continue;
+			}
+
+			// Create context info for prefixes with and without the delimiter
+			String delimiter = context.getBucketContext().getDelimiter();
+			String trimmedPrefix = converter.getTrimmedPrefix(context.getPrefix(), delimiter);
+
+			UpdateDirectoryContext udc1 = new UpdateDirectoryContext();
+			udc1.setContext(context);
+			udc1.setCopyIfExists(true);
+			udc1.setCopyToKey(context.getPrefix());
+
+			UpdateDirectoryContext udc2 = new UpdateDirectoryContext();
+			udc2.setContext(context);
+			udc2.setCopyIfExists(false);
+			udc2.setCopyToKey(trimmedPrefix);
+
+			list.add(udc1);
+			list.add(udc2);
+
+		}
+		return list;
 	}
 
 	/**
@@ -204,9 +250,11 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	/**
 	 * Get context information about the bucket we are operating on
 	 */
-	protected S3BucketContext getS3BucketContext(AmazonS3Client client) {
-		S3BucketContext context = new S3BucketContext();
-		context.setClient(client);
-		return context;
+	protected S3BucketContext getS3BucketContext(TreeContext context) {
+		S3BucketContext sbc = new S3BucketContext();
+		sbc.setClient(context.getClient());
+		sbc.setBucket(context.getBucket());
+		sbc.setAbout("Created by maven-cloudfront-plugin on " + sbc.getLastModifiedDateFormatter().format(new Date()));
+		return sbc;
 	}
 }

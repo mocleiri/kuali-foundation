@@ -24,7 +24,7 @@ public class DefaultAmazonS3ServiceTest {
 		try {
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
-			String prefix = "maven/plugins/spring-maven-plugin/latest";
+			String prefix = "maven/plugins/maven-dnsme-plugin/1.0.0";
 			if (System.getProperty("s3.prefix") != null) {
 				prefix = System.getProperty("s3.prefix");
 			}
