@@ -9,7 +9,7 @@ key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used
 |kuali-key|ec2-107-20-123-235.compute-1.amazonaws.com|sonar-new|sonar.kuali.org|running|  17:46:19 up 321 days| /dev/xvda1|25G|7.5G|17G|31%|
 |kuali-key|ec2-184-73-238-44.compute-1.amazonaws.com|dev-kis|--|running|--||||||
 |kuali-key|ec2-50-17-218-240.compute-1.amazonaws.com|kis|--|running|--||||||
-|kf-key|ec2-50-19-21-45.compute-1.amazonaws.com|nexus|kuali-nexus-lb|running| | 22:57|  0 users|  load average: 0.07| 0.14| 0.47|
+|kf-key|ec2-50-19-21-45.compute-1.amazonaws.com|nexus|nexus.kuali.org|running|  13:46:14 up 227 days| /dev/sda1|60G|40G|17G|72%|
 |kuali-key|ec2-184-73-241-144.compute-1.amazonaws.com|dev-www|--|running|--||||||
 |kuali-key|ec2-174-129-193-43.compute-1.amazonaws.com|www|www.kuali.org|running|  13:47:24 up 108 days| /dev/xvda1|8.0G|1.5G|6.2G|19%|
 |kuali-key|ec2-54-234-59-29.compute-1.amazonaws.com|dev-cas|dev-cas.kuali.org|running|  13:46:11 up 102 days| /dev/xvda1|7.9G|1.1G|6.5G|14%|

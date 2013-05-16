@@ -39,7 +39,7 @@ sub build_wiki_page
 {
 
   $dnsfile = "dns.csv";
-  `cat dns_fn.csv dns_ole.csv dns_rice.csv dns_ks.csv > dns.csv`;
+  `cat dns_fn.csv dns_ole.csv dns_rice.csv dns_ks.csv | grep -v elb > dns.csv`;
   $com_field = 3;
   $status_field = 5;
   $key_field = 6;
