@@ -22,7 +22,6 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
 	private static long count = 0;
 	private static long skipped = 0;
-	private static long total = 0;
 
 	@Override
 	public DefaultMutableTreeNode getTree(TreeContext context) {
@@ -39,7 +38,6 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		ObjectListing listing = context.getClient().listObjects(request);
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
-			total++;
 			if (include(context, commonPrefix)) {
 				count++;
 				log(commonPrefix, count, skipped);
