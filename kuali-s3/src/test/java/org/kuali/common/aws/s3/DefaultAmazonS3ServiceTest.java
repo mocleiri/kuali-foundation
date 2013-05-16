@@ -21,6 +21,7 @@ public class DefaultAmazonS3ServiceTest {
 	@Test
 	public void test() {
 		try {
+			logger.debug("");
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
 			String prefix = "maven/plugins/maven-dnsme-plugin/1.0.0";
