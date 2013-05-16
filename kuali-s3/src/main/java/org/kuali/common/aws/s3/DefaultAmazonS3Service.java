@@ -58,10 +58,15 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	}
 
 	protected String getPrefix(String prefix, String delimiter) {
-		return StringUtils.endsWith(prefix, delimiter) ? prefix : prefix + delimiter;
+		if (StringUtils.isBlank(prefix)) {
+			return delimiter;
+		} else {
+			return StringUtils.endsWith(prefix, delimiter) ? prefix : prefix + delimiter;
+		}
 	}
 
 	protected String getPattern(String pattern, String delimiter) {
+		Assert.hasText(pattern, "pattern has no text");
 		StringBuilder sb = new StringBuilder();
 		if (!StringUtils.startsWith(pattern, delimiter)) {
 			sb.append(delimiter);
