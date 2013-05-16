@@ -34,29 +34,29 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		logger.info("[s3://{}{}{}] - building tree", args);
 		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixCountEstimate());
 		informer.start();
-		List<String> prefixes = buildPrefixList(context, informer);
+		List<ObjectListing> listings = getObjectListings(context, informer);
 		informer.stop();
-		logger.debug("prefixes: {}", prefixes.size());
+		logger.info("listings: {}", listings.size());
 		return null;
 	}
 
-	protected List<String> buildPrefixList(TreeContext context, PercentCompleteInformer informer) {
+	protected List<ObjectListing> getObjectListings(TreeContext context, PercentCompleteInformer informer) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
 		ObjectListing listing = client.listObjects(request);
 		informer.incrementProgress();
 		List<String> commonPrefixes = listing.getCommonPrefixes();
-		List<String> prefixes = new ArrayList<String>();
-		prefixes.add(context.getPrefix());
+		List<ObjectListing> listings = new ArrayList<ObjectListing>();
+		listings.add(listing);
 		for (String commonPrefix : commonPrefixes) {
 			if (include(context, commonPrefix)) {
 				TreeContext clone = clone(context, commonPrefix);
-				List<String> children = buildPrefixList(clone, informer);
-				prefixes.addAll(children);
+				List<ObjectListing> children = getObjectListings(clone, informer);
+				listings.addAll(children);
 			}
 		}
-		return prefixes;
+		return listings;
 	}
 
 	protected void log(String prefix, long count, long skipped, long requests) {
