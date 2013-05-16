@@ -10,7 +10,7 @@ public class TreeContext {
 
 	public static final long DEFAULT_PREFIX_COUNT_ESTIMATE = 100;
 	public static final String DEFAULT_DELIMITER = "/";
-	public static final String CACHE_CONTROL = "max-age=3600, must-revalidate";
+	public static final String DEFAULT_CACHE_CONTROL = "max-age=3600, must-revalidate";
 	public static final List<String> DEFAULT_WELCOME_FILES = new ArrayList<String>(Arrays.asList("index.html", "portal.html"));
 
 	String delimiter = DEFAULT_DELIMITER;
