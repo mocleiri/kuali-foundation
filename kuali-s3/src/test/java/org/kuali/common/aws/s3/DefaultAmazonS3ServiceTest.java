@@ -22,7 +22,8 @@ public class DefaultAmazonS3ServiceTest {
 			AmazonS3Client client = S3Utils.getInstance().getClient(accessKey, secretKey);
 			String bucket = "site.origin.kuali.org";
 			String prefix = "rice/latest";
-			List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
+			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
+			List<String> excludes = Arrays.asList("apidocs", "clover", "xref-test", "xref", "testapidocs");
 			String delimiter = "/";
 
 			TreeContext context = new TreeContext();
