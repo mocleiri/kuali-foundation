@@ -1,4 +1,5 @@
-key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used| percent||kuali-key|ec2-50-17-233-48.compute-1.amazonaws.com|cas|--|running|--||||||
+key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used| percent|
+|kuali-key|ec2-50-17-233-48.compute-1.amazonaws.com|cas|--|running|--||||||
 |kf-key|ec2-107-22-67-155.compute-1.amazonaws.com|Trial-Nexus-60a|--|running|--||||||
 |kuali-key|ec2-204-236-225-128.compute-1.amazonaws.com|backup|--|running|--||||||
 |kf-key|ec2-75-101-234-22.compute-1.amazonaws.com|Trial-Nexus-500|--|running|--||||||
