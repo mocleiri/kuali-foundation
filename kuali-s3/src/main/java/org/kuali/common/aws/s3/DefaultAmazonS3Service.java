@@ -37,8 +37,8 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	protected void buildTree(TreeContext context, Bucket bucket) {
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(bucket, prefix, context.getDelimiter(), null);
-		requests++;
 		ObjectListing listing = context.getClient().listObjects(request);
+		requests++;
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
 			if (include(context, commonPrefix)) {
