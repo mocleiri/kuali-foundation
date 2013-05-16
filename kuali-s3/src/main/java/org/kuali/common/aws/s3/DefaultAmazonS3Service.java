@@ -22,6 +22,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
 	private static long count = 0;
 	private static long skipped = 0;
+	private static long requests = 0;
 
 	@Override
 	public DefaultMutableTreeNode getTree(TreeContext context) {
@@ -36,27 +37,29 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	protected void buildTree(TreeContext context, Bucket bucket) {
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(bucket, prefix, context.getDelimiter(), null);
+		requests++;
 		ObjectListing listing = context.getClient().listObjects(request);
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
 			if (include(context, commonPrefix)) {
 				count++;
-				log(commonPrefix, count, skipped);
+				log(commonPrefix, count, skipped, requests);
 				buildTree(clone(context, commonPrefix), bucket);
 			} else {
 				skipped++;
-				log(commonPrefix, count, skipped);
+				log(commonPrefix, count, skipped, requests);
 			}
 		}
 	}
 
-	protected void log(String prefix, long count, long skipped) {
+	protected void log(String prefix, long count, long skipped, long requests) {
 		int padding = 10;
+		String r = StringUtils.leftPad(FormatUtils.getCount(requests), padding);
 		String t = StringUtils.leftPad(FormatUtils.getCount(count + skipped), padding);
 		String c = StringUtils.leftPad(FormatUtils.getCount(count), padding);
 		String s = StringUtils.leftPad(FormatUtils.getCount(skipped), padding);
-		Object[] args = { t, c, s, prefix };
-		logger.info("{} {} {} - {}", args);
+		Object[] args = { r, t, c, s, prefix };
+		logger.info("{} {} {} {} - {}", args);
 	}
 
 	protected String getPrefix(String prefix, String delimiter) {
