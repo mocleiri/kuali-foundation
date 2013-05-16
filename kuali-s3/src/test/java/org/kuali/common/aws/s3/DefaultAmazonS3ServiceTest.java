@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.Bucket;
 
 public class DefaultAmazonS3ServiceTest {
 
@@ -47,22 +46,6 @@ public class DefaultAmazonS3ServiceTest {
 			AmazonS3Service service = new DefaultAmazonS3Service();
 
 			service.getTree(context);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testGetBucket() {
-		try {
-			AmazonS3Client client = getClient();
-			String bucket = "site.origin.kuali.org";
-
-			AmazonS3Service service = new DefaultAmazonS3Service();
-			Bucket b = service.getBucket(client, bucket);
-			logger.info("Owner: {}", b.getOwner().getDisplayName());
-			logger.info("Name: {}", b.getName());
-			logger.info("Created On: {}", b.getCreationDate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

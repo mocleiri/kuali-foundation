@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 
@@ -133,17 +132,6 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		}
 		clone.setPrefix(prefix);
 		return clone;
-	}
-
-	@Override
-	public Bucket getBucket(AmazonS3Client client, String bucketName) {
-		List<Bucket> buckets = client.listBuckets();
-		for (Bucket bucket : buckets) {
-			if (StringUtils.equals(bucketName, bucket.getName())) {
-				return bucket;
-			}
-		}
-		return null;
 	}
 
 	protected ListObjectsRequest getListObjectsRequest(String bucket, String prefix, String delimiter, Integer maxKeys) {
