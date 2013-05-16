@@ -72,6 +72,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 
 	protected String getPattern(String pattern, String delimiter) {
 		Assert.hasText(pattern, "pattern has no text");
+		Assert.hasText(delimiter, "delimiter has no text");
 		StringBuilder sb = new StringBuilder();
 		if (!StringUtils.startsWith(pattern, delimiter)) {
 			sb.append(delimiter);
