@@ -84,34 +84,45 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return sb.toString();
 	}
 
-	protected boolean include(TreeContext context, String prefix) {
+	protected boolean isMatch(String prefix, String pattern, String delimiter) {
+		String suffix = getPattern(pattern, delimiter);
+		return StringUtils.endsWith(prefix, suffix);
+	}
+
+	protected boolean isExclude(TreeContext context, String prefix) {
 		for (String exclude : CollectionUtils.toEmptyList(context.getExcludes())) {
-			String suffix = getPattern(exclude, context.getDelimiter());
-			if (StringUtils.endsWith(prefix, suffix)) {
-				return false;
-			}
-		}
-		if (CollectionUtils.isEmpty(context.getIncludes())) {
-			return true;
-		}
-		for (String include : context.getIncludes()) {
-			String suffix = getPattern(include, context.getDelimiter());
-			if (StringUtils.endsWith(prefix, suffix)) {
+			if (isMatch(prefix, exclude, context.getDelimiter())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	protected boolean isInclude(TreeContext context, String prefix) {
+		if (CollectionUtils.isEmpty(context.getIncludes())) {
+			return true;
+		}
+		for (String include : context.getIncludes()) {
+			if (isMatch(prefix, include, context.getDelimiter())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected boolean include(TreeContext context, String prefix) {
+		return !isExclude(context, prefix) && isInclude(context, prefix);
+	}
+
 	protected TreeContext clone(TreeContext context, String prefix) {
-		TreeContext newContext = new TreeContext();
+		TreeContext clone = new TreeContext();
 		try {
-			BeanUtils.copyProperties(newContext, context);
+			BeanUtils.copyProperties(clone, context);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-		newContext.setPrefix(prefix);
-		return newContext;
+		clone.setPrefix(prefix);
+		return clone;
 	}
 
 	@Override
