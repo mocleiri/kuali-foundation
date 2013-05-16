@@ -32,7 +32,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
 		logger.info("[s3://{}{}{}] - building tree", args);
-		ProgressInformer informer = new ProgressInformer(10);
+		ProgressInformer informer = new ProgressInformer(context.getPrefixCountEstimate() / 100);
 		informer.start();
 		List<String> prefixes = buildPrefixList(context, informer);
 		informer.stop();

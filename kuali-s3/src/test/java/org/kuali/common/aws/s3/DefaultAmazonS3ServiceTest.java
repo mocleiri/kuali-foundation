@@ -24,6 +24,10 @@ public class DefaultAmazonS3ServiceTest {
 			if (System.getProperty("s3.prefix") != null) {
 				prefix = System.getProperty("s3.prefix");
 			}
+			long prefixCountEstimate = 100;
+			if (System.getProperty("s3.prefixCountEstimate") != null) {
+				prefixCountEstimate = Long.parseLong(System.getProperty("s3.prefixCountEstimate"));
+			}
 			// String prefix = "rice/latest";
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			// List<String> excludes = Arrays.asList("apidocs", "clover", "xref-test", "xref", "testapidocs");
@@ -36,6 +40,7 @@ public class DefaultAmazonS3ServiceTest {
 			context.setExcludes(excludes);
 			context.setPrefix(prefix);
 			context.setDelimiter(delimiter);
+			context.setPrefixCountEstimate(prefixCountEstimate);
 
 			AmazonS3Service service = new DefaultAmazonS3Service();
 			Bucket b = service.getBucket(client, bucket);

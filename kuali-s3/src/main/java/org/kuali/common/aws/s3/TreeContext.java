@@ -12,6 +12,7 @@ public class TreeContext {
 	String delimiter;
 	List<String> includes;
 	List<String> excludes;
+	long prefixCountEstimate;
 
 	public AmazonS3Client getClient() {
 		return client;
@@ -59,6 +60,14 @@ public class TreeContext {
 
 	public void setExcludes(List<String> excludes) {
 		this.excludes = excludes;
+	}
+
+	public long getPrefixCountEstimate() {
+		return prefixCountEstimate;
+	}
+
+	public void setPrefixCountEstimate(long prefixCountEstimate) {
+		this.prefixCountEstimate = prefixCountEstimate;
 	}
 
 }
