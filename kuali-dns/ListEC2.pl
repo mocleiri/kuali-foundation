@@ -46,7 +46,7 @@ sub build_wiki_page
  system("rm ec2_status_info.cvs; touch ec2_status_info.cvs");
  open ( EC2,  "<instance.lst"); (@INSTANCE =<EC2>); close (EC2);
  open WIKI, ">>ec2_status_info.cvs" or die "ec2_status_info.cvs : $!\n" ;
- print "|key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used| percent|";
+ print WIKI "|key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used| percent|";
  foreach $instance ( @INSTANCE)
  {
  @temp = split(/\t/, $instance);
@@ -86,10 +86,10 @@ sub build_wiki_page
  $uptime = $DNS_INFO[3]; 
  if ($uptime eq "" ){$uptime = "--";}
  $DiskUsage = $DNS_INFO[9]."|".$DNS_INFO[10]."|".$DNS_INFO[11]."|".$DNS_INFO[12]."|".$DNS_INFO[13]; 
- #print WIKI "$Key|$COM|$Name|$DNS|$Status|$uptime|$DiskUsage\n";
- print  "|$Key|$COM|$Name|$DNS|$Status|$uptime|$DiskUsage|\n";
+ #print  "|$Key|$COM|$Name|$DNS|$Status|$uptime|$DiskUsage|\n";
+ print  WIKI "|$Key|$COM|$Name|$DNS|$Status|$uptime|$DiskUsage|\n";
  }
 }
 
-#&build_ec2_lst;  # builds 1 list with all content
+&build_ec2_lst;  # builds 1 list with all content
 &build_wiki_page;
