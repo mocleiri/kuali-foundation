@@ -46,7 +46,7 @@ sub build_wiki_page
  system("rm ec2_status_info.cvs; touch ec2_status_info.cvs");
  open ( EC2,  "<instance.lst"); (@INSTANCE =<EC2>); close (EC2);
  open WIKI, ">>ec2_status_info.cvs" or die "ec2_status_info.cvs : $!\n" ;
- print WIKI "|key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used| percent|";
+ print WIKI "key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used| percent|";
  foreach $instance ( @INSTANCE)
  {
  @temp = split(/\t/, $instance);
