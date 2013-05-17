@@ -31,7 +31,7 @@ public class CloudFrontUtils {
 	/**
 	 * Decorators for the columns in the table
 	 */
-	protected List<ColumnDecorator> getColumnDecorators() {
+	protected static List<ColumnDecorator> getColumnDecorators() {
 		List<ColumnDecorator> columnDecorators = new ArrayList<ColumnDecorator>();
 		columnDecorators.add(new ColumnDecorator("image-column", "sort-header", ""));
 		columnDecorators.add(new ColumnDecorator("name-column", "sort-header", "Name"));
@@ -45,7 +45,7 @@ public class CloudFrontUtils {
 	 * If delimiter is "/" and prefix is "foo/bar" return "/foo/bar"<br>
 	 * If delimiter is "/" and prefix is "foo/bar/" return "/foo/bar"
 	 */
-	protected String getDirectory(final String prefix, final String delimiter) {
+	protected static String getDirectory(final String prefix, final String delimiter) {
 		if (prefix == null) {
 			return delimiter;
 		}
@@ -56,26 +56,26 @@ public class CloudFrontUtils {
 		}
 	}
 
-	protected String getHtmlComment() {
+	protected static String getHtmlComment() {
 		return "<!-- Generated on " + FormatUtils.getDate(System.currentTimeMillis()) + " -->\n";
 	}
 
-	protected String getDocType() {
+	protected static String getDocType() {
 		return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 	}
 
-	protected String getMeta() {
+	protected static String getMeta() {
 		return "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n";
 	}
 
-	protected String getGoogleAnalyticsJavascript() {
+	protected static String getGoogleAnalyticsJavascript() {
 		return "<script type=\"text/javascript\">var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-16781661-1']); _gaq.push(['_setDomainName', '.kuali.org']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();</script>\n";
 	}
 
 	/**
 	 * Generate the full html page
 	 */
-	public String getHtml(List<String[]> data, String prefix, String delimiter, String css, String about) {
+	public static String getHtml(List<String[]> data, String prefix, String delimiter, String css, String about) {
 		String directory = getDirectory(prefix, delimiter);
 
 		Tag html = new Tag("html");
@@ -118,7 +118,7 @@ public class CloudFrontUtils {
 	/**
 	 * Generate html representing the contents of one table cell
 	 */
-	protected String getTableCell(final String content, final ColumnDecorator decorator) {
+	protected static String getTableCell(final String content, final ColumnDecorator decorator) {
 		Tag td = new Tag("td", decorator.getTableDataClass());
 		return HtmlUtils.getTag(td, content);
 	}
@@ -126,14 +126,14 @@ public class CloudFrontUtils {
 	/**
 	 * Return true if the Collection is null or contains no entries, false otherwise
 	 */
-	protected boolean isEmpty(final Collection<?> c) {
+	protected static boolean isEmpty(final Collection<?> c) {
 		return c == null || c.size() == 0;
 	}
 
 	/**
 	 * Alternate the styling of each row
 	 */
-	protected Tag getTableRowTag(final int row) {
+	protected static Tag getTableRowTag(final int row) {
 		if ((row % 2) == 0) {
 			return new Tag("tr", "table-tr-odd");
 		} else {
@@ -144,7 +144,7 @@ public class CloudFrontUtils {
 	/**
 	 * Generate an html table row for the String[]
 	 */
-	protected String getTableRow(final int row, final String[] data, final List<ColumnDecorator> columnDecorators) {
+	protected static String getTableRow(final int row, final String[] data, final List<ColumnDecorator> columnDecorators) {
 		StringBuffer sb = new StringBuffer();
 		Tag tr = getTableRowTag(row);
 		sb.append(HtmlUtils.openTag(tr));
@@ -158,7 +158,7 @@ public class CloudFrontUtils {
 	/**
 	 * Generate a table row for each String[] in the list
 	 */
-	protected String getTableRows(final List<String[]> data, final List<ColumnDecorator> columnDecorators) {
+	protected static String getTableRows(final List<String[]> data, final List<ColumnDecorator> columnDecorators) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < data.size(); i++) {
 			sb.append(getTableRow(i, data.get(i), columnDecorators));
@@ -169,7 +169,7 @@ public class CloudFrontUtils {
 	/**
 	 * Generate the html for the th tags from a list of ColumnDecorator objects
 	 */
-	protected String getTableHeaders(final List<ColumnDecorator> columnDecorators) {
+	protected static String getTableHeaders(final List<ColumnDecorator> columnDecorators) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < columnDecorators.size(); i++) {
 			ColumnDecorator decorator = columnDecorators.get(i);
@@ -184,7 +184,7 @@ public class CloudFrontUtils {
 	/**
 	 * Generate the table representing a directory listing
 	 */
-	protected String getHtmlTable(final List<String[]> data, final List<ColumnDecorator> columnDecorators) {
+	protected static String getHtmlTable(final List<String[]> data, final List<ColumnDecorator> columnDecorators) {
 		if (isEmpty(data)) {
 			return "";
 		}
