@@ -15,6 +15,8 @@
 
 package org.kuali.common.impex.spring;
 
+import java.util.logging.Logger;
+
 import liquibase.database.Database;
 import liquibase.exception.DatabaseException;
 import liquibase.integration.commandline.CommandLineUtils;
@@ -34,16 +36,26 @@ import org.springframework.context.annotation.Import;
 @Import({ JdbcDataSourceConfig.class })
 public class LiquibaseModelProviderConfig {
 
+    private static Logger log = Logger.getLogger(LiquibaseModelProviderConfig.class.getSimpleName());
+
     @Autowired
     JdbcDataSourceConfig dataSourceConfig;
 
     @Bean
     public DatabaseSnapshot databaseSnapshot() throws DatabaseException, InvalidExampleException {
+
+        long start = System.currentTimeMillis();
+
         DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
 
+        log.info("Initializing liquibase snapshot of data source: url=" + context.getUrl() + ", username=" + context.getUsername());
         Database database = CommandLineUtils.createDatabaseObject(MpxSupplierConfig.class.getClassLoader(), context.getUrl(), context.getUsername(), context.getPassword(), context.getDriver(), null, context.getUsername(), null, null);
 
-        return SnapshotGeneratorFactory.getInstance().createSnapshot(database.getDefaultSchema(), database, new SnapshotControl());
+        DatabaseSnapshot snapshot = SnapshotGeneratorFactory.getInstance().createSnapshot(database.getDefaultSchema(), database, new SnapshotControl());
+
+        log.info("liquibase snapshot initialized, took: " + (System.currentTimeMillis() - start)/1000l + " seconds");
+
+        return snapshot;
     }
 
     @Bean

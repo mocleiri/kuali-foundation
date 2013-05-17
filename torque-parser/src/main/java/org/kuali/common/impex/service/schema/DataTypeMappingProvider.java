@@ -1,4 +1,4 @@
-package org.kuali.common.impex.service.schema.impl;
+package org.kuali.common.impex.service.schema;
 
 import org.kuali.common.impex.model.Column;
 

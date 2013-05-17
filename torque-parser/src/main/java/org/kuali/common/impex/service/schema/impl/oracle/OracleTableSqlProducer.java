@@ -29,8 +29,8 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.service.ProducerUtils;
+import org.kuali.common.impex.service.schema.DataTypeMapping;
 import org.kuali.common.impex.service.schema.impl.AbstractTableSqlProducer;
-import org.kuali.common.impex.service.schema.impl.DataTypeMapping;
 import org.kuali.common.util.CollectionUtils;
 
 public class OracleTableSqlProducer extends AbstractTableSqlProducer {
@@ -50,6 +50,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 
     protected static final String COLUMN_SECTION_PREFIX = "\n(";
     protected static final String COLUMN_SECTION_SUFFIX = "\n";
+    protected static final String DEFAULT_PREFIX = " DEFAULT ";
 
     protected static final String UNIQUE_PREFIX = "CONSTRAINT ";
     protected static final String UNIQUE_MIDDLE = " UNIQUE (";
@@ -78,11 +79,14 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
      */
     protected static final String ORACLE_VARCHAR = "VARCHAR2".intern();
 
+    protected static final String ORACLE_NUMBER = "NUMBER".intern();
+
     protected static final Map<DataType, String> ORACLE_DATAYPE_MAP = new HashMap<DataType, String>();
 
 
     static {
         ORACLE_DATAYPE_MAP.put(DataType.STRING, ORACLE_VARCHAR);
+        ORACLE_DATAYPE_MAP.put(DataType.FLOAT, ORACLE_NUMBER);
     }
 
     public List<String> getTablesSql(List<Table> tables) {
@@ -159,43 +163,40 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         if (mapping != null) {
             sb.append(generateColumnDefinition(column, mapping));
         } else {
-
-            // build the definition as <column name> <column type> <default value> <null/not null>
-            sb.append(column.getName());
-            sb.append(ProducerUtils.SPACE);
-
-            // column type
-            sb.append(translateDataType(column.getDataType()));
-
-            TypeSize typeSize = column.getTypeSize();
-            if(typeSize != null) {
-                sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
-                sb.append(typeSize.getSize());
-                if(typeSize.hasScale()) {
-                    sb.append(ProducerUtils.COMMA);
-                    sb.append(typeSize.getScale());
-                }
-                sb.append(ProducerUtils.TYPE_SIZE_SUFFIX);
-            }
-
-            // default value
-            if(StringUtils.isNotEmpty(column.getDefaultValue())) {
-                sb.append(ProducerUtils.SPACE);
-                if(ProducerUtils.isTextType(column.getDataType())) {
-                    sb.append(ProducerUtils.SINGLE_QUOTE).append(column.getDefaultValue()).append(ProducerUtils.SINGLE_QUOTE);
-                }
-                else {
-                    sb.append(column.getDefaultValue());
-                }
-            }
-
-            if(!column.isNullable()) {
-                sb.append(ProducerUtils.SPACE).append(ProducerUtils.NOT_NULL);
-            }
-
+            appendColumnDefinition(column, sb);
         }
 
         return sb.toString();
+    }
+
+    private void appendColumnDefinition(Column column, StringBuilder sb) {
+        // build the definition as <column name> <column type> <default value> <null/not null>
+        sb.append(column.getName());
+        sb.append(ProducerUtils.SPACE);
+
+        // column type
+        sb.append(translateDataType(column.getDataType()));
+
+        TypeSize typeSize = column.getTypeSize();
+        if(typeSize != null) {
+            sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
+            sb.append(typeSize.getSize());
+            if(typeSize.hasScale()) {
+                sb.append(ProducerUtils.COMMA);
+                sb.append(typeSize.getScale());
+            }
+            sb.append(ProducerUtils.TYPE_SIZE_SUFFIX);
+        }
+
+        // default value
+        if(StringUtils.isNotEmpty(column.getDefaultValue())) {
+            sb.append(DEFAULT_PREFIX);
+            sb.append(column.getDefaultValue());
+        }
+
+        if(!column.isNullable()) {
+            sb.append(ProducerUtils.SPACE).append(ProducerUtils.NOT_NULL);
+        }
     }
 
     protected String generateUniqueConstraintDefinitions(Table t) {
@@ -232,7 +233,28 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
      * @return sql snippet of the column definition
      */
     protected String generateColumnDefinition(Column column, DataTypeMapping mapping) {
-        return "";
+
+        if(mapping.getSql() == null) {
+            StringBuilder sb = new StringBuilder();
+
+            DataType newDataType = column.getDataType();
+            if(mapping.getDataType() != null) {
+                newDataType = mapping.getDataType();
+            }
+
+            Column newCol = new Column(column.getName(), newDataType, column.getTable());
+
+            newCol.setTypeSize(mapping.getTypeSize());
+
+            appendColumnDefinition(newCol, sb);
+
+            return sb.toString();
+        }
+        else {
+            return mapping.getSql();
+        }
+
+
     }
 
     protected String generateDropTableStatement(Table t) {

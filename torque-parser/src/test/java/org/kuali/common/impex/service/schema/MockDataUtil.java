@@ -20,6 +20,7 @@ import java.util.Collections;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.ForeignKey;
+import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
@@ -41,6 +42,12 @@ public class MockDataUtil {
         timeCol.setNullable(false);
 
         result.getColumns().add(timeCol);
+
+        // count column
+        Column countCol = new Column("FOO_COUNT", DataType.FLOAT, result);
+        countCol.setTypeSize(new TypeSize(10));
+
+        result.getColumns().add(countCol);
 
         // name column
         Column nameCol = new Column("NAME", DataType.STRING, result);
@@ -67,7 +74,7 @@ public class MockDataUtil {
     public static ForeignKey buildSimpleForeignKey() {
         ForeignKey fk = new ForeignKey("FOO_FK_1", "FOO_T", "BAR_T");
 
-        fk.setOnDelete("CASCADE");
+        fk.setOnDelete(ForeignKeyConstraintType.CASCADE);
         fk.setLocalColumnNames(Collections.singletonList("BAR_ID"));
         fk.setForeignColumnNames(Collections.singletonList("ID"));
 

@@ -16,6 +16,8 @@
 package org.kuali.common.impex.service.schema.impl;
 
 
+import org.kuali.common.impex.service.schema.DataTypeMappingProvider;
+
 public abstract class AbstractTableSqlProducer {
 
     protected DataTypeMappingProvider mappingProvider;

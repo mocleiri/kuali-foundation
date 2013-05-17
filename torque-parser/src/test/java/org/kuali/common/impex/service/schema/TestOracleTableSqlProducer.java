@@ -41,6 +41,7 @@ public class TestOracleTableSqlProducer {
             "(\n" +
             "\tID VARCHAR2(36),\n" +
             "\tCREATETIME TIMESTAMP NOT NULL,\n" +
+            "\tFOO_COUNT NUMBER(10),\n" +
             "\tNAME VARCHAR2(255),\n" +
             "\tCONSTRAINT FOO_U1_NAME UNIQUE (NAME)\n" +
             ")\n" +

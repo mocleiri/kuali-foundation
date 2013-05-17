@@ -22,9 +22,9 @@ public class ForeignKey implements NamedElement {
 
     protected String name;
 
-    protected String onDelete;
+    protected ForeignKeyConstraintType onDelete;
 
-    protected String onUpdate;
+    protected ForeignKeyConstraintType onUpdate;
 
     protected List<String> localColumnNames;
 
@@ -71,19 +71,19 @@ public class ForeignKey implements NamedElement {
         this.localColumnNames = localColumnNames;
     }
 
-    public String getOnDelete() {
+    public ForeignKeyConstraintType getOnDelete() {
         return onDelete;
     }
 
-    public String getOnUpdate() {
+    public ForeignKeyConstraintType getOnUpdate() {
         return onUpdate;
     }
 
-    public void setOnDelete(String onDelete) {
+    public void setOnDelete(ForeignKeyConstraintType onDelete) {
         this.onDelete = onDelete;
     }
 
-    public void setOnUpdate(String onUpdate) {
+    public void setOnUpdate(ForeignKeyConstraintType onUpdate) {
         this.onUpdate = onUpdate;
     }
 }

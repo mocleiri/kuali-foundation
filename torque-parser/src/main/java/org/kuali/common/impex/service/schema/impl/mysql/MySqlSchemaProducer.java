@@ -26,6 +26,8 @@ import org.kuali.common.impex.service.schema.impl.NoOpProvider;
 
 public class MySqlSchemaProducer implements SchemaSqlProducer {
 
+    public static final String SUPPORTED_VENDOR = "mysql";
+
     private MySqlTableSqlProducer tableSqlProducer = new MySqlTableSqlProducer();
 
     private MySqlViewSqlProducer viewSqlProducer = new MySqlViewSqlProducer();
@@ -36,6 +38,14 @@ public class MySqlSchemaProducer implements SchemaSqlProducer {
 
     public MySqlSchemaProducer() {
         tableSqlProducer.setMappingProvider(new NoOpProvider());
+    }
+
+    public MySqlTableSqlProducer getTableSqlProducer() {
+        return tableSqlProducer;
+    }
+
+    public void setTableSqlProducer(MySqlTableSqlProducer tableSqlProducer) {
+        this.tableSqlProducer = tableSqlProducer;
     }
 
     @Override

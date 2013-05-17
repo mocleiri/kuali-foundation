@@ -26,6 +26,8 @@ import org.kuali.common.impex.service.schema.impl.NoOpProvider;
 
 public class OracleSchemaProducer implements SchemaSqlProducer {
 
+    public static final String SUPPORTED_VENDOR = "oracle";
+
     protected OracleTableSqlProducer tableSqlProducer = new OracleTableSqlProducer();
 
     protected OracleViewSqlProducer viewSqlProducer = new OracleViewSqlProducer();

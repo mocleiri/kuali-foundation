@@ -18,7 +18,7 @@ package org.kuali.common.impex.model.impl.liquibase;
 import org.kuali.common.impex.model.DataType;
 
 public enum LiquibaseDataType {
-    CLOB(DataType.CLOB), VARCHAR(DataType.STRING), VARCHAR2(DataType.STRING), DATE(DataType.DATE), TIMESTAMP(DataType.TIMESTAMP), DECIMAL(DataType.FLOAT), NUMERIC(DataType.INTEGER), BIT(DataType.BIT);
+    CHAR(DataType.STRING), CLOB(DataType.CLOB), VARCHAR(DataType.STRING), VARCHAR2(DataType.STRING), DATE(DataType.DATE), TIMESTAMP(DataType.TIMESTAMP), DECIMAL(DataType.FLOAT), NUMBER(DataType.FLOAT), BIT(DataType.BIT), BLOB(DataType.BLOB);
 
     private final DataType dataType;
 

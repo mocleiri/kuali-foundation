@@ -18,12 +18,13 @@ package org.kuali.common.impex.service.schema.impl.oracle;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.ForeignKey;
+import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.service.ProducerUtils;
+import org.kuali.common.impex.service.schema.impl.AbstractForeignKeySqlProducer;
 import org.kuali.common.util.CollectionUtils;
 
-public class OracleForeignKeySqlProducer {
+public class OracleForeignKeySqlProducer extends AbstractForeignKeySqlProducer {
 
     protected static final String PREFIX = "ALTER TABLE ";
     protected static final String NAME_PREFIX = "\n" +
@@ -60,15 +61,17 @@ public class OracleForeignKeySqlProducer {
             sb.append(CollectionUtils.getCSV(fk.getForeignColumnNames()));
             sb.append(FOREIGN_COLUMNS_SUFFIX);
 
-            if(StringUtils.isNotEmpty(fk.getOnUpdate())) {
+            // restrict is the default behavior for Oracle foreign keys,
+            // so no keywords are needed for that constraint type
+            if(fk.getOnUpdate() != null && fk.getOnUpdate() != ForeignKeyConstraintType.RESTRICT) {
                 sb.append(ON_UPDATE_PREFIX);
-                sb.append(fk.getOnUpdate());
+                sb.append(translateForeignKeyConstraint(fk.getOnUpdate()));
                 sb.append(ProducerUtils.NEWLINE);
             }
 
-            if(StringUtils.isNotEmpty(fk.getOnDelete())) {
+            if(fk.getOnDelete() != null && fk.getOnDelete() != ForeignKeyConstraintType.RESTRICT) {
                 sb.append(ON_DELETE_PREFIX);
-                sb.append(fk.getOnDelete());
+                sb.append(translateForeignKeyConstraint(fk.getOnDelete()));
                 sb.append(ProducerUtils.NEWLINE);
             }
 

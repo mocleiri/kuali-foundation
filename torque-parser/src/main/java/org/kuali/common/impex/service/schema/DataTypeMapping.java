@@ -13,9 +13,10 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.service.schema.impl;
+package org.kuali.common.impex.service.schema;
 
 import org.kuali.common.impex.model.DataType;
+import org.kuali.common.impex.model.TypeSize;
 
 /**
  * Data bean for column data type overrides
@@ -26,9 +27,7 @@ public class DataTypeMapping {
 
     protected DataType dataType;
 
-    protected int size;
-
-    protected int scale;
+    protected TypeSize typeSize;
 
     protected String tableName;
 
@@ -50,22 +49,6 @@ public class DataTypeMapping {
         this.dataType = dataType;
     }
 
-    public int getScale() {
-        return scale;
-    }
-
-    public void setScale(int scale) {
-        this.scale = scale;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public String getSql() {
         return sql;
     }
@@ -80,5 +63,13 @@ public class DataTypeMapping {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public TypeSize getTypeSize() {
+        return typeSize;
+    }
+
+    public void setTypeSize(TypeSize typeSize) {
+        this.typeSize = typeSize;
     }
 }

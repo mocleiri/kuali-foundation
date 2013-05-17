@@ -29,8 +29,8 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.service.ProducerUtils;
+import org.kuali.common.impex.service.schema.DataTypeMapping;
 import org.kuali.common.impex.service.schema.impl.AbstractTableSqlProducer;
-import org.kuali.common.impex.service.schema.impl.DataTypeMapping;
 import org.kuali.common.util.CollectionUtils;
 
 public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
@@ -43,6 +43,7 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
 
     protected static final String TABLE_DETAILS_PREFIX = "\n(";
     protected static final String TABLE_DETAILS_SUFFIX = "\n)";
+    protected static final String DEFAULT_PREFIX = " DEFAULT ";
 
     protected static final String COMMENT_PREFIX = "COMMENT = '";
 
@@ -165,7 +166,7 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
 
             // default value
             if(StringUtils.isNotEmpty(column.getDefaultValue())) {
-                sb.append(ProducerUtils.SPACE);
+                sb.append(DEFAULT_PREFIX);
                 if(ProducerUtils.isTextType(column.getDataType())) {
                     sb.append(ProducerUtils.SINGLE_QUOTE).append(column.getDefaultValue()).append(ProducerUtils.SINGLE_QUOTE);
                 }

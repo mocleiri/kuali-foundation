@@ -16,6 +16,8 @@
 package org.kuali.common.impex.service.schema.impl;
 
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.service.schema.DataTypeMapping;
+import org.kuali.common.impex.service.schema.DataTypeMappingProvider;
 
 public class NoOpProvider implements DataTypeMappingProvider {
 

@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.ModelProvider;
@@ -31,6 +32,7 @@ import org.kuali.common.impex.spring.SchemaSqlProducerConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
@@ -38,6 +40,8 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({ LiquibaseModelProviderConfig.class, SchemaSqlProducerConfig.class })
 public class DumpExecutable implements Executable {
+
+    private static Logger log = Logger.getLogger(DumpExecutable.class.getSimpleName());
 
 	private static final String LF = "\n";
 
@@ -72,9 +76,13 @@ public class DumpExecutable implements Executable {
 
 		Map<String, List<String>> fileNamesToSqls = new HashMap<String, List<String>>();
 
+        log.info("Loading table data");
 		fileNamesToSqls.put(getFileName(TABLE_FILE), schemaProducer.getTablesSql(modelProvider.getTables()));
+        log.info("Loading foreign key data");
 		fileNamesToSqls.put(getFileName(FOREIGN_KEY_FILE), schemaProducer.getForeignKeySql(modelProvider.getForeignKeys()));
+        log.info("Loading sequence data");
 		fileNamesToSqls.put(getFileName(SEQUENCE_FILE), schemaProducer.getSequencesSql(modelProvider.getSequences()));
+        log.info("Loading view data");
 		fileNamesToSqls.put(getFileName(VIEW_FILE), schemaProducer.getViewsSql(modelProvider.getViews()));
 
 		dumpFiles(fileNamesToSqls);
@@ -96,6 +104,10 @@ public class DumpExecutable implements Executable {
 
 		for (String fileName : fileNamesToSqls.keySet()) {
 			List<String> sqls = fileNamesToSqls.get(fileName);
+            long start = System.currentTimeMillis();
+
+            log.info("Writing " + sqls.size() + " sql statments to file " + fileName);
+
 			Writer writer = null;
 			try {
 				writer = new BufferedWriter(new FileWriter(fileName));
@@ -111,8 +123,15 @@ public class DumpExecutable implements Executable {
 			} finally {
 				IOUtils.closeQuietly(writer);
 			}
+
+            log.info("File output complete, took: " + (System.currentTimeMillis() - start)/1000l + " seconds");
 		}
 
 	}
+
+    @Bean(initMethod = "execute")
+    public DumpExecutable executableInstance() {
+        return new DumpExecutable();
+    }
 
 }

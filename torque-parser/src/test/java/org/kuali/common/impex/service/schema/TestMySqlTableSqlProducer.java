@@ -25,6 +25,7 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.service.schema.impl.NoOpProvider;
 import org.kuali.common.impex.service.schema.impl.mysql.MySqlTableSqlProducer;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 public class TestMySqlTableSqlProducer {
@@ -34,6 +35,7 @@ public class TestMySqlTableSqlProducer {
             "(\n" +
             "\tID VARCHAR(36),\n" +
             "\tCREATETIME TIMESTAMP NOT NULL,\n" +
+            "\tFOO_COUNT FLOAT(10),\n" +
             "\tNAME VARCHAR(255),\n" +
             "\tCONSTRAINT FOO_TP1 PRIMARY KEY(ID),\n" +
             "\tCONSTRAINT FOO_TP1 UNIQUE (NAME)\n" +
@@ -49,6 +51,8 @@ public class TestMySqlTableSqlProducer {
         Table table = MockDataUtil.buildSimpleTable();
 
         List<String> results = producer.getTablesSql(Collections.singletonList(table));
+
+        assertEquals(EXPECTED_SIMPLE_SQL[1], results.get(1));
 
         List<String> expected = Arrays.asList(EXPECTED_SIMPLE_SQL);
 
