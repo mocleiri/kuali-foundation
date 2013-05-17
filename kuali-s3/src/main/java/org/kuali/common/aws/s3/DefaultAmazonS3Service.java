@@ -86,7 +86,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 		listings.add(listing);
 		for (String commonPrefix : commonPrefixes) {
-			if (recurse(context, commonPrefix)) {
+			if (isRecurse(context, commonPrefix)) {
 				TreeContext clone = clone(context, commonPrefix);
 				List<ObjectListing> children = getObjectListings(clone, informer);
 				listings.addAll(children);
@@ -158,7 +158,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return false;
 	}
 
-	protected boolean recurse(TreeContext context, String prefix) {
+	protected boolean isRecurse(TreeContext context, String prefix) {
 		return !isExclude(context, prefix) && isInclude(context, prefix);
 	}
 
