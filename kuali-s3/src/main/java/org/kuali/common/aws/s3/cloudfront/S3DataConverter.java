@@ -15,7 +15,6 @@
  */
 package org.kuali.common.aws.s3.cloudfront;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,20 +31,6 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
  * Convert information from an S3 bucket into pojo's
  */
 public class S3DataConverter {
-
-	NumberFormat nf = getNumberFormatInstance();
-	String browseKey;
-
-	/**
-	 * Return a NumberFormat that does not using grouping and always displays one fraction digit. This is used to display the size of S3 objects in kilobytes
-	 */
-	protected NumberFormat getNumberFormatInstance() {
-		NumberFormat nf = NumberFormat.getInstance();
-		nf.setMaximumFractionDigits(1);
-		nf.setMinimumFractionDigits(1);
-		nf.setGroupingUsed(false);
-		return nf;
-	}
 
 	/**
 	 * Convert "foo/bar/css/" into "foo/bar/css"<br>
@@ -134,10 +119,10 @@ public class S3DataConverter {
 	/**
 	 * Convert the ObjectListing into a List of String arrays. Each array in the list represents one row in the html table we will be generating
 	 */
-	public List<String[]> getData(ObjectListing objectListing, String prefix, String delimiter, String directoryImage, String fileImage, String browseKey) {
+	public List<String[]> getData(ObjectListing listing, String prefix, String delimiter, String dirImage, String fileImage, String browseKey) {
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(objectListing, prefix, delimiter, fileImage);
-		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(objectListing, prefix, delimiter, directoryImage);
+		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(listing, prefix, delimiter, fileImage);
+		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(listing, prefix, delimiter, dirImage);
 		Comparator<DisplayRow> c = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, c);
 		List<String[]> data = new ArrayList<String[]>();
