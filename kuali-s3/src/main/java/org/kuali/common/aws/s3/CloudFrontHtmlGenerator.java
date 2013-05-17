@@ -15,12 +15,11 @@
  */
 package org.kuali.common.aws.s3;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.html.HtmlUtils;
 import org.kuali.common.util.html.Tag;
 
@@ -28,8 +27,6 @@ import org.kuali.common.util.html.Tag;
  * Generate directory listings in html format that is Amazon CloudFront friendly
  */
 public class CloudFrontHtmlGenerator {
-
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
 
 	/**
 	 * Decorators for the columns in the table
@@ -60,7 +57,7 @@ public class CloudFrontHtmlGenerator {
 	}
 
 	protected String getHtmlComment() {
-		return "<!-- Generated on " + sdf.format(new Date()) + " -->\n";
+		return "<!-- Generated on " + FormatUtils.getDate(System.currentTimeMillis()) + " -->\n";
 	}
 
 	protected String getDocType() {
