@@ -1,9 +1,11 @@
 package org.kuali.common.aws.s3;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
+
+import com.amazonaws.services.s3.model.ObjectListing;
 
 public interface AmazonS3Service {
 
-	DefaultMutableTreeNode getTree(BucketContext context);
+	List<ObjectListing> getObjectListings(BucketContext context);
 
 }

@@ -3,8 +3,6 @@ package org.kuali.common.aws.s3;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.CollectionUtils;
@@ -25,7 +23,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
 
 	@Override
-	public DefaultMutableTreeNode getTree(BucketContext context) {
+	public List<ObjectListing> getObjectListings(BucketContext context) {
 		Assert.notNull(context.getClient(), "client is null");
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");
@@ -37,14 +35,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		informer.start();
 		List<ObjectListing> listings = getObjectListings(context, informer);
 		informer.stop();
-		logger.info("listings: {}", listings.size());
-		for (ObjectListing listing : listings) {
-			String welcomeFileKey = getWelcomeFileKey(listing, context.getWelcomeFiles());
-			if (welcomeFileKey != null) {
-				logger.info(welcomeFileKey);
-			}
-		}
-		return null;
+		return listings;
 	}
 
 	/**

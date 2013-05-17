@@ -48,7 +48,7 @@ public class DefaultAmazonS3ServiceTest {
 
 			AmazonS3Service service = new DefaultAmazonS3Service();
 
-			service.getTree(context);
+			service.getObjectListings(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
