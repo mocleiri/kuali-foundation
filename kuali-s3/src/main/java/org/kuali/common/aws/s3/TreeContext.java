@@ -14,7 +14,7 @@ public class TreeContext {
 	public static final List<String> DEFAULT_WELCOME_FILES = new ArrayList<String>(Arrays.asList("index.html", "portal.html", "welcome.html"));
 
 	String delimiter = DEFAULT_DELIMITER;
-	long prefixCountEstimate = DEFAULT_PREFIX_COUNT_ESTIMATE;
+	long prefixEstimate = DEFAULT_PREFIX_COUNT_ESTIMATE;
 	List<String> welcomeFiles = DEFAULT_WELCOME_FILES;
 	AmazonS3Client client;
 	String bucket;
@@ -70,12 +70,12 @@ public class TreeContext {
 		this.excludes = excludes;
 	}
 
-	public long getPrefixCountEstimate() {
-		return prefixCountEstimate;
+	public long getPrefixEstimate() {
+		return prefixEstimate;
 	}
 
-	public void setPrefixCountEstimate(long prefixCountEstimate) {
-		this.prefixCountEstimate = prefixCountEstimate;
+	public void setPrefixEstimate(long prefixCountEstimate) {
+		this.prefixEstimate = prefixCountEstimate;
 	}
 
 	public List<String> getWelcomeFiles() {

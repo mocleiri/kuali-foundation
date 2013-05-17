@@ -32,7 +32,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
 		logger.info("[s3://{}{}{}] - building tree", args);
-		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixCountEstimate());
+		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixEstimate());
 		informer.start();
 		List<ObjectListing> listings = getObjectListings(context, informer);
 		informer.stop();
