@@ -23,31 +23,31 @@ import org.apache.commons.lang3.StringUtils;
 public class HtmlUtils {
 
 	// TODO Holy crap this is awful
-	int indent = 0;
+	private static int indent = 0;
 
-	public String getIndentedContent(String content) {
+	public static String getIndentedContent(String content) {
 		return getIndent() + content;
 	}
 
-	public String getIndent() {
+	public static String getIndent() {
 		return StringUtils.repeat(" ", indent);
 	}
 
 	/**
 	 * Return an HTML ahref tag
 	 */
-	public String getHref(String dest, String show) {
+	public static String getHref(String dest, String show) {
 		return getIndent() + "<a href=\"" + dest + "\">" + show + "</a>";
 	}
 
 	/**
 	 * Return an HTML img tag
 	 */
-	public String getImage(String image) {
+	public static String getImage(String image) {
 		return getIndent() + "<img src=\"" + image + "\">";
 	}
 
-	public String openTag(Tag tag) {
+	public static String openTag(Tag tag) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getIndent());
 		indent++;
@@ -62,12 +62,12 @@ public class HtmlUtils {
 		return sb.toString();
 	}
 
-	public String closeTag(Tag tag) {
+	public static String closeTag(Tag tag) {
 		indent--;
 		return getIndent() + "</" + tag.getName() + ">\n";
 	}
 
-	public String getTag(Tag tag, String content) {
+	public static String getTag(Tag tag, String content) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(openTag(tag));
 		sb.append(getIndent());
