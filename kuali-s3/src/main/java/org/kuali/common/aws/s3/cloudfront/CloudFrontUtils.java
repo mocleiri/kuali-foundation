@@ -29,7 +29,7 @@ public class CloudFrontUtils {
 	 */
 	public static PutObjectRequest getPutIndexObjectRequest(String bucket, String cacheControl, String html, String key) {
 
-		// Setup an InputStream that reads from the HTML
+		// Setup an InputStream that reads from the HTML string
 		InputStream in = new ByteArrayInputStream(html.getBytes());
 
 		// Create some metadata for identifying this S3 object as an index
