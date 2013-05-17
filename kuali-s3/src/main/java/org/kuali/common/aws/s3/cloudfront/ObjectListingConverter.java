@@ -123,8 +123,8 @@ public class ObjectListingConverter {
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey);
 		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(listing, prefix, delimiter, fileImage);
 		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(listing, prefix, delimiter, dirImage);
-		Comparator<DisplayRow> c = new DisplayRowComparator();
-		Collections.sort(directoryDisplayRows, c);
+		Comparator<DisplayRow> comparator = new DisplayRowComparator();
+		Collections.sort(directoryDisplayRows, comparator);
 		List<String[]> data = new ArrayList<String[]>();
 		addDisplayRow(upOneDirectory, data);
 		addDisplayRows(directoryDisplayRows, data);
