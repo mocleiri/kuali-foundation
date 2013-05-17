@@ -82,6 +82,7 @@ public class DisplayRowComparator implements Comparator<DisplayRow> {
 		} catch (NumberFormatException e) {
 			; // Intentionally ignore this
 		}
+
 		// Fall through to sorting things as regular strings
 		return token1.compareTo(token2);
 
