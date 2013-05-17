@@ -75,7 +75,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate the full html page
 	 */
-	public static String getDirectoryListingHtml(List<String[]> data, String prefix, String delimiter, String css, String about) {
+	public static String getDirectoryListing(List<String[]> data, String prefix, String delimiter, String css, String about) {
 		String directory = getDirectory(prefix, delimiter);
 
 		Tag html = new Tag("html");
