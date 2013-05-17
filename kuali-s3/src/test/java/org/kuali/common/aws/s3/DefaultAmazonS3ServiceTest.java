@@ -30,9 +30,9 @@ public class DefaultAmazonS3ServiceTest {
 			if (System.getProperty("s3.prefix") != null) {
 				prefix = System.getProperty("s3.prefix");
 			}
-			long prefixCountEstimate = TreeContext.DEFAULT_PREFIX_COUNT_ESTIMATE;
+			long prefixEstimate = TreeContext.DEFAULT_PREFIX_COUNT_ESTIMATE;
 			if (System.getProperty("s3.prefixEstimate") != null) {
-				prefixCountEstimate = Long.parseLong(System.getProperty("s3.prefixEstimate"));
+				prefixEstimate = Long.parseLong(System.getProperty("s3.prefixEstimate"));
 			}
 
 			// String prefix = "rice/latest";
@@ -44,7 +44,7 @@ public class DefaultAmazonS3ServiceTest {
 			context.setBucket(bucket);
 			context.setExcludes(excludes);
 			context.setPrefix(prefix);
-			context.setPrefixEstimate(prefixCountEstimate);
+			context.setPrefixEstimate(prefixEstimate);
 
 			AmazonS3Service service = new DefaultAmazonS3Service();
 
