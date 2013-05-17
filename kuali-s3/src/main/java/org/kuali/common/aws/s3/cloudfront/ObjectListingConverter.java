@@ -117,7 +117,7 @@ public class ObjectListingConverter {
 	}
 
 	/**
-	 * Convert the ObjectListing into a List of String arrays. Each array in the list represents one row in the html table we will be generating
+	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
 	public List<String[]> convert(ObjectListing listing, String prefix, String delimiter, String dirImage, String fileImage, String browseKey) {
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey);
