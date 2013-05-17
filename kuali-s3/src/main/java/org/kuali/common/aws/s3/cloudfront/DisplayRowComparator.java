@@ -76,12 +76,13 @@ public class DisplayRowComparator implements Comparator<DisplayRow> {
 
 	protected int compareTokens(String token1, String token2) {
 		try {
-			Double d1 = new Double(token1);
-			Double d2 = new Double(token2);
-			return d1.compareTo(d2);
+			double d1 = Double.parseDouble(token1);
+			double d2 = Double.parseDouble(token2);
+			return Double.compare(d1, d2);
 		} catch (NumberFormatException e) {
-			// Intentionally ignore this
+			; // Intentionally ignore this
 		}
+		// Fall through to sorting things as regular strings
 		return token1.compareTo(token2);
 
 	}
