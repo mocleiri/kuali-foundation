@@ -91,7 +91,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 				List<ObjectListing> children = getObjectListings(clone, informer);
 				listings.addAll(children);
 			} else {
-				ListObjectsRequest childRequest = getListObjectsRequest(context, prefix);
+				ListObjectsRequest childRequest = getListObjectsRequest(context, commonPrefix);
 				ObjectListing childListing = client.listObjects(childRequest);
 				informer.incrementProgress();
 				listings.add(childListing);
