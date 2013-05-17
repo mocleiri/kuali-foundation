@@ -36,7 +36,7 @@ public class ObjectListingConverter {
 	 * Convert "foo/bar/css/" into "foo/bar/css"<br>
 	 * Convert "foo/bar/css" into "foo/bar"<br>
 	 */
-	protected String getTrimmedPrefix(final String prefix, final String delimiter) {
+	protected static String getTrimmedPrefix(final String prefix, final String delimiter) {
 		int pos = prefix.lastIndexOf(delimiter);
 		if (pos == -1) {
 			return prefix;
@@ -47,7 +47,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert each DisplayRow object in the list to a String[] and add the String[] to the list of data
 	 */
-	protected void addDisplayRows(final List<DisplayRow> displayRows, final List<String[]> data) {
+	protected static void addDisplayRows(final List<DisplayRow> displayRows, final List<String[]> data) {
 		for (DisplayRow displayRow : displayRows) {
 			addDisplayRow(displayRow, data);
 		}
@@ -56,7 +56,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a DisplayRow object to a String[]
 	 */
-	protected void addDisplayRow(final DisplayRow displayRow, final List<String[]> data) {
+	protected static void addDisplayRow(final DisplayRow displayRow, final List<String[]> data) {
 		if (displayRow == null) {
 			return;
 		}
@@ -72,7 +72,7 @@ public class ObjectListingConverter {
 	 * Trim the prefix off of the text we display for this object.<br>
 	 * Display "style.css" instead of "css/style.css"
 	 */
-	protected String getShow(final String key, final String prefix) {
+	protected static String getShow(final String key, final String prefix) {
 		if (prefix == null) {
 			return key;
 		}
@@ -84,7 +84,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(String commonPrefix, String prefix, String delimiter, String directoryImage) {
+	protected static DisplayRow getDisplayRow(String commonPrefix, String prefix, String delimiter, String directoryImage) {
 
 		// Create some UI friendly strings
 		String image = HtmlUtils.getImage(directoryImage);
@@ -104,7 +104,7 @@ public class ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String directoryImage) {
+	protected static List<DisplayRow> getDirectoryDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String directoryImage) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (String commonPrefix : objectListing.getCommonPrefixes()) {
 			DisplayRow displayRow = getDisplayRow(commonPrefix, prefix, delimiter, directoryImage);
@@ -119,7 +119,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert the ObjectListing into a List of String arrays. Each array in the list represents one row in the html table we will be generating
 	 */
-	public List<String[]> getData(ObjectListing listing, String prefix, String delimiter, String dirImage, String fileImage, String browseKey) {
+	public static List<String[]> getData(ObjectListing listing, String prefix, String delimiter, String dirImage, String fileImage, String browseKey) {
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey);
 		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(listing, prefix, delimiter, fileImage);
 		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(listing, prefix, delimiter, dirImage);
@@ -132,7 +132,7 @@ public class ObjectListingConverter {
 		return data;
 	}
 
-	protected boolean isDirectory(S3ObjectSummary summary, List<String> commonPrefixes, String prefix, String delimiter) {
+	protected static boolean isDirectory(S3ObjectSummary summary, List<String> commonPrefixes, String prefix, String delimiter) {
 		String key = summary.getKey();
 		if (key.equals(prefix)) {
 			return true;
@@ -152,7 +152,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(S3ObjectSummary summary, String prefix, String delimiter, String fileImage) {
+	protected static DisplayRow getDisplayRow(S3ObjectSummary summary, String prefix, String delimiter, String fileImage) {
 		String key = summary.getKey();
 
 		// Create some UI friendly strings
@@ -173,7 +173,7 @@ public class ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String fileImage) {
+	protected static List<DisplayRow> getObjectDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String fileImage) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (S3ObjectSummary summary : objectListing.getObjectSummaries()) {
 			if (isDirectory(summary, objectListing.getCommonPrefixes(), prefix, delimiter)) {
@@ -191,7 +191,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getUpOneDirectoryDisplayRow(String prefix, String delimiter, String browseKey) {
+	protected static DisplayRow getUpOneDirectoryDisplayRow(String prefix, String delimiter, String browseKey) {
 		if (StringUtils.isEmpty(prefix)) {
 			return null;
 		}
@@ -217,7 +217,7 @@ public class ObjectListingConverter {
 	 * If prefix is "foo/" and delimiter is "/" return "/"<br>
 	 * If prefix is "foo/bar/" and delimiter is "/" return "foo/"
 	 */
-	protected String getUpOneDirectoryDest(String prefix, String delimiter, String browseKey) {
+	protected static String getUpOneDirectoryDest(String prefix, String delimiter, String browseKey) {
 		if (prefix.endsWith(delimiter)) {
 			prefix = prefix.substring(0, prefix.length() - 1);
 		}
