@@ -36,7 +36,7 @@ public class HtmlUtils {
 	/**
 	 * Return an HTML ahref tag
 	 */
-	public String getHref(String dest, final String show) {
+	public String getHref(String dest, String show) {
 		return getIndent() + "<a href=\"" + dest + "\">" + show + "</a>";
 	}
 
@@ -67,7 +67,7 @@ public class HtmlUtils {
 		return getIndent() + "</" + tag.getName() + ">\n";
 	}
 
-	public String getTag(Tag tag, final String content) {
+	public String getTag(Tag tag, String content) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(openTag(tag));
 		sb.append(getIndent());
