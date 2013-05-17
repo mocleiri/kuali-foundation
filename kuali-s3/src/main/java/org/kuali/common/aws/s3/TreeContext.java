@@ -78,4 +78,12 @@ public class TreeContext {
 		this.prefixCountEstimate = prefixCountEstimate;
 	}
 
+	public List<String> getWelcomeFiles() {
+		return welcomeFiles;
+	}
+
+	public void setWelcomeFiles(List<String> welcomeFiles) {
+		this.welcomeFiles = welcomeFiles;
+	}
+
 }

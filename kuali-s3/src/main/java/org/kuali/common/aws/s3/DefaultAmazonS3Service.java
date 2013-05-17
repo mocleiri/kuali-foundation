@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class DefaultAmazonS3Service implements AmazonS3Service {
 
@@ -36,6 +37,39 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		List<ObjectListing> listings = getObjectListings(context, informer);
 		informer.stop();
 		logger.info("listings: {}", listings.size());
+		for (ObjectListing listing : listings) {
+			String welcomeFileKey = getWelcomeFileKey(listing, context.getWelcomeFiles());
+			if (welcomeFileKey != null) {
+				logger.info(welcomeFileKey);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * An <code>ObjectListing</code> is the equivalent of typing <code>ls</code> in a directory on a file system.
+	 */
+	protected String getWelcomeFileKey(ObjectListing listing, List<String> welcomeFiles) {
+		// Cycle through the list of files in this directory
+		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+			String welcomeFileKey = getWelcomeFileKey(listing, summary, welcomeFiles);
+			if (welcomeFileKey != null) {
+				return welcomeFileKey;
+			}
+		}
+		return null;
+	}
+
+	protected String getWelcomeFileKey(ObjectListing listing, S3ObjectSummary summary, List<String> welcomeFiles) {
+		// Cycle through the list of welcome files
+		for (String welcomeFile : welcomeFiles) {
+			// Append the welcome file name to the key for this directory
+			String welcomeFileKey = listing.getPrefix() + welcomeFile;
+			// We found a welcome file for this directory
+			if (StringUtils.equals(summary.getKey(), welcomeFileKey)) {
+				return welcomeFileKey;
+			}
+		}
 		return null;
 	}
 

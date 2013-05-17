@@ -25,6 +25,7 @@ public class DefaultAmazonS3ServiceTest {
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
 			String prefix = "maven/plugins/maven-dnsme-plugin/1.0.0";
+			// String prefix = "rice/latest/reference";
 			if (System.getProperty("s3.prefix") != null) {
 				prefix = System.getProperty("s3.prefix");
 			}
@@ -32,6 +33,7 @@ public class DefaultAmazonS3ServiceTest {
 			if (System.getProperty("s3.prefixCountEstimate") != null) {
 				prefixCountEstimate = Long.parseLong(System.getProperty("s3.prefixCountEstimate"));
 			}
+
 			// String prefix = "rice/latest";
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			// List<String> excludes = Arrays.asList("apidocs", "clover", "xref-test", "xref", "testapidocs");
