@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -30,7 +31,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		Assert.hasText(context.getBucket(), "bucket has no text");
 		boolean exists = context.getClient().doesBucketExist(context.getBucket());
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
-		Object[] args = { context.getBucket(), context.getDelimiter(), context.getPrefix() };
+		Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
 		logger.info("[s3://{}{}{}] - building tree", args);
 		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixEstimate());
 		informer.start();
