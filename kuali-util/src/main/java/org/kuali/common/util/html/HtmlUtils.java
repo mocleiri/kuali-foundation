@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class HtmlUtils {
 
+	// TODO Holy crap this is awful
 	int indent = 0;
 
 	public String getIndentedContent(String content) {
