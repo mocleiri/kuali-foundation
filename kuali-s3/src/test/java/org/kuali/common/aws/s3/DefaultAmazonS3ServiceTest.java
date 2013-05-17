@@ -30,7 +30,7 @@ public class DefaultAmazonS3ServiceTest {
 			if (System.getProperty("s3.prefix") != null) {
 				prefix = System.getProperty("s3.prefix");
 			}
-			long prefixEstimate = TreeContext.DEFAULT_PREFIX_ESTIMATE;
+			long prefixEstimate = BucketContext.DEFAULT_PREFIX_ESTIMATE;
 			if (System.getProperty("s3.prefixEstimate") != null) {
 				prefixEstimate = Long.parseLong(System.getProperty("s3.prefixEstimate"));
 			}
@@ -39,7 +39,7 @@ public class DefaultAmazonS3ServiceTest {
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			List<String> excludes = Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
 
-			TreeContext context = new TreeContext();
+			BucketContext context = new BucketContext();
 			context.setClient(client);
 			context.setBucket(bucket);
 			context.setExcludes(excludes);

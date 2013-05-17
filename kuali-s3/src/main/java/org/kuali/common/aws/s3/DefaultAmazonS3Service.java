@@ -25,7 +25,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
 
 	@Override
-	public DefaultMutableTreeNode getTree(TreeContext context) {
+	public DefaultMutableTreeNode getTree(BucketContext context) {
 		Assert.notNull(context.getClient(), "client is null");
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");
@@ -77,7 +77,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	/**
 	 * Recurse the bucket starting at <code>prefix</code> acquiring an <code>ObjectListing</code> for each prefix along the way.
 	 */
-	protected List<ObjectListing> getObjectListings(TreeContext context, PercentCompleteInformer informer) {
+	protected List<ObjectListing> getObjectListings(BucketContext context, PercentCompleteInformer informer) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context, prefix);
@@ -88,7 +88,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		listings.add(listing);
 		for (String commonPrefix : commonPrefixes) {
 			if (isRecurse(context, commonPrefix)) {
-				TreeContext clone = clone(context, commonPrefix);
+				BucketContext clone = clone(context, commonPrefix);
 				List<ObjectListing> children = getObjectListings(clone, informer);
 				listings.addAll(children);
 			} else {
@@ -138,7 +138,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
-	protected boolean isExclude(TreeContext context, String prefix) {
+	protected boolean isExclude(BucketContext context, String prefix) {
 		for (String exclude : CollectionUtils.toEmptyList(context.getExcludes())) {
 			if (isMatch(prefix, exclude, context.getDelimiter())) {
 				return true;
@@ -147,7 +147,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return false;
 	}
 
-	protected boolean isInclude(TreeContext context, String prefix) {
+	protected boolean isInclude(BucketContext context, String prefix) {
 		if (CollectionUtils.isEmpty(context.getIncludes())) {
 			return true;
 		}
@@ -159,12 +159,12 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return false;
 	}
 
-	protected boolean isRecurse(TreeContext context, String prefix) {
+	protected boolean isRecurse(BucketContext context, String prefix) {
 		return !isExclude(context, prefix) && isInclude(context, prefix);
 	}
 
-	protected TreeContext clone(TreeContext context, String prefix) {
-		TreeContext clone = new TreeContext();
+	protected BucketContext clone(BucketContext context, String prefix) {
+		BucketContext clone = new BucketContext();
 		try {
 			BeanUtils.copyProperties(clone, context);
 		} catch (Exception e) {
@@ -174,7 +174,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return clone;
 	}
 
-	protected ListObjectsRequest getListObjectsRequest(TreeContext context, String prefix) {
+	protected ListObjectsRequest getListObjectsRequest(BucketContext context, String prefix) {
 		return getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
 	}
 

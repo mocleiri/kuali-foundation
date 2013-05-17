@@ -4,6 +4,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface AmazonS3Service {
 
-	DefaultMutableTreeNode getTree(TreeContext context);
+	DefaultMutableTreeNode getTree(BucketContext context);
 
 }
