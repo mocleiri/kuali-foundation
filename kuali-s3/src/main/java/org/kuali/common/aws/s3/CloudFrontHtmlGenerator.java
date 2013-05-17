@@ -28,6 +28,7 @@ import org.kuali.common.util.html.Tag;
  * Generate directory listings in html format that is Amazon CloudFront friendly
  */
 public class CloudFrontHtmlGenerator {
+
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
 
 	/**
