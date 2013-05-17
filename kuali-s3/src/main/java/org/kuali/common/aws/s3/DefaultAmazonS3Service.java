@@ -79,17 +79,22 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 	protected List<ObjectListing> getObjectListings(TreeContext context, PercentCompleteInformer informer) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
-		ListObjectsRequest request = getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
+		ListObjectsRequest request = getListObjectsRequest(context, prefix);
 		ObjectListing listing = client.listObjects(request);
 		informer.incrementProgress();
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 		listings.add(listing);
 		for (String commonPrefix : commonPrefixes) {
-			if (include(context, commonPrefix)) {
+			if (recurse(context, commonPrefix)) {
 				TreeContext clone = clone(context, commonPrefix);
 				List<ObjectListing> children = getObjectListings(clone, informer);
 				listings.addAll(children);
+			} else {
+				ListObjectsRequest childRequest = getListObjectsRequest(context, prefix);
+				ObjectListing childListing = client.listObjects(childRequest);
+				informer.incrementProgress();
+				listings.add(childListing);
 			}
 		}
 		return listings;
@@ -153,7 +158,7 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		return false;
 	}
 
-	protected boolean include(TreeContext context, String prefix) {
+	protected boolean recurse(TreeContext context, String prefix) {
 		return !isExclude(context, prefix) && isInclude(context, prefix);
 	}
 
@@ -166,6 +171,10 @@ public class DefaultAmazonS3Service implements AmazonS3Service {
 		}
 		clone.setPrefix(prefix);
 		return clone;
+	}
+
+	protected ListObjectsRequest getListObjectsRequest(TreeContext context, String prefix) {
+		return getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
 	}
 
 	protected ListObjectsRequest getListObjectsRequest(String bucket, String prefix, String delimiter, Integer maxKeys) {
