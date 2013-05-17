@@ -8,13 +8,13 @@ import com.amazonaws.services.s3.AmazonS3Client;
 
 public class TreeContext {
 
-	public static final long DEFAULT_PREFIX_COUNT_ESTIMATE = 100;
+	public static final long DEFAULT_PREFIX_ESTIMATE = 100;
 	public static final String DEFAULT_DELIMITER = "/";
 	public static final String DEFAULT_CACHE_CONTROL = "max-age=3600, must-revalidate";
 	public static final List<String> DEFAULT_WELCOME_FILES = Arrays.asList("index.html", "welcome.html", "portal.html");
 
 	String delimiter = DEFAULT_DELIMITER;
-	long prefixEstimate = DEFAULT_PREFIX_COUNT_ESTIMATE;
+	long prefixEstimate = DEFAULT_PREFIX_ESTIMATE;
 	List<String> welcomeFiles = new ArrayList<String>(DEFAULT_WELCOME_FILES);
 	AmazonS3Client client;
 	String bucket;

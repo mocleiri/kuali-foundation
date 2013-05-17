@@ -30,7 +30,7 @@ public class DefaultAmazonS3ServiceTest {
 			if (System.getProperty("s3.prefix") != null) {
 				prefix = System.getProperty("s3.prefix");
 			}
-			long prefixEstimate = TreeContext.DEFAULT_PREFIX_COUNT_ESTIMATE;
+			long prefixEstimate = TreeContext.DEFAULT_PREFIX_ESTIMATE;
 			if (System.getProperty("s3.prefixEstimate") != null) {
 				prefixEstimate = Long.parseLong(System.getProperty("s3.prefixEstimate"));
 			}
