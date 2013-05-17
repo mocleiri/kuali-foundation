@@ -45,7 +45,7 @@ public class CloudFrontHtml {
 	 * If delimiter is "/" and prefix is "foo/bar" return "/foo/bar"<br>
 	 * If delimiter is "/" and prefix is "foo/bar/" return "/foo/bar"
 	 */
-	protected static String getDirectory(final String prefix, final String delimiter) {
+	protected static String getDirectory(String prefix, String delimiter) {
 		if (prefix == null) {
 			return delimiter;
 		}
@@ -118,7 +118,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate html representing the contents of one table cell
 	 */
-	protected static String getTableCell(final String content, final ColumnDecorator decorator) {
+	protected static String getTableCell(String content, ColumnDecorator decorator) {
 		Tag td = new Tag("td", decorator.getTableDataClass());
 		return HtmlUtils.getTag(td, content);
 	}
@@ -126,14 +126,14 @@ public class CloudFrontHtml {
 	/**
 	 * Return true if the Collection is null or contains no entries, false otherwise
 	 */
-	protected static boolean isEmpty(final Collection<?> c) {
+	protected static boolean isEmpty(Collection<?> c) {
 		return c == null || c.size() == 0;
 	}
 
 	/**
 	 * Alternate the styling of each row
 	 */
-	protected static Tag getTableRowTag(final int row) {
+	protected static Tag getTableRowTag(int row) {
 		if ((row % 2) == 0) {
 			return new Tag("tr", "table-tr-odd");
 		} else {
@@ -144,7 +144,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate an html table row for the String[]
 	 */
-	protected static String getTableRow(final int row, final String[] data, final List<ColumnDecorator> columnDecorators) {
+	protected static String getTableRow(int row, String[] data, List<ColumnDecorator> columnDecorators) {
 		StringBuffer sb = new StringBuffer();
 		Tag tr = getTableRowTag(row);
 		sb.append(HtmlUtils.openTag(tr));
@@ -158,7 +158,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate a table row for each String[] in the list
 	 */
-	protected static String getTableRows(final List<String[]> data, final List<ColumnDecorator> columnDecorators) {
+	protected static String getTableRows(List<String[]> data, List<ColumnDecorator> columnDecorators) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < data.size(); i++) {
 			sb.append(getTableRow(i, data.get(i), columnDecorators));
@@ -169,7 +169,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate the html for the th tags from a list of ColumnDecorator objects
 	 */
-	protected static String getTableHeaders(final List<ColumnDecorator> columnDecorators) {
+	protected static String getTableHeaders(List<ColumnDecorator> columnDecorators) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < columnDecorators.size(); i++) {
 			ColumnDecorator decorator = columnDecorators.get(i);
@@ -184,7 +184,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate the table representing a directory listing
 	 */
-	protected static String getHtmlTable(final List<String[]> data, final List<ColumnDecorator> columnDecorators) {
+	protected static String getHtmlTable(List<String[]> data, List<ColumnDecorator> columnDecorators) {
 		if (isEmpty(data)) {
 			return "";
 		}
