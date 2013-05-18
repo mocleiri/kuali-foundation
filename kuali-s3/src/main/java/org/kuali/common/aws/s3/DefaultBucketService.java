@@ -32,9 +32,12 @@ public class DefaultBucketService implements BucketService {
 			logger.info("Listing Objects - [s3://{}{}{}]", args);
 			context.getInformer().start();
 		}
+		long start = System.currentTimeMillis();
 		List<ObjectListing> listings = getObjectListing(context);
 		if (context.getInformer() != null) {
 			context.getInformer().stop();
+			String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
+			String count = FormatUtils.getCount(listings.size());
 		}
 		return listings;
 	}
