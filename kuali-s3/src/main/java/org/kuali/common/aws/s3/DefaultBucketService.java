@@ -7,7 +7,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +30,13 @@ public class DefaultBucketService implements BucketService {
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
 		logger.info("[s3://{}{}{}] - building tree", args);
-		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixEstimate());
-		informer.start();
-		List<ObjectListing> listings = listObjects(context, informer);
-		informer.stop();
+		if (context.getInformer() != null) {
+			context.getInformer().start();
+		}
+		List<ObjectListing> listings = getObjectListing(context);
+		if (context.getInformer() != null) {
+			context.getInformer().stop();
+		}
 		return listings;
 	}
 
@@ -66,26 +68,30 @@ public class DefaultBucketService implements BucketService {
 	}
 
 	/**
-	 * Recurse the bucket starting at <code>prefix</code> acquiring an <code>ObjectListing</code> for each prefix along the way.
+	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecurse()=true</code>, all sub-directories are searched as well.
 	 */
-	protected List<ObjectListing> listObjects(BucketContext context, PercentCompleteInformer informer) {
+	protected List<ObjectListing> getObjectListing(BucketContext context) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context, prefix);
 		ObjectListing listing = client.listObjects(request);
-		informer.incrementProgress();
+		if (context.getInformer() != null) {
+			context.getInformer().incrementProgress();
+		}
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 		listings.add(listing);
 		for (String commonPrefix : commonPrefixes) {
 			if (isRecurse(context, commonPrefix)) {
 				BucketContext clone = clone(context, commonPrefix);
-				List<ObjectListing> children = listObjects(clone, informer);
+				List<ObjectListing> children = getObjectListing(clone);
 				listings.addAll(children);
 			} else {
 				ListObjectsRequest childRequest = getListObjectsRequest(context, commonPrefix);
 				ObjectListing childListing = client.listObjects(childRequest);
-				informer.incrementProgress();
+				if (context.getInformer() != null) {
+					context.getInformer().incrementProgress();
+				}
 				listings.add(childListing);
 			}
 		}

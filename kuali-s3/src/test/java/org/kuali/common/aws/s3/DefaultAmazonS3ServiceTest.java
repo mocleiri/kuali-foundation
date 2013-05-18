@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +45,7 @@ public class DefaultAmazonS3ServiceTest {
 			context.setBucket(bucket);
 			context.setExcludes(excludes);
 			context.setPrefix(prefix);
-			context.setPrefixEstimate(prefixEstimate);
+			context.setInformer(new PercentCompleteInformer(prefixEstimate));
 
 			BucketService service = new DefaultBucketService();
 

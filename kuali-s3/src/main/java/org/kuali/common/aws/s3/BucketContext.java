@@ -12,7 +12,6 @@ public class BucketContext {
 	public static final String DEFAULT_DELIMITER = "/";
 
 	String delimiter = DEFAULT_DELIMITER;
-	long prefixEstimate = DEFAULT_PREFIX_ESTIMATE;
 	AmazonS3Client client;
 	String bucket;
 	String prefix;
@@ -67,14 +66,6 @@ public class BucketContext {
 
 	public void setExcludes(List<String> excludes) {
 		this.excludes = excludes;
-	}
-
-	public long getPrefixEstimate() {
-		return prefixEstimate;
-	}
-
-	public void setPrefixEstimate(long prefixCountEstimate) {
-		this.prefixEstimate = prefixCountEstimate;
 	}
 
 	public boolean isRecursive() {
