@@ -113,6 +113,7 @@ public class DefaultBucketService implements BucketService {
 
 			// Add the aggregated child list to our overall list
 			listings.addAll(children);
+
 		} else {
 
 			// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
