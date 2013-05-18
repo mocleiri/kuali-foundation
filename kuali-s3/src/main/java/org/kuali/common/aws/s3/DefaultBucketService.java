@@ -125,8 +125,7 @@ public class DefaultBucketService implements BucketService {
 	}
 
 	/**
-	 * If <code>prefix</code> does not end with <code>delimiter</code>, append <code>delimiter</code> to <code>prefix</code>. If <code>prefix</code> is blank or
-	 * <code>prefix==delimiter</code> return <code>null</code>
+	 * If <code>prefix</code> does not end with <code>delimiter</code>, append it. If <code>prefix</code> is blank or <code>prefix==delimiter</code> return <code>null</code>
 	 */
 	protected String getPrefix(String prefix, String delimiter) {
 		if (StringUtils.isBlank(prefix) || StringUtils.equals(prefix, delimiter)) {
