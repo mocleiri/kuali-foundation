@@ -44,28 +44,28 @@ public class DefaultBucketService implements BucketService {
 	/**
 	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecursive()=true</code>, all sub-directories are searched as well.
 	 */
-	protected List<ObjectListing> getObjectListing(ObjectListingRequest context) {
-		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
-		ListObjectsRequest request = getListObjectsRequest(context, prefix);
-		ObjectListing listing = context.getClient().listObjects(request);
+	protected List<ObjectListing> getObjectListing(ObjectListingRequest request) {
+		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
+		ListObjectsRequest lor = getListObjectsRequest(request, prefix);
+		ObjectListing listing = request.getClient().listObjects(lor);
 		Assert.isFalse(listing.isTruncated(), "listing is truncated");
-		if (context.getInformer() != null) {
-			context.getInformer().incrementProgress();
+		if (request.getInformer() != null) {
+			request.getInformer().incrementProgress();
 		}
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 		listings.add(listing);
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
-			if (isRecurse(context, commonPrefix)) {
-				ObjectListingRequest clone = clone(context, commonPrefix);
+			if (isRecurse(request, commonPrefix)) {
+				ObjectListingRequest clone = clone(request, commonPrefix);
 				List<ObjectListing> children = getObjectListing(clone);
 				listings.addAll(children);
 			} else {
-				ListObjectsRequest childRequest = getListObjectsRequest(context, commonPrefix);
-				ObjectListing childListing = context.getClient().listObjects(childRequest);
+				ListObjectsRequest childRequest = getListObjectsRequest(request, commonPrefix);
+				ObjectListing childListing = request.getClient().listObjects(childRequest);
 				Assert.isFalse(listing.isTruncated(), "listing is truncated");
-				if (context.getInformer() != null) {
-					context.getInformer().incrementProgress();
+				if (request.getInformer() != null) {
+					request.getInformer().incrementProgress();
 				}
 				listings.add(childListing);
 			}
@@ -104,35 +104,35 @@ public class DefaultBucketService implements BucketService {
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
-	protected boolean isExclude(ObjectListingRequest context, String prefix) {
-		for (String exclude : CollectionUtils.toEmptyList(context.getExcludes())) {
-			if (isMatch(prefix, exclude, context.getDelimiter())) {
+	protected boolean isExclude(ObjectListingRequest request, String prefix) {
+		for (String exclude : CollectionUtils.toEmptyList(request.getExcludes())) {
+			if (isMatch(prefix, exclude, request.getDelimiter())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	protected boolean isInclude(ObjectListingRequest context, String prefix) {
-		if (CollectionUtils.isEmpty(context.getIncludes())) {
+	protected boolean isInclude(ObjectListingRequest request, String prefix) {
+		if (CollectionUtils.isEmpty(request.getIncludes())) {
 			return true;
 		}
-		for (String include : context.getIncludes()) {
-			if (isMatch(prefix, include, context.getDelimiter())) {
+		for (String include : request.getIncludes()) {
+			if (isMatch(prefix, include, request.getDelimiter())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	protected boolean isRecurse(ObjectListingRequest context, String prefix) {
-		return context.isRecursive() && !isExclude(context, prefix) && isInclude(context, prefix);
+	protected boolean isRecurse(ObjectListingRequest request, String prefix) {
+		return request.isRecursive() && !isExclude(request, prefix) && isInclude(request, prefix);
 	}
 
-	protected ObjectListingRequest clone(ObjectListingRequest context, String prefix) {
+	protected ObjectListingRequest clone(ObjectListingRequest request, String prefix) {
 		ObjectListingRequest clone = new ObjectListingRequest();
 		try {
-			BeanUtils.copyProperties(clone, context);
+			BeanUtils.copyProperties(clone, request);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
@@ -140,8 +140,8 @@ public class DefaultBucketService implements BucketService {
 		return clone;
 	}
 
-	protected ListObjectsRequest getListObjectsRequest(ObjectListingRequest context, String prefix) {
-		return getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
+	protected ListObjectsRequest getListObjectsRequest(ObjectListingRequest request, String prefix) {
+		return getListObjectsRequest(request.getBucket(), prefix, request.getDelimiter(), null);
 	}
 
 	protected ListObjectsRequest getListObjectsRequest(String bucket, String prefix, String delimiter, Integer maxKeys) {
