@@ -16,41 +16,39 @@
 package org.kuali.common.util.html;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Counter;
 
 /**
  * Utility methods for generating html
  */
 public class HtmlUtils {
 
-	// TODO Holy crap this is awful
-	private static int indent = 0;
-
-	public static String getIndentedContent(String content) {
-		return getIndent() + content;
+	public static String getIndentedContent(String content, Counter indent) {
+		return getIndent(indent) + content;
 	}
 
-	public static String getIndent() {
-		return StringUtils.repeat(" ", indent);
+	public static String getIndent(Counter indent) {
+		return StringUtils.repeat(" ", indent.getValue());
 	}
 
 	/**
 	 * Return an HTML ahref tag
 	 */
-	public static String getHref(String dest, String show) {
-		return getIndent() + "<a href=\"" + dest + "\">" + show + "</a>";
+	public static String getHref(String dest, String show, Counter indent) {
+		return getIndent(indent) + "<a href=\"" + dest + "\">" + show + "</a>";
 	}
 
 	/**
 	 * Return an HTML img tag
 	 */
-	public static String getImage(String image) {
-		return getIndent() + "<img src=\"" + image + "\">";
+	public static String getImage(String image, Counter indent) {
+		return getIndent(indent) + "<img src=\"" + image + "\">";
 	}
 
-	public static String openTag(Tag tag) {
+	public static String openTag(Tag tag, Counter indent) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(getIndent());
-		indent++;
+		sb.append(getIndent(indent));
+		indent.increment();
 		sb.append("<" + tag.getName());
 		if (tag.getId() != null) {
 			sb.append(" id=\"" + tag.getId() + '"');
@@ -62,18 +60,18 @@ public class HtmlUtils {
 		return sb.toString();
 	}
 
-	public static String closeTag(Tag tag) {
-		indent--;
-		return getIndent() + "</" + tag.getName() + ">\n";
+	public static String closeTag(Tag tag, Counter indent) {
+		indent.decrement();
+		return getIndent(indent) + "</" + tag.getName() + ">\n";
 	}
 
-	public static String getTag(Tag tag, String content) {
+	public static String getTag(Tag tag, String content, Counter indent) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(openTag(tag));
-		sb.append(getIndent());
+		sb.append(openTag(tag, indent));
+		sb.append(getIndent(indent));
 		sb.append(content);
 		sb.append("\n");
-		sb.append(closeTag(tag));
+		sb.append(closeTag(tag, indent));
 		return sb.toString();
 	}
 }
