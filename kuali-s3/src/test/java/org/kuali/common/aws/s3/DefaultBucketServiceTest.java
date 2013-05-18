@@ -28,18 +28,22 @@ public class DefaultBucketServiceTest {
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
 
-			ObjectListingRequest context = new ObjectListingRequest();
-			context.setClient(client);
-			context.setBucket(bucket);
-			context.setExcludes(excludes);
-			context.setPrefix(prefix);
-			context.setInformer(new PercentCompleteInformer(prefixEstimate));
-			context.setRecursive(true);
+			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate);
+			informer.setStartMessage("Object Listing Request - [s3://{}{}{}]");
+			informer.setStartMessageArgs(new Object[] { bucket, ObjectListingRequest.DEFAULT_DELIMITER, prefix });
+
+			ObjectListingRequest request = new ObjectListingRequest();
+			request.setClient(client);
+			request.setBucket(bucket);
+			request.setExcludes(excludes);
+			request.setPrefix(prefix);
+			request.setInformer(informer);
+			request.setRecursive(true);
 
 			BucketService service = new DefaultBucketService();
 
-			List<ObjectListing> listings = service.getObjectListings(context);
-			for (ObjectListing listing : listings) {
+			ObjectListingResult result = service.getObjectListings(request);
+			for (ObjectListing listing : result.getListings()) {
 				showListing(listing);
 			}
 		} catch (Exception e) {
