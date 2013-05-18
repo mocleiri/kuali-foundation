@@ -15,7 +15,6 @@ import org.springframework.util.Assert;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class DefaultBucketService implements BucketService {
 
@@ -40,32 +39,6 @@ public class DefaultBucketService implements BucketService {
 		return listings;
 	}
 
-	/**
-	 * An <code>ObjectListing</code> is the equivalent of typing <code>ls</code> in a directory on a file system.
-	 */
-	protected String getWelcomeFileKey(ObjectListing listing, List<String> welcomeFiles) {
-		// Cycle through the list of files in this directory
-		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
-			String welcomeFileKey = getWelcomeFileKey(listing, summary, welcomeFiles);
-			if (welcomeFileKey != null) {
-				return welcomeFileKey;
-			}
-		}
-		return null;
-	}
-
-	protected String getWelcomeFileKey(ObjectListing listing, S3ObjectSummary summary, List<String> welcomeFiles) {
-		// Cycle through the list of welcome files
-		for (String welcomeFile : welcomeFiles) {
-			// Append the welcome file name to the key for this directory
-			String welcomeFileKey = listing.getPrefix() + welcomeFile;
-			// We found a welcome file for this directory
-			if (StringUtils.equals(summary.getKey(), welcomeFileKey)) {
-				return welcomeFileKey;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecurse()=true</code>, all sub-directories are searched as well.
