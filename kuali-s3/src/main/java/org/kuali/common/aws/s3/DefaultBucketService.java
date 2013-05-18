@@ -108,7 +108,7 @@ public class DefaultBucketService implements BucketService {
 				ObjectListing childListing = request.getClient().listObjects(childRequest);
 
 				// Make sure the listing isn't truncated (< 1000 objects)
-				Assert.isFalse(listing.isTruncated(), "listing is truncated");
+				Assert.isFalse(childListing.isTruncated(), "listing is truncated");
 
 				// Increment progress on the informer, if they supplied one
 				if (request.getInformer() != null) {
