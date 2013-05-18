@@ -37,7 +37,7 @@ public class DefaultBucketService implements BucketService {
 		long start = System.currentTimeMillis();
 
 		// Connect to Amazon's S3 service and collect summary information about objects in our S3 bucket
-		// This can be a recursive and take a while
+		// This can be recursive and take a while
 		List<ObjectListing> listings = getObjectListing(request);
 
 		// Preserve our stop time
