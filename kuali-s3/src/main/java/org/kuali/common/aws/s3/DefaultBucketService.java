@@ -7,7 +7,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,7 @@ public class DefaultBucketService implements BucketService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
-	public List<ObjectListing> getObjectListings(ObjectListingRequest request) {
+	public ObjectListingResult getObjectListings(ObjectListingRequest request) {
 		Assert.notNull(request.getClient(), "client is null");
 		Assert.hasText(request.getDelimiter(), "delimiter has no text");
 		Assert.hasText(request.getBucket(), "bucket has no text");
@@ -35,12 +34,13 @@ public class DefaultBucketService implements BucketService {
 		List<ObjectListing> listings = getObjectListing(request);
 		if (request.getInformer() != null) {
 			request.getInformer().stop();
-			String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
-			String count = FormatUtils.getCount(listings.size());
-			Object[] args = { count, elapsed };
-			logger.info("Object Listings - [count:{} elapsed:{}]", args);
 		}
-		return listings;
+		ObjectListingResult result = new ObjectListingResult();
+		result.setListings(listings);
+		result.setStartTime(start);
+		result.setStopTime(System.currentTimeMillis());
+		result.setElapsed(result.getStopTime() - result.getStartTime());
+		return result;
 	}
 
 	/**

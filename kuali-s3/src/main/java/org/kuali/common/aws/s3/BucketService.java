@@ -1,14 +1,11 @@
 package org.kuali.common.aws.s3;
 
-import java.util.List;
-
-import com.amazonaws.services.s3.model.ObjectListing;
 
 public interface BucketService {
 
 	/**
-	 * Return a list of ObjectListings representing the contents of a bucket.
+	 * Examine an S3 bucket and return ObjectListings
 	 */
-	List<ObjectListing> getObjectListings(ObjectListingRequest context);
+	ObjectListingResult getObjectListings(ObjectListingRequest request);
 
 }
