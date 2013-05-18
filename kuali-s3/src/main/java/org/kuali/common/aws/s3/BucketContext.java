@@ -2,6 +2,8 @@ package org.kuali.common.aws.s3;
 
 import java.util.List;
 
+import org.kuali.common.util.PercentCompleteInformer;
+
 import com.amazonaws.services.s3.AmazonS3Client;
 
 public class BucketContext {
@@ -17,6 +19,7 @@ public class BucketContext {
 	List<String> includes;
 	List<String> excludes;
 	boolean recursive;
+	PercentCompleteInformer informer;
 
 	public AmazonS3Client getClient() {
 		return client;
@@ -80,6 +83,14 @@ public class BucketContext {
 
 	public void setRecursive(boolean recursive) {
 		this.recursive = recursive;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(PercentCompleteInformer informer) {
+		this.informer = informer;
 	}
 
 }
