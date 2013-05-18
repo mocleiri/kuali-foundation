@@ -38,7 +38,7 @@ public class DefaultBucketService implements BucketService {
 			context.getInformer().stop();
 			String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 			String count = FormatUtils.getCount(listings.size());
-			Object[] args = { elapsed, count };
+			Object[] args = { count, elapsed };
 			logger.info("Object Listing Summary - [count:{} time:{}]", args);
 		}
 		return listings;

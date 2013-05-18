@@ -38,7 +38,7 @@ public class DefaultAmazonS3ServiceTest {
 			BucketService service = new DefaultBucketService();
 
 			List<ObjectListing> listings = service.listObjects(context);
-			logger.info("listings.size()={}", listings.size());
+			logger.debug("listings.size={}", listings.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
