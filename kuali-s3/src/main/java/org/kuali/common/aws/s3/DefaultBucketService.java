@@ -57,14 +57,7 @@ public class DefaultBucketService implements BucketService {
 		return result;
 	}
 
-	/**
-	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
-	 */
-	protected List<ObjectListing> accumulateObjectListings(ObjectListingRequest request) {
-
-		// Append delimiter to prefix if needed
-		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
-
+	protected ObjectListing getObjectListing(ObjectListingRequest request, String prefix) {
 		// Create an Amazon request
 		ListObjectsRequest lor = getListObjectsRequest(request, prefix);
 
@@ -79,8 +72,21 @@ public class DefaultBucketService implements BucketService {
 			request.getInformer().incrementProgress();
 		}
 
+		return listing;
+	}
+
+	/**
+	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
+	 */
+	protected List<ObjectListing> accumulateObjectListings(ObjectListingRequest request) {
+
+		// Append delimiter to prefix if needed
+		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
+
 		// Setup some storage for our Object listings
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
+
+		ObjectListing listing = getObjectListing(request, prefix);
 
 		// Add the current ObjectListing to the list
 		listings.add(listing);
@@ -102,21 +108,10 @@ public class DefaultBucketService implements BucketService {
 			} else {
 
 				// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
-				ListObjectsRequest childRequest = getListObjectsRequest(request, subDirectory);
-
-				// Connect to S3 and collect information about this "sub-directory"
-				ObjectListing childListing = request.getClient().listObjects(childRequest);
-
-				// Make sure the listing isn't truncated (< 1000 objects)
-				Assert.isFalse(childListing.isTruncated(), "listing is truncated");
-
-				// Increment progress on the informer, if they supplied one
-				if (request.getInformer() != null) {
-					request.getInformer().incrementProgress();
-				}
+				ObjectListing subDirectoryListing = getObjectListing(request, subDirectory);
 
 				// Add the "sub-directory" listing to the overall list
-				listings.add(childListing);
+				listings.add(subDirectoryListing);
 			}
 		}
 
