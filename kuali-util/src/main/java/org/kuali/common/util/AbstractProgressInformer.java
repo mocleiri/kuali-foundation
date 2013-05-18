@@ -17,10 +17,16 @@ package org.kuali.common.util;
 
 import java.io.PrintStream;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Print a dot to the console each time we make progress
  */
 public abstract class AbstractProgressInformer {
+
+	private static final Logger logger = LoggerFactory.getLogger(AbstractProgressInformer.class);
 
 	protected long progress;
 
@@ -28,6 +34,8 @@ public abstract class AbstractProgressInformer {
 	String startToken = "[INFO] Progress: ";
 	String progressToken = ".";
 	String completeToken = "\n";
+	String startMessage;
+	String stopMessage;
 
 	/**
 	 * Thread safe method exposing the current progress
@@ -40,6 +48,9 @@ public abstract class AbstractProgressInformer {
 	 * Print the start token
 	 */
 	public void start() {
+		if (!StringUtils.isBlank(startMessage)) {
+			logger.info(startMessage);
+		}
 
 		Assert.notNull(printStream, "printStream is null");
 		this.progress = 0;
@@ -52,6 +63,10 @@ public abstract class AbstractProgressInformer {
 	 */
 	public void stop() {
 		printStream.print(completeToken);
+
+		if (!StringUtils.isBlank(stopMessage)) {
+			logger.info(stopMessage);
+		}
 	}
 
 	public PrintStream getPrintStream() {
@@ -84,6 +99,22 @@ public abstract class AbstractProgressInformer {
 
 	public void setProgressToken(String progressToken) {
 		this.progressToken = progressToken;
+	}
+
+	public String getStartMessage() {
+		return startMessage;
+	}
+
+	public void setStartMessage(String startMessage) {
+		this.startMessage = startMessage;
+	}
+
+	public String getStopMessage() {
+		return stopMessage;
+	}
+
+	public void setStopMessage(String stopMessage) {
+		this.stopMessage = stopMessage;
 	}
 
 }
