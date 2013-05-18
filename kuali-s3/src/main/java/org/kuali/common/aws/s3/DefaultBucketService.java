@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
@@ -66,6 +66,7 @@ public class DefaultBucketService implements BucketService {
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context, prefix);
 		ObjectListing listing = client.listObjects(request);
+		Assert.isFalse(listing.isTruncated(), "listing is truncated");
 		if (context.getInformer() != null) {
 			context.getInformer().incrementProgress();
 		}
