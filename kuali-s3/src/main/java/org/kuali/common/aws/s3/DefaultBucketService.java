@@ -20,21 +20,21 @@ public class DefaultBucketService implements BucketService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
-	public List<ObjectListing> getObjectListings(ObjectListingRequest context) {
-		Assert.notNull(context.getClient(), "client is null");
-		Assert.hasText(context.getDelimiter(), "delimiter has no text");
-		Assert.hasText(context.getBucket(), "bucket has no text");
-		boolean exists = context.getClient().doesBucketExist(context.getBucket());
-		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
-		if (context.getInformer() != null) {
-			Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
+	public List<ObjectListing> getObjectListings(ObjectListingRequest request) {
+		Assert.notNull(request.getClient(), "client is null");
+		Assert.hasText(request.getDelimiter(), "delimiter has no text");
+		Assert.hasText(request.getBucket(), "bucket has no text");
+		boolean exists = request.getClient().doesBucketExist(request.getBucket());
+		Assert.isTrue(exists, "bucket [" + request.getBucket() + "] does not exist");
+		if (request.getInformer() != null) {
+			Object[] args = { request.getBucket(), request.getDelimiter(), Str.toEmpty(request.getPrefix()) };
 			logger.info("Listing Objects - [s3://{}{}{}]", args);
-			context.getInformer().start();
+			request.getInformer().start();
 		}
 		long start = System.currentTimeMillis();
-		List<ObjectListing> listings = getObjectListing(context);
-		if (context.getInformer() != null) {
-			context.getInformer().stop();
+		List<ObjectListing> listings = getObjectListing(request);
+		if (request.getInformer() != null) {
+			request.getInformer().stop();
 			String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 			String count = FormatUtils.getCount(listings.size());
 			Object[] args = { count, elapsed };
