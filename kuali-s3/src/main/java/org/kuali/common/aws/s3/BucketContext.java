@@ -16,6 +16,7 @@ public class BucketContext {
 	String prefix;
 	List<String> includes;
 	List<String> excludes;
+	boolean recursive;
 
 	public AmazonS3Client getClient() {
 		return client;
@@ -71,6 +72,14 @@ public class BucketContext {
 
 	public void setPrefixEstimate(long prefixCountEstimate) {
 		this.prefixEstimate = prefixCountEstimate;
+	}
+
+	public boolean isRecursive() {
+		return recursive;
+	}
+
+	public void setRecursive(boolean recursive) {
+		this.recursive = recursive;
 	}
 
 }
