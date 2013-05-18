@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectListing;
 
 public class DefaultAmazonS3ServiceTest {
 
@@ -33,10 +34,12 @@ public class DefaultAmazonS3ServiceTest {
 			context.setExcludes(excludes);
 			context.setPrefix(prefix);
 			context.setInformer(new PercentCompleteInformer(prefixEstimate));
+			context.setRecursive(true);
 
 			BucketService service = new DefaultBucketService();
 
-			service.listObjects(context);
+			List<ObjectListing> listings = service.listObjects(context);
+			logger.info("listings.size()={}", listings.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
