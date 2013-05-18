@@ -28,8 +28,8 @@ public class DefaultBucketService implements BucketService {
 		boolean exists = context.getClient().doesBucketExist(context.getBucket());
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
-		logger.info("Listing Objects - [s3://{}{}{}]", args);
 		if (context.getInformer() != null) {
+			logger.info("Listing Objects - [s3://{}{}{}]", args);
 			context.getInformer().start();
 		}
 		List<ObjectListing> listings = getObjectListing(context);
