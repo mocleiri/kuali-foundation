@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.ObjectListing;
 public interface BucketService {
 
 	/**
-	 * Examine an S3 bucket as dictated by <code>context</code>
+	 * Return a list of ObjectListings representing the contents of a bucket.
 	 */
 	List<ObjectListing> getObjectListings(BucketContext context);
 
