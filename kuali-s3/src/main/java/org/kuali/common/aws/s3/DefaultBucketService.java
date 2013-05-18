@@ -38,7 +38,7 @@ public class DefaultBucketService implements BucketService {
 
 		// Connect to Amazon's S3 service and collect summary information about objects in our S3 bucket
 		// This can be recursive and take a while
-		List<ObjectListing> listings = getObjectListing(request);
+		List<ObjectListing> listings = accumulateObjectListings(request);
 
 		// Preserve our stop time
 		long stop = System.currentTimeMillis();
@@ -60,7 +60,7 @@ public class DefaultBucketService implements BucketService {
 	/**
 	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
-	protected List<ObjectListing> getObjectListing(ObjectListingRequest request) {
+	protected List<ObjectListing> accumulateObjectListings(ObjectListingRequest request) {
 
 		// Append delimiter to prefix if needed
 		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
@@ -95,7 +95,7 @@ public class DefaultBucketService implements BucketService {
 				ObjectListingRequest clone = clone(request, subDirectory);
 
 				// Recurse in order to accumulate all ObjectListing's under this one
-				List<ObjectListing> children = getObjectListing(clone);
+				List<ObjectListing> children = accumulateObjectListings(clone);
 
 				// Add the aggregated child list to our overall list
 				listings.addAll(children);
