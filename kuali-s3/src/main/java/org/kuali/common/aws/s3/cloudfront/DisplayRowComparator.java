@@ -20,9 +20,9 @@ import java.util.Comparator;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Provide non-alphanumeric sorting for version numbers.
+ * Sort version numbers in the correct order.
  * 
- * 1.1.10 sorts after 1.1.2<br>
+ * 1.1.10 sorts before 1.1.2<br>
  * 1.1.10-SNAPSHOT sorts before 1.1.10
  */
 public class DisplayRowComparator implements Comparator<DisplayRow> {
@@ -65,13 +65,7 @@ public class DisplayRowComparator implements Comparator<DisplayRow> {
 			}
 		}
 
-		if (tokens1.length > tokens2.length) {
-			return -1;
-		} else if (tokens1.length < tokens2.length) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return tokens1.length - tokens2.length;
 	}
 
 	protected int compareTokens(String token1, String token2) {
