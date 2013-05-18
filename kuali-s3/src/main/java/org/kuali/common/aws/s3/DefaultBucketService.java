@@ -96,7 +96,7 @@ public class DefaultBucketService implements BucketService {
 				// Recurse in order to accumulate all ObjectListing's under this one
 				List<ObjectListing> children = getObjectListing(clone);
 
-				// Add them to our list
+				// Add the aggregated child list to our overall list
 				listings.addAll(children);
 			} else {
 
