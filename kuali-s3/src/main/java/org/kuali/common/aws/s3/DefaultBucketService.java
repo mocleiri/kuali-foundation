@@ -28,7 +28,7 @@ public class DefaultBucketService implements BucketService {
 		boolean exists = context.getClient().doesBucketExist(context.getBucket());
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
 		Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
-		logger.info("[s3://{}{}{}] - building tree", args);
+		logger.info("Listing Objects - [s3://{}{}{}]", args);
 		if (context.getInformer() != null) {
 			context.getInformer().start();
 		}
@@ -39,9 +39,8 @@ public class DefaultBucketService implements BucketService {
 		return listings;
 	}
 
-
 	/**
-	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecurse()=true</code>, all sub-directories are searched as well.
+	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecursive()=true</code>, all sub-directories are searched as well.
 	 */
 	protected List<ObjectListing> getObjectListing(BucketContext context) {
 		AmazonS3Client client = context.getClient();
