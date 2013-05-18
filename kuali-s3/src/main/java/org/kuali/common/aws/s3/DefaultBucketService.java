@@ -61,31 +61,65 @@ public class DefaultBucketService implements BucketService {
 	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecursive()=true</code>, all sub-directories are searched as well.
 	 */
 	protected List<ObjectListing> getObjectListing(ObjectListingRequest request) {
+		// Make sure prefix always ends with delimiter
 		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
+
+		// Create an Amazon request
 		ListObjectsRequest lor = getListObjectsRequest(request, prefix);
+
+		// Connect to S3 and extract the object listing
 		ObjectListing listing = request.getClient().listObjects(lor);
+
+		// Make sure it isn't truncated (< 1000 objects total)
 		Assert.isFalse(listing.isTruncated(), "listing is truncated");
+
+		// Increment progress on the informer, if they supplied one
 		if (request.getInformer() != null) {
 			request.getInformer().incrementProgress();
 		}
+
+		// Setup some storage for our Object listings
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
+
+		// Add the current ObjectListing to the list
 		listings.add(listing);
-		List<String> commonPrefixes = listing.getCommonPrefixes();
-		for (String commonPrefix : commonPrefixes) {
-			if (isRecurse(request, commonPrefix)) {
-				ObjectListingRequest clone = clone(request, commonPrefix);
+
+		// Examine the "sub-directories"
+		for (String subDirectory : listing.getCommonPrefixes()) {
+
+			// Determine if we are recursing into this "sub-directory"
+			if (isRecurse(request, subDirectory)) {
+
+				// If so, clone the existing request, but update the prefix
+				ObjectListingRequest clone = clone(request, subDirectory);
+
+				// Recurse in order to accumulate all ObjectListing's under this one
 				List<ObjectListing> children = getObjectListing(clone);
+
+				// Add them to our list
 				listings.addAll(children);
 			} else {
-				ListObjectsRequest childRequest = getListObjectsRequest(request, commonPrefix);
+
+				// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
+				ListObjectsRequest childRequest = getListObjectsRequest(request, subDirectory);
+
+				// Connect to S3 and collect information about this "sub-directory"
 				ObjectListing childListing = request.getClient().listObjects(childRequest);
+
+				// Make sure the listing isn't truncated (< 1000 objects)
 				Assert.isFalse(listing.isTruncated(), "listing is truncated");
+
+				// Increment progress on the informer, if they supplied one
 				if (request.getInformer() != null) {
 					request.getInformer().incrementProgress();
 				}
+
+				// Add the "sub-directory" listing to the overall list
 				listings.add(childListing);
 			}
 		}
+
+		// Return the aggregated list of ObjectListings
 		return listings;
 	}
 
