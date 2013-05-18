@@ -157,7 +157,7 @@ public class DefaultBucketService implements BucketService {
 	}
 
 	protected boolean isRecurse(BucketContext context, String prefix) {
-		return !isExclude(context, prefix) && isInclude(context, prefix);
+		return context.isRecursive() && !isExclude(context, prefix) && isInclude(context, prefix);
 	}
 
 	protected BucketContext clone(BucketContext context, String prefix) {
