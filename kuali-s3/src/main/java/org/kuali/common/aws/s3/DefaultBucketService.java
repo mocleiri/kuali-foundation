@@ -7,7 +7,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +25,7 @@ public class DefaultBucketService implements BucketService {
 		boolean exists = request.getClient().doesBucketExist(request.getBucket());
 		Assert.isTrue(exists, "bucket [" + request.getBucket() + "] does not exist");
 		if (request.getInformer() != null) {
-			Object[] args = { request.getBucket(), request.getDelimiter(), Str.toEmpty(request.getPrefix()) };
-			logger.info("Listing Objects - [s3://{}{}{}]", args);
+			logger.debug("starting informer");
 			request.getInformer().start();
 		}
 		long start = System.currentTimeMillis();
@@ -39,7 +37,7 @@ public class DefaultBucketService implements BucketService {
 		result.setListings(listings);
 		result.setStartTime(start);
 		result.setStopTime(System.currentTimeMillis());
-		result.setElapsed(result.getStopTime() - result.getStartTime());
+		result.setElapsed(result.getStopTime() - start);
 		return result;
 	}
 
