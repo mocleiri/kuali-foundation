@@ -46,7 +46,7 @@ public class DefaultAmazonS3ServiceTest {
 			context.setPrefix(prefix);
 			context.setPrefixEstimate(prefixEstimate);
 
-			AmazonS3Service service = new DefaultAmazonS3Service();
+			BucketService service = new DefaultBucketService();
 
 			service.getObjectListings(context);
 		} catch (Exception e) {

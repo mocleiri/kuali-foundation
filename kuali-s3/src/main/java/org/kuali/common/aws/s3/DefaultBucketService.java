@@ -18,9 +18,9 @@ import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-public class DefaultAmazonS3Service implements AmazonS3Service {
+public class DefaultBucketService implements BucketService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3Service.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
 	public List<ObjectListing> getObjectListings(BucketContext context) {

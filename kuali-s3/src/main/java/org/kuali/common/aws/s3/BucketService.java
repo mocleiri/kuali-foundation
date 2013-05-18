@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 
-public interface AmazonS3Service {
+public interface BucketService {
 
 	/**
 	 * Recursively examine a bucket starting at <code>prefix</code>. The list returned by this method contains an object listing for every "directory" and "sub-directory" rooted at
