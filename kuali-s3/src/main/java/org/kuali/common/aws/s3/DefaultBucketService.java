@@ -12,7 +12,6 @@ import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -62,17 +61,16 @@ public class DefaultBucketService implements BucketService {
 	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecursive()=true</code>, all sub-directories are searched as well.
 	 */
 	protected List<ObjectListing> getObjectListing(BucketContext context) {
-		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context, prefix);
-		ObjectListing listing = client.listObjects(request);
+		ObjectListing listing = context.getClient().listObjects(request);
 		Assert.isFalse(listing.isTruncated(), "listing is truncated");
 		if (context.getInformer() != null) {
 			context.getInformer().incrementProgress();
 		}
-		List<String> commonPrefixes = listing.getCommonPrefixes();
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 		listings.add(listing);
+		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
 			if (isRecurse(context, commonPrefix)) {
 				BucketContext clone = clone(context, commonPrefix);
@@ -80,7 +78,7 @@ public class DefaultBucketService implements BucketService {
 				listings.addAll(children);
 			} else {
 				ListObjectsRequest childRequest = getListObjectsRequest(context, commonPrefix);
-				ObjectListing childListing = client.listObjects(childRequest);
+				ObjectListing childListing = context.getClient().listObjects(childRequest);
 				Assert.isFalse(listing.isTruncated(), "listing is truncated");
 				if (context.getInformer() != null) {
 					context.getInformer().incrementProgress();
