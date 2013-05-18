@@ -14,24 +14,6 @@ public class DefaultAmazonS3ServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3ServiceTest.class);
 
-	protected AmazonS3Client getClient() {
-		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
-		String secretKey = System.getProperty("s3.secretKey");
-		return S3Utils.getInstance().getClient(accessKey, secretKey);
-	}
-
-	protected String getProperty(String key, String defaultValue) {
-		if (System.getProperty(key) != null) {
-			return System.getProperty(key);
-		} else {
-			return defaultValue;
-		}
-	}
-
-	protected long getLong(String key, long defaultValue) {
-		return Long.parseLong(getProperty(key, Long.toString(defaultValue)));
-	}
-
 	@Test
 	public void test() {
 		try {
@@ -59,4 +41,23 @@ public class DefaultAmazonS3ServiceTest {
 			e.printStackTrace();
 		}
 	}
+
+	protected AmazonS3Client getClient() {
+		String accessKey = "AKIAJFD5IM7IPVVUEBNA";
+		String secretKey = System.getProperty("s3.secretKey");
+		return S3Utils.getInstance().getClient(accessKey, secretKey);
+	}
+
+	protected String getProperty(String key, String defaultValue) {
+		if (System.getProperty(key) != null) {
+			return System.getProperty(key);
+		} else {
+			return defaultValue;
+		}
+	}
+
+	protected long getLong(String key, long defaultValue) {
+		return Long.parseLong(getProperty(key, Long.toString(defaultValue)));
+	}
+
 }
