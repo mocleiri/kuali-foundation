@@ -33,7 +33,7 @@ public class DefaultBucketService implements BucketService {
 		logger.info("[s3://{}{}{}] - building tree", args);
 		PercentCompleteInformer informer = new PercentCompleteInformer(context.getPrefixEstimate());
 		informer.start();
-		List<ObjectListing> listings = getObjectListings(context, informer);
+		List<ObjectListing> listings = listObjects(context, informer);
 		informer.stop();
 		return listings;
 	}
@@ -68,7 +68,7 @@ public class DefaultBucketService implements BucketService {
 	/**
 	 * Recurse the bucket starting at <code>prefix</code> acquiring an <code>ObjectListing</code> for each prefix along the way.
 	 */
-	protected List<ObjectListing> getObjectListings(BucketContext context, PercentCompleteInformer informer) {
+	protected List<ObjectListing> listObjects(BucketContext context, PercentCompleteInformer informer) {
 		AmazonS3Client client = context.getClient();
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context, prefix);
@@ -80,7 +80,7 @@ public class DefaultBucketService implements BucketService {
 		for (String commonPrefix : commonPrefixes) {
 			if (isRecurse(context, commonPrefix)) {
 				BucketContext clone = clone(context, commonPrefix);
-				List<ObjectListing> children = getObjectListings(clone, informer);
+				List<ObjectListing> children = listObjects(clone, informer);
 				listings.addAll(children);
 			} else {
 				ListObjectsRequest childRequest = getListObjectsRequest(context, commonPrefix);
