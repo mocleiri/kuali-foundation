@@ -51,7 +51,7 @@ public abstract class AbstractProgressInformer {
 	 */
 	public void start() {
 		if (!StringUtils.isBlank(startMessage)) {
-			logger.info(startMessage);
+			logger.info(startMessage, startMessageArgs);
 		}
 
 		Assert.notNull(printStream, "printStream is null");
@@ -67,7 +67,7 @@ public abstract class AbstractProgressInformer {
 		printStream.print(completeToken);
 
 		if (!StringUtils.isBlank(stopMessage)) {
-			logger.info(stopMessage);
+			logger.info(stopMessage, stopMessageArgs);
 		}
 	}
 
