@@ -86,6 +86,7 @@ public class DefaultBucketService implements BucketService {
 		// Setup some storage for our Object listings
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 
+		// Connect to S3 and obtain an ObjectListing for this prefix
 		ObjectListing listing = getObjectListing(request, prefix);
 
 		// Add the current ObjectListing to the list
@@ -93,30 +94,33 @@ public class DefaultBucketService implements BucketService {
 
 		// Examine the "sub-directories"
 		for (String subDirectory : listing.getCommonPrefixes()) {
-
-			// Determine if we are recursing into this "sub-directory"
-			if (isRecurse(request, subDirectory)) {
-
-				// If so, clone the existing request, but update the prefix
-				ObjectListingRequest clone = clone(request, subDirectory);
-
-				// Recurse in order to accumulate all ObjectListing's under this one
-				List<ObjectListing> children = accumulateObjectListings(clone);
-
-				// Add the aggregated child list to our overall list
-				listings.addAll(children);
-			} else {
-
-				// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
-				ObjectListing subDirectoryListing = getObjectListing(request, subDirectory);
-
-				// Add the "sub-directory" listing to the overall list
-				listings.add(subDirectoryListing);
-			}
+			doSubDirectory(request, subDirectory, listings);
 		}
 
 		// Return the aggregated list of ObjectListings
 		return listings;
+	}
+
+	protected void doSubDirectory(ObjectListingRequest request, String subDirectory, List<ObjectListing> listings) {
+		// Determine if we are recursing into this "sub-directory"
+		if (isRecurse(request, subDirectory)) {
+
+			// If so, clone the existing request, but update the prefix
+			ObjectListingRequest clone = clone(request, subDirectory);
+
+			// Recurse in order to accumulate all ObjectListing's under this one
+			List<ObjectListing> children = accumulateObjectListings(clone);
+
+			// Add the aggregated child list to our overall list
+			listings.addAll(children);
+		} else {
+
+			// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
+			ObjectListing subDirectoryListing = getObjectListing(request, subDirectory);
+
+			// Add the "sub-directory" listing to the overall list
+			listings.add(subDirectoryListing);
+		}
 	}
 
 	/**
