@@ -19,25 +19,41 @@ public class DefaultBucketService implements BucketService {
 
 	@Override
 	public ObjectListingResult getObjectListings(ObjectListingRequest request) {
+
+		// Make sure we are configured correctly
 		Assert.notNull(request.getClient(), "client is null");
 		Assert.hasText(request.getDelimiter(), "delimiter has no text");
 		Assert.hasText(request.getBucket(), "bucket has no text");
 		boolean exists = request.getClient().doesBucketExist(request.getBucket());
 		Assert.isTrue(exists, "bucket [" + request.getBucket() + "] does not exist");
+
+		// Start the informer, if they supplied one
 		if (request.getInformer() != null) {
 			logger.debug("starting informer");
 			request.getInformer().start();
 		}
+
+		// Preserve our start time
 		long start = System.currentTimeMillis();
+
+		// Connect to Amazon's S3 service and collect summary information about objects in our S3 bucket
+		// This can be a recursive and take a while
 		List<ObjectListing> listings = getObjectListing(request);
+
+		// Preserve our stop time
+		long stop = System.currentTimeMillis();
+
+		// Stop the informer, if they supplied one
 		if (request.getInformer() != null) {
 			request.getInformer().stop();
 		}
+
+		// Aggregate information about this request into a result object
 		ObjectListingResult result = new ObjectListingResult();
 		result.setListings(listings);
 		result.setStartTime(start);
-		result.setStopTime(System.currentTimeMillis());
-		result.setElapsed(result.getStopTime() - start);
+		result.setStopTime(stop);
+		result.setElapsed(stop - start);
 		return result;
 	}
 
