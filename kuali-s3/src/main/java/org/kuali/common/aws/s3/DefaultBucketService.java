@@ -81,6 +81,7 @@ public class DefaultBucketService implements BucketService {
 			} else {
 				ListObjectsRequest childRequest = getListObjectsRequest(context, commonPrefix);
 				ObjectListing childListing = client.listObjects(childRequest);
+				Assert.isFalse(listing.isTruncated(), "listing is truncated");
 				if (context.getInformer() != null) {
 					context.getInformer().incrementProgress();
 				}
