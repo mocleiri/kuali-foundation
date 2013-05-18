@@ -20,7 +20,7 @@ public class DefaultAmazonS3ServiceTest {
 			logger.debug("");
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
-			String prefix = getProperty("s3.prefix", "maven/plugins/maven-dnsme-plugin");
+			String prefix = getProperty("s3.prefix", "maven/plugins/maven-dnsme-plugin/1.0.0");
 			long prefixEstimate = getLong("s3.prefixEstimate", BucketContext.DEFAULT_PREFIX_ESTIMATE);
 
 			// String prefix = "rice/latest";
