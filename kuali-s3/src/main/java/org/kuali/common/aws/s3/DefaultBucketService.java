@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class DefaultBucketService implements BucketService {
 
@@ -39,9 +40,22 @@ public class DefaultBucketService implements BucketService {
 			String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 			String count = FormatUtils.getCount(listings.size());
 			Object[] args = { count, elapsed };
-			logger.info("Object Listing Summary - [count:{} time:{}]", args);
+			logger.info("Object Listings - [count:{} elapsed:{}]", args);
+			for (ObjectListing listing : listings) {
+				showListing(listing);
+			}
 		}
 		return listings;
+	}
+
+	protected void showListing(ObjectListing listing) {
+		logger.info(" *** [" + listing.getPrefix() + "] *** ");
+		for (String commonPrefix : listing.getCommonPrefixes()) {
+			logger.info("Directory: " + commonPrefix);
+		}
+		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+			logger.info("File: " + summary.getKey());
+		}
 	}
 
 	/**

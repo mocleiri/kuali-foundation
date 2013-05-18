@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectListing;
 
-public class DefaultAmazonS3ServiceTest {
+public class DefaultBucketServiceTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultAmazonS3ServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketServiceTest.class);
 
 	@Test
 	public void test() {
