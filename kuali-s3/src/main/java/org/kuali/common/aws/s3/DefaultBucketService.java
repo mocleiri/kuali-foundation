@@ -51,7 +51,7 @@ public class DefaultBucketService implements BucketService {
 	protected void showListing(ObjectListing listing) {
 		logger.info(" *** [" + listing.getPrefix() + "] *** ");
 		for (String commonPrefix : listing.getCommonPrefixes()) {
-			logger.info("Directory: " + commonPrefix);
+			logger.info(" Dir: " + commonPrefix);
 		}
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
 			logger.info("File: " + summary.getKey());
