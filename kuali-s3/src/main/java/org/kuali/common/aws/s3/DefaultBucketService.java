@@ -58,7 +58,7 @@ public class DefaultBucketService implements BucketService {
 	}
 
 	/**
-	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecursive()=true</code>, all sub-directories are searched as well.
+	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
 	protected List<ObjectListing> getObjectListing(ObjectListingRequest request) {
 		// Make sure prefix always ends with delimiter
