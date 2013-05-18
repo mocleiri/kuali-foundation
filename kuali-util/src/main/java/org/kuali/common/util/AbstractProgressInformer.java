@@ -35,7 +35,9 @@ public abstract class AbstractProgressInformer {
 	String progressToken = ".";
 	String completeToken = "\n";
 	String startMessage;
+	Object[] startMessageArgs;
 	String stopMessage;
+	Object[] stopMessageArgs;
 
 	/**
 	 * Thread safe method exposing the current progress
@@ -115,6 +117,22 @@ public abstract class AbstractProgressInformer {
 
 	public void setStopMessage(String stopMessage) {
 		this.stopMessage = stopMessage;
+	}
+
+	public Object[] getStartMessageArgs() {
+		return startMessageArgs;
+	}
+
+	public void setStartMessageArgs(Object[] startMessageArgs) {
+		this.startMessageArgs = startMessageArgs;
+	}
+
+	public Object[] getStopMessageArgs() {
+		return stopMessageArgs;
+	}
+
+	public void setStopMessageArgs(Object[] stopMessageArgs) {
+		this.stopMessageArgs = stopMessageArgs;
 	}
 
 }
