@@ -61,7 +61,8 @@ public class DefaultBucketService implements BucketService {
 	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
 	protected List<ObjectListing> getObjectListing(ObjectListingRequest request) {
-		// Make sure prefix always ends with delimiter
+
+		// Append delimiter to prefix if needed
 		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
 
 		// Create an Amazon request
