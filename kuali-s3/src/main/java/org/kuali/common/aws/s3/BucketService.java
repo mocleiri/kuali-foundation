@@ -10,6 +10,6 @@ public interface BucketService {
 	 * Recursively examine a bucket starting at <code>prefix</code>. The list returned by this method contains an object listing for every "directory" and "sub-directory" rooted at
 	 * <code>prefix</code>
 	 */
-	List<ObjectListing> getObjectListings(BucketContext context);
+	List<ObjectListing> listObjects(BucketContext context);
 
 }

@@ -23,7 +23,7 @@ public class DefaultBucketService implements BucketService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
-	public List<ObjectListing> getObjectListings(BucketContext context) {
+	public List<ObjectListing> listObjects(BucketContext context) {
 		Assert.notNull(context.getClient(), "client is null");
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");

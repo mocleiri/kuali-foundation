@@ -48,7 +48,7 @@ public class DefaultAmazonS3ServiceTest {
 
 			BucketService service = new DefaultBucketService();
 
-			service.getObjectListings(context);
+			service.listObjects(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
