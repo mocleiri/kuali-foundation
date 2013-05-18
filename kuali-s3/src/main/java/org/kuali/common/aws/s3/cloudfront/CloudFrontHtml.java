@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.kuali.common.util.Counter;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.html.HtmlUtils;
 import org.kuali.common.util.html.Tag;
@@ -76,6 +77,7 @@ public class CloudFrontHtml {
 	 * Generate the full html page
 	 */
 	public static String getDirectoryListing(List<String[]> data, String prefix, String delimiter, String css, String about) {
+		Counter indent = new Counter();
 		String directory = getDirectory(prefix, delimiter);
 
 		Tag html = new Tag("html");
@@ -90,37 +92,37 @@ public class CloudFrontHtml {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append(getDocType());
-		sb.append(HtmlUtils.openTag(html));
-		sb.append(HtmlUtils.getIndentedContent(getHtmlComment()));
-		sb.append(HtmlUtils.getTag(title, "Directory listing for " + directory));
-		sb.append(HtmlUtils.openTag(head));
-		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + css + "\" rel=\"stylesheet\" type=\"text/css\"/>\n"));
-		sb.append(HtmlUtils.getIndentedContent(getMeta()));
-		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript()));
-		sb.append(HtmlUtils.closeTag(head));
-		sb.append(HtmlUtils.openTag(body));
-		sb.append(HtmlUtils.openTag(div1));
-		sb.append(HtmlUtils.getTag(span1, "Directory listing for " + directory));
-		sb.append(HtmlUtils.closeTag(div1));
-		sb.append(HtmlUtils.getIndentedContent("<hr>\n"));
-		sb.append(HtmlUtils.openTag(div2));
-		sb.append(getHtmlTable(data, getColumnDecorators()));
-		sb.append(HtmlUtils.closeTag(div2));
-		sb.append(HtmlUtils.getIndentedContent("<hr>\n"));
-		sb.append(HtmlUtils.openTag(div3));
-		sb.append(HtmlUtils.getTag(span2, about));
-		sb.append(HtmlUtils.closeTag(div3));
-		sb.append(HtmlUtils.closeTag(body));
-		sb.append(HtmlUtils.closeTag(html));
+		sb.append(HtmlUtils.openTag(html, indent));
+		sb.append(HtmlUtils.getIndentedContent(getHtmlComment(), indent));
+		sb.append(HtmlUtils.getTag(title, "Directory listing for " + directory, indent));
+		sb.append(HtmlUtils.openTag(head, indent));
+		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + css + "\" rel=\"stylesheet\" type=\"text/css\"/>\n", indent));
+		sb.append(HtmlUtils.getIndentedContent(getMeta(), indent));
+		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript(), indent));
+		sb.append(HtmlUtils.closeTag(head, indent));
+		sb.append(HtmlUtils.openTag(body, indent));
+		sb.append(HtmlUtils.openTag(div1, indent));
+		sb.append(HtmlUtils.getTag(span1, "Directory listing for " + directory, indent));
+		sb.append(HtmlUtils.closeTag(div1, indent));
+		sb.append(HtmlUtils.getIndentedContent("<hr>\n", indent));
+		sb.append(HtmlUtils.openTag(div2, indent));
+		sb.append(getHtmlTable(data, getColumnDecorators(), indent));
+		sb.append(HtmlUtils.closeTag(div2, indent));
+		sb.append(HtmlUtils.getIndentedContent("<hr>\n", indent));
+		sb.append(HtmlUtils.openTag(div3, indent));
+		sb.append(HtmlUtils.getTag(span2, about, indent));
+		sb.append(HtmlUtils.closeTag(div3, indent));
+		sb.append(HtmlUtils.closeTag(body, indent));
+		sb.append(HtmlUtils.closeTag(html, indent));
 		return sb.toString();
 	}
 
 	/**
 	 * Generate html representing the contents of one table cell
 	 */
-	protected static String getTableCell(String content, ColumnDecorator decorator) {
+	protected static String getTableCell(String content, ColumnDecorator decorator, Counter indent) {
 		Tag td = new Tag("td", decorator.getTableDataClass());
-		return HtmlUtils.getTag(td, content);
+		return HtmlUtils.getTag(td, content, indent);
 	}
 
 	/**
@@ -144,24 +146,24 @@ public class CloudFrontHtml {
 	/**
 	 * Generate an html table row for the String[]
 	 */
-	protected static String getTableRow(int row, String[] data, List<ColumnDecorator> columnDecorators) {
+	protected static String getTableRow(int row, String[] data, List<ColumnDecorator> columnDecorators, Counter indent) {
 		StringBuffer sb = new StringBuffer();
 		Tag tr = getTableRowTag(row);
-		sb.append(HtmlUtils.openTag(tr));
+		sb.append(HtmlUtils.openTag(tr, indent));
 		for (int i = 0; i < data.length; i++) {
-			sb.append(getTableCell(data[i], columnDecorators.get(i)));
+			sb.append(getTableCell(data[i], columnDecorators.get(i), indent));
 		}
-		sb.append(HtmlUtils.closeTag(tr));
+		sb.append(HtmlUtils.closeTag(tr, indent));
 		return sb.toString();
 	}
 
 	/**
 	 * Generate a table row for each String[] in the list
 	 */
-	protected static String getTableRows(List<String[]> data, List<ColumnDecorator> columnDecorators) {
+	protected static String getTableRows(List<String[]> data, List<ColumnDecorator> columnDecorators, Counter indent) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < data.size(); i++) {
-			sb.append(getTableRow(i, data.get(i), columnDecorators));
+			sb.append(getTableRow(i, data.get(i), columnDecorators, indent));
 		}
 		return sb.toString();
 	}
@@ -169,14 +171,14 @@ public class CloudFrontHtml {
 	/**
 	 * Generate the html for the th tags from a list of ColumnDecorator objects
 	 */
-	protected static String getTableHeaders(List<ColumnDecorator> columnDecorators) {
+	protected static String getTableHeaders(List<ColumnDecorator> columnDecorators, Counter indent) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < columnDecorators.size(); i++) {
 			ColumnDecorator decorator = columnDecorators.get(i);
 			Tag th = new Tag("th", decorator.getTableDataClass());
-			sb.append(HtmlUtils.openTag(th));
-			sb.append(HtmlUtils.getTag(new Tag("span", decorator.getSpanClass()), decorator.getColumnTitle()));
-			sb.append(HtmlUtils.closeTag(th));
+			sb.append(HtmlUtils.openTag(th, indent));
+			sb.append(HtmlUtils.getTag(new Tag("span", decorator.getSpanClass()), decorator.getColumnTitle(), indent));
+			sb.append(HtmlUtils.closeTag(th, indent));
 		}
 		return sb.toString();
 	}
@@ -184,7 +186,7 @@ public class CloudFrontHtml {
 	/**
 	 * Generate the table representing a directory listing
 	 */
-	protected static String getHtmlTable(List<String[]> data, List<ColumnDecorator> columnDecorators) {
+	protected static String getHtmlTable(List<String[]> data, List<ColumnDecorator> columnDecorators, Counter indent) {
 		if (isEmpty(data)) {
 			return "";
 		}
@@ -193,16 +195,16 @@ public class CloudFrontHtml {
 		Tag thead = new Tag("thead");
 		Tag tr = new Tag("tr");
 		Tag tbody = new Tag("tbody");
-		sb.append(HtmlUtils.openTag(table));
-		sb.append(HtmlUtils.openTag(thead));
-		sb.append(HtmlUtils.openTag(tr));
-		sb.append(getTableHeaders(columnDecorators));
-		sb.append(HtmlUtils.closeTag(tr));
-		sb.append(HtmlUtils.closeTag(thead));
-		sb.append(HtmlUtils.openTag(tbody));
-		sb.append(getTableRows(data, columnDecorators));
-		sb.append(HtmlUtils.closeTag(tbody));
-		sb.append(HtmlUtils.closeTag(table));
+		sb.append(HtmlUtils.openTag(table, indent));
+		sb.append(HtmlUtils.openTag(thead, indent));
+		sb.append(HtmlUtils.openTag(tr, indent));
+		sb.append(getTableHeaders(columnDecorators, indent));
+		sb.append(HtmlUtils.closeTag(tr, indent));
+		sb.append(HtmlUtils.closeTag(thead, indent));
+		sb.append(HtmlUtils.openTag(tbody, indent));
+		sb.append(getTableRows(data, columnDecorators, indent));
+		sb.append(HtmlUtils.closeTag(tbody, indent));
+		sb.append(HtmlUtils.closeTag(table, indent));
 		return sb.toString();
 	}
 

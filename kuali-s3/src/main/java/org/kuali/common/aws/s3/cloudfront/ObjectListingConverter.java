@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.util.Counter;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.html.HtmlUtils;
 
@@ -84,13 +85,13 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(String commonPrefix, String prefix, String delimiter, String directoryImage) {
+	protected DisplayRow getDisplayRow(String commonPrefix, String prefix, String delimiter, String directoryImage, Counter indent) {
 
 		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(directoryImage);
+		String image = HtmlUtils.getImage(directoryImage, indent);
 		String show = getShow(commonPrefix, prefix);
 		String dest = delimiter + commonPrefix;
-		String ahref = HtmlUtils.getHref(dest, show);
+		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = "-";
 		String size = "-";
 
@@ -104,10 +105,10 @@ public class ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String directoryImage) {
+	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String directoryImage, Counter indent) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (String commonPrefix : objectListing.getCommonPrefixes()) {
-			DisplayRow displayRow = getDisplayRow(commonPrefix, prefix, delimiter, directoryImage);
+			DisplayRow displayRow = getDisplayRow(commonPrefix, prefix, delimiter, directoryImage, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -120,9 +121,10 @@ public class ObjectListingConverter {
 	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
 	public List<String[]> convert(ObjectListing listing, String prefix, String delimiter, String dirImage, String fileImage, String browseKey) {
-		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(listing, prefix, delimiter, fileImage);
-		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(listing, prefix, delimiter, dirImage);
+		Counter indent = new Counter();
+		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey, indent);
+		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(listing, prefix, delimiter, fileImage, indent);
+		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(listing, prefix, delimiter, dirImage, indent);
 		Comparator<DisplayRow> comparator = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, comparator);
 		List<String[]> data = new ArrayList<String[]>();
@@ -152,14 +154,14 @@ public class ObjectListingConverter {
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(S3ObjectSummary summary, String prefix, String delimiter, String fileImage) {
+	protected DisplayRow getDisplayRow(S3ObjectSummary summary, String prefix, String delimiter, String fileImage, Counter indent) {
 		String key = summary.getKey();
 
 		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(fileImage);
+		String image = HtmlUtils.getImage(fileImage, indent);
 		String show = getShow(key, prefix);
 		String dest = delimiter + key;
-		String ahref = HtmlUtils.getHref(dest, show);
+		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = FormatUtils.getDate(summary.getLastModified());
 		String size = FormatUtils.getSize(summary.getSize());
 
@@ -173,13 +175,13 @@ public class ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String fileImage) {
+	protected List<DisplayRow> getObjectDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String fileImage, Counter indent) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (S3ObjectSummary summary : objectListing.getObjectSummaries()) {
 			if (isDirectory(summary, objectListing.getCommonPrefixes(), prefix, delimiter)) {
 				continue;
 			}
-			DisplayRow displayRow = getDisplayRow(summary, prefix, delimiter, fileImage);
+			DisplayRow displayRow = getDisplayRow(summary, prefix, delimiter, fileImage, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -191,7 +193,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getUpOneDirectoryDisplayRow(String prefix, String delimiter, String browseKey) {
+	protected DisplayRow getUpOneDirectoryDisplayRow(String prefix, String delimiter, String browseKey, Counter indent) {
 		if (StringUtils.isEmpty(prefix)) {
 			return null;
 		}
@@ -200,7 +202,7 @@ public class ObjectListingConverter {
 		String image = "";
 		String show = ".." + delimiter;
 		String dest = getUpOneDirectoryDest(prefix, delimiter, browseKey);
-		String ahref = HtmlUtils.getHref(dest, show);
+		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = "";
 		String size = "";
 
