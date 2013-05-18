@@ -9,6 +9,6 @@ public interface BucketService {
 	/**
 	 * Return a list of ObjectListings representing the contents of a bucket.
 	 */
-	List<ObjectListing> getObjectListings(BucketContext context);
+	List<ObjectListing> getObjectListings(ObjectListingRequest context);
 
 }

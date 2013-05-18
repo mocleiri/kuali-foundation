@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class DefaultBucketServiceTest {
 
@@ -21,13 +22,13 @@ public class DefaultBucketServiceTest {
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
 			String prefix = getProperty("s3.prefix", "pom/kuali-pom/latest/images");
-			long prefixEstimate = getLong("s3.prefixEstimate", BucketContext.DEFAULT_PREFIX_ESTIMATE);
+			long prefixEstimate = getLong("s3.prefixEstimate", ObjectListingRequest.DEFAULT_PREFIX_ESTIMATE);
 
 			// String prefix = "rice/latest";
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
 
-			BucketContext context = new BucketContext();
+			ObjectListingRequest context = new ObjectListingRequest();
 			context.setClient(client);
 			context.setBucket(bucket);
 			context.setExcludes(excludes);
@@ -38,9 +39,21 @@ public class DefaultBucketServiceTest {
 			BucketService service = new DefaultBucketService();
 
 			List<ObjectListing> listings = service.getObjectListings(context);
-			logger.debug("listings.size={}", listings.size());
+			for (ObjectListing listing : listings) {
+				showListing(listing);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void showListing(ObjectListing listing) {
+		logger.info(" *** [" + listing.getPrefix() + "] *** ");
+		for (String commonPrefix : listing.getCommonPrefixes()) {
+			logger.info(" Dir: " + commonPrefix);
+		}
+		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+			logger.info("File: " + summary.getKey());
 		}
 	}
 

@@ -14,14 +14,13 @@ import org.slf4j.LoggerFactory;
 
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class DefaultBucketService implements BucketService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
-	public List<ObjectListing> getObjectListings(BucketContext context) {
+	public List<ObjectListing> getObjectListings(ObjectListingRequest context) {
 		Assert.notNull(context.getClient(), "client is null");
 		Assert.hasText(context.getDelimiter(), "delimiter has no text");
 		Assert.hasText(context.getBucket(), "bucket has no text");
@@ -40,27 +39,14 @@ public class DefaultBucketService implements BucketService {
 			String count = FormatUtils.getCount(listings.size());
 			Object[] args = { count, elapsed };
 			logger.info("Object Listings - [count:{} elapsed:{}]", args);
-			for (ObjectListing listing : listings) {
-				showListing(listing);
-			}
 		}
 		return listings;
-	}
-
-	protected void showListing(ObjectListing listing) {
-		logger.info(" *** [" + listing.getPrefix() + "] *** ");
-		for (String commonPrefix : listing.getCommonPrefixes()) {
-			logger.info(" Dir: " + commonPrefix);
-		}
-		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
-			logger.info("File: " + summary.getKey());
-		}
 	}
 
 	/**
 	 * Examine the bucket starting at <code>prefix</code>. If <code>context.isRecursive()=true</code>, all sub-directories are searched as well.
 	 */
-	protected List<ObjectListing> getObjectListing(BucketContext context) {
+	protected List<ObjectListing> getObjectListing(ObjectListingRequest context) {
 		String prefix = getPrefix(context.getPrefix(), context.getDelimiter());
 		ListObjectsRequest request = getListObjectsRequest(context, prefix);
 		ObjectListing listing = context.getClient().listObjects(request);
@@ -73,7 +59,7 @@ public class DefaultBucketService implements BucketService {
 		List<String> commonPrefixes = listing.getCommonPrefixes();
 		for (String commonPrefix : commonPrefixes) {
 			if (isRecurse(context, commonPrefix)) {
-				BucketContext clone = clone(context, commonPrefix);
+				ObjectListingRequest clone = clone(context, commonPrefix);
 				List<ObjectListing> children = getObjectListing(clone);
 				listings.addAll(children);
 			} else {
@@ -89,16 +75,10 @@ public class DefaultBucketService implements BucketService {
 		return listings;
 	}
 
-	protected void log(String prefix, long count, long skipped, long requests) {
-		int padding = 10;
-		String r = StringUtils.leftPad(FormatUtils.getCount(requests), padding);
-		String t = StringUtils.leftPad(FormatUtils.getCount(count + skipped), padding);
-		String c = StringUtils.leftPad(FormatUtils.getCount(count), padding);
-		String s = StringUtils.leftPad(FormatUtils.getCount(skipped), padding);
-		Object[] args = { r, t, c, s, prefix };
-		logger.debug("{} {} {} {} - {}", args);
-	}
-
+	/**
+	 * If <code>prefix</code> does not end with <code>delimiter</code>, append <code>delimiter</code> to <code>prefix</code>. If <code>prefix</code> is blank or
+	 * <code>prefix==delimiter</code> return <code>null</code>
+	 */
 	protected String getPrefix(String prefix, String delimiter) {
 		if (StringUtils.isBlank(prefix) || StringUtils.equals(prefix, delimiter)) {
 			return null;
@@ -126,7 +106,7 @@ public class DefaultBucketService implements BucketService {
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
-	protected boolean isExclude(BucketContext context, String prefix) {
+	protected boolean isExclude(ObjectListingRequest context, String prefix) {
 		for (String exclude : CollectionUtils.toEmptyList(context.getExcludes())) {
 			if (isMatch(prefix, exclude, context.getDelimiter())) {
 				return true;
@@ -135,7 +115,7 @@ public class DefaultBucketService implements BucketService {
 		return false;
 	}
 
-	protected boolean isInclude(BucketContext context, String prefix) {
+	protected boolean isInclude(ObjectListingRequest context, String prefix) {
 		if (CollectionUtils.isEmpty(context.getIncludes())) {
 			return true;
 		}
@@ -147,12 +127,12 @@ public class DefaultBucketService implements BucketService {
 		return false;
 	}
 
-	protected boolean isRecurse(BucketContext context, String prefix) {
+	protected boolean isRecurse(ObjectListingRequest context, String prefix) {
 		return context.isRecursive() && !isExclude(context, prefix) && isInclude(context, prefix);
 	}
 
-	protected BucketContext clone(BucketContext context, String prefix) {
-		BucketContext clone = new BucketContext();
+	protected ObjectListingRequest clone(ObjectListingRequest context, String prefix) {
+		ObjectListingRequest clone = new ObjectListingRequest();
 		try {
 			BeanUtils.copyProperties(clone, context);
 		} catch (Exception e) {
@@ -162,7 +142,7 @@ public class DefaultBucketService implements BucketService {
 		return clone;
 	}
 
-	protected ListObjectsRequest getListObjectsRequest(BucketContext context, String prefix) {
+	protected ListObjectsRequest getListObjectsRequest(ObjectListingRequest context, String prefix) {
 		return getListObjectsRequest(context.getBucket(), prefix, context.getDelimiter(), null);
 	}
 

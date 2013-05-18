@@ -6,7 +6,7 @@ import org.kuali.common.util.PercentCompleteInformer;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 
-public class BucketContext {
+public class ObjectListingRequest {
 
 	public static final long DEFAULT_PREFIX_ESTIMATE = 100;
 	public static final String DEFAULT_DELIMITER = "/";
