@@ -27,8 +27,8 @@ public class DefaultBucketService implements BucketService {
 		Assert.hasText(context.getBucket(), "bucket has no text");
 		boolean exists = context.getClient().doesBucketExist(context.getBucket());
 		Assert.isTrue(exists, "bucket [" + context.getBucket() + "] does not exist");
-		Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
 		if (context.getInformer() != null) {
+			Object[] args = { context.getBucket(), context.getDelimiter(), Str.toEmpty(context.getPrefix()) };
 			logger.info("Listing Objects - [s3://{}{}{}]", args);
 			context.getInformer().start();
 		}
@@ -38,6 +38,8 @@ public class DefaultBucketService implements BucketService {
 			context.getInformer().stop();
 			String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 			String count = FormatUtils.getCount(listings.size());
+			Object[] args = { elapsed, count };
+			logger.info("Object Listing Summary - [count:{} time:{}]", args);
 		}
 		return listings;
 	}
