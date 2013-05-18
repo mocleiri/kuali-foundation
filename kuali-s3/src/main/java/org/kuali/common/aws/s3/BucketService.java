@@ -7,9 +7,8 @@ import com.amazonaws.services.s3.model.ObjectListing;
 public interface BucketService {
 
 	/**
-	 * Recursively examine a bucket starting at <code>prefix</code>. The list returned by this method contains an object listing for every "directory" and "sub-directory" rooted at
-	 * <code>prefix</code>
+	 * Examine an S3 bucket as dictated by <code>context</code>
 	 */
-	List<ObjectListing> listObjects(BucketContext context);
+	List<ObjectListing> getObjectListings(BucketContext context);
 
 }
