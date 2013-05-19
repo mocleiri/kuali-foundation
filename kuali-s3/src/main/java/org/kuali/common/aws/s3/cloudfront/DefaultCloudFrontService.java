@@ -8,15 +8,17 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	public void createOrUpdateBrowsableIndexObjects(DirectoryContext ctx) {
 
 		String bucket = ctx.getBucket();
-		String dirPrefix = ctx.getListing().getPrefix();
-		String dirNoSlashPrefix = StringUtils.substring(dirPrefix, 0, dirPrefix.length() - 1);
+		String dirKey = ctx.getListing().getPrefix();
+		String dirNoSlashKey = StringUtils.substring(dirKey, 0, dirKey.length() - ctx.getDelimiter().length());
+		String html = ctx.getIndexHtml();
 
 		String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(ctx.getListing(), ctx.getWelcomeFiles());
 		if (welcomeFileKey == null) {
-			CloudFrontUtils.getPutIndexObjectRequest(bucket, ctx.getCacheControl(), ctx.getIndexHtml(), dirPrefix);
+			CloudFrontUtils.getPutIndexObjectRequest(bucket, ctx.getCacheControl(), html, dirKey);
 		} else {
-			CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirPrefix);
+			CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
 		}
+		CloudFrontUtils.getPutIndexObjectRequest(bucket, ctx.getCacheControl(), html, dirNoSlashKey);
 
 	}
 
