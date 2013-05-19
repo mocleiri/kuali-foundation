@@ -34,7 +34,7 @@ public class CloudFrontUtils {
 		return null;
 	}
 
-	public static String getWelcomeFileKey(ObjectListing listing, S3ObjectSummary summary, List<String> welcomeFiles) {
+	protected static String getWelcomeFileKey(ObjectListing listing, S3ObjectSummary summary, List<String> welcomeFiles) {
 		// Cycle through the list of welcome files
 		for (String welcomeFile : welcomeFiles) {
 			// Append the welcome file name to the key for this directory
