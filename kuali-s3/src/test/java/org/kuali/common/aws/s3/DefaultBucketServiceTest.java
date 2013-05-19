@@ -3,6 +3,7 @@ package org.kuali.common.aws.s3;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.util.LogMsg;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,8 @@ public class DefaultBucketServiceTest {
 			List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
 
 			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate);
-			informer.setStartMessage("Object Listing Request - [s3://{}{}{}]");
-			informer.setStartMessageArgs(new Object[] { bucket, ObjectListingRequest.DEFAULT_DELIMITER, prefix });
+			Object[] args = { bucket, ObjectListingRequest.DEFAULT_DELIMITER, prefix };
+			informer.setStartMessage(new LogMsg("Object Listing Request - [s3://{}{}{}]", args));
 
 			ObjectListingRequest request = new ObjectListingRequest();
 			request.setClient(client);
