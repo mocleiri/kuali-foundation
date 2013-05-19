@@ -33,14 +33,14 @@ public class DefaultBucketService implements BucketService {
 			request.getInformer().start();
 		}
 
-		// Preserve our start time
+		// Preserve the start time
 		long start = System.currentTimeMillis();
 
-		// Connect to Amazon's S3 service and collect summary information about objects in our S3 bucket
+		// Connect to Amazon's S3 service and collect summary information about objects in the S3 bucket
 		// This can be recursive and take a while
 		List<ObjectListing> listings = accumulateObjectListings(request);
 
-		// Preserve our stop time
+		// Preserve the stop time
 		long stop = System.currentTimeMillis();
 
 		// Stop the informer, if they supplied one
@@ -55,24 +55,6 @@ public class DefaultBucketService implements BucketService {
 		result.setStopTime(stop);
 		result.setElapsed(stop - start);
 		return result;
-	}
-
-	protected ObjectListing getObjectListing(ObjectListingRequest request, String prefix) {
-		// Create an Amazon request
-		ListObjectsRequest lor = getListObjectsRequest(request, prefix);
-
-		// Connect to S3 and extract the object listing
-		ObjectListing listing = request.getClient().listObjects(lor);
-
-		// Make sure it isn't truncated (< 1000 objects total)
-		Assert.isFalse(listing.isTruncated(), "listing is truncated");
-
-		// Increment progress on the informer, if they supplied one
-		if (request.getInformer() != null) {
-			request.getInformer().incrementProgress();
-		}
-
-		return listing;
 	}
 
 	/**
@@ -99,6 +81,24 @@ public class DefaultBucketService implements BucketService {
 
 		// Return the aggregated list of ObjectListings
 		return listings;
+	}
+
+	protected ObjectListing getObjectListing(ObjectListingRequest request, String prefix) {
+		// Create an Amazon request
+		ListObjectsRequest lor = getListObjectsRequest(request, prefix);
+
+		// Connect to S3 and extract the object listing
+		ObjectListing listing = request.getClient().listObjects(lor);
+
+		// Make sure it isn't truncated (< 1000 objects total)
+		Assert.isFalse(listing.isTruncated(), "listing is truncated");
+
+		// Increment progress on the informer, if they supplied one
+		if (request.getInformer() != null) {
+			request.getInformer().incrementProgress();
+		}
+
+		return listing;
 	}
 
 	protected void doSubDirectory(ObjectListingRequest request, String subDirectory, List<ObjectListing> listings) {
