@@ -17,7 +17,6 @@ package org.kuali.common.util;
 
 import java.io.PrintStream;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +33,8 @@ public abstract class AbstractProgressInformer {
 	String startToken = "[INFO] Progress: ";
 	String progressToken = ".";
 	String completeToken = "\n";
-	String startMessage;
-	Object[] startMessageArgs;
-	String stopMessage;
-	Object[] stopMessageArgs;
+	LogMsg startMessage;
+	LogMsg stopMessage;
 
 	/**
 	 * Thread safe method exposing the current progress
@@ -50,8 +47,8 @@ public abstract class AbstractProgressInformer {
 	 * Print the start token
 	 */
 	public void start() {
-		if (!StringUtils.isBlank(startMessage)) {
-			logger.info(startMessage, startMessageArgs);
+		if (startMessage != null) {
+			LoggerUtils.log(startMessage, logger);
 		}
 
 		Assert.notNull(printStream, "printStream is null");
@@ -66,8 +63,8 @@ public abstract class AbstractProgressInformer {
 	public void stop() {
 		printStream.print(completeToken);
 
-		if (!StringUtils.isBlank(stopMessage)) {
-			logger.info(stopMessage, stopMessageArgs);
+		if (stopMessage != null) {
+			LoggerUtils.log(stopMessage, logger);
 		}
 	}
 
@@ -103,36 +100,20 @@ public abstract class AbstractProgressInformer {
 		this.progressToken = progressToken;
 	}
 
-	public String getStartMessage() {
+	public LogMsg getStartMessage() {
 		return startMessage;
 	}
 
-	public void setStartMessage(String startMessage) {
+	public void setStartMessage(LogMsg startMessage) {
 		this.startMessage = startMessage;
 	}
 
-	public String getStopMessage() {
+	public LogMsg getStopMessage() {
 		return stopMessage;
 	}
 
-	public void setStopMessage(String stopMessage) {
+	public void setStopMessage(LogMsg stopMessage) {
 		this.stopMessage = stopMessage;
-	}
-
-	public Object[] getStartMessageArgs() {
-		return startMessageArgs;
-	}
-
-	public void setStartMessageArgs(Object[] startMessageArgs) {
-		this.startMessageArgs = startMessageArgs;
-	}
-
-	public Object[] getStopMessageArgs() {
-		return stopMessageArgs;
-	}
-
-	public void setStopMessageArgs(Object[] stopMessageArgs) {
-		this.stopMessageArgs = stopMessageArgs;
 	}
 
 }

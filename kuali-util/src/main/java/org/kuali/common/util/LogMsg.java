@@ -6,6 +6,21 @@ public class LogMsg {
 	String message;
 	Object[] args;
 
+	public LogMsg() {
+		this(null, null, LoggerLevel.INFO);
+	}
+
+	public LogMsg(String message, Object[] args) {
+		this(message, args, LoggerLevel.INFO);
+	}
+
+	public LogMsg(String message, Object[] args, LoggerLevel level) {
+		super();
+		this.message = message;
+		this.args = args;
+		this.level = level;
+	}
+
 	public String getMessage() {
 		return message;
 	}
