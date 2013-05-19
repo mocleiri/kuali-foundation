@@ -31,8 +31,13 @@ public class PercentCompleteInformer extends AbstractProgressInformer {
 	}
 
 	public PercentCompleteInformer(long total) {
+		this(total, null);
+	}
+
+	public PercentCompleteInformer(long total, LogMsg startMessage) {
 		super();
 		this.total = total;
+		this.startMessage = startMessage;
 	}
 
 	/**
