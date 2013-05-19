@@ -2,9 +2,9 @@ package org.kuali.common.util;
 
 public class LogMsg {
 
+	LoggerLevel level = LoggerLevel.INFO;
 	String message;
 	Object[] args;
-	LoggerLevel level;
 
 	public String getMessage() {
 		return message;

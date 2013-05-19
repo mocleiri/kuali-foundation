@@ -27,6 +27,10 @@ public class LoggerUtils {
 
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 
+	public static void log(LogMsg msg, Logger logger) {
+		logMsg(msg.getMessage(), msg.getArgs(), logger, msg.getLevel());
+	}
+
 	public static int[] getPadding(List<String> columns, List<Object[]> argsList) {
 		int[] padding = new int[columns.size()];
 		for (int i = 0; i < padding.length; i++) {
