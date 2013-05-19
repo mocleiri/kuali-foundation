@@ -135,9 +135,21 @@ public class DefaultBucketService implements BucketService {
 		}
 	}
 
+	/**
+	 * Make sure <code>pattern</code> is bracketed by <code>delimiter</code>.
+	 * 
+	 * <pre>
+	 *   apidocs  -> /apidocs/
+	 *   apidocs/ -> /apidocs/
+	 *  /apidocs  -> /apidocs/
+	 *  /apidocs/ -> /apidocs/
+	 * </pre>
+	 */
 	protected String getSuffixPattern(String pattern, String delimiter) {
+
 		Assert.hasText(pattern, "pattern has no text");
 		Assert.hasText(delimiter, "delimiter has no text");
+
 		StringBuilder sb = new StringBuilder();
 		if (!StringUtils.startsWith(pattern, delimiter)) {
 			sb.append(delimiter);
@@ -149,14 +161,14 @@ public class DefaultBucketService implements BucketService {
 		return sb.toString();
 	}
 
-	protected boolean isMatch(String prefix, String pattern, String delimiter) {
+	protected boolean isEndsWithMatch(String prefix, String pattern, String delimiter) {
 		String suffix = getSuffixPattern(pattern, delimiter);
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
 	protected boolean isExclude(ObjectListingRequest request, String prefix) {
 		for (String exclude : CollectionUtils.toEmptyList(request.getExcludes())) {
-			if (isMatch(prefix, exclude, request.getDelimiter())) {
+			if (isEndsWithMatch(prefix, exclude, request.getDelimiter())) {
 				return true;
 			}
 		}
@@ -168,7 +180,7 @@ public class DefaultBucketService implements BucketService {
 			return true;
 		}
 		for (String include : request.getIncludes()) {
-			if (isMatch(prefix, include, request.getDelimiter())) {
+			if (isEndsWithMatch(prefix, include, request.getDelimiter())) {
 				return true;
 			}
 		}
