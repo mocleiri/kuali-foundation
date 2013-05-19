@@ -29,9 +29,9 @@ public class DefaultBucketServiceTest {
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
 
-			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate);
 			Object[] args = { bucket, ObjectListingRequest.DEFAULT_DELIMITER, prefix };
-			informer.setStartMessage(new LogMsg("Object Listing Request - [s3://{}{}{}]", args));
+			LogMsg startMessage = new LogMsg("Examining bucket - [s3://{}{}{}]", args);
+			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate, startMessage);
 
 			ObjectListingRequest request = new ObjectListingRequest();
 			request.setClient(client);
