@@ -22,7 +22,7 @@ public class DefaultBucketServiceTest {
 			logger.debug("");
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
-			String prefix = getProperty("s3.prefix", "pom/kuali-pom/latest/images");
+			String prefix = getProperty("s3.prefix", "pom/kuali-pom/latest");
 			long prefixEstimate = getLong("s3.prefixEstimate", ObjectListingRequest.DEFAULT_PREFIX_ESTIMATE);
 
 			// String prefix = "rice/latest";
