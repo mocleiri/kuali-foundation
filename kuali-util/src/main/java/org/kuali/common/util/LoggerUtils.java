@@ -28,6 +28,7 @@ public class LoggerUtils {
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 
 	public static void log(LogMsg msg, Logger logger) {
+		Assert.notNull(msg.getLevel(), "level is null");
 		logMsg(msg.getMessage(), msg.getArgs(), logger, msg.getLevel());
 	}
 
