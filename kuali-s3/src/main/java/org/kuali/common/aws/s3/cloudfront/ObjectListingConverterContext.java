@@ -4,10 +4,14 @@ import org.kuali.common.aws.s3.BucketContext;
 
 public class ObjectListingConverterContext {
 
-	String fileImage;
-	String dirImage;
-	String browseKey;
-	
+	public static final String DEFAULT_FILE_IMAGE = "http://s3browse.ks.kuali.org/images/page_white.png";
+	public static final String DEFAULT_DIR_IMAGE = "http://s3browse.ks.kuali.org/images/folder.png";
+	public static final String DEFAULT_BROWSE_KEY = "browse.html";
+
+	String fileImage = DEFAULT_FILE_IMAGE;
+	String dirImage = DEFAULT_DIR_IMAGE;
+	String browseKey = DEFAULT_BROWSE_KEY;
+
 	BucketContext bucketContext;
 
 	public BucketContext getBucketContext() {
