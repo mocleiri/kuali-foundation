@@ -37,7 +37,7 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	protected TypedRequest getTypeRequestWithoutTrailingDelimiter(CloudFrontContext context, ObjectListing listing, String html) {
 		// Create s3://bucket/foo/bar
 		PutObjectRequest index = getPutHtmlRequestWithoutTrailingDelimiter(context, listing, html);
-		return new TypedRequest(index, AmazonWebServiceRequestType.PUT);
+		return new TypedRequest(index, AmazonWebServiceRequestType.PUT_OBJECT);
 	}
 
 	/**
@@ -48,11 +48,11 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		if (welcomeFileKey == null) {
 			// Create s3://bucket/foo/bar/
 			PutObjectRequest put = CloudFrontUtils.getPutHtmlRequest(context, html, listing.getPrefix());
-			return new TypedRequest(put, AmazonWebServiceRequestType.PUT);
+			return new TypedRequest(put, AmazonWebServiceRequestType.PUT_OBJECT);
 		} else {
 			// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
 			CopyObjectRequest copy = CloudFrontUtils.getCopyObjectRequest(context, welcomeFileKey, listing.getPrefix());
-			return new TypedRequest(copy, AmazonWebServiceRequestType.COPY);
+			return new TypedRequest(copy, AmazonWebServiceRequestType.COPY_OBJECT);
 		}
 	}
 
