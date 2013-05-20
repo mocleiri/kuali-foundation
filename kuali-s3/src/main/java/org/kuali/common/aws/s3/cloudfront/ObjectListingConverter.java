@@ -85,12 +85,12 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(String commonPrefix, String prefix, String delimiter, String directoryImage, Counter indent) {
+	protected DisplayRow getDisplayRow(String commonPrefix, ObjectListingConversionContext context, Counter indent) {
 
 		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(directoryImage, indent);
-		String show = getShow(commonPrefix, prefix);
-		String dest = delimiter + commonPrefix;
+		String image = HtmlUtils.getImage(context.getDirImage(), indent);
+		String show = getShow(commonPrefix, context.getListing().getPrefix());
+		String dest = context.getBucketContext().getDelimiter() + commonPrefix;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = "-";
 		String size = "-";
@@ -105,10 +105,11 @@ public class ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String directoryImage, Counter indent) {
+	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListingConversionContext context, Counter indent) {
+		ObjectListing listing = context.getListing();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
-		for (String commonPrefix : objectListing.getCommonPrefixes()) {
-			DisplayRow displayRow = getDisplayRow(commonPrefix, prefix, delimiter, directoryImage, indent);
+		for (String commonPrefix : listing.getCommonPrefixes()) {
+			DisplayRow displayRow = getDisplayRow(commonPrefix, context, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -120,11 +121,11 @@ public class ObjectListingConverter {
 	/**
 	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
-	public List<String[]> convert(ObjectListing listing, String prefix, String delimiter, String dirImage, String fileImage, String browseKey) {
+	public List<String[]> convert(ObjectListingConversionContext context) {
 		Counter indent = new Counter();
-		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(prefix, delimiter, browseKey, indent);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(listing, prefix, delimiter, fileImage, indent);
-		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(listing, prefix, delimiter, dirImage, indent);
+		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, indent);
+		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, indent);
+		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, indent);
 		Comparator<DisplayRow> comparator = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, comparator);
 		List<String[]> data = new ArrayList<String[]>();
@@ -154,11 +155,15 @@ public class ObjectListingConverter {
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(S3ObjectSummary summary, String prefix, String delimiter, String fileImage, Counter indent) {
+	protected DisplayRow getDisplayRow(ObjectListingConversionContext context, S3ObjectSummary summary, Counter indent) {
+
+		String prefix = context.getListing().getPrefix();
+		String delimiter = context.getBucketContext().getDelimiter();
+
 		String key = summary.getKey();
 
 		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(fileImage, indent);
+		String image = HtmlUtils.getImage(context.getFileImage(), indent);
 		String show = getShow(key, prefix);
 		String dest = delimiter + key;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
@@ -175,13 +180,16 @@ public class ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ObjectListing objectListing, String prefix, String delimiter, String fileImage, Counter indent) {
+	protected List<DisplayRow> getObjectDisplayRows(ObjectListingConversionContext context, Counter indent) {
+		String prefix = context.getListing().getPrefix();
+		String delimiter = context.getBucketContext().getDelimiter();
+		ObjectListing listing = context.getListing();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
-		for (S3ObjectSummary summary : objectListing.getObjectSummaries()) {
-			if (isDirectory(summary, objectListing.getCommonPrefixes(), prefix, delimiter)) {
+		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
+			if (isDirectory(summary, listing.getCommonPrefixes(), prefix, delimiter)) {
 				continue;
 			}
-			DisplayRow displayRow = getDisplayRow(summary, prefix, delimiter, fileImage, indent);
+			DisplayRow displayRow = getDisplayRow(context, summary, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -193,7 +201,12 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getUpOneDirectoryDisplayRow(String prefix, String delimiter, String browseKey, Counter indent) {
+	protected DisplayRow getUpOneDirectoryDisplayRow(ObjectListingConversionContext context, Counter indent) {
+
+		String prefix = context.getListing().getPrefix();
+		String delimiter = context.getBucketContext().getDelimiter();
+		String browseKey = context.getBrowseKey();
+
 		if (StringUtils.isEmpty(prefix)) {
 			return null;
 		}
