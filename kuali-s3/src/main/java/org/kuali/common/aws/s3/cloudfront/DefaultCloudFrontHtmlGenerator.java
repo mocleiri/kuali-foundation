@@ -27,7 +27,7 @@ import org.kuali.common.util.html.Tag;
 /**
  * Generate directory listings in html format that is Amazon CloudFront friendly
  */
-public class DefaultCloudFrontHtmlGenerator {
+public class DefaultCloudFrontHtmlGenerator implements CloudFrontHtmlGenerator {
 
 	/**
 	 * Decorators for the columns in the table
@@ -76,6 +76,7 @@ public class DefaultCloudFrontHtmlGenerator {
 	/**
 	 * Generate the full html page
 	 */
+	@Override
 	public String getDirectoryListing(HtmlContext context, String prefix, List<String[]> data) {
 		Counter indent = new Counter();
 		String directory = getDirectory(prefix, context.getDelimiter());
