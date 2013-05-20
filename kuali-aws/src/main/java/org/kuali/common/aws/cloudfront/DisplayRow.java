@@ -19,6 +19,7 @@ package org.kuali.common.aws.cloudfront;
  * Pojo that represents one row in the directory listing of the contents of a directory in an S3 bucket
  */
 public class DisplayRow implements Comparable<DisplayRow> {
+
 	String show;
 	String image;
 	String ahref;
