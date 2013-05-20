@@ -15,10 +15,18 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	@Override
 	public List<TypedRequest> getIndexObjectRequests(CloudFrontContext context, List<ObjectListing> listings) {
 
+		ObjectListingConverterService converterService = context.getConverterService();
+		ObjectListingConverterContext converterContext = context.getConverterContext();
+
+		CloudFrontHtmlGeneratorService generatorService = context.getGeneratorService();
+		CloudFrontHtmlGeneratorContext generatorContext = context.getGeneratorContext();
+
 		List<TypedRequest> requests = new ArrayList<TypedRequest>();
 		for (ObjectListing listing : listings) {
 
-			String html = "";
+			List<String[]> data = converterService.convert(converterContext, listing);
+
+			String html = generatorService.getDirectoryListing(generatorContext, listing.getPrefix(), data);
 
 			// Create s3://bucket/foo/bar
 			TypedRequest request1 = getTypedRequestWithoutTrailingDelimiter(context, listing, html);
