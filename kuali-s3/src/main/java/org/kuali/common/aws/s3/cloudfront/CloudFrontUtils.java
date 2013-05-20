@@ -2,7 +2,9 @@ package org.kuali.common.aws.s3.cloudfront;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -20,6 +22,15 @@ public class CloudFrontUtils {
 
 	private static final String S3_INDEX_METADATA_KEY = "maven-cloudfront-plugin-index";
 	private static final String S3_INDEX_CONTENT_TYPE = "text/html";
+
+	/**
+	 * Return a date formatter for the indicated format and timezone.
+	 */
+	public static SimpleDateFormat getSimpleDateFormat(String format, String timezone) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		sdf.setTimeZone(TimeZone.getTimeZone(timezone));
+		return sdf;
+	}
 
 	/**
 	 * An <code>ObjectListing</code> is the equivalent of typing <code>ls</code> in a directory on a file system.
