@@ -15,16 +15,18 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	@Override
 	public List<TypedRequest> getIndexObjectRequests(CloudFrontContext context, List<ObjectListing> listings) {
 
-		String html = "";
-
 		List<TypedRequest> requests = new ArrayList<TypedRequest>();
 		for (ObjectListing listing : listings) {
-			// Create s3://bucket/foo/bar
-			PutObjectRequest index = getPutHtmlRequestWithoutTrailingDelimiter(context, listing, html);
 
-			TypedRequest request1 = new TypedRequest(index, AmazonWebServiceRequestType.PUT);
+			String html = "";
+
+			// Create s3://bucket/foo/bar
+			TypedRequest request1 = getTypeRequestWithoutTrailingDelimiter(context, listing, html);
+
+			// Create s3://bucket/foo/bar/
 			TypedRequest request2 = getTypedRequest(context, listing, html);
 
+			// Add the requests to our list
 			requests.add(request1);
 			requests.add(request2);
 
@@ -32,6 +34,15 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		return requests;
 	}
 
+	protected TypedRequest getTypeRequestWithoutTrailingDelimiter(CloudFrontContext context, ObjectListing listing, String html) {
+		// Create s3://bucket/foo/bar
+		PutObjectRequest index = getPutHtmlRequestWithoutTrailingDelimiter(context, listing, html);
+		return new TypedRequest(index, AmazonWebServiceRequestType.PUT);
+	}
+
+	/**
+	 * This does one of two things. It either copies <code>/foo/bar/index.html to /foo/bar/</code> OR creates <code>/foo/bar/</code> from <code>html</code>
+	 */
 	protected TypedRequest getTypedRequest(CloudFrontContext context, ObjectListing listing, String html) {
 		String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, context.getWelcomeFiles());
 		if (welcomeFileKey == null) {
