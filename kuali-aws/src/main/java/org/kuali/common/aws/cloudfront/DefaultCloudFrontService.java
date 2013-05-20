@@ -3,10 +3,9 @@ package org.kuali.common.aws.cloudfront;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.AmazonWebServiceRequestType;
 import org.kuali.common.aws.TypedRequest;
-import org.springframework.util.Assert;
+import org.kuali.common.util.Str;
 
 import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -71,17 +70,12 @@ public class DefaultCloudFrontService implements CloudFrontService {
 
 	protected PutObjectRequest getPutHtmlRequestWithoutTrailingDelimiter(CloudFrontContext context, ObjectListing listing, String html) {
 		String delimiter = context.getBucketContext().getDelimiter();
-		String objectKey = removeSuffix(listing.getPrefix(), delimiter);
+		String objectKey = Str.removeSuffix(listing.getPrefix(), delimiter);
 		return CloudFrontUtils.getPutHtmlRequest(context, html, objectKey);
 	}
 
 	protected PutObjectRequest getPutHtmlRequest(CloudFrontContext context, ObjectListing listing, String html) {
 		return CloudFrontUtils.getPutHtmlRequest(context, html, listing.getPrefix());
-	}
-
-	protected String removeSuffix(String s, String suffix) {
-		Assert.isTrue(StringUtils.endsWith(s, suffix), "[" + s + "] does not end with [" + suffix + "]");
-		return StringUtils.substring(s, 0, StringUtils.length(s) - StringUtils.length(suffix));
 	}
 
 }
