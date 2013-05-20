@@ -1,6 +1,5 @@
-package org.kuali.common.aws.cloudfront;
+package org.kuali.common.aws;
 
-import org.kuali.common.aws.AmazonWebServiceRequestType;
 
 import com.amazonaws.AmazonWebServiceRequest;
 

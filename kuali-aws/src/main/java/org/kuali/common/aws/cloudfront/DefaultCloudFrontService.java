@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.AmazonWebServiceRequestType;
+import org.kuali.common.aws.TypedRequest;
 import org.springframework.util.Assert;
 
 import com.amazonaws.services.s3.model.CopyObjectRequest;
