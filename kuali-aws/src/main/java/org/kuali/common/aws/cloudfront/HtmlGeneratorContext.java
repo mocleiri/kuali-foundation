@@ -5,9 +5,7 @@ import org.kuali.common.util.Project;
 
 public class HtmlGeneratorContext {
 
-	public static final String DEFAULT_CSS = "http://s3browse.ks.kuali.org/css/style.css";
-
-	String css = DEFAULT_CSS;
+	String css = CloudFrontConstants.DEFAULT_CSS;
 	String dateDisplayFormat = CloudFrontConstants.DATE_DISPLAY_FORMAT;
 	String dateDisplayTimeZone = CloudFrontConstants.DATE_DISPLAY_TIMEZONE;
 	String googleAnalyticsAccount = CloudFrontConstants.GOOGLE_ANALYTICS_ACCOUNT;
