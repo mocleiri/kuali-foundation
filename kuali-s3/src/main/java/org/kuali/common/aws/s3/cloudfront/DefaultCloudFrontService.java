@@ -24,8 +24,10 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		List<TypedRequest> requests = new ArrayList<TypedRequest>();
 		for (ObjectListing listing : listings) {
 
+			// Convert the object listing into a list of string array's
 			List<String[]> data = converterService.convert(converterContext, listing);
 
+			// Convert the string array's into html
 			String html = generatorService.getDirectoryListing(generatorContext, listing.getPrefix(), data);
 
 			// Create s3://bucket/foo/bar
