@@ -18,7 +18,7 @@ package org.kuali.common.aws.cloudfront;
 import java.util.Comparator;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.common.aws.s3.BucketContext;
+import org.kuali.common.aws.s3.BucketConstants;
 
 /**
  * Sort version numbers in the correct order.
@@ -31,7 +31,7 @@ public class DisplayRowComparator implements Comparator<DisplayRow> {
 	public static final String DEFAULT_SEPARATORS = ".-";
 
 	String separators = DEFAULT_SEPARATORS;
-	String delimiter = BucketContext.DEFAULT_DELIMITER;
+	String delimiter = BucketConstants.DEFAULT_DELIMITER;
 
 	@Override
 	public int compare(DisplayRow one, DisplayRow two) {

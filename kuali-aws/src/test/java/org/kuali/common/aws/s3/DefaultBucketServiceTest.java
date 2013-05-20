@@ -30,7 +30,7 @@ public class DefaultBucketServiceTest {
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
 			List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
 
-			Object[] args = { bucket, BucketContext.DEFAULT_DELIMITER, prefix };
+			Object[] args = { bucket, BucketConstants.DEFAULT_DELIMITER, prefix };
 			LogMsg startMessage = new LogMsg("Examining bucket - [s3://{}{}{}]", args);
 			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate, startMessage);
 

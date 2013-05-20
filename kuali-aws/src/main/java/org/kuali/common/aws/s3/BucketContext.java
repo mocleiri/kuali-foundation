@@ -4,9 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 
 public class BucketContext {
 
-	public static final String DEFAULT_DELIMITER = "/";
-
-	String delimiter = DEFAULT_DELIMITER;
+	String delimiter = BucketConstants.DEFAULT_DELIMITER;
 	AmazonS3Client client;
 	String name;
 
