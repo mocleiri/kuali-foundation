@@ -9,11 +9,14 @@ public class CloudFrontContext {
 
 	List<String> welcomeFiles = new ArrayList<String>(CloudFrontConstants.DEFAULT_WELCOME_FILES);
 	String cacheControl = CloudFrontConstants.DEFAULT_CACHE_CONTROL;
-	BucketContext bucketContext;
+
+	ListingConverterService converterService = new DefaultListingConverterService();
+	HtmlGeneratorService generatorService = new DefaultHtmlGeneratorService();
+
 	ListingConverterContext converterContext;
-	ListingConverterService converterService;
 	HtmlGeneratorContext generatorContext;
-	HtmlGeneratorService generatorService;
+
+	BucketContext bucketContext;
 
 	public BucketContext getBucketContext() {
 		return bucketContext;
