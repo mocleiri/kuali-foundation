@@ -24,7 +24,7 @@ public class DefaultCloudFrontService implements CloudFrontService {
 			String dirNoSlashKey = removeTrailingSuffix(dirKey, delimiter);
 
 			PutObjectRequest request = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirNoSlashKey);
-			requests.add(new TypedRequest(request,AmazonWebServiceRequestType.PUT));
+			requests.add(new TypedRequest(request, AmazonWebServiceRequestType.PUT));
 
 			String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(listing, context.getWelcomeFiles());
 			if (welcomeFileKey == null) {
