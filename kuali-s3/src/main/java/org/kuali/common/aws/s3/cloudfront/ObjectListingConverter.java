@@ -37,7 +37,7 @@ public class ObjectListingConverter {
 	 * Convert "foo/bar/css/" into "foo/bar/css"<br>
 	 * Convert "foo/bar/css" into "foo/bar"<br>
 	 */
-	protected String getTrimmedPrefix(final String prefix, final String delimiter) {
+	protected String getTrimmedPrefix(String prefix, String delimiter) {
 		int pos = prefix.lastIndexOf(delimiter);
 		if (pos == -1) {
 			return prefix;
@@ -48,7 +48,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert each DisplayRow object in the list to a String[] and add the String[] to the list of data
 	 */
-	protected void addDisplayRows(final List<DisplayRow> displayRows, final List<String[]> data) {
+	protected void addDisplayRows(List<DisplayRow> displayRows, List<String[]> data) {
 		for (DisplayRow displayRow : displayRows) {
 			addDisplayRow(displayRow, data);
 		}
@@ -57,7 +57,7 @@ public class ObjectListingConverter {
 	/**
 	 * Convert a DisplayRow object to a String[]
 	 */
-	protected void addDisplayRow(final DisplayRow displayRow, final List<String[]> data) {
+	protected void addDisplayRow(DisplayRow displayRow, List<String[]> data) {
 		if (displayRow == null) {
 			return;
 		}
@@ -73,7 +73,7 @@ public class ObjectListingConverter {
 	 * Trim the prefix off of the text we display for this object.<br>
 	 * Display "style.css" instead of "css/style.css"
 	 */
-	protected String getShow(final String key, final String prefix) {
+	protected String getShow(String key, String prefix) {
 		if (prefix == null) {
 			return key;
 		}
