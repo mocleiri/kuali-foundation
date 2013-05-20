@@ -19,17 +19,18 @@ public class DefaultCloudFrontService implements CloudFrontService {
 
 		List<TypedRequest> requests = new ArrayList<TypedRequest>();
 		for (ObjectListing listing : listings) {
+			// Create s3://bucket/foo/bar
 			addDirNoSlash(context, listing, requests);
 			String dirKey = listing.getPrefix();
 			String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(listing, context.getWelcomeFiles());
 			if (welcomeFileKey == null) {
 				// Create s3://bucket/foo/bar/
-				PutObjectRequest request = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirKey);
-				requests.add(new TypedRequest(request, AmazonWebServiceRequestType.PUT));
+				PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirKey);
+				requests.add(new TypedRequest(put, AmazonWebServiceRequestType.PUT));
 			} else {
 				// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
-				CopyObjectRequest cor = CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
-				requests.add(new TypedRequest(cor, AmazonWebServiceRequestType.COPY));
+				CopyObjectRequest copy = CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
+				requests.add(new TypedRequest(copy, AmazonWebServiceRequestType.COPY));
 			}
 		}
 		return requests;
@@ -39,8 +40,8 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		String bucket = context.getBucketContext().getName();
 		String delimiter = context.getBucketContext().getDelimiter();
 		String dirNoSlashKey = removeTrailingSuffix(listing.getPrefix(), delimiter);
-		PutObjectRequest request = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirNoSlashKey);
-		requests.add(new TypedRequest(request, AmazonWebServiceRequestType.PUT));
+		PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirNoSlashKey);
+		requests.add(new TypedRequest(put, AmazonWebServiceRequestType.PUT));
 	}
 
 	protected String removeTrailingSuffix(String s, String suffix) {
