@@ -6,6 +6,6 @@ import com.amazonaws.services.s3.model.ObjectListing;
 
 public interface CloudFrontService {
 
-	List<TypedRequest> getIndexObjectRequests(DirectoryContext context, List<ObjectListing> listings);
+	List<TypedRequest> getIndexObjectRequests(CloudFrontContext context, List<ObjectListing> listings);
 
 }

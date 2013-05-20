@@ -4,8 +4,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 public class TypedRequest {
 
-	AmazonWebServiceRequestType type;
 	AmazonWebServiceRequest request;
+	AmazonWebServiceRequestType type;
+
+	public TypedRequest() {
+		this(null, null);
+	}
+
+	public TypedRequest(AmazonWebServiceRequest request, AmazonWebServiceRequestType type) {
+		super();
+		this.request = request;
+		this.type = type;
+	}
 
 	public AmazonWebServiceRequestType getType() {
 		return type;
