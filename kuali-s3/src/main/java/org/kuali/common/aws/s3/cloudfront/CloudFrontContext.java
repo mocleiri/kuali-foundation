@@ -13,6 +13,7 @@ public class CloudFrontContext {
 	List<String> welcomeFiles = new ArrayList<String>(DEFAULT_WELCOME_FILES);
 	String cacheControl = CloudFrontUtils.DEFAULT_CACHE_CONTROL;
 	BucketContext bucketContext;
+	HtmlContext htmlContext;
 
 	public BucketContext getBucketContext() {
 		return bucketContext;
@@ -36,6 +37,14 @@ public class CloudFrontContext {
 
 	public void setCacheControl(String cacheControl) {
 		this.cacheControl = cacheControl;
+	}
+
+	public HtmlContext getHtmlContext() {
+		return htmlContext;
+	}
+
+	public void setHtmlContext(HtmlContext htmlContext) {
+		this.htmlContext = htmlContext;
 	}
 
 }
