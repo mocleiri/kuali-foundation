@@ -23,8 +23,10 @@ import org.kuali.common.aws.s3.BucketConstants;
 /**
  * Sort version numbers in the correct order.
  * 
- * 1.1.10 sorts before 1.1.2<br>
- * 1.1.10-SNAPSHOT sorts before 1.1.10
+ * <pre>
+ * 1.1.10          <  1.1.2
+ * 1.1.10-SNAPSHOT <  1.1.10
+ * </pre>
  */
 public class DisplayRowComparator implements Comparator<DisplayRow> {
 
