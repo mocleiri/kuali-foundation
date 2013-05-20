@@ -15,6 +15,15 @@ public class ObjectListingRequest {
 	boolean recursive;
 	PercentCompleteInformer informer;
 
+	public ObjectListingRequest() {
+		this(null);
+	}
+
+	public ObjectListingRequest(BucketContext bucketContext) {
+		super();
+		this.bucketContext = bucketContext;
+	}
+
 	public BucketContext getBucketContext() {
 		return bucketContext;
 	}

@@ -10,6 +10,16 @@ public class BucketContext {
 	AmazonS3Client client;
 	String name;
 
+	public BucketContext() {
+		this(null, null);
+	}
+
+	public BucketContext(AmazonS3Client client, String name) {
+		super();
+		this.client = client;
+		this.name = name;
+	}
+
 	public AmazonS3Client getClient() {
 		return client;
 	}
