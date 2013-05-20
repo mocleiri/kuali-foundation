@@ -1,4 +1,4 @@
-package org.kuali.common.aws.s3.cloudfront;
+package org.kuali.common.aws.cloudfront;
 
 import com.amazonaws.AmazonWebServiceRequest;
 

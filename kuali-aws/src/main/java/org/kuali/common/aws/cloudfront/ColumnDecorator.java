@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.aws.s3.cloudfront;
+package org.kuali.common.aws.cloudfront;
 
 /**
  * Helper pojo for marking up the html for a column in an html table

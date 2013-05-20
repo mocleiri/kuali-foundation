@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.aws.s3.cloudfront;
+package org.kuali.common.aws.cloudfront;
 
 /**
  * Pojo that represents one row in the directory listing of the contents of a directory in an S3 bucket
