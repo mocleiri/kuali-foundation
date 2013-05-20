@@ -13,7 +13,10 @@ public abstract class CloudFrontConstants {
 	public static final String DEFAULT_CACHE_CONTROL = "max-age=3600, must-revalidate";
 	public static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
 	public static final List<String> DEFAULT_WELCOME_FILES = Arrays.asList("index.html", "welcome.html", "portal.html");
+	public static final String DEFAULT_BROWSE_KEY = "browse.html";
 
-	// This is Kuali specific. Should move this elsewhere
+	// These are all Kuali specific. Should move them elsewhere
 	public static final String GOOGLE_ANALYTICS_ACCOUNT = "UA-16781661-1";
+	public static final String DEFAULT_FILE_IMAGE = "http://s3browse.ks.kuali.org/images/page_white.png";
+	public static final String DEFAULT_DIR_IMAGE = "http://s3browse.ks.kuali.org/images/folder.png";
 }

@@ -4,13 +4,9 @@ import org.kuali.common.aws.s3.BucketContext;
 
 public class ListingConverterContext {
 
-	public static final String DEFAULT_FILE_IMAGE = "http://s3browse.ks.kuali.org/images/page_white.png";
-	public static final String DEFAULT_DIR_IMAGE = "http://s3browse.ks.kuali.org/images/folder.png";
-	public static final String DEFAULT_BROWSE_KEY = "browse.html";
-
-	String fileImage = DEFAULT_FILE_IMAGE;
-	String dirImage = DEFAULT_DIR_IMAGE;
-	String browseKey = DEFAULT_BROWSE_KEY;
+	String fileImage = CloudFrontConstants.DEFAULT_FILE_IMAGE;
+	String dirImage = CloudFrontConstants.DEFAULT_DIR_IMAGE;
+	String browseKey = CloudFrontConstants.DEFAULT_BROWSE_KEY;
 	String dateDisplayFormat = CloudFrontConstants.DATE_DISPLAY_FORMAT;
 	String dateDisplayTimeZone = CloudFrontConstants.DATE_DISPLAY_TIMEZONE;
 
