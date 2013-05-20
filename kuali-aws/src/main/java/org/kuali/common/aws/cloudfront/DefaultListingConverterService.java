@@ -118,22 +118,19 @@ public class DefaultListingConverterService implements ListingConverterService {
 	/**
 	 * Create an IndexContext for each ObjectListing.
 	 */
-	@Override
 	public List<IndexContext> getIndexContexts(ListingConverterContext context, List<ObjectListing> listings) {
-
-		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
-
 		List<IndexContext> contexts = new ArrayList<IndexContext>();
 		for (ObjectListing listing : listings) {
-			List<String[]> indexData = getIndexData(context, listing, formatter);
+			List<String[]> indexData = convert(context, listing);
 			IndexContext indexContext = new IndexContext(listing, indexData);
 			contexts.add(indexContext);
-
 		}
 		return contexts;
 	}
 
-	protected List<String[]> getIndexData(ListingConverterContext context, ObjectListing listing, SimpleDateFormat formatter) {
+	@Override
+	public List<String[]> convert(ListingConverterContext context, ObjectListing listing) {
+		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
 		Counter indent = new Counter();
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
 		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, listing, indent, formatter);
