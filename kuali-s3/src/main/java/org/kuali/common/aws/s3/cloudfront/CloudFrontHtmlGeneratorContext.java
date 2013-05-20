@@ -1,18 +1,15 @@
 package org.kuali.common.aws.s3.cloudfront;
 
+import org.kuali.common.aws.s3.BucketContext;
+import org.kuali.common.util.Project;
+
 public class CloudFrontHtmlGeneratorContext {
 
-	String delimiter;
-	String css;
-	String about;
+	public static final String DEFAULT_CSS = "http://s3browse.ks.kuali.org/css/style.css";
 
-	public String getDelimiter() {
-		return delimiter;
-	}
-
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
-	}
+	String css = DEFAULT_CSS;
+	Project project;
+	BucketContext bucketContext;
 
 	public String getCss() {
 		return css;
@@ -22,12 +19,20 @@ public class CloudFrontHtmlGeneratorContext {
 		this.css = css;
 	}
 
-	public String getAbout() {
-		return about;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setAbout(String about) {
-		this.about = about;
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public BucketContext getBucketContext() {
+		return bucketContext;
+	}
+
+	public void setBucketContext(BucketContext bucketContext) {
+		this.bucketContext = bucketContext;
 	}
 
 }

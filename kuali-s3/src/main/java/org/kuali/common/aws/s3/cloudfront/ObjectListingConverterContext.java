@@ -4,10 +4,11 @@ import org.kuali.common.aws.s3.BucketContext;
 
 public class ObjectListingConverterContext {
 
-	BucketContext bucketContext;
 	String fileImage;
 	String dirImage;
 	String browseKey;
+	
+	BucketContext bucketContext;
 
 	public BucketContext getBucketContext() {
 		return bucketContext;
