@@ -36,6 +36,18 @@ public class Str {
 	public static final char DOUBLE_QUOTE = '"';
 
 	/**
+	 * If <code>s</code> ends with <code>suffix</code>, remove it
+	 */
+	public static final String removeSuffix(String s, String suffix) {
+		if (StringUtils.endsWith(s, suffix)) {
+			int end = StringUtils.length(s) - StringUtils.length(suffix);
+			return StringUtils.substring(s, 0, end);
+		} else {
+			return s;
+		}
+	}
+
+	/**
 	 * If s is null return "" otherwise return s
 	 */
 	public static final String toEmpty(String s) {
