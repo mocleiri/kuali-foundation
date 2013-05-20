@@ -54,7 +54,7 @@ public class CloudFrontContext {
 		return converterService;
 	}
 
-	public void setConverter(DefaultConverterService converter) {
+	public void setConverter(DefaultListingConverterService converter) {
 		this.converterService = converter;
 	}
 
