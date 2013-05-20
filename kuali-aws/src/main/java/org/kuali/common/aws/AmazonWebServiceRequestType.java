@@ -1,4 +1,4 @@
-package org.kuali.common.aws.cloudfront;
+package org.kuali.common.aws;
 
 public enum AmazonWebServiceRequestType {
 

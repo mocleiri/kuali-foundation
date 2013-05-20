@@ -1,5 +1,7 @@
 package org.kuali.common.aws.cloudfront;
 
+import org.kuali.common.aws.AmazonWebServiceRequestType;
+
 import com.amazonaws.AmazonWebServiceRequest;
 
 public class TypedRequest {
