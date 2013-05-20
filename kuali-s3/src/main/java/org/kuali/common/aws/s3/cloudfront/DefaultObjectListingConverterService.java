@@ -15,6 +15,7 @@
  */
 package org.kuali.common.aws.s3.cloudfront;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -119,9 +120,10 @@ public class DefaultObjectListingConverterService implements ObjectListingConver
 	 */
 	@Override
 	public List<String[]> convert(ObjectListingConverterContext context, ObjectListing listing) {
+		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
 		Counter indent = new Counter();
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, listing, indent);
+		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, listing, indent, formatter);
 		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, listing, indent);
 		Comparator<DisplayRow> comparator = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, comparator);
@@ -152,7 +154,7 @@ public class DefaultObjectListingConverterService implements ObjectListingConver
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(ObjectListingConverterContext context, S3ObjectSummary summary, ObjectListing listing, Counter indent) {
+	protected DisplayRow getDisplayRow(ObjectListingConverterContext context, S3ObjectSummary summary, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
 
 		String delimiter = context.getBucketContext().getDelimiter();
 
@@ -163,7 +165,7 @@ public class DefaultObjectListingConverterService implements ObjectListingConver
 		String show = getShow(key, listing.getPrefix());
 		String dest = delimiter + key;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
-		String date = FormatUtils.getDate(summary.getLastModified());
+		String date = formatter.format(summary.getLastModified());
 		String size = FormatUtils.getSize(summary.getSize());
 
 		// Store them in an object
@@ -176,14 +178,14 @@ public class DefaultObjectListingConverterService implements ObjectListingConver
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ObjectListingConverterContext context, ObjectListing listing, Counter indent) {
+	protected List<DisplayRow> getObjectDisplayRows(ObjectListingConverterContext context, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
 		String delimiter = context.getBucketContext().getDelimiter();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
 			if (isDirectory(summary, listing.getCommonPrefixes(), listing.getPrefix(), delimiter)) {
 				continue;
 			}
-			DisplayRow displayRow = getDisplayRow(context, summary, listing, indent);
+			DisplayRow displayRow = getDisplayRow(context, summary, listing, indent, formatter);
 			if (displayRow == null) {
 				continue;
 			}
