@@ -1,28 +1,31 @@
 package org.kuali.common.aws.s3.cloudfront;
 
-import org.codehaus.plexus.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.amazonaws.services.s3.model.ObjectListing;
 
 public class DefaultCloudFrontService implements CloudFrontService {
 
 	@Override
-	public void createOrUpdateBrowsableIndexObjects(DirectoryContext ctx) {
+	public List<TypedRequest> getIndexObjectRequests(DirectoryContext context, List<ObjectListing> listings) {
 
-		String bucket = ctx.getBucket();
-		String dirKey = ctx.getListing().getPrefix();
-		String dirNoSlashKey = StringUtils.substring(dirKey, 0, dirKey.length() - ctx.getDelimiter().length());
-		String html = ctx.getIndexHtml();
+		List<TypedRequest> requests = new ArrayList<TypedRequest>();
 
 		// Create s3://bucket/foo
-		CloudFrontUtils.getPutIndexObjectRequest(bucket, ctx.getCacheControl(), html, dirNoSlashKey);
-		String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(ctx.getListing(), ctx.getWelcomeFiles());
-		if (welcomeFileKey == null) {
-			// Create s3://bucket/foo/bar/
-			CloudFrontUtils.getPutIndexObjectRequest(bucket, ctx.getCacheControl(), html, dirKey);
-		} else {
-			// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
-			CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
+		for (ObjectListing listing : listings) {
+			String html = CloudFrontUtils.
+			CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), html, dirNoSlashKey);
+			String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(context.getListing(), context.getWelcomeFiles());
+			if (welcomeFileKey == null) {
+				// Create s3://bucket/foo/bar/
+				CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), html, dirKey);
+			} else {
+				// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
+				CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
+			}
 		}
-
+		return requests;
 	}
 
 }

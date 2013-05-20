@@ -21,11 +21,15 @@ public class DefaultBucketService implements BucketService {
 	public ObjectListingResult getObjectListings(ObjectListingRequest request) {
 
 		// Make sure we are configured correctly
-		Assert.notNull(request.getClient(), "client is null");
-		Assert.hasText(request.getDelimiter(), "delimiter has no text");
-		Assert.hasText(request.getBucket(), "bucket has no text");
-		boolean exists = request.getClient().doesBucketExist(request.getBucket());
-		Assert.isTrue(exists, "bucket [" + request.getBucket() + "] does not exist");
+		Assert.notNull(request.getBucketContext(), "bucketContext is null");
+
+		BucketContext bucket = request.getBucketContext();
+
+		Assert.notNull(bucket.getClient(), "client is null");
+		Assert.hasText(bucket.getDelimiter(), "delimiter has no text");
+		Assert.hasText(bucket.getName(), "name has no text");
+		boolean exists = bucket.getClient().doesBucketExist(bucket.getName());
+		Assert.isTrue(exists, "bucket [" + bucket.getName() + "] does not exist");
 
 		// Start the informer, if they supplied one
 		if (request.getInformer() != null) {
@@ -63,7 +67,7 @@ public class DefaultBucketService implements BucketService {
 	protected List<ObjectListing> accumulateObjectListings(ObjectListingRequest request) {
 
 		// Append delimiter to prefix if needed
-		String prefix = getPrefix(request.getPrefix(), request.getDelimiter());
+		String prefix = getPrefix(request.getPrefix(), request.getBucketContext().getDelimiter());
 
 		// Setup some storage for our Object listings
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
@@ -88,7 +92,7 @@ public class DefaultBucketService implements BucketService {
 		ListObjectsRequest lor = getListObjectsRequest(request, prefix);
 
 		// Connect to S3 and extract the object listing
-		ObjectListing listing = request.getClient().listObjects(lor);
+		ObjectListing listing = request.getBucketContext().getClient().listObjects(lor);
 
 		// Make sure it isn't truncated (< 1000 objects total)
 		Assert.isFalse(listing.isTruncated(), "listing is truncated");
@@ -168,7 +172,7 @@ public class DefaultBucketService implements BucketService {
 
 	protected boolean isExclude(ObjectListingRequest request, String prefix) {
 		for (String exclude : CollectionUtils.toEmptyList(request.getExcludes())) {
-			if (isEndsWithMatch(prefix, exclude, request.getDelimiter())) {
+			if (isEndsWithMatch(prefix, exclude, request.getBucketContext().getDelimiter())) {
 				return true;
 			}
 		}
@@ -180,7 +184,7 @@ public class DefaultBucketService implements BucketService {
 			return true;
 		}
 		for (String include : request.getIncludes()) {
-			if (isEndsWithMatch(prefix, include, request.getDelimiter())) {
+			if (isEndsWithMatch(prefix, include, request.getBucketContext().getDelimiter())) {
 				return true;
 			}
 		}
@@ -203,7 +207,7 @@ public class DefaultBucketService implements BucketService {
 	}
 
 	protected ListObjectsRequest getListObjectsRequest(ObjectListingRequest request, String prefix) {
-		return getListObjectsRequest(request.getBucket(), prefix, request.getDelimiter(), null);
+		return getListObjectsRequest(request.getBucketContext().getName(), prefix, request.getBucketContext().getDelimiter(), null);
 	}
 
 	protected ListObjectsRequest getListObjectsRequest(String bucket, String prefix, String delimiter, Integer maxKeys) {
