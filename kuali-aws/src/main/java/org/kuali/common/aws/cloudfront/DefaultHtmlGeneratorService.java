@@ -30,7 +30,7 @@ import org.kuali.common.util.html.Tag;
 /**
  * Generate directory listings in html format that is Amazon CloudFront friendly
  */
-public class DefaultCloudFrontHtmlGeneratorService implements CloudFrontHtmlGeneratorService {
+public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 
 	/**
 	 * Decorators for the columns in the table
@@ -80,7 +80,7 @@ public class DefaultCloudFrontHtmlGeneratorService implements CloudFrontHtmlGene
 	 * Generate the full html page
 	 */
 	@Override
-	public String getDirectoryListing(CloudFrontHtmlGeneratorContext context, String prefix, List<String[]> data) {
+	public String getDirectoryListing(HtmlGeneratorContext context, String prefix, List<String[]> data) {
 
 		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
 		String now = formatter.format(new Date());

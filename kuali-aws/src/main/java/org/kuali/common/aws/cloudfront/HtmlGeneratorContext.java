@@ -3,7 +3,7 @@ package org.kuali.common.aws.cloudfront;
 import org.kuali.common.aws.s3.BucketContext;
 import org.kuali.common.util.Project;
 
-public class CloudFrontHtmlGeneratorContext {
+public class HtmlGeneratorContext {
 
 	public static final String DEFAULT_CSS = "http://s3browse.ks.kuali.org/css/style.css";
 
