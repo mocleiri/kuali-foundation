@@ -8,7 +8,6 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -16,9 +15,6 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class CloudFrontUtils {
-
-	public static final String DEFAULT_CACHE_CONTROL = "max-age=3600, must-revalidate";
-	public static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
 
 	private static final String S3_INDEX_METADATA_KEY = "maven-cloudfront-plugin-index";
 	private static final String S3_INDEX_CONTENT_TYPE = "text/html";
@@ -71,7 +67,7 @@ public class CloudFrontUtils {
 	 */
 	public static CopyObjectRequest getCopyObjectRequest(String bucket, String src, String dst) {
 		CopyObjectRequest request = new CopyObjectRequest(bucket, src, bucket, dst);
-		request.setCannedAccessControlList(DEFAULT_ACL);
+		request.setCannedAccessControlList(CloudFrontConstants.DEFAULT_ACL);
 		return request;
 	}
 
@@ -104,7 +100,7 @@ public class CloudFrontUtils {
 
 		// Create a request object
 		PutObjectRequest request = new PutObjectRequest(bucket, key, in, om);
-		request.setCannedAcl(DEFAULT_ACL);
+		request.setCannedAcl(CloudFrontConstants.DEFAULT_ACL);
 		return request;
 	}
 }
