@@ -16,8 +16,8 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	@Override
 	public List<TypedRequest> getIndexObjectRequests(CloudFrontContext context, List<ObjectListing> listings) {
 
-		ConverterService converterService = context.getConverterService();
-		ConverterContext converterContext = context.getConverterContext();
+		ListingConverterService converterService = context.getConverterService();
+		ListingConverterContext converterContext = context.getConverterContext();
 
 		HtmlGeneratorService generatorService = context.getGeneratorService();
 		HtmlGeneratorContext generatorContext = context.getGeneratorContext();

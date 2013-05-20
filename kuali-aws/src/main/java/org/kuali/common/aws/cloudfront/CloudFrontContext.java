@@ -13,8 +13,8 @@ public class CloudFrontContext {
 	List<String> welcomeFiles = new ArrayList<String>(DEFAULT_WELCOME_FILES);
 	String cacheControl = CloudFrontUtils.DEFAULT_CACHE_CONTROL;
 	BucketContext bucketContext;
-	ConverterContext converterContext;
-	ConverterService converterService;
+	ListingConverterContext converterContext;
+	ListingConverterService converterService;
 	HtmlGeneratorContext generatorContext;
 	HtmlGeneratorService generatorService;
 
@@ -50,7 +50,7 @@ public class CloudFrontContext {
 		this.generatorContext = htmlContext;
 	}
 
-	public ConverterService getConverterService() {
+	public ListingConverterService getConverterService() {
 		return converterService;
 	}
 
@@ -66,15 +66,15 @@ public class CloudFrontContext {
 		this.generatorService = generator;
 	}
 
-	public void setConverterService(ConverterService converter) {
+	public void setConverterService(ListingConverterService converter) {
 		this.converterService = converter;
 	}
 
-	public ConverterContext getConverterContext() {
+	public ListingConverterContext getConverterContext() {
 		return converterContext;
 	}
 
-	public void setConverterContext(ConverterContext converterContext) {
+	public void setConverterContext(ListingConverterContext converterContext) {
 		this.converterContext = converterContext;
 	}
 

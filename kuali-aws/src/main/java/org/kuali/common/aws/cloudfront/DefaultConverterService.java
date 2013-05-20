@@ -33,7 +33,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 /**
  * Convert information from an S3 bucket into pojo's
  */
-public class DefaultConverterService implements ConverterService {
+public class DefaultConverterService implements ListingConverterService {
 
 	/**
 	 * Convert "foo/bar/css/" into "foo/bar/css"<br>
@@ -83,7 +83,7 @@ public class DefaultConverterService implements ConverterService {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(String commonPrefix, ConverterContext context, ObjectListing listing, Counter indent) {
+	protected DisplayRow getDisplayRow(String commonPrefix, ListingConverterContext context, ObjectListing listing, Counter indent) {
 
 		// Create some UI friendly strings
 		String image = HtmlUtils.getImage(context.getDirImage(), indent);
@@ -103,7 +103,7 @@ public class DefaultConverterService implements ConverterService {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getDirectoryDisplayRows(ConverterContext context, ObjectListing listing, Counter indent) {
+	protected List<DisplayRow> getDirectoryDisplayRows(ListingConverterContext context, ObjectListing listing, Counter indent) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (String commonPrefix : listing.getCommonPrefixes()) {
 			DisplayRow displayRow = getDisplayRow(commonPrefix, context, listing, indent);
@@ -119,7 +119,7 @@ public class DefaultConverterService implements ConverterService {
 	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
 	@Override
-	public List<String[]> convert(ConverterContext context, ObjectListing listing) {
+	public List<String[]> convert(ListingConverterContext context, ObjectListing listing) {
 		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
 		Counter indent = new Counter();
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
@@ -154,7 +154,7 @@ public class DefaultConverterService implements ConverterService {
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(ConverterContext context, S3ObjectSummary summary, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
+	protected DisplayRow getDisplayRow(ListingConverterContext context, S3ObjectSummary summary, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
 
 		String delimiter = context.getBucketContext().getDelimiter();
 
@@ -178,7 +178,7 @@ public class DefaultConverterService implements ConverterService {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ConverterContext context, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
+	protected List<DisplayRow> getObjectDisplayRows(ListingConverterContext context, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
 		String delimiter = context.getBucketContext().getDelimiter();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
@@ -197,7 +197,7 @@ public class DefaultConverterService implements ConverterService {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getUpOneDirectoryDisplayRow(ConverterContext context, String prefix, Counter indent) {
+	protected DisplayRow getUpOneDirectoryDisplayRow(ListingConverterContext context, String prefix, Counter indent) {
 
 		String delimiter = context.getBucketContext().getDelimiter();
 		String browseKey = context.getBrowseKey();

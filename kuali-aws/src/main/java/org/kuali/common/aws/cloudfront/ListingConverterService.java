@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 
-public interface ConverterService {
+public interface ListingConverterService {
 
-	List<String[]> convert(ConverterContext context, ObjectListing listing);
+	List<String[]> convert(ListingConverterContext context, ObjectListing listing);
 
 }
