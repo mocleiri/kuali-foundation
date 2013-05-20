@@ -34,7 +34,7 @@ public class CloudFrontUtils {
 		return null;
 	}
 
-	protected static String getFirstMatchingKey(ObjectListing listing, S3ObjectSummary summary, List<String> filenames) {
+	public static String getFirstMatchingKey(ObjectListing listing, S3ObjectSummary summary, List<String> filenames) {
 		// Cycle through the list of filenames
 		for (String filename : filenames) {
 			// Append the file name to the key for this directory
