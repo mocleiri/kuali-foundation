@@ -12,6 +12,15 @@ public class ListingConverterContext {
 
 	BucketContext bucketContext;
 
+	public ListingConverterContext() {
+		this(null);
+	}
+
+	public ListingConverterContext(BucketContext bucketContext) {
+		super();
+		this.bucketContext = bucketContext;
+	}
+
 	public String getFileImage() {
 		return fileImage;
 	}
