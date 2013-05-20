@@ -15,7 +15,7 @@ public class CloudFrontContext {
 	BucketContext bucketContext;
 	ObjectListingConverterContext converterContext;
 	ObjectListingConverter converter;
-	CloudFrontHtmlGeneratorContext htmlContext;
+	CloudFrontHtmlGeneratorContext generatorContext;
 	CloudFrontHtmlGenerator generator;
 
 	public BucketContext getBucketContext() {
@@ -42,12 +42,12 @@ public class CloudFrontContext {
 		this.cacheControl = cacheControl;
 	}
 
-	public CloudFrontHtmlGeneratorContext getHtmlContext() {
-		return htmlContext;
+	public CloudFrontHtmlGeneratorContext getGeneratorContext() {
+		return generatorContext;
 	}
 
-	public void setHtmlContext(CloudFrontHtmlGeneratorContext htmlContext) {
-		this.htmlContext = htmlContext;
+	public void setGeneratorContext(CloudFrontHtmlGeneratorContext htmlContext) {
+		this.generatorContext = htmlContext;
 	}
 
 	public ObjectListingConverter getConverter() {
