@@ -16,7 +16,7 @@
 package org.kuali.common.aws.s3;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.common.aws.s3.BaseCase;
+import org.kuali.common.aws.s3.monitor.BaseCase;
 
 public class ExternalOnlyBaseCase implements BaseCase {
 

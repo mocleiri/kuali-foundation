@@ -3,6 +3,7 @@ package org.kuali.common.aws.s3;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.aws.s3.monitor.S3Utils;
 import org.kuali.common.util.LogMsg;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
