@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface CloudFrontHtmlGenerator {
 
-	String getDirectoryListing(HtmlContext context, String prefix, List<String[]> data);
+	String getDirectoryListing(CloudFrontHtmlGeneratorContext context, String prefix, List<String[]> data);
 
 }

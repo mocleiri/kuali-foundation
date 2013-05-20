@@ -1,6 +1,6 @@
 package org.kuali.common.aws.s3.cloudfront;
 
-public class HtmlContext {
+public class CloudFrontHtmlGeneratorContext {
 
 	String delimiter;
 	String css;

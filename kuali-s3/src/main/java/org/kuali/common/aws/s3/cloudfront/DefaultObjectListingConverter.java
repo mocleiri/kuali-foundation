@@ -82,11 +82,11 @@ public class DefaultObjectListingConverter implements ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(String commonPrefix, ObjectListingConversionContext context, Counter indent) {
+	protected DisplayRow getDisplayRow(String commonPrefix, ObjectListingConverterContext context, ObjectListing listing, Counter indent) {
 
 		// Create some UI friendly strings
 		String image = HtmlUtils.getImage(context.getDirImage(), indent);
-		String show = getShow(commonPrefix, context.getListing().getPrefix());
+		String show = getShow(commonPrefix, listing.getPrefix());
 		String dest = context.getBucketContext().getDelimiter() + commonPrefix;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = "-";
@@ -102,11 +102,10 @@ public class DefaultObjectListingConverter implements ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListingConversionContext context, Counter indent) {
-		ObjectListing listing = context.getListing();
+	protected List<DisplayRow> getDirectoryDisplayRows(ObjectListingConverterContext context, ObjectListing listing, Counter indent) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (String commonPrefix : listing.getCommonPrefixes()) {
-			DisplayRow displayRow = getDisplayRow(commonPrefix, context, indent);
+			DisplayRow displayRow = getDisplayRow(commonPrefix, context, listing, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -119,11 +118,11 @@ public class DefaultObjectListingConverter implements ObjectListingConverter {
 	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
 	@Override
-	public List<String[]> convert(ObjectListingConversionContext context) {
+	public List<String[]> convert(ObjectListingConverterContext context, ObjectListing listing) {
 		Counter indent = new Counter();
-		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, indent);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, indent);
-		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, indent);
+		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
+		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, listing, indent);
+		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, listing, indent);
 		Comparator<DisplayRow> comparator = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, comparator);
 		List<String[]> data = new ArrayList<String[]>();
@@ -153,16 +152,15 @@ public class DefaultObjectListingConverter implements ObjectListingConverter {
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(ObjectListingConversionContext context, S3ObjectSummary summary, Counter indent) {
+	protected DisplayRow getDisplayRow(ObjectListingConverterContext context, S3ObjectSummary summary, ObjectListing listing, Counter indent) {
 
-		String prefix = context.getListing().getPrefix();
 		String delimiter = context.getBucketContext().getDelimiter();
 
 		String key = summary.getKey();
 
 		// Create some UI friendly strings
 		String image = HtmlUtils.getImage(context.getFileImage(), indent);
-		String show = getShow(key, prefix);
+		String show = getShow(key, listing.getPrefix());
 		String dest = delimiter + key;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = FormatUtils.getDate(summary.getLastModified());
@@ -178,16 +176,14 @@ public class DefaultObjectListingConverter implements ObjectListingConverter {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ObjectListingConversionContext context, Counter indent) {
-		String prefix = context.getListing().getPrefix();
+	protected List<DisplayRow> getObjectDisplayRows(ObjectListingConverterContext context, ObjectListing listing, Counter indent) {
 		String delimiter = context.getBucketContext().getDelimiter();
-		ObjectListing listing = context.getListing();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
-			if (isDirectory(summary, listing.getCommonPrefixes(), prefix, delimiter)) {
+			if (isDirectory(summary, listing.getCommonPrefixes(), listing.getPrefix(), delimiter)) {
 				continue;
 			}
-			DisplayRow displayRow = getDisplayRow(context, summary, indent);
+			DisplayRow displayRow = getDisplayRow(context, summary, listing, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -199,9 +195,8 @@ public class DefaultObjectListingConverter implements ObjectListingConverter {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getUpOneDirectoryDisplayRow(ObjectListingConversionContext context, Counter indent) {
+	protected DisplayRow getUpOneDirectoryDisplayRow(ObjectListingConverterContext context, String prefix, Counter indent) {
 
-		String prefix = context.getListing().getPrefix();
 		String delimiter = context.getBucketContext().getDelimiter();
 		String browseKey = context.getBrowseKey();
 

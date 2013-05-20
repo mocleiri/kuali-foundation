@@ -77,7 +77,7 @@ public class DefaultCloudFrontHtmlGenerator implements CloudFrontHtmlGenerator {
 	 * Generate the full html page
 	 */
 	@Override
-	public String getDirectoryListing(HtmlContext context, String prefix, List<String[]> data) {
+	public String getDirectoryListing(CloudFrontHtmlGeneratorContext context, String prefix, List<String[]> data) {
 		Counter indent = new Counter();
 		String directory = getDirectory(prefix, context.getDelimiter());
 

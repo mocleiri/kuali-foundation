@@ -2,12 +2,9 @@ package org.kuali.common.aws.s3.cloudfront;
 
 import org.kuali.common.aws.s3.BucketContext;
 
-import com.amazonaws.services.s3.model.ObjectListing;
-
-public class ObjectListingConversionContext {
+public class ObjectListingConverterContext {
 
 	BucketContext bucketContext;
-	ObjectListing listing;
 	String fileImage;
 	String dirImage;
 	String browseKey;
@@ -18,14 +15,6 @@ public class ObjectListingConversionContext {
 
 	public void setBucketContext(BucketContext bucketContext) {
 		this.bucketContext = bucketContext;
-	}
-
-	public ObjectListing getListing() {
-		return listing;
-	}
-
-	public void setListing(ObjectListing listing) {
-		this.listing = listing;
 	}
 
 	public String getFileImage() {
