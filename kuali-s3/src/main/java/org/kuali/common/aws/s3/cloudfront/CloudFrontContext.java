@@ -14,6 +14,7 @@ public class CloudFrontContext {
 	String cacheControl = CloudFrontUtils.DEFAULT_CACHE_CONTROL;
 	BucketContext bucketContext;
 	HtmlContext htmlContext;
+	ObjectListingConverter converter;
 
 	public BucketContext getBucketContext() {
 		return bucketContext;
@@ -45,6 +46,14 @@ public class CloudFrontContext {
 
 	public void setHtmlContext(HtmlContext htmlContext) {
 		this.htmlContext = htmlContext;
+	}
+
+	public ObjectListingConverter getConverter() {
+		return converter;
+	}
+
+	public void setConverter(ObjectListingConverter converter) {
+		this.converter = converter;
 	}
 
 }
