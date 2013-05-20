@@ -14,7 +14,7 @@ public class CloudFrontContext {
 	String cacheControl = CloudFrontUtils.DEFAULT_CACHE_CONTROL;
 	BucketContext bucketContext;
 	ConverterContext converterContext;
-	ObjectListingConverterService converterService;
+	ConverterService converterService;
 	HtmlGeneratorContext generatorContext;
 	HtmlGeneratorService generatorService;
 
@@ -50,11 +50,11 @@ public class CloudFrontContext {
 		this.generatorContext = htmlContext;
 	}
 
-	public ObjectListingConverterService getConverterService() {
+	public ConverterService getConverterService() {
 		return converterService;
 	}
 
-	public void setConverter(DefaultConverterService2 converter) {
+	public void setConverter(DefaultConverterService converter) {
 		this.converterService = converter;
 	}
 
@@ -66,7 +66,7 @@ public class CloudFrontContext {
 		this.generatorService = generator;
 	}
 
-	public void setConverterService(ObjectListingConverterService converter) {
+	public void setConverterService(ConverterService converter) {
 		this.converterService = converter;
 	}
 
