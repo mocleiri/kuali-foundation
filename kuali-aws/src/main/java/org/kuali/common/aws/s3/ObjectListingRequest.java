@@ -8,29 +8,11 @@ public class ObjectListingRequest {
 
 	public static final long DEFAULT_PREFIX_ESTIMATE = 100;
 
-	BucketContext bucketContext;
 	String prefix;
 	List<String> includes;
 	List<String> excludes;
 	boolean recursive;
 	PercentCompleteInformer informer;
-
-	public ObjectListingRequest() {
-		this(null);
-	}
-
-	public ObjectListingRequest(BucketContext bucketContext) {
-		super();
-		this.bucketContext = bucketContext;
-	}
-
-	public BucketContext getBucketContext() {
-		return bucketContext;
-	}
-
-	public void setBucketContext(BucketContext bucketContext) {
-		this.bucketContext = bucketContext;
-	}
 
 	public String getPrefix() {
 		return prefix;
