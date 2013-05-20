@@ -35,6 +35,7 @@ public class DisplayRowComparator implements Comparator<DisplayRow> {
 
 	@Override
 	public int compare(DisplayRow one, DisplayRow two) {
+
 		String show1 = one.getShow();
 		String show2 = two.getShow();
 
