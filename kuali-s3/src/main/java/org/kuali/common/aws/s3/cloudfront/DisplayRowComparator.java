@@ -26,8 +26,10 @@ import org.apache.commons.lang.StringUtils;
  * 1.1.10-SNAPSHOT sorts before 1.1.10
  */
 public class DisplayRowComparator implements Comparator<DisplayRow> {
+
 	public static final String DEFAULT_SEPARATORS = ".-";
 	public static final String DEFAULT_DELIMITER = "/";
+
 	String separators = DEFAULT_SEPARATORS;
 	String delimiter = DEFAULT_DELIMITER;
 
