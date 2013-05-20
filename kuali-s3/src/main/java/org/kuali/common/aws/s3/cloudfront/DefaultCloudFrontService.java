@@ -39,12 +39,12 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	protected void addDirNoSlash(CloudFrontContext context, ObjectListing listing, List<TypedRequest> requests) {
 		String bucket = context.getBucketContext().getName();
 		String delimiter = context.getBucketContext().getDelimiter();
-		String dirNoSlashKey = removeTrailingSuffix(listing.getPrefix(), delimiter);
+		String dirNoSlashKey = removeSuffix(listing.getPrefix(), delimiter);
 		PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirNoSlashKey);
 		requests.add(new TypedRequest(put, AmazonWebServiceRequestType.PUT));
 	}
 
-	protected String removeTrailingSuffix(String s, String suffix) {
+	protected String removeSuffix(String s, String suffix) {
 		Assert.isTrue(StringUtils.endsWith(s, suffix), "[" + s + "] does not end with [" + suffix + "]");
 		return StringUtils.substring(s, 0, StringUtils.length(s) - StringUtils.length(suffix));
 	}
