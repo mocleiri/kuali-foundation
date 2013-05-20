@@ -21,7 +21,7 @@ public class DefaultCloudFrontService implements CloudFrontService {
 			String html = "";
 
 			// Create s3://bucket/foo/bar
-			TypedRequest request1 = getTypeRequestWithoutTrailingDelimiter(context, listing, html);
+			TypedRequest request1 = getTypedRequestWithoutTrailingDelimiter(context, listing, html);
 
 			// Create s3://bucket/foo/bar/
 			TypedRequest request2 = getTypedRequest(context, listing, html);
@@ -34,7 +34,7 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		return requests;
 	}
 
-	protected TypedRequest getTypeRequestWithoutTrailingDelimiter(CloudFrontContext context, ObjectListing listing, String html) {
+	protected TypedRequest getTypedRequestWithoutTrailingDelimiter(CloudFrontContext context, ObjectListing listing, String html) {
 		// Create s3://bucket/foo/bar
 		PutObjectRequest index = getPutHtmlRequestWithoutTrailingDelimiter(context, listing, html);
 		return new TypedRequest(index, AmazonWebServiceRequestType.PUT_OBJECT);
