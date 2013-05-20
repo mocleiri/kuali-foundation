@@ -16,8 +16,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class CloudFrontUtils {
 
-	private static final String S3_INDEX_METADATA_KEY = "maven-cloudfront-plugin-index";
-	private static final String S3_INDEX_CONTENT_TYPE = "text/html";
+	private static final String INDEX_METADATA_KEY = "maven-cloudfront-plugin-index";
+	private static final String INDEX_CONTENT_TYPE = "text/html";
 
 	/**
 	 * Return a date formatter for the indicated format and timezone.
@@ -94,9 +94,9 @@ public class CloudFrontUtils {
 		// Create some metadata for identifying this S3 object as an index
 		ObjectMetadata om = new ObjectMetadata();
 		om.setCacheControl(cacheControl);
-		om.setContentType(S3_INDEX_CONTENT_TYPE);
+		om.setContentType(INDEX_CONTENT_TYPE);
 		om.setContentLength(html.length());
-		om.addUserMetadata(S3_INDEX_METADATA_KEY, "true");
+		om.addUserMetadata(INDEX_METADATA_KEY, "true");
 
 		// Create a request object
 		PutObjectRequest request = new PutObjectRequest(bucket, key, in, om);
