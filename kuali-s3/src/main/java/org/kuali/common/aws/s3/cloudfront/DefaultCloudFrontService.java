@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
+import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
@@ -17,17 +18,18 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		String bucket = context.getBucketContext().getName();
 
 		List<TypedRequest> requests = new ArrayList<TypedRequest>();
-
 		for (ObjectListing listing : listings) {
 			addDirNoSlash(context, listing, requests);
+			String dirKey = listing.getPrefix();
 			String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(listing, context.getWelcomeFiles());
 			if (welcomeFileKey == null) {
 				// Create s3://bucket/foo/bar/
-				PutObjectRequest request2 = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, listing.getPrefix());
-				requests.add(new TypedRequest(request2, AmazonWebServiceRequestType.PUT));
+				PutObjectRequest request = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirKey);
+				requests.add(new TypedRequest(request, AmazonWebServiceRequestType.PUT));
 			} else {
 				// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
-				CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, listing.getPrefix());
+				CopyObjectRequest cor = CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
+				requests.add(new TypedRequest(cor, AmazonWebServiceRequestType.COPY));
 			}
 		}
 		return requests;
