@@ -10,9 +10,9 @@ public class CloudFrontContext {
 
 	public static final List<String> DEFAULT_WELCOME_FILES = Arrays.asList("index.html", "welcome.html", "portal.html");
 
-	BucketContext bucketContext;
 	List<String> welcomeFiles = new ArrayList<String>(DEFAULT_WELCOME_FILES);
 	String cacheControl = CloudFrontUtils.DEFAULT_CACHE_CONTROL;
+	BucketContext bucketContext;
 
 	public BucketContext getBucketContext() {
 		return bucketContext;
