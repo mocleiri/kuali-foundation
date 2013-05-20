@@ -36,7 +36,7 @@ public class DefaultBucketServiceTest {
 
 			BucketContext context = new BucketContext(client, bucket);
 
-			ObjectListingRequest request = new ObjectListingRequest(context);
+			ObjectListingRequest request = new ObjectListingRequest();
 			request.setExcludes(excludes);
 			request.setPrefix(prefix);
 			request.setInformer(informer);
@@ -44,7 +44,7 @@ public class DefaultBucketServiceTest {
 
 			BucketService service = new DefaultBucketService();
 
-			ObjectListingResult result = service.getObjectListings(request);
+			ObjectListingResult result = service.getObjectListings(context, request);
 			for (ObjectListing listing : result.getListings()) {
 				showListing(listing);
 			}
