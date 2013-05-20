@@ -15,5 +15,4 @@ public abstract class CloudFrontConstants {
 	public static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
 	public static final List<String> DEFAULT_WELCOME_FILES = Arrays.asList("index.html", "welcome.html", "portal.html");
 
-
 }
