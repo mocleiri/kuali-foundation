@@ -16,7 +16,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 public class CloudFrontUtils {
 
 	public static final String DEFAULT_CACHE_CONTROL = "max-age=3600, must-revalidate";
-	private static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
+	public static final CannedAccessControlList DEFAULT_ACL = CannedAccessControlList.PublicRead;
+
 	private static final String S3_INDEX_METADATA_KEY = "maven-cloudfront-plugin-index";
 	private static final String S3_INDEX_CONTENT_TYPE = "text/html";
 
