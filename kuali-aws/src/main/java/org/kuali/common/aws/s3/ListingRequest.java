@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.util.PercentCompleteInformer;
 
-public class ObjectListingRequest {
+public class ListingRequest {
 
 	public static final long DEFAULT_PREFIX_ESTIMATE = 100;
 

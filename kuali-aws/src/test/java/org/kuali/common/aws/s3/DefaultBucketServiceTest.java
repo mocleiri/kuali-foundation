@@ -24,7 +24,7 @@ public class DefaultBucketServiceTest {
 			AmazonS3Client client = getClient();
 			String bucket = "site.origin.kuali.org";
 			String prefix = getProperty("s3.prefix", "pom/kuali-pom/latest");
-			long prefixEstimate = getLong("s3.prefixEstimate", ObjectListingRequest.DEFAULT_PREFIX_ESTIMATE);
+			long prefixEstimate = getLong("s3.prefixEstimate", ListingRequest.DEFAULT_PREFIX_ESTIMATE);
 
 			// String prefix = "rice/latest";
 			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
@@ -36,7 +36,7 @@ public class DefaultBucketServiceTest {
 
 			BucketContext context = new BucketContext(client, bucket);
 
-			ObjectListingRequest request = new ObjectListingRequest();
+			ListingRequest request = new ListingRequest();
 			request.setExcludes(excludes);
 			request.setPrefix(prefix);
 			request.setInformer(informer);
@@ -44,7 +44,7 @@ public class DefaultBucketServiceTest {
 
 			BucketService service = new DefaultBucketService();
 
-			ObjectListingResult result = service.getObjectListings(context, request);
+			ListingResult result = service.getObjectListings(context, request);
 			for (ObjectListing listing : result.getListings()) {
 				showListing(listing);
 			}

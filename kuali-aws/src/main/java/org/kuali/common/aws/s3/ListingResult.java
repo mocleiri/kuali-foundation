@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 
-public class ObjectListingResult {
+public class ListingResult {
 
 	long startTime;
 	long stopTime;

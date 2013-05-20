@@ -18,7 +18,7 @@ public class DefaultBucketService implements BucketService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
-	public ObjectListingResult getObjectListings(BucketContext context, ObjectListingRequest request) {
+	public ListingResult getObjectListings(BucketContext context, ListingRequest request) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(context, "context is null");
@@ -51,7 +51,7 @@ public class DefaultBucketService implements BucketService {
 		}
 
 		// Aggregate information about this request into a result object
-		ObjectListingResult result = new ObjectListingResult();
+		ListingResult result = new ListingResult();
 		result.setListings(listings);
 		result.setStartTime(start);
 		result.setStopTime(stop);
@@ -62,7 +62,7 @@ public class DefaultBucketService implements BucketService {
 	/**
 	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
-	protected List<ObjectListing> accumulateObjectListings(BucketContext context, ObjectListingRequest request) {
+	protected List<ObjectListing> accumulateObjectListings(BucketContext context, ListingRequest request) {
 
 		// Append delimiter to prefix if needed
 		String prefix = getPrefix(request.getPrefix(), context.getDelimiter());
@@ -85,7 +85,7 @@ public class DefaultBucketService implements BucketService {
 		return listings;
 	}
 
-	protected ObjectListing getObjectListing(BucketContext context, ObjectListingRequest request, String prefix) {
+	protected ObjectListing getObjectListing(BucketContext context, ListingRequest request, String prefix) {
 		// Create an Amazon request
 		ListObjectsRequest lor = getListObjectsRequest(context, request, prefix);
 
@@ -103,12 +103,12 @@ public class DefaultBucketService implements BucketService {
 		return listing;
 	}
 
-	protected void doSubDirectory(BucketContext context, ObjectListingRequest request, String subDirectory, List<ObjectListing> listings) {
+	protected void doSubDirectory(BucketContext context, ListingRequest request, String subDirectory, List<ObjectListing> listings) {
 		// Determine if we are recursing into this "sub-directory"
 		if (isRecurse(context, request, subDirectory)) {
 
 			// If so, clone the existing request, but update the prefix
-			ObjectListingRequest clone = clone(request, subDirectory);
+			ListingRequest clone = clone(request, subDirectory);
 
 			// Recurse in order to accumulate all ObjectListing's under this one
 			List<ObjectListing> children = accumulateObjectListings(context, clone);
@@ -168,7 +168,7 @@ public class DefaultBucketService implements BucketService {
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
-	protected boolean isExclude(BucketContext context, ObjectListingRequest request, String prefix) {
+	protected boolean isExclude(BucketContext context, ListingRequest request, String prefix) {
 		for (String exclude : CollectionUtils.toEmptyList(request.getExcludes())) {
 			if (isEndsWithMatch(prefix, exclude, context.getDelimiter())) {
 				return true;
@@ -177,7 +177,7 @@ public class DefaultBucketService implements BucketService {
 		return false;
 	}
 
-	protected boolean isInclude(BucketContext context, ObjectListingRequest request, String prefix) {
+	protected boolean isInclude(BucketContext context, ListingRequest request, String prefix) {
 		if (CollectionUtils.isEmpty(request.getIncludes())) {
 			return true;
 		}
@@ -189,12 +189,12 @@ public class DefaultBucketService implements BucketService {
 		return false;
 	}
 
-	protected boolean isRecurse(BucketContext context, ObjectListingRequest request, String prefix) {
+	protected boolean isRecurse(BucketContext context, ListingRequest request, String prefix) {
 		return request.isRecursive() && !isExclude(context, request, prefix) && isInclude(context, request, prefix);
 	}
 
-	protected ObjectListingRequest clone(ObjectListingRequest request, String prefix) {
-		ObjectListingRequest clone = new ObjectListingRequest();
+	protected ListingRequest clone(ListingRequest request, String prefix) {
+		ListingRequest clone = new ListingRequest();
 		try {
 			BeanUtils.copyProperties(clone, request);
 		} catch (Exception e) {
@@ -204,7 +204,7 @@ public class DefaultBucketService implements BucketService {
 		return clone;
 	}
 
-	protected ListObjectsRequest getListObjectsRequest(BucketContext context, ObjectListingRequest request, String prefix) {
+	protected ListObjectsRequest getListObjectsRequest(BucketContext context, ListingRequest request, String prefix) {
 		return getListObjectsRequest(context.getName(), prefix, context.getDelimiter(), null);
 	}
 
