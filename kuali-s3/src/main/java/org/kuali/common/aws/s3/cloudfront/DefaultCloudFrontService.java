@@ -39,8 +39,8 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	protected void addDirNoSlash(CloudFrontContext context, ObjectListing listing, List<TypedRequest> requests) {
 		String bucket = context.getBucketContext().getName();
 		String delimiter = context.getBucketContext().getDelimiter();
-		String dirNoSlashKey = removeSuffix(listing.getPrefix(), delimiter);
-		PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirNoSlashKey);
+		String dirKeyMinusDelimiter = removeSuffix(listing.getPrefix(), delimiter);
+		PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirKeyMinusDelimiter);
 		requests.add(new TypedRequest(put, AmazonWebServiceRequestType.PUT));
 	}
 
