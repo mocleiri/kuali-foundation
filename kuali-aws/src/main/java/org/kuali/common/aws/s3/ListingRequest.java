@@ -6,8 +6,6 @@ import org.kuali.common.util.PercentCompleteInformer;
 
 public class ListingRequest {
 
-	public static final long DEFAULT_PREFIX_ESTIMATE = 100;
-
 	String prefix;
 	List<String> includes;
 	List<String> excludes;
