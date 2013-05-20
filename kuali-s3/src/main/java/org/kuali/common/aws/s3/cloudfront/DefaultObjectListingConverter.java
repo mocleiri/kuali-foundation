@@ -32,7 +32,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 /**
  * Convert information from an S3 bucket into pojo's
  */
-public class DefaultObjectListingConverter implements ObjectListingConverter {
+public class DefaultObjectListingConverter implements ObjectListingConverterService {
 
 	/**
 	 * Convert "foo/bar/css/" into "foo/bar/css"<br>
