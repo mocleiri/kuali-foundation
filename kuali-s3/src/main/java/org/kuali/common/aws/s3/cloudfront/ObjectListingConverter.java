@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.Counter;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.html.HtmlUtils;
 
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -38,11 +39,7 @@ public class ObjectListingConverter {
 	 * Convert "foo/bar/css" into "foo/bar"<br>
 	 */
 	protected String getTrimmedPrefix(String prefix, String delimiter) {
-		int pos = prefix.lastIndexOf(delimiter);
-		if (pos == -1) {
-			return prefix;
-		}
-		return prefix.substring(0, pos);
+		return Str.removeSuffix(prefix, delimiter);
 	}
 
 	/**
