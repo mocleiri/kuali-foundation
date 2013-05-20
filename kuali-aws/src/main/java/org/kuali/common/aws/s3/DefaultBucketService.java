@@ -23,13 +23,13 @@ public class DefaultBucketService implements BucketService {
 		// Make sure we are configured correctly
 		Assert.notNull(request.getBucketContext(), "bucketContext is null");
 
-		BucketContext bucket = request.getBucketContext();
+		BucketContext context = request.getBucketContext();
 
-		Assert.notNull(bucket.getClient(), "client is null");
-		Assert.hasText(bucket.getDelimiter(), "delimiter has no text");
-		Assert.hasText(bucket.getName(), "name has no text");
-		boolean exists = bucket.getClient().doesBucketExist(bucket.getName());
-		Assert.isTrue(exists, "bucket [" + bucket.getName() + "] does not exist");
+		Assert.notNull(context.getClient(), "client is null");
+		Assert.hasText(context.getDelimiter(), "delimiter has no text");
+		Assert.hasText(context.getName(), "name has no text");
+		boolean exists = context.getClient().doesBucketExist(context.getName());
+		Assert.isTrue(exists, "bucket [" + context.getName() + "] does not exist");
 
 		// Start the informer, if they supplied one
 		if (request.getInformer() != null) {
