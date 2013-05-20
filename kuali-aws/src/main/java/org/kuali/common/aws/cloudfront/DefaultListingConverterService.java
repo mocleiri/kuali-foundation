@@ -116,20 +116,17 @@ public class DefaultListingConverterService implements ListingConverterService {
 	}
 
 	/**
-	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
+	 * Create an IndexContext for each ObjectListing.
 	 */
 	@Override
-	public List<IndexContext> convert(ListingConverterContext context, List<ObjectListing> listings) {
+	public List<IndexContext> getIndexContexts(ListingConverterContext context, List<ObjectListing> listings) {
 
 		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
 
 		List<IndexContext> contexts = new ArrayList<IndexContext>();
 		for (ObjectListing listing : listings) {
 			List<String[]> indexData = getIndexData(context, listing, formatter);
-			IndexContext indexContext = new IndexContext();
-			indexContext.setIndexData(indexData);
-			indexContext.setListing(listing);
-
+			IndexContext indexContext = new IndexContext(listing, indexData);
 			contexts.add(indexContext);
 
 		}

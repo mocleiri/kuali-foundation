@@ -26,7 +26,7 @@ public class DefaultCloudFrontService implements CloudFrontService {
 		for (ObjectListing listing : listings) {
 
 			// Convert the object listing into a list of string array's
-			List<String[]> data = converterService.convert(converterContext, listing);
+			List<String[]> data = null; // converterService.convert(converterContext, listing);
 
 			// Convert the string array's into html
 			String html = generatorService.getDirectoryListing(generatorContext, listing.getPrefix(), data);
