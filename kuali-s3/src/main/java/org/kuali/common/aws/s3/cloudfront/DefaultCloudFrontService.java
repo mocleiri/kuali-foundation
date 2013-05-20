@@ -30,10 +30,11 @@ public class DefaultCloudFrontService implements CloudFrontService {
 			// Convert the string array's into html
 			String html = generatorService.getDirectoryListing(generatorContext, listing.getPrefix(), data);
 
-			// Create s3://bucket/foo/bar
+			// Use the html to create s3://bucket/foo/bar
 			TypedRequest request1 = getTypedRequestWithoutTrailingDelimiter(context, listing, html);
 
 			// Create s3://bucket/foo/bar/
+			// This is either the same html as request1 OR a copy of s3://bucket/foo/bar/index.html
 			TypedRequest request2 = getTypedRequest(context, listing, html);
 
 			// Add the requests to our list
