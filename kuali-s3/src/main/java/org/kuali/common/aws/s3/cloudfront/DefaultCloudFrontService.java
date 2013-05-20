@@ -15,33 +15,44 @@ public class DefaultCloudFrontService implements CloudFrontService {
 	@Override
 	public List<TypedRequest> getIndexObjectRequests(CloudFrontContext context, List<ObjectListing> listings) {
 
-		String bucket = context.getBucketContext().getName();
+		String html = "";
 
 		List<TypedRequest> requests = new ArrayList<TypedRequest>();
 		for (ObjectListing listing : listings) {
 			// Create s3://bucket/foo/bar
-			addDirNoSlash(context, listing, requests);
-			String dirKey = listing.getPrefix();
-			String welcomeFileKey = CloudFrontUtils.getWelcomeFileKey(listing, context.getWelcomeFiles());
-			if (welcomeFileKey == null) {
-				// Create s3://bucket/foo/bar/
-				PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirKey);
-				requests.add(new TypedRequest(put, AmazonWebServiceRequestType.PUT));
-			} else {
-				// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
-				CopyObjectRequest copy = CloudFrontUtils.getCopyObjectRequest(bucket, welcomeFileKey, dirKey);
-				requests.add(new TypedRequest(copy, AmazonWebServiceRequestType.COPY));
-			}
+			PutObjectRequest index = getPutHtmlRequestWithoutTrailingDelimiter(context, listing, html);
+
+			TypedRequest request1 = new TypedRequest(index, AmazonWebServiceRequestType.PUT);
+			TypedRequest request2 = getTypedRequest(context, listing, html);
+
+			requests.add(request1);
+			requests.add(request2);
+
 		}
 		return requests;
 	}
 
-	protected void addDirNoSlash(CloudFrontContext context, ObjectListing listing, List<TypedRequest> requests) {
-		String bucket = context.getBucketContext().getName();
+	protected TypedRequest getTypedRequest(CloudFrontContext context, ObjectListing listing, String html) {
+		String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, context.getWelcomeFiles());
+		if (welcomeFileKey == null) {
+			// Create s3://bucket/foo/bar/
+			PutObjectRequest put = CloudFrontUtils.getPutHtmlRequest(context, html, listing.getPrefix());
+			return new TypedRequest(put, AmazonWebServiceRequestType.PUT);
+		} else {
+			// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
+			CopyObjectRequest copy = CloudFrontUtils.getCopyObjectRequest(context, welcomeFileKey, listing.getPrefix());
+			return new TypedRequest(copy, AmazonWebServiceRequestType.COPY);
+		}
+	}
+
+	protected PutObjectRequest getPutHtmlRequestWithoutTrailingDelimiter(CloudFrontContext context, ObjectListing listing, String html) {
 		String delimiter = context.getBucketContext().getDelimiter();
-		String dirKeyMinusDelimiter = removeSuffix(listing.getPrefix(), delimiter);
-		PutObjectRequest put = CloudFrontUtils.getPutIndexObjectRequest(bucket, context.getCacheControl(), null, dirKeyMinusDelimiter);
-		requests.add(new TypedRequest(put, AmazonWebServiceRequestType.PUT));
+		String objectKey = removeSuffix(listing.getPrefix(), delimiter);
+		return CloudFrontUtils.getPutHtmlRequest(context, html, objectKey);
+	}
+
+	protected PutObjectRequest getPutHtmlRequest(CloudFrontContext context, ObjectListing listing, String html) {
+		return CloudFrontUtils.getPutHtmlRequest(context, html, listing.getPrefix());
 	}
 
 	protected String removeSuffix(String s, String suffix) {

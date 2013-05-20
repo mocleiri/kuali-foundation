@@ -23,28 +23,35 @@ public class CloudFrontUtils {
 	/**
 	 * An <code>ObjectListing</code> is the equivalent of typing <code>ls</code> in a directory on a file system.
 	 */
-	public static String getWelcomeFileKey(ObjectListing listing, List<String> welcomeFiles) {
+	public static String getFirstMatchingKey(ObjectListing listing, List<String> filenames) {
 		// Cycle through the list of files in this directory
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
-			String welcomeFileKey = getWelcomeFileKey(listing, summary, welcomeFiles);
-			if (welcomeFileKey != null) {
-				return welcomeFileKey;
+			String objectKey = getFirstMatchingKey(listing, summary, filenames);
+			if (objectKey != null) {
+				return objectKey;
 			}
 		}
 		return null;
 	}
 
-	protected static String getWelcomeFileKey(ObjectListing listing, S3ObjectSummary summary, List<String> welcomeFiles) {
-		// Cycle through the list of welcome files
-		for (String welcomeFile : welcomeFiles) {
-			// Append the welcome file name to the key for this directory
-			String welcomeFileKey = listing.getPrefix() + welcomeFile;
-			// We found a welcome file for this directory
-			if (StringUtils.equals(summary.getKey(), welcomeFileKey)) {
-				return welcomeFileKey;
+	protected static String getFirstMatchingKey(ObjectListing listing, S3ObjectSummary summary, List<String> filenames) {
+		// Cycle through the list of filenames
+		for (String filename : filenames) {
+			// Append the file name to the key for this directory
+			String objectKey = listing.getPrefix() + filename;
+			// We found a filename in this directory that matches what we are looking for
+			if (StringUtils.equals(summary.getKey(), objectKey)) {
+				return objectKey;
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Create a CopyObjectRequest with an ACL set to PublicRead
+	 */
+	public static CopyObjectRequest getCopyObjectRequest(CloudFrontContext context, String src, String dst) {
+		return getCopyObjectRequest(context.getBucketContext().getName(), src, dst);
 	}
 
 	/**
@@ -60,7 +67,18 @@ public class CloudFrontUtils {
 	 * Create a PutObjectRequest from the html. The PutObjectRequest sets the content type to <code>text/html</code>, sets the ACL to <code>PublicRead</code>, and adds the metadata
 	 * <code>maven-cloudfront-plugin-index=true</code>
 	 */
-	public static PutObjectRequest getPutIndexObjectRequest(String bucket, String cacheControl, String html, String key) {
+	public static PutObjectRequest getPutHtmlRequest(CloudFrontContext context, String html, String key) {
+		String bucket = context.getBucketContext().getName();
+		String cacheControl = context.getCacheControl();
+		return getPutHtmlRequest(bucket, cacheControl, html, key);
+
+	}
+
+	/**
+	 * Create a PutObjectRequest from the html. The PutObjectRequest sets the content type to <code>text/html</code>, sets the ACL to <code>PublicRead</code>, and adds the metadata
+	 * <code>maven-cloudfront-plugin-index=true</code>
+	 */
+	public static PutObjectRequest getPutHtmlRequest(String bucket, String cacheControl, String html, String key) {
 
 		// Setup an InputStream that reads from the HTML string
 		InputStream in = new ByteArrayInputStream(html.getBytes());
