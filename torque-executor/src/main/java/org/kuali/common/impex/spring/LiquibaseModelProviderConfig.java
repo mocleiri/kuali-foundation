@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.spring;
 
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import liquibase.database.Database;
@@ -59,7 +60,7 @@ public class LiquibaseModelProviderConfig {
     }
 
     @Bean
-    public LiquibaseModelProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException {
+    public LiquibaseModelProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException, SQLException {
 
         LiquibaseModelProvider modelProvider = new LiquibaseModelProvider(databaseSnapshot());
 

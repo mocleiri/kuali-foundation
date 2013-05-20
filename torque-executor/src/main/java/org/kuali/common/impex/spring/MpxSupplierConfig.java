@@ -1,12 +1,14 @@
 package org.kuali.common.impex.spring;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import liquibase.exception.DatabaseException;
 import liquibase.snapshot.InvalidExampleException;
-import org.apache.torque.engine.platform.Platform;
-import org.apache.torque.engine.platform.PlatformFactory;
 import org.kuali.common.impex.MpxLocationSupplier;
+import org.kuali.common.impex.service.MySqlProducer;
+import org.kuali.common.impex.service.OracleProducer;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.spring.JdbcCommonConfig;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
@@ -39,18 +41,32 @@ public class MpxSupplierConfig {
 
 	private static final String DB_VENDOR_KEY = "db.vendor";
 
-	@Bean
+    @Bean Map<String, SqlProducer> vendorProducerMap() {
+        Map<String, SqlProducer> results = new HashMap<String, SqlProducer>();
+
+        results.put(OracleProducer.SUPPORTED_VENDOR, configureProducer(new OracleProducer()));
+        results.put(MySqlProducer.SUPPORTED_VENDOR, configureProducer(new MySqlProducer()));
+
+        return results;
+    }
+
+    private SqlProducer configureProducer(SqlProducer sqlProducer) {
+
+        sqlProducer.setBatchDataSizeLimit(batchConfig.impexBatchSize());
+        sqlProducer.setBatchRowCountLimit(batchConfig.impexBatchRows());
+
+        return sqlProducer;
+    }
+
+    @Bean
 	public SqlProducer impexProducer() {
 		String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
-		Platform platform = PlatformFactory.getPlatformFor(vendor);
-		SqlProducer producer = platform.getSqlProducer();
-		producer.setBatchDataSizeLimit(batchConfig.impexBatchSize());
-		producer.setBatchRowCountLimit(batchConfig.impexBatchRows());
-		return producer;
+
+		return vendorProducerMap().get(vendor);
 	}
 
 	@Bean
-	public Map<String, LocationSupplierSourceBean> impexExtensionMappings() throws DatabaseException, InvalidExampleException {
+	public Map<String, LocationSupplierSourceBean> impexExtensionMappings() throws DatabaseException, InvalidExampleException, SQLException {
 		// This gets cloned for each .mpx file
 		MpxLocationSupplier mls = new MpxLocationSupplier();
 		mls.setModelProvider(liquibaseModelConfig.liquibaseModelProvider());

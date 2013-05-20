@@ -8,7 +8,7 @@ import org.kuali.common.impex.model.Table;
 
 public interface SqlProducer {
 
-	List<String> getSql(Table table, BufferedReader reader) throws IOException;
+	List<String> getSql(Table table, MpxHeaderData headerData, BufferedReader reader) throws IOException;
 
 	int getBatchDataSizeLimit();
 

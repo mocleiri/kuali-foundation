@@ -15,41 +15,25 @@
 
 package org.kuali.common.impex.service;
 
-/**
- * @author andrewlubbers
- */
-public class MpxMetaData implements Comparable<MpxMetaData> {
+import java.util.ArrayList;
+import java.util.List;
 
-	Integer rowCount;
-	long size;
-	String location;
+public class MpxHeaderData {
 
-	public String getLocation() {
-		return location;
-	}
+    /**
+     * Column names in the header are listed in the order the data is organized
+     */
+    protected List<String> columnNames;
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public MpxHeaderData() {
+        columnNames = new ArrayList<String>();
+    }
 
-	public Integer getRowCount() {
-		return rowCount;
-	}
+    public List<String> getColumnNames() {
+        return columnNames;
+    }
 
-	public void setRowCount(Integer rowCount) {
-		this.rowCount = rowCount;
-	}
-
-	@Override
-	public int compareTo(MpxMetaData o) {
-		return rowCount.compareTo(o.getRowCount());
-	}
-
-	public long getSize() {
-		return size;
-	}
-
-	public void setSize(long size) {
-		this.size = size;
-	}
+    public void setColumnNames(List<String> columnNames) {
+        this.columnNames = columnNames;
+    }
 }

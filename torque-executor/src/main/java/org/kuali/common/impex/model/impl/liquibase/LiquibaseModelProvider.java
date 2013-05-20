@@ -15,15 +15,23 @@
 
 package org.kuali.common.impex.model.impl.liquibase;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
+import liquibase.database.AbstractJdbcDatabase;
+import liquibase.database.Database;
 import liquibase.snapshot.DatabaseSnapshot;
+import liquibase.snapshot.JdbcDatabaseSnapshot;
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.ModelProvider;
@@ -32,9 +40,24 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.service.NamedElementComparator;
-import org.kuali.common.util.CollectionUtils;
 
 public class LiquibaseModelProvider implements ModelProvider {
+
+    /**
+     * Constants for result set keys from DatabaseMetaData.getImportedKeys
+     */
+    protected static final String METADATA_FK_NAME = "FK_NAME";
+    protected static final String METADATA_SEQUENCE_NUMBER = "KEY_SEQ";
+    protected static final String METADATA_FK_COLUMN_NAME = "FKCOLUMN_NAME";
+    protected static final String METADATA_PK_COLUMN_NAME = "PKCOLUMN_NAME";
+
+    protected static final String SINGLE_QUOTE = "'";
+
+    protected static final String SYSGUID_KEYWORD_DEFAULT = "SYS_GUID()";
+    protected static final String SYSDATE_KEYWORD_DEFAULT = "SYSDATE";
+    protected static final String USERSESSION_KEYWORD_DEFAULT = "USERENV(\'SESSIONID\')";
+
+    protected static final String[] RESERVED_DEFAULT_KEYWORDS = {SYSGUID_KEYWORD_DEFAULT, SYSDATE_KEYWORD_DEFAULT, USERSESSION_KEYWORD_DEFAULT};
 
     protected List<Table> tables;
 
@@ -49,7 +72,7 @@ public class LiquibaseModelProvider implements ModelProvider {
      */
     protected Map<String, List<ForeignKey>> tableNameToForeignKeys;
 
-    public LiquibaseModelProvider(DatabaseSnapshot snapshot) {
+    public LiquibaseModelProvider(DatabaseSnapshot snapshot) throws SQLException {
         tables = buildTables(snapshot);
 
         views = buildViews(snapshot);
@@ -102,7 +125,19 @@ public class LiquibaseModelProvider implements ModelProvider {
         Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn), modelTable);
 
         if(sourceColumn.getDefaultValue() != null) {
-            col.setDefaultValue(sourceColumn.getDefaultValue().toString());
+            String defaultValue = sourceColumn.getDefaultValue().toString().trim();
+
+            // if the column is a string data type, check that it may need single quotes added
+            if(col.getDataType() == DataType.STRING || col.getDataType() == DataType.CLOB) {
+                // ignore adding single quotes if the default value contains a reseved keyword
+                if(notReservedDefaultValue(defaultValue)) {
+                    if(!defaultValue.startsWith(SINGLE_QUOTE)) {
+                        defaultValue = SINGLE_QUOTE + defaultValue + SINGLE_QUOTE;
+                    }
+                }
+            }
+
+            col.setDefaultValue(defaultValue);
         }
         col.setDescription(sourceColumn.getRemarks());
         col.setNullable(sourceColumn.isNullable());
@@ -125,6 +160,25 @@ public class LiquibaseModelProvider implements ModelProvider {
         }
 
         return col;
+    }
+
+    /**
+     * Check that the given column default value is not a reseved keyword
+     *
+     * @param defaultValue the potential column default value
+     * @return true if the given value does not contain a reserved keyword,
+     *      false otherwise
+     */
+    protected boolean notReservedDefaultValue(String defaultValue) {
+
+        for(String reserved : Arrays.asList(RESERVED_DEFAULT_KEYWORDS)) {
+            if (defaultValue.contains(reserved)) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     protected List<View> buildViews(DatabaseSnapshot snapshot) {
@@ -158,27 +212,22 @@ public class LiquibaseModelProvider implements ModelProvider {
         return results;
     }
 
-    protected List<ForeignKey> buildForeignKeys(DatabaseSnapshot snapshot) {
+    protected List<ForeignKey> buildForeignKeys(DatabaseSnapshot snapshot) throws SQLException {
         Set<liquibase.structure.core.ForeignKey> sourceFks = snapshot.get(liquibase.structure.core.ForeignKey.class);
 
         List<ForeignKey> results = new ArrayList<ForeignKey>(sourceFks.size());
 
         for (liquibase.structure.core.ForeignKey sourceFk : sourceFks) {
 
-            // TODO KSENROLL-6764 Figure out workaround for LB not supporting foreign keys with multiple columns
             // In the liquibase model, Foreign keys are initialized with the "PrimaryKeyTable" as the table that is being pointed TO (i.e. the outside table)
             // and the "ForeignKeyTable" as the table that is pointed from (i.e. the source table)
 
             String localTableName = sourceFk.getForeignKeyTable().getName();
             String foreignTableName = sourceFk.getPrimaryKeyTable().getName();
 
-            List<String> localTableColumns = CollectionUtils.getTrimmedListFromCSV(sourceFk.getForeignKeyColumns());
-            List<String> foreignTableColumns = CollectionUtils.getTrimmedListFromCSV(sourceFk.getPrimaryKeyColumns());
-
             ForeignKey fk = new ForeignKey(sourceFk.getName(), localTableName, foreignTableName);
 
-            fk.getLocalColumnNames().addAll(localTableColumns);
-            fk.getForeignColumnNames().addAll(foreignTableColumns);
+            setColumnNames(fk, sourceFk, snapshot);
 
             fk.setOnUpdate(translateForeignKeyConstraint(sourceFk.getUpdateRule()));
             fk.setOnDelete(translateForeignKeyConstraint(sourceFk.getDeleteRule()));
@@ -212,6 +261,41 @@ public class LiquibaseModelProvider implements ModelProvider {
                     throw new IllegalArgumentException("Unknown ForeignKeyConstraintType value: " + rule.toString());
             }
         }
+    }
+
+    protected void setColumnNames(ForeignKey fk, liquibase.structure.core.ForeignKey liquibaseFk, DatabaseSnapshot snapshot) throws SQLException {
+        Database database = snapshot.getDatabase();
+
+        List<JdbcDatabaseSnapshot.CachedRow> importedKeyMetadataResultSet = null;
+        liquibase.structure.core.Table fkTable = liquibaseFk.getForeignKeyTable();
+        String searchCatalog = ((AbstractJdbcDatabase) database).getJdbcCatalogName(fkTable.getSchema());
+        String searchSchema = ((AbstractJdbcDatabase) database).getJdbcSchemaName(fkTable.getSchema());
+        String searchTableName = database.correctObjectName(fkTable.getName(), liquibase.structure.core.Table.class);
+
+        importedKeyMetadataResultSet = ((JdbcDatabaseSnapshot) snapshot).getMetaData().getImportedKeys(searchCatalog, searchSchema, searchTableName);
+
+        // find all foreign key metadata for the foreign key we are trying to populate
+        // create a mapping of local column names to foreign column names,
+        // sorted by the local name to keep generated schema consistent
+        SortedMap<String, String> localToForeignColumnNames = new TreeMap<String, String>();
+        for (JdbcDatabaseSnapshot.CachedRow row : importedKeyMetadataResultSet) {
+            String fk_name = row.getString(METADATA_FK_NAME);
+
+            if (fk_name.equals(fk.getName())) {
+
+                // from the meta data, the foreign column comes from the local table,
+                // and the primary column is the primary key from the outside table
+                // See java.sql.DatabaseMetaData.getImportedKeys for more details
+                localToForeignColumnNames.put(row.getString(METADATA_FK_COLUMN_NAME), row.getString(METADATA_PK_COLUMN_NAME));
+            }
+        }
+
+        // Add the column names to the foreign key lists now that they are sorted
+        for (String localColName : localToForeignColumnNames.keySet()) {
+            fk.getLocalColumnNames().add(localColName);
+            fk.getForeignColumnNames().add(localToForeignColumnNames.get(localColName));
+        }
+
     }
 
     @Override

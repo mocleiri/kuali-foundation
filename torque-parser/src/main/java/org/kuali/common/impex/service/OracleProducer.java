@@ -17,6 +17,8 @@ import org.slf4j.LoggerFactory;
 
 public class OracleProducer extends AbstractSqlProducer {
 
+    public static final String SUPPORTED_VENDOR = "oracle";
+
     private static final Logger logger = LoggerFactory.getLogger(OracleProducer.class);
 
     private static final String INSERT_PREFIX = "INSERT ALL\n";
@@ -44,7 +46,7 @@ public class OracleProducer extends AbstractSqlProducer {
     private static final String CLOB_DATA_SUFFIX = "';\n" + "    DBMS_LOB.writeappend(data,LENGTH(buffer),buffer);\n" + "END;\n";
 
     @Override
-    public List<String> getSql(Table table, BufferedReader reader) throws IOException {
+    public List<String> getSql(Table table, MpxHeaderData headerData, BufferedReader reader) throws IOException {
         logger.debug("Producing SQL for table [{}]", table.getName());
 
         // Allocate some storage for the SQL we are generating
@@ -62,8 +64,8 @@ public class OracleProducer extends AbstractSqlProducer {
         // Use a StringBuilder to hold the batch insert statement
         StringBuilder batchInsert = new StringBuilder();
 
-        // Extract one line from the .mpx file
-        String line = readLineSkipHeader(reader);
+        // read the first line
+        String line = reader.readLine();
 
         // Keep track of the number of rows we've processed
         int rowCount = 0;
@@ -83,10 +85,10 @@ public class OracleProducer extends AbstractSqlProducer {
             String[] tokens = MpxParser.parseMpxLine(line);
 
             // Convert the strings into DataBeans
-            List<DataBean> rowBeans = buildRowData(columns, tokens);
+            List<DataBean> rowBeans = buildRowData(columns, tokens, headerData);
 
             // Create SQL from the row beans
-            batchInsert.append(buildBatchSql(table, rowBeans));
+            batchInsert.append(buildBatchSql(table, rowBeans, headerData));
 
             // increment our row counter
             rowCount++;
@@ -244,7 +246,7 @@ public class OracleProducer extends AbstractSqlProducer {
         return results;
     }
 
-    protected String buildBatchSql(Table table, List<DataBean> dataBeans) {
+    protected String buildBatchSql(Table table, List<DataBean> dataBeans, MpxHeaderData headerData) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(OUTPUT_DATE_FORMAT);
 
         // Convert the beans into strings
@@ -261,7 +263,7 @@ public class OracleProducer extends AbstractSqlProducer {
         sb.append(table.getName());
         sb.append(SPACE);
         sb.append(ARG_LIST_START);
-        sb.append(ProducerUtils.getCsvColumnNames(table.getColumns()));
+        sb.append(CollectionUtils.getCSV(headerData.getColumnNames()));
         sb.append(ARG_LIST_END);
         sb.append(VALUES_PREFIX);
         sb.append(ARG_LIST_START);
@@ -288,12 +290,6 @@ public class OracleProducer extends AbstractSqlProducer {
             return data.getValue();
         }
     }
-
-    // protected class LongClob {
-    // Deque<String> clobChunks;
-    // Column column;
-    // List<DataBean> primaryKeys;
-    // }
 
     protected boolean isDataBigClob(String value, Column column) {
         if (value == null) {

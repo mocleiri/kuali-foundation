@@ -14,6 +14,8 @@ import org.kuali.common.util.CollectionUtils;
 
 public class MySqlProducer extends AbstractSqlProducer {
 
+    public static final String SUPPORTED_VENDOR = "mysql";
+
     private static final String BATCH_SEPARATOR = ",";
     private static final String ARG_LIST_START = "(";
     private static final String ARG_LIST_END = ")";
@@ -30,7 +32,7 @@ public class MySqlProducer extends AbstractSqlProducer {
      * time or 50K in length whichever comes first.
      */
     @Override
-    public List<String> getSql(Table table, BufferedReader reader) throws IOException {
+    public List<String> getSql(Table table, MpxHeaderData headerData, BufferedReader reader) throws IOException {
 
         // Extract the columns into a list
         List<Column> columns = table.getColumns();
@@ -39,13 +41,13 @@ public class MySqlProducer extends AbstractSqlProducer {
         StringBuilder sb = new StringBuilder();
 
         // INSERT INTO FOO (BAR1,BAR2) VALUES
-        sb.append(getPrefix(table));
+        sb.append(getPrefix(table, headerData));
 
         // Track rows processed
         int rows = 0;
 
-        // Extract the next line from the reader
-        String line = readLineSkipHeader(reader);
+        // read the first line
+        String line = reader.readLine();
 
         // Iterate through the .mpx file
         for (; ; ) {
@@ -55,7 +57,7 @@ public class MySqlProducer extends AbstractSqlProducer {
                 break;
             }
 
-            List<DataBean> rowBeans = buildRowData(columns, MpxParser.parseMpxLine(line));
+            List<DataBean> rowBeans = buildRowData(columns, MpxParser.parseMpxLine(line), headerData);
 
             if (rows != 0) {
                 // Need to add a comma, unless this is the first set of values
@@ -112,8 +114,8 @@ public class MySqlProducer extends AbstractSqlProducer {
     }
 
     // INSERT INTO FOO (BAR1,BAR2) VALUES
-    protected String getPrefix(Table table) {
-        String columnNamesCSV = getColumnNamesCSV(table);
+    protected String getPrefix(Table table, MpxHeaderData headerData) {
+        String columnNamesCSV = CollectionUtils.getCSV(headerData.getColumnNames());
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_START).append(table.getName()).append(SPACE);
         sb.append(ARG_LIST_START).append(columnNamesCSV).append(ARG_LIST_END);

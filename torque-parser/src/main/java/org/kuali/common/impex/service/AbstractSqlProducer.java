@@ -15,8 +15,6 @@
 
 package org.kuali.common.impex.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,8 +24,6 @@ import java.util.List;
 import org.kuali.common.impex.Constants;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
-import org.kuali.common.impex.model.Table;
-import org.kuali.common.util.CollectionUtils;
 
 /**
  * @author andrewlubbers
@@ -51,26 +47,34 @@ public abstract class AbstractSqlProducer implements SqlProducer {
         return false;
     }
 
-    protected String readLineSkipHeader(BufferedReader reader) throws IOException {
-        // First check to see if the reader is at the Header line.
-        // If it is, skip that line
-        String line = reader.readLine();
-        if (ParseUtils.isHeaderLine(line)) {
-            line = reader.readLine();
-        }
-
-        return line;
-    }
-
     protected abstract String getEscapedValue(Column column, String token);
 
-    protected List<DataBean> buildRowData(List<Column> columns, String[] tokens) {
+    protected List<DataBean> buildRowData(List<Column> columns, String[] tokens, MpxHeaderData headerData) {
         List<DataBean> result = new ArrayList<DataBean>();
 
-        for (int i = 0; i < tokens.length; i++) {
-            result.add(processToken(columns.get(i), tokens[i]));
+        // tokens are listed in the order of column names from the header data
+        // So to find the right column definition, we need to order them the same as the header data
+        List<Column> sortedColumns = new ArrayList<Column>(columns.size());
+        for (String colName : headerData.getColumnNames()) {
+            // find the matching column definition
+            Column foundColumn = null;
+            for(Column c : columns) {
+                if (c.getName().equals(colName)) {
+                    foundColumn = c;
+                }
+            }
+
+            if(foundColumn == null) {
+                throw new RuntimeException("No column definition found for column name from header: " + colName);
+            }
+
+            sortedColumns.add(foundColumn);
         }
 
+        // process the tokens with column definitions from the sorted list
+        for (int i = 0; i < tokens.length; i++) {
+            result.add(processToken(sortedColumns.get(i), tokens[i]));
+        }
         return result;
     }
 
@@ -104,15 +108,6 @@ public abstract class AbstractSqlProducer implements SqlProducer {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + Constants.MPX_DATE_FORMAT + "]");
         }
-    }
-
-    protected String getColumnNamesCSV(Table table) {
-        List<Column> columns = table.getColumns();
-        List<String> colNames = new ArrayList<String>(columns.size());
-        for (Column col : columns) {
-            colNames.add(col.getName());
-        }
-        return CollectionUtils.getCSV(colNames);
     }
 
     @Override

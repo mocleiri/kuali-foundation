@@ -23,10 +23,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.service.MpxHeaderData;
+import org.kuali.common.impex.service.ParseUtils;
 import org.kuali.common.impex.service.SqlProducer;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.TextMetaData;
 
@@ -42,6 +45,7 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 
 	protected BufferedReader reader;
 	protected Table table;
+    protected MpxHeaderData headerData;
 
 	String extension = DEFAULT_MPX_EXTENSION;
 	String encoding = UTF8;
@@ -57,11 +61,12 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 	public void open() throws IOException {
 		this.table = getTable();
 		this.reader = LocationUtils.getBufferedReader(location, encoding);
+        this.headerData = getHeader(reader);
 	}
 
 	@Override
 	public List<String> getSql() throws IOException {
-		return producer.getSql(table, reader);
+		return producer.getSql(table, headerData, reader);
 	}
 
 	@Override
@@ -92,6 +97,33 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		TextMetaData tmd = LocationUtils.getTextMetaData(location);
 		this.metaData = new SqlMetaData(tmd.getLines() - 1, tmd.getSize());
 	}
+
+    /**
+     * Parses the next line in the given reader and returns a MpxHeaderData built from header information
+     *
+     * This method assumes the given reader is at the beginning of an mpx file
+     *
+     * @param reader the mpx file reader
+     * @return the next parsed header data
+     * @throws IllegalArgumentException when the next non-blank line from the reader is not a header line
+     *      IOException if a read error is thrown from the reader
+     */
+    protected MpxHeaderData getHeader(BufferedReader reader) throws IOException {
+        String line = reader.readLine();
+        while(org.codehaus.plexus.util.StringUtils.isBlank(line)) {
+            line = reader.readLine();
+        }
+
+        if (ParseUtils.isHeaderLine(line)) {
+            MpxHeaderData header = new MpxHeaderData();
+            header.getColumnNames().addAll(CollectionUtils.getTrimmedListFromCSV(line));
+
+            return header;
+        }
+        else {
+            throw new IllegalArgumentException("Could not parse mpx header, next non-blank in given reader is not a header line.  Reached line was: " + line);
+        }
+    }
 
 	public String getEncoding() {
 		return encoding;

@@ -15,13 +15,7 @@
 
 package org.kuali.common.impex.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.LocationUtils;
 
 /**
  * This class parses a .mpx file and creates an in-memory representation of the data
@@ -67,50 +61,4 @@ public class MpxParser {
 		return line;
 	}
 
-	/**
-	 * Very simple meta data calculator. Defines row count of an mpx location by the number of data lines in the file
-	 * 
-	 * @param locations
-	 *            list of mpx file locations
-	 * @return calculated meta data for all given mpx files
-	 * @throws IOException
-	 */
-	public static List<MpxMetaData> getMpxMetaDatas(List<String> locations) throws IOException {
-
-		List<MpxMetaData> results = new ArrayList<MpxMetaData>(locations.size());
-
-		for (String location : locations) {
-			results.add(getMpxMetaData(location));
-		}
-
-		return results;
-	}
-
-    public static MpxMetaData getMpxMetaData(String location) throws IOException {
-        MpxMetaData metaData = new MpxMetaData();
-        metaData.setLocation(location);
-
-        BufferedReader reader = LocationUtils.getBufferedReader(location);
-        String line = reader.readLine();
-
-        // skip the first header line to get an accurate row count
-        if (ParseUtils.isHeaderLine(line)) {
-            line = reader.readLine();
-        }
-
-        int rowCount = 0;
-        long size = 0;
-        do {
-            rowCount++;
-            if (line != null) {
-                size += line.length();
-            }
-            line = reader.readLine();
-        } while (line != null);
-
-        metaData.setRowCount(rowCount);
-        metaData.setSize(size);
-
-        return metaData;
-    }
 }

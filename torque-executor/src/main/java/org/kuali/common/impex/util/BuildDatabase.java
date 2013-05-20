@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.MavenUtils;
@@ -47,7 +48,7 @@ public class BuildDatabase {
             SpringContext context = MavenUtils.getMavenizedSpringContext(ss, props, UtilMavenPropertySourceConfig.class);
 
             // Reset the db using annotated config
-            context.setAnnotatedClasses(CollectionUtils.asList(SqlControllerConfig.class));
+            context.setAnnotatedClasses(CollectionUtils.asList(MpxSupplierConfig.class, SqlControllerConfig.class));
 
             // Execute Spring
             ss.load(context);
