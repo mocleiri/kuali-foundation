@@ -76,9 +76,9 @@ public class CloudFrontHtml {
 	/**
 	 * Generate the full html page
 	 */
-	public String getDirectoryListing(HtmlContext ctx) {
+	public String getDirectoryListing(HtmlContext context, String prefix, List<String[]> data) {
 		Counter indent = new Counter();
-		String directory = getDirectory(ctx.getPrefix(), ctx.getDelimiter());
+		String directory = getDirectory(prefix, context.getDelimiter());
 
 		Tag html = new Tag("html");
 		Tag title = new Tag("title");
@@ -96,7 +96,7 @@ public class CloudFrontHtml {
 		sb.append(HtmlUtils.getIndentedContent(getHtmlComment(), indent));
 		sb.append(HtmlUtils.getTag(title, "Directory listing for " + directory, indent));
 		sb.append(HtmlUtils.openTag(head, indent));
-		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + ctx.getCss() + "\" rel=\"stylesheet\" type=\"text/css\"/>\n", indent));
+		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + context.getCss() + "\" rel=\"stylesheet\" type=\"text/css\"/>\n", indent));
 		sb.append(HtmlUtils.getIndentedContent(getMeta(), indent));
 		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript(), indent));
 		sb.append(HtmlUtils.closeTag(head, indent));
@@ -106,11 +106,11 @@ public class CloudFrontHtml {
 		sb.append(HtmlUtils.closeTag(div1, indent));
 		sb.append(HtmlUtils.getIndentedContent("<hr>\n", indent));
 		sb.append(HtmlUtils.openTag(div2, indent));
-		sb.append(getHtmlTable(ctx.getData(), getColumnDecorators(), indent));
+		sb.append(getHtmlTable(data, getColumnDecorators(), indent));
 		sb.append(HtmlUtils.closeTag(div2, indent));
 		sb.append(HtmlUtils.getIndentedContent("<hr>\n", indent));
 		sb.append(HtmlUtils.openTag(div3, indent));
-		sb.append(HtmlUtils.getTag(span2, ctx.getAbout(), indent));
+		sb.append(HtmlUtils.getTag(span2, context.getAbout(), indent));
 		sb.append(HtmlUtils.closeTag(div3, indent));
 		sb.append(HtmlUtils.closeTag(body, indent));
 		sb.append(HtmlUtils.closeTag(html, indent));
