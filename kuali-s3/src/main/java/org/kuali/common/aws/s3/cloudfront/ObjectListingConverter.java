@@ -134,15 +134,15 @@ public class ObjectListingConverter {
 
 	protected boolean isDirectory(S3ObjectSummary summary, List<String> commonPrefixes, String prefix, String delimiter) {
 		String key = summary.getKey();
-		if (key.equals(prefix)) {
+		if (StringUtils.equals(key, prefix)) {
 			return true;
 		}
 		for (String commonPrefix : commonPrefixes) {
-			if (key.equals(commonPrefix)) {
+			if (StringUtils.equals(key, commonPrefix)) {
 				return true;
 			}
-			String trimmedPrefix = getTrimmedPrefix(commonPrefix, delimiter);
-			if (key.equals(trimmedPrefix)) {
+			String trimmedPrefix = Str.removeSuffix(commonPrefix, delimiter);
+			if (StringUtils.equals(key, trimmedPrefix)) {
 				return true;
 			}
 		}
