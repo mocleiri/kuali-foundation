@@ -16,14 +16,6 @@ public class ListingConverterContext {
 
 	BucketContext bucketContext;
 
-	public BucketContext getBucketContext() {
-		return bucketContext;
-	}
-
-	public void setBucketContext(BucketContext bucketContext) {
-		this.bucketContext = bucketContext;
-	}
-
 	public String getFileImage() {
 		return fileImage;
 	}
@@ -62,6 +54,14 @@ public class ListingConverterContext {
 
 	public void setDateDisplayTimeZone(String dateDisplayTimeZone) {
 		this.dateDisplayTimeZone = dateDisplayTimeZone;
+	}
+
+	public BucketContext getBucketContext() {
+		return bucketContext;
+	}
+
+	public void setBucketContext(BucketContext bucketContext) {
+		this.bucketContext = bucketContext;
 	}
 
 }
