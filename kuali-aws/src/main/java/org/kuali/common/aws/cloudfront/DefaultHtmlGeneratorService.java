@@ -68,12 +68,14 @@ public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 		return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 	}
 
-	protected String getMeta() {
-		return "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n";
+	protected String getMeta(HtmlGeneratorContext context) {
+		return "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=" + context.getEncoding() + "\"/>\n";
 	}
 
-	protected String getGoogleAnalyticsJavascript() {
-		return "<script type=\"text/javascript\">var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-16781661-1']); _gaq.push(['_setDomainName', '.kuali.org']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();</script>\n";
+	protected String getGoogleAnalyticsJavascript(HtmlGeneratorContext context) {
+		return "<script type=\"text/javascript\">var _gaq = _gaq || []; _gaq.push(['_setAccount', '"
+				+ context.getGoogleAnalyticsAccount()
+				+ "']); _gaq.push(['_setDomainName', '.kuali.org']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();</script>\n";
 	}
 
 	/**
@@ -105,8 +107,8 @@ public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 		sb.append(HtmlUtils.getTag(title, "Directory listing for " + directory, indent));
 		sb.append(HtmlUtils.openTag(head, indent));
 		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + context.getCss() + "\" rel=\"stylesheet\" type=\"text/css\"/>\n", indent));
-		sb.append(HtmlUtils.getIndentedContent(getMeta(), indent));
-		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript(), indent));
+		sb.append(HtmlUtils.getIndentedContent(getMeta(context), indent));
+		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript(context), indent));
 		sb.append(HtmlUtils.closeTag(head, indent));
 		sb.append(HtmlUtils.openTag(body, indent));
 		sb.append(HtmlUtils.openTag(div1, indent));
