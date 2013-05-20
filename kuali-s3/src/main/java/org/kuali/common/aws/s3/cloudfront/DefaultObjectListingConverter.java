@@ -32,7 +32,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 /**
  * Convert information from an S3 bucket into pojo's
  */
-public class DefaultObjectListingConverter {
+public class DefaultObjectListingConverter implements ObjectListingConverter {
 
 	/**
 	 * Convert "foo/bar/css/" into "foo/bar/css"<br>
@@ -118,6 +118,7 @@ public class DefaultObjectListingConverter {
 	/**
 	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
+	@Override
 	public List<String[]> convert(ObjectListingConversionContext context) {
 		Counter indent = new Counter();
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, indent);
