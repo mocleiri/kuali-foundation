@@ -27,7 +27,7 @@ import org.kuali.common.util.html.Tag;
 /**
  * Generate directory listings in html format that is Amazon CloudFront friendly
  */
-public class DefaultCloudFrontHtmlGenerator implements CloudFrontHtmlGeneratorService {
+public class DefaultCloudFrontHtmlGeneratorService implements CloudFrontHtmlGeneratorService {
 
 	/**
 	 * Decorators for the columns in the table
