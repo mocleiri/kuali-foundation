@@ -11,6 +11,8 @@ public class ObjectListingConverterContext {
 	String fileImage = DEFAULT_FILE_IMAGE;
 	String dirImage = DEFAULT_DIR_IMAGE;
 	String browseKey = DEFAULT_BROWSE_KEY;
+	String dateDisplayFormat = CloudFrontConstants.DATE_DISPLAY_FORMAT;
+	String dateDisplayTimeZone = CloudFrontConstants.DATE_DISPLAY_TIMEZONE;
 
 	BucketContext bucketContext;
 
@@ -44,6 +46,22 @@ public class ObjectListingConverterContext {
 
 	public void setBrowseKey(String browseKey) {
 		this.browseKey = browseKey;
+	}
+
+	public String getDateDisplayFormat() {
+		return dateDisplayFormat;
+	}
+
+	public void setDateDisplayFormat(String dateDisplayFormat) {
+		this.dateDisplayFormat = dateDisplayFormat;
+	}
+
+	public String getDateDisplayTimeZone() {
+		return dateDisplayTimeZone;
+	}
+
+	public void setDateDisplayTimeZone(String dateDisplayTimeZone) {
+		this.dateDisplayTimeZone = dateDisplayTimeZone;
 	}
 
 }
