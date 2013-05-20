@@ -6,6 +6,6 @@ import com.amazonaws.services.s3.model.ObjectListing;
 
 public interface ListingConverterService {
 
-	List<String[]> convert(ListingConverterContext context, ObjectListing listing);
+	List<IndexContext> convert(ListingConverterContext context, List<ObjectListing> listings);
 
 }

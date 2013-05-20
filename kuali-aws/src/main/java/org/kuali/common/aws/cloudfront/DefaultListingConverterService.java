@@ -119,19 +119,35 @@ public class DefaultListingConverterService implements ListingConverterService {
 	 * Convert the ObjectListing into List<String[]>. Each list entry represents one row in the html table we will be generating
 	 */
 	@Override
-	public List<String[]> convert(ListingConverterContext context, ObjectListing listing) {
+	public List<IndexContext> convert(ListingConverterContext context, List<ObjectListing> listings) {
+
 		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
+
+		List<IndexContext> contexts = new ArrayList<IndexContext>();
+		for (ObjectListing listing : listings) {
+			List<String[]> indexData = getIndexData(context, listing, formatter);
+			IndexContext indexContext = new IndexContext();
+			indexContext.setIndexData(indexData);
+			indexContext.setListing(listing);
+
+			contexts.add(indexContext);
+
+		}
+		return contexts;
+	}
+
+	protected List<String[]> getIndexData(ListingConverterContext context, ObjectListing listing, SimpleDateFormat formatter) {
 		Counter indent = new Counter();
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
 		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, listing, indent, formatter);
 		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, listing, indent);
 		Comparator<DisplayRow> comparator = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, comparator);
-		List<String[]> data = new ArrayList<String[]>();
-		addDisplayRow(upOneDirectory, data);
-		addDisplayRows(directoryDisplayRows, data);
-		addDisplayRows(objectDisplayRows, data);
-		return data;
+		List<String[]> indexData = new ArrayList<String[]>();
+		addDisplayRow(upOneDirectory, indexData);
+		addDisplayRows(directoryDisplayRows, indexData);
+		addDisplayRows(objectDisplayRows, indexData);
+		return indexData;
 	}
 
 	protected boolean isDirectory(S3ObjectSummary summary, List<String> commonPrefixes, String prefix, String delimiter) {
