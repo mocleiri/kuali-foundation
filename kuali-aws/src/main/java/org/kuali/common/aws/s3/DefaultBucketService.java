@@ -28,10 +28,12 @@ public class DefaultBucketService implements BucketService {
 		Assert.notNull(context.getRequest(), "request is null");
 		Assert.notNull(context.getBucketContext(), "bucket context is null");
 
+		// Extract the pojo's for convenience
 		AmazonS3Client client = context.getClient();
 		BucketContext bucketContext = context.getBucketContext();
 		ListingRequest request = context.getRequest();
 
+		// Complete some more configuration checks
 		Assert.hasText(bucketContext.getDelimiter(), "delimiter has no text");
 		Assert.hasText(bucketContext.getName(), "name has no text");
 		boolean exists = client.doesBucketExist(bucketContext.getName());
@@ -102,7 +104,7 @@ public class DefaultBucketService implements BucketService {
 		// Add the current ObjectListing to the list
 		listings.add(listing);
 
-		// Examine the "sub-directories"
+		// Recurse into the "sub-directories"
 		for (String subDirectory : listing.getCommonPrefixes()) {
 			doSubDirectory(context, subDirectory, listings, startTime, counter);
 		}
