@@ -84,7 +84,7 @@ public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 	 * Generate the full html page
 	 */
 	@Override
-	public String getDirectoryListing(HtmlDirectoryListingContext context) {
+	public String getDirectoryListing(DirectoryListingContext context) {
 
 		HtmlGeneratorContext hgc = context.getGeneratorContext();
 		ObjectListing listing = context.getIndexContext().getListing();
