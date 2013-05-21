@@ -22,30 +22,10 @@ public class DefaultBucketServiceTest {
 		try {
 			logger.debug("");
 			AmazonS3Client client = getClient();
-			String bucket = "site.origin.kuali.org";
-			String prefix = getProperty("s3.prefix", "pom/kuali-pom/latest");
-			long prefixEstimate = getLong("s3.prefixEstimate", BucketConstants.DEFAULT_PREFIX_ESTIMATE);
+			BucketContext bucketContext = new BucketContext("site.origin.kuali.org");
+			ListingRequest request = getListingRequest(bucketContext);
 
-			// String prefix = "rice/latest";
-			// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
-			List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
-
-			Object[] args = { bucket, BucketConstants.DEFAULT_DELIMITER, prefix };
-			LogMsg startMessage = new LogMsg("Examining bucket - [s3://{}{}{}]", args);
-			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate, startMessage);
-
-			BucketContext bucketContext = new BucketContext(bucket);
-
-			ListingRequest request = new ListingRequest();
-			request.setExcludes(excludes);
-			request.setPrefix(prefix);
-			request.setInformer(informer);
-			request.setRecursive(true);
-
-			ObjectListingsContext context = new ObjectListingsContext();
-			context.setBucketContext(bucketContext);
-			context.setClient(client);
-			context.setRequest(request);
+			ObjectListingsContext context = new ObjectListingsContext(client, bucketContext, request);
 
 			BucketService service = new DefaultBucketService();
 
@@ -56,6 +36,26 @@ public class DefaultBucketServiceTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected ListingRequest getListingRequest(BucketContext context) {
+		String prefix = getProperty("s3.prefix", "pom/kuali-pom/latest");
+		long prefixEstimate = getLong("s3.prefixEstimate", BucketConstants.DEFAULT_PREFIX_ESTIMATE);
+		// String prefix = "rice/latest";
+		// List<String> excludes = Arrays.asList("cobertura", "apidocs", "clover", "xref-test", "graph", "xref", "testapidocs", "css", "images");
+		List<String> excludes = null; // Arrays.asList("apidocs", "xref-test", "xref", "testapidocs");
+
+		Object[] args = { context.getName(), context.getDelimiter(), prefix };
+		LogMsg startMessage = new LogMsg("Examining bucket - [s3://{}{}{}]", args);
+		PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate, startMessage);
+
+		ListingRequest request = new ListingRequest();
+		request.setExcludes(excludes);
+		request.setPrefix(prefix);
+		request.setInformer(informer);
+		request.setRecursive(true);
+		return request;
+
 	}
 
 	protected void showListing(ObjectListing listing) {
