@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3Client;
+
 @Configuration
 public class CloudFrontIndexerConfig {
 
@@ -15,7 +19,19 @@ public class CloudFrontIndexerConfig {
 	Environment env;
 
 	@Bean
+	public AmazonS3Client awsS3Client() {
+
+		String accessKey = SpringUtils.getProperty(env, "s3.accessKey");
+		String secretKey = SpringUtils.getProperty(env, "s3.secretKey");
+
+		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
+		return new AmazonS3Client(credentials);
+	}
+
+	@Bean
 	public BucketContext awsBucketContext() {
+
 		String delimiter = SpringUtils.getProperty(env, "s3.delimiter", BucketConstants.DEFAULT_DELIMITER);
 		int maxKeys = SpringUtils.getInteger(env, "s3.maxKeys", BucketConstants.DEFAULT_MAX_KEYS);
 		String bucket = SpringUtils.getProperty(env, "s3.bucket");
