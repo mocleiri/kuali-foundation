@@ -1,9 +1,5 @@
 package org.kuali.common.aws.cloudfront;
 
-import org.kuali.common.aws.s3.BucketContext;
-
-import com.amazonaws.services.s3.model.ObjectListing;
-
 public class ListingConverterContext {
 
 	String fileImage = CloudFrontConstants.DEFAULT_FILE_IMAGE;
@@ -11,18 +7,6 @@ public class ListingConverterContext {
 	String browseKey = CloudFrontConstants.DEFAULT_BROWSE_KEY;
 	String dateDisplayFormat = CloudFrontConstants.DATE_DISPLAY_FORMAT;
 	String dateDisplayTimeZone = CloudFrontConstants.DATE_DISPLAY_TIMEZONE;
-
-	BucketContext bucketContext;
-	ObjectListing listing;
-
-	public ListingConverterContext() {
-		this(null);
-	}
-
-	public ListingConverterContext(BucketContext bucketContext) {
-		super();
-		this.bucketContext = bucketContext;
-	}
 
 	public String getFileImage() {
 		return fileImage;
@@ -62,22 +46,6 @@ public class ListingConverterContext {
 
 	public void setDateDisplayTimeZone(String dateDisplayTimeZone) {
 		this.dateDisplayTimeZone = dateDisplayTimeZone;
-	}
-
-	public BucketContext getBucketContext() {
-		return bucketContext;
-	}
-
-	public void setBucketContext(BucketContext bucketContext) {
-		this.bucketContext = bucketContext;
-	}
-
-	public ObjectListing getListing() {
-		return listing;
-	}
-
-	public void setListing(ObjectListing listing) {
-		this.listing = listing;
 	}
 
 }

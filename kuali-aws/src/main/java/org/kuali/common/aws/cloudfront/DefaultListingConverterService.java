@@ -83,11 +83,11 @@ public class DefaultListingConverterService implements ListingConverterService {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(String commonPrefix, ListingConverterContext context, ObjectListing listing, Counter indent) {
+	protected DisplayRow getDisplayRow(String commonPrefix, IndexDataContext context, Counter indent) {
 
 		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(context.getDirImage(), indent);
-		String show = getShow(commonPrefix, listing.getPrefix());
+		String image = HtmlUtils.getImage(context.getConverterContext().getDirImage(), indent);
+		String show = getShow(commonPrefix, context.getListing().getPrefix());
 		String dest = context.getBucketContext().getDelimiter() + commonPrefix;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = "-";
@@ -103,10 +103,10 @@ public class DefaultListingConverterService implements ListingConverterService {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getDirectoryDisplayRows(ListingConverterContext context, ObjectListing listing, Counter indent) {
+	protected List<DisplayRow> getDirectoryDisplayRows(IndexDataContext context, Counter indent) {
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
-		for (String commonPrefix : listing.getCommonPrefixes()) {
-			DisplayRow displayRow = getDisplayRow(commonPrefix, context, listing, indent);
+		for (String commonPrefix : context.getListing().getCommonPrefixes()) {
+			DisplayRow displayRow = getDisplayRow(commonPrefix, context, indent);
 			if (displayRow == null) {
 				continue;
 			}
@@ -115,26 +115,16 @@ public class DefaultListingConverterService implements ListingConverterService {
 		return displayRows;
 	}
 
-	/**
-	 * Create an IndexContext for each ObjectListing.
-	 */
-	public List<IndexContext> getIndexContexts(ListingConverterContext context, List<ObjectListing> listings) {
-		List<IndexContext> contexts = new ArrayList<IndexContext>();
-		for (ObjectListing listing : listings) {
-			List<String[]> indexData = convert(context, listing);
-			IndexContext indexContext = new IndexContext(listing, indexData);
-			contexts.add(indexContext);
-		}
-		return contexts;
-	}
-
 	@Override
-	public List<String[]> convert(ListingConverterContext context, ObjectListing listing) {
-		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
+	public List<String[]> getIndexData(IndexDataContext context) {
+		ListingConverterContext lcc = context.getConverterContext();
+		ObjectListing listing = context.getListing();
+
+		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(lcc.getDateDisplayFormat(), lcc.getDateDisplayTimeZone());
 		Counter indent = new Counter();
 		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, listing, indent, formatter);
-		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, listing, indent);
+		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, indent, formatter);
+		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, indent);
 		Comparator<DisplayRow> comparator = new DisplayRowComparator();
 		Collections.sort(directoryDisplayRows, comparator);
 		List<String[]> indexData = new ArrayList<String[]>();
@@ -164,15 +154,15 @@ public class DefaultListingConverterService implements ListingConverterService {
 	/**
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getDisplayRow(ListingConverterContext context, S3ObjectSummary summary, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
+	protected DisplayRow getDisplayRow(IndexDataContext context, S3ObjectSummary summary, Counter indent, SimpleDateFormat formatter) {
 
 		String delimiter = context.getBucketContext().getDelimiter();
 
 		String key = summary.getKey();
 
 		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(context.getFileImage(), indent);
-		String show = getShow(key, listing.getPrefix());
+		String image = HtmlUtils.getImage(context.getConverterContext().getFileImage(), indent);
+		String show = getShow(key, context.getListing().getPrefix());
 		String dest = delimiter + key;
 		String ahref = HtmlUtils.getHref(dest, show, indent);
 		String date = formatter.format(summary.getLastModified());
@@ -188,14 +178,15 @@ public class DefaultListingConverterService implements ListingConverterService {
 		return displayRow;
 	}
 
-	protected List<DisplayRow> getObjectDisplayRows(ListingConverterContext context, ObjectListing listing, Counter indent, SimpleDateFormat formatter) {
+	protected List<DisplayRow> getObjectDisplayRows(IndexDataContext context, Counter indent, SimpleDateFormat formatter) {
 		String delimiter = context.getBucketContext().getDelimiter();
+		ObjectListing listing = context.getListing();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
 			if (isDirectory(summary, listing.getCommonPrefixes(), listing.getPrefix(), delimiter)) {
 				continue;
 			}
-			DisplayRow displayRow = getDisplayRow(context, summary, listing, indent, formatter);
+			DisplayRow displayRow = getDisplayRow(context, summary, indent, formatter);
 			if (displayRow == null) {
 				continue;
 			}
@@ -207,10 +198,10 @@ public class DefaultListingConverterService implements ListingConverterService {
 	/**
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
-	protected DisplayRow getUpOneDirectoryDisplayRow(ListingConverterContext context, String prefix, Counter indent) {
+	protected DisplayRow getUpOneDirectoryDisplayRow(IndexDataContext context, String prefix, Counter indent) {
 
 		String delimiter = context.getBucketContext().getDelimiter();
-		String browseKey = context.getBrowseKey();
+		String browseKey = context.getConverterContext().getBrowseKey();
 
 		if (StringUtils.isEmpty(prefix)) {
 			return null;
