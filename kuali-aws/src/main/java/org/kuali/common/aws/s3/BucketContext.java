@@ -1,29 +1,18 @@
 package org.kuali.common.aws.s3;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-
 public class BucketContext {
 
 	String delimiter = BucketConstants.DEFAULT_DELIMITER;
-	AmazonS3Client client;
+	Integer maxKeys = BucketConstants.DEFAULT_MAX_KEYS;
 	String name;
 
 	public BucketContext() {
-		this(null, null);
+		this(null);
 	}
 
-	public BucketContext(AmazonS3Client client, String name) {
+	public BucketContext(String name) {
 		super();
-		this.client = client;
 		this.name = name;
-	}
-
-	public AmazonS3Client getClient() {
-		return client;
-	}
-
-	public void setClient(AmazonS3Client client) {
-		this.client = client;
 	}
 
 	public String getDelimiter() {
@@ -34,6 +23,14 @@ public class BucketContext {
 		this.delimiter = delimiter;
 	}
 
+	public Integer getMaxKeys() {
+		return maxKeys;
+	}
+
+	public void setMaxKeys(Integer maxKeys) {
+		this.maxKeys = maxKeys;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -41,5 +38,4 @@ public class BucketContext {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }

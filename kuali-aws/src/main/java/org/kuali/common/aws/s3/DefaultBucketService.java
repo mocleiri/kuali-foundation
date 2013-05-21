@@ -18,16 +18,18 @@ public class DefaultBucketService implements BucketService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultBucketService.class);
 
 	@Override
-	public ListingResult getObjectListings(BucketContext context, ListingRequest request) {
+	public ListingResult getObjectListings(ObjectListingsContext context) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(context, "context is null");
-		Assert.notNull(request, "request is null");
+		Assert.notNull(context.getRequest(), "request is null");
 		Assert.notNull(context.getClient(), "client is null");
-		Assert.hasText(context.getDelimiter(), "delimiter has no text");
-		Assert.hasText(context.getName(), "name has no text");
-		boolean exists = context.getClient().doesBucketExist(context.getName());
-		Assert.isTrue(exists, "bucket [" + context.getName() + "] does not exist");
+		Assert.hasText(context.getBucketContext().getDelimiter(), "delimiter has no text");
+		Assert.hasText(context.getBucketContext().getName(), "name has no text");
+		boolean exists = context.getClient().doesBucketExist(context.getBucketContext().getName());
+		Assert.isTrue(exists, "bucket [" + context.getBucketContext().getName() + "] does not exist");
+
+		ListingRequest request = context.getRequest();
 
 		// Start the informer, if they supplied one
 		if (request.getInformer() != null) {
@@ -40,7 +42,7 @@ public class DefaultBucketService implements BucketService {
 
 		// Connect to Amazon's S3 service and collect summary information about objects in the S3 bucket
 		// This can be recursive and take a while
-		List<ObjectListing> listings = accumulateObjectListings(context, request);
+		List<ObjectListing> listings = accumulateObjectListings(context, context.getRequest());
 
 		// Preserve the stop time
 		long stop = System.currentTimeMillis();
@@ -62,32 +64,32 @@ public class DefaultBucketService implements BucketService {
 	/**
 	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
-	protected List<ObjectListing> accumulateObjectListings(BucketContext context, ListingRequest request) {
+	protected List<ObjectListing> accumulateObjectListings(ObjectListingsContext context, ListingRequest request) {
 
 		// Append delimiter to prefix if needed
-		String prefix = getPrefix(request.getPrefix(), context.getDelimiter());
+		String prefix = getPrefix(request.getPrefix(), context.getBucketContext().getDelimiter());
 
 		// Setup some storage for our Object listings
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 
 		// Connect to S3 and obtain an ObjectListing for this prefix
-		ObjectListing listing = getObjectListing(context, request, prefix);
+		ObjectListing listing = getObjectListing(context, prefix);
 
 		// Add the current ObjectListing to the list
 		listings.add(listing);
 
 		// Examine the "sub-directories"
 		for (String subDirectory : listing.getCommonPrefixes()) {
-			doSubDirectory(context, request, subDirectory, listings);
+			doSubDirectory(context, subDirectory, listings);
 		}
 
 		// Return the aggregated list of ObjectListings
 		return listings;
 	}
 
-	protected ObjectListing getObjectListing(BucketContext context, ListingRequest request, String prefix) {
+	protected ObjectListing getObjectListing(ObjectListingsContext context, String prefix) {
 		// Create an Amazon request
-		ListObjectsRequest lor = getListObjectsRequest(context, request, prefix);
+		ListObjectsRequest lor = getListObjectsRequest(context, prefix);
 
 		// Connect to S3 and extract the object listing
 		ObjectListing listing = context.getClient().listObjects(lor);
@@ -96,19 +98,19 @@ public class DefaultBucketService implements BucketService {
 		Assert.isFalse(listing.isTruncated(), "listing is truncated");
 
 		// Increment progress on the informer, if they supplied one
-		if (request.getInformer() != null) {
-			request.getInformer().incrementProgress();
+		if (context.getRequest().getInformer() != null) {
+			context.getRequest().getInformer().incrementProgress();
 		}
 
 		return listing;
 	}
 
-	protected void doSubDirectory(BucketContext context, ListingRequest request, String subDirectory, List<ObjectListing> listings) {
+	protected void doSubDirectory(ObjectListingsContext context, String subDirectory, List<ObjectListing> listings) {
 		// Determine if we are recursing into this "sub-directory"
-		if (isRecurse(context, request, subDirectory)) {
+		if (isRecurse(context, subDirectory)) {
 
 			// If so, clone the existing request, but update the prefix
-			ListingRequest clone = clone(request, subDirectory);
+			ListingRequest clone = clone(context.getRequest(), subDirectory);
 
 			// Recurse in order to accumulate all ObjectListing's under this one
 			List<ObjectListing> children = accumulateObjectListings(context, clone);
@@ -119,7 +121,7 @@ public class DefaultBucketService implements BucketService {
 		} else {
 
 			// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
-			ObjectListing subDirectoryListing = getObjectListing(context, request, subDirectory);
+			ObjectListing subDirectoryListing = getObjectListing(context, subDirectory);
 
 			// Add the "sub-directory" listing to the overall list
 			listings.add(subDirectoryListing);
@@ -168,29 +170,29 @@ public class DefaultBucketService implements BucketService {
 		return StringUtils.endsWith(prefix, suffix);
 	}
 
-	protected boolean isExclude(BucketContext context, ListingRequest request, String prefix) {
-		for (String exclude : CollectionUtils.toEmptyList(request.getExcludes())) {
-			if (isEndsWithMatch(prefix, exclude, context.getDelimiter())) {
+	protected boolean isExclude(ObjectListingsContext context, String prefix) {
+		for (String exclude : CollectionUtils.toEmptyList(context.getRequest().getExcludes())) {
+			if (isEndsWithMatch(prefix, exclude, context.getBucketContext().getDelimiter())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	protected boolean isInclude(BucketContext context, ListingRequest request, String prefix) {
-		if (CollectionUtils.isEmpty(request.getIncludes())) {
+	protected boolean isInclude(ObjectListingsContext context, String prefix) {
+		if (CollectionUtils.isEmpty(context.getRequest().getIncludes())) {
 			return true;
 		}
-		for (String include : request.getIncludes()) {
-			if (isEndsWithMatch(prefix, include, context.getDelimiter())) {
+		for (String include : context.getRequest().getIncludes()) {
+			if (isEndsWithMatch(prefix, include, context.getBucketContext().getDelimiter())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	protected boolean isRecurse(BucketContext context, ListingRequest request, String prefix) {
-		return request.isRecursive() && !isExclude(context, request, prefix) && isInclude(context, request, prefix);
+	protected boolean isRecurse(ObjectListingsContext context, String prefix) {
+		return context.getRequest().isRecursive() && !isExclude(context, prefix) && isInclude(context, prefix);
 	}
 
 	protected ListingRequest clone(ListingRequest request, String prefix) {
@@ -204,8 +206,11 @@ public class DefaultBucketService implements BucketService {
 		return clone;
 	}
 
-	protected ListObjectsRequest getListObjectsRequest(BucketContext context, ListingRequest request, String prefix) {
-		return getListObjectsRequest(context.getName(), prefix, context.getDelimiter(), null);
+	protected ListObjectsRequest getListObjectsRequest(ObjectListingsContext context, String prefix) {
+		String name = context.getBucketContext().getName();
+		String delimiter = context.getBucketContext().getDelimiter();
+		Integer maxKeys = context.getBucketContext().getMaxKeys();
+		return getListObjectsRequest(name, prefix, delimiter, maxKeys);
 	}
 
 	protected ListObjectsRequest getListObjectsRequest(String bucket, String prefix, String delimiter, Integer maxKeys) {

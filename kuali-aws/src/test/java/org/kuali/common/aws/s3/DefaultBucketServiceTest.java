@@ -34,7 +34,7 @@ public class DefaultBucketServiceTest {
 			LogMsg startMessage = new LogMsg("Examining bucket - [s3://{}{}{}]", args);
 			PercentCompleteInformer informer = new PercentCompleteInformer(prefixEstimate, startMessage);
 
-			BucketContext context = new BucketContext(client, bucket);
+			BucketContext bucketContext = new BucketContext(bucket);
 
 			ListingRequest request = new ListingRequest();
 			request.setExcludes(excludes);
@@ -42,9 +42,14 @@ public class DefaultBucketServiceTest {
 			request.setInformer(informer);
 			request.setRecursive(true);
 
+			ObjectListingsContext context = new ObjectListingsContext();
+			context.setBucketContext(bucketContext);
+			context.setClient(client);
+			context.setRequest(request);
+
 			BucketService service = new DefaultBucketService();
 
-			ListingResult result = service.getObjectListings(context, request);
+			ListingResult result = service.getObjectListings(context);
 			for (ObjectListing listing : result.getListings()) {
 				showListing(listing);
 			}

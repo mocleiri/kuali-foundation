@@ -4,6 +4,6 @@ public abstract class BucketConstants {
 
 	public static final int DEFAULT_PREFIX_ESTIMATE = 100;
 	public static final String DEFAULT_DELIMITER = "/";
-
+	public static final int DEFAULT_MAX_KEYS = 1000;
 
 }
