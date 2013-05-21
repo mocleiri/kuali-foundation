@@ -7,9 +7,11 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Counter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 
@@ -22,14 +24,18 @@ public class DefaultBucketService implements BucketService {
 
 		// Make sure we are configured correctly
 		Assert.notNull(context, "context is null");
-		Assert.notNull(context.getRequest(), "request is null");
 		Assert.notNull(context.getClient(), "client is null");
-		Assert.hasText(context.getBucketContext().getDelimiter(), "delimiter has no text");
-		Assert.hasText(context.getBucketContext().getName(), "name has no text");
-		boolean exists = context.getClient().doesBucketExist(context.getBucketContext().getName());
-		Assert.isTrue(exists, "bucket [" + context.getBucketContext().getName() + "] does not exist");
+		Assert.notNull(context.getRequest(), "request is null");
+		Assert.notNull(context.getBucketContext(), "bucket context is null");
 
+		AmazonS3Client client = context.getClient();
+		BucketContext bucketContext = context.getBucketContext();
 		ListingRequest request = context.getRequest();
+
+		Assert.hasText(bucketContext.getDelimiter(), "delimiter has no text");
+		Assert.hasText(bucketContext.getName(), "name has no text");
+		boolean exists = client.doesBucketExist(bucketContext.getName());
+		Assert.isTrue(exists, "bucket [" + context.getBucketContext().getName() + "] does not exist");
 
 		// Start the informer, if they supplied one
 		if (request.getInformer() != null) {
@@ -40,9 +46,12 @@ public class DefaultBucketService implements BucketService {
 		// Preserve the start time
 		long start = System.currentTimeMillis();
 
+		// Initialize a new counter
+		Counter counter = new Counter();
+
 		// Connect to Amazon's S3 service and collect summary information about objects in the S3 bucket
 		// This can be recursive and take a while
-		List<ObjectListing> listings = accumulateObjectListings(context, context.getRequest());
+		List<ObjectListing> listings = accumulateObjectListings(context, context.getRequest(), start, counter);
 
 		// Preserve the stop time
 		long stop = System.currentTimeMillis();
@@ -64,7 +73,7 @@ public class DefaultBucketService implements BucketService {
 	/**
 	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
-	protected List<ObjectListing> accumulateObjectListings(ObjectListingsContext context, ListingRequest request) {
+	protected List<ObjectListing> accumulateObjectListings(ObjectListingsContext context, ListingRequest request, long startTime, Counter counter) {
 
 		// Append delimiter to prefix if needed
 		String prefix = getPrefix(request.getPrefix(), context.getBucketContext().getDelimiter());
@@ -73,21 +82,22 @@ public class DefaultBucketService implements BucketService {
 		List<ObjectListing> listings = new ArrayList<ObjectListing>();
 
 		// Connect to S3 and obtain an ObjectListing for this prefix
-		ObjectListing listing = getObjectListing(context, prefix);
+		ObjectListing listing = getObjectListing(context, prefix, counter);
 
 		// Add the current ObjectListing to the list
 		listings.add(listing);
 
 		// Examine the "sub-directories"
 		for (String subDirectory : listing.getCommonPrefixes()) {
-			doSubDirectory(context, subDirectory, listings);
+			doSubDirectory(context, subDirectory, listings, startTime, counter);
 		}
 
 		// Return the aggregated list of ObjectListings
 		return listings;
 	}
 
-	protected ObjectListing getObjectListing(ObjectListingsContext context, String prefix) {
+	protected ObjectListing getObjectListing(ObjectListingsContext context, String prefix, Counter counter) {
+
 		// Create an Amazon request
 		ListObjectsRequest lor = getListObjectsRequest(context, prefix);
 
@@ -102,18 +112,23 @@ public class DefaultBucketService implements BucketService {
 			context.getRequest().getInformer().incrementProgress();
 		}
 
+		// Increment the counter
+		counter.increment();
+
+		// Return the listing
 		return listing;
 	}
 
-	protected void doSubDirectory(ObjectListingsContext context, String subDirectory, List<ObjectListing> listings) {
+	protected void doSubDirectory(ObjectListingsContext context, String subDirectory, List<ObjectListing> listings, long startTime, Counter counter) {
+
 		// Determine if we are recursing into this "sub-directory"
 		if (isRecurse(context, subDirectory)) {
 
-			// If so, clone the existing request, but update the prefix
+			// If so, clone the existing request, but with an new prefix
 			ListingRequest clone = clone(context.getRequest(), subDirectory);
 
 			// Recurse in order to accumulate all ObjectListing's under this one
-			List<ObjectListing> children = accumulateObjectListings(context, clone);
+			List<ObjectListing> children = accumulateObjectListings(context, clone, startTime, counter);
 
 			// Add the aggregated child list to our overall list
 			listings.addAll(children);
@@ -121,7 +136,7 @@ public class DefaultBucketService implements BucketService {
 		} else {
 
 			// We are not recursing into the "sub-directory" but we still list the contents of the "sub-directory" itself
-			ObjectListing subDirectoryListing = getObjectListing(context, subDirectory);
+			ObjectListing subDirectoryListing = getObjectListing(context, subDirectory, counter);
 
 			// Add the "sub-directory" listing to the overall list
 			listings.add(subDirectoryListing);
