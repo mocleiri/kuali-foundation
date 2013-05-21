@@ -37,6 +37,8 @@ public class AwsPropertiesConfig {
 	public ProjectProperties awsProjectProperties() {
 		Project project = projectConfig.awsProject();
 		List<String> locations = new ArrayList<String>();
+		locations.add("classpath:org/kuali/common/aws/s3.properties");
+		locations.add("classpath:org/kuali/common/aws/cloudfront.properties");
 		return ConfigUtils.getProjectProperties(project, locations);
 	}
 
