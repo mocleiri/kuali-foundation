@@ -1,14 +1,13 @@
 package org.kuali.common.aws.cloudfront;
 
 import org.kuali.common.aws.s3.BucketContext;
-import org.kuali.common.util.Project;
 
 public class DirectoryListingContext {
 
 	HtmlGeneratorContext generatorContext;
 	BucketContext bucketContext;
 	IndexContext indexContext;
-	Project project;
+	String about;
 
 	public HtmlGeneratorContext getGeneratorContext() {
 		return generatorContext;
@@ -34,12 +33,12 @@ public class DirectoryListingContext {
 		this.indexContext = indexContext;
 	}
 
-	public Project getProject() {
-		return project;
+	public String getAbout() {
+		return about;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setAbout(String about) {
+		this.about = about;
 	}
 
 }
