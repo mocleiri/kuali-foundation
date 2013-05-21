@@ -1,8 +1,5 @@
 package org.kuali.common.aws.cloudfront;
 
-import org.kuali.common.aws.s3.BucketContext;
-import org.kuali.common.util.Project;
-
 public class HtmlGeneratorContext {
 
 	String css = CloudFrontConstants.DEFAULT_CSS;
@@ -11,31 +8,12 @@ public class HtmlGeneratorContext {
 	String googleAnalyticsAccount = CloudFrontConstants.GOOGLE_ANALYTICS_ACCOUNT;
 	String encoding = CloudFrontConstants.ENCODING;
 
-	Project project;
-	BucketContext bucketContext;
-
 	public String getCss() {
 		return css;
 	}
 
 	public void setCss(String css) {
 		this.css = css;
-	}
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-	public BucketContext getBucketContext() {
-		return bucketContext;
-	}
-
-	public void setBucketContext(BucketContext bucketContext) {
-		this.bucketContext = bucketContext;
 	}
 
 	public String getDateDisplayFormat() {

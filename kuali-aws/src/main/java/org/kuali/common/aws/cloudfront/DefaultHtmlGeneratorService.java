@@ -27,6 +27,8 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.html.HtmlUtils;
 import org.kuali.common.util.html.Tag;
 
+import com.amazonaws.services.s3.model.ObjectListing;
+
 /**
  * Generate directory listings in html format that is Amazon CloudFront friendly
  */
@@ -82,13 +84,16 @@ public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 	 * Generate the full html page
 	 */
 	@Override
-	public String getDirectoryListing(HtmlGeneratorContext context, String prefix, List<String[]> data) {
+	public String getDirectoryListing(HtmlDirectoryListingContext context) {
 
-		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(context.getDateDisplayFormat(), context.getDateDisplayTimeZone());
+		HtmlGeneratorContext hgc = context.getGeneratorContext();
+		ObjectListing listing = context.getIndexContext().getListing();
+
+		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(hgc.getDateDisplayFormat(), hgc.getDateDisplayTimeZone());
 		String now = formatter.format(new Date());
 
 		Counter indent = new Counter();
-		String directory = getDirectory(prefix, context.getBucketContext().getDelimiter());
+		String directory = getDirectory(listing.getPrefix(), context.getBucketContext().getDelimiter());
 
 		Tag html = new Tag("html");
 		Tag title = new Tag("title");
@@ -106,9 +111,9 @@ public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 		sb.append(HtmlUtils.getIndentedContent(getHtmlComment(), indent));
 		sb.append(HtmlUtils.getTag(title, "Directory listing for " + directory, indent));
 		sb.append(HtmlUtils.openTag(head, indent));
-		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + context.getCss() + "\" rel=\"stylesheet\" type=\"text/css\"/>\n", indent));
-		sb.append(HtmlUtils.getIndentedContent(getMeta(context), indent));
-		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript(context), indent));
+		sb.append(HtmlUtils.getIndentedContent("<link href=\"" + hgc.getCss() + "\" rel=\"stylesheet\" type=\"text/css\"/>\n", indent));
+		sb.append(HtmlUtils.getIndentedContent(getMeta(hgc), indent));
+		sb.append(HtmlUtils.getIndentedContent(getGoogleAnalyticsJavascript(hgc), indent));
 		sb.append(HtmlUtils.closeTag(head, indent));
 		sb.append(HtmlUtils.openTag(body, indent));
 		sb.append(HtmlUtils.openTag(div1, indent));
@@ -116,7 +121,7 @@ public class DefaultHtmlGeneratorService implements HtmlGeneratorService {
 		sb.append(HtmlUtils.closeTag(div1, indent));
 		sb.append(HtmlUtils.getIndentedContent("<hr>\n", indent));
 		sb.append(HtmlUtils.openTag(div2, indent));
-		sb.append(getHtmlTable(data, getColumnDecorators(), indent));
+		sb.append(getHtmlTable(context.getIndexContext().getIndexData(), getColumnDecorators(), indent));
 		sb.append(HtmlUtils.closeTag(div2, indent));
 		sb.append(HtmlUtils.getIndentedContent("<hr>\n", indent));
 		sb.append(HtmlUtils.openTag(div3, indent));
