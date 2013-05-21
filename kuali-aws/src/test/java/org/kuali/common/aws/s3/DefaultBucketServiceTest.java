@@ -1,8 +1,14 @@
 package org.kuali.common.aws.s3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.kuali.common.aws.cloudfront.DefaultListingConverterService;
+import org.kuali.common.aws.cloudfront.IndexContext;
+import org.kuali.common.aws.cloudfront.IndexDataContext;
+import org.kuali.common.aws.cloudfront.ListingConverterContext;
+import org.kuali.common.aws.cloudfront.ListingConverterService;
 import org.kuali.common.aws.s3.monitor.S3Utils;
 import org.kuali.common.util.LogMsg;
 import org.kuali.common.util.PercentCompleteInformer;
@@ -24,15 +30,29 @@ public class DefaultBucketServiceTest {
 			AmazonS3Client client = getClient();
 			BucketContext bucketContext = new BucketContext("site.origin.kuali.org");
 			ListingRequest request = getListingRequest(bucketContext);
-
 			ObjectListingsContext context = new ObjectListingsContext(client, bucketContext, request);
-
 			BucketService service = new DefaultBucketService();
-
 			ListingResult result = service.getObjectListings(context);
+
+			ListingConverterContext lcc = new ListingConverterContext();
+			ListingConverterService lcs = new DefaultListingConverterService();
+			List<IndexContext> contexts = new ArrayList<IndexContext>();
 			for (ObjectListing listing : result.getListings()) {
-				showListing(listing);
+				IndexDataContext idc = new IndexDataContext();
+				idc.setBucketContext(bucketContext);
+				idc.setConverterContext(lcc);
+				idc.setListing(listing);
+
+				List<String[]> indexData = lcs.getIndexData(idc);
+
+				IndexContext indexContext = new IndexContext();
+				indexContext.setListing(listing);
+				indexContext.setIndexData(indexData);
+
+				contexts.add(indexContext);
+
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
