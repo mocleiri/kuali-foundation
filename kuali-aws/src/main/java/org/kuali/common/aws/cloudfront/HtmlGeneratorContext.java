@@ -5,8 +5,9 @@ public class HtmlGeneratorContext {
 	String css = CloudFrontConstants.DEFAULT_CSS;
 	String dateDisplayFormat = CloudFrontConstants.DATE_DISPLAY_FORMAT;
 	String dateDisplayTimeZone = CloudFrontConstants.DATE_DISPLAY_TIMEZONE;
-	String googleAnalyticsAccount = CloudFrontConstants.GOOGLE_ANALYTICS_ACCOUNT;
 	String encoding = CloudFrontConstants.ENCODING;
+	String googleAnalyticsAccount = CloudFrontConstants.GOOGLE_ANALYTICS_ACCOUNT;
+	String googleAnalyticsDomainName = CloudFrontConstants.GOOGLE_ANALYTICS_DOMAIN_NAME;
 
 	public String getCss() {
 		return css;
@@ -46,6 +47,14 @@ public class HtmlGeneratorContext {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public String getGoogleAnalyticsDomainName() {
+		return googleAnalyticsDomainName;
+	}
+
+	public void setGoogleAnalyticsDomainName(String googleAnalyticsDomainName) {
+		this.googleAnalyticsDomainName = googleAnalyticsDomainName;
 	}
 
 }

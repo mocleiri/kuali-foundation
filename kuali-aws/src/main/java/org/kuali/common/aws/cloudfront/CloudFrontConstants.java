@@ -16,8 +16,9 @@ public abstract class CloudFrontConstants {
 	public static final List<String> DEFAULT_WELCOME_FILES = Arrays.asList("index.html", "welcome.html", "portal.html");
 
 	// These are all Kuali specific. Should move them elsewhere
-	public static final String GOOGLE_ANALYTICS_ACCOUNT = "UA-16781661-1";
 	public static final String DEFAULT_FILE_IMAGE = "http://s3browse.ks.kuali.org/images/page_white.png";
 	public static final String DEFAULT_DIR_IMAGE = "http://s3browse.ks.kuali.org/images/folder.png";
 	public static final String DEFAULT_CSS = "http://s3browse.ks.kuali.org/css/style.css";
+	public static final String GOOGLE_ANALYTICS_ACCOUNT = "UA-16781661-1";
+	public static final String GOOGLE_ANALYTICS_DOMAIN_NAME = ".kuali.org";
 }
