@@ -87,6 +87,8 @@
     <project.build.java.version>${java.version}</project.build.java.version>
     <project.build.java.name>${java.vm.name}</project.build.java.name>
     <project.build.java.vendor>${java.vendor}</project.build.java.vendor>
+    <project.build.os.name>${os.name}</project.build.os.name>
+    <project.build.os.version>${os.version}</project.build.os.version>
     <project.java.version>1.6</project.java.version>
     <project.compile.source>${project.java.version}</project.compile.source>
     <project.compile.target>${project.java.version}</project.compile.target>
