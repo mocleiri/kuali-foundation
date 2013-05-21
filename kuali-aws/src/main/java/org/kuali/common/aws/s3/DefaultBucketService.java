@@ -105,12 +105,13 @@ public class DefaultBucketService implements BucketService {
 	 * Make sure none of the configured limits have been exceeded.
 	 */
 	protected void validateState(ListingRequest request, long startTime, Counter counter) {
-		long end = startTime + request.getTimeoutMillis();
 
-		if (end > System.currentTimeMillis()) {
+		// Make sure we have not exceeded our overall timeout limit
+		if (System.currentTimeMillis() > (startTime + request.getTimeoutMillis())) {
 			throw new IllegalStateException("timeout exceeded");
 		}
 
+		// Make sure we have not exceeded our overall object listing limit
 		if (counter.getValue() > request.getMaxListings()) {
 			throw new IllegalStateException("max listings exceeded");
 		}
