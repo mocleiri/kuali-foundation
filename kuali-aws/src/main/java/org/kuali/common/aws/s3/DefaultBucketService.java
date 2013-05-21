@@ -87,7 +87,7 @@ public class DefaultBucketService implements BucketService {
 	 */
 	protected List<ObjectListing> accumulateObjectListings(ObjectListingsContext context, ListingRequest request, long startTime, Counter counter) {
 
-		// Make sure we have not exceeded any of our limits
+		// Make sure we haven't exceeded any of our limits
 		validateState(request, startTime, counter);
 
 		// Append delimiter to prefix if needed
