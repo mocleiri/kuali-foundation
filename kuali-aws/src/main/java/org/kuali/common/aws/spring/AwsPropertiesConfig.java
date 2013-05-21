@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.Project;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.ConfigUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class AwsPropertiesConfig {
 	public ProjectProperties awsProjectProperties() {
 		Project project = projectConfig.awsProject();
 		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:org/kuali/common/kuali-aws.properties");
+		locations.add("classpath:" + Str.getPath(AwsProjectConfig.GROUP_ID) + "/" + AwsProjectConfig.ARTIFACT_ID + ".properties");
 		return ConfigUtils.getProjectProperties(project, locations);
 	}
 
