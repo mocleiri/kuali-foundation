@@ -72,18 +72,6 @@ public class DefaultBucketService implements BucketService {
 		return result;
 	}
 
-	protected void validateState(ListingRequest request, long startTime, Counter counter) {
-		long end = startTime + request.getTimeoutMillis();
-
-		if (end > System.currentTimeMillis()) {
-			throw new IllegalStateException("timeout exceeded");
-		}
-
-		if (counter.getValue() > request.getMaxListings()) {
-			throw new IllegalStateException("max listings exceeded");
-		}
-	}
-
 	/**
 	 * Examine an S3 bucket (potentially recursively) for information about the "directories" and objects it contains.
 	 */
@@ -111,6 +99,21 @@ public class DefaultBucketService implements BucketService {
 
 		// Return the aggregated list of ObjectListings
 		return listings;
+	}
+
+	/**
+	 * Make sure none of the configured limits have been exceeded.
+	 */
+	protected void validateState(ListingRequest request, long startTime, Counter counter) {
+		long end = startTime + request.getTimeoutMillis();
+
+		if (end > System.currentTimeMillis()) {
+			throw new IllegalStateException("timeout exceeded");
+		}
+
+		if (counter.getValue() > request.getMaxListings()) {
+			throw new IllegalStateException("max listings exceeded");
+		}
 	}
 
 	protected ObjectListing getObjectListing(ObjectListingsContext context, String prefix, Counter counter) {
