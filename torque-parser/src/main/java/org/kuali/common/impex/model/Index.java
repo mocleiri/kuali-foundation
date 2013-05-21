@@ -15,11 +15,21 @@
 
 package org.kuali.common.impex.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Index extends Constraint {
 
+    @XmlAttribute
     protected boolean unique;
+
+    public Index() {
+        this(new ArrayList<String>(), null);
+    }
 
     public Index(List<String> colNames, String name) {
         super(colNames, name);

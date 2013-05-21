@@ -16,12 +16,17 @@
 package org.kuali.common.impex.model;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * This class represents any named connection between columns
  */
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public abstract class Constraint implements NamedElement {
 
+    @XmlAttribute
     protected String name;
 
     protected List<String> columnNames;

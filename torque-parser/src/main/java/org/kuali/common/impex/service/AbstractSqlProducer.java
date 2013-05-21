@@ -86,11 +86,11 @@ public abstract class AbstractSqlProducer implements SqlProducer {
         if (token == null) {
             result.setValue(null);
             result.setDateValue(null);
-        } else if (ProducerUtils.isDateType(column.getDataType())) {
+        } else if (ProducerUtils.isDateType(column.getColumnDataType())) {
             Date parsedDate = getDate(token);
             result.setValue(null);
             result.setDateValue(parsedDate);
-        } else if (column.getDataType() == DataType.STRING || column.getDataType() == DataType.CLOB) {
+        } else if (column.getColumnDataType() == DataType.STRING || column.getColumnDataType() == DataType.CLOB) {
             result.setValue(getEscapedValue(column, token));
             result.setDateValue(null);
         } else {

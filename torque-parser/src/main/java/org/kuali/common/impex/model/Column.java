@@ -1,29 +1,38 @@
 package org.kuali.common.impex.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+
 /**
  * This interface provides an implementation-independent API to access database column model information
  */
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Column implements NamedElement {
+
 
     protected String name;
     protected DataType columnDataType;
-    protected Table table;
+    protected String tableName;
     protected TypeSize typeSize;
     protected String defaultValue;
     protected String description;
-
     protected boolean primaryKey;
     protected boolean nullable;
+
+    public Column() {
+        this(null, null, null);
+    }
 
     /**
      * Create a new instance of a Column
      *
      * All values are initialized, with a special note that nullable is initially set to true
      */
-    public Column(String n, DataType d, Table t) {
+    public Column(String n, DataType d, String t) {
         name = n;
         columnDataType = d;
-        table = t;
+        tableName = t;
 
         primaryKey = false;
         typeSize = null;
@@ -33,18 +42,17 @@ public class Column implements NamedElement {
         nullable = true;
     }
 
-    public DataType getDataType() {
+    @XmlAttribute
+    public DataType getColumnDataType() {
         return columnDataType;
     }
 
+    @XmlAttribute
     public String getName() {
         return name;
     }
 
-    public Table getTable() {
-        return table;
-    }
-
+    @XmlAttribute
     public boolean isPrimaryKey() {
         return primaryKey;
     }
@@ -69,6 +77,7 @@ public class Column implements NamedElement {
         this.defaultValue = defaultValue;
     }
 
+    @XmlAttribute
     public boolean isNullable() {
         return nullable;
     }
@@ -77,6 +86,7 @@ public class Column implements NamedElement {
         this.nullable = nullable;
     }
 
+    @XmlAttribute
     public String getDescription() {
         return description;
     }
@@ -85,4 +95,20 @@ public class Column implements NamedElement {
         this.description = description;
     }
 
+    public void setColumnDataType(DataType columnDataType) {
+        this.columnDataType = columnDataType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @XmlAttribute
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 }

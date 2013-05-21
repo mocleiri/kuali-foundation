@@ -15,12 +15,17 @@
 
 package org.kuali.common.impex.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A unique constraint
  */
 public class UniqueConstraint extends Constraint {
+
+    public UniqueConstraint() {
+        this(new ArrayList<String>(), null);
+    }
 
     public UniqueConstraint(List<String> colNames, String name) {
         super(colNames, name);

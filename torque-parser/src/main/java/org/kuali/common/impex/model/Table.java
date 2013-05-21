@@ -2,10 +2,17 @@ package org.kuali.common.impex.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This interface provides an implementation-independent API to access database table model information
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Table implements NamedElement {
 
     protected String name;
@@ -14,20 +21,28 @@ public class Table implements NamedElement {
     protected List<Index> indices;
     protected String description;
 
+    public Table() {
+        this(null);
+    }
+
     public Table(String n) {
         name = n;
         columns = new ArrayList<Column>();
         uniqueConstraints = new ArrayList<UniqueConstraint>();
+        indices = new ArrayList<Index>();
     }
 
+    @XmlElement(name = "column")
     public List<Column> getColumns() {
         return columns;
     }
 
+    @XmlElement(name = "uniqueConstraint")
     public List<UniqueConstraint> getUniqueConstraints() {
         return uniqueConstraints;
     }
 
+    @XmlAttribute
     public String getName() {
         return name;
     }
@@ -44,6 +59,7 @@ public class Table implements NamedElement {
         return description;
     }
 
+    @XmlAttribute
     public void setDescription(String description) {
         this.description = description;
     }
@@ -59,4 +75,5 @@ public class Table implements NamedElement {
     public void setUniqueConstraints(List<UniqueConstraint> uniqueConstraints) {
         this.uniqueConstraints = uniqueConstraints;
     }
+
 }

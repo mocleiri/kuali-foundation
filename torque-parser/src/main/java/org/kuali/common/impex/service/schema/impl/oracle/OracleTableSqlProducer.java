@@ -175,13 +175,13 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         sb.append(ProducerUtils.SPACE);
 
         // column type
-        sb.append(translateDataType(column.getDataType()));
+        sb.append(translateDataType(column.getColumnDataType()));
 
         TypeSize typeSize = column.getTypeSize();
         if(typeSize != null) {
             sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
             sb.append(typeSize.getSize());
-            if(typeSize.hasScale()) {
+            if(typeSize.isScaleSet()) {
                 sb.append(ProducerUtils.COMMA);
                 sb.append(typeSize.getScale());
             }
@@ -237,12 +237,12 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         if(mapping.getSql() == null) {
             StringBuilder sb = new StringBuilder();
 
-            DataType newDataType = column.getDataType();
+            DataType newDataType = column.getColumnDataType();
             if(mapping.getDataType() != null) {
                 newDataType = mapping.getDataType();
             }
 
-            Column newCol = new Column(column.getName(), newDataType, column.getTable());
+            Column newCol = new Column(column.getName(), newDataType, column.getTableName());
 
             newCol.setTypeSize(mapping.getTypeSize());
 

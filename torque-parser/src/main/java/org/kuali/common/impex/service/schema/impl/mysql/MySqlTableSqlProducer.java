@@ -151,13 +151,13 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
             sb.append(ProducerUtils.SPACE);
 
             // column type
-            sb.append(translateDataType(column.getDataType()));
+            sb.append(translateDataType(column.getColumnDataType()));
 
             TypeSize typeSize = column.getTypeSize();
             if(typeSize != null) {
                 sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
                 sb.append(typeSize.getSize());
-                if(typeSize.hasScale()) {
+                if(typeSize.isScaleSet()) {
                     sb.append(ProducerUtils.COMMA);
                     sb.append(typeSize.getScale());
                 }
@@ -167,7 +167,7 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
             // default value
             if(StringUtils.isNotEmpty(column.getDefaultValue())) {
                 sb.append(DEFAULT_PREFIX);
-                if(ProducerUtils.isTextType(column.getDataType())) {
+                if(ProducerUtils.isTextType(column.getColumnDataType())) {
                     sb.append(ProducerUtils.SINGLE_QUOTE).append(column.getDefaultValue()).append(ProducerUtils.SINGLE_QUOTE);
                 }
                 else {

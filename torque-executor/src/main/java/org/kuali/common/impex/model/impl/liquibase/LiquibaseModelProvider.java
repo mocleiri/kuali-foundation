@@ -18,6 +18,7 @@ package org.kuali.common.impex.model.impl.liquibase;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -30,14 +31,17 @@ import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.Database;
 import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.JdbcDatabaseSnapshot;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
+import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
+import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.service.NamedElementComparator;
 
@@ -47,9 +51,10 @@ public class LiquibaseModelProvider implements ModelProvider {
      * Constants for result set keys from DatabaseMetaData.getImportedKeys
      */
     protected static final String METADATA_FK_NAME = "FK_NAME";
-    protected static final String METADATA_SEQUENCE_NUMBER = "KEY_SEQ";
     protected static final String METADATA_FK_COLUMN_NAME = "FKCOLUMN_NAME";
     protected static final String METADATA_PK_COLUMN_NAME = "PKCOLUMN_NAME";
+    protected static final String METADATA_INDEX_NAME = "INDEX_NAME";
+    protected static final String METADATA_INDEX_COLUMN_NAME = "COLUMN_NAME";
 
     protected static final String SINGLE_QUOTE = "'";
 
@@ -83,20 +88,20 @@ public class LiquibaseModelProvider implements ModelProvider {
     }
 
     protected List<Table> buildTables(DatabaseSnapshot snapshot) {
+
         Set<liquibase.structure.core.Table> sourceTables = snapshot.get(liquibase.structure.core.Table.class);
 
         List<Table> results = new ArrayList<Table>(sourceTables.size());
-        tableNameToForeignKeys = new HashMap<String, List<ForeignKey>>(results.size());
+        tableNameToForeignKeys = new HashMap<String, List<ForeignKey>>();
 
         for (liquibase.structure.core.Table sourceTable : sourceTables) {
             Table t = new Table(sourceTable.getName());
             t.setColumns(new ArrayList<Column>(sourceTable.getColumns().size()));
 
             List<String> primaryKeyColumnNames;
-            if(sourceTable.getPrimaryKey() == null) {
+            if (sourceTable.getPrimaryKey() == null) {
                 primaryKeyColumnNames = Collections.emptyList();
-            }
-            else {
+            } else {
                 primaryKeyColumnNames = sourceTable.getPrimaryKey().getColumnNamesAsList();
             }
 
@@ -110,8 +115,15 @@ public class LiquibaseModelProvider implements ModelProvider {
             // sort the columns by name
             Collections.sort(t.getColumns(), NamedElementComparator.getInstance());
 
-            // build an empty list entry for each table
-            tableNameToForeignKeys.put(t.getName(), new ArrayList<ForeignKey>());
+            // add all indexes found for this table and sort them
+            t.getIndices().addAll(getIndices(sourceTable, snapshot));
+            Collections.sort(t.getIndices(), NamedElementComparator.getInstance());
+
+            // build unique constraints
+            for (liquibase.structure.core.UniqueConstraint u : sourceTable.getUniqueConstraints()) {
+                UniqueConstraint unique = new UniqueConstraint(u.getColumns(), u.getName());
+                t.getUniqueConstraints().add(unique);
+            }
 
             results.add(t);
         }
@@ -121,14 +133,65 @@ public class LiquibaseModelProvider implements ModelProvider {
         return results;
     }
 
+    protected Collection<Index> getIndices(liquibase.structure.core.Table sourceTable, DatabaseSnapshot snapshot) {
+        AbstractJdbcDatabase database = (AbstractJdbcDatabase) snapshot.getDatabase();
+        String searchCatalog = database.getJdbcCatalogName(sourceTable.getSchema());
+        String searchSchema = database.getJdbcSchemaName(sourceTable.getSchema());
+        String searchTableName = database.correctObjectName(sourceTable.getName(), liquibase.structure.core.Table.class);
+
+        // retrieve database meta data.  The returned object is a string to string map
+        // of the ResultSet returned by java.sql.DatabaseMetaInfo.getIndexInfo
+        List<JdbcDatabaseSnapshot.CachedRow> rs;
+        try {
+            rs = ((JdbcDatabaseSnapshot) snapshot).getMetaData().getIndexInfo(searchCatalog, searchSchema, searchTableName, false, true);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not retrieve index information for table " + sourceTable.getName(), e);
+        }
+
+        // build a list of index names that should be ignored
+        // specifically, the primary key does not need a separate index,
+        // and any unique column constraints do not need a separately declared index
+        List<String> ignoredIndexNames = new ArrayList<String>();
+        if (sourceTable.getPrimaryKey() != null) {
+            ignoredIndexNames.add(sourceTable.getPrimaryKey().getName());
+        }
+        for(liquibase.structure.core.UniqueConstraint u : sourceTable.getUniqueConstraints()) {
+            ignoredIndexNames.add(u.getName());
+        }
+
+
+        // If an index references multiple columns, an entry in this result set will exist
+        // for each column name
+        Map<String, Index> results = new HashMap<String, Index>();
+        for (JdbcDatabaseSnapshot.CachedRow row : rs) {
+            String indexName = row.getString(METADATA_INDEX_NAME);
+            // skip any entries with no index name or an ignored name
+            if (StringUtils.isEmpty(indexName) || ignoredIndexNames.contains(indexName)) {
+                continue;
+            }
+
+            // check to see if we already have created an index of the same name
+            Index index = results.get(indexName);
+            if (index == null) {
+                index = new Index(new ArrayList<String>(), indexName);
+                results.put(indexName, index);
+            }
+
+            // add the column name in this row to the column names for this index
+            index.getColumnNames().add(row.getString(METADATA_INDEX_COLUMN_NAME));
+        }
+
+        return results.values();
+    }
+
     protected Column buildColumn(liquibase.structure.core.Column sourceColumn, boolean primaryKey, Table modelTable) {
-        Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn), modelTable);
+        Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn), modelTable.getName());
 
         if(sourceColumn.getDefaultValue() != null) {
             String defaultValue = sourceColumn.getDefaultValue().toString().trim();
 
             // if the column is a string data type, check that it may need single quotes added
-            if(col.getDataType() == DataType.STRING || col.getDataType() == DataType.CLOB) {
+            if(col.getColumnDataType() == DataType.STRING || col.getColumnDataType() == DataType.CLOB) {
                 // ignore adding single quotes if the default value contains a reseved keyword
                 if(notReservedDefaultValue(defaultValue)) {
                     if(!defaultValue.startsWith(SINGLE_QUOTE)) {
@@ -232,7 +295,13 @@ public class LiquibaseModelProvider implements ModelProvider {
             fk.setOnUpdate(translateForeignKeyConstraint(sourceFk.getUpdateRule()));
             fk.setOnDelete(translateForeignKeyConstraint(sourceFk.getDeleteRule()));
 
-            tableNameToForeignKeys.get(fk.getLocalTableName()).add(fk);
+            List<ForeignKey> fkList = tableNameToForeignKeys.get(fk.getLocalTableName());
+            if(fkList == null) {
+                fkList = new ArrayList<ForeignKey>();
+                tableNameToForeignKeys.put(fk.getLocalTableName(), fkList);
+            }
+
+            fkList.add(fk);
 
             results.add(fk);
         }
@@ -266,13 +335,12 @@ public class LiquibaseModelProvider implements ModelProvider {
     protected void setColumnNames(ForeignKey fk, liquibase.structure.core.ForeignKey liquibaseFk, DatabaseSnapshot snapshot) throws SQLException {
         Database database = snapshot.getDatabase();
 
-        List<JdbcDatabaseSnapshot.CachedRow> importedKeyMetadataResultSet = null;
         liquibase.structure.core.Table fkTable = liquibaseFk.getForeignKeyTable();
         String searchCatalog = ((AbstractJdbcDatabase) database).getJdbcCatalogName(fkTable.getSchema());
         String searchSchema = ((AbstractJdbcDatabase) database).getJdbcSchemaName(fkTable.getSchema());
         String searchTableName = database.correctObjectName(fkTable.getName(), liquibase.structure.core.Table.class);
 
-        importedKeyMetadataResultSet = ((JdbcDatabaseSnapshot) snapshot).getMetaData().getImportedKeys(searchCatalog, searchSchema, searchTableName);
+        List<JdbcDatabaseSnapshot.CachedRow> importedKeyMetadataResultSet = ((JdbcDatabaseSnapshot) snapshot).getMetaData().getImportedKeys(searchCatalog, searchSchema, searchTableName);
 
         // find all foreign key metadata for the foreign key we are trying to populate
         // create a mapping of local column names to foreign column names,

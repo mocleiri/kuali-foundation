@@ -15,15 +15,22 @@
 
 package org.kuali.common.impex.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+
 /**
  * Bean that contains size information of a column data type
  */
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class TypeSize {
     protected Integer size;
-
     protected Integer scale;
-
     protected Boolean scaleSet;
+
+    public TypeSize() {
+        this(null, null);
+    }
 
     public TypeSize(Integer size) {
         this.size = size;
@@ -37,15 +44,30 @@ public class TypeSize {
         scaleSet = true;
     }
 
+    @XmlAttribute
     public Integer getSize() {
         return size;
     }
 
+    @XmlAttribute
     public Integer getScale() {
         return scale;
     }
 
-    public boolean hasScale() {
+    @XmlAttribute
+    public boolean isScaleSet() {
         return scaleSet;
+    }
+
+    public void setScale(Integer scale) {
+        this.scale = scale;
+    }
+
+    public void setScaleSet(Boolean scaleSet) {
+        this.scaleSet = scaleSet;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }
