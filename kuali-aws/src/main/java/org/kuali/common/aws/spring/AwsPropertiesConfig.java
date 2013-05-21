@@ -15,21 +15,29 @@
  */
 package org.kuali.common.aws.spring;
 
-import org.kuali.common.util.MavenConstants;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.spring.ConfigUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-public class KualiAwsProjectConfig {
+@Import(AwsProjectConfig.class)
+public class AwsPropertiesConfig {
 
-	public static final String GROUP_ID = MavenConstants.KUALI_COMMON_GROUP_ID;
-	public static final String ARTIFACT_ID = "kuali-aws";
+	@Autowired
+	AwsProjectConfig projectConfig;
 
 	@Bean
-	public Project jdbcProject() {
-		return ProjectUtils.loadProject(GROUP_ID + ":" + ARTIFACT_ID);
+	public ProjectProperties awsProjectProperties() {
+		Project project = projectConfig.awsProject();
+		List<String> locations = new ArrayList<String>();
+		return ConfigUtils.getProjectProperties(project, locations);
 	}
 
 }
