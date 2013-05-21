@@ -6,6 +6,10 @@ import org.kuali.common.util.PercentCompleteInformer;
 
 public class ListingRequest {
 
+	// IllegalStateException is thrown if either of these is exceeded
+	int maxListings = BucketConstants.DEFAULT_MAX_LISTINGS;
+	int timeoutMillis = BucketConstants.DEFAULT_LISTINGS_TIMEOUT_MILLIS;
+
 	String prefix;
 	List<String> includes;
 	List<String> excludes;
@@ -50,6 +54,22 @@ public class ListingRequest {
 
 	public void setInformer(PercentCompleteInformer informer) {
 		this.informer = informer;
+	}
+
+	public int getMaxListings() {
+		return maxListings;
+	}
+
+	public void setMaxListings(int maxListings) {
+		this.maxListings = maxListings;
+	}
+
+	public int getTimeoutMillis() {
+		return timeoutMillis;
+	}
+
+	public void setTimeoutMillis(int timeoutMillis) {
+		this.timeoutMillis = timeoutMillis;
 	}
 
 }
