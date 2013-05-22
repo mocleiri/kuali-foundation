@@ -38,6 +38,7 @@ import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -71,6 +72,14 @@ public class SpringUtils {
 
 	// Configure a helper that fails on unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+
+	/**
+	 * Given a property holding the name of a class, return an instance of that class
+	 */
+	public static <T> T getInstance(Environment env, String key, String defaultValue) {
+		String className = getProperty(env, key, defaultValue);
+		return ReflectionUtils.newInstance(className);
+	}
 
 	public static List<String> getListFromCSV(Environment env, String key, String defaultValue) {
 		String csv = SpringUtils.getProperty(env, key, defaultValue);
