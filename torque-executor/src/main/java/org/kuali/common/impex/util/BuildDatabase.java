@@ -17,6 +17,7 @@ package org.kuali.common.impex.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.impex.spring.MpxSupplierConfig;
@@ -32,11 +33,15 @@ public class BuildDatabase {
 
     public static void main(String[] args) {
 
-        if(args.length != 1) {
+        if(args.length < 1) {
             printHelpAndExit();
         }
 
         String propertyFileName = args[0];
+        boolean includeMpxConfig = true;
+        if(args.length >= 2) {
+            includeMpxConfig = Boolean.parseBoolean(args[1]);
+        }
 
         try {
             Properties props = getTestMavenProperties(propertyFileName);
@@ -48,7 +53,16 @@ public class BuildDatabase {
             SpringContext context = MavenUtils.getMavenizedSpringContext(ss, props, UtilMavenPropertySourceConfig.class);
 
             // Reset the db using annotated config
-            context.setAnnotatedClasses(CollectionUtils.asList(MpxSupplierConfig.class, SqlControllerConfig.class));
+
+            List<Class<?>> configClasses;
+            if(includeMpxConfig) {
+                configClasses = CollectionUtils.asList(MpxSupplierConfig.class, SqlControllerConfig.class);
+            }
+            else {
+                configClasses = CollectionUtils.asList(SqlControllerConfig.class);
+            }
+
+            context.setAnnotatedClasses(configClasses);
 
             // Execute Spring
             ss.load(context);
@@ -77,7 +91,8 @@ public class BuildDatabase {
     }
 
     private static void printHelpAndExit() {
-        System.out.println("Expects one argument, a property file location.");
+        System.out.println("Expects at least one argument, first a property file location.");
+        System.out.println("Optionally, a second argument will be interpreted as whether or not to include configuration for Mpx files (default is true)");
         System.exit(1);
     }
 
