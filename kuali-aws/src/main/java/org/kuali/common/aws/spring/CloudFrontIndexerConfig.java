@@ -1,6 +1,7 @@
 package org.kuali.common.aws.spring;
 
-import org.kuali.common.aws.s3.BucketConstants;
+import org.kuali.common.aws.cloudfront.HtmlGeneratorContext;
+import org.kuali.common.aws.cloudfront.ListingConverterContext;
 import org.kuali.common.aws.s3.BucketContext;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,52 @@ public class CloudFrontIndexerConfig {
 	@Bean
 	public BucketContext awsBucketContext() {
 
-		String delimiter = SpringUtils.getProperty(env, "s3.delimiter", BucketConstants.DEFAULT_DELIMITER);
-		int maxKeys = SpringUtils.getInteger(env, "s3.maxKeys", BucketConstants.DEFAULT_MAX_KEYS);
+		String delimiter = SpringUtils.getProperty(env, "s3.delimiter");
+		int maxKeys = SpringUtils.getInteger(env, "s3.maxKeys");
 		String bucket = SpringUtils.getProperty(env, "s3.bucket");
 
 		BucketContext context = new BucketContext();
 		context.setDelimiter(delimiter);
 		context.setMaxKeys(maxKeys);
 		context.setName(bucket);
+		return context;
+	}
+
+	@Bean
+	public ListingConverterContext awsListingConverterContext() {
+
+		String fileImage = SpringUtils.getProperty(env, "cloudfront.fileImage");
+		String dirImage = SpringUtils.getProperty(env, "cloudfront.dirImage");
+		String browseKey = SpringUtils.getProperty(env, "cloudfront.browseKey");
+		String dateDisplayFormat = SpringUtils.getProperty(env, "cloudfront.dateDisplayFormat");
+		String dateDisplayTimeZone = SpringUtils.getProperty(env, "cloudfront.dateDisplayTimeZone");
+
+		ListingConverterContext context = new ListingConverterContext();
+		context.setBrowseKey(browseKey);
+		context.setDateDisplayFormat(dateDisplayFormat);
+		context.setDateDisplayTimeZone(dateDisplayTimeZone);
+		context.setDirImage(dirImage);
+		context.setFileImage(fileImage);
+		return context;
+	}
+
+	@Bean
+	public HtmlGeneratorContext awsHtmlGeneratorContext() {
+
+		String css = SpringUtils.getProperty(env, "cloudfront.css");
+		String dateDisplayFormat = SpringUtils.getProperty(env, "cloudfront.dateDisplayFormat");
+		String dateDisplayTimeZone = SpringUtils.getProperty(env, "cloudfront.dateDisplayTimeZone");
+		String encoding = SpringUtils.getProperty(env, "cloudfront.encoding");
+		String googleAnalyticsAccount = SpringUtils.getProperty(env, "cloudfront.googleAnalyticsAccount");
+		String googleAnalyticsDomainName = SpringUtils.getProperty(env, "cloudfront.googleAnalyticsDomainName");
+
+		HtmlGeneratorContext context = new HtmlGeneratorContext();
+		context.setCss(css);
+		context.setDateDisplayFormat(dateDisplayFormat);
+		context.setDateDisplayTimeZone(dateDisplayTimeZone);
+		context.setEncoding(encoding);
+		context.setGoogleAnalyticsAccount(googleAnalyticsAccount);
+		context.setGoogleAnalyticsDomainName(googleAnalyticsDomainName);
 		return context;
 	}
 
