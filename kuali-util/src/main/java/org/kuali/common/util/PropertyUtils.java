@@ -744,6 +744,30 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Return a new <code>Properties</code> object loaded from <code>file</code> where the properties are stored in Rice XML style syntax
+	 */
+	public static final Properties loadRiceProperties(File file) {
+		return loadRiceProperties(LocationUtils.getCanonicalPath(file));
+	}
+
+	/**
+	 * Return a new <code>Properties</code> object loaded from <code>location</code> where the properties are stored in Rice XML style syntax
+	 */
+	public static final Properties loadRiceProperties(String location) {
+		String contents = LocationUtils.toString(location, DEFAULT_XML_ENCODING);
+		String config = StringUtils.substringBetween(contents, "<config>", "</config>");
+		String[] tokens = StringUtils.substringsBetween(config, "<param", "</param>");
+
+		Properties properties = new Properties();
+		for (String token : tokens) {
+			String key = StringUtils.substringBetween(token, "name=\"", "\">");
+			String value = StringUtils.substringBetween(token + "</param>", "\">", "</param>");
+			properties.setProperty(key, value);
+		}
+		return properties;
+	}
+
+	/**
 	 * Return a new <code>Properties</code> object loaded from <code>file</code>.
 	 */
 	public static final Properties load(File file) {
