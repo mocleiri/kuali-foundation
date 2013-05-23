@@ -761,10 +761,26 @@ public class PropertyUtils {
 		Properties properties = new Properties();
 		for (String token : tokens) {
 			String key = StringUtils.substringBetween(token, "name=\"", "\">");
+			validateRiceProperties(token, key);
 			String value = StringUtils.substringBetween(token + "</param>", "\">", "</param>");
 			properties.setProperty(key, value);
 		}
 		return properties;
+	}
+
+	protected static final void validateRiceProperties(String token, String key) {
+		if (StringUtils.equalsIgnoreCase("config.location", key)) {
+			throw new IllegalArgumentException("config.location is not supported");
+		}
+		if (StringUtils.contains(token, "override=\"")) {
+			throw new IllegalArgumentException("override attribute is not supported");
+		}
+		if (StringUtils.contains(token, "system=\"")) {
+			throw new IllegalArgumentException("system attribute is not supported");
+		}
+		if (StringUtils.contains(token, "random=\"")) {
+			throw new IllegalArgumentException("random attribute is not supported");
+		}
 	}
 
 	/**
