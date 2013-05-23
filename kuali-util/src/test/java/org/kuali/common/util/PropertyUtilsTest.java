@@ -48,6 +48,13 @@ public class PropertyUtilsTest {
 	}
 
 	@Test
+	public void testRiceProperties() {
+		String location = "classpath:rice-properties.xml";
+		Properties props = PropertyUtils.loadRiceProperties(location);
+		logger.info(props.size() + "");
+	}
+
+	@Test
 	public void testBuildDir() throws IOException {
 		Assert.assertNotNull(buildDir);
 		logger.info("Creating " + getTestDir());
