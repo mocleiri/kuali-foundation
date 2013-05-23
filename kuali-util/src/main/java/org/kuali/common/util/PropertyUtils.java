@@ -57,6 +57,7 @@ public class PropertyUtils {
 	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
 	private static final String XML_EXTENSION = ".xml";
+	private static final String RICE_SUFFIX = "-rice-properties.xml";
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
@@ -744,6 +745,13 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Return true if, and only if, location ends with <code>-rice-properties.xml</code> (case insensitive).
+	 */
+	public static final boolean isRiceProperties(String location) {
+		return StringUtils.endsWithIgnoreCase(location, RICE_SUFFIX);
+	}
+
+	/**
 	 * Return a new <code>Properties</code> object loaded from <code>file</code> where the properties are stored in Rice XML style syntax
 	 */
 	public static final Properties loadRiceProperties(File file) {
@@ -818,8 +826,11 @@ public class PropertyUtils {
 		try {
 			Properties properties = new Properties();
 			boolean xml = isXml(location);
+			boolean riceProperties = isRiceProperties(location);
 			location = getCanonicalLocation(location);
-			if (xml) {
+			if (riceProperties) {
+				properties = loadRiceProperties(location);
+			} else if (xml) {
 				in = LocationUtils.getInputStream(location);
 				logger.info("Loading XML properties - [{}]", location);
 				properties.loadFromXML(in);
