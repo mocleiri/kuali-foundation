@@ -49,9 +49,33 @@ public class PropertyUtilsTest {
 
 	@Test
 	public void testRiceProperties() {
-		String location = "classpath:rice-properties.xml";
-		Properties props = PropertyUtils.loadRiceProperties(location);
-		logger.info(props.size() + "");
+		Properties props = PropertyUtils.loadRiceProperties("classpath:rice-properties.xml");
+		String value = props.getProperty("foo");
+		Assert.assertEquals("bar", value);
+		try {
+			PropertyUtils.loadRiceProperties("classpath:rice-unsupported-config-location.xml");
+			Assert.fail("config.location should not be allowed");
+		} catch (IllegalArgumentException e) {
+			; // Ignore
+		}
+		try {
+			PropertyUtils.loadRiceProperties("classpath:rice-unsupported-override.xml");
+			Assert.fail("override attribute should not be allowed");
+		} catch (IllegalArgumentException e) {
+			; // Ignore
+		}
+		try {
+			PropertyUtils.loadRiceProperties("classpath:rice-unsupported-system.xml");
+			Assert.fail("system attribute should not be allowed");
+		} catch (IllegalArgumentException e) {
+			; // Ignore
+		}
+		try {
+			PropertyUtils.loadRiceProperties("classpath:rice-unsupported-random.xml");
+			Assert.fail("random attribute should not be allowed");
+		} catch (IllegalArgumentException e) {
+			; // Ignore
+		}
 	}
 
 	@Test
