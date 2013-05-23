@@ -154,6 +154,7 @@ public class FormatUtils {
 	 */
 	public static Date parseDate(String date) {
 		try {
+			// New object every time because SimpleDateFormat isn't threadsafe
 			SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 			return sdf.parse(date);
 		} catch (ParseException e) {
@@ -172,6 +173,7 @@ public class FormatUtils {
 	 * Return a formatted date
 	 */
 	public static String getDate(Date date) {
+		// New object every time because SimpleDateFormat isn't threadsafe
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		return sdf.format(date);
 	}
