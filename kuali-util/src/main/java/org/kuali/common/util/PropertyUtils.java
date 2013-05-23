@@ -768,6 +768,10 @@ public class PropertyUtils {
 		return properties;
 	}
 
+	/**
+	 * Make sure they are just loading simple properties and are not using any of the unsupported "features". Can't have a key named config.location, and can't use the system,
+	 * override, or random attributes.
+	 */
 	protected static final void validateRiceProperties(String token, String key) {
 		if (StringUtils.equalsIgnoreCase("config.location", key)) {
 			throw new IllegalArgumentException("config.location is not supported");
