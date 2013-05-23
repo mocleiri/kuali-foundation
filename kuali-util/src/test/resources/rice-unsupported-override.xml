@@ -1,3 +1,0 @@
-<config>
-  <param name="foo" override="true">bar</param>
-</config>
