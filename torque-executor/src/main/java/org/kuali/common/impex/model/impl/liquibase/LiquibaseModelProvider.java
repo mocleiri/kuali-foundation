@@ -85,6 +85,12 @@ public class LiquibaseModelProvider implements ModelProvider {
         sequences = buildSequences(snapshot);
 
         foreignKeys = buildForeignKeys(snapshot);
+
+        // sort each of the schema elements
+        Collections.sort(tables, NamedElementComparator.getInstance());
+        Collections.sort(views, NamedElementComparator.getInstance());
+        Collections.sort(sequences, NamedElementComparator.getInstance());
+        Collections.sort(foreignKeys, NamedElementComparator.getInstance());
     }
 
     protected List<Table> buildTables(DatabaseSnapshot snapshot) {
