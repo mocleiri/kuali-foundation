@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.Assert;
 
@@ -26,6 +27,7 @@ public class StorePropertiesExecutable implements Executable {
 
 	String encoding = "UTF-8";
 	boolean skip;
+	boolean skipIfExists = true;
 	Properties properties;
 	File outputFile;
 	List<String> includes;
@@ -36,8 +38,12 @@ public class StorePropertiesExecutable implements Executable {
 		if (skip) {
 			return;
 		}
-		Assert.notNull(properties, "properties is null");
 		Assert.notNull(outputFile, "outputFile is null");
+		boolean exists = LocationUtils.exists(outputFile);
+		if (exists && skipIfExists) {
+			return;
+		}
+		Assert.notNull(properties, "properties is null");
 		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
 		Properties outputProperties = new Properties();
 		for (String key : keys) {
@@ -93,6 +99,14 @@ public class StorePropertiesExecutable implements Executable {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
+	}
+
+	public boolean isSkipIfExists() {
+		return skipIfExists;
+	}
+
+	public void setSkipIfExists(boolean skipIfExists) {
+		this.skipIfExists = skipIfExists;
 	}
 
 }
