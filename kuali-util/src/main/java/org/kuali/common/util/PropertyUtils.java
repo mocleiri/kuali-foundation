@@ -57,7 +57,7 @@ public class PropertyUtils {
 	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
 	private static final String XML_EXTENSION = ".xml";
-	private static final String RICE_SUFFIX = "-rice-properties.xml";
+	public static final String RICE_SUFFIX = "-rice-properties.xml";
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
