@@ -189,7 +189,7 @@
     <plugin.changes.version>2.9</plugin.changes.version>
     <plugin.clean.version>2.5</plugin.clean.version>
     <plugin.cloudfront.version>1.1.5</plugin.cloudfront.version>
-    <plugin.compiler.version>3.0</plugin.compiler.version>
+    <plugin.compiler.version>3.1</plugin.compiler.version>
     <plugin.crypto.version>1.0.0</plugin.crypto.version>
     <plugin.dependency.version>2.6</plugin.dependency.version>
     <plugin.deploy.version>2.7</plugin.deploy.version>
