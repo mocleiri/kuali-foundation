@@ -762,6 +762,7 @@ public class PropertyUtils {
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> where the properties are stored in Rice XML style syntax
 	 */
 	public static final Properties loadRiceProperties(String location) {
+		logger.info("Loading Rice properties [{}] - encoding={}", location, DEFAULT_XML_ENCODING);
 		String contents = LocationUtils.toString(location, DEFAULT_XML_ENCODING);
 		String config = StringUtils.substringBetween(contents, "<config>", "</config>");
 		String[] tokens = StringUtils.substringsBetween(config, "<param", "</param>");
