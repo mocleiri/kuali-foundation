@@ -818,6 +818,17 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Return a new <code>Properties</code> object loaded from <code>locations</code> using <code>encoding</code>.
+	 */
+	public static final Properties load(List<String> locations, String encoding) {
+		Properties properties = new Properties();
+		for (String location : locations) {
+			properties.putAll(load(location, encoding));
+		}
+		return properties;
+	}
+
+	/**
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
 	 */
 	public static final Properties load(String location, String encoding) {
