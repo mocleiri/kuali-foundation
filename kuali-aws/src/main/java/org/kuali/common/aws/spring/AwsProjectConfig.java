@@ -26,10 +26,11 @@ public class AwsProjectConfig {
 
 	public static final String GROUP_ID = MavenConstants.KUALI_COMMON_GROUP_ID;
 	public static final String ARTIFACT_ID = "kuali-aws";
+	public static final String GAV = GROUP_ID + ":" + ARTIFACT_ID;
 
 	@Bean
 	public Project awsProject() {
-		return ProjectUtils.loadProject(GROUP_ID + ":" + ARTIFACT_ID);
+		return ProjectUtils.loadProject(GAV);
 	}
 
 }
