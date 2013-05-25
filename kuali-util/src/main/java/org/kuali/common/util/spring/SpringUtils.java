@@ -267,7 +267,7 @@ public class SpringUtils {
 
 	public static void decrypt(Properties properties) {
 		// Are we decrypting property values?
-		boolean decrypt = new Boolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
+		boolean decrypt = Boolean.parseBoolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
 		if (decrypt) {
 			// If they asked to decrypt, a password is required
 			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
