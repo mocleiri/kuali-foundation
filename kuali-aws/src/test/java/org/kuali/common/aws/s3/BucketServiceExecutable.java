@@ -27,4 +27,20 @@ public class BucketServiceExecutable implements Executable {
 
 	}
 
+	public BucketService getService() {
+		return service;
+	}
+
+	public void setService(BucketService service) {
+		this.service = service;
+	}
+
+	public ObjectListingsContext getContext() {
+		return context;
+	}
+
+	public void setContext(ObjectListingsContext context) {
+		this.context = context;
+	}
+
 }

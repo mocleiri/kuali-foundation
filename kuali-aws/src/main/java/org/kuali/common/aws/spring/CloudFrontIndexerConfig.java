@@ -36,12 +36,14 @@ public class CloudFrontIndexerConfig {
 	@Bean
 	public BucketServiceExecutable bucketServiceExecutable() {
 		BucketService service = SpringUtils.getInstance(env, "s3.bucketService", DefaultBucketService.class);
+
 		BucketContext context = new BucketContext();
 		context.setDelimiter(SpringUtils.getProperty(env, "s3.delimiter"));
 		context.setMaxKeys(SpringUtils.getInteger(env, "s3.maxKeys"));
 		context.setName(SpringUtils.getProperty(env, "s3.bucket"));
 
 		BucketServiceExecutable bse = new BucketServiceExecutable();
+		bse.
 		return bse;
 	}
 
