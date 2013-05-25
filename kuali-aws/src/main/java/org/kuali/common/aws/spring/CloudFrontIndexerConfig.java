@@ -38,12 +38,12 @@ public class CloudFrontIndexerConfig {
 
 	@Bean
 	public BucketServiceExecutable bucketServiceExecutable() {
-		long total = SpringUtils.getLong(env, "s3.prefixEstimate", 100);
+		long total = SpringUtils.getLong(env, "s3.prefixEstimate");
 		PercentCompleteInformer informer = new PercentCompleteInformer(total);
 
 		ListingRequest request = new ListingRequest();
 		request.setPrefix(SpringUtils.getProperty(env, "s3.prefix"));
-		request.setRecursive(true);
+		request.setRecursive(SpringUtils.getBoolean(env, "s3.recursive"));
 
 		BucketService service = SpringUtils.getInstance(env, "s3.bucketService", DefaultBucketService.class);
 
