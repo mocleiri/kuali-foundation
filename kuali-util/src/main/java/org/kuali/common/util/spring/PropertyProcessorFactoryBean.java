@@ -28,7 +28,7 @@ public class PropertyProcessorFactoryBean implements FactoryBean<Properties> {
 	List<PropertyProcessor> processors;
 
 	@Override
-	public Properties getObject() throws Exception {
+	public Properties getObject() {
 		PropertyUtils.process(properties, processors);
 		return properties;
 	}
