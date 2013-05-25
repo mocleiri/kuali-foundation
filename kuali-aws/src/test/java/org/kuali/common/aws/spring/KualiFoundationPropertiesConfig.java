@@ -18,28 +18,27 @@ package org.kuali.common.aws.spring;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.Project;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.spring.MavenPropertySourceConfig;
+import org.kuali.common.util.spring.ConfigUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ AwsPropertiesConfig.class, KualiFoundationPropertiesConfig.class })
-public class AwsMavenPropertySourceConfig extends MavenPropertySourceConfig {
+@Import(AwsProjectConfig.class)
+public class KualiFoundationPropertiesConfig {
 
 	@Autowired
-	AwsPropertiesConfig awsProperties;
+	AwsProjectConfig projectConfig;
 
-	@Autowired
-	KualiFoundationPropertiesConfig kualiFoundationProperties;
-
-	@Override
-	protected List<ProjectProperties> getProjectPropertiesList() {
-		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-		list.add(awsProperties.awsProjectProperties());
-		list.add(kualiFoundationProperties.kualiFoundationProjectProperties());
-		return list;
+	@Bean
+	public ProjectProperties kualiFoundationProjectProperties() {
+		Project project = projectConfig.awsProject();
+		List<String> locations = new ArrayList<String>();
+		locations.add("classpath:kuali-foundation.properties");
+		return ConfigUtils.getProjectProperties(project, locations);
 	}
 
 }
