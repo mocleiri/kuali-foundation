@@ -108,6 +108,14 @@ public class SpringUtils {
 		return ReflectionUtils.newInstance(className);
 	}
 
+	/**
+	 * Given a property holding the name of a class, return an instance of that class
+	 */
+	public static <T> T getInstance(Environment env, String key) {
+		String className = getProperty(env, key, null);
+		return ReflectionUtils.newInstance(className);
+	}
+
 	public static List<String> getListFromCSV(Environment env, String key, String defaultValue) {
 		String csv = SpringUtils.getProperty(env, key, defaultValue);
 		return CollectionUtils.getTrimmedListFromCSV(csv);
