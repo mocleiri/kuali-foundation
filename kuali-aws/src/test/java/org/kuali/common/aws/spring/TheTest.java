@@ -27,7 +27,7 @@ public class TheTest {
 			// Setup a Spring context that uses maven properties for placeholder resolution
 			SpringContext context = MavenUtils.getMavenizedSpringContext(ss, mavenProperties, AwsMavenPropertySourceConfig.class);
 
-			// Reset the db using annotated config
+			//
 			context.setAnnotatedClasses(CollectionUtils.asList(CloudFrontIndexerConfig.class));
 
 			// Execute Spring

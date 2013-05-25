@@ -3,6 +3,9 @@ package org.kuali.common.aws.spring;
 import org.kuali.common.aws.cloudfront.HtmlGeneratorContext;
 import org.kuali.common.aws.cloudfront.ListingConverterContext;
 import org.kuali.common.aws.s3.BucketContext;
+import org.kuali.common.aws.s3.BucketService;
+import org.kuali.common.aws.s3.BucketServiceExecutable;
+import org.kuali.common.aws.s3.DefaultBucketService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +31,18 @@ public class CloudFrontIndexerConfig {
 		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
 		return new AmazonS3Client(credentials);
+	}
+
+	@Bean
+	public BucketServiceExecutable bucketServiceExecutable() {
+		BucketService service = SpringUtils.getInstance(env, "s3.bucketService", DefaultBucketService.class);
+		BucketContext context = new BucketContext();
+		context.setDelimiter(SpringUtils.getProperty(env, "s3.delimiter"));
+		context.setMaxKeys(SpringUtils.getInteger(env, "s3.maxKeys"));
+		context.setName(SpringUtils.getProperty(env, "s3.bucket"));
+
+		BucketServiceExecutable bse = new BucketServiceExecutable();
+		return bse;
 	}
 
 	@Bean
