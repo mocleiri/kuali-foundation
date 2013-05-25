@@ -76,8 +76,8 @@ public class SpringUtils {
 	/**
 	 * Given a property holding the name of a class, return an instance of that class
 	 */
-	public static <T> T getInstance(Environment env, String key, String defaultValue) {
-		String className = getProperty(env, key, defaultValue);
+	public static <T> T getInstance(Environment env, String key, Class<T> defaultValue) {
+		String className = getProperty(env, key, defaultValue.getCanonicalName());
 		return ReflectionUtils.newInstance(className);
 	}
 
