@@ -42,6 +42,7 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
@@ -72,6 +73,32 @@ public class SpringUtils {
 
 	// Configure a helper that fails on unresolved placeholders
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+
+	public static List<String> getIncludes(Environment env, String key, String defaultValue) {
+		String includes = SpringUtils.getProperty(env, key, defaultValue);
+		if (NullUtils.isNull(includes) || StringUtils.equals(includes, Constants.WILDCARD)) {
+			return new ArrayList<String>();
+		} else {
+			return CollectionUtils.getTrimmedListFromCSV(includes);
+		}
+	}
+
+	public static List<String> getIncludes(Environment env, String key) {
+		return getIncludes(env, key, null);
+	}
+
+	public static List<String> getExcludes(Environment env, String key, String defaultValue) {
+		String excludes = SpringUtils.getProperty(env, key, defaultValue);
+		if (NullUtils.isNullOrNone(excludes)) {
+			return new ArrayList<String>();
+		} else {
+			return CollectionUtils.getTrimmedListFromCSV(excludes);
+		}
+	}
+
+	public static List<String> getExcludes(Environment env, String key) {
+		return getExcludes(env, key, null);
+	}
 
 	/**
 	 * Given a property holding the name of a class, return an instance of that class
