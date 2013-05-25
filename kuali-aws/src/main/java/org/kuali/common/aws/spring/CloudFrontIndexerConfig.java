@@ -35,7 +35,7 @@ public class CloudFrontIndexerConfig {
 		return new AmazonS3Client(credentials);
 	}
 
-	@Bean
+	@Bean(initMethod = "execute")
 	public BucketServiceExecutable bucketServiceExecutable() {
 
 		ListingRequest request = new ListingRequest();
