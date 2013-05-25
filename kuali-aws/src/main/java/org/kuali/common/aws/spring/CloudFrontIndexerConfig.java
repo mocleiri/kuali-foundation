@@ -3,7 +3,6 @@ package org.kuali.common.aws.spring;
 import org.kuali.common.aws.cloudfront.HtmlGeneratorContext;
 import org.kuali.common.aws.cloudfront.ListingConverterContext;
 import org.kuali.common.aws.s3.BucketContext;
-import org.kuali.common.aws.s3.BucketService;
 import org.kuali.common.aws.s3.BucketServiceExecutable;
 import org.kuali.common.aws.s3.DefaultBucketService;
 import org.kuali.common.aws.s3.ListingRequest;
@@ -38,22 +37,22 @@ public class CloudFrontIndexerConfig {
 
 	@Bean
 	public BucketServiceExecutable bucketServiceExecutable() {
-		long total = SpringUtils.getLong(env, "s3.prefixEstimate");
-		PercentCompleteInformer informer = new PercentCompleteInformer(total);
 
 		ListingRequest request = new ListingRequest();
 		request.setPrefix(SpringUtils.getProperty(env, "s3.prefix"));
 		request.setRecursive(SpringUtils.getBoolean(env, "s3.recursive"));
-
-		BucketService service = SpringUtils.getInstance(env, "s3.bucketService", DefaultBucketService.class);
+		request.setIncludes(SpringUtils.getIncludes(env, "s3.includes"));
+		request.setExcludes(SpringUtils.getExcludes(env, "s3.excludes"));
+		request.setInformer(new PercentCompleteInformer(SpringUtils.getLong(env, "s3.prefixEstimate")));
 
 		ObjectListingsContext context = new ObjectListingsContext();
 		context.setBucketContext(awsBucketContext());
 		context.setClient(awsS3Client());
+		context.setRequest(request);
 
 		BucketServiceExecutable bse = new BucketServiceExecutable();
 		bse.setContext(context);
-		bse.setService(service);
+		bse.setService(SpringUtils.getInstance(env, "s3.bucketService", DefaultBucketService.class));
 		return bse;
 	}
 
