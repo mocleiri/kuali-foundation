@@ -75,9 +75,9 @@ public class DisplayRowComparator implements Comparator<DisplayRow> {
 
 	protected int compareTokens(String token1, String token2) {
 		try {
-			double d1 = Double.parseDouble(token1);
-			double d2 = Double.parseDouble(token2);
-			return Double.compare(d1, d2);
+			int i1 = Integer.parseInt(token1);
+			int i2 = Integer.parseInt(token2);
+			return Double.compare(i1, i2);
 		} catch (NumberFormatException e) {
 			; // Intentionally ignore this
 		}
