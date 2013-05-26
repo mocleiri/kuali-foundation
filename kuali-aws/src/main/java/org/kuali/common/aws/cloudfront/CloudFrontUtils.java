@@ -58,28 +58,10 @@ public class CloudFrontUtils {
 	/**
 	 * Create a CopyObjectRequest with an ACL set to PublicRead
 	 */
-	public static CopyObjectRequest getCopyObjectRequest(CloudFrontContext context, String src, String dst) {
-		return getCopyObjectRequest(context.getBucketContext().getName(), src, dst);
-	}
-
-	/**
-	 * Create a CopyObjectRequest with an ACL set to PublicRead
-	 */
 	public static CopyObjectRequest getCopyObjectRequest(String bucket, String src, String dst) {
 		CopyObjectRequest request = new CopyObjectRequest(bucket, src, bucket, dst);
 		request.setCannedAccessControlList(CloudFrontConstants.DEFAULT_ACL);
 		return request;
-	}
-
-	/**
-	 * Create a PutObjectRequest from the html. The PutObjectRequest sets the content type to <code>text/html</code>, sets the ACL to <code>PublicRead</code>, and adds the metadata
-	 * <code>maven-cloudfront-plugin-index=true</code>
-	 */
-	public static PutObjectRequest getPutHtmlRequest(CloudFrontContext context, String html, String key) {
-		String bucket = context.getBucketContext().getName();
-		String cacheControl = context.getCacheControl();
-		return getPutHtmlRequest(bucket, cacheControl, html, key);
-
 	}
 
 	/**
