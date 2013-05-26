@@ -10,6 +10,17 @@ public class IndexDataContext {
 	ListingConverterContext converterContext;
 	ObjectListing listing;
 
+	public IndexDataContext() {
+		this(null, null, null);
+	}
+
+	public IndexDataContext(BucketContext bucketContext, ListingConverterContext converterContext, ObjectListing listing) {
+		super();
+		this.bucketContext = bucketContext;
+		this.converterContext = converterContext;
+		this.listing = listing;
+	}
+
 	public BucketContext getBucketContext() {
 		return bucketContext;
 	}

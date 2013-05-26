@@ -14,7 +14,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 public class DefaultCloudFrontService implements CloudFrontService {
 
 	@Override
-	public List<TypedRequest> getIndexObjectRequests(CloudFrontContext context, List<ObjectListing> listings) {
+	public List<TypedRequest> getIndexObjectRequests(IndexObjectsContext context) {
 
 		ListingConverterService converterService = context.getConverterService();
 		ListingConverterContext converterContext = context.getConverterContext();

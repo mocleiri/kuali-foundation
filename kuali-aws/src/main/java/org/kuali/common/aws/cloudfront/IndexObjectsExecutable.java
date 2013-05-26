@@ -1,10 +1,14 @@
 package org.kuali.common.aws.cloudfront;
 
+import java.util.List;
+
 import org.kuali.common.aws.s3.BucketContext;
 import org.kuali.common.aws.s3.BucketService;
 import org.kuali.common.aws.s3.ListingResult;
 import org.kuali.common.aws.s3.ObjectListingsContext;
 import org.kuali.common.util.execute.Executable;
+
+import com.amazonaws.services.s3.model.ObjectListing;
 
 public class IndexObjectsExecutable implements Executable {
 
@@ -20,6 +24,12 @@ public class IndexObjectsExecutable implements Executable {
 	@Override
 	public void execute() {
 		ListingResult listingResult = bucketService.getObjectListings(objectListingsContext);
+
+		for (ObjectListing listing : listingResult.getListings()) {
+			IndexDataContext idc = new IndexDataContext(bucketContext, converterContext, listing);
+			List<String[]> data = converterService.getIndexData(idc);
+		}
+
 	}
 
 	public BucketContext getBucketContext() {
