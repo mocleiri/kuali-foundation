@@ -34,7 +34,7 @@ public class CloudFrontUtils {
 	public static String getFirstMatchingKey(ObjectListing listing, List<String> filenames) {
 		// Cycle through the list of files in this directory
 		for (S3ObjectSummary summary : listing.getObjectSummaries()) {
-			String objectKey = getFirstMatchingKey(listing, summary, filenames);
+			String objectKey = getFirstMatchingKey(summary.getKey(), listing.getPrefix(), filenames);
 			if (objectKey != null) {
 				return objectKey;
 			}
@@ -42,14 +42,14 @@ public class CloudFrontUtils {
 		return null;
 	}
 
-	public static String getFirstMatchingKey(ObjectListing listing, S3ObjectSummary summary, List<String> filenames) {
+	public static String getFirstMatchingKey(String objectKey, String prefix, List<String> filenames) {
 		// Cycle through the list of filenames
 		for (String filename : filenames) {
 			// Append the file name to the key for this directory
-			String objectKey = listing.getPrefix() + filename;
+			String completeKey = prefix + filename;
 			// We found a filename in this directory that matches what we are looking for
-			if (StringUtils.equals(summary.getKey(), objectKey)) {
-				return objectKey;
+			if (StringUtils.equals(objectKey, completeKey)) {
+				return completeKey;
 			}
 		}
 		return null;

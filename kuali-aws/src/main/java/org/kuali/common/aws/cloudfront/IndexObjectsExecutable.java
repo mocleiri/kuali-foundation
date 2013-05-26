@@ -27,7 +27,7 @@ public class IndexObjectsExecutable implements Executable {
 
 		for (ObjectListing listing : listingResult.getListings()) {
 			IndexDataContext idc = new IndexDataContext(bucketContext, converterContext, listing);
-			List<String[]> data = converterService.getIndexData(idc);
+			List<String[]> indexData = converterService.getIndexData(idc);
 		}
 
 	}
