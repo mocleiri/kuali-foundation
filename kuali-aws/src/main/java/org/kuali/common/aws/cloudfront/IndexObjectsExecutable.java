@@ -20,6 +20,7 @@ public class IndexObjectsExecutable implements Executable {
 	HtmlGeneratorContext generatorContext;
 	ListingConverterService converterService;
 	ListingConverterContext converterContext;
+	String about;
 
 	@Override
 	public void execute() {
@@ -30,6 +31,10 @@ public class IndexObjectsExecutable implements Executable {
 			List<String[]> indexData = converterService.getIndexData(idc);
 			String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, cloudFrontContext.getWelcomeFiles());
 			IndexContext ic = new IndexContext(listing, indexData, welcomeFileKey);
+			DirectoryListingContext dlc = new DirectoryListingContext();
+			dlc.setBucketContext(bucketContext);
+			dlc.setGeneratorContext(generatorContext);
+			dlc.setIndexContext(ic);
 		}
 
 	}
@@ -88,6 +93,22 @@ public class IndexObjectsExecutable implements Executable {
 
 	public void setConverterContext(ListingConverterContext converterContext) {
 		this.converterContext = converterContext;
+	}
+
+	public ObjectListingsContext getObjectListingsContext() {
+		return objectListingsContext;
+	}
+
+	public void setObjectListingsContext(ObjectListingsContext objectListingsContext) {
+		this.objectListingsContext = objectListingsContext;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
 	}
 
 }
