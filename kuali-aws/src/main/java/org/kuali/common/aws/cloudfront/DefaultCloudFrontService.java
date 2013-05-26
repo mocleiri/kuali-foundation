@@ -14,6 +14,24 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 public class DefaultCloudFrontService implements CloudFrontService {
 
 	@Override
+	public void fillInWelcomeFileKeys(List<String> welcomeFiles, List<IndexContext> contexts) {
+		for (IndexContext context : contexts) {
+			ObjectListing listing = context.getListing();
+			String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, welcomeFiles);
+			context.setWelcomeFileKey(welcomeFileKey);
+		}
+	}
+
+	@Override
+	public List<IndexContext> getIndexContexts(List<ObjectListing> listings) {
+		List<IndexContext> contexts = new ArrayList<IndexContext>();
+		for (ObjectListing listing : listings) {
+			contexts.add(new IndexContext(listing));
+		}
+		return contexts;
+	}
+
+	@Override
 	public List<TypedRequest> getIndexObjectRequests(IndexObjectsContext context) {
 
 		ListingConverterService converterService = context.getConverterService();

@@ -2,23 +2,19 @@ package org.kuali.common.aws.cloudfront;
 
 import org.kuali.common.aws.s3.BucketContext;
 
-import com.amazonaws.services.s3.model.ObjectListing;
-
 public class IndexDataContext {
 
 	BucketContext bucketContext;
 	ListingConverterContext converterContext;
-	ObjectListing listing;
 
 	public IndexDataContext() {
-		this(null, null, null);
+		this(null, null);
 	}
 
-	public IndexDataContext(BucketContext bucketContext, ListingConverterContext converterContext, ObjectListing listing) {
+	public IndexDataContext(BucketContext bucketContext, ListingConverterContext converterContext) {
 		super();
 		this.bucketContext = bucketContext;
 		this.converterContext = converterContext;
-		this.listing = listing;
 	}
 
 	public BucketContext getBucketContext() {
@@ -35,14 +31,6 @@ public class IndexDataContext {
 
 	public void setConverterContext(ListingConverterContext converterContext) {
 		this.converterContext = converterContext;
-	}
-
-	public ObjectListing getListing() {
-		return listing;
-	}
-
-	public void setListing(ObjectListing listing) {
-		this.listing = listing;
 	}
 
 }
