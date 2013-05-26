@@ -11,13 +11,14 @@ public class IndexContext {
 	String welcomeFileKey;
 
 	public IndexContext() {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public IndexContext(ObjectListing listing, List<String[]> indexData) {
+	public IndexContext(ObjectListing listing, List<String[]> indexData, String welcomeFileKey) {
 		super();
 		this.listing = listing;
 		this.indexData = indexData;
+		this.welcomeFileKey = welcomeFileKey;
 	}
 
 	public ObjectListing getListing() {

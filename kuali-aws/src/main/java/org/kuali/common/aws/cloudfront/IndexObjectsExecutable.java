@@ -28,6 +28,11 @@ public class IndexObjectsExecutable implements Executable {
 		for (ObjectListing listing : listingResult.getListings()) {
 			IndexDataContext idc = new IndexDataContext(bucketContext, converterContext, listing);
 			List<String[]> indexData = converterService.getIndexData(idc);
+			String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, cloudFrontContext.getWelcomeFiles());
+			IndexContext ic = new IndexContext();
+			ic.setIndexData(indexData);
+			ic.setListing(listing);
+			ic.setWelcomeFileKey(welcomeFileKey);
 		}
 
 	}
