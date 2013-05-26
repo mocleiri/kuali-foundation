@@ -6,8 +6,8 @@ public class DirectoryListingContext {
 
 	HtmlGeneratorContext generatorContext;
 	BucketContext bucketContext;
-	IndexContext indexContext;
 	String about;
+	IndexContext indexContext;
 
 	public HtmlGeneratorContext getGeneratorContext() {
 		return generatorContext;
