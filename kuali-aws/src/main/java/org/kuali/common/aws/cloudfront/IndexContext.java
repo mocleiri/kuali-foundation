@@ -8,7 +8,6 @@ public class IndexContext {
 
 	ObjectListing listing;
 	List<String[]> indexData;
-	String indexHtml;
 	String welcomeFileKey;
 
 	public IndexContext() {
@@ -35,14 +34,6 @@ public class IndexContext {
 
 	public void setIndexData(List<String[]> indexData) {
 		this.indexData = indexData;
-	}
-
-	public String getIndexHtml() {
-		return indexHtml;
-	}
-
-	public void setIndexHtml(String indexHtml) {
-		this.indexHtml = indexHtml;
 	}
 
 	public String getWelcomeFileKey() {
