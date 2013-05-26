@@ -9,6 +9,18 @@ public class DirectoryListingContext {
 	String about;
 	IndexContext indexContext;
 
+	public DirectoryListingContext() {
+		this(null, null, null, null);
+	}
+
+	public DirectoryListingContext(HtmlGeneratorContext generatorContext, BucketContext bucketContext, String about, IndexContext indexContext) {
+		super();
+		this.generatorContext = generatorContext;
+		this.bucketContext = bucketContext;
+		this.about = about;
+		this.indexContext = indexContext;
+	}
+
 	public HtmlGeneratorContext getGeneratorContext() {
 		return generatorContext;
 	}

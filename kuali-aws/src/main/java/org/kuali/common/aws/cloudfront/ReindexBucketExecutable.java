@@ -35,6 +35,8 @@ public class ReindexBucketExecutable implements Executable {
 			dlc.setBucketContext(bucketContext);
 			dlc.setGeneratorContext(generatorContext);
 			dlc.setIndexContext(ic);
+			dlc.setAbout(about);
+			String html = generatorService.getDirectoryListing(dlc);
 		}
 
 	}
