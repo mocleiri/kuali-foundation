@@ -7,11 +7,16 @@ import com.amazonaws.services.s3.model.ObjectListing;
 public class IndexContext {
 
 	ObjectListing listing;
-	List<String[]> indexData;
 	String welcomeFileKey;
+	List<String[]> indexData;
+	String indexHtml;
 
 	public IndexContext() {
 		this(null, null, null);
+	}
+
+	public IndexContext(ObjectListing listing) {
+		this(listing, null, null);
 	}
 
 	public IndexContext(ObjectListing listing, List<String[]> indexData, String welcomeFileKey) {
@@ -43,6 +48,14 @@ public class IndexContext {
 
 	public void setWelcomeFileKey(String welcomeFileKey) {
 		this.welcomeFileKey = welcomeFileKey;
+	}
+
+	public String getIndexHtml() {
+		return indexHtml;
+	}
+
+	public void setIndexHtml(String indexHtml) {
+		this.indexHtml = indexHtml;
 	}
 
 }
