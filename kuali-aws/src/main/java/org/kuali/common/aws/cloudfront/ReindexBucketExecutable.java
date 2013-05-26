@@ -31,11 +31,7 @@ public class ReindexBucketExecutable implements Executable {
 			List<String[]> indexData = converterService.getIndexData(idc);
 			String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, cloudFrontContext.getWelcomeFiles());
 			IndexContext ic = new IndexContext(listing, indexData, welcomeFileKey);
-			DirectoryListingContext dlc = new DirectoryListingContext();
-			dlc.setBucketContext(bucketContext);
-			dlc.setGeneratorContext(generatorContext);
-			dlc.setIndexContext(ic);
-			dlc.setAbout(about);
+			DirectoryListingContext dlc = new DirectoryListingContext(generatorContext, bucketContext, about, ic);
 			String html = generatorService.getDirectoryListing(dlc);
 		}
 

@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.common.aws.AmazonWebServiceRequestType;
+import org.kuali.common.aws.TypedRequest;
+import org.kuali.common.aws.s3.BucketContext;
+import org.kuali.common.util.Str;
 
 import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -84,5 +88,36 @@ public class CloudFrontUtils {
 		PutObjectRequest request = new PutObjectRequest(bucket, key, in, om);
 		request.setCannedAcl(CloudFrontConstants.DEFAULT_ACL);
 		return request;
+	}
+
+	public static TypedRequest getTypedRequestWithoutTrailingDelimiter(BucketContext context, String cacheControl, ObjectListing listing, String html) {
+		// Create s3://bucket/foo/bar
+		PutObjectRequest index = getPutHtmlRequestWithoutTrailingDelimiter(context, cacheControl, listing, html);
+		return new TypedRequest(index, AmazonWebServiceRequestType.PUT_OBJECT);
+	}
+
+	/**
+	 * This does one of two things. It either copies <code>/foo/bar/index.html to /foo/bar/</code> OR creates <code>/foo/bar/</code> from <code>html</code>
+	 */
+	public static TypedRequest getTypedRequest(String bucket, String cacheControl, String welcomeFileKey, ObjectListing listing, String html) {
+		if (welcomeFileKey == null) {
+			// Create s3://bucket/foo/bar/
+			PutObjectRequest put = getPutHtmlRequest(bucket, cacheControl, html, listing.getPrefix());
+			return new TypedRequest(put, AmazonWebServiceRequestType.PUT_OBJECT);
+		} else {
+			// Copy s3://bucket/foo/bar/index.html -> s3://bucket/foo/bar/
+			CopyObjectRequest copy = getCopyObjectRequest(bucket, welcomeFileKey, listing.getPrefix());
+			return new TypedRequest(copy, AmazonWebServiceRequestType.COPY_OBJECT);
+		}
+	}
+
+	public static PutObjectRequest getPutHtmlRequestWithoutTrailingDelimiter(BucketContext context, String cacheControl, ObjectListing listing, String html) {
+		String delimiter = context.getDelimiter();
+		String objectKey = Str.removeSuffix(listing.getPrefix(), delimiter);
+		return getPutHtmlRequest(context.getName(), cacheControl, html, objectKey);
+	}
+
+	public static PutObjectRequest getPutHtmlRequest(BucketContext context, String cacheControl, ObjectListing listing, String html) {
+		return getPutHtmlRequest(context.getName(), cacheControl, html, listing.getPrefix());
 	}
 }
