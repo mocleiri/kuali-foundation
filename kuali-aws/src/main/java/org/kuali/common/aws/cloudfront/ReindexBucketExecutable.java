@@ -10,7 +10,7 @@ import org.kuali.common.util.execute.Executable;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 
-public class IndexObjectsExecutable implements Executable {
+public class ReindexBucketExecutable implements Executable {
 
 	CloudFrontContext cloudFrontContext;
 	ObjectListingsContext objectListingsContext;
