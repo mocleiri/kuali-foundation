@@ -102,6 +102,9 @@ public class MavenUtils {
 		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
 
+		// Load anything from properties.maven.locations
+		load(mavenProperties);
+
 		// Make sure system/environment properties still always win
 		PropertyUtils.overrideWithGlobalValues(mavenProperties, GlobalPropertiesMode.BOTH);
 
