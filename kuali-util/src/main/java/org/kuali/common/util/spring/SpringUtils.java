@@ -325,6 +325,11 @@ public class SpringUtils {
 		return getContextWithPreRegisteredBeans(Arrays.asList(beanName), Arrays.asList(bean));
 	}
 
+	public static List<PropertySource<?>> getPropertySourcesFromAnnotatedClass(String annotatedClassName) {
+		Class<?> annotatedClass = ReflectionUtils.getClass(annotatedClassName);
+		return getPropertySources(annotatedClass);
+	}
+
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
 		return extractPropertySourcesAndClose(context);
