@@ -60,6 +60,7 @@ public class PropertyUtils {
 	public static final String RICE_SUFFIX = "rice-properties.xml";
 	public static final String ADDITIONAL_LOCATIONS = "properties.additional.locations";
 	public static final String ADDITIONAL_LOCATIONS_ENCODING = ADDITIONAL_LOCATIONS + ".encoding";
+
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
