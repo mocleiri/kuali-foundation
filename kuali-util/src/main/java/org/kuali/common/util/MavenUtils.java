@@ -29,7 +29,6 @@ import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,12 +46,16 @@ public class MavenUtils {
 	public static final String PROJECT_VERSION_KEY = "project.version";
 	public static final String PROJECT_ENCODING_KEY = "project.encoding";
 
-	public static SpringContext getMavenizedSpringContext(SpringService service, Properties mavenProperties, Class<?> propertySourceConfig) {
+	public static SpringContext getMavenizedSpringContext(Class<?> propertySourceConfig) {
+		return getMavenizedSpringContext(null, propertySourceConfig);
+	}
+
+	public static SpringContext getMavenizedSpringContext(Properties mavenProperties, Class<?> propertySourceConfig) {
 		// This PropertySource object is backed by a set of properties that has been
 		// 1 - fully resolved
 		// 2 - contains all properties needed by Spring
 		// 3 - contains system/environment properties where system/env properties override loaded properties
-		PropertySource<?> source = getPropertySource(service, mavenProperties, propertySourceConfig);
+		PropertySource<?> source = getPropertySource(mavenProperties, propertySourceConfig);
 
 		// Setup a property source context such that our single property source is the only one registered with Spring
 		// This will make it so our PropertySource is the ONLY thing to resolve placeholders
@@ -68,12 +71,12 @@ public class MavenUtils {
 		return context;
 	}
 
-	protected static PropertySource<?> getPropertySource(SpringService service, Properties mavenProperties, Class<?> annotatedClass) {
-		return getPropertySource(service, annotatedClass, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
+	protected static PropertySource<?> getPropertySource(Properties mavenProperties, Class<?> annotatedClass) {
+		return getPropertySource(annotatedClass, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
 	}
 
-	protected static PropertySource<?> getPropertySource(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		List<PropertySource<?>> sources = SpringUtils.getPropertySources(service, annotatedClass, mavenPropertiesBeanName, mavenProperties);
+	protected static PropertySource<?> getPropertySource(Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+		List<PropertySource<?>> sources = SpringUtils.getPropertySources(annotatedClass, mavenPropertiesBeanName, mavenProperties);
 		if (sources.size() > 1) {
 			throw new IllegalStateException("More than one PropertySource was registered in the context");
 		} else {

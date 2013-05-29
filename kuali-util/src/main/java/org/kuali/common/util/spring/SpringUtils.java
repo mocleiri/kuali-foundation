@@ -45,7 +45,6 @@ import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -115,8 +114,13 @@ public class SpringUtils {
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
-	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		ConfigurableApplicationContext parent = getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+		ConfigurableApplicationContext parent = null;
+		if (mavenProperties == null) {
+			parent = getConfigurableApplicationContext();
+		} else {
+			parent = getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+		}
 		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
 		child.setParent(parent);
 		child.register(annotatedClass);
@@ -124,7 +128,7 @@ public class SpringUtils {
 		return SpringUtils.getPropertySources(child);
 	}
 
-	public static List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
+	public static List<PropertySource<?>> getPropertySources(String location, String mavenPropertiesBeanName, Properties mavenProperties) {
 		String[] locationsArray = { location };
 		ConfigurableApplicationContext parent = getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
 		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
@@ -297,6 +301,10 @@ public class SpringUtils {
 			factory.registerSingleton(beanName, bean);
 		}
 		return appContext;
+	}
+
+	public static ConfigurableApplicationContext getConfigurableApplicationContext() {
+		return new GenericXmlApplicationContext();
 	}
 
 	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(List<String> beanNames, List<Object> beans) {
