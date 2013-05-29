@@ -278,7 +278,10 @@ public class SpringUtils {
 	 * 2 - Decrypt any ENC(...) values<br>
 	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
 	 */
-	public static void prepareContextProperties(Properties properties) {
+	public static void prepareContextProperties(Properties properties, String encoding) {
+
+		// Override with additional properties (if any)
+		properties.putAll(PropertyUtils.getAdditionalProperties(properties, encoding));
 
 		// Override with system/environment properties
 		properties.putAll(PropertyUtils.getGlobalProperties());
@@ -288,6 +291,17 @@ public class SpringUtils {
 
 		// Are we resolving placeholders
 		resolve(properties);
+	}
+
+	/**
+	 * Process the properties passed in so they are ready for use by a Spring context.<br>
+	 * 
+	 * 1 - Override with system/environment properties<br>
+	 * 2 - Decrypt any ENC(...) values<br>
+	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
+	 */
+	public static void prepareContextProperties(Properties properties) {
+		prepareContextProperties(properties, null);
 	}
 
 	public static void resolve(Properties properties) {

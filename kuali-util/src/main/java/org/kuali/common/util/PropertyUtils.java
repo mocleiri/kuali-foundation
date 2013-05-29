@@ -65,6 +65,10 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static Properties getAdditionalProperties(Properties properties) {
+		return getAdditionalProperties(properties, null);
+	}
+
 	public static Properties getAdditionalProperties(Properties properties, String encoding) {
 		String csv = properties.getProperty(ADDITIONAL_LOCATIONS);
 		if (StringUtils.isBlank(csv)) {
