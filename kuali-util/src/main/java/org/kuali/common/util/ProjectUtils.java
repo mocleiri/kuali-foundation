@@ -15,7 +15,6 @@
  */
 package org.kuali.common.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
@@ -87,7 +85,7 @@ public class ProjectUtils {
 		List<String> keys = PropertyUtils.getStartsWithKeys(properties, startsWith);
 		Project project = new Project();
 		project.setProperties(properties);
-		Map<String, Object> description = describe(project);
+		Map<String, Object> description = ReflectionUtils.describe(project);
 		Set<String> beanProperties = description.keySet();
 		for (String key : keys) {
 			if (skipKeys.contains(key)) {
@@ -96,7 +94,7 @@ public class ProjectUtils {
 			String value = properties.getProperty(key);
 			String beanProperty = getBeanProperty(key, startsWith);
 			if (beanProperties.contains(beanProperty)) {
-				copyProperty(project, beanProperty, value);
+				ReflectionUtils.copyProperty(project, beanProperty, value);
 			}
 		}
 		String csv = RepositoryUtils.toNull(properties.getProperty("project.dependencies"));
@@ -162,29 +160,6 @@ public class ProjectUtils {
 		sb.append("\n");
 		sb.append("}\n");
 		return sb.toString();
-	}
-
-	@SuppressWarnings("unchecked")
-	protected static Map<String, Object> describe(Object bean) {
-		try {
-			return BeanUtils.describe(bean);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		} catch (InvocationTargetException e) {
-			throw new IllegalStateException(e);
-		} catch (NoSuchMethodException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	protected static void copyProperty(Object bean, String name, Object value) {
-		try {
-			BeanUtils.copyProperty(bean, name, value);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		} catch (InvocationTargetException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	public static PropertySource<?> getPropertySource(ProjectProperties pp, List<ProjectProperties> list) {

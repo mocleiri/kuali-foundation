@@ -16,10 +16,35 @@
 package org.kuali.common.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.MethodInvoker;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	@SuppressWarnings("unchecked")
+	public static Map<String, Object> describe(Object bean) {
+		try {
+			return BeanUtils.describe(bean);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public static void copyProperty(Object bean, String name, Object value) {
+		try {
+			BeanUtils.copyProperty(bean, name, value);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		} catch (InvocationTargetException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	public static Object invokeMethod(Class<?> targetClass, String targetMethod, Object... arguments) {
 		MethodInvoker invoker = new MethodInvoker();
