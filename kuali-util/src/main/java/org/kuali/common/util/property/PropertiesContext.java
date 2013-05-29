@@ -29,6 +29,15 @@ public class PropertiesContext {
 	protected Properties properties;
 	protected List<String> locations;
 
+	public PropertiesContext() {
+		this(null);
+	}
+
+	public PropertiesContext(List<String> locations) {
+		super();
+		this.locations = locations;
+	}
+
 	public PropertyPlaceholderHelper getHelper() {
 		return helper;
 	}
