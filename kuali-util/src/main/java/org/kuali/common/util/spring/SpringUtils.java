@@ -26,11 +26,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.EncUtils;
-import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
@@ -45,7 +42,6 @@ import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -65,14 +61,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
 	// Configure a helper that fails on unresolved placeholders
-	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
 	public static List<String> getIncludes(Environment env, String key, String defaultValue) {
 		String includes = SpringUtils.getProperty(env, key, defaultValue);
@@ -240,7 +234,7 @@ public class SpringUtils {
 		Properties globalSource = PropertyUtils.getGlobalProperties(source);
 
 		// Prepare them so they are ready for use
-		prepareContextProperties(globalSource);
+		PropertyUtils.prepareContextProperties(globalSource);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, globalSource);
@@ -251,83 +245,10 @@ public class SpringUtils {
 		Properties source = PropertyUtils.load(pps);
 
 		// Prepare them so they are ready for use
-		prepareContextProperties(source);
+		PropertyUtils.prepareContextProperties(source);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, source);
-	}
-
-	public static String getRequiredResolvedProperty(Properties properties, String key) {
-		return getRequiredResolvedProperty(properties, key, null);
-	}
-
-	public static String getRequiredResolvedProperty(Properties properties, String key, String defaultValue) {
-		String value = properties.getProperty(key);
-		value = StringUtils.isBlank(value) ? defaultValue : value;
-		if (StringUtils.isBlank(value)) {
-			throw new IllegalArgumentException("[" + key + "] is not set");
-		} else {
-			return HELPER.replacePlaceholders(value, properties);
-		}
-	}
-
-	/**
-	 * Process the properties passed in so they are ready for use by a Spring context.<br>
-	 * 
-	 * 1 - Override with system/environment properties<br>
-	 * 2 - Decrypt any ENC(...) values<br>
-	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
-	 */
-	public static void prepareContextProperties(Properties properties, String encoding) {
-
-		// Override with additional properties (if any)
-		properties.putAll(PropertyUtils.getAdditionalProperties(properties, encoding));
-
-		// Override with system/environment properties
-		properties.putAll(PropertyUtils.getGlobalProperties());
-
-		// Are we decrypting property values?
-		decrypt(properties);
-
-		// Are we resolving placeholders
-		resolve(properties);
-	}
-
-	/**
-	 * Process the properties passed in so they are ready for use by a Spring context.<br>
-	 * 
-	 * 1 - Override with system/environment properties<br>
-	 * 2 - Decrypt any ENC(...) values<br>
-	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
-	 */
-	public static void prepareContextProperties(Properties properties) {
-		prepareContextProperties(properties, null);
-	}
-
-	public static void resolve(Properties properties) {
-		// Are we resolving placeholders?
-		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
-		if (resolve) {
-			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
-			rpp.setHelper(HELPER);
-			rpp.process(properties);
-		}
-	}
-
-	public static void decrypt(Properties properties) {
-		// Are we decrypting property values?
-		boolean decrypt = Boolean.parseBoolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
-		if (decrypt) {
-			// If they asked to decrypt, a password is required
-			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
-
-			// Strength is optional (defaults to BASIC)
-			String defaultStrength = EncryptionStrength.BASIC.name();
-			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
-			EncryptionStrength es = EncryptionStrength.valueOf(strength);
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
-			PropertyUtils.decrypt(properties, decryptor);
-		}
 	}
 
 	/**

@@ -42,6 +42,7 @@ import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
+import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -56,15 +57,89 @@ public class PropertyUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
-	private static final String XML_EXTENSION = ".xml";
 	public static final String RICE_SUFFIX = "rice-properties.xml";
 	public static final String ADDITIONAL_LOCATIONS = "properties.additional.locations";
 	public static final String ADDITIONAL_LOCATIONS_ENCODING = ADDITIONAL_LOCATIONS + ".encoding";
 
+	private static final String XML_EXTENSION = ".xml";
+	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static String getRequiredResolvedProperty(Properties properties, String key) {
+		return getRequiredResolvedProperty(properties, key, null);
+	}
+
+	public static String getRequiredResolvedProperty(Properties properties, String key, String defaultValue) {
+		String value = properties.getProperty(key);
+		value = StringUtils.isBlank(value) ? defaultValue : value;
+		if (StringUtils.isBlank(value)) {
+			throw new IllegalArgumentException("[" + key + "] is not set");
+		} else {
+			return HELPER.replacePlaceholders(value, properties);
+		}
+	}
+
+	/**
+	 * Process the properties passed in so they are ready for use by a Spring context.<br>
+	 * 
+	 * 1 - Override with system/environment properties<br>
+	 * 2 - Decrypt any ENC(...) values<br>
+	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
+	 */
+	public static void prepareContextProperties(Properties properties, String encoding) {
+
+		// Override with additional properties (if any)
+		properties.putAll(PropertyUtils.getAdditionalProperties(properties, encoding));
+
+		// Override with system/environment properties
+		properties.putAll(PropertyUtils.getGlobalProperties());
+
+		// Are we decrypting property values?
+		decrypt(properties);
+
+		// Are we resolving placeholders
+		resolve(properties);
+	}
+
+	/**
+	 * Process the properties passed in so they are ready for use by a Spring context.<br>
+	 * 
+	 * 1 - Override with system/environment properties<br>
+	 * 2 - Decrypt any ENC(...) values<br>
+	 * 3 - Resolve all property values throwing an exception if any are unresolvable.<br>
+	 */
+	public static void prepareContextProperties(Properties properties) {
+		prepareContextProperties(properties, null);
+	}
+
+	public static void resolve(Properties properties) {
+		// Are we resolving placeholders?
+		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
+		if (resolve) {
+			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			rpp.setHelper(HELPER);
+			rpp.process(properties);
+		}
+	}
+
+	public static void decrypt(Properties properties) {
+		// Are we decrypting property values?
+		boolean decrypt = Boolean.parseBoolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));
+		if (decrypt) {
+			// If they asked to decrypt, a password is required
+			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
+
+			// Strength is optional (defaults to BASIC)
+			String defaultStrength = EncryptionStrength.BASIC.name();
+			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
+			EncryptionStrength es = EncryptionStrength.valueOf(strength);
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
+			PropertyUtils.decrypt(properties, decryptor);
+		}
+	}
+	
 	public static Properties getAdditionalProperties(Properties properties) {
 		return getAdditionalProperties(properties, null);
 	}
