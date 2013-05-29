@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.MavenUtils;
@@ -24,10 +22,8 @@ import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.PropertySource;
 import org.springframework.util.Assert;
 
 /**
@@ -35,9 +31,7 @@ import org.springframework.util.Assert;
  * object.
  */
 @Configuration
-public class MavenPropertySourceConfig {
-
-	public static final String SPRING_PROPERTY_SOURCE = "springPropertySource";
+public class MavenPropertySourceConfig extends AbstractPropertySourceConfig {
 
 	@Autowired
 	Environment env;
@@ -46,8 +40,9 @@ public class MavenPropertySourceConfig {
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
-	@Bean
-	public ProjectProperties mavenProjectProperties() {
+	@Override
+	protected ProjectProperties getProjectProperties() {
+
 		// Make sure the maven properties got wired in correctly
 		Assert.notNull(mavenProperties, "mavenProperties are null");
 
@@ -56,30 +51,6 @@ public class MavenPropertySourceConfig {
 
 		// Create a ProjectProperties pojo from the properties
 		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
-	}
-
-	/**
-	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate. Properties from this list use a "last one in wins" strategy.
-	 */
-	protected List<ProjectProperties> getProjectPropertiesList() {
-		return new ArrayList<ProjectProperties>();
-	}
-
-	@Bean
-	public PropertySource<?> springPropertySource() {
-		ProjectProperties mpp = mavenProjectProperties();
-
-		// Property loading uses a "last one in wins" strategy
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-		// Add maven properties first so they can be used to resolve locations
-		pps.add(mpp);
-		// Load in project properties
-		pps.addAll(getProjectPropertiesList());
-		// Add maven properties last so they override loaded properties
-		pps.add(mpp);
-
-		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
-		return SpringUtils.getGlobalPropertySource(SPRING_PROPERTY_SOURCE, pps);
 	}
 
 }

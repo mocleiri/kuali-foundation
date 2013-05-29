@@ -30,7 +30,12 @@ public class PropertiesContext {
 	protected List<String> locations;
 
 	public PropertiesContext() {
-		this(null);
+		this((Properties) null);
+	}
+
+	public PropertiesContext(Properties properties) {
+		super();
+		this.properties = properties;
 	}
 
 	public PropertiesContext(List<String> locations) {

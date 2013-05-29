@@ -37,7 +37,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 
 /**
- * Maven related utilities that do not need depend on classes that are Maven specific.
+ * Maven utilities that don't depend on Maven libraries
  */
 public class MavenUtils {
 
@@ -102,6 +102,24 @@ public class MavenUtils {
 		// Finish preparing the properties using the encoding from the project
 		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, PROJECT_ENCODING_KEY);
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
+	}
+
+	/**
+	 * Given a <code>groupId</code> and <code>artifactId</code> return a <code>ProjectProperties</code> object representing the project.properties that was embedded in META-INF
+	 */
+	public static ProjectProperties getProjectProperties(String groupId, String artifactId) {
+
+		// Combine them into a GAV
+		String gav = groupId + ":" + artifactId;
+
+		// Load the project object from the gav
+		Project project = ProjectUtils.getProject(gav);
+
+		// Load the properties associated with that project
+		Properties properties = ProjectUtils.getProperties(project);
+
+		// Return the project properties object
+		return new ProjectProperties(project, new PropertiesContext(properties));
 	}
 
 	public static ProjectProperties getMavenProjectProperties(Environment env, Properties mavenProperties) {

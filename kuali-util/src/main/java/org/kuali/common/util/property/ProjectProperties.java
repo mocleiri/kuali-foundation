@@ -22,6 +22,16 @@ public class ProjectProperties {
 	Project project;
 	PropertiesContext propertiesContext;
 
+	public ProjectProperties() {
+		this(null, null);
+	}
+
+	public ProjectProperties(Project project, PropertiesContext propertiesContext) {
+		super();
+		this.project = project;
+		this.propertiesContext = propertiesContext;
+	}
+
 	public Project getProject() {
 		return project;
 	}
