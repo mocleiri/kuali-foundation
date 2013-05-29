@@ -58,9 +58,20 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	public static final String RICE_SUFFIX = "rice-properties.xml";
+	public static final String ADDITIONAL_LOCATIONS = "properties.additional.locations";
 	private static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	public static Properties getAdditionalProperties(Properties properties, String encoding) {
+		String csv = properties.getProperty(ADDITIONAL_LOCATIONS);
+		if (StringUtils.isBlank(csv)) {
+			return new Properties();
+		}
+		List<String> locations = CollectionUtils.getTrimmedListFromCSV(csv);
+		PropertiesContext context = new PropertiesContext(encoding, locations);
+		return load(context);
+	}
 
 	public static void appendToOrSetProperty(Properties properties, String key, String value) {
 		Assert.hasText(value);

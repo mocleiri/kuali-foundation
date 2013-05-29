@@ -47,7 +47,6 @@ public class MavenUtils {
 	public static final String POM = "pom";
 	public static final String INCLUDE = "properties.maven.include";
 	public static final String EXCLUDE = "properties.maven.exclude";
-	public static final String LOCATIONS = "properties.maven.locations";
 	public static final String PROJECT_VERSION_KEY = "project.version";
 
 	public static SpringContext getMavenizedSpringContext(SpringService service, Properties mavenProperties, Class<?> propertySourceConfig) {
@@ -120,15 +119,9 @@ public class MavenUtils {
 	}
 
 	public static void load(Properties mavenProperties) {
-		String csv = mavenProperties.getProperty(LOCATIONS);
-		if (StringUtils.isBlank(csv)) {
-			return;
-		}
 		String encoding = mavenProperties.getProperty("project.encoding");
-		List<String> locations = CollectionUtils.getTrimmedListFromCSV(csv);
-		PropertiesContext context = new PropertiesContext(encoding, locations);
-		Properties loaded = PropertyUtils.load(context);
-		mavenProperties.putAll(loaded);
+		Properties additional = PropertyUtils.getAdditionalProperties(mavenProperties, encoding);
+		mavenProperties.putAll(additional);
 	}
 
 	public static void trim(Properties mavenProperties) {
