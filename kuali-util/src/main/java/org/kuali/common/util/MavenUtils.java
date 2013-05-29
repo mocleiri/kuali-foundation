@@ -45,6 +45,7 @@ public class MavenUtils {
 
 	public static final String POM = "pom";
 	public static final String PROJECT_VERSION_KEY = "project.version";
+	public static final String PROJECT_ENCODING_KEY = "project.encoding";
 
 	public static SpringContext getMavenizedSpringContext(SpringService service, Properties mavenProperties, Class<?> propertySourceConfig) {
 		// This PropertySource object is backed by a set of properties that has been
@@ -99,7 +100,7 @@ public class MavenUtils {
 		PropertyUtils.process(mavenProperties, processors);
 
 		// Finish preparing the properties using the encoding from the project
-		String encoding = mavenProperties.getProperty("project.encoding");
+		String encoding = mavenProperties.getProperty(PROJECT_ENCODING_KEY);
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
 	}
 
