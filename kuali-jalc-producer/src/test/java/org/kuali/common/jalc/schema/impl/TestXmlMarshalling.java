@@ -24,10 +24,10 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
-import org.kuali.common.jalc.ProducerUtils;
 import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.model.Sequence;
 import org.kuali.common.jalc.model.Table;
+import org.kuali.common.jalc.model.util.ModelUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -81,8 +81,8 @@ public class TestXmlMarshalling {
         assertEquals(table.getName(), loaded.getName());
         assertEquals(table.getDescription(), loaded.getDescription());
         assertEquals(table.getColumns().size(), loaded.getColumns().size());
-        assertEquals(ProducerUtils.getCsvPrimaryKeyColumnNames(table), ProducerUtils.getCsvPrimaryKeyColumnNames(loaded));
-        assertEquals(ProducerUtils.getCsvColumnNames(table.getColumns()), ProducerUtils.getCsvColumnNames(loaded.getColumns()));
+        assertEquals(ModelUtils.getCsvPrimaryKeyColumnNames(table), ModelUtils.getCsvPrimaryKeyColumnNames(loaded));
+        assertEquals(ModelUtils.getCsvColumnNames(table.getColumns()), ModelUtils.getCsvColumnNames(loaded.getColumns()));
     }
 
 }

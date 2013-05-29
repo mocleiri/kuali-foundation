@@ -29,6 +29,7 @@ import org.kuali.common.jalc.model.Index;
 import org.kuali.common.jalc.model.Table;
 import org.kuali.common.jalc.model.TypeSize;
 import org.kuali.common.jalc.model.UniqueConstraint;
+import org.kuali.common.jalc.model.util.ModelUtils;
 import org.kuali.common.jalc.schema.DataTypeMapping;
 import org.kuali.common.jalc.schema.impl.AbstractTableSqlProducer;
 import org.kuali.common.util.CollectionUtils;
@@ -200,6 +201,9 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
      * This method should incorporate information from the given DataTypeMapping to override
      * information from the Column model as appropriate to generate an oracle column definition.
      *
+     * // TODO KSENROLL-303 In order for MySQL to work with KS, this code needs to be completed
+     * // TODO KSENROLL-303 Mappings for data types that Hibernate expects from MySQL for KS need to be mapped
+     *
      * @param column the model data of the Column
      * @param mapping the mapping data
      *
@@ -212,7 +216,7 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
     protected String generatePrimaryKeyConstraint(Table t) {
         StringBuilder sb = new StringBuilder();
 
-        String primaryKeysString = ProducerUtils.getCsvPrimaryKeyColumnNames(t);
+        String primaryKeysString = ModelUtils.getCsvPrimaryKeyColumnNames(t);
 
         if (StringUtils.isNotEmpty(primaryKeysString)) {
             sb.append(ProducerUtils.COMMA);

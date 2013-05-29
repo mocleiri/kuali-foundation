@@ -29,6 +29,7 @@ import org.kuali.common.jalc.model.Index;
 import org.kuali.common.jalc.model.Table;
 import org.kuali.common.jalc.model.TypeSize;
 import org.kuali.common.jalc.model.UniqueConstraint;
+import org.kuali.common.jalc.model.util.ModelUtils;
 import org.kuali.common.jalc.schema.DataTypeMapping;
 import org.kuali.common.jalc.schema.impl.AbstractTableSqlProducer;
 import org.kuali.common.util.CollectionUtils;
@@ -270,7 +271,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
     }
 
     protected String generatePrimaryKeyConstraint(Table t) {
-        String primaryKeysString = ProducerUtils.getCsvPrimaryKeyColumnNames(t);
+        String primaryKeysString = ModelUtils.getCsvPrimaryKeyColumnNames(t);
 
         // If there are no primary keys, return an empty string
         if (StringUtils.isEmpty(primaryKeysString)) {

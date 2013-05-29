@@ -70,4 +70,31 @@ public class TypeSize {
     public void setSize(Integer size) {
         this.size = size;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+
+        if(!(obj instanceof TypeSize)) {
+            return false;
+        }
+
+        TypeSize other = (TypeSize) obj;
+
+        if (!getSize().equals(other.getSize())) {
+            return false;
+        }
+
+        if (isScaleSet() != other.isScaleSet()) {
+            return false;
+        }
+
+        if (!getScale().equals(other.getScale())) {
+            return false;
+        }
+
+        return true;
+    }
 }

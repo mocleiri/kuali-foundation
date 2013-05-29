@@ -15,13 +15,8 @@
 
 package org.kuali.common.jalc;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.common.jalc.model.Column;
 import org.kuali.common.jalc.model.DataType;
 import org.kuali.common.jalc.model.Table;
-import org.kuali.common.util.CollectionUtils;
 
 /**
  * String utility methods for classes creating sql from schema model data
@@ -50,26 +45,6 @@ public class ProducerUtils {
     public static final String TYPE_SIZE_SUFFIX = ")";
     public static final String NOT_NULL = "NOT NULL";
     public static final String NEWLINE_TAB = "\n\t";
-
-    public static String getCsvColumnNames(List<Column> columns) {
-        List<String> names = new ArrayList<String>(columns.size());
-        for (Column col : CollectionUtils.toEmptyList(columns)) {
-            names.add(col.getName());
-        }
-
-        return CollectionUtils.getCSV(names);
-    }
-
-    public static String getCsvPrimaryKeyColumnNames(Table t) {
-        List<String> names = new ArrayList<String>();
-        for (Column col : CollectionUtils.toEmptyList(t.getColumns())) {
-            if (col.isPrimaryKey()) {
-                names.add(col.getName());
-            }
-        }
-
-        return CollectionUtils.getCSV(names);
-    }
 
     public static String generatePrimaryKeyName(Table t) {
         StringBuilder sb = new StringBuilder();

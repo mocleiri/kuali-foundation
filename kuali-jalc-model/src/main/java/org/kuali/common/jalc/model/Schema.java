@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Schema {
 
+    protected String name;
+
     protected List<Table> tables;
 
     protected List<Sequence> sequences;
@@ -32,6 +34,15 @@ public class Schema {
     protected List<View> views;
 
     protected List<ForeignKey> foreignKeys;
+
+    @XmlElement
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @XmlElement(name = "foreignKey")
     public List<ForeignKey> getForeignKeys() {

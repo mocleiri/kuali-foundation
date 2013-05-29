@@ -8,4 +8,10 @@
     <artifactId>kuali-jalc-model</artifactId>
     <name>Kuali JALC Model</name>
     <description>Kuali JALC Model</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-util</artifactId>
+        </dependency>
+    </dependencies>
 </project>
