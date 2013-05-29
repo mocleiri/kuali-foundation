@@ -100,7 +100,7 @@ public class MavenUtils {
 		PropertyUtils.process(mavenProperties, processors);
 
 		// Finish preparing the properties using the encoding from the project
-		String encoding = mavenProperties.getProperty(PROJECT_ENCODING_KEY);
+		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, PROJECT_ENCODING_KEY);
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
 	}
 
