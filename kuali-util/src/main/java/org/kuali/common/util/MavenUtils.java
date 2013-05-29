@@ -45,8 +45,6 @@ public class MavenUtils {
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
 
 	public static final String POM = "pom";
-	public static final String INCLUDE = "properties.maven.include";
-	public static final String EXCLUDE = "properties.maven.exclude";
 	public static final String PROJECT_VERSION_KEY = "project.version";
 
 	public static SpringContext getMavenizedSpringContext(SpringService service, Properties mavenProperties, Class<?> propertySourceConfig) {
@@ -111,8 +109,6 @@ public class MavenUtils {
 		SpringUtils.decrypt(mavenProperties);
 
 		// Remove properties that are not desired
-		trim(mavenProperties);
-
 		// Make sure every single property can be fully resolved
 		SpringUtils.resolve(mavenProperties);
 
@@ -124,22 +120,8 @@ public class MavenUtils {
 		mavenProperties.putAll(additional);
 	}
 
-	public static void trim(Properties mavenProperties) {
-		List<String> excludes = getList(mavenProperties, EXCLUDE);
-		List<String> includes = getList(mavenProperties, INCLUDE);
-		PropertyUtils.trim(mavenProperties, includes, excludes);
-	}
-
-	public static void trim(Environment env, Properties mavenProperties) {
-		List<String> excludes = getList(env, mavenProperties, EXCLUDE);
-		List<String> includes = getList(env, mavenProperties, INCLUDE);
-		PropertyUtils.trim(mavenProperties, includes, excludes);
-	}
-
 	public static ProjectProperties getMavenProjectProperties(Environment env, Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
-
-		trim(env, mavenProperties);
 
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
