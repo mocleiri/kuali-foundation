@@ -40,8 +40,7 @@ public abstract class AbstractPropertySourceConfig {
 
 	protected abstract ProjectProperties getProjectProperties();
 
-	@Bean
-	public PropertySource<?> springPropertySource() {
+	public PropertySource<?> getPropertySource() {
 
 		// Obtain the properties for this project
 		ProjectProperties pp = getProjectProperties();
@@ -60,6 +59,11 @@ public abstract class AbstractPropertySourceConfig {
 
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return SpringUtils.getGlobalPropertySource(SPRING_PROPERTY_SOURCE, pps);
+	}
+
+	@Bean
+	public PropertySource<?> springPropertySource() {
+		return getPropertySource();
 	}
 
 }
