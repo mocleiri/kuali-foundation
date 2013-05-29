@@ -26,7 +26,7 @@ public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 	boolean singleton = true;
 
 	@Override
-	public Project getObject() throws Exception {
+	public Project getObject() {
 		Assert.hasText(gav);
 		return ProjectUtils.loadProject(gav);
 	}
