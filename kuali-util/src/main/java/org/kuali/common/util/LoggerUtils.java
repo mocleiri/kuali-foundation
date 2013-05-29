@@ -29,6 +29,7 @@ public class LoggerUtils {
 
 	public static void log(LogMsg msg, Logger logger) {
 		Assert.notNull(msg.getLevel(), "level is null");
+		Assert.notNull(logger, "logger is null");
 		logMsg(msg.getMessage(), msg.getArgs(), logger, msg.getLevel());
 	}
 
