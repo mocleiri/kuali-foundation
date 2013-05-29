@@ -34,7 +34,12 @@ public class PropertiesContext {
 	}
 
 	public PropertiesContext(List<String> locations) {
+		this(null, locations);
+	}
+
+	public PropertiesContext(String encoding, List<String> locations) {
 		super();
+		this.encoding = encoding;
 		this.locations = locations;
 	}
 
