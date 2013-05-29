@@ -25,9 +25,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public abstract class ApplicationPropertySourceConfig extends AbstractPropertySourceConfig {
 
-	protected abstract String getGroupId();
+	public abstract String getGroupId();
 
-	protected abstract String getArtifactId();
+	public abstract String getArtifactId();
 
 	@Override
 	protected ProjectProperties getProjectProperties() {
