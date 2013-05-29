@@ -66,11 +66,11 @@ public class PropertyUtils {
 
 	public static Properties getAdditionalProperties(Properties properties, String encoding) {
 		String csv = properties.getProperty(ADDITIONAL_LOCATIONS);
-		if (StringUtils.isBlank(encoding)) {
-			encoding = properties.getProperty(ADDITIONAL_LOCATIONS_ENCODING, DEFAULT_XML_ENCODING);
-		}
 		if (StringUtils.isBlank(csv)) {
 			return new Properties();
+		}
+		if (StringUtils.isBlank(encoding)) {
+			encoding = properties.getProperty(ADDITIONAL_LOCATIONS_ENCODING, DEFAULT_XML_ENCODING);
 		}
 		List<String> locations = CollectionUtils.getTrimmedListFromCSV(csv);
 		PropertiesContext context = new PropertiesContext(encoding, locations);
