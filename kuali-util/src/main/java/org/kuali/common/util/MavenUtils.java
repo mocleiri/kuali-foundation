@@ -122,7 +122,7 @@ public class MavenUtils {
 		return new ProjectProperties(project, new PropertiesContext(properties));
 	}
 
-	public static ProjectProperties getMavenProjectProperties(Environment env, Properties mavenProperties) {
+	public static ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
 		PropertiesContext pc = new PropertiesContext();

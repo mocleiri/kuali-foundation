@@ -26,8 +26,11 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.PropertySource;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -37,6 +40,7 @@ public class ProjectUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
 	public static Project loadProject(String gav) {
 		Project project = getProject(gav);
@@ -183,4 +187,20 @@ public class ProjectUtils {
 		}
 	}
 
+	public static PropertySource<?> getPropertySource(ProjectProperties pp, List<ProjectProperties> list) {
+		// Property loading uses a "last one in wins" strategy
+		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+
+		// Add project properties first so they can be used to resolve locations
+		pps.add(pp);
+
+		// Load in project properties
+		pps.addAll(list);
+
+		// Add project properties last so they override loaded properties
+		pps.add(pp);
+
+		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
+		return SpringUtils.getGlobalPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, pps);
+	}
 }

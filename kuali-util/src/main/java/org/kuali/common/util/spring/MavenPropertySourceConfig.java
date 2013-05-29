@@ -23,18 +23,13 @@ import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
 /**
- * Add properties from the currently executing Maven project to the list of explicitly configured <code>ProjectProperties</code> and then combine all of them into a property source
- * object.
+ * Enhance the wired in Maven properties and create a <code>ProjectProperties</code> bean from them.
  */
 @Configuration
 public class MavenPropertySourceConfig extends AbstractPropertySourceConfig {
-
-	@Autowired
-	Environment env;
 
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
@@ -50,7 +45,7 @@ public class MavenPropertySourceConfig extends AbstractPropertySourceConfig {
 		MavenUtils.augmentProjectProperties(mavenProperties);
 
 		// Create a ProjectProperties pojo from the properties
-		return MavenUtils.getMavenProjectProperties(env, mavenProperties);
+		return MavenUtils.getMavenProjectProperties(mavenProperties);
 	}
 
 }
