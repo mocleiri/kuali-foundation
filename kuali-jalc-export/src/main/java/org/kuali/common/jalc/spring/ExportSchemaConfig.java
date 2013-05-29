@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.jalc.schema.spring;
+package org.kuali.common.jalc.spring;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +34,12 @@ import org.springframework.core.env.Environment;
 @Import(LiquibaseModelProvider.class)
 public class ExportSchemaConfig {
 
-    protected static final String PROJECT_PREFIX = "impex.";
+    protected static final String PROJECT_PREFIX = "jalc.";
 
-    protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "schemagen.tables";
-    protected static final String VIEWS_LOCATION_KEY = PROJECT_PREFIX + "schemagen.views";
-    protected static final String SEQUENCES_LOCATION_KEY = PROJECT_PREFIX + "schemagen.sequences";
-    protected static final String FOREIGNKEY_LOCATION_KEY = PROJECT_PREFIX + "schemagen.foreignkeys";
+    protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables";
+    protected static final String VIEWS_LOCATION_KEY = PROJECT_PREFIX + "export.schema.views";
+    protected static final String SEQUENCES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.sequences";
+    protected static final String FOREIGNKEY_LOCATION_KEY = PROJECT_PREFIX + "export.schema.foreignkeys";
 
     @Autowired
     Environment env;

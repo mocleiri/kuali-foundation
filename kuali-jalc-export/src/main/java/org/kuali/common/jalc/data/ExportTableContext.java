@@ -26,6 +26,10 @@ public class ExportTableContext implements Comparable<ExportTableContext>, Weigh
 
     long size;
 
+    public ExportTableContext(Table t) {
+        table = t;
+    }
+
     @Override
     public double getWeight() {
         return rowCount;

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.jalc.schema.spring;
+package org.kuali.common.jalc.spring;
 
 import java.io.FileWriter;
 import java.io.IOException;

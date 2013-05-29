@@ -228,23 +228,15 @@ public class DefaultExportDataService implements ExportDataService {
     }
 
     @Override
-    public List<ExportTableResult> exportTables(ExportDataContext context, List<Table> tables) {
+    public List<ExportTableResult> exportTables(ExportDataContext context) {
         List<ExportTableResult> results = new ArrayList<ExportTableResult>();
 
         // Print a dot any time we complete 1% of our requests
         PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-        progressTracker.setTotal(tables.size());
-
-        // build list of table contexts
-        List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>(tables.size());
-        for (Table t : tables) {
-            ExportTableContext tableContext = new ExportTableContext();
-            tableContext.setTable(t);
-            tableContexts.add(tableContext);
-        }
+        progressTracker.setTotal(context.getTableContexts().size());
 
         // Each bucket holds a bunch of requests
-        List<ExportTableBucket> buckets = getTableBuckets(tableContexts, context, results, progressTracker);
+        List<ExportTableBucket> buckets = getTableBuckets(context.getTableContexts(), context, results, progressTracker);
 
         // Create and invoke threads to fill in the metadata
         // Store some context for the thread handler

@@ -16,6 +16,7 @@
 package org.kuali.common.jalc.data;
 
 import java.io.File;
+import java.util.List;
 import javax.sql.DataSource;
 
 public class ExportDataContext {
@@ -24,9 +25,12 @@ public class ExportDataContext {
     protected int dataThreads;
     protected File workingDir;
     protected String encoding;
+    protected List<ExportTableContext> tableContexts;
 
-    protected int rowCountInterval = 50;
-    protected int dataSizeInterval = 50 * 1024;
+    protected int rowCountInterval;
+    protected int dataSizeInterval;
+    private String statisticsLocation;
+
 
     public DataSource getDataSource() {
         return dataSource;
@@ -74,5 +78,22 @@ public class ExportDataContext {
 
     public void setRowCountInterval(int rowCountInterval) {
         this.rowCountInterval = rowCountInterval;
+    }
+
+    public List<ExportTableContext> getTableContexts() {
+        return tableContexts;
+    }
+
+    public void setTableContexts(List<ExportTableContext> tableContexts) {
+        this.tableContexts = tableContexts;
+    }
+
+
+    public void setStatisticsLocation(String statisticsLocation) {
+        this.statisticsLocation = statisticsLocation;
+    }
+
+    public String getStatisticsLocation() {
+        return statisticsLocation;
     }
 }

@@ -22,7 +22,7 @@ import org.kuali.common.jalc.model.Table;
 
 public interface ExportDataService {
 
-    List<ExportTableResult> exportTables(ExportDataContext context, List<Table> tables);
+    List<ExportTableResult> exportTables(ExportDataContext context);
 
     ExportTableResult exportTable(ExportDataContext context, ExportTableContext table, Connection conn) throws ExportDataException;
 }
