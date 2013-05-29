@@ -98,7 +98,7 @@ public class MavenUtils {
 		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
 
-		// Prepare the context properties using the encoding from the project
+		// Finish preparing the properties using the encoding from the project
 		String encoding = mavenProperties.getProperty("project.encoding");
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
 	}
