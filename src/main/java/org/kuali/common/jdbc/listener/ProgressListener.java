@@ -42,11 +42,11 @@ public class ProgressListener extends NoOpSqlListener {
 
 		// Increment the counter
 		informer.incrementProgress();
+	}
 
-		// The last SQL statement was just executed
-		if (informer.getProgress() == informer.getTotal()) {
-			informer.stop();
-		}
+	@Override
+	public void afterExecution(SqlExecutionEvent event) {
+		informer.stop();
 	}
 
 	public PercentCompleteInformer getInformer() {
@@ -56,4 +56,5 @@ public class ProgressListener extends NoOpSqlListener {
 	public void setInformer(PercentCompleteInformer informer) {
 		this.informer = informer;
 	}
+
 }
