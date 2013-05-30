@@ -13,7 +13,11 @@ public class DefaultProjectContext implements ProjectContext {
 	List<String> propertyLocations = DEFAULT_PROPERTY_LOCATIONS;
 
 	public DefaultProjectContext() {
-		this(DEFAULT_GROUP_ID, null);
+		this(null);
+	}
+
+	public DefaultProjectContext(String artifactId) {
+		this(DEFAULT_GROUP_ID, artifactId, DEFAULT_PROPERTY_LOCATIONS);
 	}
 
 	public DefaultProjectContext(String groupId, String artifactId) {
