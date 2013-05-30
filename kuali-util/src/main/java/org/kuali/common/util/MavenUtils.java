@@ -107,24 +107,6 @@ public class MavenUtils {
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
 	}
 
-	/**
-	 * Given a <code>groupId</code> and <code>artifactId</code> return a <code>ProjectProperties</code> object representing the project.properties that was embedded in META-INF
-	 */
-	public static ProjectProperties getProjectProperties(String groupId, String artifactId) {
-
-		// Combine them into a GAV
-		String gav = groupId + ":" + artifactId;
-
-		// Load the project object from the gav
-		Project project = ProjectUtils.getProject(gav);
-
-		// Load the properties associated with that project
-		Properties properties = ProjectUtils.getProperties(project);
-
-		// Return the project properties object
-		return new ProjectProperties(project, new PropertiesContext(properties));
-	}
-
 	public static ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
