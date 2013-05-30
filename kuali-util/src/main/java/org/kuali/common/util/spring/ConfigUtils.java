@@ -20,22 +20,13 @@ import java.util.List;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ConfigUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConfigUtils.class);
-
 	public static ProjectProperties getProjectProperties(Project project, List<String> locations) {
-		logger.debug(project.getGroupId());
 		PropertiesContext pc = new PropertiesContext();
 		pc.setEncoding(project.getEncoding());
 		pc.setLocations(locations);
-
-		ProjectProperties pp = new ProjectProperties();
-		pp.setProject(project);
-		pp.setPropertiesContext(pc);
-		return pp;
+		return new ProjectProperties(project, pc);
 	}
 }
