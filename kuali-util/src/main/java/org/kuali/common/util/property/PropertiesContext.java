@@ -39,10 +39,10 @@ public class PropertiesContext {
 	}
 
 	public PropertiesContext(List<String> locations) {
-		this(null, locations);
+		this(locations, Constants.DEFAULT_ENCODING);
 	}
 
-	public PropertiesContext(String encoding, List<String> locations) {
+	public PropertiesContext(List<String> locations, String encoding) {
 		super();
 		this.encoding = encoding;
 		this.locations = locations;
