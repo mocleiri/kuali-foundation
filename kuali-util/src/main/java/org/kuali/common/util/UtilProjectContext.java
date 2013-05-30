@@ -1,11 +1,11 @@
 package org.kuali.common.util;
 
-import java.util.Collections;
-import java.util.List;
-
-public class UtilProjectContext implements ProjectContext {
+public class UtilProjectContext extends AbstractProjectContext {
 
 	private static ProjectContext instance = new UtilProjectContext();
+
+	// This must exactly match the artifact id declared in the pom
+	private static final String ARTIFACT_ID = "kuali-util";
 
 	private UtilProjectContext() {
 		super();
@@ -16,18 +16,8 @@ public class UtilProjectContext implements ProjectContext {
 	}
 
 	@Override
-	public String getGroupId() {
-		return ProjectUtils.KUALI_COMMON_GROUP_ID;
-	}
-
-	@Override
 	public String getArtifactId() {
 		return "kuali-util";
-	}
-
-	@Override
-	public List<String> getPropertyLocations() {
-		return Collections.emptyList();
 	}
 
 }
