@@ -4,20 +4,12 @@ public class UtilProjectContext extends DefaultProjectContext {
 
 	private static ProjectContext instance = new UtilProjectContext();
 
-	// This must exactly match the artifact id declared in the pom
-	private static final String ARTIFACT_ID = "kuali-util";
-
 	private UtilProjectContext() {
-		super();
+		super(ProjectUtils.KUALI_COMMON_GROUP_ID, "kuali-util");
 	}
 
 	public static ProjectContext getInstance() {
 		return instance;
-	}
-
-	@Override
-	public String getArtifactId() {
-		return ARTIFACT_ID;
 	}
 
 }
