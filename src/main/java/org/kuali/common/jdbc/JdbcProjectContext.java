@@ -10,12 +10,12 @@ public class JdbcProjectContext extends DefaultProjectContext {
 
 	private static ProjectContext instance = new JdbcProjectContext();
 
-	private JdbcProjectContext() {
-		super("kuali-jdbc");
-	}
-
 	public static ProjectContext getInstance() {
 		return instance;
+	}
+
+	private JdbcProjectContext() {
+		super("kuali-jdbc");
 	}
 
 	@Override
