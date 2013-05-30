@@ -58,7 +58,7 @@ public class MavenUtils {
 		PropertySource<?> source = getPropertySource(mavenProperties, propertySourceConfig);
 
 		// Setup a property source context such that our single property source is the only one registered with Spring
-		// This will make it so our PropertySource is the ONLY thing to resolve placeholders
+		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
 		PropertySourceContext psc = new PropertySourceContext(source, true);
 
 		// Setup a Spring context
