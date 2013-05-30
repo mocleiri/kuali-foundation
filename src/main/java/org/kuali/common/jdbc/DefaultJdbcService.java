@@ -160,6 +160,7 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
+		informer.start();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
 		informer.stop();
 
