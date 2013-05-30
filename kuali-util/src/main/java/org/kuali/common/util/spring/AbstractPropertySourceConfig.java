@@ -18,7 +18,6 @@ package org.kuali.common.util.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,9 +39,9 @@ public abstract class AbstractPropertySourceConfig {
 	protected abstract ProjectProperties getProjectProperties();
 
 	public PropertySource<?> getPropertySource() {
-		ProjectProperties pp = getProjectProperties();
-		List<ProjectProperties> list = getProjectPropertiesList();
-		return ProjectUtils.getPropertySource(pp, list);
+		ProjectProperties project = getProjectProperties();
+		List<ProjectProperties> others = getProjectPropertiesList();
+		return SpringUtils.getGlobalPropertySource(project, others);
 	}
 
 	@Bean
