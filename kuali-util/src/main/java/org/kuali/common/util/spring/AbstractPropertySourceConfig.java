@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.property.ProjectProperties;
@@ -33,7 +33,7 @@ public abstract class AbstractPropertySourceConfig {
 	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate. Properties from this list use a "last one in wins" strategy.
 	 */
 	protected List<ProjectProperties> getOtherProjectProperties() {
-		return new ArrayList<ProjectProperties>();
+		return Collections.emptyList();
 	}
 
 	protected abstract ProjectProperties getProjectProperties();
