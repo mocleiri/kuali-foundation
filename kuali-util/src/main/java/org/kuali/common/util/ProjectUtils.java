@@ -23,7 +23,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.project.ProjectContext;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
