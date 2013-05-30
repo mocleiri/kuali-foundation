@@ -3,29 +3,19 @@ package org.kuali.common.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.ProjectUtils;
 
-public class JdbcProjectContext implements ProjectContext {
+public class JdbcProjectContext extends DefaultProjectContext {
 
 	private static ProjectContext instance = new JdbcProjectContext();
 
 	private JdbcProjectContext() {
-		super();
+		super("kuali-jdbc");
 	}
 
 	public static ProjectContext getInstance() {
 		return instance;
-	}
-
-	@Override
-	public String getGroupId() {
-		return ProjectUtils.KUALI_COMMON_GROUP_ID;
-	}
-
-	@Override
-	public String getArtifactId() {
-		return "kuali-jdbc";
 	}
 
 	@Override
