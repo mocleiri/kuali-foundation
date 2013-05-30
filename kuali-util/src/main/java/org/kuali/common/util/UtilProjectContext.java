@@ -1,6 +1,6 @@
 package org.kuali.common.util;
 
-public class UtilProjectContext extends AbstractProjectContext {
+public class UtilProjectContext extends DefaultProjectContext {
 
 	private static ProjectContext instance = new UtilProjectContext();
 
