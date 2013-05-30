@@ -40,6 +40,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.project.ProjectContext;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.service.DefaultSpringService;
@@ -65,7 +66,46 @@ public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
-	// Configure a helper that fails on unresolved placeholders
+	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
+
+	/**
+	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
+	 * in wins.
+	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others) {
+
+		ProjectProperties projectProperties = ProjectUtils.getProjectProperties(project);
+
+		List<ProjectProperties> otherProjectProperties = new ArrayList<ProjectProperties>();
+		for (ProjectContext other : others) {
+			ProjectProperties opp = ProjectUtils.getProjectProperties(other);
+			otherProjectProperties.add(opp);
+		}
+
+		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
+		return getGlobalPropertySource(projectProperties, otherProjectProperties);
+	}
+
+	/**
+	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
+	 * in wins.
+	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project, List<ProjectProperties> others) {
+		// Property loading uses a "last one in wins" strategy
+		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
+
+		// Add project properties first so they can be used to resolve locations
+		list.add(project);
+
+		// Load in project properties
+		list.addAll(others);
+
+		// Add project properties last so they override loaded properties
+		list.add(project);
+
+		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
+		return getGlobalPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, list);
+	}
 
 	public static List<String> getIncludes(Environment env, String key, String defaultValue) {
 		String includes = SpringUtils.getProperty(env, key, defaultValue);
