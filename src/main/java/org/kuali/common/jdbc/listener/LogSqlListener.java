@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 public class LogSqlListener extends NoOpSqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogSqlListener.class);
-	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.DEBUG;
+	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.TRACE;
 	public static final LogSqlMode DEFAULT_MODE = LogSqlMode.AFTER;
 
 	LoggerLevel level = DEFAULT_LOGGER_LEVEL;
