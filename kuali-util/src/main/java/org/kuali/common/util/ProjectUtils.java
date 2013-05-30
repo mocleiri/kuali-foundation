@@ -39,6 +39,8 @@ public class ProjectUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	public static final String KUALI_COMMON_GROUP_ID = "org.kuali.common";
+
 	/**
 	 * 
 	 */
