@@ -58,8 +58,6 @@ public abstract class AbstractSqlController {
 		for (SqlExecutionContext context : contexts) {
 			SqlConfigContext scc = new SqlConfigContext(env, context, commonConfig, dataSourceConfig);
 			Executable executable = SqlConfigUtils.getJdbcExecutable(scc);
-			// PrintMessageExecutable pme = new PrintMessageExecutable();
-			// pme.setMessage("[" + context.getGroup() + ":" + context.getMode().name().toLowerCase() + "]");
 			executables.add(executable);
 		}
 		executables.add(dbaAfterConfig.getDbaPhaseExecutable());
