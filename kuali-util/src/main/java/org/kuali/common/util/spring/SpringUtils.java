@@ -74,11 +74,11 @@ public class SpringUtils {
 	 */
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others) {
 
-		ProjectProperties projectProperties = ProjectUtils.getProjectProperties(project);
+		ProjectProperties projectProperties = ProjectUtils.loadProjectProperties(project);
 
 		List<ProjectProperties> otherProjectProperties = new ArrayList<ProjectProperties>();
 		for (ProjectContext other : others) {
-			ProjectProperties opp = ProjectUtils.getProjectProperties(other);
+			ProjectProperties opp = ProjectUtils.loadProjectProperties(other);
 			otherProjectProperties.add(opp);
 		}
 
