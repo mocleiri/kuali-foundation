@@ -56,16 +56,25 @@ public class ProjectUtils {
 		return new ProjectProperties(project, propertiesContext);
 	}
 
+	/**
+	 * Create a <code>Project</code> object from the <code>context</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
+	 */
 	public static Project loadProject(ProjectContext context) {
 		return loadProject(context.getGroupId() + ":" + context.getArtifactId());
 	}
 
+	/**
+	 * Create a <code>Project</code> object from the <code>gav</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
+	 */
 	public static Project loadProject(String gav) {
 		Project project = getProject(gav);
 		Properties properties = loadProperties(project);
 		return getProject(properties);
 	}
 
+	/**
+	 * Create a skeleton <code>Project</code> object from the <code>gav</code>. Nothing but the GAV info gets filled in. Does not read <code>project.properties</code> from disk.
+	 */
 	public static Project getProject(String gav) {
 		logger.debug("Processing [{}]", gav);
 		String[] tokens = StringUtils.split(gav, ":");
@@ -99,6 +108,9 @@ public class ProjectUtils {
 		return dependencies;
 	}
 
+	/**
+	 * Return a <code>Project</code> object by copying values from the <code>properties</code> object into a <code>Project</code> object.
+	 */
 	public static Project getProject(Properties properties) {
 		List<String> skipKeys = Arrays.asList("project.dependencies");
 		String startsWith = "project.";
