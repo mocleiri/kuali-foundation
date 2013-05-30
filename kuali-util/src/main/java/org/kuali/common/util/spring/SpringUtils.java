@@ -69,6 +69,34 @@ public class SpringUtils {
 
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
+	public static SpringContext getSpringContext(List<Class<?>> annotatedClasses, ProjectContext project, List<ProjectContext> others) {
+		// This PropertySource object is backed by a set of properties that has been
+		// 1 - fully resolved
+		// 2 - contains all properties needed by Spring
+		// 3 - contains system/environment properties where system/env properties override loaded properties
+		PropertySource<?> source = getGlobalPropertySource(project, others);
+
+		// Setup a property source context such that our single property source is the only one registered with Spring
+		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
+		PropertySourceContext psc = new PropertySourceContext(source, true);
+
+		// Setup a Spring context
+		SpringContext context = new SpringContext();
+
+		// Supply Spring with our PropertySource
+		context.setPropertySourceContext(psc);
+
+		// Supply Spring with java classes containing annotated config
+		context.setAnnotatedClasses(annotatedClasses);
+
+		// Return a Spring context configured with a single property source
+		return context;
+	}
+
+	public static SpringContext getSpringContext(Class<?> annotatedClass, ProjectContext project, List<ProjectContext> others) {
+		return getSpringContext(CollectionUtils.asList(annotatedClass), project, others);
+	}
+
 	/**
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
