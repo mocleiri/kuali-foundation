@@ -35,7 +35,7 @@ public class OleMavenPropertySourceConfig extends MavenPropertySourceConfig {
 	OlePropertiesConfig oleProperties;
 
 	@Override
-	protected List<ProjectProperties> getProjectPropertiesList() {
+	protected List<ProjectProperties> getOtherProjectProperties() {
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
 		list.add(jdbcProperties.jdbcProjectProperties());
 		list.add(oleProperties.oleProjectProperties());
