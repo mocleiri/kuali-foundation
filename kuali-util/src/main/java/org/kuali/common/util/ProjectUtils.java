@@ -25,6 +25,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,21 @@ public class ProjectUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
+
+	/**
+	 * Given a <code>groupId</code> and <code>artifactId</code> return a <code>ProjectProperties</code> object representing the project.properties that was embedded in META-INF
+	 */
+	public static ProjectProperties getProjectProperties(String groupId, String artifactId) {
+
+		// Combine them into a GAV
+		String gav = groupId + ":" + artifactId;
+
+		// Load the project object from the gav
+		Project project = loadProject(gav);
+
+		// Return the project properties object
+		return new ProjectProperties(project, new PropertiesContext(project.getProperties()));
+	}
 
 	public static Project loadProject(String gav) {
 		Project project = getProject(gav);
