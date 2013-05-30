@@ -23,13 +23,12 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.project.ProjectContext;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
-import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.PropertySource;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -39,26 +38,31 @@ public class ProjectUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
 	/**
-	 * Given a <code>groupId</code> and <code>artifactId</code> return a <code>ProjectProperties</code> object representing the project.properties that was embedded in META-INF
+	 * 
 	 */
-	public static ProjectProperties getProjectProperties(String groupId, String artifactId) {
+	public static ProjectProperties loadProjectProperties(ProjectContext context) {
 
-		// Combine them into a GAV
-		String gav = groupId + ":" + artifactId;
+		// Get a project object based on the context information
+		Project project = loadProject(context);
 
-		// Load the project object from the gav
-		Project project = loadProject(gav);
+		// Create a properties context object from the project.properties file from META-INF
+		PropertiesContext propertiesContext = new PropertiesContext(project.getProperties());
+		propertiesContext.setEncoding(project.getEncoding());
+		propertiesContext.setLocations(context.getPropertyLocations());
 
-		// Return the project properties object
-		return new ProjectProperties(project, new PropertiesContext(project.getProperties()));
+		// Return a project properties object
+		return new ProjectProperties(project, propertiesContext);
+	}
+
+	public static Project loadProject(ProjectContext context) {
+		return loadProject(context.getGroupId() + ":" + context.getArtifactId());
 	}
 
 	public static Project loadProject(String gav) {
 		Project project = getProject(gav);
-		Properties properties = getProperties(project);
+		Properties properties = loadProperties(project);
 		return getProject(properties);
 	}
 
@@ -134,19 +138,19 @@ public class ProjectUtils {
 		return sb.toString();
 	}
 
-	public static Properties getProperties(String gav) {
-		return getProperties(getProject(gav));
+	public static Properties loadProperties(String gav) {
+		return loadProperties(getProject(gav));
 	}
 
-	public static Properties getProperties(Project project) {
-		String location = getPropertiesLocation(project);
+	public static Properties loadProperties(Project project) {
+		String location = getPropertiesFileLocation(project);
 		if (!LocationUtils.exists(location)) {
 			throw new IllegalArgumentException("[" + location + "] does not exist");
 		}
 		return PropertyUtils.load(location);
 	}
 
-	public static String getPropertiesLocation(Project project) {
+	public static String getPropertiesFileLocation(Project project) {
 		Assert.hasText(project.getGroupId(), "groupId has no text");
 		Assert.hasText(project.getArtifactId(), "artifactId has no text");
 
@@ -157,41 +161,4 @@ public class ProjectUtils {
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
 	}
 
-	public static String getJavaSourceFileTemplate() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("package ${project.groupId};\n");
-		sb.append("\n");
-		sb.append("/**\n");
-		sb.append(" * ############################# WARNING ##############################\n");
-		sb.append(" * \n");
-		sb.append(" * This is a generated file. Do NOT edit.\n");
-		sb.append(" * \n");
-		sb.append(" * Automated process keeps this source file in sync with the Maven POM.\n");
-		sb.append(" */\n");
-		sb.append("public abstract class ${project.artifactId.classname} {\n");
-		sb.append("\n");
-		sb.append("	public static final String GROUP_ID = \"${project.groupId}\";\n");
-		sb.append("	public static final String ARTIFACT_ID = \"${project.artifactId}\";\n");
-		sb.append("	public static final String VERSION = \"${project.version}\";\n");
-		sb.append("\n");
-		sb.append("}\n");
-		return sb.toString();
-	}
-
-	public static PropertySource<?> getPropertySource(ProjectProperties pp, List<ProjectProperties> list) {
-		// Property loading uses a "last one in wins" strategy
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
-
-		// Add project properties first so they can be used to resolve locations
-		pps.add(pp);
-
-		// Load in project properties
-		pps.addAll(list);
-
-		// Add project properties last so they override loaded properties
-		pps.add(pp);
-
-		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
-		return SpringUtils.getGlobalPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, pps);
-	}
 }
