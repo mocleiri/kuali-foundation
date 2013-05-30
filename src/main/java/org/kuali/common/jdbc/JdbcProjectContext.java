@@ -8,6 +8,16 @@ import org.kuali.common.util.ProjectUtils;
 
 public class JdbcProjectContext implements ProjectContext {
 
+	private static ProjectContext instance = new JdbcProjectContext();
+
+	private JdbcProjectContext() {
+		super();
+	}
+
+	public static ProjectContext getInstance() {
+		return instance;
+	}
+
 	@Override
 	public String getGroupId() {
 		return ProjectUtils.KUALI_COMMON_GROUP_ID;

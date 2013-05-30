@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Import;
 @Import(JdbcProjectConfig.class)
 public class JdbcPropertiesConfig {
 
-	ProjectContext context = new JdbcProjectContext();
+	ProjectContext context = JdbcProjectContext.getInstance();
 
 	@Autowired
 	JdbcProjectConfig projectConfig;

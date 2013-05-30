@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JdbcProjectConfig {
 
-	ProjectContext context = new JdbcProjectContext();
+	ProjectContext context = JdbcProjectContext.getInstance();
 
 	@Bean
 	public Project jdbcProject() {
