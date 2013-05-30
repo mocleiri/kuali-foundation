@@ -17,7 +17,7 @@ public class UtilProjectContext extends AbstractProjectContext {
 
 	@Override
 	public String getArtifactId() {
-		return "kuali-util";
+		return ARTIFACT_ID;
 	}
 
 }
