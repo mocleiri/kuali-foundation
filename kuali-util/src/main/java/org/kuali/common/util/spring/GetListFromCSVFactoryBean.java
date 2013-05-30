@@ -25,7 +25,7 @@ public class GetListFromCSVFactoryBean implements FactoryBean<List<String>> {
 	String csv;
 
 	@Override
-	public List<String> getObject() throws Exception {
+	public List<String> getObject() {
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
