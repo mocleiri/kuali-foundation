@@ -139,7 +139,7 @@ public class PropertyUtils {
 			PropertyUtils.decrypt(properties, decryptor);
 		}
 	}
-	
+
 	public static Properties getAdditionalProperties(Properties properties) {
 		return getAdditionalProperties(properties, null);
 	}
@@ -153,7 +153,7 @@ public class PropertyUtils {
 			encoding = properties.getProperty(ADDITIONAL_LOCATIONS_ENCODING, DEFAULT_XML_ENCODING);
 		}
 		List<String> locations = CollectionUtils.getTrimmedListFromCSV(csv);
-		PropertiesContext context = new PropertiesContext(encoding, locations);
+		PropertiesContext context = new PropertiesContext(locations, encoding);
 		return load(context);
 	}
 
