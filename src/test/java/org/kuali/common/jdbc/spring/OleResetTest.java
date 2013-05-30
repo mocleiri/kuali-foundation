@@ -31,7 +31,7 @@ public class OleResetTest {
 			SpringService ss = new DefaultSpringService();
 
 			// Setup a Spring context that uses maven properties for placeholder resolution
-			SpringContext context = MavenUtils.getMavenizedSpringContext(ss, OlePropertiesConfig.OLE_MAVEN_PROPS, OleMavenPropertySourceConfig.class);
+			SpringContext context = MavenUtils.getMavenizedSpringContext(OlePropertiesConfig.OLE_MAVEN_PROPS, OleMavenPropertySourceConfig.class);
 
 			// Reset the db using annotated config
 			context.setAnnotatedClasses(CollectionUtils.asList(SqlControllerConfig.class));
