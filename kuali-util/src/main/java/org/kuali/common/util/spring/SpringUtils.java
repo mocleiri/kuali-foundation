@@ -46,6 +46,7 @@ import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -154,6 +155,11 @@ public class SpringUtils {
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
+	@Deprecated
+	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+		return getPropertySources(annotatedClass, mavenPropertiesBeanName, mavenProperties);
+	}
+
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
 		ConfigurableApplicationContext parent = null;
 		if (mavenProperties == null) {
@@ -166,6 +172,11 @@ public class SpringUtils {
 		child.register(annotatedClass);
 		child.refresh();
 		return SpringUtils.getPropertySources(child);
+	}
+
+	@Deprecated
+	public static List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
+		return getPropertySources(location, mavenPropertiesBeanName, mavenProperties);
 	}
 
 	public static List<PropertySource<?>> getPropertySources(String location, String mavenPropertiesBeanName, Properties mavenProperties) {
