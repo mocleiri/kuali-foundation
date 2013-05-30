@@ -32,7 +32,7 @@ public abstract class AbstractPropertySourceConfig {
 	/**
 	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate. Properties from this list use a "last one in wins" strategy.
 	 */
-	protected List<ProjectProperties> getProjectPropertiesList() {
+	protected List<ProjectProperties> getOtherProjectProperties() {
 		return new ArrayList<ProjectProperties>();
 	}
 
@@ -40,7 +40,7 @@ public abstract class AbstractPropertySourceConfig {
 
 	public PropertySource<?> getPropertySource() {
 		ProjectProperties project = getProjectProperties();
-		List<ProjectProperties> others = getProjectPropertiesList();
+		List<ProjectProperties> others = getOtherProjectProperties();
 		return SpringUtils.getGlobalPropertySource(project, others);
 	}
 
