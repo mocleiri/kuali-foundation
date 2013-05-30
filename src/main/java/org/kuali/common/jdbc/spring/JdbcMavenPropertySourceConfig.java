@@ -32,7 +32,7 @@ public class JdbcMavenPropertySourceConfig extends MavenPropertySourceConfig {
 	protected JdbcPropertiesConfig jdbcProperties;
 
 	@Override
-	protected List<ProjectProperties> getProjectPropertiesList() {
+	protected List<ProjectProperties> getOtherProjectProperties() {
 		return Arrays.asList(jdbcProperties.jdbcProjectProperties());
 	}
 
