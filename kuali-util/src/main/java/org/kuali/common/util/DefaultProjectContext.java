@@ -1,5 +1,6 @@
 package org.kuali.common.util;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class DefaultProjectContext implements ProjectContext {
 
 	public DefaultProjectContext(String groupId, String artifactId) {
 		this(groupId, artifactId, DEFAULT_PROPERTY_LOCATIONS);
+	}
+
+	public DefaultProjectContext(String groupId, String artifactId, String propertyLocation) {
+		this(groupId, artifactId, Arrays.asList(propertyLocation));
 	}
 
 	public DefaultProjectContext(String groupId, String artifactId, List<String> propertyLocations) {
