@@ -15,8 +15,9 @@
  */
 package org.kuali.common.jdbc.spring;
 
-import org.kuali.common.util.MavenConstants;
+import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.ProjectUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,12 +25,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JdbcProjectConfig {
 
-	public static final String GROUP_ID = MavenConstants.KUALI_COMMON_GROUP_ID;
-	public static final String ARTIFACT_ID = "kuali-jdbc";
+	ProjectContext context = new JdbcProjectContext();
 
 	@Bean
 	public Project jdbcProject() {
-		return ProjectUtils.loadProject(GROUP_ID + ":" + ARTIFACT_ID);
+		return ProjectUtils.loadProject(context);
 	}
 
 }
