@@ -5,17 +5,31 @@ import java.util.List;
 
 public class DefaultProjectContext implements ProjectContext {
 
-	String groupId = ProjectUtils.KUALI_COMMON_GROUP_ID;
+	public static final List<String> DEFAULT_PROPERTY_LOCATIONS = Collections.emptyList();
+	public static final String DEFAULT_GROUP_ID = ProjectUtils.KUALI_COMMON_GROUP_ID;
+
+	String groupId = DEFAULT_GROUP_ID;
 	String artifactId;
-	List<String> propertyLocations = Collections.emptyList();
+	List<String> propertyLocations = DEFAULT_PROPERTY_LOCATIONS;
+
+	public DefaultProjectContext() {
+		this(DEFAULT_GROUP_ID, null);
+	}
+
+	public DefaultProjectContext(String groupId, String artifactId) {
+		this(groupId, artifactId, DEFAULT_PROPERTY_LOCATIONS);
+	}
+
+	public DefaultProjectContext(String groupId, String artifactId, List<String> propertyLocations) {
+		super();
+		this.groupId = groupId;
+		this.artifactId = artifactId;
+		this.propertyLocations = propertyLocations;
+	}
 
 	@Override
 	public String getGroupId() {
 		return groupId;
-	}
-
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
 	}
 
 	@Override
@@ -23,17 +37,8 @@ public class DefaultProjectContext implements ProjectContext {
 		return artifactId;
 	}
 
-	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
-	}
-
 	@Override
 	public List<String> getPropertyLocations() {
 		return propertyLocations;
 	}
-
-	public void setPropertyLocations(List<String> propertyLocations) {
-		this.propertyLocations = propertyLocations;
-	}
-
 }
