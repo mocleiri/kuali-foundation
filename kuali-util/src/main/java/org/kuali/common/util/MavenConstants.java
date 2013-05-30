@@ -17,7 +17,7 @@ package org.kuali.common.util;
 
 public abstract class MavenConstants {
 
-	public static final String KUALI_COMMON_GROUP_ID = "org.kuali.common";
+	public static final String KUALI_COMMON_GROUP_ID = ProjectUtils.KUALI_COMMON_GROUP_ID;
 	public static final String MAVEN_PROJECT_BEAN_NAME = "mavenProject";
 	public static final String MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
 
