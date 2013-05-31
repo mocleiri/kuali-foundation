@@ -44,6 +44,10 @@ public class DefaultProjectContext implements ProjectContext {
 		this(groupId, artifactId, Arrays.asList(propertyLocation));
 	}
 
+	public DefaultProjectContext(String artifactId, List<String> propertyLocations) {
+		this(DEFAULT_GROUP_ID, artifactId, propertyLocations);
+	}
+
 	public DefaultProjectContext(String groupId, String artifactId, List<String> propertyLocations) {
 		super();
 		this.groupId = groupId;
