@@ -64,7 +64,15 @@ public class ProjectUtils {
 	 * Create a <code>Project</code> object from the <code>context</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
 	 */
 	public static Project loadProject(ProjectContext context) {
-		return loadProject(getGav(context.getGroupId(), context.getArtifactId()));
+		return loadProject(getGav(context));
+	}
+
+	public static String getGav(ProjectContext context) {
+		return getGav(context.getGroupId(), context.getArtifactId());
+	}
+
+	public static String getGav(Project project) {
+		return getGav(project.getGroupId(), project.getArtifactId());
 	}
 
 	public static String getGav(String groupId, String artifactId) {
@@ -74,18 +82,22 @@ public class ProjectUtils {
 	/**
 	 * Create a <code>Project</code> object from the <code>gav</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
 	 */
-	public synchronized static Project loadProject(String gav) {
+	public static Project loadProject(String gav) {
+		// Convert the gav into a Project
 		Project project = getProject(gav);
 
-		// Add to our cache so we aren't constantly reloading project.properties from disk
-		Properties properties = PROJECT_PROPERTIES_CACHE.get(gav);
-		if (properties == null) {
-			properties = loadProperties(project);
-			PROJECT_PROPERTIES_CACHE.put(gav, properties);
-		}
+		// Load properties from a .properties file for this project
+		Properties properties = loadProperties(project);
 
-		// Configure a properties object from the properties
+		// Return a fully configured project object based on the properties
 		return getProject(properties);
+	}
+
+	/**
+	 * Provide a way to clear the cache
+	 */
+	public synchronized static void clearProjectPropertiesCache() {
+		PROJECT_PROPERTIES_CACHE.clear();
 	}
 
 	/**
@@ -170,12 +182,24 @@ public class ProjectUtils {
 		return loadProperties(getProject(gav));
 	}
 
-	public static Properties loadProperties(Project project) {
+	public static synchronized Properties loadProperties(Project project) {
+		String gav = getGav(project.getGroupId(), project.getArtifactId());
+		Properties properties = PROJECT_PROPERTIES_CACHE.get(gav);
+		if (properties != null) {
+			return properties;
+		} else {
+			return loadAndCache(project, gav);
+		}
+	}
+
+	protected static Properties loadAndCache(Project project, String gav) {
 		String location = getPropertiesFileLocation(project);
 		if (!LocationUtils.exists(location)) {
 			throw new IllegalArgumentException("[" + location + "] does not exist");
 		}
-		return PropertyUtils.load(location);
+		Properties properties = PropertyUtils.load(location);
+		PROJECT_PROPERTIES_CACHE.put(gav, properties);
+		return properties;
 	}
 
 	public static String getPropertiesFileLocation(Project project) {
