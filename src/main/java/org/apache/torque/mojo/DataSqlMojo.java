@@ -25,9 +25,8 @@ import org.apache.torque.util.SimpleScanner;
 import org.kuali.core.db.torque.KualiTorqueDataSQLTask;
 
 /**
- * Generates platform specific SQL from database agnostic XML files. Each SQL file created by this goal contains data
- * for a single table. The database platform to generate SQL for is determined by ${targetDatabase}. See also
- * <code>impex:schemasql</code>
+ * Generates platform specific SQL from database agnostic XML files. Each SQL file created by this goal contains data for a single table. The database platform to generate SQL for
+ * is determined by ${targetDatabase}. See also <code>impex:schemasql</code>
  * 
  * @goal datasql
  * @phase generate-sources
@@ -36,7 +35,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	/**
 	 * The directory in which the SQL will be generated.
 	 * 
-	 * @parameter property="outputDir" expression="${outputDir}" default-value="${project.build.directory}/classes/sql"
+	 * @parameter expression="${outputDir}" default-value="${project.build.directory}/classes/sql"
 	 * @required
 	 */
 	@SuppressWarnings("unused")
@@ -45,8 +44,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	/**
 	 * The location where the SQL file will be generated.
 	 * 
-	 * @parameter property="reportFile" expression="${reportFile}"
-	 *            default-value="../../../reports/report.${project.artifactId}-data.sql"
+	 * @parameter expression="${reportFile}" default-value="../../../reports/report.${project.artifactId}-data.sql"
 	 */
 	@SuppressWarnings("unused")
 	private String dummy2;
@@ -54,8 +52,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	/**
 	 * The location where the context property file for velocity will be generated.
 	 * 
-	 * @parameter property="contextPropertiesPath" expression="${contextPropertiesPath}"
-	 *            default-value="${project.build.directory}/reports/context.datasql.properties"
+	 * @parameter expression="${contextPropertiesPath}" default-value="${project.build.directory}/reports/context.datasql.properties"
 	 */
 	@SuppressWarnings("unused")
 	private String dummy3;
@@ -102,8 +99,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	/**
 	 * The DTD for the data XML files
 	 * 
-	 * @parameter expression="${dataDTD}"
-	 *            default-value="${project.build.directory}/generated-impex/${project.artifactId}.dtd"
+	 * @parameter expression="${dataDTD}" default-value="${project.build.directory}/generated-impex/${project.artifactId}.dtd"
 	 * @required
 	 */
 	private File dataDTD;
@@ -140,6 +136,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	 * 
 	 * @return The PropertiesConfiguration containing all context properties, not null.
 	 */
+	@Override
 	protected PropertiesConfiguration getMojoContextProperties() {
 		PropertiesConfiguration configuration = new PropertiesConfiguration();
 		configuration.addProperty(TARGET_DATABASE_CONTEXT_PROPERTY, super.getTargetDatabase());
@@ -149,6 +146,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	/**
 	 * Configures the Texen task wrapped by this mojo
 	 */
+	@Override
 	protected void configureTask() throws MojoExecutionException {
 		KualiTorqueDataSQLTask task = new KualiTorqueDataSQLTask();
 		setAntTask(task);
@@ -164,6 +162,7 @@ public class DataSqlMojo extends DataModelTaskMojo {
 	 * 
 	 * @return "sql/load/Control.vm"
 	 */
+	@Override
 	protected String getControlTemplate() {
 		return "sql/load/Control.vm";
 	}
