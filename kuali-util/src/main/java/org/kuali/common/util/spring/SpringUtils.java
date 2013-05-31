@@ -114,7 +114,7 @@ public class SpringUtils {
 		ProjectProperties projectProperties = ProjectUtils.loadProjectProperties(project);
 
 		List<ProjectProperties> otherProjectProperties = new ArrayList<ProjectProperties>();
-		for (ProjectContext other : others) {
+		for (ProjectContext other : CollectionUtils.toEmptyList(others)) {
 			ProjectProperties opp = ProjectUtils.loadProjectProperties(other);
 			otherProjectProperties.add(opp);
 		}

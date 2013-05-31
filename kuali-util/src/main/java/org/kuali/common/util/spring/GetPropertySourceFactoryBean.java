@@ -17,6 +17,7 @@ package org.kuali.common.util.spring;
 
 import java.util.List;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.ProjectContext;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.env.PropertySource;
@@ -28,7 +29,8 @@ public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<
 
 	@Override
 	public PropertySource<?> getObject() {
-		return null;
+		Assert.notNull(project, "project is null");
+		return SpringUtils.getGlobalPropertySource(project, others);
 	}
 
 	@Override
