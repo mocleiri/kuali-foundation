@@ -15,21 +15,13 @@
 
 package org.kuali.common.jalc.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
 import org.kuali.common.jalc.spring.MpxSupplierConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.MavenUtils;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
-import org.springframework.util.ResourceUtils;
 
-public class BuildDatabase {
+public class BuildDatabaseUtility {
 
     public static void main(String[] args) {
 
@@ -44,15 +36,6 @@ public class BuildDatabase {
         }
 
         try {
-            Properties props = getTestMavenProperties(propertyFileName);
-
-            // Default Spring service will do what we need
-            SpringService ss = new DefaultSpringService();
-
-            // Setup a Spring context that uses maven properties for placeholder resolution
-            SpringContext context = MavenUtils.getMavenizedSpringContext(ss, props, UtilMavenPropertySourceConfig.class);
-
-            // Reset the db using annotated config
 
             List<Class<?>> configClasses;
             if(includeMpxConfig) {
@@ -62,32 +45,15 @@ public class BuildDatabase {
                 configClasses = CollectionUtils.asList(SqlControllerConfig.class);
             }
 
-            context.setAnnotatedClasses(configClasses);
+            // Reset the db using annotated config
+            SpringContextUtils.loadSpringService(propertyFileName, JdbcPropertyConfig.class, configClasses);
 
-            // Execute Spring
-            ss.load(context);
+
         }
         catch(Exception e) {
             e.printStackTrace();
         }
 
-    }
-
-    private static Properties getTestMavenProperties(String fileName) throws IOException {
-        Properties p = new Properties();
-        p.load(new FileInputStream(ResourceUtils.getFile(fileName)));
-
-        p.setProperty("project.groupId", "org.kuali.foundation");
-        p.setProperty("project.artifactId", "torque-executor");
-        p.setProperty("project.version", "2.1.8-SNAPSHOT");
-        p.setProperty("project.encoding", "UTF-8");
-        p.setProperty("project.orgId", "org.kuali");
-        p.setProperty("project.orgId.code", "kuali");
-        p.setProperty("project.orgId.path", "org/kuali");
-
-        MavenUtils.augmentProjectProperties(p);
-
-        return p;
     }
 
     private static void printHelpAndExit() {

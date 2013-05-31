@@ -15,8 +15,15 @@
 
 package org.kuali.common.jalc;
 
+import java.io.IOException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 import org.kuali.common.jalc.model.DataType;
+import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.model.Table;
+import org.kuali.common.util.LocationUtils;
 
 /**
  * String utility methods for classes creating sql from schema model data
@@ -74,5 +81,20 @@ public class ProducerUtils {
         }
 
         return dataType == DataType.STRING || dataType == DataType.CLOB;
+    }
+
+    /**
+     * Standard code for initializing a schema model from an xml resource
+     *
+     * @param xmlLocation resource location of the xml
+     * @return a Schema populated from the xml
+     * @throws JAXBException
+     * @throws IOException
+     */
+    public static Schema unmarshalSchema(String xmlLocation) throws JAXBException, IOException {
+        JAXBContext context = JAXBContext.newInstance(Schema.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+
+        return (Schema)unmarshaller.unmarshal(LocationUtils.getBufferedReader(xmlLocation));
     }
 }

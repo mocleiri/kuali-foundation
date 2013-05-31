@@ -15,6 +15,7 @@
 
 package org.kuali.common.jalc.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -34,6 +35,13 @@ public class Schema {
     protected List<View> views;
 
     protected List<ForeignKey> foreignKeys;
+
+    public Schema() {
+        tables = new ArrayList<Table>();
+        sequences = new ArrayList<Sequence>();
+        views = new ArrayList<View>();
+        foreignKeys = new ArrayList<ForeignKey>();
+    }
 
     @XmlElement
     public String getName() {

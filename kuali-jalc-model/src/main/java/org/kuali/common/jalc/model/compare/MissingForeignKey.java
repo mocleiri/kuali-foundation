@@ -22,6 +22,7 @@ public class MissingForeignKey extends ForeignKeyDifference {
 
     public MissingForeignKey(Schema sourceSchema, Schema missingSchema, ForeignKey foreignKey) {
         super(sourceSchema, foreignKey, missingSchema, null);
+        setType(ForeignKeyDifferenceType.MISSING_FOREIGN_KEY);
     }
 
     public Schema getSourceSchema() {

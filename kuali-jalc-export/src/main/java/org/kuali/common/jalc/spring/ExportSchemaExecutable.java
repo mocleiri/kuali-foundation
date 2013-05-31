@@ -25,11 +25,10 @@ import org.kuali.common.jalc.schema.ExportSchemaException;
 import org.kuali.common.jalc.schema.ExportSchemaService;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-@Configuration
-@Import(ExportSchemaConfig.class)
 public class ExportSchemaExecutable implements Executable {
 
     @Autowired
@@ -38,8 +37,24 @@ public class ExportSchemaExecutable implements Executable {
     @Autowired
     ExportSchemaService persistService;
 
+    Boolean enabled;
+
+    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+
+    public ExportSchemaExecutable() {
+        this(DEFAULT_EXECUTE_ENABLED);
+    }
+
+    public ExportSchemaExecutable(Boolean b) {
+        this.enabled = b;
+    }
+
     @Override
     public void execute() {
+
+        if(!enabled) {
+            return;
+        }
 
         Map<String, Schema> schemaLocations = persistSchemaConfig.schemaLocations();
 

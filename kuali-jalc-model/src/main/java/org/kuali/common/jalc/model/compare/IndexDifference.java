@@ -30,4 +30,20 @@ public class IndexDifference extends TableDifference {
         this.index1 = index1;
         this.index2 = index2;
     }
+
+    public Index getIndex1() {
+        return index1;
+    }
+
+    public void setIndex1(Index index1) {
+        this.index1 = index1;
+    }
+
+    public Index getIndex2() {
+        return index2;
+    }
+
+    public void setIndex2(Index index2) {
+        this.index2 = index2;
+    }
 }

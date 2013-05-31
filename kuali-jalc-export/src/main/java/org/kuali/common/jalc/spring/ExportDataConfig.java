@@ -49,6 +49,11 @@ public class ExportDataConfig {
     protected static final String ROW_INTERVAL_KEY = PROJECT_PREFIX + "export.data.rowInterval";
     protected static final String DATA_INTERVAL_KEY = PROJECT_PREFIX + "export.data.dataInterval";
 
+    /**
+     * Property key for a boolean setting whether or not the executable should run
+     */
+    protected static final String EXECUTE_ENABLED_KEY = PROJECT_PREFIX + "export.execute";
+
     protected static final String SIZE_PROPERTY_SUFFIX = ".size";
     protected static final String ROWS_PROPERTY_SUFFIX = ".rows";
 
@@ -101,5 +106,15 @@ public class ExportDataConfig {
     @Bean
     public ExportDataService exportDataService() {
         return new DefaultExportDataService();
+    }
+
+    @Bean(initMethod = "execute")
+    public ExportDataExecutable exportDataExecutable() {
+        return new ExportDataExecutable(executableEnabled());
+    }
+
+    @Bean
+    private Boolean executableEnabled() {
+        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, ExportDataExecutable.DEFAULT_EXECUTE_ENABLED);
     }
 }

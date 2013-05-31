@@ -19,11 +19,7 @@ import org.kuali.common.jalc.data.ExportDataContext;
 import org.kuali.common.jalc.data.ExportDataService;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-@Configuration
-@Import({ExportDataConfig.class})
 public class ExportDataExecutable implements Executable {
 
     @Autowired
@@ -32,8 +28,23 @@ public class ExportDataExecutable implements Executable {
     @Autowired
     ExportDataService service;
 
+    Boolean enabled;
+
+    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+
+    public ExportDataExecutable() {
+        this(DEFAULT_EXECUTE_ENABLED);
+    }
+
+    public ExportDataExecutable(Boolean b) {
+        this.enabled = b;
+    }
+
     @Override
     public void execute() {
-        service.exportTables(context);
+        if(enabled) {
+            service.exportTables(context);
+        }
     }
+
 }

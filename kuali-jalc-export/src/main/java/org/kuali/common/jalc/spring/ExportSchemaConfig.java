@@ -18,7 +18,6 @@ package org.kuali.common.jalc.spring;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.common.jalc.liquibase.LiquibaseModelProvider;
 import org.kuali.common.jalc.model.ModelProvider;
 import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.schema.DefaultExportSchemaService;
@@ -31,15 +30,37 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import(LiquibaseModelProvider.class)
+@Import(LiquibaseModelProviderConfig.class)
 public class ExportSchemaConfig {
 
     protected static final String PROJECT_PREFIX = "jalc.";
 
+    /**
+     * Property key for the location of the xml file for tables
+     */
     protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables";
+
+    /**
+     * Property key for the location of the xml file for views
+     */
     protected static final String VIEWS_LOCATION_KEY = PROJECT_PREFIX + "export.schema.views";
+
+    /**
+     * Property key for the location of the xml file for sequences
+     */
     protected static final String SEQUENCES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.sequences";
+
+    /**
+     * Property key for the location of the xml file for foreign keys
+     */
     protected static final String FOREIGNKEY_LOCATION_KEY = PROJECT_PREFIX + "export.schema.foreignkeys";
+
+
+    /**
+     * Property key for a boolean setting whether or not the executable should run
+     */
+    protected static final String EXECUTE_ENABLED_KEY = PROJECT_PREFIX + "export.execute";
+
 
     @Autowired
     Environment env;
@@ -47,8 +68,18 @@ public class ExportSchemaConfig {
     @Autowired
     ModelProvider modelProvider;
 
+    /**
+     * Build a map of resource locations to schema instances
+     *
+     * This allows for defining a whole schema in one file, or breaking the definition up
+     * into separate files (one for tables, one for views, etc)
+     *
+     * @return a Map of location strings to Schema instances, populated with schema objects
+     *         provided by the ModelProvider
+     */
     @Bean
     public Map<String, Schema> schemaLocations() {
+
 
         Map<String, Schema> result = new HashMap<String, Schema>();
 
@@ -84,5 +115,15 @@ public class ExportSchemaConfig {
     @Bean
     public ExportSchemaService persistService() {
         return new DefaultExportSchemaService();
+    }
+
+    @Bean(initMethod = "execute")
+    public ExportSchemaExecutable exportSchemaExecutable() {
+        return new ExportSchemaExecutable(executableEnabled());
+    }
+
+    @Bean
+    public Boolean executableEnabled() {
+        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, ExportSchemaExecutable.DEFAULT_EXECUTE_ENABLED);
     }
 }

@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
+import org.kuali.common.jalc.model.util.ModelUtils;
+
 /**
  * Bean that contains size information of a column data type
  */
@@ -41,7 +43,7 @@ public class TypeSize {
     public TypeSize(Integer size, Integer scale) {
         this.size = size;
         this.scale = scale;
-        scaleSet = true;
+        scaleSet = (this.scale != null);
     }
 
     @XmlAttribute
@@ -91,10 +93,11 @@ public class TypeSize {
             return false;
         }
 
-        if (!getScale().equals(other.getScale())) {
+        if (isScaleSet() && !getScale().equals(other.getScale())) {
             return false;
         }
 
         return true;
     }
+
 }

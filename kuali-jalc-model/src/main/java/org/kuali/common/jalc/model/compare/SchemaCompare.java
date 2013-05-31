@@ -190,18 +190,18 @@ public class SchemaCompare {
         foreignKeySets.add(schema1.getForeignKeys());
         foreignKeySets.add(schema2.getForeignKeys());
 
-        MissingElements<ForeignKey> missingTables = CompareUtils.determineMissingElements(foreignKeySets);
+        MissingElements<ForeignKey> missingForeignKeys = CompareUtils.determineMissingElements(foreignKeySets);
 
         // add a missing foreign key entry for each element found missing
-        for (ForeignKey fk : missingTables.getSet1Only()) {
+        for (ForeignKey fk : missingForeignKeys.getSet1Only()) {
             results.add(new MissingForeignKey(schema1, schema2, fk));
         }
 
-        for (ForeignKey t : missingTables.getSet2Only()) {
+        for (ForeignKey t : missingForeignKeys.getSet2Only()) {
             results.add(new MissingForeignKey(schema2, schema1, t));
         }
 
-        for (MatchingElement<ForeignKey> match : missingTables.getBoth()) {
+        for (MatchingElement<ForeignKey> match : missingForeignKeys.getBoth()) {
             results.addAll(CompareUtils.compareForeignKeys(schema1, match.getSet1Element(), schema2, match.getSet2Element()));
         }
 

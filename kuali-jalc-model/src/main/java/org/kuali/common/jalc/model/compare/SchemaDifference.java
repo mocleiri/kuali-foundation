@@ -16,40 +16,31 @@
 package org.kuali.common.jalc.model.compare;
 
 import org.kuali.common.jalc.model.Schema;
-import org.kuali.common.jalc.model.View;
 
-public class ViewDifference extends SchemaDifference {
-    View view1;
-    View view2;
-    ViewDifferenceType type;
+public abstract class SchemaDifference {
 
-    public ViewDifference(Schema schema1, View view1, Schema schema2, View view2) {
-        super(schema1, schema2);
-        this.view1 = view1;
-        this.view2 = view2;
+    protected Schema schema1;
+    protected Schema schema2;
+
+    public SchemaDifference(Schema schema1, Schema schema2) {
+        this.schema1 = schema1;
+        this.schema2 = schema2;
     }
 
-    public ViewDifferenceType getType() {
-        return type;
+    public Schema getSchema1() {
+        return schema1;
     }
 
-    public void setType(ViewDifferenceType type) {
-        this.type = type;
+    public void setSchema1(Schema schema1) {
+        this.schema1 = schema1;
     }
 
-    public View getView1() {
-        return view1;
+    public Schema getSchema2() {
+        return schema2;
     }
 
-    public void setView1(View view1) {
-        this.view1 = view1;
+    public void setSchema2(Schema schema2) {
+        this.schema2 = schema2;
     }
 
-    public View getView2() {
-        return view2;
-    }
-
-    public void setView2(View view2) {
-        this.view2 = view2;
-    }
 }

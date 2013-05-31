@@ -10,6 +10,14 @@
     <description>Kuali JALC SQL Producer</description>
     <dependencies>
         <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-jalc-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-jalc-common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -28,11 +36,19 @@
         </dependency>
         <dependency>
             <groupId>org.kuali.common</groupId>
-            <artifactId>kuali-jalc-model</artifactId>
+            <artifactId>kuali-jdbc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.kuali.common</groupId>
-            <artifactId>kuali-jdbc</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6_g</artifactId>
+            <version>${oracle.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>

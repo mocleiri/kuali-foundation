@@ -20,6 +20,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.kuali.common.jalc.ProducerUtils;
 import org.kuali.common.jalc.model.DefaultModelProvider;
 import org.kuali.common.jalc.model.ModelProvider;
 import org.kuali.common.jalc.model.Schema;
@@ -33,7 +34,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class XmlModelProviderConfig {
 
-    protected final static String XML_LOCATION_KEY = "impex.modelprovider.xml";
+    protected final static String XML_LOCATION_KEY = "jalc.schema.location";
 
     @Autowired
     Environment env;
@@ -42,10 +43,7 @@ public class XmlModelProviderConfig {
     public ModelProvider xmlModelProvider() throws JAXBException, IOException {
         String xmlLocation = SpringUtils.getProperty(env, XML_LOCATION_KEY);
 
-        JAXBContext context = JAXBContext.newInstance(Schema.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-
-        Schema schema = (Schema)unmarshaller.unmarshal(LocationUtils.getBufferedReader(xmlLocation));
+        Schema schema = ProducerUtils.unmarshalSchema(xmlLocation);
 
         return new DefaultModelProvider(schema);
     }

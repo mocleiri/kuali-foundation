@@ -18,36 +18,17 @@ package org.kuali.common.jalc.model.compare;
 import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.model.Sequence;
 
-public class SequenceDifference {
+public class SequenceDifference extends SchemaDifference {
 
-    Schema schema1;
-    Schema schema2;
     Sequence sequence1;
     Sequence sequence2;
 
     SequenceDifferenceType type;
 
     public SequenceDifference(Schema schema1, Sequence sequence1, Schema schema2, Sequence sequence2) {
-        this.schema1 = schema1;
-        this.schema2 = schema2;
+        super(schema1, schema2);
         this.sequence1 = sequence1;
         this.sequence2 = sequence2;
-    }
-
-    public Schema getSchema1() {
-        return schema1;
-    }
-
-    public void setSchema1(Schema schema1) {
-        this.schema1 = schema1;
-    }
-
-    public Schema getSchema2() {
-        return schema2;
-    }
-
-    public void setSchema2(Schema schema2) {
-        this.schema2 = schema2;
     }
 
     public Sequence getSequence1() {

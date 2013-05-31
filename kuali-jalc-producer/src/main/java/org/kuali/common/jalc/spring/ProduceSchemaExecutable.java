@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.jalc.util;
+package org.kuali.common.jalc.spring;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -27,8 +27,6 @@ import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jalc.model.ModelProvider;
 import org.kuali.common.jalc.schema.SchemaSqlProducer;
-import org.kuali.common.jalc.spring.SchemaSqlProducerConfig;
-import org.kuali.common.jalc.spring.XmlModelProviderConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +37,9 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ XmlModelProviderConfig.class, SchemaSqlProducerConfig.class })
-public class DumpExecutable implements Executable {
+public class ProduceSchemaExecutable implements Executable {
 
-    private static Logger log = Logger.getLogger(DumpExecutable.class.getSimpleName());
+    private static Logger log = Logger.getLogger(ProduceSchemaExecutable.class.getSimpleName());
 
 	private static final String LF = "\n";
 
@@ -57,12 +55,12 @@ public class DumpExecutable implements Executable {
 	/**
 	 * This property key points to the user defined folder to output sql files A property with the key is required to build the executable
 	 */
-	final static String DUMP_FOLDER_KEY = "impex.schemadump.folder";
+	final static String DUMP_FOLDER_KEY = "jalc.schemadump.folder";
 
 	/**
 	 * This property key points to the user defined prefix for dumped file names
 	 */
-	final static String FILENAME_PREFIX_KEY = "impex.schemadump.prefix";
+	final static String FILENAME_PREFIX_KEY = "jalc.schemadump.prefix";
 
 	final static String DEFAULT_FILENAME_PREFIX = "dump-";
 
@@ -76,13 +74,9 @@ public class DumpExecutable implements Executable {
 
 		Map<String, List<String>> fileNamesToSqls = new HashMap<String, List<String>>();
 
-        log.info("Loading table data");
 		fileNamesToSqls.put(getFileName(TABLE_FILE), schemaProducer.getTablesSql(modelProvider.getTables()));
-        log.info("Loading foreign key data");
 		fileNamesToSqls.put(getFileName(FOREIGN_KEY_FILE), schemaProducer.getForeignKeySql(modelProvider.getForeignKeys()));
-        log.info("Loading sequence data");
 		fileNamesToSqls.put(getFileName(SEQUENCE_FILE), schemaProducer.getSequencesSql(modelProvider.getSequences()));
-        log.info("Loading view data");
 		fileNamesToSqls.put(getFileName(VIEW_FILE), schemaProducer.getViewsSql(modelProvider.getViews()));
 
 		dumpFiles(fileNamesToSqls);
@@ -130,8 +124,8 @@ public class DumpExecutable implements Executable {
 	}
 
     @Bean(initMethod = "execute")
-    public DumpExecutable executableInstance() {
-        return new DumpExecutable();
+    public ProduceSchemaExecutable executableInstance() {
+        return new ProduceSchemaExecutable();
     }
 
 }

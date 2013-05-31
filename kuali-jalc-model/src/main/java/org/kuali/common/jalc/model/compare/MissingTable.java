@@ -17,6 +17,7 @@ package org.kuali.common.jalc.model.compare;
 
 import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.model.Table;
+import org.kuali.common.jalc.model.util.MissingElements;
 
 public class MissingTable extends TableDifference {
 

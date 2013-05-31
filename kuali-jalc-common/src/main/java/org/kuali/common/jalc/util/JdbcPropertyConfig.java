@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ JdbcPropertiesConfig.class })
-public class UtilMavenPropertySourceConfig extends MavenPropertySourceConfig {
+public class JdbcPropertyConfig extends MavenPropertySourceConfig {
 
     @Autowired
     JdbcPropertiesConfig jdbcProperties;
