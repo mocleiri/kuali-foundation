@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -40,6 +41,8 @@ public class ProjectUtils {
 
 	public static final String KUALI_COMMON_GROUP_ID = "org.kuali.common";
 
+	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
+
 	/**
 	 * 
 	 */
@@ -61,15 +64,27 @@ public class ProjectUtils {
 	 * Create a <code>Project</code> object from the <code>context</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
 	 */
 	public static Project loadProject(ProjectContext context) {
-		return loadProject(context.getGroupId() + ":" + context.getArtifactId());
+		return loadProject(getGav(context.getGroupId(), context.getArtifactId()));
+	}
+
+	public static String getGav(String groupId, String artifactId) {
+		return groupId + ":" + artifactId;
 	}
 
 	/**
 	 * Create a <code>Project</code> object from the <code>gav</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
 	 */
-	public static Project loadProject(String gav) {
+	public synchronized static Project loadProject(String gav) {
 		Project project = getProject(gav);
-		Properties properties = loadProperties(project);
+
+		// Add to our cache so we aren't constantly reloading project.properties from disk
+		Properties properties = PROJECT_PROPERTIES_CACHE.get(gav);
+		if (properties == null) {
+			properties = loadProperties(project);
+			PROJECT_PROPERTIES_CACHE.put(gav, properties);
+		}
+
+		// Configure a properties object from the properties
 		return getProject(properties);
 	}
 
