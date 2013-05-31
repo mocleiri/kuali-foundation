@@ -39,6 +39,7 @@
   <bean class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
     <property name="encoding" value="${project.encoding}" />
     <property name="property" value="project.db.reset" />
+    <property name="skip" value="${project.db.reset.skip:false}" />
     <property name="propertiesFile" value="${project.home}/${project.artifactId}-runonce.properties" />
     <property name="executable">
       <bean class="org.kuali.common.util.execute.SpringExecutable">
