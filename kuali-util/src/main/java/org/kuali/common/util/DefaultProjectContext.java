@@ -65,4 +65,16 @@ public class DefaultProjectContext implements ProjectContext {
 	public List<String> getPropertyLocations() {
 		return propertyLocations;
 	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
+	}
+
+	public void setPropertyLocations(List<String> propertyLocations) {
+		this.propertyLocations = propertyLocations;
+	}
 }
