@@ -50,32 +50,43 @@ public class RunOnceExecutable implements Executable {
 		}
 
 		logger.info("Examining run once property [{}] in [{}]", property, LocationUtils.getCanonicalPath(propertiesFile));
+
+		// Load the properties
 		Properties properties = PropertyUtils.load(propertiesFile, encoding);
+
+		// Translate the property value into an execution mode
 		ExecutionMode mode = getExecutionMode(properties, property);
-		boolean runonce = isRunOnce(mode);
-		if (runonce) {
-			logger.info("{}={}", property, mode);
-			// Make sure we have the ability to successfully store updated properties back to the file
-			if (!isAlways(mode)) {
-				setState(properties, property, ExecutionMode.INPROGRESS);
-			}
-			try {
-				// Invoke execute now that we have successfully transitioned things to INPROGRESS
-				executable.execute();
-				// There is always a chance that the executable finishes correctly and we encounter some kind of
-				// issue just storing the properties back to the file. This should be pretty rare considering
-				// we were able to successfully store the properties just prior to the executable commencing
-				if (!isAlways(mode)) {
-					setState(properties, property, ExecutionMode.COMPLETED);
-				}
-			} catch (Exception e) {
-				if (!isAlways(mode)) {
-					setState(properties, property, ExecutionMode.FAILED);
-				}
-				throw new IllegalStateException("Unexpected execution error", e);
-			}
-		} else {
+
+		// Are we going to run once?
+		if (!isRunOnce(mode)) {
 			logger.info("Skipping execution - [{}={}]", property, mode);
+			return;
+		}
+
+		// Show the execution mode we are in
+		logger.info("{}={}", property, mode);
+
+		// Make sure we have the ability to successfully store updated properties back to the file
+		if (!isAlways(mode)) {
+			setState(properties, property, ExecutionMode.INPROGRESS);
+		}
+
+		try {
+			// Invoke execute now that we have successfully transitioned things to INPROGRESS
+			executable.execute();
+			// There is always a chance that the executable finishes correctly and we encounter some kind of
+			// issue just storing the properties back to the file. This should be pretty rare considering
+			// we were able to successfully store the properties just prior to the executable commencing.
+			// In any event, the executable won't run again in the normal use case because we can only get to this point
+			// if the original execution mode was "TRUE" and we were able to successfully change it to "INPROGRESS"
+			if (!isAlways(mode)) {
+				setState(properties, property, ExecutionMode.COMPLETED);
+			}
+		} catch (Exception e) {
+			if (!isAlways(mode)) {
+				setState(properties, property, ExecutionMode.FAILED);
+			}
+			throw new IllegalStateException("Unexpected execution error", e);
 		}
 	}
 
