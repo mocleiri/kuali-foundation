@@ -32,9 +32,14 @@ public class RunOnceExecutable implements Executable {
 	File propertiesFile;
 	String property;
 	String encoding;
+	boolean skip;
 
 	@Override
 	public void execute() {
+		if (skip) {
+			logger.info("Skipping execution");
+			return;
+		}
 		Assert.notNull(propertiesFile);
 		Assert.notNull(property);
 		Assert.notNull(executable);
@@ -134,5 +139,13 @@ public class RunOnceExecutable implements Executable {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 }
