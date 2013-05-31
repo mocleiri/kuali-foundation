@@ -16,6 +16,7 @@
 package org.kuali.common.util.spring;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ProjectContext;
@@ -26,6 +27,7 @@ public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<
 
 	ProjectContext project;
 	List<ProjectContext> others;
+	Properties properties;
 
 	@Override
 	public PropertySource<?> getObject() {
@@ -57,6 +59,14 @@ public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<
 
 	public void setOthers(List<ProjectContext> others) {
 		this.others = others;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }
