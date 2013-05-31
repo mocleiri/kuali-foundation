@@ -15,22 +15,26 @@
  */
 package org.kuali.common.jdbc.spring;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Arrays;
+import java.util.List;
+
+import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.ProjectContext;
+import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.spring.ConfigUtils;
+import org.kuali.common.util.spring.MavenPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 
+/**
+ * This lets properties defined in the pom override properties defined elsewhere. System/environment properties still override everything.
+ */
 @Configuration
-@Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
-public abstract class SqlBaseConfig {
+public class JdbcMavenPropertySourceConfig extends MavenPropertySourceConfig {
 
-	@Autowired
-	Environment env;
-
-	@Autowired
-	JdbcCommonConfig commonConfig;
-
-	@Autowired
-	JdbcDataSourceConfig dataSourceConfig;
+	@Override
+	protected List<ProjectProperties> getOtherProjectProperties() {
+		ProjectContext jdbc = new JdbcProjectContext();
+		return ConfigUtils.getProjectProperties(Arrays.asList(jdbc));
+	}
 
 }
