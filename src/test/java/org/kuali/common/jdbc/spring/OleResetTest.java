@@ -15,12 +15,16 @@
  */
 package org.kuali.common.jdbc.spring;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.MavenUtils;
+import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.SpringUtils;
 
 public class OleResetTest {
 
@@ -30,11 +34,17 @@ public class OleResetTest {
 			// Default Spring service will do what we need
 			SpringService ss = new DefaultSpringService();
 
-			// Setup a Spring context that uses maven properties for placeholder resolution
-			SpringContext context = MavenUtils.getMavenizedSpringContext(OlePropertiesConfig.OLE_MAVEN_PROPS, OleMavenPropertySourceConfig.class);
+			// The main project who's properties need to be loaded and made available to Spring
+			ProjectContext project = new OleTestProjectContext();
 
-			// Reset the db using annotated config
-			context.setAnnotatedClasses(CollectionUtils.asList(SqlControllerConfig.class));
+			// Other projects who's properties we need to make available to Spring
+			List<ProjectContext> others = Arrays.asList(JdbcProjectContext.getInstance());
+
+			// The annotated java class containing the Spring configuration that does what we need it to do
+			Class<?> annotatedClass = SqlControllerConfig.class;
+
+			// Prepare a Spring context
+			SpringContext context = SpringUtils.getSpringContext(annotatedClass, project, others);
 
 			// Execute Spring
 			ss.load(context);

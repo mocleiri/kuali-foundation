@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
+import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
@@ -30,21 +31,17 @@ import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import(JdbcProjectConfig.class)
 public class JdbcCommonConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
-
-	@Autowired
-	JdbcProjectConfig projectConfig;
 
 	@Bean
 	public SqlReader jdbcSqlReader() {
@@ -58,7 +55,7 @@ public class JdbcCommonConfig {
 
 	@Bean
 	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
-		Project project = projectConfig.jdbcProject();
+		Project project = ProjectUtils.loadProject(JdbcProjectContext.getInstance());
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
 		sls.setReader(jdbcSqlReader());
