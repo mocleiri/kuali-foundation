@@ -101,6 +101,14 @@ public class SpringUtils {
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
 	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, ProjectContext other) {
+		return getGlobalPropertySource(project, Arrays.asList(other));
+	}
+
+	/**
+	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
+	 * in wins.
+	 */
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others) {
 
 		ProjectProperties projectProperties = ProjectUtils.loadProjectProperties(project);
