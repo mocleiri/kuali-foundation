@@ -189,6 +189,12 @@ public class PropertyUtils {
 
 			// Override any existing property values with those we just loaded
 			properties.putAll(loaded);
+
+			// Override any existing property values with properties stored directly on the context
+			if (ctx.getProperties() != null) {
+				properties.putAll(ctx.getProperties());
+			}
+
 		}
 
 		// Return the property values we now have
