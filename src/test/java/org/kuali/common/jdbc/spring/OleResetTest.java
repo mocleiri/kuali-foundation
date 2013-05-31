@@ -16,7 +16,6 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 import org.kuali.common.jdbc.JdbcProjectContext;
@@ -38,13 +37,13 @@ public class OleResetTest {
 			ProjectContext project = new OleTestProjectContext();
 
 			// Other projects who's properties we need to make available to Spring
-			List<ProjectContext> others = Arrays.asList(JdbcProjectContext.getInstance());
+			ProjectContext other = new JdbcProjectContext();
 
 			// The annotated java class containing the Spring configuration that does what we need it to do
 			Class<?> annotatedClass = SqlControllerConfig.class;
 
 			// Prepare a Spring context
-			SpringContext context = SpringUtils.getSpringContext(annotatedClass, project, others);
+			SpringContext context = SpringUtils.getSpringContext(annotatedClass, project, Arrays.asList(other));
 
 			// Execute Spring
 			ss.load(context);

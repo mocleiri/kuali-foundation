@@ -19,17 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
-import org.kuali.common.util.ProjectContext;
 
 public class JdbcProjectContext extends DefaultProjectContext {
 
-	private static ProjectContext instance = new JdbcProjectContext();
-
-	public static ProjectContext getInstance() {
-		return instance;
-	}
-
-	private JdbcProjectContext() {
+	public JdbcProjectContext() {
 		super("kuali-jdbc");
 	}
 

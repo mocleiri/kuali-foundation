@@ -55,7 +55,7 @@ public class JdbcCommonConfig {
 
 	@Bean
 	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
-		Project project = ProjectUtils.loadProject(JdbcProjectContext.getInstance());
+		Project project = ProjectUtils.loadProject(new JdbcProjectContext());
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
 		sls.setReader(jdbcSqlReader());
