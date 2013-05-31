@@ -120,7 +120,10 @@ public class SpringUtils {
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others, Properties properties) {
 
 		ProjectProperties projectProperties = ProjectUtils.loadProjectProperties(project);
-		projectProperties.getPropertiesContext().setProperties(properties);
+
+		Properties existing = projectProperties.getPropertiesContext().getProperties();
+		Properties combined = PropertyUtils.combine(existing, properties);
+		projectProperties.getPropertiesContext().setProperties(combined);
 
 		List<ProjectProperties> otherProjectProperties = new ArrayList<ProjectProperties>();
 		for (ProjectContext other : CollectionUtils.toEmptyList(others)) {
@@ -335,6 +338,8 @@ public class SpringUtils {
 
 		// Prepare them so they are ready for use
 		PropertyUtils.prepareContextProperties(globalSource);
+
+		// PropertyUtils.info(globalSource);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, globalSource);

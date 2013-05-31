@@ -32,7 +32,7 @@ public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<
 	@Override
 	public PropertySource<?> getObject() {
 		Assert.notNull(project, "project is null");
-		return SpringUtils.getGlobalPropertySource(project, others);
+		return SpringUtils.getGlobalPropertySource(project, others, properties);
 	}
 
 	@Override
