@@ -25,14 +25,23 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <!--
-    This executable requires these 3 properties
-    1 - project.encoding - Is the encoding to use when reading/writing the properties file that controls state
+    This context contains an executable that drops and then re-creates a database from scratch.
+
+    It only runs if the property "project.db.reset=true" is located in a specific properties file.
+    If the properties file does not exist, or the required property is not present in the properties file, nothing happens.
+    If the property is present but is set to any value besides "true", nothing happens.
+    If the property "project.db.reset=true" is located in the properties file, nothing happens until after the properties
+    file has been updated with "project.db.reset=INPROGRESS".
+    This sequence prevents the executable from running more than once unless an explicit action is taken.
+
+    The executable requires these 3 properties
+    1 - project.encoding - Is the encoding to use when reading/writing the properties file that controls the executable
     2 - project.home - Must point to a writable directory on the file system
     3 - project.artifactId - Must be the project who's database will be reset. Used in the properties filename
 
     AND these 3 bean references
-    1 - projectContext - The project who's database will be reset
-    2 - projectContextProperties - "Extra" properties for that project that override everything except system/environment properties
+    1 - projectContext - Defines properties for the main project who's database will be reset
+    2 - projectContextProperties - "Extra" properties for the main project that override everything except system/environment properties
     3 - otherProjectContexts - Defines properties for other projects that must be loaded
   -->
 
