@@ -22,12 +22,13 @@ import org.kuali.common.util.DefaultProjectContext;
 
 public class JdbcProjectContext extends DefaultProjectContext {
 
+	private static final List<String> LOCATIONS = getLocations();
+
 	public JdbcProjectContext() {
-		super("kuali-jdbc");
+		super("kuali-jdbc", new ArrayList<String>(LOCATIONS));
 	}
 
-	@Override
-	public List<String> getPropertyLocations() {
+	private static final List<String> getLocations() {
 		List<String> locations = new ArrayList<String>();
 		locations.add("classpath:org/kuali/common/jdbc/jdbc.properties");
 		locations.add("classpath:org/kuali/common/sql/sql.xml");
