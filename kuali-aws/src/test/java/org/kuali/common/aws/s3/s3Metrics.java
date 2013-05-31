@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.BucketLifecycleConfiguration;
@@ -52,7 +53,7 @@ public class s3Metrics {
 		this.process = process;
 	}
 
-	protected AWSCredentials getCredentials() {
+   	protected AWSCredentials getCredentials() {
 		log.debug("access key: " + ACCESSKEY);
 		return new BasicAWSCredentials(ACCESSKEY, SECRETYKEY);
 	}
@@ -134,7 +135,7 @@ public class s3Metrics {
 
 		List<S3Types> dataArray = new ArrayList<S3Types>();
 
-		String resource_location = HOME + "/ws/kuali-s3/src/test/resources";
+		String resource_location = HOME + "/ws/kuali-aws/src/test/resources";
 		String BucketChart01 = resource_location + "/BucketChart1.cvs"; // metric for Rice, Student, Ole
 		String BucketChart01a = resource_location + "/BucketChart1a.cvs"; // Metric for Maven Build,Release,Snapshot
 		String BucketChart02 = resource_location + "/BucketChart2.cvs"; // Data for Snapshot
