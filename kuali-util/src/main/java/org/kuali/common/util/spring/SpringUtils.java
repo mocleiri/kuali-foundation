@@ -339,7 +339,7 @@ public class SpringUtils {
 		// Prepare them so they are ready for use
 		PropertyUtils.prepareContextProperties(globalSource);
 
-		PropertyUtils.info(globalSource);
+		// PropertyUtils.info(globalSource);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, globalSource);
