@@ -1,6 +1,6 @@
 package org.kuali.common.util.property;
 
-public enum Style {
+public enum PropertyFormat {
 
 	NORMAL, RICE;
 
