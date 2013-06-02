@@ -969,7 +969,7 @@ public class PropertyUtils {
 	/**
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
 	 */
-	public static final Properties load(String location, String encoding, PropertyFormat style) {
+	public static final Properties load(String location, String encoding, PropertyFormat format) {
 		InputStream in = null;
 		Reader reader = null;
 		try {
@@ -977,7 +977,7 @@ public class PropertyUtils {
 			boolean xml = isXml(location);
 			boolean riceProperties = isRiceProperties(location);
 			location = getCanonicalLocation(location);
-			if (PropertyFormat.RICE.equals(style) || riceProperties) {
+			if (PropertyFormat.RICE.equals(format) || riceProperties) {
 				properties = loadRiceProperties(location);
 			} else if (xml) {
 				in = LocationUtils.getInputStream(location);
