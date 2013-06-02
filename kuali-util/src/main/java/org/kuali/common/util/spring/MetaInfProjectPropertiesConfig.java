@@ -27,12 +27,11 @@ import org.kuali.common.util.execute.StorePropertiesExecutable;
 import org.kuali.common.util.execute.StoreRicePropertiesExecutable;
 import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.Assert;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Create project.properties and embed it inside META-INF for jar's/war's
@@ -42,17 +41,6 @@ public class MetaInfProjectPropertiesConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
-
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer pspc() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
-	@Value(Constants.PROJECT_PROPERTIES_OUTPUTFILE)
-	File outputFile;
-
-	@Value(Constants.RICE_PROJECT_PROPERTIES_OUTPUTFILE)
-	File riceOutputFile;
 
 	@Bean
 	public Properties springProperties() {
@@ -77,10 +65,14 @@ public class MetaInfProjectPropertiesConfig {
 		// Get the list of all properties spring knows about
 		Properties properties = springProperties();
 
+		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		String outputFilename = helper.replacePlaceholders(Constants.PROJECT_PROPERTIES_OUTPUTFILE, properties);
+		String riceOutputFilename = helper.replacePlaceholders(Constants.RICE_PROJECT_PROPERTIES_OUTPUTFILE, properties);
+
 		// Setup the regular properties file executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
 		spe.setEncoding(encoding);
-		spe.setOutputFile(outputFile);
+		spe.setOutputFile(new File(outputFilename));
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
@@ -88,7 +80,7 @@ public class MetaInfProjectPropertiesConfig {
 		// Setup the Rice style properties file executable
 		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
 		spe.setEncoding(encoding);
-		spe.setOutputFile(riceOutputFile);
+		spe.setOutputFile(new File(riceOutputFilename));
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
