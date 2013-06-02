@@ -34,9 +34,7 @@
     file has been updated with "project.db.reset=INPROGRESS".
     This sequence prevents the executable from running more than once unless an explicit action is taken.
 
-    The executable requires these 2 properties
-    1 - project.encoding - Is the encoding to use when reading/writing the properties file that controls the executable
-    2 - project.home - Must point to a writable directory on the file system
+    The executable requires the property ${project.home} - It must point to a writable directory on the local file system
 
     AND these 3 bean references
     1 - projectContext - Defines properties for the main project who's database will be reset
@@ -45,7 +43,7 @@
   -->
 
   <bean class="org.kuali.common.util.execute.RunOnceExecutable" init-method="execute">
-    <property name="encoding" value="${project.encoding}" />
+    <property name="encoding" value="UTF-8" />
     <property name="property" value="project.db.reset" />
     <property name="skip" value="${project.db.reset.skip:false}" />
     <property name="propertiesFile" value="${project.home}/runonce.properties" />
