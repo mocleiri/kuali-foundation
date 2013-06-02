@@ -72,9 +72,12 @@ public class PropertyUtils {
 		List<String> keys = getSortedKeys(properties);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
+			// Convert to CDATA if it contains chars that would blow up an XML parser
+			if (StringUtils.contains(value, "<") || StringUtils.contains(value, "&")) {
+				value = Str.cdata(value);
+			}
 			sb.append("  <param name=" + Str.quote(key) + ">");
-			// Store the value as CDATA so we don't have to deal with escaping characters correctly
-			sb.append(Str.cdata(value));
+			sb.append(value);
 			sb.append("</param>\n");
 		}
 		sb.append("</config>\n");
