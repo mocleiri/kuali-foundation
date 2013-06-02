@@ -35,22 +35,31 @@ public class StorePropertiesExecutable implements Executable {
 
 	@Override
 	public void execute() {
+		// Nothing to do in this case
 		if (skip) {
 			return;
 		}
+
+		// Make sure we have an output file
 		Assert.notNull(outputFile, "outputFile is null");
+
+		// Might not need to do anything
 		boolean exists = LocationUtils.exists(outputFile);
 		if (exists && skipIfExists) {
 			return;
 		}
+
+		// Make sure we have some properties to work with
 		Assert.notNull(properties, "properties is null");
-		List<String> keys = PropertyUtils.getSortedKeys(properties, includes, excludes);
-		Properties outputProperties = new Properties();
-		for (String key : keys) {
-			String value = properties.getProperty(key);
-			outputProperties.setProperty(key, value);
-		}
-		store(outputProperties, outputFile, encoding);
+
+		// Clone the properties they passed us
+		Properties duplicate = PropertyUtils.duplicate(properties);
+
+		// Trim out unwanted properties
+		PropertyUtils.trim(duplicate, includes, excludes);
+
+		// Persist them to the file system
+		store(duplicate, outputFile, encoding);
 	}
 
 	protected void store(Properties properties, File outputFile, String encoding) {
