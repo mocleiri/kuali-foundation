@@ -65,9 +65,13 @@ public class MetaInfProjectPropertiesConfig {
 		// Get the list of all properties spring knows about
 		Properties properties = springProperties();
 
-		PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+		// Configure a helper that fails on un-resolvable placeholders
+		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 		String outputFilename = helper.replacePlaceholders(Constants.PROJECT_PROPERTIES_OUTPUTFILE, properties);
 		String riceOutputFilename = helper.replacePlaceholders(Constants.RICE_PROJECT_PROPERTIES_OUTPUTFILE, properties);
+
+		System.out.println("outputFilename=" + outputFilename);
+		System.out.println("riceOutputFilename=" + riceOutputFilename);
 
 		// Setup the regular properties file executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
@@ -87,7 +91,7 @@ public class MetaInfProjectPropertiesConfig {
 
 		// Create an executables list
 		List<Executable> executables = new ArrayList<Executable>();
-		executables.add(spe);
+		// executables.add(spe);
 		executables.add(srpe);
 
 		// Return an executable that executes the list
