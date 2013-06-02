@@ -16,12 +16,15 @@
 package org.kuali.common.util.spring;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.execute.StorePropertiesExecutable;
+import org.kuali.common.util.execute.StoreRicePropertiesExecutable;
 import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,14 +77,29 @@ public class MetaInfProjectPropertiesConfig {
 		// Get the list of all properties spring knows about
 		Properties properties = springProperties();
 
-		// Setup the executable
+		// Setup the regular properties file executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
 		spe.setEncoding(encoding);
 		spe.setOutputFile(outputFile);
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
-		return spe;
+
+		// Setup the Rice style properties file executable
+		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
+		spe.setEncoding(encoding);
+		spe.setOutputFile(outputFile);
+		spe.setProperties(properties);
+		spe.setIncludes(includes);
+		spe.setExcludes(excludes);
+
+		// Create an executables list
+		List<Executable> executables = new ArrayList<Executable>();
+		executables.add(spe);
+		executables.add(srpe);
+
+		// Return an executable that executes the list
+		return new ExecutablesExecutable(executables);
 	}
 
 }
