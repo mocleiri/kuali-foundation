@@ -15,37 +15,27 @@
  */
 package org.kuali.common.deploy.spring;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.spring.GeneratorPropertiesConfig;
-import org.kuali.common.jdbc.spring.JdbcPropertiesConfig;
+import org.kuali.common.deploy.DeployProjectContext;
+import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.spring.ConfigUtils;
 import org.kuali.common.util.spring.MavenPropertySourceConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
+/**
+ * This lets properties defined in the pom override properties defined elsewhere. System/environment properties still override everything.
+ */
 @Configuration
-@Import({ JdbcPropertiesConfig.class, GeneratorPropertiesConfig.class, DeployPropertiesConfig.class })
 public class DeployMavenPropertySourceConfig extends MavenPropertySourceConfig {
 
-	@Autowired
-	JdbcPropertiesConfig jdbcProperties;
-
-	@Autowired
-	GeneratorPropertiesConfig generatorProperties;
-
-	@Autowired
-	DeployPropertiesConfig deployProperties;
-
 	@Override
-	protected List<ProjectProperties> getProjectPropertiesList() {
-		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-		list.add(jdbcProperties.jdbcProjectProperties());
-		list.add(generatorProperties.generatorProjectProperties());
-		list.add(deployProperties.deployProjectProperties());
-		return list;
+	protected List<ProjectProperties> getOtherProjectProperties() {
+		ProjectContext jdbc = new JdbcProjectContext();
+		ProjectContext deploy = new DeployProjectContext();
+		return ConfigUtils.getProjectProperties(jdbc, deploy);
 	}
 
 }
