@@ -970,6 +970,13 @@ public class PropertyUtils {
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
 	 */
 	public static final Properties load(String location, String encoding, PropertyFormat format) {
+		return load(location, encoding, format, false);
+	}
+
+	/**
+	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
+	 */
+	public static final Properties load(String location, String encoding, PropertyFormat format, boolean silent) {
 		InputStream in = null;
 		Reader reader = null;
 		try {
@@ -981,10 +988,14 @@ public class PropertyUtils {
 				properties = loadRiceProperties(location);
 			} else if (xml) {
 				in = LocationUtils.getInputStream(location);
-				logger.info("Loading XML properties - [{}]", location);
+				if (!silent) {
+					logger.info("Loading XML properties - [{}]", location);
+				}
 				properties.loadFromXML(in);
 			} else {
-				logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				if (!silent) {
+					logger.info("Loading properties - [{}] encoding={}", location, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				}
 				reader = LocationUtils.getBufferedReader(location, encoding);
 				properties.load(reader);
 			}
