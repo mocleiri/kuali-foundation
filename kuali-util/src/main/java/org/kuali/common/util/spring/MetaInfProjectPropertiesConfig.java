@@ -48,6 +48,9 @@ public class MetaInfProjectPropertiesConfig {
 	@Value(Constants.PROJECT_PROPERTIES_OUTPUTFILE)
 	File outputFile;
 
+	@Value(Constants.RICE_PROJECT_PROPERTIES_OUTPUTFILE)
+	File riceOutputFile;
+
 	@Bean
 	public Properties springProperties() {
 		return SpringUtils.getAllEnumerableProperties(env);

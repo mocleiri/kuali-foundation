@@ -57,11 +57,15 @@ public final class Constants {
 	public static final String WILDCARD = "*";
 	public static final String ENCRYPTION_PREFIX = "ENC(";
 	public static final String ENCRYPTION_SUFFIX = ")";
+
 	public static final String PROJECT_PROPERTIES_FRAGMENT = "META-INF/${project.groupId.path}/${project.artifactId}/project.properties";
-	public static final String RICE_PROPERTIES_SUFFIX = "rice-properties.xml";
-	public static final String RICE_PROJECT_PROPERTIES_FRAGMENT = "META-INF/${project.groupId.path}/${project.artifactId}/project-" + RICE_PROPERTIES_SUFFIX;
 	public static final String PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + PROJECT_PROPERTIES_FRAGMENT;
 	public static final String PROJECT_PROPERTIES_LOCATION = "classpath:" + PROJECT_PROPERTIES_FRAGMENT;
+
+	public static final String RICE_PROPERTIES_SUFFIX = "rice-properties.xml";
+	public static final String RICE_PROJECT_PROPERTIES_FRAGMENT = "META-INF/${project.groupId.path}/${project.artifactId}/project-" + RICE_PROPERTIES_SUFFIX;
+	public static final String RICE_PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + RICE_PROJECT_PROPERTIES_FRAGMENT;
+	public static final String RICE_PROJECT_PROPERTIES_LOCATION = "classpath:" + RICE_PROJECT_PROPERTIES_FRAGMENT;
 
 	private static final PropertyPlaceholderHelper getDefaultHelper() {
 		return new PropertyPlaceholderHelper(DEFAULT_PLACEHOLDER_PREFIX, DEFAULT_PLACEHOLDER_SUFFIX, DEFAULT_VALUE_SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE_PLACEHOLDERS);
