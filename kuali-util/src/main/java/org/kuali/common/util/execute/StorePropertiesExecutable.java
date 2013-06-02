@@ -50,7 +50,11 @@ public class StorePropertiesExecutable implements Executable {
 			String value = properties.getProperty(key);
 			outputProperties.setProperty(key, value);
 		}
-		PropertyUtils.store(outputProperties, outputFile, encoding);
+		store(outputProperties, outputFile, encoding);
+	}
+
+	protected void store(Properties properties, File outputFile, String encoding) {
+		PropertyUtils.store(properties, outputFile, encoding);
 	}
 
 	public Properties getProperties() {
