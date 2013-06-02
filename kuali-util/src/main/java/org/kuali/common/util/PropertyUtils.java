@@ -40,6 +40,7 @@ import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
+import org.kuali.common.util.property.Style;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
@@ -962,6 +963,13 @@ public class PropertyUtils {
 	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
 	 */
 	public static final Properties load(String location, String encoding) {
+		return load(location, encoding, Style.NORMAL);
+	}
+
+	/**
+	 * Return a new <code>Properties</code> object loaded from <code>location</code> using <code>encoding</code>.
+	 */
+	public static final Properties load(String location, String encoding, Style style) {
 		InputStream in = null;
 		Reader reader = null;
 		try {
@@ -969,7 +977,7 @@ public class PropertyUtils {
 			boolean xml = isXml(location);
 			boolean riceProperties = isRiceProperties(location);
 			location = getCanonicalLocation(location);
-			if (riceProperties) {
+			if (Style.RICE.equals(style) || riceProperties) {
 				properties = loadRiceProperties(location);
 			} else if (xml) {
 				in = LocationUtils.getInputStream(location);
