@@ -63,7 +63,7 @@ public class StorePropertiesExecutable implements Executable {
 	}
 
 	protected void store(Properties properties, File outputFile, String encoding) {
-		PropertyUtils.store(properties, outputFile, encoding);
+		PropertyUtils.store(properties, outputFile, encoding, null, true);
 	}
 
 	public Properties getProperties() {
