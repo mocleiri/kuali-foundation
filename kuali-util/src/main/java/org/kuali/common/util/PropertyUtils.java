@@ -875,7 +875,7 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return true if, and only if, location ends with <code>-rice-properties.xml</code> (case insensitive).
+	 * Return true if, and only if, location ends with <code>rice-properties.xml</code> (case insensitive).
 	 */
 	public static final boolean isRiceProperties(String location) {
 		return StringUtils.endsWithIgnoreCase(location, Constants.RICE_PROPERTIES_SUFFIX);
