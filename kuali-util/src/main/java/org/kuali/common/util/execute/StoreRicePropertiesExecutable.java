@@ -20,14 +20,15 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.kuali.common.util.PropertyUtils;
 
 public class StoreRicePropertiesExecutable extends StorePropertiesExecutable {
 
 	@Override
 	protected void store(Properties properties, File outputFile, String encoding) {
-		String data = "";
+		String xml = PropertyUtils.getRiceXML(properties);
 		try {
-			FileUtils.write(outputFile, data, encoding);
+			FileUtils.write(outputFile, xml, encoding);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error");
 		}
