@@ -34,9 +34,9 @@
     file has been updated with "project.db.reset=INPROGRESS".
     This sequence prevents the executable from running more than once unless an explicit action is taken.
 
-    The executable requires the property ${project.home} - It must point to a writable directory on the local file system
+    The property ${project.home} must be set and point to a writable directory on the local file system
 
-    AND these 3 bean references
+    These 3 bean references must be provided:
     1 - projectContext - Defines properties for the main project who's database will be reset
     2 - projectContextProperties - "Extra" properties for the main project that override everything except system/environment properties
     3 - otherProjectContexts - Defines properties for other projects that must be loaded
