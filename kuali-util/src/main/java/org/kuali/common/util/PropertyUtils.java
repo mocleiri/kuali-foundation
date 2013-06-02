@@ -57,7 +57,6 @@ public class PropertyUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
-	public static final String RICE_SUFFIX = "rice-properties.xml";
 	public static final String ADDITIONAL_LOCATIONS = "properties.additional.locations";
 	public static final String ADDITIONAL_LOCATIONS_ENCODING = ADDITIONAL_LOCATIONS + ".encoding";
 
@@ -849,7 +848,7 @@ public class PropertyUtils {
 	 * Return true if, and only if, location ends with <code>-rice-properties.xml</code> (case insensitive).
 	 */
 	public static final boolean isRiceProperties(String location) {
-		return StringUtils.endsWithIgnoreCase(location, RICE_SUFFIX);
+		return StringUtils.endsWithIgnoreCase(location, Constants.RICE_PROPERTIES_SUFFIX);
 	}
 
 	/**
