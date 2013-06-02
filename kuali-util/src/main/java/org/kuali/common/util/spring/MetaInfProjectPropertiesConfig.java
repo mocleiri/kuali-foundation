@@ -27,11 +27,12 @@ import org.kuali.common.util.execute.StorePropertiesExecutable;
 import org.kuali.common.util.execute.StoreRicePropertiesExecutable;
 import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.Assert;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Create project.properties and embed it inside META-INF for jar's/war's
@@ -43,12 +44,23 @@ public class MetaInfProjectPropertiesConfig {
 	ConfigurableEnvironment env;
 
 	@Bean
+	public static PropertySourcesPlaceholderConfigurer pspc() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+
+	@Value(Constants.PROJECT_PROPERTIES_OUTPUTFILE)
+	File outputFile;
+
+	@Value(Constants.RICE_PROJECT_PROPERTIES_OUTPUTFILE)
+	File riceOutputFile;
+
+	@Bean
 	public Properties springProperties() {
 		return SpringUtils.getAllEnumerableProperties(env);
 	}
 
 	@Bean(initMethod = "execute")
-	public Executable storePropertiesExecutable() {
+	public Executable storePropertiesExecutablesExectuable() {
 
 		// Extract property values from the environment
 		String encoding = SpringUtils.getProperty(env, "project.encoding");
@@ -65,33 +77,25 @@ public class MetaInfProjectPropertiesConfig {
 		// Get the list of all properties spring knows about
 		Properties properties = springProperties();
 
-		// Configure a helper that fails on un-resolvable placeholders
-		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
-		String outputFilename = helper.replacePlaceholders(Constants.PROJECT_PROPERTIES_OUTPUTFILE, properties);
-		String riceOutputFilename = helper.replacePlaceholders(Constants.RICE_PROJECT_PROPERTIES_OUTPUTFILE, properties);
-
-		System.out.println("outputFilename=" + outputFilename);
-		System.out.println("riceOutputFilename=" + riceOutputFilename);
-
 		// Setup the regular properties file executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
 		spe.setEncoding(encoding);
-		spe.setOutputFile(new File(outputFilename));
+		spe.setOutputFile(outputFile);
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
 
 		// Setup the Rice style properties file executable
 		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
-		spe.setEncoding(encoding);
-		spe.setOutputFile(new File(riceOutputFilename));
-		spe.setProperties(properties);
-		spe.setIncludes(includes);
-		spe.setExcludes(excludes);
+		srpe.setEncoding(encoding);
+		srpe.setOutputFile(riceOutputFile);
+		srpe.setProperties(properties);
+		srpe.setIncludes(includes);
+		srpe.setExcludes(excludes);
 
 		// Create an executables list
 		List<Executable> executables = new ArrayList<Executable>();
-		// executables.add(spe);
+		executables.add(spe);
 		executables.add(srpe);
 
 		// Return an executable that executes the list
