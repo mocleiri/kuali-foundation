@@ -120,7 +120,7 @@
     <kuali-jdbc.version>3.1.4</kuali-jdbc.version>
     <kuali-maven.version>1.0.3</kuali-maven.version>
     <kuali-sql.version>2.0.5</kuali-sql.version>
-    <kuali-util.version>4.2.11</kuali-util.version>
+    <kuali-util.version>4.2.12</kuali-util.version>
     <impex.version>2.1.7</impex.version>
   </properties>
   <profiles>
