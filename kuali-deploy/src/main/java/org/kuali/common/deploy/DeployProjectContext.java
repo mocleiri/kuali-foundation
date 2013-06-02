@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
+import org.kuali.common.util.MavenConstants;
+import org.kuali.common.util.Str;
 
 public class DeployProjectContext extends DefaultProjectContext {
 
@@ -16,8 +18,8 @@ public class DeployProjectContext extends DefaultProjectContext {
 
 	private static final List<String> getLocations() {
 		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:org/kuali/common/deploy/deploy.properties");
-		locations.add("classpath:org/kuali/common/deploy/driver.properties");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/deploy.properties");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/driver.properties");
 		locations.add("classpath:${project.groupId.path}/deploy.properties");
 		locations.add("classpath:${project.groupId.path}/${project.artifactId}.properties");
 		locations.add("classpath:${project.groupId.path}/env${deploy.env}.properties");
