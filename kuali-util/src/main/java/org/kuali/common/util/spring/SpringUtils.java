@@ -336,10 +336,14 @@ public class SpringUtils {
 		// Add in system/environment properties
 		Properties globalSource = PropertyUtils.getGlobalProperties(source);
 
+		logger.debug("Before prepareContextProperties()");
+		PropertyUtils.debug(globalSource);
+
 		// Prepare them so they are ready for use
 		PropertyUtils.prepareContextProperties(globalSource);
 
-		// PropertyUtils.info(globalSource);
+		logger.debug("After prepareContextProperties()");
+		PropertyUtils.debug(globalSource);
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, globalSource);
