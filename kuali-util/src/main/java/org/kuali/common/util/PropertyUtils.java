@@ -108,10 +108,10 @@ public class PropertyUtils {
 	public static void prepareContextProperties(Properties properties, String encoding) {
 
 		// Override with additional properties (if any)
-		properties.putAll(PropertyUtils.getAdditionalProperties(properties, encoding));
+		properties.putAll(getAdditionalProperties(properties, encoding));
 
 		// Override with system/environment properties
-		properties.putAll(PropertyUtils.getGlobalProperties());
+		properties.putAll(getGlobalProperties());
 
 		// Are we decrypting property values?
 		decrypt(properties);
