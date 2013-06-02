@@ -30,9 +30,10 @@
     It only runs if the property "project.db.reset=true" is located in a specific properties file.
     If the properties file does not exist, or the required property is not present in the properties file, nothing happens.
     If the property is present but is set to any value besides "true", nothing happens.
-    If the property "project.db.reset=true" is located in the properties file, nothing happens until after the properties
-    file has been updated with "project.db.reset=INPROGRESS".
-    This sequence prevents the executable from running more than once unless an explicit action is taken.
+    Once the property "project.db.reset=true" is located in the properties file, the first thing that happens is the property is
+    from "true" to "INPROGRESS" and the stored back to the properties file.
+    After the property has been successfully updated, the database reset process begins.
+    This prevents a database reset from accidentally running more than once.
 
     The property ${project.home} must be set and point to a writable directory on the local file system
 
