@@ -72,7 +72,7 @@ public class PropertyUtils {
 		List<String> keys = getSortedKeys(properties);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			// Convert to CDATA if it contains chars that would blow up an XML parser
+			// Convert to CDATA if the value contains characters that would blow up an XML parser
 			if (StringUtils.contains(value, "<") || StringUtils.contains(value, "&")) {
 				value = Str.cdata(value);
 			}
