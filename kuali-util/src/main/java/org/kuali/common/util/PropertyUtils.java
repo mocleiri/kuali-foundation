@@ -66,6 +66,21 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static String getRiceXML(Properties properties) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<config>\n");
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			sb.append("  <param name=" + Str.quote(key) + ">");
+			// Store the value as CDATA so we don't have to deal with escaping characters correctly
+			sb.append(Str.cdata(value));
+			sb.append("</param>\n");
+		}
+		sb.append("</config>\n");
+		return sb.toString();
+	}
+
 	public static String getRequiredResolvedProperty(Properties properties, String key) {
 		return getRequiredResolvedProperty(properties, key, null);
 	}

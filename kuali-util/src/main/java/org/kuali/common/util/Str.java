@@ -34,6 +34,19 @@ public class Str {
 	public static final String DOT = ".";
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
+	public static final String CDATA_PREFIX = "<![CDATA[";
+	public static final String CDATA_SUFFIX = "]]>";
+
+	/**
+	 * Turn the string into CDATA - http://en.wikipedia.org/wiki/CDATA
+	 */
+	public static final String cdata(String s) {
+		if (s == null) {
+			return null;
+		} else {
+			return CDATA_PREFIX + s + CDATA_SUFFIX;
+		}
+	}
 
 	/**
 	 * If <code>s</code> ends with <code>suffix</code>, remove it
