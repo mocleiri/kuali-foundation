@@ -712,6 +712,13 @@ public class PropertyUtils {
 	 * Store the properties to the indicated file using the indicated encoding with the indicated comment appearing at the top of the file.
 	 */
 	public static final void store(Properties properties, File file, String encoding, String comment) {
+		store(properties, file, encoding, comment, false);
+	}
+
+	/**
+	 * Store the properties to the indicated file using the indicated encoding with the indicated comment appearing at the top of the file.
+	 */
+	public static final void store(Properties properties, File file, String encoding, String comment, boolean silent) {
 		OutputStream out = null;
 		Writer writer = null;
 		try {
@@ -721,7 +728,9 @@ public class PropertyUtils {
 			Properties sorted = getSortedProperties(properties);
 			comment = getComment(encoding, comment, xml);
 			if (xml) {
-				logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				if (!silent) {
+					logger.info("Storing XML properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				}
 				if (encoding == null) {
 					sorted.storeToXML(out, comment);
 				} else {
@@ -729,7 +738,9 @@ public class PropertyUtils {
 				}
 			} else {
 				writer = LocationUtils.getWriter(out, encoding);
-				logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				if (!silent) {
+					logger.info("Storing properties - [{}] encoding={}", path, StringUtils.defaultIfBlank(encoding, DEFAULT_ENCODING));
+				}
 				sorted.store(writer, comment);
 			}
 		} catch (IOException e) {
