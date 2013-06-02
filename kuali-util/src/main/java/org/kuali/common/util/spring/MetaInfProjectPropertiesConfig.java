@@ -88,7 +88,7 @@ public class MetaInfProjectPropertiesConfig {
 		// Setup the Rice style properties file executable
 		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
 		spe.setEncoding(encoding);
-		spe.setOutputFile(outputFile);
+		spe.setOutputFile(riceOutputFile);
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
