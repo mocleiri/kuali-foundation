@@ -40,8 +40,9 @@ public class DeployMavenPropertySourceConfig extends MavenPropertySourceConfig {
 
 		ProjectProperties jdbcProjectProperties = ConfigUtils.getProjectProperties(jdbc);
 
-		// Some environments don't have any special properties
 		ProjectProperties deployProjectProperties = ConfigUtils.getProjectProperties(deploy);
+
+		// Some environments don't have any special properties
 		deployProjectProperties.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
 
 		return Arrays.asList(jdbcProjectProperties, deployProjectProperties);
