@@ -222,6 +222,7 @@
         <oracle.artifactId>ojdbc6_g</oracle.artifactId>
         <oracle.version>11.2.0.2</oracle.version>
         <deploy.env>NONE</deploy.env>
+        <spring.propertySourceConfig>org.kuali.common.deploy.spring.DeployMavenPropertySourceConfig</spring.propertySourceConfig>
         <project.classifier />
       </properties>
       <build>
@@ -237,7 +238,7 @@
                   <goal>load</goal>
                 </goals>
                 <configuration>
-                  <propertySourcesConfig>org.kuali.common.deploy.spring.DeployMavenPropertySourceConfig</propertySourcesConfig>
+                  <propertySourcesConfig>${spring.propertySourceConfig}</propertySourcesConfig>
                   <removeExistingPropertySources>true</removeExistingPropertySources>
                   <annotatedClass>org.kuali.common.deploy.spring.DeployConfig</annotatedClass>
                 </configuration>
