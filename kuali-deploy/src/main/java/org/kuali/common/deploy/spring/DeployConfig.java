@@ -19,7 +19,6 @@ import org.kuali.common.deploy.SysAdminExecutable;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
-import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -36,7 +35,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ MpxSupplierConfig.class, SqlControllerConfig.class })
+@Import({ SqlControllerConfig.class })
 public class DeployConfig {
 
 	@Autowired
