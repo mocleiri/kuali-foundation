@@ -193,8 +193,13 @@ public class PropertyUtils {
 		// Cycle through the list of project properties, loading them as we go
 		for (ProjectProperties pp : pps) {
 
+			logger.debug("oracle.dba.url.1={}", properties.getProperty("oracle.dba.url"));
+
 			// Extract the properties context object
 			PropertiesContext ctx = pp.getPropertiesContext();
+
+			// Retain the original properties object from the context
+			Properties original = PropertyUtils.duplicate(PropertyUtils.toEmpty(ctx.getProperties()));
 
 			// Override any existing property values with properties stored directly on the context
 			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
@@ -205,13 +210,13 @@ public class PropertyUtils {
 			// Load properties as dictated by the context
 			Properties loaded = load(ctx);
 
+			logger.debug("oracle.dba.url.2={}", loaded.getProperty("oracle.dba.url"));
+
 			// Override any existing property values with those we just loaded
 			properties.putAll(loaded);
 
-			// Override any existing property values with properties stored directly on the context
-			if (ctx.getProperties() != null) {
-				properties.putAll(ctx.getProperties());
-			}
+			// Override any existing property values with the properties that were stored directly on the context
+			properties.putAll(original);
 
 		}
 
@@ -241,7 +246,7 @@ public class PropertyUtils {
 		Properties result = new Properties();
 
 		// Add in any properties stored directly on the context itself (these get overridden by properties loaded elsewhere)
-		result.putAll(PropertyUtils.toEmpty(context.getProperties()));
+		result.putAll(context.getProperties());
 
 		// Cycle through the locations, loading and storing properties as we go
 		for (String location : context.getLocations()) {

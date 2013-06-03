@@ -146,7 +146,7 @@ public class SpringUtils {
 		// Add project properties first so they can be used to resolve locations
 		list.add(project);
 
-		// Load in project properties
+		// Load in other project properties
 		list.addAll(others);
 
 		// Add project properties last so they override loaded properties
