@@ -48,29 +48,6 @@ public class DifferenceUtils {
         return sb.toString();
     }
 
-    public static String buildSchema1Token(SchemaDifference difference) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(difference.getSchema1().getName());
-        sb.append(DOT);
-        if (difference instanceof TableDifference) {
-            sb.append(buildTable1DifferenceToken((TableDifference) difference));
-        }
-
-        if(difference instanceof ViewDifference) {
-
-        }
-
-        if(difference instanceof ForeignKeyDifference) {
-
-        }
-
-        if (difference instanceof SequenceDifference) {
-
-        }
-
-        return sb.toString();
-    }
-
     public static String buildTable1DifferenceToken(TableDifference t) {
         StringBuilder sb = new StringBuilder();
         sb.append(t.getTable1().getName());
@@ -104,6 +81,29 @@ public class DifferenceUtils {
         return sb.toString();
     }
 
+    public static String buildSchema1Token(SchemaDifference difference) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(difference.getSchema1().getName());
+        sb.append(DOT);
+        if (difference instanceof TableDifference) {
+            sb.append(buildTable1DifferenceToken((TableDifference) difference));
+        }
+
+        if(difference instanceof ViewDifference) {
+            sb.append(((ViewDifference) difference).getView1().getName());
+        }
+
+        if(difference instanceof ForeignKeyDifference) {
+            sb.append(((ForeignKeyDifference) difference).getForeignKey1().getName());
+        }
+
+        if (difference instanceof SequenceDifference) {
+            sb.append(((SequenceDifference) difference).getSequence1().getName());
+        }
+
+        return sb.toString();
+    }
+
     public static String buildSchema2Token(SchemaDifference difference) {
         StringBuilder sb = new StringBuilder();
         sb.append(difference.getSchema2().getName());
@@ -113,15 +113,15 @@ public class DifferenceUtils {
         }
 
         if(difference instanceof ViewDifference) {
-
+            sb.append(((ViewDifference) difference).getView2().getName());
         }
 
         if(difference instanceof ForeignKeyDifference) {
-
+            sb.append(((ForeignKeyDifference) difference).getForeignKey2().getName());
         }
 
         if (difference instanceof SequenceDifference) {
-
+            sb.append(((SequenceDifference) difference).getSequence2().getName());
         }
 
         return sb.toString();
@@ -161,10 +161,10 @@ public class DifferenceUtils {
         return sb.toString();
     }
 
-    public static String buildMissingElementToken(TableDifference t, String foundToken, String notFoundToken) {
+    public static String buildMissingElementToken(String typeLabel, String foundToken, String notFoundToken) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(t.getType().getLabel());
+        sb.append(typeLabel);
         sb.append(SPACE);
         sb.append(LABEL_SEPARATOR);
         sb.append(FOUND_IN_LABEL);

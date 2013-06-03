@@ -16,5 +16,16 @@
 package org.kuali.common.jalc.model.compare;
 
 public enum ViewDifferenceType {
-    MISSING_VIEW, QUERY_STRING
+    MISSING_VIEW("Missing View"),
+    QUERY_STRING("Query String");
+
+    private String label;
+
+    private ViewDifferenceType(String s) {
+        this.label = s;
+    }
+
+    public String getLabel() {
+        return label;
+    }
 }

@@ -35,9 +35,12 @@ import org.kuali.common.jalc.model.compare.ForeignKeyDifference;
 import org.kuali.common.jalc.model.compare.ForeignKeyDifferenceType;
 import org.kuali.common.jalc.model.compare.IndexDifference;
 import org.kuali.common.jalc.model.compare.MissingColumn;
+import org.kuali.common.jalc.model.compare.MissingForeignKey;
 import org.kuali.common.jalc.model.compare.MissingIndex;
+import org.kuali.common.jalc.model.compare.MissingSequence;
 import org.kuali.common.jalc.model.compare.MissingTable;
 import org.kuali.common.jalc.model.compare.MissingUniqueConstraint;
+import org.kuali.common.jalc.model.compare.MissingView;
 import org.kuali.common.jalc.model.compare.SequenceDifference;
 import org.kuali.common.jalc.model.compare.SequenceDifferenceType;
 import org.kuali.common.jalc.model.compare.TableDifference;
@@ -253,28 +256,70 @@ public class CompareUtils {
                 MissingTable missing = (MissingTable) t;
                 String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getTable().getName();
                 String notFoundToken = missing.getMissingSchema().getName();
-                return DifferenceUtils.buildMissingElementToken(t, foundToken, notFoundToken);
+                return DifferenceUtils.buildMissingElementToken(t.getType().getLabel(), foundToken, notFoundToken);
             }
             case MISSING_COLUMN: {
                 MissingColumn missing = (MissingColumn) t;
                 String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getSourceTable().getName() + DifferenceUtils.DOT + missing.getColumn().getName();
                 String notFoundToken = missing.getMissingSchema().getName() + DifferenceUtils.DOT + missing.getMissingTable().getName();
-                return DifferenceUtils.buildMissingElementToken(t, foundToken, notFoundToken);
+                return DifferenceUtils.buildMissingElementToken(t.getType().getLabel(), foundToken, notFoundToken);
             }
             case MISSING_INDEX: {
                 MissingIndex missing = (MissingIndex) t;
                 String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getSourceTable().getName() + DifferenceUtils.DOT + missing.getIndex().getName();
                 String notFoundToken = missing.getMissingSchema().getName() + DifferenceUtils.DOT + missing.getMissingTable().getName();
-                return DifferenceUtils.buildMissingElementToken(t, foundToken, notFoundToken);
+                return DifferenceUtils.buildMissingElementToken(t.getType().getLabel(), foundToken, notFoundToken);
             }
             case MISSING_UNIQUE_CONSTRAINT: {
                 MissingUniqueConstraint missing = (MissingUniqueConstraint) t;
                 String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getSourceTable().getName() + DifferenceUtils.DOT + missing.getUniqueConstraint().getName();
                 String notFoundToken = missing.getMissingSchema().getName() + DifferenceUtils.DOT + missing.getMissingTable().getName();
-                return DifferenceUtils.buildMissingElementToken(t, foundToken, notFoundToken);
+                return DifferenceUtils.buildMissingElementToken(t.getType().getLabel(), foundToken, notFoundToken);
             }
             default: {
                 return DifferenceUtils.buildDifferenceToken(t.getType().getLabel(), t);
+            }
+        }
+    }
+
+    public static String foreignKeyDifferenceToString(ForeignKeyDifference f) {
+        switch (f.getType()) {
+            case MISSING_FOREIGN_KEY: {
+                MissingForeignKey missing = (MissingForeignKey) f;
+                String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getForeignKey().getName();
+                String notFoundToken = missing.getMissingSchema().getName();
+                return DifferenceUtils.buildMissingElementToken(f.getType().getLabel(), foundToken, notFoundToken);
+            }
+            default: {
+                return DifferenceUtils.buildDifferenceToken(f.getType().getLabel(), f);
+            }
+        }
+    }
+
+    public static String viewDifferenceToString(ViewDifference v) {
+        switch (v.getType()) {
+            case MISSING_VIEW: {
+                MissingView missing = (MissingView) v;
+                String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getView().getName();
+                String notFoundToken = missing.getMissingSchema().getName();
+                return DifferenceUtils.buildMissingElementToken(v.getType().getLabel(), foundToken, notFoundToken);
+            }
+            default: {
+                return DifferenceUtils.buildDifferenceToken(v.getType().getLabel(), v);
+            }
+        }
+    }
+
+    public static String sequenceDifferenceToString(SequenceDifference s) {
+        switch (s.getType()) {
+            case MISSING_SEQUENCE: {
+                MissingSequence missing = (MissingSequence) s;
+                String foundToken = missing.getSourceSchema().getName() + DifferenceUtils.DOT + missing.getSequence().getName();
+                String notFoundToken = missing.getMissingSchema().getName();
+                return DifferenceUtils.buildMissingElementToken(s.getType().getLabel(), foundToken, notFoundToken);
+            }
+            default: {
+                return DifferenceUtils.buildDifferenceToken(s.getType().getLabel(), s);
             }
         }
     }
