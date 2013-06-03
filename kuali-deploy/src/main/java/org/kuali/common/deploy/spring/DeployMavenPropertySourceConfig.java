@@ -15,10 +15,12 @@
  */
 package org.kuali.common.deploy.spring;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.deploy.DeployProjectContext;
 import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.ConfigUtils;
@@ -35,7 +37,14 @@ public class DeployMavenPropertySourceConfig extends MavenPropertySourceConfig {
 	protected List<ProjectProperties> getOtherProjectProperties() {
 		ProjectContext jdbc = new JdbcProjectContext();
 		ProjectContext deploy = new DeployProjectContext();
-		return ConfigUtils.getProjectProperties(jdbc, deploy);
+
+		ProjectProperties jdbcProjectProperties = ConfigUtils.getProjectProperties(jdbc);
+
+		// Some environments don't have any special properties
+		ProjectProperties deployProjectProperties = ConfigUtils.getProjectProperties(deploy);
+		deployProjectProperties.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
+
+		return Arrays.asList(jdbcProjectProperties, deployProjectProperties);
 	}
 
 }
