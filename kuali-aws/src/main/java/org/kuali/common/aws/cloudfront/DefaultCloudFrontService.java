@@ -21,6 +21,14 @@ public class DefaultCloudFrontService implements CloudFrontService {
 			context.setWelcomeFileKey(welcomeFileKey);
 		}
 	}
+	@Override
+	public void fillInWelcomeFileKeys(List<String> welcomeFiles, List<IndexContext> contexts) {
+		for (IndexContext context : contexts) {
+			ObjectListing listing = context.getListing();
+			String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, welcomeFiles);
+			context.setWelcomeFileKey(welcomeFileKey);
+		}
+	}
 
 	@Override
 	public List<IndexContext> getIndexContexts(List<ObjectListing> listings) {

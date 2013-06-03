@@ -35,7 +35,7 @@ public class AwsMavenPropertySourceConfig extends MavenPropertySourceConfig {
 	KualiFoundationPropertiesConfig kualiFoundationProperties;
 
 	@Override
-	protected List<ProjectProperties> getProjectPropertiesList() {
+	protected List<ProjectProperties> getOtherProjectProperties() {
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
 		list.add(awsProperties.awsProjectProperties());
 		list.add(kualiFoundationProperties.kualiFoundationProjectProperties());
