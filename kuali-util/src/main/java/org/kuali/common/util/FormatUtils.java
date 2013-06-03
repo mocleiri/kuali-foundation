@@ -206,7 +206,7 @@ public class FormatUtils {
 	}
 
 	/**
-	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, or year as appropriate. Note that years is approximate since the logic always assumes there are
+	 * Given milliseconds, return milliseconds, seconds, minutes, hours, days, or years as appropriate. Note that years is approximate since the logic always assumes there are
 	 * exactly 365 days per year.
 	 */
 	public static String getTime(long millis) {
