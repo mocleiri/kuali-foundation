@@ -36,6 +36,8 @@ import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
+import org.kuali.common.util.Str;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +95,11 @@ public class SqlConfigUtils {
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
 		// Extract csv from the environment
 		String csv = SpringUtils.getProperty(env, SQL_ORDER_KEY);
+
+		// NONE or NULL means there is no sql to execute
+		if (NullUtils.isNullOrNone(csv)) {
+			csv = Str.EMPTY_STRING;
+		}
 
 		// Convert the csv to a list
 		List<String> values = CollectionUtils.getTrimmedListFromCSV(csv);
