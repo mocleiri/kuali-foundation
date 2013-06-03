@@ -120,7 +120,7 @@
     <kuali-jdbc.version>3.1.4</kuali-jdbc.version>
     <kuali-maven.version>1.0.3</kuali-maven.version>
     <kuali-sql.version>2.0.5</kuali-sql.version>
-    <kuali-util.version>4.2.12</kuali-util.version>
+    <kuali-util.version>4.2.13</kuali-util.version>
     <impex.version>2.1.7</impex.version>
   </properties>
   <profiles>
@@ -213,7 +213,6 @@
     <profile>
       <id>kdo</id>
       <properties>
-        <properties.maven.exclude>kuali.scm.url</properties.maven.exclude>
         <properties.decrypt>true</properties.decrypt>
         <properties.enc.password>${kuali.enc.password}</properties.enc.password>
         <mysql.groupId>mysql</mysql.groupId>
