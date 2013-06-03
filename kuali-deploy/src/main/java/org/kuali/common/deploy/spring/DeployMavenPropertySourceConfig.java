@@ -36,16 +36,17 @@ public class DeployMavenPropertySourceConfig extends MavenPropertySourceConfig {
 	@Override
 	protected List<ProjectProperties> getOtherProjectProperties() {
 		ProjectContext jdbc = new JdbcProjectContext();
+		ProjectProperties jpp = ConfigUtils.getProjectProperties(jdbc);
+		ProjectProperties dpp = getDeployProjectProperties();
+		return Arrays.asList(jpp, dpp);
+	}
+
+	public ProjectProperties getDeployProjectProperties() {
 		ProjectContext deploy = new DeployProjectContext();
-
-		ProjectProperties jdbcProjectProperties = ConfigUtils.getProjectProperties(jdbc);
-
-		ProjectProperties deployProjectProperties = ConfigUtils.getProjectProperties(deploy);
-
-		// Some environments don't have any special properties
-		deployProjectProperties.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
-
-		return Arrays.asList(jdbcProjectProperties, deployProjectProperties);
+		ProjectProperties dpp = ConfigUtils.getProjectProperties(deploy);
+		// Some environments don't have any special properties and thus no corresponding properties file
+		dpp.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
+		return dpp;
 	}
 
 }
