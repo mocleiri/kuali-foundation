@@ -16,6 +16,23 @@
 
 -->
 <config>
+
+  <!-- URL's -->
+  <param name="appserver.url">${public.url}</param>
+  <param name="application.url">${appserver.url}</param>
+  <param name="app.context.name" />
+  <param name="app.code" />
+  <param name="externalizable.help.url">/kr/static/help/</param>
+  <param name="externalizable.images.url">/kr/static/images/</param>
+  <param name="kr.externalizable.images.url">${externalizable.images.url}</param>
+  <param name="krad.externalizable.images.url">/krad/images/</param>
+  <param name="encryption.key">foobarbaz123456789</param>
+  <param name="keystore.file">${keystore.file.default}</param>
+  <param name="keystore.alias">rice</param>
+  <param name="keystore.password">r1c3pw</param>
+  <param name="travel.externalizable.images.url">${externalizable.images.url}</param>
+
+  <!-- Database -->
   <param name="db.vendor">${db.vendor}</param>
   <param name="jdbc.username">${jdbc.username}</param>
   <param name="oracle.dba.url">${oracle.dba.url}</param>
@@ -24,4 +41,14 @@
   <param name="mysql.dba.url">${mysql.dba.url}</param>
   <param name="mysql.dba.username">${mysql.dba.username}</param>
   <param name="mysql.dba.password">${mysql.dba.password}</param>
+
+  <!-- Email -->
+  <param name="mail.debug">${ses.debug}</param>
+  <param name="mail.smtp.host">${ses.host}</param>
+  <param name="mail.smtp.port">${ses.port}</param>
+  <param name="mail.smtp.ssl.enable">${ses.ssl.enable}</param>
+  <param name="mail.smtp.auth">${ses.auth}</param>
+  <param name="mail.smtp.username">${ses.username}</param>
+  <param name="mail.smtp.password">${ses.password}</param>
+
 </config>
