@@ -16,5 +16,6 @@
 
 -->
 <config>
-  <!-- Put OLE FS specific configuration here -->
+  <param name="externalizable.help.url">/static/help/</param>
+  <param name="externalizable.images.url">/static/images/</param>
 </config>
