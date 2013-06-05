@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.0.9</version>
+    <version>3.1.8</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jalc</artifactId>
@@ -41,7 +41,7 @@
     <kuali-threads.version>1.0.10</kuali-threads.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-collections.version>3.2.1</commons-collections.version>
-    <liquibase-core.version>3.0.0-beta3-SNAPSHOT</liquibase-core.version>
+    <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
     <kuali.release.arguments>-DskipTests -Pkuali-release -Dmaven.javadoc.skip=true</kuali.release.arguments>
   </properties>
   <developers>
@@ -142,6 +142,16 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-util</artifactId>
+            <version>${kuali-util.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-jdbc</artifactId>
+            <version>${kuali-jdbc.version}</version>
         </dependency>
     </dependencies>
   </dependencyManagement>

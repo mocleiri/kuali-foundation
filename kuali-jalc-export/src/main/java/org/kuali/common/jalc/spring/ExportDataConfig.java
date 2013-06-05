@@ -15,18 +15,24 @@
 
 package org.kuali.common.jalc.spring;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jalc.data.DefaultExportDataService;
 import org.kuali.common.jalc.data.ExportDataContext;
 import org.kuali.common.jalc.data.ExportDataService;
 import org.kuali.common.jalc.data.ExportTableContext;
 import org.kuali.common.jalc.model.ModelProvider;
 import org.kuali.common.jalc.model.Table;
+import org.kuali.common.jalc.util.ExportConstants;
+import org.kuali.common.jalc.util.ExportUtils;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +41,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcDataSourceConfig.class, LiquibaseModelProviderConfig.class})
+@Import({ LiquibaseModelProviderConfig.class})
 public class ExportDataConfig {
 
     @Autowired
@@ -48,17 +54,13 @@ public class ExportDataConfig {
     protected static final String WORKING_DIR_KEY = PROJECT_PREFIX + "export.data.workingDir";
     protected static final String ROW_INTERVAL_KEY = PROJECT_PREFIX + "export.data.rowInterval";
     protected static final String DATA_INTERVAL_KEY = PROJECT_PREFIX + "export.data.dataInterval";
+    protected static final String TABLE_NAME_INCLUDE_KEY = PROJECT_PREFIX + "export.data.include";
+    protected static final String TABLE_NAME_EXCLUDE_KEY = PROJECT_PREFIX + "export.data.exclude";
 
     /**
      * Property key for a boolean setting whether or not the executable should run
      */
     protected static final String EXECUTE_ENABLED_KEY = PROJECT_PREFIX + "export.execute";
-
-    protected static final String SIZE_PROPERTY_SUFFIX = ".size";
-    protected static final String ROWS_PROPERTY_SUFFIX = ".rows";
-
-    protected static final Integer DEFAULT_ROW_INTERVAL = 50;
-    protected static final Integer DEFAULT_DATA_INTERVAL = 50 * 1024;
 
     @Autowired
     JdbcDataSourceConfig dataSourceConfig;
@@ -70,37 +72,45 @@ public class ExportDataConfig {
     public ExportDataContext exportDataContext() {
         ExportDataContext result = new ExportDataContext();
 
-        result.setStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
+        String statsLocation = SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY);
         Properties tableStatistics = null;
-        if(LocationUtils.exists(result.getStatisticsLocation())) {
-            tableStatistics = PropertyUtils.load(result.getStatisticsLocation());
+        if(LocationUtils.exists(statsLocation)) {
+            tableStatistics = PropertyUtils.load(statsLocation);
         }
 
-        result.setDataThreads(Integer.parseInt(SpringUtils.getProperty(env, DATA_THREADS_KEY)));
+        result.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
         result.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, WORKING_DIR_KEY)));
-        result.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, DEFAULT_ROW_INTERVAL));
-        result.setDataSizeInterval(SpringUtils.getInteger(env, DATA_INTERVAL_KEY, DEFAULT_DATA_INTERVAL));
+        result.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, ExportUtils.DEFAULT_ROW_INTERVAL));
+        result.setDataSizeInterval(SpringUtils.getInteger(env, DATA_INTERVAL_KEY, ExportUtils.DEFAULT_DATA_INTERVAL));
 
         result.setDataSource(dataSourceConfig.jdbcDataSource());
+        result.setEncoding(dataSourceConfig.jdbcDatabaseProcessContext().getEncoding());
+
+        List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>();
+
+        Collection<Table> includedTables = ExportUtils.getIncludedElements(tableNameFilter(), modelProvider.getTables());
 
         // create table contexts
-        for (Table t : modelProvider.getTables()) {
+        for (Table t : includedTables) {
+
             ExportTableContext context = new ExportTableContext(t);
 
-            if(tableStatistics != null) {
-                String sizeVal = tableStatistics.getProperty(t.getName() + SIZE_PROPERTY_SUFFIX);
-                String rowCountVal = tableStatistics.getProperty(t.getName() + ROWS_PROPERTY_SUFFIX);
+            ExportUtils.populateTableStatistics(tableStatistics, t, context);
 
-                if (StringUtils.isNotBlank(sizeVal)) {
-                    context.setSize(Long.parseLong(sizeVal));
-                }
-                if (StringUtils.isNotBlank(rowCountVal)) {
-                    context.setRowCount(Long.parseLong(rowCountVal));
-                }
-            }
+            tableContexts.add(context);
         }
 
+        result.setTableContexts(tableContexts);
+
         return result;
+    }
+
+    @Bean
+    private StringFilter tableNameFilter() {
+        List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
+        List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+
+        return StringFilter.getInstance(tableIncludes, tableExcludes);
     }
 
     @Bean

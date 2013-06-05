@@ -29,8 +29,6 @@ public class ExportDataContext {
 
     protected int rowCountInterval;
     protected int dataSizeInterval;
-    private String statisticsLocation;
-
 
     public DataSource getDataSource() {
         return dataSource;
@@ -88,12 +86,4 @@ public class ExportDataContext {
         this.tableContexts = tableContexts;
     }
 
-
-    public void setStatisticsLocation(String statisticsLocation) {
-        this.statisticsLocation = statisticsLocation;
-    }
-
-    public String getStatisticsLocation() {
-        return statisticsLocation;
-    }
 }

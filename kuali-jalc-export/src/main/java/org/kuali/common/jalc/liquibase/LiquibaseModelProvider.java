@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.Database;
@@ -44,8 +45,11 @@ import org.kuali.common.jalc.model.TypeSize;
 import org.kuali.common.jalc.model.UniqueConstraint;
 import org.kuali.common.jalc.model.View;
 import org.kuali.common.jalc.model.util.NamedElementComparator;
+import org.kuali.common.jalc.schema.SequenceFinder;
 
 public class LiquibaseModelProvider implements ModelProvider {
+
+    private static Logger log = Logger.getLogger(LiquibaseModelProvider.class.getSimpleName());
 
     /**
      * Constants for result set keys from DatabaseMetaData.getImportedKeys
@@ -72,19 +76,31 @@ public class LiquibaseModelProvider implements ModelProvider {
 
     protected List<ForeignKey> foreignKeys;
 
+    protected SequenceFinder sequenceFinder;
+
     /**
      * Maps table names to outbound (i.e. having the same local table name as the key in the map) foreign keys
      */
     protected Map<String, List<ForeignKey>> tableNameToForeignKeys;
 
-    public LiquibaseModelProvider(DatabaseSnapshot snapshot) throws SQLException {
+    public LiquibaseModelProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder) throws SQLException {
+        this.sequenceFinder = sequenceFinder;
+
+        log.info("Building tables...");
         tables = buildTables(snapshot);
+        log.info("Table building complete.");
 
+        log.info("Building views...");
         views = buildViews(snapshot);
+        log.info("View building complete.");
 
+        log.info("Building sequences...");
         sequences = buildSequences(snapshot);
+        log.info("Sequence building complete.");
 
+        log.info("Building foreign keys...");
         foreignKeys = buildForeignKeys(snapshot);
+        log.info("Foreign key building complete.");
 
         // sort each of the schema elements
         Collections.sort(tables, NamedElementComparator.getInstance());
@@ -266,8 +282,8 @@ public class LiquibaseModelProvider implements ModelProvider {
         return results;
     }
 
-    protected List<Sequence> buildSequences(DatabaseSnapshot snapshot) {
-        Set<liquibase.structure.core.Sequence> sourceSequences = snapshot.get(liquibase.structure.core.Sequence.class);
+    protected List<Sequence> buildSequences(DatabaseSnapshot snapshot) throws SQLException {
+        /*Set<liquibase.structure.core.Sequence> sourceSequences = snapshot.get(liquibase.structure.core.Sequence.class);
 
         List<Sequence> results = new ArrayList<Sequence>(sourceSequences.size());
 
@@ -275,10 +291,18 @@ public class LiquibaseModelProvider implements ModelProvider {
         for (liquibase.structure.core.Sequence sourceSequence : sourceSequences) {
             results.add(new Sequence(sourceSequence.getName(), "1"));
         }
+        */
 
-        Collections.sort(results, NamedElementComparator.getInstance());
+        if(sequenceFinder != null) {
+            List<Sequence> results = sequenceFinder.findSequences();
 
-        return results;
+            Collections.sort(results, NamedElementComparator.getInstance());
+
+            return results;
+        }
+        else {
+            return Collections.emptyList();
+        }
     }
 
     protected List<ForeignKey> buildForeignKeys(DatabaseSnapshot snapshot) throws SQLException {

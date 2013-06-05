@@ -35,6 +35,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jalc.model.Column;
 import org.kuali.common.jalc.model.Table;
 import org.kuali.common.jalc.model.util.ModelUtils;
@@ -56,8 +57,9 @@ public class DefaultExportDataService implements ExportDataService {
         Statement stmt = null;
         ResultSet rs = null;
         long start = System.currentTimeMillis();
+        String query = getSelectAllQuery(tableContext.getTable());
         try {
-            String query = getSelectAllQuery(tableContext.getTable());
+
             stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(query);
             ExportTableResult result = dumpTable(context, tableContext, rs);
@@ -66,7 +68,7 @@ public class DefaultExportDataService implements ExportDataService {
             result.setElapsed(result.getFinish() - start);
             return result;
         } catch (SQLException e) {
-            throw new ExportDataException("SQLException thrown when attempting to retrieve data for export from table: " + tableContext.getTable().getName(), e);
+            throw new ExportDataException("SQLException thrown when attempting to retrieve data for export from table: " + tableContext.getTable().getName() + " with query \n" + query, e);
         } finally {
             closeQuietly(rs);
             closeQuietly(stmt);
@@ -292,12 +294,18 @@ public class DefaultExportDataService implements ExportDataService {
     /**
      * Generate a SQL statement that selects all data from the table
      */
-    protected String getSelectAllQuery(Table table) throws SQLException {
+    protected String getSelectAllQuery(Table table) {
         StringBuilder sb = new StringBuilder("SELECT * FROM ");
         sb.append(table.getName());
-        sb.append(" ORDER BY 'x',");
-        // Order by primary keys (if any) so the data always comes out in a deterministic order
-        sb.append(ModelUtils.getCsvPrimaryKeyColumnNames(table));
+        sb.append(" ORDER BY 'x'");
+
+        String primaryKeyString = ModelUtils.getCsvPrimaryKeyColumnNames(table);
+
+        if (!StringUtils.isBlank(primaryKeyString)) {
+            // Order by primary keys (if any) so the data always comes out in a deterministic order
+            sb.append(", ");
+            sb.append(primaryKeyString);
+        }
 
         return sb.toString();
     }

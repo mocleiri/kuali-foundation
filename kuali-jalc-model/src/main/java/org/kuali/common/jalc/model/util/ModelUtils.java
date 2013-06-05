@@ -35,7 +35,12 @@ public class ModelUtils {
             }
         }
 
-        return CollectionUtils.getCSV(names);
+        if (names.isEmpty()) {
+            return "";
+        }
+        else {
+            return CollectionUtils.getCSV(names);
+        }
     }
 
     public static Map<String, Column> getColumnNameMap(Table t) {

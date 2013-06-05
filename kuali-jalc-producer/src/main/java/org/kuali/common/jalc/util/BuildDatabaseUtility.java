@@ -18,6 +18,7 @@ package org.kuali.common.jalc.util;
 import java.util.List;
 
 import org.kuali.common.jalc.spring.MpxSupplierConfig;
+import org.kuali.common.jdbc.spring.JdbcMavenPropertySourceConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
 
@@ -46,7 +47,7 @@ public class BuildDatabaseUtility {
             }
 
             // Reset the db using annotated config
-            SpringContextUtils.loadSpringService(propertyFileName, JdbcPropertyConfig.class, configClasses);
+            SpringContextUtils.loadSpringService(propertyFileName, JdbcMavenPropertySourceConfig.class, configClasses);
 
 
         }

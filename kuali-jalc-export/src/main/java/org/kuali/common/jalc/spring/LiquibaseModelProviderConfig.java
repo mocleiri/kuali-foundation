@@ -26,6 +26,7 @@ import liquibase.snapshot.InvalidExampleException;
 import liquibase.snapshot.SnapshotControl;
 import liquibase.snapshot.SnapshotGeneratorFactory;
 import org.kuali.common.jalc.liquibase.LiquibaseModelProvider;
+import org.kuali.common.jalc.schema.OracleSequenceFinder;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class LiquibaseModelProviderConfig {
 
         DatabaseSnapshot snapshot = SnapshotGeneratorFactory.getInstance().createSnapshot(database.getDefaultSchema(), database, new SnapshotControl());
 
-        log.info("liquibase snapshot initialized, took: " + (System.currentTimeMillis() - start)/1000l + " seconds");
+        log.info("liquibase snapshot initialized, elapsed time: " + (System.currentTimeMillis() - start)/1000l + " seconds");
 
         return snapshot;
     }
@@ -62,7 +63,13 @@ public class LiquibaseModelProviderConfig {
     @Bean
     public LiquibaseModelProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException, SQLException {
 
-        LiquibaseModelProvider modelProvider = new LiquibaseModelProvider(databaseSnapshot());
+        DatabaseSnapshot snapshot = databaseSnapshot();
+
+        log.info("Building LiquibaseModelProvider from snapshot...");
+        long start = System.currentTimeMillis();
+
+        LiquibaseModelProvider modelProvider = new LiquibaseModelProvider(snapshot, new OracleSequenceFinder(dataSourceConfig.jdbcDataSource().getConnection(), dataSourceConfig.jdbcDatabaseProcessContext().getUsername()));
+        log.info("LiquibaseModelProvider constructed, elapsed time: " + (System.currentTimeMillis() - start)/1000l + " seconds");
 
         // By default, the liquibase DatabaseSnapshot keeps an open connection to the database
         // after building the snapshot

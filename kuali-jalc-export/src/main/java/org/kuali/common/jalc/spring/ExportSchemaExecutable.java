@@ -25,17 +25,14 @@ import org.kuali.common.jalc.schema.ExportSchemaException;
 import org.kuali.common.jalc.schema.ExportSchemaService;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 public class ExportSchemaExecutable implements Executable {
 
     @Autowired
-    ExportSchemaConfig persistSchemaConfig;
+    ExportSchemaConfig exportSchemaConfig;
 
     @Autowired
-    ExportSchemaService persistService;
+    ExportSchemaService exportService;
 
     Boolean enabled;
 
@@ -56,7 +53,7 @@ public class ExportSchemaExecutable implements Executable {
             return;
         }
 
-        Map<String, Schema> schemaLocations = persistSchemaConfig.schemaLocations();
+        Map<String, Schema> schemaLocations = exportSchemaConfig.schemaLocations();
 
         for (String location : schemaLocations.keySet()) {
             Writer writer;
@@ -66,7 +63,7 @@ public class ExportSchemaExecutable implements Executable {
                 throw new RuntimeException("Could not open a file writer for location " + location, e);
             }
             try {
-                persistService.exportSchema(schemaLocations.get(location), writer);
+                exportService.exportSchema(schemaLocations.get(location), writer);
             } catch (ExportSchemaException e) {
                 throw new RuntimeException("Unable to persist schema to location " + location, e);
             }

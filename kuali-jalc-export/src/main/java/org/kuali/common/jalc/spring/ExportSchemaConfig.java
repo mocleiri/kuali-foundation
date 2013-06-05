@@ -15,13 +15,21 @@
 
 package org.kuali.common.jalc.spring;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.jalc.model.ModelProvider;
+import org.kuali.common.jalc.model.NamedElement;
 import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.schema.DefaultExportSchemaService;
 import org.kuali.common.jalc.schema.ExportSchemaService;
+import org.kuali.common.jalc.util.ExportConstants;
+import org.kuali.common.jalc.util.ExportUtils;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -38,29 +46,67 @@ public class ExportSchemaConfig {
     /**
      * Property key for the location of the xml file for tables
      */
-    protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables";
+    protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables.location";
 
     /**
      * Property key for the location of the xml file for views
      */
-    protected static final String VIEWS_LOCATION_KEY = PROJECT_PREFIX + "export.schema.views";
+    protected static final String VIEWS_LOCATION_KEY = PROJECT_PREFIX + "export.schema.views.location";
 
     /**
      * Property key for the location of the xml file for sequences
      */
-    protected static final String SEQUENCES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.sequences";
+    protected static final String SEQUENCES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.sequences.location";
 
     /**
      * Property key for the location of the xml file for foreign keys
      */
-    protected static final String FOREIGNKEY_LOCATION_KEY = PROJECT_PREFIX + "export.schema.foreignkeys";
+    protected static final String FOREIGNKEY_LOCATION_KEY = PROJECT_PREFIX + "export.schema.foreignkeys.location";
 
+    /**
+     * Property key for the regular expression to match table names for export
+     */
+    protected static final String TABLES_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.tables.include";
+
+    /**
+     * Property key for the regular expression to match view names for export
+     */
+    protected static final String VIEWS_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.views.include";
+
+    /**
+     * Property key for the regular expression to match sequence names for export
+     */
+    protected static final String SEQUENCES_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.sequences.include";
+
+    /**
+     * Property key for the regular expression to match foreign key names for export
+     */
+    protected static final String FOREIGNKEYS_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.foreignkeys.include";
+
+    /**
+     * Property key for the regular expression to exclude table names for export
+     */
+    protected static final String TABLES_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.tables.exclude";
+
+    /**
+     * Property key for the regular expression to exclude view names for export
+     */
+    protected static final String VIEWS_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.views.exclude";
+
+    /**
+     * Property key for the regular expression to exclude sequence names for export
+     */
+    protected static final String SEQUENCES_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.sequences.exclude";
+
+    /**
+     * Property key for the regular expression to exclude foreign key names for export
+     */
+    protected static final String FOREIGNKEYS_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.foreignkeys.exclude";
 
     /**
      * Property key for a boolean setting whether or not the executable should run
      */
     protected static final String EXECUTE_ENABLED_KEY = PROJECT_PREFIX + "export.execute";
-
 
     @Autowired
     Environment env;
@@ -79,29 +125,59 @@ public class ExportSchemaConfig {
      */
     @Bean
     public Map<String, Schema> schemaLocations() {
-
-
         Map<String, Schema> result = new HashMap<String, Schema>();
 
         Schema schema;
 
         String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY);
         schema = quietlyGetSchema(tableLocation, result);
-        schema.getTables().addAll(modelProvider.getTables());
+        schema.getTables().addAll(ExportUtils.getIncludedElements(tableNameFilter(), modelProvider.getTables()));
 
         String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY);
         schema = quietlyGetSchema(viewLocation, result);
-        schema.getViews().addAll(modelProvider.getViews());
+        schema.getViews().addAll(ExportUtils.getIncludedElements(viewNameFilter(), modelProvider.getViews()));
 
         String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY);
         schema = quietlyGetSchema(sequenceLocation, result);
-        schema.getSequences().addAll(modelProvider.getSequences());
+        schema.getSequences().addAll(ExportUtils.getIncludedElements(sequenceNameFilter(), modelProvider.getSequences()));
 
         String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY);
         schema = quietlyGetSchema(foreignKeyLocation, result);
-        schema.getForeignKeys().addAll(modelProvider.getForeignKeys());
+        schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(foreignKeyNameFilter(), modelProvider.getForeignKeys()));
 
         return result;
+    }
+
+    @Bean
+    public StringFilter tableNameFilter() {
+        List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLES_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
+        List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLES_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+
+        return StringFilter.getInstance(tableIncludes, tableExcludes);
+    }
+
+    @Bean
+    public StringFilter viewNameFilter() {
+        List<String> viewIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, VIEWS_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
+        List<String> viewExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, VIEWS_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+
+        return StringFilter.getInstance(viewIncludes, viewExcludes);
+    }
+
+    @Bean
+    public StringFilter sequenceNameFilter() {
+        List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, SEQUENCES_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
+        List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, SEQUENCES_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+
+        return StringFilter.getInstance(tableIncludes, tableExcludes);
+    }
+
+    @Bean
+    public StringFilter foreignKeyNameFilter() {
+        List<String> foreignKeyIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, FOREIGNKEYS_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
+        List<String> foreignKeyExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, FOREIGNKEYS_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+
+        return StringFilter.getInstance(foreignKeyIncludes, foreignKeyExcludes);
     }
 
     protected Schema quietlyGetSchema(String location, Map<String, Schema> schemaMap) {

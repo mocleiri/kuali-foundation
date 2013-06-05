@@ -33,7 +33,7 @@ public class SpringContextUtils {
         p.load(LocationUtils.getInputStream(location));
 
         p.setProperty("project.groupId", "org.kuali.common");
-        p.setProperty("project.artifactId", "kuali-jalc-producer");
+        p.setProperty("project.artifactId", "kuali-jalc-common");
         p.setProperty("project.version", "3.0-SNAPSHOT");
         p.setProperty("project.encoding", "UTF-8");
         p.setProperty("project.orgId", "org.kuali");
@@ -51,7 +51,7 @@ public class SpringContextUtils {
         SpringService ss = new DefaultSpringService();
 
         // Setup a Spring context that uses maven properties for placeholder resolution
-        SpringContext context = MavenUtils.getMavenizedSpringContext(ss, getTestMavenProperties(propertiesLocation), propertySourceConfigClass);
+        SpringContext context = MavenUtils.getMavenizedSpringContext(getTestMavenProperties(propertiesLocation), propertySourceConfigClass);
 
         context.setAnnotatedClasses(annotatedClasses);
 

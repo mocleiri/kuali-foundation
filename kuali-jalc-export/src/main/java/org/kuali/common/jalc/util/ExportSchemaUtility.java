@@ -20,6 +20,7 @@ import java.util.List;
 import org.kuali.common.jalc.spring.ExportSchemaConfig;
 import org.kuali.common.jalc.spring.ExportSchemaExecutable;
 import org.kuali.common.jalc.spring.LiquibaseModelProviderConfig;
+import org.kuali.common.jdbc.spring.JdbcMavenPropertySourceConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.MavenPropertySourceConfig;
@@ -36,7 +37,7 @@ public class ExportSchemaUtility {
 
         try {
             // Reset the db using annotated config
-            SpringContextUtils.loadSpringService(propertyFileName, JdbcPropertyConfig.class, CollectionUtils.asList(ExportSchemaConfig.class));
+            SpringContextUtils.loadSpringService(propertyFileName, JdbcMavenPropertySourceConfig.class, CollectionUtils.asList(ExportSchemaConfig.class));
         }
         catch(Exception e) {
             e.printStackTrace();
