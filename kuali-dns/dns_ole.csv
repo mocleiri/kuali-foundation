@@ -2,7 +2,7 @@ Index Project Svr,DNS Name,EC2 Name,uptime or status, .. , no users,avg load for
 ,oracle.ole.kuali.org,ole-oracle-2.czqkvue6plby.us-east-1.rds.amazonaws.com, RDS-no check,
 ,test.db.ole.kuali.org,ole-dev-2.czqkvue6plby.us-east-1.rds.amazonaws.com, RDS-no check,
 ,ole-oracle.ole.kuali.org,ole-oracle-2.czqkvue6plby.us-east-1.rds.amazonaws.com, RDS-no check,
-,demo-oracle.ole.kuali.org,ole-demo-oracle-2.czqkvue6plby.us-east-1.rds.amazonaws.com, RDS-no check,
+10,demo-oracle.ole.kuali.org,ole-demo-oracle-2.czqkvue6plby.us-east-1.rds.amazonaws.com, RDS-no check,
 ,mysql.ole.kuali.org,ole-dev-2.czqkvue6plby.us-east-1.rds.amazonaws.com, RDS-no check,
 ,env2.ole.kuali.org,ec2-50-17-124-177.compute-1.amazonaws.com, time-out,
 ,env3.ole.kuali.org, ec2-72-44-35-146.compute-1.amazonaws.com, Fail 65280, ,
