@@ -26,7 +26,7 @@
   <param name="externalizable.images.url">/kr/static/images/</param>
   <param name="kr.externalizable.images.url">${externalizable.images.url}</param>
   <param name="krad.externalizable.images.url">/krad/images/</param>
-  <param name="encryption.key">foobarbaz123456789</param>
+  <param name="encryption.key">7IC64w6kAAAA</param>
   <param name="keystore.file">${keystore.file.default}</param>
   <param name="keystore.alias">rice</param>
   <param name="keystore.password">r1c3pw</param>
