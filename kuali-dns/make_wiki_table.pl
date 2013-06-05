@@ -281,8 +281,8 @@ sub project_env_status
           if (( $anyname_kuali_org eq "www.kuali.org") || ( $anyname_kuali_org eq "dev-cas.kuali.org") || ( $anyname_kuali_org eq "test-www.kuali.org")){ $user = "ubuntu"; }
           if (( $anyname_kuali_org eq "env16.rice.kuali.org") || ( $anyname_kuali_org eq "env29.rice.kuali.org") ||( $anyname_kuali_org eq "env67.rice.kuali.org")){ $user = "ubuntu"; }
           @results_ping = dead_or_alive($anyname_kuali_org,$user); 
-          print "\n@results_ping = dead_or_alive($anyname_kuali_org,$user)"; 
        } 
+      print "\n",  @results_ping," dead_or_alive($anyname_kuali_org,$user)"; 
       chomp(@results_ping);
       $status = $results_ping[0];
       $size = $results_ping[1];
@@ -291,7 +291,7 @@ sub project_env_status
     #let look up the index, probably write a routine for this
     $domainservers = "./domainsvr_lookup.txt";
 
-   print "grep $anyname_kuali_org $domainservers\n";
+   print "\n===>grep $anyname_kuali_org $domainservers\n";
    ($env_no, $env_name, $projectx) = split(/,/,`grep $anyname_kuali_org $domainservers`);
    #I only are about env_no for this effort
    #ws.rice.kuali.org, ec2-204-236-253-122.compute-1.amazonaws.com,  22:46:51 up 56 days, 11:29,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvde1,252G,183G,57G,77%,/,,ci.ws.server
@@ -353,7 +353,7 @@ sub dead_or_alive
  my @out = ();
  my $value = "";
  my $size = "";
- print "\ndead_or_alive $name, $user";
+ print "\ndead_or_alive: $name, $user";
 
 #set an Signal Alarm to timeout unresponsive ip addresses
 eval {
