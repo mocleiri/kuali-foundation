@@ -291,7 +291,7 @@ sub project_env_status
     #let look up the index, probably write a routine for this
     $domainservers = "./domainsvr_lookup.txt";
 
-   #print "grep $anyname_kuali_org $domainservers\n";
+   print "grep $anyname_kuali_org $domainservers\n";
    ($env_no, $env_name, $projectx) = split(/,/,`grep $anyname_kuali_org $domainservers`);
    #I only are about env_no for this effort
    #ws.rice.kuali.org, ec2-204-236-253-122.compute-1.amazonaws.com,  22:46:51 up 56 days, 11:29,  0 users,  load average: 0.00, 0.01, 0.05, /dev/xvde1,252G,183G,57G,77%,/,,ci.ws.server
