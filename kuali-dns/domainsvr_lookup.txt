@@ -24,3 +24,6 @@
 4,tst.ole.kuali.org, ole
 5,tst.docstore.ole.kuali.org, ole
 6,tst.rice2.ole.kuali.org, ole
+7,demo.ole.kuali.org, ole
+8,demo.docstore.ole.kuali.org, ole
+9,demo.rice2.ole.kuali.org, ole
