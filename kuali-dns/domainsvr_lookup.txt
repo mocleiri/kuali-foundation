@@ -26,5 +26,5 @@
 6,tst.rice2.ole.kuali.org, ole
 7,demo.ole.kuali.org, ole
 8,docstore.demo.ole.kuali.org, ole
-9,demo.rice2.ole.kuali.org, ole
+9,rice2.demo.ole.kuali.org, ole
 10,demo-oracle.ole.kuali.org, ole
