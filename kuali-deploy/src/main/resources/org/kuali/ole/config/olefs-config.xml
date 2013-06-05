@@ -18,4 +18,5 @@
 <config>
   <param name="externalizable.help.url">/static/help/</param>
   <param name="externalizable.images.url">/static/images/</param>
+  <param name="kr.externalizable.images.url">/kr/${externalizable.images.url}</param>
 </config>
