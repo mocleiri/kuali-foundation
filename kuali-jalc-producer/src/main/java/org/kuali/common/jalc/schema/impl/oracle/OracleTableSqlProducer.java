@@ -44,10 +44,10 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
             "\tIF temp > 0 THEN EXECUTE IMMEDIATE 'DROP TABLE ";
 
     protected static final String DROP_TABLE_FOOTER = " CASCADE CONSTRAINTS PURGE'; END IF;\n" +
-            "END;\n/";
+            "END;\n";
 
     protected static final String CREATE_TABLE_HEADER = "CREATE TABLE ";
-    protected static final String CREATE_TABLE_FOOTER = ")\n/";
+    protected static final String CREATE_TABLE_FOOTER = ")\n";
 
     protected static final String COLUMN_SECTION_PREFIX = "\n(";
     protected static final String COLUMN_SECTION_SUFFIX = "\n";
@@ -60,20 +60,20 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
     protected static final String PRIMARY_KEY_HEADER = "ALTER TABLE ";
     protected static final String PRIMARY_KEY_ADD_CONSTRAINT = "\n\tADD CONSTRAINT ";
     protected static final String PRIMARY_KEY_LISTING_PREFIX = "\nPRIMARY KEY (";
-    protected static final String PRIMARY_KEY_FOOTER = ")\n/";
+    protected static final String PRIMARY_KEY_FOOTER = ")\n";
 
     protected static final String INDEX_HEADER = "CREATE INDEX ";
     protected static final String INDEX_UNIQUE_HEADER = "CREATE UNIQUE INDEX ";
     protected static final String INDEX_TABLE_NAME_PREFIX = "\n\tON ";
     protected static final String INDEX_COLUMN_LIST_PREFIX = "\n\t(";
-    protected static final String INDEX_FOOTER = ")\n/";
+    protected static final String INDEX_FOOTER = ")\n";
 
     protected static final String TABLE_DESCRIPTION_PREFIX = "\n\nCOMMENT ON TABLE ";
     protected static final String DESCRIPTION_IS_KEYWORD = " IS '";
-    protected static final String TABLE_DESCRIPTION_SUFFIX = "'\n/";
+    protected static final String TABLE_DESCRIPTION_SUFFIX = "'\n";
 
     protected static final String COLUMN_DESCRIPTION_PREFIX = "\n\nCOMMENT ON COLUMN ";
-    protected static final String COLUMN_DESCRIPTION_SUFFIX = "'\n/";
+    protected static final String COLUMN_DESCRIPTION_SUFFIX = "'\n";
 
     /**
      * Oracle data types
@@ -179,7 +179,19 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         sb.append(translateDataType(column.getColumnDataType()));
 
         TypeSize typeSize = column.getTypeSize();
-        if(typeSize != null) {
+
+        // Determine whether or not the type size should be printed
+        boolean validTypeSize = typeSize != null;
+        if(validTypeSize) {
+
+            // do not populate the data size field if the type is a FLOAT but the size is 0
+            // leave it unspecified and let Oracle fill in the default
+            if(column.getColumnDataType() == DataType.FLOAT && typeSize.getSize() == 0) {
+                validTypeSize = false;
+            }
+        }
+
+        if(validTypeSize) {
             sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
             sb.append(typeSize.getSize());
             if(typeSize.isScaleSet()) {
@@ -299,6 +311,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         if (!indices.isEmpty()) {
             StringBuilder sb;
             for (Index index : indices) {
+
                 sb = new StringBuilder();
 
                 if (index.isUnique()) {

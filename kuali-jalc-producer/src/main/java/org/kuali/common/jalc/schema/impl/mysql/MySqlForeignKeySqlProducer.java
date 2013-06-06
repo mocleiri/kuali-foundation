@@ -81,8 +81,6 @@ public class MySqlForeignKeySqlProducer extends AbstractForeignKeySqlProducer {
             sb.append(ProducerUtils.NEWLINE);
         }
 
-        sb.append(ProducerUtils.STATEMENT_SEPARATOR);
-
         return sb.toString();
     }
 }

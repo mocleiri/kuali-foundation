@@ -19,6 +19,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * This class represents any named connection between columns
@@ -36,6 +37,7 @@ public abstract class Constraint implements NamedElement {
         this.name = name;
     }
 
+    @XmlElement(name = "column")
     public List<String> getColumnNames() {
         return columnNames;
     }

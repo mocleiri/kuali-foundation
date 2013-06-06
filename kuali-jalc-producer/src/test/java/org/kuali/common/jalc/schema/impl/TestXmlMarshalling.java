@@ -28,6 +28,7 @@ import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.model.Sequence;
 import org.kuali.common.jalc.model.Table;
 import org.kuali.common.jalc.model.util.ModelUtils;
+import org.kuali.common.util.CollectionUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -83,6 +84,7 @@ public class TestXmlMarshalling {
         assertEquals(table.getColumns().size(), loaded.getColumns().size());
         assertEquals(ModelUtils.getCsvPrimaryKeyColumnNames(table), ModelUtils.getCsvPrimaryKeyColumnNames(loaded));
         assertEquals(ModelUtils.getCsvColumnNames(table.getColumns()), ModelUtils.getCsvColumnNames(loaded.getColumns()));
+        assertEquals("NAME", CollectionUtils.getCSV(loaded.getUniqueConstraints().get(0).getColumnNames()));
     }
 
 }

@@ -34,14 +34,11 @@ public class ModularSchemaExportExecutable implements Executable {
 
     protected ExportSchemaService exportService;
 
-    private boolean execute;
+    protected boolean execute;
 
-    public ModularSchemaExportExecutable(String location, Schema schema, ExportSchemaService service, boolean execute) {
-        this.outputLocation = location;
-        this.schema = schema;
-        this.exportService = service;
-        this.execute = execute;
-    }
+    protected boolean separateForeignKeys;
+
+    protected String foreignKeyOutputLocation;
 
     @Override
     public void execute() {
@@ -50,16 +47,88 @@ public class ModularSchemaExportExecutable implements Executable {
             return;
         }
 
+        if(separateForeignKeys) {
+
+            // build a new schema object with just the foreign keys from our source schema
+            Schema fkSchema = new Schema();
+            fkSchema.getForeignKeys().addAll(schema.getForeignKeys());
+
+            // create a new schema object with all other schema elements
+            Schema otherSchema = new Schema();
+            otherSchema.setSequences(schema.getSequences());
+            otherSchema.setTables(schema.getTables());
+            otherSchema.setViews(schema.getViews());
+
+            writeSchema(otherSchema, outputLocation);
+
+            writeSchema(fkSchema, foreignKeyOutputLocation);
+
+        }
+        else {
+            writeSchema(schema, outputLocation);
+        }
+
+    }
+
+    protected void writeSchema(Schema outputSchema, String location) {
         Writer writer;
         try {
-            writer = new FileWriter(outputLocation);
+            writer = new FileWriter(location);
         } catch (IOException e) {
-            throw new RuntimeException("Could not open a file writer for location " + outputLocation, e);
+            throw new RuntimeException("Could not open a file writer for location " + location, e);
         }
         try {
-            exportService.exportSchema(schema, writer);
+            exportService.exportSchema(outputSchema, writer);
         } catch (ExportSchemaException e) {
-            throw new RuntimeException("Unable to persist schema to location " + outputLocation, e);
+            throw new RuntimeException("Unable to persist schema to location " + location, e);
         }
+    }
+
+    public boolean isExecute() {
+        return execute;
+    }
+
+    public void setExecute(boolean execute) {
+        this.execute = execute;
+    }
+
+    public ExportSchemaService getExportService() {
+        return exportService;
+    }
+
+    public void setExportService(ExportSchemaService exportService) {
+        this.exportService = exportService;
+    }
+
+    public String getOutputLocation() {
+        return outputLocation;
+    }
+
+    public void setOutputLocation(String outputLocation) {
+        this.outputLocation = outputLocation;
+    }
+
+    public Schema getSchema() {
+        return schema;
+    }
+
+    public void setSchema(Schema schema) {
+        this.schema = schema;
+    }
+
+    public boolean isSeparateForeignKeys() {
+        return separateForeignKeys;
+    }
+
+    public void setSeparateForeignKeys(boolean separateForeignKeys) {
+        this.separateForeignKeys = separateForeignKeys;
+    }
+
+    public void setForeignKeyOutputLocation(String fkOutpuLocation) {
+        this.foreignKeyOutputLocation = fkOutpuLocation;
+    }
+
+    public String getForeignKeyOutputLocation() {
+        return foreignKeyOutputLocation;
     }
 }

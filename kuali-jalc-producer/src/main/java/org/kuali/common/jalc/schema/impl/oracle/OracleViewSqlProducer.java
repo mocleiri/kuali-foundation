@@ -25,7 +25,7 @@ public class OracleViewSqlProducer {
 
     protected static final String CREATE_VIEW_HEADER = "CREATE OR REPLACE FORCE VIEW ";
     protected static final String CREATE_VIEW_AS_KEYWORD = " AS \n";
-    protected static final String CREATE_VIEW_FOOTER = "\n/";
+    protected static final String CREATE_VIEW_FOOTER = "\n";
 
     public List<String> getViewsSql(List<View> views) {
         List<String> results = new ArrayList<String>();

@@ -30,8 +30,7 @@ public class MySqlSequenceSqlProducer {
     protected static final String CREATE_SUFFIX = "\n" +
             "(\n" +
             "\tID BIGINT(19) NOT NULL AUTO_INCREMENT, PRIMARY KEY (ID)\n" +
-            ") ENGINE MyISAM\n" +
-            "/";
+            ") ENGINE MyISAM\n";
 
     protected static final String ALTER_PREFIX = "ALTER TABLE ";
 
@@ -56,8 +55,6 @@ public class MySqlSequenceSqlProducer {
 
         sb.append(DROP_PREFIX);
         sb.append(sequence.getName());
-        sb.append(ProducerUtils.NEWLINE);
-        sb.append(ProducerUtils.STATEMENT_SEPARATOR);
 
         return sb.toString();
     }
@@ -80,7 +77,6 @@ public class MySqlSequenceSqlProducer {
         sb.append(ALTER_INCREMENT_START);
         sb.append(sequence.getStartValue());
         sb.append(ProducerUtils.NEWLINE);
-        sb.append(ProducerUtils.STATEMENT_SEPARATOR);
 
         return sb.toString();
     }

@@ -29,7 +29,8 @@ import org.springframework.core.env.Environment;
 @Import({DataTypeMappingProviderConfig.class})
 public class SchemaSqlProducerConfig {
 
-    // TODO KSENROLL-6764 Should be able to retrieve this as an enum from a kuali-jdbc level config
+    // TODO KSENROLL-6764 Should be able to retrieve the name of this key as a constant from a kuali-common resource
+    // Possibly match the values to a common enum
     protected static final String DB_VENDOR_KEY = "db.vendor";
 
     @Autowired

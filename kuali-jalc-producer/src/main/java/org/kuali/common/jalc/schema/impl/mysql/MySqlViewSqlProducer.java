@@ -25,7 +25,6 @@ import org.kuali.common.util.CollectionUtils;
 public class MySqlViewSqlProducer {
 
     protected static final String DROP_PREFIX = "DROP VIEW IF EXISTS ";
-    protected static final String DROP_SUFFIX = "\n/";
 
     protected static final String CREATE_PREFIX = "CREATE VIEW ";
     protected static final String CREATE_AS_KEYWORD = " AS\n";
@@ -48,7 +47,6 @@ public class MySqlViewSqlProducer {
 
         sb.append(DROP_PREFIX);
         sb.append(view.getName());
-        sb.append(DROP_SUFFIX);
 
         results.add(sb.toString());
         sb = new StringBuilder();
@@ -58,7 +56,6 @@ public class MySqlViewSqlProducer {
         sb.append(CREATE_AS_KEYWORD);
         sb.append(view.getQueryString());
         sb.append(ProducerUtils.NEWLINE);
-        sb.append(ProducerUtils.STATEMENT_SEPARATOR);
         results.add(sb.toString());
 
         return results;

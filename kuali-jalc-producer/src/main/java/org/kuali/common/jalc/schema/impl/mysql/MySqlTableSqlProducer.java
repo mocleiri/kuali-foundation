@@ -37,10 +37,10 @@ import org.kuali.common.util.CollectionUtils;
 public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
 
     protected static final String DROP_TABLE_HEADER = "DROP TABLE IF EXISTS ";
-    protected static final String DROP_TABLE_FOOTER = "\n/";
+    protected static final String DROP_TABLE_FOOTER = "\n";
 
     protected static final String CREATE_TABLE_HEADER = "CREATE TABLE ";
-    protected static final String CREATE_TABLE_FOOTER = " ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_bin\n/";
+    protected static final String CREATE_TABLE_FOOTER = " ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_bin\n";
 
     protected static final String TABLE_DETAILS_PREFIX = "\n(";
     protected static final String TABLE_DETAILS_SUFFIX = "\n)";

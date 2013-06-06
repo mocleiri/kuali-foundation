@@ -51,6 +51,12 @@ public class ModularSchemaExportConfig {
 
     public static final String EXECUTE_ENABLED_KEY = "schema.execute";
 
+    public static final String SEPARATE_FOREIGN_KEYS_KEY = "schema.foreignKeys.separate";
+
+    public static final String FOREIGN_KEY_OUTPUT_LOCATION_KEY = "schema.foreignKeys.output";
+
+    public static final boolean DEFAULT_SEPARATE_FOREIGN_KEYS = true;
+
     @Autowired
     Environment env;
 
@@ -79,8 +85,21 @@ public class ModularSchemaExportConfig {
             schema.getViews().addAll(ExportUtils.getIncludedElements(filter, modelProvider.getViews()));
 
             boolean execute = SpringUtils.getBoolean(env, prefix + EXECUTE_ENABLED_KEY, ModularSchemaExportExecutable.DEFAULT_EXECUTE_ENABLED);
+            // if this property is set to true for any module, then foreign key schema will be created in a separate file
+            boolean separateForeignKeys = SpringUtils.getBoolean(env, prefix + SEPARATE_FOREIGN_KEYS_KEY, DEFAULT_SEPARATE_FOREIGN_KEYS);
 
-            executables.add(new ModularSchemaExportExecutable(outpuLocation, schema, new DefaultExportSchemaService(), execute));
+            ModularSchemaExportExecutable mexec = new ModularSchemaExportExecutable();
+            mexec.setOutputLocation(outpuLocation);
+            mexec.setSchema(schema);
+            mexec.setExportService(new DefaultExportSchemaService());
+            mexec.setExecute(execute);
+            mexec.setSeparateForeignKeys(separateForeignKeys);
+            if(separateForeignKeys) {
+                String fkOutpuLocation = SpringUtils.getProperty(env, prefix + FOREIGN_KEY_OUTPUT_LOCATION_KEY);
+                mexec.setForeignKeyOutputLocation(fkOutpuLocation);
+            }
+
+            executables.add(mexec);
         }
 
         ExecutablesExecutable ex = new ExecutablesExecutable();

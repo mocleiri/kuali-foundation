@@ -18,6 +18,7 @@ package org.kuali.common.jalc.util;
 import java.util.List;
 
 import org.kuali.common.jalc.spring.MpxSupplierConfig;
+import org.kuali.common.jalc.spring.SchemaXmlSupplierConfig;
 import org.kuali.common.jdbc.spring.JdbcMavenPropertySourceConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
@@ -40,10 +41,10 @@ public class BuildDatabaseUtility {
 
             List<Class<?>> configClasses;
             if(includeMpxConfig) {
-                configClasses = CollectionUtils.asList(MpxSupplierConfig.class, SqlControllerConfig.class);
+                configClasses = CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
             }
             else {
-                configClasses = CollectionUtils.asList(SqlControllerConfig.class);
+                configClasses = CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
             }
 
             // Reset the db using annotated config

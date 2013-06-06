@@ -31,14 +31,12 @@ public class OracleSequenceSqlProducer {
             "\tIF temp > 0 THEN EXECUTE IMMEDIATE 'DROP SEQUENCE ";
     protected static final String DROP_SUFFIX =
             "'; END IF;\n" +
-            "END;\n" +
-            "/";
+            "END;\n";
 
     protected static final String CREATE_PREFIX = "CREATE SEQUENCE ";
     protected static final String CREATE_INCREMENT_START = " INCREMENT BY 1 START WITH ";
     protected static final String CREATE_SUFFIX =
-            " NOMAXVALUE NOCYCLE NOCACHE ORDER\n" +
-            "/";
+            " NOMAXVALUE NOCYCLE NOCACHE ORDER\n";
 
     public List<String> getSequencesSql(List<Sequence> sequences) {
         List<String> results = new ArrayList<String>();

@@ -75,8 +75,6 @@ public class OracleForeignKeySqlProducer extends AbstractForeignKeySqlProducer {
                 sb.append(ProducerUtils.NEWLINE);
             }
 
-            sb.append(ProducerUtils.STATEMENT_SEPARATOR);
-
             results.add(sb.toString());
         }
 
