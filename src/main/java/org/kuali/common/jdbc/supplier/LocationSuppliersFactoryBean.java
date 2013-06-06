@@ -75,7 +75,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
                     suppliers.add(getLocationSupplierInstance(sourceBean, location));
 
                     // add the current location the list of matched locations for this suffix
-                    matchedLocations.remove(location);
+                    matchedLocations.add(location);
                 }
             }
 
