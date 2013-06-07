@@ -29,7 +29,7 @@ import static junit.framework.Assert.fail;
 
 public class TestMySqlTableSqlProducer {
 
-    private final static String[] EXPECTED_SIMPLE_SQL = {"DROP TABLE IF EXISTS FOO_T\n/",
+    private final static String[] EXPECTED_SIMPLE_SQL = {"DROP TABLE IF EXISTS FOO_T\n",
             "CREATE TABLE FOO_T\n" +
             "(\n" +
             "\tID VARCHAR(36),\n" +
@@ -38,8 +38,8 @@ public class TestMySqlTableSqlProducer {
             "\tNAME VARCHAR(255),\n" +
             "\tCONSTRAINT FOO_TP1 PRIMARY KEY(ID),\n" +
             "\tCONSTRAINT FOO_TP1 UNIQUE (NAME)\n" +
-            ") ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_bin\n" +
-            "/"};
+            ") ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_bin\n"
+    };
 
     @Test
     public void simpleTableTest() {

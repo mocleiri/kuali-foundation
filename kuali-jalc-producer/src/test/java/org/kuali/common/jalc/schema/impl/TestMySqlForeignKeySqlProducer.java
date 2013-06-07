@@ -29,8 +29,7 @@ public class TestMySqlForeignKeySqlProducer {
     public static final String EXPECTED_SQL = "ALTER TABLE FOO_T\n" +
             "\tADD CONSTRAINT FOO_FK_1 FOREIGN KEY (BAR_ID)\n" +
             "\tREFERENCES BAR_T (ID)\n" +
-            "\tON DELETE CASCADE\n" +
-            "/";
+            "\tON DELETE CASCADE\n";
 
     @Test
     public void testGetForeignKeySql() {

@@ -29,14 +29,13 @@ import static junit.framework.Assert.fail;
 
 public class TestMySqlSequenceSqlProducer {
 
-    public static final String[] EXPECTED_SQL = {"DROP TABLE IF EXISTS FOO_SEQ\n/",
+    public static final String[] EXPECTED_SQL = {"DROP TABLE IF EXISTS FOO_SEQ\n",
             "CREATE TABLE FOO_SEQ\n" +
                     "(\n" +
                     "\tID BIGINT(19) NOT NULL AUTO_INCREMENT, PRIMARY KEY (ID)\n" +
-            ") ENGINE MyISAM\n" +
-            "/",
+            ") ENGINE MyISAM\n",
 
-            "ALTER TABLE FOO_SEQ AUTO_INCREMENT = 500\n/"
+            "ALTER TABLE FOO_SEQ AUTO_INCREMENT = 500\n"
     };
 
     @Test

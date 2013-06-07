@@ -47,6 +47,7 @@ public class MySqlViewSqlProducer {
 
         sb.append(DROP_PREFIX);
         sb.append(view.getName());
+        sb.append(ProducerUtils.NEWLINE);
 
         results.add(sb.toString());
         sb = new StringBuilder();

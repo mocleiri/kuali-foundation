@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.kuali.common.jalc.ProducerUtils;
 import org.kuali.common.jalc.model.Sequence;
+import org.kuali.common.jalc.model.util.ModelUtils;
 import org.kuali.common.util.CollectionUtils;
 
 public class MySqlSequenceSqlProducer {
@@ -55,6 +56,7 @@ public class MySqlSequenceSqlProducer {
 
         sb.append(DROP_PREFIX);
         sb.append(sequence.getName());
+        sb.append(ProducerUtils.NEWLINE);
 
         return sb.toString();
     }

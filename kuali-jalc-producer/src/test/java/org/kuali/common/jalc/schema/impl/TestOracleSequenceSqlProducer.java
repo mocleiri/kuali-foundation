@@ -33,9 +33,8 @@ public class TestOracleSequenceSqlProducer {
             "BEGIN\n" +
                     "\tSELECT COUNT(*) INTO temp FROM user_sequences WHERE sequence_name = 'FOO_SEQ';\n" +
                     "\tIF temp > 0 THEN EXECUTE IMMEDIATE 'DROP SEQUENCE FOO_SEQ'; END IF;\n" +
-            "END;\n" +
-            "/",
-            "CREATE SEQUENCE FOO_SEQ INCREMENT BY 1 START WITH 500 NOMAXVALUE NOCYCLE NOCACHE ORDER\n/"
+            "END;\n",
+            "CREATE SEQUENCE FOO_SEQ INCREMENT BY 1 START WITH 500 NOMAXVALUE NOCYCLE NOCACHE ORDER\n"
     };
 
     @Test

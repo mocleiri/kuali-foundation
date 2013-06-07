@@ -30,8 +30,7 @@ public class TestOracleForeignKeySqlProducer {
             "\tADD CONSTRAINT FOO_FK_1\n" +
             "\tFOREIGN KEY (BAR_ID)\n" +
             "\tREFERENCES BAR_T (ID)\n" +
-            "\tON DELETE CASCADE\n" +
-            "/";
+            "\tON DELETE CASCADE\n";
 
     @Test
     public void testGetForeignKeySql() {

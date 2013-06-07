@@ -183,7 +183,6 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
         // Determine whether or not the type size should be printed
         boolean validTypeSize = typeSize != null;
         if(validTypeSize) {
-
             // do not populate the data size field if the type is a FLOAT but the size is 0
             // leave it unspecified and let Oracle fill in the default
             if(column.getColumnDataType() == DataType.FLOAT && typeSize.getSize() == 0) {

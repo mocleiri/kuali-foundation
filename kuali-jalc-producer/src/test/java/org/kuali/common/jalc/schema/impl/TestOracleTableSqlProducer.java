@@ -33,8 +33,7 @@ public class TestOracleTableSqlProducer {
             "BEGIN\n" +
             "\tSELECT COUNT(*) INTO temp FROM user_tables WHERE table_name = 'FOO_T';\n" +
             "\tIF temp > 0 THEN EXECUTE IMMEDIATE 'DROP TABLE FOO_T CASCADE CONSTRAINTS PURGE'; END IF;\n" +
-            "END;\n" +
-            "/",
+            "END;\n",
 
             "CREATE TABLE FOO_T\n" +
             "(\n" +
@@ -43,13 +42,12 @@ public class TestOracleTableSqlProducer {
             "\tFOO_COUNT NUMBER(10),\n" +
             "\tNAME VARCHAR2(255),\n" +
             "\tCONSTRAINT FOO_U1_NAME UNIQUE (NAME)\n" +
-            ")\n" +
-            "/",
+            ")\n",
 
             "ALTER TABLE FOO_T\n" +
             "\tADD CONSTRAINT FOO_TP1\n" +
-            "PRIMARY KEY (ID)\n" +
-            "/"};
+            "PRIMARY KEY (ID)\n"
+    };
 
 
 

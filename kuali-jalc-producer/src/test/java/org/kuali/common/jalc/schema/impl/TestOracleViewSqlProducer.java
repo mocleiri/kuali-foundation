@@ -29,8 +29,7 @@ public class TestOracleViewSqlProducer {
 
     private static final String EXPECTED_VIEW_SQL = "CREATE OR REPLACE FORCE VIEW TEST_V1 AS \n" +
             "SELECT ID, NAME FROM FOO_T\n" +
-            "WHERE NAME LIKE 'TEST%'\n" +
-            "/";
+            "WHERE NAME LIKE 'TEST%'\n";
 
     @Test
     public void testEmptyViewList() {

@@ -45,6 +45,7 @@ public class DataTypeMappingProviderConfig {
         if (dbVendor.equalsIgnoreCase(OracleSchemaProducer.SUPPORTED_VENDOR)) {
             DefaultDataTypeMappingProvider mappingProvider = new DefaultDataTypeMappingProvider();
 
+            mappingProvider.getDataTypeMatches().put(DataType.DATE, overrideOracleDateColumnSize());
             mappingProvider.getDataTypeMatches().put(DataType.TIMESTAMP, overrideOracleTimestampColumnSize());
             mappingProvider.getDataTypeMatches().put(DataType.CLOB, overrideOracleClobColumnSize());
             mappingProvider.getDataTypeMatches().put(DataType.BLOB, overrideOracleBlobColumnSize());
@@ -58,6 +59,16 @@ public class DataTypeMappingProviderConfig {
 
         throw new UnsupportedOperationException("Could not map db vendor '" + dbVendor + "' to a known SchemaSqlProducer implementation");
 
+    }
+
+    @Bean
+    public DataTypeMapping overrideOracleDateColumnSize() {
+        DataTypeMapping mapping = new DataTypeMapping();
+
+        mapping.setDataType(DataType.DATE);
+        mapping.setTypeSize(null);
+
+        return mapping;
     }
 
     @Bean
