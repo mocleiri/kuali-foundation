@@ -28,6 +28,7 @@ sub build_ec2_lst
   $command_tag = "$cmd_tag -K $key -C $cert >> tag.lst";
   $command_instance = "$cmd_instance -K $key -C $cert | grep INSTANCE >> instance.lst";
   $command_vol = "$cmd_vol -K $key -C $cert >> volume.lst";
+  print "\n$command_vol";
   `$command_instance`;
   `$command_tag`;
   `$command_vol`;
