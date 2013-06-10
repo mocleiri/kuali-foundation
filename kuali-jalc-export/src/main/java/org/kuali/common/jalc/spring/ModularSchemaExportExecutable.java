@@ -15,6 +15,7 @@
 
 package org.kuali.common.jalc.spring;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -22,6 +23,7 @@ import java.io.Writer;
 import org.kuali.common.jalc.model.Schema;
 import org.kuali.common.jalc.schema.ExportSchemaException;
 import org.kuali.common.jalc.schema.ExportSchemaService;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
 public class ModularSchemaExportExecutable implements Executable {
@@ -73,6 +75,7 @@ public class ModularSchemaExportExecutable implements Executable {
     protected void writeSchema(Schema outputSchema, String location) {
         Writer writer;
         try {
+            LocationUtils.touch(new File(location));
             writer = new FileWriter(location);
         } catch (IOException e) {
             throw new RuntimeException("Could not open a file writer for location " + location, e);
