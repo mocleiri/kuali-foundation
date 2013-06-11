@@ -1,14 +1,10 @@
 package org.kuali.common.impex.data.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ParseUtils {
 
-    public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
-
-	private static final Logger logger = LoggerFactory.getLogger(ParseUtils.class);
+	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
 	private static final String QUOTE = "\"";
 	private static final String SPLIT_TOKEN = QUOTE + "," + QUOTE;
