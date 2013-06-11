@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.spring;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -23,6 +24,7 @@ import java.util.Map;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.ExportSchemaException;
 import org.kuali.common.impex.schema.ExportSchemaService;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -58,6 +60,7 @@ public class ExportSchemaExecutable implements Executable {
         for (String location : schemaLocations.keySet()) {
             Writer writer;
             try {
+                LocationUtils.touch(new File(location));
                 writer = new FileWriter(location);
             } catch (IOException e) {
                 throw new RuntimeException("Could not open a file writer for location " + location, e);
