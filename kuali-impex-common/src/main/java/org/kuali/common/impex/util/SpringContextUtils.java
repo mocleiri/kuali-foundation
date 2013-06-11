@@ -33,7 +33,7 @@ public class SpringContextUtils {
         p.load(LocationUtils.getInputStream(location));
 
         p.setProperty("project.groupId", "org.kuali.common");
-        p.setProperty("project.artifactId", "kuali-jalc-common");
+        p.setProperty("project.artifactId", "kuali-impex-common");
         p.setProperty("project.version", "3.0-SNAPSHOT");
         p.setProperty("project.encoding", "UTF-8");
         p.setProperty("project.orgId", "org.kuali");
