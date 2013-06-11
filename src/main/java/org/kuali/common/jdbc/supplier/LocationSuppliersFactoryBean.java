@@ -55,33 +55,33 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	}
 
 	protected List<LocationSupplier> getSuppliers(List<String> locations, Map<String, LocationSupplierSourceBean> mappings) {
+
 		// Allocate some storage for our suppliers
 		List<LocationSupplier> suppliers = new ArrayList<LocationSupplier>();
 
-        // Create a local copy of the locations, so we can remove entries as they are processed
-        List<String> locationsToMap = new ArrayList<String>(locations);
+		// Create a local copy of the locations, so we can remove entries as they are processed
+		List<String> locationsToMap = new ArrayList<String>(locations);
 
-        // Loop through the extensions in the mapping and attempt to match them
-        // as suffixes of any of the locations
-        for (String suffix : mappings.keySet()) {
-            List<String> matchedLocations = new ArrayList<String>();
-            for (String location : locationsToMap) {
+		// Loop through the mappings and attempt to match a suffix of any of the locations
+		for (String suffix : mappings.keySet()) {
+			List<String> matchedLocations = new ArrayList<String>();
+			for (String location : locationsToMap) {
 
-                if (location.endsWith(suffix)) {
-                    // if the location ends with the current suffix, get the Location Supplier Source Bean
-                    LocationSupplierSourceBean sourceBean = mappings.get(suffix);
+				if (location.endsWith(suffix)) {
+					// if the location ends with the current suffix, get the Location Supplier Source Bean
+					LocationSupplierSourceBean sourceBean = mappings.get(suffix);
 
-                    // get a new LocationSupplier instance and add it to the list
-                    suppliers.add(getLocationSupplierInstance(sourceBean, location));
+					// get a new LocationSupplier instance and add it to the list
+					suppliers.add(getLocationSupplierInstance(sourceBean, location));
 
-                    // add the current location the list of matched locations for this suffix
-                    matchedLocations.add(location);
-                }
-            }
+					// add the current location to the list of matched locations for this suffix
+					matchedLocations.add(location);
+				}
+			}
 
-            // remove all matched locations from the list of locations we need to yet map
-            locationsToMap.removeAll(matchedLocations);
-        }
+			// remove all matched locations from the list of locations we need to yet map
+			locationsToMap.removeAll(matchedLocations);
+		}
 
 		// Cycle through the list of locations, creating one supplier per location
 		for (String location : locationsToMap) {
@@ -98,30 +98,33 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 			}
 
 			// Add it to the list
-            suppliers.add(getLocationSupplierInstance(sourceBean, location));
+			suppliers.add(getLocationSupplierInstance(sourceBean, location));
 		}
 
 		// Return the fully configured list of suppliers
 		return suppliers;
 	}
 
-    /**
-     * Build a new LocationSupplier instance from a LocationSupplierSourceBean
-     * @param sourceBean the LocationSupplierSourceBean
-     * @param location the location for the new instance
-     *
-     * @return a new instance of LocationSupplier with properties from the LocationSupplierSourceBean
-     */
-    protected LocationSupplier getLocationSupplierInstance(LocationSupplierSourceBean sourceBean, String location) {
-        // Request a new supplier from the builder
-        LocationSupplier supplier = sourceBean.getSupplierInstance();
+	/**
+	 * Build a new LocationSupplier instance from a LocationSupplierSourceBean
+	 * 
+	 * @param sourceBean
+	 *            the LocationSupplierSourceBean
+	 * @param location
+	 *            the location for the new instance
+	 * 
+	 * @return a new instance of LocationSupplier with properties from the LocationSupplierSourceBean
+	 */
+	protected LocationSupplier getLocationSupplierInstance(LocationSupplierSourceBean sourceBean, String location) {
+		// Request a new supplier from the builder
+		LocationSupplier supplier = sourceBean.getSupplierInstance();
 
-        LocationSupplier newInstance = ReflectionUtils.newInstance(supplier.getClass());
-        BeanUtils.copyProperties(supplier, newInstance);
-        newInstance.setLocation(location);
+		LocationSupplier newInstance = ReflectionUtils.newInstance(supplier.getClass());
+		BeanUtils.copyProperties(supplier, newInstance);
+		newInstance.setLocation(location);
 
-        return newInstance;
-    }
+		return newInstance;
+	}
 
 	protected List<String> getLocations(Environment env, String property, String listSuffix) {
 
