@@ -23,10 +23,10 @@
     <version>3.1.8</version>
   </parent>
   <groupId>org.kuali.common</groupId>
-  <artifactId>kuali-jalc</artifactId>
+  <artifactId>kuali-impex</artifactId>
   <version>3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>JALC</name>
+  <name>Kuali Impex</name>
   <description>
     The Kuali Impex tooling provides assistance with importing/exporting data from relational databases.
   </description>
@@ -63,10 +63,10 @@
   </developers>
   <url>http://${kuali.site.hostname}/common/impex/${project.version}</url>
   <modules>
-    <module>kuali-jalc-model</module>
-    <module>kuali-jalc-producer</module>
-    <module>kuali-jalc-export</module>
-    <module>kuali-jalc-common</module>
+    <module>kuali-impex-model</module>
+    <module>kuali-impex-producer</module>
+    <module>kuali-impex-export</module>
+    <module>kuali-impex-common</module>
   </modules>
   <dependencyManagement>
     <dependencies>
@@ -131,12 +131,12 @@
         </dependency>
         <dependency>
             <groupId>org.kuali.common</groupId>
-            <artifactId>kuali-jalc-model</artifactId>
+            <artifactId>kuali-impex-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.kuali.common</groupId>
-            <artifactId>kuali-jalc-common</artifactId>
+            <artifactId>kuali-impex-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
