@@ -28,7 +28,7 @@ import org.kuali.common.util.service.SpringService;
 public class SpringContextUtils {
 
 
-    public static Properties getTestMavenProperties(String location) throws IOException {
+    public static Properties getMavenProjectProperties(String location) throws IOException {
         Properties p = new Properties();
         p.load(LocationUtils.getInputStream(location));
 
@@ -51,7 +51,7 @@ public class SpringContextUtils {
         SpringService ss = new DefaultSpringService();
 
         // Setup a Spring context that uses maven properties for placeholder resolution
-        SpringContext context = MavenUtils.getMavenizedSpringContext(getTestMavenProperties(propertiesLocation), propertySourceConfigClass);
+        SpringContext context = MavenUtils.getMavenizedSpringContext(getMavenProjectProperties(propertiesLocation), propertySourceConfigClass);
 
         context.setAnnotatedClasses(annotatedClasses);
 
