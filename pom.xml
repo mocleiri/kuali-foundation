@@ -159,8 +159,8 @@
   <build>
   </build>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/branches/impex-2.0</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/impex-2.0</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/branches/impex-2.0</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-jalc-3.0</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-jalc-3.0</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/branches/kuali-jalc-3.0</url>
   </scm>
 </project>
