@@ -37,7 +37,7 @@ public class ProduceSchemaExecutable implements Executable {
 
 	protected static final String LF = "\n";
 
-    protected static final boolean DEFAULT_SKIP_EXECUTION = false;
+    public static final boolean DEFAULT_SKIP_EXECUTION = false;
 
     Map<String, List<String>> fileNamesToSqls;
 
