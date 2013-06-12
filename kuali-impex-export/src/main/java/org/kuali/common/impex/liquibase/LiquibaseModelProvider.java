@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.Database;
@@ -46,10 +45,12 @@ import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.schema.SequenceFinder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LiquibaseModelProvider implements ModelProvider {
 
-    private static Logger log = Logger.getLogger(LiquibaseModelProvider.class.getSimpleName());
+    private static Logger log = LoggerFactory.getLogger(LiquibaseModelProvider.class.getSimpleName());
 
     /**
      * Constants for result set keys from DatabaseMetaData.getImportedKeys

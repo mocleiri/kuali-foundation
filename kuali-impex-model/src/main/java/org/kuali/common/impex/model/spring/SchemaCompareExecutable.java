@@ -15,8 +15,6 @@
 
 package org.kuali.common.impex.model.spring;
 
-import java.util.logging.Logger;
-
 import org.kuali.common.impex.model.compare.ForeignKeyDifference;
 import org.kuali.common.impex.model.compare.SchemaCompareResult;
 import org.kuali.common.impex.model.compare.SequenceDifference;
@@ -24,10 +22,12 @@ import org.kuali.common.impex.model.compare.TableDifference;
 import org.kuali.common.impex.model.compare.ViewDifference;
 import org.kuali.common.impex.model.util.CompareUtils;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SchemaCompareExecutable implements Executable {
 
-    private static Logger log = Logger.getLogger(SchemaCompareExecutable.class.getSimpleName());
+    private static Logger log = LoggerFactory.getLogger(SchemaCompareExecutable.class.getSimpleName());
 
     SchemaCompareConfig config;
     Boolean enabled;

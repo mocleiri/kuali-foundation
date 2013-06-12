@@ -22,13 +22,14 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.schema.SchemaSqlProducer;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +40,7 @@ import org.springframework.core.env.Environment;
 @Import({ XmlModelProviderConfig.class, SchemaSqlProducerConfig.class })
 public class ProduceSchemaExecutable implements Executable {
 
-    private static Logger log = Logger.getLogger(ProduceSchemaExecutable.class.getSimpleName());
+    private static Logger log = LoggerFactory.getLogger(ProduceSchemaExecutable.class.getSimpleName());
 
 	private static final String LF = "\n";
 

@@ -16,7 +16,6 @@
 package org.kuali.common.impex.spring;
 
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 import liquibase.database.Database;
 import liquibase.exception.DatabaseException;
@@ -29,6 +28,8 @@ import org.kuali.common.impex.liquibase.LiquibaseModelProvider;
 import org.kuali.common.impex.schema.OracleSequenceFinder;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,7 @@ import org.springframework.context.annotation.Import;
 @Import({ JdbcDataSourceConfig.class })
 public class LiquibaseModelProviderConfig {
 
-    private static Logger log = Logger.getLogger(LiquibaseModelProviderConfig.class.getSimpleName());
+    private static Logger log = LoggerFactory.getLogger(LiquibaseModelProviderConfig.class.getSimpleName());
 
     @Autowired
     JdbcDataSourceConfig dataSourceConfig;
