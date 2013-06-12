@@ -24,6 +24,7 @@ import org.kuali.common.impex.data.DefaultExportDataService;
 import org.kuali.common.impex.data.ExportDataContext;
 import org.kuali.common.impex.data.ExportDataService;
 import org.kuali.common.impex.data.ExportTableContext;
+import org.kuali.common.impex.data.ModularDataExportExecutable;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.util.ExportConstants;

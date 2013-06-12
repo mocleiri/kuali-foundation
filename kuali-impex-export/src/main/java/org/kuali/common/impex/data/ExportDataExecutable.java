@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.spring;
+package org.kuali.common.impex.data;
 
 import org.kuali.common.impex.data.ExportDataContext;
 import org.kuali.common.impex.data.ExportDataService;

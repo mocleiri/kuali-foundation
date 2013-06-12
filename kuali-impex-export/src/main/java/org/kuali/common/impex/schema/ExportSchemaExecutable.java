@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.spring;
+package org.kuali.common.impex.schema;
 
 import java.io.File;
 import java.io.FileWriter;

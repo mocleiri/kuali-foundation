@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
+import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.CollectionUtils;
