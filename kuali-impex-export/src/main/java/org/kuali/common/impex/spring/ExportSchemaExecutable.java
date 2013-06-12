@@ -26,36 +26,32 @@ import org.kuali.common.impex.schema.ExportSchemaException;
 import org.kuali.common.impex.schema.ExportSchemaService;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class ExportSchemaExecutable implements Executable {
 
-    @Autowired
-    ExportSchemaConfig exportSchemaConfig;
+    Map<String, Schema> schemaLocations;
 
-    @Autowired
     ExportSchemaService exportService;
 
-    Boolean enabled;
+    Boolean skip;
 
-    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+    public static final Boolean DEFAULT_SKIP_EXECUTION = false;
+
 
     public ExportSchemaExecutable() {
-        this(DEFAULT_EXECUTE_ENABLED);
+        this(DEFAULT_SKIP_EXECUTION);
     }
 
     public ExportSchemaExecutable(Boolean b) {
-        this.enabled = b;
+        this.skip = b;
     }
 
     @Override
     public void execute() {
 
-        if(!enabled) {
+        if(skip) {
             return;
         }
-
-        Map<String, Schema> schemaLocations = exportSchemaConfig.schemaLocations();
 
         for (String location : schemaLocations.keySet()) {
             Writer writer;
@@ -74,4 +70,19 @@ public class ExportSchemaExecutable implements Executable {
 
     }
 
+    public Map<String, Schema> getSchemaLocations() {
+        return schemaLocations;
+    }
+
+    public void setSchemaLocations(Map<String, Schema> schemaLocations) {
+        this.schemaLocations = schemaLocations;
+    }
+
+    public ExportSchemaService getExportService() {
+        return exportService;
+    }
+
+    public void setExportService(ExportSchemaService exportService) {
+        this.exportService = exportService;
+    }
 }

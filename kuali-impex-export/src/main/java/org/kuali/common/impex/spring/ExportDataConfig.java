@@ -60,7 +60,7 @@ public class ExportDataConfig {
     /**
      * Property key for a boolean setting whether or not the executable should run
      */
-    protected static final String EXECUTE_ENABLED_KEY = PROJECT_PREFIX + "export.execute";
+    protected static final String SKIP_EXECUTE_KEY = PROJECT_PREFIX + "export.skip";
 
     @Autowired
     JdbcDataSourceConfig dataSourceConfig;
@@ -120,11 +120,15 @@ public class ExportDataConfig {
 
     @Bean(initMethod = "execute")
     public ExportDataExecutable exportDataExecutable() {
-        return new ExportDataExecutable(executableEnabled());
+        ExportDataExecutable exec = new ExportDataExecutable(skipExecution());
+        exec.setContext(exportDataContext());
+        exec.setService(exportDataService());
+
+        return exec;
     }
 
     @Bean
-    private Boolean executableEnabled() {
-        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, ExportDataExecutable.DEFAULT_EXECUTE_ENABLED);
+    private Boolean skipExecution() {
+        return SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, ExportDataExecutable.DEFAULT_SKIP_EXECUTION);
     }
 }

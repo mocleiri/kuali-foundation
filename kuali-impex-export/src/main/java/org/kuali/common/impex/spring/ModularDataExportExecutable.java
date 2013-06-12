@@ -25,9 +25,9 @@ public class ModularDataExportExecutable implements Executable {
 
     protected ExportDataContext context;
 
-    protected Boolean execute = Boolean.TRUE;
+    protected Boolean skip = DEFAULT_EXECUTION_SKIP;
 
-    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+    public static final Boolean DEFAULT_EXECUTION_SKIP = false;
 
     public ModularDataExportExecutable(ExportDataContext context, ExportDataService service) {
         this.context = context;
@@ -36,18 +36,18 @@ public class ModularDataExportExecutable implements Executable {
 
     @Override
     public void execute() {
-        if (!execute) {
+        if (skip) {
             return;
         }
 
         service.exportTables(context);
     }
 
-    public Boolean getExecute() {
-        return execute;
+    public Boolean getSkip() {
+        return skip;
     }
 
-    public void setExecute(Boolean execute) {
-        this.execute = execute;
+    public void setSkip(Boolean skip) {
+        this.skip = skip;
     }
 }

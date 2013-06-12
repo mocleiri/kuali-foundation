@@ -63,7 +63,7 @@ public class ModularDataExportConfig {
 
     public static final String OUTPUT_LOCATION_KEY = "data.output";
 
-    public static final String EXECUTE_ENABLED_KEY = "data.execute";
+    public static final String SKIP_EXECUTION_KEY = "data.skip";
 
     public static final String DATA_THREADS_KEY = "data.threads";
 
@@ -109,10 +109,10 @@ public class ModularDataExportConfig {
 
             dataContext.setTableContexts(tableContexts);
 
-            boolean execute = SpringUtils.getBoolean(env, prefix + EXECUTE_ENABLED_KEY, ModularDataExportExecutable.DEFAULT_EXECUTE_ENABLED);
+            boolean skip = SpringUtils.getBoolean(env, prefix + SKIP_EXECUTION_KEY, ModularDataExportExecutable.DEFAULT_EXECUTION_SKIP);
 
             ModularDataExportExecutable dataExportExecutable = new ModularDataExportExecutable(dataContext, dataService());
-            dataExportExecutable.setExecute(execute);
+            dataExportExecutable.setSkip(skip);
 
             executables.add(dataExportExecutable);
         }

@@ -32,7 +32,7 @@ public class SchemaCompareExecutable implements Executable {
     SchemaCompareConfig config;
     Boolean enabled;
 
-    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+    public static final Boolean DEFAULT_EXECUTION_SKIP = false;
 
     public SchemaCompareExecutable(Boolean b) {
         this.enabled = b;

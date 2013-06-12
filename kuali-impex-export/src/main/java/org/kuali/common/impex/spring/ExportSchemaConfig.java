@@ -103,7 +103,7 @@ public class ExportSchemaConfig {
     /**
      * Property key for a boolean setting whether or not the executable should run
      */
-    protected static final String EXECUTE_ENABLED_KEY = PROJECT_PREFIX + "export.execute";
+    protected static final String SKIP_EXECUTION_KEY = PROJECT_PREFIX + "export.skip";
 
     @Autowired
     Environment env;
@@ -186,17 +186,21 @@ public class ExportSchemaConfig {
     }
 
     @Bean
-    public ExportSchemaService persistService() {
+    public ExportSchemaService exportService() {
         return new DefaultExportSchemaService();
     }
 
     @Bean(initMethod = "execute")
     public ExportSchemaExecutable exportSchemaExecutable() {
-        return new ExportSchemaExecutable(executableEnabled());
+        ExportSchemaExecutable exec = new ExportSchemaExecutable(skipExecution());
+        exec.setSchemaLocations(schemaLocations());
+        exec.setExportService(exportService());
+
+        return exec;
     }
 
     @Bean
-    public Boolean executableEnabled() {
-        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, ExportSchemaExecutable.DEFAULT_EXECUTE_ENABLED);
+    public Boolean skipExecution() {
+        return SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
     }
 }

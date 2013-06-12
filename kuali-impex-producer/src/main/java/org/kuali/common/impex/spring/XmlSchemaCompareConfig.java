@@ -74,7 +74,7 @@ public class XmlSchemaCompareConfig extends SchemaCompareConfig {
 
     @Bean
     public Boolean executableEnabled() {
-        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, SchemaCompareExecutable.DEFAULT_EXECUTE_ENABLED);
+        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, SchemaCompareExecutable.DEFAULT_EXECUTION_SKIP);
     }
 
     @Override

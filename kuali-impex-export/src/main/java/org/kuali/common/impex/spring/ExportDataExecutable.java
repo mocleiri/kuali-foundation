@@ -22,29 +22,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ExportDataExecutable implements Executable {
 
-    @Autowired
     ExportDataContext context;
 
-    @Autowired
     ExportDataService service;
 
-    Boolean enabled;
+    Boolean skip;
 
-    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+    public static final Boolean DEFAULT_SKIP_EXECUTION = false;
 
     public ExportDataExecutable() {
-        this(DEFAULT_EXECUTE_ENABLED);
+        this(DEFAULT_SKIP_EXECUTION);
     }
 
     public ExportDataExecutable(Boolean b) {
-        this.enabled = b;
+        this.skip = b;
     }
 
     @Override
     public void execute() {
-        if(enabled) {
+        if(!skip) {
             service.exportTables(context);
         }
     }
 
+    public ExportDataContext getContext() {
+        return context;
+    }
+
+    public void setContext(ExportDataContext context) {
+        this.context = context;
+    }
+
+    public ExportDataService getService() {
+        return service;
+    }
+
+    public void setService(ExportDataService service) {
+        this.service = service;
+    }
 }

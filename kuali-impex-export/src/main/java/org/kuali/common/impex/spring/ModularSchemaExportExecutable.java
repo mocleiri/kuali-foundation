@@ -28,7 +28,7 @@ import org.kuali.common.util.execute.Executable;
 
 public class ModularSchemaExportExecutable implements Executable {
 
-    public static final Boolean DEFAULT_EXECUTE_ENABLED = true;
+    public static final Boolean DEFAULT_EXECUTION_SKIP = false;
 
     protected String outputLocation;
 
@@ -36,7 +36,7 @@ public class ModularSchemaExportExecutable implements Executable {
 
     protected ExportSchemaService exportService;
 
-    protected boolean execute;
+    protected boolean skip = DEFAULT_EXECUTION_SKIP;
 
     protected boolean separateForeignKeys;
 
@@ -45,7 +45,7 @@ public class ModularSchemaExportExecutable implements Executable {
     @Override
     public void execute() {
 
-        if(!execute) {
+        if(skip) {
             return;
         }
 
@@ -87,12 +87,12 @@ public class ModularSchemaExportExecutable implements Executable {
         }
     }
 
-    public boolean isExecute() {
-        return execute;
+    public boolean isSkip() {
+        return skip;
     }
 
-    public void setExecute(boolean execute) {
-        this.execute = execute;
+    public void setSkip(boolean skip) {
+        this.skip = skip;
     }
 
     public ExportSchemaService getExportService() {
