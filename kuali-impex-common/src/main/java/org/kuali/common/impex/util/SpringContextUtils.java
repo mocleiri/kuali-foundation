@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.util;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,7 +29,7 @@ import org.kuali.common.util.service.SpringService;
 
 public class SpringContextUtils {
 
-	public static Properties getMavenProjectProperties(String location) throws IOException {
+	public static Properties getMavenProjectProperties(String location) {
 
 		// Setup the project context for kuali-impex-common
 		ProjectContext context = new ImpexCommonProjectContext();
@@ -45,7 +44,7 @@ public class SpringContextUtils {
 		return PropertyUtils.combine(loaded, project.getProperties());
 	}
 
-	public static void loadSpringService(String propertiesLocation, Class<?> propertySourceConfigClass, List<Class<?>> annotatedClasses) throws IOException {
+	public static void loadSpringService(String propertiesLocation, Class<?> propertySourceConfigClass, List<Class<?>> annotatedClasses) {
 
 		// Default Spring service will do what we need
 		SpringService ss = new DefaultSpringService();
