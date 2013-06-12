@@ -15,33 +15,27 @@
 
 package org.kuali.common.impex.util;
 
-import java.io.IOException;
-
 import org.kuali.common.impex.spring.XmlSchemaCompareConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.MavenPropertySourceConfig;
 
 public class XmlSchemaCompareUtility {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        if(args.length != 1) {
-            printHelpAndExit();
-        }
+		if (args.length != 1) {
+			printHelpAndExit();
+		}
 
-        String propertyFileName = args[0];
+		String propertyFileName = args[0];
 
-        try {
-            SpringContextUtils.loadSpringService(propertyFileName, MavenPropertySourceConfig.class, CollectionUtils.asList(XmlSchemaCompareConfig.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		SpringContextUtils.loadSpringService(propertyFileName, MavenPropertySourceConfig.class, CollectionUtils.asList(XmlSchemaCompareConfig.class));
 
-    }
+	}
 
-    private static void printHelpAndExit() {
-        System.out.println("Expects one argument, a property file location.");
-        System.exit(1);
-    }
+	private static void printHelpAndExit() {
+		System.out.println("Expects one argument, a property file location.");
+		System.exit(1);
+	}
 
 }
