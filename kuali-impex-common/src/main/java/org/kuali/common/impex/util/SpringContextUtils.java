@@ -32,20 +32,17 @@ public class SpringContextUtils {
 
 	public static Properties getMavenProjectProperties(String location) throws IOException {
 
-		// Load the properties automatically embedded into the jar file by Maven
+		// Setup the project context for kuali-impex-common
 		ProjectContext context = new ImpexCommonProjectContext();
 
-		// Load the properties automatically embedded into the jar file by Maven
+		// Load the project.properties automatically embedded into the jar file by Maven
 		Project project = ProjectUtils.loadProject(context);
 
-		// Load the properties they provided
+		// Load the properties provided to this method
 		Properties loaded = PropertyUtils.load(location);
 
 		// Combine them, where project properties always win
-		Properties p = new Properties();
-		p.putAll(loaded);
-		p.putAll(project.getProperties());
-		return p;
+		return PropertyUtils.combine(loaded, project.getProperties());
 	}
 
 	public static void loadSpringService(String propertiesLocation, Class<?> propertySourceConfigClass, List<Class<?>> annotatedClasses) throws IOException {
@@ -53,9 +50,13 @@ public class SpringContextUtils {
 		// Default Spring service will do what we need
 		SpringService ss = new DefaultSpringService();
 
-		// Setup a Spring context that uses maven properties for placeholder resolution
-		SpringContext context = MavenUtils.getMavenizedSpringContext(getMavenProjectProperties(propertiesLocation), propertySourceConfigClass);
+		// Get Maven properties
+		Properties mavenProperties = getMavenProjectProperties(propertiesLocation);
 
+		// Setup a Spring context that uses maven properties for placeholder resolution
+		SpringContext context = MavenUtils.getMavenizedSpringContext(mavenProperties, propertySourceConfigClass);
+
+		// Complete the setting up of the context
 		context.setAnnotatedClasses(annotatedClasses);
 
 		// Execute Spring
