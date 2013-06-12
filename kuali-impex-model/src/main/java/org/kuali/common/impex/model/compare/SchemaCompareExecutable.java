@@ -13,13 +13,9 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.model.spring;
+package org.kuali.common.impex.model.compare;
 
-import org.kuali.common.impex.model.compare.ForeignKeyDifference;
-import org.kuali.common.impex.model.compare.SchemaCompareResult;
-import org.kuali.common.impex.model.compare.SequenceDifference;
-import org.kuali.common.impex.model.compare.TableDifference;
-import org.kuali.common.impex.model.compare.ViewDifference;
+import org.kuali.common.impex.model.spring.SchemaCompareConfig;
 import org.kuali.common.impex.model.util.CompareUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
@@ -30,17 +26,17 @@ public class SchemaCompareExecutable implements Executable {
     private static Logger log = LoggerFactory.getLogger(SchemaCompareExecutable.class.getSimpleName());
 
     SchemaCompareConfig config;
-    Boolean enabled;
+    Boolean skip = DEFAULT_EXECUTION_SKIP;
 
     public static final Boolean DEFAULT_EXECUTION_SKIP = false;
 
     public SchemaCompareExecutable(Boolean b) {
-        this.enabled = b;
+        this.skip = b;
     }
 
     @Override
     public void execute() {
-        if(!enabled) {
+        if(skip) {
             return;
         }
 
@@ -51,15 +47,15 @@ public class SchemaCompareExecutable implements Executable {
         }
 
         for (ForeignKeyDifference f : results.getForeignKeyDifferences()) {
-
+            log.info(CompareUtils.foreignKeyDifferenceToString(f));
         }
 
         for (ViewDifference v : results.getViewDifferences()) {
-
+            log.info(CompareUtils.viewDifferenceToString(v));
         }
 
         for (SequenceDifference s : results.getSequenceDifferences()) {
-
+            log.info(CompareUtils.sequenceDifferenceToString(s));
         }
     }
 

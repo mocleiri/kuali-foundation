@@ -22,7 +22,7 @@ import org.kuali.common.impex.ProducerUtils;
 import org.kuali.common.impex.model.DefaultModelProvider;
 import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.spring.SchemaCompareConfig;
-import org.kuali.common.impex.model.spring.SchemaCompareExecutable;
+import org.kuali.common.impex.model.compare.SchemaCompareExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +41,7 @@ public class XmlSchemaCompareConfig extends SchemaCompareConfig {
     /**
      * Property key for a boolean setting whether or not the executable should run
      */
-    protected static final String EXECUTE_ENABLED_KEY = "impex.compare.execute";
+    protected static final String EXECUTION_SKIP_KEY = "impex.compare.skip";
 
     @Bean(name = "schema1")
     public ModelProvider modelProvider1() {
@@ -67,14 +67,14 @@ public class XmlSchemaCompareConfig extends SchemaCompareConfig {
 
     @Bean(initMethod = "execute")
     public SchemaCompareExecutable exportSchemaExecutable() {
-        SchemaCompareExecutable result = new SchemaCompareExecutable(executableEnabled());
+        SchemaCompareExecutable result = new SchemaCompareExecutable(skipExecution());
         result.setConfig(this);
         return result;
     }
 
     @Bean
-    public Boolean executableEnabled() {
-        return SpringUtils.getBoolean(env, EXECUTE_ENABLED_KEY, SchemaCompareExecutable.DEFAULT_EXECUTION_SKIP);
+    public Boolean skipExecution() {
+        return SpringUtils.getBoolean(env, EXECUTION_SKIP_KEY, SchemaCompareExecutable.DEFAULT_EXECUTION_SKIP);
     }
 
     @Override
