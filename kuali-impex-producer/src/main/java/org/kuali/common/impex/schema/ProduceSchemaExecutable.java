@@ -31,8 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-@Configuration
-@Import({ XmlModelProviderConfig.class, SchemaSqlProducerConfig.class })
 public class ProduceSchemaExecutable implements Executable {
 
     private static final Logger log = LoggerFactory.getLogger(ProduceSchemaExecutable.class.getSimpleName());
