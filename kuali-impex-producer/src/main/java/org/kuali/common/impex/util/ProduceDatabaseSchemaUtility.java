@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.util;
 
-import org.kuali.common.impex.spring.ProduceSchemaExecutable;
+import org.kuali.common.impex.spring.ProduceSchemaConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.MavenPropertySourceConfig;
 
@@ -30,7 +30,7 @@ public class ProduceDatabaseSchemaUtility {
 
         try {
             // Reset the db using annotated config
-            SpringContextUtils.loadSpringService(propertyFileName, MavenPropertySourceConfig.class, CollectionUtils.asList(ProduceSchemaExecutable.class));
+            SpringContextUtils.loadSpringService(propertyFileName, MavenPropertySourceConfig.class, CollectionUtils.asList(ProduceSchemaConfig.class));
         }
         catch(Exception e) {
             e.printStackTrace();
