@@ -43,6 +43,7 @@ import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
@@ -139,6 +140,14 @@ public class SpringUtils {
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
 	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project) {
+		return getGlobalPropertySource(project, null);
+	}
+
+	/**
+	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
+	 * in wins.
+	 */
 	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project, List<ProjectProperties> others) {
 		// Property loading uses a "last one in wins" strategy
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
@@ -147,7 +156,7 @@ public class SpringUtils {
 		list.add(project);
 
 		// Load in other project properties
-		list.addAll(others);
+		list.addAll(CollectionUtils.toEmptyList(others));
 
 		// Add project properties last so they override loaded properties
 		list.add(project);
@@ -347,6 +356,19 @@ public class SpringUtils {
 
 		// Return a PropertySource backed by the properties
 		return new PropertiesPropertySource(name, globalSource);
+	}
+
+	public static PropertySource<?> getGlobalPropertySource(ProjectContext context, String... locations) {
+		ProjectProperties pp = ProjectUtils.loadProjectProperties(context);
+		PropertiesContext pc = pp.getPropertiesContext();
+		List<String> existingLocations = CollectionUtils.toEmptyList(pc.getLocations());
+		if (locations != null) {
+			for (String location : locations) {
+				existingLocations.add(location);
+			}
+		}
+		pc.setLocations(existingLocations);
+		return getGlobalPropertySource(pp);
 	}
 
 	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
