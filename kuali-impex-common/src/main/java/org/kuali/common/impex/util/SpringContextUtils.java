@@ -19,43 +19,46 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.MavenUtils;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectContext;
+import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 
 public class SpringContextUtils {
 
+	public static Properties getMavenProjectProperties(String location) throws IOException {
 
-    public static Properties getMavenProjectProperties(String location) throws IOException {
-        Properties p = new Properties();
-        p.load(LocationUtils.getInputStream(location));
+		// Load the properties automatically embedded into the jar file by Maven
+		ProjectContext context = new ImpexCommonProjectContext();
 
-        p.setProperty("project.groupId", "org.kuali.common");
-        p.setProperty("project.artifactId", "kuali-impex-common");
-        p.setProperty("project.version", "3.0-SNAPSHOT");
-        p.setProperty("project.encoding", "UTF-8");
-        p.setProperty("project.orgId", "org.kuali");
-        p.setProperty("project.orgId.code", "kuali");
-        p.setProperty("project.orgId.path", "org/kuali");
+		// Load the properties automatically embedded into the jar file by Maven
+		Project project = ProjectUtils.loadProject(context);
 
-        MavenUtils.augmentProjectProperties(p);
+		// Load the properties they provided
+		Properties loaded = PropertyUtils.load(location);
 
-        return p;
-    }
+		// Combine them, where project properties always win
+		Properties p = new Properties();
+		p.putAll(loaded);
+		p.putAll(project.getProperties());
+		return p;
+	}
 
-    public static void loadSpringService(String propertiesLocation, Class<?> propertySourceConfigClass, List<Class<?>> annotatedClasses) throws IOException {
+	public static void loadSpringService(String propertiesLocation, Class<?> propertySourceConfigClass, List<Class<?>> annotatedClasses) throws IOException {
 
-        // Default Spring service will do what we need
-        SpringService ss = new DefaultSpringService();
+		// Default Spring service will do what we need
+		SpringService ss = new DefaultSpringService();
 
-        // Setup a Spring context that uses maven properties for placeholder resolution
-        SpringContext context = MavenUtils.getMavenizedSpringContext(getMavenProjectProperties(propertiesLocation), propertySourceConfigClass);
+		// Setup a Spring context that uses maven properties for placeholder resolution
+		SpringContext context = MavenUtils.getMavenizedSpringContext(getMavenProjectProperties(propertiesLocation), propertySourceConfigClass);
 
-        context.setAnnotatedClasses(annotatedClasses);
+		context.setAnnotatedClasses(annotatedClasses);
 
-        // Execute Spring
-        ss.load(context);
-    }
+		// Execute Spring
+		ss.load(context);
+	}
 }
