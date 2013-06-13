@@ -17,6 +17,7 @@ package org.kuali.common.impex.util;
 
 import org.kuali.common.impex.spring.ExportSchemaConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 
@@ -30,7 +31,7 @@ public class ExportSchemaUtility {
 
 		try {
 			String propertiesLocation = args[0];
-			JdbcProjectContext project = new JdbcProjectContext();
+			ProjectContext project = new JdbcProjectContext();
 			Class<?> annotatedClass = ExportSchemaConfig.class;
 			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, annotatedClass);
 			executable.execute();
