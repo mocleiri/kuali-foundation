@@ -59,7 +59,7 @@ public class MavenUtils {
 		// 3 - contains system/environment properties where system/env properties override loaded properties
 		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
 
-		return SpringUtils.getSingleSourceSpringContext(source);
+		return SpringUtils.getSinglePropertySourceContext(source);
 	}
 
 	/**
