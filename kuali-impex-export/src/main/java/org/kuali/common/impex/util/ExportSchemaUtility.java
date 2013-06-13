@@ -16,32 +16,35 @@
 package org.kuali.common.impex.util;
 
 import org.kuali.common.impex.spring.ExportSchemaConfig;
-import org.kuali.common.jdbc.spring.JdbcMavenPropertySourceConfig;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.ProjectContext;
+import org.kuali.common.util.execute.SpringExecutable;
+import org.kuali.common.util.spring.SpringUtils;
 
 public class ExportSchemaUtility {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        if(args.length != 1) {
-            printHelpAndExit();
-        }
+		if (args.length != 1) {
+			printHelpAndExit();
+		}
 
-        String propertyFileName = args[0];
+		String propertiesLocation = args[0];
 
-        try {
-            // Reset the db using annotated config
-            SpringContextUtils.loadSpringService(propertyFileName, JdbcMavenPropertySourceConfig.class, CollectionUtils.asList(ExportSchemaConfig.class));
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+		try {
+			ProjectContext project = new JdbcProjectContext();
+			Class<?> annotatedClass = ExportSchemaConfig.class;
+			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, annotatedClass);
+			executable.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    }
+	}
 
-    private static void printHelpAndExit() {
-        System.out.println("Expects one argument, a property file location.");
-        System.exit(1);
-    }
+	private static void printHelpAndExit() {
+		System.out.println("Expects one argument, a property file location.");
+		System.exit(1);
+	}
 
 }
