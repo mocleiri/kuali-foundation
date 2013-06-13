@@ -213,22 +213,35 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		return getPropertySources(annotatedClass, mavenPropertiesBeanName, mavenProperties);
+	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
+		return getPropertySources(annotatedClass, propertiesBeanName, properties);
 	}
 
-	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
+	/**
+	 * Scan the annotated class to find the single bean registered in the context that implements <code>PropertySource</code>. If more than one bean is located, throw
+	 * <code>IllegalStateException</code>.
+	 */
+	public static PropertySource<?> getSinglePropertySource(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
+		List<PropertySource<?>> sources = getPropertySources(annotatedClass, propertiesBeanName, properties);
+		if (sources.size() > 1) {
+			throw new IllegalStateException("More than one PropertySource was registered in the context");
+		} else {
+			return sources.get(0);
+		}
+	}
+
+	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		ConfigurableApplicationContext parent = null;
-		if (mavenProperties == null) {
+		if (properties == null) {
 			parent = getConfigurableApplicationContext();
 		} else {
-			parent = getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
+			parent = getContextWithPreRegisteredBean(propertiesBeanName, properties);
 		}
 		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
 		child.setParent(parent);
 		child.register(annotatedClass);
 		child.refresh();
-		return SpringUtils.getPropertySources(child);
+		return getPropertySources(child);
 	}
 
 	@Deprecated

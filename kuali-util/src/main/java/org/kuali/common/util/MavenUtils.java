@@ -76,12 +76,7 @@ public class MavenUtils {
 	}
 
 	protected static PropertySource<?> getPropertySource(Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		List<PropertySource<?>> sources = SpringUtils.getPropertySources(annotatedClass, mavenPropertiesBeanName, mavenProperties);
-		if (sources.size() > 1) {
-			throw new IllegalStateException("More than one PropertySource was registered in the context");
-		} else {
-			return sources.get(0);
-		}
+		return SpringUtils.getSinglePropertySource(annotatedClass, mavenPropertiesBeanName, mavenProperties);
 	}
 
 	/**
