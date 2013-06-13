@@ -5,9 +5,9 @@
     <artifactId>kuali-impex</artifactId>
     <version>3.0-SNAPSHOT</version>
   </parent>
-  <artifactId>kuali-impex-export</artifactId>
-  <name>Kuali Impex Export</name>
-  <description>Kuali Impex Export</description>
+  <artifactId>kuali-impex-cli</artifactId>
+  <name>Kuali Impex CLI</name>
+  <description>Kuali Impex CLI</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -25,19 +25,11 @@
     </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-impex-model</artifactId>
+      <artifactId>kuali-impex-export</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.liquibase</groupId>
-      <artifactId>liquibase-core</artifactId>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-impex-producer</artifactId>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
