@@ -19,9 +19,12 @@ import java.util.List;
 
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
+import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.spring.JdbcMavenPropertySourceConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.execute.SpringExecutable;
+import org.kuali.common.util.spring.SpringUtils;
 
 public class BuildDatabaseUtility {
 
@@ -31,7 +34,7 @@ public class BuildDatabaseUtility {
             printHelpAndExit();
         }
 
-        String propertyFileName = args[0];
+        String propertiesLocation = args[0];
         boolean includeMpxConfig = true;
         if(args.length >= 2) {
             includeMpxConfig = Boolean.parseBoolean(args[1]);
@@ -48,9 +51,9 @@ public class BuildDatabaseUtility {
             }
 
             // Reset the db using annotated config
-            SpringContextUtils.loadSpringService(propertyFileName, JdbcMavenPropertySourceConfig.class, configClasses);
-
-
+            JdbcProjectContext project = new JdbcProjectContext();
+            SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
+            executable.execute();
         }
         catch(Exception e) {
             e.printStackTrace();

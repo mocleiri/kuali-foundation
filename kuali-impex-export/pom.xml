@@ -28,10 +28,6 @@
       <artifactId>kuali-impex-model</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.kuali.common</groupId>
-      <artifactId>kuali-impex-common</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
     </dependency>
