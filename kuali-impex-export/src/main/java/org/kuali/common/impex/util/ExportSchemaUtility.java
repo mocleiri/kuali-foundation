@@ -29,9 +29,8 @@ public class ExportSchemaUtility {
 			printHelpAndExit();
 		}
 
-		String propertiesLocation = args[0];
-
 		try {
+			String propertiesLocation = args[0];
 			ProjectContext project = new JdbcProjectContext();
 			Class<?> annotatedClass = ExportSchemaConfig.class;
 			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, annotatedClass);
