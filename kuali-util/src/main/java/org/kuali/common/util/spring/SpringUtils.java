@@ -392,6 +392,26 @@ public class SpringUtils {
 	/**
 	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
 	 */
+	public static SpringContext getSinglePropertySourceContext(ProjectContext context, String location) {
+		PropertySource<?> source = getGlobalPropertySource(context, location);
+		return getSinglePropertySourceContext(source);
+	}
+
+	/**
+	 * Return a SpringExecutable for the project, properties lcoation, and config passed in.
+	 */
+	public static SpringExecutable getSpringExecutable(ProjectContext project, String location, Class<?> annotatedClass) {
+		SpringContext context = getSinglePropertySourceContext(project, location);
+		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+
+		SpringExecutable executable = new SpringExecutable();
+		executable.setContext(context);
+		return executable;
+	}
+
+	/**
+	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
+	 */
 	public static SpringContext getSinglePropertySourceContext(List<String> locations, String encoding) {
 		PropertySource<?> source = getGlobalPropertySource(locations, encoding);
 		return getSinglePropertySourceContext(source);
